@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/event_background" >
+
+    <LinearLayout android:id="@+id/event"
+        android:orientation="vertical"
+        android:paddingLeft="15dip"
+        android:paddingRight="3dip"
+        android:paddingTop="3dip"
+        android:paddingBottom="15dip"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="1">
+
+            <TableRow>
+                <TextView android:id="@+id/what_label"
+                    android:text="@string/what_label"
+                    android:gravity="right|top"
+                    android:textStyle="bold"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText android:id="@+id/event_title"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <ImageView android:id="@+id/what_divider" android:scaleType="fitXY"
+                android:src="@drawable/section_divider"
+                android:layout_marginTop="4dip"
+                android:layout_marginBottom="4dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TableRow>
+                <TextView android:id="@+id/when_label"
+                    android:text="@string/when_label"
+                    android:gravity="right|top"
+                    android:textStyle="bold"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <CheckBox android:id="@+id/all_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/all_day_event" />
+            </TableRow>
+
+            <TableRow>
+                <TextView android:id="@+id/from_label"
+                    android:text="@string/from_label"
+                    android:textColor="@drawable/label_foreground"
+                    android:gravity="right|top"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.android.calendar.DateSpinner android:id="@+id/start_date_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow>
+                <com.android.calendar.TimeSpinner android:id="@+id/start_time_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1" />
+            </TableRow>
+
+            <TableRow>
+                <TextView android:id="@+id/to_label"
+                    android:text="@string/to_label"
+                    android:textColor="@drawable/label_foreground"
+                    android:gravity="right|top"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.android.calendar.TimeSpinner android:id="@+id/end_time_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow>
+                <TextView android:id="@+id/to_date_label"
+                    android:text="@string/to_label"
+                    android:textColor="@drawable/label_foreground"
+                    android:gravity="right|top"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.android.calendar.DateSpinner android:id="@+id/end_date_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <ImageView android:id="@+id/when_divider" android:scaleType="fitXY"
+                android:src="@drawable/section_divider"
+                android:layout_marginTop="4dip"
+                android:layout_marginBottom="4dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TableRow android:id="@+id/where_row">
+                <TextView android:id="@+id/where_label"
+                    android:text="@string/where_label"
+                    android:gravity="right|top"
+                    android:textStyle="bold"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText android:id="@+id/where"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <ImageView android:id="@+id/where_divider" android:scaleType="fitXY"
+                android:src="@drawable/section_divider"
+                android:layout_marginTop="4dip"
+                android:layout_marginBottom="4dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TableRow>
+                <TextView android:id="@+id/reminder_label"
+                    android:gravity="right|top"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dip"
+                    android:text="@string/reminder" />
+
+                <Spinner android:id="@+id/reminder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/reminder_minutes_labels" />
+            </TableRow>
+
+            <ImageView android:id="@+id/reminder_divider" android:scaleType="fitXY"
+                android:src="@drawable/section_divider"
+                android:layout_marginTop="4dip"
+                android:layout_marginBottom="4dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TableRow>
+                <ImageView android:id="@+id/calendar_icon"
+                    android:layout_marginTop="4dip"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/sym_calendar_event" />
+
+                <Spinner android:id="@+id/calendars"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <ImageView android:id="@+id/calendar_divider" android:scaleType="fitXY"
+                android:src="@drawable/section_divider"
+                android:layout_marginTop="4dip"
+                android:layout_marginBottom="4dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TableRow>
+                <TextView android:id="@+id/repeats_label"
+                    android:text="@string/repeats_label"
+                    android:gravity="right|top"
+                    android:textStyle="bold"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Spinner android:id="@+id/repeats"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/repeat_strings" />
+            </TableRow>
+
+            <TableRow android:id="@+id/every_row">
+                <TextView android:id="@+id/every_label"
+                    android:text="@string/every_label"
+                    android:gravity="right|top"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Spinner android:id="@+id/every"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow android:id="@+id/on_row">
+                <TextView android:id="@+id/on_label"
+                    android:text="@string/on_label"
+                    android:gravity="right|top"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox android:id="@+id/on_sunday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="@string/sunday_letter"
+                            android:textStyle="bold"
+                            android:paddingLeft="3dip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox android:id="@+id/on_monday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="@string/monday_letter"
+                            android:textStyle="bold"
+                            android:paddingLeft="3dip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox android:id="@+id/on_tuesday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="@string/tuesday_letter"
+                            android:textStyle="bold"
+                            android:paddingLeft="3dip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox android:id="@+id/on_wednesday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="@string/wednesday_letter"
+                            android:textStyle="bold"
+                            android:paddingLeft="3dip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox android:id="@+id/on_thursday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="@string/thursday_letter"
+                            android:textStyle="bold"
+                            android:paddingLeft="3dip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox android:id="@+id/on_friday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="@string/friday_letter"
+                            android:textStyle="bold"
+                            android:paddingLeft="3dip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox android:id="@+id/on_saturday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="@string/saturday_letter"
+                            android:textStyle="bold"
+                            android:paddingLeft="3dip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow android:id="@+id/month_row">
+                <TextView
+                    android:text="@string/repeat_on_label"
+                    android:gravity="right|top"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RadioGroup android:id="@+id/repeat_on_radio_group"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton android:id="@+id/day_of_week" />
+                    <RadioButton android:id="@+id/day_of_month" />
+                </RadioGroup>
+            </TableRow>
+
+            <TableRow android:id="@+id/until_row">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox android:id="@+id/until"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/until" />
+                </LinearLayout>
+
+                <com.android.calendar.DateSpinner android:id="@+id/until_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <ImageView android:id="@+id/repeats_divider" android:scaleType="fitXY"
+                android:src="@drawable/section_divider"
+                android:layout_marginTop="4dip"
+                android:layout_marginBottom="4dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TableRow>
+                <TextView android:id="@+id/notes_label"
+                    android:text="@string/notes_label"
+                    android:gravity="right|top"
+                    android:textStyle="bold"
+                    android:paddingRight="10dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText android:id="@+id/notes"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1">
+
+                    <Button android:id="@+id/done"
+                        android:layout_marginTop="8dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/done_label" />
+
+                    <Button android:id="@+id/options"
+                        android:layout_marginTop="8dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/more_options_label" />
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+</ScrollView>

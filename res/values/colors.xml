@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/* //device/apps/Calendar/assets/res/any/colors.xml
+**
+** Copyright 2006, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
+**
+**     http://www.apache.org/licenses/LICENSE-2.0 
+**
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
+** limitations under the License.
+*/
+-->
+<resources>
+    <drawable name="selected_day_background">#ffd5d5d5</drawable>
+    <drawable name="event_background">#ffc3d9ff</drawable>
+    <drawable name="pref_background">#ffc3d9ff</drawable>
+    <drawable name="label_foreground">#ff1b38c2</drawable>
+    <drawable name="text_foreground">#ff000000</drawable>
+    <drawable name="base_background">#ffffffff</drawable>
+    <drawable name="panel_label_foreground">#ffe0f0ff</drawable>
+    <drawable name="panel_text_foreground">#ffffffff</drawable>
+    <drawable name="daynames_background">#ff1c1c1c</drawable>
+    <drawable name="title_background">#ff565656</drawable>
+    
+    <color name="black">#ff000000</color>
+    <color name="black_25">#40000000</color>
+    <color name="black_50">#80000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="white_25">#40ffffff</color>
+    <color name="white_50">#80ffffff</color>
+    <color name="grey">#fff0f0f0</color>
+    
+    <color name="calendar_all_day_event_color">#ffffffff</color>
+    <color name="calendar_event_color">#ffffffff</color>
+    <color name="calendar_event_text_color">#ff000000</color>
+
+    <color name="calendar_all_day_background">#ff5a5a5a</color>
+    <color name="other_month_cell">#ffd5d5d5</color>
+    <color name="label_base">#ff1b38c2</color>
+    <color name="week_label">@color/label_base</color>
+    <color name="week_weekday">@color/black</color>
+    <color name="week_weekend">@color/white</color>
+    <color name="other_month">@color/white</color>
+    <color name="calendar_hour_label">@color/white</color>
+    <color name="calendar_ampm_label">#ffbebebe</color>
+    <color name="calendar_hour_background">#ff393939</color>
+    <color name="calendar_hour_selected">#ff808080</color>
+    <color name="calendar_date_banner_background">#ff424242</color>
+    <color name="calendar_date_selected">#ff808080</color>
+    <color name="calendar_date_banner_text_color">@color/white</color>
+    <color name="calendar_grid_area_background">#ff202020</color>
+    <color name="calendar_grid_area_selected">#ff505050</color>
+    <color name="calendar_grid_line_horizontal_color">#ff5a5a5a</color>
+    <color name="calendar_grid_line_vertical_color">#ff5a5a5a</color>
+    <color name="calendar_grid_line_highlight_color">#ff707070</color>
+    <color name="status_background">#fff4d66e</color>
+    <color name="selection">#ffffaa00</color>
+    
+    <color name="month_day_number">#ff404040</color>
+    <color name="month_today_number">#ffffffff</color>
+    <color name="month_other_month">#ff595959</color>
+    <color name="month_other_month_day_number">#ffa0a0a0</color>
+    <color name="month_other_month_name">#ff84868c</color>
+    <color name="month_other_month_banner">#80595959</color>
+    <color name="month_week_banner">#20595959</color>
+    <color name="month_dna_strip_color">#ff63c731</color>
+
+    <color name="conflict_center">#ffff8876</color>
+    <color name="conflict_border">#ffbf6558</color>
+    <color name="event_center">#ff6bd697</color>
+    <color name="event_border">#ff50a071</color>
+</resources>
+

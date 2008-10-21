@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label">Calendar</string>
+
+    <!-- Shared Labels. These labels are shared among the activities. -->
+    <string name="what_label">What</string>
+    <string name="when_label">When</string>
+    <string name="where_label">Where</string>
+    <string name="repeats_label">Repeats</string>
+    <string name="to_label">to</string>
+    <!-- Title of event when no explicit title is defined -->
+    <string name="no_title_label">(No subject)</string>
+    
+    <!-- Reminder format strings -->
+    <plurals name="Nminutes">
+        <item quantity="one">1 minute</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutes</item>
+    </plurals>
+    <!-- We use "mins" instead of "minutes" to keep the string short -->
+    <plurals name="Nmins">
+        <item quantity="one">1 min</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> mins</item>
+    </plurals>
+    <plurals name="Nhours">
+        <item quantity="one">1 hour</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> hours</item>
+    </plurals>
+    <plurals name="Ndays">
+        <item quantity="one">1 day</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> days</item>
+    </plurals>
+    
+    <!-- Menu items: -->
+    <string name="agenda_view">"Agenda"</string>
+    <string name="day_view">"Day"</string>
+    <string name="week_view">"Week"</string>
+    <string name="month_view">"Month"</string>
+    <string name="event_view">"View event"</string>
+    <string name="event_create">"New event"</string>
+    <string name="event_edit">"Edit event"</string>
+    <string name="event_delete">"Delete event"</string>
+    <string name="goto_today">"Today"</string>
+    <string name="menu_select_calendars">"My calendars"</string>
+    <string name="menu_preferences">"Settings"</string>
+
+    <!-- Month view -->
+    <string name="plus_N_more">"(plus <xliff:g id="more_count">%d</xliff:g> more \u2026)"</string>
+
+    <!-- Select Calendars activity -->
+    <!-- Title of "My calendars" screen -->
+    <string name="calendars_title">"My calendars"</string>
+    <!-- Menu option -->
+    <string name="add_calendars">"Add calendars"</string>
+    <!-- Menu option -->
+    <string name="remove_calendars">"Remove calendars"</string>
+    <string name="select_calendars_to_sync">"Select calendars to sync"</string>
+
+    <!-- Event edit activity -->
+    <!-- Screen title -->
+    <string name="event_edit_title">"Event details"</string>
+    <string name="set_time">"Set the time"</string>
+    <string name="every_label">"Every"</string>
+    <string name="on_label">"On"</string>
+    <string name="sunday_letter">"S"</string>
+    <string name="monday_letter">"M"</string>
+    <string name="tuesday_letter">"T"</string>
+    <string name="wednesday_letter">"W"</string>
+    <string name="thursday_letter">"T"</string>
+    <string name="friday_letter">"F"</string>
+    <string name="saturday_letter">"S"</string>
+    <string name="until">"Until"</string>
+    <string name="repeat_on_label">"Repeat on"</string>
+    <!-- Default value of What field -->
+    <string name="hint_what">"Event name"</string>
+    <!-- Default value of Where field -->
+    <string name="hint_where">"Event location"</string>
+    <!-- Default value of Description field -->
+    <string name="hint_description">"Event description"</string>
+
+    <string name="alert_when_label">When:</string>
+    <string name="alert_where_label">Where:</string>
+    <!-- Notification window messages: -->
+    <string name="alert_missed_events_single">(<xliff:g id="reminder_count">%s</xliff:g> more reminder)</string>
+    <string name="alert_missed_events_multiple">(<xliff:g id="reminder_count">%s</xliff:g> more reminders)</string>
+    
+    <!-- Event info/edit screen labels:-->
+    <string name="event_info_title">View event</string>
+    <string name="event_info_title_invite">Meeting invitation</string>
+    <string name="reminder">Reminder</string>
+    <string name="all_day_event">All-day event</string>
+    <string name="notes_label">Notes</string>
+    <string name="from_label">From</string>
+    <!-- Menu item -->
+    <string name="add_new_reminder">Add reminder</string>
+        
+    <!-- EditEventActivity specific strings: -->
+    <!-- Heading on Event details screen -->
+    <string name="edit_event_to_label">To</string>
+    <!-- Heading on Event details screen -->
+    <string name="edit_event_from_label">From</string>
+    <!-- Check box label -->
+    <string name="edit_event_all_day_label">All day</string>
+    <!-- Heading on Event details screen -->
+    <string name="edit_event_calendar_label">Calendar</string>
+    <!-- Menu item -->
+    <string name="edit_event_show_extra_options">Show extra options</string>
+    <!-- Menu item -->
+    <string name="edit_event_hide_extra_options">Hide extra options</string>
+    <!-- Heading on Event details screen -->
+    <string name="description_label">Description</string>
+    <!-- Heading on Event details screen -->
+    <string name="presence_label">Presence</string>
+    <!-- Heading on Event details screen -->
+    <string name="privacy_label">Privacy</string>
+    <!-- Heading on Event details screen -->
+    <string name="reminders_label">Reminders</string>
+    <string name="reminders_remove_label">Remove</string>
+    
+    <!-- View Event -->
+    <string name="view_event_edit">Edit</string>
+    <string name="view_event_calendar_label">Calendar</string>
+    <string name="view_event_timezone_label">Local time zone</string>
+    <string name="view_event_response_label">Attending?</string>
+    <!-- Heading on View event screen -->
+    <string name="view_event_reminders_label">Reminders</string>
+    <string name="view_event_accept_label">Attending</string>
+    <string name="view_event_tentative_label">Maybe attending</string>
+    <string name="view_event_decline_label">Not attending</string>
+    <string name="view_event_no_response_label">(No response)</string>
+    <string name="view_event_accept_button">Yes</string>
+    <string name="view_event_tentative_button">Maybe</string>
+    <string name="view_event_decline_button">No</string>
+    
+    <!-- Agenda View strings -->
+    <string name="agenda_when_label">When</string>
+    <string name="agenda_where_label">Where</string>
+    <string name="agenda_today">Today</string>
+    
+    <!-- ICS Import activity -->
+    <string name="num_events">"Num events"</string>
+
+    <!-- Button labels: -->
+    <string name="done_label">"Done"</string>
+    <string name="edit_event_label">"Edit event"</string>
+    <string name="ok_label">"OK"</string>
+    <string name="delete_label">"Delete"</string>
+    <string name="delete_event_label">"Delete event"</string>
+    <string name="save_label">Save</string>
+    <string name="discard_label">Discard changes</string>
+    <string name="import_label">"Import"</string>
+    <string name="cancel_label">"Cancel"</string>
+    <string name="more_options_label">"More options"</string>
+    <string name="view_label">"View"</string>
+    <string name="snooze_label">"Snooze"</string>
+    <string name="dismiss_label">"Dismiss"</string>
+    <!-- Button labels on expanded notification reminders: -->
+    <string name="snooze_all_label">"Snooze all"</string>
+    <string name="dismiss_all_label">"Dismiss all"</string>
+
+    <string name="calendar_item_calendar_text"></string>
+    <!-- Repetition dialog options: -->
+    <string name="does_not_repeat">Does not repeat</string>
+    <string name="daily">Daily</string>
+    <string name="every_weekday">"Every weekday (Mon\u2013Fri)"</string>
+    <string name="weekly">"Weekly (every <xliff:g id="days_of_week">%s</xliff:g>)"</string>
+
+    <!-- Example: "Monthly (every first Sunday)" -->
+    <!--   1: "first" -->
+    <!--   2: "Sunday" -->
+    <string name="monthly_on_day_count">"Monthly (every <xliff:g id="ordinal_number">%1$s</xliff:g> <xliff:g id="day_of_week">%2$s</xliff:g>)"</string> 
+    
+    <string name="monthly_on_day">"Monthly (on day <xliff:g id="day_of_month">%s</xliff:g>)"</string>
+    <string name="yearly">"Yearly (on <xliff:g id="dates">%s</xliff:g>)"</string>
+    <string name="custom">"Custom\u2026 (cannot customize on phone)"</string>
+    
+    <string name="modify_event">Change only this event.</string>
+    <string name="modify_all">Change all events in the series.</string>
+    <string name="modify_all_following">Change this and all future events.</string>
+    
+    <!-- Dialogs -->
+    <!-- Confirmation dialog message -->
+    <string name="delete_this_event_title">This event will be deleted.</string>
+    <!-- Confirmation dialog title -->
+    <string name="delete_title">Delete</string>
+
+    <string name="preferences_title">"Settings"</string>
+    <!-- Title for settings section -->
+    <string name="preferences_general_title">Calendar view setting</string>
+    <!-- Title for settings section -->
+    <string name="preferences_alerts_title">Reminder settings</string>
+    <!-- Settings check box label -->
+    <string name="preferences_hide_declined_title">Hide declined events</string>
+    <!-- Settings option -->
+    <string name="preferences_alerts_type_title">Set alerts &amp; notifications</string>
+    <!--  -->
+    <string name="preferences_alerts_type_dialog">Set reminder</string>
+    <string name="preferences_alerts_type_default">1</string>
+    <!-- Settings check box label -->
+    <string name="preferences_alerts_vibrate_title">Vibrate</string>
+    <!-- Settings option -->
+    <string name="preferences_alerts_sound_title">Sound</string>
+    <!-- Title of ringtone selector dialog -->
+    <string name="preferences_alerts_ringtone_title">Select ringtone</string>
+    <!-- Settings option -->
+    <string name="preferences_default_reminder_title">Set default reminder</string>
+    <!-- Title of default reminder dialog -->
+    <string name="preferences_default_reminder_dialog">Set default reminder</string>
+    <!-- Value of default reminder time -->
+    <string name="preferences_default_reminder_default">10</string>
+    <!-- Screen title if user goes into Calendar before events have synced -->
+    <string name="no_calendars">Waiting for sync</string>
+    <!-- Appears on screen if user goes into Calendar before events have synced -->
+    <string name="no_calendars_msg">Your events will appear shortly.</string>
+</resources>
+

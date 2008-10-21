@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout android:id="@+id/event"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        
+        <!-- WHAT -->
+        <LinearLayout android:id="@+id/what_container"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dip">
+        
+            <TextView android:id="@+id/what_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/what_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+    
+            <EditText android:id="@+id/title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_what"
+                android:capitalize="words"/>
+        </LinearLayout>
+        
+        <!-- WHEN -->
+        <View android:id="@+id/when_separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@android:drawable/divider_horizontal_dark"
+        />
+        
+        <LinearLayout android:id="@+id/when_container"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dip">
+            
+            <TextView android:id="@+id/from_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_event_from_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+    
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                
+                <Button android:id="@+id/start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                
+                <Button android:id="@+id/start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                    
+            </LinearLayout>
+    
+            <TextView android:id="@+id/to_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_event_to_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+    
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+    
+                <Button android:id="@+id/end_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+    
+                <Button android:id="@+id/end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+                
+            <CheckBox android:id="@+id/is_all_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_event_all_day_label"/>
+        </LinearLayout>
+
+        <!-- WHERE -->
+        <View android:id="@+id/where_separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@android:drawable/divider_horizontal_dark"
+        />
+        
+        <LinearLayout android:id="@+id/where_container"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dip">
+            
+            <TextView android:id="@+id/location_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/where_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+    
+            <EditText android:id="@+id/location"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_where"
+                android:capitalize="sentences"/>
+        </LinearLayout>
+
+        <!-- DESCRIPTION -->
+        <View android:id="@+id/description_separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@android:drawable/divider_horizontal_dark"
+        />
+        
+        <LinearLayout android:id="@+id/description_container"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dip">
+            
+            <TextView android:id="@+id/description_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/description_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+    
+            <EditText android:id="@+id/description"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_description"
+                android:capitalize="sentences"
+                android:maxLines="4"/>
+        </LinearLayout>
+
+        <!-- CALENDARS -->
+        <View android:id="@+id/calendar_separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@android:drawable/divider_horizontal_dark"
+        />
+        
+        <LinearLayout android:id="@+id/calendars_container"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:paddingTop="5dip"
+            android:paddingBottom="1dip">
+            
+            <TextView android:id="@+id/calendar_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_event_calendar_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+    
+            <Spinner android:id="@+id/calendars"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/repeats_label"/>
+        </LinearLayout>
+        
+        <!-- REMINDERS -->
+        <View android:id="@+id/reminders_separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@android:drawable/divider_horizontal_dark"
+        />
+        
+        <LinearLayout android:id="@+id/reminders_container"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:paddingTop="5dip"
+            android:paddingBottom="1dip">
+            
+            <TextView android:id="@+id/reminders_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reminders_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+            
+            <LinearLayout android:id="@+id/reminder_items_container"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            </LinearLayout>
+        </LinearLayout>
+        
+        <!-- REPEATS -->
+        <View android:id="@+id/repeats_separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@android:drawable/divider_horizontal_dark"
+        />
+        
+        <LinearLayout android:id="@+id/repeats_container"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:paddingTop="5dip"
+            android:paddingBottom="1dip">
+            
+            <TextView android:id="@+id/repeats_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repeats_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+    
+            <Spinner android:id="@+id/repeats"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        
+        <!-- MORE OPTIONS -->
+        <LinearLayout android:id="@+id/extra_options_container"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+            
+            <!-- PRESENCE -->
+            <View android:id="@+id/presense_separator"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@android:drawable/divider_horizontal_dark"
+            />
+            
+            <LinearLayout android:id="@+id/presence_container"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dip"
+                android:paddingRight="5dip"
+                android:paddingTop="5dip"
+                android:paddingBottom="1dip">
+                
+                <TextView android:id="@+id/presence_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/presence_label"
+                    style="@style/TextAppearance.EditEvent_Label"/>
+        
+                <Spinner android:id="@+id/availability"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/availability" />
+            </LinearLayout>
+    
+            <!-- PRIVACY -->
+            <View android:id="@+id/privacy_separator"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@android:drawable/divider_horizontal_dark"
+            />
+            
+            <LinearLayout android:id="@+id/privacy_container"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dip"
+                android:paddingRight="5dip"
+                android:paddingTop="5dip"
+                android:paddingBottom="1dip">
+                
+                <TextView android:id="@+id/privacy_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/privacy_label"
+                    style="@style/TextAppearance.EditEvent_Label"/>
+        
+                <Spinner android:id="@+id/visibility"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/visibility" />
+            </LinearLayout>
+        </LinearLayout>
+        
+        <!-- BUTTONS -->
+        <View android:id="@+id/buttons_separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@android:drawable/divider_horizontal_dark"
+        />
+        
+        <LinearLayout android:id="@+id/buttons"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dip"
+            android:baselineAligned="false">
+            
+            <Button android:id="@+id/save"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/save_label"
+            />
+            
+            <Button android:id="@+id/discard"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/discard_label"
+            />
+            
+            <Button android:id="@+id/delete"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/delete_label"
+            />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
