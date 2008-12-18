@@ -33,7 +33,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.pim.DateUtils;
 import android.preference.PreferenceManager;
 import android.provider.Calendar;
 import android.provider.Calendar.Attendees;
@@ -41,6 +40,7 @@ import android.provider.Calendar.CalendarAlerts;
 import android.provider.Calendar.Instances;
 import android.provider.Calendar.Reminders;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Config;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,7 +51,6 @@ import android.view.View;
  */
 public class AlertService extends Service {
     private static final String TAG = "AlertService";
-    private static final boolean localLOGV = false || Config.LOGV;
     
     private volatile Looper mServiceLooper;
     private volatile ServiceHandler mServiceHandler;
@@ -108,7 +107,9 @@ public class AlertService extends Service {
 
         // The Uri specifies an entry in the CalendarAlerts table
         Uri alertUri = Uri.parse(bundle.getString("uri"));
-        if (localLOGV) Log.v(TAG, "uri: " + alertUri);
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "uri: " + alertUri);
+        }
 
         ContentResolver cr = getContentResolver();
         Cursor alertCursor = cr.query(alertUri, ALERT_PROJECTION,
@@ -123,7 +124,9 @@ public class AlertService extends Service {
         try {
             if (alertCursor == null || !alertCursor.moveToFirst()) {
                 // This can happen if the event was deleted.
-                if (localLOGV) Log.v(TAG, "alert not found");
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, "alert not found");
+                }
                 return;
             }
             alertId = alertCursor.getLong(ALERT_INDEX_ID);
@@ -152,7 +155,9 @@ public class AlertService extends Service {
         
         // Do not show an alert if the event was declined
         if (declined) {
-            if (localLOGV) Log.v(TAG, "event declined, alert cancelled");
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
+                Log.d(TAG, "event declined, alert cancelled");
+            }
             return;
         }
         
@@ -173,7 +178,9 @@ public class AlertService extends Service {
             if (instanceCursor == null || !instanceCursor.moveToFirst()) {
                 // Delete this alarm from the CalendarAlerts table
                 cr.delete(alertUri, null /* selection */, null /* selection args */);
-                if (localLOGV) Log.v(TAG, "instance not found, alert cancelled");
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, "instance not found, alert cancelled");
+                }
                 return;
             }
             instanceBegin = instanceCursor.getLong(INSTANCES_INDEX_BEGIN);
@@ -196,7 +203,9 @@ public class AlertService extends Service {
                 if (reminderCursor == null || reminderCursor.getCount() == 0) {
                     // Delete this alarm from the CalendarAlerts table
                     cr.delete(alertUri, null /* selection */, null /* selection args */);
-                    if (localLOGV) Log.v(TAG, "reminder not found, alert cancelled");
+                    if (Log.isLoggable(TAG, Log.DEBUG)) {
+                        Log.d(TAG, "reminder not found, alert cancelled");
+                    }
                     return;
                 }
             } finally {
@@ -211,7 +220,9 @@ public class AlertService extends Service {
         if (alarmTime > instanceEnd) {
             // Delete this alarm from the CalendarAlerts table
             cr.delete(alertUri, null /* selection */, null /* selection args */);
-            if (localLOGV) Log.v(TAG, "event ended, alert cancelled");
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
+                Log.d(TAG, "event ended, alert cancelled");
+            }
             return;
         }
 
@@ -227,7 +238,9 @@ public class AlertService extends Service {
             if (computedAlarmTime > alarmTime) {
                 // Delete this alarm from the CalendarAlerts table
                 cr.delete(alertUri, null /* selection */, null /* selection args */);
-                if (localLOGV) Log.v(TAG, "event postponed, alert cancelled");
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, "event postponed, alert cancelled");
+                }
                 return;
             }
             
@@ -250,7 +263,9 @@ public class AlertService extends Service {
                     if (alertCursor.getCount() > 0) {
                         // Delete this alarm from the CalendarAlerts table
                         cr.delete(alertUri, null /* selection */, null /* selection args */);
-                        if (localLOGV) Log.v(TAG, "duplicate alarm, alert cancelled");
+                        if (Log.isLoggable(TAG, Log.DEBUG)) {
+                            Log.d(TAG, "duplicate alarm, alert cancelled");
+                        }
                         return;
                     }
                 } finally {
@@ -264,7 +279,9 @@ public class AlertService extends Service {
         alertCursor = CalendarAlerts.query(cr, ALERT_PROJECTION, selection, null);
         
         if (alertCursor == null || alertCursor.getCount() == 0) {
-            if (localLOGV) Log.v(TAG, "no fired alarms found");
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
+                Log.d(TAG, "no fired alarms found");
+            }
             return;
         }
 
@@ -283,7 +300,9 @@ public class AlertService extends Service {
                     // multiple reminders.  Do not count this as a separate
                     // reminder.  But we do want to sound the alarm and vibrate
                     // the phone, if necessary.
-                    if (localLOGV) Log.v(TAG, "multiple alarms for this event");
+                    if (Log.isLoggable(TAG, Log.DEBUG)) {
+                        Log.d(TAG, "multiple alarms for this event");
+                    }
                     numReminders -= 1;
                 }
             }
@@ -291,7 +310,9 @@ public class AlertService extends Service {
             alertCursor.close();
         }
         
-        if (localLOGV) Log.v(TAG, "creating new alarm notification, numReminders: " + numReminders);
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "creating new alarm notification, numReminders: " + numReminders);
+        }
         Notification notification = AlertReceiver.makeNewAlertNotification(this, eventName,
                 location, numReminders);
         
@@ -304,7 +325,9 @@ public class AlertService extends Service {
                 CalendarPreferenceActivity.ALERT_TYPE_STATUS_BAR);
         
         if (reminderType.equals(CalendarPreferenceActivity.ALERT_TYPE_OFF)) {
-            if (localLOGV) Log.v(TAG, "alert preference is OFF");
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
+                Log.d(TAG, "alert preference is OFF");
+            }
             return;
         }
         

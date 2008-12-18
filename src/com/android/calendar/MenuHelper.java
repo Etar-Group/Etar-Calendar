@@ -20,7 +20,7 @@ import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 import android.app.Activity;
 import android.content.Intent;
-import android.pim.DateUtils;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 

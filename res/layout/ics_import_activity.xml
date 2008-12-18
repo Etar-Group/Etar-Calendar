@@ -17,7 +17,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/event_background" >
+    android:background="@color/event_background" >
 
     <LinearLayout android:id="@+id/import_ics"
         android:orientation="vertical"
@@ -68,7 +68,7 @@
                     android:layout_marginTop="8dip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cancel_label" />
+                    android:text="@android:string/cancel" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

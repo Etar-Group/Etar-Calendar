@@ -16,74 +16,44 @@
 
 package com.android.calendar;
 
+import com.google.android.googlelogin.GoogleLoginServiceConstants;
+import com.google.android.googlelogin.GoogleLoginServiceHelper;
+
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnClickListener;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Calendar.Calendars;
+import android.provider.Gmail;
 
-public class LaunchActivity extends Activity implements OnCancelListener,
-        OnClickListener, Runnable {
-
-    private static final String[] PROJECTION = new String[] {
-        Calendars._ID,
-    };
+public class LaunchActivity extends Activity {
     
-    public void run() {
-        /* Start a query to refresh the list of calendars if for some reason
-         * the list was not fetched from the server.  We don't care about
-         * the contents of the returned cursor; we do the query strictly for
-         * the side-effect of refreshing the list of calendars from the server.
-         */
-        final ContentResolver cr = getContentResolver();
-        Cursor cursor = cr.query(Calendars.LIVE_CONTENT_URI, PROJECTION,
-            null, null, null);
-        
-        if (cursor != null) {
-            cursor.close();
-        }
-    }
+    // An arbitrary constant to pass to the GoogleLoginHelperService
+    private static final int GET_ACCOUNT_REQUEST = 1;
     
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         
-        // Check to see if there are no calendars
-        final ContentResolver cr = getContentResolver();
-        Cursor cursor = cr.query(Calendars.CONTENT_URI, PROJECTION,
-                null /* selection */,
-                null /* selectionArgs */,
-                Calendars.DEFAULT_SORT_ORDER);
-        
-        boolean missingCalendars = false;
-        if ((cursor == null) || (cursor.getCount() == 0)) {
-            missingCalendars = true;
+        // Only try looking for an account if this is the first launch.
+        if (icicle == null) {
+            // This will request a Gmail account and if none are present, it will
+            // invoke SetupWizard to login or create one. The result is returned
+            // through onActivityResult().
+            Bundle bundle = new Bundle();
+            bundle.putCharSequence("optional_message", getText(R.string.calendar_plug));
+            GoogleLoginServiceHelper.getCredentials(
+                    this,
+                    GET_ACCOUNT_REQUEST,
+                    bundle,
+                    GoogleLoginServiceConstants.PREFER_HOSTED,
+                    Gmail.GMAIL_AUTH_SERVICE,
+                    true);
         }
-        
-        if (cursor != null) {
-            cursor.close();
-        }
-        
-        if (missingCalendars) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.no_calendars)
-                    .setMessage(R.string.no_calendars_msg)
-                    .setCancelable(true)
-                    .setOnCancelListener(this)
-                    .setPositiveButton(R.string.ok_label, this)
-                    .show();
-            new Thread(this).start();
-            return;
-        }
-            
+    }
+    
+    private void onAccountsLoaded(String account) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String startActivity = prefs.getString(CalendarPreferenceActivity.KEY_START_VIEW,
                 CalendarPreferenceActivity.DEFAULT_START_VIEW);
@@ -101,12 +71,23 @@ public class LaunchActivity extends Activity implements OnCancelListener,
         startActivity(intent);
         finish();
     }
-
-    public void onCancel(DialogInterface dialog) {
-        finish();
-    }
-
-    public void onClick(DialogInterface dialog, int which) {
-        finish();
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == GET_ACCOUNT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                if (intent != null) {
+                    Bundle extras = intent.getExtras();
+                    if (extras != null) {
+                        final String account;
+                        account = extras.getString(GoogleLoginServiceConstants.AUTH_ACCOUNT_KEY);
+                        onAccountsLoaded(account);
+                    }
+                }
+            } else {
+                finish();
+            }
+        }
     }
 }

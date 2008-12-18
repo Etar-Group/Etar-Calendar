@@ -17,14 +17,15 @@
 package com.android.calendar;
 
 import android.content.res.Resources;
-import android.pim.DateUtils;
-import android.pim.Time;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.test.AndroidTestCase;
+import android.test.suitebuilder.annotation.MediumTest;
 import android.util.Log;
 
 
 /**
- * Unit tests for {@link android.pim.DateUtils#formatDateRange}.
+ * Unit tests for {@link android.text.format.DateUtils#formatDateRange}.
  */
 public class FormatDateRangeTest extends AndroidTestCase {
 
@@ -158,6 +159,7 @@ public class FormatDateRangeTest extends AndroidTestCase {
         mResources = mContext.getResources();
     }
 
+    @MediumTest
     public void testAll() throws Exception {
         int len = tests.length;
         for (int index = 0; index < len; index++) {
@@ -165,7 +167,7 @@ public class FormatDateRangeTest extends AndroidTestCase {
             long startMillis = dateRange.date1.toMillis(false /* use isDst */);
             long endMillis = dateRange.date2.toMillis(false /* use isDst */);
             int flags = dateRange.flags;
-            String output = DateUtils.formatDateRange(startMillis, endMillis, flags);
+            String output = DateUtils.formatDateRange(mContext, startMillis, endMillis, flags);
             if (!dateRange.expectedOutput.equals(output)) {
                 Log.i("FormatDateRangeTest", "index " + index
                         + " expected: " + dateRange.expectedOutput

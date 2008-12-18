@@ -3,11 +3,13 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := user
 
-LOCAL_SRC_FILES := $(call all-subdir-java-files)
+LOCAL_SRC_FILES := $(call all-java-files-under,src)
 
 # TODO: Remove dependency of application on the test runner (android.test.runner) 
 # library.
 LOCAL_JAVA_LIBRARIES := android.test.runner
+
+LOCAL_STATIC_JAVA_LIBRARIES := googlelogin-client
 
 LOCAL_PACKAGE_NAME := Calendar
 

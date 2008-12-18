@@ -55,7 +55,7 @@
 
     <LinearLayout android:id="@+id/day_names"
         android:orientation="horizontal"
-        android:background="@drawable/daynames_background"
+        android:background="@color/daynames_background"
         android:layout_width="fill_parent"
         android:layout_height="23dip" >
         

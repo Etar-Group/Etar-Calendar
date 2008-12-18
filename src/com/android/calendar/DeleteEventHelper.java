@@ -25,9 +25,9 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 import android.pim.EventRecurrence;
-import android.pim.Time;
 import android.provider.Calendar;
 import android.provider.Calendar.Events;
+import android.text.format.Time;
 
 /**
  * A helper class for deleting events.  If a normal event is selected for
@@ -52,6 +52,7 @@ import android.provider.Calendar.Events;
  */
 public class DeleteEventHelper {
     
+    private static final String TAG = "DeleteEventHelper";
     private final Activity mParent;
     private final ContentResolver mContentResolver;
     
@@ -84,9 +85,10 @@ public class DeleteEventHelper {
         Events._SYNC_ID,
         Events.EVENT_TIMEZONE,
     };
-    
+
     private int mEventIndexId;
     private int mEventIndexRrule;
+    private String mSyncId;
     
     public DeleteEventHelper(Activity parent, boolean exitWhenDone) {
         mParent = parent;
@@ -195,6 +197,8 @@ public class DeleteEventHelper {
         mCursor = cursor;
         mEventIndexId = mCursor.getColumnIndexOrThrow(Events._ID);
         mEventIndexRrule = mCursor.getColumnIndexOrThrow(Events.RRULE);
+        int eventIndexSyncId = mCursor.getColumnIndexOrThrow(Events._SYNC_ID);
+        mSyncId = mCursor.getString(eventIndexSyncId);
         
         // If this is a repeating event, then pop up a dialog asking the
         // user if they want to delete all of the repeating events or
@@ -206,25 +210,28 @@ public class DeleteEventHelper {
             .setTitle(R.string.delete_title)
             .setMessage(R.string.delete_this_event_title)
             .setIcon(android.R.drawable.ic_dialog_alert)
-            .setPositiveButton(R.string.ok_label, mDeleteNormalDialogListener)
-            .setNegativeButton(R.string.cancel_label, null)
+            .setPositiveButton(android.R.string.ok, mDeleteNormalDialogListener)
+            .setNegativeButton(android.R.string.cancel, null)
             .show();
         } else {
             // This is a repeating event.  Pop up a dialog asking which events
             // to delete.
+            int labelsArrayId = R.array.delete_repeating_labels;
+            if (mSyncId == null) {
+                labelsArrayId = R.array.delete_repeating_labels_no_selected;
+            }
             new AlertDialog.Builder(mParent)
             .setTitle(R.string.delete_title)
             .setIcon(android.R.drawable.ic_dialog_alert)
-            .setSingleChoiceItems(R.array.delete_repeating_labels, which, mDeleteListListener)
-            .setPositiveButton(R.string.ok_label, mDeleteRepeatingDialogListener)
-            .setNegativeButton(R.string.cancel_label, null)
+            .setSingleChoiceItems(labelsArrayId, which, mDeleteListListener)
+            .setPositiveButton(android.R.string.ok, mDeleteRepeatingDialogListener)
+            .setNegativeButton(android.R.string.cancel, null)
             .show();
         }
     }
     
     private void deleteRepeatingEvent(int which) {
         int indexDtstart = mCursor.getColumnIndexOrThrow(Events.DTSTART);
-        int indexSyncId = mCursor.getColumnIndexOrThrow(Events._SYNC_ID);
         int indexAllDay = mCursor.getColumnIndexOrThrow(Events.ALL_DAY);
         int indexTitle = mCursor.getColumnIndexOrThrow(Events.TITLE);
         int indexTimezone = mCursor.getColumnIndexOrThrow(Events.EVENT_TIMEZONE);
@@ -235,9 +242,27 @@ public class DeleteEventHelper {
         long dtstart = mCursor.getLong(indexDtstart);
         long id = mCursor.getInt(mEventIndexId);
 
+        // If the repeating event has not been given a sync id from the server
+        // yet, then we can't delete a single instance of this event.  (This is
+        // a deficiency in the CalendarProvider and sync code.) We checked for
+        // that when creating the list of items in the dialog and we removed
+        // the first element ("DELETE_SELECTED") from the dialog in that case.
+        // The "which" value is a 0-based index into the list of items, where
+        // the "DELETE_SELECTED" item is at index 0.
+        if (mSyncId == null) {
+            which += 1;
+        }
+        
         switch (which) {
             case DELETE_SELECTED:
             {
+                // If we are deleting the first event in the series, then
+                // instead of creating a recurrence exception, just change
+                // the start time of the recurrence.
+                if (dtstart == mStartMillis) {
+                    // TODO
+                }
+                
                 // Create a recurrence exception by creating a new event
                 // with the status "cancelled".
                 ContentValues values = new ContentValues();
@@ -247,14 +272,14 @@ public class DeleteEventHelper {
                 String title = mCursor.getString(indexTitle);
                 values.put(Events.TITLE, title);
                 
-                String syncId = mCursor.getString(indexSyncId);
                 String timezone = mCursor.getString(indexTimezone);
                 int calendarId = mCursor.getInt(indexCalendarId);
                 values.put(Events.EVENT_TIMEZONE, timezone);
+                values.put(Events.ALL_DAY, allDay ? 1 : 0);
                 values.put(Events.CALENDAR_ID, calendarId);
                 values.put(Events.DTSTART, mStartMillis);
                 values.put(Events.DTEND, mEndMillis);
-                values.put(Events.ORIGINAL_EVENT, syncId);
+                values.put(Events.ORIGINAL_EVENT, mSyncId);
                 values.put(Events.ORIGINAL_INSTANCE_TIME, mStartMillis);
                 values.put(Events.STATUS, Events.STATUS_CANCELED);
                 

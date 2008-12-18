@@ -30,7 +30,7 @@
         <TableRow android:id="@+id/item_layout0">
             <TextView android:id="@+id/time0"
                 android:paddingRight="10dip"
-                android:textColor="@drawable/panel_text_foreground"
+                android:textColor="@color/panel_text_foreground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
@@ -38,7 +38,7 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:textStyle="bold"
-                android:textColor="@drawable/panel_text_foreground"
+                android:textColor="@color/panel_text_foreground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
         </TableRow>
@@ -46,7 +46,7 @@
         <TableRow android:id="@+id/item_layout1">
             <TextView android:id="@+id/time1"
                 android:paddingRight="10dip"
-                android:textColor="@drawable/panel_text_foreground"
+                android:textColor="@color/panel_text_foreground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
@@ -54,7 +54,7 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:textStyle="bold"
-                android:textColor="@drawable/panel_text_foreground"
+                android:textColor="@color/panel_text_foreground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
         </TableRow>
@@ -62,7 +62,7 @@
         <TableRow android:id="@+id/item_layout2">
             <TextView android:id="@+id/time2"
                 android:paddingRight="10dip"
-                android:textColor="@drawable/panel_text_foreground"
+                android:textColor="@color/panel_text_foreground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
@@ -70,7 +70,7 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:textStyle="bold"
-                android:textColor="@drawable/panel_text_foreground"
+                android:textColor="@color/panel_text_foreground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
         </TableRow>
@@ -78,7 +78,7 @@
         <TableRow android:id="@+id/item_layout3">
             <TextView android:id="@+id/time3"
                 android:paddingRight="10dip"
-                android:textColor="@drawable/panel_text_foreground"
+                android:textColor="@color/panel_text_foreground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
@@ -86,7 +86,7 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:textStyle="bold"
-                android:textColor="@drawable/panel_text_foreground"
+                android:textColor="@color/panel_text_foreground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
         </TableRow>
@@ -95,7 +95,7 @@
     <TextView android:id="@+id/plus_more"
         android:singleLine="true"
         android:textStyle="bold"
-        android:textColor="@drawable/panel_text_foreground"
+        android:textColor="@color/panel_text_foreground"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

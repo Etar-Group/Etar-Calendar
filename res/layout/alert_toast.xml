@@ -15,13 +15,12 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/event"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@android:drawable/toast_frame">
     
-    <LinearLayout android:id="@+id/event_title_container"
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -41,18 +40,18 @@
             style="@style/TextAppearance.Alert_Title" />
     </LinearLayout>
     
-    <ImageView android:id="@+id/title_separator"
+    <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/divider_horizontal_dark" />
     
-    <LinearLayout android:id="@+id/event_details"
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dip">
         
-        <LinearLayout android:id="@+id/when_container"
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -70,7 +69,7 @@
                 style="@style/TextAppearance.Alert_Value" />
         </LinearLayout>
         
-        <LinearLayout android:id="@+id/where_container"
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">

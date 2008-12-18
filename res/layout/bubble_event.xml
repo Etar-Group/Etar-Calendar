@@ -24,7 +24,7 @@
         
     <TextView android:id="@+id/event_title"
         android:textStyle="bold"
-        android:textColor="@drawable/panel_text_foreground"
+        android:textColor="@color/panel_text_foreground"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
@@ -50,14 +50,14 @@
         />
 
         <TextView android:id="@+id/time"
-            android:textColor="@drawable/panel_text_foreground"
+            android:textColor="@color/panel_text_foreground"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <TextView android:id="@+id/where"
-        android:textColor="@drawable/panel_text_foreground"
+        android:textColor="@color/panel_text_foreground"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

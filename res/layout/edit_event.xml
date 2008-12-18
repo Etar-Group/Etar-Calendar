@@ -25,7 +25,7 @@
         android:layout_height="fill_parent">
         
         <!-- WHAT -->
-        <LinearLayout android:id="@+id/what_container"
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         </LinearLayout>
         
         <!-- WHEN -->
-        <View android:id="@+id/when_separator"
+        <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:background="@android:drawable/divider_horizontal_dark"
@@ -105,7 +105,7 @@
         </LinearLayout>
 
         <!-- WHERE -->
-        <View android:id="@+id/where_separator"
+        <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:background="@android:drawable/divider_horizontal_dark"
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:padding="5dip">
             
-            <TextView android:id="@+id/location_label"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/where_label"
@@ -131,13 +131,13 @@
         </LinearLayout>
 
         <!-- DESCRIPTION -->
-        <View android:id="@+id/description_separator"
+        <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:background="@android:drawable/divider_horizontal_dark"
         />
         
-        <LinearLayout android:id="@+id/description_container"
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
             android:background="@android:drawable/divider_horizontal_dark"
         />
         
-        <LinearLayout android:id="@+id/calendars_container"
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -181,8 +181,7 @@
     
             <Spinner android:id="@+id/calendars"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/repeats_label"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
         
         <!-- REMINDERS -->
@@ -215,13 +214,13 @@
         </LinearLayout>
         
         <!-- REPEATS -->
-        <View android:id="@+id/repeats_separator"
+        <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:background="@android:drawable/divider_horizontal_dark"
         />
         
-        <LinearLayout android:id="@+id/repeats_container"
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -249,13 +248,13 @@
             android:visibility="gone">
             
             <!-- PRESENCE -->
-            <View android:id="@+id/presense_separator"
+            <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"
                 android:background="@android:drawable/divider_horizontal_dark"
             />
             
-            <LinearLayout android:id="@+id/presence_container"
+            <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -277,13 +276,13 @@
             </LinearLayout>
     
             <!-- PRIVACY -->
-            <View android:id="@+id/privacy_separator"
+            <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"
                 android:background="@android:drawable/divider_horizontal_dark"
             />
             
-            <LinearLayout android:id="@+id/privacy_container"
+            <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -306,13 +305,13 @@
         </LinearLayout>
         
         <!-- BUTTONS -->
-        <View android:id="@+id/buttons_separator"
+        <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:background="@android:drawable/divider_horizontal_dark"
         />
         
-        <LinearLayout android:id="@+id/buttons"
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

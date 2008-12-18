@@ -21,12 +21,12 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Debug;
-import android.pim.DateUtils;
-import android.pim.Time;
 import android.preference.PreferenceManager;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Instances;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -381,40 +381,6 @@ public class Event implements Comparable, Cloneable {
         // Compute the column positions separately for the all-day events
         doComputePositions(eventsList, false);
         doComputePositions(eventsList, true);
-        if (false) {
-            // Create a numbered log because adb logcat duplicates old entries
-            // at random times and this makes it hard to compare two different
-            // runs.  We can post-process the numbered log using sort and uniq.
-            int logIndex = 0;
-            for (Event e : eventsList) {
-                if (!e.allDay) continue;
-                int flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL
-                | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
-        String timeRange = DateUtils.formatDateRange(e.startMillis,
-                        e.endMillis, flags);
-                Log.i("Cal", logIndex + " allDay: " + e.allDay
-                                + " days: " + e.startDay + "," + e.endDay
-                                + " times: " + e.startTime + "," + e.endTime
-                                + " " + timeRange
-                                + " nth/max: " + e.getColumn() + "/" + e.getMaxColumns()
-                                + " "  + e.title);
-                logIndex += 1;
-            }
-            for (Event e : eventsList) {
-                if (e.allDay) continue;
-                int flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL
-                        | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
-                String timeRange = DateUtils.formatDateRange(e.startMillis,
-                                e.endMillis, flags);
-                Log.i("Cal", logIndex + " allDay: " + e.allDay
-                                + " days: " + e.startDay + "," + e.endDay
-                                + " times: " + e.startTime + "," + e.endTime
-                                + " " + timeRange
-                                + " nth/max: " + e.getColumn() + "/" + e.getMaxColumns()
-                                + " "  + e.title);
-                logIndex += 1;
-            }
-        }
     }
 
     private static void doComputePositions(ArrayList<Event> eventsList,

@@ -32,10 +32,10 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.pim.DateFormat;
-import android.pim.DateUtils;
-import android.pim.Time;
 import android.provider.Calendar.BusyBits;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.DayOfMonthCursor;
 import android.util.Log;
 import android.util.SparseArray;
@@ -1084,9 +1084,11 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
             String timeRange;
             if (showEndTime) {
-                timeRange = DateUtils.formatDateRange(event.startMillis, event.endMillis, flags);
+                timeRange = DateUtils.formatDateRange(mParentActivity,
+                        event.startMillis, event.endMillis, flags);
             } else {
-                timeRange = DateUtils.formatDateRange(event.startMillis, event.startMillis, flags);
+                timeRange = DateUtils.formatDateRange(mParentActivity,
+                        event.startMillis, event.startMillis, flags);
             }
 
             TextView timeView = null;

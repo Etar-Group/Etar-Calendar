@@ -39,12 +39,12 @@ import android.graphics.Path.Direction;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
-import android.pim.DateFormat;
-import android.pim.DateUtils;
-import android.pim.Time;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -526,7 +526,7 @@ public class CalendarView extends View
                     | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH;
         }
 
-        mDateRange = DateUtils.formatDateRange(start, end, flags);
+        mDateRange = DateUtils.formatDateRange(mParentActivity, start, end, flags);
         // Do not set the title here because this is called when executing
         // initNextView() to prepare the Day view when sliding the finger
         // horizontally but we don't always want to change the title.  And
@@ -1856,8 +1856,8 @@ public class CalendarView extends View
                 if (DateFormat.is24HourFormat(mContext)) {
                     flags |= DateUtils.FORMAT_24HOUR;
                 }
-                String timeRange = DateUtils.formatDateRange(ev.startMillis, ev.endMillis,
-                                flags);
+                String timeRange = DateUtils.formatDateRange(mParentActivity,
+                        ev.startMillis, ev.endMillis, flags);
                 Log.i("Cal", "left: " + left + " right: " + right + " top: " + top
                         + " bottom: " + bottom + " ev: " + timeRange + " " + ev.title);
             }
@@ -2236,7 +2236,8 @@ public class CalendarView extends View
         if (DateFormat.is24HourFormat(mContext)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        String timeRange = DateUtils.formatDateRange(event.startMillis, event.endMillis, flags);
+        String timeRange = DateUtils.formatDateRange(mParentActivity,
+                event.startMillis, event.endMillis, flags);
         TextView timeView = (TextView) mPopupView.findViewById(R.id.time);
         timeView.setText(timeRange);
 
@@ -2750,7 +2751,8 @@ public class CalendarView extends View
 //            for (Event ev : mSelectedEvents) {
 //                int flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL
 //                        | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
-//                String timeRange = formatDateRange(mResources, ev.startMillis, ev.endMillis, flags);
+//                String timeRange = formatDateRange(mParentActivity,
+//                        ev.startMillis, ev.endMillis, flags);
 //
 //                Log.i("Cal", "  " + timeRange + " " + ev.title);
 //            }

@@ -27,7 +27,7 @@
         android:listSelector="@android:color/transparent"
         android:divider="@null" />
     
-    <LinearLayout android:id="@+id/button_container"
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

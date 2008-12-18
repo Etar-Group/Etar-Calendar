@@ -19,7 +19,7 @@ package com.android.calendar;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
-import android.pim.Time;
+import android.text.format.Time;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;

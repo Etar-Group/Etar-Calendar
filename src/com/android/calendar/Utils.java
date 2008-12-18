@@ -19,7 +19,7 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import android.content.Context;
 import android.content.Intent;
-import android.pim.Time;
+import android.text.format.Time;
 import android.view.animation.AlphaAnimation;
 import android.widget.ViewFlipper;
 

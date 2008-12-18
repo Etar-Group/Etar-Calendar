@@ -16,8 +16,7 @@
 
 <resources>
     <!-- Choices for the "Reminder minutes" spinner.
-         These must be kept in sync with the reminder_minutes_values array
-         and the reminder_minutes_labels_abbrev array below.
+         These must be kept in sync with the reminder_minutes_values array.
     -->
     <string-array name="reminder_minutes_labels">
         <item>5 minutes</item>
@@ -27,23 +26,6 @@
         <item>25 minutes</item>
         <item>30 minutes</item>
         <item>45 minutes</item>
-        <item>1 hour</item>
-        <item>2 hours</item>
-        <item>3 hours</item>
-        <item>12 hours</item>
-        <item>24 hours</item>
-        <item>2 days</item>
-        <item>1 week</item>
-    </string-array>
-    
-    <string-array name="reminder_minutes_labels_abbrev">
-        <item>5 mins</item>
-        <item>10 mins</item>
-        <item>15 mins</item>
-        <item>20 mins</item>
-        <item>25 mins</item>
-        <item>30 mins</item>
-        <item>45 mins</item>
         <item>1 hour</item>
         <item>2 hours</item>
         <item>3 hours</item>
@@ -118,84 +100,9 @@
         <item>"2"</item>
     </string-array>
     
-    <!-- Choices for the "Repeats" spinner.
-         These must be kept in sync with the sRepeats[] array
-         of ints in EventActivity.java. -->
-    <string-array name="repeat_strings">
-        <item>"Does not repeat"</item>
-        <item>"Daily"</item>
-        <item>"Weekly"</item>
-        <item>"Monthly"</item>
-        <item>"Yearly"</item>
-    </string-array>
-    <string-array name="every_n_days">
-        <item>"day"</item>
-        <item>"2 days"</item>
-        <item>"3 days"</item>
-        <item>"4 days"</item>
-        <item>"5 days"</item>
-        <item>"6 days"</item>
-        <item>"7 days"</item>
-        <item>"8 days"</item>
-        <item>"9 days"</item>
-        <item>"10 days"</item>
-        <item>"11 days"</item>
-        <item>"12 days"</item>
-        <item>"13 days"</item>
-        <item>"14 days"</item>
-    </string-array>
-    <string-array name="every_n_weeks">
-        <item>"week"</item>
-        <item>"2 weeks"</item>
-        <item>"3 weeks"</item>
-        <item>"4 weeks"</item>
-        <item>"5 weeks"</item>
-        <item>"6 weeks"</item>
-        <item>"7 weeks"</item>
-        <item>"8 weeks"</item>
-        <item>"9 weeks"</item>
-        <item>"10 weeks"</item>
-        <item>"11 weeks"</item>
-        <item>"12 weeks"</item>
-        <item>"13 weeks"</item>
-        <item>"14 weeks"</item>
-    </string-array>
-    <string-array name="every_n_months">
-        <item>"month"</item>
-        <item>"2 months"</item>
-        <item>"3 months"</item>
-        <item>"4 months"</item>
-        <item>"5 months"</item>
-        <item>"6 months"</item>
-        <item>"7 months"</item>
-        <item>"8 months"</item>
-        <item>"9 months"</item>
-        <item>"10 months"</item>
-        <item>"11 months"</item>
-        <item>"12 months"</item>
-        <item>"13 months"</item>
-        <item>"14 months"</item>
-    </string-array>
-    <string-array name="every_n_years">
-        <item>"year"</item>
-        <item>"2 years"</item>
-        <item>"3 years"</item>
-        <item>"4 years"</item>
-        <item>"5 years"</item>
-        <item>"6 years"</item>
-        <item>"7 years"</item>
-        <item>"8 years"</item>
-        <item>"9 years"</item>
-        <item>"10 years"</item>
-        <item>"11 years"</item>
-        <item>"12 years"</item>
-        <item>"13 years"</item>
-        <item>"14 years"</item>
-    </string-array>
-    
     <string-array name="availability">
-        <item>Show as busy</item>
-        <item>Show as available</item>
+        <item>Busy</item>
+        <item>Available</item>
     </string-array>
     
     <string-array name="visibility">
@@ -240,6 +147,18 @@
     <!-- The corresponding indices are defined in DeleteEventHelper.java -->
     <string-array name="delete_repeating_labels">
         <item>Only this event</item>
+        <item>This &amp; future events</item>
+        <item>All events</item>
+    </string-array>
+
+    <!-- The corresponding indices are defined in DeleteEventHelper.java -->
+    <!-- This is the same array as above (the "delete_repeating_labels" array,
+         except that the first element "Only this event" is removed.  This
+         array exists to work-around a bug in the CalendarProvider and sync
+         code where you can't delete one instance of a repeating event that
+         was created on the phone until that event has been synced to the server.
+     -->
+    <string-array name="delete_repeating_labels_no_selected">
         <item>This &amp; future events</item>
         <item>All events</item>
     </string-array>

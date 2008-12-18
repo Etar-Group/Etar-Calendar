@@ -150,12 +150,9 @@ public class AlertActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.alert_activity);
         
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT,             // width
-                ViewGroup.LayoutParams.FILL_PARENT,             // height
-                WindowManager.LayoutParams.TYPE_TOAST,          // type
-                WindowManager.LayoutParams.FLAG_BLUR_BEHIND,    // flags
-                PixelFormat.TRANSLUCENT);                       // format
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.width = ViewGroup.LayoutParams.FILL_PARENT;
+        lp.height = ViewGroup.LayoutParams.FILL_PARENT;
         
         // Get the dim amount from the theme
         TypedArray a = obtainStyledAttributes(com.android.internal.R.styleable.Theme);
@@ -163,6 +160,7 @@ public class AlertActivity extends Activity {
         a.recycle();
 
         getWindow().setAttributes(lp);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         
         mResolver = getContentResolver();
         mQueryHandler = new QueryHandler(mResolver);

@@ -22,9 +22,9 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.net.Uri;
-import android.pim.DateFormat;
-import android.pim.DateUtils;
 import android.provider.Calendar.Reminders;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -83,7 +83,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         if (DateFormat.is24HourFormat(context)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        whenString = DateUtils.formatDateRange(begin, end, flags);
+        whenString = DateUtils.formatDateRange(context, begin, end, flags);
         when.setText(whenString);
         
         // Repeating info

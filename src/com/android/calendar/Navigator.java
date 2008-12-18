@@ -16,7 +16,7 @@
 
 package com.android.calendar;
 
-import android.pim.Time;
+import android.text.format.Time;
 
 public interface Navigator {
     /**

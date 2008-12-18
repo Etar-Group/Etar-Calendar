@@ -17,14 +17,15 @@
 package com.android.calendar;
 
 import android.content.res.Resources;
-import android.pim.DateUtils;
-import android.pim.Time;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.test.AndroidTestCase;
+import android.test.suitebuilder.annotation.SmallTest;
 import android.util.Log;
 
 
 /**
- * Unit tests for {@link android.pim.Time#getWeekNumber}.
+ * Unit tests for {@link android.text.format.Time#getWeekNumber}.
  */
 public class WeekNumberTest extends AndroidTestCase {
 
@@ -199,6 +200,7 @@ public class WeekNumberTest extends AndroidTestCase {
         super.setUp();
     }
 
+    @SmallTest
     public void testAll() throws Exception {
         int len = tests.length;
         for (int index = 0; index < len; index++) {
@@ -207,7 +209,7 @@ public class WeekNumberTest extends AndroidTestCase {
             if (weekNumber != test.expectedWeekNumber) {
                 long millis = test.date.toMillis(false /* use isDst */);
                 int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE;
-                String output = DateUtils.formatDateRange(millis, millis, flags);
+                String output = DateUtils.formatDateTime(mContext, millis, flags);
                 Log.i("WeekNumberTest", "index " + index
                         + " date: " + output
                         + " expected: " + test.expectedWeekNumber
@@ -219,7 +221,7 @@ public class WeekNumberTest extends AndroidTestCase {
             if (weekNumber != test.expectedWeekNumber) {
                 long millis = test.date.toMillis(false /* use isDst */);
                 int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE;
-                String output = DateUtils.formatDateRange(millis, millis, flags);
+                String output = DateUtils.formatDateTime(mContext, millis, flags);
                 Log.i("WeekNumberTest", "(all-day) index " + index
                         + " date: " + output
                         + " expected: " + test.expectedWeekNumber

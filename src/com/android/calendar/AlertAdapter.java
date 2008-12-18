@@ -20,8 +20,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.PorterDuff;
-import android.pim.DateFormat;
-import android.pim.DateUtils;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
@@ -91,7 +91,7 @@ public class AlertAdapter extends ResourceCursorAdapter {
         if (DateFormat.is24HourFormat(context)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        when = DateUtils.formatDateRange(startMillis, endMillis, flags);
+        when = DateUtils.formatDateRange(context, startMillis, endMillis, flags);
         textView = (TextView) view.findViewById(R.id.when);
         textView.setText(when);
         

@@ -28,7 +28,7 @@
         android:layout_marginRight="5dip"
         android:background="@drawable/box_color_white" />
         
-    <LinearLayout android:id="@+id/alert_content"
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@android:color/black"
                 style="?android:attr/textAppearanceMediumInverse" />
         </LinearLayout>
         

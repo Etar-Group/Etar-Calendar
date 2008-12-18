@@ -18,40 +18,44 @@ package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.pim.DateFormat;
-import android.pim.DateUtils;
 import android.pim.EventRecurrence;
-import android.pim.Time;
 import android.preference.PreferenceManager;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -63,12 +67,15 @@ import android.widget.ResourceCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.TimeZone;
 
-public class EditEvent extends Activity implements View.OnClickListener {
+public class EditEvent extends Activity implements View.OnClickListener,
+        DialogInterface.OnCancelListener, DialogInterface.OnClickListener {
     /**
      * This is the symbolic name for the key used to pass in the boolean
      * for creating all-day events that is part of the extra data of the intent.
@@ -126,7 +133,7 @@ public class EditEvent extends Activity implements View.OnClickListener {
     private static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
     private static final int CALENDARS_INDEX_TIMEZONE = 2;
     private static final String CALENDARS_WHERE = Calendars.ACCESS_LEVEL + ">=" +
-            Calendars.CONTRIBUTOR_ACCESS;
+            Calendars.CONTRIBUTOR_ACCESS + " AND " + Calendars.SYNC_EVENTS + "=1";
 
     private static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID,      // 0
@@ -150,6 +157,8 @@ public class EditEvent extends Activity implements View.OnClickListener {
     private static final int MODIFY_SELECTED = 1;
     private static final int MODIFY_ALL = 2;
     private static final int MODIFY_ALL_FOLLOWING = 3;
+    
+    private static final int DAY_IN_SECONDS = 24 * 60 * 60;
 
     private int mFirstDayOfWeek; // cached in onCreate
     private Uri mUri;
@@ -179,6 +188,10 @@ public class EditEvent extends Activity implements View.OnClickListener {
 
     private EventRecurrence mEventRecurrence = new EventRecurrence();
     private String mRrule;
+    private boolean mCalendarsQueryComplete;
+    private boolean mSaveAfterQueryComplete;
+    private ProgressDialog mLoadingCalendarsDialog;
+    private AlertDialog mNoCalendarsDialog;
     private ContentValues mInitialValues;
 
     /**
@@ -201,7 +214,8 @@ public class EditEvent extends Activity implements View.OnClickListener {
     private int mDefaultReminderMinutes;
 
     private DeleteEventHelper mDeleteEventHelper;
-
+    private QueryHandler mQueryHandler;
+    
     /* This class is used to update the time buttons. */
     private class TimeListener implements OnTimeSetListener {
         private View mView;
@@ -355,8 +369,9 @@ public class EditEvent extends Activity implements View.OnClickListener {
     // on the "remove reminder" button.
     public void onClick(View v) {
         if (v == mSaveButton) {
-            save();
-            finish();
+            if (save()) {
+                finish();
+            }
             return;
         }
         
@@ -392,9 +407,84 @@ public class EditEvent extends Activity implements View.OnClickListener {
         updateRemindersVisibility();
     }
 
+    // This is called if the user cancels a popup dialog.  There are two
+    // dialogs: the "Loading calendars" dialog, and the "No calendars"
+    // dialog.  The "Loading calendars" dialog is shown if there is a delay
+    // in loading the calendars (needed when creating an event) and the user
+    // tries to save the event before the calendars have finished loading.
+    // The "No calendars" dialog is shown if there are no syncable calendars.
+    public void onCancel(DialogInterface dialog) {
+        if (dialog == mLoadingCalendarsDialog) {
+            mSaveAfterQueryComplete = false;
+        } else if (dialog == mNoCalendarsDialog) {
+            finish();
+        }
+    }
+
+    // This is called if the user clicks on a dialog button.
+    public void onClick(DialogInterface dialog, int which) {
+        if (dialog == mNoCalendarsDialog) {
+            finish();
+        }
+    }
+    
+    private class QueryHandler extends AsyncQueryHandler {
+        public QueryHandler(ContentResolver cr) {
+            super(cr);
+        }
+
+        @Override
+        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            // If the Activity is finishing, then close the cursor.
+            // Otherwise, use the new cursor in the adapter.
+            if (isFinishing()) {
+                stopManagingCursor(cursor);
+                cursor.close();
+            } else {
+                mCalendarsCursor = cursor;
+                startManagingCursor(cursor);
+                
+                // Stop the spinner
+                getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
+                        Window.PROGRESS_VISIBILITY_OFF);
+
+                // If there are no syncable calendars, then we cannot allow
+                // creating a new event.
+                if (cursor.getCount() == 0) {
+                    // Cancel the "loading calendars" dialog if it exists
+                    if (mSaveAfterQueryComplete) {
+                        mLoadingCalendarsDialog.cancel();
+                    }
+                    
+                    // Create an error message for the user that, when clicked,
+                    // will exit this activity without saving the event.
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EditEvent.this);
+                    builder.setTitle(R.string.no_syncable_calendars)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setMessage(R.string.no_calendars_found)
+                        .setPositiveButton(android.R.string.ok, EditEvent.this)
+                        .setOnCancelListener(EditEvent.this);
+                    mNoCalendarsDialog = builder.show();
+                    return;
+                }
+
+                // populate the calendars spinner
+                CalendarsAdapter adapter = new CalendarsAdapter(EditEvent.this, mCalendarsCursor);
+                mCalendarsSpinner.setAdapter(adapter);
+                mCalendarsQueryComplete = true;
+                if (mSaveAfterQueryComplete) {
+                    mLoadingCalendarsDialog.cancel();
+                    save();
+                    finish();
+                }
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.edit_event);
 
         mFirstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
@@ -407,6 +497,11 @@ public class EditEvent extends Activity implements View.OnClickListener {
 
         if (mUri != null) {
             mEventCursor = managedQuery(mUri, EVENT_PROJECTION, null, null);
+            if (mEventCursor == null || mEventCursor.getCount() == 0) {
+                // The cursor is empty. This can happen if the event was deleted.
+                finish();
+                return;
+            }
         }
 
         long begin = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
@@ -419,18 +514,29 @@ public class EditEvent extends Activity implements View.OnClickListener {
             allDay = mEventCursor.getInt(EVENT_INDEX_ALL_DAY) != 0;
             String rrule = mEventCursor.getString(EVENT_INDEX_RRULE);
             String timezone = mEventCursor.getString(EVENT_INDEX_TIMEZONE);
+            long calendarId = mEventCursor.getInt(EVENT_INDEX_CALENDAR_ID);
             
             // Remember the initial values
             mInitialValues = new ContentValues();
             mInitialValues.put(EVENT_BEGIN_TIME, begin);
             mInitialValues.put(EVENT_END_TIME, end);
-            mInitialValues.put(Events.ALL_DAY, allDay);
+            mInitialValues.put(Events.ALL_DAY, allDay ? 1 : 0);
             mInitialValues.put(Events.RRULE, rrule);
             mInitialValues.put(Events.EVENT_TIMEZONE, timezone);
+            mInitialValues.put(Events.CALENDAR_ID, calendarId);
         } else {
             // We are creating a new event, so set the default from the
             // intent (if specified).
             allDay = intent.getBooleanExtra(EVENT_ALL_DAY, false);
+            
+            // Start the spinner
+            getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
+                    Window.PROGRESS_VISIBILITY_ON);
+
+            // Start a query in the background to read the list of calendars
+            mQueryHandler = new QueryHandler(getContentResolver());
+            mQueryHandler.startQuery(0, null, Calendars.CONTENT_URI, CALENDARS_PROJECTION,
+                    CALENDARS_WHERE, null /* selection args */, null /* sort order */);
         }
 
         // If the event is all-day, read the times in UTC timezone
@@ -461,9 +567,6 @@ public class EditEvent extends Activity implements View.OnClickListener {
                 mEndTime.set(end);
             }
         }
-
-        mCalendarsCursor = managedQuery(Calendars.CONTENT_URI, CALENDARS_PROJECTION,
-                CALENDARS_WHERE, null);
 
         // cache all the widgets
         mTitleTextView = (TextView) findViewById(R.id.title);
@@ -578,27 +681,67 @@ public class EditEvent extends Activity implements View.OnClickListener {
         updateRemindersVisibility();
 
         mDeleteEventHelper = new DeleteEventHelper(this, true /* exit when done */);
+
+        if (mEventCursor == null) {
+            // Allow the intent to specify the fields in the event.
+            // This will allow other apps to create events easily.
+            initFromIntent(intent);
+        }
+    }
+    
+    private void initFromIntent(Intent intent) {
+        String title = intent.getStringExtra(Events.TITLE);
+        if (title != null) {
+            mTitleTextView.setText(title);
+        }
+        
+        String location = intent.getStringExtra(Events.EVENT_LOCATION);
+        if (location != null) {
+            mLocationTextView.setText(location);
+        }
+        
+        String description = intent.getStringExtra(Events.DESCRIPTION);
+        if (description != null) {
+            mDescriptionTextView.setText(description);
+        }
+        
+        int availability = intent.getIntExtra(Events.TRANSPARENCY, -1);
+        if (availability != -1) {
+            mAvailabilitySpinner.setSelection(availability);
+        }
+        
+        int visibility = intent.getIntExtra(Events.VISIBILITY, -1);
+        if (visibility != -1) {
+            mVisibilitySpinner.setSelection(visibility);
+        }
+        
+        String rrule = intent.getStringExtra(Events.RRULE);
+        if (rrule != null) {
+            mRrule = rrule;
+            mEventRecurrence.parse(rrule);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        // populate the calendars spinner
-        mCalendarsSpinner = (Spinner) findViewById(R.id.calendars);
-        CalendarsAdapter adapter = new CalendarsAdapter(this, mCalendarsCursor);
-        mCalendarsSpinner.setAdapter(adapter);
-
+        if (mUri != null) {
+            if (mEventCursor == null || mEventCursor.getCount() == 0) {
+                // The cursor is empty. This can happen if the event was deleted.
+                finish();
+                return;
+            }
+        }
+        
         if (mEventCursor != null) {
             Cursor cursor = mEventCursor;
             cursor.moveToFirst();
 
             mRrule = cursor.getString(EVENT_INDEX_RRULE);
-
             String title = cursor.getString(EVENT_INDEX_TITLE);
             String description = cursor.getString(EVENT_INDEX_DESCRIPTION);
             String location = cursor.getString(EVENT_INDEX_EVENT_LOCATION);
-            long calendarId = cursor.getLong(EVENT_INDEX_CALENDAR_ID);
             int availability = cursor.getInt(EVENT_INDEX_TRANSPARENCY);
             int visibility = cursor.getInt(EVENT_INDEX_VISIBILITY);
             if (visibility > 0) {
@@ -669,17 +812,8 @@ public class EditEvent extends Activity implements View.OnClickListener {
             mAvailabilitySpinner.setSelection(availability);
             mVisibilitySpinner.setSelection(visibility);
 
-            // If there is a calendarId set, move the spinner to the proper
-            // position and hide the spinner, since this is an existing event.
-            if (calendarId != -1) {
-                int count = adapter.getCount();
-                for (int pos = 0 ; pos < count ; pos++) {
-                    long rowID = adapter.getItemId(pos);
-                    if (rowID == calendarId) {
-                        mCalendarsSpinner.setSelection(pos);
-                    }
-                }
-            }
+            // This is an existing event so hide the calendar spinner
+            // since we can't change the calendar.
             View calendarSeparator = findViewById(R.id.calendar_separator);
             View calendarLabel = findViewById(R.id.calendar_label);
             calendarSeparator.setVisibility(View.GONE);
@@ -788,7 +922,11 @@ public class EditEvent extends Activity implements View.OnClickListener {
                 // title, location and description are all empty, in order to
                 // prevent accidental "no subject" event creations.
                 if (mUri != null || !isEmpty()) {
-                    save();
+                    if (!save()) {
+                        // We cannot exit this activity because the calendars
+                        // are still loading.
+                        return true;
+                    }
                 }
                 break;
         }
@@ -860,7 +998,7 @@ public class EditEvent extends Activity implements View.OnClickListener {
         if (DateFormat.is24HourFormat(this)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        repeatArray.add(String.format(format, DateUtils.formatDateRange(when, when, flags)));
+        repeatArray.add(String.format(format, DateUtils.formatDateTime(this, when, flags)));
         recurrenceIndexes.add(REPEATS_YEARLY);
 
         if (isCustomRecurrence) {
@@ -1020,7 +1158,7 @@ public class EditEvent extends Activity implements View.OnClickListener {
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR |
                 DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_MONTH |
                 DateUtils.FORMAT_ABBREV_WEEKDAY;
-        view.setText(DateUtils.formatDateRange(millis, millis, flags));
+        view.setText(DateUtils.formatDateTime(this, millis, flags));
     }
 
     private void setTime(TextView view, long millis) {
@@ -1028,16 +1166,38 @@ public class EditEvent extends Activity implements View.OnClickListener {
         if (DateFormat.is24HourFormat(this)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        view.setText(DateUtils.formatDateRange(millis, millis, flags));
+        view.setText(DateUtils.formatDateTime(this, millis, flags));
     }
 
-    private void save() {
-        // Avoid saving if the calendars cursor is empty. This shouldn't ever
-        // happen since the setup wizard should ensure the user has a calendar.
-        if (mCalendarsCursor == null || mCalendarsCursor.getCount() == 0) {
-            Log.w("Cal", "The calendars table does not contain any calendars. New event was not "
-                    + "created.");
-            return;
+    // Saves the event.  Returns true if it is okay to exit this activity.
+    private boolean save() {
+        // If we are creating a new event, then make sure we wait until the
+        // query to fetch the list of calendars has finished.
+        if (mEventCursor == null) {
+            if (!mCalendarsQueryComplete) {
+                // Wait for the calendars query to finish.
+                if (mLoadingCalendarsDialog == null) {
+                    // Create the progress dialog
+                    mLoadingCalendarsDialog = ProgressDialog.show(this,
+                            getText(R.string.loading_calendars_title),
+                            getText(R.string.loading_calendars_message),
+                            true, true, this);
+                    mSaveAfterQueryComplete = true;
+                }
+                return false;
+            }
+
+            // Avoid creating a new event if the calendars cursor is empty. This
+            // shouldn't ever happen since the setup wizard should ensure the user
+            // has a calendar.
+            if (mCalendarsCursor == null || mCalendarsCursor.getCount() == 0) {
+                Log.w("Cal", "The calendars table does not contain any calendars."
+                        + " New event was not created.");
+                return true;
+            }
+            Toast.makeText(this, R.string.creating_event, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, R.string.saving_event, Toast.LENGTH_SHORT).show();
         }
 
         ContentResolver cr = getContentResolver();
@@ -1071,20 +1231,43 @@ public class EditEvent extends Activity implements View.OnClickListener {
             long begin = mInitialValues.getAsLong(EVENT_BEGIN_TIME);
             values.put(Events.ORIGINAL_EVENT, mEventCursor.getString(EVENT_INDEX_SYNC_ID));
             values.put(Events.ORIGINAL_INSTANCE_TIME, begin);
+            boolean allDay = mInitialValues.getAsInteger(Events.ALL_DAY) != 0;
+            values.put(Events.ORIGINAL_ALL_DAY, allDay ? 1 : 0);
 
             uri = cr.insert(Events.CONTENT_URI, values);
 
         } else if (mModification == MODIFY_ALL_FOLLOWING) {
-            // Modify contents of all future instances of repeating event
-
-            // Update the current repeating event to end at the new start time
-            updatePastEvents(cr, uri);
-
-            // Create a new event that has a begin time of now
-            mEventRecurrence.parse(mRrule);
+            // Modify this instance and all future instances of repeating event
             addRecurrenceRule(values);
-            values.remove(Events.DTEND);
-            uri = cr.insert(Events.CONTENT_URI, values);
+
+            if (mRrule == null) {
+                // We've changed a recurring event to a non-recurring event.
+                // If the event we are editing is the first in the series,
+                // then delete the whole series.  Otherwise, update the series
+                // to end at the new start time.
+                if (isFirstEventInSeries()) {
+                    cr.delete(uri, null, null);
+                } else {
+                    // Update the current repeating event to end at the new
+                    // start time.
+                    updatePastEvents(cr, uri);
+                }
+                uri = cr.insert(Events.CONTENT_URI, values);
+            } else {
+                if (isFirstEventInSeries()) {
+                    checkTimeDependentFields(values);
+                    values.remove(Events.DTEND);
+                    cr.update(uri, values, null, null);
+                } else {
+                    // Update the current repeating event to end at the new
+                    // start time.
+                    updatePastEvents(cr, uri);
+
+                    // Create a new event with the user-modified fields
+                    values.remove(Events.DTEND);
+                    uri = cr.insert(Events.CONTENT_URI, values);
+                }
+            }
 
         } else if (mModification == MODIFY_ALL) {
             
@@ -1092,16 +1275,10 @@ public class EditEvent extends Activity implements View.OnClickListener {
             addRecurrenceRule(values);
             
             if (mRrule == null) {
-                
-                // We've changed a recurring event to non recurring
-                // End the previous events and create a new event
-                // If we're the first even though we just delete and
-                // create a new one.
-                if (isFirstEventInSeries()) {
-                    cr.delete(uri, null, null);
-                } else {
-                    updatePastEvents(cr, uri);
-                }
+                // We've changed a recurring event to a non-recurring event.
+                // Delete the whole series and replace it with a new
+                // non-recurring event.
+                cr.delete(uri, null, null);
                 uri = cr.insert(Events.CONTENT_URI, values);
             } else {
                 checkTimeDependentFields(values);
@@ -1116,6 +1293,7 @@ public class EditEvent extends Activity implements View.OnClickListener {
                     mReminderValues);
             saveReminders(cr, eventId, reminderMinutes, mOriginalMinutes);
         }
+        return true;
     }
 
     private boolean isFirstEventInSeries() {
@@ -1127,18 +1305,42 @@ public class EditEvent extends Activity implements View.OnClickListener {
     private void updatePastEvents(ContentResolver cr, Uri uri) {
         long oldStartMillis = mEventCursor.getLong(EVENT_INDEX_DTSTART);
         String oldDuration = mEventCursor.getString(EVENT_INDEX_DURATION);
+        boolean allDay = mEventCursor.getInt(EVENT_INDEX_ALL_DAY) != 0;
+        String oldRrule = mEventCursor.getString(EVENT_INDEX_RRULE);
+        mEventRecurrence.parse(oldRrule);
 
-        Time oldUntilTime = new Time();
+        Time untilTime = new Time();
         long begin = mInitialValues.getAsLong(EVENT_BEGIN_TIME);
-        if (mInitialValues.getAsBoolean(Events.ALL_DAY)) {
-            oldUntilTime.timezone = Time.TIMEZONE_UTC;
-        }
-        oldUntilTime.set(begin);
-        oldUntilTime.second--;
-        oldUntilTime.normalize(false);
-        mEventRecurrence.until = oldUntilTime.format2445();
-
         ContentValues oldValues = new ContentValues();
+
+        // The "until" time must be in UTC time in order for Google calendar
+        // to display it properly.  For all-day events, the "until" time string
+        // must include just the date field, and not the time field.  The
+        // repeating events repeat up to and including the "until" time.
+        untilTime.timezone = Time.TIMEZONE_UTC;
+        
+        // Subtract one second from the old begin time to get the new
+        // "until" time.
+        untilTime.set(begin - 1000);  // subtract one second (1000 millis) 
+        if (allDay) {
+            untilTime.hour = 0;
+            untilTime.minute = 0;
+            untilTime.second = 0;
+            untilTime.allDay = true;
+            untilTime.normalize(false);
+            
+            // For all-day events, the duration must be in days, not seconds.
+            // Otherwise, Google Calendar will (mistakenly) change this event
+            // into a non-all-day event.
+            int len = oldDuration.length();
+            if (oldDuration.charAt(0) == 'P' && oldDuration.charAt(len - 1) == 'S') {
+                int seconds = Integer.parseInt(oldDuration.substring(1, len - 1));
+                int days = (seconds + DAY_IN_SECONDS - 1) / DAY_IN_SECONDS;
+                oldDuration = "P" + days + "D";
+            }
+        }
+        mEventRecurrence.until = untilTime.format2445();
+
         oldValues.put(Events.DTSTART, oldStartMillis);
         oldValues.put(Events.DURATION, oldDuration);
         oldValues.put(Events.RRULE, mEventRecurrence.toString());
@@ -1340,14 +1542,13 @@ public class EditEvent extends Activity implements View.OnClickListener {
         boolean isAllDay = mAllDayCheckBox.isChecked();
         String location = mLocationTextView.getText().toString();
         String description = mDescriptionTextView.getText().toString();
-        long calendarId = mCalendarsSpinner.getSelectedItemId();
-        Cursor calendarCursor = (Cursor) mCalendarsSpinner.getSelectedItem();
 
         ContentValues values = new ContentValues();
 
         String timezone = null;
         long startMillis;
         long endMillis;
+        long calendarId;
         if (isAllDay) {
             // Reset start and end time, increment the monthDay by 1, and set
             // the timezone to UTC, as required for all-day events.
@@ -1364,18 +1565,39 @@ public class EditEvent extends Activity implements View.OnClickListener {
             mEndTime.monthDay++;
             mEndTime.timezone = timezone;
             endMillis = mEndTime.normalize(true);
+            
+            if (mEventCursor == null) {
+                // This is a new event
+                calendarId = mCalendarsSpinner.getSelectedItemId();
+            } else {
+                calendarId = mInitialValues.getAsLong(Events.CALENDAR_ID);
+            }
         } else {
             startMillis = mStartTime.toMillis(true);
             endMillis = mEndTime.toMillis(true);
             if (mEventCursor != null) {
+                // This is an existing event
                 timezone = mEventCursor.getString(EVENT_INDEX_TIMEZONE);
-            } else if (calendarCursor != null) {
-                timezone = calendarCursor.getString(CALENDARS_INDEX_TIMEZONE);
+                
+                // The timezone might be null if we are changing an existing
+                // all-day event to a non-all-day event.  We need to assign
+                // a timezone to the non-all-day event.
+                if (TextUtils.isEmpty(timezone)) {
+                    timezone = TimeZone.getDefault().getID();
+                }
+                calendarId = mInitialValues.getAsLong(Events.CALENDAR_ID);
+            } else {
+                // This is a new event
+                calendarId = mCalendarsSpinner.getSelectedItemId();
+                
+                // The timezone for a new event is the currently displayed
+                // timezone, NOT the timezone of the containing calendar.
+                timezone = TimeZone.getDefault().getID();
             }
         }
 
-        values.put(Events.EVENT_TIMEZONE, timezone);
         values.put(Events.CALENDAR_ID, calendarId);
+        values.put(Events.EVENT_TIMEZONE, timezone);
         values.put(Events.TITLE, title);
         values.put(Events.ALL_DAY, isAllDay ? 1 : 0);
         values.put(Events.DTSTART, startMillis);

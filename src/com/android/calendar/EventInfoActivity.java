@@ -29,16 +29,16 @@ import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
-import android.pim.DateFormat;
-import android.pim.DateUtils;
 import android.pim.EventRecurrence;
-import android.pim.Time;
 import android.preference.PreferenceManager;
 import android.provider.Calendar;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -166,7 +166,11 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
         mStartMillis = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
         mEndMillis = intent.getLongExtra(EVENT_END_TIME, 0);
         mEventCursor = managedQuery(mUri, EVENT_PROJECTION, null, null);
-        initEventCursor();
+        if (initEventCursor()) {
+            // The cursor is empty. This can happen if the event was deleted.
+            finish();
+            return;
+        }
 
         setContentView(R.layout.event_info_activity);
 
@@ -246,18 +250,28 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
     @Override
     protected void onResume() {
         super.onResume();
-        initEventCursor();
+        if (initEventCursor()) {
+            // The cursor is empty. This can happen if the event was deleted.
+            finish();
+            return;
+        }
         initAttendeesCursor();
         initCalendarsCursor();
     }
 
-
-    private void initEventCursor() {
-        if ((mEventCursor != null) && (mEventCursor.getCount() > 0)) {
-            mEventCursor.moveToFirst();
-            mVisibility = mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL);
-            mEventId = mEventCursor.getInt(EVENT_INDEX_ID);
+    /**
+     * Initializes the event cursor, which is expected to point to the first
+     * (and only) result from a query.
+     * @return true if the cursor is empty.
+     */
+    private boolean initEventCursor() {
+        if ((mEventCursor == null) || (mEventCursor.getCount() == 0)) {
+            return true;
         }
+        mEventCursor.moveToFirst();
+        mVisibility = mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL);
+        mEventId = mEventCursor.getInt(EVENT_INDEX_ID);
+        return false;
     }
 
     private void initAttendeesCursor() {
@@ -451,7 +465,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
                 flags |= DateUtils.FORMAT_24HOUR;
             }
         }
-        when = DateUtils.formatDateRange(mStartMillis, mEndMillis, flags);
+        when = DateUtils.formatDateRange(this, mStartMillis, mEndMillis, flags);
         setTextCommon(R.id.when, when);
 
         // Show the event timezone if it is different from the local timezone

@@ -19,7 +19,7 @@
     android:layout_height="wrap_content"
     android:layout_width="fill_parent">
 
-    <ImageView android:id="@+id/right_arrow"
+    <ImageView
 	    android:layout_width="wrap_content"
 	    android:layout_height="fill_parent"
 	    android:src="@drawable/calendars_item"/>

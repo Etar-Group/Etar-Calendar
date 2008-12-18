@@ -199,8 +199,8 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
             }
             
             builder.setMultiChoiceItems(calendarNames, null, this)
-                .setPositiveButton(R.string.ok_label, this)
-                .setNegativeButton(R.string.cancel_label, this)
+                .setPositiveButton(android.R.string.ok, this)
+                .setNegativeButton(android.R.string.cancel, this)
                 .show();
             return true;
         }

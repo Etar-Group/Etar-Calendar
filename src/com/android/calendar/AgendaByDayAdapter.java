@@ -18,8 +18,8 @@ package com.android.calendar;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.pim.DateUtils;
-import android.pim.Time;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,7 +123,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
             Time date = mTime;
             long millis = date.setJulianDay(row.mData);
             int flags = DateUtils.FORMAT_NUMERIC_DATE;
-            holder.dateView.setText(DateUtils.formatDateRange(millis, millis, flags));
+            holder.dateView.setText(DateUtils.formatDateRange(mContext, millis, millis, flags));
 
             if (row.mData == mTodayJulianDay) {
                 holder.dayOfWeekView.setText(R.string.agenda_today);
