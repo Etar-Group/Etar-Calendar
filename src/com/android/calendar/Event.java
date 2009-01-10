@@ -39,22 +39,23 @@ public class Event implements Comparable, Cloneable {
     private static final boolean PROFILE = false;
 
     private static final String[] PROJECTION = new String[] {
-            Instances.TITLE,           // 0
-            Instances.EVENT_LOCATION,  // 1
-            Instances.ALL_DAY,         // 2
-            Instances.COLOR,           // 3
-            Instances.EVENT_TIMEZONE,  // 4
-            Instances.EVENT_ID,        // 5
-            Instances.BEGIN,           // 6
-            Instances.END,             // 7
-            Instances._ID,             // 8
-            Instances.START_DAY,       // 9
-            Instances.END_DAY,         // 10
-            Instances.START_MINUTE,    // 11
-            Instances.END_MINUTE,      // 12
-            Instances.HAS_ALARM,       // 13
-            Instances.RRULE,           // 14
-            Instances.RDATE,           // 15
+            Instances.TITLE,                 // 0
+            Instances.EVENT_LOCATION,        // 1
+            Instances.ALL_DAY,               // 2
+            Instances.COLOR,                 // 3
+            Instances.EVENT_TIMEZONE,        // 4
+            Instances.EVENT_ID,              // 5
+            Instances.BEGIN,                 // 6
+            Instances.END,                   // 7
+            Instances._ID,                   // 8
+            Instances.START_DAY,             // 9
+            Instances.END_DAY,               // 10
+            Instances.START_MINUTE,          // 11
+            Instances.END_MINUTE,            // 12
+            Instances.HAS_ALARM,             // 13
+            Instances.RRULE,                 // 14
+            Instances.RDATE,                 // 15
+            Instances.SELF_ATTENDEE_STATUS,  // 16
     };
 
     // The indices for the projection array above.
@@ -73,6 +74,7 @@ public class Event implements Comparable, Cloneable {
     private static final int PROJECTION_HAS_ALARM_INDEX = 13;
     private static final int PROJECTION_RRULE_INDEX = 14;
     private static final int PROJECTION_RDATE_INDEX = 15;
+    private static final int PROJECTION_SELF_ATTENDEE_STATUS_INDEX = 16;
 
     public long id;
     public int color;
@@ -92,6 +94,8 @@ public class Event implements Comparable, Cloneable {
 
     public boolean hasAlarm;
     public boolean isRepeating;
+    
+    public int selfAttendeeStatus;
 
     // The coordinates of the event rectangle drawn on the screen.
     public float left;
@@ -124,6 +128,7 @@ public class Event implements Comparable, Cloneable {
         e.endMillis = endMillis;
         e.hasAlarm = hasAlarm;
         e.isRepeating = isRepeating;
+        e.selfAttendeeStatus = selfAttendeeStatus;
 
         return e;
     }
@@ -142,6 +147,7 @@ public class Event implements Comparable, Cloneable {
         dest.endMillis = endMillis;
         dest.hasAlarm = hasAlarm;
         dest.isRepeating = isRepeating;
+        dest.selfAttendeeStatus = selfAttendeeStatus;
     }
 
     public static final Event newInstance() {
@@ -160,6 +166,7 @@ public class Event implements Comparable, Cloneable {
         e.endMillis = 0;
         e.hasAlarm = false;
         e.isRepeating = false;
+        e.selfAttendeeStatus = Attendees.ATTENDEE_STATUS_NONE;
 
         return e;
     }
@@ -346,6 +353,8 @@ public class Event implements Comparable, Cloneable {
                 } else {
                     e.isRepeating = false;
                 }
+                
+                e.selfAttendeeStatus = c.getInt(PROJECTION_SELF_ATTENDEE_STATUS_INDEX);
 
                 events.add(e);
             }

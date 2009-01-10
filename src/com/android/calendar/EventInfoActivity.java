@@ -16,12 +16,10 @@
 
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -34,6 +32,8 @@ import android.preference.PreferenceManager;
 import android.provider.Calendar;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
+import static android.provider.Calendar.EVENT_BEGIN_TIME;
+import static android.provider.Calendar.EVENT_END_TIME;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
 import android.text.format.DateFormat;
@@ -56,19 +56,20 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
     private static final int MAX_REMINDERS = 5;
 
     private static final String[] EVENT_PROJECTION = new String[] {
-        Events._ID,             // 0  do not remove; used in DeleteEventHelper
-        Events.TITLE,           // 1  do not remove; used in DeleteEventHelper
-        Events.RRULE,           // 2  do not remove; used in DeleteEventHelper
-        Events.ALL_DAY,         // 3  do not remove; used in DeleteEventHelper
-        Events.CALENDAR_ID,     // 4  do not remove; used in DeleteEventHelper
-        Events.DTSTART,         // 5  do not remove; used in DeleteEventHelper
-        Events._SYNC_ID,        // 6  do not remove; used in DeleteEventHelper
-        Events.EVENT_TIMEZONE,  // 7  do not remove; used in DeleteEventHelper
-        Events.DESCRIPTION,     // 8
-        Events.EVENT_LOCATION,  // 9
-        Events.HAS_ALARM,       // 10
-        Events.ACCESS_LEVEL,    // 11
-        Events.COLOR,           // 12
+        Events._ID,                  // 0  do not remove; used in DeleteEventHelper
+        Events.TITLE,                // 1  do not remove; used in DeleteEventHelper
+        Events.RRULE,                // 2  do not remove; used in DeleteEventHelper
+        Events.ALL_DAY,              // 3  do not remove; used in DeleteEventHelper
+        Events.CALENDAR_ID,          // 4  do not remove; used in DeleteEventHelper
+        Events.DTSTART,              // 5  do not remove; used in DeleteEventHelper
+        Events._SYNC_ID,             // 6  do not remove; used in DeleteEventHelper
+        Events.EVENT_TIMEZONE,       // 7  do not remove; used in DeleteEventHelper
+        Events.DESCRIPTION,          // 8
+        Events.EVENT_LOCATION,       // 9
+        Events.HAS_ALARM,            // 10
+        Events.ACCESS_LEVEL,         // 11
+        Events.COLOR,                // 12
+        Events.SELF_ATTENDEE_STATUS, // 13
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -81,12 +82,14 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
     private static final int EVENT_INDEX_HAS_ALARM = 10;
     private static final int EVENT_INDEX_ACCESS_LEVEL = 11;
     private static final int EVENT_INDEX_COLOR = 12;
+    private static final int EVENT_INDEX_SELF_ATTENDEE_STATUS = 13;
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
         Attendees.ATTENDEE_RELATIONSHIP,    // 1
         Attendees.ATTENDEE_STATUS,          // 2
     };
+    private static final int ATTENDEES_INDEX_ID = 0;
     private static final int ATTENDEES_INDEX_RELATIONSHIP = 1;
     private static final int ATTENDEES_INDEX_STATUS = 2;
     private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=%d";
@@ -145,6 +148,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
     private DeleteEventHelper mDeleteEventHelper;
 
     private int mResponseOffset;
+    private int mOriginalAttendeeResponse;
 
     // This is called when one of the "remove reminder" buttons is selected.
     public void onClick(View v) {
@@ -295,7 +299,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
         ArrayList<Integer> reminderMinutes = EditEvent.reminderItemsToMinutes(mReminderItems,
                 mReminderValues);
         EditEvent.saveReminders(cr, mEventId, reminderMinutes, mOriginalMinutes);
-        saveResponse();
+        saveResponse(cr);
     }
 
     @Override
@@ -387,7 +391,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
         }
     }
 
-    private void saveResponse() {
+    private void saveResponse(ContentResolver cr) {
         if (mAttendeesCursor == null) {
             return;
         }
@@ -398,8 +402,23 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
         }
 
         int status = ATTENDEE_VALUES[position];
-        mAttendeesCursor.updateInt(ATTENDEES_INDEX_STATUS, status);
-        mAttendeesCursor.commitUpdates();
+
+        // If the status has not changed, then don't update the database
+        if (status == mOriginalAttendeeResponse) {
+            return;
+        }
+
+        // Update the "selfAttendeeStatus" field for the event
+        ContentValues values = new ContentValues();
+
+        // Will need to add email when MULTIPLE_ATTENDEES_PER_EVENT supported.
+        values.put(Attendees.ATTENDEE_STATUS, status);
+        values.put(Attendees.EVENT_ID, mEventId);
+
+        int attendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
+
+        Uri uri = ContentUris.withAppendedId(Attendees.CONTENT_URI, attendeeId);
+        cr.update(uri, values, null /* where */, null /* selection args */);
     }
 
     private int findResponseIndexFor(int response) {
@@ -534,9 +553,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
 
         Spinner spinner = (Spinner) findViewById(R.id.response_value);
 
-        int response = ATTENDEE_NO_RESPONSE;
+        mOriginalAttendeeResponse = ATTENDEE_NO_RESPONSE;
         if (mAttendeesCursor != null) {
-            response = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
+            mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
         }
         mResponseOffset = 0;
 
@@ -545,9 +564,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
          * Switch the entries to a set of entries without the
          * no response option.
          */
-        if ((response != Attendees.ATTENDEE_STATUS_INVITED)
-                && (response != ATTENDEE_NO_RESPONSE)
-                && (response != Attendees.ATTENDEE_STATUS_NONE)) {
+        if ((mOriginalAttendeeResponse != Attendees.ATTENDEE_STATUS_INVITED)
+                && (mOriginalAttendeeResponse != ATTENDEE_NO_RESPONSE)
+                && (mOriginalAttendeeResponse != Attendees.ATTENDEE_STATUS_NONE)) {
             CharSequence[] entries;
             entries = getResources().getTextArray(R.array.response_labels2);
             mResponseOffset = -1;
@@ -558,7 +577,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
             spinner.setAdapter(adapter);
         }
 
-        int index = findResponseIndexFor(response);
+        int index = findResponseIndexFor(mOriginalAttendeeResponse);
         spinner.setSelection(index + mResponseOffset);
     }
 

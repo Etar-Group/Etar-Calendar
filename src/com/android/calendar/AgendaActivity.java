@@ -52,18 +52,19 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
 
     private static final String[] PROJECTION = new String[] {
-        Instances._ID,              // 0
-        Instances.TITLE,            // 1
-        Instances.EVENT_LOCATION,   // 2
-        Instances.ALL_DAY,          // 3
-        Instances.HAS_ALARM,        // 4
-        Instances.COLOR,            // 5
-        Instances.RRULE,            // 6
-        Instances.BEGIN,            // 7
-        Instances.END,              // 8
-        Instances.EVENT_ID,         // 9
-        Instances.START_DAY,        // 10  Julian start day
-        Instances.END_DAY,          // 11  Julian end day
+        Instances._ID,                  // 0
+        Instances.TITLE,                // 1
+        Instances.EVENT_LOCATION,       // 2
+        Instances.ALL_DAY,              // 3
+        Instances.HAS_ALARM,            // 4
+        Instances.COLOR,                // 5
+        Instances.RRULE,                // 6
+        Instances.BEGIN,                // 7
+        Instances.END,                  // 8
+        Instances.EVENT_ID,             // 9
+        Instances.START_DAY,            // 10  Julian start day
+        Instances.END_DAY,              // 11  Julian end day
+        Instances.SELF_ATTENDEE_STATUS, // 12
     };
 
     public static final int INDEX_TITLE = 1;
@@ -77,6 +78,7 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
     public static final int INDEX_EVENT_ID = 9;
     public static final int INDEX_START_DAY = 10;
     public static final int INDEX_END_DAY = 11;
+    public static final int INDEX_SELF_ATTENDEE_STATUS = 12;
 
     public static final String AGENDA_SORT_ORDER = "startDay ASC, begin ASC, title ASC";
 

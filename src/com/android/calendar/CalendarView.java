@@ -2060,6 +2060,13 @@ public class CalendarView extends View
             }
         }
 
+        // Fade visible boxes if event was declined.
+        boolean declined = (event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED);
+        int targetAlpha = declined ? 128 : 255;
+
+        box.setAlpha(targetAlpha);
+        p.setAlpha(targetAlpha);
+
         RectF rf = mRectF;
         rf.top = event.top;
         rf.bottom = event.bottom;
