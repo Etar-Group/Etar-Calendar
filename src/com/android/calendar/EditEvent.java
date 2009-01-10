@@ -1350,13 +1350,13 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private void checkTimeDependentFields(ContentValues values) {
         long oldBegin = mInitialValues.getAsLong(EVENT_BEGIN_TIME);
         long oldEnd = mInitialValues.getAsLong(EVENT_END_TIME);
-        boolean oldAllDay = mInitialValues.getAsBoolean(Events.ALL_DAY);
+        boolean oldAllDay = mInitialValues.getAsInteger(Events.ALL_DAY) != 0;
         String oldRrule = mInitialValues.getAsString(Events.RRULE);
         String oldTimezone = mInitialValues.getAsString(Events.EVENT_TIMEZONE);
         
         long newBegin = values.getAsLong(Events.DTSTART);
         long newEnd = values.getAsLong(Events.DTEND);
-        boolean newAllDay = values.getAsInteger(Events.ALL_DAY) == 1;
+        boolean newAllDay = values.getAsInteger(Events.ALL_DAY) != 0;
         String newRrule = values.getAsString(Events.RRULE);
         String newTimezone = values.getAsString(Events.EVENT_TIMEZONE);
         

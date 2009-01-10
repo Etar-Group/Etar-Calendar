@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item>"5 minutes"</item>
+    <item>"10 minutes"</item>
+    <item>"15 minutes"</item>
+    <item>"20 minutes"</item>
+    <item>"25 minutes"</item>
+    <item>"30 minutes"</item>
+    <item>"45 minutes"</item>
+    <item>"1 heure"</item>
+    <item>"2 heures"</item>
+    <item>"3 heures"</item>
+    <item>"12 heures"</item>
+    <item>"24 heures"</item>
+    <item>"2 jours"</item>
+    <item>"1 semaine"</item>
+  </string-array>
+  <string-array name="reminder_minutes_values">
+    <item>"5"</item>
+    <item>"10"</item>
+    <item>"15"</item>
+    <item>"20"</item>
+    <item>"25"</item>
+    <item>"30"</item>
+    <item>"45"</item>
+    <item>"60"</item>
+    <item>"120"</item>
+    <item>"180"</item>
+    <item>"720"</item>
+    <item>"1440"</item>
+    <item>"2880"</item>
+    <item>"10080"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item>"Aucun"</item>
+    <item>"5 minutes"</item>
+    <item>"10 minutes"</item>
+    <item>"15 minutes"</item>
+    <item>"20 minutes"</item>
+    <item>"25 minutes"</item>
+    <item>"30 minutes"</item>
+    <item>"45 minutes"</item>
+    <item>"1 heure"</item>
+    <item>"2 heures"</item>
+    <item>"3 heures"</item>
+    <item>"12 heures"</item>
+    <item>"24 heures"</item>
+    <item>"2 jours"</item>
+    <item>"1 semaine"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_values">
+    <item>"0"</item>
+    <item>"5"</item>
+    <item>"10"</item>
+    <item>"15"</item>
+    <item>"20"</item>
+    <item>"25"</item>
+    <item>"30"</item>
+    <item>"45"</item>
+    <item>"60"</item>
+    <item>"120"</item>
+    <item>"180"</item>
+    <item>"720"</item>
+    <item>"1440"</item>
+    <item>"2880"</item>
+    <item>"10080"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item>"Alerte"</item>
+    <item>"Notification de barre d\'état"</item>
+    <item>"Désactivé"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_values">
+    <item>"0"</item>
+    <item>"1"</item>
+    <item>"2"</item>
+  </string-array>
+    <!-- no translation found for availability:0 (454869065893453189) -->
+    <!-- no translation found for availability:1 (6228387173725732140) -->
+  <string-array name="visibility">
+    <item>"Par défaut"</item>
+    <item>"Privé"</item>
+    <item>"Public"</item>
+  </string-array>
+  <string-array name="day_labels">
+    <item>"dimanche"</item>
+    <item>"lundi"</item>
+    <item>"mardi"</item>
+    <item>"mercredi"</item>
+    <item>"jeudi"</item>
+    <item>"vendredi"</item>
+    <item>"samedi"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item>"premier"</item>
+    <item>"seconde"</item>
+    <item>"troisième"</item>
+    <item>"quatrième"</item>
+    <item>"dernier"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item>"(Aucune réponse)"</item>
+    <item>"Oui"</item>
+    <item>"Peut-être"</item>
+    <item>"Non"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item>"Oui"</item>
+    <item>"Peut-être"</item>
+    <item>"Non"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>"Uniquement cet événement"</item>
+    <item>"Cet événement et les suivants"</item>
+    <item>"Tous les événements"</item>
+  </string-array>
+    <!-- no translation found for delete_repeating_labels_no_selected:0 (1341910309321756150) -->
+    <!-- no translation found for delete_repeating_labels_no_selected:1 (6315440193748139854) -->
+</resources>

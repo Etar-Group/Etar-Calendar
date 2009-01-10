@@ -22,6 +22,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Reminders;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -59,6 +60,13 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         ImageView stripe = (ImageView) view.findViewById(R.id.vertical_stripe);
         int color = cursor.getInt(AgendaActivity.INDEX_COLOR) & 0xbbffffff;
         stripe.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        
+        // Fade visible boxes if event was declined.
+        int selfAttendeeStatus = cursor.getInt(AgendaActivity.INDEX_SELF_ATTENDEE_STATUS);
+        boolean declined = (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED);
+        int targetAlpha = declined ? 128 : 255;
+
+        view.getBackground().setAlpha(targetAlpha);
         
         // What
         TextView title = (TextView) view.findViewById(R.id.title);

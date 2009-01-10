@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item>"5 分钟"</item>
+    <item>"10 分钟"</item>
+    <item>"15 分钟"</item>
+    <item>"20 分钟"</item>
+    <item>"25 分钟"</item>
+    <item>"30 分钟"</item>
+    <item>"45 分钟"</item>
+    <item>"1 小时"</item>
+    <item>"2 小时"</item>
+    <item>"3 小时"</item>
+    <item>"12 小时"</item>
+    <item>"24 小时"</item>
+    <item>"2 天"</item>
+    <item>"1 周"</item>
+  </string-array>
+  <string-array name="reminder_minutes_values">
+    <item>"5"</item>
+    <item>"10"</item>
+    <item>"15"</item>
+    <item>"20"</item>
+    <item>"25"</item>
+    <item>"30"</item>
+    <item>"45"</item>
+    <item>"60"</item>
+    <item>"120"</item>
+    <item>"180"</item>
+    <item>"720"</item>
+    <item>"1440"</item>
+    <item>"2880"</item>
+    <item>"10080"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item>"无"</item>
+    <item>"5 分钟"</item>
+    <item>"10 分钟"</item>
+    <item>"15 分钟"</item>
+    <item>"20 分钟"</item>
+    <item>"25 分钟"</item>
+    <item>"30 分钟"</item>
+    <item>"45 分钟"</item>
+    <item>"1 小时"</item>
+    <item>"2 小时"</item>
+    <item>"3 小时"</item>
+    <item>"12 小时"</item>
+    <item>"24 小时"</item>
+    <item>"2 天"</item>
+    <item>"1 周"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_values">
+    <item>"0"</item>
+    <item>"5"</item>
+    <item>"10"</item>
+    <item>"15"</item>
+    <item>"20"</item>
+    <item>"25"</item>
+    <item>"30"</item>
+    <item>"45"</item>
+    <item>"60"</item>
+    <item>"120"</item>
+    <item>"180"</item>
+    <item>"720"</item>
+    <item>"1440"</item>
+    <item>"2880"</item>
+    <item>"10080"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item>"提醒"</item>
+    <item>"状态栏通知"</item>
+    <item>"关闭"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_values">
+    <item>"0"</item>
+    <item>"1"</item>
+    <item>"2"</item>
+  </string-array>
+    <!-- no translation found for availability:0 (454869065893453189) -->
+    <!-- no translation found for availability:1 (6228387173725732140) -->
+  <string-array name="visibility">
+    <item>"默认"</item>
+    <item>"私人"</item>
+    <item>"公共"</item>
+  </string-array>
+  <string-array name="day_labels">
+    <item>"星期日"</item>
+    <item>"星期一"</item>
+    <item>"星期二"</item>
+    <item>"星期三"</item>
+    <item>"星期四"</item>
+    <item>"星期五"</item>
+    <item>"星期六"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item>"第一个"</item>
+    <item>"第二个"</item>
+    <item>"第三个"</item>
+    <item>"第四个"</item>
+    <item>"上一"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item>"（未响应）"</item>
+    <item>"是"</item>
+    <item>"不确定"</item>
+    <item>"否"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item>"是"</item>
+    <item>"不确定"</item>
+    <item>"否"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>"仅此活动"</item>
+    <item>"此活动和将来的活动"</item>
+    <item>"所有活动"</item>
+  </string-array>
+    <!-- no translation found for delete_repeating_labels_no_selected:0 (1341910309321756150) -->
+    <!-- no translation found for delete_repeating_labels_no_selected:1 (6315440193748139854) -->
+</resources>
