@@ -368,13 +368,20 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
     public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
         MenuItem item;
-
-        item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.day_view);
+        
+        final long startMillis = getSelectedTimeInMillis();
+        final int flags = DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE
+                | DateUtils.FORMAT_ABBREV_MONTH;
+       
+        final String title = DateUtils.formatDateTime(mParentActivity, startMillis, flags);    
+        menu.setHeaderTitle(title);
+        
+        item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.show_day_view);
         item.setOnMenuItemClickListener(mContextMenuHandler);
         item.setIcon(android.R.drawable.ic_menu_day);
         item.setAlphabeticShortcut('d');
 
-        item = menu.add(0, MenuHelper.MENU_AGENDA, 0, R.string.agenda_view);
+        item = menu.add(0, MenuHelper.MENU_AGENDA, 0, R.string.show_agenda_view);
         item.setOnMenuItemClickListener(mContextMenuHandler);
         item.setIcon(android.R.drawable.ic_menu_agenda);
         item.setAlphabeticShortcut('a');
@@ -983,6 +990,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         Time time = mTempTime;
         time.set(mViewCalendar);
 
+        time.month += mCursor.getSelectedMonthOffset();
         time.monthDay = mCursor.getSelectedDayOfMonth();
 
         // Restore the saved hour:minute:second offset from when we entered

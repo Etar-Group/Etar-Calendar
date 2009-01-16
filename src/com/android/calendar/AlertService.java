@@ -21,6 +21,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,7 +42,7 @@ import android.provider.Calendar.Instances;
 import android.provider.Calendar.Reminders;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.util.Config;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -359,6 +360,28 @@ public class AlertService extends Service {
             
             AlertAdapter.updateView(this, view, eventName, location, beginTime, endTime, allDay);
         }
+        
+        // Record the notify time in the CalendarAlerts table.
+        // This is used for debugging missed alarms.
+        ContentValues values = new ContentValues();
+        long currentTime = System.currentTimeMillis();
+        values.put(CalendarAlerts.NOTIFY_TIME, currentTime);
+        cr.update(alertUri, values, null /* where */, null /* args */);
+        
+        // The notification time should be pretty close to the reminder time
+        // that the user set for this event.  If the notification is late, then
+        // that's a bug and we should log an error.
+        if (currentTime > alarmTime + DateUtils.MINUTE_IN_MILLIS) {
+            long minutesLate = (currentTime - alarmTime) / DateUtils.MINUTE_IN_MILLIS;
+            int flags = DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_TIME;
+            String alarmTimeStr = DateUtils.formatDateTime(this, alarmTime, flags);
+            String currentTimeStr = DateUtils.formatDateTime(this, currentTime, flags);
+            Log.w(TAG, "Calendar reminder alarm for event id " + eventId
+                    + " is " + minutesLate + " minute(s) late;"
+                    + " expected alarm at: " + alarmTimeStr
+                    + " but got it at: " + currentTimeStr);
+        }
+
         nm.notify(0, notification);
     }
     

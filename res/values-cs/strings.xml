@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label">"Kalendář"</string>
+    <string name="calendar_plug"><font fgcolor="#ffffffff">"Vítá vás Kalendář Google!"</font>" "\n" Přístup společnosti Google ke správě vašeho časového plánu je založen na myšlence, že plánování událostí může být intuitivnější, efektivnější a přístupnější."</string>
+    <string name="what_label">"Co"</string>
+    <string name="when_label">"Kdy"</string>
+    <string name="where_label">"Kde"</string>
+    <string name="repeats_label">"Opakování"</string>
+    <string name="no_title_label">"(Bez předmětu)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one">"1 minuta"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minut"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one">"1 min"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one">"1 hodina"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> hod."</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one">"1 den"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> dnů"</item>
+  </plurals>
+    <string name="agenda_view">"Agenda"</string>
+    <string name="day_view">"Den"</string>
+    <string name="week_view">"Týden"</string>
+    <string name="month_view">"Měsíc"</string>
+    <string name="event_view">"Zobrazit událost"</string>
+    <string name="event_create">"Nová událost"</string>
+    <string name="event_edit">"Upravit událost"</string>
+    <string name="event_delete">"Odstranit událost"</string>
+    <string name="goto_today">"Dnes"</string>
+    <string name="menu_select_calendars">"Moje kalendáře"</string>
+    <string name="menu_preferences">"Nastavení"</string>
+    <string name="plus_N_more">"(plus o <xliff:g id="MORE_COUNT">%d</xliff:g> více …)"</string>
+    <string name="calendars_title">"Moje kalendáře"</string>
+    <string name="add_calendars">"Přidat kalendáře"</string>
+    <string name="remove_calendars">"Odebrat kalendáře"</string>
+    <string name="event_edit_title">"Podrobnosti události"</string>
+    <string name="hint_what">"Název události"</string>
+    <string name="hint_where">"Místo události"</string>
+    <string name="hint_description">"Popis události"</string>
+    <string name="creating_event">"Vytváření události…"</string>
+    <string name="saving_event">"Ukládání události…"</string>
+    <string name="loading_calendars_title">"Načítání kalendářů"</string>
+    <string name="loading_calendars_message">"Načítání kalendářů..."</string>
+    <string name="alert_when_label">"Kdy:"</string>
+    <string name="alert_where_label">"Kde:"</string>
+    <string name="alert_missed_events_single">"(zbývá <xliff:g id="REMINDER_COUNT">%s</xliff:g> připomenutí)"</string>
+    <string name="alert_missed_events_multiple">"(zbývá připomenutí: <xliff:g id="REMINDER_COUNT">%s</xliff:g>)"</string>
+    <string name="event_info_title">"Zobrazit událost"</string>
+    <string name="event_info_title_invite">"Pozvánka na schůzku"</string>
+    <string name="add_new_reminder">"Přidat připomenutí"</string>
+    <string name="edit_event_to_label">"Do"</string>
+    <string name="edit_event_from_label">"Od"</string>
+    <string name="edit_event_all_day_label">"Celý den"</string>
+    <string name="edit_event_calendar_label">"Kalendář"</string>
+    <string name="edit_event_show_extra_options">"Zobrazit další možnosti"</string>
+    <string name="edit_event_hide_extra_options">"Skrýt další možnosti"</string>
+    <string name="description_label">"Popis"</string>
+    <string name="presence_label">"Účast"</string>
+    <string name="privacy_label">"Přístupnost"</string>
+    <string name="reminders_label">"Připomenutí"</string>
+    <string name="no_syncable_calendars">"Žádné kalendáře"</string>
+    <string name="no_calendars_found">"Nemáte žádné kalendáře."</string>
+    <string name="view_event_calendar_label">"Kalendář"</string>
+    <string name="view_event_timezone_label">"Místní časové pásmo"</string>
+    <string name="view_event_response_label">"Zúčastníte se?"</string>
+    <string name="agenda_today">"Dnes"</string>
+    <string name="num_events">"Počet událostí"</string>
+    <string name="edit_event_label">"Upravit událost"</string>
+    <string name="delete_label">"Smazat"</string>
+    <string name="delete_event_label">"Odstranit událost"</string>
+    <string name="save_label">"Uložit"</string>
+    <string name="discard_label">"Zrušit změny"</string>
+    <string name="import_label">"Importovat"</string>
+    <string name="snooze_all_label">"Odložit vše"</string>
+    <string name="dismiss_all_label">"Zavřít vše"</string>
+    <string name="does_not_repeat">"Jednorázová událost"</string>
+    <string name="daily">"Denně"</string>
+    <string name="every_weekday">"Každý pracovní den (po–pá)"</string>
+    <string name="weekly">"Týdně (vždy <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count">"Měsíčně (vždy <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day">"Měsíčně (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>. den)"</string>
+    <string name="yearly">"Ročně (<xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom">"Vlastní... (nelze personalizovat v telefonu)"</string>
+    <string name="modify_event">"Změnit pouze tuto událost"</string>
+    <string name="modify_all">"Změnit všechny události série"</string>
+    <string name="modify_all_following">"Změnit tuto událost a všechny budoucí"</string>
+    <string name="delete_this_event_title">"Tato událost bude odstraněna."</string>
+    <string name="delete_title">"Smazat"</string>
+    <string name="preferences_title">"Nastavení"</string>
+    <string name="preferences_general_title">"Nastavení zobrazení kalendáře"</string>
+    <string name="preferences_alerts_title">"Nastavení připomenutí"</string>
+    <string name="preferences_hide_declined_title">"Skrýt odmítnuté události"</string>
+    <string name="preferences_alerts_type_title">"Nastavit upozornění a oznámení"</string>
+    <string name="preferences_alerts_type_dialog">"Upozornění a oznámení"</string>
+    <string name="preferences_alerts_vibrate_title">"Vibrace"</string>
+    <string name="preferences_alerts_ringtone_title">"Vybrat zvonění"</string>
+    <string name="preferences_default_reminder_title">"Nastavit výchozí připomenutí"</string>
+    <string name="preferences_default_reminder_dialog">"Výchozí čas připomenutí"</string>
+    <string name="preferences_default_reminder_default">"10"</string>
+</resources>

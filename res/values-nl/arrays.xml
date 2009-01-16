@@ -2,20 +2,20 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_minutes_labels">
-    <item>"5 minutes"</item>
-    <item>"10 minutes"</item>
-    <item>"15 minutes"</item>
-    <item>"20 minutes"</item>
-    <item>"25 minutes"</item>
-    <item>"30 minutes"</item>
-    <item>"45 minutes"</item>
-    <item>"1 heure"</item>
-    <item>"2 heures"</item>
-    <item>"3 heures"</item>
-    <item>"12 heures"</item>
-    <item>"24 heures"</item>
-    <item>"2 jours"</item>
-    <item>"1 semaine"</item>
+    <item>"5 minuten"</item>
+    <item>"10 minuten"</item>
+    <item>"15 minuten"</item>
+    <item>"20 minuten"</item>
+    <item>"25 minuten"</item>
+    <item>"30 minuten"</item>
+    <item>"45 minuten"</item>
+    <item>"1 uur"</item>
+    <item>"2 uur"</item>
+    <item>"3 uur"</item>
+    <item>"12 uur"</item>
+    <item>"24 uur"</item>
+    <item>"2 dagen"</item>
+    <item>"1 week"</item>
   </string-array>
   <string-array name="reminder_minutes_values">
     <item>"5"</item>
@@ -34,21 +34,21 @@
     <item>"10080"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
-    <item>"Aucun"</item>
-    <item>"5 minutes"</item>
-    <item>"10 minutes"</item>
-    <item>"15 minutes"</item>
-    <item>"20 minutes"</item>
-    <item>"25 minutes"</item>
-    <item>"30 minutes"</item>
-    <item>"45 minutes"</item>
-    <item>"1 heure"</item>
-    <item>"2 heures"</item>
-    <item>"3 heures"</item>
-    <item>"12 heures"</item>
-    <item>"24 heures"</item>
-    <item>"2 jours"</item>
-    <item>"1 semaine"</item>
+    <item>"Geen"</item>
+    <item>"5 minuten"</item>
+    <item>"10 minuten"</item>
+    <item>"15 minuten"</item>
+    <item>"20 minuten"</item>
+    <item>"25 minuten"</item>
+    <item>"30 minuten"</item>
+    <item>"45 minuten"</item>
+    <item>"1 uur"</item>
+    <item>"2 uur"</item>
+    <item>"3 uur"</item>
+    <item>"12 uur"</item>
+    <item>"24 uur"</item>
+    <item>"2 dagen"</item>
+    <item>"1 week"</item>
   </string-array>
   <string-array name="preferences_default_reminder_values">
     <item>"0"</item>
@@ -68,9 +68,9 @@
     <item>"10080"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"Alerte"</item>
-    <item>"Notification de barre d\'état"</item>
-    <item>"Désactivé"</item>
+    <item>"Melding"</item>
+    <item>"Statusbalkmelding"</item>
+    <item>"Uit"</item>
   </string-array>
   <string-array name="preferences_alert_type_values">
     <item>"0"</item>
@@ -78,48 +78,48 @@
     <item>"2"</item>
   </string-array>
   <string-array name="availability">
-    <item>"Occupé"</item>
-    <item>"Disponible"</item>
+    <item>"Bezet"</item>
+    <item>"Beschikbaar"</item>
   </string-array>
   <string-array name="visibility">
-    <item>"Par défaut"</item>
+    <item>"Standaard"</item>
     <item>"Privé"</item>
-    <item>"Public"</item>
+    <item>"Openbaar"</item>
   </string-array>
   <string-array name="day_labels">
-    <item>"dimanche"</item>
-    <item>"lundi"</item>
-    <item>"mardi"</item>
-    <item>"mercredi"</item>
-    <item>"jeudi"</item>
-    <item>"vendredi"</item>
-    <item>"samedi"</item>
+    <item>"Zondag"</item>
+    <item>"Maandag"</item>
+    <item>"Dinsdag"</item>
+    <item>"Woensdag"</item>
+    <item>"Donderdag"</item>
+    <item>"Vrijdag"</item>
+    <item>"Zaterdag"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"premier"</item>
-    <item>"seconde"</item>
-    <item>"troisième"</item>
-    <item>"quatrième"</item>
-    <item>"dernier"</item>
+    <item>"eerste"</item>
+    <item>"tweede"</item>
+    <item>"derde"</item>
+    <item>"vierde"</item>
+    <item>"laatste"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"(Aucune réponse)"</item>
-    <item>"Oui"</item>
-    <item>"Peut-être"</item>
-    <item>"Non"</item>
+    <item>"(Geen antwoord)"</item>
+    <item>"Ja"</item>
+    <item>"Misschien"</item>
+    <item>"Nee"</item>
   </string-array>
   <string-array name="response_labels2">
-    <item>"Oui"</item>
-    <item>"Peut-être"</item>
-    <item>"Non"</item>
+    <item>"Ja"</item>
+    <item>"Misschien"</item>
+    <item>"Nee"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>"Uniquement cet événement"</item>
-    <item>"Cet événement et les suivants"</item>
-    <item>"Tous les événements"</item>
+    <item>"Alleen deze afspraak"</item>
+    <item>"Deze en toekomstige afspraken"</item>
+    <item>"Alle afspraken"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>"Cet événement et les suivants"</item>
-    <item>"Tous les événements"</item>
+    <item>"Deze en toekomstige afspraken"</item>
+    <item>"Alle afspraken"</item>
   </string-array>
 </resources>
