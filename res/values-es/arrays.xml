@@ -2,20 +2,20 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_minutes_labels">
-    <item>"5 minutes"</item>
-    <item>"10 minutes"</item>
-    <item>"15 minutes"</item>
-    <item>"20 minutes"</item>
-    <item>"25 minutes"</item>
-    <item>"30 minutes"</item>
-    <item>"45 minutes"</item>
-    <item>"1 heure"</item>
-    <item>"2 heures"</item>
-    <item>"3 heures"</item>
-    <item>"12 heures"</item>
-    <item>"24 heures"</item>
-    <item>"2 jours"</item>
-    <item>"1 semaine"</item>
+    <item>"5 minutos"</item>
+    <item>"10 minutos"</item>
+    <item>"15 minutos"</item>
+    <item>"20 minutos"</item>
+    <item>"25 minutos"</item>
+    <item>"30 minutos"</item>
+    <item>"45 minutos"</item>
+    <item>"1 hora"</item>
+    <item>"2 horas"</item>
+    <item>"3 horas"</item>
+    <item>"12 horas"</item>
+    <item>"24 horas"</item>
+    <item>"2 días"</item>
+    <item>"1 semana"</item>
   </string-array>
   <string-array name="reminder_minutes_values">
     <item>"5"</item>
@@ -34,21 +34,21 @@
     <item>"10080"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
-    <item>"Aucun"</item>
-    <item>"5 minutes"</item>
-    <item>"10 minutes"</item>
-    <item>"15 minutes"</item>
-    <item>"20 minutes"</item>
-    <item>"25 minutes"</item>
-    <item>"30 minutes"</item>
-    <item>"45 minutes"</item>
-    <item>"1 heure"</item>
-    <item>"2 heures"</item>
-    <item>"3 heures"</item>
-    <item>"12 heures"</item>
-    <item>"24 heures"</item>
-    <item>"2 jours"</item>
-    <item>"1 semaine"</item>
+    <item>"Ninguno"</item>
+    <item>"5 minutos"</item>
+    <item>"10 minutos"</item>
+    <item>"15 minutos"</item>
+    <item>"20 minutos"</item>
+    <item>"25 minutos"</item>
+    <item>"30 minutos"</item>
+    <item>"45 minutos"</item>
+    <item>"1 hora"</item>
+    <item>"2 horas"</item>
+    <item>"3 horas"</item>
+    <item>"12 horas"</item>
+    <item>"24 horas"</item>
+    <item>"2 días"</item>
+    <item>"1 semana"</item>
   </string-array>
   <string-array name="preferences_default_reminder_values">
     <item>"0"</item>
@@ -68,9 +68,9 @@
     <item>"10080"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"Alerte"</item>
-    <item>"Notification de barre d\'état"</item>
-    <item>"Désactivé"</item>
+    <item>"Alertar"</item>
+    <item>"Notificación de la barra de estado"</item>
+    <item>"Desconectado"</item>
   </string-array>
   <string-array name="preferences_alert_type_values">
     <item>"0"</item>
@@ -78,48 +78,48 @@
     <item>"2"</item>
   </string-array>
   <string-array name="availability">
-    <item>"Occupé"</item>
+    <item>"Ocupado"</item>
     <item>"Disponible"</item>
   </string-array>
   <string-array name="visibility">
-    <item>"Par défaut"</item>
-    <item>"Privé"</item>
-    <item>"Public"</item>
+    <item>"Predeterminado"</item>
+    <item>"Privado"</item>
+    <item>"Público"</item>
   </string-array>
   <string-array name="day_labels">
-    <item>"dimanche"</item>
-    <item>"lundi"</item>
-    <item>"mardi"</item>
-    <item>"mercredi"</item>
-    <item>"jeudi"</item>
-    <item>"vendredi"</item>
-    <item>"samedi"</item>
+    <item>"Domingo"</item>
+    <item>"Lunes"</item>
+    <item>"Martes"</item>
+    <item>"Miércoles"</item>
+    <item>"Jueves"</item>
+    <item>"Viernes"</item>
+    <item>"Sábado"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"premier"</item>
-    <item>"seconde"</item>
-    <item>"troisième"</item>
-    <item>"quatrième"</item>
-    <item>"dernier"</item>
+    <item>"primero"</item>
+    <item>"segundo"</item>
+    <item>"tercero"</item>
+    <item>"cuarto"</item>
+    <item>"último"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"(Aucune réponse)"</item>
-    <item>"Oui"</item>
-    <item>"Peut-être"</item>
-    <item>"Non"</item>
+    <item>"(No responde)"</item>
+    <item>"Sí"</item>
+    <item>"Quizás"</item>
+    <item>"No"</item>
   </string-array>
   <string-array name="response_labels2">
-    <item>"Oui"</item>
-    <item>"Peut-être"</item>
-    <item>"Non"</item>
+    <item>"Sí"</item>
+    <item>"Quizás"</item>
+    <item>"No"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>"Uniquement cet événement"</item>
-    <item>"Cet événement et les suivants"</item>
-    <item>"Tous les événements"</item>
+    <item>"Sólo este evento"</item>
+    <item>"Este evento y eventos futuros"</item>
+    <item>"Todos los eventos"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>"Cet événement et les suivants"</item>
-    <item>"Tous les événements"</item>
+    <item>"Éste y otros eventos posteriores"</item>
+    <item>"Todos los eventos"</item>
   </string-array>
 </resources>

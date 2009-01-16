@@ -6,8 +6,7 @@
     <string name="what_label">"Titolo"</string>
     <string name="when_label">"Intervallo di tempo"</string>
     <string name="where_label">"Posizione"</string>
-    <!-- no translation found for repeats_label (7414023871434593196) -->
-    <skip />
+    <string name="repeats_label">"Ripetizione"</string>
     <string name="no_title_label">"(Nessun oggetto)"</string>
   <plurals name="Nminutes">
     <item quantity="one">"1 minuto"</item>
@@ -44,14 +43,10 @@
     <string name="hint_what">"Nome evento"</string>
     <string name="hint_where">"Luogo evento"</string>
     <string name="hint_description">"Descrizione evento"</string>
-    <!-- no translation found for creating_event (8237877638457604455) -->
-    <skip />
-    <!-- no translation found for saving_event (8853425146353785688) -->
-    <skip />
-    <!-- no translation found for loading_calendars_title (3819254313413902272) -->
-    <skip />
-    <!-- no translation found for loading_calendars_message (8266077515011438420) -->
-    <skip />
+    <string name="creating_event">"Creazione evento in corso…"</string>
+    <string name="saving_event">"Salvataggio evento in corso…"</string>
+    <string name="loading_calendars_title">"Caricamento calendari"</string>
+    <string name="loading_calendars_message">"Caricamento calendari in corso..."</string>
     <string name="alert_when_label">"Intervallo di tempo:"</string>
     <string name="alert_where_label">"Posizione:"</string>
     <string name="alert_missed_events_single">"(Altri <xliff:g id="REMINDER_COUNT">%s</xliff:g> promemoria)"</string>
@@ -69,10 +64,8 @@
     <string name="presence_label">"Presenza"</string>
     <string name="privacy_label">"Privacy"</string>
     <string name="reminders_label">"Promemoria"</string>
-    <!-- no translation found for no_syncable_calendars (7019488867045436129) -->
-    <skip />
-    <!-- no translation found for no_calendars_found (755379468136462058) -->
-    <skip />
+    <string name="no_syncable_calendars">"Nessun calendario"</string>
+    <string name="no_calendars_found">"Non sono presenti calendari."</string>
     <string name="view_event_calendar_label">"Calendario"</string>
     <string name="view_event_timezone_label">"Fuso orario locale"</string>
     <string name="view_event_response_label">"Partecipanti?"</string>
@@ -86,8 +79,7 @@
     <string name="import_label">"Importa"</string>
     <string name="snooze_all_label">"Posponi tutto"</string>
     <string name="dismiss_all_label">"Ignora tutto"</string>
-    <!-- no translation found for does_not_repeat (1877681921029738999) -->
-    <skip />
+    <string name="does_not_repeat">"Evento occasionale"</string>
     <string name="daily">"Ogni giorno"</string>
     <string name="every_weekday">"Ogni giorno della settimana (Lun-Ven)"</string>
     <string name="weekly">"Ogni settimana (ogni <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
@@ -105,12 +97,10 @@
     <string name="preferences_alerts_title">"Impostazioni promemoria"</string>
     <string name="preferences_hide_declined_title">"Nascondi eventi rifiutati"</string>
     <string name="preferences_alerts_type_title">"Imposta avvisi e notifiche"</string>
-    <!-- no translation found for preferences_alerts_type_dialog (2195667763429994271) -->
-    <skip />
+    <string name="preferences_alerts_type_dialog">"Avvisi e notifiche"</string>
     <string name="preferences_alerts_vibrate_title">"Vibrazione"</string>
     <string name="preferences_alerts_ringtone_title">"Seleziona suoneria"</string>
     <string name="preferences_default_reminder_title">"Imposta promemoria predefinito"</string>
-    <!-- no translation found for preferences_default_reminder_dialog (2490348857239323412) -->
-    <skip />
+    <string name="preferences_default_reminder_dialog">"Orario promemoria predefinito"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>

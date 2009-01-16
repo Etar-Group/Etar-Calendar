@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item>"5 минут"</item>
+    <item>"10 минут"</item>
+    <item>"15 минут"</item>
+    <item>"20 минут"</item>
+    <item>"25 минут"</item>
+    <item>"30 минут"</item>
+    <item>"45 минут"</item>
+    <item>"1 час"</item>
+    <item>"2 часа"</item>
+    <item>"3 часа"</item>
+    <item>"12 часов"</item>
+    <item>"24 часа"</item>
+    <item>"2 дня"</item>
+    <item>"1 неделя"</item>
+  </string-array>
+  <string-array name="reminder_minutes_values">
+    <item>"5"</item>
+    <item>"10"</item>
+    <item>"15"</item>
+    <item>"20"</item>
+    <item>"25"</item>
+    <item>"30"</item>
+    <item>"45"</item>
+    <item>"60"</item>
+    <item>"120"</item>
+    <item>"180"</item>
+    <item>"720"</item>
+    <item>"1440"</item>
+    <item>"2880"</item>
+    <item>"10080"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item>"Нет"</item>
+    <item>"5 минут"</item>
+    <item>"10 минут"</item>
+    <item>"15 минут"</item>
+    <item>"20 минут"</item>
+    <item>"25 минут"</item>
+    <item>"30 минут"</item>
+    <item>"45 минут"</item>
+    <item>"1 час"</item>
+    <item>"2 часа"</item>
+    <item>"3 часа"</item>
+    <item>"12 часов"</item>
+    <item>"24 часа"</item>
+    <item>"2 дня"</item>
+    <item>"1 неделя"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_values">
+    <item>"0"</item>
+    <item>"5"</item>
+    <item>"10"</item>
+    <item>"15"</item>
+    <item>"20"</item>
+    <item>"25"</item>
+    <item>"30"</item>
+    <item>"45"</item>
+    <item>"60"</item>
+    <item>"120"</item>
+    <item>"180"</item>
+    <item>"720"</item>
+    <item>"1440"</item>
+    <item>"2880"</item>
+    <item>"10080"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item>"Оповещение"</item>
+    <item>"Уведомление в строке состояния"</item>
+    <item>"Выкл"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_values">
+    <item>"0"</item>
+    <item>"1"</item>
+    <item>"2"</item>
+  </string-array>
+  <string-array name="availability">
+    <item>"Занято"</item>
+    <item>"Свободно"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item>"По умолчанию"</item>
+    <item>"Закрыт."</item>
+    <item>"Открыт."</item>
+  </string-array>
+  <string-array name="day_labels">
+    <item>"Воскресенье"</item>
+    <item>"Понедельник"</item>
+    <item>"Вторник"</item>
+    <item>"Среда"</item>
+    <item>"Четверг"</item>
+    <item>"Пятница"</item>
+    <item>"Суббота"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item>"перв."</item>
+    <item>"втор."</item>
+    <item>"трет."</item>
+    <item>"четверт."</item>
+    <item>"посл."</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item>"(нет ответа)"</item>
+    <item>"Да"</item>
+    <item>"Может быть"</item>
+    <item>"Нет"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item>"Да"</item>
+    <item>"Может быть"</item>
+    <item>"Нет"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>"Только это мероприятие"</item>
+    <item>"Это и будущие события"</item>
+    <item>"Все мероприятия"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item>"Это и будущие мероприятия"</item>
+    <item>"Все мероприятия"</item>
+  </string-array>
+</resources>

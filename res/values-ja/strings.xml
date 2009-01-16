@@ -6,8 +6,7 @@
     <string name="what_label">"タイトル"</string>
     <string name="when_label">"日時"</string>
     <string name="where_label">"場所"</string>
-    <!-- no translation found for repeats_label (7414023871434593196) -->
-    <skip />
+    <string name="repeats_label">"繰り返し"</string>
     <string name="no_title_label">"(無題)"</string>
   <plurals name="Nminutes">
     <item quantity="one">"1分"</item>
@@ -44,14 +43,10 @@
     <string name="hint_what">"予定の名前"</string>
     <string name="hint_where">"予定の場所"</string>
     <string name="hint_description">"予定の説明"</string>
-    <!-- no translation found for creating_event (8237877638457604455) -->
-    <skip />
-    <!-- no translation found for saving_event (8853425146353785688) -->
-    <skip />
-    <!-- no translation found for loading_calendars_title (3819254313413902272) -->
-    <skip />
-    <!-- no translation found for loading_calendars_message (8266077515011438420) -->
-    <skip />
+    <string name="creating_event">"予定を作成中..."</string>
+    <string name="saving_event">"予定を保存中..."</string>
+    <string name="loading_calendars_title">"カレンダーを読み込み中"</string>
+    <string name="loading_calendars_message">"カレンダーを読み込み中..."</string>
     <string name="alert_when_label">"日時:"</string>
     <string name="alert_where_label">"場所:"</string>
     <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> 件の通知がありました)"</string>
@@ -69,10 +64,8 @@
     <string name="presence_label">"ステータス"</string>
     <string name="privacy_label">"プライバシー"</string>
     <string name="reminders_label">"通知"</string>
-    <!-- no translation found for no_syncable_calendars (7019488867045436129) -->
-    <skip />
-    <!-- no translation found for no_calendars_found (755379468136462058) -->
-    <skip />
+    <string name="no_syncable_calendars">"カレンダーがありません"</string>
+    <string name="no_calendars_found">"カレンダーがありません。"</string>
     <string name="view_event_calendar_label">"カレンダー"</string>
     <string name="view_event_timezone_label">"ローカル タイムゾーン"</string>
     <string name="view_event_response_label">"参加しますか？"</string>
@@ -86,8 +79,7 @@
     <string name="import_label">"インポート"</string>
     <string name="snooze_all_label">"すべてスヌーズ"</string>
     <string name="dismiss_all_label">"すべて表示しない"</string>
-    <!-- no translation found for does_not_repeat (1877681921029738999) -->
-    <skip />
+    <string name="does_not_repeat">"一度だけの予定"</string>
     <string name="daily">"毎日"</string>
     <string name="every_weekday">"平日 (月～金)"</string>
     <string name="weekly">"毎週 (<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
@@ -105,12 +97,10 @@
     <string name="preferences_alerts_title">"通知の設定"</string>
     <string name="preferences_hide_declined_title">"辞退した予定を表示しない"</string>
     <string name="preferences_alerts_type_title">"アラートと通知を設定"</string>
-    <!-- no translation found for preferences_alerts_type_dialog (2195667763429994271) -->
-    <skip />
+    <string name="preferences_alerts_type_dialog">"アラートと通知"</string>
     <string name="preferences_alerts_vibrate_title">"バイブレーション"</string>
     <string name="preferences_alerts_ringtone_title">"着信音を選択"</string>
     <string name="preferences_default_reminder_title">"デフォルトの通知を設定"</string>
-    <!-- no translation found for preferences_default_reminder_dialog (2490348857239323412) -->
-    <skip />
+    <string name="preferences_default_reminder_dialog">"デフォルトの通知時間"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>

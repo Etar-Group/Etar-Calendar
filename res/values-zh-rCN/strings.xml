@@ -6,8 +6,7 @@
     <string name="what_label">"活动"</string>
     <string name="when_label">"时间"</string>
     <string name="where_label">"地点"</string>
-    <!-- no translation found for repeats_label (7414023871434593196) -->
-    <skip />
+    <string name="repeats_label">"重复频率"</string>
     <string name="no_title_label">"（无主题）"</string>
   <plurals name="Nminutes">
     <item quantity="one">"1 分钟"</item>
@@ -44,14 +43,10 @@
     <string name="hint_what">"活动名称"</string>
     <string name="hint_where">"活动地点"</string>
     <string name="hint_description">"活动描述"</string>
-    <!-- no translation found for creating_event (8237877638457604455) -->
-    <skip />
-    <!-- no translation found for saving_event (8853425146353785688) -->
-    <skip />
-    <!-- no translation found for loading_calendars_title (3819254313413902272) -->
-    <skip />
-    <!-- no translation found for loading_calendars_message (8266077515011438420) -->
-    <skip />
+    <string name="creating_event">"正在创建活动..."</string>
+    <string name="saving_event">"正在保存活动..."</string>
+    <string name="loading_calendars_title">"载入日历"</string>
+    <string name="loading_calendars_message">"正在载入日历..."</string>
     <string name="alert_when_label">"时间："</string>
     <string name="alert_where_label">"地点："</string>
     <string name="alert_missed_events_single">"（还有 <xliff:g id="REMINDER_COUNT">%s</xliff:g> 个提醒）"</string>
@@ -69,10 +64,8 @@
     <string name="presence_label">"现状"</string>
     <string name="privacy_label">"隐私性"</string>
     <string name="reminders_label">"提醒"</string>
-    <!-- no translation found for no_syncable_calendars (7019488867045436129) -->
-    <skip />
-    <!-- no translation found for no_calendars_found (755379468136462058) -->
-    <skip />
+    <string name="no_syncable_calendars">"无日历"</string>
+    <string name="no_calendars_found">"您没有日历。"</string>
     <string name="view_event_calendar_label">"日历"</string>
     <string name="view_event_timezone_label">"本地时区"</string>
     <string name="view_event_response_label">"是否参加？"</string>
@@ -86,8 +79,7 @@
     <string name="import_label">"导入"</string>
     <string name="snooze_all_label">"全部暂停"</string>
     <string name="dismiss_all_label">"全部解除"</string>
-    <!-- no translation found for does_not_repeat (1877681921029738999) -->
-    <skip />
+    <string name="does_not_repeat">"一次性活动"</string>
     <string name="daily">"每天"</string>
     <string name="every_weekday">"每个工作日（周一至周五）"</string>
     <string name="weekly">"每周（每个<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>）"</string>
@@ -105,12 +97,10 @@
     <string name="preferences_alerts_title">"提醒设置"</string>
     <string name="preferences_hide_declined_title">"隐藏拒绝的活动"</string>
     <string name="preferences_alerts_type_title">"设置提醒和通知"</string>
-    <!-- no translation found for preferences_alerts_type_dialog (2195667763429994271) -->
-    <skip />
+    <string name="preferences_alerts_type_dialog">"警报和通知"</string>
     <string name="preferences_alerts_vibrate_title">"振动"</string>
     <string name="preferences_alerts_ringtone_title">"选择铃声"</string>
     <string name="preferences_default_reminder_title">"设置默认提醒"</string>
-    <!-- no translation found for preferences_default_reminder_dialog (2490348857239323412) -->
-    <skip />
+    <string name="preferences_default_reminder_dialog">"默认提醒时间"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>

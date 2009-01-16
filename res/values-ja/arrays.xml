@@ -77,8 +77,10 @@
     <item>"1"</item>
     <item>"2"</item>
   </string-array>
-    <!-- no translation found for availability:0 (454869065893453189) -->
-    <!-- no translation found for availability:1 (6228387173725732140) -->
+  <string-array name="availability">
+    <item>"予定あり"</item>
+    <item>"予定なし"</item>
+  </string-array>
   <string-array name="visibility">
     <item>"デフォルト"</item>
     <item>"限定公開"</item>
@@ -116,6 +118,8 @@
     <item>"これ以降の予定"</item>
     <item>"すべての予定"</item>
   </string-array>
-    <!-- no translation found for delete_repeating_labels_no_selected:0 (1341910309321756150) -->
-    <!-- no translation found for delete_repeating_labels_no_selected:1 (6315440193748139854) -->
+  <string-array name="delete_repeating_labels_no_selected">
+    <item>"これ以降の予定"</item>
+    <item>"すべての予定"</item>
+  </string-array>
 </resources>

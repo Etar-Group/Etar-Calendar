@@ -2513,9 +2513,17 @@ public class CalendarView extends View
             invalidate();
         }
 
+        final long startMillis = getSelectedTimeInMillis();         
+        int flags = DateUtils.FORMAT_SHOW_TIME
+                | DateUtils.FORMAT_CAP_NOON_MIDNIGHT
+                | DateUtils.FORMAT_SHOW_WEEKDAY;
+        final String title = DateUtils.formatDateTime(mParentActivity, startMillis, flags);
+        menu.setHeaderTitle(title);
+        
         int numSelectedEvents = mSelectedEvents.size();
         if (mNumDays == 1) {
             // Day view.
+
             // If there is a selected event, then allow it to be viewed and
             // edited.
             if (numSelectedEvents >= 1) {
@@ -2548,6 +2556,7 @@ public class CalendarView extends View
             }
         } else {
             // Week view.
+            
             // If there is a selected event, then allow it to be viewed and
             // edited.
             if (numSelectedEvents >= 1) {
@@ -2571,12 +2580,12 @@ public class CalendarView extends View
                 item.setIcon(android.R.drawable.ic_menu_add);
                 item.setAlphabeticShortcut('n');
 
-                item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.day_view);
+                item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.show_day_view);
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_day);
                 item.setAlphabeticShortcut('d');
 
-                item = menu.add(0, MenuHelper.MENU_AGENDA, 0, R.string.agenda_view);
+                item = menu.add(0, MenuHelper.MENU_AGENDA, 0, R.string.show_agenda_view);
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_agenda);
                 item.setAlphabeticShortcut('a');
@@ -2587,12 +2596,12 @@ public class CalendarView extends View
                 item.setIcon(android.R.drawable.ic_menu_add);
                 item.setAlphabeticShortcut('n');
 
-                item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.day_view);
+                item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.show_day_view);
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_day);
                 item.setAlphabeticShortcut('d');
 
-                item = menu.add(0, MenuHelper.MENU_AGENDA, 0, R.string.agenda_view);
+                item = menu.add(0, MenuHelper.MENU_AGENDA, 0, R.string.show_agenda_view);
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_agenda);
                 item.setAlphabeticShortcut('a');

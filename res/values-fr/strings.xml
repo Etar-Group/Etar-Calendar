@@ -6,8 +6,7 @@
     <string name="what_label">"Objet"</string>
     <string name="when_label">"Date"</string>
     <string name="where_label">"Lieu"</string>
-    <!-- no translation found for repeats_label (7414023871434593196) -->
-    <skip />
+    <string name="repeats_label">"Fréquence"</string>
     <string name="no_title_label">"(Aucun objet)"</string>
   <plurals name="Nminutes">
     <item quantity="one">"1 minute"</item>
@@ -44,14 +43,10 @@
     <string name="hint_what">"Nom de l\'événement"</string>
     <string name="hint_where">"Lieu de l\'événement"</string>
     <string name="hint_description">"Description de l\'événement"</string>
-    <!-- no translation found for creating_event (8237877638457604455) -->
-    <skip />
-    <!-- no translation found for saving_event (8853425146353785688) -->
-    <skip />
-    <!-- no translation found for loading_calendars_title (3819254313413902272) -->
-    <skip />
-    <!-- no translation found for loading_calendars_message (8266077515011438420) -->
-    <skip />
+    <string name="creating_event">"Création de l\'événement…"</string>
+    <string name="saving_event">"Enregistrement de l\'événement…"</string>
+    <string name="loading_calendars_title">"Chargement des agendas"</string>
+    <string name="loading_calendars_message">"Chargement des agendas..."</string>
     <string name="alert_when_label">"Date :"</string>
     <string name="alert_where_label">"Lieu :"</string>
     <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> rappel supplémentaire)"</string>
@@ -69,10 +64,8 @@
     <string name="presence_label">"Présence"</string>
     <string name="privacy_label">"Confidentialité"</string>
     <string name="reminders_label">"Rappels"</string>
-    <!-- no translation found for no_syncable_calendars (7019488867045436129) -->
-    <skip />
-    <!-- no translation found for no_calendars_found (755379468136462058) -->
-    <skip />
+    <string name="no_syncable_calendars">"Pas d\'agenda"</string>
+    <string name="no_calendars_found">"Vous n\'avez pas d\'agenda."</string>
     <string name="view_event_calendar_label">"Agenda"</string>
     <string name="view_event_timezone_label">"Fuseau horaire local"</string>
     <string name="view_event_response_label">"Participation ?"</string>
@@ -86,8 +79,7 @@
     <string name="import_label">"Importer"</string>
     <string name="snooze_all_label">"Tout mettre en attente"</string>
     <string name="dismiss_all_label">"Tout supprimer"</string>
-    <!-- no translation found for does_not_repeat (1877681921029738999) -->
-    <skip />
+    <string name="does_not_repeat">"Événement ponctuel"</string>
     <string name="daily">"Quotidien"</string>
     <string name="every_weekday">"Chaque jour de semaine (lun–ven)"</string>
     <string name="weekly">"Hebdomadaire (chaque <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
@@ -105,12 +97,10 @@
     <string name="preferences_alerts_title">"Paramètres de rappel"</string>
     <string name="preferences_hide_declined_title">"Masquer les événements refusés"</string>
     <string name="preferences_alerts_type_title">"Définir les alertes et les notifications"</string>
-    <!-- no translation found for preferences_alerts_type_dialog (2195667763429994271) -->
-    <skip />
+    <string name="preferences_alerts_type_dialog">"Alertes et notifications"</string>
     <string name="preferences_alerts_vibrate_title">"Vibreur"</string>
     <string name="preferences_alerts_ringtone_title">"Sélectionner la sonnerie"</string>
     <string name="preferences_default_reminder_title">"Définir le rappel par défaut"</string>
-    <!-- no translation found for preferences_default_reminder_dialog (2490348857239323412) -->
-    <skip />
+    <string name="preferences_default_reminder_dialog">"Intervalle de rappel par défaut"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>
