@@ -51,7 +51,7 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
 
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
 
-    private static final String[] PROJECTION = new String[] {
+    static final String[] PROJECTION = new String[] {
         Instances._ID,                  // 0
         Instances.TITLE,                // 1
         Instances.EVENT_LOCATION,       // 2
@@ -125,8 +125,6 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
 
         public AgendaListView(Context context) {
             super(context, null);
-            setDivider(null);
-            setSelector(android.R.color.transparent);
             setOnItemClickListener(mOnItemClickListener);
             setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             mAdapter = new AgendaAdapter(AgendaActivity.this, R.layout.agenda_item);

@@ -35,7 +35,8 @@
              (android.test) library. -->
         <uses-library android:name="android.test.runner" />
 
-        <activity android:name="LaunchActivity">
+        <activity android:name="LaunchActivity"
+            android:theme="@android:style/Theme.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -44,14 +45,16 @@
         </activity>
 
         <activity android:name="MonthActivity" android:label="@string/month_view"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name="WeekActivity" android:label="@string/week_view"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name="DayActivity" android:label="@string/day_view"
-            android:theme="@android:style/Theme.NoTitleBar" />
-        <activity android:name="AgendaActivity" android:label="@string/agenda_view" />
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity android:name="AgendaActivity" android:label="@string/agenda_view" 
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         
         <activity android:name="EditEvent" android:label="@string/event_edit_title"
+            android:theme="@android:style/Theme.Light"
             android:configChanges="orientation|keyboardHidden">
             
             <intent-filter>
@@ -62,6 +65,7 @@
         </activity>
         
         <activity android:name="EventInfoActivity" android:label="@string/event_info_title"
+        	android:theme="@android:style/Theme.Light"
             android:configChanges="orientation|keyboardHidden">
             
             <intent-filter>
@@ -93,6 +97,14 @@
                  <category android:name="android.intent.category.UNIT_TEST" />
             </intent-filter>
         </activity>
+
+        <receiver android:name="CalendarGadgetProvider">
+            <intent-filter>
+                <action android:name="android.gadget.action.GADGET_UPDATE" />
+                <action android:name="com.android.providers.calendar.EVENTS_CHANGED" />
+            </intent-filter>
+            <meta-data android:name="android.gadget.provider" android:resource="@xml/gadget_info" />
+        </receiver>
     </application>
 </manifest>
 

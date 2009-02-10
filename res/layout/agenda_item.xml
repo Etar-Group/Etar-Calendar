@@ -14,82 +14,52 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/content"
     android:layout_height="wrap_content"
-    android:layout_width="fill_parent"
-    android:paddingLeft="1dip"
-    android:background="@drawable/box_appointment"
-    android:layout_marginTop="2dip"
-    android:layout_marginBottom="2dip"
-    android:layout_marginLeft="3dip"
-    android:layout_marginRight="3dip"
-    >
+    android:layout_width="fill_parent">
     
-    <ImageView android:id="@+id/vertical_stripe"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="2dip"
-        android:layout_marginBottom="2dip"
-        android:layout_marginRight="5dip"
-        android:background="@drawable/box_color_white" />
-        
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:layout_weight="1">
-        
-        <TextView android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            style="?android:attr/textAppearanceMediumInverse"
-        />
-        
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-            
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
-                <TextView android:id="@+id/when"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    style="?android:attr/textAppearanceSmallInverse"
-                />
-                
-                <ImageView android:id="@+id/repeat_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:layout_marginLeft="5dip"
-                    android:src="@drawable/ic_repeat_dark"
-                    android:focusable="false"
-                    android:clickable="false"
-                />
-            </LinearLayout>
-            
-            <LinearLayout android:id="@+id/reminders_container"
-                android:orientation="vertical"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-            />
-        </LinearLayout>
-        
-        <TextView android:id="@+id/where"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            style="?android:attr/textAppearanceSmallInverse"
-        />
-    </LinearLayout>
-</LinearLayout>
+	<LinearLayout
+	    android:orientation="horizontal"
+	    android:layout_height="wrap_content"
+	    android:layout_width="fill_parent"
+	    >
+	    
+	    <View android:id="@+id/vertical_stripe"
+	        android:layout_width="10dip"
+	        android:layout_height="fill_parent"
+	        android:layout_marginRight="5dip" />
+	        
+	    <LinearLayout
+	        android:orientation="vertical"
+	        android:layout_height="wrap_content"
+	        android:layout_width="fill_parent"
+	        android:layout_weight="1">
+	        
+	        <TextView android:id="@+id/title"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:textStyle="bold"
+	            android:textColor="@android:color/black"
+	            style="?android:attr/textAppearanceMediumInverse"
+	        />
+	        
+	        <TextView android:id="@+id/when"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textStyle="bold"
+	            android:textColor="@android:color/black"
+	            style="?android:attr/textAppearanceSmallInverse"
+	        />
+	                
+	        <TextView android:id="@+id/where"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:textStyle="bold"
+	            android:textColor="@android:color/black"
+	            style="?android:attr/textAppearanceSmallInverse"
+	        />
+	    </LinearLayout>
+	</LinearLayout>
+</FrameLayout>

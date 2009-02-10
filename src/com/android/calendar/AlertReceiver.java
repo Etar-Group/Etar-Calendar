@@ -25,10 +25,12 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.provider.Calendar.CalendarAlerts;
 
 /**
@@ -166,7 +168,15 @@ public class AlertReceiver extends BroadcastReceiver {
             nm.cancel(AlertActivity.NOTIFICATION_ID);
             return;
         }
-        
+
+        // Check the settings to see if alerts are disabled
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String reminderType = prefs.getString(CalendarPreferenceActivity.KEY_ALERTS_TYPE,
+                CalendarPreferenceActivity.ALERT_TYPE_STATUS_BAR);
+        if (reminderType.equals(CalendarPreferenceActivity.ALERT_TYPE_OFF)) {
+            return;
+        }
+
         String title = alertCursor.getString(ALERT_INDEX_TITLE);
         String location = alertCursor.getString(ALERT_INDEX_EVENT_LOCATION);
         

@@ -16,20 +16,15 @@
 
 package com.android.calendar;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Reminders;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
@@ -37,12 +32,12 @@ import java.util.ArrayList;
 
 public class AgendaAdapter extends ResourceCursorAdapter {
     
-    private static final String[] REMINDERS_PROJECTION = new String[] {
+    static final String[] REMINDERS_PROJECTION = new String[] {
         Reminders._ID,      // 0
         Reminders.MINUTES,  // 1
     };
-    private static final int REMINDERS_INDEX_MINUTES = 1;
-    private static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=%d AND (" + 
+    static final int REMINDERS_INDEX_MINUTES = 1;
+    static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=%d AND (" + 
             Reminders.METHOD + "=" + Reminders.METHOD_ALERT + " OR " + Reminders.METHOD + "=" +
             Reminders.METHOD_DEFAULT + ")";
     
@@ -57,16 +52,16 @@ public class AgendaAdapter extends ResourceCursorAdapter {
     
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        ImageView stripe = (ImageView) view.findViewById(R.id.vertical_stripe);
-        int color = cursor.getInt(AgendaActivity.INDEX_COLOR) & 0xbbffffff;
-        stripe.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-        
-        // Fade visible boxes if event was declined.
+        // Fade text if event was declined.
         int selfAttendeeStatus = cursor.getInt(AgendaActivity.INDEX_SELF_ATTENDEE_STATUS);
         boolean declined = (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED);
-        int targetAlpha = declined ? 128 : 255;
+        
+        View stripe = view.findViewById(R.id.vertical_stripe);
+        int color = cursor.getInt(AgendaActivity.INDEX_COLOR);
+        ((FrameLayout) view).setForeground(declined ? 
+                mResources.getDrawable(R.drawable.agenda_item_declined) : null);
 
-        view.getBackground().setAlpha(targetAlpha);
+        stripe.setBackgroundColor(color);
         
         // What
         TextView title = (TextView) view.findViewById(R.id.title);
@@ -75,6 +70,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             titleString = mResources.getString(R.string.no_title_label);
         }
         title.setText(titleString);
+        title.setTextColor(color);
         
         // When
         TextView when = (TextView) view.findViewById(R.id.when);
@@ -94,6 +90,16 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         whenString = DateUtils.formatDateRange(context, begin, end, flags);
         when.setText(whenString);
         
+        String rrule = cursor.getString(AgendaActivity.INDEX_RRULE);
+        if (rrule != null) {
+            when.setCompoundDrawablesWithIntrinsicBounds(null, null, 
+                    context.getResources().getDrawable(R.drawable.ic_repeat_dark), null);
+            when.setCompoundDrawablePadding(5);
+        } else {
+            when.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        }
+        
+        /*
         // Repeating info
         View repeatContainer = view.findViewById(R.id.repeat_icon);
         String rrule = cursor.getString(AgendaActivity.INDEX_RRULE);
@@ -102,12 +108,15 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         } else {
             repeatContainer.setVisibility(View.GONE);
         }
+        */
         
+        /*
         // Reminder
         boolean hasAlarm = cursor.getInt(AgendaActivity.INDEX_HAS_ALARM) != 0;
         if (hasAlarm) {
             updateReminder(view, context, begin, cursor.getLong(AgendaActivity.INDEX_EVENT_ID));
         }
+        */
         
         // Where
         TextView where = (TextView) view.findViewById(R.id.where);
@@ -120,6 +129,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         }
     }
 
+    /*
     public static void updateReminder(View view, Context context, long begin, long eventId) {
         ContentResolver cr = context.getContentResolver();
         Uri uri = Reminders.CONTENT_URI;
@@ -143,5 +153,6 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         }
         remindersCursor.close();
     }
+    */
 }
 

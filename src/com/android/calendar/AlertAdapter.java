@@ -49,13 +49,15 @@ public class AlertAdapter extends ResourceCursorAdapter {
         } else {
             repeatContainer.setVisibility(View.GONE);
         }
-                
+        
+        /*
         // Reminder
         boolean hasAlarm = cursor.getInt(AlertActivity.INDEX_HAS_ALARM) != 0;
         if (hasAlarm) {
             AgendaAdapter.updateReminder(view, context, cursor.getLong(AlertActivity.INDEX_BEGIN),
                     cursor.getLong(AlertActivity.INDEX_EVENT_ID));
         }
+        */
         
         String eventName = cursor.getString(AlertActivity.INDEX_TITLE);
         String location = cursor.getString(AlertActivity.INDEX_EVENT_LOCATION);

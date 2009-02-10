@@ -18,6 +18,7 @@
     android:id="@+id/bubble_layout"
     android:orientation="vertical"
     android:paddingTop="5dip"
+    android:paddingBottom="5dip"
     android:paddingLeft="10dip"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">

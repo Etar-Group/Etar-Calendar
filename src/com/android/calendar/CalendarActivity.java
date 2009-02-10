@@ -111,7 +111,7 @@ public class CalendarActivity extends Activity implements Navigator {
         mInAnimationBackward = AnimationUtils.loadAnimation(this, R.anim.slide_right_in);
         mOutAnimationBackward = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
 
-        mGestureDetector = new GestureDetector(new CalendarGestureListener());
+        mGestureDetector = new GestureDetector(this, new CalendarGestureListener());
         mEventLoader = new EventLoader(this);
     }
 

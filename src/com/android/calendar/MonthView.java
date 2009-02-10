@@ -60,7 +60,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private static final boolean PROFILE_LOAD_TIME = false;
     private static final boolean DEBUG_BUSYBITS = false;
 
-    private static final int WEEK_GAP = 1;
+    private static final int WEEK_GAP = 0;
     private static final int MONTH_DAY_GAP = 1;
     private static final float HOUR_GAP = 0.5f;
 
@@ -257,7 +257,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             ta.recycle();
         }
 
-        mGestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
+        mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                     float velocityY) {
@@ -546,6 +546,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 }
             }
         }
+        
+        drawGrid(canvas, p);
     }
 
     @Override
@@ -614,6 +616,28 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     }
 
     /**
+     * Draw the grid lines for the calendar
+     * @param canvas The canvas to draw on.
+     * @param p The paint used for drawing.
+     */
+    private void drawGrid(Canvas canvas, Paint p) {
+        p.setColor(mMonthOtherMonthColor);
+        p.setAntiAlias(false);
+        
+        final int width = getMeasuredWidth();
+        final int height = getMeasuredHeight();
+        
+        for (int row = 0; row < 6; row++) {
+            int y = WEEK_GAP + row * (WEEK_GAP + mCellHeight) - 1;
+            canvas.drawLine(0, y, width, y, p);
+        }
+        for (int column = 1; column < 7; column++) {
+            int x = mBorder + column * (MONTH_DAY_GAP + mCellWidth) - 1;
+            canvas.drawLine(x, WEEK_GAP, x, height, p);
+        }
+    }
+    
+    /**
      * Draw a single box onto the canvas.
      * @param day The Julian day.
      * @param weekNum The week number.
@@ -672,25 +696,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             r.top--;
             if (column != 0) {
                 r.left--;
-            }
-
-            // Draw cell border
-            p.setColor(mMonthOtherMonthColor);
-            p.setAntiAlias(false);
-
-            if (row == 0) {
-                // Bottom line
-                canvas.drawLine(r.left, r.bottom, r.right, r.bottom, p);
-            }
-
-            // Top line
-            canvas.drawLine(r.left, r.top, r.right, r.top, p);
-
-            // Right line
-            canvas.drawLine(r.right, r.top, r.right, r.bottom, p);
-
-            if (firstDayOfNextmonth && column != 0) {
-                canvas.drawLine(r.left, r.top, r.left, r.bottom, p);
             }
         } else if (drawSelection) {
             if (mSelectionMode == SELECTION_SELECTED) {

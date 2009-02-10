@@ -16,20 +16,20 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_minutes_labels">
-    <item>"5分"</item>
-    <item>"10分"</item>
-    <item>"15分"</item>
-    <item>"20分"</item>
-    <item>"25分"</item>
-    <item>"30分"</item>
-    <item>"45分"</item>
-    <item>"1時間"</item>
-    <item>"2時間"</item>
-    <item>"3時間"</item>
-    <item>"12時間"</item>
-    <item>"24時間"</item>
-    <item>"2日"</item>
-    <item>"1週間"</item>
+    <item>"5분"</item>
+    <item>"10분"</item>
+    <item>"15분"</item>
+    <item>"20분"</item>
+    <item>"25분"</item>
+    <item>"30분"</item>
+    <item>"45분"</item>
+    <item>"1시간"</item>
+    <item>"2시간"</item>
+    <item>"3시간"</item>
+    <item>"12시간"</item>
+    <item>"24시간"</item>
+    <item>"2일"</item>
+    <item>"1주"</item>
   </string-array>
   <string-array name="reminder_minutes_values">
     <item>"5"</item>
@@ -43,26 +43,26 @@
     <item>"120"</item>
     <item>"180"</item>
     <item>"720"</item>
-    <item>"1,440"</item>
-    <item>"2,880"</item>
-    <item>"10,080"</item>
+    <item>"1440"</item>
+    <item>"2880"</item>
+    <item>"10080"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
-    <item>"なし"</item>
-    <item>"5分"</item>
-    <item>"10分"</item>
-    <item>"15分"</item>
-    <item>"20分"</item>
-    <item>"25分"</item>
-    <item>"30分"</item>
-    <item>"45分"</item>
-    <item>"1時間"</item>
-    <item>"2時間"</item>
-    <item>"3時間"</item>
-    <item>"12時間"</item>
-    <item>"24時間"</item>
-    <item>"2日"</item>
-    <item>"1週間"</item>
+    <item>"없음"</item>
+    <item>"5분"</item>
+    <item>"10분"</item>
+    <item>"15분"</item>
+    <item>"20분"</item>
+    <item>"25분"</item>
+    <item>"30분"</item>
+    <item>"45분"</item>
+    <item>"1시간"</item>
+    <item>"2시간"</item>
+    <item>"3시간"</item>
+    <item>"12시간"</item>
+    <item>"24시간"</item>
+    <item>"2일"</item>
+    <item>"1주"</item>
   </string-array>
   <string-array name="preferences_default_reminder_values">
     <item>"0"</item>
@@ -77,14 +77,14 @@
     <item>"120"</item>
     <item>"180"</item>
     <item>"720"</item>
-    <item>"1,440"</item>
-    <item>"2,880"</item>
-    <item>"10,080"</item>
+    <item>"1440"</item>
+    <item>"2880"</item>
+    <item>"10080"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"アラート"</item>
-    <item>"ステータス バーによる通知"</item>
-    <item>"オフ"</item>
+    <item>"알림"</item>
+    <item>"상태 표시줄 알림"</item>
+    <item>"해제"</item>
   </string-array>
   <string-array name="preferences_alert_type_values">
     <item>"0"</item>
@@ -92,49 +92,49 @@
     <item>"2"</item>
   </string-array>
   <string-array name="availability">
-    <item>"予定あり"</item>
-    <item>"予定なし"</item>
+    <item>"다른 용무 중"</item>
+    <item>"대화가능"</item>
   </string-array>
   <string-array name="visibility">
-    <item>"デフォルト"</item>
-    <item>"限定公開"</item>
-    <item>"一般公開"</item>
+    <item>"기본값"</item>
+    <item>"비공개"</item>
+    <item>"공개"</item>
   </string-array>
   <string-array name="day_labels">
-    <item>"日曜日"</item>
-    <item>"月曜日"</item>
-    <item>"火曜日"</item>
-    <item>"水曜日"</item>
-    <item>"木曜日"</item>
-    <item>"金曜日"</item>
-    <item>"土曜日"</item>
+    <item>"일요일"</item>
+    <item>"월요일"</item>
+    <item>"화요일"</item>
+    <item>"수요일"</item>
+    <item>"목요일"</item>
+    <item>"금요일"</item>
+    <item>"토요일"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"第1"</item>
-    <item>"第2"</item>
-    <item>"第3"</item>
-    <item>"第4"</item>
-    <item>"最終"</item>
+    <item>"첫 번째"</item>
+    <item>"두 번째"</item>
+    <item>"3번째"</item>
+    <item>"4번째"</item>
+    <item>"마지막"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"(応答なし)"</item>
-    <item>"はい"</item>
-    <item>"未定"</item>
-    <item>"いいえ"</item>
+    <item>"(응답 없음)"</item>
+    <item>"예"</item>
+    <item>"미정"</item>
+    <item>"아니요"</item>
   </string-array>
   <string-array name="response_labels2">
-    <item>"はい"</item>
-    <item>"未定"</item>
-    <item>"いいえ"</item>
+    <item>"예"</item>
+    <item>"미정"</item>
+    <item>"아니요"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>"この予定のみ"</item>
-    <item>"これ以降の予定"</item>
-    <item>"すべての予定"</item>
+    <item>"해당 이벤트만"</item>
+    <item>"현재 일정 및 향후 일정"</item>
+    <item>"모든 일정"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>"これ以降の予定"</item>
-    <item>"すべての予定"</item>
+    <item>"현재 및 향후 일정"</item>
+    <item>"모든 일정"</item>
   </string-array>
     <!-- no translation found for change_response_labels:0 (2012815396992847028) -->
     <!-- no translation found for change_response_labels:1 (140670561403965380) -->

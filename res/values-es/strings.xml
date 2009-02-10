@@ -38,10 +38,8 @@
     <item quantity="one">"1 día"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> días"</item>
   </plurals>
-    <!-- no translation found for show_agenda_view (7971854300981408347) -->
-    <skip />
-    <!-- no translation found for show_day_view (5782512782605466016) -->
-    <skip />
+    <string name="show_agenda_view">"Mostrar agenda"</string>
+    <string name="show_day_view">"Mostrar día"</string>
     <string name="agenda_view">"Agenda"</string>
     <string name="day_view">"Día"</string>
     <string name="week_view">"Semana"</string>
@@ -110,6 +108,8 @@
     <string name="modify_all_following">"Cambiar éste y todos los eventos futuros"</string>
     <string name="delete_this_event_title">"Este evento se suprimirá."</string>
     <string name="delete_title">"Eliminar"</string>
+    <!-- no translation found for change_response_title (7704714776070974984) -->
+    <skip />
     <string name="preferences_title">"Configuración"</string>
     <string name="preferences_general_title">"Configuración de la vista de calendario"</string>
     <string name="preferences_alerts_title">"Configuración de los recordatorios"</string>
@@ -121,4 +121,16 @@
     <string name="preferences_default_reminder_title">"Configurar recordatorio predeterminado"</string>
     <string name="preferences_default_reminder_dialog">"Duración predeterminada del recordatorio"</string>
     <string name="preferences_default_reminder_default">"10"</string>
+    <!-- no translation found for gadget_calendar (6529838309554174909) -->
+    <skip />
+    <!-- no translation found for gadget_now_event (2227001785989034221) -->
+    <skip />
+    <!-- no translation found for gadget_next_event (6212660541888750636) -->
+    <skip />
+    <!-- no translation found for gadget_later_event (8082518131045578444) -->
+    <skip />
+    <!-- no translation found for gadget_more_events:one (1813062802420615657) -->
+    <!-- no translation found for gadget_more_events:other (7993512762778431065) -->
+    <!-- no translation found for gadget_no_events (5209110911088302855) -->
+    <skip />
 </resources>
