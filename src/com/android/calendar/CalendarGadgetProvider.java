@@ -92,12 +92,12 @@ public class CalendarGadgetProvider extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         
-        if (GadgetManager.GADGET_ENABLED_ACTION.equals(action)) {
+        if (GadgetManager.ACTION_GADGET_ENABLED.equals(action)) {
             if (LOGD) Log.d(TAG, "ENABLED");
-        } else if (GadgetManager.GADGET_DISABLED_ACTION.equals(action)) {
+        } else if (GadgetManager.ACTION_GADGET_DISABLED.equals(action)) {
             if (LOGD) Log.d(TAG, "DISABLED");
             // TODO: remove all alarmmanager subscriptions?
-        } else if (GadgetManager.GADGET_UPDATE_ACTION.equals(action)) {
+        } else if (GadgetManager.ACTION_GADGET_UPDATE.equals(action)) {
             if (LOGD) Log.d(TAG, "UPDATE");
 
             // Update specific gadgets
@@ -169,7 +169,7 @@ public class CalendarGadgetProvider extends BroadcastReceiver {
         // Schedule an alarm to wake ourselves up for the next update.  We also cancel
         // all existing wake-ups because PendingIntents don't match against extras.
         
-        Intent updateIntent = new Intent(GadgetManager.GADGET_UPDATE_ACTION);
+        Intent updateIntent = new Intent(GadgetManager.ACTION_GADGET_UPDATE);
         PendingIntent pendingUpdate = PendingIntent.getBroadcast(context,
                 0 /* no requestCode */, updateIntent, 0 /* no flags */);
 
