@@ -136,6 +136,8 @@
     <item>"현재 및 향후 일정"</item>
     <item>"모든 일정"</item>
   </string-array>
-    <!-- no translation found for change_response_labels:0 (2012815396992847028) -->
-    <!-- no translation found for change_response_labels:1 (140670561403965380) -->
+  <string-array name="change_response_labels">
+    <item>"이 일정에만"</item>
+    <item>"모든 반복 일정"</item>
+  </string-array>
 </resources>

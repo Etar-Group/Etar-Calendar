@@ -136,6 +136,8 @@
     <item>"Deze en toekomstige afspraken"</item>
     <item>"Alle afspraken"</item>
   </string-array>
-    <!-- no translation found for change_response_labels:0 (2012815396992847028) -->
-    <!-- no translation found for change_response_labels:1 (140670561403965380) -->
+  <string-array name="change_response_labels">
+    <item>"Alleen deze keer"</item>
+    <item>"Alle gebeurtenissen in de reeks"</item>
+  </string-array>
 </resources>

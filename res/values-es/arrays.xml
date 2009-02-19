@@ -136,6 +136,8 @@
     <item>"Éste y otros eventos posteriores"</item>
     <item>"Todos los eventos"</item>
   </string-array>
-    <!-- no translation found for change_response_labels:0 (2012815396992847028) -->
-    <!-- no translation found for change_response_labels:1 (140670561403965380) -->
+  <string-array name="change_response_labels">
+    <item>"Sólo esta ocasión"</item>
+    <item>"Todos los eventos de la serie"</item>
+  </string-array>
 </resources>

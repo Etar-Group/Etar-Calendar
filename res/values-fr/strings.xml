@@ -27,8 +27,8 @@
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minutes"</item>
   </plurals>
   <plurals name="Nmins">
-    <item quantity="one">"1 min"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+    <item quantity="one">"1 mn"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> mn"</item>
   </plurals>
   <plurals name="Nhours">
     <item quantity="one">"1 heure"</item>
@@ -108,8 +108,7 @@
     <string name="modify_all_following">"Modifier cet événement et tous les suivants."</string>
     <string name="delete_this_event_title">"Cet événement va être supprimé."</string>
     <string name="delete_title">"Supprimer"</string>
-    <!-- no translation found for change_response_title (7704714776070974984) -->
-    <skip />
+    <string name="change_response_title">"Modifier la réponse"</string>
     <string name="preferences_title">"Paramètres"</string>
     <string name="preferences_general_title">"Paramètre d\'affichage de l\'agenda"</string>
     <string name="preferences_alerts_title">"Paramètres de rappel"</string>
@@ -121,16 +120,13 @@
     <string name="preferences_default_reminder_title">"Définir le rappel par défaut"</string>
     <string name="preferences_default_reminder_dialog">"Intervalle de rappel par défaut"</string>
     <string name="preferences_default_reminder_default">"10"</string>
-    <!-- no translation found for gadget_calendar (6529838309554174909) -->
-    <skip />
-    <!-- no translation found for gadget_now_event (2227001785989034221) -->
-    <skip />
-    <!-- no translation found for gadget_next_event (6212660541888750636) -->
-    <skip />
-    <!-- no translation found for gadget_later_event (8082518131045578444) -->
-    <skip />
-    <!-- no translation found for gadget_more_events:one (1813062802420615657) -->
-    <!-- no translation found for gadget_more_events:other (7993512762778431065) -->
-    <!-- no translation found for gadget_no_events (5209110911088302855) -->
-    <skip />
+    <string name="gadget_calendar">"Agenda :"</string>
+    <string name="gadget_now_event">"Maintenant : <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_next_event">"Suivant : <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_later_event">"Plus tard : <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+  <plurals name="gadget_more_events">
+    <item quantity="one">"1 événement supplémentaire"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> autres événements"</item>
+  </plurals>
+    <string name="gadget_no_events">"Aucun événement d\'agenda à venir"</string>
 </resources>

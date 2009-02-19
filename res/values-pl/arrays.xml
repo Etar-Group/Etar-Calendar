@@ -136,6 +136,8 @@
     <item>"To i przyszłe wydarzenia"</item>
     <item>"Wszystkie wydarzenia"</item>
   </string-array>
-    <!-- no translation found for change_response_labels:0 (2012815396992847028) -->
-    <!-- no translation found for change_response_labels:1 (140670561403965380) -->
+  <string-array name="change_response_labels">
+    <item>"Tylko to wystąpienie"</item>
+    <item>"Wszystkie wydarzenia w serii"</item>
+  </string-array>
 </resources>

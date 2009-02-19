@@ -108,8 +108,7 @@
     <string name="modify_all_following">"變更此活動及所有未來活動。"</string>
     <string name="delete_this_event_title">"系統會刪除此活動。"</string>
     <string name="delete_title">"刪除"</string>
-    <!-- no translation found for change_response_title (7704714776070974984) -->
-    <skip />
+    <string name="change_response_title">"變更回應"</string>
     <string name="preferences_title">"設定"</string>
     <string name="preferences_general_title">"日曆檢視設定"</string>
     <string name="preferences_alerts_title">"提醒設定"</string>
@@ -121,16 +120,13 @@
     <string name="preferences_default_reminder_title">"設定預設提醒"</string>
     <string name="preferences_default_reminder_dialog">"預設提醒時間"</string>
     <string name="preferences_default_reminder_default">"10"</string>
-    <!-- no translation found for gadget_calendar (6529838309554174909) -->
-    <skip />
-    <!-- no translation found for gadget_now_event (2227001785989034221) -->
-    <skip />
-    <!-- no translation found for gadget_next_event (6212660541888750636) -->
-    <skip />
-    <!-- no translation found for gadget_later_event (8082518131045578444) -->
-    <skip />
-    <!-- no translation found for gadget_more_events:one (1813062802420615657) -->
-    <!-- no translation found for gadget_more_events:other (7993512762778431065) -->
-    <!-- no translation found for gadget_no_events (5209110911088302855) -->
-    <skip />
+    <string name="gadget_calendar">"日曆："</string>
+    <string name="gadget_now_event">"目前活動：<xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_next_event">"下個活動：<xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_later_event">"稍後活動：<xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+  <plurals name="gadget_more_events">
+    <item quantity="one">"還有 1 個活動"</item>
+    <item quantity="other">"還有 <xliff:g id="NUMBER">%d</xliff:g> 個活動"</item>
+  </plurals>
+    <string name="gadget_no_events">"沒有即將開始的日曆活動"</string>
 </resources>

@@ -136,6 +136,8 @@
     <item>"Cet événement et les suivants"</item>
     <item>"Tous les événements"</item>
   </string-array>
-    <!-- no translation found for change_response_labels:0 (2012815396992847028) -->
-    <!-- no translation found for change_response_labels:1 (140670561403965380) -->
+  <string-array name="change_response_labels">
+    <item>"Uniquement cette instance"</item>
+    <item>"Tous les événements de la série"</item>
+  </string-array>
 </resources>
