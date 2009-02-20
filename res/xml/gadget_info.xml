@@ -15,8 +15,8 @@
 -->
 
 <gadget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="300px"
-    android:minHeight="30px"
+    android:minWidth="294dip"
+    android:minHeight="72dip"
     android:updatePeriodMillis="0"
     android:initialLayout="@layout/gadget_item"
     >
