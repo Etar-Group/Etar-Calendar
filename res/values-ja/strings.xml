@@ -120,4 +120,13 @@
     <string name="preferences_default_reminder_title">"通知設定"</string>
     <string name="preferences_default_reminder_dialog">"デフォルトの通知時間"</string>
     <string name="preferences_default_reminder_default">"10"</string>
+    <string name="gadget_calendar">"カレンダー:"</string>
+    <string name="gadget_now_event">"現在時刻: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_next_event">"次へ: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_later_event">"後で: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+  <plurals name="gadget_more_events">
+    <item quantity="one">"他1件"</item>
+    <item quantity="other">"他<xliff:g id="NUMBER">%d</xliff:g>件"</item>
+  </plurals>
+    <string name="gadget_no_events">"予定されているカレンダーの予定はありません"</string>
 </resources>

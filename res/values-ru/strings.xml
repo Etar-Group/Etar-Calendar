@@ -120,4 +120,13 @@
     <string name="preferences_default_reminder_title">"Установить напоминание по умолчанию"</string>
     <string name="preferences_default_reminder_dialog">"Время напоминания по умолчанию"</string>
     <string name="preferences_default_reminder_default">"10"</string>
+    <string name="gadget_calendar">"Календарь:"</string>
+    <string name="gadget_now_event">"Сейчас: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_next_event">"Далее: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_later_event">"Позже: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+  <plurals name="gadget_more_events">
+    <item quantity="one">"Еще одно событие"</item>
+    <item quantity="other">"Еще событий: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+    <string name="gadget_no_events">"Нет предстоящих событий календаря"</string>
 </resources>

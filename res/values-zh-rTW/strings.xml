@@ -120,4 +120,13 @@
     <string name="preferences_default_reminder_title">"設定預設提醒"</string>
     <string name="preferences_default_reminder_dialog">"預設提醒時間"</string>
     <string name="preferences_default_reminder_default">"10"</string>
+    <string name="gadget_calendar">"日曆："</string>
+    <string name="gadget_now_event">"目前活動：<xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_next_event">"下個活動：<xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_later_event">"稍後活動：<xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+  <plurals name="gadget_more_events">
+    <item quantity="one">"還有 1 個活動"</item>
+    <item quantity="other">"還有 <xliff:g id="NUMBER">%d</xliff:g> 個活動"</item>
+  </plurals>
+    <string name="gadget_no_events">"沒有即將開始的日曆活動"</string>
 </resources>

@@ -16,7 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">"Agenda"</string>
-    <string name="calendar_plug"><font fgcolor="#ffffffff">"Welkom bij Google Agenda!"</font>" "\n" Een Google-benadering om uw planning te beheren, gebaseerd op het idee dat het plannen van afspraken intuïtiever, efficiënter en toegankelijker kan."</string>
+    <string name="calendar_plug"><font fgcolor="#ffffffff">"Welkom bij  Google Agenda!"</font>" "\n" Een Google-benadering om uw planning te beheren, gebaseerd op het idee dat het plannen van afspraken intuïtiever, efficiënter en toegankelijker kan."</string>
     <string name="what_label">"Wat"</string>
     <string name="when_label">"Wanneer"</string>
     <string name="where_label">"Waar"</string>
@@ -45,7 +45,7 @@
     <string name="week_view">"Week"</string>
     <string name="month_view">"Maand"</string>
     <string name="event_view">"Afspraak weergeven"</string>
-    <string name="event_create">"Nieuwe afspraak"</string>
+    <string name="event_create">"Nieuwe  afspraak"</string>
     <string name="event_edit">"Afspraak bewerken"</string>
     <string name="event_delete">"Afspraak verwijderen"</string>
     <string name="goto_today">"Vandaag"</string>
@@ -120,4 +120,13 @@
     <string name="preferences_default_reminder_title">"Standaardherinnering instellen"</string>
     <string name="preferences_default_reminder_dialog">"Standaard herinneringstijd"</string>
     <string name="preferences_default_reminder_default">"10"</string>
+    <string name="gadget_calendar">"Kalender:"</string>
+    <string name="gadget_now_event">"Nu: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_next_event">"Volgende: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_later_event">"Later: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+  <plurals name="gadget_more_events">
+    <item quantity="one">"nog 1 gebeurtenis"</item>
+    <item quantity="other">"nog <xliff:g id="NUMBER">%d</xliff:g> gebeurtenissen"</item>
+  </plurals>
+    <string name="gadget_no_events">"Geen geplande afspraken"</string>
 </resources>

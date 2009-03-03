@@ -120,4 +120,13 @@
     <string name="preferences_default_reminder_title">"Standarderinnerung festlegen"</string>
     <string name="preferences_default_reminder_dialog">"Standard-Erinnerungszeit"</string>
     <string name="preferences_default_reminder_default">"10"</string>
+    <string name="gadget_calendar">"Kalender:"</string>
+    <string name="gadget_now_event">"Jetzt: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_next_event">"Weiter: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_later_event">"Später: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+  <plurals name="gadget_more_events">
+    <item quantity="one">"1 weiterer Termin"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> weitere Termine"</item>
+  </plurals>
+    <string name="gadget_no_events">"Keine anstehenden Kalendertermine"</string>
 </resources>

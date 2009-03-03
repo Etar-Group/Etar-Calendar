@@ -36,6 +36,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.Paint.Style;
 import android.graphics.Path.Direction;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.Calendar.Attendees;
@@ -44,7 +45,6 @@ import android.provider.Calendar.Events;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -54,8 +54,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -126,6 +124,10 @@ public class CalendarView extends View
     private long mLastReloadMillis;
 
     private ArrayList<Event> mEvents = new ArrayList<Event>();
+    private Drawable mBoxNormal;
+    private Drawable mBoxSelected;
+    private Drawable mBoxPressed;
+    private Drawable mBoxLongPressed;
     private int mSelectionDay;        // Julian day
     private int mSelectionHour;
 
@@ -152,6 +154,7 @@ public class CalendarView extends View
 
     private PopupWindow mPopup;
     private View mPopupView;
+    private static final int POPUP_HEIGHT = 67;
 
     // The number of milliseconds to show the popup window
     private static final int POPUP_DISMISS_DELAY = 3000;
@@ -209,6 +212,7 @@ public class CalendarView extends View
     private int mViewHeight;
     private int mViewWidth;
     private int mGridAreaHeight;
+    private int mGridAreaWidth;
     private int mCellHeight;
     private int mScrollStartY;
     private int mPreviousDirection;
@@ -372,13 +376,14 @@ public class CalendarView extends View
         p.setTextSize(AMPM_FONT_SIZE);
         mHoursWidth = computeMaxStringWidth(mHoursWidth, ampm, p);
         mHoursWidth += HOURS_MARGIN;
+        mBoxNormal = mResources.getDrawable(R.drawable.box_appointment_normal);
+        mBoxSelected = mResources.getDrawable(R.drawable.box_appointment_selected);
+        mBoxPressed = mResources.getDrawable(R.drawable.box_appointment_pressed);
+        mBoxLongPressed = mResources.getDrawable(R.drawable.box_appointment_longpress);
 
         LayoutInflater inflater;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mPopupView = inflater.inflate(R.layout.bubble_event, null);
-        mPopupView.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
         mPopup = new PopupWindow(context);
         mPopup.setContentView(mPopupView);
         Resources.Theme dialogTheme = getResources().newTheme();
@@ -537,8 +542,8 @@ public class CalendarView extends View
     protected void onSizeChanged(int width, int height, int oldw, int oldh) {
         mViewWidth = width;
         mViewHeight = height;
-        int gridAreaWidth = width - mHoursWidth;
-        mCellWidth = (gridAreaWidth - (mNumDays * DAY_GAP)) / mNumDays;
+        mGridAreaWidth = width - mHoursWidth;
+        mCellWidth = (mGridAreaWidth - (mNumDays * DAY_GAP)) / mNumDays;
 
         Paint p = new Paint();
         p.setTextSize(NORMAL_FONT_SIZE);
@@ -675,7 +680,7 @@ public class CalendarView extends View
         int eventAreaWidth = mNumDays * (mCellWidth + DAY_GAP);
         mPopup.dismiss();
         mPopup.setWidth(eventAreaWidth - 20);
-        mPopup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        mPopup.setHeight(POPUP_HEIGHT);
     }
 
     /**
@@ -855,7 +860,7 @@ public class CalendarView extends View
 
         mSelectionMode = SELECTION_SELECTED;
         mScrolling = false;
-        boolean redraw;
+        boolean redraw = false;
         int selectionDay = mSelectionDay;
 
         switch (keyCode) {
@@ -1755,10 +1760,10 @@ public class CalendarView extends View
         int startEventDistance1 = 100000;  // any large number
         int startEventDistance2 = 100000;  // any large number
         int prevLocation = FROM_NONE;
-        int prevTop;
-        int prevBottom;
-        int prevLeft;
-        int prevRight;
+        int prevTop = 0;
+        int prevBottom = 0;
+        int prevLeft = 0;
+        int prevRight = 0;
         int prevCenter = 0;
         Rect box = getCurrentSelectionPosition();
         if (mPrevSelectedEvent != null) {
@@ -2045,17 +2050,17 @@ public class CalendarView extends View
                 mPrevSelectedEvent = event;
                 // box = mBoxPressed;
                 p.setColor(mPressedColor); // FIXME:pressed
-                eventTextPaint.setColor(mSelectedEventTextColor);
+                eventTextPaint.setColor(this.mSelectedEventTextColor);
             } else if (mSelectionMode == SELECTION_SELECTED) {
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
                 // box = mBoxSelected;
                 p.setColor(mSelectionColor);
-                eventTextPaint.setColor(mSelectedEventTextColor);
+                eventTextPaint.setColor(this.mSelectedEventTextColor);
             } else if (mSelectionMode == SELECTION_LONGPRESS) {
                 // box = mBoxLongPressed;
                 p.setColor(mPressedColor); // FIXME: longpressed (maybe -- this doesn't seem to work)
-                eventTextPaint.setColor(mSelectedEventTextColor);
+                eventTextPaint.setColor(this.mSelectedEventTextColor);
             } else {
                 p.setColor(color);
                 eventTextPaint.setColor(mEventTextColor);
@@ -2081,7 +2086,7 @@ public class CalendarView extends View
     }
 
     private void drawEventText(Event event, RectF rf, Canvas canvas, Paint p, int topMargin) {
-        if (!mDrawTextInEventRect) {
+        if (mDrawTextInEventRect == false) {
             return;
         }
 
@@ -2205,9 +2210,7 @@ public class CalendarView extends View
         timeView.setText(timeRange);
 
         TextView whereView = (TextView) mPopupView.findViewById(R.id.where);
-        final boolean empty = TextUtils.isEmpty(event.location);
-        whereView.setVisibility(empty ? View.GONE : View.VISIBLE);
-        if (!empty) whereView.setText(event.location);
+        whereView.setText(event.location);
 
         mPopup.showAtLocation(this, Gravity.BOTTOM | Gravity.LEFT, mHoursWidth, 5);
         postDelayed(mDismissPopup, POPUP_DISMISS_DELAY);
@@ -2382,6 +2385,7 @@ public class CalendarView extends View
         CalendarView view = mParentActivity.getNextView();
         Time date = view.mBaseDate;
         date.set(mBaseDate);
+        int selectionDay;
         boolean switchForward;
         if (deltaX > 0) {
             date.monthDay -= mNumDays;
@@ -2675,11 +2679,15 @@ public class CalendarView extends View
             if (attendeesCursor.moveToFirst()) {
                 relationship = attendeesCursor.getInt(ATTENDEES_INDEX_RELATIONSHIP);
             }
-            attendeesCursor.close();
+        }
+        attendeesCursor.close();
+
+        if (visibility >= Calendars.CONTRIBUTOR_ACCESS &&
+                relationship >= Attendees.RELATIONSHIP_ORGANIZER) {
+            return true;
         }
 
-        return visibility >= Calendars.CONTRIBUTOR_ACCESS &&
-                relationship >= Attendees.RELATIONSHIP_ORGANIZER;
+        return false;
     }
 
     /**

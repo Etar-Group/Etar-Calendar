@@ -17,9 +17,9 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">"Calendario"</string>
     <string name="calendar_plug"><font fgcolor="#ffffffff">"Benvenuto in  Google Calendar!"</font>" "\n"Un approccio di Google alla gestione della tua pianificazione in base all\'idea che gli eventi di pianificazione possano essere più intuitivi, efficaci e accessibili."</string>
-    <string name="what_label">"Che cosa"</string>
+    <string name="what_label">"Titolo"</string>
     <string name="when_label">"Intervallo di tempo"</string>
-    <string name="where_label">"Dove"</string>
+    <string name="where_label">"Posizione"</string>
     <string name="repeats_label">"Ripetizione"</string>
     <string name="no_title_label">"(Nessun oggetto)"</string>
   <plurals name="Nminutes">
@@ -64,7 +64,7 @@
     <string name="loading_calendars_title">"Caricamento calendari"</string>
     <string name="loading_calendars_message">"Caricamento calendari in corso..."</string>
     <string name="alert_when_label">"Intervallo di tempo:"</string>
-    <string name="alert_where_label">"Dove:"</string>
+    <string name="alert_where_label">"Posizione:"</string>
     <string name="alert_missed_events_single">"(Altri <xliff:g id="REMINDER_COUNT">%s</xliff:g> promemoria)"</string>
     <string name="alert_missed_events_multiple">"(Altri <xliff:g id="REMINDER_COUNT">%s</xliff:g> promemoria)"</string>
     <string name="event_info_title">"Visualizza evento"</string>
@@ -97,11 +97,11 @@
     <string name="dismiss_all_label">"Ignora tutto"</string>
     <string name="does_not_repeat">"Evento occasionale"</string>
     <string name="daily">"Ogni giorno"</string>
-    <string name="every_weekday">"Ogni giorno lavorativo (Lun-Ven)"</string>
+    <string name="every_weekday">"Ogni giorno della settimana (Lun-Ven)"</string>
     <string name="weekly">"Ogni settimana (ogni <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count">"Ogni mese (ogni <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day_count">"Ogni mese (ogni <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="monthly_on_day">"Ogni mese (il <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly">"Ogni anno (il <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="yearly">"Ogni anno (il <xliff:g id="DATES">%s</xliff:g>"</string>
     <string name="custom">"Personalizzato… (impossibile personalizzare sul telefono)"</string>
     <string name="modify_event">"Modifica solo questo evento."</string>
     <string name="modify_all">"Modifica tutti gli eventi nelle serie."</string>
@@ -117,7 +117,16 @@
     <string name="preferences_alerts_type_dialog">"Avvisi e notifiche"</string>
     <string name="preferences_alerts_vibrate_title">"Vibrazione"</string>
     <string name="preferences_alerts_ringtone_title">"Seleziona suoneria"</string>
-    <string name="preferences_default_reminder_title">"Promemoria predefinito"</string>
-    <string name="preferences_default_reminder_dialog">"Imposta promemoria predefinito"</string>
+    <string name="preferences_default_reminder_title">"Imposta promemoria predefinito"</string>
+    <string name="preferences_default_reminder_dialog">"Orario promemoria predefinito"</string>
     <string name="preferences_default_reminder_default">"10"</string>
+    <string name="gadget_calendar">"Calendario:"</string>
+    <string name="gadget_now_event">"Adesso: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_next_event">"Successivo: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+    <string name="gadget_later_event">"Successivo: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
+  <plurals name="gadget_more_events">
+    <item quantity="one">"1 altro evento"</item>
+    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g> altri eventi"</item>
+  </plurals>
+    <string name="gadget_no_events">"Nessun evento di calendario imminente"</string>
 </resources>
