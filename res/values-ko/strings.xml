@@ -120,13 +120,4 @@
     <string name="preferences_default_reminder_title">"기본 알림 설정"</string>
     <string name="preferences_default_reminder_dialog">"기본 알림 시간"</string>
     <string name="preferences_default_reminder_default">"10"</string>
-    <string name="gadget_calendar">"캘린더:"</string>
-    <string name="gadget_now_event">"현재 시각: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
-    <string name="gadget_next_event">"다음: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
-    <string name="gadget_later_event">"예정 시각: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
-  <plurals name="gadget_more_events">
-    <item quantity="one">"1개 일정 더보기"</item>
-    <item quantity="other">"<xliff:g id="NUMBER">%d</xliff:g>개 일정 더보기"</item>
-  </plurals>
-    <string name="gadget_no_events">"예정된 캘린더 일정이 없습니다."</string>
 </resources>

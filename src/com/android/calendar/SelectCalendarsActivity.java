@@ -81,12 +81,6 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
     @Override
     public void onPause() {
         super.onPause();
-        
-        // We might have changed selected calendars, so push gadget updates
-        
-        // TODO: remove this once we link up CalendarProvider and any gadgets to watch
-        // for updates to the Calendar table.
-        CalendarGadgetProvider.performUpdate(this, null);
     }
     
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

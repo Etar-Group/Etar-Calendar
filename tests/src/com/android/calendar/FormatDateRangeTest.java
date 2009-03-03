@@ -23,19 +23,20 @@ import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.util.Log;
 
+import java.util.Calendar;
 
 /**
  * Unit tests for {@link android.text.format.DateUtils#formatDateRange}.
  */
 public class FormatDateRangeTest extends AndroidTestCase {
 
-    private class DateRange {
+    private class DateTest {
         public Time date1;
         public Time date2;
         public int flags;
         public String expectedOutput;
 
-        public DateRange(int year1, int month1, int day1, int hour1, int minute1,
+        public DateTest(int year1, int month1, int day1, int hour1, int minute1,
                 int year2, int month2, int day2, int hour2, int minute2,
                 int flags, String output) {
             if ((flags & DateUtils.FORMAT_UTC) != 0) {
@@ -61,95 +62,117 @@ public class FormatDateRangeTest extends AndroidTestCase {
             this.flags = flags;
             expectedOutput = output;
         }
+
+        // Single point in time.  (not a range)
+        public DateTest(int year1, int month1, int day1, int hour1, int minute1,
+                         int flags, String output) {
+            this(year1, month1, day1, hour1, minute1,
+                 year1, month1, day1, hour1, minute1,
+                 flags, output);
+        }
     }
 
     private Resources mResources;
 
-    DateRange[] tests = {
-            new DateRange(0, 10, 9, 8, 0, 0, 10, 9, 11, 0,
+    DateTest[] tests = {
+            new DateTest(0, 10, 9, 8, 0, 0, 10, 9, 11, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL, "8am \u2013 11am"),
-            new DateRange(0, 10, 9, 8, 0, 0, 10, 9, 11, 0,
+            new DateTest(0, 10, 9, 8, 0, 0, 10, 9, 11, 0,
                     DateUtils.FORMAT_SHOW_TIME, "8:00am \u2013 11:00am"),
-            new DateRange(0, 10, 9, 8, 0, 0, 10, 9, 17, 0,
+            new DateTest(0, 10, 9, 8, 0, 0, 10, 9, 17, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_24HOUR, "08:00 \u2013 17:00"),
-            new DateRange(0, 10, 9, 8, 0, 0, 10, 9, 12, 0,
+            new DateTest(0, 10, 9, 8, 0, 0, 10, 9, 12, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL, "8am \u2013 noon"),
-            new DateRange(0, 10, 9, 8, 0, 0, 10, 9, 12, 0,
+            new DateTest(0, 10, 9, 8, 0, 0, 10, 9, 12, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_NO_NOON | DateUtils.FORMAT_ABBREV_ALL,
                     "8am \u2013 12pm"),
-            new DateRange(0, 10, 9, 8, 0, 0, 10, 9, 12, 0,
+            new DateTest(0, 10, 9, 8, 0, 0, 10, 9, 12, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_CAP_NOON | DateUtils.FORMAT_ABBREV_ALL,
                     "8am \u2013 Noon"),
-            new DateRange(0, 10, 9, 10, 30, 0, 10, 9, 13, 0,
+            new DateTest(0, 10, 9, 10, 30, 0, 10, 9, 13, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL, "10:30am \u2013 1pm"),
-            new DateRange(0, 10, 9, 13, 0, 0, 10, 9, 14, 0,
+            new DateTest(0, 10, 9, 13, 0, 0, 10, 9, 14, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL, "1pm \u2013 2pm"),
-            new DateRange(0, 10, 9, 0, 0, 0, 10, 9, 14, 0,
+            new DateTest(0, 10, 9, 0, 0, 0, 10, 9, 14, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL, "12am \u2013 2pm"),
-            new DateRange(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL, "8pm \u2013 midnight"),
-            new DateRange(0, 10, 10, 0, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL, "12am"),
-            new DateRange(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_24HOUR | DateUtils.FORMAT_ABBREV_ALL,
                     "20:00 \u2013 00:00"),
-            new DateRange(0, 10, 10, 0, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_24HOUR | DateUtils.FORMAT_ABBREV_ALL,
                     "00:00"),
-            new DateRange(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL, "Nov 9"),
-            new DateRange(0, 10, 10, 0, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 10, 0, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL, "Nov 10"),
-            new DateRange(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_24HOUR | DateUtils.FORMAT_ABBREV_ALL,
                     "Nov 9"),
-            new DateRange(0, 10, 10, 0, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_24HOUR | DateUtils.FORMAT_ABBREV_ALL,
                     "Nov 10"),
-            new DateRange(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_NO_MIDNIGHT | DateUtils.FORMAT_ABBREV_ALL,
                     "8pm \u2013 12am"),
-            new DateRange(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 9, 20, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_CAP_MIDNIGHT | DateUtils.FORMAT_ABBREV_ALL,
                     "8pm \u2013 Midnight"),
-            new DateRange(0, 10, 9, 0, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 9, 0, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL, "12am \u2013 midnight"),
-            new DateRange(0, 10, 9, 0, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 9, 0, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_24HOUR | DateUtils.FORMAT_ABBREV_ALL,
                     "00:00 \u2013 00:00"),
-            new DateRange(0, 10, 9, 0, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 9, 0, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_UTC | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL, "Nov 9"),
-            new DateRange(0, 10, 9, 0, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 9, 0, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_UTC | DateUtils.FORMAT_ABBREV_ALL, "Nov 9"),
-            new DateRange(0, 10, 9, 0, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 9, 0, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_UTC, "November 9"),
-            new DateRange(0, 10, 8, 0, 0, 0, 10, 10, 0, 0,
+            new DateTest(0, 10, 8, 0, 0, 0, 10, 10, 0, 0,
                     DateUtils.FORMAT_UTC | DateUtils.FORMAT_ABBREV_ALL, "Nov 8 \u2013 9"),
-            new DateRange(0, 10, 9, 0, 0, 0, 10, 11, 0, 0,
+            new DateTest(0, 10, 9, 0, 0, 0, 10, 11, 0, 0,
                     DateUtils.FORMAT_UTC | DateUtils.FORMAT_ABBREV_ALL, "Nov 9 \u2013 10"),
-            new DateRange(0, 10, 9, 8, 0, 0, 10, 11, 17, 0,
+            new DateTest(0, 10, 9, 8, 0, 0, 10, 11, 17, 0,
                     DateUtils.FORMAT_UTC | DateUtils.FORMAT_ABBREV_ALL, "Nov 9 \u2013 11"),
-            new DateRange(0, 9, 29, 8, 0, 0, 10, 3, 17, 0,
+            new DateTest(0, 9, 29, 8, 0, 0, 10, 3, 17, 0,
                     DateUtils.FORMAT_UTC | DateUtils.FORMAT_ABBREV_ALL, "Oct 29 \u2013 Nov 3"),
-            new DateRange(2007, 11, 29, 8, 0, 2008, 0, 2, 17, 0,
+            new DateTest(2007, 11, 29, 8, 0, 2008, 0, 2, 17, 0,
                     DateUtils.FORMAT_UTC | DateUtils.FORMAT_ABBREV_ALL, "Dec 29, 2007 \u2013 Jan 2, 2008"),
-            new DateRange(2007, 11, 29, 0, 0, 2008, 0, 2, 0, 0,
+            new DateTest(2007, 11, 29, 0, 0, 2008, 0, 2, 0, 0,
                     DateUtils.FORMAT_UTC | DateUtils.FORMAT_ABBREV_ALL, "Dec 29, 2007 \u2013 Jan 1, 2008"),
-            new DateRange(2007, 11, 29, 8, 0, 2008, 0, 2, 17, 0,
+            new DateTest(2007, 11, 29, 8, 0, 2008, 0, 2, 17, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
                     "Dec 29, 2007, 8am \u2013 Jan 2, 2008, 5pm"),
-            new DateRange(0, 10, 9, 8, 0, 0, 10, 11, 17, 0,
+            new DateTest(0, 10, 9, 8, 0, 0, 10, 11, 17, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
                     "Nov 9, 8am \u2013 Nov 11, 5pm"),
-            new DateRange(2007, 10, 9, 8, 0, 2007, 10, 11, 17, 0,
+            new DateTest(2007, 10, 9, 8, 0, 2007, 10, 11, 17, 0,
                     DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_ALL,
                     "Fri, Nov 9, 2007 \u2013 Sun, Nov 11, 2007"),
-            new DateRange(2007, 10, 9, 8, 0, 2007, 10, 11, 17, 0,
+            new DateTest(2007, 10, 9, 8, 0, 2007, 10, 11, 17, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_ALL,
                     "Fri, Nov 9, 2007, 8am \u2013 Sun, Nov 11, 2007, 5pm"),
-            new DateRange(2007, 11, 3, 13, 0, 2007, 11, 3, 14, 0,
+            new DateTest(2007, 11, 3, 13, 0, 2007, 11, 3, 14, 0,
                     DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR,
                     "1:00pm \u2013 2:00pm, December 3, 2007"),
+            // Tests that FORMAT_SHOW_YEAR takes precedence over FORMAT_NO_YEAR:
+            new DateTest(2007, 11, 3, 13, 0, 2007, 11, 3, 13, 0,
+                    DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NO_YEAR,
+                    "December 3, 2007"),
+            // Tests that year isn't shown by default with no year flags when time is the current year:
+            new DateTest(
+                    Calendar.getInstance().get(Calendar.YEAR), 0, 3, 13, 0,
+                    DateUtils.FORMAT_SHOW_DATE,
+                    "January 3"),
+            // Tests that the year is shown by default with no year flags when time isn't the current year:
+            new DateTest(
+                    Calendar.getInstance().get(Calendar.YEAR) - 1, 0, 3, 13, 0,
+                    DateUtils.FORMAT_SHOW_DATE,
+                    "January 3, 2008"),
     };
 
     @Override
@@ -163,17 +186,17 @@ public class FormatDateRangeTest extends AndroidTestCase {
     public void testAll() throws Exception {
         int len = tests.length;
         for (int index = 0; index < len; index++) {
-            DateRange dateRange = tests[index];
-            long startMillis = dateRange.date1.toMillis(false /* use isDst */);
-            long endMillis = dateRange.date2.toMillis(false /* use isDst */);
-            int flags = dateRange.flags;
+            DateTest dateTest = tests[index];
+            long startMillis = dateTest.date1.toMillis(false /* use isDst */);
+            long endMillis = dateTest.date2.toMillis(false /* use isDst */);
+            int flags = dateTest.flags;
             String output = DateUtils.formatDateRange(mContext, startMillis, endMillis, flags);
-            if (!dateRange.expectedOutput.equals(output)) {
+            if (!dateTest.expectedOutput.equals(output)) {
                 Log.i("FormatDateRangeTest", "index " + index
-                        + " expected: " + dateRange.expectedOutput
+                        + " expected: " + dateTest.expectedOutput
                         + " actual: " + output);
             }
-            assertEquals(dateRange.expectedOutput, output);
+            assertEquals(dateTest.expectedOutput, output);
         }
     }
 }

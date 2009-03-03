@@ -94,12 +94,12 @@
     <string name="discard_label">"Odrzuć zmiany"</string>
     <string name="import_label">"Importuj"</string>
     <string name="snooze_all_label">"Odłóż wszystkie"</string>
-    <string name="dismiss_all_label">"Odrzuć wszystkie"</string>
+    <string name="dismiss_all_label">"Zamknij wszystkie"</string>
     <string name="does_not_repeat">"Wydarzenie jednorazowe"</string>
     <string name="daily">"Codziennie"</string>
     <string name="every_weekday">"Codziennie (pn-pt)"</string>
     <string name="weekly">"Co tydzień (<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count">"Co miesiąc (<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day_count">"Co miesiąc (co <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly_on_day">"Co miesiąc (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> każdego miesiąca)"</string>
     <string name="yearly">"Co rok (<xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom">"Niestandardowo… (nie można dostosować na telefonie)"</string>
@@ -110,23 +110,14 @@
     <string name="delete_title">"Usuń"</string>
     <string name="change_response_title">"Zmień odpowiedź"</string>
     <string name="preferences_title">"Ustawienia"</string>
-    <string name="preferences_general_title">"Ustawienie widoku kalendarza"</string>
+    <string name="preferences_general_title">"Widok kalendarza"</string>
     <string name="preferences_alerts_title">"Ustawienia przypomnień"</string>
-    <string name="preferences_hide_declined_title">"Ukryj odrzucone wydarzenia"</string>
-    <string name="preferences_alerts_type_title">"Ustaw alerty i powiadomienia"</string>
+    <string name="preferences_hide_declined_title">"Ukryj odrzucone"</string>
+    <string name="preferences_alerts_type_title">"Alerty i powiadomienia"</string>
     <string name="preferences_alerts_type_dialog">"Alerty i powiadomienia"</string>
     <string name="preferences_alerts_vibrate_title">"Wibracje"</string>
     <string name="preferences_alerts_ringtone_title">"Wybierz dzwonek"</string>
-    <string name="preferences_default_reminder_title">"Ustaw domyślne przypomnienie"</string>
-    <string name="preferences_default_reminder_dialog">"Domyślna godzina przypomnienia"</string>
+    <string name="preferences_default_reminder_title">"Domyślne przypomnienie"</string>
+    <string name="preferences_default_reminder_dialog">"Domyślne przypomnienie"</string>
     <string name="preferences_default_reminder_default">"10"</string>
-    <string name="gadget_calendar">"Kalendarz:"</string>
-    <string name="gadget_now_event">"Teraz: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
-    <string name="gadget_next_event">"Następne: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
-    <string name="gadget_later_event">"Później: <xliff:g id="TIME_DATE">%s</xliff:g>"</string>
-  <plurals name="gadget_more_events">
-    <item quantity="one">"Więcej wydarzeń: 1"</item>
-    <item quantity="other">"Więcej wydarzeń: <xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
-    <string name="gadget_no_events">"Brak zbliżających się wydarzeń w kalendarzu"</string>
 </resources>

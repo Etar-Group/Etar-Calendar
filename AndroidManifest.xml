@@ -52,7 +52,8 @@
         <activity android:name="DayActivity" android:label="@string/day_view"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name="AgendaActivity" android:label="@string/agenda_view" 
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:exported="true" />
         
         <activity android:name="EditEvent" android:label="@string/event_edit_title"
             android:theme="@android:style/Theme.Light"
@@ -98,14 +99,6 @@
                  <category android:name="android.intent.category.UNIT_TEST" />
             </intent-filter>
         </activity>
-
-        <receiver android:name="CalendarGadgetProvider">
-            <intent-filter>
-                <action android:name="android.gadget.action.GADGET_UPDATE" />
-                <action android:name="com.android.providers.calendar.EVENTS_CHANGED" />
-            </intent-filter>
-            <meta-data android:name="android.gadget.provider" android:resource="@xml/gadget_info" />
-        </receiver>
     </application>
 </manifest>
 

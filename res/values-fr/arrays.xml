@@ -110,10 +110,10 @@
     <item>"samedi"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"premier"</item>
-    <item>"seconde"</item>
-    <item>"troisième"</item>
-    <item>"quatrième"</item>
+    <item>"1er"</item>
+    <item>"2e"</item>
+    <item>"3e"</item>
+    <item>"4e"</item>
     <item>"dernier"</item>
   </string-array>
   <string-array name="response_labels1">

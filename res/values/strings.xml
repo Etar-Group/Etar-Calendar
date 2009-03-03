@@ -347,25 +347,4 @@
     <!-- Default value for the number of reminder minutes -->
     <string name="preferences_default_reminder_default">10</string>
 
-    <!-- Bold prefix for gadget that identifies the calendar display name -->
-    <string name="gadget_calendar">Calendar:</string>
-
-    <!-- Prefix for date/time of currently happening event in gadget -->
-    <string name="gadget_now_event">Now: <xliff:g id="time_date">%s</xliff:g></string>
-    <!-- Prefix for date/time of next upcoming event in gadget -->
-    <string name="gadget_next_event">Next: <xliff:g id="time_date">%s</xliff:g></string>
-    <!-- Prefix for date/time of later upcoming event in gadget -->
-    <string name="gadget_later_event">Later: <xliff:g id="time_date">%s</xliff:g></string>
-
-    <!-- Shown in gadget when additional events are available for display, but no room remaining -->
-    <plurals name="gadget_more_events">
-        <!-- additional events message for 1 event -->
-        <item quantity="one">1 more event</item>
-        <!-- additional events message for multiple events -->
-        <item quantity="other"><xliff:g id="number">%d</xliff:g> more events</item>
-    </plurals>
-
-    <!-- Caption to show on gadget when there are no upcoming calendar events -->
-    <string name="gadget_no_events">No upcoming calendar events</string>
-
 </resources>

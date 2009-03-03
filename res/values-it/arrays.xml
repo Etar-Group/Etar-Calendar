@@ -84,7 +84,7 @@
   <string-array name="preferences_alert_type_labels">
     <item>"Avviso"</item>
     <item>"Notifica barra di stato"</item>
-    <item>"Disattivato"</item>
+    <item>"Disativa"</item>
   </string-array>
   <string-array name="preferences_alert_type_values">
     <item>"0"</item>

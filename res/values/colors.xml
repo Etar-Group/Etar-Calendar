@@ -50,14 +50,6 @@
     <color name="month_week_banner">#20595959</color>
 
     <color name="event_center">#ff6bd697</color>
-
-    <color name="gadget_when">#ffffffff</color>
-    <color name="gadget_reminder">#ffffffff</color>
-    <color name="gadget_title">#ff000000</color>
-    <color name="gadget_where">#ff000000</color>
-    <color name="gadget_calendar">#ff000000</color>
-
-    <color name="gadget_no_events">#bb000000</color>
     
     <drawable name="agenda_item_declined">#88ffffff</drawable>
 </resources>
