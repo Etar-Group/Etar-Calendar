@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item>"5 minutos"</item>
+    <item>"10 minutos"</item>
+    <item>"15 minutos"</item>
+    <item>"20 minutos"</item>
+    <item>"25 minutos"</item>
+    <item>"30 minutos"</item>
+    <item>"45 minutos"</item>
+    <item>"1 hora"</item>
+    <item>"2 horas"</item>
+    <item>"3 horas"</item>
+    <item>"12 horas"</item>
+    <item>"24 horas"</item>
+    <item>"2 días"</item>
+    <item>"1 semana"</item>
+  </string-array>
+  <string-array name="reminder_minutes_values">
+    <item>"5"</item>
+    <item>"10"</item>
+    <item>"15"</item>
+    <item>"20"</item>
+    <item>"25"</item>
+    <item>"30"</item>
+    <item>"45"</item>
+    <item>"60"</item>
+    <item>"120"</item>
+    <item>"180"</item>
+    <item>"720"</item>
+    <item>"1440"</item>
+    <item>"2880"</item>
+    <item>"10080"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item>"Ninguno"</item>
+    <item>"5 minutos"</item>
+    <item>"10 minutos"</item>
+    <item>"15 minutos"</item>
+    <item>"20 minutos"</item>
+    <item>"25 minutos"</item>
+    <item>"30 minutos"</item>
+    <item>"45 minutos"</item>
+    <item>"1 hora"</item>
+    <item>"2 horas"</item>
+    <item>"3 horas"</item>
+    <item>"12 horas"</item>
+    <item>"24 horas"</item>
+    <item>"2 días"</item>
+    <item>"1 semana"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_values">
+    <item>"0"</item>
+    <item>"5"</item>
+    <item>"10"</item>
+    <item>"15"</item>
+    <item>"20"</item>
+    <item>"25"</item>
+    <item>"30"</item>
+    <item>"45"</item>
+    <item>"60"</item>
+    <item>"120"</item>
+    <item>"180"</item>
+    <item>"720"</item>
+    <item>"1440"</item>
+    <item>"2880"</item>
+    <item>"10080"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item>"Alertar"</item>
+    <item>"Notificación de la barra de estado"</item>
+    <item>"Desconectado"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_values">
+    <item>"0"</item>
+    <item>"1"</item>
+    <item>"2"</item>
+  </string-array>
+  <string-array name="availability">
+    <item>"Ocupado"</item>
+    <item>"Disponible"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item>"Predeterminado"</item>
+    <item>"Privado"</item>
+    <item>"Público"</item>
+  </string-array>
+  <string-array name="day_labels">
+    <item>"Domingo"</item>
+    <item>"Lunes"</item>
+    <item>"Martes"</item>
+    <item>"Miércoles"</item>
+    <item>"Jueves"</item>
+    <item>"Viernes"</item>
+    <item>"Sábado"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item>"primero"</item>
+    <item>"segundo"</item>
+    <item>"tercero"</item>
+    <item>"cuarto"</item>
+    <item>"último"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item>"(No responde)"</item>
+    <item>"Sí"</item>
+    <item>"Quizás"</item>
+    <item>"No"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item>"Sí"</item>
+    <item>"Quizás"</item>
+    <item>"No"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>"Sólo este evento"</item>
+    <item>"Este evento y eventos futuros"</item>
+    <item>"Todos los eventos"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item>"Éste y otros eventos posteriores"</item>
+    <item>"Todos los eventos"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>"Sólo esta ocasión"</item>
+    <item>"Todos los eventos de la serie"</item>
+  </string-array>
+</resources>

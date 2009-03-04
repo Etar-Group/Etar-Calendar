@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label">"Calendario"</string>
+    <string name="calendar_plug"><font fgcolor="#ffffffff">"Benvenuto in  Google Calendar!"</font>" "\n"Un approccio di Google alla gestione della tua pianificazione in base all\'idea che gli eventi di pianificazione possano essere più intuitivi, efficaci e accessibili."</string>
+    <string name="what_label">"Che cosa"</string>
+    <string name="when_label">"Intervallo di tempo"</string>
+    <string name="where_label">"Dove"</string>
+    <string name="repeats_label">"Ripetizione"</string>
+    <string name="no_title_label">"(Nessun oggetto)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one">"1 minuto"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minuti"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one">"1 min"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one">"1 ora"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> ore"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one">"1 giorno"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> giorni"</item>
+  </plurals>
+    <string name="show_agenda_view">"Mostra agenda"</string>
+    <string name="show_day_view">"Mostra giorno"</string>
+    <string name="agenda_view">"Agenda"</string>
+    <string name="day_view">"Giorno"</string>
+    <string name="week_view">"Settimana"</string>
+    <string name="month_view">"Mese"</string>
+    <string name="event_view">"Visualizza evento"</string>
+    <string name="event_create">"Nuovo evento"</string>
+    <string name="event_edit">"Modifica  evento"</string>
+    <string name="event_delete">"Elimina evento"</string>
+    <string name="goto_today">"Oggi"</string>
+    <string name="menu_select_calendars">"I miei calendari"</string>
+    <string name="menu_preferences">"Impostazioni"</string>
+    <string name="plus_N_more">"(più altri <xliff:g id="MORE_COUNT">%d</xliff:g>…)"</string>
+    <string name="calendars_title">"I miei calendari"</string>
+    <string name="add_calendars">"Aggiungi calendari"</string>
+    <string name="remove_calendars">"Rimuovi calendari"</string>
+    <string name="event_edit_title">"Dettagli evento"</string>
+    <string name="hint_what">"Nome evento"</string>
+    <string name="hint_where">"Luogo evento"</string>
+    <string name="hint_description">"Descrizione evento"</string>
+    <string name="creating_event">"Creazione evento in corso…"</string>
+    <string name="saving_event">"Salvataggio evento in corso…"</string>
+    <string name="loading_calendars_title">"Caricamento calendari"</string>
+    <string name="loading_calendars_message">"Caricamento calendari in corso..."</string>
+    <string name="alert_when_label">"Intervallo di tempo:"</string>
+    <string name="alert_where_label">"Dove:"</string>
+    <string name="alert_missed_events_single">"(Altri <xliff:g id="REMINDER_COUNT">%s</xliff:g> promemoria)"</string>
+    <string name="alert_missed_events_multiple">"(Altri <xliff:g id="REMINDER_COUNT">%s</xliff:g> promemoria)"</string>
+    <string name="event_info_title">"Visualizza evento"</string>
+    <string name="event_info_title_invite">"Invito a riunione"</string>
+    <string name="add_new_reminder">"Aggiungi promemoria"</string>
+    <string name="edit_event_to_label">"A"</string>
+    <string name="edit_event_from_label">"Da"</string>
+    <string name="edit_event_all_day_label">"Tutto il giorno"</string>
+    <string name="edit_event_calendar_label">"Calendario"</string>
+    <string name="edit_event_show_extra_options">"Mostra opzioni aggiuntive"</string>
+    <string name="edit_event_hide_extra_options">"Nascondi opzioni aggiuntive"</string>
+    <string name="description_label">"Descrizione"</string>
+    <string name="presence_label">"Presenza"</string>
+    <string name="privacy_label">"Privacy"</string>
+    <string name="reminders_label">"Promemoria"</string>
+    <string name="no_syncable_calendars">"Nessun calendario"</string>
+    <string name="no_calendars_found">"Non sono presenti calendari."</string>
+    <string name="view_event_calendar_label">"Calendario"</string>
+    <string name="view_event_timezone_label">"Fuso orario locale"</string>
+    <string name="view_event_response_label">"Partecipanti?"</string>
+    <string name="agenda_today">"Oggi"</string>
+    <string name="num_events">"N. eventi"</string>
+    <string name="edit_event_label">"Modifica  evento"</string>
+    <string name="delete_label">"Elimina"</string>
+    <string name="delete_event_label">"Elimina evento"</string>
+    <string name="save_label">"Salva"</string>
+    <string name="discard_label">"Ignora modifiche"</string>
+    <string name="import_label">"Importa"</string>
+    <string name="snooze_all_label">"Posponi tutto"</string>
+    <string name="dismiss_all_label">"Ignora tutto"</string>
+    <string name="does_not_repeat">"Evento occasionale"</string>
+    <string name="daily">"Ogni giorno"</string>
+    <string name="every_weekday">"Ogni giorno lavorativo (Lun-Ven)"</string>
+    <string name="weekly">"Ogni settimana (ogni <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count">"Ogni mese (ogni <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day">"Ogni mese (il <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly">"Ogni anno (il <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom">"Personalizzato… (impossibile personalizzare sul telefono)"</string>
+    <string name="modify_event">"Modifica solo questo evento."</string>
+    <string name="modify_all">"Modifica tutti gli eventi nelle serie."</string>
+    <string name="modify_all_following">"Modifica questo e tutti gli eventi futuri."</string>
+    <string name="delete_this_event_title">"L\'evento verrà eliminato."</string>
+    <string name="delete_title">"Elimina"</string>
+    <string name="change_response_title">"Cambia risposta"</string>
+    <string name="preferences_title">"Impostazioni"</string>
+    <string name="preferences_general_title">"Impostazione visualizzazione calendario"</string>
+    <string name="preferences_alerts_title">"Impostazioni promemoria"</string>
+    <string name="preferences_hide_declined_title">"Nascondi eventi rifiutati"</string>
+    <string name="preferences_alerts_type_title">"Imposta avvisi e notifiche"</string>
+    <string name="preferences_alerts_type_dialog">"Avvisi e notifiche"</string>
+    <string name="preferences_alerts_vibrate_title">"Vibrazione"</string>
+    <string name="preferences_alerts_ringtone_title">"Seleziona suoneria"</string>
+    <string name="preferences_default_reminder_title">"Promemoria predefinito"</string>
+    <string name="preferences_default_reminder_dialog">"Imposta promemoria predefinito"</string>
+    <string name="preferences_default_reminder_default">"10"</string>
+</resources>

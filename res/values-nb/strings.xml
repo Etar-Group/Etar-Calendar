@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label">"Kalender"</string>
+    <string name="calendar_plug"><font fgcolor="#ffffffff">"Velkommen til Google-kalenderen!"</font>" "\n"En Google-løsning for å vedlikeholde timeplanen din, bygget på ideen om at å planlegge ting skal være intuitivt, effektivt og tilgjengelig."</string>
+    <string name="what_label">"Hva"</string>
+    <string name="when_label">"Når"</string>
+    <string name="where_label">"Hvor"</string>
+    <string name="repeats_label">"Gjentas"</string>
+    <string name="no_title_label">"(Mangler emne)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one">"Et minutt"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minutter"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one">"1 min"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one">"En time"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> timer"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one">"En dag"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> dager"</item>
+  </plurals>
+    <string name="show_agenda_view">"Vis agenda"</string>
+    <string name="show_day_view">"Vis dag"</string>
+    <string name="agenda_view">"Agenda"</string>
+    <string name="day_view">"Dag"</string>
+    <string name="week_view">"Uke"</string>
+    <string name="month_view">"Måned"</string>
+    <string name="event_view">"Vis hendelse"</string>
+    <string name="event_create">"Ny hendelse"</string>
+    <string name="event_edit">"Rediger hendelse"</string>
+    <string name="event_delete">"Slett hendelse"</string>
+    <string name="goto_today">"I dag"</string>
+    <string name="menu_select_calendars">"Mine kalendre"</string>
+    <string name="menu_preferences">"Innstillinger"</string>
+    <string name="plus_N_more">"(samt <xliff:g id="MORE_COUNT">%d</xliff:g> til …)"</string>
+    <string name="calendars_title">"Mine kalendre"</string>
+    <string name="add_calendars">"Legg til kalendre"</string>
+    <string name="remove_calendars">"Fjern kalendre"</string>
+    <string name="event_edit_title">"Hendelsesdetaljer"</string>
+    <string name="hint_what">"Navn på hendelse"</string>
+    <string name="hint_where">"Sted"</string>
+    <string name="hint_description">"Beskrivelse av hendelsen"</string>
+    <string name="creating_event">"Lager hendelse…"</string>
+    <string name="saving_event">"Lagrer hendelse…"</string>
+    <string name="loading_calendars_title">"Laster kalendre"</string>
+    <string name="loading_calendars_message">"Laster kalendre…"</string>
+    <string name="alert_when_label">"Hva:"</string>
+    <string name="alert_where_label">"Hvor:"</string>
+    <!-- no translation found for alert_missed_events_single (8042891195314876684) -->
+    <skip />
+    <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> hendelser til)"</string>
+    <string name="event_info_title">"Vis hendelse"</string>
+    <string name="event_info_title_invite">"Møteinvitasjon"</string>
+    <string name="add_new_reminder">"Legg til påminnelse"</string>
+    <string name="edit_event_to_label">"Til"</string>
+    <string name="edit_event_from_label">"Fra"</string>
+    <string name="edit_event_all_day_label">"Hele dagen"</string>
+    <string name="edit_event_calendar_label">"Kalender"</string>
+    <string name="edit_event_show_extra_options">"Vis ekstra valg"</string>
+    <string name="edit_event_hide_extra_options">"Skjul ekstra valg"</string>
+    <string name="description_label">"Beskrivelse"</string>
+    <string name="presence_label">"Vis meg som"</string>
+    <string name="privacy_label">"Personvern"</string>
+    <string name="reminders_label">"Påminnelser"</string>
+    <string name="no_syncable_calendars">"Ingen kalendre"</string>
+    <string name="no_calendars_found">"Du har ingen kalendre."</string>
+    <string name="view_event_calendar_label">"Kalender"</string>
+    <string name="view_event_timezone_label">"Lokal tidssone"</string>
+    <string name="view_event_response_label">"Kommer du?"</string>
+    <string name="agenda_today">"I dag"</string>
+    <string name="num_events">"Ant. hendelser"</string>
+    <string name="edit_event_label">"Rediger hendelse"</string>
+    <string name="delete_label">"Slett"</string>
+    <string name="delete_event_label">"Slett hendelse"</string>
+    <string name="save_label">"Lagre"</string>
+    <string name="discard_label">"Forkast hendelse"</string>
+    <string name="import_label">"Importer"</string>
+    <string name="snooze_all_label">"Slumre alle"</string>
+    <string name="dismiss_all_label">"Skjul alle"</string>
+    <string name="does_not_repeat">"Engangshendelse"</string>
+    <string name="daily">"Daglig"</string>
+    <string name="every_weekday">"Hverdager (man–fre)"</string>
+    <string name="weekly">"Ukentlig (hver <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count">"Hver måned (hver <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day">"Hver måned (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>.)"</string>
+    <string name="yearly">"Hvert år (<xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom">"Egendefinert… (kan ikke settes på telefonen)"</string>
+    <string name="modify_event">"Endre bare denne hendelsen."</string>
+    <string name="modify_all">"Endre alle hendelser i denne serien."</string>
+    <string name="modify_all_following">"Endre denne og alle framtidige hendelser."</string>
+    <string name="delete_this_event_title">"Denne hendelsen vil bli slettet."</string>
+    <string name="delete_title">"Slett"</string>
+    <string name="change_response_title">"Endre svar"</string>
+    <string name="preferences_title">"Innstillinger"</string>
+    <string name="preferences_general_title">"Kalender visningsinnstilling"</string>
+    <string name="preferences_alerts_title">"Innstillinger for påminnelser"</string>
+    <string name="preferences_hide_declined_title">"Skjul avslåtte hendelser"</string>
+    <string name="preferences_alerts_type_title">"Sett varsling og påminnelser"</string>
+    <string name="preferences_alerts_type_dialog">"Varsling og påminnelser"</string>
+    <string name="preferences_alerts_vibrate_title">"Vibrer"</string>
+    <string name="preferences_alerts_ringtone_title">"Velg ringetone"</string>
+    <string name="preferences_default_reminder_title">"Sett standard påminnelse"</string>
+    <string name="preferences_default_reminder_dialog">"Standard påminnelsestid"</string>
+    <string name="preferences_default_reminder_default">"10"</string>
+</resources>

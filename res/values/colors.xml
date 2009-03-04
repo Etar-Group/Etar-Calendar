@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/* //device/apps/Calendar/assets/res/any/colors.xml
+**
+** Copyright 2006, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
+**
+**     http://www.apache.org/licenses/LICENSE-2.0 
+**
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
+** limitations under the License.
+*/
+-->
+<resources>
+    <color name="event_background">#ffc3d9ff</color>
+    <color name="panel_text_foreground">#ffffffff</color>
+    <color name="daynames_background">#ffc3d9ff</color>
+    <color name="daynames_text_color">#ff112abb</color>
+    <color name="calendar_event_selected_text_color">#ff000000</color>
+    <color name="calendar_event_text_color">#ffffffff</color>
+
+    <color name="calendar_all_day_background">#ffe8eef7</color>
+    <color name="week_weekend">#ff446688</color>
+    <color name="calendar_hour_label">#ff446688</color>
+    <color name="calendar_ampm_label">#ff446688</color>
+    <color name="calendar_hour_background">#ffe8eef7</color>
+    <color name="calendar_hour_selected">#ffB0B0B0</color>
+    <color name="calendar_date_banner_background">#ffc3d9ff</color>
+    <color name="calendar_date_selected">#ffB0B0B0</color>
+    <color name="calendar_date_banner_text_color">#ff446688</color>
+    <color name="calendar_grid_area_background">#ffffffff</color>
+    <color name="calendar_grid_area_selected">#ffffffcc</color>
+    <color name="calendar_grid_line_horizontal_color">#ffdddddd</color>
+    <color name="calendar_grid_line_vertical_color">#ff5a5a5a</color>
+    <color name="calendar_grid_line_highlight_color">#ff707070</color>
+    <color name="selection">#ffffaa00</color>
+    <color name="pressed">#fffab400</color>
+        
+    <color name="month_day_number">#ff404040</color>
+    <color name="month_today_number">#ffffffff</color>
+    <color name="month_other_month">#ff595959</color>
+    <color name="month_other_month_day_number">#ffa0a0a0</color>
+    <color name="month_other_month_banner">#80595959</color>
+    <color name="month_week_banner">#20595959</color>
+
+    <color name="event_center">#ff6bd697</color>
+    
+    <drawable name="agenda_item_declined">#88ffffff</drawable>
+</resources>
+
