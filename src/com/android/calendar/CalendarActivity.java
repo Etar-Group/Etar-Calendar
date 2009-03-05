@@ -257,6 +257,9 @@ public class CalendarActivity extends Activity implements Navigator {
 
     public View switchViews(boolean forward, float xOffSet, float width) {
         float progress = Math.abs(xOffSet) / width;
+        if (progress > 1.0f) {
+            progress = 1.0f;
+        }
         
         float inFromXValue, inToXValue;
         float outFromXValue, outToXValue;
