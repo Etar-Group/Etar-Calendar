@@ -35,7 +35,7 @@
         <item>1 week</item>
     </string-array>
     
-    <string-array name="reminder_minutes_values">
+    <string-array name="reminder_minutes_values" translatable="false">
         <item>"5"</item>
         <item>"10"</item>
         <item>"15"</item>
@@ -70,7 +70,7 @@
         <item>1 week</item>
     </string-array>
     
-    <string-array name="preferences_default_reminder_values">
+    <string-array name="preferences_default_reminder_values" translatable="false">
         <item>"0"</item>
         <item>"5"</item>
         <item>"10"</item>
@@ -94,7 +94,7 @@
         <item>Off</item>
     </string-array>
     
-    <string-array name="preferences_alert_type_values">
+    <string-array name="preferences_alert_type_values" translatable="false">
         <item>"0"</item>
         <item>"1"</item>
         <item>"2"</item>

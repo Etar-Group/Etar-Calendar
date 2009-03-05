@@ -206,7 +206,6 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
         // TODO: We should restore the old heap size once the activity reaches the idle state
         long oldHeapSize = VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
 
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.agenda_activity);
 
         mContentResolver = getContentResolver();
@@ -220,7 +219,7 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
         } else {
             mTime.set(Utils.timeFromIntent(getIntent()));
         }
-        setTitle(Utils.formatMonthYear(mTime));
+        setTitle(R.string.agenda_view);
 
         mViewSwitcher = (ViewSwitcher) findViewById(R.id.switcher);
         mViewSwitcher.setFactory(this);

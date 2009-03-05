@@ -19,7 +19,7 @@
     android:orientation="horizontal"
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
-    android:background="@android:color/darker_gray"
+    android:background="@color/agenda_day_bar_color"
     android:padding="4dip"
     >
     <TextView android:id="@+id/date"

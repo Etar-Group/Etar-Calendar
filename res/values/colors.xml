@@ -37,7 +37,7 @@
     <color name="calendar_grid_area_background">#ffffffff</color>
     <color name="calendar_grid_area_selected">#ffffffcc</color>
     <color name="calendar_grid_line_horizontal_color">#ffdddddd</color>
-    <color name="calendar_grid_line_vertical_color">#ff5a5a5a</color>
+    <color name="calendar_grid_line_vertical_color">#ff808080</color>
     <color name="calendar_grid_line_highlight_color">#ff707070</color>
     <color name="selection">#ffffaa00</color>
     <color name="pressed">#fffab400</color>
@@ -50,7 +50,9 @@
     <color name="month_week_banner">#20595959</color>
 
     <color name="event_center">#ff6bd697</color>
-    
+
+    <color name="agenda_day_bar_color">#c8c8c8</color>
+
     <drawable name="agenda_item_declined">#88ffffff</drawable>
 </resources>
 

@@ -158,6 +158,8 @@
 
     <!-- The alert toast is not actually being displayed for some reason. -->
     <skip />
+    <!-- the title of the alert/notification activity -->
+    <string name="alert_title">Calendar notifications</string>
     <!-- The label for the date/time of an event in a popup window -->
     <string name="alert_when_label">When:</string>
     <!-- The label for the location of an event in a popup window -->

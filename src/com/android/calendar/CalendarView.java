@@ -1168,6 +1168,7 @@ public class CalendarView extends View
         dest.bottom = mViewHeight;
         dest.left = 0;
         dest.right = mViewWidth;
+
         canvas.save();
         canvas.clipRect(dest);
         canvas.drawColor(0, PorterDuff.Mode.CLEAR);
@@ -2422,6 +2423,8 @@ public class CalendarView extends View
                 if (Math.abs(mViewStartX) > HORIZONTAL_SCROLL_THRESHOLD) {
                     // The user has gone beyond the threshold so switch views
                     mParentActivity.switchViews(mViewStartX > 0, mViewStartX, mViewWidth);
+                    mViewStartX = 0;
+                    return true;
                 } else {
                     // Not beyond the threshold so invalidate which will cause
                     // the view to snap back.  Also call recalc() to ensure
@@ -2429,8 +2432,8 @@ public class CalendarView extends View
                     recalc();
                     mTitleTextView.setText(mDateRange);
                     invalidate();
+                    mViewStartX = 0;
                 }
-                mViewStartX = 0;
             }
 
             // If we were scrolling, then reset the selected hour so that it
@@ -2947,6 +2950,10 @@ public class CalendarView extends View
         if (handler != null) {
             handler.removeCallbacks(mDismissPopup);
         }
+        
+        // Turn off redraw
+        mRemeasure = false;
+        mRedrawScreen = false;
     }
 
     @Override protected void onDetachedFromWindow() {

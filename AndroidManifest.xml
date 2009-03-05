@@ -52,7 +52,7 @@
         <activity android:name="DayActivity" android:label="@string/day_view"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name="AgendaActivity" android:label="@string/agenda_view" 
-            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:theme="@android:style/Theme.Light"
             android:exported="true" />
         
         <activity android:name="EditEvent" android:label="@string/event_edit_title"
@@ -67,7 +67,7 @@
         </activity>
         
         <activity android:name="EventInfoActivity" android:label="@string/event_info_title"
-        	android:theme="@android:style/Theme.Light"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:configChanges="orientation|keyboardHidden">
             
             <intent-filter>
@@ -79,7 +79,7 @@
         <activity android:name="SelectCalendarsActivity" android:label="@string/calendars_title" />
         <activity android:name="CalendarPreferenceActivity" android:label="@string/preferences_title" />
         <activity android:name="AlertActivity" android:launchMode="singleInstance"
-             android:theme="@style/Alert" android:excludeFromRecents="true" />
+             android:theme="@android:style/Theme.Light" android:excludeFromRecents="true" />
         <receiver android:name="AlertReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.EVENT_REMINDER" />

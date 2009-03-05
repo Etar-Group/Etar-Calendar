@@ -147,8 +147,8 @@ public class AlertActivity extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.alert_activity);
+        setTitle(R.string.alert_title);
         
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.width = ViewGroup.LayoutParams.FILL_PARENT;
