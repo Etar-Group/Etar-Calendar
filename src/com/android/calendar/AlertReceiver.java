@@ -53,13 +53,6 @@ public class AlertReceiver extends BroadcastReceiver {
     
     private static final String DELETE_ACTION = "delete";
     
-    private static final String[] PROJECTION = new String[] { 
-        CalendarAlerts._ID,              // 0
-        CalendarAlerts.STATE,            // 1
-    };
-    
-    public static final int INDEX_STATE = 1;
-    
     static final Object mStartingServiceSync = new Object();
     static PowerManager.WakeLock mStartingService;
     
@@ -70,7 +63,9 @@ public class AlertReceiver extends BroadcastReceiver {
             /* The user has clicked the "Clear All Notifications"
              * buttons so dismiss all Calendar alerts.
              */
-            dismissAllEvents(context);
+            // TODO Grab a wake lock here?
+            Intent serviceIntent = new Intent(context, DismissAllAlarmsService.class);
+            context.startService(serviceIntent);
         } else {
             Intent i = new Intent();
             i.setClass(context, AlertService.class);
@@ -92,21 +87,6 @@ public class AlertReceiver extends BroadcastReceiver {
                 cr.update(uri, values, null /* where */, null /* args */);
             }
             beginStartingService(context, i);
-        }
-    }
-    
-    private void dismissAllEvents(Context context) {
-        Uri uri = CalendarAlerts.CONTENT_URI_BY_INSTANCE;
-        String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.FIRED;
-        ContentResolver resolver = context.getContentResolver();
-        Cursor cursor = resolver.query(uri, PROJECTION, selection, null, null);
-        if (cursor != null) {
-            cursor.moveToPosition(-1);
-            while (cursor.moveToNext()) {
-                cursor.updateInt(INDEX_STATE, CalendarAlerts.DISMISSED);
-            }
-            cursor.commitUpdates();
-            cursor.close();
         }
     }
 

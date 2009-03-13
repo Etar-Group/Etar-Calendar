@@ -236,10 +236,12 @@ public class DeleteEventHelper {
             .show();
             mAlertDialog = dialog;
             
-            // Disable the "Ok" button until the user selects which events to
-            // delete.
-            Button ok = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            ok.setEnabled(false);
+            if (which == -1) {
+                // Disable the "Ok" button until the user selects which events
+                // to delete.
+                Button ok = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                ok.setEnabled(false);
+            }
         }
     }
     

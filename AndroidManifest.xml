@@ -93,6 +93,8 @@
 
         <service android:name="AlertService" />
 
+        <service android:name="DismissAllAlarmsService" />
+
         <activity android:name="CalendarTests" android:label="Calendar Tests">
             <intent-filter>
                  <action android:name="android.intent.action.MAIN" />

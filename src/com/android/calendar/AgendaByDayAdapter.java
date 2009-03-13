@@ -93,7 +93,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         TextView dateView;
-        TextView dayOfWeekView;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -112,7 +111,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 holder = new ViewHolder();
                 agendaDayView = mInflater.inflate(R.layout.agenda_day, parent, false);
                 holder.dateView = (TextView) agendaDayView.findViewById(R.id.date);
-                holder.dayOfWeekView = (TextView) agendaDayView.findViewById(R.id.day_of_week);
                 agendaDayView.setTag(holder);
             } else {
                 agendaDayView = convertView;
@@ -122,16 +120,18 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // Re-use the member variable "mTime" which is set to the local timezone.
             Time date = mTime;
             long millis = date.setJulianDay(row.mData);
-            int flags = DateUtils.FORMAT_NUMERIC_DATE;
-            holder.dateView.setText(DateUtils.formatDateRange(mContext, millis, millis, flags));
-
+            int flags = DateUtils.FORMAT_SHOW_YEAR
+                    | DateUtils.FORMAT_SHOW_DATE;
+            
             if (row.mData == mTodayJulianDay) {
-                holder.dayOfWeekView.setText(R.string.agenda_today);
+                String dayText = mContext.getResources().getText(R.string.agenda_today) + ", ";
+                holder.dateView.setText(dayText + DateUtils.formatDateTime(mContext, millis, flags));
             } else {
-                int weekDay = date.weekDay + Calendar.SUNDAY;
-                holder.dayOfWeekView.setText(DateUtils.getDayOfWeekString(weekDay,
-                        DateUtils.LENGTH_LONG));
+                flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
+                holder.dateView.setText(DateUtils.formatDateTime(mContext, millis, flags));
             }
+
+
             return agendaDayView;
         } else if (row.mType == TYPE_MEETING) {
             return mAgendaAdapter.getView(row.mData, convertView, parent);

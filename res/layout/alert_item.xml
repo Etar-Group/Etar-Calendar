@@ -22,7 +22,7 @@
     android:minHeight="?android:attr/listPreferredItemHeight">
     
     <View android:id="@+id/vertical_stripe"
-        android:layout_width="10dip"
+        android:layout_width="5dip"
         android:layout_height="fill_parent"
         android:layout_marginRight="5dip" />
         
@@ -35,6 +35,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:textStyle="bold"
             android:textColor="@android:color/black"
             style="?android:attr/textAppearanceMediumInverse" />
@@ -59,6 +61,8 @@
                     <TextView android:id="@+id/when"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
+                        android:ellipsize="end"
+                        android:maxLines="2"
                         android:textStyle="bold"
                         style="?android:attr/textAppearanceSmall" />
 
@@ -82,7 +86,9 @@
             <TextView android:id="@+id/where"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="?android:attr/textColorSecondary"
                 style="?android:attr/textAppearanceSmall" />
         </LinearLayout>
     </LinearLayout>

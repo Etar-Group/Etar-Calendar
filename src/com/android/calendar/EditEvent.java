@@ -795,11 +795,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
                                     mEndDateButton.setEnabled(false);
                                 } else if (mModification == MODIFY_SELECTED) {
                                     mRepeatsSpinner.setEnabled(false);
-                                } else {
-                                    // We could allow changing the Rrule for
-                                    // all following instances but we'll
-                                    // keep it simple for now.
-                                    mRepeatsSpinner.setEnabled(false);
                                 }
                             }
                         })

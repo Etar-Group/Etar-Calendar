@@ -27,6 +27,9 @@
     <TextView android:id="@+id/calendar_name"
         style="?android:attr/spinnerItemStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="end"
+            />
 
 </LinearLayout>

@@ -29,7 +29,7 @@
         >
 
         <View android:id="@+id/vertical_stripe"
-            android:layout_width="10dip"
+            android:layout_width="5dip"
             android:layout_height="fill_parent"
             android:layout_marginRight="5dip" />
 
@@ -42,24 +42,29 @@
             <TextView android:id="@+id/title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"
+                android:textColor="?android:attr/textColorSecondary"
                 style="?android:attr/textAppearanceMediumInverse"
             />
 
             <TextView android:id="@+id/when"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"
+                android:textColor="?android:attr/textColorSecondary"
                 style="?android:attr/textAppearanceSmallInverse"
             />
 
             <TextView android:id="@+id/where"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="?android:attr/textColorSecondary"
                 style="?android:attr/textAppearanceSmallInverse"
             />
         </LinearLayout>
