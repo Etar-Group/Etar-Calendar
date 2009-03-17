@@ -31,22 +31,6 @@
     <item>"2 dagen"</item>
     <item>"1 week"</item>
   </string-array>
-  <string-array name="reminder_minutes_values">
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1440"</item>
-    <item>"2880"</item>
-    <item>"10080"</item>
-  </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item>"Geen"</item>
     <item>"5 minuten"</item>
@@ -64,32 +48,10 @@
     <item>"2 dagen"</item>
     <item>"1 week"</item>
   </string-array>
-  <string-array name="preferences_default_reminder_values">
-    <item>"0"</item>
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1440"</item>
-    <item>"2880"</item>
-    <item>"10080"</item>
-  </string-array>
   <string-array name="preferences_alert_type_labels">
     <item>"Melding"</item>
     <item>"Statusbalkmelding"</item>
     <item>"Uit"</item>
-  </string-array>
-  <string-array name="preferences_alert_type_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
   </string-array>
   <string-array name="availability">
     <item>"Bezet"</item>
@@ -135,5 +97,9 @@
   <string-array name="delete_repeating_labels_no_selected">
     <item>"Deze en toekomstige afspraken"</item>
     <item>"Alle afspraken"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>"Alleen deze keer"</item>
+    <item>"Alle gebeurtenissen in de reeks"</item>
   </string-array>
 </resources>

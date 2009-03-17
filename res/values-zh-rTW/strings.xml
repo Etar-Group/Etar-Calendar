@@ -38,10 +38,8 @@
     <item quantity="one">"1 天"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> 天"</item>
   </plurals>
-    <!-- no translation found for show_agenda_view (7971854300981408347) -->
-    <skip />
-    <!-- no translation found for show_day_view (5782512782605466016) -->
-    <skip />
+    <string name="show_agenda_view">"顯示待辦事項"</string>
+    <string name="show_day_view">"顯示天"</string>
     <string name="agenda_view">"待辦事項"</string>
     <string name="day_view">"日"</string>
     <string name="week_view">"週"</string>
@@ -110,6 +108,7 @@
     <string name="modify_all_following">"變更此活動及所有未來活動。"</string>
     <string name="delete_this_event_title">"系統會刪除此活動。"</string>
     <string name="delete_title">"刪除"</string>
+    <string name="change_response_title">"變更回應"</string>
     <string name="preferences_title">"設定"</string>
     <string name="preferences_general_title">"日曆檢視設定"</string>
     <string name="preferences_alerts_title">"提醒設定"</string>

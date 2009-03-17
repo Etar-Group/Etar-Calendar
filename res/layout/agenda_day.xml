@@ -14,43 +14,12 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/date"
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
-    >
-    
-    <View android:layout_height="1dip"
-        android:layout_width="fill_parent"
-        android:layout_marginTop="5dip"
-        android:background="@android:drawable/divider_horizontal_dark"
-        />
-        
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:background="@android:color/darker_gray"
-        android:paddingLeft="4dip"
-        >
-        <TextView android:id="@+id/date"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
-            />
-        <TextView android:id="@+id/day_of_week"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="5dip"
-            android:textColor="?android:attr/textColorPrimary"
-            />
-    </LinearLayout>
-    
-    <View android:layout_height="1dip"
-        android:layout_width="fill_parent"
-        android:background="@android:drawable/divider_horizontal_dark"
-        android:layout_marginBottom="5dip"
-        />
-        
-</LinearLayout>
+    android:background="@color/agenda_day_bar_color"
+    android:padding="4dip"
+    android:textStyle="bold"
+    android:textColor="?android:attr/textColorSecondary"
+/>

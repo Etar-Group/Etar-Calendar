@@ -31,22 +31,6 @@
     <item>"2 giorni"</item>
     <item>"1 settimana"</item>
   </string-array>
-  <string-array name="reminder_minutes_values">
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1440"</item>
-    <item>"2880"</item>
-    <item>"10080"</item>
-  </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item>"Nessuno"</item>
     <item>"5 minuti"</item>
@@ -64,32 +48,10 @@
     <item>"2 giorni"</item>
     <item>"1 settimana"</item>
   </string-array>
-  <string-array name="preferences_default_reminder_values">
-    <item>"0"</item>
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1440"</item>
-    <item>"2880"</item>
-    <item>"10080"</item>
-  </string-array>
   <string-array name="preferences_alert_type_labels">
     <item>"Avviso"</item>
     <item>"Notifica barra di stato"</item>
-    <item>"Disattivato"</item>
-  </string-array>
-  <string-array name="preferences_alert_type_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
+    <item>"Disativa"</item>
   </string-array>
   <string-array name="availability">
     <item>"Occupato"</item>
@@ -135,5 +97,9 @@
   <string-array name="delete_repeating_labels_no_selected">
     <item>"Questo e gli eventi futuri"</item>
     <item>"Tutti gli eventi"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>"Solo questa istanza"</item>
+    <item>"Tutti gli eventi nella serie"</item>
   </string-array>
 </resources>

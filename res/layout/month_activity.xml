@@ -48,11 +48,6 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@android:drawable/divider_horizontal_dark" />
-
     <LinearLayout android:id="@+id/day_names"
         android:orientation="horizontal"
         android:background="@color/daynames_background"

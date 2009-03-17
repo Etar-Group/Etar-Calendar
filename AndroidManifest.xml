@@ -19,7 +19,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.android.calendar"
-        android:sharedUserId="android.uid.calendar">
+        android:sharedUserId="android.uid.calendar"
+        android:sharedUserLabel="@string/app_label">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE"/>
@@ -35,7 +36,8 @@
              (android.test) library. -->
         <uses-library android:name="android.test.runner" />
 
-        <activity android:name="LaunchActivity">
+        <activity android:name="LaunchActivity"
+            android:theme="@android:style/Theme.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -44,14 +46,17 @@
         </activity>
 
         <activity android:name="MonthActivity" android:label="@string/month_view"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name="WeekActivity" android:label="@string/week_view"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name="DayActivity" android:label="@string/day_view"
-            android:theme="@android:style/Theme.NoTitleBar" />
-        <activity android:name="AgendaActivity" android:label="@string/agenda_view" />
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity android:name="AgendaActivity" android:label="@string/agenda_view" 
+            android:theme="@android:style/Theme.Light"
+            android:exported="true" />
         
         <activity android:name="EditEvent" android:label="@string/event_edit_title"
+            android:theme="@android:style/Theme.Light"
             android:configChanges="orientation|keyboardHidden">
             
             <intent-filter>
@@ -62,6 +67,7 @@
         </activity>
         
         <activity android:name="EventInfoActivity" android:label="@string/event_info_title"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:configChanges="orientation|keyboardHidden">
             
             <intent-filter>
@@ -73,7 +79,7 @@
         <activity android:name="SelectCalendarsActivity" android:label="@string/calendars_title" />
         <activity android:name="CalendarPreferenceActivity" android:label="@string/preferences_title" />
         <activity android:name="AlertActivity" android:launchMode="singleInstance"
-             android:theme="@style/Alert" android:excludeFromRecents="true" />
+             android:theme="@android:style/Theme.Light" android:excludeFromRecents="true" />
         <receiver android:name="AlertReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.EVENT_REMINDER" />
@@ -86,6 +92,8 @@
         </receiver>
 
         <service android:name="AlertService" />
+
+        <service android:name="DismissAllAlarmsService" />
 
         <activity android:name="CalendarTests" android:label="Calendar Tests">
             <intent-filter>

@@ -35,7 +35,7 @@
         <item>1 week</item>
     </string-array>
     
-    <string-array name="reminder_minutes_values">
+    <string-array name="reminder_minutes_values" translatable="false">
         <item>"5"</item>
         <item>"10"</item>
         <item>"15"</item>
@@ -70,7 +70,7 @@
         <item>1 week</item>
     </string-array>
     
-    <string-array name="preferences_default_reminder_values">
+    <string-array name="preferences_default_reminder_values" translatable="false">
         <item>"0"</item>
         <item>"5"</item>
         <item>"10"</item>
@@ -94,7 +94,7 @@
         <item>Off</item>
     </string-array>
     
-    <string-array name="preferences_alert_type_values">
+    <string-array name="preferences_alert_type_values" translatable="false">
         <item>"0"</item>
         <item>"1"</item>
         <item>"2"</item>
@@ -145,6 +145,7 @@
     </string-array>
 
     <!-- The corresponding indices are defined in DeleteEventHelper.java -->
+    <skip />
     <string-array name="delete_repeating_labels">
         <item>Only this event</item>
         <item>This &amp; future events</item>
@@ -158,8 +159,20 @@
          code where you can't delete one instance of a repeating event that
          was created on the phone until that event has been synced to the server.
      -->
+    <skip />
     <string-array name="delete_repeating_labels_no_selected">
         <item>This &amp; future events</item>
         <item>All events</item>
+    </string-array>
+
+    <!-- The corresponding array indices are defined in EventInfoActivity.java -->
+    <skip />
+    <!-- The list of choices displayed in a dialog box when the user wants to
+    respond to an invitation that repeats. -->
+    <string-array name="change_response_labels">
+        <!-- The choice for responding to only one instance of a repeating event -->
+        <item>Only this instance</item>
+        <!-- The choice for responding to all instances of a repeating event -->
+        <item>All events in the series</item>
     </string-array>
 </resources>

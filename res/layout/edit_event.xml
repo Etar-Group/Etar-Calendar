@@ -153,8 +153,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_description"
-                android:capitalize="sentences"
-                android:maxLines="4"/>
+                android:capitalize="sentences"/>
         </LinearLayout>
 
         <!-- CALENDARS -->
@@ -305,36 +304,33 @@
         </LinearLayout>
         
         <!-- BUTTONS -->
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@android:drawable/divider_horizontal_dark"
-        />
-        
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dip"
-            android:baselineAligned="false">
+            android:paddingLeft="4dip"
+            android:paddingRight="4dip"
+            android:paddingBottom="1dip"   
+            android:background="@android:drawable/bottom_bar" >
             
             <Button android:id="@+id/save"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="@string/save_label"
             />
             
             <Button android:id="@+id/discard"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="@string/discard_label"
             />
             
             <Button android:id="@+id/delete"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="@string/delete_label"
             />

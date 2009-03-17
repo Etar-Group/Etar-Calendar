@@ -31,22 +31,6 @@
     <item>"2日"</item>
     <item>"1週間"</item>
   </string-array>
-  <string-array name="reminder_minutes_values">
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1,440"</item>
-    <item>"2,880"</item>
-    <item>"10,080"</item>
-  </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item>"なし"</item>
     <item>"5分"</item>
@@ -64,39 +48,17 @@
     <item>"2日"</item>
     <item>"1週間"</item>
   </string-array>
-  <string-array name="preferences_default_reminder_values">
-    <item>"0"</item>
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1,440"</item>
-    <item>"2,880"</item>
-    <item>"10,080"</item>
-  </string-array>
   <string-array name="preferences_alert_type_labels">
     <item>"アラート"</item>
-    <item>"ステータス バーによる通知"</item>
+    <item>"ステータスバーの通知"</item>
     <item>"オフ"</item>
-  </string-array>
-  <string-array name="preferences_alert_type_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
   </string-array>
   <string-array name="availability">
     <item>"予定あり"</item>
     <item>"予定なし"</item>
   </string-array>
   <string-array name="visibility">
-    <item>"デフォルト"</item>
+    <item>"既定"</item>
     <item>"限定公開"</item>
     <item>"一般公開"</item>
   </string-array>
@@ -117,7 +79,7 @@
     <item>"最終"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"(応答なし)"</item>
+    <item>"（返答なし）"</item>
     <item>"はい"</item>
     <item>"未定"</item>
     <item>"いいえ"</item>
@@ -135,5 +97,9 @@
   <string-array name="delete_repeating_labels_no_selected">
     <item>"これ以降の予定"</item>
     <item>"すべての予定"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>"今回のみ"</item>
+    <item>"一連の定期的な予定すべて"</item>
   </string-array>
 </resources>

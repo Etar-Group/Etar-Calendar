@@ -18,34 +18,28 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/box_appointment">
+    android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeight">
     
-    <ImageView android:id="@+id/vertical_stripe"
-        android:layout_width="wrap_content"
+    <View android:id="@+id/vertical_stripe"
+        android:layout_width="5dip"
         android:layout_height="fill_parent"
-        android:layout_marginTop="2dip"
-        android:layout_marginBottom="2dip"
-        android:layout_marginRight="5dip"
-        android:background="@drawable/box_color_white" />
+        android:layout_marginRight="5dip" />
         
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         
-        <LinearLayout android:id="@+id/event_title_container"
-            android:orientation="horizontal"
+        <TextView android:id="@+id/event_title"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-            
-            <TextView android:id="@+id/event_title"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                style="?android:attr/textAppearanceMediumInverse" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            style="?android:attr/textAppearanceMediumInverse" />
         
         <LinearLayout android:id="@+id/event_details"
             android:orientation="vertical"
@@ -67,9 +61,11 @@
                     <TextView android:id="@+id/when"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
+                        android:ellipsize="end"
+                        android:maxLines="2"
                         android:textStyle="bold"
-                        style="?android:attr/textAppearanceSmallInverse" />
-                        
+                        style="?android:attr/textAppearanceSmall" />
+
                     <ImageView android:id="@+id/repeat_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
@@ -90,8 +86,10 @@
             <TextView android:id="@+id/where"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                style="?android:attr/textAppearanceSmallInverse" />
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="?android:attr/textColorSecondary"
+                style="?android:attr/textAppearanceSmall" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

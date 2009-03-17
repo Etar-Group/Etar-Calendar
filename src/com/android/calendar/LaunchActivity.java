@@ -36,6 +36,11 @@ public class LaunchActivity extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         
+        // Our UI is not something intended for the user to see.  We just
+        // stick around until we can figure out what to do next based on
+        // the current state of the system.
+        setVisible(false);
+        
         // Only try looking for an account if this is the first launch.
         if (icicle == null) {
             // This will request a Gmail account and if none are present, it will

@@ -38,10 +38,8 @@
     <item quantity="one">"1 天"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> 天"</item>
   </plurals>
-    <!-- no translation found for show_agenda_view (7971854300981408347) -->
-    <skip />
-    <!-- no translation found for show_day_view (5782512782605466016) -->
-    <skip />
+    <string name="show_agenda_view">"显示日程"</string>
+    <string name="show_day_view">"显示日期"</string>
     <string name="agenda_view">"日程"</string>
     <string name="day_view">"天"</string>
     <string name="week_view">"周"</string>
@@ -110,6 +108,7 @@
     <string name="modify_all_following">"更改此活动和将来的所有活动。"</string>
     <string name="delete_this_event_title">"系统将删除此活动。"</string>
     <string name="delete_title">"删除"</string>
+    <string name="change_response_title">"更改响应"</string>
     <string name="preferences_title">"设置"</string>
     <string name="preferences_general_title">"日历视图设置"</string>
     <string name="preferences_alerts_title">"提醒设置"</string>

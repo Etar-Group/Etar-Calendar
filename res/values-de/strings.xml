@@ -38,10 +38,8 @@
     <item quantity="one">"1 Tag"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> Tag(e)"</item>
   </plurals>
-    <!-- no translation found for show_agenda_view (7971854300981408347) -->
-    <skip />
-    <!-- no translation found for show_day_view (5782512782605466016) -->
-    <skip />
+    <string name="show_agenda_view">"Terminübersicht anzeigen"</string>
+    <string name="show_day_view">"Tag anzeigen"</string>
     <string name="agenda_view">"Terminübersicht"</string>
     <string name="day_view">"Tag"</string>
     <string name="week_view">"Woche"</string>
@@ -110,6 +108,7 @@
     <string name="modify_all_following">"Diesen und alle zukünftigen Termine ändern"</string>
     <string name="delete_this_event_title">"Dieser Termin wird gelöscht."</string>
     <string name="delete_title">"Löschen"</string>
+    <string name="change_response_title">"Antwort ändern"</string>
     <string name="preferences_title">"Einstellungen"</string>
     <string name="preferences_general_title">"Einstellung für Kalenderansicht"</string>
     <string name="preferences_alerts_title">"Erinnerungseinstellungen"</string>

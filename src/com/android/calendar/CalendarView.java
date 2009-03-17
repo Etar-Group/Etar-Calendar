@@ -36,7 +36,6 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.Paint.Style;
 import android.graphics.Path.Direction;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.Calendar.Attendees;
@@ -45,6 +44,7 @@ import android.provider.Calendar.Events;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -54,6 +54,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -124,10 +126,6 @@ public class CalendarView extends View
     private long mLastReloadMillis;
 
     private ArrayList<Event> mEvents = new ArrayList<Event>();
-    private Drawable mBoxNormal;
-    private Drawable mBoxSelected;
-    private Drawable mBoxPressed;
-    private Drawable mBoxLongPressed;
     private int mSelectionDay;        // Julian day
     private int mSelectionHour;
 
@@ -145,7 +143,7 @@ public class CalendarView extends View
     private Rect mSrcRect = new Rect();
     private Rect mDestRect = new Rect();
     private Paint mPaint = new Paint();
-    private Paint mEventPaint = new Paint();
+    private Paint mEventTextPaint = new Paint();
     private Paint mSelectionPaint = new Paint();
     private Path mPath = new Path();
 
@@ -154,7 +152,6 @@ public class CalendarView extends View
 
     private PopupWindow mPopup;
     private View mPopupView;
-    private static final int POPUP_HEIGHT = 62;
 
     // The number of milliseconds to show the popup window
     private static final int POPUP_DISMISS_DELAY = 3000;
@@ -200,11 +197,10 @@ public class CalendarView extends View
     private static final int MAX_EVENT_TEXT_LEN = 500;
     private static final float MIN_EVENT_HEIGHT = 15.0F;  // in pixels
 
-    private static final float CALENDAR_COLOR_WIDTH = 8.0F;
-    private static final float CALENDAR_COLOR_HEIGHT_OFFSET = 6.0F;
-
     private static int mSelectionColor;
-    private static int mAllDayEventColor;
+    private static int mPressedColor;
+    private static int mSelectedEventTextColor;
+    private static int mEventTextColor;
 
     private int mViewStartX;
     private int mViewStartY;
@@ -213,7 +209,6 @@ public class CalendarView extends View
     private int mViewHeight;
     private int mViewWidth;
     private int mGridAreaHeight;
-    private int mGridAreaWidth;
     private int mCellHeight;
     private int mScrollStartY;
     private int mPreviousDirection;
@@ -322,12 +317,13 @@ public class CalendarView extends View
         }
 
         mSelectionColor = mResources.getColor(R.color.selection);
-        mAllDayEventColor = mResources.getColor(R.color.calendar_all_day_event_color);
-        int eventTextColor = mResources.getColor(R.color.calendar_event_text_color);
-        mEventPaint.setColor(eventTextColor);
-        mEventPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
-        mEventPaint.setTextAlign(Paint.Align.LEFT);
-        mEventPaint.setAntiAlias(true);
+        mPressedColor = mResources.getColor(R.color.pressed);
+        mSelectedEventTextColor = mResources.getColor(R.color.calendar_event_selected_text_color);
+        mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
+        mEventTextPaint.setColor(mEventTextColor);
+        mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
+        mEventTextPaint.setTextAlign(Paint.Align.LEFT);
+        mEventTextPaint.setAntiAlias(true);
 
         int gridLineColor = mResources.getColor(R.color.calendar_grid_line_highlight_color);
         Paint p = mSelectionPaint;
@@ -376,14 +372,13 @@ public class CalendarView extends View
         p.setTextSize(AMPM_FONT_SIZE);
         mHoursWidth = computeMaxStringWidth(mHoursWidth, ampm, p);
         mHoursWidth += HOURS_MARGIN;
-        mBoxNormal = mResources.getDrawable(R.drawable.box_appointment_normal);
-        mBoxSelected = mResources.getDrawable(R.drawable.box_appointment_selected);
-        mBoxPressed = mResources.getDrawable(R.drawable.box_appointment_pressed);
-        mBoxLongPressed = mResources.getDrawable(R.drawable.box_appointment_longpress);
 
         LayoutInflater inflater;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mPopupView = inflater.inflate(R.layout.bubble_event, null);
+        mPopupView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
         mPopup = new PopupWindow(context);
         mPopup.setContentView(mPopupView);
         Resources.Theme dialogTheme = getResources().newTheme();
@@ -542,8 +537,8 @@ public class CalendarView extends View
     protected void onSizeChanged(int width, int height, int oldw, int oldh) {
         mViewWidth = width;
         mViewHeight = height;
-        mGridAreaWidth = width - mHoursWidth;
-        mCellWidth = (mGridAreaWidth - (mNumDays * DAY_GAP)) / mNumDays;
+        int gridAreaWidth = width - mHoursWidth;
+        mCellWidth = (gridAreaWidth - (mNumDays * DAY_GAP)) / mNumDays;
 
         Paint p = new Paint();
         p.setTextSize(NORMAL_FONT_SIZE);
@@ -680,7 +675,7 @@ public class CalendarView extends View
         int eventAreaWidth = mNumDays * (mCellWidth + DAY_GAP);
         mPopup.dismiss();
         mPopup.setWidth(eventAreaWidth - 20);
-        mPopup.setHeight(POPUP_HEIGHT);
+        mPopup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
     /**
@@ -860,7 +855,7 @@ public class CalendarView extends View
 
         mSelectionMode = SELECTION_SELECTED;
         mScrolling = false;
-        boolean redraw = false;
+        boolean redraw;
         int selectionDay = mSelectionDay;
 
         switch (keyCode) {
@@ -1173,6 +1168,7 @@ public class CalendarView extends View
         dest.bottom = mViewHeight;
         dest.left = 0;
         dest.right = mViewWidth;
+
         canvas.save();
         canvas.clipRect(dest);
         canvas.drawColor(0, PorterDuff.Mode.CLEAR);
@@ -1504,7 +1500,7 @@ public class CalendarView extends View
             Rect r, Canvas canvas, Paint p) {
         p.setTextSize(NORMAL_FONT_SIZE);
         p.setTextAlign(Paint.Align.LEFT);
-        Paint eventPaint = mEventPaint;
+        Paint eventTextPaint = mEventTextPaint;
 
         // Draw the background for the all-day events area
         r.top = mBannerPlusMargin;
@@ -1573,8 +1569,8 @@ public class CalendarView extends View
             // Multiply the height by 0.9 to leave a little gap between events
             event.bottom = event.top + height * 0.9f;
 
-            RectF rf = drawAllDayEventRect(event, canvas, p);
-            drawEventText(event, rf, canvas, eventPaint, ALL_DAY_TEXT_TOP_MARGIN);
+            RectF rf = drawAllDayEventRect(event, canvas, p, eventTextPaint);
+            drawEventText(event, rf, canvas, eventTextPaint, ALL_DAY_TEXT_TOP_MARGIN);
 
             // Check if this all-day event intersects the selected day
             if (mSelectionAllDay && mComputeSelectedEvents) {
@@ -1590,8 +1586,8 @@ public class CalendarView extends View
             computeAllDayNeighbors();
             if (mSelectedEvent != null) {
                 Event event = mSelectedEvent;
-                RectF rf = drawAllDayEventRect(event, canvas, p);
-                drawEventText(event, rf, canvas, eventPaint, ALL_DAY_TEXT_TOP_MARGIN);
+                RectF rf = drawAllDayEventRect(event, canvas, p, eventTextPaint);
+                drawEventText(event, rf, canvas, eventTextPaint, ALL_DAY_TEXT_TOP_MARGIN);
             }
 
             // Draw the highlight on the selected all-day area
@@ -1673,15 +1669,17 @@ public class CalendarView extends View
         }
     }
 
-    RectF drawAllDayEventRect(Event event, Canvas canvas, Paint p) {
+    RectF drawAllDayEventRect(Event event, Canvas canvas, Paint p, Paint eventTextPaint) {
         // If this event is selected, then use the selection color
         if (mSelectedEvent == event) {
             // Also, remember the last selected event that we drew
             mPrevSelectedEvent = event;
             p.setColor(mSelectionColor);
+            eventTextPaint.setColor(mSelectedEventTextColor);
         } else {
             // Use the normal color for all-day events
-            p.setColor(mAllDayEventColor);
+            p.setColor(event.color);
+            eventTextPaint.setColor(mEventTextColor);
         }
 
         RectF rf = mRectF;
@@ -1691,30 +1689,13 @@ public class CalendarView extends View
         rf.right = event.right;
         canvas.drawRoundRect(rf, SMALL_ROUND_RADIUS, SMALL_ROUND_RADIUS, p);
 
-        // Draw the calendar color inset rectangle
-        p.setColor(event.color);
-
-        // Save the outer rectangle coordinates so that we can restore them
-        float right = rf.right;
-        float top = rf.top;
-        float bottom = rf.bottom;
-
-        rf.right = rf.left + CALENDAR_COLOR_WIDTH;
-        float eventHeight = rf.bottom - rf.top;
-        rf.top += 0.05f * eventHeight;
-        rf.bottom -= 0.05f * eventHeight;
-        canvas.drawRoundRect(rf, SMALL_ROUND_RADIUS, SMALL_ROUND_RADIUS, p);
-
-        // Change the rf coordinates to be the area suitable for text.
-        rf.left = rf.right;
-        rf.right = right;
-        rf.top = top;
-        rf.bottom = bottom;
+        rf.left += 2;
+        rf.right -= 2;
         return rf;
     }
 
     private void drawEvents(int date, int left, int top, Canvas canvas, Paint p) {
-        Paint eventPaint = mEventPaint;
+        Paint eventTextPaint = mEventTextPaint;
         int cellWidth = mCellWidth;
         int cellHeight = mCellHeight;
 
@@ -1740,16 +1721,16 @@ public class CalendarView extends View
                 mSelectedEvents.add(event);
             }
 
-            RectF rf = drawEventRect(event, canvas, p);
-            drawEventText(event, rf, canvas, eventPaint, NORMAL_TEXT_TOP_MARGIN);
+            RectF rf = drawEventRect(event, canvas, p, eventTextPaint);
+            drawEventText(event, rf, canvas, eventTextPaint, NORMAL_TEXT_TOP_MARGIN);
         }
 
         if (date == mSelectionDay && !mSelectionAllDay && isFocused()
                 && mSelectionMode != SELECTION_HIDDEN) {
             computeNeighbors();
             if (mSelectedEvent != null) {
-                RectF rf = drawEventRect(mSelectedEvent, canvas, p);
-                drawEventText(mSelectedEvent, rf, canvas, eventPaint, NORMAL_TEXT_TOP_MARGIN);
+                RectF rf = drawEventRect(mSelectedEvent, canvas, p, eventTextPaint);
+                drawEventText(mSelectedEvent, rf, canvas, eventTextPaint, NORMAL_TEXT_TOP_MARGIN);
             }
         }
     }
@@ -1775,10 +1756,10 @@ public class CalendarView extends View
         int startEventDistance1 = 100000;  // any large number
         int startEventDistance2 = 100000;  // any large number
         int prevLocation = FROM_NONE;
-        int prevTop = 0;
-        int prevBottom = 0;
-        int prevLeft = 0;
-        int prevRight = 0;
+        int prevTop;
+        int prevBottom;
+        int prevLeft;
+        int prevRight;
         int prevCenter = 0;
         Rect box = getCurrentSelectionPosition();
         if (mPrevSelectedEvent != null) {
@@ -2042,90 +2023,66 @@ public class CalendarView extends View
     }
 
 
-    private RectF drawEventRect(Event event, Canvas canvas, Paint p) {
-        Drawable box = mBoxNormal;
+    private RectF drawEventRect(Event event, Canvas canvas, Paint p, Paint eventTextPaint) {
 
+        int color = event.color;
+        
+        // Fade visible boxes if event was declined.
+        boolean declined = (event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED);
+        if (declined) {
+            int alpha = color & 0xff000000;
+            color &= 0x00ffffff;
+            int red = (color & 0x00ff0000) >> 16;
+            int green = (color & 0x0000ff00) >> 8;
+            int blue = (color & 0x0000ff);
+            color = ((red >> 1) << 16) | ((green >> 1) << 8) | (blue >> 1);
+            color += 0x7F7F7F + alpha;
+        }
+        
         // If this event is selected, then use the selection color
         if (mSelectedEvent == event) {
             if (mSelectionMode == SELECTION_PRESSED) {
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
-                box = mBoxPressed;
+                // box = mBoxPressed;
+                p.setColor(mPressedColor); // FIXME:pressed
+                eventTextPaint.setColor(mSelectedEventTextColor);
             } else if (mSelectionMode == SELECTION_SELECTED) {
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
-                box = mBoxSelected;
+                // box = mBoxSelected;
+                p.setColor(mSelectionColor);
+                eventTextPaint.setColor(mSelectedEventTextColor);
             } else if (mSelectionMode == SELECTION_LONGPRESS) {
-                box = mBoxLongPressed;
+                // box = mBoxLongPressed;
+                p.setColor(mPressedColor); // FIXME: longpressed (maybe -- this doesn't seem to work)
+                eventTextPaint.setColor(mSelectedEventTextColor);
+            } else {
+                p.setColor(color);
+                eventTextPaint.setColor(mEventTextColor);
             }
+        } else {
+            p.setColor(color);
+            eventTextPaint.setColor(mEventTextColor);
         }
 
-        // Fade visible boxes if event was declined.
-        boolean declined = (event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED);
-        int targetAlpha = declined ? 128 : 255;
-
-        box.setAlpha(targetAlpha);
-        p.setAlpha(targetAlpha);
 
         RectF rf = mRectF;
         rf.top = event.top;
         rf.bottom = event.bottom;
         rf.left = event.left;
-        rf.right = event.right;
-        int boxTop = (int) event.top;
-        int boxBottom = (int) event.bottom;
-        int boxLeft = (int) event.left;
-        int boxRight = (int) event.right;
+        rf.right = event.right - 1;
 
-        box.setBounds(boxLeft, boxTop, boxRight, boxBottom);
-        box.draw(canvas);
-
-        // Save the coordinates
-        float eventRight = rf.right;
-        float eventTop = rf.top;
-        float eventBottom = rf.bottom;
-
-        // Draw the calendar color as a small rectangle on top of the event
-        // rectangle.  Use a fixed size width unless it doesn't fit, in which
-        // case use 1/2 the width.  For the height, use a fixed offset from
-        // the top and bottom unless that would be too small, in which case,
-        // use a 5% offset for top and bottom.
-        float width = CALENDAR_COLOR_WIDTH;
-        float maxWidth = (rf.right - rf.left) / 2.0f;
-        if (width > maxWidth) {
-            width = maxWidth;
-        }
-
-        // The drawable has a 1-pixel border so we need to shift the
-        // inner colored rectangle by one pixel.  But we don't shift by 1
-        // if the rectangle is really small.
-        if (width >= 3) {
-            rf.left += 1;
-        }
-        float top = rf.top + CALENDAR_COLOR_HEIGHT_OFFSET;
-        float bottom = rf.bottom - CALENDAR_COLOR_HEIGHT_OFFSET;
-        float height = bottom - top;
-        if (height < MIN_EVENT_HEIGHT) {
-            float eventHeight = rf.bottom - rf.top;
-            top = rf.top + 0.2f * eventHeight;
-            bottom = rf.bottom - 0.2f * eventHeight;
-        }
-        rf.right = rf.left + width;
-        rf.top = top;
-        rf.bottom = bottom;
-        p.setColor(event.color);
         canvas.drawRoundRect(rf, SMALL_ROUND_RADIUS, SMALL_ROUND_RADIUS, p);
-
-        // Set the rectangle for the event text.
-        rf.left = rf.right;
-        rf.right = eventRight;
-        rf.top = eventTop;
-        rf.bottom = eventBottom;
+        
+        rf.left += 2;
+        rf.right -= 2;
+        
         return rf;
     }
 
     private void drawEventText(Event event, RectF rf, Canvas canvas, Paint p, int topMargin) {
-        if (mDrawTextInEventRect == false) {
+        if (!mDrawTextInEventRect) {
             return;
         }
 
@@ -2249,7 +2206,9 @@ public class CalendarView extends View
         timeView.setText(timeRange);
 
         TextView whereView = (TextView) mPopupView.findViewById(R.id.where);
-        whereView.setText(event.location);
+        final boolean empty = TextUtils.isEmpty(event.location);
+        whereView.setVisibility(empty ? View.GONE : View.VISIBLE);
+        if (!empty) whereView.setText(event.location);
 
         mPopup.showAtLocation(this, Gravity.BOTTOM | Gravity.LEFT, mHoursWidth, 5);
         postDelayed(mDismissPopup, POPUP_DISMISS_DELAY);
@@ -2424,7 +2383,6 @@ public class CalendarView extends View
         CalendarView view = mParentActivity.getNextView();
         Time date = view.mBaseDate;
         date.set(mBaseDate);
-        int selectionDay;
         boolean switchForward;
         if (deltaX > 0) {
             date.monthDay -= mNumDays;
@@ -2465,6 +2423,8 @@ public class CalendarView extends View
                 if (Math.abs(mViewStartX) > HORIZONTAL_SCROLL_THRESHOLD) {
                     // The user has gone beyond the threshold so switch views
                     mParentActivity.switchViews(mViewStartX > 0, mViewStartX, mViewWidth);
+                    mViewStartX = 0;
+                    return true;
                 } else {
                     // Not beyond the threshold so invalidate which will cause
                     // the view to snap back.  Also call recalc() to ensure
@@ -2472,8 +2432,8 @@ public class CalendarView extends View
                     recalc();
                     mTitleTextView.setText(mDateRange);
                     invalidate();
+                    mViewStartX = 0;
                 }
-                mViewStartX = 0;
             }
 
             // If we were scrolling, then reset the selected hour so that it
@@ -2718,15 +2678,11 @@ public class CalendarView extends View
             if (attendeesCursor.moveToFirst()) {
                 relationship = attendeesCursor.getInt(ATTENDEES_INDEX_RELATIONSHIP);
             }
-        }
-        attendeesCursor.close();
-
-        if (visibility >= Calendars.CONTRIBUTOR_ACCESS &&
-                relationship >= Attendees.RELATIONSHIP_ORGANIZER) {
-            return true;
+            attendeesCursor.close();
         }
 
-        return false;
+        return visibility >= Calendars.CONTRIBUTOR_ACCESS &&
+                relationship >= Attendees.RELATIONSHIP_ORGANIZER;
     }
 
     /**
@@ -2994,6 +2950,10 @@ public class CalendarView extends View
         if (handler != null) {
             handler.removeCallbacks(mDismissPopup);
         }
+        
+        // Turn off redraw
+        mRemeasure = false;
+        mRedrawScreen = false;
     }
 
     @Override protected void onDetachedFromWindow() {

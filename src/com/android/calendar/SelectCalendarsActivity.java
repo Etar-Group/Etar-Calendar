@@ -78,6 +78,11 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
         startCalendarSync();
     }
     
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+    
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CheckBox box = (CheckBox) view.findViewById(R.id.checkbox);
         box.toggle();

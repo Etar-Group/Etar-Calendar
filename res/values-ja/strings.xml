@@ -16,7 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">"カレンダー"</string>
-    <string name="calendar_plug"><font fgcolor="#ffffffff">"Google カレンダーへようこそ！"</font>" "\n"スケジュールに簡単にアクセスして、より直感的、効率的に予定を管理できます。"</string>
+    <string name="calendar_plug"><font fgcolor="#ffffffff">"Googleカレンダーにようこそ"</font>" "\n"いつでもどこでも簡単にスケジュールを管理できます。"</string>
     <string name="what_label">"タイトル"</string>
     <string name="when_label">"日時"</string>
     <string name="where_label">"場所"</string>
@@ -38,10 +38,8 @@
     <item quantity="one">"1日"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g>日"</item>
   </plurals>
-    <!-- no translation found for show_agenda_view (7971854300981408347) -->
-    <skip />
-    <!-- no translation found for show_day_view (5782512782605466016) -->
-    <skip />
+    <string name="show_agenda_view">"予定リストを表示"</string>
+    <string name="show_day_view">"日付を表示"</string>
     <string name="agenda_view">"予定リスト"</string>
     <string name="day_view">"日"</string>
     <string name="week_view">"週"</string>
@@ -85,7 +83,7 @@
     <string name="no_syncable_calendars">"カレンダーがありません"</string>
     <string name="no_calendars_found">"カレンダーがありません。"</string>
     <string name="view_event_calendar_label">"カレンダー"</string>
-    <string name="view_event_timezone_label">"ローカル タイムゾーン"</string>
+    <string name="view_event_timezone_label">"ローカルタイムゾーン"</string>
     <string name="view_event_response_label">"参加しますか？"</string>
     <string name="agenda_today">"今日"</string>
     <string name="num_events">"予定数"</string>
@@ -93,32 +91,33 @@
     <string name="delete_label">"削除"</string>
     <string name="delete_event_label">"予定を削除"</string>
     <string name="save_label">"保存"</string>
-    <string name="discard_label">"変更を破棄"</string>
+    <string name="discard_label">"変更取消"</string>
     <string name="import_label">"インポート"</string>
     <string name="snooze_all_label">"すべてスヌーズ"</string>
     <string name="dismiss_all_label">"すべて表示しない"</string>
     <string name="does_not_repeat">"一度だけの予定"</string>
     <string name="daily">"毎日"</string>
-    <string name="every_weekday">"平日 (月～金)"</string>
-    <string name="weekly">"毎週 (<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count">"毎月 (<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
-    <string name="monthly_on_day">"毎月 (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly">"毎年 (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom">"カスタム... (携帯電話ではカスタマイズ不可)"</string>
+    <string name="every_weekday">"平日（月～金）"</string>
+    <string name="weekly">"毎週（<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>）"</string>
+    <string name="monthly_on_day_count">"毎月（<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>）"</string>
+    <string name="monthly_on_day">"毎月（<xliff:g id="DAY_OF_MONTH">%s</xliff:g>日）"</string>
+    <string name="yearly">"毎年（<xliff:g id="DATES">%s</xliff:g>）"</string>
+    <string name="custom">"カスタム…（携帯端末ではカスタマイズ不可）"</string>
     <string name="modify_event">"この予定のみを変更します。"</string>
     <string name="modify_all">"一連の定期的な予定すべてを削除します。"</string>
     <string name="modify_all_following">"これ以降の予定すべてを削除します。"</string>
     <string name="delete_this_event_title">"この予定を削除します。"</string>
     <string name="delete_title">"削除"</string>
+    <string name="change_response_title">"返答を変更"</string>
     <string name="preferences_title">"設定"</string>
     <string name="preferences_general_title">"カレンダーの表示の設定"</string>
     <string name="preferences_alerts_title">"通知の設定"</string>
-    <string name="preferences_hide_declined_title">"辞退した予定を表示しない"</string>
+    <string name="preferences_hide_declined_title">"辞退した予定を非表示"</string>
     <string name="preferences_alerts_type_title">"アラートと通知を設定"</string>
     <string name="preferences_alerts_type_dialog">"アラートと通知"</string>
     <string name="preferences_alerts_vibrate_title">"バイブレーション"</string>
     <string name="preferences_alerts_ringtone_title">"着信音を選択"</string>
-    <string name="preferences_default_reminder_title">"デフォルトの通知を設定"</string>
+    <string name="preferences_default_reminder_title">"通知設定"</string>
     <string name="preferences_default_reminder_dialog">"デフォルトの通知時間"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>

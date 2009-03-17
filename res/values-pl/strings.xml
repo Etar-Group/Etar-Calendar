@@ -38,10 +38,8 @@
     <item quantity="one">"1 dzień"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> dni"</item>
   </plurals>
-    <!-- no translation found for show_agenda_view (7971854300981408347) -->
-    <skip />
-    <!-- no translation found for show_day_view (5782512782605466016) -->
-    <skip />
+    <string name="show_agenda_view">"Pokaż plan dnia"</string>
+    <string name="show_day_view">"Pokaż dzień"</string>
     <string name="agenda_view">"Plan dnia"</string>
     <string name="day_view">"Dzień"</string>
     <string name="week_view">"Tydzień"</string>
@@ -96,12 +94,12 @@
     <string name="discard_label">"Odrzuć zmiany"</string>
     <string name="import_label">"Importuj"</string>
     <string name="snooze_all_label">"Odłóż wszystkie"</string>
-    <string name="dismiss_all_label">"Odrzuć wszystkie"</string>
+    <string name="dismiss_all_label">"Zamknij wszystkie"</string>
     <string name="does_not_repeat">"Wydarzenie jednorazowe"</string>
     <string name="daily">"Codziennie"</string>
     <string name="every_weekday">"Codziennie (pn-pt)"</string>
     <string name="weekly">"Co tydzień (<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count">"Co miesiąc (<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day_count">"Co miesiąc (co <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly_on_day">"Co miesiąc (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> każdego miesiąca)"</string>
     <string name="yearly">"Co rok (<xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom">"Niestandardowo… (nie można dostosować na telefonie)"</string>
@@ -110,15 +108,16 @@
     <string name="modify_all_following">"Zmień to i wszystkie przyszłe wydarzenia."</string>
     <string name="delete_this_event_title">"To wydarzenie zostanie usunięte."</string>
     <string name="delete_title">"Usuń"</string>
+    <string name="change_response_title">"Zmień odpowiedź"</string>
     <string name="preferences_title">"Ustawienia"</string>
-    <string name="preferences_general_title">"Ustawienie widoku kalendarza"</string>
+    <string name="preferences_general_title">"Widok kalendarza"</string>
     <string name="preferences_alerts_title">"Ustawienia przypomnień"</string>
-    <string name="preferences_hide_declined_title">"Ukryj odrzucone wydarzenia"</string>
-    <string name="preferences_alerts_type_title">"Ustaw alerty i powiadomienia"</string>
+    <string name="preferences_hide_declined_title">"Ukryj odrzucone"</string>
+    <string name="preferences_alerts_type_title">"Alerty i powiadomienia"</string>
     <string name="preferences_alerts_type_dialog">"Alerty i powiadomienia"</string>
     <string name="preferences_alerts_vibrate_title">"Wibracje"</string>
     <string name="preferences_alerts_ringtone_title">"Wybierz dzwonek"</string>
-    <string name="preferences_default_reminder_title">"Ustaw domyślne przypomnienie"</string>
-    <string name="preferences_default_reminder_dialog">"Domyślna godzina przypomnienia"</string>
+    <string name="preferences_default_reminder_title">"Domyślne przypomnienie"</string>
+    <string name="preferences_default_reminder_dialog">"Domyślne przypomnienie"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>

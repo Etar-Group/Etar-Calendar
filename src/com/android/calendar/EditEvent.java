@@ -795,11 +795,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
                                     mEndDateButton.setEnabled(false);
                                 } else if (mModification == MODIFY_SELECTED) {
                                     mRepeatsSpinner.setEnabled(false);
-                                } else {
-                                    // We could allow changing the Rrule for
-                                    // all following instances but we'll
-                                    // keep it simple for now.
-                                    mRepeatsSpinner.setEnabled(false);
                                 }
                             }
                         })
@@ -1060,6 +1055,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         
         Spinner spinner = (Spinner) reminderItem.findViewById(R.id.reminder_value);
         Resources res = activity.getResources();
+        spinner.setPrompt(res.getString(R.string.reminders_label));
         int resource = android.R.layout.simple_spinner_item;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, resource, labels);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1408,11 +1404,21 @@ public class EditEvent extends Activity implements View.OnClickListener,
         return reminderMinutes;
     }
 
-    static void saveReminders(ContentResolver cr, long eventId,
+    /**
+     * Saves the reminders, if they changed.  Returns true if the database
+     * was updated.
+     * 
+     * @param cr the ContentResolver
+     * @param eventId the id of the event whose reminders are being updated
+     * @param reminderMinutes the array of reminders set by the user
+     * @param originalMinutes the original array of reminders
+     * @return true if the database was updated
+     */
+    static boolean saveReminders(ContentResolver cr, long eventId,
             ArrayList<Integer> reminderMinutes, ArrayList<Integer> originalMinutes) {
         // If the reminders have not changed, then don't update the database
         if (reminderMinutes.equals(originalMinutes)) {
-            return;
+            return false;
         }
 
         // Delete all the existing reminders for this event
@@ -1437,6 +1443,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             values.put(Reminders.EVENT_ID, eventId);
             cr.insert(Reminders.CONTENT_URI, values);
         }
+        return true;
     }
 
     private void addRecurrenceRule(ContentValues values) {

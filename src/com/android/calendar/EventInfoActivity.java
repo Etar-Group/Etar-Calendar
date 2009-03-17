@@ -16,6 +16,9 @@
 
 package com.android.calendar;
 
+import static android.provider.Calendar.EVENT_BEGIN_TIME;
+import static android.provider.Calendar.EVENT_END_TIME;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -32,28 +35,37 @@ import android.preference.PreferenceManager;
 import android.provider.Calendar;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class EventInfoActivity extends Activity implements View.OnClickListener {
+public class EventInfoActivity extends Activity implements View.OnClickListener,
+        AdapterView.OnItemSelectedListener {
     private static final int MAX_REMINDERS = 5;
+
+    /**
+     * These are the corresponding indices into the array of strings
+     * "R.array.change_response_labels" in the resource file.
+     */
+    static final int UPDATE_SINGLE = 0;
+    static final int UPDATE_ALL = 1;
 
     private static final String[] EVENT_PROJECTION = new String[] {
         Events._ID,                  // 0  do not remove; used in DeleteEventHelper
@@ -69,20 +81,19 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
         Events.HAS_ALARM,            // 10
         Events.ACCESS_LEVEL,         // 11
         Events.COLOR,                // 12
-        Events.SELF_ATTENDEE_STATUS, // 13
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
     private static final int EVENT_INDEX_RRULE = 2;
     private static final int EVENT_INDEX_ALL_DAY = 3;
     private static final int EVENT_INDEX_CALENDAR_ID = 4;
+    private static final int EVENT_INDEX_SYNC_ID = 6;
     private static final int EVENT_INDEX_EVENT_TIMEZONE = 7;
     private static final int EVENT_INDEX_DESCRIPTION = 8;
     private static final int EVENT_INDEX_EVENT_LOCATION = 9;
     private static final int EVENT_INDEX_HAS_ALARM = 10;
     private static final int EVENT_INDEX_ACCESS_LEVEL = 11;
     private static final int EVENT_INDEX_COLOR = 12;
-    private static final int EVENT_INDEX_SELF_ATTENDEE_STATUS = 13;
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
@@ -94,12 +105,12 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
     private static final int ATTENDEES_INDEX_STATUS = 2;
     private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=%d";
 
-    private static final String[] CALENDARS_PROJECTION = new String[] {
+    static final String[] CALENDARS_PROJECTION = new String[] {
         Calendars._ID,          // 0
         Calendars.DISPLAY_NAME, // 1
     };
-    private static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
-    private static final String CALENDARS_WHERE = Calendars._ID + "=%d";
+    static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
+    static final String CALENDARS_WHERE = Calendars._ID + "=%d";
 
     private static final String[] REMINDERS_PROJECTION = new String[] {
         Reminders._ID,      // 0
@@ -146,9 +157,11 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
     private int mDefaultReminderMinutes;
 
     private DeleteEventHelper mDeleteEventHelper;
+    private EditResponseHelper mEditResponseHelper;
 
     private int mResponseOffset;
     private int mOriginalAttendeeResponse;
+    private boolean mIsRepeating;
 
     // This is called when one of the "remove reminder" buttons is selected.
     public void onClick(View v) {
@@ -157,6 +170,34 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
         parent.removeView(reminderItem);
         mReminderItems.remove(reminderItem);
         updateRemindersVisibility();
+    }
+    
+    public void onItemSelected(AdapterView parent, View v, int position, long id) {
+        // If they selected the "No response" option, then don't display the
+        // dialog asking which events to change.
+        if (id == 0 && mResponseOffset == 0) {
+            return;
+        }
+        
+        // If this is not a repeating event, then don't display the dialog
+        // asking which events to change.
+        if (!mIsRepeating) {
+            return;
+        }
+        
+        // If the selection is the same as the original, then don't display the
+        // dialog asking which events to change.
+        int index = findResponseIndexFor(mOriginalAttendeeResponse);
+        if (position == index + mResponseOffset) {
+            return;
+        }
+        
+        // This is a repeating event. We need to ask the user if they mean to
+        // change just this one instance or all instances.
+        mEditResponseHelper.showDialog(mEditResponseHelper.getWhichEvents());
+    }
+
+    public void onNothingSelected(AdapterView parent) {
     }
 
     @Override
@@ -249,6 +290,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
         updateRemindersVisibility();
 
         mDeleteEventHelper = new DeleteEventHelper(this, true /* exit when done */);
+        mEditResponseHelper = new EditResponseHelper(this);
     }
 
     @Override
@@ -275,6 +317,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
         mEventCursor.moveToFirst();
         mVisibility = mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL);
         mEventId = mEventCursor.getInt(EVENT_INDEX_ID);
+        String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
+        mIsRepeating = (rRule != null);
         return false;
     }
 
@@ -295,11 +339,17 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
     @Override
     public void onPause() {
         super.onPause();
+        if (!isFinishing()) {
+            return;
+        }
         ContentResolver cr = getContentResolver();
         ArrayList<Integer> reminderMinutes = EditEvent.reminderItemsToMinutes(mReminderItems,
                 mReminderValues);
-        EditEvent.saveReminders(cr, mEventId, reminderMinutes, mOriginalMinutes);
-        saveResponse(cr);
+        boolean changed = EditEvent.saveReminders(cr, mEventId, reminderMinutes, mOriginalMinutes);
+        changed |= saveResponse(cr);
+        if (changed) {
+            Toast.makeText(this, R.string.saving_event, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -391,34 +441,103 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
         }
     }
 
-    private void saveResponse(ContentResolver cr) {
-        if (mAttendeesCursor == null) {
-            return;
+    /**
+     * Saves the response to an invitation if the user changed the response.
+     * Returns true if the database was updated.
+     * 
+     * @param cr the ContentResolver
+     * @return true if the database was changed
+     */
+    private boolean saveResponse(ContentResolver cr) {
+        if (mAttendeesCursor == null || mEventCursor == null) {
+            return false;
         }
         Spinner spinner = (Spinner) findViewById(R.id.response_value);
         int position = spinner.getSelectedItemPosition() - mResponseOffset;
         if (position <= 0) {
-            return;
+            return false;
         }
 
         int status = ATTENDEE_VALUES[position];
 
         // If the status has not changed, then don't update the database
         if (status == mOriginalAttendeeResponse) {
-            return;
+            return false;
         }
 
+        long attendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
+        if (!mIsRepeating) {
+            // This is a non-repeating event
+            updateResponse(cr, mEventId, attendeeId, status);
+            return true;
+        }
+
+        // This is a repeating event
+        int whichEvents = mEditResponseHelper.getWhichEvents();
+        switch (whichEvents) {
+            case -1:
+                return false;
+            case UPDATE_SINGLE:
+                createExceptionResponse(cr, mEventId, attendeeId, status);
+                return true;
+            case UPDATE_ALL:
+                updateResponse(cr, mEventId, attendeeId, status);
+                return true;
+            default:
+                Log.e("Calendar", "Unexpected choice for updating invitation response");
+                break;
+        }
+        return false;
+    }
+    
+    private void updateResponse(ContentResolver cr, long eventId, long attendeeId, int status) {
         // Update the "selfAttendeeStatus" field for the event
         ContentValues values = new ContentValues();
 
         // Will need to add email when MULTIPLE_ATTENDEES_PER_EVENT supported.
         values.put(Attendees.ATTENDEE_STATUS, status);
-        values.put(Attendees.EVENT_ID, mEventId);
-
-        int attendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
+        values.put(Attendees.EVENT_ID, eventId);
 
         Uri uri = ContentUris.withAppendedId(Attendees.CONTENT_URI, attendeeId);
         cr.update(uri, values, null /* where */, null /* selection args */);
+    }
+    
+    private void createExceptionResponse(ContentResolver cr, long eventId,
+            long attendeeId, int status) {
+        // Fetch information about the repeating event.
+        Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
+        Cursor cursor = cr.query(uri, EVENT_PROJECTION, null, null, null);
+        if (cursor == null) {
+            return;
+        }
+
+        try {
+            cursor.moveToFirst();
+            ContentValues values = new ContentValues();
+            
+            String title = cursor.getString(EVENT_INDEX_TITLE);
+            String timezone = cursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
+            int calendarId = cursor.getInt(EVENT_INDEX_CALENDAR_ID);
+            boolean allDay = cursor.getInt(EVENT_INDEX_ALL_DAY) != 0;
+            String syncId = cursor.getString(EVENT_INDEX_SYNC_ID);
+            
+            values.put(Events.TITLE, title);
+            values.put(Events.EVENT_TIMEZONE, timezone);
+            values.put(Events.ALL_DAY, allDay ? 1 : 0);
+            values.put(Events.CALENDAR_ID, calendarId);
+            values.put(Events.DTSTART, mStartMillis);
+            values.put(Events.DTEND, mEndMillis);
+            values.put(Events.ORIGINAL_EVENT, syncId);
+            values.put(Events.ORIGINAL_INSTANCE_TIME, mStartMillis);
+            values.put(Events.ORIGINAL_ALL_DAY, allDay ? 1 : 0);
+            values.put(Events.STATUS, Events.STATUS_CONFIRMED);
+            values.put(Events.SELF_ATTENDEE_STATUS, status);
+            
+            // Create a recurrence exception
+            Uri newUri = cr.insert(Events.CONTENT_URI, values);
+        } finally {
+            cursor.close();
+        }
     }
 
     private int findResponseIndexFor(int response) {
@@ -465,9 +584,15 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
         String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
         int color = mEventCursor.getInt(EVENT_INDEX_COLOR) & 0xbbffffff;
 
-        ImageView stripe = (ImageView) findViewById(R.id.vertical_stripe);
-        stripe.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        View strip = (View) findViewById(R.id.strip);
+        strip.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
+        TextView title = (TextView) findViewById(R.id.title);
+        title.setTextColor(color);
+        
+        View divider = (View) findViewById(R.id.divider);
+        divider.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        
         // What
         if (eventName != null) {
             setTextCommon(R.id.title, eventName);
@@ -579,6 +704,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener 
 
         int index = findResponseIndexFor(mOriginalAttendeeResponse);
         spinner.setSelection(index + mResponseOffset);
+        spinner.setOnItemSelectedListener(this);
     }
 
     private void setTextCommon(int id, CharSequence text) {

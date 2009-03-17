@@ -28,6 +28,7 @@ import android.pim.EventRecurrence;
 import android.provider.Calendar;
 import android.provider.Calendar.Events;
 import android.text.format.Time;
+import android.widget.Button;
 
 /**
  * A helper class for deleting events.  If a normal event is selected for
@@ -74,6 +75,7 @@ public class DeleteEventHelper {
     static final int DELETE_ALL = 2;
     
     private int mWhichDelete;
+    private AlertDialog mAlertDialog;
 
     private static final String[] EVENT_PROJECTION = new String[] {
         Events._ID,
@@ -122,6 +124,11 @@ public class DeleteEventHelper {
             new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int button) {
             mWhichDelete = button;
+            
+            // Enable the "ok" button now that the user has selected which
+            // events in the series to delete.
+            Button ok = mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            ok.setEnabled(true);
         }
     };
 
@@ -220,13 +227,21 @@ public class DeleteEventHelper {
             if (mSyncId == null) {
                 labelsArrayId = R.array.delete_repeating_labels_no_selected;
             }
-            new AlertDialog.Builder(mParent)
+            AlertDialog dialog = new AlertDialog.Builder(mParent)
             .setTitle(R.string.delete_title)
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setSingleChoiceItems(labelsArrayId, which, mDeleteListListener)
             .setPositiveButton(android.R.string.ok, mDeleteRepeatingDialogListener)
             .setNegativeButton(android.R.string.cancel, null)
             .show();
+            mAlertDialog = dialog;
+            
+            if (which == -1) {
+                // Disable the "Ok" button until the user selects which events
+                // to delete.
+                Button ok = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                ok.setEnabled(false);
+            }
         }
     }
     

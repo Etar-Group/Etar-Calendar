@@ -16,7 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">"Agenda"</string>
-    <string name="calendar_plug"><font fgcolor="#ffffffff">"Welkom bij  Google Agenda!"</font>" "\n" Een Google-benadering om uw planning te beheren, gebaseerd op het idee dat het plannen van afspraken intuïtiever, efficiënter en toegankelijker kan."</string>
+    <string name="calendar_plug"><font fgcolor="#ffffffff">"Welkom bij Google Agenda!"</font>" "\n" Een Google-benadering om uw planning te beheren, gebaseerd op het idee dat het plannen van afspraken intuïtiever, efficiënter en toegankelijker kan."</string>
     <string name="what_label">"Wat"</string>
     <string name="when_label">"Wanneer"</string>
     <string name="where_label">"Waar"</string>
@@ -38,16 +38,14 @@
     <item quantity="one">"1 dag"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> dagen"</item>
   </plurals>
-    <!-- no translation found for show_agenda_view (7971854300981408347) -->
-    <skip />
-    <!-- no translation found for show_day_view (5782512782605466016) -->
-    <skip />
+    <string name="show_agenda_view">"Geef agenda weer"</string>
+    <string name="show_day_view">"Geef dag weer"</string>
     <string name="agenda_view">"Agenda"</string>
     <string name="day_view">"Dag"</string>
     <string name="week_view">"Week"</string>
     <string name="month_view">"Maand"</string>
     <string name="event_view">"Afspraak weergeven"</string>
-    <string name="event_create">"Nieuwe  afspraak"</string>
+    <string name="event_create">"Nieuwe afspraak"</string>
     <string name="event_edit">"Afspraak bewerken"</string>
     <string name="event_delete">"Afspraak verwijderen"</string>
     <string name="goto_today">"Vandaag"</string>
@@ -110,6 +108,7 @@
     <string name="modify_all_following">"Deze en alle toekomstige afspraken wijzigen."</string>
     <string name="delete_this_event_title">"Deze afspraak wordt verwijderd."</string>
     <string name="delete_title">"Verwijderen"</string>
+    <string name="change_response_title">"Reactie wijzigen"</string>
     <string name="preferences_title">"Instellingen"</string>
     <string name="preferences_general_title">"Instelling agendaweergave"</string>
     <string name="preferences_alerts_title">"Instellingen voor herinneringen"</string>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item>"5분"</item>
+    <item>"10분"</item>
+    <item>"15분"</item>
+    <item>"20분"</item>
+    <item>"25분"</item>
+    <item>"30분"</item>
+    <item>"45분"</item>
+    <item>"1시간"</item>
+    <item>"2시간"</item>
+    <item>"3시간"</item>
+    <item>"12시간"</item>
+    <item>"24시간"</item>
+    <item>"2일"</item>
+    <item>"1주"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item>"없음"</item>
+    <item>"5분"</item>
+    <item>"10분"</item>
+    <item>"15분"</item>
+    <item>"20분"</item>
+    <item>"25분"</item>
+    <item>"30분"</item>
+    <item>"45분"</item>
+    <item>"1시간"</item>
+    <item>"2시간"</item>
+    <item>"3시간"</item>
+    <item>"12시간"</item>
+    <item>"24시간"</item>
+    <item>"2일"</item>
+    <item>"1주"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item>"알림"</item>
+    <item>"상태 표시줄 알림"</item>
+    <item>"해제"</item>
+  </string-array>
+  <string-array name="availability">
+    <item>"다른 용무 중"</item>
+    <item>"대화가능"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item>"기본값"</item>
+    <item>"비공개"</item>
+    <item>"공개"</item>
+  </string-array>
+  <string-array name="day_labels">
+    <item>"일요일"</item>
+    <item>"월요일"</item>
+    <item>"화요일"</item>
+    <item>"수요일"</item>
+    <item>"목요일"</item>
+    <item>"금요일"</item>
+    <item>"토요일"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item>"첫 번째"</item>
+    <item>"두 번째"</item>
+    <item>"3번째"</item>
+    <item>"4번째"</item>
+    <item>"마지막"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item>"(응답 없음)"</item>
+    <item>"예"</item>
+    <item>"미정"</item>
+    <item>"아니요"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item>"예"</item>
+    <item>"미정"</item>
+    <item>"아니요"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>"해당 이벤트만"</item>
+    <item>"현재 일정 및 향후 일정"</item>
+    <item>"모든 일정"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item>"현재 및 향후 일정"</item>
+    <item>"모든 일정"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>"이 일정에만"</item>
+    <item>"모든 반복 일정"</item>
+  </string-array>
+</resources>

@@ -37,6 +37,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
 
@@ -46,6 +47,7 @@ import android.widget.ViewSwitcher;
 public class CalendarActivity extends Activity implements Navigator {
 
     private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
+    private static final long ANIMATION_DURATION = 400;
 
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
 
@@ -111,7 +113,7 @@ public class CalendarActivity extends Activity implements Navigator {
         mInAnimationBackward = AnimationUtils.loadAnimation(this, R.anim.slide_right_in);
         mOutAnimationBackward = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
 
-        mGestureDetector = new GestureDetector(new CalendarGestureListener());
+        mGestureDetector = new GestureDetector(this, new CalendarGestureListener());
         mEventLoader = new EventLoader(this);
     }
 
@@ -254,28 +256,46 @@ public class CalendarActivity extends Activity implements Navigator {
     }
 
     public View switchViews(boolean forward, float xOffSet, float width) {
-        long offset = 0;
-        if (xOffSet != 0) {
-
-            // The user might have scrolled the view to the left or right
-            // in which case we just want to animate the bit left over
-            // instead of animating all of it. So calculate how much
-            // it's been moved already and animate the remaining portion
-            double progress = ((width - (Math.abs(xOffSet))) / width);
-            long duration = mInAnimationForward.getDuration();
-            offset = -1 * (long) (duration - (duration * progress));
+        float progress = Math.abs(xOffSet) / width;
+        if (progress > 1.0f) {
+            progress = 1.0f;
         }
+        
+        float inFromXValue, inToXValue;
+        float outFromXValue, outToXValue;
         if (forward) {
-            mInAnimationForward.setStartOffset(offset);
-            mOutAnimationForward.setStartOffset(offset);
-            mViewSwitcher.setInAnimation(mInAnimationForward);
-            mViewSwitcher.setOutAnimation(mOutAnimationForward);
+            inFromXValue = 1.0f - progress;
+            inToXValue = 0.0f;
+            outFromXValue = -progress;
+            outToXValue = -1.0f;
         } else {
-            mInAnimationBackward.setStartOffset(offset);
-            mOutAnimationBackward.setStartOffset(offset);
-            mViewSwitcher.setInAnimation(mInAnimationBackward);
-            mViewSwitcher.setOutAnimation(mOutAnimationBackward);
+            inFromXValue = progress - 1.0f;
+            inToXValue = 0.0f;
+            outFromXValue = progress;
+            outToXValue = 1.0f;
         }
+        
+        // We have to allocate these animation objects each time we switch views
+        // because that is the only way to set the animation parameters.
+        TranslateAnimation inAnimation = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, inFromXValue,
+                Animation.RELATIVE_TO_SELF, inToXValue,
+                Animation.ABSOLUTE, 0.0f,
+                Animation.ABSOLUTE, 0.0f);
+
+        TranslateAnimation outAnimation = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, outFromXValue,
+                Animation.RELATIVE_TO_SELF, outToXValue,
+                Animation.ABSOLUTE, 0.0f,
+                Animation.ABSOLUTE, 0.0f);
+        
+        // Reduce the animation duration based on how far we have already swiped.
+        long duration = (long) (ANIMATION_DURATION * (1.0f - progress));
+        inAnimation.setDuration(duration);
+        outAnimation.setDuration(duration);
+        mViewSwitcher.setInAnimation(inAnimation);
+        mViewSwitcher.setOutAnimation(outAnimation);
+        
         CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
         view.cleanup();
         mViewSwitcher.showNext();

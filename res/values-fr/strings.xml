@@ -27,8 +27,8 @@
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minutes"</item>
   </plurals>
   <plurals name="Nmins">
-    <item quantity="one">"1 min"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+    <item quantity="one">"1 mn"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> mn"</item>
   </plurals>
   <plurals name="Nhours">
     <item quantity="one">"1 heure"</item>
@@ -38,11 +38,9 @@
     <item quantity="one">"1 jour"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> jours"</item>
   </plurals>
-    <!-- no translation found for show_agenda_view (7971854300981408347) -->
-    <skip />
-    <!-- no translation found for show_day_view (5782512782605466016) -->
-    <skip />
-    <string name="agenda_view">"Agenda"</string>
+    <string name="show_agenda_view">"Afficher l\'agenda"</string>
+    <string name="show_day_view">"Afficher le jour"</string>
+    <string name="agenda_view">"Mon planning"</string>
     <string name="day_view">"Jour"</string>
     <string name="week_view">"Semaine"</string>
     <string name="month_view">"Mois"</string>
@@ -77,7 +75,7 @@
     <string name="edit_event_all_day_label">"Journée entière"</string>
     <string name="edit_event_calendar_label">"Agenda"</string>
     <string name="edit_event_show_extra_options">"Afficher les options supplémentaires"</string>
-    <string name="edit_event_hide_extra_options">"Masquer les options supplémentaires"</string>
+    <string name="edit_event_hide_extra_options">"Masquer options supplémentaires"</string>
     <string name="description_label">"Description"</string>
     <string name="presence_label">"Présence"</string>
     <string name="privacy_label">"Confidentialité"</string>
@@ -93,28 +91,29 @@
     <string name="delete_label">"Supprimer"</string>
     <string name="delete_event_label">"Supprimer l\'événement"</string>
     <string name="save_label">"Enregistrer"</string>
-    <string name="discard_label">"Ignorer les modifications"</string>
+    <string name="discard_label">"Ignorer"</string>
     <string name="import_label">"Importer"</string>
-    <string name="snooze_all_label">"Tout mettre en attente"</string>
+    <string name="snooze_all_label">"Tout répéter"</string>
     <string name="dismiss_all_label">"Tout supprimer"</string>
     <string name="does_not_repeat">"Événement ponctuel"</string>
-    <string name="daily">"Quotidien"</string>
-    <string name="every_weekday">"Chaque jour de semaine (lun–ven)"</string>
+    <string name="daily">"Ignorer"</string>
+    <string name="every_weekday">"Les jours ouvrables (lun–ven)"</string>
     <string name="weekly">"Hebdomadaire (chaque <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
     <string name="monthly_on_day_count">"Mensuel (chaque <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly_on_day">"Mensuel (le <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly">"Annuel (le <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom">"Personnalisé… (paramétrage impossible avec un téléphone)"</string>
+    <string name="custom">"Personnalisé… (non paramétrable sur téléphone)"</string>
     <string name="modify_event">"Modifier uniquement cet événement."</string>
     <string name="modify_all">"Modifier tous les événements de la série."</string>
     <string name="modify_all_following">"Modifier cet événement et tous les suivants."</string>
     <string name="delete_this_event_title">"Cet événement va être supprimé."</string>
     <string name="delete_title">"Supprimer"</string>
+    <string name="change_response_title">"Modifier la réponse"</string>
     <string name="preferences_title">"Paramètres"</string>
     <string name="preferences_general_title">"Paramètre d\'affichage de l\'agenda"</string>
     <string name="preferences_alerts_title">"Paramètres de rappel"</string>
-    <string name="preferences_hide_declined_title">"Masquer les événements refusés"</string>
-    <string name="preferences_alerts_type_title">"Définir les alertes et les notifications"</string>
+    <string name="preferences_hide_declined_title">"Masquer évén. refusés"</string>
+    <string name="preferences_alerts_type_title">"Alertes et notifications"</string>
     <string name="preferences_alerts_type_dialog">"Alertes et notifications"</string>
     <string name="preferences_alerts_vibrate_title">"Vibreur"</string>
     <string name="preferences_alerts_ringtone_title">"Sélectionner la sonnerie"</string>

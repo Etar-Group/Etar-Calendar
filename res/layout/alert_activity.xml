@@ -17,34 +17,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="10dip">
-    
+    android:layout_height="fill_parent">
+
     <ListView android:id="@+id/alert_container"
         android:layout_width="fill_parent"
         android:layout_height="0dip"
-        android:layout_weight="1"
-        android:listSelector="@android:color/transparent"
-        android:divider="@null" />
+        android:layout_weight="1"/>
     
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="3dip">
+        style="@android:style/ButtonBar">
 
         <Button android:id="@+id/snooze_all"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/snooze_all_label" />
 
-        <TextView android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-            
         <Button android:id="@+id/dismiss_all"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/dismiss_all_label" />

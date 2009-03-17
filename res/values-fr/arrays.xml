@@ -31,22 +31,6 @@
     <item>"2 jours"</item>
     <item>"1 semaine"</item>
   </string-array>
-  <string-array name="reminder_minutes_values">
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1440"</item>
-    <item>"2880"</item>
-    <item>"10080"</item>
-  </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item>"Aucun"</item>
     <item>"5 minutes"</item>
@@ -64,32 +48,10 @@
     <item>"2 jours"</item>
     <item>"1 semaine"</item>
   </string-array>
-  <string-array name="preferences_default_reminder_values">
-    <item>"0"</item>
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1440"</item>
-    <item>"2880"</item>
-    <item>"10080"</item>
-  </string-array>
   <string-array name="preferences_alert_type_labels">
     <item>"Alerte"</item>
     <item>"Notification de barre d\'état"</item>
     <item>"Désactivé"</item>
-  </string-array>
-  <string-array name="preferences_alert_type_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
   </string-array>
   <string-array name="availability">
     <item>"Occupé"</item>
@@ -110,10 +72,10 @@
     <item>"samedi"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"premier"</item>
-    <item>"seconde"</item>
-    <item>"troisième"</item>
-    <item>"quatrième"</item>
+    <item>"1er"</item>
+    <item>"2e"</item>
+    <item>"3e"</item>
+    <item>"4e"</item>
     <item>"dernier"</item>
   </string-array>
   <string-array name="response_labels1">
@@ -135,5 +97,9 @@
   <string-array name="delete_repeating_labels_no_selected">
     <item>"Cet événement et les suivants"</item>
     <item>"Tous les événements"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>"Uniquement cette instance"</item>
+    <item>"Tous les événements de la série"</item>
   </string-array>
 </resources>

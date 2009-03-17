@@ -19,11 +19,9 @@ package com.android.calendar;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.PorterDuff;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
@@ -36,11 +34,13 @@ public class AlertAdapter extends ResourceCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView textView;
-        
-        ImageView stripe = (ImageView) view.findViewById(R.id.vertical_stripe);
-        int color = cursor.getInt(AlertActivity.INDEX_COLOR) & 0xbbffffff;
-        stripe.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-        
+
+        View stripe = view.findViewById(R.id.vertical_stripe);
+        int color = cursor.getInt(AlertActivity.INDEX_COLOR);
+        stripe.setBackgroundColor(color);
+        textView = (TextView) view.findViewById(R.id.event_title);
+        textView.setTextColor(color);
+
         // Repeating info
         View repeatContainer = view.findViewById(R.id.repeat_icon);
         String rrule = cursor.getString(AlertActivity.INDEX_RRULE);
@@ -49,13 +49,15 @@ public class AlertAdapter extends ResourceCursorAdapter {
         } else {
             repeatContainer.setVisibility(View.GONE);
         }
-                
+        
+        /*
         // Reminder
         boolean hasAlarm = cursor.getInt(AlertActivity.INDEX_HAS_ALARM) != 0;
         if (hasAlarm) {
             AgendaAdapter.updateReminder(view, context, cursor.getLong(AlertActivity.INDEX_BEGIN),
                     cursor.getLong(AlertActivity.INDEX_EVENT_ID));
         }
+        */
         
         String eventName = cursor.getString(AlertActivity.INDEX_TITLE);
         String location = cursor.getString(AlertActivity.INDEX_EVENT_LOCATION);

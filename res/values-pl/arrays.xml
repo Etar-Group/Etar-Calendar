@@ -31,22 +31,6 @@
     <item>"2 dni"</item>
     <item>"1 tydzień"</item>
   </string-array>
-  <string-array name="reminder_minutes_values">
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1440"</item>
-    <item>"2880"</item>
-    <item>"10080"</item>
-  </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item>"Brak"</item>
     <item>"5 min"</item>
@@ -64,32 +48,10 @@
     <item>"2 dni"</item>
     <item>"1 tydzień"</item>
   </string-array>
-  <string-array name="preferences_default_reminder_values">
-    <item>"0"</item>
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1440"</item>
-    <item>"2880"</item>
-    <item>"10080"</item>
-  </string-array>
   <string-array name="preferences_alert_type_labels">
     <item>"Alert"</item>
     <item>"Powiadomienie na pasku stanu"</item>
     <item>"Wyłączone"</item>
-  </string-array>
-  <string-array name="preferences_alert_type_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
   </string-array>
   <string-array name="availability">
     <item>"Zajęty"</item>
@@ -101,13 +63,13 @@
     <item>"Publiczny"</item>
   </string-array>
   <string-array name="day_labels">
-    <item>"Niedziela"</item>
-    <item>"Poniedziałek"</item>
-    <item>"Wtorek"</item>
-    <item>"Środa"</item>
-    <item>"Czwartek"</item>
-    <item>"Piątek"</item>
-    <item>"Sobota"</item>
+    <item>"niedziela"</item>
+    <item>"poniedziałek"</item>
+    <item>"wtorek"</item>
+    <item>"środa"</item>
+    <item>"czwartek"</item>
+    <item>"piątek"</item>
+    <item>"sobota"</item>
   </string-array>
   <string-array name="ordinal_labels">
     <item>"1."</item>
@@ -135,5 +97,9 @@
   <string-array name="delete_repeating_labels_no_selected">
     <item>"To i przyszłe wydarzenia"</item>
     <item>"Wszystkie wydarzenia"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>"Tylko to wystąpienie"</item>
+    <item>"Wszystkie wydarzenia w serii"</item>
   </string-array>
 </resources>

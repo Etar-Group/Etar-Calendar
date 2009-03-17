@@ -31,22 +31,6 @@
     <item>"2 Tage"</item>
     <item>"1 Woche"</item>
   </string-array>
-  <string-array name="reminder_minutes_values">
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1440"</item>
-    <item>"2880"</item>
-    <item>"10080"</item>
-  </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item>"Keine"</item>
     <item>"5 Minuten"</item>
@@ -64,32 +48,10 @@
     <item>"2 Tage"</item>
     <item>"1 Woche"</item>
   </string-array>
-  <string-array name="preferences_default_reminder_values">
-    <item>"0"</item>
-    <item>"5"</item>
-    <item>"10"</item>
-    <item>"15"</item>
-    <item>"20"</item>
-    <item>"25"</item>
-    <item>"30"</item>
-    <item>"45"</item>
-    <item>"60"</item>
-    <item>"120"</item>
-    <item>"180"</item>
-    <item>"720"</item>
-    <item>"1440"</item>
-    <item>"2880"</item>
-    <item>"10080"</item>
-  </string-array>
   <string-array name="preferences_alert_type_labels">
     <item>"Benachrichtigung"</item>
     <item>"Statuszeilenbenachrichtigung"</item>
     <item>"Aus"</item>
-  </string-array>
-  <string-array name="preferences_alert_type_values">
-    <item>"0"</item>
-    <item>"1"</item>
-    <item>"2"</item>
   </string-array>
   <string-array name="availability">
     <item>"Beschäftigt"</item>
@@ -135,5 +97,9 @@
   <string-array name="delete_repeating_labels_no_selected">
     <item>"Dieser und zukünftige Termine"</item>
     <item>"Alle Termine"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>"Nur diese Instanz"</item>
+    <item>"Alle Termine dieser Serie"</item>
   </string-array>
 </resources>

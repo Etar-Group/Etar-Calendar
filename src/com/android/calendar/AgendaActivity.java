@@ -51,7 +51,7 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
 
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
 
-    private static final String[] PROJECTION = new String[] {
+    static final String[] PROJECTION = new String[] {
         Instances._ID,                  // 0
         Instances.TITLE,                // 1
         Instances.EVENT_LOCATION,       // 2
@@ -125,8 +125,6 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
 
         public AgendaListView(Context context) {
             super(context, null);
-            setDivider(null);
-            setSelector(android.R.color.transparent);
             setOnItemClickListener(mOnItemClickListener);
             setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             mAdapter = new AgendaAdapter(AgendaActivity.this, R.layout.agenda_item);
@@ -208,7 +206,6 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
         // TODO: We should restore the old heap size once the activity reaches the idle state
         long oldHeapSize = VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
 
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.agenda_activity);
 
         mContentResolver = getContentResolver();
@@ -222,7 +219,7 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
         } else {
             mTime.set(Utils.timeFromIntent(getIntent()));
         }
-        setTitle(Utils.formatMonthYear(mTime));
+        setTitle(R.string.agenda_view);
 
         mViewSwitcher = (ViewSwitcher) findViewById(R.id.switcher);
         mViewSwitcher.setFactory(this);

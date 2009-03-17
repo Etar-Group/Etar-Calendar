@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item>"5 minutter"</item>
+    <item>"10 minutter"</item>
+    <item>"15 minutter"</item>
+    <item>"20 minutter"</item>
+    <item>"25 minutter"</item>
+    <item>"30 minutter"</item>
+    <item>"45 minutter"</item>
+    <item>"1 time"</item>
+    <item>"2 timer"</item>
+    <item>"3 timer"</item>
+    <item>"12 timer"</item>
+    <item>"24 timer"</item>
+    <item>"2 dager"</item>
+    <item>"1 uke"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item>"Ingen"</item>
+    <item>"5 minutter"</item>
+    <item>"10 minutter"</item>
+    <item>"15 minutter"</item>
+    <item>"20 minutter"</item>
+    <item>"25 minutter"</item>
+    <item>"30 minutter"</item>
+    <item>"45 minutter"</item>
+    <item>"1 time"</item>
+    <item>"2 timer"</item>
+    <item>"3 timer"</item>
+    <item>"12 timer"</item>
+    <item>"24 timer"</item>
+    <item>"2 dager"</item>
+    <item>"1 uke"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item>"Advarsel"</item>
+    <item>"Varsling i statusfeltet"</item>
+    <item>"Av"</item>
+  </string-array>
+  <string-array name="availability">
+    <item>"Opptatt"</item>
+    <item>"Tilgjengelig"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item>"Standard"</item>
+    <item>"Privat"</item>
+    <item>"Offentlig"</item>
+  </string-array>
+  <string-array name="day_labels">
+    <item>"søndag"</item>
+    <item>"mandag"</item>
+    <item>"tirsdag"</item>
+    <item>"onsdag"</item>
+    <item>"torsdag"</item>
+    <item>"fredag"</item>
+    <item>"lørdag"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item>"første"</item>
+    <item>"andre"</item>
+    <item>"tredje"</item>
+    <item>"fjerde"</item>
+    <item>"siste"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item>"(Ikke svart)"</item>
+    <item>"Ja"</item>
+    <item>"Kanskje"</item>
+    <item>"Nei"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item>"Ja"</item>
+    <item>"Kanskje"</item>
+    <item>"Nei"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>"Bare denne hendelsen"</item>
+    <item>"Denne og framtidige hendelser"</item>
+    <item>"Alle hendelser"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item>"Denne og framtidige hendelser"</item>
+    <item>"Alle hendelser"</item>
+  </string-array>
+    <!-- no translation found for change_response_labels:0 (2012815396992847028) -->
+    <!-- no translation found for change_response_labels:1 (140670561403965380) -->
+</resources>

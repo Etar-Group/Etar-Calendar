@@ -38,10 +38,8 @@
     <item quantity="one">"1 день"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> дн."</item>
   </plurals>
-    <!-- no translation found for show_agenda_view (7971854300981408347) -->
-    <skip />
-    <!-- no translation found for show_day_view (5782512782605466016) -->
-    <skip />
+    <string name="show_agenda_view">"Показать в режиме просмотра повестки дня"</string>
+    <string name="show_day_view">"Показать в режиме просмотра дня"</string>
     <string name="agenda_view">"Повестка дня"</string>
     <string name="day_view">"День"</string>
     <string name="week_view">"Неделя"</string>
@@ -110,6 +108,7 @@
     <string name="modify_all_following">"Изменить это и все будущие мероприятия"</string>
     <string name="delete_this_event_title">"Это мероприятие будет удалено."</string>
     <string name="delete_title">"Удалить"</string>
+    <string name="change_response_title">"Изменение ответа"</string>
     <string name="preferences_title">"Настройки"</string>
     <string name="preferences_general_title">"Настройка режимов просмотра календаря"</string>
     <string name="preferences_alerts_title">"Настройки напоминания"</string>

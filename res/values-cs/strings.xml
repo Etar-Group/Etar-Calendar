@@ -38,10 +38,8 @@
     <item quantity="one">"1 den"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> dnů"</item>
   </plurals>
-    <!-- no translation found for show_agenda_view (7971854300981408347) -->
-    <skip />
-    <!-- no translation found for show_day_view (5782512782605466016) -->
-    <skip />
+    <string name="show_agenda_view">"Zobrazit agendu"</string>
+    <string name="show_day_view">"Zobrazit den"</string>
     <string name="agenda_view">"Agenda"</string>
     <string name="day_view">"Den"</string>
     <string name="week_view">"Týden"</string>
@@ -110,6 +108,7 @@
     <string name="modify_all_following">"Změnit tuto událost a všechny budoucí"</string>
     <string name="delete_this_event_title">"Tato událost bude odstraněna."</string>
     <string name="delete_title">"Smazat"</string>
+    <string name="change_response_title">"Změnit odpověď"</string>
     <string name="preferences_title">"Nastavení"</string>
     <string name="preferences_general_title">"Nastavení zobrazení kalendáře"</string>
     <string name="preferences_alerts_title">"Nastavení připomenutí"</string>

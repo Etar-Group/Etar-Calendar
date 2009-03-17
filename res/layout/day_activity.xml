@@ -47,11 +47,6 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@android:drawable/divider_horizontal_dark" />
-
     <ViewSwitcher android:id="@+id/switcher"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

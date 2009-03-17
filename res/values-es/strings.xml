@@ -17,7 +17,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">"Calendario"</string>
     <string name="calendar_plug"><font fgcolor="#ffffffff">"Bienvenido a Google Calendar"</font>\n" Una propuesta de Google para gestionar su agenda basándonos en la idea de que la programación de los eventos puede ser más intuitiva, eficaz y accesible."</string>
-    <string name="what_label">"Qué"</string>
+    <string name="what_label">"Asunto"</string>
     <string name="when_label">"Cuándo"</string>
     <string name="where_label">"Dónde"</string>
     <string name="repeats_label">"Repetición"</string>
@@ -38,10 +38,8 @@
     <item quantity="one">"1 día"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> días"</item>
   </plurals>
-    <!-- no translation found for show_agenda_view (7971854300981408347) -->
-    <skip />
-    <!-- no translation found for show_day_view (5782512782605466016) -->
-    <skip />
+    <string name="show_agenda_view">"Mostrar agenda"</string>
+    <string name="show_day_view">"Mostrar día"</string>
     <string name="agenda_view">"Agenda"</string>
     <string name="day_view">"Día"</string>
     <string name="week_view">"Semana"</string>
@@ -52,7 +50,7 @@
     <string name="event_delete">"Suprimir evento"</string>
     <string name="goto_today">"Hoy"</string>
     <string name="menu_select_calendars">"Mis calendarios"</string>
-    <string name="menu_preferences">"Configuración"</string>
+    <string name="menu_preferences">"Ajustes"</string>
     <string name="plus_N_more">"(además de <xliff:g id="MORE_COUNT">%d</xliff:g> más...)"</string>
     <string name="calendars_title">"Mis calendarios"</string>
     <string name="add_calendars">"Añadir calendarios"</string>
@@ -96,7 +94,7 @@
     <string name="discard_label">"Descartar cambios"</string>
     <string name="import_label">"Importar"</string>
     <string name="snooze_all_label">"Posponer todos"</string>
-    <string name="dismiss_all_label">"Descartar todas"</string>
+    <string name="dismiss_all_label">"Descartar todos"</string>
     <string name="does_not_repeat">"Evento único"</string>
     <string name="daily">"Cada día"</string>
     <string name="every_weekday">"Cada día laboral (lunes-viernes)"</string>
@@ -110,7 +108,8 @@
     <string name="modify_all_following">"Cambiar éste y todos los eventos futuros"</string>
     <string name="delete_this_event_title">"Este evento se suprimirá."</string>
     <string name="delete_title">"Eliminar"</string>
-    <string name="preferences_title">"Configuración"</string>
+    <string name="change_response_title">"Cambiar respuesta"</string>
+    <string name="preferences_title">"Ajustes"</string>
     <string name="preferences_general_title">"Configuración de la vista de calendario"</string>
     <string name="preferences_alerts_title">"Configuración de los recordatorios"</string>
     <string name="preferences_hide_declined_title">"Ocultar eventos rechazados"</string>
