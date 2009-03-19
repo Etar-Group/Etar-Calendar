@@ -76,15 +76,6 @@ public class AlertReceiver extends BroadcastReceiver {
             // This intent might be a BOOT_COMPLETED so it might not have a Uri.
             if (uri != null) {
                 i.putExtra("uri", uri.toString());
-                
-                // Record the received time in the CalendarAlerts table.
-                // This is useful for finding bugs that cause alarms to be
-                // missed or delayed.
-                ContentResolver cr = context.getContentResolver();
-                ContentValues values = new ContentValues();
-                long currentTime = System.currentTimeMillis();
-                values.put(CalendarAlerts.RECEIVED_TIME, currentTime);
-                cr.update(uri, values, null /* where */, null /* args */);
             }
             beginStartingService(context, i);
         }

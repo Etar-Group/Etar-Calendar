@@ -63,6 +63,8 @@
     <string name="saving_event">"Lagrer hendelse…"</string>
     <string name="loading_calendars_title">"Laster kalendre"</string>
     <string name="loading_calendars_message">"Laster kalendre…"</string>
+    <!-- no translation found for alert_title (7869592820853066853) -->
+    <skip />
     <string name="alert_when_label">"Hva:"</string>
     <string name="alert_where_label">"Hvor:"</string>
     <!-- no translation found for alert_missed_events_single (8042891195314876684) -->

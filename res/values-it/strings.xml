@@ -63,6 +63,8 @@
     <string name="saving_event">"Salvataggio evento in corso…"</string>
     <string name="loading_calendars_title">"Caricamento calendari"</string>
     <string name="loading_calendars_message">"Caricamento calendari in corso..."</string>
+    <!-- no translation found for alert_title (7869592820853066853) -->
+    <skip />
     <string name="alert_when_label">"Intervallo di tempo:"</string>
     <string name="alert_where_label">"Dove:"</string>
     <string name="alert_missed_events_single">"(Altri <xliff:g id="REMINDER_COUNT">%s</xliff:g> promemoria)"</string>

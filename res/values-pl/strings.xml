@@ -63,6 +63,8 @@
     <string name="saving_event">"Zapisywanie wydarzenia..."</string>
     <string name="loading_calendars_title">"Ładowanie kalendarzy"</string>
     <string name="loading_calendars_message">"Ładowanie kalendarzy..."</string>
+    <!-- no translation found for alert_title (7869592820853066853) -->
+    <skip />
     <string name="alert_when_label">"Kiedy:"</string>
     <string name="alert_where_label">"Gdzie:"</string>
     <string name="alert_missed_events_single">"(więcej przypomnień: <xliff:g id="REMINDER_COUNT">%s</xliff:g>)"</string>

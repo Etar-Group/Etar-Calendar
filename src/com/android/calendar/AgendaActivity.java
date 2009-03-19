@@ -403,6 +403,7 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
             selectTime();
         } else {
             mTime = time;
+            renewCursor();
         }
     }
 

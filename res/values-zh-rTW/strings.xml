@@ -63,6 +63,8 @@
     <string name="saving_event">"正在儲存活動..."</string>
     <string name="loading_calendars_title">"正在載入日曆"</string>
     <string name="loading_calendars_message">"正在載入日曆..."</string>
+    <!-- no translation found for alert_title (7869592820853066853) -->
+    <skip />
     <string name="alert_when_label">"時間："</string>
     <string name="alert_where_label">"地點："</string>
     <string name="alert_missed_events_single">"(還有 <xliff:g id="REMINDER_COUNT">%s</xliff:g> 則提醒)"</string>

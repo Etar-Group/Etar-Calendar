@@ -63,6 +63,8 @@
     <string name="saving_event">"予定を保存中..."</string>
     <string name="loading_calendars_title">"カレンダーを読み込み中"</string>
     <string name="loading_calendars_message">"カレンダーを読み込み中..."</string>
+    <!-- no translation found for alert_title (7869592820853066853) -->
+    <skip />
     <string name="alert_when_label">"日時:"</string>
     <string name="alert_where_label">"場所:"</string>
     <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> 件の通知がありました)"</string>

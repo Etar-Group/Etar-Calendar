@@ -16,7 +16,7 @@
 
 package com.android.calendar;
 
-import android.app.Service;
+import android.app.IntentService;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,14 +25,18 @@ import android.os.IBinder;
 import android.provider.Calendar.CalendarAlerts;
 
 /**
- * Service for marking all fired alarms as dismissed. 
+ * Service for asynchronously marking all fired alarms as dismissed. 
  */
-public class DismissAllAlarmsService extends Service {
+public class DismissAllAlarmsService extends IntentService {
     private static final String[] PROJECTION = new String[] {
             CalendarAlerts._ID,
             CalendarAlerts.STATE,
     };
     private static final int COLUMN_INDEX_STATE = 1;  
+
+    public DismissAllAlarmsService() {
+        super("DismissAllAlarmsService");
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -41,7 +45,7 @@ public class DismissAllAlarmsService extends Service {
 
     @SuppressWarnings("deprecation")
     @Override
-    public void onStart(Intent intent, int startId) {
+    public void onHandleIntent(Intent intent) {
         // Mark all fired alarms as dismissed
         Uri uri = CalendarAlerts.CONTENT_URI_BY_INSTANCE;
         String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.FIRED;

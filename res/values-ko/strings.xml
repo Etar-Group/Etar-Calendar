@@ -63,6 +63,8 @@
     <string name="saving_event">"일정 저장 중..."</string>
     <string name="loading_calendars_title">"캘린더 로드 중"</string>
     <string name="loading_calendars_message">"캘린더 로드 중..."</string>
+    <!-- no translation found for alert_title (7869592820853066853) -->
+    <skip />
     <string name="alert_when_label">"일자:"</string>
     <string name="alert_where_label">"위치:"</string>
     <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g>개 이상의 알림)"</string>

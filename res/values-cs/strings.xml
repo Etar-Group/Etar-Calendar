@@ -63,6 +63,8 @@
     <string name="saving_event">"Ukládání události…"</string>
     <string name="loading_calendars_title">"Načítání kalendářů"</string>
     <string name="loading_calendars_message">"Načítání kalendářů..."</string>
+    <!-- no translation found for alert_title (7869592820853066853) -->
+    <skip />
     <string name="alert_when_label">"Kdy:"</string>
     <string name="alert_where_label">"Kde:"</string>
     <string name="alert_missed_events_single">"(zbývá <xliff:g id="REMINDER_COUNT">%s</xliff:g> připomenutí)"</string>

@@ -28,6 +28,7 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
@@ -143,6 +144,7 @@ public class CalendarView extends View
     private Rect mSrcRect = new Rect();
     private Rect mDestRect = new Rect();
     private Paint mPaint = new Paint();
+    private Paint mPaintBorder = new Paint();
     private Paint mEventTextPaint = new Paint();
     private Paint mSelectionPaint = new Paint();
     private Path mPath = new Path();
@@ -334,6 +336,11 @@ public class CalendarView extends View
 
         p = mPaint;
         p.setAntiAlias(true);
+
+        mPaintBorder.setColor(0xffc8c8c8);
+        mPaintBorder.setStyle(Style.STROKE);
+        mPaintBorder.setAntiAlias(true);
+        mPaintBorder.setStrokeWidth(2.0f);
 
         // Allocate space for 2 weeks worth of weekday names so that we can
         // easily start the week display at any week day.
@@ -2074,7 +2081,15 @@ public class CalendarView extends View
         rf.right = event.right - 1;
 
         canvas.drawRoundRect(rf, SMALL_ROUND_RADIUS, SMALL_ROUND_RADIUS, p);
-        
+
+        // Draw a darker border
+        float[] hsv = new float[3];
+        Color.colorToHSV(p.getColor(), hsv);
+        hsv[1] = 1.0f;
+        hsv[2] *= 0.75f;
+        mPaintBorder.setColor(Color.HSVToColor(hsv));
+        canvas.drawRoundRect(rf, SMALL_ROUND_RADIUS, SMALL_ROUND_RADIUS, mPaintBorder);
+
         rf.left += 2;
         rf.right -= 2;
         

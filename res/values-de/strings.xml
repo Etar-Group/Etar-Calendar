@@ -63,6 +63,8 @@
     <string name="saving_event">"Termin wird gespeichert…"</string>
     <string name="loading_calendars_title">"Kalender werden geladen."</string>
     <string name="loading_calendars_message">"Kalender werden geladen..."</string>
+    <!-- no translation found for alert_title (7869592820853066853) -->
+    <skip />
     <string name="alert_when_label">"Wann:"</string>
     <string name="alert_where_label">"Wo:"</string>
     <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> weitere Erinnerung)"</string>
