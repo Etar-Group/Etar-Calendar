@@ -18,7 +18,6 @@ package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -47,7 +46,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -257,7 +256,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER, "0");
         mDefaultReminderMinutes = Integer.parseInt(durationString);
 
-        mRemindersContainer = (LinearLayout) findViewById(R.id.reminders_container);
+        mRemindersContainer = (LinearLayout) findViewById(R.id.reminder_items_container);
 
         // Reminders cursor
         boolean hasAlarm = mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) != 0;
@@ -288,6 +287,15 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
         updateView();
         updateRemindersVisibility();
+
+        // Setup the + Add Reminder Button
+        View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                addReminder();
+            }
+        };        
+        ImageButton reminderRemoveButton = (ImageButton) findViewById(R.id.reminder_add);
+        reminderRemoveButton.setOnClickListener(addReminderOnClickListener);
 
         mDeleteEventHelper = new DeleteEventHelper(this, true /* exit when done */);
         mEditResponseHelper = new EditResponseHelper(this);
@@ -397,22 +405,26 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
         return super.onPrepareOptionsMenu(menu);
     }
+    
+    private void addReminder() {
+        // TODO: when adding a new reminder, make it different from the
+        // last one in the list (if any).
+        if (mDefaultReminderMinutes == 0) {
+            EditEvent.addReminder(this, this, mReminderItems,
+                    mReminderValues, mReminderLabels, 10 /* minutes */);
+        } else {
+            EditEvent.addReminder(this, this, mReminderItems,
+                    mReminderValues, mReminderLabels, mDefaultReminderMinutes);
+        }
+        updateRemindersVisibility();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
         case MENU_ADD_REMINDER:
-            // TODO: when adding a new reminder, make it different from the
-            // last one in the list (if any).
-            if (mDefaultReminderMinutes == 0) {
-                EditEvent.addReminder(this, this, mReminderItems,
-                        mReminderValues, mReminderLabels, 10 /* minutes */);
-            } else {
-                EditEvent.addReminder(this, this, mReminderItems,
-                        mReminderValues, mReminderLabels, mDefaultReminderMinutes);
-            }
-            updateRemindersVisibility();
+            addReminder();
             break;
         case MENU_EDIT:
             doEdit();
@@ -584,8 +596,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
         int color = mEventCursor.getInt(EVENT_INDEX_COLOR) & 0xbbffffff;
 
-        View strip = (View) findViewById(R.id.strip);
-        strip.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        View calBackground = findViewById(R.id.cal_background);
+        calBackground.setBackgroundColor(color);
 
         TextView title = (TextView) findViewById(R.id.title);
         title.setTextColor(color);
