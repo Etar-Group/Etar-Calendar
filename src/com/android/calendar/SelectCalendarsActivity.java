@@ -35,6 +35,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
@@ -116,6 +117,8 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
         boolean[] mIsChecked;
         ContentResolver mContentResolver;
         boolean mRemove;
+        private int mCheckedCount;
+        private Button mOkButtonInAddDeleteCalendar;
         
         public ChangeCalendarAction(boolean remove) {
             mContentResolver = SelectCalendarsActivity.this.getContentResolver();
@@ -128,6 +131,13 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
          */
         public void onClick(DialogInterface dialog, int position, boolean isChecked) {
             mIsChecked[position] = isChecked;
+            if (isChecked) {
+                mCheckedCount++;
+            } else {
+                mCheckedCount--;
+            }
+
+            mOkButtonInAddDeleteCalendar.setEnabled(mCheckedCount > 0);
         }
 
         /*
@@ -136,7 +146,7 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
          */
         public void onClick(DialogInterface dialog, int which) {
             // If the user cancelled the dialog, then do nothing.
-            if (which == DialogInterface.BUTTON2) {
+            if (which == DialogInterface.BUTTON_NEGATIVE) {
                 return;
             }
             
@@ -179,6 +189,7 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
                 selection = Calendars.SYNC_EVENTS + "=0";
             }
             ContentResolver cr = getContentResolver();
+            // TODO this can cause ANRs http://b/1736511
             Cursor cursor = cr.query(Calendars.CONTENT_URI, PROJECTION,
                     selection, null /* selectionArgs */,
                     Calendars.DEFAULT_SORT_ORDER);
@@ -192,6 +203,7 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
             CharSequence[] calendarNames = new CharSequence[count];
             mCalendarIds = new long[count];
             mIsChecked = new boolean[count];
+            mCheckedCount = 0;
             try {
                 int pos = 0;
                 while (cursor.moveToNext()) {
@@ -203,10 +215,13 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
                 cursor.close();
             }
             
-            builder.setMultiChoiceItems(calendarNames, null, this)
+            AlertDialog dialog = builder.setMultiChoiceItems(calendarNames, null, this)
                 .setPositiveButton(android.R.string.ok, this)
-                .setNegativeButton(android.R.string.cancel, this)
-                .show();
+                .setNegativeButton(android.R.string.cancel, this).create();
+            dialog.show();
+            mOkButtonInAddDeleteCalendar = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            mOkButtonInAddDeleteCalendar.setEnabled(false);
+
             return true;
         }
     }
