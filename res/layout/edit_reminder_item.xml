@@ -20,15 +20,15 @@
     android:layout_height="wrap_content">
     
     <Spinner android:id="@+id/reminder_value"
+        style="?android:attr/textAppearanceMedium"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:entries="@array/reminder_minutes_labels"/>
-        
+
     <ImageButton android:id="@+id/reminder_remove"
-        style="?android:attr/buttonStyleInset"
-        android:src="@android:drawable/ic_delete"
+        style="@style/MinusButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="2dip"

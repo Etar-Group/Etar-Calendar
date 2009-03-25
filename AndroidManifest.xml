@@ -67,7 +67,7 @@
         </activity>
         
         <activity android:name="EventInfoActivity" android:label="@string/event_info_title"
-            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:theme="@android:style/Theme.Light"
             android:configChanges="orientation|keyboardHidden">
             
             <intent-filter>
