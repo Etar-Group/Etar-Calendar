@@ -247,9 +247,9 @@
     <!-- A menu item for deleting an event -->
     <string name="delete_event_label">"Delete event"</string>
     <!-- The button label for saving an event -->
-    <string name="save_label">Save</string>
+    <string name="save_label">Done</string>
     <!-- The button label for discarding changes to an event -->
-    <string name="discard_label">Discard changes</string>
+    <string name="discard_label">Revert</string>
     <!-- The button label for importing events from another source to the phone -->
     <string name="import_label">"Import"</string>
 
