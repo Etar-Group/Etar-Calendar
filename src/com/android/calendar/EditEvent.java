@@ -18,7 +18,6 @@ package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -582,7 +581,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         mAvailabilitySpinner = (Spinner) findViewById(R.id.availability);
         mVisibilitySpinner = (Spinner) findViewById(R.id.visibility);
         mRemindersSeparator = findViewById(R.id.reminders_separator);
-        mRemindersContainer = (LinearLayout) findViewById(R.id.reminders_container);
+        mRemindersContainer = (LinearLayout) findViewById(R.id.reminder_items_container);
         mExtraOptions = (LinearLayout) findViewById(R.id.extra_options_container);
 
         mAllDayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -679,6 +678,15 @@ public class EditEvent extends Activity implements View.OnClickListener,
             }
         }
         updateRemindersVisibility();
+
+        // Setup the + Add Reminder Button
+        View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                addReminder();
+            }
+        };        
+        ImageButton reminderRemoveButton = (ImageButton) findViewById(R.id.reminder_add);
+        reminderRemoveButton.setOnClickListener(addReminderOnClickListener);
 
         mDeleteEventHelper = new DeleteEventHelper(this, true /* exit when done */);
 
@@ -809,11 +817,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
             // This is an existing event so hide the calendar spinner
             // since we can't change the calendar.
-            View calendarSeparator = findViewById(R.id.calendar_separator);
-            View calendarLabel = findViewById(R.id.calendar_label);
-            calendarSeparator.setVisibility(View.GONE);
-            calendarLabel.setVisibility(View.GONE);
-            mCalendarsSpinner.setVisibility(View.GONE);
+            View calendarGroup = findViewById(R.id.calendar_group);
+            calendarGroup.setVisibility(View.GONE);
         } else if (Time.isEpoch(mStartTime) && Time.isEpoch(mEndTime)) {
             mStartTime.setToNow();
 
@@ -884,20 +889,24 @@ public class EditEvent extends Activity implements View.OnClickListener,
         return super.onPrepareOptionsMenu(menu);
     }
 
+    private void addReminder() {
+        // TODO: when adding a new reminder, make it different from the
+        // last one in the list (if any).
+        if (mDefaultReminderMinutes == 0) {
+            addReminder(this, this, mReminderItems, mReminderValues,
+                    mReminderLabels, 10 /* minutes */);
+        } else {
+            addReminder(this, this, mReminderItems, mReminderValues,
+                    mReminderLabels, mDefaultReminderMinutes);
+        }
+        updateRemindersVisibility();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case MENU_ADD_REMINDER:
-            // TODO: when adding a new reminder, make it different from the
-            // last one in the list (if any).
-            if (mDefaultReminderMinutes == 0) {
-                addReminder(this, this, mReminderItems, mReminderValues,
-                        mReminderLabels, 10 /* minutes */);
-            } else {
-                addReminder(this, this, mReminderItems, mReminderValues,
-                        mReminderLabels, mDefaultReminderMinutes);
-            }
-            updateRemindersVisibility();
+            addReminder();
             return true;
         case MENU_SHOW_EXTRA_OPTIONS:
             mExtraOptions.setVisibility(View.VISIBLE);

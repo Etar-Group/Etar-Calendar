@@ -23,6 +23,16 @@
         <item name="android:windowBackground">@null</item>
     </style>
 
+    <style name="MinusButton">
+        <item name="android:background">@drawable/btn_circle</item>
+        <item name="android:src">@drawable/ic_btn_round_minus</item>
+    </style>
+
+    <style name="PlusButton">
+        <item name="android:background">@drawable/btn_circle</item>
+        <item name="android:src">@drawable/ic_btn_round_plus</item>
+    </style>
+
     <style name="MonthView_DayLabel">
         <item name="android:layout_width">29dip</item>
         <item name="android:layout_height">fill_parent</item>
@@ -48,8 +58,16 @@
     </style>
     
     <style name="TextAppearance.EditEvent_Label">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">2dip</item>
+    </style>
+    
+    <style name="EditEvent_Layout">
+        <item name="android:paddingLeft">6dip</item>
+        <item name="android:paddingRight">7dip</item>
+        <item name="android:paddingTop">8dip</item>
     </style>
     
     <style name="TextAppearance.Alert_Title">
