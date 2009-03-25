@@ -25,13 +25,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
+        android:layout_marginRight="2dip"
         android:entries="@array/reminder_minutes_labels"/>
 
     <ImageButton android:id="@+id/reminder_remove"
         style="@style/MinusButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="2dip"
         android:gravity="center_vertical"
     />
 </LinearLayout>
