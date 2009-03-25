@@ -68,4 +68,8 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="CalendarTheme" parent="android:Theme.Light.NoTitleBar">
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 </resources>

@@ -46,11 +46,11 @@
         </activity>
 
         <activity android:name="MonthActivity" android:label="@string/month_view"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@style/CalendarTheme" />
         <activity android:name="WeekActivity" android:label="@string/week_view"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@style/CalendarTheme" />
         <activity android:name="DayActivity" android:label="@string/day_view"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@style/CalendarTheme" />
         <activity android:name="AgendaActivity" android:label="@string/agenda_view" 
             android:theme="@android:style/Theme.Light"
             android:exported="true" />
