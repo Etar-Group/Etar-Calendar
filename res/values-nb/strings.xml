@@ -63,10 +63,10 @@
     <string name="saving_event">"Lagrer hendelse…"</string>
     <string name="loading_calendars_title">"Laster kalendre"</string>
     <string name="loading_calendars_message">"Laster kalendre…"</string>
+    <string name="alert_title">"Kalendervarslinger"</string>
     <string name="alert_when_label">"Hva:"</string>
     <string name="alert_where_label">"Hvor:"</string>
-    <!-- no translation found for alert_missed_events_single (8042891195314876684) -->
-    <skip />
+    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> hendelse til)"</string>
     <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> hendelser til)"</string>
     <string name="event_info_title">"Vis hendelse"</string>
     <string name="event_info_title_invite">"Møteinvitasjon"</string>

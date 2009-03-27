@@ -63,6 +63,7 @@
     <string name="saving_event">"Enregistrement de l\'événement…"</string>
     <string name="loading_calendars_title">"Chargement des agendas"</string>
     <string name="loading_calendars_message">"Chargement des agendas..."</string>
+    <string name="alert_title">"Notifications de l\'agenda"</string>
     <string name="alert_when_label">"Date :"</string>
     <string name="alert_where_label">"Lieu :"</string>
     <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> rappel supplémentaire)"</string>

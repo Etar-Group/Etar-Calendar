@@ -63,6 +63,7 @@
     <string name="saving_event">"Guardando evento..."</string>
     <string name="loading_calendars_title">"Cargando calendarios"</string>
     <string name="loading_calendars_message">"Cargando calendarios..."</string>
+    <string name="alert_title">"Notificaciones de Calendar"</string>
     <string name="alert_when_label">"Cuándo:"</string>
     <string name="alert_where_label">"Dónde:"</string>
     <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> más recordatorios)"</string>

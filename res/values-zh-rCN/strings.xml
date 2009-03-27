@@ -63,6 +63,7 @@
     <string name="saving_event">"正在保存活动..."</string>
     <string name="loading_calendars_title">"载入日历"</string>
     <string name="loading_calendars_message">"正在载入日历..."</string>
+    <string name="alert_title">"日历通知"</string>
     <string name="alert_when_label">"时间："</string>
     <string name="alert_where_label">"地点："</string>
     <string name="alert_missed_events_single">"（还有 <xliff:g id="REMINDER_COUNT">%s</xliff:g> 个提醒）"</string>

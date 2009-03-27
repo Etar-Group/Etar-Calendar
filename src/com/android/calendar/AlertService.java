@@ -42,7 +42,6 @@ import android.provider.Calendar.Instances;
 import android.provider.Calendar.Reminders;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,7 +93,8 @@ public class AlertService extends Service {
         Reminders._ID,                     // 0
     };
     
-    private void processMessage(Message msg) {
+    @SuppressWarnings("deprecation")
+    void processMessage(Message msg) {
         Bundle bundle = (Bundle) msg.obj;
         
         // On reboot, update the notification bar with the contents of the
@@ -112,11 +112,20 @@ public class AlertService extends Service {
             Log.d(TAG, "uri: " + alertUri);
         }
 
+        if (alertUri != null) {
+            // Record the received time in the CalendarAlerts table.
+            // This is useful for finding bugs that cause alarms to be
+            // missed or delayed.
+            ContentValues values = new ContentValues();
+            values.put(CalendarAlerts.RECEIVED_TIME, System.currentTimeMillis());
+            getContentResolver().update(alertUri, values, null /* where */, null /* args */);
+        }
+        
         ContentResolver cr = getContentResolver();
         Cursor alertCursor = cr.query(alertUri, ALERT_PROJECTION,
                 null /* selection */, null, null /* sort order */);
         
-        long alertId, eventId, instanceId, alarmTime;
+        long alertId, eventId, alarmTime;
         int minutes;
         String eventName;
         String location;
