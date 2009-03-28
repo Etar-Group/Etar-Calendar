@@ -1389,12 +1389,16 @@ public class CalendarView extends View
             dateNum -= mMonthLength;
         }
 
+        String dateNumStr;
         // Add a leading zero if the date is a single digit
         if (dateNum < 10) {
-            dateStr += " 0" + dateNum;
+            dateNumStr = "0" + dateNum;
         } else {
-            dateStr += " " + dateNum;
+            dateNumStr = String.valueOf(dateNum);
         }
+
+        dateStr = getResources().getString(R.string.weekday_day,
+                                           dateStr, dateNumStr);
 
         float y = mBannerPlusMargin - 7;
         canvas.drawText(dateStr, xCenter, y, p);
