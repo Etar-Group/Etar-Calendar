@@ -1176,6 +1176,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
     // Saves the event.  Returns true if it is okay to exit this activity.
     private boolean save() {
+        boolean forceSaveReminders = false;
+        
         // If we are creating a new event, then make sure we wait until the
         // query to fetch the list of calendars has finished.
         if (mEventCursor == null) {
@@ -1215,6 +1217,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             // Create new event with new contents
             addRecurrenceRule(values);
             uri = cr.insert(Events.CONTENT_URI, values);
+            forceSaveReminders = true;
 
         } else if (mRrule == null) {
             // Modify contents of a non-repeating event
@@ -1240,6 +1243,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             values.put(Events.ORIGINAL_ALL_DAY, allDay ? 1 : 0);
 
             uri = cr.insert(Events.CONTENT_URI, values);
+            forceSaveReminders = true;
 
         } else if (mModification == MODIFY_ALL_FOLLOWING) {
             // Modify this instance and all future instances of repeating event
@@ -1273,6 +1277,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
                     uri = cr.insert(Events.CONTENT_URI, values);
                 }
             }
+            forceSaveReminders = true;
 
         } else if (mModification == MODIFY_ALL) {
             
@@ -1285,6 +1290,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 // non-recurring event.
                 cr.delete(uri, null, null);
                 uri = cr.insert(Events.CONTENT_URI, values);
+                forceSaveReminders = true;
             } else {
                 checkTimeDependentFields(values);
                 values.remove(Events.DTEND);
@@ -1296,7 +1302,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
             long eventId = ContentUris.parseId(uri);
             ArrayList<Integer> reminderMinutes = reminderItemsToMinutes(mReminderItems,
                     mReminderValues);
-            saveReminders(cr, eventId, reminderMinutes, mOriginalMinutes);
+            saveReminders(cr, eventId, reminderMinutes, mOriginalMinutes,
+                    forceSaveReminders);
         }
         return true;
     }
@@ -1421,12 +1428,15 @@ public class EditEvent extends Activity implements View.OnClickListener,
      * @param eventId the id of the event whose reminders are being updated
      * @param reminderMinutes the array of reminders set by the user
      * @param originalMinutes the original array of reminders
+     * @param forceSave if true, then save the reminders even if they didn't
+     *   change
      * @return true if the database was updated
      */
     static boolean saveReminders(ContentResolver cr, long eventId,
-            ArrayList<Integer> reminderMinutes, ArrayList<Integer> originalMinutes) {
+            ArrayList<Integer> reminderMinutes, ArrayList<Integer> originalMinutes,
+            boolean forceSave) {
         // If the reminders have not changed, then don't update the database
-        if (reminderMinutes.equals(originalMinutes)) {
+        if (reminderMinutes.equals(originalMinutes) && !forceSave) {
             return false;
         }
 
