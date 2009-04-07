@@ -117,7 +117,7 @@
     <string name="preferences_alerts_type_title">"Meldingen instellen"</string>
     <string name="preferences_alerts_type_dialog">"Meldingen en berichten"</string>
     <string name="preferences_alerts_vibrate_title">"Trillen"</string>
-    <string name="preferences_alerts_ringtone_title">"Ringtone selecteren"</string>
+    <string name="preferences_alerts_ringtone_title">"Beltoon selecteren"</string>
     <string name="preferences_default_reminder_title">"Standaardherinnering instellen"</string>
     <string name="preferences_default_reminder_dialog">"Standaard herinneringstijd"</string>
     <string name="preferences_default_reminder_default">"10"</string>
