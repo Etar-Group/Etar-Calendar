@@ -50,7 +50,7 @@
   </string-array>
   <string-array name="preferences_alert_type_labels">
     <item>"Benachrichtigung"</item>
-    <item>"Statuszeilenbenachrichtigung"</item>
+    <item>"Statuszeilennachricht"</item>
     <item>"Aus"</item>
   </string-array>
   <string-array name="availability">
