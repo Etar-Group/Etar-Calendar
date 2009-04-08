@@ -27,8 +27,8 @@
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minutes"</item>
   </plurals>
   <plurals name="Nmins">
-    <item quantity="one">"1 mn"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> mn"</item>
+    <item quantity="one">"1 min"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
   </plurals>
   <plurals name="Nhours">
     <item quantity="one">"1 heure"</item>
