@@ -118,7 +118,7 @@
     <string name="preferences_alerts_type_dialog">"Alertas y notificaciones"</string>
     <string name="preferences_alerts_vibrate_title">"Vibrar"</string>
     <string name="preferences_alerts_ringtone_title">"Seleccionar tono"</string>
-    <string name="preferences_default_reminder_title">"Configurar recordatorio predeterminado"</string>
+    <string name="preferences_default_reminder_title">"Recordatorio predeterminado"</string>
     <string name="preferences_default_reminder_dialog">"Duración predeterminada del recordatorio"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>
