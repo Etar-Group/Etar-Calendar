@@ -66,8 +66,8 @@
     <string name="alert_title">"Notificaciones de Calendar"</string>
     <string name="alert_when_label">"Cuándo:"</string>
     <string name="alert_where_label">"Dónde:"</string>
-    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> más recordatorios)"</string>
-    <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> más recordatorios)"</string>
+    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> recordatorio más)"</string>
+    <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> recordatorios más)"</string>
     <string name="event_info_title">"Ver evento"</string>
     <string name="event_info_title_invite">"Invitación a un evento"</string>
     <string name="add_new_reminder">"Añadir recordatorio"</string>
