@@ -63,18 +63,18 @@
     <item>"Público"</item>
   </string-array>
   <string-array name="day_labels">
-    <item>"Domingo"</item>
-    <item>"Lunes"</item>
-    <item>"Martes"</item>
-    <item>"Miércoles"</item>
-    <item>"Jueves"</item>
-    <item>"Viernes"</item>
-    <item>"Sábado"</item>
+    <item>"domingo"</item>
+    <item>"lunes"</item>
+    <item>"martes"</item>
+    <item>"miércoles"</item>
+    <item>"jueves"</item>
+    <item>"viernes"</item>
+    <item>"sábado"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"primero"</item>
+    <item>"primer"</item>
     <item>"segundo"</item>
-    <item>"tercero"</item>
+    <item>"tercer"</item>
     <item>"cuarto"</item>
     <item>"último"</item>
   </string-array>

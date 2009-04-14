@@ -66,7 +66,7 @@
     <string name="alert_title">"Notificaciones de Calendar"</string>
     <string name="alert_when_label">"Cuándo:"</string>
     <string name="alert_where_label">"Dónde:"</string>
-    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> recordatorio más)"</string>
+    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> recordatorios más)"</string>
     <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> recordatorios más)"</string>
     <string name="event_info_title">"Ver evento"</string>
     <string name="event_info_title_invite">"Invitación a un evento"</string>
@@ -98,9 +98,9 @@
     <string name="dismiss_all_label">"Descartar todos"</string>
     <string name="does_not_repeat">"Evento único"</string>
     <string name="daily">"Cada día"</string>
-    <string name="every_weekday">"Cada día laboral (lunes-viernes)"</string>
+    <string name="every_weekday">"Cada día laborable (lunes-viernes)"</string>
     <string name="weekly">"Cada semana (todos los <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count">"Cada mes (todos los <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day_count">"Cada mes (cada <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly_on_day">"Cada mes (el día <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly">"Cada año (el <xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom">"Personalizado... (no se puede personalizar por teléfono)"</string>
