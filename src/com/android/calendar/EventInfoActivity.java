@@ -353,7 +353,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         ContentResolver cr = getContentResolver();
         ArrayList<Integer> reminderMinutes = EditEvent.reminderItemsToMinutes(mReminderItems,
                 mReminderValues);
-        boolean changed = EditEvent.saveReminders(cr, mEventId, reminderMinutes, mOriginalMinutes);
+        boolean changed = EditEvent.saveReminders(cr, mEventId, reminderMinutes, mOriginalMinutes,
+                false /* no force save */);
         changed |= saveResponse(cr);
         if (changed) {
             Toast.makeText(this, R.string.saving_event, Toast.LENGTH_SHORT).show();

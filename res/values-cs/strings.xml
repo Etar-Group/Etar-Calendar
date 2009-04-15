@@ -117,7 +117,7 @@
     <string name="preferences_alerts_type_title">"Nastavit upozornění a oznámení"</string>
     <string name="preferences_alerts_type_dialog">"Upozornění a oznámení"</string>
     <string name="preferences_alerts_vibrate_title">"Vibrace"</string>
-    <string name="preferences_alerts_ringtone_title">"Vybrat zvonění"</string>
+    <string name="preferences_alerts_ringtone_title">"Vybrat vyzvánění"</string>
     <string name="preferences_default_reminder_title">"Nastavit výchozí připomenutí"</string>
     <string name="preferences_default_reminder_dialog">"Výchozí čas připomenutí"</string>
     <string name="preferences_default_reminder_default">"10"</string>
