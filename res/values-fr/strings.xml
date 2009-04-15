@@ -27,8 +27,8 @@
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minutes"</item>
   </plurals>
   <plurals name="Nmins">
-    <item quantity="one">"1 min"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+    <item quantity="one">"1 mn"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> mn"</item>
   </plurals>
   <plurals name="Nhours">
     <item quantity="one">"1 heure"</item>
@@ -92,12 +92,12 @@
     <string name="delete_label">"Supprimer"</string>
     <string name="delete_event_label">"Supprimer l\'événement"</string>
     <string name="save_label">"Enregistrer"</string>
-    <string name="discard_label">"Ignorer"</string>
+    <string name="discard_label">"Annuler"</string>
     <string name="import_label">"Importer"</string>
     <string name="snooze_all_label">"Tout répéter"</string>
     <string name="dismiss_all_label">"Tout supprimer"</string>
     <string name="does_not_repeat">"Événement ponctuel"</string>
-    <string name="daily">"Ignorer"</string>
+    <string name="daily">"Quotidien"</string>
     <string name="every_weekday">"Les jours ouvrables (lun–ven)"</string>
     <string name="weekly">"Hebdomadaire (chaque <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
     <string name="monthly_on_day_count">"Mensuel (chaque <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
@@ -119,6 +119,6 @@
     <string name="preferences_alerts_vibrate_title">"Vibreur"</string>
     <string name="preferences_alerts_ringtone_title">"Sélectionner la sonnerie"</string>
     <string name="preferences_default_reminder_title">"Définir le rappel par défaut"</string>
-    <string name="preferences_default_reminder_dialog">"Fréquence de rappel par défaut"</string>
+    <string name="preferences_default_reminder_dialog">"Rappel par défaut"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>
