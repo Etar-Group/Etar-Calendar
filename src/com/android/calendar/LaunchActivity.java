@@ -17,8 +17,12 @@
 package com.android.calendar;
 
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
-import com.google.android.googlelogin.GoogleLoginServiceHelper;
 
+import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.Future2;
+import android.accounts.Future2Callback;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,11 +31,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Gmail;
 
+import java.io.IOException;
+
 public class LaunchActivity extends Activity {
-    
-    // An arbitrary constant to pass to the GoogleLoginHelperService
-    private static final int GET_ACCOUNT_REQUEST = 1;
-    
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -45,16 +47,27 @@ public class LaunchActivity extends Activity {
         if (icicle == null) {
             // This will request a Gmail account and if none are present, it will
             // invoke SetupWizard to login or create one. The result is returned
-            // through onActivityResult().
+            // via the Future2Callback.
             Bundle bundle = new Bundle();
             bundle.putCharSequence("optional_message", getText(R.string.calendar_plug));
-            GoogleLoginServiceHelper.getCredentials(
-                    this,
-                    GET_ACCOUNT_REQUEST,
-                    bundle,
-                    GoogleLoginServiceConstants.PREFER_HOSTED,
-                    Gmail.GMAIL_AUTH_SERVICE,
-                    true);
+            AccountManager.get(this).getAuthTokenByFeatures(
+                    GoogleLoginServiceConstants.ACCOUNT_TYPE, Gmail.GMAIL_AUTH_SERVICE,
+                    new String[]{GoogleLoginServiceConstants.FEATURE_GOOGLE_OR_DASHER}, this,
+                    bundle, null /* loginOptions */, new Future2Callback() {
+                public void run(Future2 future) {
+                    try {
+                        Bundle result = future.getResult();
+                        onAccountsLoaded(result.getString(
+                                GoogleLoginServiceConstants.AUTH_ACCOUNT_KEY));
+                    } catch (OperationCanceledException e) {
+                        finish();
+                    } catch (IOException e) {
+                        finish();
+                    } catch (AuthenticatorException e) {
+                        finish();
+                    }
+                }
+            }, null /* handler */);
         }
     }
     
@@ -76,23 +89,4 @@ public class LaunchActivity extends Activity {
         startActivity(intent);
         finish();
     }
-    
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        if (requestCode == GET_ACCOUNT_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                if (intent != null) {
-                    Bundle extras = intent.getExtras();
-                    if (extras != null) {
-                        final String account;
-                        account = extras.getString(GoogleLoginServiceConstants.AUTH_ACCOUNT_KEY);
-                        onAccountsLoaded(account);
-                    }
-                }
-            } else {
-                finish();
-            }
-        }
     }
-}
