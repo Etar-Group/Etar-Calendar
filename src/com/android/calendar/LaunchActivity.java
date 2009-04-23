@@ -23,6 +23,8 @@ import android.accounts.AuthenticatorException;
 import android.accounts.Future2;
 import android.accounts.Future2Callback;
 import android.accounts.OperationCanceledException;
+import android.accounts.Account;
+import android.accounts.Constants;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -57,8 +59,9 @@ public class LaunchActivity extends Activity {
                 public void run(Future2 future) {
                     try {
                         Bundle result = future.getResult();
-                        onAccountsLoaded(result.getString(
-                                GoogleLoginServiceConstants.AUTH_ACCOUNT_KEY));
+                        onAccountsLoaded(new Account(
+                                result.getString(GoogleLoginServiceConstants.AUTH_ACCOUNT_KEY),
+                                result.getString(Constants.ACCOUNT_TYPE_KEY)));
                     } catch (OperationCanceledException e) {
                         finish();
                     } catch (IOException e) {
@@ -71,7 +74,7 @@ public class LaunchActivity extends Activity {
         }
     }
     
-    private void onAccountsLoaded(String account) {
+    private void onAccountsLoaded(Account account) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String startActivity = prefs.getString(CalendarPreferenceActivity.KEY_START_VIEW,
                 CalendarPreferenceActivity.DEFAULT_START_VIEW);

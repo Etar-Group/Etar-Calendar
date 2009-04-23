@@ -18,7 +18,6 @@ package com.android.calendar;
 
 import dalvik.system.VMRuntime;
 
-import android.accounts.AccountMonitor;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -52,8 +51,6 @@ public class CalendarActivity extends Activity implements Navigator {
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
 
     private ContentResolver mContentResolver;
-
-    private AccountMonitor mAccountMonitor;
 
     protected ProgressBar mProgressBar;
     protected ViewSwitcher mViewSwitcher;
@@ -150,14 +147,6 @@ public class CalendarActivity extends Activity implements Navigator {
         super.onSaveInstanceState(outState);
 
         outState.putLong(BUNDLE_KEY_RESTORE_TIME, getSelectedTimeInMillis());
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (mAccountMonitor != null) {
-            mAccountMonitor.close();
-        }
-        super.onDestroy();
     }
 
     @Override
