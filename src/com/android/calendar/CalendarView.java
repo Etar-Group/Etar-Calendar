@@ -103,6 +103,13 @@ public class CalendarView extends View
 
     private ContinueScroll mContinueScroll = new ContinueScroll();
 
+    private class DayHeader{
+        int cell;
+        String dateString;
+    }
+
+    private DayHeader[] dayHeaders = new DayHeader[32];
+    
     // Make this visible within the package for more informative debugging
     Time mBaseDate;
 
@@ -203,6 +210,19 @@ public class CalendarView extends View
     private static int mPressedColor;
     private static int mSelectedEventTextColor;
     private static int mEventTextColor;
+    private static int mWeek_weekendColor;
+    private static int mCalendarDateBannerTextColor;
+    private static int mCalendarAllDayBackground;
+    private static int mCalendarAmPmLabel;
+    private static int mCalendarDateBannerBackground;
+    private static int mCalendarDateSelected;
+    private static int mCalendarGridAreaBackground;
+    private static int mCalendarGridAreaSelected;
+    private static int mCalendarGridLineHorizontalColor;
+    private static int mCalendarGridLineVerticalColor;
+    private static int mCalendarHourBackground;
+    private static int mCalendarHourLabel;
+    private static int mCalendarHourSelected;
 
     private int mViewStartX;
     private int mViewStartY;
@@ -318,6 +338,19 @@ public class CalendarView extends View
             mStartDay = Time.SUNDAY;
         }
 
+        mWeek_weekendColor = mResources.getColor(R.color.week_weekend);
+        mCalendarDateBannerTextColor = mResources.getColor(R.color.calendar_date_banner_text_color);
+        mCalendarAllDayBackground = mResources.getColor(R.color.calendar_all_day_background);
+        mCalendarAmPmLabel = mResources.getColor(R.color.calendar_ampm_label);
+        mCalendarDateBannerBackground = mResources.getColor(R.color.calendar_date_banner_background);
+        mCalendarDateSelected = mResources.getColor(R.color.calendar_date_selected);
+        mCalendarGridAreaBackground = mResources.getColor(R.color.calendar_grid_area_background);
+        mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected);
+        mCalendarGridLineHorizontalColor = mResources.getColor(R.color.calendar_grid_line_horizontal_color);
+        mCalendarGridLineVerticalColor = mResources.getColor(R.color.calendar_grid_line_vertical_color);
+        mCalendarHourBackground = mResources.getColor(R.color.calendar_hour_background);
+        mCalendarHourLabel = mResources.getColor(R.color.calendar_hour_label);
+        mCalendarHourSelected = mResources.getColor(R.color.calendar_hour_selected);
         mSelectionColor = mResources.getColor(R.color.selection);
         mPressedColor = mResources.getColor(R.color.pressed);
         mSelectedEventTextColor = mResources.getColor(R.color.calendar_event_selected_text_color);
@@ -1212,7 +1245,7 @@ public class CalendarView extends View
     // below the upper-left corner, above the hours and to the left of the
     // all-day area.
     private void drawUpperLeftCorner(Rect r, Canvas canvas, Paint p) {
-        p.setColor(mResources.getColor(R.color.calendar_hour_background));
+        p.setColor(mCalendarHourBackground);
         r.top = mBannerPlusMargin;
         r.bottom = r.top + mAllDayHeight + ALLDAY_TOP_MARGIN;
         r.left = 0;
@@ -1222,7 +1255,7 @@ public class CalendarView extends View
 
     private void drawDayHeaderLoop(Rect r, Canvas canvas, Paint p) {
         // Draw the horizontal day background banner
-        p.setColor(mResources.getColor(R.color.calendar_date_banner_background));
+        p.setColor(mCalendarDateBannerBackground);
         r.top = 0;
         r.bottom = mBannerPlusMargin;
         r.left = 0;
@@ -1232,14 +1265,14 @@ public class CalendarView extends View
         // Fill the extra space on the right side with the default background
         r.left = r.right;
         r.right = mViewWidth;
-        p.setColor(mResources.getColor(R.color.calendar_grid_area_background));
+        p.setColor(mCalendarGridAreaBackground);
         canvas.drawRect(r, p);
 
         // Draw a highlight on the selected day (if any), but only if we are
         // displaying more than one day.
         if (mSelectionMode != SELECTION_HIDDEN) {
             if (mNumDays > 1) {
-                p.setColor(mResources.getColor(R.color.calendar_date_selected));
+                p.setColor(mCalendarDateSelected);
                 r.top = 0;
                 r.bottom = mBannerPlusMargin;
                 int daynum = mSelectionDay - mFirstJulianDay;
@@ -1262,6 +1295,8 @@ public class CalendarView extends View
             dayNames = mDayStrs2Letter;
         }
 
+        p.setTypeface(mBold);
+        p.setAntiAlias(true);
         for (int day = 0; day < mNumDays; day++, cell++) {
             drawDayHeader(dayNames[day + mStartDay], day, cell, x, canvas, p);
             x += deltaX;
@@ -1269,7 +1304,7 @@ public class CalendarView extends View
     }
 
     private void drawAmPm(Canvas canvas, Paint p) {
-        p.setColor(mResources.getColor(R.color.calendar_ampm_label));
+        p.setColor(mCalendarAmPmLabel);
         p.setTextSize(AMPM_FONT_SIZE);
         p.setTypeface(mBold);
         p.setAntiAlias(true);
@@ -1310,7 +1345,7 @@ public class CalendarView extends View
 
     private void drawHours(Rect r, Canvas canvas, Paint p) {
         // Draw the background for the hour labels
-        p.setColor(mResources.getColor(R.color.calendar_hour_background));
+        p.setColor(mCalendarHourBackground);
         r.top = 0;
         r.bottom = 24 * (mCellHeight + HOUR_GAP) + HOUR_GAP;
         r.left = 0;
@@ -1320,12 +1355,12 @@ public class CalendarView extends View
         // Fill the bottom left corner with the default grid background
         r.top = r.bottom;
         r.bottom = mBitmapHeight;
-        p.setColor(mResources.getColor(R.color.calendar_grid_area_background));
+        p.setColor(mCalendarGridAreaBackground);
         canvas.drawRect(r, p);
 
         // Draw a highlight on the selected hour (if needed)
         if (mSelectionMode != SELECTION_HIDDEN && !mSelectionAllDay) {
-            p.setColor(mResources.getColor(R.color.calendar_hour_selected));
+            p.setColor(mCalendarHourSelected);
             r.top = mSelectionHour * (mCellHeight + HOUR_GAP);
             r.bottom = r.top + mCellHeight + 2 * HOUR_GAP;
             r.left = 0;
@@ -1333,7 +1368,7 @@ public class CalendarView extends View
             canvas.drawRect(r, p);
 
             // Also draw the highlight on the grid
-            p.setColor(mResources.getColor(R.color.calendar_grid_area_selected));
+            p.setColor(mCalendarGridAreaSelected);
             int daynum = mSelectionDay - mFirstJulianDay;
             r.left = mHoursWidth + daynum * (mCellWidth + DAY_GAP);
             r.right = r.left + mCellWidth;
@@ -1349,7 +1384,7 @@ public class CalendarView extends View
             saveSelectionPosition(r.left, r.top, r.right, r.bottom);
         }
 
-        p.setColor(mResources.getColor(R.color.calendar_hour_label));
+        p.setColor(mCalendarHourLabel);
         p.setTextSize(HOURS_FONT_SIZE);
         p.setTypeface(mBold);
         p.setTextAlign(Paint.Align.RIGHT);
@@ -1368,9 +1403,6 @@ public class CalendarView extends View
     private void drawDayHeader(String dateStr, int day, int cell, int x, Canvas canvas, Paint p) {
         float xCenter = x + mCellWidth / 2.0f;
 
-        p.setTypeface(mBold);
-        p.setAntiAlias(true);
-
         boolean isWeekend = false;
         if ((mStartDay == Time.SUNDAY && (day == 0 || day == 6))
                 || (mStartDay == Time.MONDAY && (day == 5 || day == 6))
@@ -1379,9 +1411,9 @@ public class CalendarView extends View
         }
 
         if (isWeekend) {
-            p.setColor(mResources.getColor(R.color.week_weekend));
+            p.setColor(mWeek_weekendColor);
         } else {
-            p.setColor(mResources.getColor(R.color.calendar_date_banner_text_color));
+            p.setColor(mCalendarDateBannerTextColor);
         }
 
         int dateNum = mFirstDate + day;
@@ -1397,8 +1429,17 @@ public class CalendarView extends View
             dateNumStr = String.valueOf(dateNum);
         }
 
-        dateStr = getResources().getString(R.string.weekday_day,
-                                           dateStr, dateNumStr);
+        DayHeader header = dayHeaders[day];
+        if (header == null || header.cell != cell) {
+            // The day header string is regenerated on every draw during drag and fling animation.
+            // Caching day header since formatting the string takes surprising long time.
+
+            dayHeaders[day] = new DayHeader();
+            dayHeaders[day].cell = cell;
+            dayHeaders[day].dateString = getResources().getString(
+                    R.string.weekday_day, dateStr, dateNumStr);
+        }
+        dateStr = dayHeaders[day].dateString;
 
         float y = mBannerPlusMargin - 7;
         canvas.drawText(dateStr, xCenter, y, p);
@@ -1408,7 +1449,7 @@ public class CalendarView extends View
         Paint.Style savedStyle = p.getStyle();
 
         // Clear the background
-        p.setColor(mResources.getColor(R.color.calendar_grid_area_background));
+        p.setColor(mCalendarGridAreaBackground);
         r.top = 0;
         r.bottom = mBitmapHeight;
         r.left = 0;
@@ -1416,7 +1457,7 @@ public class CalendarView extends View
         canvas.drawRect(r, p);
 
         // Draw the horizontal grid lines
-        p.setColor(mResources.getColor(R.color.calendar_grid_line_horizontal_color));
+        p.setColor(mCalendarGridLineHorizontalColor);
         p.setStyle(Style.STROKE);
         p.setStrokeWidth(0);
         p.setAntiAlias(false);
@@ -1430,7 +1471,7 @@ public class CalendarView extends View
         }
 
         // Draw the vertical grid lines
-        p.setColor(mResources.getColor(R.color.calendar_grid_line_vertical_color));
+        p.setColor(mCalendarGridLineVerticalColor);
         float startY = 0;
         float stopY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP);
         float deltaX = mCellWidth + DAY_GAP;
@@ -1518,17 +1559,17 @@ public class CalendarView extends View
         r.bottom = r.top + mAllDayHeight + ALLDAY_TOP_MARGIN;
         r.left = mHoursWidth;
         r.right = r.left + mNumDays * (mCellWidth + DAY_GAP);
-        p.setColor(mResources.getColor(R.color.calendar_all_day_background));
+        p.setColor(mCalendarAllDayBackground);
         canvas.drawRect(r, p);
 
         // Fill the extra space on the right side with the default background
         r.left = r.right;
         r.right = mViewWidth;
-        p.setColor(mResources.getColor(R.color.calendar_grid_area_background));
+        p.setColor(mCalendarGridAreaBackground);
         canvas.drawRect(r, p);
 
         // Draw the vertical grid lines
-        p.setColor(mResources.getColor(R.color.calendar_grid_line_vertical_color));
+        p.setColor(mCalendarGridLineVerticalColor);
         p.setStyle(Style.STROKE);
         p.setStrokeWidth(0);
         p.setAntiAlias(false);
