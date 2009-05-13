@@ -62,15 +62,6 @@
     <item>"私人"</item>
     <item>"公開"</item>
   </string-array>
-  <string-array name="day_labels">
-    <item>"星期日"</item>
-    <item>"星期一"</item>
-    <item>"星期二"</item>
-    <item>"星期三"</item>
-    <item>"星期四"</item>
-    <item>"星期五"</item>
-    <item>"星期六"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item>"第一個"</item>
     <item>"第二個"</item>

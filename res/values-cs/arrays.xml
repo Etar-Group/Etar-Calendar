@@ -62,15 +62,6 @@
     <item>"Soukromá"</item>
     <item>"Veřejná"</item>
   </string-array>
-  <string-array name="day_labels">
-    <item>"neděle"</item>
-    <item>"pondělí"</item>
-    <item>"úterý"</item>
-    <item>"středa"</item>
-    <item>"čtvrtek"</item>
-    <item>"pátek"</item>
-    <item>"sobota"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item>"1."</item>
     <item>"2."</item>

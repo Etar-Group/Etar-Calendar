@@ -62,15 +62,6 @@
     <item>"Privado"</item>
     <item>"Público"</item>
   </string-array>
-  <string-array name="day_labels">
-    <item>"Domingo"</item>
-    <item>"Lunes"</item>
-    <item>"Martes"</item>
-    <item>"Miércoles"</item>
-    <item>"Jueves"</item>
-    <item>"Viernes"</item>
-    <item>"Sábado"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item>"primero"</item>
     <item>"segundo"</item>

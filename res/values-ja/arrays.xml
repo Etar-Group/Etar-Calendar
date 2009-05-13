@@ -62,15 +62,6 @@
     <item>"限定公開"</item>
     <item>"一般公開"</item>
   </string-array>
-  <string-array name="day_labels">
-    <item>"日曜日"</item>
-    <item>"月曜日"</item>
-    <item>"火曜日"</item>
-    <item>"水曜日"</item>
-    <item>"木曜日"</item>
-    <item>"金曜日"</item>
-    <item>"土曜日"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item>"第1"</item>
     <item>"第2"</item>
