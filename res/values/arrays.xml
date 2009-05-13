@@ -111,18 +111,6 @@
         <item>Public</item>
     </string-array>
     
-    <!-- Order matters, and note that the preference for which day the week starts on is handled
-         elsewhere (and needn't be addressed here). -->
-    <string-array name="day_labels">
-        <item>Sunday</item>
-        <item>Monday</item>
-        <item>Tuesday</item>
-        <item>Wednesday</item>
-        <item>Thursday</item>
-        <item>Friday</item>
-        <item>Saturday</item>
-    </string-array>
-    
     <string-array name="ordinal_labels">
         <item>first</item>
         <item>second</item>

@@ -62,15 +62,6 @@
     <item>"Закрыт."</item>
     <item>"Открыт."</item>
   </string-array>
-  <string-array name="day_labels">
-    <item>"Воскресенье"</item>
-    <item>"Понедельник"</item>
-    <item>"Вторник"</item>
-    <item>"Среда"</item>
-    <item>"Четверг"</item>
-    <item>"Пятница"</item>
-    <item>"Суббота"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item>"перв."</item>
     <item>"втор."</item>

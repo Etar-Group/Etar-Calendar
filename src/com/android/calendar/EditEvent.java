@@ -959,7 +959,15 @@ public class EditEvent extends Activity implements View.OnClickListener,
         Resources r = getResources();
         int resource = android.R.layout.simple_spinner_item;
 
-        String[] days = r.getStringArray(R.array.day_labels);
+        String[] days = new String[] {
+            DateUtils.getDayOfWeekString(Calendar.SUNDAY, DateUtils.LENGTH_LONG),
+            DateUtils.getDayOfWeekString(Calendar.MONDAY, DateUtils.LENGTH_LONG),
+            DateUtils.getDayOfWeekString(Calendar.TUESDAY, DateUtils.LENGTH_LONG),
+            DateUtils.getDayOfWeekString(Calendar.WEDNESDAY, DateUtils.LENGTH_LONG),
+            DateUtils.getDayOfWeekString(Calendar.THURSDAY, DateUtils.LENGTH_LONG),
+            DateUtils.getDayOfWeekString(Calendar.FRIDAY, DateUtils.LENGTH_LONG),
+            DateUtils.getDayOfWeekString(Calendar.SATURDAY, DateUtils.LENGTH_LONG),
+        };
         String[] ordinals = r.getStringArray(R.array.ordinal_labels);
 
         // Only display "Custom" in the spinner if the device does not support the

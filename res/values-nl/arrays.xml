@@ -62,15 +62,6 @@
     <item>"Privé"</item>
     <item>"Openbaar"</item>
   </string-array>
-  <string-array name="day_labels">
-    <item>"Zondag"</item>
-    <item>"Maandag"</item>
-    <item>"Dinsdag"</item>
-    <item>"Woensdag"</item>
-    <item>"Donderdag"</item>
-    <item>"Vrijdag"</item>
-    <item>"Zaterdag"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item>"eerste"</item>
     <item>"tweede"</item>

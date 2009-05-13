@@ -62,15 +62,6 @@
     <item>"비공개"</item>
     <item>"공개"</item>
   </string-array>
-  <string-array name="day_labels">
-    <item>"일요일"</item>
-    <item>"월요일"</item>
-    <item>"화요일"</item>
-    <item>"수요일"</item>
-    <item>"목요일"</item>
-    <item>"금요일"</item>
-    <item>"토요일"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item>"첫 번째"</item>
     <item>"두 번째"</item>
