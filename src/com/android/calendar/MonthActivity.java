@@ -195,7 +195,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
 
         // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
         // TODO: We should restore the old heap size once the activity reaches the idle state
-        long oldHeapSize = VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
+        VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
 
         setContentView(R.layout.month_activity);
         mContentResolver = getContentResolver();

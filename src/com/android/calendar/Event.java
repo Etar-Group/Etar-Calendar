@@ -113,7 +113,8 @@ public class Event implements Comparable, Cloneable {
     private static final int MIDNIGHT_IN_MINUTES = 24 * 60;
 
     @Override
-    public final Object clone() {
+    public final Object clone() throws CloneNotSupportedException {
+        super.clone();
         Event e = new Event();
 
         e.title = title;

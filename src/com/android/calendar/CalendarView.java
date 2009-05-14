@@ -103,7 +103,7 @@ public class CalendarView extends View
 
     private ContinueScroll mContinueScroll = new ContinueScroll();
 
-    private class DayHeader{
+    static private class DayHeader{
         int cell;
         String dateString;
     }

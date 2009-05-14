@@ -27,7 +27,7 @@ import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 public class AgendaAdapter extends ResourceCursorAdapter {
-    static private String mNoTitleLabel; // todo update on locale change.
+    private String mNoTitleLabel;
     private Resources mResources;
     private int mDeclinedColor;
 

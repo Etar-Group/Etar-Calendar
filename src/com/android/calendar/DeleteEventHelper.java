@@ -52,8 +52,6 @@ import android.widget.Button;
  * {@link #delete()} multiple times).
  */
 public class DeleteEventHelper {
-    
-    private static final String TAG = "DeleteEventHelper";
     private final Activity mParent;
     private final ContentResolver mContentResolver;
     

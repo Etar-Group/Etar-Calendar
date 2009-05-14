@@ -547,7 +547,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             values.put(Events.SELF_ATTENDEE_STATUS, status);
             
             // Create a recurrence exception
-            Uri newUri = cr.insert(Events.CONTENT_URI, values);
+            cr.insert(Events.CONTENT_URI, values);
         } finally {
             cursor.close();
         }
@@ -582,7 +582,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             return;
         }
         Resources res = getResources();
-        ContentResolver cr = getContentResolver();
 
         String eventName = mEventCursor.getString(EVENT_INDEX_TITLE);
         if (eventName == null || eventName.length() == 0) {

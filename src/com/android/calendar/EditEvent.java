@@ -350,7 +350,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         }
     }
 
-    private class CalendarsAdapter extends ResourceCursorAdapter {
+    static private class CalendarsAdapter extends ResourceCursorAdapter {
         public CalendarsAdapter(Context context, Cursor c) {
             super(context, R.layout.calendars_item, c);
             setDropDownViewResource(R.layout.calendars_dropdown_item);
