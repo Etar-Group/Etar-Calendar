@@ -39,6 +39,7 @@ import android.provider.Calendar.Reminders;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -54,6 +55,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class EventInfoActivity extends Activity implements View.OnClickListener,
         AdapterView.OnItemSelectedListener {
@@ -161,6 +163,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private int mResponseOffset;
     private int mOriginalAttendeeResponse;
     private boolean mIsRepeating;
+
+    private Pattern mWildcardPattern = Pattern.compile("^.*$");
 
     // This is called when one of the "remove reminder" buttons is selected.
     public void onClick(View v) {
@@ -657,7 +661,12 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         if (location == null || location.length() == 0) {
             setVisibilityCommon(R.id.where, View.GONE);
         } else {
-            setTextCommon(R.id.where, location);
+            TextView textView = (TextView) findViewById(R.id.where);
+            if (textView != null) {
+                    textView.setAutoLinkMask(0);
+                    textView.setText(location);
+                    Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+            }
         }
 
         // Description
