@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item>"5 minutos"</item>
+    <item>"10 minutos"</item>
+    <item>"15 minutos"</item>
+    <item>"20 minutos"</item>
+    <item>"25 minutos"</item>
+    <item>"30 minutos"</item>
+    <item>"45 minutos"</item>
+    <item>"1 hora"</item>
+    <item>"2 horas"</item>
+    <item>"3 horas"</item>
+    <item>"12 horas"</item>
+    <item>"24 horas"</item>
+    <item>"2 dias"</item>
+    <item>"1 semana"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item>"Nenhuma"</item>
+    <item>"5 minutos"</item>
+    <item>"10 minutos"</item>
+    <item>"15 minutos"</item>
+    <item>"20 minutos"</item>
+    <item>"25 minutos"</item>
+    <item>"30 minutos"</item>
+    <item>"45 minutos"</item>
+    <item>"1 hora"</item>
+    <item>"2 horas"</item>
+    <item>"3 horas"</item>
+    <item>"12 horas"</item>
+    <item>"24 horas"</item>
+    <item>"2 dias"</item>
+    <item>"1 semana"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item>"Alerta"</item>
+    <item>"Notificação da barra de status"</item>
+    <item>"Desativado"</item>
+  </string-array>
+  <string-array name="availability">
+    <item>"Ocupado(a)"</item>
+    <item>"Disponível"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item>"Padrão"</item>
+    <item>"Privado"</item>
+    <item>"Público"</item>
+  </string-array>
+  <string-array name="day_labels">
+    <item>"Domingo"</item>
+    <item>"Segunda-feira"</item>
+    <item>"Terça-feira"</item>
+    <item>"Quarta-feira"</item>
+    <item>"Quinta-feira"</item>
+    <item>"Sexta-feira"</item>
+    <item>"Sábado"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item>"primeiro"</item>
+    <item>"segundo"</item>
+    <item>"terceiro"</item>
+    <item>"quarto"</item>
+    <item>"último"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item>"(Nenhuma resposta)"</item>
+    <item>"Sim"</item>
+    <item>"Talvez"</item>
+    <item>"Não"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item>"Sim"</item>
+    <item>"Talvez"</item>
+    <item>"Não"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>"Somente este evento"</item>
+    <item>"Este evento e eventos futuros"</item>
+    <item>"Todos os eventos"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item>"Este evento e eventos futuros"</item>
+    <item>"Todos os eventos"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>"Somente nessa ocasião"</item>
+    <item>"Todos os eventos da série"</item>
+  </string-array>
+</resources>
