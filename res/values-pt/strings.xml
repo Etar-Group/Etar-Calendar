@@ -91,8 +91,10 @@
     <string name="edit_event_label">"Editar evento"</string>
     <string name="delete_label">"Excluir"</string>
     <string name="delete_event_label">"Excluir evento"</string>
-    <string name="save_label">"Salvar"</string>
-    <string name="discard_label">"Descartar alterações"</string>
+    <!-- no translation found for save_label (2133599104834432589) -->
+    <skip />
+    <!-- no translation found for discard_label (4510607554910139220) -->
+    <skip />
     <string name="import_label">"Importar"</string>
     <string name="snooze_all_label">"Colocar todos em modo de espera"</string>
     <string name="dismiss_all_label">"Encerrar tudo"</string>
