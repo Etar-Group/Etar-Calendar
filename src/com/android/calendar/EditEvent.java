@@ -960,13 +960,13 @@ public class EditEvent extends Activity implements View.OnClickListener,
         int resource = android.R.layout.simple_spinner_item;
 
         String[] days = new String[] {
-            DateUtils.getDayOfWeekString(Calendar.SUNDAY, DateUtils.LENGTH_LONG),
-            DateUtils.getDayOfWeekString(Calendar.MONDAY, DateUtils.LENGTH_LONG),
-            DateUtils.getDayOfWeekString(Calendar.TUESDAY, DateUtils.LENGTH_LONG),
-            DateUtils.getDayOfWeekString(Calendar.WEDNESDAY, DateUtils.LENGTH_LONG),
-            DateUtils.getDayOfWeekString(Calendar.THURSDAY, DateUtils.LENGTH_LONG),
-            DateUtils.getDayOfWeekString(Calendar.FRIDAY, DateUtils.LENGTH_LONG),
-            DateUtils.getDayOfWeekString(Calendar.SATURDAY, DateUtils.LENGTH_LONG),
+            DateUtils.getDayOfWeekString(Calendar.SUNDAY, DateUtils.LENGTH_MEDIUM),
+            DateUtils.getDayOfWeekString(Calendar.MONDAY, DateUtils.LENGTH_MEDIUM),
+            DateUtils.getDayOfWeekString(Calendar.TUESDAY, DateUtils.LENGTH_MEDIUM),
+            DateUtils.getDayOfWeekString(Calendar.WEDNESDAY, DateUtils.LENGTH_MEDIUM),
+            DateUtils.getDayOfWeekString(Calendar.THURSDAY, DateUtils.LENGTH_MEDIUM),
+            DateUtils.getDayOfWeekString(Calendar.FRIDAY, DateUtils.LENGTH_MEDIUM),
+            DateUtils.getDayOfWeekString(Calendar.SATURDAY, DateUtils.LENGTH_MEDIUM),
         };
         String[] ordinals = r.getStringArray(R.array.ordinal_labels);
 
