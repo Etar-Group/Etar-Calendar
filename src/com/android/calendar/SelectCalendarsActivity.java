@@ -18,7 +18,6 @@ package com.android.calendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -260,10 +259,10 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
     // This sync is done automatically in the background when the
     // SelectCalendars activity is started.
     private void startCalendarMetafeedSync() {
-        Uri uri = Calendars.CONTENT_URI;
         Bundle extras = new Bundle();
-        extras.putBoolean(ContentResolver.SYNC_EXTRAS_FORCE, true);
+        extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         extras.putBoolean("metafeedonly", true);
-        mContentResolver.startSync(uri, extras);
+        ContentResolver.requestSync(null /* all accounts */,
+                Calendars.CONTENT_URI.getAuthority(), extras);
     }
 }
