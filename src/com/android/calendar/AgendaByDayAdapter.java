@@ -27,26 +27,35 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Formatter;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Locale;
 
 public class AgendaByDayAdapter extends BaseAdapter {
     private static final int TYPE_DAY = 0;
     private static final int TYPE_MEETING = 1;
-    private static final int TYPE_LAST = 2;
+    static final int TYPE_LAST = 2;
 
     private final Context mContext;
     private final AgendaAdapter mAgendaAdapter;
     private final LayoutInflater mInflater;
     private ArrayList<RowInfo> mRowInfo;
     private int mTodayJulianDay;
-    private Time mTime = new Time();
+    private Time mTmpTime = new Time();
+    private Formatter mFormatter; // TODO fix. not thread safe
+    private StringBuilder mStringBuilder;
 
-    public AgendaByDayAdapter(Context context, AgendaAdapter agendaAdapter) {
+    static class ViewHolder {
+        TextView dateView;
+    }
+
+    public AgendaByDayAdapter(Context context) {
         mContext = context;
-        mAgendaAdapter = agendaAdapter;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mAgendaAdapter = new AgendaAdapter(context, R.layout.agenda_item);
+        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mStringBuilder = new StringBuilder(50);
+        mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
     }
 
     public int getCount() {
@@ -91,10 +100,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 mRowInfo.get(position).mType : TYPE_DAY;
     }
 
-    private static class ViewHolder {
-        TextView dateView;
-    }
-
     public View getView(int position, View convertView, ViewGroup parent) {
         if ((mRowInfo == null) || (position > mRowInfo.size())) {
             // If we have no row info, mAgendaAdapter returns the view.
@@ -103,38 +108,51 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
         RowInfo row = mRowInfo.get(position);
         if (row.mType == TYPE_DAY) {
-            ViewHolder holder;
-            View agendaDayView;
-            if ((convertView == null) || (convertView.getTag() == null)) {
+            ViewHolder holder = null;
+            View agendaDayView = null;
+            if ((convertView != null) && (convertView.getTag() != null)) {
+                // Listview may get confused and pass in a different type of
+                // view since we keep shifting data around. Not a big problem.
+                Object tag = convertView.getTag();
+                if (tag instanceof ViewHolder) {
+                    agendaDayView = convertView;
+                    holder = (ViewHolder) tag;
+                }
+            }
+
+            if (holder == null) {
                 // Create a new AgendaView with a ViewHolder for fast access to
                 // views w/o calling findViewById()
                 holder = new ViewHolder();
                 agendaDayView = mInflater.inflate(R.layout.agenda_day, parent, false);
                 holder.dateView = (TextView) agendaDayView.findViewById(R.id.date);
                 agendaDayView.setTag(holder);
-            } else {
-                agendaDayView = convertView;
-                holder = (ViewHolder) convertView.getTag();
             }
 
             // Re-use the member variable "mTime" which is set to the local timezone.
-            Time date = mTime;
+            Time date = mTmpTime;
             long millis = date.setJulianDay(row.mData);
             int flags = DateUtils.FORMAT_SHOW_YEAR
                     | DateUtils.FORMAT_SHOW_DATE;
-            
+
+            mStringBuilder.setLength(0);
             if (row.mData == mTodayJulianDay) {
                 String dayText = mContext.getResources().getText(R.string.agenda_today) + ", ";
-                holder.dateView.setText(dayText + DateUtils.formatDateTime(mContext, millis, flags));
+                holder.dateView.setText(dayText + DateUtils.formatDateRange(mContext, mFormatter,
+                    millis, millis, flags).toString() + " P:" + position); // TODO remove P:
             } else {
                 flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
-                holder.dateView.setText(DateUtils.formatDateTime(mContext, millis, flags));
+                holder.dateView.setText(DateUtils.formatDateRange(mContext, mFormatter, millis,
+                    millis, flags).toString() + " P:" + position); // TODO remove P:
             }
 
 
             return agendaDayView;
         } else if (row.mType == TYPE_MEETING) {
-            return mAgendaAdapter.getView(row.mData, convertView, parent);
+            View x = mAgendaAdapter.getView(row.mData, convertView, parent);
+            TextView y = ((AgendaAdapter.ViewHolder) x.getTag()).title;
+            y.setText(y.getText() + " P:" + position);
+            return x;
         } else {
             // Error
             throw new IllegalStateException("Unknown event type:" + row.mType);
@@ -143,6 +161,11 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
     public void clearDayHeaderInfo() {
         mRowInfo = null;
+    }
+
+    public void changeCursor(Cursor cursor) {
+        calculateDays(cursor);
+        mAgendaAdapter.changeCursor(cursor);
     }
 
     public void calculateDays(Cursor cursor) {
@@ -154,8 +177,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
         mTodayJulianDay = Time.getJulianDay(now, time.gmtoff);
         LinkedList<MultipleDayInfo> multipleDayList = new LinkedList<MultipleDayInfo>();
         for (int position = 0; cursor.moveToNext(); position++) {
-            boolean allDay = cursor.getInt(AgendaActivity.INDEX_ALL_DAY) != 0;
-            int startDay = cursor.getInt(AgendaActivity.INDEX_START_DAY);
+            boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
+            int startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
 
             if (startDay != prevStartDay) {
                 // Check if we skipped over any empty days
@@ -202,7 +225,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
             // If this event spans multiple days, then add it to the multipleDay
             // list.
-            int endDay = cursor.getInt(AgendaActivity.INDEX_END_DAY);
+            int endDay = cursor.getInt(AgendaWindowAdapter.INDEX_END_DAY);
             if (endDay > startDay) {
                 multipleDayList.add(new MultipleDayInfo(position, endDay));
             }
@@ -215,7 +238,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // we set the date to one less than the first day of the next month,
             // and then normalize.
             time.setJulianDay(prevStartDay);
-            time.month += 1;
+            time.month += 1;  // TODO remove month query reference
             time.monthDay = 0;  // monthDay starts with 1, so this is the previous day
             long millis = time.normalize(true /* ignore isDst */);
             int lastDayOfMonth = Time.getJulianDay(millis, time.gmtoff);
@@ -342,9 +365,17 @@ public class AgendaByDayAdapter extends BaseAdapter {
             RowInfo row = mRowInfo.get(listPos);
             if (row.mType == TYPE_MEETING) {
                 return row.mData;
+            } else {
+                int nextPos = listPos + 1;
+                if (nextPos < mRowInfo.size()) {
+                    nextPos = getCursorPosition(nextPos);
+                    if (nextPos >= 0) {
+                        return -nextPos;
+                    }
+                }
             }
         }
-        return listPos;
+        return Integer.MIN_VALUE;
     }
 
     @Override
@@ -361,4 +392,3 @@ public class AgendaByDayAdapter extends BaseAdapter {
         return true;
     }
 }
-
