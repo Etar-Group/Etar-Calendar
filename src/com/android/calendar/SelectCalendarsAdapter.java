@@ -49,11 +49,16 @@ public class SelectCalendarsAdapter extends CursorAdapter {
     private final LayoutInflater mInflater;
     private final ContentResolver mResolver;
     private final ContentValues mValues = new ContentValues();
+    private Boolean mIsChecked[] = null;
+    private static final Boolean CHECKED = true;
+    private static final Boolean UNCHECKED = false;
 
     private class CheckBoxListener implements CheckBox.OnCheckedChangeListener {
         private final long mCalendarId;
+        private final int mPosition;
 
-        private CheckBoxListener(long calendarId) {
+        private CheckBoxListener(long calendarId, int position) {
+            mPosition = position;
             mCalendarId = calendarId;
         }
         
@@ -63,13 +68,19 @@ public class SelectCalendarsAdapter extends CursorAdapter {
             int checked = isChecked ? 1 : 0;
             mValues.put(Calendars.SELECTED, checked);
             mResolver.update(uri, mValues, null, null);
+            mIsChecked[mPosition] = isChecked ? CHECKED : UNCHECKED;
         }
+    }
+
+    private void updateIsCheckedArray(int cursorCount) {
+        mIsChecked = new Boolean[cursorCount];
     }
 
     public SelectCalendarsAdapter(Context context, Cursor cursor) {
         super(context, cursor);
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mResolver = context.getContentResolver();
+        updateIsCheckedArray(cursor.getCount());
     }
 
     @Override
@@ -87,10 +98,25 @@ public class SelectCalendarsAdapter extends CursorAdapter {
         setText(view, R.id.calendar, cursor.getString(nameColumn));
         CheckBox box = (CheckBox) view.findViewById(R.id.checkbox);
         long id = cursor.getLong(idColumn);
-        boolean checked = cursor.getInt(selectedColumn) != 0;
+
+        // Update mIsChecked array is needed
+        int cursorCount = cursor.getCount();
+        if (cursorCount != mIsChecked.length) {
+            updateIsCheckedArray(cursorCount);
+        }
+
+        // If the value hasn't changed, read from cursor; otherwise, read from mIsChecked array.
+        boolean checked;
+        int position = cursor.getPosition();
+        if (mIsChecked[position] == null) {
+            checked = cursor.getInt(selectedColumn) != 0;
+        } else {
+            checked = (mIsChecked[position] == CHECKED);
+        }
+
         box.setOnCheckedChangeListener(null);
         box.setChecked(checked);
-        box.setOnCheckedChangeListener(new CheckBoxListener(id));
+        box.setOnCheckedChangeListener(new CheckBoxListener(id, position));
     }
 
     private static void setText(View view, int id, String text) {
