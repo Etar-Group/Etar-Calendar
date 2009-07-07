@@ -18,6 +18,8 @@ package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
+import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -162,6 +164,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
     private int mResponseOffset;
     private int mOriginalAttendeeResponse;
+    private int mAttendeeResponseFromIntent = ATTENDEE_NO_RESPONSE;
     private boolean mIsRepeating;
 
     private Pattern mWildcardPattern = Pattern.compile("^.*$");
@@ -213,6 +216,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         ContentResolver cr = getContentResolver();
         mStartMillis = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
         mEndMillis = intent.getLongExtra(EVENT_END_TIME, 0);
+        mAttendeeResponseFromIntent = intent.getIntExtra(ATTENDEE_STATUS, ATTENDEE_NO_RESPONSE);
         mEventCursor = managedQuery(mUri, EVENT_PROJECTION, null, null);
         if (initEventCursor()) {
             // The cursor is empty. This can happen if the event was deleted.
@@ -723,7 +727,12 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             spinner.setAdapter(adapter);
         }
 
-        int index = findResponseIndexFor(mOriginalAttendeeResponse);
+        int index;
+        if (mAttendeeResponseFromIntent != ATTENDEE_NO_RESPONSE) {
+            index = findResponseIndexFor(mAttendeeResponseFromIntent);
+        } else {
+            index = findResponseIndexFor(mOriginalAttendeeResponse);
+        }
         spinner.setSelection(index + mResponseOffset);
         spinner.setOnItemSelectedListener(this);
     }
