@@ -77,6 +77,22 @@
                 <data android:mimeType="vnd.android.cursor.item/event" />
             </intent-filter>
         </activity>
+
+        <activity android:name="GoogleCalendarUriIntentFilter" android:label="@string/event_info_title"
+            android:theme="@android:style/Theme.Light"
+            android:configChanges="orientation|keyboardHidden">
+
+            <intent-filter>
+               <action android:name="android.intent.action.VIEW" />
+               <category android:name="android.intent.category.DEFAULT" />
+               <category android:name="android.intent.category.BROWSABLE" />
+               <data android:scheme="http" android:host="www.google.com" android:pathPrefix="/calendar/event" />
+               <data android:scheme="https" android:host="www.google.com" android:pathPrefix="/calendar/event" />
+               <data android:scheme="http" android:host="www.google.com" android:pathPattern="/calendar/hosted/.*/event" />
+               <data android:scheme="https" android:host="www.google.com" android:pathPattern="/calendar/hosted/.*/event" />
+            </intent-filter>
+        </activity>
+
         <activity android:name="SelectCalendarsActivity" android:label="@string/calendars_title" />
         <activity android:name="CalendarPreferenceActivity" android:label="@string/preferences_title" />
         <activity android:name="AlertActivity" android:launchMode="singleInstance"
