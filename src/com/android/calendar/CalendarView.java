@@ -389,6 +389,12 @@ public class CalendarView extends View
             mDayStrs[index + 7] = mDayStrs[index];
             // e.g. Tu for Tuesday
             mDayStrs2Letter[index] = DateUtils.getDayOfWeekString(i, DateUtils.LENGTH_SHORT);
+
+            // If we don't have 2-letter day strings, fall back to 1-letter.
+            if (mDayStrs2Letter[index].equals(mDayStrs[index])) {
+                mDayStrs2Letter[index] = DateUtils.getDayOfWeekString(i, DateUtils.LENGTH_SHORTEST);
+            }
+
             mDayStrs2Letter[index + 7] = mDayStrs2Letter[index];
         }
 
