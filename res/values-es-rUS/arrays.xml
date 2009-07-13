@@ -49,9 +49,9 @@
     <item>"1 semana"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"Alertar"</item>
-    <item>"Notificación de la barra de estado"</item>
-    <item>"Desconectado"</item>
+    <item>"Alerta"</item>
+    <item>"Notificación de barra de estado"</item>
+    <item>"Apagado"</item>
   </string-array>
   <string-array name="availability">
     <item>"Ocupado"</item>
@@ -63,34 +63,34 @@
     <item>"Público"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"primer"</item>
+    <item>"primero"</item>
     <item>"segundo"</item>
-    <item>"tercer"</item>
+    <item>"tercero"</item>
     <item>"cuarto"</item>
     <item>"último"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"(No responde)"</item>
+    <item>"(No hay respuesta)"</item>
     <item>"Sí"</item>
-    <item>"Quizás"</item>
+    <item>"Tal vez"</item>
     <item>"No"</item>
   </string-array>
   <string-array name="response_labels2">
     <item>"Sí"</item>
-    <item>"Quizás"</item>
+    <item>"Tal vez"</item>
     <item>"No"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
     <item>"Sólo este evento"</item>
-    <item>"Este evento y eventos futuros"</item>
+    <item>"Este y eventos futuros"</item>
     <item>"Todos los eventos"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>"Éste y otros eventos posteriores"</item>
+    <item>"Este y eventos futuros"</item>
     <item>"Todos los eventos"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item>"Sólo esta ocasión"</item>
-    <item>"Todos los eventos de la serie"</item>
+    <item>"Sólo esta instancia"</item>
+    <item>"Todos los eventos en la serie"</item>
   </string-array>
 </resources>

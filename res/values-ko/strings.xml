@@ -16,10 +16,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">"캘린더"</string>
-    <string name="calendar_plug"><font fgcolor="#ffffffff">"Google 캘린더에 오신 것을 환영합니다."</font>" "\n"일정 예약을 보다 간편하고 효율적이며 쉽게 사용할 수 있도록 만들어진 Google의 일정 관리 서비스입니다."</string>
+    <string name="calendar_plug"><font fgcolor="#ffffffff">"Google 캘린더에 오신 것을 환영합니다."</font>" "\n" Google 캘린더는 더 간편하고 효율적이며 사용하기 쉬운 일정 관리 서비스를 제공하는 Google 서비스입니다."</string>
     <string name="what_label">"내용"</string>
-    <string name="when_label">"일자"</string>
-    <string name="where_label">"위치"</string>
+    <string name="when_label">"일시"</string>
+    <string name="where_label">"장소"</string>
     <string name="repeats_label">"반복"</string>
     <string name="no_title_label">"(제목 없음)"</string>
   <plurals name="Nminutes">
@@ -38,8 +38,8 @@
     <item quantity="one">"1일"</item>
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g>일"</item>
   </plurals>
-    <string name="show_agenda_view">"일정 표시"</string>
-    <string name="show_day_view">"하루 일정 표시"</string>
+    <string name="show_agenda_view">"일정목록 표시"</string>
+    <string name="show_day_view">"요일 표시"</string>
     <string name="agenda_view">"일정목록"</string>
     <string name="day_view">"일"</string>
     <string name="week_view">"주"</string>
@@ -51,50 +51,52 @@
     <string name="goto_today">"오늘"</string>
     <string name="menu_select_calendars">"내 캘린더"</string>
     <string name="menu_preferences">"설정"</string>
-    <string name="plus_N_more">"(<xliff:g id="MORE_COUNT">%d</xliff:g>개 추가 표시)"</string>
+    <string name="plus_N_more">"(<xliff:g id="MORE_COUNT">%d</xliff:g>개 일정 더보기...)"</string>
     <string name="calendars_title">"내 캘린더"</string>
     <string name="add_calendars">"캘린더 추가"</string>
     <string name="remove_calendars">"캘린더 삭제"</string>
     <string name="event_edit_title">"일정 세부정보"</string>
     <string name="hint_what">"일정 이름"</string>
-    <string name="hint_where">"일정 위치"</string>
+    <string name="hint_where">"일정 장소"</string>
     <string name="hint_description">"일정 설명"</string>
     <string name="creating_event">"일정을 만드는 중..."</string>
     <string name="saving_event">"일정 저장 중..."</string>
     <string name="loading_calendars_title">"캘린더 로드 중"</string>
     <string name="loading_calendars_message">"캘린더 로드 중..."</string>
     <string name="alert_title">"캘린더 알림"</string>
-    <string name="alert_when_label">"일자:"</string>
-    <string name="alert_where_label">"위치:"</string>
-    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g>개 이상의 알림)"</string>
-    <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g>개 이상의 알림)"</string>
+    <string name="alert_when_label">"일시:"</string>
+    <string name="alert_where_label">"장소:"</string>
+    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g>개 알림 더보기)"</string>
+    <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g>개의 알림 더보기)"</string>
     <string name="event_info_title">"일정 보기"</string>
-    <string name="event_info_title_invite">"회의 초대장"</string>
+    <string name="event_info_title_invite">"회의 초대"</string>
     <string name="add_new_reminder">"알림 추가"</string>
-    <string name="edit_event_to_label">"종료일:"</string>
-    <string name="edit_event_from_label">"시작일:"</string>
+    <string name="edit_event_to_label">"끝:"</string>
+    <string name="edit_event_from_label">"시작:"</string>
     <string name="edit_event_all_day_label">"종일"</string>
     <string name="edit_event_calendar_label">"캘린더"</string>
-    <string name="edit_event_show_extra_options">"추가 옵션 표시"</string>
-    <string name="edit_event_hide_extra_options">"추가 옵션 숨기기"</string>
+    <string name="edit_event_show_extra_options">"나머지 옵션 표시"</string>
+    <string name="edit_event_hide_extra_options">"나머지 옵션 숨기기"</string>
     <string name="description_label">"설명"</string>
     <string name="presence_label">"상태"</string>
-    <string name="privacy_label">"비공개"</string>
+    <string name="privacy_label">"공개여부"</string>
     <string name="reminders_label">"알림"</string>
     <string name="no_syncable_calendars">"캘린더 없음"</string>
     <string name="no_calendars_found">"캘린더가 없습니다."</string>
     <string name="view_event_calendar_label">"캘린더"</string>
     <string name="view_event_timezone_label">"현지 시간대"</string>
-    <string name="view_event_response_label">"참석 여부"</string>
+    <string name="view_event_response_label">"참석하시겠습니까?"</string>
     <string name="agenda_today">"오늘"</string>
-    <string name="num_events">"일정 수"</string>
+    <string name="num_events">"일정 개수"</string>
     <string name="edit_event_label">"일정 수정"</string>
     <string name="delete_label">"삭제"</string>
     <string name="delete_event_label">"일정 삭제"</string>
-    <string name="save_label">"저장"</string>
-    <string name="discard_label">"변경사항 취소"</string>
+    <!-- no translation found for save_label (2133599104834432589) -->
+    <skip />
+    <!-- no translation found for discard_label (4510607554910139220) -->
+    <skip />
     <string name="import_label">"가져오기"</string>
-    <string name="snooze_all_label">"모든 알림 일시중지"</string>
+    <string name="snooze_all_label">"모든 알람 일시 중지"</string>
     <string name="dismiss_all_label">"모두 해제"</string>
     <string name="does_not_repeat">"일회성 일정"</string>
     <string name="daily">"매일"</string>
@@ -102,22 +104,22 @@
     <string name="weekly">"매주(<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>마다)"</string>
     <string name="monthly_on_day_count">"매월(<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>마다)"</string>
     <string name="monthly_on_day">"매월(<xliff:g id="DAY_OF_MONTH">%s</xliff:g>일)"</string>
-    <string name="yearly">"매년(<xliff:g id="DATES">%s</xliff:g>일"</string>
-    <string name="custom">"사용자설정...(휴대전화에서는 불가능)"</string>
-    <string name="modify_event">"해당 일정만 변경합니다."</string>
+    <string name="yearly">"매년(<xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom">"맞춤 설정...(휴대전화에서는 맞춤 설정할 수 없음)"</string>
+    <string name="modify_event">"이 일정만 변경합니다."</string>
     <string name="modify_all">"반복되는 모든 일정을 변경합니다."</string>
-    <string name="modify_all_following">"현재 일정 및 모든 향후 일정을 변경합니다."</string>
+    <string name="modify_all_following">"이번 일정과 다음 모든 일정을 변경합니다."</string>
     <string name="delete_this_event_title">"일정이 삭제됩니다."</string>
     <string name="delete_title">"삭제"</string>
-    <string name="change_response_title">"응답 변경"</string>
+    <string name="change_response_title">"회신 변경"</string>
     <string name="preferences_title">"설정"</string>
     <string name="preferences_general_title">"캘린더 보기 설정"</string>
     <string name="preferences_alerts_title">"알림 설정"</string>
-    <string name="preferences_hide_declined_title">"거절한 일정 숨기기"</string>
-    <string name="preferences_alerts_type_title">"알리미 및 알림 설정"</string>
-    <string name="preferences_alerts_type_dialog">"알리미 및 알림"</string>
+    <string name="preferences_hide_declined_title">"거부한 일정 숨기기"</string>
+    <string name="preferences_alerts_type_title">"알림 설정"</string>
+    <string name="preferences_alerts_type_dialog">"알리미와 알림"</string>
     <string name="preferences_alerts_vibrate_title">"진동"</string>
-    <string name="preferences_alerts_ringtone_title">"벨소리 선택"</string>
+    <string name="preferences_alerts_ringtone_title">"알림음 선택"</string>
     <string name="preferences_default_reminder_title">"기본 알림 설정"</string>
     <string name="preferences_default_reminder_dialog">"기본 알림 시간"</string>
     <string name="preferences_default_reminder_default">"10"</string>

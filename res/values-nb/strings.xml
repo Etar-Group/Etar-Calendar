@@ -91,8 +91,10 @@
     <string name="edit_event_label">"Rediger hendelse"</string>
     <string name="delete_label">"Slett"</string>
     <string name="delete_event_label">"Slett hendelse"</string>
-    <string name="save_label">"Lagre"</string>
-    <string name="discard_label">"Forkast hendelse"</string>
+    <!-- no translation found for save_label (2133599104834432589) -->
+    <skip />
+    <!-- no translation found for discard_label (4510607554910139220) -->
+    <skip />
     <string name="import_label">"Importer"</string>
     <string name="snooze_all_label">"Slumre alle"</string>
     <string name="dismiss_all_label">"Skjul alle"</string>
