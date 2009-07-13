@@ -91,8 +91,8 @@
     <string name="edit_event_label">"Afspraak bewerken"</string>
     <string name="delete_label">"Verwijderen"</string>
     <string name="delete_event_label">"Afspraak verwijderen"</string>
-    <string name="save_label">"Opslaan"</string>
-    <string name="discard_label">"Wijzigingen annuleren"</string>
+    <string name="save_label">"Gereed"</string>
+    <string name="discard_label">"Terugzetten"</string>
     <string name="import_label">"Importeren"</string>
     <string name="snooze_all_label">"5 min. uitstellen"</string>
     <string name="dismiss_all_label">"Allemaal verwijderen"</string>

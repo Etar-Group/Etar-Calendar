@@ -16,81 +16,81 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_minutes_labels">
-    <item>"5 Minuten"</item>
-    <item>"10 Minuten"</item>
-    <item>"15 Minuten"</item>
-    <item>"20 Minuten"</item>
-    <item>"25 Minuten"</item>
-    <item>"30 Minuten"</item>
-    <item>"45 Minuten"</item>
-    <item>"1 Stunde"</item>
-    <item>"2 Stunden"</item>
-    <item>"3 Stunden"</item>
-    <item>"12 Stunden"</item>
-    <item>"24 Stunden"</item>
-    <item>"2 Tage"</item>
-    <item>"1 Woche"</item>
+    <item>"5 minutter"</item>
+    <item>"10 minutter"</item>
+    <item>"15 minutter"</item>
+    <item>"20 minutter"</item>
+    <item>"25 minutter"</item>
+    <item>"30 minutter"</item>
+    <item>"45 minutter"</item>
+    <item>"1 time"</item>
+    <item>"2 timer"</item>
+    <item>"3 timer"</item>
+    <item>"12 timer"</item>
+    <item>"24 timer"</item>
+    <item>"2 dage"</item>
+    <item>"1 uge"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
-    <item>"Keine"</item>
-    <item>"5 Minuten"</item>
-    <item>"10 Minuten"</item>
-    <item>"15 Minuten"</item>
-    <item>"20 Minuten"</item>
-    <item>"25 Minuten"</item>
-    <item>"30 Minuten"</item>
-    <item>"45 Minuten"</item>
-    <item>"1 Stunde"</item>
-    <item>"2 Stunden"</item>
-    <item>"3 Stunden"</item>
-    <item>"12 Stunden"</item>
-    <item>"24 Stunden"</item>
-    <item>"2 Tage"</item>
-    <item>"1 Woche"</item>
+    <item>"Ingen"</item>
+    <item>"5 minutter"</item>
+    <item>"10 minutter"</item>
+    <item>"15 minutter"</item>
+    <item>"20 minutter"</item>
+    <item>"25 minutter"</item>
+    <item>"30 minutter"</item>
+    <item>"45 minutter"</item>
+    <item>"1 time"</item>
+    <item>"2 timer"</item>
+    <item>"3 timer"</item>
+    <item>"12 timer"</item>
+    <item>"24 timer"</item>
+    <item>"2 dage"</item>
+    <item>"1 uge"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"Benachrichtigung"</item>
-    <item>"Statuszeilennachricht"</item>
-    <item>"Aus"</item>
+    <item>"Underretning"</item>
+    <item>"Statuslinjemeddelelse"</item>
+    <item>"Fra"</item>
   </string-array>
   <string-array name="availability">
-    <item>"Beschäftigt"</item>
-    <item>"Verfügbar"</item>
+    <item>"Optaget"</item>
+    <item>"Ledig"</item>
   </string-array>
   <string-array name="visibility">
     <item>"Standard"</item>
     <item>"Privat"</item>
-    <item>"Öffentlich"</item>
+    <item>"Offentlig"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"1."</item>
-    <item>"2."</item>
-    <item>"3."</item>
-    <item>"4."</item>
-    <item>"letzten"</item>
+    <item>"først"</item>
+    <item>"anden"</item>
+    <item>"tredje"</item>
+    <item>"fjerde"</item>
+    <item>"sidst"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"(keine Antwort)"</item>
+    <item>"(Intet svar)"</item>
     <item>"Ja"</item>
-    <item>"Vielleicht"</item>
-    <item>"Nein"</item>
+    <item>"Måske"</item>
+    <item>"Nej"</item>
   </string-array>
   <string-array name="response_labels2">
     <item>"Ja"</item>
-    <item>"Vielleicht"</item>
-    <item>"Nein"</item>
+    <item>"Måske"</item>
+    <item>"Nej"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>"Nur dieser Termin"</item>
-    <item>"Dieser und zukünftige Termine"</item>
-    <item>"Alle Termine"</item>
+    <item>"Kun denne begivenhed"</item>
+    <item>"Denne og fremtidige begivenheder"</item>
+    <item>"Alle begivenheder"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>"Dieser und zukünftige Termine"</item>
-    <item>"Alle Termine"</item>
+    <item>"Denne og fremtidige begivenheder"</item>
+    <item>"Alle begivenheder"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item>"Nur diese Instanz"</item>
-    <item>"Alle Termine dieser Serie"</item>
+    <item>"Kun i dette tilfælde"</item>
+    <item>"Alle begivenheder i serien"</item>
   </string-array>
 </resources>

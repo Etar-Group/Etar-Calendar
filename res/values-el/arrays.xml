@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item>"5 λεπτά"</item>
+    <item>"10 λεπτά"</item>
+    <item>"15 λεπτά"</item>
+    <item>"20 λεπτά"</item>
+    <item>"25 λεπτά"</item>
+    <item>"30 λεπτά"</item>
+    <item>"45 λεπτά"</item>
+    <item>"1 ώρα"</item>
+    <item>"2 ώρες"</item>
+    <item>"3 ώρες"</item>
+    <item>"12 ώρες"</item>
+    <item>"24 ώρες"</item>
+    <item>"2 ημέρες"</item>
+    <item>"1 εβδομάδα"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item>"Κανένα"</item>
+    <item>"5 λεπτά"</item>
+    <item>"10 λεπτά"</item>
+    <item>"15 λεπτά"</item>
+    <item>"20 λεπτά"</item>
+    <item>"25 λεπτά"</item>
+    <item>"30 λεπτά"</item>
+    <item>"45 λεπτά"</item>
+    <item>"1 ώρα"</item>
+    <item>"2 ώρες"</item>
+    <item>"3 ώρες"</item>
+    <item>"12 ώρες"</item>
+    <item>"24 ώρες"</item>
+    <item>"2 ημέρες"</item>
+    <item>"1 εβδομάδα"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item>"Προειδοποίηση"</item>
+    <item>"Ειδοποίηση γραμμής κατάστασης"</item>
+    <item>"Κλειστό"</item>
+  </string-array>
+  <string-array name="availability">
+    <item>"Απασχολημένος/η"</item>
+    <item>"Διαθέσιμος/η"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item>"Προεπιλογή"</item>
+    <item>"Ιδιωτικό"</item>
+    <item>"Δημόσιο"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item>"πρώτο"</item>
+    <item>"δεύτερο"</item>
+    <item>"τρίτο"</item>
+    <item>"τέταρτο"</item>
+    <item>"τελευταίο"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item>"(Καμία απάντηση)"</item>
+    <item>"Ναι"</item>
+    <item>"Ίσως"</item>
+    <item>"Όχι"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item>"Ναι"</item>
+    <item>"Ίσως"</item>
+    <item>"Όχι"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>"Μόνο αυτό το συμβάν"</item>
+    <item>"Αυτά και τα μελλοντικά συμβάντα"</item>
+    <item>"Όλα τα συμβάντα"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item>"Αυτά &amp; τα μελλοντικά συμβάντα"</item>
+    <item>"Όλα τα συμβάντα"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>"Μόνο αυτό το περιστατικό"</item>
+    <item>"Όλα τα συμβάντα στη σειρά"</item>
+  </string-array>
+</resources>

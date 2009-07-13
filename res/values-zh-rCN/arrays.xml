@@ -49,9 +49,9 @@
     <item>"1 周"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"提醒"</item>
+    <item>"警报"</item>
     <item>"状态栏通知"</item>
-    <item>"关闭"</item>
+    <item>"关"</item>
   </string-array>
   <string-array name="availability">
     <item>"忙碌"</item>
@@ -60,28 +60,28 @@
   <string-array name="visibility">
     <item>"默认"</item>
     <item>"私人"</item>
-    <item>"公共"</item>
+    <item>"公开"</item>
   </string-array>
   <string-array name="ordinal_labels">
     <item>"第一个"</item>
     <item>"第二个"</item>
     <item>"第三个"</item>
     <item>"第四个"</item>
-    <item>"上一"</item>
+    <item>"最后一个"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"（未响应）"</item>
+    <item>"（无响应）"</item>
     <item>"是"</item>
-    <item>"不确定"</item>
+    <item>"可能"</item>
     <item>"否"</item>
   </string-array>
   <string-array name="response_labels2">
     <item>"是"</item>
-    <item>"不确定"</item>
+    <item>"可能"</item>
     <item>"否"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>"仅此活动"</item>
+    <item>"仅限此活动"</item>
     <item>"此活动和将来的活动"</item>
     <item>"所有活动"</item>
   </string-array>
@@ -90,7 +90,7 @@
     <item>"所有活动"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item>"仅此例"</item>
-    <item>"所有此类活动"</item>
+    <item>"仅限此次活动"</item>
+    <item>"系列中的所有活动"</item>
   </string-array>
 </resources>

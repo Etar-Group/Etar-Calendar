@@ -101,8 +101,8 @@
     <string name="does_not_repeat">"Evento único"</string>
     <string name="daily">"Diariamente"</string>
     <string name="every_weekday">"Todos os dias da semana (de segunda a sexta)"</string>
-    <string name="weekly">"Semanalmente (todo(a) <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count">"Mensalmente (todo <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="weekly">"Semanalmente (toda <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count">"Mensalmente (toda <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly_on_day">"Mensalmente (no dia <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly">"Anualmente (em <xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom">"Personalizado… (não é permitido personalizar no telefone)"</string>

@@ -16,11 +16,11 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">"日历"</string>
-    <string name="calendar_plug"><font fgcolor="#ffffffff">"欢迎使用 Google 日历！"</font>" "\n"Google 日历是一种用于管理您的日程安排的工具，它独到的设计理念能让您更加直接、高效和方便地安排活动。"</string>
-    <string name="what_label">"活动"</string>
+    <string name="calendar_plug"><font fgcolor="#ffffffff">"欢迎使用 Google 日历！"</font>" "\n"Google 日历可用来管理您的日程计划，让您更直观、更高效、更轻松地安排活动。"</string>
+    <string name="what_label">"内容"</string>
     <string name="when_label">"时间"</string>
     <string name="where_label">"地点"</string>
-    <string name="repeats_label">"重复频率"</string>
+    <string name="repeats_label">"重复"</string>
     <string name="no_title_label">"（无主题）"</string>
   <plurals name="Nminutes">
     <item quantity="one">"1 分钟"</item>
@@ -45,76 +45,78 @@
     <string name="week_view">"周"</string>
     <string name="month_view">"月"</string>
     <string name="event_view">"查看活动"</string>
-    <string name="event_create">"新建活动"</string>
+    <string name="event_create">"新活动"</string>
     <string name="event_edit">"编辑活动"</string>
     <string name="event_delete">"删除活动"</string>
     <string name="goto_today">"今天"</string>
     <string name="menu_select_calendars">"我的日历"</string>
     <string name="menu_preferences">"设置"</string>
-    <string name="plus_N_more">"（还有 <xliff:g id="MORE_COUNT">%d</xliff:g> 个未显示...）"</string>
+    <string name="plus_N_more">"（以及 <xliff:g id="MORE_COUNT">%d</xliff:g> 个其他活动...）"</string>
     <string name="calendars_title">"我的日历"</string>
     <string name="add_calendars">"添加日历"</string>
     <string name="remove_calendars">"删除日历"</string>
     <string name="event_edit_title">"活动详情"</string>
     <string name="hint_what">"活动名称"</string>
     <string name="hint_where">"活动地点"</string>
-    <string name="hint_description">"活动描述"</string>
+    <string name="hint_description">"活动说明"</string>
     <string name="creating_event">"正在创建活动..."</string>
     <string name="saving_event">"正在保存活动..."</string>
-    <string name="loading_calendars_title">"载入日历"</string>
+    <string name="loading_calendars_title">"正在载入日历"</string>
     <string name="loading_calendars_message">"正在载入日历..."</string>
     <string name="alert_title">"日历通知"</string>
     <string name="alert_when_label">"时间："</string>
     <string name="alert_where_label">"地点："</string>
     <string name="alert_missed_events_single">"（还有 <xliff:g id="REMINDER_COUNT">%s</xliff:g> 个提醒）"</string>
-    <string name="alert_missed_events_multiple">"（还有 <xliff:g id="REMINDER_COUNT">%s</xliff:g> 个提醒）"</string>
+    <string name="alert_missed_events_multiple">"（<xliff:g id="REMINDER_COUNT">%s</xliff:g> 条其他提醒）"</string>
     <string name="event_info_title">"查看活动"</string>
     <string name="event_info_title_invite">"会议邀请"</string>
     <string name="add_new_reminder">"添加提醒"</string>
-    <string name="edit_event_to_label">"结束日期"</string>
-    <string name="edit_event_from_label">"开始日期"</string>
+    <string name="edit_event_to_label">"到"</string>
+    <string name="edit_event_from_label">"从"</string>
     <string name="edit_event_all_day_label">"全天"</string>
     <string name="edit_event_calendar_label">"日历"</string>
-    <string name="edit_event_show_extra_options">"显示其他选项"</string>
-    <string name="edit_event_hide_extra_options">"隐藏其他选项"</string>
-    <string name="description_label">"描述"</string>
-    <string name="presence_label">"现状"</string>
-    <string name="privacy_label">"隐私性"</string>
+    <string name="edit_event_show_extra_options">"显示额外选项"</string>
+    <string name="edit_event_hide_extra_options">"隐藏额外选项"</string>
+    <string name="description_label">"说明"</string>
+    <string name="presence_label">"状态"</string>
+    <string name="privacy_label">"隐私"</string>
     <string name="reminders_label">"提醒"</string>
     <string name="no_syncable_calendars">"无日历"</string>
     <string name="no_calendars_found">"您没有日历。"</string>
-    <string name="view_event_calendar_label">"日历"</string>
+    <string name="view_event_calendar_label">"日历帐户"</string>
     <string name="view_event_timezone_label">"本地时区"</string>
-    <string name="view_event_response_label">"是否参加？"</string>
+    <string name="view_event_response_label">"参加吗？"</string>
     <string name="agenda_today">"今天"</string>
     <string name="num_events">"活动数"</string>
     <string name="edit_event_label">"编辑活动"</string>
     <string name="delete_label">"删除"</string>
     <string name="delete_event_label">"删除活动"</string>
-    <string name="save_label">"保存"</string>
-    <string name="discard_label">"放弃更改"</string>
+    <!-- no translation found for save_label (2133599104834432589) -->
+    <skip />
+    <!-- no translation found for discard_label (4510607554910139220) -->
+    <skip />
     <string name="import_label">"导入"</string>
     <string name="snooze_all_label">"全部暂停"</string>
-    <string name="dismiss_all_label">"全部解除"</string>
+    <string name="dismiss_all_label">"全部关闭"</string>
     <string name="does_not_repeat">"一次性活动"</string>
     <string name="daily">"每天"</string>
     <string name="every_weekday">"每个工作日（周一至周五）"</string>
     <string name="weekly">"每周（每个<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>）"</string>
-    <string name="monthly_on_day_count">"每月（第 <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> 个<xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>）"</string>
-    <string name="monthly_on_day">"每月（<xliff:g id="DAY_OF_MONTH">%s</xliff:g> 日）"</string>
+    <string name="monthly_on_day_count">"每月（每月的<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>）"</string>
+    <string name="monthly_on_day">"每月（第 <xliff:g id="DAY_OF_MONTH">%s</xliff:g> 日）"</string>
     <string name="yearly">"每年（<xliff:g id="DATES">%s</xliff:g>）"</string>
-    <string name="custom">"自定义...（无法通过电话自定义）"</string>
+    <string name="custom">"自定义...（无法在手机上自定义）"</string>
     <string name="modify_event">"仅更改此活动。"</string>
-    <string name="modify_all">"更改此系列的所有活动。"</string>
-    <string name="modify_all_following">"更改此活动和将来的所有活动。"</string>
-    <string name="delete_this_event_title">"系统将删除此活动。"</string>
+    <string name="modify_all">"更改系列中的所有活动。"</string>
+    <string name="modify_all_following">"更改此活动和所有将来的活动。"</string>
+    <string name="delete_this_event_title">"将会删除此活动。"</string>
     <string name="delete_title">"删除"</string>
-    <string name="change_response_title">"更改响应"</string>
+    <string name="change_response_title">"更改答复"</string>
     <string name="preferences_title">"设置"</string>
     <string name="preferences_general_title">"日历视图设置"</string>
     <string name="preferences_alerts_title">"提醒设置"</string>
-    <string name="preferences_hide_declined_title">"隐藏拒绝的活动"</string>
-    <string name="preferences_alerts_type_title">"设置提醒和通知"</string>
+    <string name="preferences_hide_declined_title">"隐藏已拒绝的活动"</string>
+    <string name="preferences_alerts_type_title">"设置警报和通知"</string>
     <string name="preferences_alerts_type_dialog">"警报和通知"</string>
     <string name="preferences_alerts_vibrate_title">"振动"</string>
     <string name="preferences_alerts_ringtone_title">"选择铃声"</string>

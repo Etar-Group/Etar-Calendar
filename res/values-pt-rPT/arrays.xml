@@ -28,11 +28,11 @@
     <item>"3 horas"</item>
     <item>"12 horas"</item>
     <item>"24 horas"</item>
-    <item>"2 días"</item>
+    <item>"2 dias"</item>
     <item>"1 semana"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
-    <item>"Ninguno"</item>
+    <item>"Nenhum"</item>
     <item>"5 minutos"</item>
     <item>"10 minutos"</item>
     <item>"15 minutos"</item>
@@ -45,52 +45,52 @@
     <item>"3 horas"</item>
     <item>"12 horas"</item>
     <item>"24 horas"</item>
-    <item>"2 días"</item>
+    <item>"2 dias"</item>
     <item>"1 semana"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"Alertar"</item>
-    <item>"Notificación de la barra de estado"</item>
-    <item>"Desconectado"</item>
+    <item>"Alerta"</item>
+    <item>"Notificação de barra de estado"</item>
+    <item>"Desactivado"</item>
   </string-array>
   <string-array name="availability">
     <item>"Ocupado"</item>
-    <item>"Disponible"</item>
+    <item>"Disponível"</item>
   </string-array>
   <string-array name="visibility">
-    <item>"Predeterminado"</item>
-    <item>"Privado"</item>
+    <item>"Predefinido"</item>
+    <item>"Particular"</item>
     <item>"Público"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"primer"</item>
+    <item>"primeiro"</item>
     <item>"segundo"</item>
-    <item>"tercer"</item>
-    <item>"cuarto"</item>
+    <item>"terceiro"</item>
+    <item>"quarto"</item>
     <item>"último"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"(No responde)"</item>
-    <item>"Sí"</item>
-    <item>"Quizás"</item>
-    <item>"No"</item>
+    <item>"(Sem resposta)"</item>
+    <item>"Sim"</item>
+    <item>"Talvez"</item>
+    <item>"Não"</item>
   </string-array>
   <string-array name="response_labels2">
-    <item>"Sí"</item>
-    <item>"Quizás"</item>
-    <item>"No"</item>
+    <item>"Sim"</item>
+    <item>"Talvez"</item>
+    <item>"Não"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>"Sólo este evento"</item>
-    <item>"Este evento y eventos futuros"</item>
-    <item>"Todos los eventos"</item>
+    <item>"Apenas este evento"</item>
+    <item>"Este e futuros eventos"</item>
+    <item>"Todos os eventos"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>"Éste y otros eventos posteriores"</item>
-    <item>"Todos los eventos"</item>
+    <item>"Este e futuros eventos"</item>
+    <item>"Todos os eventos"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item>"Sólo esta ocasión"</item>
-    <item>"Todos los eventos de la serie"</item>
+    <item>"Só esta ocorrência"</item>
+    <item>"Todos os eventos da série"</item>
   </string-array>
 </resources>

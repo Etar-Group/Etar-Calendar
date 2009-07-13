@@ -51,7 +51,7 @@
   <string-array name="preferences_alert_type_labels">
     <item>"Avviso"</item>
     <item>"Notifica barra di stato"</item>
-    <item>"Disativa"</item>
+    <item>"Disattiva"</item>
   </string-array>
   <string-array name="availability">
     <item>"Occupato"</item>
@@ -61,15 +61,6 @@
     <item>"Predefinito"</item>
     <item>"Privato"</item>
     <item>"Pubblico"</item>
-  </string-array>
-  <string-array name="day_labels">
-    <item>"Domenica"</item>
-    <item>"Lunedì"</item>
-    <item>"Martedì"</item>
-    <item>"Mercoledì"</item>
-    <item>"Giovedì"</item>
-    <item>"Venerdì"</item>
-    <item>"Sabato"</item>
   </string-array>
   <string-array name="ordinal_labels">
     <item>"primo"</item>

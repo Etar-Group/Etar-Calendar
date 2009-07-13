@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label">"Takvim"</string>
+    <string name="calendar_plug"><font fgcolor="#ffffffff">"Google Takvim\'e hoş geldiniz!"</font>" "\n"Programlı etkinliklerin daha fark edilir, daha etkin ve daha erişilebilir olabilmesi fikri üzerine inşa edilen, programınızı yönetmeniz için geliştirilmiş bir Google yaklaşımıdır."</string>
+    <string name="what_label">"Başlık:"</string>
+    <string name="when_label">"Zaman:"</string>
+    <string name="where_label">"Yer"</string>
+    <string name="repeats_label">"Tekrar"</string>
+    <string name="no_title_label">"(Konu yok)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one">"1 dakika"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> dakika"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one">"1 dak"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> dak"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one">"1 saat"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> saat"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one">"1 gün"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> gün"</item>
+  </plurals>
+    <string name="show_agenda_view">"Ajandayı göster"</string>
+    <string name="show_day_view">"Günü göster"</string>
+    <string name="agenda_view">"Ajanda"</string>
+    <string name="day_view">"Gün"</string>
+    <string name="week_view">"Hafta"</string>
+    <string name="month_view">"Ay"</string>
+    <string name="event_view">"Etkinliği görüntüle"</string>
+    <string name="event_create">"Yeni etkinlik"</string>
+    <string name="event_edit">"Etkinliği düzenle"</string>
+    <string name="event_delete">"Etkinliği sil"</string>
+    <string name="goto_today">"Bugün"</string>
+    <string name="menu_select_calendars">"Takvimlerim"</string>
+    <string name="menu_preferences">"Ayarlar"</string>
+    <string name="plus_N_more">"(artı <xliff:g id="MORE_COUNT">%d</xliff:g> tane daha …)"</string>
+    <string name="calendars_title">"Takvimlerim"</string>
+    <string name="add_calendars">"Takvim ekle"</string>
+    <string name="remove_calendars">"Takvimleri kaldır"</string>
+    <string name="event_edit_title">"Etkinlik ayrıntıları"</string>
+    <string name="hint_what">"Etkinlik adı"</string>
+    <string name="hint_where">"Etkinlik konumu"</string>
+    <string name="hint_description">"Etkinlik açıklaması"</string>
+    <string name="creating_event">"Etkinlik oluşturuluyor..."</string>
+    <string name="saving_event">"Etkinlik kaydediliyor..."</string>
+    <string name="loading_calendars_title">"Takvimler yükleniyor"</string>
+    <string name="loading_calendars_message">"Takvimler yükleniyor..."</string>
+    <string name="alert_title">"Takvim bildirimleri"</string>
+    <string name="alert_when_label">"Zaman:"</string>
+    <string name="alert_where_label">"Yer:"</string>
+    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> hatırlatıcı daha)"</string>
+    <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> hatırlatıcı daha)"</string>
+    <string name="event_info_title">"Etkinliği görüntüle"</string>
+    <string name="event_info_title_invite">"Toplantı davetiyesi"</string>
+    <string name="add_new_reminder">"Hatırlatıcı ekle"</string>
+    <string name="edit_event_to_label">"Bitiş:"</string>
+    <string name="edit_event_from_label">"Başlangıç:"</string>
+    <string name="edit_event_all_day_label">"Tüm gün"</string>
+    <string name="edit_event_calendar_label">"Takvim"</string>
+    <string name="edit_event_show_extra_options">"Ek seçenekleri göster"</string>
+    <string name="edit_event_hide_extra_options">"Ek seçenekleri gizle"</string>
+    <string name="description_label">"Açıklama"</string>
+    <string name="presence_label">"Mevcudiyet"</string>
+    <string name="privacy_label">"Gizlilik"</string>
+    <string name="reminders_label">"Hatırlatıcılar"</string>
+    <string name="no_syncable_calendars">"Takvim yok"</string>
+    <string name="no_calendars_found">"Hiç takviminiz yok."</string>
+    <string name="view_event_calendar_label">"Takvim"</string>
+    <string name="view_event_timezone_label">"Yerel saat dilimi"</string>
+    <string name="view_event_response_label">"Katılıyor musunuz?"</string>
+    <string name="agenda_today">"Bugün"</string>
+    <string name="num_events">"Etkinlik sayısı"</string>
+    <string name="edit_event_label">"Etkinliği düzenle"</string>
+    <string name="delete_label">"Sil"</string>
+    <string name="delete_event_label">"Etkinliği sil"</string>
+    <!-- no translation found for save_label (2133599104834432589) -->
+    <skip />
+    <!-- no translation found for discard_label (4510607554910139220) -->
+    <skip />
+    <string name="import_label">"İçe aktar"</string>
+    <string name="snooze_all_label">"Tümünü duraklat"</string>
+    <string name="dismiss_all_label">"Tümünü kapat"</string>
+    <string name="does_not_repeat">"Bir seferlik etkinlik"</string>
+    <string name="daily">"Günlük"</string>
+    <string name="every_weekday">"Hafta içi her gün (Pzt-Cu)"</string>
+    <string name="weekly">"Haftada bir (her <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count">"Ayda bir (her <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day">"Ayda bir (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>. günde)"</string>
+    <string name="yearly">"Yılda bir (<xliff:g id="DATES">%s</xliff:g> tarihinde)"</string>
+    <string name="custom">"Özel... (telefonda özelleştirilemiyor)"</string>
+    <string name="modify_event">"Yalnızca bu etkinliği değiştir."</string>
+    <string name="modify_all">"Serideki tüm etkinlikleri değiştir."</string>
+    <string name="modify_all_following">"Bunu ve gelecekteki tüm etkinlikleri değiştir."</string>
+    <string name="delete_this_event_title">"Bu etkinlik silinecek."</string>
+    <string name="delete_title">"Sil"</string>
+    <string name="change_response_title">"Yanıtı değiştir"</string>
+    <string name="preferences_title">"Ayarlar"</string>
+    <string name="preferences_general_title">"Takvim görünümü ayarı"</string>
+    <string name="preferences_alerts_title">"Hatırlatıcı ayarları"</string>
+    <string name="preferences_hide_declined_title">"Reddedilmiş etkin. gizle"</string>
+    <string name="preferences_alerts_type_title">"Uyarı ve bildirimleri ayarla"</string>
+    <string name="preferences_alerts_type_dialog">"Uyarılar ve bildirimler"</string>
+    <string name="preferences_alerts_vibrate_title">"Titret"</string>
+    <string name="preferences_alerts_ringtone_title">"Zil sesini seç"</string>
+    <string name="preferences_default_reminder_title">"Varsayılan hatırlatıcıyı ayarla"</string>
+    <string name="preferences_default_reminder_dialog">"Varsayılan hatırlatıcı süresi"</string>
+    <string name="preferences_default_reminder_default">"10"</string>
+</resources>

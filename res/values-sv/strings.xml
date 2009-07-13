@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label">"Kalender"</string>
+    <string name="calendar_plug"><font fgcolor="#ffffffff">"Välkommen till Google Kalender!"</font>" "\n"Med Googles verktyg för schemaläggning sköter du planeringen på ett enkelt, effektivt och lättillgängligt sätt."</string>
+    <string name="what_label">"Vad"</string>
+    <string name="when_label">"När"</string>
+    <string name="where_label">"Var"</string>
+    <string name="repeats_label">"Upprepning"</string>
+    <string name="no_title_label">"(Inget ämne)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one">"1 minut"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minuter"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one">"1 min"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minuter"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one">"1 timme"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> timmar"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one">"1 dag"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> dagar"</item>
+  </plurals>
+    <string name="show_agenda_view">"Visa program"</string>
+    <string name="show_day_view">"Visa dag"</string>
+    <string name="agenda_view">"Program"</string>
+    <string name="day_view">"Dag"</string>
+    <string name="week_view">"Vecka"</string>
+    <string name="month_view">"Månad"</string>
+    <string name="event_view">"Visa händelse"</string>
+    <string name="event_create">"Ny händelse"</string>
+    <string name="event_edit">"Redigera händelse"</string>
+    <string name="event_delete">"Ta bort händelse"</string>
+    <string name="goto_today">"Idag"</string>
+    <string name="menu_select_calendars">"Mina kalendrar"</string>
+    <string name="menu_preferences">"Inställningar"</string>
+    <string name="plus_N_more">"(och <xliff:g id="MORE_COUNT">%d</xliff:g> till …)"</string>
+    <string name="calendars_title">"Mina kalendrar"</string>
+    <string name="add_calendars">"Lägg till kalendrar"</string>
+    <string name="remove_calendars">"Ta bort kalendrarna"</string>
+    <string name="event_edit_title">"Händelseinfo"</string>
+    <string name="hint_what">"Händelsens namn"</string>
+    <string name="hint_where">"Plats för händelsen"</string>
+    <string name="hint_description">"Beskrivning av händelse"</string>
+    <string name="creating_event">"Skapar händelse…"</string>
+    <string name="saving_event">"Sparar händelse…"</string>
+    <string name="loading_calendars_title">"Läser in kalendrar"</string>
+    <string name="loading_calendars_message">"Läser in kalendrar…"</string>
+    <string name="alert_title">"Kalenderaviseringar"</string>
+    <string name="alert_when_label">"När:"</string>
+    <string name="alert_where_label">"Var:"</string>
+    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> annan påminnelse)"</string>
+    <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> andra påminnelser)"</string>
+    <string name="event_info_title">"Visa händelse"</string>
+    <string name="event_info_title_invite">"Inbjudan till möte"</string>
+    <string name="add_new_reminder">"Lägg till påminnelse"</string>
+    <string name="edit_event_to_label">"Till"</string>
+    <string name="edit_event_from_label">"Från"</string>
+    <string name="edit_event_all_day_label">"Hela dagen"</string>
+    <string name="edit_event_calendar_label">"Kalender"</string>
+    <string name="edit_event_show_extra_options">"Visa fler alternativ"</string>
+    <string name="edit_event_hide_extra_options">"Dölj fler alternativ"</string>
+    <string name="description_label">"Beskrivning"</string>
+    <string name="presence_label">"Närvaro"</string>
+    <string name="privacy_label">"Sekretess"</string>
+    <string name="reminders_label">"Påminnelser"</string>
+    <string name="no_syncable_calendars">"Inga kalendrar"</string>
+    <string name="no_calendars_found">"Du har inga kalendrar."</string>
+    <string name="view_event_calendar_label">"Kalender"</string>
+    <string name="view_event_timezone_label">"Lokal tidszon"</string>
+    <string name="view_event_response_label">"Delta?"</string>
+    <string name="agenda_today">"Idag"</string>
+    <string name="num_events">"Antal händelser"</string>
+    <string name="edit_event_label">"Redigera händelse"</string>
+    <string name="delete_label">"Ta bort"</string>
+    <string name="delete_event_label">"Ta bort händelse"</string>
+    <!-- no translation found for save_label (2133599104834432589) -->
+    <skip />
+    <!-- no translation found for discard_label (4510607554910139220) -->
+    <skip />
+    <string name="import_label">"Importera"</string>
+    <string name="snooze_all_label">"Sätt alla på snooze"</string>
+    <string name="dismiss_all_label">"Ta bort alla permanent"</string>
+    <string name="does_not_repeat">"Engångshändelse"</string>
+    <string name="daily">"Dagligen"</string>
+    <string name="every_weekday">"Varje vardag (mån-fre)"</string>
+    <string name="weekly">"Varje vecka (varje <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count">"Varje månad (den <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day">"Varje månad (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly">"Varje år (den <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom">"Anpassad… (går ej att anpassa i telefonen)"</string>
+    <string name="modify_event">"Ändra bara den här händelsen."</string>
+    <string name="modify_all">"Ändra alla händelser i serien."</string>
+    <string name="modify_all_following">"Ändra den här och alla framtida händelser."</string>
+    <string name="delete_this_event_title">"Händelsen kommer att tas bort."</string>
+    <string name="delete_title">"Ta bort"</string>
+    <string name="change_response_title">"Ändra svar"</string>
+    <string name="preferences_title">"Inställningar"</string>
+    <string name="preferences_general_title">"Inställning för kalendervy"</string>
+    <string name="preferences_alerts_title">"Inställningar för påminnelse"</string>
+    <string name="preferences_hide_declined_title">"Dölj avböjda händelser"</string>
+    <string name="preferences_alerts_type_title">"Ställ in varningar och avis."</string>
+    <string name="preferences_alerts_type_dialog">"Varningar och aviseringar"</string>
+    <string name="preferences_alerts_vibrate_title">"Vibrera"</string>
+    <string name="preferences_alerts_ringtone_title">"Välj ringsignal"</string>
+    <string name="preferences_default_reminder_title">"Ange standardtid för påmin."</string>
+    <string name="preferences_default_reminder_dialog">"Standardtid för påminnelse"</string>
+    <string name="preferences_default_reminder_default">"10"</string>
+</resources>

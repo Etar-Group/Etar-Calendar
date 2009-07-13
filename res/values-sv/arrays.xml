@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item>"5 minuter"</item>
+    <item>"10 minuter"</item>
+    <item>"15 minuter"</item>
+    <item>"20 minuter"</item>
+    <item>"25 minuter"</item>
+    <item>"30 minuter"</item>
+    <item>"45 minuter"</item>
+    <item>"1 timme"</item>
+    <item>"2 timmar"</item>
+    <item>"3 timmar"</item>
+    <item>"12 timmar"</item>
+    <item>"24 timmar"</item>
+    <item>"2 dagar"</item>
+    <item>"1 vecka"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item>"Inga"</item>
+    <item>"5 minuter"</item>
+    <item>"10 minuter"</item>
+    <item>"15 minuter"</item>
+    <item>"20 minuter"</item>
+    <item>"25 minuter"</item>
+    <item>"30 minuter"</item>
+    <item>"45 minuter"</item>
+    <item>"1 timme"</item>
+    <item>"2 timmar"</item>
+    <item>"3 timmar"</item>
+    <item>"12 timmar"</item>
+    <item>"24 timmar"</item>
+    <item>"2 dagar"</item>
+    <item>"1 vecka"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item>"Varning"</item>
+    <item>"Avisering i statusfältet"</item>
+    <item>"Av"</item>
+  </string-array>
+  <string-array name="availability">
+    <item>"Upptagen"</item>
+    <item>"Tillgänglig"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item>"Standardinställning"</item>
+    <item>"Privat"</item>
+    <item>"Offentligt"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item>"första"</item>
+    <item>"andra"</item>
+    <item>"tredje"</item>
+    <item>"fjärde"</item>
+    <item>"senaste"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item>"(Inget svar)"</item>
+    <item>"Ja"</item>
+    <item>"Kanske"</item>
+    <item>"Nej"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item>"Ja"</item>
+    <item>"Kanske"</item>
+    <item>"Nej"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item>"Bara den här händelsen"</item>
+    <item>"Den här och framtida händelser"</item>
+    <item>"Alla händelser"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item>"Den här och framtida händelser"</item>
+    <item>"Alla händelser"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item>"Bara den här förekomsten"</item>
+    <item>"Alla händelser i serien"</item>
+  </string-array>
+</resources>
