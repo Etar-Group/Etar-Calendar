@@ -26,10 +26,15 @@ import android.view.View;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
+import java.util.Formatter;
+import java.util.Locale;
+
 public class AgendaAdapter extends ResourceCursorAdapter {
     private String mNoTitleLabel;
     private Resources mResources;
     private int mDeclinedColor;
+    private Formatter mFormatter; // TODO fix. not thread safe
+    private StringBuilder mStringBuilder;
 
     static class ViewHolder {
         int overLayColor; // Used by AgendaItemView to gray out the entire item if so desired
@@ -46,11 +51,20 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         mResources = context.getResources();
         mNoTitleLabel = mResources.getString(R.string.no_title_label);
         mDeclinedColor = mResources.getColor(R.drawable.agenda_item_declined);
+        mStringBuilder = new StringBuilder(50);
+        mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        ViewHolder holder = (ViewHolder) view.getTag();
+        ViewHolder holder = null;
+
+        // Listview may get confused and pass in a different type of view since
+        // we keep shifting data around. Not a big problem.
+        Object tag = view.getTag();
+        if (tag instanceof ViewHolder) {
+            holder = (ViewHolder) view.getTag();
+        }
 
         if (holder == null) {
             holder = new ViewHolder();
@@ -61,7 +75,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         }
 
         // Fade text if event was declined.
-        int selfAttendeeStatus = cursor.getInt(AgendaActivity.INDEX_SELF_ATTENDEE_STATUS);
+        int selfAttendeeStatus = cursor.getInt(AgendaWindowAdapter.INDEX_SELF_ATTENDEE_STATUS);
         if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
             holder.overLayColor = mDeclinedColor;
         } else {
@@ -73,11 +87,11 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         TextView where = holder.where;
 
         /* Calendar Color */
-        int color = cursor.getInt(AgendaActivity.INDEX_COLOR);
+        int color = cursor.getInt(AgendaWindowAdapter.INDEX_COLOR);
         holder.calendarColor = color;
 
         // What
-        String titleString = cursor.getString(AgendaActivity.INDEX_TITLE);
+        String titleString = cursor.getString(AgendaWindowAdapter.INDEX_TITLE);
         if (titleString == null || titleString.length() == 0) {
             titleString = mNoTitleLabel;
         }
@@ -85,9 +99,9 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         title.setTextColor(color);
 
         // When
-        long begin = cursor.getLong(AgendaActivity.INDEX_BEGIN);
-        long end = cursor.getLong(AgendaActivity.INDEX_END);
-        boolean allDay = cursor.getInt(AgendaActivity.INDEX_ALL_DAY) != 0;
+        long begin = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
+        long end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
+        boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
         int flags;
         String whenString;
         if (allDay) {
@@ -98,10 +112,11 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         if (DateFormat.is24HourFormat(context)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        whenString = DateUtils.formatDateRange(context, begin, end, flags);
+        mStringBuilder.setLength(0);
+        whenString = DateUtils.formatDateRange(context, mFormatter, begin, end, flags).toString();
         when.setText(whenString);
 
-        String rrule = cursor.getString(AgendaActivity.INDEX_RRULE);
+        String rrule = cursor.getString(AgendaWindowAdapter.INDEX_RRULE);
         if (rrule != null) {
             when.setCompoundDrawablesWithIntrinsicBounds(null, null,
                     context.getResources().getDrawable(R.drawable.ic_repeat_dark), null);
@@ -130,7 +145,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         */
 
         // Where
-        String whereString = cursor.getString(AgendaActivity.INDEX_EVENT_LOCATION);
+        String whereString = cursor.getString(AgendaWindowAdapter.INDEX_EVENT_LOCATION);
         if (whereString != null && whereString.length() > 0) {
             where.setVisibility(View.VISIBLE);
             where.setText(whereString);

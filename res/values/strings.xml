@@ -230,6 +230,12 @@
     <skip />
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
     <string name="agenda_today">Today</string>
+    <!-- This is shown while the calendar events are being loading to the screen. -->
+    <string name="loading">Loading\u2026</string>
+    <!-- This is shown at the top of the agenda view showing the range of events shown. -->
+    <string name="show_older_events">Showing events since <xliff:g id="oldest_search_range">%1$s</xliff:g>. Tap to look for more.</string>
+    <!-- This is shown at the bottom of the agenda view showing the range of events shown. -->
+    <string name="show_newer_events">Showing events until <xliff:g id="newest_search_range">%1$s</xliff:g>. Tap to look for more.</string>
     
     <!-- ICS Import activity -->
     <skip />
