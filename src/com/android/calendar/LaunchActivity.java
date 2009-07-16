@@ -28,19 +28,22 @@ import android.preference.PreferenceManager;
 import android.provider.Gmail;
 
 public class LaunchActivity extends Activity {
-    
+    static final String KEY_DETAIL_VIEW = "DETAIL_VIEW";
+
     // An arbitrary constant to pass to the GoogleLoginHelperService
     private static final int GET_ACCOUNT_REQUEST = 1;
-    
+    private Bundle mExtras;
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        
+        mExtras = getIntent().getExtras();
+
         // Our UI is not something intended for the user to see.  We just
         // stick around until we can figure out what to do next based on
         // the current state of the system.
         setVisible(false);
-        
+
         // Only try looking for an account if this is the first launch.
         if (icicle == null) {
             // This will request a Gmail account and if none are present, it will
@@ -57,26 +60,36 @@ public class LaunchActivity extends Activity {
                     true);
         }
     }
-    
+
     private void onAccountsLoaded(String account) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String startActivity = prefs.getString(CalendarPreferenceActivity.KEY_START_VIEW,
-                CalendarPreferenceActivity.DEFAULT_START_VIEW);
-            
         // Get the data for from this intent, if any
         Intent myIntent = getIntent();
         Uri myData = myIntent.getData();
-            
+
         // Set up the intent for the start activity
         Intent intent = new Intent();
         if (myData != null) {
             intent.setData(myData);
         }
+
+        String defaultViewKey = CalendarPreferenceActivity.KEY_START_VIEW;
+        if (mExtras != null) {
+            intent.putExtras(mExtras);
+            if (mExtras.getBoolean(KEY_DETAIL_VIEW, false)) {
+                defaultViewKey = CalendarPreferenceActivity.KEY_DETAILED_VIEW;
+            }
+        }
+        intent.putExtras(myIntent);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String startActivity = prefs.getString(defaultViewKey,
+                CalendarPreferenceActivity.DEFAULT_START_VIEW);
+
         intent.setClassName(this, startActivity);
         startActivity(intent);
         finish();
     }
-    
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
