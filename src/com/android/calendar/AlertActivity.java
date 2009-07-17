@@ -26,19 +26,19 @@ import android.app.PendingIntent;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.database.Cursor;
-import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Calendar;
 import android.provider.Calendar.CalendarAlerts;
+import android.provider.Calendar.CalendarAlertsColumns;
 import android.provider.Calendar.Events;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -51,11 +51,11 @@ import android.widget.AdapterView.OnItemClickListener;
  * This activity is started by an intent that specifies an event id.
   */
 public class AlertActivity extends Activity {
-    
+
     // The default snooze delay: 5 minutes
     public static final long SNOOZE_DELAY = 5 * 60 * 1000L;
-    
-    private static final String[] PROJECTION = new String[] { 
+
+    private static final String[] PROJECTION = new String[] {
         CalendarAlerts._ID,              // 0
         CalendarAlerts.TITLE,            // 1
         CalendarAlerts.EVENT_LOCATION,   // 2
@@ -69,7 +69,8 @@ public class AlertActivity extends Activity {
         CalendarAlerts.STATE,            // 10
         CalendarAlerts.ALARM_TIME,       // 11
     };
-    
+
+    public static final int INDEX_ROW_ID = 0;
     public static final int INDEX_TITLE = 1;
     public static final int INDEX_EVENT_LOCATION = 2;
     public static final int INDEX_ALL_DAY = 3;
@@ -81,12 +82,12 @@ public class AlertActivity extends Activity {
     public static final int INDEX_HAS_ALARM = 9;
     public static final int INDEX_STATE = 10;
     public static final int INDEX_ALARM_TIME = 11;
-    
+
     // We use one notification id for all events so that we don't clutter
     // the notification screen.  It doesn't matter what the id is, as long
     // as it is used consistently everywhere.
     public static final int NOTIFICATION_ID = 0;
-    
+
     private ContentResolver mResolver;
     private AlertAdapter mAdapter;
     private QueryHandler mQueryHandler;
@@ -94,7 +95,24 @@ public class AlertActivity extends Activity {
     private ListView mListView;
     private Button mSnoozeAllButton;
     private Button mDismissAllButton;
-    
+
+
+    private void dismissFiredAlarms() {
+        ContentValues values = new ContentValues(1 /* size */);
+        values.put(PROJECTION[INDEX_STATE], CalendarAlerts.DISMISSED);
+        String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.FIRED;
+        mQueryHandler.startUpdate(0, null, CalendarAlerts.CONTENT_URI, values,
+                selection, null /* selectionArgs */);
+    }
+
+    private void dismissAlarm(long id) {
+        ContentValues values = new ContentValues(1 /* size */);
+        values.put(PROJECTION[INDEX_STATE], CalendarAlerts.DISMISSED);
+        String selection = CalendarAlerts._ID + "=" + id;
+        mQueryHandler.startUpdate(0, null, CalendarAlerts.CONTENT_URI, values,
+                selection, null /* selectionArgs */);
+    }
+
     private class QueryHandler extends AsyncQueryHandler {
         public QueryHandler(ContentResolver cr) {
             super(cr);
@@ -106,7 +124,7 @@ public class AlertActivity extends Activity {
             if (!isFinishing()) {
                 mCursor = cursor;
                 mAdapter.changeCursor(cursor);
-                
+
                 // The results are in, enable the buttons
                 mSnoozeAllButton.setEnabled(true);
                 mDismissAllButton.setEnabled(true);
@@ -114,46 +132,87 @@ public class AlertActivity extends Activity {
                 cursor.close();
             }
         }
-        
+
+        @Override
+        protected void onInsertComplete(int token, Object cookie, Uri uri) {
+            if (uri != null) {
+                ContentValues values = (ContentValues) cookie;
+
+                long begin = values.getAsLong(CalendarAlerts.BEGIN);
+                long end = values.getAsLong(CalendarAlerts.END);
+                long alarmTime = values.getAsLong(CalendarAlerts.ALARM_TIME);
+
+                // Set a new alarm to go off after the snooze delay.
+                Intent intent = new Intent(Calendar.EVENT_REMINDER_ACTION);
+                intent.setData(uri);
+                intent.putExtra(Calendar.EVENT_BEGIN_TIME, begin);
+                intent.putExtra(Calendar.EVENT_END_TIME, end);
+
+                PendingIntent sender = PendingIntent.getBroadcast(AlertActivity.this,
+                        0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, sender);
+            }
+        }
+
+        @Override
+        protected void onUpdateComplete(int token, Object cookie, int result) {
+            // Ignore
+        }
     }
-    
+
+    private static ContentValues makeContentValues(long eventId, long begin, long end,
+            long alarmTime, int minutes) {
+        ContentValues values = new ContentValues();
+        values.put(CalendarAlerts.EVENT_ID, eventId);
+        values.put(CalendarAlerts.BEGIN, begin);
+        values.put(CalendarAlerts.END, end);
+        values.put(CalendarAlerts.ALARM_TIME, alarmTime);
+        long currentTime = System.currentTimeMillis();
+        values.put(CalendarAlerts.CREATION_TIME, currentTime);
+        values.put(CalendarAlerts.RECEIVED_TIME, 0);
+        values.put(CalendarAlerts.NOTIFY_TIME, 0);
+        values.put(CalendarAlerts.STATE, CalendarAlertsColumns.SCHEDULED);
+        values.put(CalendarAlerts.MINUTES, minutes);
+        return values;
+    }
+
     private OnItemClickListener mViewListener = new OnItemClickListener() {
 
         public void onItemClick(AdapterView parent, View view, int position,
                 long i) {
             AlertActivity alertActivity = AlertActivity.this;
             Cursor cursor = alertActivity.getItemForView(view);
-            
+
             long id = cursor.getInt(AlertActivity.INDEX_EVENT_ID);
             long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
             long endMillis = cursor.getLong(AlertActivity.INDEX_END);
-            
+
             Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, id);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             intent.setClass(alertActivity, EventInfoActivity.class);
             intent.putExtra(EVENT_BEGIN_TIME, startMillis);
             intent.putExtra(EVENT_END_TIME, endMillis);
-            
+
             // Mark this alarm as DISMISSED
-            cursor.updateInt(INDEX_STATE, CalendarAlerts.DISMISSED);
-            cursor.commitUpdates();
-            
+            dismissAlarm(cursor.getLong(INDEX_ROW_ID));
+
             startActivity(intent);
             alertActivity.finish();
         }
     };
-    
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        
+
         setContentView(R.layout.alert_activity);
         setTitle(R.string.alert_title);
-        
+
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.width = ViewGroup.LayoutParams.FILL_PARENT;
         lp.height = ViewGroup.LayoutParams.FILL_PARENT;
-        
+
         // Get the dim amount from the theme
         TypedArray a = obtainStyledAttributes(com.android.internal.R.styleable.Theme);
         lp.dimAmount = a.getFloat(android.R.styleable.Theme_backgroundDimAmount, 0.5f);
@@ -161,16 +220,16 @@ public class AlertActivity extends Activity {
 
         getWindow().setAttributes(lp);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-        
+
         mResolver = getContentResolver();
         mQueryHandler = new QueryHandler(mResolver);
         mAdapter = new AlertAdapter(this, R.layout.alert_item);
-        
+
         mListView = (ListView) findViewById(R.id.alert_container);
         mListView.setItemsCanFocus(true);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(mViewListener);
-        
+
         mSnoozeAllButton = (Button) findViewById(R.id.snooze_all);
         mSnoozeAllButton.setOnClickListener(mSnoozeAllListener);
         mDismissAllButton = (Button) findViewById(R.id.dismiss_all);
@@ -180,32 +239,32 @@ public class AlertActivity extends Activity {
         mSnoozeAllButton.setEnabled(false);
         mDismissAllButton.setEnabled(false);
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
-        
+
         // If the cursor is null, start the async handler. If it is not null just requery.
         if (mCursor == null) {
             Uri uri = CalendarAlerts.CONTENT_URI_BY_INSTANCE;
             String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.FIRED;
-            mQueryHandler.startQuery(0, null, uri, PROJECTION, selection, 
+            mQueryHandler.startQuery(0, null, uri, PROJECTION, selection,
                     null /* selection args */, CalendarAlerts.DEFAULT_SORT_ORDER);
         } else {
             mCursor.requery();
         }
     }
-    
+
     @Override
     protected void onStop() {
         super.onStop();
         AlertReceiver.updateAlertNotification(this);
-        
+
         if (mCursor != null) {
             mCursor.deactivate();
         }
     }
-    
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -213,9 +272,11 @@ public class AlertActivity extends Activity {
             mCursor.close();
         }
     }
-    
+
     private OnClickListener mSnoozeAllListener = new OnClickListener() {
         public void onClick(View v) {
+            long alarmTime = System.currentTimeMillis() + SNOOZE_DELAY;
+
             NotificationManager nm =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancel(NOTIFICATION_ID);
@@ -224,56 +285,39 @@ public class AlertActivity extends Activity {
                 long eventId = mCursor.getLong(INDEX_EVENT_ID);
                 long begin = mCursor.getLong(INDEX_BEGIN);
                 long end = mCursor.getLong(INDEX_END);
-                long alarmTime = mCursor.getLong(INDEX_ALARM_TIME);
 
-                // Mark this alarm as DISMISSED
-                mCursor.updateInt(INDEX_STATE, CalendarAlerts.DISMISSED);
-                
-                // Create a new alarm entry in the CalendarAlerts table
-                long now = System.currentTimeMillis();
-                alarmTime = now + SNOOZE_DELAY;
-                
                 // Set the "minutes" to zero to indicate this is a snoozed
                 // alarm.  There is code in AlertService.java that checks
                 // this field.
-                Uri uri = CalendarAlerts.insert(mResolver, eventId,
-                        begin, end, alarmTime, 0 /* minutes */);
-                
-                // Set a new alarm to go off after the snooze delay.
-                Intent intent = new Intent(Calendar.EVENT_REMINDER_ACTION);
-                intent.setData(uri);
-                intent.putExtra(Calendar.EVENT_BEGIN_TIME, begin);
-                intent.putExtra(Calendar.EVENT_END_TIME, end);
-                
-                PendingIntent sender = PendingIntent.getBroadcast(AlertActivity.this,
-                        0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-                Object service = getSystemService(Context.ALARM_SERVICE);
-                AlarmManager alarmManager = (AlarmManager) service;
-                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, sender);
+                ContentValues values =
+                        makeContentValues(eventId, begin, end, alarmTime, 0 /* minutes */);
+
+                // Create a new alarm entry in the CalendarAlerts table
+                mQueryHandler.startInsert(0, values, CalendarAlerts.CONTENT_URI, values);
             }
-            mCursor.commitUpdates();
+
+            dismissFiredAlarms();
+
             finish();
         }
     };
-    
+
     private OnClickListener mDismissAllListener = new OnClickListener() {
         public void onClick(View v) {
             NotificationManager nm =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancel(NOTIFICATION_ID);
-            mCursor.moveToPosition(-1);
-            while (mCursor.moveToNext()) {
-                mCursor.updateInt(INDEX_STATE, CalendarAlerts.DISMISSED);
-            }
-            mCursor.commitUpdates();
+
+            dismissFiredAlarms();
+
             finish();
         }
     };
-    
+
     public boolean isEmpty() {
         return (mCursor.getCount() == 0);
     }
-    
+
     public Cursor getItemForView(View view) {
         int index = mListView.getPositionForView(view);
         if (index < 0) {
