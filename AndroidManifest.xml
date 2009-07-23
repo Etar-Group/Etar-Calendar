@@ -24,6 +24,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -58,7 +59,7 @@
             android:exported="true" />
         
         <activity android:name="EditEvent" android:label="@string/event_edit_title"
-            android:theme="@android:style/Theme.Light"
+            android:theme="@android:style/Theme"
             android:configChanges="orientation|keyboardHidden">
             
             <intent-filter>

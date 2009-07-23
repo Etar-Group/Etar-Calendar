@@ -30,6 +30,11 @@
     <string name="when_label">When</string>
     <!-- This is the label for the location of an event -->
     <string name="where_label">Where</string>
+    <!-- This is the label for the Guests/Attendees of an event -->
+    <string name="attendees_label">Guests</string>
+    <!-- This is the label for the Guest Responses and count of an event e.g. Yes (3) -->
+    <string name="response_label">"<xliff:g id="response_type">%s</xliff:g> (<xliff:g id="guest_count">%d</xliff:g>)"</string>
+    
     <!-- Some events repeat daily, weekly, monthly, or yearly.  This is the label
          for all the choices about how often an event repeats (including the choice
          of not repeating). -->
@@ -151,6 +156,8 @@
     <string name="hint_where">"Event location"</string>
     <!-- Default value of Description field (as a hint to the user) -->
     <string name="hint_description">"Event description"</string>
+    <!-- Default value of Attendees/Guests field (as a hint to the user) -->
+    <string name="hint_attendees">"Email addresses"</string>
     <string name="creating_event">"Creating event\u2026"</string>
     <string name="saving_event">"Saving event\u2026"</string>
     <string name="loading_calendars_title">"Loading calendars"</string>

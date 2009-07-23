@@ -154,7 +154,15 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        
+
+        <!-- GUEST LIST -->
+        <LinearLayout
+            android:id="@+id/attendee_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dip"
+            android:orientation="vertical" />
+
         <!-- RESPONSE -->
         <LinearLayout android:id="@+id/response_container"
             android:orientation="vertical"
@@ -169,7 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/view_event_response_label"
-                style="@style/TextAppearance.EditEvent_Label"/>
+                style="@style/TextAppearance.EventInfo_Label"/>
         
             <Spinner android:id="@+id/response_value"
                 style="?android:attr/textAppearanceMedium"
@@ -193,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reminders_label"
-                style="@style/TextAppearance.EditEvent_Label"/>
+                style="@style/TextAppearance.EventInfo_Label"/>
 
             <LinearLayout android:id="@+id/reminder_items_container"
                 style="?android:attr/textAppearanceMedium"

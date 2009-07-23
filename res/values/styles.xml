@@ -59,6 +59,13 @@
     
     <style name="TextAppearance.EditEvent_Label">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">?android:attr/textColorSecondaryInverse</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">2dip</item>
+    </style>
+    
+    <style name="TextAppearance.EventInfo_Label">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textColor">?android:attr/textColorSecondary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingLeft">2dip</item>

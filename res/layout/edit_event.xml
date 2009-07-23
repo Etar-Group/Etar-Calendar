@@ -68,14 +68,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:gravity="left|center_vertical"
-                    style="?android:attr/textAppearanceMedium"/>
+                    style="?android:attr/textAppearanceMediumInverse"/>
 
                 <Button android:id="@+id/start_time"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="left|center_vertical"
-                    style="?android:attr/textAppearanceMedium"/>
+                    style="?android:attr/textAppearanceMediumInverse"/>
 
             </LinearLayout>
 
@@ -95,14 +95,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:gravity="left|center_vertical"
-                    style="?android:attr/textAppearanceMedium"/>
+                    style="?android:attr/textAppearanceMediumInverse"/>
 
                 <Button android:id="@+id/end_time"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="left|center_vertical"
-                    style="?android:attr/textAppearanceMedium"/>
+                    style="?android:attr/textAppearanceMediumInverse"/>
             </LinearLayout>
 
             <LinearLayout
@@ -116,7 +116,7 @@
                     android:text="@string/edit_event_all_day_label"
                     android:paddingTop="1dip"
                     android:paddingRight="7dip"
-                    style="?android:attr/textAppearanceMedium"/>
+                    style="?android:attr/textAppearanceMediumInverse"/>
                 <CheckBox android:id="@+id/is_all_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -193,6 +193,29 @@
             <Spinner android:id="@+id/calendars"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- GUESTS/ATTENDEES -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/EditEvent_Layout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/attendees_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+
+            <MultiAutoCompleteTextView android:id="@+id/attendees"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress|textMultiLine"
+                android:hint="@string/hint_attendees"
+                android:layout_marginTop="6dip"
+                android:layout_marginBottom="6dip"
+                android:imeOptions="actionNext"/>
         </LinearLayout>
 
         <!-- REPEATS -->
@@ -294,7 +317,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dip"
-                android:text="@string/add_new_reminder"/>
+                android:text="@string/add_new_reminder"
+                style="?android:attr/textAppearanceSmallInverse"/>
 
             <ImageButton android:id="@+id/reminder_add"
                 style="@style/PlusButton"
