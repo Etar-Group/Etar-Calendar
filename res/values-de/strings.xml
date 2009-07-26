@@ -118,7 +118,7 @@
     <string name="preferences_alerts_type_dialog">"Benachrichtigungen und Hinweise"</string>
     <string name="preferences_alerts_vibrate_title">"Vibration"</string>
     <string name="preferences_alerts_ringtone_title">"Klingelton auswählen"</string>
-    <string name="preferences_default_reminder_title">"Standard-Erinnerungszeit"</string>
+    <string name="preferences_default_reminder_title">"Standarderinnerung"</string>
     <string name="preferences_default_reminder_dialog">"Standard-Erinnerungszeit"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>

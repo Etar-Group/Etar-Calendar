@@ -185,7 +185,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="8dip"
-            android:paddingRight="8dip"
+            android:paddingRight="7dip"
             android:paddingTop="5dip"
             android:paddingBottom="1dip">
         
@@ -205,13 +205,21 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
+            android:gravity="center_vertical|right"
+            android:paddingRight="5dip"
             android:paddingBottom="5dip">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dip"
+                android:text="@string/add_new_reminder"/>
+
             <ImageButton android:id="@+id/reminder_add"
                 style="@style/PlusButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dip"
+                android:layout_marginRight="2dip"
             />
         </LinearLayout>
     </LinearLayout>

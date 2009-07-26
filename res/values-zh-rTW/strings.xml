@@ -107,7 +107,7 @@
     <string name="modify_event">"僅變更此活動。"</string>
     <string name="modify_all">"變更所有重複的活動。"</string>
     <string name="modify_all_following">"變更此活動及所有未來活動。"</string>
-    <string name="delete_this_event_title">"系統會刪除此活動。"</string>
+    <string name="delete_this_event_title">"刪除此活動？"</string>
     <string name="delete_title">"刪除"</string>
     <string name="change_response_title">"變更回應"</string>
     <string name="preferences_title">"設定"</string>
@@ -116,9 +116,9 @@
     <string name="preferences_hide_declined_title">"隱藏已拒絕的活動"</string>
     <string name="preferences_alerts_type_title">"設定警示及通知"</string>
     <string name="preferences_alerts_type_dialog">"警示及通知"</string>
-    <string name="preferences_alerts_vibrate_title">"振動"</string>
+    <string name="preferences_alerts_vibrate_title">"震動"</string>
     <string name="preferences_alerts_ringtone_title">"選取鈴聲"</string>
-    <string name="preferences_default_reminder_title">"設定預設提醒"</string>
+    <string name="preferences_default_reminder_title">"設定預設提醒時間"</string>
     <string name="preferences_default_reminder_dialog">"預設提醒時間"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>

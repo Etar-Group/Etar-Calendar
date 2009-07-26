@@ -51,7 +51,7 @@
   <string-array name="preferences_alert_type_labels">
     <item>"Avviso"</item>
     <item>"Notifica barra di stato"</item>
-    <item>"Disattiva"</item>
+    <item>"Disativa"</item>
   </string-array>
   <string-array name="availability">
     <item>"Occupato"</item>

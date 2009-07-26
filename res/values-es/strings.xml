@@ -66,8 +66,8 @@
     <string name="alert_title">"Notificaciones de Calendar"</string>
     <string name="alert_when_label">"Cuándo:"</string>
     <string name="alert_where_label">"Dónde:"</string>
-    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> recordatorios más)"</string>
-    <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> recordatorios más)"</string>
+    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> más recordatorios)"</string>
+    <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> más recordatorios)"</string>
     <string name="event_info_title">"Ver evento"</string>
     <string name="event_info_title_invite">"Invitación a un evento"</string>
     <string name="add_new_reminder">"Añadir recordatorio"</string>
@@ -98,9 +98,9 @@
     <string name="dismiss_all_label">"Descartar todos"</string>
     <string name="does_not_repeat">"Evento único"</string>
     <string name="daily">"Cada día"</string>
-    <string name="every_weekday">"Cada día laborable (lunes-viernes)"</string>
+    <string name="every_weekday">"Cada día laboral (lunes-viernes)"</string>
     <string name="weekly">"Cada semana (todos los <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count">"Cada mes (cada <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day_count">"Cada mes (todos los <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly_on_day">"Cada mes (el día <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly">"Cada año (el <xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom">"Personalizado... (no se puede personalizar por teléfono)"</string>
@@ -113,12 +113,12 @@
     <string name="preferences_title">"Ajustes"</string>
     <string name="preferences_general_title">"Configuración de la vista de calendario"</string>
     <string name="preferences_alerts_title">"Configuración de los recordatorios"</string>
-    <string name="preferences_hide_declined_title">"Ocultar eventos rechaz."</string>
-    <string name="preferences_alerts_type_title">"Configurar alertas y notif."</string>
+    <string name="preferences_hide_declined_title">"Ocultar eventos rechazados"</string>
+    <string name="preferences_alerts_type_title">"Configurar notificaciones y alertas"</string>
     <string name="preferences_alerts_type_dialog">"Alertas y notificaciones"</string>
     <string name="preferences_alerts_vibrate_title">"Vibrar"</string>
     <string name="preferences_alerts_ringtone_title">"Seleccionar tono"</string>
-    <string name="preferences_default_reminder_title">"Recordatorio predeterminado"</string>
+    <string name="preferences_default_reminder_title">"Configurar recordatorio predeterminado"</string>
     <string name="preferences_default_reminder_dialog">"Duración predeterminada del recordatorio"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>

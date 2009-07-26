@@ -51,7 +51,7 @@
     <string name="goto_today">"Dzisiaj"</string>
     <string name="menu_select_calendars">"Moje kalendarze"</string>
     <string name="menu_preferences">"Ustawienia"</string>
-    <string name="plus_N_more">"(i <xliff:g id="MORE_COUNT">%d</xliff:g> więcej…)"</string>
+    <string name="plus_N_more">"(i <xliff:g id="MORE_COUNT">%d</xliff:g> więcej …)"</string>
     <string name="calendars_title">"Moje kalendarze"</string>
     <string name="add_calendars">"Dodaj kalendarze"</string>
     <string name="remove_calendars">"Usuń kalendarze"</string>
@@ -101,7 +101,7 @@
     <string name="every_weekday">"Codziennie (pn-pt)"</string>
     <string name="weekly">"Co tydzień (<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
     <string name="monthly_on_day_count">"Co miesiąc (co <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
-    <string name="monthly_on_day">"Co miesiąc (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>. każdego miesiąca)"</string>
+    <string name="monthly_on_day">"Co miesiąc (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> każdego miesiąca)"</string>
     <string name="yearly">"Co rok (<xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom">"Niestandardowo… (nie można dostosować na telefonie)"</string>
     <string name="modify_event">"Zmień tylko to wydarzenie."</string>

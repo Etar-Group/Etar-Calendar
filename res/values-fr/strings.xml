@@ -15,7 +15,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label">"Agenda"</string>
+    <string name="app_label">"Google Agenda"</string>
     <string name="calendar_plug"><font fgcolor="#ffffffff">"Bienvenue dans Google Agenda !"</font>" "\n"La solution de Google pour gérer votre emploi du temps en planifiant vos événements de manière plus intuitive, efficace et directe."</string>
     <string name="what_label">"Objet"</string>
     <string name="when_label">"Date"</string>
@@ -27,8 +27,8 @@
     <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minutes"</item>
   </plurals>
   <plurals name="Nmins">
-    <item quantity="one">"1 mn"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> mn"</item>
+    <item quantity="one">"1 min"</item>
+    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
   </plurals>
   <plurals name="Nhours">
     <item quantity="one">"1 heure"</item>
@@ -54,7 +54,7 @@
     <string name="plus_N_more">"(et <xliff:g id="MORE_COUNT">%d</xliff:g> autres…)"</string>
     <string name="calendars_title">"Mes agendas"</string>
     <string name="add_calendars">"Ajouter des agendas"</string>
-    <string name="remove_calendars">"Supprimer des agendas"</string>
+    <string name="remove_calendars">"Supprimer les agendas"</string>
     <string name="event_edit_title">"Détails sur l\'événement"</string>
     <string name="hint_what">"Nom de l\'événement"</string>
     <string name="hint_where">"Lieu de l\'événement"</string>
@@ -92,12 +92,12 @@
     <string name="delete_label">"Supprimer"</string>
     <string name="delete_event_label">"Supprimer l\'événement"</string>
     <string name="save_label">"Enregistrer"</string>
-    <string name="discard_label">"Annuler"</string>
+    <string name="discard_label">"Ignorer"</string>
     <string name="import_label">"Importer"</string>
     <string name="snooze_all_label">"Tout répéter"</string>
     <string name="dismiss_all_label">"Tout supprimer"</string>
     <string name="does_not_repeat">"Événement ponctuel"</string>
-    <string name="daily">"Quotidien"</string>
+    <string name="daily">"Ignorer"</string>
     <string name="every_weekday">"Les jours ouvrables (lun–ven)"</string>
     <string name="weekly">"Hebdomadaire (chaque <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
     <string name="monthly_on_day_count">"Mensuel (chaque <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
@@ -111,7 +111,7 @@
     <string name="delete_title">"Supprimer"</string>
     <string name="change_response_title">"Modifier la réponse"</string>
     <string name="preferences_title">"Paramètres"</string>
-    <string name="preferences_general_title">"Paramètres d\'affichage de l\'agenda"</string>
+    <string name="preferences_general_title">"Paramètre d\'affichage de l\'agenda"</string>
     <string name="preferences_alerts_title">"Paramètres de rappel"</string>
     <string name="preferences_hide_declined_title">"Masquer évén. refusés"</string>
     <string name="preferences_alerts_type_title">"Alertes et notifications"</string>
@@ -119,6 +119,6 @@
     <string name="preferences_alerts_vibrate_title">"Vibreur"</string>
     <string name="preferences_alerts_ringtone_title">"Sélectionner la sonnerie"</string>
     <string name="preferences_default_reminder_title">"Définir le rappel par défaut"</string>
-    <string name="preferences_default_reminder_dialog">"Rappel par défaut"</string>
+    <string name="preferences_default_reminder_dialog">"Intervalle de rappel par défaut"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>

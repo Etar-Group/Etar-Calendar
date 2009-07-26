@@ -62,15 +62,6 @@
     <item>"Privat"</item>
     <item>"Offentlig"</item>
   </string-array>
-  <string-array name="day_labels">
-    <item>"søndag"</item>
-    <item>"mandag"</item>
-    <item>"tirsdag"</item>
-    <item>"onsdag"</item>
-    <item>"torsdag"</item>
-    <item>"fredag"</item>
-    <item>"lørdag"</item>
-  </string-array>
   <string-array name="ordinal_labels">
     <item>"første"</item>
     <item>"andre"</item>

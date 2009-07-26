@@ -14,59 +14,47 @@
      limitations under the License.
 -->
 
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.android.calendar.AgendaItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/content"
     android:layout_height="wrap_content"
-    android:layout_width="fill_parent">
+    android:layout_width="fill_parent"
+    android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeight">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:gravity="center_vertical"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        >
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorSecondary"
+        style="?android:attr/textAppearanceMediumInverse" />
 
-        <View android:id="@+id/vertical_stripe"
-            android:layout_width="5dip"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="5dip" />
+    <TextView
+        android:id="@+id/when"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_alignLeft="@+id/title"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorSecondary"
+        style="?android:attr/textAppearanceSmallInverse" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:layout_weight="1">
+    <TextView
+        android:id="@+id/where"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/when"
+        android:layout_alignLeft="@+id/title"
+        android:layout_alignParentRight="true"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="?android:attr/textColorSecondary"
+        style="?android:attr/textAppearanceSmallInverse" />
 
-            <TextView android:id="@+id/title"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textStyle="bold"
-                android:textColor="?android:attr/textColorSecondary"
-                style="?android:attr/textAppearanceMediumInverse"
-            />
-
-            <TextView android:id="@+id/when"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textStyle="bold"
-                android:textColor="?android:attr/textColorSecondary"
-                style="?android:attr/textAppearanceSmallInverse"
-            />
-
-            <TextView android:id="@+id/where"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textColor="?android:attr/textColorSecondary"
-                style="?android:attr/textAppearanceSmallInverse"
-            />
-        </LinearLayout>
-    </LinearLayout>
-</FrameLayout>
+</com.android.calendar.AgendaItemView>
