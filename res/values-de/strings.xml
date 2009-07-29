@@ -91,8 +91,8 @@
     <string name="edit_event_label">"Termin bearbeiten"</string>
     <string name="delete_label">"Löschen"</string>
     <string name="delete_event_label">"Termin löschen"</string>
-    <string name="save_label">"Speichern"</string>
-    <string name="discard_label">"Änderungen verwerfen"</string>
+    <string name="save_label">"Fertig"</string>
+    <string name="discard_label">"Rückgängig"</string>
     <string name="import_label">"Import"</string>
     <string name="snooze_all_label">"Später erinnern"</string>
     <string name="dismiss_all_label">"Alle schließen"</string>
@@ -118,7 +118,7 @@
     <string name="preferences_alerts_type_dialog">"Benachrichtigungen und Hinweise"</string>
     <string name="preferences_alerts_vibrate_title">"Vibration"</string>
     <string name="preferences_alerts_ringtone_title">"Klingelton auswählen"</string>
-    <string name="preferences_default_reminder_title">"Standarderinnerung"</string>
+    <string name="preferences_default_reminder_title">"Standard-Erinnerungszeit"</string>
     <string name="preferences_default_reminder_dialog">"Standard-Erinnerungszeit"</string>
     <string name="preferences_default_reminder_default">"10"</string>
 </resources>

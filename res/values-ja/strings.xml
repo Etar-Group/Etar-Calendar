@@ -91,8 +91,10 @@
     <string name="edit_event_label">"予定を編集"</string>
     <string name="delete_label">"削除"</string>
     <string name="delete_event_label">"予定を削除"</string>
-    <string name="save_label">"保存"</string>
-    <string name="discard_label">"変更取消"</string>
+    <!-- no translation found for save_label (2133599104834432589) -->
+    <skip />
+    <!-- no translation found for discard_label (4510607554910139220) -->
+    <skip />
     <string name="import_label">"インポート"</string>
     <string name="snooze_all_label">"すべてスヌーズ"</string>
     <string name="dismiss_all_label">"通知を消去"</string>

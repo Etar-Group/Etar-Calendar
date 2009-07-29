@@ -49,13 +49,13 @@
     <item>"1주"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"알림"</item>
+    <item>"알리미"</item>
     <item>"상태 표시줄 알림"</item>
-    <item>"해제"</item>
+    <item>"사용 안함"</item>
   </string-array>
   <string-array name="availability">
-    <item>"다른 용무 중"</item>
-    <item>"대화가능"</item>
+    <item>"바쁨"</item>
+    <item>"한가함"</item>
   </string-array>
   <string-array name="visibility">
     <item>"기본값"</item>
@@ -63,8 +63,8 @@
     <item>"공개"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"첫 번째"</item>
-    <item>"두 번째"</item>
+    <item>"처음"</item>
+    <item>"2번째"</item>
     <item>"3번째"</item>
     <item>"4번째"</item>
     <item>"마지막"</item>
@@ -81,16 +81,16 @@
     <item>"아니요"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>"해당 이벤트만"</item>
-    <item>"현재 일정 및 향후 일정"</item>
+    <item>"이 일정만"</item>
+    <item>"이번 및 다음 일정"</item>
     <item>"모든 일정"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>"현재 및 향후 일정"</item>
+    <item>"이번 및 다음 일정"</item>
     <item>"모든 일정"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item>"이 일정에만"</item>
+    <item>"이번 일정만"</item>
     <item>"모든 반복 일정"</item>
   </string-array>
 </resources>

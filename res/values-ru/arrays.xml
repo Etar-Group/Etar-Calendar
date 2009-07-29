@@ -51,26 +51,26 @@
   <string-array name="preferences_alert_type_labels">
     <item>"Оповещение"</item>
     <item>"Уведомление в строке состояния"</item>
-    <item>"Выкл"</item>
+    <item>"Выкл."</item>
   </string-array>
   <string-array name="availability">
-    <item>"Занято"</item>
-    <item>"Свободно"</item>
+    <item>"Занят"</item>
+    <item>"Доступен"</item>
   </string-array>
   <string-array name="visibility">
     <item>"По умолчанию"</item>
-    <item>"Закрыт."</item>
-    <item>"Открыт."</item>
+    <item>"Закрытое"</item>
+    <item>"Для всех"</item>
   </string-array>
   <string-array name="ordinal_labels">
     <item>"перв."</item>
     <item>"втор."</item>
     <item>"трет."</item>
     <item>"четверт."</item>
-    <item>"посл."</item>
+    <item>"последн."</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"(нет ответа)"</item>
+    <item>"(Нет ответа)"</item>
     <item>"Да"</item>
     <item>"Может быть"</item>
     <item>"Нет"</item>
@@ -82,7 +82,7 @@
   </string-array>
   <string-array name="delete_repeating_labels">
     <item>"Только это мероприятие"</item>
-    <item>"Это и будущие события"</item>
+    <item>"Это и будущие мероприятия"</item>
     <item>"Все мероприятия"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
@@ -90,7 +90,7 @@
     <item>"Все мероприятия"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item>"Только этот экземпляр"</item>
-    <item>"Все экземпляры события"</item>
+    <item>"Только в этот раз"</item>
+    <item>"Все мероприятия в серии"</item>
   </string-array>
 </resources>

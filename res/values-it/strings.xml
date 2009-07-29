@@ -92,7 +92,7 @@
     <string name="delete_label">"Elimina"</string>
     <string name="delete_event_label">"Elimina evento"</string>
     <string name="save_label">"Salva"</string>
-    <string name="discard_label">"Ignora modifiche"</string>
+    <string name="discard_label">"Annulla modifiche"</string>
     <string name="import_label">"Importa"</string>
     <string name="snooze_all_label">"Posponi tutto"</string>
     <string name="dismiss_all_label">"Ignora tutto"</string>

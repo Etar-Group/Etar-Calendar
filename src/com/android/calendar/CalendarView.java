@@ -64,6 +64,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This is the base class for a set of classes that implement views (day view
@@ -305,7 +307,7 @@ public class CalendarView extends View
 
     private String mDateRange;
     private TextView mTitleTextView;
-
+    
     public CalendarView(CalendarActivity activity) {
         super(activity);
         mResources = activity.getResources();
@@ -389,6 +391,12 @@ public class CalendarView extends View
             mDayStrs[index + 7] = mDayStrs[index];
             // e.g. Tu for Tuesday
             mDayStrs2Letter[index] = DateUtils.getDayOfWeekString(i, DateUtils.LENGTH_SHORT);
+
+            // If we don't have 2-letter day strings, fall back to 1-letter.
+            if (mDayStrs2Letter[index].equals(mDayStrs[index])) {
+                mDayStrs2Letter[index] = DateUtils.getDayOfWeekString(i, DateUtils.LENGTH_SHORTEST);
+            }
+
             mDayStrs2Letter[index + 7] = mDayStrs2Letter[index];
         }
 
@@ -2141,6 +2149,17 @@ public class CalendarView extends View
         return rf;
     }
 
+    private Pattern drawTextSanitizerFilter = Pattern.compile("[\t\n],");
+
+    // Sanitize a string before passing it to drawText or else we get little
+    // squares. For newlines and tabs before a comma, delete the character.
+    // Otherwise, just replace them with a space.
+    private String drawTextSanitizer(String string) {
+        Matcher m = drawTextSanitizerFilter.matcher(string);
+        string = m.replaceAll(",").replace('\n', ' ').replace('\n', ' ');
+        return string;
+    }
+
     private void drawEventText(Event event, RectF rf, Canvas canvas, Paint p, int topMargin) {
         if (!mDrawTextInEventRect) {
             return;
@@ -2159,6 +2178,9 @@ public class CalendarView extends View
 
         // Truncate the event title to a known (large enough) limit
         String text = event.getTitleAndLocation();
+
+        text = drawTextSanitizer(text);
+
         int len = text.length();
         if (len > MAX_EVENT_TEXT_LEN) {
             text = text.substring(0, MAX_EVENT_TEXT_LEN);

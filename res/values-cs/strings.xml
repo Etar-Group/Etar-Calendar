@@ -91,8 +91,8 @@
     <string name="edit_event_label">"Upravit událost"</string>
     <string name="delete_label">"Smazat"</string>
     <string name="delete_event_label">"Odstranit událost"</string>
-    <string name="save_label">"Uložit"</string>
-    <string name="discard_label">"Zrušit změny"</string>
+    <string name="save_label">"Hotovo"</string>
+    <string name="discard_label">"Vrátit zpět"</string>
     <string name="import_label">"Importovat"</string>
     <string name="snooze_all_label">"Odložit vše"</string>
     <string name="dismiss_all_label">"Zavřít vše"</string>
