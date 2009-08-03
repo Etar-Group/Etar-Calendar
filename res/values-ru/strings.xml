@@ -15,112 +15,112 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label">"Календарь"</string>
-    <string name="calendar_plug"><font fgcolor="#ffffffff">"Добро пожаловать в Календарь Google!"</font>" "\n"Подход Google к управлению расписанием основан на принципах интуитивности, эффективности и доступности."</string>
-    <string name="what_label">"Что"</string>
-    <string name="when_label">"Когда"</string>
-    <string name="where_label">"Где"</string>
-    <string name="repeats_label">"Повторять"</string>
-    <string name="no_title_label">"(Без темы)"</string>
+    <string name="app_label" msgid="5452708708398908131">"Календарь"</string>
+    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Добро пожаловать в Календарь Google!"</font>" "\n"Подход Google к управлению расписанием основан на принципах интуитивности, эффективности и доступности."</string>
+    <string name="what_label" msgid="1933578391985810049">"Что"</string>
+    <string name="when_label" msgid="894636567327261599">"Когда"</string>
+    <string name="where_label" msgid="3472482206065595118">"Где"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"Повторять"</string>
+    <string name="no_title_label" msgid="7352118984125107858">"(Без темы)"</string>
   <plurals name="Nminutes">
-    <item quantity="one">"1 минута"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
+    <item quantity="one" msgid="4871052965772159239">"1 минута"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
   </plurals>
   <plurals name="Nmins">
-    <item quantity="one">"1 мин."</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
+    <item quantity="one" msgid="9191090668359663663">"1 мин."</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
   </plurals>
   <plurals name="Nhours">
-    <item quantity="one">"1 час"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> ч."</item>
+    <item quantity="one" msgid="4793697728599296830">"1 час"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ч."</item>
   </plurals>
   <plurals name="Ndays">
-    <item quantity="one">"1 день"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> дн."</item>
+    <item quantity="one" msgid="5988137255732166573">"1 день"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> дн."</item>
   </plurals>
-    <string name="show_agenda_view">"Показать повестку дня"</string>
-    <string name="show_day_view">"Показать день"</string>
-    <string name="agenda_view">"Повестка дня"</string>
-    <string name="day_view">"День"</string>
-    <string name="week_view">"Неделя"</string>
-    <string name="month_view">"Месяц"</string>
-    <string name="event_view">"Просмотр мероприятия"</string>
-    <string name="event_create">"Новое мероприятие"</string>
-    <string name="event_edit">"Изменить мероприятие"</string>
-    <string name="event_delete">"Удалить мероприятие"</string>
-    <string name="goto_today">"Сегодня"</string>
-    <string name="menu_select_calendars">"Мои календари"</string>
-    <string name="menu_preferences">"Настройки"</string>
-    <string name="plus_N_more">"(и еще <xliff:g id="MORE_COUNT">%d</xliff:g>…)"</string>
-    <string name="calendars_title">"Мои календари"</string>
-    <string name="add_calendars">"Добавить календари"</string>
-    <string name="remove_calendars">"Удалить календари"</string>
-    <string name="event_edit_title">"Детали мероприятия"</string>
-    <string name="hint_what">"Название мероприятия"</string>
-    <string name="hint_where">"Место мероприятия"</string>
-    <string name="hint_description">"Описание мероприятия"</string>
-    <string name="creating_event">"Создание мероприятия…"</string>
-    <string name="saving_event">"Сохранение мероприятия…"</string>
-    <string name="loading_calendars_title">"Загрузка календарей"</string>
-    <string name="loading_calendars_message">"Загрузка календарей..."</string>
-    <string name="alert_title">"Уведомления календаря"</string>
-    <string name="alert_when_label">"Когда:"</string>
-    <string name="alert_where_label">"Где:"</string>
-    <string name="alert_missed_events_single">"(еще <xliff:g id="REMINDER_COUNT">%s</xliff:g> напоминание)"</string>
-    <string name="alert_missed_events_multiple">"(еще напоминаний: <xliff:g id="REMINDER_COUNT">%s</xliff:g>)"</string>
-    <string name="event_info_title">"Просмотр мероприятия"</string>
-    <string name="event_info_title_invite">"Приглашение на встречу"</string>
-    <string name="add_new_reminder">"Добавить напоминание"</string>
-    <string name="edit_event_to_label">"До"</string>
-    <string name="edit_event_from_label">"С"</string>
-    <string name="edit_event_all_day_label">"Целый день"</string>
-    <string name="edit_event_calendar_label">"Календарь"</string>
-    <string name="edit_event_show_extra_options">"Показать дополнительные параметры"</string>
-    <string name="edit_event_hide_extra_options">"Скрыть дополнительные параметры"</string>
-    <string name="description_label">"Описание"</string>
-    <string name="presence_label">"Присутствие"</string>
-    <string name="privacy_label">"Конфиденциальность"</string>
-    <string name="reminders_label">"Напоминания"</string>
-    <string name="no_syncable_calendars">"Нет календарей"</string>
-    <string name="no_calendars_found">"У вас нет календарей."</string>
-    <string name="view_event_calendar_label">"Календарь"</string>
-    <string name="view_event_timezone_label">"Часовой пояс"</string>
-    <string name="view_event_response_label">"Принять приглашение?"</string>
-    <string name="agenda_today">"Сегодня"</string>
-    <string name="num_events">"Кол-во мероприятий"</string>
-    <string name="edit_event_label">"Изменение мероприятия"</string>
-    <string name="delete_label">"Удалить"</string>
-    <string name="delete_event_label">"Удалить мероприятие"</string>
+    <string name="show_agenda_view" msgid="7971854300981408347">"Показать повестку дня"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Показать день"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Повестка дня"</string>
+    <string name="day_view" msgid="4467754504843584437">"День"</string>
+    <string name="week_view" msgid="6775043022159508060">"Неделя"</string>
+    <string name="month_view" msgid="7287101431749285412">"Месяц"</string>
+    <string name="event_view" msgid="7621353079385122317">"Просмотр мероприятия"</string>
+    <string name="event_create" msgid="6941040556709110617">"Новое мероприятие"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Изменить мероприятие"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Удалить мероприятие"</string>
+    <string name="goto_today" msgid="9162136434410891230">"Сегодня"</string>
+    <string name="menu_select_calendars" msgid="6610470242968973936">"Мои календари"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Настройки"</string>
+    <string name="plus_N_more" msgid="2527895721728080055">"(и еще <xliff:g id="MORE_COUNT">%d</xliff:g>…)"</string>
+    <string name="calendars_title" msgid="4457305218812126946">"Мои календари"</string>
+    <string name="add_calendars" msgid="1013326491414656517">"Добавить календари"</string>
+    <string name="remove_calendars" msgid="1395151808187126222">"Удалить календари"</string>
+    <string name="event_edit_title" msgid="8487120407086532444">"Детали мероприятия"</string>
+    <string name="hint_what" msgid="709155115005044531">"Название мероприятия"</string>
+    <string name="hint_where" msgid="3116239630502213241">"Место мероприятия"</string>
+    <string name="hint_description" msgid="4198202812240544553">"Описание мероприятия"</string>
+    <string name="creating_event" msgid="8237877638457604455">"Создание мероприятия…"</string>
+    <string name="saving_event" msgid="8853425146353785688">"Сохранение мероприятия…"</string>
+    <string name="loading_calendars_title" msgid="3819254313413902272">"Загрузка календарей"</string>
+    <string name="loading_calendars_message" msgid="8266077515011438420">"Загрузка календарей..."</string>
+    <string name="alert_title" msgid="7869592820853066853">"Уведомления календаря"</string>
+    <string name="alert_when_label" msgid="106946701143025116">"Когда:"</string>
+    <string name="alert_where_label" msgid="4255965543493921820">"Где:"</string>
+    <string name="alert_missed_events_single" msgid="8042891195314876684">"(еще <xliff:g id="REMINDER_COUNT">%s</xliff:g> напоминание)"</string>
+    <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(еще напоминаний: <xliff:g id="REMINDER_COUNT">%s</xliff:g>)"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Просмотр мероприятия"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Приглашение на встречу"</string>
+    <string name="add_new_reminder" msgid="4171314793889890481">"Добавить напоминание"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"До"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"С"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Целый день"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Календарь"</string>
+    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Показать дополнительные параметры"</string>
+    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Скрыть дополнительные параметры"</string>
+    <string name="description_label" msgid="7193475046717505855">"Описание"</string>
+    <string name="presence_label" msgid="2155381988163502023">"Присутствие"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Конфиденциальность"</string>
+    <string name="reminders_label" msgid="8345054160145333166">"Напоминания"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"Нет календарей"</string>
+    <string name="no_calendars_found" msgid="755379468136462058">"У вас нет календарей."</string>
+    <string name="view_event_calendar_label" msgid="8503354404461986250">"Календарь"</string>
+    <string name="view_event_timezone_label" msgid="6461351857281070935">"Часовой пояс"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Принять приглашение?"</string>
+    <string name="agenda_today" msgid="2405333795044229594">"Сегодня"</string>
+    <string name="num_events" msgid="3351672964607162257">"Кол-во мероприятий"</string>
+    <string name="edit_event_label" msgid="2900418236819088363">"Изменить мероприятие"</string>
+    <string name="delete_label" msgid="874742811918030739">"Удалить"</string>
+    <string name="delete_event_label" msgid="3738436215987360463">"Удалить мероприятие"</string>
     <!-- no translation found for save_label (2133599104834432589) -->
     <skip />
     <!-- no translation found for discard_label (4510607554910139220) -->
     <skip />
-    <string name="import_label">"Импорт"</string>
-    <string name="snooze_all_label">"Отложить все"</string>
-    <string name="dismiss_all_label">"Отключить все"</string>
-    <string name="does_not_repeat">"Однократное мероприятие"</string>
-    <string name="daily">"ежедневно"</string>
-    <string name="every_weekday">"Каждый будний день (пн–пт)"</string>
-    <string name="weekly">"Еженедельно (кажд. <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count">"Ежемесячно (кажд. <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
-    <string name="monthly_on_day">"Ежемесячно (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> числа)"</string>
-    <string name="yearly">"Ежегодно (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom">"Особое… (нельзя настроить с телефона)"</string>
-    <string name="modify_event">"Изменить только это мероприятие"</string>
-    <string name="modify_all">"Изменить все мероприятия в серии"</string>
-    <string name="modify_all_following">"Изменить это и будущие мероприятия"</string>
-    <string name="delete_this_event_title">"Мероприятие будет удалено."</string>
-    <string name="delete_title">"Удалить"</string>
-    <string name="change_response_title">"Изменить ответ"</string>
-    <string name="preferences_title">"Настройки"</string>
-    <string name="preferences_general_title">"Вид календаря"</string>
-    <string name="preferences_alerts_title">"Настройки напоминаний"</string>
-    <string name="preferences_hide_declined_title">"Скрыть отклоненные мероприятия"</string>
-    <string name="preferences_alerts_type_title">"Установить оповещения и уведомления"</string>
-    <string name="preferences_alerts_type_dialog">"Оповещения и уведомления"</string>
-    <string name="preferences_alerts_vibrate_title">"Вибрация"</string>
-    <string name="preferences_alerts_ringtone_title">"Выбор мелодии"</string>
-    <string name="preferences_default_reminder_title">"Установить напоминание по умолчанию"</string>
-    <string name="preferences_default_reminder_dialog">"Время напоминания по умолчанию"</string>
-    <string name="preferences_default_reminder_default">"10"</string>
+    <string name="import_label" msgid="6993796574741477222">"Импорт"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Отложить все"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Отключить все"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Однократное мероприятие"</string>
+    <string name="daily" msgid="560350706808680448">"Ежедневно"</string>
+    <string name="every_weekday" msgid="5896574838353902978">"Каждый будний день (пн–пт)"</string>
+    <string name="weekly" msgid="2006107373119027114">"Еженедельно (кажд. <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Ежемесячно (кажд. <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"Ежемесячно (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> числа)"</string>
+    <string name="yearly" msgid="8576208380302949002">"Ежегодно (<xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom" msgid="3015205670911301856">"Особое… (нельзя настроить с телефона)"</string>
+    <string name="modify_event" msgid="4501745557655992422">"Изменить только это мероприятие"</string>
+    <string name="modify_all" msgid="7506579040966638538">"Изменить все мероприятия в серии"</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"Изменить это и будущие мероприятия"</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"Мероприятие будет удалено."</string>
+    <string name="delete_title" msgid="5143743507524995383">"Удалить"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Изменить ответ"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Настройки"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Вид календаря"</string>
+    <string name="preferences_alerts_title" msgid="6511227171114210908">"Настройки напоминаний"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Скрыть отклоненные мероприятия"</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Выбрать уведомление или оповещение"</string>
+    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Оповещения и уведомления"</string>
+    <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Вибрация"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Выбрать мелодию"</string>
+    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Время напоминания по умолчанию"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Время напоминания по умолчанию"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>

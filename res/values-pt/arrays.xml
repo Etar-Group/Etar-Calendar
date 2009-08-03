@@ -16,81 +16,81 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_minutes_labels">
-    <item>"5 minutos"</item>
-    <item>"10 minutos"</item>
-    <item>"15 minutos"</item>
-    <item>"20 minutos"</item>
-    <item>"25 minutos"</item>
-    <item>"30 minutos"</item>
-    <item>"45 minutos"</item>
-    <item>"1 hora"</item>
-    <item>"2 horas"</item>
-    <item>"3 horas"</item>
-    <item>"12 horas"</item>
-    <item>"24 horas"</item>
-    <item>"2 dias"</item>
-    <item>"1 semana"</item>
+    <item msgid="579679946787267776">"5 minutos"</item>
+    <item msgid="5582544189904133717">"10 minutos"</item>
+    <item msgid="3425453345722366269">"15 minutos"</item>
+    <item msgid="2088065547825778658">"20 minutos"</item>
+    <item msgid="2931730485410259751">"25 minutos"</item>
+    <item msgid="1440903855318880236">"30 minutos"</item>
+    <item msgid="3727466187697478344">"45 minutos"</item>
+    <item msgid="3981775289606778919">"1 hora"</item>
+    <item msgid="345917783972806244">"2 horas"</item>
+    <item msgid="6147862333452393935">"3 horas"</item>
+    <item msgid="8844564639600832768">"12 horas"</item>
+    <item msgid="4544569521386159399">"24 horas"</item>
+    <item msgid="7331768924011260962">"2 dias"</item>
+    <item msgid="7191420767504467551">"1 semana"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
-    <item>"Nenhuma"</item>
-    <item>"5 minutos"</item>
-    <item>"10 minutos"</item>
-    <item>"15 minutos"</item>
-    <item>"20 minutos"</item>
-    <item>"25 minutos"</item>
-    <item>"30 minutos"</item>
-    <item>"45 minutos"</item>
-    <item>"1 hora"</item>
-    <item>"2 horas"</item>
-    <item>"3 horas"</item>
-    <item>"12 horas"</item>
-    <item>"24 horas"</item>
-    <item>"2 dias"</item>
-    <item>"1 semana"</item>
+    <item msgid="7495163916242649023">"Nenhuma"</item>
+    <item msgid="4046054780909365808">"5 minutos"</item>
+    <item msgid="3255029626994620957">"10 minutos"</item>
+    <item msgid="1363622823724080348">"15 minutos"</item>
+    <item msgid="8441744902221651211">"20 minutos"</item>
+    <item msgid="8742741532034474957">"25 minutos"</item>
+    <item msgid="4768009761531673038">"30 minutos"</item>
+    <item msgid="6046736126940217515">"45 minutos"</item>
+    <item msgid="4418618788828172256">"1 hora"</item>
+    <item msgid="7648895229572035902">"2 horas"</item>
+    <item msgid="8518903223867903398">"3 horas"</item>
+    <item msgid="1434366712313057723">"12 horas"</item>
+    <item msgid="7629195657749146405">"24 horas"</item>
+    <item msgid="4245760353982265075">"2 dias"</item>
+    <item msgid="1249803747243694616">"1 semana"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"Alerta"</item>
-    <item>"Notificação da barra de status"</item>
-    <item>"Desativado"</item>
+    <item msgid="2724242028978664229">"Alerta"</item>
+    <item msgid="8723674378160518790">"Notificação da barra de status"</item>
+    <item msgid="8433736231022186661">"Desativado"</item>
   </string-array>
   <string-array name="availability">
-    <item>"Ocupado(a)"</item>
-    <item>"Disponível"</item>
+    <item msgid="454869065893453189">"Ocupado(a)"</item>
+    <item msgid="6228387173725732140">"Disponível"</item>
   </string-array>
   <string-array name="visibility">
-    <item>"Padrão"</item>
-    <item>"Privado"</item>
-    <item>"Público"</item>
+    <item msgid="3035788428581513163">"Padrão"</item>
+    <item msgid="5200216103966973369">"Privado"</item>
+    <item msgid="9182342638433672664">"Público"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"primeiro"</item>
-    <item>"segundo"</item>
-    <item>"terceiro"</item>
-    <item>"quarto"</item>
-    <item>"último"</item>
+    <item msgid="2693927956303125332">"primeiro"</item>
+    <item msgid="5631923029483854900">"segundo"</item>
+    <item msgid="148935502975250973">"terceiro"</item>
+    <item msgid="5124200797326669172">"quarto"</item>
+    <item msgid="7564374178324652137">"último"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"(Nenhuma resposta)"</item>
-    <item>"Sim"</item>
-    <item>"Talvez"</item>
-    <item>"Não"</item>
+    <item msgid="3654955385120106241">"(Nenhuma resposta)"</item>
+    <item msgid="3724434080904437698">"Sim"</item>
+    <item msgid="8854145743148992583">"Talvez"</item>
+    <item msgid="6174292185978948873">"Não"</item>
   </string-array>
   <string-array name="response_labels2">
-    <item>"Sim"</item>
-    <item>"Talvez"</item>
-    <item>"Não"</item>
+    <item msgid="5967437218994333578">"Sim"</item>
+    <item msgid="1254269034445160199">"Talvez"</item>
+    <item msgid="1099407454885268744">"Não"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>"Somente este evento"</item>
-    <item>"Este evento e eventos futuros"</item>
-    <item>"Todos os eventos"</item>
+    <item msgid="4208432367651646938">"Somente este evento"</item>
+    <item msgid="8626755531271570950">"Este evento e eventos futuros"</item>
+    <item msgid="7833229563617435430">"Todos os eventos"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>"Este evento e eventos futuros"</item>
-    <item>"Todos os eventos"</item>
+    <item msgid="1341910309321756150">"Este evento e eventos futuros"</item>
+    <item msgid="6315440193748139854">"Todos os eventos"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item>"Somente nessa ocasião"</item>
-    <item>"Todos os eventos da série"</item>
+    <item msgid="2012815396992847028">"Somente nessa ocasião"</item>
+    <item msgid="140670561403965380">"Todos os eventos da série"</item>
   </string-array>
 </resources>
