@@ -55,6 +55,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 public class EventInfoActivity extends Activity implements View.OnClickListener,
@@ -636,7 +637,15 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             localTimezone = Time.TIMEZONE_UTC;
         }
         if (eventTimezone != null && !localTimezone.equals(eventTimezone) && !allDay) {
-            setTextCommon(R.id.timezone, localTimezone);
+            String displayName;
+            TimeZone tz = TimeZone.getTimeZone(localTimezone);
+            if (tz == null || tz.getID().equals("GMT")) {
+                displayName = localTimezone;
+            } else {
+                displayName = tz.getDisplayName();
+            }
+
+            setTextCommon(R.id.timezone, displayName);
         } else {
             setVisibilityCommon(R.id.timezone_container, View.GONE);
         }
