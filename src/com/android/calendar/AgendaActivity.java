@@ -160,7 +160,7 @@ public class AgendaActivity extends Activity implements Navigator {
         super.onSaveInstanceState(outState);
 
         long firstVisibleTime = mAgendaListView.getFirstVisibleTime();
-        if (firstVisibleTime >= 0) {
+        if (firstVisibleTime > 0) {
             mTime.set(firstVisibleTime);
             outState.putLong(BUNDLE_KEY_RESTORE_TIME, firstVisibleTime);
             if (DEBUG) {

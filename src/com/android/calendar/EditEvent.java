@@ -51,6 +51,7 @@ import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -89,6 +90,7 @@ import java.util.TimeZone;
 
 public class EditEvent extends Activity implements View.OnClickListener,
         DialogInterface.OnCancelListener, DialogInterface.OnClickListener {
+    private static final String TAG = "EditEvent";
     private static final boolean DEBUG = false;
 
     /**
@@ -141,12 +143,12 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private static final int EVENT_INDEX_VISIBILITY = 13;
 
     private static final String[] CALENDARS_PROJECTION = new String[] {
-            Calendars._ID,          // 0
-            Calendars.DISPLAY_NAME, // 1
-            Calendars.TIMEZONE,     // 2
+            Calendars._ID,           // 0
+            Calendars.DISPLAY_NAME,  // 1
+            Calendars.OWNER_ACCOUNT, // 2
     };
     private static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
-    private static final int CALENDARS_INDEX_TIMEZONE = 2;
+    private static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
     private static final String CALENDARS_WHERE = Calendars.ACCESS_LEVEL + ">=" +
             Calendars.CONTRIBUTOR_ACCESS + " AND " + Calendars.SYNC_EVENTS + "=1";
 
@@ -158,6 +160,15 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=%d AND (" +
             Reminders.METHOD + "=" + Reminders.METHOD_ALERT + " OR " + Reminders.METHOD + "=" +
             Reminders.METHOD_DEFAULT + ")";
+
+    private static final String[] ATTENDEES_PROJECTION = new String[] {
+        Attendees.ATTENDEE_NAME,            // 0
+        Attendees.ATTENDEE_EMAIL,           // 1
+    };
+    private static final int ATTENDEES_INDEX_NAME = 0;
+    private static final int ATTENDEES_INDEX_EMAIL = 1;
+    private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=? AND "
+            + Attendees.ATTENDEE_RELATIONSHIP + "<>" + Attendees.RELATIONSHIP_ORGANIZER;
 
     private static final int DOES_NOT_REPEAT = 0;
     private static final int REPEATS_DAILY = 1;
@@ -202,7 +213,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private ArrayList<LinearLayout> mReminderItems = new ArrayList<LinearLayout>(0);
     MultiAutoCompleteTextView mAttendeesList;
     private EmailAddressAdapter mAddressAdapter;
-    private Rfc822Validator mValidator;
+    private String mOriginalAttendees = "";
 
     private EventRecurrence mEventRecurrence = new EventRecurrence();
     private String mRrule;
@@ -486,6 +497,18 @@ public class EditEvent extends Activity implements View.OnClickListener,
                     return;
                 }
 
+                // Find user domain and set it to the validator
+                // TODO This won't work realiably if there are calendars in different domains
+                cursor.moveToFirst();
+                String ownEmail = cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+                if (ownEmail != null) {
+                    int separator = ownEmail.lastIndexOf('@');
+                    if (separator != -1 && ++separator < ownEmail.length()) {
+                        mAttendeesList.setValidator(new Rfc822Validator(ownEmail
+                                .substring(separator)));
+                    }
+                }
+
                 // populate the calendars spinner
                 CalendarsAdapter adapter = new CalendarsAdapter(EditEvent.this, mCalendarsCursor);
                 mCalendarsSpinner.setAdapter(adapter);
@@ -604,7 +627,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
         mExtraOptions = (LinearLayout) findViewById(R.id.extra_options_container);
 
         mAddressAdapter = new EmailAddressAdapter(this);
-        mValidator = new Rfc822Validator("google.com"); //TODO use user's domain
         mAttendeesList = initMultiAutoCompleteTextView(R.id.attendees, R.string.hint_attendees);
 
         mAllDayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -671,14 +693,15 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER, "0");
         mDefaultReminderMinutes = Integer.parseInt(durationString);
 
+        long eventId = (mEventCursor == null) ? -1 : mEventCursor.getLong(EVENT_INDEX_ID);
+        ContentResolver cr = getContentResolver();
+
         // Reminders cursor
         boolean hasAlarm = (mEventCursor != null)
                 && (mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) != 0);
         if (hasAlarm) {
             Uri uri = Reminders.CONTENT_URI;
-            long eventId = mEventCursor.getLong(EVENT_INDEX_ID);
             String where = String.format(REMINDERS_WHERE, eventId);
-            ContentResolver cr = getContentResolver();
             Cursor reminderCursor = cr.query(uri, REMINDERS_PROJECTION, where, null, null);
             try {
                 // First pass: collect all the custom reminder minutes (e.g.,
@@ -713,6 +736,32 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         mDeleteEventHelper = new DeleteEventHelper(this, true /* exit when done */);
 
+       // Attendees cursor
+        if (eventId != -1) {
+            Uri uri = Attendees.CONTENT_URI;
+            String[] whereArgs = {Long.toString(eventId)};
+            Cursor attendeeCursor = cr.query(uri, ATTENDEES_PROJECTION, ATTENDEES_WHERE, whereArgs,
+                    null);
+            try {
+                StringBuilder b = new StringBuilder();
+                while (attendeeCursor.moveToNext()) {
+                    String name = attendeeCursor.getString(ATTENDEES_INDEX_NAME);
+                    String email = attendeeCursor.getString(ATTENDEES_INDEX_EMAIL);
+                    if (email != null) {
+                        if (name != null && name.length() > 0 && !name.equals(email)) {
+                            b.append('"').append(name).append("\" ");
+                        }
+                        b.append('<').append(email).append(">, ");
+                    }
+                }
+                if (b.length() > 0) {
+                    mOriginalAttendees = b.toString();
+                    mAttendeesList.setText(mOriginalAttendees);
+                }
+            } finally {
+                attendeeCursor.close();
+            }
+        }
         if (mEventCursor == null) {
             // Allow the intent to specify the fields in the event.
             // This will allow other apps to create events easily.
@@ -730,7 +779,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
         MultiAutoCompleteTextView list = (MultiAutoCompleteTextView) findViewById(res);
         list.setAdapter(mAddressAdapter);
         list.setTokenizer(new Rfc822Tokenizer());
-        list.setValidator(mValidator);
 
         // NOTE: assumes no other filters are set
         list.setFilters(sRecipientFilters);
@@ -912,22 +960,25 @@ public class EditEvent extends Activity implements View.OnClickListener,
             // since we can't change the calendar.
             View calendarGroup = findViewById(R.id.calendar_group);
             calendarGroup.setVisibility(View.GONE);
-        } else if (Time.isEpoch(mStartTime) && Time.isEpoch(mEndTime)) {
-            mStartTime.setToNow();
+        } else {
+            // New event
+            if (Time.isEpoch(mStartTime) && Time.isEpoch(mEndTime)) {
+                mStartTime.setToNow();
 
-            // Round the time to the nearest half hour.
-            mStartTime.second = 0;
-            int minute = mStartTime.minute;
-            if (minute > 0 && minute <= 30) {
-                mStartTime.minute = 30;
-            } else {
-                mStartTime.minute = 0;
-                mStartTime.hour += 1;
+                // Round the time to the nearest half hour.
+                mStartTime.second = 0;
+                int minute = mStartTime.minute;
+                if (minute > 0 && minute <= 30) {
+                    mStartTime.minute = 30;
+                } else {
+                    mStartTime.minute = 0;
+                    mStartTime.hour += 1;
+                }
+
+                long startMillis = mStartTime.normalize(true /* ignore isDst */);
+                mEndTime.set(startMillis + DateUtils.HOUR_IN_MILLIS);
             }
 
-            long startMillis = mStartTime.normalize(true /* ignore isDst */);
-            mEndTime.set(startMillis + DateUtils.HOUR_IN_MILLIS);
-        } else {
             // New event - set the default reminder
             if (mDefaultReminderMinutes != 0) {
                 addReminder(this, this, mReminderItems, mReminderValues,
@@ -1314,6 +1365,12 @@ public class EditEvent extends Activity implements View.OnClickListener,
         ContentValues values = getContentValuesFromUi();
         Uri uri = mUri;
 
+        // Update the "hasAlarm" field for the event
+        ArrayList<Integer> reminderMinutes = reminderItemsToMinutes(mReminderItems,
+                mReminderValues);
+        int len = reminderMinutes.size();
+        values.put(Events.HAS_ALARM, (len > 0) ? 1 : 0);
+
         // For recurring events, we must make sure that we use duration rather
         // than dtend.
         if (uri == null) {
@@ -1413,8 +1470,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
             }
         }
 
-        ArrayList<Integer> reminderMinutes = reminderItemsToMinutes(mReminderItems,
-                mReminderValues);
         if (eventIdIndex != -1) {
             saveRemindersWithBackRef(ops, eventIdIndex, reminderMinutes, mOriginalMinutes,
                     forceSaveReminders);
@@ -1425,45 +1480,49 @@ public class EditEvent extends Activity implements View.OnClickListener,
         }
 
         if (eventIdIndex != -1 || uri != null) {
-            // Delete all the existing attendees for this event
-            Builder b = ContentProviderOperation.newDelete(Reminders.CONTENT_URI);
+            Editable attendeesText = mAttendeesList.getText();
+            // Hit the content provider only if the user has changed it
+            if (!mOriginalAttendees.equals(attendeesText.toString())) {
+                // TODO we could do a diff and modify the rows only as needed
+                // Delete all the existing attendees for this event
+                Builder b = ContentProviderOperation.newDelete(Attendees.CONTENT_URI);
 
-            long eventId = -1;
-            if (eventIdIndex == -1) {
-                eventId = ContentUris.parseId(uri);
-                String where = Attendees.EVENT_ID + "=?";
-                String[] args = new String[] {
-                    Long.toString(eventId)
-                };
-                b.withSelection(where, args);
-            } else {
-                // Delete all the existing reminders for this event
-                b.withSelection(Attendees.EVENT_ID + "=?", new String[1]);
-                b.withSelectionBackReference(0, eventIdIndex);
-            }
-            ops.add(b.build());
+                long eventId = -1;
+                if (eventIdIndex == -1) {
+                    eventId = ContentUris.parseId(uri);
+                    String[] args = new String[] {
+                        Long.toString(eventId)
+                    };
+                    b.withSelection(ATTENDEES_WHERE, args);
+                } else {
+                    // Delete all the existing reminders for this event
+                    b.withSelection(ATTENDEES_WHERE, new String[1]);
+                    b.withSelectionBackReference(0, eventIdIndex);
+                }
+                ops.add(b.build());
 
-            if (mAttendeesList.getText().length() > 0) {
-                Rfc822Token[] attendees = getAddressesFromList(mAttendeesList);
-                // Insert the attendees
-                for (Rfc822Token attendee : attendees) {
-                    values.clear();
-                    values.put(Attendees.ATTENDEE_NAME, attendee.getName());
-                    values.put(Attendees.ATTENDEE_EMAIL, attendee.getAddress());
-                    values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ATTENDEE);
-                    values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
-                    values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
+                if (attendeesText.length() > 0) {
+                    Rfc822Token[] attendees = getAddressesFromList(mAttendeesList);
+                    // Insert the attendees
+                    for (Rfc822Token attendee : attendees) {
+                        values.clear();
+                        values.put(Attendees.ATTENDEE_NAME, attendee.getName());
+                        values.put(Attendees.ATTENDEE_EMAIL, attendee.getAddress());
+                        values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ATTENDEE);
+                        values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+                        values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
 
-                    if (eventIdIndex != -1) {
-                        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
-                                .withValues(values);
-                        b.withValueBackReference(Reminders.EVENT_ID, eventIdIndex);
-                    } else {
-                        values.put(Attendees.EVENT_ID, eventId);
-                        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
-                                .withValues(values);
+                        if (eventIdIndex != -1) {
+                            b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                                    .withValues(values);
+                            b.withValueBackReference(Reminders.EVENT_ID, eventIdIndex);
+                        } else {
+                            values.put(Attendees.EVENT_ID, eventId);
+                            b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                                    .withValues(values);
+                        }
+                        ops.add(b.build());
                     }
-                    ops.add(b.build());
                 }
             }
         }
@@ -1473,7 +1532,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
             ContentProviderResult[] results =
                 getContentResolver().applyBatch(android.provider.Calendar.AUTHORITY, ops);
             if (DEBUG) {
-                Log.v("=====", "results = " + Arrays.toString(results));
+                for (int i = 0; i < results.length; i++) {
+                    Log.v(TAG, "results = " + results[i].toString());
+                }
             }
         } catch (RemoteException e) {
             // TODO Auto-generated catch block
@@ -1619,32 +1680,27 @@ public class EditEvent extends Activity implements View.OnClickListener,
             return false;
         }
 
-        // TODO re-enable this
-//        // Delete all the existing reminders for this event
-//        String where = Reminders.EVENT_ID + "=?";
-//        String[] args = new String[] { Long.toString(eventId) };
-//        Builder b = ContentProviderOperation.newDelete(Reminders.CONTENT_URI);
-//        b.withSelection(where, args);
-//        ops.add(b.build());
-//
-//        // Update the "hasAlarm" field for the event
-//        ContentValues values = new ContentValues();
-//        int len = reminderMinutes.size();
-//        values.put(Events.HAS_ALARM, (len > 0) ? 1 : 0);
-//        Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
-//        ops.add(ContentProviderOperation.newUpdate(uri).withValues(values).build());
-//
-//        // Insert the new reminders, if any
-//        for (int i = 0; i < len; i++) {
-//            int minutes = reminderMinutes.get(i);
-//
-//            values.clear();
-//            values.put(Reminders.MINUTES, minutes);
-//            values.put(Reminders.METHOD, Reminders.METHOD_ALERT);
-//            values.put(Reminders.EVENT_ID, eventId);
-//            b = ContentProviderOperation.newInsert(Reminders.CONTENT_URI).withValues(values);
-//            ops.add(b.build());
-//        }
+        // Delete all the existing reminders for this event
+        String where = Reminders.EVENT_ID + "=?";
+        String[] args = new String[] { Long.toString(eventId) };
+        Builder b = ContentProviderOperation.newDelete(Reminders.CONTENT_URI);
+        b.withSelection(where, args);
+        ops.add(b.build());
+
+        ContentValues values = new ContentValues();
+        int len = reminderMinutes.size();
+
+        // Insert the new reminders, if any
+        for (int i = 0; i < len; i++) {
+            int minutes = reminderMinutes.get(i);
+
+            values.clear();
+            values.put(Reminders.MINUTES, minutes);
+            values.put(Reminders.METHOD, Reminders.METHOD_ALERT);
+            values.put(Reminders.EVENT_ID, eventId);
+            b = ContentProviderOperation.newInsert(Reminders.CONTENT_URI).withValues(values);
+            ops.add(b.build());
+        }
         return true;
     }
 
@@ -1656,33 +1712,26 @@ public class EditEvent extends Activity implements View.OnClickListener,
             return false;
         }
 
-        // TODO re-enable this
-//        // Delete all the existing reminders for this event
-//        Builder b = ContentProviderOperation.newDelete(Reminders.CONTENT_URI);
-//        b.withSelection(Reminders.EVENT_ID + "=?", new String[1]);
-//        b.withSelectionBackReference(0, eventIdIndex);
-//        ops.add(b.build());
-//
-//        // Update the "hasAlarm" field for the event
-//        ContentValues values = new ContentValues();
-//        int len = reminderMinutes.size();
-//        values.put(Events.HAS_ALARM, (len > 0) ? 1 : 0);
-//        b = ContentProviderOperation.newUpdate(Events.CONTENT_URI).withValues(values);
-//        b.withSelection(Events._ID + "=?", new String[1]);
-//        b.withSelectionBackReference(0, eventIdIndex);
-//        ops.add(b.build());
-//
-//        // Insert the new reminders, if any
-//        for (int i = 0; i < len; i++) {
-//            int minutes = reminderMinutes.get(i);
-//
-//            values.clear();
-//            values.put(Reminders.MINUTES, minutes);
-//            values.put(Reminders.METHOD, Reminders.METHOD_ALERT);
-//            b = ContentProviderOperation.newInsert(Reminders.CONTENT_URI).withValues(values);
-//            b.withValueBackReference(Reminders.EVENT_ID, eventIdIndex);
-//            ops.add(b.build());
-//        }
+        // Delete all the existing reminders for this event
+        Builder b = ContentProviderOperation.newDelete(Reminders.CONTENT_URI);
+        b.withSelection(Reminders.EVENT_ID + "=?", new String[1]);
+        b.withSelectionBackReference(0, eventIdIndex);
+        ops.add(b.build());
+
+        ContentValues values = new ContentValues();
+        int len = reminderMinutes.size();
+
+        // Insert the new reminders, if any
+        for (int i = 0; i < len; i++) {
+            int minutes = reminderMinutes.get(i);
+
+            values.clear();
+            values.put(Reminders.MINUTES, minutes);
+            values.put(Reminders.METHOD, Reminders.METHOD_ALERT);
+            b = ContentProviderOperation.newInsert(Reminders.CONTENT_URI).withValues(values);
+            b.withValueBackReference(Reminders.EVENT_ID, eventIdIndex);
+            ops.add(b.build());
+        }
         return true;
     }
 

@@ -133,10 +133,13 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=%d";
 
     static final String[] CALENDARS_PROJECTION = new String[] {
-        Calendars._ID,          // 0
-        Calendars.DISPLAY_NAME, // 1
+        Calendars._ID,           // 0
+        Calendars.DISPLAY_NAME,  // 1
+        Calendars.OWNER_ACCOUNT, // 2
     };
     static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
+    static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
+
     static final String CALENDARS_WHERE = Calendars._ID + "=%d";
 
     private static final String[] REMINDERS_PROJECTION = new String[] {
@@ -227,6 +230,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         }
     };
     private int mColor;
+    private String mCalendarOwnerAccount = "";
 
     // This is called when one of the "remove reminder" buttons is selected.
     public void onClick(View v) {
@@ -295,15 +299,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         where = String.format(CALENDARS_WHERE, mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID));
         mCalendarsCursor = managedQuery(uri, CALENDARS_PROJECTION, where, null);
         initCalendarsCursor();
-
-        Resources res = getResources();
-
-        if (mVisibility >= Calendars.CONTRIBUTOR_ACCESS &&
-                mRelationship == Attendees.RELATIONSHIP_ATTENDEE) {
-            setTitle(res.getString(R.string.event_info_title_invite));
-        } else {
-            setTitle(res.getString(R.string.event_info_title));
-        }
 
         // Initialize the reminder values array.
         Resources r = getResources();
@@ -381,6 +376,17 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         initAttendeesCursor();
         initCalendarsCursor();
         updateResponse();
+        updateTitle();
+    }
+
+    private void updateTitle() {
+        Resources res = getResources();
+        if (mVisibility >= Calendars.CONTRIBUTOR_ACCESS &&
+                mRelationship == Attendees.RELATIONSHIP_ATTENDEE) {
+            setTitle(res.getString(R.string.event_info_title_invite));
+        } else {
+            setTitle(res.getString(R.string.event_info_title));
+        }
     }
 
     /**
@@ -417,16 +423,15 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 mDeclinedAttendees.clear();
                 mTentativeAttendees.clear();
 
-                /*
-                 * TODO: We have been relying on the fact that "our user" appears
-                 * in the first row. The right way is to look up the email addr
-                 * associated with the calendar and do a match here.
-                 */
-                mRelationship = mAttendeesCursor.getInt(ATTENDEES_INDEX_RELATIONSHIP);
                 do {
                     int status = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
                     String name = mAttendeesCursor.getString(ATTENDEES_INDEX_NAME);
                     String email = mAttendeesCursor.getString(ATTENDEES_INDEX_EMAIL);
+                    int relationship = mAttendeesCursor.getInt(ATTENDEES_INDEX_RELATIONSHIP);
+                    if (mRelationship != relationship && mCalendarOwnerAccount.equals(email)) {
+                        mRelationship = relationship;
+                    }
+                    
                     switch(status) {
                         case Attendees.ATTENDEE_STATUS_ACCEPTED:
                             mAcceptedAttendees.add(new Attendee(name, email));
@@ -442,6 +447,12 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
                 updateAttendees();
             }
+        }
+        
+        // TODO We shouldn't have to guess whether the current user is the organizer or not
+        if (mVisibility < Calendars.CONTRIBUTOR_ACCESS
+                && mRelationship == Attendees.RELATIONSHIP_ORGANIZER) {
+            mRelationship = Attendees.RELATIONSHIP_ATTENDEE;
         }
     }
 
@@ -501,26 +512,18 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     public boolean onPrepareOptionsMenu(Menu menu) {
         // Cannot add reminders to a shared calendar with only free/busy
         // permissions
-        if (mVisibility >= Calendars.READ_ACCESS && mReminderItems.size() < MAX_REMINDERS) {
-            menu.setGroupVisible(MENU_GROUP_REMINDER, true);
-            menu.setGroupEnabled(MENU_GROUP_REMINDER, true);
-        } else {
-            menu.setGroupVisible(MENU_GROUP_REMINDER, false);
-            menu.setGroupEnabled(MENU_GROUP_REMINDER, false);
-        }
+        boolean canAddReminders =
+                mVisibility >= Calendars.READ_ACCESS && mReminderItems.size() < MAX_REMINDERS;
+		menu.setGroupVisible(MENU_GROUP_REMINDER, canAddReminders);
+		menu.setGroupEnabled(MENU_GROUP_REMINDER, canAddReminders);
 
-        if (mVisibility >= Calendars.CONTRIBUTOR_ACCESS &&
-                mRelationship >= Attendees.RELATIONSHIP_ORGANIZER) {
-            menu.setGroupVisible(MENU_GROUP_EDIT, true);
-            menu.setGroupEnabled(MENU_GROUP_EDIT, true);
-            menu.setGroupVisible(MENU_GROUP_DELETE, true);
-            menu.setGroupEnabled(MENU_GROUP_DELETE, true);
-        } else {
-            menu.setGroupVisible(MENU_GROUP_EDIT, false);
-            menu.setGroupEnabled(MENU_GROUP_EDIT, false);
-            menu.setGroupVisible(MENU_GROUP_DELETE, false);
-            menu.setGroupEnabled(MENU_GROUP_DELETE, false);
-        }
+        boolean canModifyCalendar = mVisibility >= Calendars.CONTRIBUTOR_ACCESS;
+        boolean canModifyEvent = canModifyCalendar
+                && mRelationship >= Attendees.RELATIONSHIP_ORGANIZER;
+        menu.setGroupVisible(MENU_GROUP_EDIT, canModifyEvent);
+        menu.setGroupEnabled(MENU_GROUP_EDIT, canModifyEvent);
+        menu.setGroupVisible(MENU_GROUP_DELETE, canModifyCalendar);
+        menu.setGroupEnabled(MENU_GROUP_DELETE, canModifyCalendar);
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -596,6 +599,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             return false;
         }
 
+        // TODO find the right row first
         long attendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
         if (!mIsRepeating) {
             // This is a non-repeating event
@@ -802,6 +806,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             mCalendarsCursor.moveToFirst();
             String calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
             setTextCommon(R.id.calendar, calendarName);
+            mCalendarOwnerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
         } else {
             setVisibilityCommon(R.id.calendar_container, View.GONE);
         }
@@ -928,9 +933,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
     void updateResponse() {
         if (mVisibility < Calendars.CONTRIBUTOR_ACCESS ||
-                // TODO Temp fix to get past FAST tests.
-                // Remove this once content provider provides user relationship info via event table
-                (false && mRelationship != Attendees.RELATIONSHIP_ATTENDEE)) {
+                mRelationship != Attendees.RELATIONSHIP_ATTENDEE) {
             setVisibilityCommon(R.id.response_container, View.GONE);
             return;
         }
@@ -941,6 +944,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
         mOriginalAttendeeResponse = ATTENDEE_NO_RESPONSE;
         if (mAttendeesCursor != null) {
+            // TODO find the right row first
             mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
         }
         mResponseOffset = 0;
@@ -1005,8 +1009,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 sender.toString());
 
         // Mark target position using on-screen coordinates
-        // TODO uncomment when contacts code is in.
-        // contactIntent.putExtra(Intents.EXTRA_TARGET_RECT, rect);
+        contactIntent.putExtra(Intents.EXTRA_TARGET_RECT, rect);
 
         // Only provide personal name hint if we have one
         if (attendee.mName != null && attendee.mName.length() > 0) {

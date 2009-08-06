@@ -549,9 +549,9 @@ public class AgendaWindowAdapter extends BaseAdapter {
             if (!isInRange(queryData.start, queryData.end)) {
                 mQueryQueue.add(queryData);
                 queuedQuery = true;
-            }
-            if (doQueryNow) {
-                doQuery(queryData);
+                if (doQueryNow) {
+                    doQuery(queryData);
+                }
             }
         }
         return queuedQuery;

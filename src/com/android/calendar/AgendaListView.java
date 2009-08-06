@@ -132,7 +132,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         if (event != null) {
             return event.begin;
         }
-        return -1;
+        return 0;
     }
 
     public long getFirstVisibleTime() {
@@ -145,7 +145,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         if (event != null) {
             return event.begin;
         }
-        return -1;
+        return 0;
     }
 
     // Move the currently selected or visible focus down by offset amount.
