@@ -197,4 +197,11 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     public void setHideDeclinedEvents(boolean hideDeclined) {
         mWindowAdapter.setHideDeclinedEvents(hideDeclined);
     }
+
+    public void onResume() {
+        mWindowAdapter.notifyDataSetChanged();
+    }
+    public void onPause() {
+        mWindowAdapter.notifyDataSetInvalidated();
+    }
 }

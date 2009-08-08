@@ -144,6 +144,7 @@ public class AgendaActivity extends Activity implements Navigator {
 
         mAgendaListView.setHideDeclinedEvents(hideDeclined);
         mAgendaListView.goTo(mTime, true);
+        mAgendaListView.onResume();
 
         // Register for Intent broadcasts
         IntentFilter filter = new IntentFilter();
@@ -173,6 +174,7 @@ public class AgendaActivity extends Activity implements Navigator {
     protected void onPause() {
         super.onPause();
 
+        mAgendaListView.onPause();
         mContentResolver.unregisterContentObserver(mObserver);
         unregisterReceiver(mIntentReceiver);
     }
