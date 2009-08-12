@@ -21,6 +21,7 @@ import static android.provider.Calendar.EVENT_END_TIME;
 import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.AsyncQueryHandler;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
@@ -60,8 +61,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -79,7 +82,6 @@ import java.util.regex.Pattern;
 
 public class EventInfoActivity extends Activity implements View.OnClickListener,
         AdapterView.OnItemSelectedListener {
-    private static final String TAG = "EventInfoActivity";
     private static final int MAX_REMINDERS = 5;
 
     /**
@@ -431,7 +433,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                     if (mRelationship != relationship && mCalendarOwnerAccount.equals(email)) {
                         mRelationship = relationship;
                     }
-                    
+
                     switch(status) {
                         case Attendees.ATTENDEE_STATUS_ACCEPTED:
                             mAcceptedAttendees.add(new Attendee(name, email));
@@ -448,7 +450,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 updateAttendees();
             }
         }
-        
+
         // TODO We shouldn't have to guess whether the current user is the organizer or not
         if (mVisibility < Calendars.CONTRIBUTOR_ACCESS
                 && mRelationship == Attendees.RELATIONSHIP_ORGANIZER) {
@@ -786,11 +788,21 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         if (location == null || location.length() == 0) {
             setVisibilityCommon(R.id.where, View.GONE);
         } else {
-            TextView textView = (TextView) findViewById(R.id.where);
+            final TextView textView = (TextView) findViewById(R.id.where);
             if (textView != null) {
                     textView.setAutoLinkMask(0);
                     textView.setText(location);
                     Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+                    textView.setOnTouchListener(new OnTouchListener() {
+                        public boolean onTouch(View v, MotionEvent event) {
+                            try {
+                                return v.onTouchEvent(event);
+                            } catch (ActivityNotFoundException e) {
+                                // ignore
+                                return true;
+                            }
+                        }
+                    });
             }
         }
 
