@@ -58,7 +58,7 @@ public class LaunchActivity extends Activity {
             bundle.putCharSequence("optional_message", getText(R.string.calendar_plug));
             AccountManager.get(this).getAuthTokenByFeatures(
                     GoogleLoginServiceConstants.ACCOUNT_TYPE, Gmail.GMAIL_AUTH_SERVICE,
-                    new String[]{GoogleLoginServiceConstants.FEATURE_GOOGLE_OR_DASHER}, this,
+                    new String[]{GoogleLoginServiceConstants.FEATURE_LEGACY_HOSTED_OR_GOOGLE}, this,
                     bundle, null /* loginOptions */, new Future2Callback() {
                 public void run(Future2 future) {
                     try {
