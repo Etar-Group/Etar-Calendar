@@ -43,7 +43,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
     private ArrayList<RowInfo> mRowInfo;
     private int mTodayJulianDay;
     private Time mTmpTime = new Time();
-    private Formatter mFormatter; // TODO fix. not thread safe
+    // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
+    private Formatter mFormatter;
     private StringBuilder mStringBuilder;
 
     static class ViewHolder {
@@ -136,16 +137,20 @@ public class AgendaByDayAdapter extends BaseAdapter {
                     | DateUtils.FORMAT_SHOW_DATE;
 
             mStringBuilder.setLength(0);
+            String dateViewText;
             if (row.mData == mTodayJulianDay) {
-                String dayText = mContext.getResources().getText(R.string.agenda_today) + ", ";
-                holder.dateView.setText(dayText + DateUtils.formatDateRange(mContext, mFormatter,
-                    millis, millis, flags).toString());
+                dateViewText = mContext.getString(R.string.agenda_today, DateUtils.formatDateRange(
+                        mContext, mFormatter, millis, millis, flags).toString());
             } else {
                 flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
-                holder.dateView.setText(DateUtils.formatDateRange(mContext, mFormatter, millis,
-                    millis, flags).toString());
+                dateViewText = DateUtils.formatDateRange(mContext, mFormatter, millis, millis,
+                        flags).toString();
             }
 
+            if (AgendaWindowAdapter.BASICLOG) {
+                dateViewText += " P:" + position;
+            }
+            holder.dateView.setText(dateViewText);
 
             return agendaDayView;
         } else if (row.mType == TYPE_MEETING) {

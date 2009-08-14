@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import dalvik.system.VMRuntime;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -39,6 +37,8 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
+
+import dalvik.system.VMRuntime;
 
 /**
  * This is the base class for Day and Week Activities.
@@ -122,6 +122,16 @@ public class CalendarActivity extends Activity implements Navigator {
         Time time = new Time();
         time.set(savedInstanceState.getLong(BUNDLE_KEY_RESTORE_TIME));
         view.setSelectedDay(time);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        long timeMillis = Utils.timeFromIntentInMillis(intent);
+        if (timeMillis > 0) {
+            Time time = new Time();
+            time.set(timeMillis);
+            goTo(time);
+        }
     }
 
     @Override
@@ -249,7 +259,7 @@ public class CalendarActivity extends Activity implements Navigator {
         if (progress > 1.0f) {
             progress = 1.0f;
         }
-        
+
         float inFromXValue, inToXValue;
         float outFromXValue, outToXValue;
         if (forward) {
@@ -263,7 +273,7 @@ public class CalendarActivity extends Activity implements Navigator {
             outFromXValue = progress;
             outToXValue = 1.0f;
         }
-        
+
         // We have to allocate these animation objects each time we switch views
         // because that is the only way to set the animation parameters.
         TranslateAnimation inAnimation = new TranslateAnimation(
@@ -277,14 +287,14 @@ public class CalendarActivity extends Activity implements Navigator {
                 Animation.RELATIVE_TO_SELF, outToXValue,
                 Animation.ABSOLUTE, 0.0f,
                 Animation.ABSOLUTE, 0.0f);
-        
+
         // Reduce the animation duration based on how far we have already swiped.
         long duration = (long) (ANIMATION_DURATION * (1.0f - progress));
         inAnimation.setDuration(duration);
         outAnimation.setDuration(duration);
         mViewSwitcher.setInAnimation(inAnimation);
         mViewSwitcher.setOutAnimation(outAnimation);
-        
+
         CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
         view.cleanup();
         mViewSwitcher.showNext();
