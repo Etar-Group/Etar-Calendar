@@ -20,11 +20,11 @@ import com.google.android.googlelogin.GoogleLoginServiceConstants;
 
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
-import android.accounts.Future2;
-import android.accounts.Future2Callback;
+import android.accounts.AccountManagerCallback;
 import android.accounts.OperationCanceledException;
 import android.accounts.Account;
 import android.accounts.Constants;
+import android.accounts.AccountManagerFuture;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -60,8 +60,8 @@ public class LaunchActivity extends Activity {
             AccountManager.get(this).getAuthTokenByFeatures(
                     GoogleLoginServiceConstants.ACCOUNT_TYPE, Gmail.GMAIL_AUTH_SERVICE,
                     new String[]{GoogleLoginServiceConstants.FEATURE_LEGACY_HOSTED_OR_GOOGLE}, this,
-                    bundle, null /* loginOptions */, new Future2Callback() {
-                public void run(Future2 future) {
+                    bundle, null /* loginOptions */, new AccountManagerCallback<Bundle>() {
+                public void run(AccountManagerFuture<Bundle> future) {
                     try {
                         Bundle result = future.getResult();
                         onAccountsLoaded(new Account(
