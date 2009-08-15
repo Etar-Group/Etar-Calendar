@@ -47,7 +47,8 @@ public class LaunchActivity extends Activity {
         // Our UI is not something intended for the user to see.  We just
         // stick around until we can figure out what to do next based on
         // the current state of the system.
-        setVisible(false);
+        // TODO: Removed until framework is fixed in b/2008662
+        // setVisible(false);
 
         // Only try looking for an account if this is the first launch.
         if (icicle == null) {
