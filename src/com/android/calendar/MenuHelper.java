@@ -139,23 +139,19 @@ public class MenuHelper {
             nav.goToToday();
             return true;
         case MENU_PREFERENCES:
-            switchTo(activity, CalendarPreferenceActivity.class.getName(), nav.getSelectedTime());
+            Utils.startActivity(activity, CalendarPreferenceActivity.class.getName(), nav.getSelectedTime());
             return true;
         case MENU_AGENDA:
-            switchTo(activity, AgendaActivity.class.getName(), nav.getSelectedTime());
-            activity.finish();
+            Utils.startActivity(activity, AgendaActivity.class.getName(), nav.getSelectedTime());
             return true;
         case MENU_DAY:
-            switchTo(activity, DayActivity.class.getName(), nav.getSelectedTime());
-            activity.finish();
+            Utils.startActivity(activity, DayActivity.class.getName(), nav.getSelectedTime());
             return true;
         case MENU_WEEK:
-            switchTo(activity, WeekActivity.class.getName(), nav.getSelectedTime());
-            activity.finish();
+            Utils.startActivity(activity, WeekActivity.class.getName(), nav.getSelectedTime());
             return true;
         case MENU_MONTH:
-            switchTo(activity, MonthActivity.class.getName(), nav.getSelectedTime());
-            activity.finish();
+            Utils.startActivity(activity, MonthActivity.class.getName(), nav.getSelectedTime());
             return true;
         case MENU_EVENT_CREATE: {
             long startMillis = nav.getSelectedTime();
@@ -170,12 +166,5 @@ public class MenuHelper {
         }
         }
         return false;
-    }
-    
-    /* package */ static void switchTo(Activity activity, String className, long startMillis) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClassName(activity, className);
-        intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-        activity.startActivity(intent);
     }
 }
