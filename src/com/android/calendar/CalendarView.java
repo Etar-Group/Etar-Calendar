@@ -812,8 +812,7 @@ public class CalendarView extends View
                 } else {
                     // Switch to the Day/Agenda view.
                     long millis = getSelectedTimeInMillis();
-                    MenuHelper.switchTo(mParentActivity, mDetailedView, millis);
-                    mParentActivity.finish();
+                    Utils.startActivity(mParentActivity, mDetailedView, millis);
                 }
             }
         } else {
@@ -2684,14 +2683,12 @@ public class CalendarView extends View
                 }
                 case MenuHelper.MENU_DAY: {
                     long startMillis = getSelectedTimeInMillis();
-                    MenuHelper.switchTo(mParentActivity, DayActivity.class.getName(), startMillis);
-                    mParentActivity.finish();
+                    Utils.startActivity(mParentActivity, DayActivity.class.getName(), startMillis);
                     break;
                 }
                 case MenuHelper.MENU_AGENDA: {
                     long startMillis = getSelectedTimeInMillis();
-                    MenuHelper.switchTo(mParentActivity, AgendaActivity.class.getName(), startMillis);
-                    mParentActivity.finish();
+                    Utils.startActivity(mParentActivity, AgendaActivity.class.getName(), startMillis);
                     break;
                 }
                 case MenuHelper.MENU_EVENT_CREATE: {
