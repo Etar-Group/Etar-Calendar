@@ -26,7 +26,7 @@ public class WeekView extends CalendarView {
     }
 
     private void init() {
-        mDrawTextInEventRect = false;
+        mDrawTextInEventRect = true;
         mNumDays = 7;
         mEventGeometry.setCellMargin(CELL_MARGIN);
     }
