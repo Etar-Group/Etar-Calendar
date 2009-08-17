@@ -358,7 +358,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                     int y = (int) e.getY();
                     long millis = getSelectedMillisFor(x, y);
                     Utils.startActivity(getContext(), mDetailedView, millis);
-                    mParentActivity.finish();
                 }
 
                 return true;
@@ -397,14 +396,12 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             switch (item.getItemId()) {
                 case MenuHelper.MENU_DAY: {
                     long startMillis = getSelectedTimeInMillis();
-                    MenuHelper.switchTo(mParentActivity, DayActivity.class.getName(), startMillis);
-                    mParentActivity.finish();
+                    Utils.startActivity(mParentActivity, DayActivity.class.getName(), startMillis);
                     break;
                 }
                 case MenuHelper.MENU_AGENDA: {
                     long startMillis = getSelectedTimeInMillis();
-                    MenuHelper.switchTo(mParentActivity, AgendaActivity.class.getName(), startMillis);
-                    mParentActivity.finish();
+                    Utils.startActivity(mParentActivity, AgendaActivity.class.getName(), startMillis);
                     break;
                 }
                 case MenuHelper.MENU_EVENT_CREATE: {
@@ -1233,7 +1230,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             if (duration < ViewConfiguration.getLongPressTimeout()) {
                 long millis = getSelectedTimeInMillis();
                 Utils.startActivity(getContext(), mDetailedView, millis);
-                mParentActivity.finish();
             } else {
                 mSelectionMode = SELECTION_LONGPRESS;
                 mRedrawScreen = true;
@@ -1274,7 +1270,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         case KeyEvent.KEYCODE_ENTER:
             long millis = getSelectedTimeInMillis();
             Utils.startActivity(getContext(), mDetailedView, millis);
-            mParentActivity.finish();
             return true;
         case KeyEvent.KEYCODE_DPAD_UP:
             if (mCursor.up()) {

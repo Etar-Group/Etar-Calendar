@@ -30,6 +30,7 @@ public class Utils {
 
         intent.setClassName(context, className);
         intent.putExtra(EVENT_BEGIN_TIME, time);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
         context.startActivity(intent);
     }
