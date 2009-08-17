@@ -47,7 +47,7 @@
     <string name="event_view" msgid="7621353079385122317">"Zobrazit událost"</string>
     <string name="event_create" msgid="6941040556709110617">"Nová událost"</string>
     <string name="event_edit" msgid="4006961928830064662">"Upravit událost"</string>
-    <string name="event_delete" msgid="2386667193277770442">"Odstranit událost"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Smazat událost"</string>
     <string name="goto_today" msgid="9162136434410891230">"Dnes"</string>
     <string name="menu_select_calendars" msgid="6610470242968973936">"Moje kalendáře"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Nastavení"</string>
@@ -90,7 +90,7 @@
     <string name="num_events" msgid="3351672964607162257">"Počet událostí"</string>
     <string name="edit_event_label" msgid="2900418236819088363">"Upravit událost"</string>
     <string name="delete_label" msgid="874742811918030739">"Smazat"</string>
-    <string name="delete_event_label" msgid="3738436215987360463">"Odstranit událost"</string>
+    <string name="delete_event_label" msgid="3738436215987360463">"Smazat událost"</string>
     <string name="save_label" msgid="2133599104834432589">"Hotovo"</string>
     <string name="discard_label" msgid="4510607554910139220">"Vrátit zpět"</string>
     <string name="import_label" msgid="6993796574741477222">"Importovat"</string>
@@ -107,7 +107,7 @@
     <string name="modify_event" msgid="4501745557655992422">"Změnit pouze tuto událost"</string>
     <string name="modify_all" msgid="7506579040966638538">"Změnit všechny události série"</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Změnit tuto událost a všechny budoucí"</string>
-    <string name="delete_this_event_title" msgid="8738491083082780492">"Tato událost bude odstraněna."</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"Tato událost bude smazána."</string>
     <string name="delete_title" msgid="5143743507524995383">"Smazat"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Změnit odpověď"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Nastavení"</string>

@@ -50,7 +50,7 @@
   </string-array>
   <string-array name="preferences_alert_type_labels">
     <item msgid="2724242028978664229">"Alertar"</item>
-    <item msgid="8723674378160518790">"Notificación de la barra de estado"</item>
+    <item msgid="8723674378160518790">"Notificación en la barra de estado"</item>
     <item msgid="8433736231022186661">"Desconectado"</item>
   </string-array>
   <string-array name="availability">

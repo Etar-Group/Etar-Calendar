@@ -50,7 +50,7 @@
   </string-array>
   <string-array name="preferences_alert_type_labels">
     <item msgid="2724242028978664229">"Upozornění"</item>
-    <item msgid="8723674378160518790">"Oznámení ve stavovém řádku"</item>
+    <item msgid="8723674378160518790">"Oznámení na stavovém řádku"</item>
     <item msgid="8433736231022186661">"Vypnuto"</item>
   </string-array>
   <string-array name="availability">

@@ -113,7 +113,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Einstellungen"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Einstellung für Kalenderansicht"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Erinnerungseinstellungen"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgelehnte Termine ausblenden"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgel. Termine ausblenden"</string>
     <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Benachrichtigung &amp; Hinweis"</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Benachrichtigungen und Hinweise"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibration"</string>
