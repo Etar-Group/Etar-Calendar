@@ -74,6 +74,8 @@ import java.util.regex.Pattern;
 public class CalendarView extends View
         implements View.OnCreateContextMenuListener, View.OnClickListener {
 
+    private static float mScale = 0; // Used for supporting different screen densities
+
     private boolean mOnFlingCalled;
 
     protected CalendarApplication mCalendarApp;
@@ -93,7 +95,7 @@ public class CalendarView extends View
     private static final int ATTENDEES_INDEX_RELATIONSHIP = 1;
     private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=%d";
 
-    private static final float SMALL_ROUND_RADIUS = 3.0F;
+    private static float SMALL_ROUND_RADIUS = 3.0F;
 
     private static final int FROM_NONE = 0;
     private static final int FROM_ABOVE = 1;
@@ -101,7 +103,7 @@ public class CalendarView extends View
     private static final int FROM_LEFT = 4;
     private static final int FROM_RIGHT = 8;
 
-    private static final int HORIZONTAL_SCROLL_THRESHOLD = 50;
+    private static int HORIZONTAL_SCROLL_THRESHOLD = 50;
 
     private ContinueScroll mContinueScroll = new ContinueScroll();
 
@@ -179,10 +181,10 @@ public class CalendarView extends View
 
     private static final int DAY_GAP = 1;
     private static final int HOUR_GAP = 1;
-    private static final int SINGLE_ALLDAY_HEIGHT = 20;
-    private static final int MAX_ALLDAY_HEIGHT = 72;
-    private static final int ALLDAY_TOP_MARGIN = 3;
-    private static final int MAX_ALLDAY_EVENT_HEIGHT = 18;
+    private static int SINGLE_ALLDAY_HEIGHT = 20;
+    private static int MAX_ALLDAY_HEIGHT = 72;
+    private static int ALLDAY_TOP_MARGIN = 3;
+    private static int MAX_ALLDAY_EVENT_HEIGHT = 18;
     
     /* The extra space to leave above the text in all-day events */
     private static final int ALL_DAY_TEXT_TOP_MARGIN = 0;
@@ -200,13 +202,13 @@ public class CalendarView extends View
     /* package */ static final int MILLIS_PER_HOUR = (3600 * 1000);
     /* package */ static final int MILLIS_PER_DAY = MILLIS_PER_HOUR * 24;
 
-    private static final int NORMAL_FONT_SIZE = 12;
-    private static final int EVENT_TEXT_FONT_SIZE = 12;
-    private static final int HOURS_FONT_SIZE = 12;
-    private static final int AMPM_FONT_SIZE = 9;
-    private static final int MIN_CELL_WIDTH_FOR_TEXT = 10;
+    private static int NORMAL_FONT_SIZE = 12;
+    private static int EVENT_TEXT_FONT_SIZE = 12;
+    private static int HOURS_FONT_SIZE = 12;
+    private static int AMPM_FONT_SIZE = 9;
+    private static int MIN_CELL_WIDTH_FOR_TEXT = 27;
     private static final int MAX_EVENT_TEXT_LEN = 500;
-    private static final float MIN_EVENT_HEIGHT = 15.0F;  // in pixels
+    private static float MIN_EVENT_HEIGHT = 15.0F;  // in pixels
 
     private static int mSelectionColor;
     private static int mPressedColor;
@@ -307,9 +309,30 @@ public class CalendarView extends View
 
     private String mDateRange;
     private TextView mTitleTextView;
-    
+
     public CalendarView(CalendarActivity activity) {
         super(activity);
+        if (mScale == 0) {
+            mScale = getContext().getResources().getDisplayMetrics().density;
+            if (mScale != 1) {
+                SINGLE_ALLDAY_HEIGHT *= mScale;
+                MAX_ALLDAY_HEIGHT *= mScale;
+                ALLDAY_TOP_MARGIN *= mScale;
+                MAX_ALLDAY_EVENT_HEIGHT *= mScale;
+
+                NORMAL_FONT_SIZE *= mScale;
+                EVENT_TEXT_FONT_SIZE *= mScale;
+                HOURS_FONT_SIZE *= mScale;
+                AMPM_FONT_SIZE *= mScale;
+                MIN_CELL_WIDTH_FOR_TEXT *= mScale;
+                MIN_EVENT_HEIGHT *= mScale;
+
+                HORIZONTAL_SCROLL_THRESHOLD *= mScale;
+ 
+                SMALL_ROUND_RADIUS *= mScale;
+            }
+        }
+
         mResources = activity.getResources();
         mEventLoader = activity.mEventLoader;
         mEventGeometry = new EventGeometry();

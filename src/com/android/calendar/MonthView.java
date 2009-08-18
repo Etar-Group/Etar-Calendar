@@ -60,19 +60,20 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private static final boolean PROFILE_LOAD_TIME = false;
     private static final boolean DEBUG_BUSYBITS = false;
 
-    private static final int WEEK_GAP = 0;
-    private static final int MONTH_DAY_GAP = 1;
-    private static final float HOUR_GAP = 0.5f;
+    private static float mScale = 0; // Used for supporting different screen densities
+    private static int WEEK_GAP = 0;
+    private static int MONTH_DAY_GAP = 1;
+    private static float HOUR_GAP = 0.5f;
 
-    private static final int MONTH_DAY_TEXT_SIZE = 20;
-    private static final int WEEK_BANNER_HEIGHT = 17;
-    private static final int WEEK_TEXT_SIZE = 15;
-    private static final int WEEK_TEXT_PADDING = 3;
-    private static final int BUSYBIT_WIDTH = 10;
-    private static final int BUSYBIT_RIGHT_MARGIN = 3;
-    private static final int BUSYBIT_TOP_BOTTOM_MARGIN = 7;
+    private static int MONTH_DAY_TEXT_SIZE = 20;
+    private static int WEEK_BANNER_HEIGHT = 17;
+    private static int WEEK_TEXT_SIZE = 15;
+    private static int WEEK_TEXT_PADDING = 3;
+    private static int BUSYBIT_WIDTH = 10;
+    private static int BUSYBIT_RIGHT_MARGIN = 3;
+    private static int BUSYBIT_TOP_BOTTOM_MARGIN = 7;
 
-    private static final int HORIZONTAL_FLING_THRESHOLD = 50;
+    private static int HORIZONTAL_FLING_THRESHOLD = 50;
 
     private int mCellHeight;
     private int mBorder;
@@ -196,6 +197,25 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
     public MonthView(MonthActivity activity, Navigator navigator) {
         super(activity);
+        if (mScale == 0) {
+            mScale = getContext().getResources().getDisplayMetrics().density;
+           if (mScale != 1) {
+                    WEEK_GAP *= mScale;
+                    MONTH_DAY_GAP *= mScale;
+                    HOUR_GAP *= mScale;
+
+                    MONTH_DAY_TEXT_SIZE *= mScale;
+                    WEEK_BANNER_HEIGHT *= mScale;
+                    WEEK_TEXT_SIZE *= mScale;
+                    WEEK_TEXT_PADDING *= mScale;
+                    BUSYBIT_WIDTH *= mScale;
+                    BUSYBIT_RIGHT_MARGIN *= mScale;
+                    BUSYBIT_TOP_BOTTOM_MARGIN *= mScale;
+
+                    HORIZONTAL_FLING_THRESHOLD *= mScale;
+                }
+            }
+
         mEventLoader = activity.mEventLoader;
         mNavigator = navigator;
         mEventGeometry = new EventGeometry();
