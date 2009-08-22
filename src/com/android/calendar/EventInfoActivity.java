@@ -891,8 +891,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         }
         selection.append(')');
 
-        mPresenceQueryHandler.startQuery(0, attendees, CONTACT_PRESENCE_URI, PRESENCE_PROJECTION,
-                selection.toString(), selectionArgs, null);
+//TODO update this to the new contacts APIs
+//        mPresenceQueryHandler.startQuery(0, attendees, CONTACT_PRESENCE_URI, PRESENCE_PROJECTION,
+//                selection.toString(), selectionArgs, null);
     }
 
     private class PresenceQueryHandler extends AsyncQueryHandler {
