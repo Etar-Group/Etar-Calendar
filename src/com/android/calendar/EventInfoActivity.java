@@ -47,9 +47,9 @@ import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
-import android.provider.Contacts.Presence;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Intents;
+import android.provider.ContactsContract.Presence;
 import android.provider.ContactsContract.RawContacts;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.format.DateFormat;
@@ -106,6 +106,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         Events.HAS_ALARM,            // 10
         Events.ACCESS_LEVEL,         // 11
         Events.COLOR,                // 12
+        Events.GUESTS_CAN_MODIFY,    // 13
+        Events.ORGANIZER,            // 14
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -119,6 +121,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private static final int EVENT_INDEX_HAS_ALARM = 10;
     private static final int EVENT_INDEX_ACCESS_LEVEL = 11;
     private static final int EVENT_INDEX_COLOR = 12;
+    private static final int EVENT_INDEX_GUESTS_CAN_MODIFY = 13;
+    private static final int EVENT_INDEX_ORGANIZER = 14;
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
@@ -184,8 +188,13 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
     private long mStartMillis;
     private long mEndMillis;
-    private int mVisibility = Calendars.NO_ACCESS;
-    private int mRelationship = Attendees.RELATIONSHIP_ORGANIZER;
+
+    private long mCalendarOwnerAttendeeId = -1;
+    private String mCalendarOwnerAccount;
+    private boolean mCanModifyCalendar;
+    private boolean mCanModifyEvent;
+    private boolean mIsAttendee;
+    private String mOrganizer;
 
     private ArrayList<Integer> mOriginalMinutes = new ArrayList<Integer>();
     private ArrayList<LinearLayout> mReminderItems = new ArrayList<LinearLayout>(0);
@@ -256,7 +265,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         }
     };
     private int mColor;
-    private String mCalendarOwnerAccount = "";
 
     // This is called when one of the "remove reminder" buttons is selected.
     public void onClick(View v) {
@@ -267,7 +275,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         updateRemindersVisibility();
     }
 
-    public void onItemSelected(AdapterView parent, View v, int position, long id) {
+    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
         // If they selected the "No response" option, then don't display the
         // dialog asking which events to change.
         if (id == 0 && mResponseOffset == 0) {
@@ -292,7 +300,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         mEditResponseHelper.showDialog(mEditResponseHelper.getWhichEvents());
     }
 
-    public void onNothingSelected(AdapterView parent) {
+    public void onNothingSelected(AdapterView<?> parent) {
     }
 
     @Override
@@ -324,7 +332,17 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         uri = Calendars.CONTENT_URI;
         where = String.format(CALENDARS_WHERE, mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID));
         mCalendarsCursor = managedQuery(uri, CALENDARS_PROJECTION, where, null);
-        initCalendarsCursor();
+        mCalendarOwnerAccount = "";
+        if (mCalendarsCursor != null) {
+            mCalendarsCursor.moveToFirst();
+            mCalendarOwnerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+        }
+
+        mCanModifyCalendar =
+                mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) >= Calendars.CONTRIBUTOR_ACCESS;
+        mCanModifyEvent = mCanModifyCalendar
+                && (mEventCursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0);
+        mOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
 
         // Initialize the reminder values array.
         Resources r = getResources();
@@ -408,8 +426,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
     private void updateTitle() {
         Resources res = getResources();
-        if (mVisibility >= Calendars.CONTRIBUTOR_ACCESS &&
-                mRelationship == Attendees.RELATIONSHIP_ATTENDEE) {
+        if (mCanModifyCalendar && mIsAttendee) {
             setTitle(res.getString(R.string.event_info_title_invite));
         } else {
             setTitle(res.getString(R.string.event_info_title));
@@ -426,7 +443,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             return true;
         }
         mEventCursor.moveToFirst();
-        mVisibility = mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL);
         mEventId = mEventCursor.getInt(EVENT_INDEX_ID);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
         mIsRepeating = (rRule != null);
@@ -444,6 +460,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     }
 
     private void initAttendeesCursor() {
+        mOriginalAttendeeResponse = ATTENDEE_NO_RESPONSE;
+        mCalendarOwnerAttendeeId = -1;
         if (mAttendeesCursor != null) {
             if (mAttendeesCursor.moveToFirst()) {
                 mAcceptedAttendees.clear();
@@ -454,9 +472,11 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                     int status = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
                     String name = mAttendeesCursor.getString(ATTENDEES_INDEX_NAME);
                     String email = mAttendeesCursor.getString(ATTENDEES_INDEX_EMAIL);
-                    int relationship = mAttendeesCursor.getInt(ATTENDEES_INDEX_RELATIONSHIP);
-                    if (mRelationship != relationship && mCalendarOwnerAccount.equals(email)) {
-                        mRelationship = relationship;
+
+                    if (mCalendarOwnerAttendeeId == -1 && mCalendarOwnerAccount.equals(email)) {
+                        mIsAttendee = true;
+                        mCalendarOwnerAttendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
+                        mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
                     }
 
                     switch(status) {
@@ -474,12 +494,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
                 updateAttendees();
             }
-        }
-
-        // TODO We shouldn't have to guess whether the current user is the organizer or not
-        if (mVisibility < Calendars.CONTRIBUTOR_ACCESS
-                && mRelationship == Attendees.RELATIONSHIP_ORGANIZER) {
-            mRelationship = Attendees.RELATIONSHIP_ATTENDEE;
         }
     }
 
@@ -539,18 +553,14 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     public boolean onPrepareOptionsMenu(Menu menu) {
         // Cannot add reminders to a shared calendar with only free/busy
         // permissions
-        boolean canAddReminders =
-                mVisibility >= Calendars.READ_ACCESS && mReminderItems.size() < MAX_REMINDERS;
+        boolean canAddReminders = mCanModifyCalendar && mReminderItems.size() < MAX_REMINDERS;
         menu.setGroupVisible(MENU_GROUP_REMINDER, canAddReminders);
         menu.setGroupEnabled(MENU_GROUP_REMINDER, canAddReminders);
 
-        boolean canModifyCalendar = mVisibility >= Calendars.CONTRIBUTOR_ACCESS;
-        boolean canModifyEvent = canModifyCalendar
-                && mRelationship >= Attendees.RELATIONSHIP_ORGANIZER;
-        menu.setGroupVisible(MENU_GROUP_EDIT, canModifyEvent);
-        menu.setGroupEnabled(MENU_GROUP_EDIT, canModifyEvent);
-        menu.setGroupVisible(MENU_GROUP_DELETE, canModifyCalendar);
-        menu.setGroupEnabled(MENU_GROUP_DELETE, canModifyCalendar);
+        menu.setGroupVisible(MENU_GROUP_EDIT, mCanModifyEvent);
+        menu.setGroupEnabled(MENU_GROUP_EDIT, mCanModifyEvent);
+        menu.setGroupVisible(MENU_GROUP_DELETE, mCanModifyCalendar);
+        menu.setGroupEnabled(MENU_GROUP_DELETE, mCanModifyCalendar);
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -626,11 +636,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             return false;
         }
 
-        // TODO find the right row first
-        long attendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
         if (!mIsRepeating) {
             // This is a non-repeating event
-            updateResponse(cr, mEventId, attendeeId, status);
+            updateResponse(cr, mEventId, mCalendarOwnerAttendeeId, status);
             return true;
         }
 
@@ -640,10 +648,10 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             case -1:
                 return false;
             case UPDATE_SINGLE:
-                createExceptionResponse(cr, mEventId, attendeeId, status);
+                createExceptionResponse(cr, mEventId, mCalendarOwnerAttendeeId, status);
                 return true;
             case UPDATE_ALL:
-                updateResponse(cr, mEventId, attendeeId, status);
+                updateResponse(cr, mEventId, mCalendarOwnerAttendeeId, status);
                 return true;
             default:
                 Log.e("Calendar", "Unexpected choice for updating invitation response");
@@ -840,10 +848,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
         // Calendar
         if (mCalendarsCursor != null) {
-            mCalendarsCursor.moveToFirst();
             String calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
             setTextCommon(R.id.calendar, calendarName);
-            mCalendarOwnerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
         } else {
             setVisibilityCommon(R.id.calendar_container, View.GONE);
         }
@@ -971,8 +977,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     }
 
     void updateResponse() {
-        if (mVisibility < Calendars.CONTRIBUTOR_ACCESS ||
-                mRelationship != Attendees.RELATIONSHIP_ATTENDEE) {
+        if (!mCanModifyCalendar || !mIsAttendee) {
             setVisibilityCommon(R.id.response_container, View.GONE);
             return;
         }
@@ -981,11 +986,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
         Spinner spinner = (Spinner) findViewById(R.id.response_value);
 
-        mOriginalAttendeeResponse = ATTENDEE_NO_RESPONSE;
-        if (mAttendeesCursor != null) {
-            // TODO find the right row first
-            mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
-        }
         mResponseOffset = 0;
 
         /* If the user has previously responded to this event
