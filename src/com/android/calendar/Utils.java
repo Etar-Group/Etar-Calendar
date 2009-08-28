@@ -30,7 +30,9 @@ public class Utils {
 
         intent.setClassName(context, className);
         intent.putExtra(EVENT_BEGIN_TIME, time);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        // TODO Setting this flag will cause the EVENT_BEGIN_TIME to be lost for existing activities
+        // Need to pass the EVENT_BEGIN_TIME via other methods or use another flag
+        // intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
         context.startActivity(intent);
     }
