@@ -139,11 +139,11 @@ public class AgendaByDayAdapter extends BaseAdapter {
             if (row.mData == mTodayJulianDay) {
                 String dayText = mContext.getResources().getText(R.string.agenda_today) + ", ";
                 holder.dateView.setText(dayText + DateUtils.formatDateRange(mContext, mFormatter,
-                    millis, millis, flags).toString() + " P:" + position); // TODO remove P:
+                    millis, millis, flags).toString());
             } else {
                 flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
                 holder.dateView.setText(DateUtils.formatDateRange(mContext, mFormatter, millis,
-                    millis, flags).toString() + " P:" + position); // TODO remove P:
+                    millis, flags).toString());
             }
 
 
@@ -151,7 +151,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         } else if (row.mType == TYPE_MEETING) {
             View x = mAgendaAdapter.getView(row.mData, convertView, parent);
             TextView y = ((AgendaAdapter.ViewHolder) x.getTag()).title;
-            y.setText(y.getText() + " P:" + position);
+            y.setText(y.getText());
             return x;
         } else {
             // Error
