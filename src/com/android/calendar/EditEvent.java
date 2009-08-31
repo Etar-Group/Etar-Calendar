@@ -19,6 +19,10 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -83,6 +87,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.googlelogin.GoogleLoginServiceConstants;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -244,6 +251,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
     private DeleteEventHelper mDeleteEventHelper;
     private QueryHandler mQueryHandler;
+    private AccountManager mAccountManager;
 
     /* This class is used to update the time buttons. */
     private class TimeListener implements OnTimeSetListener {
@@ -497,26 +505,75 @@ public class EditEvent extends Activity implements View.OnClickListener,
                     return;
                 }
 
-                // Find user domain and set it to the validator
-                // TODO This won't work realiably if there are calendars in different domains
-                cursor.moveToFirst();
-                String ownEmail = cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
-                if (ownEmail != null) {
-                    int separator = ownEmail.lastIndexOf('@');
-                    if (separator != -1 && ++separator < ownEmail.length()) {
-                        mAttendeesList.setValidator(new Rfc822Validator(ownEmail
-                                .substring(separator)));
-                    }
-                }
+                int primaryCalendarPosition = findPrimaryCalendarPosition();
 
                 // populate the calendars spinner
                 CalendarsAdapter adapter = new CalendarsAdapter(EditEvent.this, mCalendarsCursor);
                 mCalendarsSpinner.setAdapter(adapter);
+                mCalendarsSpinner.setSelection(primaryCalendarPosition);
                 mCalendarsQueryComplete = true;
                 if (mSaveAfterQueryComplete) {
                     mLoadingCalendarsDialog.cancel();
                     save();
                     finish();
+                }
+
+                // Find user domain and set it to the validator
+                if(cursor.moveToPosition(primaryCalendarPosition)) {
+                    String ownEmail = cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+                    if (ownEmail != null) {
+                        int separator = ownEmail.lastIndexOf('@');
+                        if (separator != -1 && ++separator < ownEmail.length()) {
+                            mAttendeesList.setValidator(new Rfc822Validator(ownEmail
+                                    .substring(separator)));
+                        }
+                    }
+                }
+            }
+        }
+
+        // Find the calendar position in the cursor that matches the signed-in
+        // account
+        private int findPrimaryCalendarPosition() {
+            int primaryCalendarPosition = -1;
+            try {
+                Account[] accounts = mAccountManager.getAccountsByTypeAndFeatures(
+                        GoogleLoginServiceConstants.ACCOUNT_TYPE, new String[] {
+                            GoogleLoginServiceConstants.FEATURE_LEGACY_HOSTED_OR_GOOGLE
+                        }, null, null).getResult();
+                if (accounts.length > 0) {
+                    for (int i = 0; i < accounts.length && primaryCalendarPosition == -1; ++i) {
+                        String name = accounts[i].name;
+                        if (name == null) {
+                            continue;
+                        }
+
+                        int position = 0;
+                        mCalendarsCursor.moveToPosition(-1);
+                        while (mCalendarsCursor.moveToNext()) {
+                            if (name.equals(mCalendarsCursor
+                                    .getString(CALENDARS_INDEX_OWNER_ACCOUNT))) {
+                                primaryCalendarPosition = position;
+                                break;
+                            }
+                            position++;
+                        }
+                    }
+                }
+            } catch (OperationCanceledException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (AuthenticatorException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } finally {
+                if (primaryCalendarPosition != -1) {
+                    return primaryCalendarPosition;
+                } else {
+                    return 0;
                 }
             }
         }
@@ -527,6 +584,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         super.onCreate(icicle);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.edit_event);
+        mAccountManager = AccountManager.get(this);
 
         mFirstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
 
