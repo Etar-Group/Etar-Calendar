@@ -192,7 +192,8 @@
 
             <Spinner android:id="@+id/calendars"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:prompt="@string/edit_event_calendar_label"/>
         </LinearLayout>
 
         <!-- GUESTS/ATTENDEES -->
@@ -233,7 +234,8 @@
 
             <Spinner android:id="@+id/repeats"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:prompt="@string/repeats_label"/>
         </LinearLayout>
 
         <!-- MORE OPTIONS -->
@@ -259,7 +261,8 @@
                 <Spinner android:id="@+id/availability"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/availability" />
+                    android:entries="@array/availability"
+                    android:prompt="@string/presence_label"/>
             </LinearLayout>
 
             <!-- PRIVACY -->
@@ -278,7 +281,8 @@
                 <Spinner android:id="@+id/visibility"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/visibility" />
+                    android:entries="@array/visibility"
+                    android:prompt="@string/privacy_label"/>
             </LinearLayout>
         </LinearLayout>
 
