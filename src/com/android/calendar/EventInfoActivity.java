@@ -83,6 +83,10 @@ import java.util.regex.Pattern;
 
 public class EventInfoActivity extends Activity implements View.OnClickListener,
         AdapterView.OnItemSelectedListener {
+    public static final boolean DEBUG = false;
+
+    public static final String TAG = "EventInfoActivity";
+
     private static final int MAX_REMINDERS = 5;
 
     /**
@@ -107,7 +111,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         Events.ACCESS_LEVEL,         // 11
         Events.COLOR,                // 12
         Events.GUESTS_CAN_MODIFY,    // 13
-        Events.ORGANIZER,            // 14
+        // TODO Events.CAN_INVITE_OTHERS is broken. Investigate
+        Events.GUESTS_CAN_INVITE_OTHERS, // 14
+        Events.ORGANIZER,            // 15
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -122,7 +128,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private static final int EVENT_INDEX_ACCESS_LEVEL = 11;
     private static final int EVENT_INDEX_COLOR = 12;
     private static final int EVENT_INDEX_GUESTS_CAN_MODIFY = 13;
-    private static final int EVENT_INDEX_ORGANIZER = 14;
+    private static final int EVENT_INDEX_CAN_INVITE_OTHERS = 14;
+    private static final int EVENT_INDEX_ORGANIZER = 15;
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
@@ -179,6 +186,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     };
 
     private LinearLayout mRemindersContainer;
+    private LinearLayout mOrganizerContainer;
+    private TextView mOrganizerView;
 
     private Uri mUri;
     private long mEventId;
@@ -192,8 +201,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private long mCalendarOwnerAttendeeId = -1;
     private String mCalendarOwnerAccount;
     private boolean mCanModifyCalendar;
+    private boolean mIsBusyFreeCalendar;
     private boolean mCanModifyEvent;
-    private boolean mIsAttendee;
+    private int mNumOfAttendees;
     private String mOrganizer;
 
     private ArrayList<Integer> mOriginalMinutes = new ArrayList<Integer>();
@@ -212,6 +222,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
     private Pattern mWildcardPattern = Pattern.compile("^.*$");
     private LayoutInflater mLayoutInflater;
+    private LinearLayout mReminderAdder;
 
     // TODO This can be removed when the contacts content provider doesn't return duplicates
     private int mUpdateCounts;
@@ -237,10 +248,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         Email.DATA,               // 2
         Contacts.PHOTO_ID,        // 3
     };
-
-    public static final boolean DEBUG = false;
-
-    public static final String TAG = "EventInfoActivity";
 
     ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mDeclinedAttendees = new ArrayList<Attendee>();
@@ -338,11 +345,15 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             mCalendarOwnerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
         }
 
+        String eventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
+        mOrganizer = eventOrganizer;
         mCanModifyCalendar =
                 mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) >= Calendars.CONTRIBUTOR_ACCESS;
+        mIsBusyFreeCalendar =
+                mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) == Calendars.FREEBUSY_ACCESS;
         mCanModifyEvent = mCanModifyCalendar
-                && (mEventCursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0);
-        mOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
+                && (mCalendarOwnerAccount.equals(eventOrganizer)
+                        || mEventCursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0);
 
         // Initialize the reminder values array.
         Resources r = getResources();
@@ -361,7 +372,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER, "0");
         mDefaultReminderMinutes = Integer.parseInt(durationString);
 
-        mRemindersContainer = (LinearLayout) findViewById(R.id.reminder_items_container);
+        mRemindersContainer = (LinearLayout) findViewById(R.id.reminders_container);
+        mOrganizerContainer = (LinearLayout) findViewById(R.id.organizer_container);
+        mOrganizerView = (TextView) findViewById(R.id.organizer);
 
         // Reminders cursor
         boolean hasAlarm = mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) != 0;
@@ -392,7 +405,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         }
 
         updateView();
-        updateRemindersVisibility();
 
         // Setup the + Add Reminder Button
         View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
@@ -400,8 +412,11 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 addReminder();
             }
         };
-        ImageButton reminderRemoveButton = (ImageButton) findViewById(R.id.reminder_add);
-        reminderRemoveButton.setOnClickListener(addReminderOnClickListener);
+        ImageButton reminderAddButton = (ImageButton) findViewById(R.id.reminder_add);
+        reminderAddButton.setOnClickListener(addReminderOnClickListener);
+
+        mReminderAdder = (LinearLayout) findViewById(R.id.reminder_adder);
+        updateRemindersVisibility();
 
         mDeleteEventHelper = new DeleteEventHelper(this, true /* exit when done */);
         mEditResponseHelper = new EditResponseHelper(this);
@@ -426,7 +441,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
     private void updateTitle() {
         Resources res = getResources();
-        if (mCanModifyCalendar && mIsAttendee) {
+        if (mCanModifyCalendar && mNumOfAttendees > 1) {
             setTitle(res.getString(R.string.event_info_title_invite));
         } else {
             setTitle(res.getString(R.string.event_info_title));
@@ -462,7 +477,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private void initAttendeesCursor() {
         mOriginalAttendeeResponse = ATTENDEE_NO_RESPONSE;
         mCalendarOwnerAttendeeId = -1;
+        mNumOfAttendees = 0;
         if (mAttendeesCursor != null) {
+            mNumOfAttendees = mAttendeesCursor.getCount();
             if (mAttendeesCursor.moveToFirst()) {
                 mAcceptedAttendees.clear();
                 mDeclinedAttendees.clear();
@@ -473,8 +490,17 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                     String name = mAttendeesCursor.getString(ATTENDEES_INDEX_NAME);
                     String email = mAttendeesCursor.getString(ATTENDEES_INDEX_EMAIL);
 
+                    if (mAttendeesCursor.getInt(ATTENDEES_INDEX_RELATIONSHIP) ==
+                            Attendees.RELATIONSHIP_ORGANIZER) {
+                        // Overwrites the one from Event table if available
+                        if (name != null && name.length() > 0) {
+                            mOrganizer = name;
+                        } else if (email != null && email.length() > 0) {
+                            mOrganizer = email;
+                        }
+                    }
+
                     if (mCalendarOwnerAttendeeId == -1 && mCalendarOwnerAccount.equals(email)) {
-                        mIsAttendee = true;
                         mCalendarOwnerAttendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
                         mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
                     }
@@ -494,6 +520,12 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
                 updateAttendees();
             }
+        }
+        if (mNumOfAttendees > 1) {
+            mOrganizerContainer.setVisibility(View.VISIBLE);
+            mOrganizerView.setText(mOrganizer);
+        } else {
+            mOrganizerContainer.setVisibility(View.GONE);
         }
     }
 
@@ -551,9 +583,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // Cannot add reminders to a shared calendar with only free/busy
-        // permissions
-        boolean canAddReminders = mCanModifyCalendar && mReminderItems.size() < MAX_REMINDERS;
+        boolean canAddReminders = canAddReminders();
         menu.setGroupVisible(MENU_GROUP_REMINDER, canAddReminders);
         menu.setGroupEnabled(MENU_GROUP_REMINDER, canAddReminders);
 
@@ -563,6 +593,10 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         menu.setGroupEnabled(MENU_GROUP_DELETE, mCanModifyCalendar);
 
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    private boolean canAddReminders() {
+        return !mIsBusyFreeCalendar && mReminderItems.size() < MAX_REMINDERS;
     }
 
     private void addReminder() {
@@ -605,10 +639,11 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     }
 
     private void updateRemindersVisibility() {
-        if (mReminderItems.size() == 0) {
+        if (mIsBusyFreeCalendar) {
             mRemindersContainer.setVisibility(View.GONE);
         } else {
             mRemindersContainer.setVisibility(View.VISIBLE);
+            mReminderAdder.setVisibility(canAddReminders() ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -977,7 +1012,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     }
 
     void updateResponse() {
-        if (!mCanModifyCalendar || !mIsAttendee) {
+        if (!mCanModifyCalendar || mNumOfAttendees <= 1) {
             setVisibilityCommon(R.id.response_container, View.GONE);
             return;
         }

@@ -119,7 +119,30 @@
                     android:autoLink="all"
                     style="?android:attr/textAppearanceSmall"
                 />
+
+                <!-- Organizer -->
+                <LinearLayout android:id="@+id/organizer_container"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dip"
+                >
+            
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dip"
+                        android:text="@string/view_event_organizer_label"
+                        style="?android:attr/textAppearanceSmall"
+                    />
     
+                    <TextView android:id="@+id/organizer"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        style="?android:attr/textAppearanceSmall"
+                    />
+                </LinearLayout>
+
                 <!-- DESCRIPTION -->
                 <TextView android:id="@+id/description"
                     android:layout_width="fill_parent"
@@ -155,14 +178,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- GUEST LIST -->
-        <LinearLayout
-            android:id="@+id/attendee_list"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dip"
-            android:orientation="vertical" />
-
         <!-- RESPONSE -->
         <LinearLayout android:id="@+id/response_container"
             android:orientation="vertical"
@@ -187,6 +202,14 @@
                 android:entries="@array/response_labels1"/>
         </LinearLayout>
         
+        <!-- GUEST LIST -->
+        <LinearLayout
+            android:id="@+id/attendee_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dip"
+            android:orientation="vertical" />
+
         <!-- REMINDERS -->
         <LinearLayout android:id="@+id/reminders_container"
             android:orientation="vertical"
@@ -195,7 +218,7 @@
             android:paddingLeft="8dip"
             android:paddingRight="7dip"
             android:paddingTop="5dip"
-            android:paddingBottom="1dip">
+            android:paddingBottom="5dip">
         
             <TextView android:id="@+id/reminders_label"
                 android:layout_width="wrap_content"
@@ -209,26 +232,23 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
             </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical|right"
-            android:paddingRight="5dip"
-            android:paddingBottom="5dip">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout android:id="@+id/reminder_adder"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="7dip"
-                android:text="@string/add_new_reminder"/>
+                android:gravity="center_vertical|right">
 
-            <ImageButton android:id="@+id/reminder_add"
-                style="@style/PlusButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="2dip"
-            />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="7dip"
+                    android:text="@string/add_new_reminder"/>
+
+                <ImageButton android:id="@+id/reminder_add"
+                    style="@style/PlusButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
