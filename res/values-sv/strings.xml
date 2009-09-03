@@ -15,112 +15,112 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label">"Kalender"</string>
-    <string name="calendar_plug"><font fgcolor="#ffffffff">"Välkommen till Google Kalender!"</font>" "\n"Med Googles verktyg för schemaläggning sköter du planeringen på ett enkelt, effektivt och lättillgängligt sätt."</string>
-    <string name="what_label">"Vad"</string>
-    <string name="when_label">"När"</string>
-    <string name="where_label">"Var"</string>
-    <string name="repeats_label">"Upprepning"</string>
-    <string name="no_title_label">"(Inget ämne)"</string>
+    <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
+    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Välkommen till Google Kalender!"</font>" "\n"Med Googles verktyg för schemaläggning sköter du planeringen på ett enkelt, effektivt och lättillgängligt sätt."</string>
+    <string name="what_label" msgid="1933578391985810049">"Vad"</string>
+    <string name="when_label" msgid="894636567327261599">"När"</string>
+    <string name="where_label" msgid="3472482206065595118">"Var"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"Upprepning"</string>
+    <string name="no_title_label" msgid="7352118984125107858">"(Inget ämne)"</string>
   <plurals name="Nminutes">
-    <item quantity="one">"1 minut"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minuter"</item>
+    <item quantity="one" msgid="4871052965772159239">"1 minut"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minuter"</item>
   </plurals>
   <plurals name="Nmins">
-    <item quantity="one">"1 min"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> minuter"</item>
+    <item quantity="one" msgid="9191090668359663663">"1 min"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> minuter"</item>
   </plurals>
   <plurals name="Nhours">
-    <item quantity="one">"1 timme"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> timmar"</item>
+    <item quantity="one" msgid="4793697728599296830">"1 timme"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> timmar"</item>
   </plurals>
   <plurals name="Ndays">
-    <item quantity="one">"1 dag"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> dagar"</item>
+    <item quantity="one" msgid="5988137255732166573">"1 dag"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dagar"</item>
   </plurals>
-    <string name="show_agenda_view">"Visa program"</string>
-    <string name="show_day_view">"Visa dag"</string>
-    <string name="agenda_view">"Program"</string>
-    <string name="day_view">"Dag"</string>
-    <string name="week_view">"Vecka"</string>
-    <string name="month_view">"Månad"</string>
-    <string name="event_view">"Visa händelse"</string>
-    <string name="event_create">"Ny händelse"</string>
-    <string name="event_edit">"Redigera händelse"</string>
-    <string name="event_delete">"Ta bort händelse"</string>
-    <string name="goto_today">"Idag"</string>
-    <string name="menu_select_calendars">"Mina kalendrar"</string>
-    <string name="menu_preferences">"Inställningar"</string>
-    <string name="plus_N_more">"(och <xliff:g id="MORE_COUNT">%d</xliff:g> till …)"</string>
-    <string name="calendars_title">"Mina kalendrar"</string>
-    <string name="add_calendars">"Lägg till kalendrar"</string>
-    <string name="remove_calendars">"Ta bort kalendrarna"</string>
-    <string name="event_edit_title">"Händelseinfo"</string>
-    <string name="hint_what">"Händelsens namn"</string>
-    <string name="hint_where">"Plats för händelsen"</string>
-    <string name="hint_description">"Beskrivning av händelse"</string>
-    <string name="creating_event">"Skapar händelse…"</string>
-    <string name="saving_event">"Sparar händelse…"</string>
-    <string name="loading_calendars_title">"Läser in kalendrar"</string>
-    <string name="loading_calendars_message">"Läser in kalendrar…"</string>
-    <string name="alert_title">"Kalenderaviseringar"</string>
-    <string name="alert_when_label">"När:"</string>
-    <string name="alert_where_label">"Var:"</string>
-    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> annan påminnelse)"</string>
-    <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> andra påminnelser)"</string>
-    <string name="event_info_title">"Visa händelse"</string>
-    <string name="event_info_title_invite">"Inbjudan till möte"</string>
-    <string name="add_new_reminder">"Lägg till påminnelse"</string>
-    <string name="edit_event_to_label">"Till"</string>
-    <string name="edit_event_from_label">"Från"</string>
-    <string name="edit_event_all_day_label">"Hela dagen"</string>
-    <string name="edit_event_calendar_label">"Kalender"</string>
-    <string name="edit_event_show_extra_options">"Visa fler alternativ"</string>
-    <string name="edit_event_hide_extra_options">"Dölj fler alternativ"</string>
-    <string name="description_label">"Beskrivning"</string>
-    <string name="presence_label">"Närvaro"</string>
-    <string name="privacy_label">"Sekretess"</string>
-    <string name="reminders_label">"Påminnelser"</string>
-    <string name="no_syncable_calendars">"Inga kalendrar"</string>
-    <string name="no_calendars_found">"Du har inga kalendrar."</string>
-    <string name="view_event_calendar_label">"Kalender"</string>
-    <string name="view_event_timezone_label">"Lokal tidszon"</string>
-    <string name="view_event_response_label">"Delta?"</string>
-    <string name="agenda_today">"Idag"</string>
-    <string name="num_events">"Antal händelser"</string>
-    <string name="edit_event_label">"Redigera händelse"</string>
-    <string name="delete_label">"Ta bort"</string>
-    <string name="delete_event_label">"Ta bort händelse"</string>
+    <string name="show_agenda_view" msgid="7971854300981408347">"Visa program"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Visa dag"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Program"</string>
+    <string name="day_view" msgid="4467754504843584437">"Dag"</string>
+    <string name="week_view" msgid="6775043022159508060">"Vecka"</string>
+    <string name="month_view" msgid="7287101431749285412">"Månad"</string>
+    <string name="event_view" msgid="7621353079385122317">"Visa händelse"</string>
+    <string name="event_create" msgid="6941040556709110617">"Ny händelse"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Redigera händelse"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Ta bort händelse"</string>
+    <string name="goto_today" msgid="9162136434410891230">"Idag"</string>
+    <string name="menu_select_calendars" msgid="6610470242968973936">"Mina kalendrar"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Inställningar"</string>
+    <string name="plus_N_more" msgid="2527895721728080055">"(och <xliff:g id="MORE_COUNT">%d</xliff:g> till …)"</string>
+    <string name="calendars_title" msgid="4457305218812126946">"Mina kalendrar"</string>
+    <string name="add_calendars" msgid="1013326491414656517">"Lägg till kalendrar"</string>
+    <string name="remove_calendars" msgid="1395151808187126222">"Ta bort kalendrarna"</string>
+    <string name="event_edit_title" msgid="8487120407086532444">"Händelseinfo"</string>
+    <string name="hint_what" msgid="709155115005044531">"Händelsens namn"</string>
+    <string name="hint_where" msgid="3116239630502213241">"Plats för händelsen"</string>
+    <string name="hint_description" msgid="4198202812240544553">"Beskrivning av händelse"</string>
+    <string name="creating_event" msgid="8237877638457604455">"Skapar händelse…"</string>
+    <string name="saving_event" msgid="8853425146353785688">"Sparar händelse…"</string>
+    <string name="loading_calendars_title" msgid="3819254313413902272">"Läser in kalendrar"</string>
+    <string name="loading_calendars_message" msgid="8266077515011438420">"Läser in kalendrar…"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Kalenderaviseringar"</string>
+    <string name="alert_when_label" msgid="106946701143025116">"När:"</string>
+    <string name="alert_where_label" msgid="4255965543493921820">"Var:"</string>
+    <string name="alert_missed_events_single" msgid="8042891195314876684">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> annan påminnelse)"</string>
+    <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> andra påminnelser)"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Visa händelse"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Inbjudan till möte"</string>
+    <string name="add_new_reminder" msgid="4171314793889890481">"Lägg till påminnelse"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Till"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Från"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Hela dagen"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalender"</string>
+    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Visa fler alternativ"</string>
+    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Dölj fler alternativ"</string>
+    <string name="description_label" msgid="7193475046717505855">"Beskrivning"</string>
+    <string name="presence_label" msgid="2155381988163502023">"Närvaro"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Sekretess"</string>
+    <string name="reminders_label" msgid="8345054160145333166">"Påminnelser"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"Inga kalendrar"</string>
+    <string name="no_calendars_found" msgid="755379468136462058">"Du har inga kalendrar."</string>
+    <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>
+    <string name="view_event_timezone_label" msgid="6461351857281070935">"Lokal tidszon"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Delta?"</string>
+    <string name="agenda_today" msgid="2405333795044229594">"Idag"</string>
+    <string name="num_events" msgid="3351672964607162257">"Antal händelser"</string>
+    <string name="edit_event_label" msgid="2900418236819088363">"Redigera händelse"</string>
+    <string name="delete_label" msgid="874742811918030739">"Ta bort"</string>
+    <string name="delete_event_label" msgid="3738436215987360463">"Ta bort händelse"</string>
     <!-- no translation found for save_label (2133599104834432589) -->
     <skip />
     <!-- no translation found for discard_label (4510607554910139220) -->
     <skip />
-    <string name="import_label">"Importera"</string>
-    <string name="snooze_all_label">"Sätt alla på snooze"</string>
-    <string name="dismiss_all_label">"Ta bort alla permanent"</string>
-    <string name="does_not_repeat">"Engångshändelse"</string>
-    <string name="daily">"Dagligen"</string>
-    <string name="every_weekday">"Varje vardag (mån-fre)"</string>
-    <string name="weekly">"Varje vecka (varje <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count">"Varje månad (den <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
-    <string name="monthly_on_day">"Varje månad (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly">"Varje år (den <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom">"Anpassad… (går ej att anpassa i telefonen)"</string>
-    <string name="modify_event">"Ändra bara den här händelsen."</string>
-    <string name="modify_all">"Ändra alla händelser i serien."</string>
-    <string name="modify_all_following">"Ändra den här och alla framtida händelser."</string>
-    <string name="delete_this_event_title">"Händelsen kommer att tas bort."</string>
-    <string name="delete_title">"Ta bort"</string>
-    <string name="change_response_title">"Ändra svar"</string>
-    <string name="preferences_title">"Inställningar"</string>
-    <string name="preferences_general_title">"Inställning för kalendervy"</string>
-    <string name="preferences_alerts_title">"Inställningar för påminnelse"</string>
-    <string name="preferences_hide_declined_title">"Dölj avböjda händelser"</string>
-    <string name="preferences_alerts_type_title">"Ställ in varningar och avis."</string>
-    <string name="preferences_alerts_type_dialog">"Varningar och aviseringar"</string>
-    <string name="preferences_alerts_vibrate_title">"Vibrera"</string>
-    <string name="preferences_alerts_ringtone_title">"Välj ringsignal"</string>
-    <string name="preferences_default_reminder_title">"Ange standardtid för påmin."</string>
-    <string name="preferences_default_reminder_dialog">"Standardtid för påminnelse"</string>
-    <string name="preferences_default_reminder_default">"10"</string>
+    <string name="import_label" msgid="6993796574741477222">"Importera"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Sätt alla på snooze"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Ta bort alla permanent"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Engångshändelse"</string>
+    <string name="daily" msgid="560350706808680448">"Dagligen"</string>
+    <string name="every_weekday" msgid="5896574838353902978">"Varje vardag (mån-fre)"</string>
+    <string name="weekly" msgid="2006107373119027114">"Varje vecka (varje <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Varje månad (den <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>en)"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"Varje månad (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"Varje år (den <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom" msgid="3015205670911301856">"Anpassad… (går ej att anpassa i telefonen)"</string>
+    <string name="modify_event" msgid="4501745557655992422">"Ändra bara den här händelsen."</string>
+    <string name="modify_all" msgid="7506579040966638538">"Ändra alla händelser i serien."</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"Ändra den här och alla framtida händelser."</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"Händelsen kommer att tas bort."</string>
+    <string name="delete_title" msgid="5143743507524995383">"Ta bort"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Ändra svar"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Inställningar"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Inställning för kalendervy"</string>
+    <string name="preferences_alerts_title" msgid="6511227171114210908">"Inställningar för påminnelse"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Dölj avböjda händelser"</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Ställ in varningar och avis."</string>
+    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Varningar och aviseringar"</string>
+    <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrera"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Välj ringsignal"</string>
+    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Ange standardtid för påmin."</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standardtid för påminnelse"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>

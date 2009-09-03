@@ -15,112 +15,112 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label">"Ημερολόγιο"</string>
-    <string name="calendar_plug"><font fgcolor="#ffffffff">"Καλώς ήρθατε στο Ημερολόγιο Google!"</font>" "\n"Μια πρόταση της Google για τη διαχείριση του προγράμματός σας βασισμένη στην ιδέα ότι ο προγραμματισμός συμβάντων μπορεί να είναι πιο διαισθητικός, πιο αποδοτικός και πιο προσιτός."</string>
-    <string name="what_label">"Τι"</string>
-    <string name="when_label">"Πότε"</string>
-    <string name="where_label">"Που"</string>
-    <string name="repeats_label">"Επανάληψη"</string>
-    <string name="no_title_label">"(Χωρίς θέμα)"</string>
+    <string name="app_label" msgid="5452708708398908131">"Ημερολόγιο"</string>
+    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Καλώς ήρθατε στο Ημερολόγιο Google!"</font>" "\n"Μια πρόταση της Google για τη διαχείριση του προγράμματός σας βασισμένη στην ιδέα ότι ο προγραμματισμός συμβάντων μπορεί να είναι πιο διαισθητικός, πιο αποδοτικός και πιο προσιτός."</string>
+    <string name="what_label" msgid="1933578391985810049">"Τι"</string>
+    <string name="when_label" msgid="894636567327261599">"Πότε"</string>
+    <string name="where_label" msgid="3472482206065595118">"Που"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"Επανάληψη"</string>
+    <string name="no_title_label" msgid="7352118984125107858">"(Χωρίς θέμα)"</string>
   <plurals name="Nminutes">
-    <item quantity="one">"1 λεπτό"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> λεπτά"</item>
+    <item quantity="one" msgid="4871052965772159239">"1 λεπτό"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> λεπτά"</item>
   </plurals>
   <plurals name="Nmins">
-    <item quantity="one">"1 λεπτό"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> λεπτά"</item>
+    <item quantity="one" msgid="9191090668359663663">"1 λεπτό"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> λεπτά"</item>
   </plurals>
   <plurals name="Nhours">
-    <item quantity="one">"1 ώρα"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> ώρες"</item>
+    <item quantity="one" msgid="4793697728599296830">"1 ώρα"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ώρες"</item>
   </plurals>
   <plurals name="Ndays">
-    <item quantity="one">"1 ημέρα"</item>
-    <item quantity="other">"<xliff:g id="COUNT">%d</xliff:g> ημέρες"</item>
+    <item quantity="one" msgid="5988137255732166573">"1 ημέρα"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> ημέρες"</item>
   </plurals>
-    <string name="show_agenda_view">"Εμφάνιση ατζέντας"</string>
-    <string name="show_day_view">"Εμφάνιση ημέρας"</string>
-    <string name="agenda_view">"Ατζέντα"</string>
-    <string name="day_view">"Ημέρα"</string>
-    <string name="week_view">"Εβδομάδα"</string>
-    <string name="month_view">"Μήνας"</string>
-    <string name="event_view">"Προβολή συμβάντος"</string>
-    <string name="event_create">"Νέο συμβάν"</string>
-    <string name="event_edit">"Επεξεργασία συμβάντος"</string>
-    <string name="event_delete">"Διαγραφή συμβάντος"</string>
-    <string name="goto_today">"Σήμερα"</string>
-    <string name="menu_select_calendars">"Τα ημερολόγιά μου"</string>
-    <string name="menu_preferences">"Ρυθμίσεις"</string>
-    <string name="plus_N_more">"(και <xliff:g id="MORE_COUNT">%d</xliff:g> ακόμα…)"</string>
-    <string name="calendars_title">"Τα ημερολόγιά μου"</string>
-    <string name="add_calendars">"Προσθήκη ημερολογίων"</string>
-    <string name="remove_calendars">"Κατάργηση ημερολογίων"</string>
-    <string name="event_edit_title">"Λεπτομέρειες συμβάντος"</string>
-    <string name="hint_what">"Όνομα συμβάντος"</string>
-    <string name="hint_where">"Τοποθεσία συμβάντος"</string>
-    <string name="hint_description">"Περιγραφή συμβάντος"</string>
-    <string name="creating_event">"Δημιουργία συμβάντος..."</string>
-    <string name="saving_event">"Αποθήκευση συμβάντος…"</string>
-    <string name="loading_calendars_title">"Φόρτωση ημερολογίων"</string>
-    <string name="loading_calendars_message">"Φόρτωση ημερολογίων..."</string>
-    <string name="alert_title">"Ειδοποιήσεις ημερολογίου"</string>
-    <string name="alert_when_label">"Πότε:"</string>
-    <string name="alert_where_label">"Που:"</string>
-    <string name="alert_missed_events_single">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> ακόμα υπενθύμιση)"</string>
-    <string name="alert_missed_events_multiple">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> ακόμα υπενθυμίσεις)"</string>
-    <string name="event_info_title">"Προβολή συμβάντος"</string>
-    <string name="event_info_title_invite">"Πρόσκληση συνάντησης"</string>
-    <string name="add_new_reminder">"Προσθήκη υπενθύμισης"</string>
-    <string name="edit_event_to_label">"Έως"</string>
-    <string name="edit_event_from_label">"Από"</string>
-    <string name="edit_event_all_day_label">"Ολοήμερο"</string>
-    <string name="edit_event_calendar_label">"Ημερολόγιο"</string>
-    <string name="edit_event_show_extra_options">"Εμφάνιση επιπρόσθετων επιλογών"</string>
-    <string name="edit_event_hide_extra_options">"Απόκρυψη επιπρόσθετων επιλογών"</string>
-    <string name="description_label">"Περιγραφή"</string>
-    <string name="presence_label">"Παρουσία"</string>
-    <string name="privacy_label">"Απόρρητο"</string>
-    <string name="reminders_label">"Υπενθυμίσεις"</string>
-    <string name="no_syncable_calendars">"Δεν υπάρχουν ημερολόγια"</string>
-    <string name="no_calendars_found">"Δεν έχετε ημερολόγια."</string>
-    <string name="view_event_calendar_label">"Ημερολόγιο"</string>
-    <string name="view_event_timezone_label">"Τοπική ζώνη ώρας"</string>
-    <string name="view_event_response_label">"Θα παραβρεθείτε;"</string>
-    <string name="agenda_today">"Σήμερα"</string>
-    <string name="num_events">"Αριθμ. συμβάντων"</string>
-    <string name="edit_event_label">"Επεξεργασία συμβάντος"</string>
-    <string name="delete_label">"Διαγραφή"</string>
-    <string name="delete_event_label">"Διαγραφή συμβάντος"</string>
+    <string name="show_agenda_view" msgid="7971854300981408347">"Εμφάνιση ατζέντας"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Εμφάνιση ημέρας"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Ατζέντα"</string>
+    <string name="day_view" msgid="4467754504843584437">"Ημέρα"</string>
+    <string name="week_view" msgid="6775043022159508060">"Εβδομάδα"</string>
+    <string name="month_view" msgid="7287101431749285412">"Μήνας"</string>
+    <string name="event_view" msgid="7621353079385122317">"Προβολή συμβάντος"</string>
+    <string name="event_create" msgid="6941040556709110617">"Νέο συμβάν"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Επεξεργασία συμβάντος"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Διαγραφή συμβάντος"</string>
+    <string name="goto_today" msgid="9162136434410891230">"Σήμερα"</string>
+    <string name="menu_select_calendars" msgid="6610470242968973936">"Τα ημερολόγιά μου"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Ρυθμίσεις"</string>
+    <string name="plus_N_more" msgid="2527895721728080055">"(και <xliff:g id="MORE_COUNT">%d</xliff:g> ακόμα…)"</string>
+    <string name="calendars_title" msgid="4457305218812126946">"Τα ημερολόγιά μου"</string>
+    <string name="add_calendars" msgid="1013326491414656517">"Προσθήκη ημερολογίων"</string>
+    <string name="remove_calendars" msgid="1395151808187126222">"Κατάργηση ημερολογίων"</string>
+    <string name="event_edit_title" msgid="8487120407086532444">"Λεπτομέρειες συμβάντος"</string>
+    <string name="hint_what" msgid="709155115005044531">"Όνομα συμβάντος"</string>
+    <string name="hint_where" msgid="3116239630502213241">"Τοποθεσία συμβάντος"</string>
+    <string name="hint_description" msgid="4198202812240544553">"Περιγραφή συμβάντος"</string>
+    <string name="creating_event" msgid="8237877638457604455">"Δημιουργία συμβάντος..."</string>
+    <string name="saving_event" msgid="8853425146353785688">"Αποθήκευση συμβάντος…"</string>
+    <string name="loading_calendars_title" msgid="3819254313413902272">"Φόρτωση ημερολογίων"</string>
+    <string name="loading_calendars_message" msgid="8266077515011438420">"Φόρτωση ημερολογίων..."</string>
+    <string name="alert_title" msgid="7869592820853066853">"Ειδοποιήσεις ημερολογίου"</string>
+    <string name="alert_when_label" msgid="106946701143025116">"Πότε:"</string>
+    <string name="alert_where_label" msgid="4255965543493921820">"Που:"</string>
+    <string name="alert_missed_events_single" msgid="8042891195314876684">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> ακόμα υπενθύμιση)"</string>
+    <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> ακόμα υπενθυμίσεις)"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Προβολή συμβάντος"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Πρόσκληση συνάντησης"</string>
+    <string name="add_new_reminder" msgid="4171314793889890481">"Προσθήκη υπενθύμισης"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Έως"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Από"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Ολοήμερο"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Ημερολόγιο"</string>
+    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Εμφάνιση επιπρόσθετων επιλογών"</string>
+    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Απόκρυψη επιπρόσθετων επιλογών"</string>
+    <string name="description_label" msgid="7193475046717505855">"Περιγραφή"</string>
+    <string name="presence_label" msgid="2155381988163502023">"Παρουσία"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Απόρρητο"</string>
+    <string name="reminders_label" msgid="8345054160145333166">"Υπενθυμίσεις"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"Δεν υπάρχουν ημερολόγια"</string>
+    <string name="no_calendars_found" msgid="755379468136462058">"Δεν έχετε ημερολόγια."</string>
+    <string name="view_event_calendar_label" msgid="8503354404461986250">"Ημερολόγιο"</string>
+    <string name="view_event_timezone_label" msgid="6461351857281070935">"Τοπική ζώνη ώρας"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Θα παραβρεθείτε;"</string>
+    <string name="agenda_today" msgid="2405333795044229594">"Σήμερα"</string>
+    <string name="num_events" msgid="3351672964607162257">"Αριθμ. συμβάντων"</string>
+    <string name="edit_event_label" msgid="2900418236819088363">"Επεξεργασία συμβάντος"</string>
+    <string name="delete_label" msgid="874742811918030739">"Διαγραφή"</string>
+    <string name="delete_event_label" msgid="3738436215987360463">"Διαγραφή συμβάντος"</string>
     <!-- no translation found for save_label (2133599104834432589) -->
     <skip />
     <!-- no translation found for discard_label (4510607554910139220) -->
     <skip />
-    <string name="import_label">"Εισαγωγή"</string>
-    <string name="snooze_all_label">"Αναβολή όλων"</string>
-    <string name="dismiss_all_label">"Παράβλεψη όλων"</string>
-    <string name="does_not_repeat">"Συμβάν που δεν επαναλαμβάνεται"</string>
-    <string name="daily">"Καθημερινά"</string>
-    <string name="every_weekday">"Καθημερινά (Δευ-Παρ)"</string>
-    <string name="weekly">"Κάθε βδομάδα (κάθε <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count">"Κάθε μήνα (κάθε <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
-    <string name="monthly_on_day">"Κάθε μήνα (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly">"Κάθε χρόνο (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom">"Προσαρμοσμένο… (δεν είναι δυνατή η προσαρμογή στο τηλέφωνο)"</string>
-    <string name="modify_event">"Αλλαγή μόνο αυτού του συμβάντος."</string>
-    <string name="modify_all">"Αλλαγή όλων των συμβάντων στη σειρά."</string>
-    <string name="modify_all_following">"Αλλαγή αυτού και όλων των μελλοντικών συμβάντων."</string>
-    <string name="delete_this_event_title">"Αυτό το συμβάν θα διαγραφεί."</string>
-    <string name="delete_title">"Διαγραφή"</string>
-    <string name="change_response_title">"Αλλαγή απάντησης"</string>
-    <string name="preferences_title">"Ρυθμίσεις"</string>
-    <string name="preferences_general_title">"Ρυθμίσεις προβολής ημερολογίου"</string>
-    <string name="preferences_alerts_title">"Ρυθμίσεις υπενθύμισης"</string>
-    <string name="preferences_hide_declined_title">"Απόκρυψη συμβάντων που έχουν απορριφθεί"</string>
-    <string name="preferences_alerts_type_title">"Ορισμός προειδοποιήσεων &amp; ειδοποιήσεων"</string>
-    <string name="preferences_alerts_type_dialog">"Προειδοποιήσεις &amp; ειδοποιήσεις"</string>
-    <string name="preferences_alerts_vibrate_title">"Δόνηση"</string>
-    <string name="preferences_alerts_ringtone_title">"Επιλογή ήχου κλήσης"</string>
-    <string name="preferences_default_reminder_title">"Ορισμός προεπιλεγμένης υπενθύμισης"</string>
-    <string name="preferences_default_reminder_dialog">"Προεπιλεγμένος χρόνος υπενθύμισης"</string>
-    <string name="preferences_default_reminder_default">"10"</string>
+    <string name="import_label" msgid="6993796574741477222">"Εισαγωγή"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Αναβολή όλων"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Παράβλεψη όλων"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Συμβάν που δεν επαναλαμβάνεται"</string>
+    <string name="daily" msgid="560350706808680448">"Καθημερινά"</string>
+    <string name="every_weekday" msgid="5896574838353902978">"Καθημερινά (Δευ-Παρ)"</string>
+    <string name="weekly" msgid="2006107373119027114">"Κάθε εβδομάδα (κάθε <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Κάθε μήνα (κάθε <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"Κάθε μήνα (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"Κάθε χρόνο (<xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom" msgid="3015205670911301856">"Προσαρμοσμένο… (δεν είναι δυνατή η προσαρμογή στο τηλέφωνο)"</string>
+    <string name="modify_event" msgid="4501745557655992422">"Αλλαγή μόνο αυτού του συμβάντος."</string>
+    <string name="modify_all" msgid="7506579040966638538">"Αλλαγή όλων των συμβάντων στη σειρά."</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"Αλλαγή αυτού και όλων των μελλοντικών συμβάντων."</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"Αυτό το συμβάν θα διαγραφεί."</string>
+    <string name="delete_title" msgid="5143743507524995383">"Διαγραφή"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Αλλαγή απάντησης"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Ρυθμίσεις"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Ρυθμίσεις προβολής ημερολογίου"</string>
+    <string name="preferences_alerts_title" msgid="6511227171114210908">"Ρυθμίσεις υπενθύμισης"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Απόκρυψη συμβάντων που έχουν απορριφθεί"</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Ορισμός προειδοποιήσεων &amp; ειδοποιήσεων"</string>
+    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Προειδοποιήσεις &amp; ειδοποιήσεις"</string>
+    <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Δόνηση"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Επιλογή ήχου κλήσης"</string>
+    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Ορισμός προεπιλεγμένης υπενθύμισης"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Προεπιλεγμένος χρόνος υπενθύμισης"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>

@@ -27,6 +27,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -267,6 +268,12 @@ public class AgendaActivity extends Activity implements ViewSwitcher.ViewFactory
 
         mContentResolver.unregisterContentObserver(mObserver);
         unregisterReceiver(mIntentReceiver);
+
+        // Clear the cursor so it won't crash when switching orientation while scrolling b/2022729
+        String[] columns = new String[1];
+        columns[0] = "_id";
+        AgendaListView current = (AgendaListView) mViewSwitcher.getCurrentView();
+        current.setCursor(new MatrixCursor(columns));
     }
 
     @Override

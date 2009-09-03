@@ -16,81 +16,81 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_minutes_labels">
-    <item>"5분"</item>
-    <item>"10분"</item>
-    <item>"15분"</item>
-    <item>"20분"</item>
-    <item>"25분"</item>
-    <item>"30분"</item>
-    <item>"45분"</item>
-    <item>"1시간"</item>
-    <item>"2시간"</item>
-    <item>"3시간"</item>
-    <item>"12시간"</item>
-    <item>"24시간"</item>
-    <item>"2일"</item>
-    <item>"1주"</item>
+    <item msgid="579679946787267776">"5분"</item>
+    <item msgid="5582544189904133717">"10분"</item>
+    <item msgid="3425453345722366269">"15분"</item>
+    <item msgid="2088065547825778658">"20분"</item>
+    <item msgid="2931730485410259751">"25분"</item>
+    <item msgid="1440903855318880236">"30분"</item>
+    <item msgid="3727466187697478344">"45분"</item>
+    <item msgid="3981775289606778919">"1시간"</item>
+    <item msgid="345917783972806244">"2시간"</item>
+    <item msgid="6147862333452393935">"3시간"</item>
+    <item msgid="8844564639600832768">"12시간"</item>
+    <item msgid="4544569521386159399">"24시간"</item>
+    <item msgid="7331768924011260962">"2일"</item>
+    <item msgid="7191420767504467551">"1주"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
-    <item>"없음"</item>
-    <item>"5분"</item>
-    <item>"10분"</item>
-    <item>"15분"</item>
-    <item>"20분"</item>
-    <item>"25분"</item>
-    <item>"30분"</item>
-    <item>"45분"</item>
-    <item>"1시간"</item>
-    <item>"2시간"</item>
-    <item>"3시간"</item>
-    <item>"12시간"</item>
-    <item>"24시간"</item>
-    <item>"2일"</item>
-    <item>"1주"</item>
+    <item msgid="7495163916242649023">"없음"</item>
+    <item msgid="4046054780909365808">"5분"</item>
+    <item msgid="3255029626994620957">"10분"</item>
+    <item msgid="1363622823724080348">"15분"</item>
+    <item msgid="8441744902221651211">"20분"</item>
+    <item msgid="8742741532034474957">"25분"</item>
+    <item msgid="4768009761531673038">"30분"</item>
+    <item msgid="6046736126940217515">"45분"</item>
+    <item msgid="4418618788828172256">"1시간"</item>
+    <item msgid="7648895229572035902">"2시간"</item>
+    <item msgid="8518903223867903398">"3시간"</item>
+    <item msgid="1434366712313057723">"12시간"</item>
+    <item msgid="7629195657749146405">"24시간"</item>
+    <item msgid="4245760353982265075">"2일"</item>
+    <item msgid="1249803747243694616">"1주"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"알리미"</item>
-    <item>"상태 표시줄 알림"</item>
-    <item>"사용 안함"</item>
+    <item msgid="2724242028978664229">"알리미"</item>
+    <item msgid="8723674378160518790">"상태 표시줄 알림"</item>
+    <item msgid="8433736231022186661">"사용 안함"</item>
   </string-array>
   <string-array name="availability">
-    <item>"바쁨"</item>
-    <item>"한가함"</item>
+    <item msgid="454869065893453189">"바쁨"</item>
+    <item msgid="6228387173725732140">"한가함"</item>
   </string-array>
   <string-array name="visibility">
-    <item>"기본값"</item>
-    <item>"비공개"</item>
-    <item>"공개"</item>
+    <item msgid="3035788428581513163">"기본값"</item>
+    <item msgid="5200216103966973369">"비공개"</item>
+    <item msgid="9182342638433672664">"공개"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"처음"</item>
-    <item>"2번째"</item>
-    <item>"3번째"</item>
-    <item>"4번째"</item>
-    <item>"마지막"</item>
+    <item msgid="2693927956303125332">"처음"</item>
+    <item msgid="5631923029483854900">"2번째"</item>
+    <item msgid="148935502975250973">"3번째"</item>
+    <item msgid="5124200797326669172">"4번째"</item>
+    <item msgid="7564374178324652137">"마지막"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"(응답 없음)"</item>
-    <item>"예"</item>
-    <item>"미정"</item>
-    <item>"아니요"</item>
+    <item msgid="3654955385120106241">"(응답 없음)"</item>
+    <item msgid="3724434080904437698">"예"</item>
+    <item msgid="8854145743148992583">"미정"</item>
+    <item msgid="6174292185978948873">"아니요"</item>
   </string-array>
   <string-array name="response_labels2">
-    <item>"예"</item>
-    <item>"미정"</item>
-    <item>"아니요"</item>
+    <item msgid="5967437218994333578">"예"</item>
+    <item msgid="1254269034445160199">"미정"</item>
+    <item msgid="1099407454885268744">"아니요"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>"이 일정만"</item>
-    <item>"이번 및 다음 일정"</item>
-    <item>"모든 일정"</item>
+    <item msgid="4208432367651646938">"이 일정만"</item>
+    <item msgid="8626755531271570950">"이번 및 다음 일정"</item>
+    <item msgid="7833229563617435430">"모든 일정"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>"이번 및 다음 일정"</item>
-    <item>"모든 일정"</item>
+    <item msgid="1341910309321756150">"이번 및 다음 일정"</item>
+    <item msgid="6315440193748139854">"모든 일정"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item>"이번 일정만"</item>
-    <item>"모든 반복 일정"</item>
+    <item msgid="2012815396992847028">"이번 일정만"</item>
+    <item msgid="140670561403965380">"모든 반복 일정"</item>
   </string-array>
 </resources>
