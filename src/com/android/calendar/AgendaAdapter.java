@@ -33,7 +33,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
     private String mNoTitleLabel;
     private Resources mResources;
     private int mDeclinedColor;
-    private Formatter mFormatter; // TODO fix. not thread safe
+    // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
+    private Formatter mFormatter;
     private StringBuilder mStringBuilder;
 
     static class ViewHolder {
