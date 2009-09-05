@@ -258,6 +258,16 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        long timeMillis = Utils.timeFromIntentInMillis(intent);
+        if (timeMillis > 0) {
+            Time time = new Time();
+            time.set(timeMillis);
+            goTo(time);
+        }
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         if (isFinishing()) {

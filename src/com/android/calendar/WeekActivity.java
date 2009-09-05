@@ -16,9 +16,11 @@
 
 package com.android.calendar;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.format.Time;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ProgressBar;
@@ -52,6 +54,16 @@ public class WeekActivity extends CalendarActivity implements ViewSwitcher.ViewF
                 LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
         wv.setSelectedDay(mSelectedDay);
         return wv;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        long timeMillis = Utils.timeFromIntentInMillis(intent);
+        if (timeMillis > 0) {
+            Time time = new Time();
+            time.set(timeMillis);
+            goTo(time);
+        }
     }
 
     @Override

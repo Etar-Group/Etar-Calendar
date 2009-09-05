@@ -16,9 +16,6 @@
 
 package com.android.calendar;
 
-import com.android.calendar.AgendaAdapter.ViewHolder;
-import com.android.calendar.AgendaWindowAdapter.EventInfo;
-
 import android.content.ContentUris;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -32,6 +29,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+
+import com.android.calendar.AgendaAdapter.ViewHolder;
+import com.android.calendar.AgendaWindowAdapter.EventInfo;
 
 public class AgendaListView extends ListView implements OnItemClickListener {
 
@@ -50,6 +50,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
         setOnItemClickListener(this);
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        setVerticalScrollBarEnabled(false);
         mWindowAdapter = new AgendaWindowAdapter(agendaActivity, this);
         setAdapter(mWindowAdapter);
         mDeleteEventHelper =
@@ -82,7 +83,11 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     public void refresh(boolean forced) {
         Time time = new Time();
-        time.set(getFirstVisiblePosition());
+        long goToTime = getFirstVisibleTime();
+        if (goToTime <= 0) {
+            goToTime = System.currentTimeMillis();
+        }
+        time.set(goToTime);
         mWindowAdapter.refresh(time, forced);
     }
 
@@ -127,12 +132,13 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     public long getSelectedTime() {
         int position = getSelectedItemPosition();
-
-        EventInfo event = mWindowAdapter.getEventByPosition(position);
-        if (event != null) {
-            return event.begin;
+        if (position >= 0) {
+            EventInfo event = mWindowAdapter.getEventByPosition(position);
+            if (event != null) {
+                return event.begin;
+            }
         }
-        return 0;
+        return getFirstVisibleTime();
     }
 
     public long getFirstVisibleTime() {

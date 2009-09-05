@@ -17,7 +17,6 @@
 package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import dalvik.system.VMRuntime;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -36,6 +35,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import dalvik.system.VMRuntime;
 
 public class AgendaActivity extends Activity implements Navigator {
 
@@ -106,7 +107,9 @@ public class AgendaActivity extends Activity implements Navigator {
             // Returns 0 if key not found
             millis = getIntent().getLongExtra(EVENT_BEGIN_TIME, 0);
             if (DEBUG) {
-                Log.v(TAG, "Restore value from intent: " + millis);
+                Time time = new Time();
+                time.set(millis);
+                Log.v(TAG, "Restore value from intent: " + time.toString());
             }
         }
 
@@ -128,6 +131,15 @@ public class AgendaActivity extends Activity implements Navigator {
         // Record Agenda View as the (new) start view
         editor.putString(CalendarPreferenceActivity.KEY_START_VIEW, activityString);
         editor.commit();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        long time = Utils.timeFromIntentInMillis(intent);
+        if (time > 0) {
+            mTime.set(time);
+            goTo(mTime);
+        }
     }
 
     @Override

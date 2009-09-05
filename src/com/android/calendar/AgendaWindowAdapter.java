@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.Formatter;
@@ -46,12 +47,11 @@ Bugs Bugs Bugs:
  listview.setSelection() in 2 rapid secessions but it dropped or didn't process the first one.
 - Query of 2009 11 09 to 2010 01 15 didnt't return anything. In fact, Query of 2010 is showing nothing
 - Scroll using trackball isn't repositioning properly after a new adapter is added.
+- Track ball clicks at the header/footer doesn't work.
 - Potential ping pong effect if the prefetch window is big and data is limited
 - Add index in calendar provider
 
 ToDo ToDo ToDo:
-Remove scrollbars
-Remove debug P:XXX from event text
 Get design of header and footer from designer
 
 Make scrolling smoother.
@@ -62,8 +62,8 @@ Check for leaks and excessive allocations
 
 public class AgendaWindowAdapter extends BaseAdapter {
 
-    private static final boolean BASICLOG = false;
-    private static final boolean DEBUGLOG = false;
+    static final boolean BASICLOG = false;
+    static final boolean DEBUGLOG = false;
     private static String TAG = "AgendaWindowAdapter";
 
     private static final String AGENDA_SORT_ORDER = "startDay ASC, begin ASC, title ASC";
@@ -155,8 +155,8 @@ public class AgendaWindowAdapter extends BaseAdapter {
     // Number of "newer" query that has been processed.
     private int mNewerRequestsProcessed;
 
-    private Formatter mFormatter; // TODO fix. not thread safe
-
+    // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
+    private Formatter mFormatter;
     private StringBuilder mStringBuilder;
 
     private boolean mShuttingDown;
@@ -180,6 +180,43 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
         public QuerySpec(int queryType) {
             this.queryType = queryType;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + end;
+            result = prime * result + (int) (queryStartMillis ^ (queryStartMillis >>> 32));
+            result = prime * result + queryType;
+            result = prime * result + start;
+            if (goToTime != null) {
+                long goToTimeMillis = goToTime.toMillis(false);
+                result = prime * result + (int) (goToTimeMillis ^ (goToTimeMillis >>> 32));
+            }
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null) return false;
+            if (getClass() != obj.getClass()) return false;
+            QuerySpec other = (QuerySpec) obj;
+            if (end != other.end || queryStartMillis != other.queryStartMillis
+                    || queryType != other.queryType || start != other.start) {
+                return false;
+            }
+            if (goToTime != null) {
+                if (goToTime.toMillis(false) != other.goToTime.toMillis(false)) {
+                    return false;
+                }
+            } else {
+                if (other.goToTime != null) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
@@ -420,9 +457,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
     }
 
     public void refresh(Time goToTime, boolean forced) {
-        Time tmpTime = new Time(goToTime);
-        long goToTimeInMillis = tmpTime.normalize(true); //TODO check on ignoreDst
-        int startDay = Time.getJulianDay(goToTimeInMillis, tmpTime.gmtoff);
+        int startDay = Time.getJulianDay(goToTime.toMillis(false), goToTime.gmtoff);
 
         if (!forced && isInRange(startDay, startDay)) {
             // No need to requery
@@ -546,12 +581,10 @@ public class AgendaWindowAdapter extends BaseAdapter {
         synchronized (mQueryQueue) {
             queuedQuery = false;
             Boolean doQueryNow = mQueryQueue.isEmpty();
-            if (!isInRange(queryData.start, queryData.end)) {
-                mQueryQueue.add(queryData);
-                queuedQuery = true;
-                if (doQueryNow) {
-                    doQuery(queryData);
-                }
+            mQueryQueue.add(queryData);
+            queuedQuery = true;
+            if (doQueryNow) {
+                doQuery(queryData);
             }
         }
         return queuedQuery;
@@ -672,12 +705,17 @@ public class AgendaWindowAdapter extends BaseAdapter {
                 int totalAgendaRangeEnd = -1;
 
                 if (cursorSize != 0) {
-                    // TODO check if it's same as "cookie"
                     // Remove the query that just completed
                     QuerySpec x = mQueryQueue.poll();
+                    if (BASICLOG && !x.equals(data)) {
+                        Log.e(TAG, "onQueryComplete - cookie != head of queue");
+                    }
                     mEmptyCursorCount = 0;
-                    mOlderRequests = mOlderRequestsProcessed;
-                    mNewerRequests = mNewerRequestsProcessed;
+                    if (data.queryType == QUERY_TYPE_NEWER) {
+                        mNewerRequestsProcessed++;
+                    } else if (data.queryType == QUERY_TYPE_OLDER) {
+                        mOlderRequestsProcessed++;
+                    }
 
                     totalAgendaRangeStart = mAdapterInfos.getFirst().start;
                     totalAgendaRangeEnd = mAdapterInfos.getLast().end;
@@ -747,7 +785,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
                     }
                 }
             }
-            if (DEBUGLOG) {
+            if (BASICLOG) {
                 for (DayAdapterInfo info3 : mAdapterInfos) {
                     Log.e(TAG, "> " + info3.toString());
                 }
