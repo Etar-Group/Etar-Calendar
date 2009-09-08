@@ -16,81 +16,81 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_minutes_labels">
-    <item>"5 分钟"</item>
-    <item>"10 分钟"</item>
-    <item>"15 分钟"</item>
-    <item>"20 分钟"</item>
-    <item>"25 分钟"</item>
-    <item>"30 分钟"</item>
-    <item>"45 分钟"</item>
-    <item>"1 小时"</item>
-    <item>"2 小时"</item>
-    <item>"3 小时"</item>
-    <item>"12 小时"</item>
-    <item>"24 小时"</item>
-    <item>"2 天"</item>
-    <item>"1 周"</item>
+    <item msgid="579679946787267776">"5 分钟"</item>
+    <item msgid="5582544189904133717">"10 分钟"</item>
+    <item msgid="3425453345722366269">"15 分钟"</item>
+    <item msgid="2088065547825778658">"20 分钟"</item>
+    <item msgid="2931730485410259751">"25 分钟"</item>
+    <item msgid="1440903855318880236">"30 分钟"</item>
+    <item msgid="3727466187697478344">"45 分钟"</item>
+    <item msgid="3981775289606778919">"1 小时"</item>
+    <item msgid="345917783972806244">"2 小时"</item>
+    <item msgid="6147862333452393935">"3 小时"</item>
+    <item msgid="8844564639600832768">"12 小时"</item>
+    <item msgid="4544569521386159399">"24 小时"</item>
+    <item msgid="7331768924011260962">"2 天"</item>
+    <item msgid="7191420767504467551">"1 周"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
-    <item>"无"</item>
-    <item>"5 分钟"</item>
-    <item>"10 分钟"</item>
-    <item>"15 分钟"</item>
-    <item>"20 分钟"</item>
-    <item>"25 分钟"</item>
-    <item>"30 分钟"</item>
-    <item>"45 分钟"</item>
-    <item>"1 小时"</item>
-    <item>"2 小时"</item>
-    <item>"3 小时"</item>
-    <item>"12 小时"</item>
-    <item>"24 小时"</item>
-    <item>"2 天"</item>
-    <item>"1 周"</item>
+    <item msgid="7495163916242649023">"无"</item>
+    <item msgid="4046054780909365808">"5 分钟"</item>
+    <item msgid="3255029626994620957">"10 分钟"</item>
+    <item msgid="1363622823724080348">"15 分钟"</item>
+    <item msgid="8441744902221651211">"20 分钟"</item>
+    <item msgid="8742741532034474957">"25 分钟"</item>
+    <item msgid="4768009761531673038">"30 分钟"</item>
+    <item msgid="6046736126940217515">"45 分钟"</item>
+    <item msgid="4418618788828172256">"1 小时"</item>
+    <item msgid="7648895229572035902">"2 小时"</item>
+    <item msgid="8518903223867903398">"3 小时"</item>
+    <item msgid="1434366712313057723">"12 小时"</item>
+    <item msgid="7629195657749146405">"24 小时"</item>
+    <item msgid="4245760353982265075">"2 天"</item>
+    <item msgid="1249803747243694616">"1 周"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"警报"</item>
-    <item>"状态栏通知"</item>
-    <item>"关"</item>
+    <item msgid="2724242028978664229">"警报"</item>
+    <item msgid="8723674378160518790">"状态栏通知"</item>
+    <item msgid="8433736231022186661">"关"</item>
   </string-array>
   <string-array name="availability">
-    <item>"忙碌"</item>
-    <item>"有空"</item>
+    <item msgid="454869065893453189">"忙碌"</item>
+    <item msgid="6228387173725732140">"有空"</item>
   </string-array>
   <string-array name="visibility">
-    <item>"默认"</item>
-    <item>"私人"</item>
-    <item>"公开"</item>
+    <item msgid="3035788428581513163">"默认"</item>
+    <item msgid="5200216103966973369">"私人"</item>
+    <item msgid="9182342638433672664">"公开"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"第一个"</item>
-    <item>"第二个"</item>
-    <item>"第三个"</item>
-    <item>"第四个"</item>
-    <item>"最后一个"</item>
+    <item msgid="2693927956303125332">"第一个"</item>
+    <item msgid="5631923029483854900">"第二个"</item>
+    <item msgid="148935502975250973">"第三个"</item>
+    <item msgid="5124200797326669172">"第四个"</item>
+    <item msgid="7564374178324652137">"最后一个"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"（无响应）"</item>
-    <item>"是"</item>
-    <item>"可能"</item>
-    <item>"否"</item>
+    <item msgid="3654955385120106241">"（无响应）"</item>
+    <item msgid="3724434080904437698">"是"</item>
+    <item msgid="8854145743148992583">"可能"</item>
+    <item msgid="6174292185978948873">"否"</item>
   </string-array>
   <string-array name="response_labels2">
-    <item>"是"</item>
-    <item>"可能"</item>
-    <item>"否"</item>
+    <item msgid="5967437218994333578">"是"</item>
+    <item msgid="1254269034445160199">"可能"</item>
+    <item msgid="1099407454885268744">"否"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>"仅限此活动"</item>
-    <item>"此活动和将来的活动"</item>
-    <item>"所有活动"</item>
+    <item msgid="4208432367651646938">"仅限此活动"</item>
+    <item msgid="8626755531271570950">"此活动和将来的活动"</item>
+    <item msgid="7833229563617435430">"所有活动"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>"此活动和将来的活动"</item>
-    <item>"所有活动"</item>
+    <item msgid="1341910309321756150">"此活动和将来的活动"</item>
+    <item msgid="6315440193748139854">"所有活动"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item>"仅限此次活动"</item>
-    <item>"系列中的所有活动"</item>
+    <item msgid="2012815396992847028">"仅限此次活动"</item>
+    <item msgid="140670561403965380">"系列中的所有活动"</item>
   </string-array>
 </resources>
