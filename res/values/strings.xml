@@ -213,7 +213,7 @@
     <string name="description_label">Description</string>
     <!-- Label for the 'Presence' of an event, which can be either 'busy' (the default)
          or 'available' -->
-    <string name="presence_label">Presence</string>
+    <string name="presence_label">Show me as</string>
     <!-- Label for the 'Privacy' of an event, which can be either 'private'
          or 'public' -->
     <string name="privacy_label">Privacy</string>
