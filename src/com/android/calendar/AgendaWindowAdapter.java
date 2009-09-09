@@ -228,7 +228,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
         long id;
     }
 
-    private static class DayAdapterInfo {
+    static class DayAdapterInfo {
         Cursor cursor;
 
         AgendaByDayAdapter dayAdapter;
@@ -816,7 +816,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
                 info.start = data.start;
                 info.end = data.end;
                 info.cursor = cursor;
-                info.dayAdapter.changeCursor(cursor);
+                info.dayAdapter.changeCursor(info);
                 info.size = info.dayAdapter.getCount();
 
                 // Insert into adapterInfos
