@@ -26,6 +26,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.android.calendar.AgendaWindowAdapter.DayAdapterInfo;
+
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Iterator;
@@ -168,12 +170,13 @@ public class AgendaByDayAdapter extends BaseAdapter {
         mRowInfo = null;
     }
 
-    public void changeCursor(Cursor cursor) {
-        calculateDays(cursor);
-        mAgendaAdapter.changeCursor(cursor);
+    public void changeCursor(DayAdapterInfo info) {
+        calculateDays(info);
+        mAgendaAdapter.changeCursor(info.cursor);
     }
 
-    public void calculateDays(Cursor cursor) {
+    public void calculateDays(DayAdapterInfo dayAdapterInfo) {
+        Cursor cursor = dayAdapterInfo.cursor;
         ArrayList<RowInfo> rowInfo = new ArrayList<RowInfo>();
         int prevStartDay = -1;
         Time time = new Time();
@@ -184,6 +187,9 @@ public class AgendaByDayAdapter extends BaseAdapter {
         for (int position = 0; cursor.moveToNext(); position++) {
             boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
             int startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
+
+            // Skip over the days outside of the adapter's range
+            startDay = Math.max(startDay, dayAdapterInfo.start);
 
             if (startDay != prevStartDay) {
                 // Check if we skipped over any empty days
@@ -231,6 +237,9 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // If this event spans multiple days, then add it to the multipleDay
             // list.
             int endDay = cursor.getInt(AgendaWindowAdapter.INDEX_END_DAY);
+
+            // Skip over the days outside of the adapter's range
+            endDay = Math.min(endDay, dayAdapterInfo.end);
             if (endDay > startDay) {
                 multipleDayList.add(new MultipleDayInfo(position, endDay));
             }
@@ -239,16 +248,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
         // There are no more cursor events but we might still have multiple-day
         // events left.  So create day headers and events for those.
         if (prevStartDay > 0) {
-            // Get the Julian day for the last day of this month.  To do that,
-            // we set the date to one less than the first day of the next month,
-            // and then normalize.
-            time.setJulianDay(prevStartDay);
-            time.month += 1;  // TODO remove month query reference
-            time.monthDay = 0;  // monthDay starts with 1, so this is the previous day
-            long millis = time.normalize(true /* ignore isDst */);
-            int lastDayOfMonth = Time.getJulianDay(millis, time.gmtoff);
-
-            for (int currentDay = prevStartDay + 1; currentDay <= lastDayOfMonth; currentDay++) {
+            for (int currentDay = prevStartDay + 1; currentDay <= dayAdapterInfo.end;
+                    currentDay++) {
                 boolean dayHeaderAdded = false;
                 Iterator<MultipleDayInfo> iter = multipleDayList.iterator();
                 while (iter.hasNext()) {
