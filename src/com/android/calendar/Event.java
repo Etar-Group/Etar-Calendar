@@ -23,6 +23,7 @@ import android.database.Cursor;
 import android.os.Debug;
 import android.preference.PreferenceManager;
 import android.provider.Calendar.Attendees;
+import android.provider.Calendar.Events;
 import android.provider.Calendar.Instances;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -56,6 +57,8 @@ public class Event implements Comparable, Cloneable {
             Instances.RRULE,                 // 14
             Instances.RDATE,                 // 15
             Instances.SELF_ATTENDEE_STATUS,  // 16
+            Events.ORGANIZER,                // 17
+            Events.GUESTS_CAN_MODIFY,        // 18
     };
 
     // The indices for the projection array above.
@@ -75,12 +78,16 @@ public class Event implements Comparable, Cloneable {
     private static final int PROJECTION_RRULE_INDEX = 14;
     private static final int PROJECTION_RDATE_INDEX = 15;
     private static final int PROJECTION_SELF_ATTENDEE_STATUS_INDEX = 16;
+    private static final int PROJECTION_ORGANIZER_INDEX = 17;
+    private static final int PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX = 18;
 
     public long id;
     public int color;
     public CharSequence title;
     public CharSequence location;
     public boolean allDay;
+    public String organizer;
+    public boolean guestsCanModify;
 
     public int startDay;       // start Julian day
     public int endDay;         // end Julian day
@@ -130,6 +137,8 @@ public class Event implements Comparable, Cloneable {
         e.hasAlarm = hasAlarm;
         e.isRepeating = isRepeating;
         e.selfAttendeeStatus = selfAttendeeStatus;
+        e.organizer = organizer;
+        e.guestsCanModify = guestsCanModify;
 
         return e;
     }
@@ -149,6 +158,8 @@ public class Event implements Comparable, Cloneable {
         dest.hasAlarm = hasAlarm;
         dest.isRepeating = isRepeating;
         dest.selfAttendeeStatus = selfAttendeeStatus;
+        dest.organizer = organizer;
+        dest.guestsCanModify = guestsCanModify;
     }
 
     public static final Event newInstance() {
@@ -196,6 +207,9 @@ public class Event implements Comparable, Cloneable {
         if (allDay && !e.allDay) return -1;
         if (!allDay && e.allDay) return 1;
 
+        if (guestsCanModify && !e.guestsCanModify) return -1;
+        if (!guestsCanModify && e.guestsCanModify) return 1;
+
         // If two events have the same time range, then sort them in
         // alphabetical order based on their titles.
         int cmp = compareStrings(title, e.title);
@@ -207,6 +221,11 @@ public class Event implements Comparable, Cloneable {
         // so that we can use this function to check for differences
         // between events.
         cmp = compareStrings(location, e.location);
+        if (cmp != 0) {
+            return cmp;
+        }
+
+        cmp = compareStrings(organizer, e.organizer);
         if (cmp != 0) {
             return cmp;
         }
@@ -316,6 +335,9 @@ public class Event implements Comparable, Cloneable {
                 e.title = c.getString(PROJECTION_TITLE_INDEX);
                 e.location = c.getString(PROJECTION_LOCATION_INDEX);
                 e.allDay = c.getInt(PROJECTION_ALL_DAY_INDEX) != 0;
+                e.organizer = c.getString(PROJECTION_ORGANIZER_INDEX);
+                e.guestsCanModify = c.getInt(PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX) != 0;
+
                 String timezone = c.getString(PROJECTION_TIMEZONE_INDEX);
 
                 if (e.title == null || e.title.length() == 0) {
@@ -538,6 +560,8 @@ public class Event implements Comparable, Cloneable {
         Log.e("Cal", "+    endDay = " + endDay);
         Log.e("Cal", "+ startTime = " + startTime);
         Log.e("Cal", "+   endTime = " + endTime);
+        Log.e("Cal", "+ organizer = " + organizer);
+        Log.e("Cal", "+  guestwrt = " + guestsCanModify);
     }
 
     public final boolean intersects(int julianDay, int startMinute,
