@@ -84,8 +84,10 @@ public class CalendarView extends View
     private static final String[] CALENDARS_PROJECTION = new String[] {
         Calendars._ID,          // 0
         Calendars.ACCESS_LEVEL, // 1
+        Calendars.OWNER_ACCOUNT, // 2
     };
     private static final int CALENDARS_INDEX_ACCESS_LEVEL = 1;
+    private static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
     private static final String CALENDARS_WHERE = Calendars._ID + "=%d";
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
@@ -2766,25 +2768,23 @@ public class CalendarView extends View
         String where = String.format(CALENDARS_WHERE, calId);
         cursor = cr.query(uri, CALENDARS_PROJECTION, where, null, null);
 
+        String calendarOwnerAccount = null;
         if (cursor != null) {
             cursor.moveToFirst();
             visibility = cursor.getInt(CALENDARS_INDEX_ACCESS_LEVEL);
+            calendarOwnerAccount = cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
             cursor.close();
         }
-
-        // Attendees cursor
-        uri = Attendees.CONTENT_URI;
-        where = String.format(ATTENDEES_WHERE, e.id);
-        Cursor attendeesCursor = cr.query(uri, ATTENDEES_PROJECTION, where, null, null);
-        if (attendeesCursor != null) {
-            if (attendeesCursor.moveToFirst()) {
-                relationship = attendeesCursor.getInt(ATTENDEES_INDEX_RELATIONSHIP);
-            }
-            attendeesCursor.close();
+        
+        if (visibility < Calendars.CONTRIBUTOR_ACCESS) {
+            return false;
         }
 
-        return visibility >= Calendars.CONTRIBUTOR_ACCESS &&
-                relationship >= Attendees.RELATIONSHIP_ORGANIZER;
+        if (e.guestsCanModify) {
+            return true;
+        }
+
+        return !TextUtils.isEmpty(calendarOwnerAccount) && calendarOwnerAccount.equals(e.organizer);
     }
 
     /**
