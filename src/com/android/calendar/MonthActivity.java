@@ -17,7 +17,6 @@
 package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import dalvik.system.VMRuntime;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -44,6 +43,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 import android.widget.Gallery.LayoutParams;
+
+import dalvik.system.VMRuntime;
 
 import java.util.Calendar;
 
@@ -281,6 +282,9 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
         view = (MonthView) mSwitcher.getNextView();
         view.dismissPopup();
         mEventLoader.stopBackgroundThread();
+
+        // Record Month View as the (new) start view
+        Utils.setDefaultView(this, CalendarApplication.MONTH_VIEW_ID);
     }
 
     @Override
@@ -296,12 +300,6 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
                 CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
         view1.setDetailedView(str);
         view2.setDetailedView(str);
-
-        // Record Month View as the (new) start view
-        String activityString = CalendarApplication.ACTIVITY_NAMES[CalendarApplication.MONTH_VIEW_ID];
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(CalendarPreferenceActivity.KEY_START_VIEW, activityString);
-        editor.commit();
 
         // Register for Intent broadcasts
         IntentFilter filter = new IntentFilter();
