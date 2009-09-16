@@ -1537,13 +1537,39 @@ public class EditEvent extends Activity implements View.OnClickListener,
                     forceSaveReminders);
         }
 
+        Builder b;
+
+        // New event/instance - Set Organizer's response as yes
+        if (eventIdIndex != -1) {
+            values.clear();
+            int calendarCursorPosition = mCalendarsSpinner.getSelectedItemPosition();
+            if (mCalendarsCursor.moveToPosition(calendarCursorPosition)) {
+                String ownerEmail = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+                if (ownerEmail != null) {
+                    String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
+                    if (displayName != null) {
+                        values.put(Attendees.ATTENDEE_NAME, displayName);
+                    }
+                    values.put(Attendees.ATTENDEE_EMAIL, ownerEmail);
+                    values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
+                    values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+                    values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_ACCEPTED);
+
+                    b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                            .withValues(values);
+                    b.withValueBackReference(Reminders.EVENT_ID, eventIdIndex);
+                    ops.add(b.build());
+                }
+            }
+        }
+
         if (eventIdIndex != -1 || uri != null) {
             Editable attendeesText = mAttendeesList.getText();
             // Hit the content provider only if the user has changed it
             if (!mOriginalAttendees.equals(attendeesText.toString())) {
                 // TODO we could do a diff and modify the rows only as needed
                 // Delete all the existing attendees for this event
-                Builder b = ContentProviderOperation.newDelete(Attendees.CONTENT_URI);
+                b = ContentProviderOperation.newDelete(Attendees.CONTENT_URI);
 
                 long eventId = -1;
                 if (eventIdIndex == -1) {
