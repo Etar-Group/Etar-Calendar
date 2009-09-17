@@ -57,8 +57,6 @@ import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -66,6 +64,7 @@ import android.text.format.Time;
 import android.text.util.Rfc822Token;
 import android.text.util.Rfc822Tokenizer;
 import android.text.util.Rfc822Validator;
+import android.text.util.Rfc822InputFilter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -88,6 +87,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
+import com.google.android.collect.Lists;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -133,6 +133,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             Events._SYNC_ID,        // 11
             Events.TRANSPARENCY,    // 12
             Events.VISIBILITY,      // 13
+            Events.OWNER_ACCOUNT,   // 14
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -148,6 +149,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private static final int EVENT_INDEX_SYNC_ID = 11;
     private static final int EVENT_INDEX_TRANSPARENCY = 12;
     private static final int EVENT_INDEX_VISIBILITY = 13;
+    private static final int EVENT_INDEX_OWNER_ACCOUNT = 14;
 
     private static final String[] CALENDARS_PROJECTION = new String[] {
             Calendars._ID,           // 0
@@ -218,7 +220,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private LinearLayout mExtraOptions;
     private ArrayList<Integer> mOriginalMinutes = new ArrayList<Integer>();
     private ArrayList<LinearLayout> mReminderItems = new ArrayList<LinearLayout>(0);
-    MultiAutoCompleteTextView mAttendeesList;
+    private Rfc822Validator mEmailValidator;
+    private MultiAutoCompleteTextView mAttendeesList;
     private EmailAddressAdapter mAddressAdapter;
     private String mOriginalAttendees = "";
 
@@ -518,14 +521,18 @@ public class EditEvent extends Activity implements View.OnClickListener,
                     finish();
                 }
 
-                // Find user domain and set it to the validator
-                if(cursor.moveToPosition(primaryCalendarPosition)) {
+                // Find user domain and set it to the validator.
+                // TODO: we may want to update this validator if the user actually picks
+                // a different calendar.  maybe not.  depends on what we want for the
+                // user experience.  this may change when we add support for multiple
+                // accounts, anyway.
+                if (cursor.moveToPosition(primaryCalendarPosition)) {
                     String ownEmail = cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
                     if (ownEmail != null) {
-                        int separator = ownEmail.lastIndexOf('@');
-                        if (separator != -1 && ++separator < ownEmail.length()) {
-                            mAttendeesList.setValidator(new Rfc822Validator(ownEmail
-                                    .substring(separator)));
+                        String domain = extractDomain(ownEmail);
+                        if (domain != null) {
+                            mEmailValidator = new Rfc822Validator(domain);
+                            mAttendeesList.setValidator(mEmailValidator);
                         }
                     }
                 }
@@ -561,14 +568,11 @@ public class EditEvent extends Activity implements View.OnClickListener,
                     }
                 }
             } catch (OperationCanceledException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.w(TAG, "Ignoring unexpected exception", e);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.w(TAG, "Ignoring unexpected exception", e);
             } catch (AuthenticatorException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.w(TAG, "Ignoring unexpected exception", e);
             } finally {
                 if (primaryCalendarPosition != -1) {
                     return primaryCalendarPosition;
@@ -577,6 +581,14 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 }
             }
         }
+    }
+
+    private static String extractDomain(String email) {
+        int separator = email.lastIndexOf('@');
+        if (separator != -1 && ++separator < email.length()) {
+            return email.substring(separator);
+        }
+        return null;
     }
 
     @Override
@@ -606,6 +618,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
         long begin = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
         long end = intent.getLongExtra(EVENT_END_TIME, 0);
 
+        String domain = "gmail.com";
+
         boolean allDay = false;
         if (mEventCursor != null) {
             // The event already exists so fetch the all-day status
@@ -614,6 +628,13 @@ public class EditEvent extends Activity implements View.OnClickListener,
             String rrule = mEventCursor.getString(EVENT_INDEX_RRULE);
             String timezone = mEventCursor.getString(EVENT_INDEX_TIMEZONE);
             long calendarId = mEventCursor.getInt(EVENT_INDEX_CALENDAR_ID);
+            String ownerAccount = mEventCursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
+            if (!TextUtils.isEmpty(ownerAccount)) {
+                String ownerDomain = extractDomain(ownerAccount);
+                if (ownerDomain != null) {
+                    domain = ownerDomain;
+                }
+            }
 
             // Remember the initial values
             mInitialValues = new ContentValues();
@@ -685,7 +706,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
         mExtraOptions = (LinearLayout) findViewById(R.id.extra_options_container);
 
         mAddressAdapter = new EmailAddressAdapter(this);
-        mAttendeesList = initMultiAutoCompleteTextView(R.id.attendees, R.string.hint_attendees);
+        mEmailValidator = new Rfc822Validator(domain);
+        mAttendeesList = initMultiAutoCompleteTextView(R.id.attendees);
 
         mAllDayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -827,16 +849,32 @@ public class EditEvent extends Activity implements View.OnClickListener,
         }
     }
 
-    private Rfc822Token[] getAddressesFromList(MultiAutoCompleteTextView list) {
+    private ArrayList<Rfc822Token> getAddressesFromList(MultiAutoCompleteTextView list) {
         list.clearComposingText();
-        return Rfc822Tokenizer.tokenize(list.getText());
+        Rfc822Token[] addresses = Rfc822Tokenizer.tokenize(list.getText());
+        if (addresses == null) {
+            return new ArrayList<Rfc822Token>();
+        }
+
+        // validate the emails, out of paranoia.  they should already be
+        // validated on input, but drop any invalid emails just to be safe.
+        ArrayList<Rfc822Token> validatedAddresses = new ArrayList<Rfc822Token>(addresses.length);
+        for (Rfc822Token address : addresses) {
+            if (mEmailValidator.isValid(address.getAddress())) {
+                validatedAddresses.add(address);
+            } else {
+                Log.w(TAG, "Dropping invalid attendee email address: " + address);
+            }
+        }
+        return validatedAddresses;
     }
 
     // From com.google.android.gm.ComposeActivity
-    private MultiAutoCompleteTextView initMultiAutoCompleteTextView(int res, int hintId) {
+    private MultiAutoCompleteTextView initMultiAutoCompleteTextView(int res) {
         MultiAutoCompleteTextView list = (MultiAutoCompleteTextView) findViewById(res);
         list.setAdapter(mAddressAdapter);
         list.setTokenizer(new Rfc822Tokenizer());
+        list.setValidator(mEmailValidator);
 
         // NOTE: assumes no other filters are set
         list.setFilters(sRecipientFilters);
@@ -851,50 +889,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
      * of letters and symbols, including one+ dots and zero commas, should insert an extra
      * comma (followed by the space).
      */
-    private static InputFilter[] sRecipientFilters = new InputFilter[] { new InputFilter() {
-
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest,
-                int dstart, int dend) {
-
-            // quick check - did they enter a single space?
-            if (end-start != 1 || source.charAt(start) != ' ') {
-                return null;
-            }
-
-            // determine if the characters before the new space fit the pattern
-            // follow backwards and see if we find a comma, dot, or @
-            int scanBack = dstart;
-            boolean dotFound = false;
-            while (scanBack > 0) {
-                char c = dest.charAt(--scanBack);
-                switch (c) {
-                    case '.':
-                        dotFound = true;    // one or more dots are req'd
-                        break;
-                    case ',':
-                        return null;
-                    case '@':
-                        if (!dotFound) {
-                            return null;
-                        }
-                        // we have found a comma-insert case.  now just do it
-                        // in the least expensive way we can.
-                        if (source instanceof Spanned) {
-                            SpannableStringBuilder sb = new SpannableStringBuilder(",");
-                            sb.append(source);
-                            return sb;
-                        } else {
-                            return ", ";
-                        }
-                    default:
-                        // just keep going
-                }
-            }
-
-            // no termination cases were found, so don't edit the input
-            return null;
-        }
-    }};
+    private static InputFilter[] sRecipientFilters = new InputFilter[] { new Rfc822InputFilter() };
 
     private void initFromIntent(Intent intent) {
         String title = intent.getStringExtra(Events.TITLE);
@@ -1581,7 +1576,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 ops.add(b.build());
 
                 if (attendeesText.length() > 0) {
-                    Rfc822Token[] attendees = getAddressesFromList(mAttendeesList);
+                    ArrayList<Rfc822Token> attendees = getAddressesFromList(mAttendeesList);
                     // Insert the attendees
                     for (Rfc822Token attendee : attendees) {
                         values.clear();
@@ -1616,11 +1611,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 }
             }
         } catch (RemoteException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.w(TAG, "Ignoring unexpected remote exception", e);
         } catch (OperationApplicationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.w(TAG, "Ignoring unexpected exception", e);
         }
 
         return true;
