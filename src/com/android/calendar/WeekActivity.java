@@ -78,12 +78,6 @@ public class WeekActivity extends CalendarActivity implements ViewSwitcher.ViewF
                 CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
         view1.setDetailedView(str);
         view2.setDetailedView(str);
-
-        // Record Week View as the (new) start view
-        String activityString = CalendarApplication.ACTIVITY_NAMES[CalendarApplication.WEEK_VIEW_ID];
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(CalendarPreferenceActivity.KEY_START_VIEW, activityString);
-        editor.commit();
     }
 
     @Override
@@ -91,5 +85,8 @@ public class WeekActivity extends CalendarActivity implements ViewSwitcher.ViewF
         super.onPause();
         CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
         mSelectedDay = view.getSelectedDay();
+
+        // Record Week View as the (new) start view
+        Utils.setDefaultView(this, CalendarApplication.WEEK_VIEW_ID);
     }
 }

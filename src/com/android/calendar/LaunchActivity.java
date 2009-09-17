@@ -16,15 +16,13 @@
 
 package com.android.calendar;
 
-import com.google.android.googlelogin.GoogleLoginServiceConstants;
-
-import android.accounts.AccountManager;
-import android.accounts.AuthenticatorException;
-import android.accounts.AccountManagerCallback;
-import android.accounts.OperationCanceledException;
 import android.accounts.Account;
-import android.accounts.Constants;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.Constants;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,6 +30,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Gmail;
+
+import com.google.android.googlelogin.GoogleLoginServiceConstants;
 
 import java.io.IOException;
 
@@ -104,6 +104,7 @@ public class LaunchActivity extends Activity {
                 CalendarPreferenceActivity.DEFAULT_START_VIEW);
 
         intent.setClassName(this, startActivity);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
     }
