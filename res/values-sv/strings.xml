@@ -81,18 +81,17 @@
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Visa fler alternativ"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Dölj fler alternativ"</string>
     <string name="description_label" msgid="7193475046717505855">"Beskrivning"</string>
-    <string name="presence_label" msgid="2155381988163502023">"Närvaro"</string>
+    <!-- no translation found for presence_label (6169724148441175862) -->
+    <skip />
     <string name="privacy_label" msgid="9215031965259597335">"Sekretess"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Påminnelser"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Inga kalendrar"</string>
     <string name="no_calendars_found" msgid="755379468136462058">"Du har inga kalendrar."</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>
-    <!-- no translation found for view_event_organizer_label (2168441329713325834) -->
-    <skip />
+    <string name="view_event_organizer_label" msgid="2168441329713325834">"Organisatör"</string>
     <string name="view_event_timezone_label" msgid="6461351857281070935">"Lokal tidszon"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Delta?"</string>
-    <!-- no translation found for agenda_today (6489447319363439068) -->
-    <skip />
+    <string name="agenda_today" msgid="6489447319363439068">"Idag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Hämtar…"</string>
     <string name="show_older_events" msgid="4031960000704544741">"Visar händelser sedan <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Peka om du vill visa fler."</string>
     <string name="show_newer_events" msgid="2647889653936094369">"Visar händelser fram till <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Peka om du vill visa fler."</string>

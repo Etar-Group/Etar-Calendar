@@ -20,10 +20,8 @@
     <string name="what_label" msgid="1933578391985810049">"Was"</string>
     <string name="when_label" msgid="894636567327261599">"Wann"</string>
     <string name="where_label" msgid="3472482206065595118">"Wo"</string>
-    <!-- no translation found for attendees_label (2971281641565729725) -->
-    <skip />
-    <!-- no translation found for response_label (5732943469653254290) -->
-    <skip />
+    <string name="attendees_label" msgid="2971281641565729725">"Gäste"</string>
+    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Wiederholung"</string>
     <string name="no_title_label" msgid="7352118984125107858">"(kein Thema)"</string>
   <plurals name="Nminutes">
@@ -63,8 +61,7 @@
     <string name="hint_what" msgid="709155115005044531">"Terminname"</string>
     <string name="hint_where" msgid="3116239630502213241">"Ort des Termins"</string>
     <string name="hint_description" msgid="4198202812240544553">"Terminbeschreibung"</string>
-    <!-- no translation found for hint_attendees (6036653711383143333) -->
-    <skip />
+    <string name="hint_attendees" msgid="6036653711383143333">"E-Mail-Adressen"</string>
     <string name="creating_event" msgid="8237877638457604455">"Termin wird erstellt…"</string>
     <string name="saving_event" msgid="8853425146353785688">"Termin wird gespeichert…"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Kalender werden geladen."</string>
@@ -84,24 +81,20 @@
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Zusätzliche Optionen anzeigen"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Zusätzliche Optionen ausblenden"</string>
     <string name="description_label" msgid="7193475046717505855">"Beschreibung"</string>
-    <string name="presence_label" msgid="2155381988163502023">"Status"</string>
+    <!-- no translation found for presence_label (6169724148441175862) -->
+    <skip />
     <string name="privacy_label" msgid="9215031965259597335">"Datenschutz"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Erinnerungen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Keine Kalender"</string>
     <string name="no_calendars_found" msgid="755379468136462058">"Sie haben keine Kalender."</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>
-    <!-- no translation found for view_event_organizer_label (2168441329713325834) -->
-    <skip />
+    <string name="view_event_organizer_label" msgid="2168441329713325834">"Organizer"</string>
     <string name="view_event_timezone_label" msgid="6461351857281070935">"Lokalzeit"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Teilnahme?"</string>
-    <!-- no translation found for agenda_today (6489447319363439068) -->
-    <skip />
-    <!-- no translation found for loading (3772533493214331230) -->
-    <skip />
-    <!-- no translation found for show_older_events (4031960000704544741) -->
-    <skip />
-    <!-- no translation found for show_newer_events (2647889653936094369) -->
-    <skip />
+    <string name="agenda_today" msgid="6489447319363439068">"Heute, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"Ladevorgang läuft..."</string>
+    <string name="show_older_events" msgid="4031960000704544741">"Termine seit <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> werden angezeigt. Tippen Sie, um die Suche zu erweitern."</string>
+    <string name="show_newer_events" msgid="2647889653936094369">"Termine bis <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> werden angezeigt. Tippen Sie, um die Suche zu erweitern."</string>
     <string name="num_events" msgid="3351672964607162257">"Anzahl Termine"</string>
     <string name="edit_event_label" msgid="2900418236819088363">"Termin bearbeiten"</string>
     <string name="delete_label" msgid="874742811918030739">"Löschen"</string>
