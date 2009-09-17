@@ -1121,23 +1121,18 @@ public class EditEvent extends Activity implements View.OnClickListener,
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK:
-                // If we are creating a new event, do not create it if the
-                // title, location and description are all empty, in order to
-                // prevent accidental "no subject" event creations.
-                if (mUri != null || !isEmpty()) {
-                    if (!save()) {
-                        // We cannot exit this activity because the calendars
-                        // are still loading.
-                        return true;
-                    }
-                }
-                break;
+    public void onBackPressed() {
+        // If we are creating a new event, do not create it if the
+        // title, location and description are all empty, in order to
+        // prevent accidental "no subject" event creations.
+        if (mUri != null || !isEmpty()) {
+            if (!save()) {
+                // We cannot exit this activity because the calendars
+                // are still loading.
+                return;
+            }
         }
-
-        return super.onKeyDown(keyCode, event);
+        finish();
     }
 
     private void populateWhen() {

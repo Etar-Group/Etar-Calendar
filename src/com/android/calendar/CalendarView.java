@@ -899,6 +899,13 @@ public class CalendarView extends View
                     performLongClick();
                 }
                 break;
+            case KeyEvent.KEYCODE_BACK:
+                if (event.isTracking() && !event.isCanceled()) {
+                    mPopup.dismiss();
+                    mParentActivity.finish();
+                    return true;
+                }
+                break;
         }
         return super.onKeyUp(keyCode, event);
     }
@@ -948,9 +955,11 @@ public class CalendarView extends View
             switchViews(true /* trackball or keyboard */);
             return true;
         case KeyEvent.KEYCODE_BACK:
-            mPopup.dismiss();
-            mParentActivity.finish();
-            return true;
+            if (event.getRepeatCount() == 0) {
+                event.startTracking();
+                return true;
+            }
+            return super.onKeyDown(keyCode, event);
         case KeyEvent.KEYCODE_DPAD_LEFT:
             if (mSelectedEvent != null) {
                 mSelectedEvent = mSelectedEvent.nextLeft;
