@@ -16,9 +16,7 @@
 
 package com.android.calendar;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ProgressBar;
@@ -42,16 +40,6 @@ public class DayActivity extends CalendarActivity implements ViewSwitcher.ViewFa
         mViewSwitcher.setFactory(this);
         mViewSwitcher.getCurrentView().requestFocus();
         mProgressBar = (ProgressBar) findViewById(R.id.progress_circular);
-
-        // Record Day View as the (new) default detailed view.
-        String activityString = CalendarApplication.ACTIVITY_NAMES[CalendarApplication.DAY_VIEW_ID];
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(CalendarPreferenceActivity.KEY_DETAILED_VIEW, activityString);
-
-        // Record Day View as the (new) start view
-        editor.putString(CalendarPreferenceActivity.KEY_START_VIEW, activityString);
-        editor.commit();
     }
 
     public View makeView() {
@@ -68,5 +56,8 @@ public class DayActivity extends CalendarActivity implements ViewSwitcher.ViewFa
         super.onPause();
         CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
         mSelectedDay = view.getSelectedDay();
+
+        // Record Day View as the (new) default detailed view.
+        Utils.setDefaultView(this, CalendarApplication.DAY_VIEW_ID);
     }
 }

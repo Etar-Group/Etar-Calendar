@@ -120,17 +120,6 @@ public class AgendaActivity extends Activity implements Navigator {
             millis = System.currentTimeMillis();
         }
         mTime.set(millis);
-
-        // Record Agenda View as the (new) default detailed view.
-        String activityString =
-            CalendarApplication.ACTIVITY_NAMES[CalendarApplication.AGENDA_VIEW_ID];
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(CalendarPreferenceActivity.KEY_DETAILED_VIEW, activityString);
-
-        // Record Agenda View as the (new) start view
-        editor.putString(CalendarPreferenceActivity.KEY_START_VIEW, activityString);
-        editor.commit();
     }
 
     @Override
@@ -189,6 +178,9 @@ public class AgendaActivity extends Activity implements Navigator {
         mAgendaListView.onPause();
         mContentResolver.unregisterContentObserver(mObserver);
         unregisterReceiver(mIntentReceiver);
+
+        // Record Agenda View as the (new) default detailed view.
+        Utils.setDefaultView(this, CalendarApplication.AGENDA_VIEW_ID);
     }
 
     @Override
