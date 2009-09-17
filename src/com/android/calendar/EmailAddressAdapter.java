@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 Google Inc.
+ * Copyright (C) 2007 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,31 +16,33 @@
 
 package com.android.calendar;
 
-import static android.provider.Contacts.ContactMethods.CONTENT_EMAIL_URI;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
-import android.provider.Contacts.ContactMethods;
-import android.provider.Contacts.People;
-import android.text.TextUtils;
+import android.net.Uri;
+import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.Data;
+import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.util.Rfc822Token;
 import android.view.View;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
+// Customized from com.android.email.EmailAddressAdapter
+
 public class EmailAddressAdapter extends ResourceCursorAdapter {
     public static final int NAME_INDEX = 1;
     public static final int DATA_INDEX = 2;
-    
-    private static final String SORT_ORDER = People.TIMES_CONTACTED + " DESC, " + People.NAME;
+
+    private static final String SORT_ORDER =
+            Contacts.TIMES_CONTACTED + " DESC, " + Contacts.DISPLAY_NAME;
+
     private ContentResolver mContentResolver;
-    
+
     private static final String[] PROJECTION = {
-        ContactMethods._ID,     // 0
-        ContactMethods.NAME,    // 1
-        ContactMethods.DATA     // 2
+        Data._ID,               // 0
+        Contacts.DISPLAY_NAME,  // 1
+        Email.DATA              // 2
     };
 
     public EmailAddressAdapter(Context context) {
@@ -50,36 +52,16 @@ public class EmailAddressAdapter extends ResourceCursorAdapter {
 
     @Override
     public final String convertToString(Cursor cursor) {
-        String name = cursor.getString(NAME_INDEX);
-        String address = cursor.getString(DATA_INDEX);
-
-        return new Rfc822Token(name, address, null).toString();
+        return makeDisplayString(cursor);
     }
 
     private final String makeDisplayString(Cursor cursor) {
-        StringBuilder s = new StringBuilder();
-        boolean flag = false;
         String name = cursor.getString(NAME_INDEX);
         String address = cursor.getString(DATA_INDEX);
 
-        if (!TextUtils.isEmpty(name)) {
-            s.append(name);
-            flag = true;
-        }
-        
-        if (flag) {
-            s.append(" <");
-        }
-        
-        s.append(address);
-
-        if (flag) {
-            s.append(">");
-        }
-        
-        return s.toString();
+        return new Rfc822Token(address, name, null).toString();
     }
-    
+
     @Override
     public final void bindView(View view, Context context, Cursor cursor) {
         ((TextView) view).setText(makeDisplayString(cursor));
@@ -87,21 +69,8 @@ public class EmailAddressAdapter extends ResourceCursorAdapter {
 
     @Override
     public Cursor runQueryOnBackgroundThread(CharSequence constraint) {
-        String where = null;
-
-        if (constraint != null) {
-            String filter = DatabaseUtils.sqlEscapeString(constraint.toString() + '%');
-            
-            StringBuilder s = new StringBuilder();
-            s.append("(people.name LIKE ");
-            s.append(filter);
-            s.append(") OR (contact_methods.data LIKE ");
-            s.append(filter);
-            s.append(")");
-            
-            where = s.toString();
-        }
-
-        return mContentResolver.query(CONTENT_EMAIL_URI, PROJECTION, where, null, SORT_ORDER);
+        String filter = constraint == null ? "" : constraint.toString();
+        Uri uri = Uri.withAppendedPath(Email.CONTENT_FILTER_URI, Uri.encode(filter));
+        return mContentResolver.query(uri, PROJECTION, null, null, SORT_ORDER);
     }
 }
