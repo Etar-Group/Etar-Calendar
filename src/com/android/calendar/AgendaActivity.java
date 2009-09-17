@@ -216,10 +216,6 @@ public class AgendaActivity extends Activity implements Navigator {
                 // Delete the currently selected event (if any)
                 mAgendaListView.deleteSelectedEvent();
                 break;
-
-            case KeyEvent.KEYCODE_BACK:
-                finish();
-                return true;
         }
         return super.onKeyDown(keyCode, event);
     }
