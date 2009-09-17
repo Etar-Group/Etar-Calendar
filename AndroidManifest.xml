@@ -80,7 +80,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="GoogleCalendarUriIntentFilter" android:label="@string/event_info_title"
+        <activity android:name="GoogleCalendarUriIntentFilter" android:label="@string/app_label"
             android:theme="@android:style/Theme.Light"
             android:configChanges="orientation|keyboardHidden">
 
