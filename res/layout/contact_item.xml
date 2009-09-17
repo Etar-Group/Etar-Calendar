@@ -37,9 +37,7 @@
         android:layout_marginBottom="3dip"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:clickable="true"
         android:focusable="true"
-        android:focusableInTouchMode="true"
         android:src="@drawable/ic_contact_picture"
         android:background="@drawable/fasttrack_badge" />
 
