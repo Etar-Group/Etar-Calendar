@@ -47,11 +47,14 @@ import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
+import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.FastTrack;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Presence;
 import android.provider.ContactsContract.RawContacts;
 import android.provider.ContactsContract.CommonDataKinds.Email;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -1072,27 +1075,32 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
      * Send the intent that shows the Contact info corresponding to the email address.
      */
     public void showContactInfo(Attendee attendee, Rect rect) {
-        Uri contactUri = Uri.fromParts("mailto", attendee.mEmail, null);
+        // First perform lookup query to find existing contact
+        final ContentResolver resolver = getContentResolver();
+        final String address = attendee.mEmail;
+        final Uri dataUri = Uri.withAppendedPath(CommonDataKinds.Email.CONTENT_FILTER_URI,
+                Uri.encode(address));
+        final Uri lookupUri = ContactsContract.Data.getContactLookupUri(resolver, dataUri);
 
-        Intent contactIntent = new Intent(Intents.SHOW_OR_CREATE_CONTACT);
-        contactIntent.setData(contactUri);
+        if (lookupUri != null) {
+            // Found matching contact, trigger FastTrack
+            FastTrack.showFastTrack(this, rect, lookupUri, FastTrack.MODE_MEDIUM, null);
+        } else {
+            // No matching contact, ask user to create one
+            final Uri mailUri = Uri.fromParts("mailto", address, null);
+            final Intent intent = new Intent(Intents.SHOW_OR_CREATE_CONTACT, mailUri);
 
-        // Pass along full E-mail string for possible create dialog
-        Rfc822Token sender = new Rfc822Token(attendee.mName, attendee.mEmail, null);
-        contactIntent.putExtra(Intents.EXTRA_CREATE_DESCRIPTION,
-                sender.toString());
+            // Pass along full E-mail string for possible create dialog
+            Rfc822Token sender = new Rfc822Token(attendee.mName, attendee.mEmail, null);
+            intent.putExtra(Intents.EXTRA_CREATE_DESCRIPTION, sender.toString());
 
-        // Mark target position using on-screen coordinates
-        contactIntent.putExtra(Intents.EXTRA_TARGET_RECT, rect);
+            // Only provide personal name hint if we have one
+            final String senderPersonal = attendee.mName;
+            if (!TextUtils.isEmpty(senderPersonal)) {
+                intent.putExtra(Intents.Insert.NAME, senderPersonal);
+            }
 
-        // Show the small version of fast track
-        contactIntent.putExtra(Intents.EXTRA_MODE, Intents.MODE_SMALL);
-
-        // Only provide personal name hint if we have one
-        if (attendee.mName != null && attendee.mName.length() > 0) {
-            contactIntent.putExtra(Intents.Insert.NAME, attendee.mName);
+            startActivity(intent);
         }
-
-        startActivity(contactIntent);
     }
 }
