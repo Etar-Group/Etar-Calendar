@@ -598,6 +598,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
         setContentView(R.layout.edit_event);
         mAccountManager = AccountManager.get(this);
 
+        boolean newEvent = false;
+
         mFirstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
 
         mStartTime = new Time();
@@ -645,6 +647,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             mInitialValues.put(Events.EVENT_TIMEZONE, timezone);
             mInitialValues.put(Events.CALENDAR_ID, calendarId);
         } else {
+            newEvent = true;
             // We are creating a new event, so set the default from the
             // intent (if specified).
             allDay = intent.getBooleanExtra(EVENT_ALL_DAY, false);
@@ -772,6 +775,11 @@ public class EditEvent extends Activity implements View.OnClickListener,
         String durationString =
                 prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER, "0");
         mDefaultReminderMinutes = Integer.parseInt(durationString);
+
+        if (newEvent && mDefaultReminderMinutes != 0) {
+            addReminder(this, this, mReminderItems, mReminderValues,
+                    mReminderLabels, mDefaultReminderMinutes);
+        }
 
         long eventId = (mEventCursor == null) ? -1 : mEventCursor.getLong(EVENT_INDEX_ID);
         ContentResolver cr = getContentResolver();
@@ -1030,12 +1038,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
                 long startMillis = mStartTime.normalize(true /* ignore isDst */);
                 mEndTime.set(startMillis + DateUtils.HOUR_IN_MILLIS);
-            }
-
-            // New event - set the default reminder
-            if (mDefaultReminderMinutes != 0) {
-                addReminder(this, this, mReminderItems, mReminderValues,
-                        mReminderLabels, mDefaultReminderMinutes);
             }
 
             // Hide delete button
