@@ -52,7 +52,6 @@ import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.FastTrack;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Presence;
-import android.provider.ContactsContract.RawContacts;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -246,10 +245,10 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     int PRESENCE_PROJECTION_PHOTO_ID_INDEX = 3;
 
     private static final String[] PRESENCE_PROJECTION = new String[] {
-        RawContacts.CONTACT_ID,   // 0
-        Presence.PRESENCE_STATUS, // 1
-        Email.DATA,               // 2
-        Contacts.PHOTO_ID,        // 3
+        Email.CONTACT_ID,          // 0
+        Email.PRESENCE_STATUS,     // 1
+        Email.DATA,                // 2
+        Email.PHOTO_ID,            // 3
     };
 
     ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
