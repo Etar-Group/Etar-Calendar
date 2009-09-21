@@ -19,7 +19,7 @@
     <string name="app_label">Calendar</string>
     <!-- This is the welcome message when a user starts Calendar for the first time -->
     <string name="calendar_plug"><font fgcolor="#ffffffff">Welcome to Google Calendar!</font>
-    \nA Google approach to managing your schedule built on the idea that scheduling events can be more intuitive, efficient and accessible.
+    \nA Google approach to managing your schedule built on the idea that scheduling events can be more intuitive, efficient, and accessible.
     </string>
 
     <!-- Shared Labels. These labels are shared among the activities. -->
@@ -358,7 +358,7 @@
     <!-- Title of ringtone selector dialog -->
     <string name="preferences_alerts_ringtone_title">Select ringtone</string>
     <!-- List item label for setting the default number of reminder minutes -->
-    <string name="preferences_default_reminder_title">Set default reminder</string>
+    <string name="preferences_default_reminder_title">Default reminder time</string>
     <!-- Title of dialog for setting the default number of reminder minutes -->
     <string name="preferences_default_reminder_dialog">Default reminder time</string>
     <!-- Default value for the number of reminder minutes -->
