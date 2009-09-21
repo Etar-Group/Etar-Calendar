@@ -39,7 +39,7 @@
         <uses-library android:name="android.test.runner" />
 
         <activity android:name="LaunchActivity"
-            android:theme="@android:style/Theme.Light">
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
