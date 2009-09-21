@@ -983,32 +983,37 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 return;
             }
 
-            cursor.moveToPosition(-1);
-            while (cursor.moveToNext()) {
-                String email = cursor.getString(PRESENCE_PROJECTION_EMAIL_INDEX);
-                int contactId = cursor.getInt(PRESENCE_PROJECTION_CONTACT_ID_INDEX);
-                ViewHolder vh = mViewHolders.get(email);
-                int photoId = cursor.getInt(PRESENCE_PROJECTION_PHOTO_ID_INDEX);
-                if (DEBUG) {
-                    Log.e(TAG, "onQueryComplete Id: " + contactId + " PhotoId: " + photoId
-                            + " Email: " + email);
-                }
-                if (vh == null) {
-                    continue;
-                }
-                ImageView presenceView = vh.presence;
-                if (presenceView != null) {
-                    int status = cursor.getInt(PRESENCE_PROJECTION_PRESENCE_INDEX);
-                    presenceView.setImageResource(Presence.getPresenceIconResourceId(status));
-                    presenceView.setVisibility(View.VISIBLE);
-                }
+            try {
 
-                if (photoId > 0 && vh.updateCounts < queryIndex) {
-                    vh.updateCounts = queryIndex;
-                    Uri personUri = ContentUris.withAppendedId(Contacts.CONTENT_URI, contactId);
-                    ContactsAsyncHelper.updateImageViewWithContactPhotoAsync(mContext, vh.avatar,
-                            personUri, R.drawable.ic_contact_picture);
+                cursor.moveToPosition(-1);
+                while (cursor.moveToNext()) {
+                    String email = cursor.getString(PRESENCE_PROJECTION_EMAIL_INDEX);
+                    int contactId = cursor.getInt(PRESENCE_PROJECTION_CONTACT_ID_INDEX);
+                    ViewHolder vh = mViewHolders.get(email);
+                    int photoId = cursor.getInt(PRESENCE_PROJECTION_PHOTO_ID_INDEX);
+                    if (DEBUG) {
+                        Log.e(TAG, "onQueryComplete Id: " + contactId + " PhotoId: " + photoId
+                                + " Email: " + email);
+                    }
+                    if (vh == null) {
+                        continue;
+                    }
+                    ImageView presenceView = vh.presence;
+                    if (presenceView != null) {
+                        int status = cursor.getInt(PRESENCE_PROJECTION_PRESENCE_INDEX);
+                        presenceView.setImageResource(Presence.getPresenceIconResourceId(status));
+                        presenceView.setVisibility(View.VISIBLE);
+                    }
+
+                    if (photoId > 0 && vh.updateCounts < queryIndex) {
+                        vh.updateCounts = queryIndex;
+                        Uri personUri = ContentUris.withAppendedId(Contacts.CONTENT_URI, contactId);
+                        ContactsAsyncHelper.updateImageViewWithContactPhotoAsync(mContext, vh.avatar,
+                                personUri, R.drawable.ic_contact_picture);
+                    }
                 }
+            } finally {
+                cursor.close();
             }
         }
     }
