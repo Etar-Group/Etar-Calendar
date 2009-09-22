@@ -84,7 +84,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         if (mRowInfo != null) {
             RowInfo row = mRowInfo.get(position);
             if (row.mType == TYPE_DAY) {
-                return position;
+                return -position;
             } else {
                 return mAgendaAdapter.getItemId(row.mData);
             }
@@ -158,7 +158,11 @@ public class AgendaByDayAdapter extends BaseAdapter {
         } else if (row.mType == TYPE_MEETING) {
             View x = mAgendaAdapter.getView(row.mData, convertView, parent);
             TextView y = ((AgendaAdapter.ViewHolder) x.getTag()).title;
-            y.setText(y.getText());
+            if (AgendaWindowAdapter.BASICLOG) {
+                y.setText(y.getText() + " P:" + position);
+            } else {
+                y.setText(y.getText());
+            }
             return x;
         } else {
             // Error
