@@ -32,7 +32,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.Formatter;
@@ -45,7 +44,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 Bugs Bugs Bugs:
 - At rotation and launch time, the initial position is not set properly. This code is calling
  listview.setSelection() in 2 rapid secessions but it dropped or didn't process the first one.
-- Query of 2009 11 09 to 2010 01 15 didnt't return anything. In fact, Query of 2010 is showing nothing
 - Scroll using trackball isn't repositioning properly after a new adapter is added.
 - Track ball clicks at the header/footer doesn't work.
 - Potential ping pong effect if the prefetch window is big and data is limited
@@ -327,11 +325,17 @@ public class AgendaWindowAdapter extends BaseAdapter {
         }
     }
 
+    // Method in BaseAdapter
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+
     // Abstract Method in BaseAdapter
     public long getItemId(int position) {
         DayAdapterInfo info = getAdapterInfoByPosition(position);
         if (info != null) {
-            return info.dayAdapter.getItemId(position - info.offset);
+            return ((position - info.offset) << 20) + info.start ;
         } else {
             return -1;
         }
@@ -440,14 +444,22 @@ public class AgendaWindowAdapter extends BaseAdapter {
         if (position < info.cursor.getCount()) {
             info.cursor.moveToPosition(position);
             event.begin = info.cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
-            if (isDayHeader) {
+            boolean allDay = info.cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
+
+            if (allDay) { // UTC
+                Time time = new Time();
+                time.setJulianDay(Time.getJulianDay(event.begin, 0));
+                event.begin = time.toMillis(false /* use isDst */);
+            } else if (isDayHeader) { // Trim to midnight.
                 Time time = new Time();
                 time.set(event.begin);
                 time.hour = 0;
                 time.minute = 0;
                 time.second = 0;
                 event.begin = time.toMillis(false /* use isDst */);
-            } else {
+            }
+
+            if (!isDayHeader) {
                 event.end = info.cursor.getLong(AgendaWindowAdapter.INDEX_END);
                 event.id = info.cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
             }
@@ -457,6 +469,10 @@ public class AgendaWindowAdapter extends BaseAdapter {
     }
 
     public void refresh(Time goToTime, boolean forced) {
+        if (DEBUGLOG) {
+            Log.e(TAG, "refresh " + goToTime.toString() + (forced ? " forced" : " not forced"));
+        }
+        
         int startDay = Time.getJulianDay(goToTime.toMillis(false), goToTime.gmtoff);
 
         if (!forced && isInRange(startDay, startDay)) {
