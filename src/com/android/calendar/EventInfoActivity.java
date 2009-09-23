@@ -66,10 +66,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FasttrackBadgeWidget;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -113,7 +113,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         Events.ACCESS_LEVEL,         // 11
         Events.COLOR,                // 12
         Events.GUESTS_CAN_MODIFY,    // 13
-        // TODO Events.CAN_INVITE_OTHERS is broken. Investigate
+        // TODO Events.GUESTS_CAN_INVITE_OTHERS has not been implemented in calendar provider
         Events.GUESTS_CAN_INVITE_OTHERS, // 14
         Events.ORGANIZER,            // 15
     };
@@ -229,7 +229,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     // TODO This can be removed when the contacts content provider doesn't return duplicates
     private int mUpdateCounts;
     private static class ViewHolder {
-        ImageView avatar;
+        FasttrackBadgeWidget badge;
         ImageView presence;
         int updateCounts;
     }
@@ -254,25 +254,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mDeclinedAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mTentativeAttendees = new ArrayList<Attendee>();
-    private OnClickListener contactOnClickListener = new OnClickListener() {
-        private Rect getTargetRect(View anchor) {
-            final int[] location = new int[2];
-            anchor.getLocationOnScreen(location);
-
-            final Rect rect = new Rect();
-            rect.left = location[0];
-            rect.top = location[1];
-            rect.right = rect.left + anchor.getWidth();
-            rect.bottom = rect.top + anchor.getHeight();
-            return rect;
-        }
-
-        public void onClick(View avatar) {
-            final Rect target = getTargetRect(avatar);
-            View attendeeItem = (View) avatar.getParent();
-            showContactInfo((Attendee) attendeeItem.getTag(), target);
-        }
-    };
     private int mColor;
 
     // This is called when one of the "remove reminder" buttons is selected.
@@ -331,21 +312,29 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         }
 
         setContentView(R.layout.event_info_activity);
-
-        // Attendees cursor
-        Uri uri = Attendees.CONTENT_URI;
-        String where = String.format(ATTENDEES_WHERE, mEventId);
-        mAttendeesCursor = managedQuery(uri, ATTENDEES_PROJECTION, where, ATTENDEES_SORT_ORDER);
+        mPresenceQueryHandler = new PresenceQueryHandler(this, cr);
+        mLayoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mRemindersContainer = (LinearLayout) findViewById(R.id.reminders_container);
+        mOrganizerContainer = (LinearLayout) findViewById(R.id.organizer_container);
+        mOrganizerView = (TextView) findViewById(R.id.organizer);
 
         // Calendars cursor
-        uri = Calendars.CONTENT_URI;
-        where = String.format(CALENDARS_WHERE, mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID));
+        Uri uri = Calendars.CONTENT_URI;
+        String where = String.format(CALENDARS_WHERE, mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID));
         mCalendarsCursor = managedQuery(uri, CALENDARS_PROJECTION, where, null);
         mCalendarOwnerAccount = "";
         if (mCalendarsCursor != null) {
             mCalendarsCursor.moveToFirst();
             mCalendarOwnerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
         }
+
+        updateView();
+
+        // Attendees cursor
+        uri = Attendees.CONTENT_URI;
+        where = String.format(ATTENDEES_WHERE, mEventId);
+        mAttendeesCursor = managedQuery(uri, ATTENDEES_PROJECTION, where, ATTENDEES_SORT_ORDER);
+        initAttendeesCursor();
 
         String eventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
         mOrganizer = eventOrganizer;
@@ -373,10 +362,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         String durationString =
                 prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER, "0");
         mDefaultReminderMinutes = Integer.parseInt(durationString);
-
-        mRemindersContainer = (LinearLayout) findViewById(R.id.reminders_container);
-        mOrganizerContainer = (LinearLayout) findViewById(R.id.organizer_container);
-        mOrganizerView = (TextView) findViewById(R.id.organizer);
 
         // Reminders cursor
         boolean hasAlarm = mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) != 0;
@@ -406,8 +391,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             }
         }
 
-        updateView();
-
         // Setup the + Add Reminder Button
         View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
             public void onClick(View v) {
@@ -422,9 +405,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
         mDeleteEventHelper = new DeleteEventHelper(this, true /* exit when done */);
         mEditResponseHelper = new EditResponseHelper(this);
-
-        mPresenceQueryHandler = new PresenceQueryHandler(this, cr);
-        mLayoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -435,7 +415,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             finish();
             return;
         }
-        initAttendeesCursor();
         initCalendarsCursor();
         updateResponse();
         updateTitle();
@@ -505,17 +484,20 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                     if (mCalendarOwnerAttendeeId == -1 && mCalendarOwnerAccount.equals(email)) {
                         mCalendarOwnerAttendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
                         mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
-                    }
-
-                    switch(status) {
-                        case Attendees.ATTENDEE_STATUS_ACCEPTED:
-                            mAcceptedAttendees.add(new Attendee(name, email));
-                            break;
-                        case Attendees.ATTENDEE_STATUS_DECLINED:
-                            mDeclinedAttendees.add(new Attendee(name, email));
-                            break;
-                        default:
-                            mTentativeAttendees.add(new Attendee(name, email));
+                    } else {
+                        // Don't show your own status in the list because:
+                        //  1) it doesn't make sense for event without other guests.
+                        //  2) there's a spinner for that for events with guests.
+                        switch(status) {
+                            case Attendees.ATTENDEE_STATUS_ACCEPTED:
+                                mAcceptedAttendees.add(new Attendee(name, email));
+                                break;
+                            case Attendees.ATTENDEE_STATUS_DECLINED:
+                                mDeclinedAttendees.add(new Attendee(name, email));
+                                break;
+                            default:
+                                mTentativeAttendees.add(new Attendee(name, email));
+                        }
                     }
                 } while (mAttendeesCursor.moveToNext());
                 mAttendeesCursor.moveToFirst();
@@ -691,7 +673,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 updateResponse(cr, mEventId, mCalendarOwnerAttendeeId, status);
                 return true;
             default:
-                Log.e("Calendar", "Unexpected choice for updating invitation response");
+                Log.e(TAG, "Unexpected choice for updating invitation response");
                 break;
         }
         return false;
@@ -775,10 +757,10 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         if (mEventCursor == null) {
             return;
         }
-        Resources res = getResources();
 
         String eventName = mEventCursor.getString(EVENT_INDEX_TITLE);
         if (eventName == null || eventName.length() == 0) {
+            Resources res = getResources();
             eventName = res.getString(R.string.no_title_label);
         }
 
@@ -912,7 +894,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         ContentResolver cr = getContentResolver();
         // Yes/No/Maybe Title
         View titleView = mLayoutInflater.inflate(R.layout.contact_item, null);
-        titleView.findViewById(R.id.avatar).setVisibility(View.GONE);
+        titleView.findViewById(R.id.badge).setVisibility(View.GONE);
         View divider = titleView.findViewById(R.id.separator);
         divider.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
 
@@ -945,8 +927,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             tv.setText(name);
 
             ViewHolder vh = new ViewHolder();
-            vh.avatar = (ImageView) v.findViewById(R.id.avatar);
-            vh.avatar.setOnClickListener(contactOnClickListener);
+            vh.badge = (FasttrackBadgeWidget) v.findViewById(R.id.badge);
+            vh.badge.assignContactFromEmail(attendee.mEmail, true);
             vh.presence = (ImageView) v.findViewById(R.id.presence);
             mViewHolders.put(attendee.mEmail, vh);
 
@@ -984,7 +966,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             }
 
             try {
-
                 cursor.moveToPosition(-1);
                 while (cursor.moveToNext()) {
                     String email = cursor.getString(PRESENCE_PROJECTION_EMAIL_INDEX);
@@ -1008,7 +989,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                     if (photoId > 0 && vh.updateCounts < queryIndex) {
                         vh.updateCounts = queryIndex;
                         Uri personUri = ContentUris.withAppendedId(Contacts.CONTENT_URI, contactId);
-                        ContactsAsyncHelper.updateImageViewWithContactPhotoAsync(mContext, vh.avatar,
+                        ContactsAsyncHelper.updateImageViewWithContactPhotoAsync(mContext, vh.badge,
                                 personUri, R.drawable.ic_contact_picture);
                     }
                 }
