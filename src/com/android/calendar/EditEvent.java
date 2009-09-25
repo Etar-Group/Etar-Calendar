@@ -236,6 +236,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
     private ContentValues mInitialValues;
+    private String mOwnerAccount;
 
     /**
      * If the repeating event is created on the phone and it hasn't been
@@ -634,9 +635,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
             String rrule = mEventCursor.getString(EVENT_INDEX_RRULE);
             String timezone = mEventCursor.getString(EVENT_INDEX_TIMEZONE);
             long calendarId = mEventCursor.getInt(EVENT_INDEX_CALENDAR_ID);
-            String ownerAccount = mEventCursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
-            if (!TextUtils.isEmpty(ownerAccount)) {
-                String ownerDomain = extractDomain(ownerAccount);
+            mOwnerAccount = mEventCursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
+            if (!TextUtils.isEmpty(mOwnerAccount)) {
+                String ownerDomain = extractDomain(mOwnerAccount);
                 if (ownerDomain != null) {
                     domain = ownerDomain;
                 }
@@ -1535,23 +1536,22 @@ public class EditEvent extends Activity implements View.OnClickListener,
         if (eventIdIndex != -1) {
             values.clear();
             int calendarCursorPosition = mCalendarsSpinner.getSelectedItemPosition();
-            if (mCalendarsCursor.moveToPosition(calendarCursorPosition)) {
-                String ownerEmail = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
-                if (ownerEmail != null) {
-                    String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
-                    if (displayName != null) {
-                        values.put(Attendees.ATTENDEE_NAME, displayName);
-                    }
-                    values.put(Attendees.ATTENDEE_EMAIL, ownerEmail);
-                    values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
-                    values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
-                    values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_ACCEPTED);
+            String ownerEmail = mOwnerAccount;
+            // Just in case mOwnerAccount is null, try to get owner from mCalendarsCursor
+            if (ownerEmail == null && mCalendarsCursor != null &&
+                    mCalendarsCursor.moveToPosition(calendarCursorPosition)) {
+                ownerEmail = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+            }
+            if (ownerEmail != null) {
+                values.put(Attendees.ATTENDEE_EMAIL, ownerEmail);
+                values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
+                values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+                values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_ACCEPTED);
 
-                    b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
-                            .withValues(values);
-                    b.withValueBackReference(Reminders.EVENT_ID, eventIdIndex);
-                    ops.add(b.build());
-                }
+                b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                        .withValues(values);
+                b.withValueBackReference(Reminders.EVENT_ID, eventIdIndex);
+                ops.add(b.build());
             }
         }
 
