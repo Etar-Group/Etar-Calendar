@@ -94,6 +94,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 public class EditEvent extends Activity implements View.OnClickListener,
         DialogInterface.OnCancelListener, DialogInterface.OnClickListener {
@@ -178,6 +180,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private static final int ATTENDEES_INDEX_EMAIL = 1;
     private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=? AND "
             + Attendees.ATTENDEE_RELATIONSHIP + "<>" + Attendees.RELATIONSHIP_ORGANIZER;
+    private static final String ATTENDEES_DELETE_PREFIX = Attendees.EVENT_ID + "=? AND " +
+            Attendees.ATTENDEE_EMAIL + " IN (";
 
     private static final int DOES_NOT_REPEAT = 0;
     private static final int REPEATS_DAILY = 1;
@@ -857,24 +861,20 @@ public class EditEvent extends Activity implements View.OnClickListener,
         }
     }
 
-    private ArrayList<Rfc822Token> getAddressesFromList(MultiAutoCompleteTextView list) {
+    private LinkedHashSet<Rfc822Token> getAddressesFromList(MultiAutoCompleteTextView list) {
         list.clearComposingText();
-        Rfc822Token[] addresses = Rfc822Tokenizer.tokenize(list.getText());
-        if (addresses == null) {
-            return new ArrayList<Rfc822Token>();
-        }
+        LinkedHashSet<Rfc822Token> addresses = new LinkedHashSet<Rfc822Token>();
+        Rfc822Tokenizer.tokenize(list.getText(), addresses);
 
         // validate the emails, out of paranoia.  they should already be
         // validated on input, but drop any invalid emails just to be safe.
-        ArrayList<Rfc822Token> validatedAddresses = new ArrayList<Rfc822Token>(addresses.length);
         for (Rfc822Token address : addresses) {
-            if (mEmailValidator.isValid(address.getAddress())) {
-                validatedAddresses.add(address);
-            } else {
+            if (!mEmailValidator.isValid(address.getAddress())) {
                 Log.w(TAG, "Dropping invalid attendee email address: " + address);
+                addresses.remove(address);
             }
         }
-        return validatedAddresses;
+        return addresses;
     }
 
     // From com.google.android.gm.ComposeActivity
@@ -1555,32 +1555,60 @@ public class EditEvent extends Activity implements View.OnClickListener,
             }
         }
 
+        // TODO: is this the right test?  this currently checks if this is
+        // a new event or an existing event.  or is this a paranoia check?
         if (eventIdIndex != -1 || uri != null) {
             Editable attendeesText = mAttendeesList.getText();
             // Hit the content provider only if the user has changed it
             if (!mOriginalAttendees.equals(attendeesText.toString())) {
-                // TODO we could do a diff and modify the rows only as needed
-                // Delete all the existing attendees for this event
-                b = ContentProviderOperation.newDelete(Attendees.CONTENT_URI);
+                // figure out which attendees need to be added and which ones
+                // need to be deleted.  use a linked hash set, so we maintain
+                // order (but also remove duplicates).
+                LinkedHashSet<Rfc822Token> newAttendees = getAddressesFromList(mAttendeesList);
 
-                long eventId = -1;
+                // the eventId is only used if eventIdIndex is -1.
+                // TODO: clean up this code.
+                long eventId = uri != null ? ContentUris.parseId(uri) : -1;
+
+                // only compute deltas if this is an existing event.
+                // new events (being inserted into the Events table) won't
+                // have any existing attendees.
                 if (eventIdIndex == -1) {
-                    eventId = ContentUris.parseId(uri);
-                    String[] args = new String[] {
-                        Long.toString(eventId)
-                    };
-                    b.withSelection(ATTENDEES_WHERE, args);
-                } else {
-                    // Delete all the existing reminders for this event
-                    b.withSelection(ATTENDEES_WHERE, new String[1]);
-                    b.withSelectionBackReference(0, eventIdIndex);
-                }
-                ops.add(b.build());
+                    HashSet<Rfc822Token> removedAttendees = new HashSet<Rfc822Token>();
+                    HashSet<Rfc822Token> originalAttendees = new HashSet<Rfc822Token>();
+                    Rfc822Tokenizer.tokenize(mOriginalAttendees, originalAttendees);
+                    for (Rfc822Token originalAttendee : originalAttendees) {
+                        if (newAttendees.contains(originalAttendee)) {
+                            // existing attendee.  remove from new attendees set.
+                            newAttendees.remove(originalAttendee);
+                        } else {
+                            // no longer in attendees.  mark as removed.
+                            removedAttendees.add(originalAttendee);
+                        }
+                    }
 
-                if (attendeesText.length() > 0) {
-                    ArrayList<Rfc822Token> attendees = getAddressesFromList(mAttendeesList);
-                    // Insert the attendees
-                    for (Rfc822Token attendee : attendees) {
+                    // delete removed attendees
+                    b = ContentProviderOperation.newDelete(Attendees.CONTENT_URI);
+
+                    String[] args = new String[removedAttendees.size() + 1];
+                    args[0] = Long.toString(eventId);
+                    int i = 1;
+                    StringBuilder deleteWhere = new StringBuilder(ATTENDEES_DELETE_PREFIX);
+                    for (Rfc822Token removedAttendee : removedAttendees) {
+                        if (i > 1) {
+                            deleteWhere.append(",");
+                        }
+                        deleteWhere.append("?");
+                        args[i++] = removedAttendee.getAddress();
+                    }
+                    deleteWhere.append(")");
+                    b.withSelection(deleteWhere.toString(), args);
+                    ops.add(b.build());
+                }
+
+                if (newAttendees.size() > 0) {
+                    // Insert the new attendees
+                    for (Rfc822Token attendee : newAttendees) {
                         values.clear();
                         values.put(Attendees.ATTENDEE_NAME, attendee.getName());
                         values.put(Attendees.ATTENDEE_EMAIL, attendee.getAddress());
@@ -1591,7 +1619,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
                         if (eventIdIndex != -1) {
                             b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
                                     .withValues(values);
-                            b.withValueBackReference(Reminders.EVENT_ID, eventIdIndex);
+                            b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
                         } else {
                             values.put(Attendees.EVENT_ID, eventId);
                             b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
