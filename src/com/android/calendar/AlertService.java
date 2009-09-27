@@ -427,11 +427,14 @@ public class AlertService extends Service {
     }
 
     @Override
-    public void onStart(Intent intent, int startId) {
-        Message msg = mServiceHandler.obtainMessage();
-        msg.arg1 = startId;
-        msg.obj = intent.getExtras();
-        mServiceHandler.sendMessage(msg);
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null) {
+            Message msg = mServiceHandler.obtainMessage();
+            msg.arg1 = startId;
+            msg.obj = intent.getExtras();
+            mServiceHandler.sendMessage(msg);
+        }
+        return START_REDELIVER_INTENT;
     }
 
     @Override
