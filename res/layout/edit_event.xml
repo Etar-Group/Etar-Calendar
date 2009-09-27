@@ -197,7 +197,7 @@
         </LinearLayout>
 
         <!-- GUESTS/ATTENDEES -->
-        <LinearLayout
+        <LinearLayout android:id="@+id/attendees_group"
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

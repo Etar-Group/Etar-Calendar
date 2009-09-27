@@ -61,12 +61,11 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.text.util.Rfc822InputFilter;
 import android.text.util.Rfc822Token;
 import android.text.util.Rfc822Tokenizer;
 import android.text.util.Rfc822Validator;
-import android.text.util.Rfc822InputFilter;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -87,15 +86,14 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
-import com.google.android.collect.Lists;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.TimeZone;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.TimeZone;
 
 public class EditEvent extends Activity implements View.OnClickListener,
         DialogInterface.OnCancelListener, DialogInterface.OnClickListener {
@@ -121,21 +119,22 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private static final int MENU_HIDE_EXTRA_OPTIONS = 3;
 
     private static final String[] EVENT_PROJECTION = new String[] {
-            Events._ID,             // 0
-            Events.TITLE,           // 1
-            Events.DESCRIPTION,     // 2
-            Events.EVENT_LOCATION,  // 3
-            Events.ALL_DAY,         // 4
-            Events.HAS_ALARM,       // 5
-            Events.CALENDAR_ID,     // 6
-            Events.DTSTART,         // 7
-            Events.DURATION,        // 8
-            Events.EVENT_TIMEZONE,  // 9
-            Events.RRULE,           // 10
-            Events._SYNC_ID,        // 11
-            Events.TRANSPARENCY,    // 12
-            Events.VISIBILITY,      // 13
-            Events.OWNER_ACCOUNT,   // 14
+            Events._ID,               // 0
+            Events.TITLE,             // 1
+            Events.DESCRIPTION,       // 2
+            Events.EVENT_LOCATION,    // 3
+            Events.ALL_DAY,           // 4
+            Events.HAS_ALARM,         // 5
+            Events.CALENDAR_ID,       // 6
+            Events.DTSTART,           // 7
+            Events.DURATION,          // 8
+            Events.EVENT_TIMEZONE,    // 9
+            Events.RRULE,             // 10
+            Events._SYNC_ID,          // 11
+            Events.TRANSPARENCY,      // 12
+            Events.VISIBILITY,        // 13
+            Events.OWNER_ACCOUNT,     // 14
+            Events.HAS_ATTENDEE_DATA, // 15
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -152,6 +151,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private static final int EVENT_INDEX_TRANSPARENCY = 12;
     private static final int EVENT_INDEX_VISIBILITY = 13;
     private static final int EVENT_INDEX_OWNER_ACCOUNT = 14;
+    private static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 15;
 
     private static final String[] CALENDARS_PROJECTION = new String[] {
             Calendars._ID,           // 0
@@ -228,6 +228,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private MultiAutoCompleteTextView mAttendeesList;
     private EmailAddressAdapter mAddressAdapter;
     private String mOriginalAttendees = "";
+
+    // Used to control the visibility of the Guests textview. Default to true
+    private boolean mHasAttendeeData = true;
 
     private EventRecurrence mEventRecurrence = new EventRecurrence();
     private String mRrule;
@@ -531,7 +534,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 // a different calendar.  maybe not.  depends on what we want for the
                 // user experience.  this may change when we add support for multiple
                 // accounts, anyway.
-                if (cursor.moveToPosition(primaryCalendarPosition)) {
+                if (mHasAttendeeData && cursor.moveToPosition(primaryCalendarPosition)) {
                     String ownEmail = cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
                     if (ownEmail != null) {
                         String domain = extractDomain(ownEmail);
@@ -631,6 +634,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         if (mEventCursor != null) {
             // The event already exists so fetch the all-day status
             mEventCursor.moveToFirst();
+            mHasAttendeeData = mEventCursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
             allDay = mEventCursor.getInt(EVENT_INDEX_ALL_DAY) != 0;
             String rrule = mEventCursor.getString(EVENT_INDEX_RRULE);
             String timezone = mEventCursor.getString(EVENT_INDEX_TIMEZONE);
@@ -713,9 +717,13 @@ public class EditEvent extends Activity implements View.OnClickListener,
         mRemindersContainer = (LinearLayout) findViewById(R.id.reminder_items_container);
         mExtraOptions = (LinearLayout) findViewById(R.id.extra_options_container);
 
-        mAddressAdapter = new EmailAddressAdapter(this);
-        mEmailValidator = new Rfc822Validator(domain);
-        mAttendeesList = initMultiAutoCompleteTextView(R.id.attendees);
+        if (mHasAttendeeData) {
+            mAddressAdapter = new EmailAddressAdapter(this);
+            mEmailValidator = new Rfc822Validator(domain);
+            mAttendeesList = initMultiAutoCompleteTextView(R.id.attendees);
+        } else {
+            findViewById(R.id.attendees_group).setVisibility(View.GONE);
+        }
 
         mAllDayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -830,7 +838,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         mDeleteEventHelper = new DeleteEventHelper(this, true /* exit when done */);
 
        // Attendees cursor
-        if (eventId != -1) {
+        if (mHasAttendeeData && eventId != -1) {
             Uri uri = Attendees.CONTENT_URI;
             String[] whereArgs = {Long.toString(eventId)};
             Cursor attendeeCursor = cr.query(uri, ATTENDEES_PROJECTION, ATTENDEES_WHERE, whereArgs,
@@ -1533,7 +1541,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         Builder b;
 
         // New event/instance - Set Organizer's response as yes
-        if (eventIdIndex != -1) {
+        if (mHasAttendeeData && eventIdIndex != -1) {
             values.clear();
             int calendarCursorPosition = mCalendarsSpinner.getSelectedItemPosition();
             String ownerEmail = mOwnerAccount;
@@ -1557,7 +1565,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         // TODO: is this the right test?  this currently checks if this is
         // a new event or an existing event.  or is this a paranoia check?
-        if (eventIdIndex != -1 || uri != null) {
+        if (mHasAttendeeData && (eventIdIndex != -1 || uri != null)) {
             Editable attendeesText = mAttendeesList.getText();
             // Hit the content provider only if the user has changed it
             if (!mOriginalAttendees.equals(attendeesText.toString())) {
