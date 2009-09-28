@@ -49,6 +49,7 @@ import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.FastTrack;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Presence;
@@ -240,8 +241,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private HashMap<String, ViewHolder> mViewHolders = new HashMap<String, ViewHolder>();
     private PresenceQueryHandler mPresenceQueryHandler;
 
-    private static final Uri CONTACT_DATA_WITH_PRESENCE_URI =
-            Uri.withAppendedPath(ContactsContract.AUTHORITY_URI, "data_with_presence");
+    private static final Uri CONTACT_DATA_WITH_PRESENCE_URI = Data.CONTENT_URI;
 
     int PRESENCE_PROJECTION_CONTACT_ID_INDEX = 0;
     int PRESENCE_PROJECTION_PRESENCE_INDEX = 1;
@@ -249,10 +249,10 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     int PRESENCE_PROJECTION_PHOTO_ID_INDEX = 3;
 
     private static final String[] PRESENCE_PROJECTION = new String[] {
-        Email.CONTACT_ID,          // 0
-        Email.PRESENCE_STATUS,     // 1
-        Email.DATA,                // 2
-        Email.PHOTO_ID,            // 3
+        Email.CONTACT_ID,           // 0
+        Email.CONTACT_PRESENCE,     // 1
+        Email.DATA,                 // 2
+        Email.PHOTO_ID,             // 3
     };
 
     ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
