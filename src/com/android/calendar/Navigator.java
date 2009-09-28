@@ -28,8 +28,9 @@ public interface Navigator {
     /**
      * Changes the view to include the given time.
      * @param time the desired time to view.
+     * @animate enable animation
      */
-    void goTo(Time time);
+    void goTo(Time time, boolean animate);
     
     /**
      * Changes the view to include today's date.

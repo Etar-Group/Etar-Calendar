@@ -59,7 +59,7 @@
     <View
         android:id="@+id/separator"
         android:layout_width="fill_parent"
-        android:layout_height="1dip"
+        android:layout_height="1px"
         android:layout_alignParentBottom="true"
         android:background="@android:drawable/divider_horizontal_bright" />
 
