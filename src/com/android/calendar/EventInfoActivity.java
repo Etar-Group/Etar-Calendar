@@ -1007,10 +1007,16 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     }
 
     void updateResponse() {
-        // you can only accept/reject/etc. a meeting if:
-        // a) you can edit the event's containing calendar
-        // b) you're not the organizer and only attendee 
-        if (!mCanModifyCalendar || (mIsOrganizer && mNumOfAttendees <= 1)) {
+        // we only let the user accept/reject/etc. a meeting if:
+        // a) you can edit the event's containing calendar AND
+        // b) you're not the organizer and only attendee
+        // (if the attendee data has been hidden, the visible number of attendees
+        // will be 1 -- the calendar owner's).
+        // (there are more cases involved to be 100% accurate, such as
+        // paying attention to whether or not an attendee status was
+        // included in the feed, but we're currently omitting those corner cases
+        // for simplicity).
+        if (!mCanModifyCalendar || (mHasAttendeeData && mIsOrganizer && mNumOfAttendees <= 1)) {
             setVisibilityCommon(R.id.response_container, View.GONE);
             return;
         }
