@@ -112,10 +112,11 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         Events.HAS_ALARM,            // 10
         Events.ACCESS_LEVEL,         // 11
         Events.COLOR,                // 12
-        Events.GUESTS_CAN_MODIFY,    // 13
+        Events.HAS_ATTENDEE_DATA,    // 13
+        Events.GUESTS_CAN_MODIFY,    // 14
         // TODO Events.GUESTS_CAN_INVITE_OTHERS has not been implemented in calendar provider
-        Events.GUESTS_CAN_INVITE_OTHERS, // 14
-        Events.ORGANIZER,            // 15
+        Events.GUESTS_CAN_INVITE_OTHERS, // 15
+        Events.ORGANIZER,            // 16
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -129,9 +130,10 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private static final int EVENT_INDEX_HAS_ALARM = 10;
     private static final int EVENT_INDEX_ACCESS_LEVEL = 11;
     private static final int EVENT_INDEX_COLOR = 12;
-    private static final int EVENT_INDEX_GUESTS_CAN_MODIFY = 13;
-    private static final int EVENT_INDEX_CAN_INVITE_OTHERS = 14;
-    private static final int EVENT_INDEX_ORGANIZER = 15;
+    private static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 13;
+    private static final int EVENT_INDEX_GUESTS_CAN_MODIFY = 14;
+    private static final int EVENT_INDEX_CAN_INVITE_OTHERS = 15;
+    private static final int EVENT_INDEX_ORGANIZER = 16;
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
@@ -200,6 +202,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private long mStartMillis;
     private long mEndMillis;
 
+    private boolean mHasAttendeeData;
+    private boolean mIsOrganizer;
     private long mCalendarOwnerAttendeeId = -1;
     private String mCalendarOwnerAccount;
     private boolean mCanModifyCalendar;
@@ -327,6 +331,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             mCalendarsCursor.moveToFirst();
             mCalendarOwnerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
         }
+        String eventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
+        mIsOrganizer = mCalendarOwnerAccount.equals(eventOrganizer);
+        mHasAttendeeData = mEventCursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
 
         updateView();
 
@@ -336,15 +343,14 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         mAttendeesCursor = managedQuery(uri, ATTENDEES_PROJECTION, where, ATTENDEES_SORT_ORDER);
         initAttendeesCursor();
 
-        String eventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
         mOrganizer = eventOrganizer;
         mCanModifyCalendar =
                 mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) >= Calendars.CONTRIBUTOR_ACCESS;
         mIsBusyFreeCalendar =
                 mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) == Calendars.FREEBUSY_ACCESS;
+
         mCanModifyEvent = mCanModifyCalendar
-                && (mCalendarOwnerAccount.equals(eventOrganizer)
-                        || mEventCursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0);
+                && (mIsOrganizer || (mEventCursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0));
 
         // Initialize the reminder values array.
         Resources r = getResources();
@@ -422,7 +428,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
     private void updateTitle() {
         Resources res = getResources();
-        if (mCanModifyCalendar && mNumOfAttendees > 1) {
+        if (mCanModifyCalendar && !mIsOrganizer) {
             setTitle(res.getString(R.string.event_info_title_invite));
         } else {
             setTitle(res.getString(R.string.event_info_title));
@@ -505,7 +511,10 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 updateAttendees();
             }
         }
-        if (mNumOfAttendees > 1) {
+        // only show the organizer if we're not the organizer and if
+        // we have attendee data (might have been removed by the server
+        // for events with a lot of attendees).
+        if (!mIsOrganizer && mHasAttendeeData) {
             mOrganizerContainer.setVisibility(View.VISIBLE);
             mOrganizerView.setText(mOrganizer);
         } else {
@@ -534,11 +543,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         try {
             cr.applyBatch(Calendars.CONTENT_URI.getAuthority(), ops);
         } catch (RemoteException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.w(TAG, "Ignoring exception: ", e);
         } catch (OperationApplicationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.w(TAG, "Ignoring exception: ", e);
         }
 
         changed |= saveResponse(cr);
@@ -1000,7 +1007,10 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     }
 
     void updateResponse() {
-        if (!mCanModifyCalendar || mNumOfAttendees <= 1) {
+        // you can only accept/reject/etc. a meeting if:
+        // a) you can edit the event's containing calendar
+        // b) you're not the organizer and only attendee 
+        if (!mCanModifyCalendar || (mIsOrganizer && mNumOfAttendees <= 1)) {
             setVisibilityCommon(R.id.response_container, View.GONE);
             return;
         }
