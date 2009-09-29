@@ -84,7 +84,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     }
 
     /* Navigator interface methods */
-    public void goTo(Time time) {
+    public void goTo(Time time, boolean animate) {
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(Utils.formatMonthYear(time));
 
@@ -97,14 +97,16 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
         // two adjacent months.
         // This is faster than calling getSelectedTime() because we avoid
         // a call to Time#normalize().
-        int currentMonth = currentTime.month + currentTime.year * 12;
-        int nextMonth = time.month + time.year * 12;
-        if (nextMonth < currentMonth) {
-            mSwitcher.setInAnimation(mInAnimationPast);
-            mSwitcher.setOutAnimation(mOutAnimationPast);
-        } else {
-            mSwitcher.setInAnimation(mInAnimationFuture);
-            mSwitcher.setOutAnimation(mOutAnimationFuture);
+        if (animate) {
+            int currentMonth = currentTime.month + currentTime.year * 12;
+            int nextMonth = time.month + time.year * 12;
+            if (nextMonth < currentMonth) {
+                mSwitcher.setInAnimation(mInAnimationPast);
+                mSwitcher.setOutAnimation(mOutAnimationPast);
+            } else {
+                mSwitcher.setInAnimation(mInAnimationFuture);
+                mSwitcher.setOutAnimation(mOutAnimationFuture);
+            }
         }
 
         MonthView next = (MonthView) mSwitcher.getNextView();
@@ -264,7 +266,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
         if (timeMillis > 0) {
             Time time = new Time();
             time.set(timeMillis);
-            goTo(time);
+            goTo(time, false);
         }
     }
 

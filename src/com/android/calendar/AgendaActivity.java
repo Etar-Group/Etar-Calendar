@@ -81,7 +81,7 @@ public class AgendaActivity extends Activity implements Navigator {
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
+        
         // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
         // TODO: We should restore the old heap size once the activity reaches the idle state
         VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
@@ -127,7 +127,7 @@ public class AgendaActivity extends Activity implements Navigator {
         long time = Utils.timeFromIntentInMillis(intent);
         if (time > 0) {
             mTime.set(time);
-            goTo(mTime);
+            goTo(mTime, false);
         }
     }
 
@@ -216,10 +216,10 @@ public class AgendaActivity extends Activity implements Navigator {
     public void goToToday() {
         Time now = new Time();
         now.set(System.currentTimeMillis());
-        goTo(now);
+        goTo(now, true);
     }
 
-    public void goTo(Time time) {
+    public void goTo(Time time, boolean animate) {
         mAgendaListView.goTo(time, false);
     }
 

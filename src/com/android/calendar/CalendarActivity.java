@@ -130,7 +130,7 @@ public class CalendarActivity extends Activity implements Navigator {
         if (timeMillis > 0) {
             Time time = new Time();
             time.set(timeMillis);
-            goTo(time);
+            goTo(time, false);
         }
     }
 
@@ -183,15 +183,16 @@ public class CalendarActivity extends Activity implements Navigator {
     }
 
     /* Navigator interface methods */
-    public void goTo(Time time) {
-        CalendarView current = (CalendarView) mViewSwitcher.getCurrentView();
-
-        if (current.getSelectedTime().before(time)) {
-            mViewSwitcher.setInAnimation(mInAnimationForward);
-            mViewSwitcher.setOutAnimation(mOutAnimationForward);
-        } else {
-            mViewSwitcher.setInAnimation(mInAnimationBackward);
-            mViewSwitcher.setOutAnimation(mOutAnimationBackward);
+    public void goTo(Time time, boolean animate) {
+        if (animate) {
+            CalendarView current = (CalendarView) mViewSwitcher.getCurrentView();
+            if (current.getSelectedTime().before(time)) {
+                mViewSwitcher.setInAnimation(mInAnimationForward);
+                mViewSwitcher.setOutAnimation(mOutAnimationForward);
+            } else {
+                mViewSwitcher.setInAnimation(mInAnimationBackward);
+                mViewSwitcher.setOutAnimation(mOutAnimationBackward);
+            }
         }
 
         CalendarView next = (CalendarView) mViewSwitcher.getNextView();
