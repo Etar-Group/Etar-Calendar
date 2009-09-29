@@ -62,7 +62,7 @@ public class WeekActivity extends CalendarActivity implements ViewSwitcher.ViewF
         if (timeMillis > 0) {
             Time time = new Time();
             time.set(timeMillis);
-            goTo(time);
+            goTo(time, false);
         }
     }
 

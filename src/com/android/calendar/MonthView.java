@@ -302,7 +302,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                     time.month -= 1;
                 }
                 time.normalize(true);
-                mParentActivity.goTo(time);
+                mParentActivity.goTo(time, true);
 
                 return true;
             }
@@ -1346,7 +1346,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
         if (other != null) {
             other.normalize(true /* ignore DST */);
-            mNavigator.goTo(other);
+            mNavigator.goTo(other, true);
         } else if (redraw) {
             mRedrawScreen = true;
             invalidate();
