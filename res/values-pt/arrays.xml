@@ -90,7 +90,7 @@
     <item msgid="6315440193748139854">"Todos os eventos"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item msgid="2012815396992847028">"Somente nessa ocasião"</item>
+    <item msgid="2012815396992847028">"Somente este evento"</item>
     <item msgid="140670561403965380">"Todos os eventos da série"</item>
   </string-array>
 </resources>

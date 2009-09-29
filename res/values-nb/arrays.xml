@@ -89,6 +89,8 @@
     <item msgid="1341910309321756150">"Denne og framtidige hendelser"</item>
     <item msgid="6315440193748139854">"Alle hendelser"</item>
   </string-array>
-    <!-- no translation found for change_response_labels:0 (2012815396992847028) -->
-    <!-- no translation found for change_response_labels:1 (140670561403965380) -->
+  <string-array name="change_response_labels">
+    <item msgid="2012815396992847028">"Bare denne forekomsten"</item>
+    <item msgid="140670561403965380">"Alle hendelser i serien"</item>
+  </string-array>
 </resources>
