@@ -343,12 +343,6 @@ public class CalendarActivity extends Activity implements Navigator {
         }
 
         @Override
-        public void onShowPress(MotionEvent ev) {
-            CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
-            view.doShowPress(ev);
-        }
-
-        @Override
         public void onLongPress(MotionEvent ev) {
             CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
             view.doLongPress(ev);

@@ -149,7 +149,6 @@ public class CalendarView extends View
     boolean mSelectionAllDay;
 
     private int mCellWidth;
-    private boolean mLaunchNewView;
 
     // Pre-allocate these objects and re-use them
     private Rect mRect = new Rect();
@@ -2336,21 +2335,10 @@ public class CalendarView extends View
         mTouchMode = TOUCH_MODE_DOWN;
         mViewStartX = 0;
         mOnFlingCalled = false;
-        mLaunchNewView = false;
         getHandler().removeCallbacks(mContinueScroll);
     }
 
     void doSingleTapUp(MotionEvent ev) {
-        mSelectionMode = SELECTION_SELECTED;
-        mRedrawScreen = true;
-        invalidate();
-        if (mLaunchNewView) {
-            mLaunchNewView = false;
-            switchViews(false /* not the trackball */);
-        }
-    }
-
-    void doShowPress(MotionEvent ev) {
         int x = (int) ev.getX();
         int y = (int) ev.getY();
         Event selectedEvent = mSelectedEvent;
@@ -2359,29 +2347,41 @@ public class CalendarView extends View
 
         boolean validPosition = setSelectionFromPosition(x, y);
         if (!validPosition) {
+            // return if the touch wasn't on an area of concern
             return;
         }
 
-        mSelectionMode = SELECTION_PRESSED;
+        mSelectionMode = SELECTION_SELECTED;
         mRedrawScreen = true;
         invalidate();
 
-        // If the tap is on an already selected event or hour slot,
-        // then launch a new view.  Otherwise, just select the event.
-        if (selectedEvent != null && selectedEvent == mSelectedEvent) {
-            // Launch the "View event" view when the finger lifts up,
-            // unless the finger moves before lifting up.
-            mLaunchNewView = true;
-        } else if (selectedEvent == null && selectedDay == mSelectionDay
+        boolean launchNewView = false;
+        if (mSelectedEvent != null) {
+            // If the tap is on an event, launch the "View event" view
+            launchNewView = true;
+        } else if (mSelectedEvent == null && selectedDay == mSelectionDay
                 && selectedHour == mSelectionHour) {
-            // Launch the Day/Agenda view when the finger lifts up,
-            // unless the finger moves before lifting up.
-            mLaunchNewView = true;
+            // If the tap is on an already selected hour slot,
+            // then launch the Day/Agenda view. Otherwise, just select the hour
+            // slot.
+            launchNewView = true;
+        }
+
+        if (launchNewView) {
+            switchViews(false /* not the trackball */);
         }
     }
 
     void doLongPress(MotionEvent ev) {
-        mLaunchNewView = false;
+        int x = (int) ev.getX();
+        int y = (int) ev.getY();
+
+        boolean validPosition = setSelectionFromPosition(x, y);
+        if (!validPosition) {
+            // return if the touch wasn't on an area of concern
+            return;
+        }
+
         mSelectionMode = SELECTION_LONGPRESS;
         mRedrawScreen = true;
         invalidate();
@@ -2389,7 +2389,6 @@ public class CalendarView extends View
     }
 
     void doScroll(MotionEvent e1, MotionEvent e2, float deltaX, float deltaY) {
-        mLaunchNewView = false;
         // Use the distance from the current point to the initial touch instead
         // of deltaX and deltaY to avoid accumulating floating-point rounding
         // errors.  Also, we don't need floats, we can use ints.
