@@ -113,6 +113,11 @@ public class AlertService extends Service {
         }
 
         if (alertUri != null) {
+            if (Calendar.AUTHORITY.equals(alertUri.getAuthority())) {
+                Log.w(TAG, "Invalid AUTHORITY uri: " + alertUri);
+                return;
+            }
+
             // Record the received time in the CalendarAlerts table.
             // This is useful for finding bugs that cause alarms to be
             // missed or delayed.
