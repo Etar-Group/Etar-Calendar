@@ -21,7 +21,7 @@
     android:paddingRight="9dip"
     android:minHeight="48dip">
 
-    <FasttrackBadgeWidget
+    <QuickContactBadge
         android:id="@+id/badge"
         android:paddingLeft="3dip"
         android:paddingRight="3dip"
@@ -35,7 +35,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/ic_contact_picture"
-        style="@*android:style/Widget.FasttrackBadgeWidgetSmall.WindowSmall" />
+        style="@*android:style/Widget.QuickContactBadgeSmall.WindowSmall" />
 
     <TextView
         android:id="@+id/name"
