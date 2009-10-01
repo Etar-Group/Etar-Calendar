@@ -50,7 +50,7 @@ import android.provider.Calendar.Reminders;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
-import android.provider.ContactsContract.FastTrack;
+import android.provider.ContactsContract.QuickContact;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Presence;
 import android.provider.ContactsContract.CommonDataKinds.Email;
@@ -1084,8 +1084,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         final Uri lookupUri = ContactsContract.Data.getContactLookupUri(resolver, dataUri);
 
         if (lookupUri != null) {
-            // Found matching contact, trigger FastTrack
-            FastTrack.showFastTrack(this, rect, lookupUri, FastTrack.MODE_MEDIUM, null);
+            // Found matching contact, trigger QuickContact
+            QuickContact.showQuickContact(this, rect, lookupUri, QuickContact.MODE_MEDIUM, null);
         } else {
             // No matching contact, ask user to create one
             final Uri mailUri = Uri.fromParts("mailto", address, null);
