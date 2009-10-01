@@ -70,7 +70,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FasttrackBadgeWidget;
+import android.widget.QuickContactBadge;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -234,7 +234,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     // TODO This can be removed when the contacts content provider doesn't return duplicates
     private int mUpdateCounts;
     private static class ViewHolder {
-        FasttrackBadgeWidget badge;
+        QuickContactBadge badge;
         ImageView presence;
         int updateCounts;
     }
@@ -934,7 +934,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             tv.setText(name);
 
             ViewHolder vh = new ViewHolder();
-            vh.badge = (FasttrackBadgeWidget) v.findViewById(R.id.badge);
+            vh.badge = (QuickContactBadge) v.findViewById(R.id.badge);
             vh.badge.assignContactFromEmail(attendee.mEmail, true);
             vh.presence = (ImageView) v.findViewById(R.id.presence);
             mViewHolders.put(attendee.mEmail, vh);
