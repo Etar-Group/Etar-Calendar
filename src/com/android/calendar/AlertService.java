@@ -113,7 +113,7 @@ public class AlertService extends Service {
         }
 
         if (alertUri != null) {
-            if (Calendar.AUTHORITY.equals(alertUri.getAuthority())) {
+            if (!Calendar.AUTHORITY.equals(alertUri.getAuthority())) {
                 Log.w(TAG, "Invalid AUTHORITY uri: " + alertUri);
                 return;
             }
