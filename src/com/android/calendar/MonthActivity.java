@@ -122,6 +122,9 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     public void goToToday() {
         Time now = new Time();
         now.set(System.currentTimeMillis());
+        now.minute = 0;
+        now.second = 0;
+        now.normalize(false);
 
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(Utils.formatMonthYear(now));
