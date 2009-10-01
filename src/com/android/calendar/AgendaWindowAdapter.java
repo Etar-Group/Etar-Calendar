@@ -481,8 +481,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
             return;
         }
 
-        // Query for 2 days before the start day for a total of MIN_QUERY_DURATION days
-        startDay -= 2;
+        // Query for a total of MIN_QUERY_DURATION days
         int endDay = startDay + MIN_QUERY_DURATION;
 
         queueQuery(startDay, endDay, goToTime, QUERY_TYPE_CLEAN);
