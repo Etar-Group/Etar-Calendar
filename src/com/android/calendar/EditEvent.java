@@ -1433,6 +1433,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
         // For recurring events, we must make sure that we use duration rather
         // than dtend.
         if (uri == null) {
+            // Add hasAttendeeData for a new event
+            values.put(Events.HAS_ATTENDEE_DATA, 1);
             // Create new event with new contents
             addRecurrenceRule(values);
             eventIdIndex = ops.size();
