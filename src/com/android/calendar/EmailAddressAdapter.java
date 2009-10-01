@@ -59,7 +59,7 @@ public class EmailAddressAdapter extends ResourceCursorAdapter {
         String name = cursor.getString(NAME_INDEX);
         String address = cursor.getString(DATA_INDEX);
 
-        return new Rfc822Token(address, name, null).toString();
+        return new Rfc822Token(name, address, null).toString();
     }
 
     @Override
