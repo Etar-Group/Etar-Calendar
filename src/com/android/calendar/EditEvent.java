@@ -1531,7 +1531,10 @@ public class EditEvent extends Activity implements View.OnClickListener,
             }
         }
 
-        if (eventIdIndex != -1) {
+        // New Event or New Exception to an existing event
+        boolean newEvent = (eventIdIndex != -1);
+
+        if (newEvent) {
             saveRemindersWithBackRef(ops, eventIdIndex, reminderMinutes, mOriginalMinutes,
                     forceSaveReminders);
         } else if (uri != null) {
@@ -1543,7 +1546,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         Builder b;
 
         // New event/instance - Set Organizer's response as yes
-        if (mHasAttendeeData && eventIdIndex != -1) {
+        if (mHasAttendeeData && newEvent) {
             values.clear();
             int calendarCursorPosition = mCalendarsSpinner.getSelectedItemPosition();
             String ownerEmail = mOwnerAccount;
@@ -1567,10 +1570,10 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         // TODO: is this the right test?  this currently checks if this is
         // a new event or an existing event.  or is this a paranoia check?
-        if (mHasAttendeeData && (eventIdIndex != -1 || uri != null)) {
+        if (mHasAttendeeData && (newEvent || uri != null)) {
             Editable attendeesText = mAttendeesList.getText();
-            // Hit the content provider only if the user has changed it
-            if (!mOriginalAttendees.equals(attendeesText.toString())) {
+            // Hit the content provider only if this is a new event or the user has changed it
+            if (newEvent || !mOriginalAttendees.equals(attendeesText.toString())) {
                 // figure out which attendees need to be added and which ones
                 // need to be deleted.  use a linked hash set, so we maintain
                 // order (but also remove duplicates).
@@ -1583,7 +1586,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 // only compute deltas if this is an existing event.
                 // new events (being inserted into the Events table) won't
                 // have any existing attendees.
-                if (eventIdIndex == -1) {
+                if (!newEvent) {
                     HashSet<Rfc822Token> removedAttendees = new HashSet<Rfc822Token>();
                     HashSet<Rfc822Token> originalAttendees = new HashSet<Rfc822Token>();
                     Rfc822Tokenizer.tokenize(mOriginalAttendees, originalAttendees);
@@ -1626,7 +1629,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
                         values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
                         values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
 
-                        if (eventIdIndex != -1) {
+                        if (newEvent) {
                             b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
                                     .withValues(values);
                             b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
