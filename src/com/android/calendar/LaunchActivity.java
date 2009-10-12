@@ -21,7 +21,6 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
-import android.accounts.Constants;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Intent;
@@ -66,7 +65,7 @@ public class LaunchActivity extends Activity {
                         Bundle result = future.getResult();
                         onAccountsLoaded(new Account(
                                 result.getString(GoogleLoginServiceConstants.AUTH_ACCOUNT_KEY),
-                                result.getString(Constants.ACCOUNT_TYPE_KEY)));
+                                result.getString(AccountManager.KEY_ACCOUNT_TYPE)));
                     } catch (OperationCanceledException e) {
                         finish();
                     } catch (IOException e) {
