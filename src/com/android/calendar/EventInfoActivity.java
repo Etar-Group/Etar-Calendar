@@ -687,10 +687,13 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     }
 
     private void updateResponse(ContentResolver cr, long eventId, long attendeeId, int status) {
-        // Update the "selfAttendeeStatus" field for the event
+        // Update the attendee status in the attendees table.  the provider
+        // takes care of updating the self attendance status.
         ContentValues values = new ContentValues();
 
-        // Will need to add email when MULTIPLE_ATTENDEES_PER_EVENT supported.
+        if (!TextUtils.isEmpty(mCalendarOwnerAccount)) {
+            values.put(Attendees.ATTENDEE_EMAIL, mCalendarOwnerAccount);
+        }
         values.put(Attendees.ATTENDEE_STATUS, status);
         values.put(Attendees.EVENT_ID, eventId);
 
