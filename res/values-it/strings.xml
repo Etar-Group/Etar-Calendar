@@ -16,7 +16,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Calendario"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Benvenuto in  Google Calendar!"</font>" "\n"Un approccio di Google alla gestione della tua pianificazione in base all\'idea che gli eventi di pianificazione possano essere più intuitivi, efficaci e accessibili."</string>
+    <!-- no translation found for calendar_plug (4861031284038774007) -->
+    <skip />
     <string name="what_label" msgid="1933578391985810049">"Che cosa"</string>
     <string name="when_label" msgid="894636567327261599">"Intervallo di tempo"</string>
     <string name="where_label" msgid="3472482206065595118">"Dove"</string>
@@ -126,7 +127,8 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Avvisi e notifiche"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrazione"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Seleziona suoneria"</string>
-    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Promemoria predefinito"</string>
+    <!-- no translation found for preferences_default_reminder_title (5188861433342733905) -->
+    <skip />
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Imposta promemoria predefinito"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>

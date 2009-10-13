@@ -16,7 +16,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Ημερολόγιο"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Καλώς ήρθατε στο Ημερολόγιο Google!"</font>" "\n"Μια πρόταση της Google για τη διαχείριση του προγράμματός σας βασισμένη στην ιδέα ότι ο προγραμματισμός συμβάντων μπορεί να είναι πιο διαισθητικός, πιο αποδοτικός και πιο προσιτός."</string>
+    <!-- no translation found for calendar_plug (4861031284038774007) -->
+    <skip />
     <string name="what_label" msgid="1933578391985810049">"Τι"</string>
     <string name="when_label" msgid="894636567327261599">"Πότε"</string>
     <string name="where_label" msgid="3472482206065595118">"Που"</string>
@@ -126,7 +127,8 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Προειδοποιήσεις &amp; ειδοποιήσεις"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Δόνηση"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Επιλογή ήχου κλήσης"</string>
-    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Ορισμός προεπιλεγμένης υπενθύμισης"</string>
+    <!-- no translation found for preferences_default_reminder_title (5188861433342733905) -->
+    <skip />
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Προεπιλεγμένος χρόνος υπενθύμισης"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>
