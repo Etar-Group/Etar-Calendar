@@ -111,7 +111,7 @@
     <string name="delete_title" msgid="5143743507524995383">"Slett"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Endre svar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Innstillinger"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Kalender visningsinnstilling"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Visningsinnstilling for kalender"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Innstillinger for påminnelser"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skjul avslåtte hendelser"</string>
     <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Sett varsling og påminnelser"</string>

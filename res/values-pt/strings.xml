@@ -16,7 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Agenda"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Bem-vindo ao Google Agenda!"</font>" "\n" Uma abordagem do Google para organizar seus horários baseada na idéia de que eventos programados podem ser mais intuitivos, eficientes e acessíveis."</string>
+    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Bem-vindo ao Google Agenda!"</font>" "\n" Uma abordagem do Google para organizar seus horários baseada na ideia de que eventos programados podem ser mais intuitivos, eficientes e acessíveis."</string>
     <string name="what_label" msgid="1933578391985810049">"O que"</string>
     <string name="when_label" msgid="894636567327261599">"Quando"</string>
     <string name="where_label" msgid="3472482206065595118">"Onde"</string>
@@ -113,7 +113,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Configurações"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Configuração de visualização da agenda"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Configurações dos lembretes"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos recusados"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar recusados"</string>
     <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Definir alertas e notificações"</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Alertas e notificações"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrar"</string>
