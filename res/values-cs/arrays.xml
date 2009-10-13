@@ -16,81 +16,81 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_minutes_labels">
-    <item>"5 minut"</item>
-    <item>"10 minut"</item>
-    <item>"15 minut"</item>
-    <item>"20 minut"</item>
-    <item>"25 minut"</item>
-    <item>"30 minut"</item>
-    <item>"45 minut"</item>
-    <item>"1 hodina"</item>
-    <item>"2 hodiny"</item>
-    <item>"3 hodiny"</item>
-    <item>"12 hodin"</item>
-    <item>"24 hodin"</item>
-    <item>"2 dny"</item>
-    <item>"1 týden"</item>
+    <item msgid="579679946787267776">"5 minut"</item>
+    <item msgid="5582544189904133717">"10 minut"</item>
+    <item msgid="3425453345722366269">"15 minut"</item>
+    <item msgid="2088065547825778658">"20 minut"</item>
+    <item msgid="2931730485410259751">"25 minut"</item>
+    <item msgid="1440903855318880236">"30 minut"</item>
+    <item msgid="3727466187697478344">"45 minut"</item>
+    <item msgid="3981775289606778919">"1 hodina"</item>
+    <item msgid="345917783972806244">"2 hodiny"</item>
+    <item msgid="6147862333452393935">"3 hodiny"</item>
+    <item msgid="8844564639600832768">"12 hodin"</item>
+    <item msgid="4544569521386159399">"24 hodin"</item>
+    <item msgid="7331768924011260962">"2 dny"</item>
+    <item msgid="7191420767504467551">"1 týden"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
-    <item>"Žádné"</item>
-    <item>"5 minut"</item>
-    <item>"10 minut"</item>
-    <item>"15 minut"</item>
-    <item>"20 minut"</item>
-    <item>"25 minut"</item>
-    <item>"30 minut"</item>
-    <item>"45 minut"</item>
-    <item>"1 hodina"</item>
-    <item>"2 hodiny"</item>
-    <item>"3 hodiny"</item>
-    <item>"12 hodin"</item>
-    <item>"24 hodin"</item>
-    <item>"2 dny"</item>
-    <item>"1 týden"</item>
+    <item msgid="7495163916242649023">"Žádné"</item>
+    <item msgid="4046054780909365808">"5 minut"</item>
+    <item msgid="3255029626994620957">"10 minut"</item>
+    <item msgid="1363622823724080348">"15 minut"</item>
+    <item msgid="8441744902221651211">"20 minut"</item>
+    <item msgid="8742741532034474957">"25 minut"</item>
+    <item msgid="4768009761531673038">"30 minut"</item>
+    <item msgid="6046736126940217515">"45 minut"</item>
+    <item msgid="4418618788828172256">"1 hodina"</item>
+    <item msgid="7648895229572035902">"2 hodiny"</item>
+    <item msgid="8518903223867903398">"3 hodiny"</item>
+    <item msgid="1434366712313057723">"12 hodin"</item>
+    <item msgid="7629195657749146405">"24 hodin"</item>
+    <item msgid="4245760353982265075">"2 dny"</item>
+    <item msgid="1249803747243694616">"1 týden"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item>"Upozornění"</item>
-    <item>"Oznámení ve stavovém řádku"</item>
-    <item>"Vypnuto"</item>
+    <item msgid="2724242028978664229">"Upozornění"</item>
+    <item msgid="8723674378160518790">"Oznámení na stavovém řádku"</item>
+    <item msgid="8433736231022186661">"Vypnuto"</item>
   </string-array>
   <string-array name="availability">
-    <item>"Nedostupný"</item>
-    <item>"Dostupný"</item>
+    <item msgid="454869065893453189">"Nedostupný"</item>
+    <item msgid="6228387173725732140">"Dostupný"</item>
   </string-array>
   <string-array name="visibility">
-    <item>"Výchozí hodnota"</item>
-    <item>"Soukromá"</item>
-    <item>"Veřejná"</item>
+    <item msgid="3035788428581513163">"Výchozí hodnota"</item>
+    <item msgid="5200216103966973369">"Soukromá"</item>
+    <item msgid="9182342638433672664">"Veřejná"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item>"1."</item>
-    <item>"2."</item>
-    <item>"3."</item>
-    <item>"4."</item>
-    <item>"poslední"</item>
+    <item msgid="2693927956303125332">"1."</item>
+    <item msgid="5631923029483854900">"2."</item>
+    <item msgid="148935502975250973">"3."</item>
+    <item msgid="5124200797326669172">"4."</item>
+    <item msgid="7564374178324652137">"poslední"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item>"(Bez odpovědi)"</item>
-    <item>"Ano"</item>
-    <item>"Možná"</item>
-    <item>"Ne"</item>
+    <item msgid="3654955385120106241">"(Bez odpovědi)"</item>
+    <item msgid="3724434080904437698">"Ano"</item>
+    <item msgid="8854145743148992583">"Možná"</item>
+    <item msgid="6174292185978948873">"Ne"</item>
   </string-array>
   <string-array name="response_labels2">
-    <item>"Ano"</item>
-    <item>"Možná"</item>
-    <item>"Ne"</item>
+    <item msgid="5967437218994333578">"Ano"</item>
+    <item msgid="1254269034445160199">"Možná"</item>
+    <item msgid="1099407454885268744">"Ne"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item>"Pouze tato událost"</item>
-    <item>"Tato a budoucí události"</item>
-    <item>"Všechny události"</item>
+    <item msgid="4208432367651646938">"Pouze tato událost"</item>
+    <item msgid="8626755531271570950">"Tato a budoucí události"</item>
+    <item msgid="7833229563617435430">"Všechny události"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item>"Tato a budoucí události"</item>
-    <item>"Všechny události"</item>
+    <item msgid="1341910309321756150">"Tato a budoucí události"</item>
+    <item msgid="6315440193748139854">"Všechny události"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item>"Pouze tato instance"</item>
-    <item>"Všechny instance události"</item>
+    <item msgid="2012815396992847028">"Pouze tato instance"</item>
+    <item msgid="140670561403965380">"Všechny instance události"</item>
   </string-array>
 </resources>
