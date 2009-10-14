@@ -16,7 +16,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"캘린더"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Google 캘린더에 오신 것을 환영합니다."</font>" "\n" Google 캘린더는 더 간편하고 효율적이며 사용하기 쉬운 일정 관리 서비스를 제공하는 Google 서비스입니다."</string>
+    <!-- no translation found for calendar_plug (4861031284038774007) -->
+    <skip />
     <string name="what_label" msgid="1933578391985810049">"내용"</string>
     <string name="when_label" msgid="894636567327261599">"일시"</string>
     <string name="where_label" msgid="3472482206065595118">"장소"</string>
@@ -126,7 +127,8 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"알리미와 알림"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"진동"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"알림음 선택"</string>
-    <string name="preferences_default_reminder_title" msgid="103964814265989503">"기본 알림 설정"</string>
+    <!-- no translation found for preferences_default_reminder_title (5188861433342733905) -->
+    <skip />
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"기본 알림 시간"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>

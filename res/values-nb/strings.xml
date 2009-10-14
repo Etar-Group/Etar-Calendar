@@ -16,7 +16,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Velkommen til Google-kalenderen!"</font>" "\n"En Google-løsning for å vedlikeholde timeplanen din, bygget på ideen om at å planlegge ting skal være intuitivt, effektivt og tilgjengelig."</string>
+    <!-- no translation found for calendar_plug (4861031284038774007) -->
+    <skip />
     <string name="what_label" msgid="1933578391985810049">"Hva"</string>
     <string name="when_label" msgid="894636567327261599">"Når"</string>
     <string name="where_label" msgid="3472482206065595118">"Hvor"</string>
@@ -119,14 +120,15 @@
     <string name="delete_title" msgid="5143743507524995383">"Slett"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Endre svar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Innstillinger"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Kalender visningsinnstilling"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Visningsinnstilling for kalender"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Innstillinger for påminnelser"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skjul avslåtte hendelser"</string>
     <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Sett varsling og påminnelser"</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Varsling og påminnelser"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrer"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Velg ringetone"</string>
-    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Sett standard påminnelse"</string>
+    <!-- no translation found for preferences_default_reminder_title (5188861433342733905) -->
+    <skip />
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standard påminnelsestid"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>
