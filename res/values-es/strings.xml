@@ -16,7 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Calendario"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Bienvenido a Google Calendar"</font>\n" Una propuesta de Google para gestionar su agenda basándonos en la idea de que la programación de los eventos puede ser más intuitiva, eficaz y accesible."</string>
+    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Te damos la bienvenida a Google Calendar,"</font>\n" un servicio de administración de calendario creado por Google para hacer que la programación de los eventos sea más intuitiva, eficaz y accesible."</string>
     <string name="what_label" msgid="1933578391985810049">"Asunto"</string>
     <string name="when_label" msgid="894636567327261599">"Cuándo"</string>
     <string name="where_label" msgid="3472482206065595118">"Dónde"</string>
@@ -81,8 +81,7 @@
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Mostrar opciones extra"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Ocultar opciones extra"</string>
     <string name="description_label" msgid="7193475046717505855">"Descripción"</string>
-    <!-- no translation found for presence_label (6169724148441175862) -->
-    <skip />
+    <string name="presence_label" msgid="6169724148441175862">"Mostrarme como"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacidad"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Recordatorios"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No hay calendarios."</string>
@@ -126,7 +125,7 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Alertas y notificaciones"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrar"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Seleccionar tono"</string>
-    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Recordatorio predeterminado"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Duración predeterminada del recordatorio"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Duración predeterminada del recordatorio"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>

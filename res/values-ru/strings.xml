@@ -16,7 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Календарь"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Добро пожаловать в Календарь Google!"</font>" "\n"Подход Google к управлению расписанием основан на принципах интуитивности, эффективности и доступности."</string>
+    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Добро пожаловать в Календарь Google!"</font>" "\n"Подход Google к управлению расписанием основан на принципах интуитивности, эффективности и доступности."</string>
     <string name="what_label" msgid="1933578391985810049">"Что"</string>
     <string name="when_label" msgid="894636567327261599">"Когда"</string>
     <string name="where_label" msgid="3472482206065595118">"Где"</string>
@@ -81,8 +81,7 @@
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Показать дополнительные параметры"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Скрыть дополнительные параметры"</string>
     <string name="description_label" msgid="7193475046717505855">"Описание"</string>
-    <!-- no translation found for presence_label (6169724148441175862) -->
-    <skip />
+    <string name="presence_label" msgid="6169724148441175862">"Мой статус:"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Конфиденциальность"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Напоминания"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Нет календарей"</string>
@@ -126,7 +125,7 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Оповещения и уведомления"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Вибрация"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Выбрать мелодию"</string>
-    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Время напоминания по умолчанию"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Время напоминания по умолчанию"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Время напоминания по умолчанию"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>

@@ -16,7 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Agenda"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Welkom bij Google Agenda!"</font>" "\n" Een Google-benadering om uw planning te beheren, gebaseerd op het idee dat het plannen van afspraken intuïtiever, efficiënter en toegankelijker kan."</string>
+    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Welkom bij Google Agenda!"</font>" "\n"Een Google-benadering om uw planning te beheren, gebaseerd op het idee dat het plannen van afspraken intuïtiever, efficiënter en toegankelijker kan."</string>
     <string name="what_label" msgid="1933578391985810049">"Wat"</string>
     <string name="when_label" msgid="894636567327261599">"Wanneer"</string>
     <string name="where_label" msgid="3472482206065595118">"Waar"</string>
@@ -81,8 +81,7 @@
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Extra opties weergeven"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Extra opties verbergen"</string>
     <string name="description_label" msgid="7193475046717505855">"Beschrijving"</string>
-    <!-- no translation found for presence_label (6169724148441175862) -->
-    <skip />
+    <string name="presence_label" msgid="6169724148441175862">"Mij weergeven als"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Herinneringen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen agenda\'s"</string>
@@ -126,7 +125,7 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Meldingen en berichten"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Trillen"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Beltoon selecteren"</string>
-    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Standaardherinnering instellen"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standaard herinneringstijd"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standaard herinneringstijd"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>

@@ -16,7 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalendarz"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Witamy w Kalendarzu Google!"</font>" "\n"Intuicyjne, wydajne i dostępne planowanie wydarzeń w celu zarządzania terminami według Google."</string>
+    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Witamy w Kalendarzu Google!"</font>" "\n"Zarządzanie harmonogramem w stylu Google, dzięki któremu planowanie wydarzeń jest intuicyjne, wydajne i wygodne."</string>
     <string name="what_label" msgid="1933578391985810049">"Co"</string>
     <string name="when_label" msgid="894636567327261599">"Kiedy"</string>
     <string name="where_label" msgid="3472482206065595118">"Gdzie"</string>
@@ -81,8 +81,7 @@
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Pokaż dodatkowe opcje"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Ukryj dodatkowe opcje"</string>
     <string name="description_label" msgid="7193475046717505855">"Opis"</string>
-    <!-- no translation found for presence_label (6169724148441175862) -->
-    <skip />
+    <string name="presence_label" msgid="6169724148441175862">"Pokaż mój stan jako"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Prywatność"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Przypomnienia"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Brak kalendarzy"</string>
@@ -126,7 +125,7 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Alerty i powiadomienia"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Wibracje"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Wybierz dzwonek"</string>
-    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Domyślne przypomnienie"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Domyślna godzina przypomnienia"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Domyślne przypomnienie"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>
