@@ -16,7 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Velkommen til Google-kalenderen!"</font>" "\n"En Google-løsning for å vedlikeholde timeplanen din, bygget på ideen om at å planlegge ting skal være intuitivt, effektivt og tilgjengelig."</string>
+    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Velkommen til Google Kalender!"</font>" "\n"Styr tiden din på Google-vis, og planlegg aktiviteter på en mer intuitiv, effektiv og tilgjengelig måte."</string>
     <string name="what_label" msgid="1933578391985810049">"Hva"</string>
     <string name="when_label" msgid="894636567327261599">"Når"</string>
     <string name="where_label" msgid="3472482206065595118">"Hvor"</string>
@@ -81,8 +81,7 @@
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Vis ekstra valg"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Skjul ekstra valg"</string>
     <string name="description_label" msgid="7193475046717505855">"Beskrivelse"</string>
-    <!-- no translation found for presence_label (6169724148441175862) -->
-    <skip />
+    <string name="presence_label" msgid="6169724148441175862">"Vis meg som"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Personvern"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Påminnelser"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Ingen kalendre"</string>
@@ -93,8 +92,8 @@
     <string name="view_event_response_label" msgid="8382281658458798329">"Kommer du?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"I dag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Laster inn ..."</string>
-    <string name="show_older_events" msgid="4031960000704544741">"Viser hendelser siden <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Trykk for å se etter flere."</string>
-    <string name="show_newer_events" msgid="2647889653936094369">"Viser hendelser inntil <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Trykk for å se etter flere."</string>
+    <string name="show_older_events" msgid="4031960000704544741">"Viser aktiviteter siden <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Trykk for å se etter flere."</string>
+    <string name="show_newer_events" msgid="2647889653936094369">"Viser aktiviteter inntil <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Trykk for å se etter flere."</string>
     <string name="num_events" msgid="3351672964607162257">"Ant. hendelser"</string>
     <string name="edit_event_label" msgid="2900418236819088363">"Rediger hendelse"</string>
     <string name="delete_label" msgid="874742811918030739">"Slett"</string>
@@ -119,14 +118,14 @@
     <string name="delete_title" msgid="5143743507524995383">"Slett"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Endre svar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Innstillinger"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Kalender visningsinnstilling"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Visningsinnstilling for kalender"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Innstillinger for påminnelser"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skjul avslåtte hendelser"</string>
     <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Sett varsling og påminnelser"</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Varsling og påminnelser"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrer"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Velg ringetone"</string>
-    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Sett standard påminnelse"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standard påminnelsestid"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standard påminnelsestid"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>
