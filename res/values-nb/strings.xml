@@ -16,7 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
-    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Velkommen til Google Kalender!"</font>" "\n"Styr tiden din på Google-vis, og planlegg aktiviteter på en mer intuitiv, effektiv og tilgjengelig måte."</string>
+    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Velkommen til Google-kalenderen!"</font>" "\n"En Google-løsning for å vedlikeholde timeplanen din, bygget på ideen om at å planlegge ting skal være intuitivt, effektivt og tilgjengelig."</string>
     <string name="what_label" msgid="1933578391985810049">"Hva"</string>
     <string name="when_label" msgid="894636567327261599">"Når"</string>
     <string name="where_label" msgid="3472482206065595118">"Hvor"</string>
@@ -46,10 +46,10 @@
     <string name="day_view" msgid="4467754504843584437">"Dag"</string>
     <string name="week_view" msgid="6775043022159508060">"Uke"</string>
     <string name="month_view" msgid="7287101431749285412">"Måned"</string>
-    <string name="event_view" msgid="7621353079385122317">"Vis hendelse"</string>
-    <string name="event_create" msgid="6941040556709110617">"Ny hendelse"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Rediger hendelse"</string>
-    <string name="event_delete" msgid="2386667193277770442">"Slett hendelse"</string>
+    <string name="event_view" msgid="7621353079385122317">"Vis aktivitet"</string>
+    <string name="event_create" msgid="6941040556709110617">"Ny aktivitet"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Rediger aktivitet"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Slett aktivitet"</string>
     <string name="goto_today" msgid="9162136434410891230">"I dag"</string>
     <string name="menu_select_calendars" msgid="6610470242968973936">"Mine kalendre"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Innstillinger"</string>
@@ -58,20 +58,20 @@
     <string name="add_calendars" msgid="1013326491414656517">"Legg til kalendre"</string>
     <string name="remove_calendars" msgid="1395151808187126222">"Fjern kalendre"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Hendelsesdetaljer"</string>
-    <string name="hint_what" msgid="709155115005044531">"Navn på hendelse"</string>
+    <string name="hint_what" msgid="709155115005044531">"Navn på aktivitet"</string>
     <string name="hint_where" msgid="3116239630502213241">"Sted"</string>
-    <string name="hint_description" msgid="4198202812240544553">"Beskrivelse av hendelsen"</string>
+    <string name="hint_description" msgid="4198202812240544553">"Beskrivelse av aktivitet"</string>
     <string name="hint_attendees" msgid="6036653711383143333">"E-postadresser"</string>
-    <string name="creating_event" msgid="8237877638457604455">"Lager hendelse…"</string>
-    <string name="saving_event" msgid="8853425146353785688">"Lagrer hendelse…"</string>
+    <string name="creating_event" msgid="8237877638457604455">"Lager aktivitet…"</string>
+    <string name="saving_event" msgid="8853425146353785688">"Lagrer aktivitet…"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Laster kalendre"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Laster kalendre…"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalendervarslinger"</string>
     <string name="alert_when_label" msgid="106946701143025116">"Hva:"</string>
     <string name="alert_where_label" msgid="4255965543493921820">"Hvor:"</string>
-    <string name="alert_missed_events_single" msgid="8042891195314876684">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> hendelse til)"</string>
-    <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> hendelser til)"</string>
-    <string name="event_info_title" msgid="56024222340421620">"Vis hendelse"</string>
+    <string name="alert_missed_events_single" msgid="8042891195314876684">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> aktiviteter til)"</string>
+    <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> aktiviteter til)"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Vis aktivitet"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Møteinvitasjon"</string>
     <string name="add_new_reminder" msgid="4171314793889890481">"Legg til påminnelse"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Til"</string>
@@ -94,16 +94,16 @@
     <string name="loading" msgid="3772533493214331230">"Laster inn ..."</string>
     <string name="show_older_events" msgid="4031960000704544741">"Viser aktiviteter siden <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Trykk for å se etter flere."</string>
     <string name="show_newer_events" msgid="2647889653936094369">"Viser aktiviteter inntil <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Trykk for å se etter flere."</string>
-    <string name="num_events" msgid="3351672964607162257">"Ant. hendelser"</string>
-    <string name="edit_event_label" msgid="2900418236819088363">"Rediger hendelse"</string>
+    <string name="num_events" msgid="3351672964607162257">"Ant. aktiviteter"</string>
+    <string name="edit_event_label" msgid="2900418236819088363">"Rediger aktivitet"</string>
     <string name="delete_label" msgid="874742811918030739">"Slett"</string>
-    <string name="delete_event_label" msgid="3738436215987360463">"Slett hendelse"</string>
+    <string name="delete_event_label" msgid="3738436215987360463">"Slett aktivitet"</string>
     <string name="save_label" msgid="2133599104834432589">"OK"</string>
     <string name="discard_label" msgid="4510607554910139220">"Tilbakestill"</string>
     <string name="import_label" msgid="6993796574741477222">"Importér"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Slumre alle"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Skjul alle"</string>
-    <string name="does_not_repeat" msgid="1877681921029738999">"Engangshendelse"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Engangsaktivitet"</string>
     <string name="daily" msgid="560350706808680448">"Daglig"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Hverdager (man–fre)"</string>
     <string name="weekly" msgid="2006107373119027114">"Ukentlig (hver <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
@@ -111,21 +111,21 @@
     <string name="monthly_on_day" msgid="5370155265278821156">"Hver måned (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>.)"</string>
     <string name="yearly" msgid="8576208380302949002">"Hvert år (<xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom" msgid="3015205670911301856">"Egendefinert… (kan ikke settes på telefonen)"</string>
-    <string name="modify_event" msgid="4501745557655992422">"Endre bare denne hendelsen."</string>
-    <string name="modify_all" msgid="7506579040966638538">"Endre alle hendelser i denne serien."</string>
-    <string name="modify_all_following" msgid="4333745734894639276">"Endre denne og alle framtidige hendelser."</string>
-    <string name="delete_this_event_title" msgid="8738491083082780492">"Denne hendelsen vil bli slettet."</string>
+    <string name="modify_event" msgid="4501745557655992422">"Endre bare denne aktiviteten."</string>
+    <string name="modify_all" msgid="7506579040966638538">"Endre alle aktiviteter i denne serien."</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"Endre denne og alle framtidige aktiviteter."</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"Denne aktiviteten vil bli slettet."</string>
     <string name="delete_title" msgid="5143743507524995383">"Slett"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Endre svar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Innstillinger"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Visningsinnstilling for kalender"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Kalender visningsinnstilling"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Innstillinger for påminnelser"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skjul avslåtte hendelser"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skjul avslåtte aktiviteter"</string>
     <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Sett varsling og påminnelser"</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Varsling og påminnelser"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrer"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Velg ringetone"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standard påminnelsestid"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Sett standard påminnelse"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standard påminnelsestid"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>
