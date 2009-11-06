@@ -16,8 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
-    <!-- no translation found for calendar_plug (4861031284038774007) -->
-    <skip />
+    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Välkommen till Google Kalender!"</font>" "\n"Med Googles verktyg för schemaläggning sköter du planeringen på ett enkelt, effektivt och lättillgängligt sätt."</string>
     <string name="what_label" msgid="1933578391985810049">"Vad"</string>
     <string name="when_label" msgid="894636567327261599">"När"</string>
     <string name="where_label" msgid="3472482206065595118">"Var"</string>
@@ -82,8 +81,7 @@
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Visa fler alternativ"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Dölj fler alternativ"</string>
     <string name="description_label" msgid="7193475046717505855">"Beskrivning"</string>
-    <!-- no translation found for presence_label (6169724148441175862) -->
-    <skip />
+    <string name="presence_label" msgid="6169724148441175862">"Visa mig som"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Sekretess"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Påminnelser"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Inga kalendrar"</string>
@@ -127,8 +125,7 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Varningar och aviseringar"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrera"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Välj ringsignal"</string>
-    <!-- no translation found for preferences_default_reminder_title (5188861433342733905) -->
-    <skip />
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standardtid för påminnelse"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standardtid för påminnelse"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>
