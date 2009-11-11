@@ -42,7 +42,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_what"
-                android:capitalize="words"/>
+                android:capitalize="sentences"/>
         </LinearLayout>
 
         <!-- WHEN -->
