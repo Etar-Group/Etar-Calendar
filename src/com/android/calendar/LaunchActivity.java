@@ -23,16 +23,22 @@ import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Calendar.Calendars;
 import android.provider.Gmail;
+import android.util.Log;
 
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
 
 import java.io.IOException;
+
+import java.util.TimeZone;
 
 public class LaunchActivity extends Activity {
     static final String KEY_DETAIL_VIEW = "DETAIL_VIEW";
@@ -71,10 +77,53 @@ public class LaunchActivity extends Activity {
                     } catch (IOException e) {
                         finish();
                     } catch (AuthenticatorException e) {
-                        finish();
+                        Account account = maybeCreateLocalCalendar();
+                        onAccountsLoaded(account);
                     }
                 }
             }, null /* handler */);
+        }
+    }
+
+    private Account maybeCreateLocalCalendar() {
+        Account localAccount = new Account("nobody@localhost", "localhost");
+        // create a local calendar if there isn't one already
+        Cursor cur = getContentResolver().query(Calendars.CONTENT_URI,
+                null, null, null, null);
+        try {
+            if (cur.getCount() != 0) {
+                cur.moveToFirst();
+                try {
+                    String accountName =
+                        cur.getString(cur.getColumnIndexOrThrow(Calendars._SYNC_ACCOUNT));
+                    String accountType =
+                        cur.getString(cur.getColumnIndexOrThrow(Calendars._SYNC_ACCOUNT_TYPE));
+                    if (accountName == null) {
+                        return localAccount;
+                    } else {
+                        return new Account(accountName, accountType);
+                    }
+                } catch(RuntimeException e) {
+                    return null;
+                }
+            } else {
+                // inspired from CalendarProvider.onAccountsChanged
+                ContentValues vals = new ContentValues();
+                vals.put(Calendars.ACCESS_LEVEL, Integer.toString(Calendars.OWNER_ACCESS));
+                vals.put(Calendars.COLOR, -14069085);
+                vals.put(Calendars.DISPLAY_NAME, "Default");
+                vals.put(Calendars.HIDDEN, 0);
+                vals.put(Calendars.NAME, "Local");
+                vals.put(Calendars.SELECTED, 1);
+                vals.put(Calendars.SYNC_EVENTS, 1);
+                vals.put(Calendars._SYNC_ACCOUNT, localAccount.name);
+                vals.put(Calendars._SYNC_ACCOUNT_TYPE, localAccount.type);
+                vals.put(Calendars.TIMEZONE, TimeZone.getDefault().getID());
+                getContentResolver().insert(Calendars.CONTENT_URI, vals);
+                return localAccount;
+            }
+        } finally {
+            cur.close();
         }
     }
 
