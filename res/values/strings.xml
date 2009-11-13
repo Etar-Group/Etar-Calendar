@@ -19,7 +19,7 @@
     <string name="app_label">Calendar</string>
     <!-- This is the welcome message when a user starts Calendar for the first time -->
     <string name="calendar_plug"><font fgcolor="#ffffffff">Welcome to Google Calendar!</font>
-    \nA Google approach to managing your schedule built on the idea that scheduling events can be more intuitive, efficient and accessible.
+    \nA Google approach to managing your schedule built on the idea that scheduling events can be more intuitive, efficient, and accessible.
     </string>
 
     <!-- Shared Labels. These labels are shared among the activities. -->
@@ -30,6 +30,11 @@
     <string name="when_label">When</string>
     <!-- This is the label for the location of an event -->
     <string name="where_label">Where</string>
+    <!-- This is the label for the Guests/Attendees of an event -->
+    <string name="attendees_label">Guests</string>
+    <!-- This is the label for the Guest Responses and count of an event e.g. Yes (3) -->
+    <string name="response_label">"<xliff:g id="response_type">%s</xliff:g> (<xliff:g id="guest_count">%d</xliff:g>)"</string>
+    
     <!-- Some events repeat daily, weekly, monthly, or yearly.  This is the label
          for all the choices about how often an event repeats (including the choice
          of not repeating). -->
@@ -151,6 +156,8 @@
     <string name="hint_where">"Event location"</string>
     <!-- Default value of Description field (as a hint to the user) -->
     <string name="hint_description">"Event description"</string>
+    <!-- Default value of Attendees/Guests field (as a hint to the user) -->
+    <string name="hint_attendees">"Email addresses"</string>
     <string name="creating_event">"Creating event\u2026"</string>
     <string name="saving_event">"Saving event\u2026"</string>
     <string name="loading_calendars_title">"Loading calendars"</string>
@@ -206,7 +213,7 @@
     <string name="description_label">Description</string>
     <!-- Label for the 'Presence' of an event, which can be either 'busy' (the default)
          or 'available' -->
-    <string name="presence_label">Presence</string>
+    <string name="presence_label">Show me as</string>
     <!-- Label for the 'Privacy' of an event, which can be either 'private'
          or 'public' -->
     <string name="privacy_label">Privacy</string>
@@ -219,6 +226,8 @@
     <skip />
     <!-- Label for which calendar an event is part of -->
     <string name="view_event_calendar_label">Calendar</string>
+    <!-- Label for the event organizer -->
+    <string name="view_event_organizer_label">Organizer</string>
     <!-- Label for the local timezone -->
     <string name="view_event_timezone_label">Local time zone</string>
     <!-- Label for whether the user is attending this event. This is shown when
@@ -229,7 +238,13 @@
     <!-- Agenda View strings -->
     <skip />
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
-    <string name="agenda_today">Today</string>
+    <string name="agenda_today">Today, <xliff:g id="date">%1$s</xliff:g></string>
+    <!-- This is shown while the calendar events are being loading to the screen. -->
+    <string name="loading">Loading\u2026</string>
+    <!-- This is shown at the top of the agenda view showing the range of events shown. -->
+    <string name="show_older_events">Showing events since <xliff:g id="oldest_search_range">%1$s</xliff:g>. Tap to look for more.</string>
+    <!-- This is shown at the bottom of the agenda view showing the range of events shown. -->
+    <string name="show_newer_events">Showing events until <xliff:g id="newest_search_range">%1$s</xliff:g>. Tap to look for more.</string>
     
     <!-- ICS Import activity -->
     <skip />
@@ -343,7 +358,7 @@
     <!-- Title of ringtone selector dialog -->
     <string name="preferences_alerts_ringtone_title">Select ringtone</string>
     <!-- List item label for setting the default number of reminder minutes -->
-    <string name="preferences_default_reminder_title">Set default reminder</string>
+    <string name="preferences_default_reminder_title">Default reminder time</string>
     <!-- Title of dialog for setting the default number of reminder minutes -->
     <string name="preferences_default_reminder_dialog">Default reminder time</string>
     <!-- Default value for the number of reminder minutes -->

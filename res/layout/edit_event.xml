@@ -68,14 +68,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:gravity="left|center_vertical"
-                    style="?android:attr/textAppearanceMedium"/>
+                    style="?android:attr/textAppearanceMediumInverse"/>
 
                 <Button android:id="@+id/start_time"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="left|center_vertical"
-                    style="?android:attr/textAppearanceMedium"/>
+                    style="?android:attr/textAppearanceMediumInverse"/>
 
             </LinearLayout>
 
@@ -95,14 +95,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:gravity="left|center_vertical"
-                    style="?android:attr/textAppearanceMedium"/>
+                    style="?android:attr/textAppearanceMediumInverse"/>
 
                 <Button android:id="@+id/end_time"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="left|center_vertical"
-                    style="?android:attr/textAppearanceMedium"/>
+                    style="?android:attr/textAppearanceMediumInverse"/>
             </LinearLayout>
 
             <LinearLayout
@@ -116,7 +116,7 @@
                     android:text="@string/edit_event_all_day_label"
                     android:paddingTop="1dip"
                     android:paddingRight="7dip"
-                    style="?android:attr/textAppearanceMedium"/>
+                    style="?android:attr/textAppearanceMediumInverse"/>
                 <CheckBox android:id="@+id/is_all_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -192,7 +192,31 @@
 
             <Spinner android:id="@+id/calendars"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:prompt="@string/edit_event_calendar_label"/>
+        </LinearLayout>
+
+        <!-- GUESTS/ATTENDEES -->
+        <LinearLayout android:id="@+id/attendees_group"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/EditEvent_Layout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/attendees_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+
+            <MultiAutoCompleteTextView android:id="@+id/attendees"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress|textMultiLine"
+                android:hint="@string/hint_attendees"
+                android:layout_marginTop="6dip"
+                android:layout_marginBottom="6dip"
+                android:imeOptions="actionNext"/>
         </LinearLayout>
 
         <!-- REPEATS -->
@@ -210,7 +234,8 @@
 
             <Spinner android:id="@+id/repeats"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:prompt="@string/repeats_label"/>
         </LinearLayout>
 
         <!-- MORE OPTIONS -->
@@ -236,7 +261,8 @@
                 <Spinner android:id="@+id/availability"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/availability" />
+                    android:entries="@array/availability"
+                    android:prompt="@string/presence_label"/>
             </LinearLayout>
 
             <!-- PRIVACY -->
@@ -255,7 +281,8 @@
                 <Spinner android:id="@+id/visibility"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/visibility" />
+                    android:entries="@array/visibility"
+                    android:prompt="@string/privacy_label"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -294,7 +321,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dip"
-                android:text="@string/add_new_reminder"/>
+                android:text="@string/add_new_reminder"
+                style="?android:attr/textAppearanceSmallInverse"/>
 
             <ImageButton android:id="@+id/reminder_add"
                 style="@style/PlusButton"

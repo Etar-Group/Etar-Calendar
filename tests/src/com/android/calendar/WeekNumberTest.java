@@ -29,7 +29,7 @@ import android.util.Log;
  */
 public class WeekNumberTest extends AndroidTestCase {
 
-    private class DateAndWeekNumber {
+    static private class DateAndWeekNumber {
         public Time date;
         public Time allDayDate;
         public int expectedWeekNumber;

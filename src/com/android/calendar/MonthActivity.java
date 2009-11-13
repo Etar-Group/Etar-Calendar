@@ -17,7 +17,6 @@
 package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import dalvik.system.VMRuntime;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -44,6 +43,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 import android.widget.Gallery.LayoutParams;
+
+import dalvik.system.VMRuntime;
 
 import java.util.Calendar;
 
@@ -83,7 +84,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     }
 
     /* Navigator interface methods */
-    public void goTo(Time time) {
+    public void goTo(Time time, boolean animate) {
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(Utils.formatMonthYear(time));
 
@@ -96,14 +97,16 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
         // two adjacent months.
         // This is faster than calling getSelectedTime() because we avoid
         // a call to Time#normalize().
-        int currentMonth = currentTime.month + currentTime.year * 12;
-        int nextMonth = time.month + time.year * 12;
-        if (nextMonth < currentMonth) {
-            mSwitcher.setInAnimation(mInAnimationPast);
-            mSwitcher.setOutAnimation(mOutAnimationPast);
-        } else {
-            mSwitcher.setInAnimation(mInAnimationFuture);
-            mSwitcher.setOutAnimation(mOutAnimationFuture);
+        if (animate) {
+            int currentMonth = currentTime.month + currentTime.year * 12;
+            int nextMonth = time.month + time.year * 12;
+            if (nextMonth < currentMonth) {
+                mSwitcher.setInAnimation(mInAnimationPast);
+                mSwitcher.setOutAnimation(mOutAnimationPast);
+            } else {
+                mSwitcher.setInAnimation(mInAnimationFuture);
+                mSwitcher.setOutAnimation(mOutAnimationFuture);
+            }
         }
 
         MonthView next = (MonthView) mSwitcher.getNextView();
@@ -119,6 +122,9 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     public void goToToday() {
         Time now = new Time();
         now.set(System.currentTimeMillis());
+        now.minute = 0;
+        now.second = 0;
+        now.normalize(false);
 
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(Utils.formatMonthYear(now));
@@ -195,7 +201,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
 
         // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
         // TODO: We should restore the old heap size once the activity reaches the idle state
-        long oldHeapSize = VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
+        VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
 
         setContentView(R.layout.month_activity);
         mContentResolver = getContentResolver();
@@ -258,6 +264,16 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        long timeMillis = Utils.timeFromIntentInMillis(intent);
+        if (timeMillis > 0) {
+            Time time = new Time();
+            time.set(timeMillis);
+            goTo(time, false);
+        }
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         if (isFinishing()) {
@@ -271,6 +287,9 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
         view = (MonthView) mSwitcher.getNextView();
         view.dismissPopup();
         mEventLoader.stopBackgroundThread();
+
+        // Record Month View as the (new) start view
+        Utils.setDefaultView(this, CalendarApplication.MONTH_VIEW_ID);
     }
 
     @Override
@@ -286,12 +305,6 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
                 CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
         view1.setDetailedView(str);
         view2.setDetailedView(str);
-
-        // Record Month View as the (new) start view
-        String activityString = CalendarApplication.ACTIVITY_NAMES[CalendarApplication.MONTH_VIEW_ID];
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(CalendarPreferenceActivity.KEY_START_VIEW, activityString);
-        editor.commit();
 
         // Register for Intent broadcasts
         IntentFilter filter = new IntentFilter();
@@ -309,16 +322,6 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(EVENT_BEGIN_TIME, mTime.toMillis(true));
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK:
-                finish();
-                return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 
     @Override

@@ -60,11 +60,9 @@ public class IcsImportActivity extends Activity {
         }
     }
 
-    private View mView;
     private Button mImportButton;
     private Button mCancelButton;
     private Spinner mCalendars;
-    private ImageView mCalendarIcon;
     private TextView mNumEvents;
 
     private ICalendar.Component mCalendar = null;
@@ -86,9 +84,7 @@ public class IcsImportActivity extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.ics_import_activity);
-        mView = findViewById(R.id.import_ics);
 
-        mCalendarIcon = (ImageView) findViewById(R.id.calendar_icon);
         mCalendars = (Spinner) findViewById(R.id.calendars);
         populateCalendars();
 
