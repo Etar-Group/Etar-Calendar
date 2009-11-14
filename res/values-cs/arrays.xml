@@ -54,11 +54,11 @@
     <item msgid="8433736231022186661">"Vypnuto"</item>
   </string-array>
   <string-array name="availability">
-    <item msgid="454869065893453189">"Nedostupný"</item>
+    <item msgid="454869065893453189">"Zaneprázdněný"</item>
     <item msgid="6228387173725732140">"Dostupný"</item>
   </string-array>
   <string-array name="visibility">
-    <item msgid="3035788428581513163">"Výchozí hodnota"</item>
+    <item msgid="3035788428581513163">"Výchozí nastavení"</item>
     <item msgid="5200216103966973369">"Soukromá"</item>
     <item msgid="9182342638433672664">"Veřejná"</item>
   </string-array>

@@ -50,7 +50,7 @@
   </string-array>
   <string-array name="preferences_alert_type_labels">
     <item msgid="2724242028978664229">"Underretning"</item>
-    <item msgid="8723674378160518790">"Statuslinjemeddelelse"</item>
+    <item msgid="8723674378160518790">"Meddelelse på statuslinjen"</item>
     <item msgid="8433736231022186661">"Fra"</item>
   </string-array>
   <string-array name="availability">

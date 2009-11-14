@@ -81,12 +81,12 @@
     <item msgid="1099407454885268744">"No"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item msgid="4208432367651646938">"Sólo este evento"</item>
+    <item msgid="4208432367651646938">"Solo este evento"</item>
     <item msgid="8626755531271570950">"Este evento y eventos futuros"</item>
     <item msgid="7833229563617435430">"Todos los eventos"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"Éste y otros eventos posteriores"</item>
+    <item msgid="1341910309321756150">"Este y otros eventos posteriores"</item>
     <item msgid="6315440193748139854">"Todos los eventos"</item>
   </string-array>
   <string-array name="change_response_labels">

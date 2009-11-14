@@ -78,7 +78,7 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"開始"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"終日"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"カレンダー"</string>
-    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"詳細項目を表示する"</string>
+    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"詳細項目を表示"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"詳細項目を表示しない"</string>
     <string name="description_label" msgid="7193475046717505855">"内容"</string>
     <string name="presence_label" msgid="6169724148441175862">"外部向け表示"</string>

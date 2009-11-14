@@ -121,11 +121,11 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Impostazione visualizzazione calendario"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Impostazioni promemoria"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Nascondi eventi rifiutati"</string>
-    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Imposta avvisi e notifiche"</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Imposta avvisi e notif."</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Avvisi e notifiche"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrazione"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Seleziona suoneria"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Imposta promemoria predefinito"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Imposta promemoria predefinito"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Imposta promem. pred."</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Imposta promem. pred."</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>
