@@ -82,7 +82,7 @@
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Skrýt další možnosti"</string>
     <string name="description_label" msgid="7193475046717505855">"Popis"</string>
     <string name="presence_label" msgid="6169724148441175862">"Zobrazit mě jako"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"Přístupnost"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Soukromá/Veřejná"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Připomenutí"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Žádné kalendáře"</string>
     <string name="no_calendars_found" msgid="755379468136462058">"Nemáte žádné kalendáře."</string>
