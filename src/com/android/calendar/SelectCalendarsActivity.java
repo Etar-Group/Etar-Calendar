@@ -18,16 +18,18 @@ package com.android.calendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Calendar.Calendars;
+import android.provider.Calendar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,8 +47,8 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
     private static final String TAG = "Calendar";
     private View mView = null;
     private Cursor mCursor = null;
-    private QueryHandler mQueryHandler;
     private SelectCalendarsAdapter mAdapter;
+    private ContentResolver mContentResolver;
     private static final String[] PROJECTION = new String[] {
         Calendars._ID,
         Calendars.DISPLAY_NAME,
@@ -62,7 +64,6 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
         setContentView(R.layout.calendars_activity);
         getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
                 Window.PROGRESS_INDETERMINATE_ON);
-        mQueryHandler = new QueryHandler(getContentResolver());
         mView = findViewById(R.id.calendars);
         ListView items = (ListView) mView.findViewById(R.id.items);
         Context context = mView.getContext();
@@ -70,18 +71,42 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
                 Calendars.SYNC_EVENTS + "=1",
                 null /* selectionArgs */,
                 Calendars.DEFAULT_SORT_ORDER);
-                                     
+        mContentResolver = getContentResolver();
         mAdapter = new SelectCalendarsAdapter(context, mCursor);
         items.setAdapter(mAdapter);
         items.setOnItemClickListener(this);
         
         // Start a background sync to get the list of calendars from the server.
-        startCalendarSync();
+        startCalendarMetafeedSync();
     }
     
+    // Create an observer so that we can update the views whenever a
+    // Calendar changes.
+    private ContentObserver mObserver = new ContentObserver(new Handler())
+    {
+        @Override
+        public boolean deliverSelfNotifications() {
+            return true;
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            if (!isFinishing()) {
+                mCursor.requery();
+            }
+        }
+    };
+
     @Override
     public void onPause() {
         super.onPause();
+        mContentResolver.unregisterContentObserver(mObserver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mContentResolver.registerContentObserver(Calendar.Events.CONTENT_URI, true, mObserver);
     }
     
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -115,13 +140,11 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
         int mNumItems;
         long[] mCalendarIds;
         boolean[] mIsChecked;
-        ContentResolver mContentResolver;
         boolean mRemove;
         private int mCheckedCount;
         private Button mOkButtonInAddDeleteCalendar;
         
         public ChangeCalendarAction(boolean remove) {
-            mContentResolver = SelectCalendarsActivity.this.getContentResolver();
             mRemove = remove;
         }
 
@@ -169,14 +192,14 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
                 values.put(Calendars.SYNC_EVENTS, selected);
                 mContentResolver.update(uri, values, null, null);
             }
-            
+
             // If there were any changes, then update the list of calendars
             // that are synced.
             if (changesFound) {
                 mCursor.requery();
             }
         }
-        
+
         public boolean onMenuItemClick(MenuItem item) {
             AlertDialog.Builder builder = new AlertDialog.Builder(SelectCalendarsActivity.this);
             String selection;
@@ -188,9 +211,7 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
                 builder.setTitle(R.string.add_calendars);
                 selection = Calendars.SYNC_EVENTS + "=0";
             }
-            ContentResolver cr = getContentResolver();
-            // TODO this can cause ANRs http://b/1736511
-            Cursor cursor = cr.query(Calendars.CONTENT_URI, PROJECTION,
+            Cursor cursor = mContentResolver.query(Calendars.CONTENT_URI, PROJECTION,
                     selection, null /* selectionArgs */,
                     Calendars.DEFAULT_SORT_ORDER);
             if (cursor == null) {
@@ -226,69 +247,22 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
         }
     }
     
-    private class QueryHandler extends AsyncQueryHandler {
-        public QueryHandler(ContentResolver cr) {
-            super(cr);
-        }
-
-        @Override
-        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
-            getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
-                    Window.PROGRESS_VISIBILITY_OFF);
-
-            // If the Activity is finishing, then close the cursor.
-            // Otherwise, use the new cursor in the adapter.
-            if (isFinishing()) {
-                stopManagingCursor(cursor);
-                cursor.close();
-            } else {
-                if (cursor.getCount() == 0) {
-                    // There are no calendars.  This might happen if we lost
-                    // the wireless connection (in airplane mode, for example).
-                    // Leave the current list of calendars alone and pop up
-                    // a dialog explaining that the connection is down.
-                    // But allow the user to add and remove calendars.
-                    return;
-                }
-                if (mCursor != null) {
-                    stopManagingCursor(mCursor);
-                }
-                mCursor = cursor;
-                startManagingCursor(cursor);
-                mAdapter.changeCursor(cursor);
-            }
-        }
-    }
-
-    // This class implements the menu option "Refresh list from server".
-    // (No longer used.)
-    public class RefreshAction implements Runnable {
-        public void run() {
-            startCalendarSync();
-        }
-    }
-    
-    // startCalendarSync() checks the server for an updated list of Calendars
-    // (in the background) using an AsyncQueryHandler.
+    // startCalendarMetafeedSync() checks the server for an updated list of
+    // Calendars (in the background).
     //
-    // Calendars are never removed from the phone due to a server sync.
-    // But if a Calendar is added on the web (and it is selected and not
+    // If a Calendar is added on the web (and it is selected and not
     // hidden) then it will be added to the list of calendars on the phone
-    // (when this asynchronous query finishes).  When a new calendar from the
+    // (when this finishes).  When a new calendar from the
     // web is added to the phone, then the events for that calendar are also
     // downloaded from the web.
     // 
     // This sync is done automatically in the background when the
     // SelectCalendars activity is started.
-    private void startCalendarSync() {
-        getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
-                Window.PROGRESS_VISIBILITY_ON);
-
-        // TODO: make sure the user has login info.
-        
-        Uri uri = Calendars.LIVE_CONTENT_URI;
-        mQueryHandler.startQuery(0, null, uri, PROJECTION,
-                Calendars.SYNC_EVENTS + "=1",
-                null, Calendars.DEFAULT_SORT_ORDER);
+    private void startCalendarMetafeedSync() {
+        Bundle extras = new Bundle();
+        extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        extras.putBoolean("metafeedonly", true);
+        ContentResolver.requestSync(null /* all accounts */,
+                Calendars.CONTENT_URI.getAuthority(), extras);
     }
 }

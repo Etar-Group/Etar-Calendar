@@ -74,6 +74,8 @@ import java.util.regex.Pattern;
 public class CalendarView extends View
         implements View.OnCreateContextMenuListener, View.OnClickListener {
 
+    private static float mScale = 0; // Used for supporting different screen densities
+
     private boolean mOnFlingCalled;
 
     protected CalendarApplication mCalendarApp;
@@ -82,8 +84,10 @@ public class CalendarView extends View
     private static final String[] CALENDARS_PROJECTION = new String[] {
         Calendars._ID,          // 0
         Calendars.ACCESS_LEVEL, // 1
+        Calendars.OWNER_ACCOUNT, // 2
     };
     private static final int CALENDARS_INDEX_ACCESS_LEVEL = 1;
+    private static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
     private static final String CALENDARS_WHERE = Calendars._ID + "=%d";
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
@@ -93,7 +97,7 @@ public class CalendarView extends View
     private static final int ATTENDEES_INDEX_RELATIONSHIP = 1;
     private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=%d";
 
-    private static final float SMALL_ROUND_RADIUS = 3.0F;
+    private static float SMALL_ROUND_RADIUS = 3.0F;
 
     private static final int FROM_NONE = 0;
     private static final int FROM_ABOVE = 1;
@@ -101,11 +105,11 @@ public class CalendarView extends View
     private static final int FROM_LEFT = 4;
     private static final int FROM_RIGHT = 8;
 
-    private static final int HORIZONTAL_SCROLL_THRESHOLD = 50;
+    private static int HORIZONTAL_SCROLL_THRESHOLD = 50;
 
     private ContinueScroll mContinueScroll = new ContinueScroll();
 
-    private class DayHeader{
+    static private class DayHeader{
         int cell;
         String dateString;
     }
@@ -145,7 +149,6 @@ public class CalendarView extends View
     boolean mSelectionAllDay;
 
     private int mCellWidth;
-    private boolean mLaunchNewView;
 
     // Pre-allocate these objects and re-use them
     private Rect mRect = new Rect();
@@ -179,10 +182,10 @@ public class CalendarView extends View
 
     private static final int DAY_GAP = 1;
     private static final int HOUR_GAP = 1;
-    private static final int SINGLE_ALLDAY_HEIGHT = 20;
-    private static final int MAX_ALLDAY_HEIGHT = 72;
-    private static final int ALLDAY_TOP_MARGIN = 3;
-    private static final int MAX_ALLDAY_EVENT_HEIGHT = 18;
+    private static int SINGLE_ALLDAY_HEIGHT = 20;
+    private static int MAX_ALLDAY_HEIGHT = 72;
+    private static int ALLDAY_TOP_MARGIN = 3;
+    private static int MAX_ALLDAY_EVENT_HEIGHT = 18;
     
     /* The extra space to leave above the text in all-day events */
     private static final int ALL_DAY_TEXT_TOP_MARGIN = 0;
@@ -200,13 +203,13 @@ public class CalendarView extends View
     /* package */ static final int MILLIS_PER_HOUR = (3600 * 1000);
     /* package */ static final int MILLIS_PER_DAY = MILLIS_PER_HOUR * 24;
 
-    private static final int NORMAL_FONT_SIZE = 12;
-    private static final int EVENT_TEXT_FONT_SIZE = 12;
-    private static final int HOURS_FONT_SIZE = 12;
-    private static final int AMPM_FONT_SIZE = 9;
-    private static final int MIN_CELL_WIDTH_FOR_TEXT = 10;
+    private static int NORMAL_FONT_SIZE = 12;
+    private static int EVENT_TEXT_FONT_SIZE = 12;
+    private static int HOURS_FONT_SIZE = 12;
+    private static int AMPM_FONT_SIZE = 9;
+    private static int MIN_CELL_WIDTH_FOR_TEXT = 27;
     private static final int MAX_EVENT_TEXT_LEN = 500;
-    private static final float MIN_EVENT_HEIGHT = 15.0F;  // in pixels
+    private static float MIN_EVENT_HEIGHT = 15.0F;  // in pixels
 
     private static int mSelectionColor;
     private static int mPressedColor;
@@ -307,9 +310,30 @@ public class CalendarView extends View
 
     private String mDateRange;
     private TextView mTitleTextView;
-    
+
     public CalendarView(CalendarActivity activity) {
         super(activity);
+        if (mScale == 0) {
+            mScale = getContext().getResources().getDisplayMetrics().density;
+            if (mScale != 1) {
+                SINGLE_ALLDAY_HEIGHT *= mScale;
+                MAX_ALLDAY_HEIGHT *= mScale;
+                ALLDAY_TOP_MARGIN *= mScale;
+                MAX_ALLDAY_EVENT_HEIGHT *= mScale;
+
+                NORMAL_FONT_SIZE *= mScale;
+                EVENT_TEXT_FONT_SIZE *= mScale;
+                HOURS_FONT_SIZE *= mScale;
+                AMPM_FONT_SIZE *= mScale;
+                MIN_CELL_WIDTH_FOR_TEXT *= mScale;
+                MIN_EVENT_HEIGHT *= mScale;
+
+                HORIZONTAL_SCROLL_THRESHOLD *= mScale;
+ 
+                SMALL_ROUND_RADIUS *= mScale;
+            }
+        }
+
         mResources = activity.getResources();
         mEventLoader = activity.mEventLoader;
         mEventGeometry = new EventGeometry();
@@ -812,8 +836,7 @@ public class CalendarView extends View
                 } else {
                     // Switch to the Day/Agenda view.
                     long millis = getSelectedTimeInMillis();
-                    MenuHelper.switchTo(mParentActivity, mDetailedView, millis);
-                    mParentActivity.finish();
+                    Utils.startActivity(mParentActivity, mDetailedView, millis);
                 }
             }
         } else {
@@ -875,6 +898,13 @@ public class CalendarView extends View
                     performLongClick();
                 }
                 break;
+            case KeyEvent.KEYCODE_BACK:
+                if (event.isTracking() && !event.isCanceled()) {
+                    mPopup.dismiss();
+                    mParentActivity.finish();
+                    return true;
+                }
+                break;
         }
         return super.onKeyUp(keyCode, event);
     }
@@ -924,9 +954,11 @@ public class CalendarView extends View
             switchViews(true /* trackball or keyboard */);
             return true;
         case KeyEvent.KEYCODE_BACK:
-            mPopup.dismiss();
-            mParentActivity.finish();
-            return true;
+            if (event.getRepeatCount() == 0) {
+                event.startTracking();
+                return true;
+            }
+            return super.onKeyDown(keyCode, event);
         case KeyEvent.KEYCODE_DPAD_LEFT:
             if (mSelectedEvent != null) {
                 mSelectedEvent = mSelectedEvent.nextLeft;
@@ -2303,21 +2335,10 @@ public class CalendarView extends View
         mTouchMode = TOUCH_MODE_DOWN;
         mViewStartX = 0;
         mOnFlingCalled = false;
-        mLaunchNewView = false;
         getHandler().removeCallbacks(mContinueScroll);
     }
 
     void doSingleTapUp(MotionEvent ev) {
-        mSelectionMode = SELECTION_SELECTED;
-        mRedrawScreen = true;
-        invalidate();
-        if (mLaunchNewView) {
-            mLaunchNewView = false;
-            switchViews(false /* not the trackball */);
-        }
-    }
-
-    void doShowPress(MotionEvent ev) {
         int x = (int) ev.getX();
         int y = (int) ev.getY();
         Event selectedEvent = mSelectedEvent;
@@ -2326,29 +2347,41 @@ public class CalendarView extends View
 
         boolean validPosition = setSelectionFromPosition(x, y);
         if (!validPosition) {
+            // return if the touch wasn't on an area of concern
             return;
         }
 
-        mSelectionMode = SELECTION_PRESSED;
+        mSelectionMode = SELECTION_SELECTED;
         mRedrawScreen = true;
         invalidate();
 
-        // If the tap is on an already selected event or hour slot,
-        // then launch a new view.  Otherwise, just select the event.
-        if (selectedEvent != null && selectedEvent == mSelectedEvent) {
-            // Launch the "View event" view when the finger lifts up,
-            // unless the finger moves before lifting up.
-            mLaunchNewView = true;
-        } else if (selectedEvent == null && selectedDay == mSelectionDay
+        boolean launchNewView = false;
+        if (mSelectedEvent != null) {
+            // If the tap is on an event, launch the "View event" view
+            launchNewView = true;
+        } else if (mSelectedEvent == null && selectedDay == mSelectionDay
                 && selectedHour == mSelectionHour) {
-            // Launch the Day/Agenda view when the finger lifts up,
-            // unless the finger moves before lifting up.
-            mLaunchNewView = true;
+            // If the tap is on an already selected hour slot,
+            // then launch the Day/Agenda view. Otherwise, just select the hour
+            // slot.
+            launchNewView = true;
+        }
+
+        if (launchNewView) {
+            switchViews(false /* not the trackball */);
         }
     }
 
     void doLongPress(MotionEvent ev) {
-        mLaunchNewView = false;
+        int x = (int) ev.getX();
+        int y = (int) ev.getY();
+
+        boolean validPosition = setSelectionFromPosition(x, y);
+        if (!validPosition) {
+            // return if the touch wasn't on an area of concern
+            return;
+        }
+
         mSelectionMode = SELECTION_LONGPRESS;
         mRedrawScreen = true;
         invalidate();
@@ -2356,7 +2389,6 @@ public class CalendarView extends View
     }
 
     void doScroll(MotionEvent e1, MotionEvent e2, float deltaX, float deltaY) {
-        mLaunchNewView = false;
         // Use the distance from the current point to the initial touch instead
         // of deltaX and deltaY to avoid accumulating floating-point rounding
         // errors.  Also, we don't need floats, we can use ints.
@@ -2684,14 +2716,12 @@ public class CalendarView extends View
                 }
                 case MenuHelper.MENU_DAY: {
                     long startMillis = getSelectedTimeInMillis();
-                    MenuHelper.switchTo(mParentActivity, DayActivity.class.getName(), startMillis);
-                    mParentActivity.finish();
+                    Utils.startActivity(mParentActivity, DayActivity.class.getName(), startMillis);
                     break;
                 }
                 case MenuHelper.MENU_AGENDA: {
                     long startMillis = getSelectedTimeInMillis();
-                    MenuHelper.switchTo(mParentActivity, AgendaActivity.class.getName(), startMillis);
-                    mParentActivity.finish();
+                    Utils.startActivity(mParentActivity, AgendaActivity.class.getName(), startMillis);
                     break;
                 }
                 case MenuHelper.MENU_EVENT_CREATE: {
@@ -2746,25 +2776,23 @@ public class CalendarView extends View
         String where = String.format(CALENDARS_WHERE, calId);
         cursor = cr.query(uri, CALENDARS_PROJECTION, where, null, null);
 
+        String calendarOwnerAccount = null;
         if (cursor != null) {
             cursor.moveToFirst();
             visibility = cursor.getInt(CALENDARS_INDEX_ACCESS_LEVEL);
+            calendarOwnerAccount = cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
             cursor.close();
         }
-
-        // Attendees cursor
-        uri = Attendees.CONTENT_URI;
-        where = String.format(ATTENDEES_WHERE, e.id);
-        Cursor attendeesCursor = cr.query(uri, ATTENDEES_PROJECTION, where, null, null);
-        if (attendeesCursor != null) {
-            if (attendeesCursor.moveToFirst()) {
-                relationship = attendeesCursor.getInt(ATTENDEES_INDEX_RELATIONSHIP);
-            }
-            attendeesCursor.close();
+        
+        if (visibility < Calendars.CONTRIBUTOR_ACCESS) {
+            return false;
         }
 
-        return visibility >= Calendars.CONTRIBUTOR_ACCESS &&
-                relationship >= Attendees.RELATIONSHIP_ORGANIZER;
+        if (e.guestsCanModify) {
+            return true;
+        }
+
+        return !TextUtils.isEmpty(calendarOwnerAccount) && calendarOwnerAccount.equals(e.organizer);
     }
 
     /**

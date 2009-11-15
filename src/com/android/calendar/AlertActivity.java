@@ -219,7 +219,6 @@ public class AlertActivity extends Activity {
         a.recycle();
 
         getWindow().setAttributes(lp);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 
         mResolver = getContentResolver();
         mQueryHandler = new QueryHandler(mResolver);

@@ -32,7 +32,7 @@ public class CalendarApplication extends Application {
      * points to the first element in the list (the most recently visited
      * screen).
      */
-    /* package */ class Screen {
+    static class Screen {
         public int id;
         public Screen next;
         public Screen previous;

@@ -16,10 +16,12 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Takvim"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Google Takvim\'e hoş geldiniz!"</font>" "\n"Programlı etkinliklerin daha fark edilir, daha etkin ve daha erişilebilir olabilmesi fikri üzerine inşa edilen, programınızı yönetmeniz için geliştirilmiş bir Google yaklaşımıdır."</string>
+    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Google Takvim\'e hoş geldiniz!"</font>" "\n"Programlı etkinliklerin daha fark edilir, daha etkin ve daha erişilebilir olabilmesi fikri üzerine inşa edilen, programınızı yönetmeniz için geliştirilmiş bir Google ürünüdür."</string>
     <string name="what_label" msgid="1933578391985810049">"Başlık:"</string>
     <string name="when_label" msgid="894636567327261599">"Zaman:"</string>
     <string name="where_label" msgid="3472482206065595118">"Yer"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"Misafirler"</string>
+    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Tekrar"</string>
     <string name="no_title_label" msgid="7352118984125107858">"(Konu yok)"</string>
   <plurals name="Nminutes">
@@ -59,6 +61,7 @@
     <string name="hint_what" msgid="709155115005044531">"Etkinlik adı"</string>
     <string name="hint_where" msgid="3116239630502213241">"Etkinlik konumu"</string>
     <string name="hint_description" msgid="4198202812240544553">"Etkinlik açıklaması"</string>
+    <string name="hint_attendees" msgid="6036653711383143333">"E-posta adresleri"</string>
     <string name="creating_event" msgid="8237877638457604455">"Etkinlik oluşturuluyor..."</string>
     <string name="saving_event" msgid="8853425146353785688">"Etkinlik kaydediliyor..."</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Takvimler yükleniyor"</string>
@@ -78,23 +81,25 @@
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Ek seçenekleri göster"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Ek seçenekleri gizle"</string>
     <string name="description_label" msgid="7193475046717505855">"Açıklama"</string>
-    <string name="presence_label" msgid="2155381988163502023">"Mevcudiyet"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Durumumu şu şekilde göster:"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Gizlilik"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Hatırlatıcılar"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Takvim yok"</string>
     <string name="no_calendars_found" msgid="755379468136462058">"Hiç takviminiz yok."</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Takvim"</string>
+    <string name="view_event_organizer_label" msgid="2168441329713325834">"Düzenleyici"</string>
     <string name="view_event_timezone_label" msgid="6461351857281070935">"Yerel saat dilimi"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Katılıyor musunuz?"</string>
-    <string name="agenda_today" msgid="2405333795044229594">"Bugün"</string>
+    <string name="agenda_today" msgid="6489447319363439068">"Bugün, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"Yükleniyor…"</string>
+    <string name="show_older_events" msgid="4031960000704544741">"Etkinlikler <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> tarihinden itibaren gösteriliyor. Daha fazlasını görmek için hafifçe vurun."</string>
+    <string name="show_newer_events" msgid="2647889653936094369">"Etkinlikler <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> tarihine kadar gösteriliyor. Daha fazlasını görmek için hafifçe vurun."</string>
     <string name="num_events" msgid="3351672964607162257">"Etkinlik sayısı"</string>
     <string name="edit_event_label" msgid="2900418236819088363">"Etkinliği düzenle"</string>
     <string name="delete_label" msgid="874742811918030739">"Sil"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Etkinliği sil"</string>
-    <!-- no translation found for save_label (2133599104834432589) -->
-    <skip />
-    <!-- no translation found for discard_label (4510607554910139220) -->
-    <skip />
+    <string name="save_label" msgid="2133599104834432589">"Bitti"</string>
+    <string name="discard_label" msgid="4510607554910139220">"Geri Döndür"</string>
     <string name="import_label" msgid="6993796574741477222">"İçe aktar"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Tümünü ertele"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Tümünü kapat"</string>
@@ -120,7 +125,7 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Uyarılar ve bildirimler"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Titret"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Zil sesini seç"</string>
-    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Varsayılan hatırlatıcıyı ayarla"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Varsayılan hatırlatıcı süresi"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Varsayılan hatırlatıcı süresi"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>

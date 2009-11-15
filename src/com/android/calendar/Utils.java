@@ -17,9 +17,12 @@
 package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.text.format.Time;
 import android.view.animation.AlphaAnimation;
 import android.widget.ViewFlipper;
@@ -30,8 +33,25 @@ public class Utils {
 
         intent.setClassName(context, className);
         intent.putExtra(EVENT_BEGIN_TIME, time);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         context.startActivity(intent);
+    }
+
+    static void setDefaultView(Context context, int viewId) {
+        String activityString = CalendarApplication.ACTIVITY_NAMES[viewId];
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        if (viewId == CalendarApplication.AGENDA_VIEW_ID ||
+                viewId == CalendarApplication.DAY_VIEW_ID) {
+            // Record the (new) detail start view only for Agenda and Day
+            editor.putString(CalendarPreferenceActivity.KEY_DETAILED_VIEW, activityString);
+        }
+
+        // Record the (new) start view
+        editor.putString(CalendarPreferenceActivity.KEY_START_VIEW, activityString);
+        editor.commit();
     }
 
     public static final Time timeFromIntent(Intent intent) {

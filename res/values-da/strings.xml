@@ -16,10 +16,12 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
-    <string name="calendar_plug" msgid="8148614847911924208"><font fgcolor="#ffffffff">"Velkommen til Google Kalender!"</font>" "\n"En tilgang til planlægning fra Google baseret på den forestilling, at planlægning af begivenheder kan være mere intuitivt, effektivt og lettilgængeligt."</string>
+    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Velkommen til Google Kalender!"</font>" "\n"En tilgang til planlægning fra Google baseret på den forestilling, at planlægning af begivenheder kan være mere intuitivt, effektivt og lettilgængeligt."</string>
     <string name="what_label" msgid="1933578391985810049">"Hvad"</string>
     <string name="when_label" msgid="894636567327261599">"Hvornår"</string>
     <string name="where_label" msgid="3472482206065595118">"Hvor"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"Gæster"</string>
+    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Gentagelse"</string>
     <string name="no_title_label" msgid="7352118984125107858">"(Intet emne)"</string>
   <plurals name="Nminutes">
@@ -59,6 +61,7 @@
     <string name="hint_what" msgid="709155115005044531">"Begivenhedens navn"</string>
     <string name="hint_where" msgid="3116239630502213241">"Begivenhedens placering"</string>
     <string name="hint_description" msgid="4198202812240544553">"Beskrivelse af begivenhed"</string>
+    <string name="hint_attendees" msgid="6036653711383143333">"E-mail-adresser"</string>
     <string name="creating_event" msgid="8237877638457604455">"Opretter begivenhed ..."</string>
     <string name="saving_event" msgid="8853425146353785688">"Gemmer begivenhed ..."</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Indlæser kalendere"</string>
@@ -78,23 +81,25 @@
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Vis ekstra valgmuligheder"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Skjul ekstra valgmuligheder"</string>
     <string name="description_label" msgid="7193475046717505855">"Beskrivelse"</string>
-    <string name="presence_label" msgid="2155381988163502023">"Tilstedeværelse"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Vis mig som"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Fortrolighed"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Påmindelser"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Der er ingen kalendere"</string>
     <string name="no_calendars_found" msgid="755379468136462058">"Du har ingen kalendere."</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>
+    <string name="view_event_organizer_label" msgid="2168441329713325834">"Organisator"</string>
     <string name="view_event_timezone_label" msgid="6461351857281070935">"Lokal tidszone"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Deltager?"</string>
-    <string name="agenda_today" msgid="2405333795044229594">"I dag"</string>
+    <string name="agenda_today" msgid="6489447319363439068">"I dag <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"Indlæser ..."</string>
+    <string name="show_older_events" msgid="4031960000704544741">"Viser begivenheder siden <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Tryk for at lede efter flere."</string>
+    <string name="show_newer_events" msgid="2647889653936094369">"Viser begivenheder indtil <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Tryk for at lede efter flere."</string>
     <string name="num_events" msgid="3351672964607162257">"Ant. beg."</string>
     <string name="edit_event_label" msgid="2900418236819088363">"Rediger begivenhed"</string>
     <string name="delete_label" msgid="874742811918030739">"Slet"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Slet begivenhed"</string>
-    <!-- no translation found for save_label (2133599104834432589) -->
-    <skip />
-    <!-- no translation found for discard_label (4510607554910139220) -->
-    <skip />
+    <string name="save_label" msgid="2133599104834432589">"Færdig"</string>
+    <string name="discard_label" msgid="4510607554910139220">"Vend tilbage"</string>
     <string name="import_label" msgid="6993796574741477222">"Importer"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Sæt alle i slumretilstand"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Annuller alle"</string>
@@ -120,7 +125,7 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Underretninger og meddelelser"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrer"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Vælg ringetone"</string>
-    <string name="preferences_default_reminder_title" msgid="103964814265989503">"Indstil standardpåmindelse"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standard påmindelsestid"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standard påmindelsestid"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>

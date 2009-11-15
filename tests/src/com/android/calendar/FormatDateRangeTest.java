@@ -30,7 +30,7 @@ import java.util.Calendar;
  */
 public class FormatDateRangeTest extends AndroidTestCase {
 
-    private class DateTest {
+    static private class DateTest {
         public Time date1;
         public Time date2;
         public int flags;

@@ -16,9 +16,6 @@
 
 package com.android.calendar;
 
-import dalvik.system.VMRuntime;
-
-import android.accounts.AccountMonitor;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -41,6 +38,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
 
+import dalvik.system.VMRuntime;
+
 /**
  * This is the base class for Day and Week Activities.
  */
@@ -52,8 +51,6 @@ public class CalendarActivity extends Activity implements Navigator {
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
 
     private ContentResolver mContentResolver;
-
-    private AccountMonitor mAccountMonitor;
 
     protected ProgressBar mProgressBar;
     protected ViewSwitcher mViewSwitcher;
@@ -103,7 +100,7 @@ public class CalendarActivity extends Activity implements Navigator {
 
         // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
         // TODO: We should restore the old heap size once the activity reaches the idle state
-        long oldHeapSize = VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
+        VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
 
         setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT);
         mContentResolver = getContentResolver();
@@ -125,6 +122,16 @@ public class CalendarActivity extends Activity implements Navigator {
         Time time = new Time();
         time.set(savedInstanceState.getLong(BUNDLE_KEY_RESTORE_TIME));
         view.setSelectedDay(time);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        long timeMillis = Utils.timeFromIntentInMillis(intent);
+        if (timeMillis > 0) {
+            Time time = new Time();
+            time.set(timeMillis);
+            goTo(time, false);
+        }
     }
 
     @Override
@@ -153,14 +160,6 @@ public class CalendarActivity extends Activity implements Navigator {
     }
 
     @Override
-    protected void onDestroy() {
-        if (mAccountMonitor != null) {
-            mAccountMonitor.close();
-        }
-        super.onDestroy();
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         mContentResolver.unregisterContentObserver(mObserver);
@@ -184,15 +183,16 @@ public class CalendarActivity extends Activity implements Navigator {
     }
 
     /* Navigator interface methods */
-    public void goTo(Time time) {
-        CalendarView current = (CalendarView) mViewSwitcher.getCurrentView();
-
-        if (current.getSelectedTime().before(time)) {
-            mViewSwitcher.setInAnimation(mInAnimationForward);
-            mViewSwitcher.setOutAnimation(mOutAnimationForward);
-        } else {
-            mViewSwitcher.setInAnimation(mInAnimationBackward);
-            mViewSwitcher.setOutAnimation(mOutAnimationBackward);
+    public void goTo(Time time, boolean animate) {
+        if (animate) {
+            CalendarView current = (CalendarView) mViewSwitcher.getCurrentView();
+            if (current.getSelectedTime().before(time)) {
+                mViewSwitcher.setInAnimation(mInAnimationForward);
+                mViewSwitcher.setOutAnimation(mOutAnimationForward);
+            } else {
+                mViewSwitcher.setInAnimation(mInAnimationBackward);
+                mViewSwitcher.setOutAnimation(mOutAnimationBackward);
+            }
         }
 
         CalendarView next = (CalendarView) mViewSwitcher.getNextView();
@@ -260,7 +260,7 @@ public class CalendarActivity extends Activity implements Navigator {
         if (progress > 1.0f) {
             progress = 1.0f;
         }
-        
+
         float inFromXValue, inToXValue;
         float outFromXValue, outToXValue;
         if (forward) {
@@ -274,7 +274,7 @@ public class CalendarActivity extends Activity implements Navigator {
             outFromXValue = progress;
             outToXValue = 1.0f;
         }
-        
+
         // We have to allocate these animation objects each time we switch views
         // because that is the only way to set the animation parameters.
         TranslateAnimation inAnimation = new TranslateAnimation(
@@ -288,14 +288,14 @@ public class CalendarActivity extends Activity implements Navigator {
                 Animation.RELATIVE_TO_SELF, outToXValue,
                 Animation.ABSOLUTE, 0.0f,
                 Animation.ABSOLUTE, 0.0f);
-        
+
         // Reduce the animation duration based on how far we have already swiped.
         long duration = (long) (ANIMATION_DURATION * (1.0f - progress));
         inAnimation.setDuration(duration);
         outAnimation.setDuration(duration);
         mViewSwitcher.setInAnimation(inAnimation);
         mViewSwitcher.setOutAnimation(outAnimation);
-        
+
         CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
         view.cleanup();
         mViewSwitcher.showNext();
@@ -341,12 +341,6 @@ public class CalendarActivity extends Activity implements Navigator {
             CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
             view.doSingleTapUp(ev);
             return true;
-        }
-
-        @Override
-        public void onShowPress(MotionEvent ev) {
-            CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
-            view.doShowPress(ev);
         }
 
         @Override

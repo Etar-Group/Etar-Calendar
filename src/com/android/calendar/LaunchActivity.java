@@ -16,27 +16,26 @@
 
 package com.android.calendar;
 
-import com.google.android.googlelogin.GoogleLoginServiceConstants;
-import com.google.android.googlelogin.GoogleLoginServiceHelper;
-
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Calendar.Calendars;
 import android.provider.Gmail;
 
-import java.util.TimeZone;
+import com.google.android.googlelogin.GoogleLoginServiceConstants;
+
+import java.io.IOException;
 
 public class LaunchActivity extends Activity {
     static final String KEY_DETAIL_VIEW = "DETAIL_VIEW";
-
-    // An arbitrary constant to pass to the GoogleLoginHelperService
-    private static final int GET_ACCOUNT_REQUEST = 1;
     private Bundle mExtras;
 
     @Override
@@ -47,26 +46,39 @@ public class LaunchActivity extends Activity {
         // Our UI is not something intended for the user to see.  We just
         // stick around until we can figure out what to do next based on
         // the current state of the system.
-        setVisible(false);
+        // TODO: Removed until framework is fixed in b/2008662
+        // setVisible(false);
 
         // Only try looking for an account if this is the first launch.
         if (icicle == null) {
             // This will request a Gmail account and if none are present, it will
             // invoke SetupWizard to login or create one. The result is returned
-            // through onActivityResult().
+            // via the Future2Callback.
             Bundle bundle = new Bundle();
             bundle.putCharSequence("optional_message", getText(R.string.calendar_plug));
-            GoogleLoginServiceHelper.getCredentials(
-                    this,
-                    GET_ACCOUNT_REQUEST,
-                    bundle,
-                    GoogleLoginServiceConstants.PREFER_HOSTED,
-                    Gmail.GMAIL_AUTH_SERVICE,
-                    true);
+            AccountManager.get(this).getAuthTokenByFeatures(
+                    GoogleLoginServiceConstants.ACCOUNT_TYPE, Gmail.GMAIL_AUTH_SERVICE,
+                    new String[]{GoogleLoginServiceConstants.FEATURE_LEGACY_HOSTED_OR_GOOGLE}, this,
+                    bundle, null /* loginOptions */, new AccountManagerCallback<Bundle>() {
+                public void run(AccountManagerFuture<Bundle> future) {
+                    try {
+                        Bundle result = future.getResult();
+                        onAccountsLoaded(new Account(
+                                result.getString(GoogleLoginServiceConstants.AUTH_ACCOUNT_KEY),
+                                result.getString(AccountManager.KEY_ACCOUNT_TYPE)));
+                    } catch (OperationCanceledException e) {
+                        finish();
+                    } catch (IOException e) {
+                        finish();
+                    } catch (AuthenticatorException e) {
+                        finish();
+                    }
+                }
+            }, null /* handler */);
         }
     }
 
-    private void onAccountsLoaded(String account) {
+    private void onAccountsLoaded(Account account) {
         // Get the data for from this intent, if any
         Intent myIntent = getIntent();
         Uri myData = myIntent.getData();
@@ -91,57 +103,8 @@ public class LaunchActivity extends Activity {
                 CalendarPreferenceActivity.DEFAULT_START_VIEW);
 
         intent.setClassName(this, startActivity);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        if (requestCode == GET_ACCOUNT_REQUEST) {
-            String account = null;
-            if (resultCode == RESULT_OK) {
-                // if we got a response from the sub-activity, it's supposed to hold account data
-                if (intent != null) {
-                    Bundle extras = intent.getExtras();
-                    if (extras != null) {
-                        account = extras.getString(GoogleLoginServiceConstants.AUTH_ACCOUNT_KEY);
-                    }
-                }
-            } else {
-                // otherwise, create a local calendar if there isn't one already
-                Cursor cur = getContentResolver().query(Calendars.CONTENT_URI,
-                        null, null, null, null);
-                if (cur != null) {
-                    if (cur.getCount() != 0) {
-                        cur.moveToFirst();
-                        try {
-                            account = cur.getString(cur.getColumnIndexOrThrow(Calendars.NAME));
-                        } catch(RuntimeException e) {
-                            // ignore - this leaves account == null, which is fine
-                        }
-                    } else {
-                        account = "nobody@localhost";
-                        // inspired from CalendarProvider.onAccountsChanged
-                        ContentValues vals = new ContentValues();
-                        vals.put(Calendars.ACCESS_LEVEL, Integer.toString(Calendars.OWNER_ACCESS));
-                        vals.put(Calendars.COLOR, -14069085);
-                        vals.put(Calendars.DISPLAY_NAME, "Default");
-                        vals.put(Calendars.HIDDEN, 0);
-                        vals.put(Calendars.NAME, account);
-                        vals.put(Calendars.SELECTED, 1);
-                        vals.put(Calendars.SYNC_EVENTS, 1);
-                        vals.put(Calendars.TIMEZONE, TimeZone.getDefault().getID());
-                        getContentResolver().insert(Calendars.CONTENT_URI, vals);
-                    }
-                    cur.close();
-                }
-            }
-            if (account != null) {
-                onAccountsLoaded(account);
-            } else {
-                finish();
-            }
-        }
     }
 }
