@@ -92,8 +92,8 @@
     <string name="view_event_response_label" msgid="8382281658458798329">"참석하시겠습니까?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"오늘, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"로드 중..."</string>
-    <string name="show_older_events" msgid="4031960000704544741">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> 이후의 일정을 표시 중입니다. 더 보려면 누르세요."</string>
-    <string name="show_newer_events" msgid="2647889653936094369">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>까지의 일정을 표시 중입니다. 더 보려면 누르세요."</string>
+    <string name="show_older_events" msgid="4031960000704544741">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> 이후의 일정입니다. 더 보려면 누르세요."</string>
+    <string name="show_newer_events" msgid="2647889653936094369">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>까지의 일정입니다. 더 보려면 누르세요."</string>
     <string name="num_events" msgid="3351672964607162257">"일정 개수"</string>
     <string name="edit_event_label" msgid="2900418236819088363">"일정 수정"</string>
     <string name="delete_label" msgid="874742811918030739">"삭제"</string>
@@ -103,17 +103,17 @@
     <string name="import_label" msgid="6993796574741477222">"가져오기"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"모든 알람 일시 중지"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"모두 해제"</string>
-    <string name="does_not_repeat" msgid="1877681921029738999">"일회성 일정"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"한번만"</string>
     <string name="daily" msgid="560350706808680448">"매일"</string>
     <string name="every_weekday" msgid="5896574838353902978">"주중 매일(월-금)"</string>
-    <string name="weekly" msgid="2006107373119027114">"매주(<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>마다)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"매월(<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>마다)"</string>
+    <string name="weekly" msgid="2006107373119027114">"매주(<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"매월(<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"매월(<xliff:g id="DAY_OF_MONTH">%s</xliff:g>일)"</string>
     <string name="yearly" msgid="8576208380302949002">"매년(<xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom" msgid="3015205670911301856">"맞춤 설정...(휴대전화에서는 맞춤 설정할 수 없음)"</string>
     <string name="modify_event" msgid="4501745557655992422">"이 일정만 변경합니다."</string>
     <string name="modify_all" msgid="7506579040966638538">"반복되는 모든 일정을 변경합니다."</string>
-    <string name="modify_all_following" msgid="4333745734894639276">"이번 일정과 다음 모든 일정을 변경합니다."</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"이번 일정과 향후 일정을 변경합니다."</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"일정이 삭제됩니다."</string>
     <string name="delete_title" msgid="5143743507524995383">"삭제"</string>
     <string name="change_response_title" msgid="7704714776070974984">"회신 변경"</string>
