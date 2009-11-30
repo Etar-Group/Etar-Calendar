@@ -82,11 +82,11 @@
   </string-array>
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"이 일정만"</item>
-    <item msgid="8626755531271570950">"이번 및 다음 일정"</item>
+    <item msgid="8626755531271570950">"이번 및 향후 일정"</item>
     <item msgid="7833229563617435430">"모든 일정"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"이번 및 다음 일정"</item>
+    <item msgid="1341910309321756150">"이번 및 향후 일정"</item>
     <item msgid="6315440193748139854">"모든 일정"</item>
   </string-array>
   <string-array name="change_response_labels">
