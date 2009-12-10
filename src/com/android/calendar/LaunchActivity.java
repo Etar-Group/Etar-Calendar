@@ -28,14 +28,16 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Gmail;
 
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
 
 import java.io.IOException;
 
+
 public class LaunchActivity extends Activity {
     static final String KEY_DETAIL_VIEW = "DETAIL_VIEW";
+    static final String GMAIL_AUTH_SERVICE = "mail";
+
     private Bundle mExtras;
 
     @Override
@@ -57,7 +59,7 @@ public class LaunchActivity extends Activity {
             Bundle bundle = new Bundle();
             bundle.putCharSequence("optional_message", getText(R.string.calendar_plug));
             AccountManager.get(this).getAuthTokenByFeatures(
-                    GoogleLoginServiceConstants.ACCOUNT_TYPE, Gmail.GMAIL_AUTH_SERVICE,
+                    GoogleLoginServiceConstants.ACCOUNT_TYPE, GMAIL_AUTH_SERVICE,
                     new String[]{GoogleLoginServiceConstants.FEATURE_LEGACY_HOSTED_OR_GOOGLE}, this,
                     bundle, null /* loginOptions */, new AccountManagerCallback<Bundle>() {
                 public void run(AccountManagerFuture<Bundle> future) {
