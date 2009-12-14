@@ -61,10 +61,8 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.text.util.Rfc822InputFilter;
 import android.text.util.Rfc822Token;
 import android.text.util.Rfc822Tokenizer;
-import android.text.util.Rfc822Validator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -84,6 +82,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.android.common.Rfc822InputFilter;
+import com.android.common.Rfc822Validator;
 
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
 
