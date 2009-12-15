@@ -22,7 +22,6 @@ import static android.provider.Calendar.EVENT_END_TIME;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -33,7 +32,6 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Calendar;
 import android.provider.Calendar.CalendarAlerts;
 import android.provider.Calendar.CalendarAlertsColumns;
 import android.provider.Calendar.Events;
@@ -82,6 +80,11 @@ public class AlertActivity extends Activity {
     public static final int INDEX_HAS_ALARM = 9;
     public static final int INDEX_STATE = 10;
     public static final int INDEX_ALARM_TIME = 11;
+
+    private static final String SELECTION = CalendarAlerts.STATE + "=?";
+    private static final String[] SELECTIONARG = new String[] {
+        Integer.toString(CalendarAlerts.FIRED)
+    };
 
     // We use one notification id for all events so that we don't clutter
     // the notification screen.  It doesn't matter what the id is, as long
@@ -136,22 +139,14 @@ public class AlertActivity extends Activity {
         @Override
         protected void onInsertComplete(int token, Object cookie, Uri uri) {
             if (uri != null) {
-                ContentValues values = (ContentValues) cookie;
+                Long alarmTime = (Long) cookie;
 
-                long begin = values.getAsLong(CalendarAlerts.BEGIN);
-                long end = values.getAsLong(CalendarAlerts.END);
-                long alarmTime = values.getAsLong(CalendarAlerts.ALARM_TIME);
-
-                // Set a new alarm to go off after the snooze delay.
-                Intent intent = new Intent(Calendar.EVENT_REMINDER_ACTION);
-                intent.setData(uri);
-                intent.putExtra(Calendar.EVENT_BEGIN_TIME, begin);
-                intent.putExtra(Calendar.EVENT_END_TIME, end);
-
-                PendingIntent sender = PendingIntent.getBroadcast(AlertActivity.this,
-                        0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, sender);
+                if (alarmTime != 0) {
+                    // Set a new alarm to go off after the snooze delay.
+                    AlarmManager alarmManager =
+                            (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    CalendarAlerts.scheduleAlarm(AlertActivity.this, alarmManager, alarmTime);
+                }
             }
         }
 
@@ -246,9 +241,8 @@ public class AlertActivity extends Activity {
         // If the cursor is null, start the async handler. If it is not null just requery.
         if (mCursor == null) {
             Uri uri = CalendarAlerts.CONTENT_URI_BY_INSTANCE;
-            String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.FIRED;
-            mQueryHandler.startQuery(0, null, uri, PROJECTION, selection,
-                    null /* selection args */, CalendarAlerts.DEFAULT_SORT_ORDER);
+            mQueryHandler.startQuery(0, null, uri, PROJECTION, SELECTION,
+                    SELECTIONARG, CalendarAlerts.DEFAULT_SORT_ORDER);
         } else {
             mCursor.requery();
         }
@@ -257,7 +251,7 @@ public class AlertActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-        AlertReceiver.updateAlertNotification(this);
+        AlertService.updateAlertNotification(this);
 
         if (mCursor != null) {
             mCursor.deactivate();
@@ -279,6 +273,8 @@ public class AlertActivity extends Activity {
             NotificationManager nm =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancel(NOTIFICATION_ID);
+
+            long scheduleAlarmTime = 0;
             mCursor.moveToPosition(-1);
             while (mCursor.moveToNext()) {
                 long eventId = mCursor.getLong(INDEX_EVENT_ID);
@@ -292,7 +288,10 @@ public class AlertActivity extends Activity {
                         makeContentValues(eventId, begin, end, alarmTime, 0 /* minutes */);
 
                 // Create a new alarm entry in the CalendarAlerts table
-                mQueryHandler.startInsert(0, values, CalendarAlerts.CONTENT_URI, values);
+                if (mCursor.isLast()) {
+                    scheduleAlarmTime = alarmTime;
+                }
+                mQueryHandler.startInsert(0, scheduleAlarmTime, CalendarAlerts.CONTENT_URI, values);
             }
 
             dismissFiredAlarms();

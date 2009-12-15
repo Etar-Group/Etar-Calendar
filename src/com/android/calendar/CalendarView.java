@@ -115,7 +115,7 @@ public class CalendarView extends View
     }
 
     private DayHeader[] dayHeaders = new DayHeader[32];
-    
+
     // Make this visible within the package for more informative debugging
     Time mBaseDate;
 
@@ -186,10 +186,10 @@ public class CalendarView extends View
     private static int MAX_ALLDAY_HEIGHT = 72;
     private static int ALLDAY_TOP_MARGIN = 3;
     private static int MAX_ALLDAY_EVENT_HEIGHT = 18;
-    
+
     /* The extra space to leave above the text in all-day events */
     private static final int ALL_DAY_TEXT_TOP_MARGIN = 0;
-    
+
     /* The extra space to leave above the text in normal events */
     private static final int NORMAL_TEXT_TOP_MARGIN = 2;
 
@@ -329,7 +329,7 @@ public class CalendarView extends View
                 MIN_EVENT_HEIGHT *= mScale;
 
                 HORIZONTAL_SCROLL_THRESHOLD *= mScale;
- 
+
                 SMALL_ROUND_RADIUS *= mScale;
             }
         }
@@ -765,7 +765,7 @@ public class CalendarView extends View
         view.mFirstHour = mFirstHour;
         view.mFirstHourOffset = mFirstHourOffset;
         view.remeasure(getWidth(), getHeight());
-        
+
         view.mSelectedEvent = null;
         view.mPrevSelectedEvent = null;
         view.mStartDay = mStartDay;
@@ -2118,7 +2118,7 @@ public class CalendarView extends View
     private RectF drawEventRect(Event event, Canvas canvas, Paint p, Paint eventTextPaint) {
 
         int color = event.color;
-        
+
         // Fade visible boxes if event was declined.
         boolean declined = (event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED);
         if (declined) {
@@ -2130,7 +2130,7 @@ public class CalendarView extends View
             color = ((red >> 1) << 16) | ((green >> 1) << 8) | (blue >> 1);
             color += 0x7F7F7F + alpha;
         }
-        
+
         // If this event is selected, then use the selection color
         if (mSelectedEvent == event) {
             if (mSelectionMode == SELECTION_PRESSED) {
@@ -2177,7 +2177,7 @@ public class CalendarView extends View
 
         rf.left += 2;
         rf.right -= 2;
-        
+
         return rf;
     }
 
@@ -2427,7 +2427,7 @@ public class CalendarView extends View
                     mPreviousDirection = direction;
                 }
             }
-            
+
             // If we have moved at least the HORIZONTAL_SCROLL_THRESHOLD,
             // then change the title to the new day (or week), but only
             // if we haven't already changed the title.
@@ -2587,13 +2587,13 @@ public class CalendarView extends View
             invalidate();
         }
 
-        final long startMillis = getSelectedTimeInMillis();         
+        final long startMillis = getSelectedTimeInMillis();
         int flags = DateUtils.FORMAT_SHOW_TIME
                 | DateUtils.FORMAT_CAP_NOON_MIDNIGHT
                 | DateUtils.FORMAT_SHOW_WEEKDAY;
         final String title = DateUtils.formatDateTime(mParentActivity, startMillis, flags);
         menu.setHeaderTitle(title);
-        
+
         int numSelectedEvents = mSelectedEvents.size();
         if (mNumDays == 1) {
             // Day view.
@@ -2630,7 +2630,7 @@ public class CalendarView extends View
             }
         } else {
             // Week view.
-            
+
             // If there is a selected event, then allow it to be viewed and
             // edited.
             if (numSelectedEvents >= 1) {
@@ -2765,9 +2765,16 @@ public class CalendarView extends View
                 null /* selection */,
                 null /* selectionArgs */,
                 null /* sort */);
-        if ((cursor == null) || (cursor.getCount() == 0)) {
+
+        if (cursor == null) {
             return false;
         }
+
+        if (cursor.getCount() == 0) {
+            cursor.close();
+            return false;
+        }
+
         cursor.moveToFirst();
         long calId = cursor.getLong(0);
         cursor.deactivate();
@@ -2783,7 +2790,7 @@ public class CalendarView extends View
             calendarOwnerAccount = cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
             cursor.close();
         }
-        
+
         if (visibility < Calendars.CONTRIBUTOR_ACCESS) {
             return false;
         }
@@ -3060,7 +3067,7 @@ public class CalendarView extends View
         if (handler != null) {
             handler.removeCallbacks(mDismissPopup);
         }
-        
+
         // Turn off redraw
         mRemeasure = false;
         mRedrawScreen = false;
