@@ -17,25 +17,19 @@
 package com.android.calendar;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
-import android.provider.Calendar.CalendarAlerts;
+import android.util.Log;
 
 /**
  * Receives android.intent.action.EVENT_REMINDER intents and handles
- * event reminders.  The intent URI specifies an alert id in the 
+ * event reminders.  The intent URI specifies an alert id in the
  * CalendarAlerts database table.  This class also receives the
  * BOOT_COMPLETED intent so that it can add a status bar notification
  * if there are Calendar event alarms that have not been dismissed.
@@ -44,22 +38,22 @@ import android.provider.Calendar.CalendarAlerts;
  * the AlertService class.
  */
 public class AlertReceiver extends BroadcastReceiver {
-    private static final String[] ALERT_PROJECTION = new String[] { 
-        CalendarAlerts.TITLE,           // 0
-        CalendarAlerts.EVENT_LOCATION,  // 1
-    };
-    private static final int ALERT_INDEX_TITLE = 0;
-    private static final int ALERT_INDEX_EVENT_LOCATION = 1;
-    
+    private static final String TAG = "AlertReceiver";
+
     private static final String DELETE_ACTION = "delete";
-    
+
     static final Object mStartingServiceSync = new Object();
     static PowerManager.WakeLock mStartingService;
-    
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (AlertService.DEBUG) {
+            Log.e(TAG, "==============================================================");
+            Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent.toString());
+        }
+
         if (DELETE_ACTION.equals(intent.getAction())) {
-            
+
             /* The user has clicked the "Clear All Notifications"
              * buttons so dismiss all Calendar alerts.
              */
@@ -72,7 +66,7 @@ public class AlertReceiver extends BroadcastReceiver {
             i.putExtras(intent);
             i.putExtra("action", intent.getAction());
             Uri uri = intent.getData();
-            
+
             // This intent might be a BOOT_COMPLETED so it might not have a Uri.
             if (uri != null) {
                 i.putExtra("uri", uri.toString());
@@ -98,7 +92,7 @@ public class AlertReceiver extends BroadcastReceiver {
             context.startService(intent);
         }
     }
-    
+
     /**
      * Called back by the service when it has finished processing notifications,
      * releasing the wake lock if the service is now stopping.
@@ -112,70 +106,25 @@ public class AlertReceiver extends BroadcastReceiver {
             }
         }
     }
-    
-    public static void updateAlertNotification(Context context) {
-        // This can be called regularly to synchronize the alert notification
-        // with the contents of the CalendarAlerts table.
-        
-        ContentResolver cr = context.getContentResolver();
-        
-        if (cr == null) {
-            return;
-        }
-        
-        String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.FIRED;
-        Cursor alertCursor = CalendarAlerts.query(cr, ALERT_PROJECTION, selection, null);
-        
-        NotificationManager nm = 
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        
-        if (alertCursor == null) {
-            nm.cancel(AlertActivity.NOTIFICATION_ID);
-            return;
-        }
 
-        if (!alertCursor.moveToFirst()) {
-            alertCursor.close();
-            nm.cancel(AlertActivity.NOTIFICATION_ID);
-            return;
-        }
-
-        // Check the settings to see if alerts are disabled
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String reminderType = prefs.getString(CalendarPreferenceActivity.KEY_ALERTS_TYPE,
-                CalendarPreferenceActivity.ALERT_TYPE_STATUS_BAR);
-        if (reminderType.equals(CalendarPreferenceActivity.ALERT_TYPE_OFF)) {
-            return;
-        }
-
-        String title = alertCursor.getString(ALERT_INDEX_TITLE);
-        String location = alertCursor.getString(ALERT_INDEX_EVENT_LOCATION);
-        
-        Notification notification = AlertReceiver.makeNewAlertNotification(context, title, 
-                location, alertCursor.getCount());
-        alertCursor.close();
-        
-        nm.notify(0, notification);
-    }
-    
-    public static Notification makeNewAlertNotification(Context context, String title, 
+    public static Notification makeNewAlertNotification(Context context, String title,
             String location, int numReminders) {
         Resources res = context.getResources();
-        
+
         // Create an intent triggered by clicking on the status icon.
         Intent clickIntent = new Intent();
         clickIntent.setClass(context, AlertActivity.class);
         clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        
+
         // Create an intent triggered by clicking on the "Clear All Notifications" button
         Intent deleteIntent = new Intent();
         deleteIntent.setClass(context, AlertReceiver.class);
         deleteIntent.setAction(DELETE_ACTION);
-        
+
         if (title == null || title.length() == 0) {
             title = res.getString(R.string.no_title_label);
         }
-        
+
         String helperString;
         if (numReminders > 1) {
             String format;
@@ -188,7 +137,7 @@ public class AlertReceiver extends BroadcastReceiver {
         } else {
             helperString = location;
         }
-        
+
         Notification notification = new Notification(
                 R.drawable.stat_notify_calendar,
                 null,
@@ -198,7 +147,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 helperString,
                 PendingIntent.getActivity(context, 0, clickIntent, 0));
         notification.deleteIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, 0);
-        
+
         return notification;
     }
 }
