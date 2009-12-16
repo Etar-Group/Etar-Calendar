@@ -35,7 +35,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/ic_contact_picture"
-        style="@*android:style/Widget.QuickContactBadgeSmall.WindowMedium" />
+        style="?android:attr/quickContactBadgeStyleWindowMedium" />
 
     <TextView
         android:id="@+id/name"
