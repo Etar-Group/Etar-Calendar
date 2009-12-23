@@ -32,7 +32,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.provider.Calendar.BusyBits;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -58,20 +57,20 @@ import java.util.Calendar;
 public class MonthView extends View implements View.OnCreateContextMenuListener {
 
     private static final boolean PROFILE_LOAD_TIME = false;
-    private static final boolean DEBUG_BUSYBITS = false;
 
     private static float mScale = 0; // Used for supporting different screen densities
     private static int WEEK_GAP = 0;
     private static int MONTH_DAY_GAP = 1;
     private static float HOUR_GAP = 0.5f;
-
     private static int MONTH_DAY_TEXT_SIZE = 20;
     private static int WEEK_BANNER_HEIGHT = 17;
     private static int WEEK_TEXT_SIZE = 15;
     private static int WEEK_TEXT_PADDING = 3;
-    private static int BUSYBIT_WIDTH = 10;
-    private static int BUSYBIT_RIGHT_MARGIN = 3;
-    private static int BUSYBIT_TOP_BOTTOM_MARGIN = 7;
+    private static int EVENT_DOT_TOP_MARGIN = 5;
+    private static int EVENT_DOT_LEFT_MARGIN = 7;
+    private static int EVENT_DOT_W_H = 10;
+    private static int EVENT_NUM_DAYS = 31;
+    private static int TEXT_BOTTOM_MARGIN = 7;
 
     private static int HORIZONTAL_FLING_THRESHOLD = 50;
 
@@ -99,10 +98,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private Drawable mBoxSelected;
     private Drawable mBoxPressed;
     private Drawable mBoxLongPressed;
-    private Drawable mDnaEmpty;
-    private Drawable mDnaTop;
-    private Drawable mDnaMiddle;
-    private Drawable mDnaBottom;
+    private Drawable mEventDot;
     private int mCellWidth;
 
     private Resources mResources;
@@ -113,25 +109,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     // Pre-allocate and reuse
     private Rect mRect = new Rect();
 
-    // The number of hours represented by one busy bit
-    private static final int HOURS_PER_BUSY_SLOT = 4;
-
-    // The number of database intervals represented by one busy bit (slot)
-    private static final int INTERVALS_PER_BUSY_SLOT = 4 * 60 / BusyBits.MINUTES_PER_BUSY_INTERVAL;
-
-    // The bit mask for coalescing the raw busy bits from the database
-    // (1 bit per hour) into the busy bits per slot (4-hour slots).
-    private static final int BUSY_SLOT_MASK = (1 << INTERVALS_PER_BUSY_SLOT) - 1;
-
-    // The number of slots in a day
-    private static final int SLOTS_PER_DAY = 24 / HOURS_PER_BUSY_SLOT;
-
-    // There is one "busy" bit for each slot of time.
-    private byte[][] mBusyBits = new byte[31][SLOTS_PER_DAY];
-
-    // Raw busy bits from database
-    private int[] mRawBusyBits = new int[31];
-    private int[] mAllDayCounts = new int[31];
+    //An array of which days have events for quick reference
+    private boolean[] eventDay = new boolean[31];
 
     private PopupWindow mPopup;
     private View mPopupView;
@@ -153,11 +132,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
     // Bitmap caches.
     // These improve performance by minimizing calls to NinePatchDrawable.draw() for common
-    // drawables for events and day backgrounds.
-    // mEventBitmapCache is indexed by an integer constructed from the bits in the busyBits
-    // field. It is not expected to be larger than 12 bits (if so, we should switch to using a Map).
+    // drawables for day backgrounds.
     // mDayBitmapCache is indexed by a unique integer constructed from the width/height.
-    private SparseArray<Bitmap> mEventBitmapCache = new SparseArray<Bitmap>(1<<SLOTS_PER_DAY);
     private SparseArray<Bitmap> mDayBitmapCache = new SparseArray<Bitmap>(4);
 
     private ContextMenuHandler mContextMenuHandler = new ContextMenuHandler();
@@ -208,10 +184,10 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                     WEEK_BANNER_HEIGHT *= mScale;
                     WEEK_TEXT_SIZE *= mScale;
                     WEEK_TEXT_PADDING *= mScale;
-                    BUSYBIT_WIDTH *= mScale;
-                    BUSYBIT_RIGHT_MARGIN *= mScale;
-                    BUSYBIT_TOP_BOTTOM_MARGIN *= mScale;
-
+                    EVENT_DOT_TOP_MARGIN *= mScale;
+                    EVENT_DOT_LEFT_MARGIN *= mScale;
+                    EVENT_DOT_W_H *= mScale;
+                    TEXT_BOTTOM_MARGIN *= mScale;
                     HORIZONTAL_FLING_THRESHOLD *= mScale;
                 }
             }
@@ -247,10 +223,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         mBoxPressed = mResources.getDrawable(R.drawable.month_view_pressed);
         mBoxLongPressed = mResources.getDrawable(R.drawable.month_view_longpress);
 
-        mDnaEmpty = mResources.getDrawable(R.drawable.dna_empty);
-        mDnaTop = mResources.getDrawable(R.drawable.dna_1_of_6);
-        mDnaMiddle = mResources.getDrawable(R.drawable.dna_2345_of_6);
-        mDnaBottom = mResources.getDrawable(R.drawable.dna_6_of_6);
+        mEventDot = mResources.getDrawable(R.drawable.event_dot);
         mTodayBackground = mResources.getDrawable(R.drawable.month_view_today_background);
         mDayBackground = mResources.getDrawable(R.drawable.month_view_background);
 
@@ -387,14 +360,14 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
     public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
         MenuItem item;
-        
+
         final long startMillis = getSelectedTimeInMillis();
         final int flags = DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE
                 | DateUtils.FORMAT_ABBREV_MONTH;
-       
-        final String title = DateUtils.formatDateTime(mParentActivity, startMillis, flags);    
+
+        final String title = DateUtils.formatDateTime(mParentActivity, startMillis, flags);
         menu.setHeaderTitle(title);
-        
+
         item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.show_day_view);
         item.setOnMenuItemClickListener(mContextMenuHandler);
         item.setIcon(android.R.drawable.ic_menu_day);
@@ -453,7 +426,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         long millis = monthStart.normalize(true /* ignore isDst */);
         int startDay = Time.getJulianDay(millis, monthStart.gmtoff);
 
-        // Load the busy-bits in the background
+        // Load the days with events in the background
         mParentActivity.startProgressSpinner();
         final long startMillis;
         if (PROFILE_LOAD_TIME) {
@@ -462,15 +435,17 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             // To avoid a compiler error that this variable might not be initialized.
             startMillis = 0;
         }
-        mEventLoader.loadBusyBitsInBackground(startDay, 31, mRawBusyBits, mAllDayCounts,
+
+        mEventLoader.loadEventDaysInBackground(startDay, EVENT_NUM_DAYS, eventDay,
                 new Runnable() {
             public void run() {
-                convertBusyBits();
                 if (PROFILE_LOAD_TIME) {
                     long endMillis = SystemClock.uptimeMillis();
                     long elapsed = endMillis - startMillis;
-                    Log.i("Cal", (mViewCalendar.month+1) + "/" + mViewCalendar.year + " Month view load busybits: " + elapsed);
+                    Log.i("Cal", (mViewCalendar.month+1) + "/" + mViewCalendar.year +
+                            " Month view load eventDays: " + elapsed);
                 }
+                //Refresh the screen when we're done and stop the spinner
                 mRedrawScreen = true;
                 mParentActivity.stopProgressSpinner();
                 invalidate();
@@ -563,7 +538,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 }
             }
         }
-        
+
         drawGrid(canvas, p);
     }
 
@@ -619,7 +594,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
      * Clears the bitmap cache. Generally only needed when the screen size changed.
      */
     private void clearBitmapCache() {
-        recycleAndClearBitmapCache(mEventBitmapCache);
         recycleAndClearBitmapCache(mDayBitmapCache);
     }
 
@@ -640,10 +614,10 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private void drawGrid(Canvas canvas, Paint p) {
         p.setColor(mMonthOtherMonthColor);
         p.setAntiAlias(false);
-        
+
         final int width = getMeasuredWidth();
         final int height = getMeasuredHeight();
-        
+
         for (int row = 0; row < 6; row++) {
             int y = WEEK_GAP + row * (WEEK_GAP + mCellHeight) - 1;
             canvas.drawLine(0, y, width, y, p);
@@ -653,7 +627,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             canvas.drawLine(x, WEEK_GAP, x, height, p);
         }
     }
-    
+
     /**
      * Draw a single box onto the canvas.
      * @param day The Julian day.
@@ -726,7 +700,11 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 mBoxLongPressed.draw(canvas);
             }
 
-            drawEvents(day, canvas, r, p);
+            //Places a green dot in the upper left corner of the day if there is
+            //an event on that day
+            if (withinCurrentMonth && eventDay[day-mFirstJulianDay]) {
+                drawEvents(day, canvas, r, p);
+            }
             if (!mAnimating) {
                 updateEventDetails(day);
             }
@@ -751,7 +729,11 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 }
                 canvas.drawBitmap(bitmap, r.left, r.top, p);
             }
-            drawEvents(day, canvas, r, p);
+            //Places a green dot near the top of the day if there is
+            //an event on that day
+            if (withinCurrentMonth && eventDay[day-mFirstJulianDay]) {
+                drawEvents(day, canvas, r, p);
+            }
         }
 
         // Draw week number
@@ -759,8 +741,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             // Draw the banner
             p.setStyle(Paint.Style.FILL);
             p.setColor(mMonthWeekBannerColor);
-            int right = r.right;
-            r.right = right - BUSYBIT_WIDTH - BUSYBIT_RIGHT_MARGIN;
             if (isLandscape) {
                 int bottom = r.bottom;
                 r.bottom = r.top + WEEK_BANNER_HEIGHT;
@@ -776,7 +756,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 r.top = top;
                 r.left--;
             }
-            r.right = right;
 
             // Draw the number
             p.setColor(mMonthOtherMonthBannerColor);
@@ -804,143 +783,32 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
         if (!withinCurrentMonth) {
             p.setColor(mMonthOtherMonthDayNumberColor);
-        } else if (drawSelection || !isToday) {
-            p.setColor(mMonthDayNumberColor);
         } else {
-            p.setColor(mMonthTodayNumberColor);
+            if (drawSelection || !isToday) {
+                p.setColor(mMonthDayNumberColor);
+            } else {
+                p.setColor(mMonthTodayNumberColor);
+            }
+            //bolds the day if there's an event that day
+            p.setFakeBoldText(eventDay[day-mFirstJulianDay]);
         }
-
+        /*Drawing of day number is done here
+         *easy to find tags draw number draw day*/
         p.setTextAlign(Paint.Align.CENTER);
-        int right = r.right - BUSYBIT_WIDTH - BUSYBIT_RIGHT_MARGIN;
+        int right = r.right;
         int textX = r.left + (right - r.left) / 2; // center of text
-        int textY = r.bottom - BUSYBIT_TOP_BOTTOM_MARGIN - 2; // bottom of text
+        int textY = r.bottom - TEXT_BOTTOM_MARGIN - 2; // bottom of text
         canvas.drawText(String.valueOf(mCursor.getDayAt(row, column)), textX, textY, p);
     }
 
-    /**
-     * Converts the busy bits from the database that use 1-hour intervals to
-     * the 4-hour time slots needed in this view.  Also, we map all-day
-     * events to the first two 4-hour time slots (that is, an all-day event
-     * will look like the first 8 hours from 12am to 8am are busy).  This
-     * looks better than setting just the first 4-hour time slot because that
-     * is barely visible in landscape mode.
-     */
-    private void convertBusyBits() {
-        if (DEBUG_BUSYBITS) {
-            Log.i("Cal", "convertBusyBits() SLOTS_PER_DAY: " + SLOTS_PER_DAY
-                    + " BUSY_SLOT_MASK: " + BUSY_SLOT_MASK
-                    + " INTERVALS_PER_BUSY_SLOT: " + INTERVALS_PER_BUSY_SLOT);
-            for (int day = 0; day < 31; day++) {
-                int bits = mRawBusyBits[day];
-                String bitString = String.format("0x%06x", bits);
-                String valString = "";
-                for (int slot = 0; slot < SLOTS_PER_DAY; slot++) {
-                    int val = bits & BUSY_SLOT_MASK;
-                    bits = bits >>> INTERVALS_PER_BUSY_SLOT;
-                    valString += " " + val;
-                }
-                Log.i("Cal", "[" + day + "] " + bitString + " " + valString
-                        + " allday: " + mAllDayCounts[day]);
-            }
-        }
-        for (int day = 0; day < 31; day++) {
-            int bits = mRawBusyBits[day];
-            for (int slot = 0; slot < SLOTS_PER_DAY; slot++) {
-                int val = bits & BUSY_SLOT_MASK;
-                bits = bits >>> INTERVALS_PER_BUSY_SLOT;
-                if (val == 0) {
-                    mBusyBits[day][slot] = 0;
-                } else {
-                    mBusyBits[day][slot] = 1;
-                }
-            }
-            if (mAllDayCounts[day] > 0) {
-                mBusyBits[day][0] = 1;
-                mBusyBits[day][1] = 1;
-            }
-        }
-    }
+    ///Create and draw an event dot for  this day
+    private void drawEvents(int date, Canvas canvas, Rect rect, Paint p)
+    {
+        //Coords of the upper left corner where we'll draw the event dot
+        int top = rect.top + EVENT_DOT_TOP_MARGIN;
+        int left = (rect.left + rect.right-EVENT_DOT_W_H)/2;
+        Bitmap bitmap = createBitmap(mEventDot, EVENT_DOT_W_H, EVENT_DOT_W_H);
 
-    /**
-     * Create a bitmap at the origin for the given set of busyBits.
-     *
-     * @param busyBits an array of bits with elements set to 1 if we have an event for that slot
-     * @param rect the size of the resulting
-     * @return a new bitmap
-     */
-    private Bitmap createEventBitmap(byte[] busyBits, Rect rect) {
-        // Compute the size of the smallest bitmap, excluding margins.
-        final int left = 0;
-        final int right = BUSYBIT_WIDTH;
-        final int top = 0;
-        final int bottom = (rect.bottom - rect.top) - 2 * BUSYBIT_TOP_BOTTOM_MARGIN;
-        final int height = bottom - top;
-        final int width = right - left;
-
-        final Drawable dnaEmpty = mDnaEmpty;
-        final Drawable dnaTop = mDnaTop;
-        final Drawable dnaMiddle = mDnaMiddle;
-        final Drawable dnaBottom = mDnaBottom;
-        final float slotHeight = (float) height / SLOTS_PER_DAY;
-
-        // Create a bitmap with the same format as mBitmap (should be Bitmap.Config.ARGB_8888)
-        Bitmap bitmap = Bitmap.createBitmap(width, height, mBitmap.getConfig());
-
-        // Create a canvas for drawing and draw background (dnaEmpty)
-        Canvas canvas = new Canvas(bitmap);
-        dnaEmpty.setBounds(left, top, right, bottom);
-        dnaEmpty.draw(canvas);
-
-        // The first busy bit is a drawable that is round at the top
-        if (busyBits[0] == 1) {
-            float rectBottom = top + slotHeight;
-            dnaTop.setBounds(left, top, right, (int) rectBottom);
-            dnaTop.draw(canvas);
-        }
-
-        // The last busy bit is a drawable that is round on the bottom
-        int lastIndex = busyBits.length - 1;
-        if (busyBits[lastIndex] == 1) {
-            float rectTop = bottom - slotHeight;
-            dnaBottom.setBounds(left, (int) rectTop, right, bottom);
-            dnaBottom.draw(canvas);
-        }
-
-        // Draw all intermediate pieces. We could further optimize this to
-        // draw runs of bits, but it probably won't yield much more performance.
-        float rectTop = top + slotHeight;
-        for (int index = 1; index < lastIndex; index++) {
-            float rectBottom = rectTop + slotHeight;
-            if (busyBits[index] == 1) {
-                dnaMiddle.setBounds(left, (int) rectTop, right, (int) rectBottom);
-                dnaMiddle.draw(canvas);
-            }
-            rectTop = rectBottom;
-        }
-        return bitmap;
-    }
-
-    private void drawEvents(int date, Canvas canvas, Rect rect, Paint p) {
-        // These are the coordinates of the upper left corner where we'll draw the event bitmap
-        int top = rect.top + BUSYBIT_TOP_BOTTOM_MARGIN;
-        int right = rect.right - BUSYBIT_RIGHT_MARGIN;
-        int left = right - BUSYBIT_WIDTH;
-
-        // Display the busy bits.  Draw a rectangle for each run of 1-bits.
-        int day = date - mFirstJulianDay;
-        byte[] busyBits = mBusyBits[day];
-        int lastIndex = busyBits.length - 1;
-
-        // Cache index is simply all of the bits combined into an integer
-        int cacheIndex = 0;
-        for (int i = 0 ; i <= lastIndex; i++) cacheIndex |= busyBits[i] << i;
-        Bitmap bitmap = mEventBitmapCache.get(cacheIndex);
-        if (bitmap == null) {
-            // Create a bitmap that we'll reuse for all events with the same
-            // combination of busyBits.
-            bitmap = createEventBitmap(busyBits, rect);
-            mEventBitmapCache.put(cacheIndex, bitmap);
-        }
         canvas.drawBitmap(bitmap, left, top, p);
     }
 

@@ -21,28 +21,29 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Handler;
 import android.os.Process;
-import android.provider.Calendar.BusyBits;
+import android.provider.Calendar.EventDays;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class EventLoader {
-    
+
     private Context mContext;
     private Handler mHandler = new Handler();
     private AtomicInteger mSequenceNumber = new AtomicInteger();
-    
+
     private LinkedBlockingQueue<LoadRequest> mLoaderQueue;
     private LoaderThread mLoaderThread;
     private ContentResolver mResolver;
-    
+
     private static interface LoadRequest {
         public void processRequest(EventLoader eventLoader);
         public void skipRequest(EventLoader eventLoader);
     }
-    
+
     private static class ShutdownRequest implements LoadRequest {
         public void processRequest(EventLoader eventLoader) {
         }
@@ -50,44 +51,46 @@ public class EventLoader {
         public void skipRequest(EventLoader eventLoader) {
         }
     }
-    
-    private static class LoadBusyBitsRequest implements LoadRequest {
+
+    /**
+     *
+     * Code for handling requests to get whether days have an event or not
+     * and filling in the eventDays array.
+     *
+     */
+    private static class LoadEventDaysRequest implements LoadRequest {
         public int startDay;
         public int numDays;
-        public int[] busybits;
-        public int[] allDayCounts;
+        public boolean[] eventDays;
         public Runnable uiCallback;
-        
-        public LoadBusyBitsRequest(int startDay, int numDays, int[] busybits, int[] allDayCounts,
-                final Runnable uiCallback) {
+
+        public LoadEventDaysRequest(int startDay, int numDays, boolean[] eventDays,
+                final Runnable uiCallback)
+        {
             this.startDay = startDay;
             this.numDays = numDays;
-            this.busybits = busybits;
-            this.allDayCounts = allDayCounts;
+            this.eventDays = eventDays;
             this.uiCallback = uiCallback;
         }
-        
-        public void processRequest(EventLoader eventLoader) {
+
+        public void processRequest(EventLoader eventLoader)
+        {
             final Handler handler = eventLoader.mHandler;
             ContentResolver cr = eventLoader.mResolver;
-            
-            // Clear the busy bits and all-day counts
-            for (int dayIndex = 0; dayIndex < numDays; dayIndex++) {
-                busybits[dayIndex] = 0;
-                allDayCounts[dayIndex] = 0;
-            }
 
-            Cursor cursor = BusyBits.query(cr, startDay, numDays);
+            // Clear the event days
+            Arrays.fill(eventDays, false);
+
+            //query which days have events
+            Cursor cursor = EventDays.query(cr, startDay, numDays);
             try {
-                int dayColumnIndex = cursor.getColumnIndexOrThrow(BusyBits.DAY);
-                int busybitColumnIndex = cursor.getColumnIndexOrThrow(BusyBits.BUSYBITS);
-                int allDayCountColumnIndex = cursor.getColumnIndexOrThrow(BusyBits.ALL_DAY_COUNT);
-                
+                int startDayColumnIndex = cursor.getColumnIndexOrThrow(EventDays.STARTDAY);
+
+                //Set all the days with events to true
                 while (cursor.moveToNext()) {
-                    int day = cursor.getInt(dayColumnIndex);
+                    int day = cursor.getInt(startDayColumnIndex);
                     int dayIndex = day - startDay;
-                    busybits[dayIndex] = cursor.getInt(busybitColumnIndex);
-                    allDayCounts[dayIndex] = cursor.getInt(allDayCountColumnIndex);
+                    eventDays[dayIndex] = true;
                 }
             } finally {
                 if (cursor != null) {
@@ -100,9 +103,9 @@ public class EventLoader {
         public void skipRequest(EventLoader eventLoader) {
         }
     }
-    
+
     private static class LoadEventsRequest implements LoadRequest {
-        
+
         public int id;
         public long startMillis;
         public int numDays;
@@ -119,11 +122,11 @@ public class EventLoader {
             this.successCallback = successCallback;
             this.cancelCallback = cancelCallback;
         }
-        
+
         public void processRequest(EventLoader eventLoader) {
             Event.loadEvents(eventLoader.mContext, events, startMillis,
                     numDays, id, eventLoader.mSequenceNumber);
-            
+
             // Check if we are still the most recent request.
             if (id == eventLoader.mSequenceNumber.get()) {
                 eventLoader.mHandler.post(successCallback);
@@ -136,16 +139,16 @@ public class EventLoader {
             eventLoader.mHandler.post(cancelCallback);
         }
     }
-    
+
     private static class LoaderThread extends Thread {
         LinkedBlockingQueue<LoadRequest> mQueue;
         EventLoader mEventLoader;
-        
+
         public LoaderThread(LinkedBlockingQueue<LoadRequest> queue, EventLoader eventLoader) {
             mQueue = queue;
             mEventLoader = eventLoader;
         }
-        
+
         public void shutdown() {
             try {
                 mQueue.put(new ShutdownRequest());
@@ -156,7 +159,7 @@ public class EventLoader {
                 Log.e("Cal", "LoaderThread.shutdown() interrupted!");
             }
         }
-        
+
         @Override
         public void run() {
             Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
@@ -164,13 +167,13 @@ public class EventLoader {
                 try {
                     // Wait for the next request
                     LoadRequest request = mQueue.take();
-                    
+
                     // If there are a bunch of requests already waiting, then
                     // skip all but the most recent request.
                     while (!mQueue.isEmpty()) {
                         // Let the request know that it was skipped
                         request.skipRequest(mEventLoader);
-                        
+
                         // Skip to the next request
                         request = mQueue.take();
                     }
@@ -185,13 +188,13 @@ public class EventLoader {
             }
         }
     }
-    
+
     public EventLoader(Context context) {
         mContext = context;
         mLoaderQueue = new LinkedBlockingQueue<LoadRequest>();
         mResolver = context.getContentResolver();
     }
-    
+
     /**
      * Call this from the activity's onResume()
      */
@@ -199,7 +202,7 @@ public class EventLoader {
         mLoaderThread = new LoaderThread(mLoaderQueue, this);
         mLoaderThread.start();
     }
-    
+
     /**
      * Call this from the activity's onPause()
      */
@@ -218,7 +221,7 @@ public class EventLoader {
      */
     void loadEventsInBackground(final int numDays, final ArrayList<Event> events,
             long start, final Runnable successCallback, final Runnable cancelCallback) {
-        
+
         // Increment the sequence number for requests.  We don't care if the
         // sequence numbers wrap around because we test for equality with the
         // latest one.
@@ -237,20 +240,30 @@ public class EventLoader {
             Log.e("Cal", "loadEventsInBackground() interrupted!");
         }
     }
-    
-    void loadBusyBitsInBackground(int startDay, int numDays, int[] busybits, int[] allDayCounts,
-            final Runnable uiCallback) {
-        // Send the load request to the background thread
-        LoadBusyBitsRequest request = new LoadBusyBitsRequest(startDay, numDays, busybits,
-                allDayCounts, uiCallback);
 
+    /**
+     * Sends a request for the days with events to be marked. Loads "numDays"
+     * worth of days, starting at start, and fills in eventDays to express which
+     * days have events.
+     *
+     * @param startDay First day to check for events
+     * @param numDays Days following the start day to check
+     * @param eventDay Whether or not an event exists on that day
+     * @param uiCallback What to do when done (log data, redraw screen)
+     */
+    void loadEventDaysInBackground(int startDay, int numDays, boolean[] eventDays,
+        final Runnable uiCallback)
+    {
+        // Send load request to the background thread
+        LoadEventDaysRequest request = new LoadEventDaysRequest(startDay, numDays,
+                eventDays, uiCallback);
         try {
             mLoaderQueue.put(request);
         } catch (InterruptedException ex) {
             // The put() method fails with InterruptedException if the
             // queue is full. This should never happen because the queue
             // has no limit.
-            Log.e("Cal", "loadBusyBitsInBackground() interrupted!");
+            Log.e("Cal", "loadEventDaysInBackground() interrupted!");
         }
     }
 }
