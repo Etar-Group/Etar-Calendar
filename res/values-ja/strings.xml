@@ -16,8 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"カレンダー"</string>
-    <!-- no translation found for calendar_plug (4861031284038774007) -->
-    <skip />
+    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Googleカレンダーへようこそ！"</font>\n"スケジュールに簡単にアクセスして、より直感的、効率的に予定を管理できます。"</string>
     <string name="what_label" msgid="1933578391985810049">"タイトル"</string>
     <string name="when_label" msgid="894636567327261599">"日時"</string>
     <string name="where_label" msgid="3472482206065595118">"場所"</string>
@@ -79,18 +78,20 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"開始"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"終日"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"カレンダー"</string>
-    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"詳細項目を表示する"</string>
+    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"詳細項目を表示"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"詳細項目を表示しない"</string>
     <string name="description_label" msgid="7193475046717505855">"内容"</string>
-    <!-- no translation found for presence_label (6169724148441175862) -->
-    <skip />
+    <string name="presence_label" msgid="6169724148441175862">"外部向け表示"</string>
     <string name="privacy_label" msgid="9215031965259597335">"公開設定"</string>
     <string name="reminders_label" msgid="8345054160145333166">"通知"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"カレンダーがありません"</string>
     <string name="no_calendars_found" msgid="755379468136462058">"カレンダーがありません。"</string>
-    <string name="view_event_calendar_label" msgid="8503354404461986250">"カレンダー"</string>
-    <string name="view_event_organizer_label" msgid="2168441329713325834">"主催者"</string>
-    <string name="view_event_timezone_label" msgid="6461351857281070935">"ローカルタイムゾーン"</string>
+    <!-- no translation found for view_event_calendar_label (6126231656338241140) -->
+    <skip />
+    <!-- no translation found for view_event_organizer_label (2753151795647402277) -->
+    <skip />
+    <!-- no translation found for view_event_timezone_label (4757495486359041757) -->
+    <skip />
     <string name="view_event_response_label" msgid="8382281658458798329">"参加しますか？"</string>
     <string name="agenda_today" msgid="6489447319363439068">"今日: <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"読み込み中..."</string>
@@ -127,8 +128,7 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"通知方法"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"バイブレーション"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"着信音を選択"</string>
-    <!-- no translation found for preferences_default_reminder_title (5188861433342733905) -->
-    <skip />
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"デフォルトの通知時間"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"リマインダー通知"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>
