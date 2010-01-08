@@ -16,8 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Calendario"</string>
-    <!-- no translation found for calendar_plug (4861031284038774007) -->
-    <skip />
+    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Te damos la bienvenida a Google Calendar,"</font>\n" un servicio de administración de calendario creado por Google para hacer que la programación de los eventos sea más intuitiva, eficaz y accesible."</string>
     <string name="what_label" msgid="1933578391985810049">"Asunto"</string>
     <string name="when_label" msgid="894636567327261599">"Cuándo"</string>
     <string name="where_label" msgid="3472482206065595118">"Dónde"</string>
@@ -82,16 +81,18 @@
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Mostrar opciones extra"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Ocultar opciones extra"</string>
     <string name="description_label" msgid="7193475046717505855">"Descripción"</string>
-    <!-- no translation found for presence_label (6169724148441175862) -->
-    <skip />
+    <string name="presence_label" msgid="6169724148441175862">"Mostrarme como"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacidad"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Recordatorios"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No hay calendarios."</string>
     <string name="no_calendars_found" msgid="755379468136462058">"No tienes ningún calendario."</string>
-    <string name="view_event_calendar_label" msgid="8503354404461986250">"Calendario"</string>
-    <string name="view_event_organizer_label" msgid="2168441329713325834">"Organizador"</string>
-    <string name="view_event_timezone_label" msgid="6461351857281070935">"Zona horaria local"</string>
-    <string name="view_event_response_label" msgid="8382281658458798329">"¿Asistiendo?"</string>
+    <!-- no translation found for view_event_calendar_label (6126231656338241140) -->
+    <skip />
+    <!-- no translation found for view_event_organizer_label (2753151795647402277) -->
+    <skip />
+    <!-- no translation found for view_event_timezone_label (4757495486359041757) -->
+    <skip />
+    <string name="view_event_response_label" msgid="8382281658458798329">"¿Asistirás?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Hoy, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Cargando..."</string>
     <string name="show_older_events" msgid="4031960000704544741">"Mostrando eventos a partir del <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Toca aquí para buscar más."</string>
@@ -103,7 +104,7 @@
     <string name="save_label" msgid="2133599104834432589">"Hecho"</string>
     <string name="discard_label" msgid="4510607554910139220">"Revertir"</string>
     <string name="import_label" msgid="6993796574741477222">"Importar"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"Posponer todo"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Posponer recordatorios"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Descartar todo"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
     <string name="daily" msgid="560350706808680448">"Cada día"</string>
@@ -115,7 +116,7 @@
     <string name="custom" msgid="3015205670911301856">"Personalizado... (no se puede personalizar por teléfono)"</string>
     <string name="modify_event" msgid="4501745557655992422">"Cambiar sólo este evento"</string>
     <string name="modify_all" msgid="7506579040966638538">"Cambiar todos los eventos de la serie"</string>
-    <string name="modify_all_following" msgid="4333745734894639276">"Cambiar éste y todos los eventos futuros"</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"Cambiar este y todos los eventos futuros"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"Este evento se suprimirá."</string>
     <string name="delete_title" msgid="5143743507524995383">"Eliminar"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Cambiar respuesta"</string>
@@ -127,8 +128,7 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Alertas y notificaciones"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrar"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Seleccionar tono"</string>
-    <!-- no translation found for preferences_default_reminder_title (5188861433342733905) -->
-    <skip />
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Duración predeterminada del recordatorio"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Duración predeterminada del recordatorio"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>
