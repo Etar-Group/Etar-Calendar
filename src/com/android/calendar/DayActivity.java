@@ -46,7 +46,7 @@ public class DayActivity extends CalendarActivity implements ViewSwitcher.ViewFa
         DayView view = new DayView(this);
         view.setId(VIEW_ID);
         view.setLayoutParams(new ViewSwitcher.LayoutParams(
-                LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         view.setSelectedDay(mSelectedDay);
         return view;
     }

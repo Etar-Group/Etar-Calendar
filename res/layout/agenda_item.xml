@@ -18,13 +18,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/content"
     android:layout_height="wrap_content"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeight">
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:ellipsize="end"
@@ -35,7 +35,7 @@
 
     <TextView
         android:id="@+id/when"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
         android:layout_alignLeft="@+id/title"
@@ -47,7 +47,7 @@
 
     <TextView
         android:id="@+id/where"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/when"
         android:layout_alignLeft="@+id/title"

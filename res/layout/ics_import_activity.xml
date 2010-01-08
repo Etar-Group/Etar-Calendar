@@ -15,14 +15,14 @@
 -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/event_background" >
 
     <LinearLayout android:id="@+id/import_ics"
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView android:id="@+id/num_events_label"
                   android:text="@string/num_events"
@@ -32,7 +32,7 @@
                   android:layout_height="wrap_content" />
 
         <TextView android:id="@+id/num_events"
-                  android:layout_width="fill_parent"
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content" />
 
         <LinearLayout android:id="@+id/calendar_row"
@@ -54,7 +54,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="1">
 

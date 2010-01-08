@@ -22,7 +22,7 @@
     
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dip">
         
@@ -34,26 +34,26 @@
         />
         
         <TextView android:id="@+id/event_title"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             style="@style/TextAppearance.Alert_Title" />
     </LinearLayout>
     
     <ImageView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/divider_horizontal_dark" />
     
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dip">
         
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             
             <TextView android:id="@+id/when_label"
@@ -64,14 +64,14 @@
                 style="@style/TextAppearance.Alert_Label" />
             
             <TextView android:id="@+id/when"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.Alert_Value" />
         </LinearLayout>
         
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             
             <TextView android:id="@+id/where_label"
@@ -82,7 +82,7 @@
                 style="@style/TextAppearance.Alert_Label" />
     
             <TextView android:id="@+id/where"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.Alert_Value" />
         </LinearLayout>

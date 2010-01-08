@@ -26,7 +26,7 @@
     <TextView android:id="@+id/event_title"
         android:textStyle="bold"
         android:textColor="@color/panel_text_foreground"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <LinearLayout
@@ -52,13 +52,13 @@
 
         <TextView android:id="@+id/time"
             android:textColor="@color/panel_text_foreground"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <TextView android:id="@+id/where"
         android:textColor="@color/panel_text_foreground"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

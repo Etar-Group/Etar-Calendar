@@ -16,23 +16,23 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeight">
     
     <View android:id="@+id/vertical_stripe"
         android:layout_width="5dip"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_marginRight="5dip" />
         
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         
         <TextView android:id="@+id/event_title"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ellipsize="end"
@@ -43,24 +43,24 @@
         
         <LinearLayout android:id="@+id/event_details"
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
                 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="0dip"
-                    android:layout_height="fill_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical">
                     
                     <TextView android:id="@+id/when"
                         android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
+                        android:layout_height="match_parent"
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:textStyle="bold"
@@ -68,7 +68,7 @@
 
                     <ImageView android:id="@+id/repeat_icon"
                         android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="5dip"
                         android:src="@drawable/ic_repeat_dark"
                         android:focusable="false"
@@ -78,13 +78,13 @@
                 </LinearLayout>
                 <LinearLayout android:id="@+id/reminders_container"
                     android:orientation="vertical"
-                    android:layout_height="fill_parent"
+                    android:layout_height="match_parent"
                     android:layout_width="wrap_content"
                 />
             </LinearLayout>
             
             <TextView android:id="@+id/where"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"

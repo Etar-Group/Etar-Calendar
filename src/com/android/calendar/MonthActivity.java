@@ -32,7 +32,6 @@ import android.preference.PreferenceManager;
 import android.provider.Calendar.Events;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,7 +77,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     public View makeView() {
         MonthView mv = new MonthView(this, this);
         mv.setLayoutParams(new ViewSwitcher.LayoutParams(
-                LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         mv.setSelectedTime(mTime);
         return mv;
     }

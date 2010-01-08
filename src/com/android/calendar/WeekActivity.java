@@ -51,7 +51,7 @@ public class WeekActivity extends CalendarActivity implements ViewSwitcher.ViewF
         WeekView wv = new WeekView(this);
         wv.setId(VIEW_ID);
         wv.setLayoutParams(new ViewSwitcher.LayoutParams(
-                LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         wv.setSelectedDay(mSelectedDay);
         return wv;
     }

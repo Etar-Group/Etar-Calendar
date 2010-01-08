@@ -35,7 +35,7 @@
 
     <style name="MonthView_DayLabel">
         <item name="android:layout_width">29dip</item>
-        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">2dip</item>

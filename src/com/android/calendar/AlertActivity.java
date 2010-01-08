@@ -205,8 +205,8 @@ public class AlertActivity extends Activity {
         setTitle(R.string.alert_title);
 
         WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.width = ViewGroup.LayoutParams.FILL_PARENT;
-        lp.height = ViewGroup.LayoutParams.FILL_PARENT;
+        lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
 
         // Get the dim amount from the theme
         TypedArray a = obtainStyledAttributes(com.android.internal.R.styleable.Theme);

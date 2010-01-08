@@ -16,19 +16,19 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll_view"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout android:id="@+id/event"
         android:background="#fafafa"
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <!-- WHAT -->
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditEvent_Layout">
 
@@ -39,7 +39,7 @@
                 style="@style/TextAppearance.EditEvent_Label"/>
 
             <EditText android:id="@+id/title"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_what"
                 android:capitalize="sentences"/>
@@ -48,7 +48,7 @@
         <!-- WHEN -->
         <LinearLayout android:id="@+id/when_container"
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditEvent_Layout">
 
@@ -60,7 +60,7 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <Button android:id="@+id/start_date"
@@ -87,7 +87,7 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <Button android:id="@+id/end_date"
@@ -106,7 +106,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|right"
                 android:paddingBottom="5dip">
@@ -128,13 +128,13 @@
 
         <!-- WHERE -->
         <View
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dip"
             android:background="@android:drawable/divider_horizontal_bright"
         />
         <LinearLayout android:id="@+id/where_container"
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditEvent_Layout">
 
@@ -145,7 +145,7 @@
                 style="@style/TextAppearance.EditEvent_Label"/>
 
             <EditText android:id="@+id/location"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_where"
                 android:capitalize="sentences"/>
@@ -154,7 +154,7 @@
         <!-- DESCRIPTION -->
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditEvent_Layout">
 
@@ -165,7 +165,7 @@
                 style="@style/TextAppearance.EditEvent_Label"/>
 
             <EditText android:id="@+id/description"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_description"
                 android:capitalize="sentences"/>
@@ -174,12 +174,12 @@
         <!-- CALENDARS -->
         <LinearLayout android:id="@+id/calendar_group"
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditEvent_Layout">
 
             <View
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="1dip"
                 android:background="@android:drawable/divider_horizontal_dark"
             />
@@ -191,7 +191,7 @@
                 style="@style/TextAppearance.EditEvent_Label"/>
 
             <Spinner android:id="@+id/calendars"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:prompt="@string/edit_event_calendar_label"/>
         </LinearLayout>
@@ -199,7 +199,7 @@
         <!-- GUESTS/ATTENDEES -->
         <LinearLayout android:id="@+id/attendees_group"
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditEvent_Layout">
 
@@ -210,7 +210,7 @@
                 style="@style/TextAppearance.EditEvent_Label"/>
 
             <MultiAutoCompleteTextView android:id="@+id/attendees"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress|textMultiLine"
                 android:hint="@string/hint_attendees"
@@ -222,7 +222,7 @@
         <!-- REPEATS -->
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditEvent_Layout">
 
@@ -233,7 +233,7 @@
                 style="@style/TextAppearance.EditEvent_Label"/>
 
             <Spinner android:id="@+id/repeats"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:prompt="@string/repeats_label"/>
         </LinearLayout>
@@ -241,14 +241,14 @@
         <!-- MORE OPTIONS -->
         <LinearLayout android:id="@+id/extra_options_container"
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone">
 
             <!-- PRESENCE -->
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/EditEvent_Layout">
 
@@ -259,7 +259,7 @@
                     style="@style/TextAppearance.EditEvent_Label"/>
 
                 <Spinner android:id="@+id/availability"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/availability"
                     android:prompt="@string/presence_label"/>
@@ -268,7 +268,7 @@
             <!-- PRIVACY -->
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/EditEvent_Layout">
 
@@ -279,7 +279,7 @@
                     style="@style/TextAppearance.EditEvent_Label"/>
 
                 <Spinner android:id="@+id/visibility"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/visibility"
                     android:prompt="@string/privacy_label"/>
@@ -288,14 +288,14 @@
 
         <!-- REMINDERS -->
         <View android:id="@+id/reminders_separator"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dip"
             android:background="@android:drawable/divider_horizontal_dark"
         />
 
         <LinearLayout android:id="@+id/reminders_container"
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditEvent_Layout">
 
@@ -307,12 +307,12 @@
 
             <LinearLayout android:id="@+id/reminder_items_container"
                 android:orientation="vertical"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical|right"
             android:paddingBottom="5dip">
@@ -336,7 +336,7 @@
         <!-- BUTTONS -->
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dip"
             android:paddingLeft="4dip"
@@ -346,21 +346,21 @@
 
             <Button android:id="@+id/save"
                 android:layout_width="0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/save_label"
             />
 
             <Button android:id="@+id/discard"
                 android:layout_width="0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/discard_label"
             />
 
             <Button android:id="@+id/delete"
                 android:layout_width="0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/delete_label"
             />
