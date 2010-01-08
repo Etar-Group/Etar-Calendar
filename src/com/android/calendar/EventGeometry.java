@@ -23,26 +23,26 @@ public class EventGeometry {
     private int mCellMargin = 0;
 
     private float mMinuteHeight;
-    
+
     private float mHourGap;
     private float mMinEventHeight;
-    
+
     void setCellMargin(int cellMargin) {
         mCellMargin = cellMargin;
     }
-    
+
     void setHourGap(float gap) {
         mHourGap = gap;
     }
-    
+
     void setMinEventHeight(float height) {
         mMinEventHeight = height;
     }
-    
+
     void setHourHeight(float height) {
         mMinuteHeight = height / 60.0f;
     }
-    
+
     // Computes the rectangle coordinates of the given event on the screen.
     // Returns true if the rectangle is visible on the screen.
     boolean computeEventRect(int date, int left, int top, int cellWidth, Event event) {
@@ -53,20 +53,20 @@ public class EventGeometry {
         float cellMinuteHeight = mMinuteHeight;
         int startDay = event.startDay;
         int endDay = event.endDay;
-        
+
         if (startDay > date || endDay < date) {
             return false;
         }
-        
+
         int startTime = event.startTime;
         int endTime = event.endTime;
-        
+
         // If the event started on a previous day, then show it starting
         // at the beginning of this day.
         if (startDay < date) {
             startTime = 0;
         }
-        
+
         // If the event ends on a future day, then show it extending to
         // the end of this day.
         if (endDay > date) {
@@ -96,64 +96,13 @@ public class EventGeometry {
         if (event.bottom < event.top + mMinEventHeight) {
             event.bottom = event.top + mMinEventHeight;
         }
-        
+
         float colWidth = (float) (cellWidth - 2 * mCellMargin) / (float) maxCols;
         event.left = left + mCellMargin + col * colWidth;
         event.right = event.left + colWidth;
         return true;
     }
-    
-    // Computes the busy bits.  For each interval containing "interval" minutes,
-    // the busy bit for that interval is set to 1 if the given event overlaps
-    // that interval.
-    void computeBusyBits(int firstDate, int numDays, byte[][] busyBits, Event event, int interval) {
-        if (event.allDay) {
-            return;
-        }
 
-        int endDate = firstDate + numDays;
-        int startDay = event.startDay;
-        int endDay = event.endDay;
-        if (startDay >= endDate || endDay < firstDate) {
-            return;
-        }
-
-        int startTime = event.startTime;
-        
-        int day = startDay;
-        
-        // If the event started on a previous day, then show it starting
-        // at the beginning of this day.
-        if (day < firstDate) {
-            day = firstDate;
-            startTime = 0;
-        }
-        
-        if (endDay >= endDate) {
-            endDay = endDate - 1;
-        }
-        
-        int dayIndex = day - firstDate;
-        while (day <= endDay) {
-            int endTime = event.endTime;
-            // If the event ends on a future day, then show it extending to
-            // the end of this day.
-            if (endDay > day) {
-                endTime = CalendarView.MINUTES_PER_DAY;
-            }
-
-            int startInterval = startTime / interval;
-            int endInterval = (endTime + interval - 1) / interval;
-            
-            for (int ii = startInterval; ii < endInterval; ii++) {
-                busyBits[dayIndex][ii] = 1;
-            }
-            day += 1;
-            dayIndex += 1;
-            startTime = 0;
-        }
-    }
-    
     /**
      * Returns true if this event intersects the selection region.
      */
@@ -164,7 +113,7 @@ public class EventGeometry {
         }
         return false;
     }
-    
+
     /**
      * Computes the distance from the given point to the given event.
      */
@@ -173,7 +122,7 @@ public class EventGeometry {
         float right = event.right;
         float top = event.top;
         float bottom = event.bottom;
-        
+
         if (x >= left) {
             if (x <= right) {
                 if (y >= top) {
@@ -187,7 +136,7 @@ public class EventGeometry {
                 // x,y is above the event rectangle
                 return top - y;
             }
-            
+
             // x > right
             float dx = x - right;
             if (y < top) {
