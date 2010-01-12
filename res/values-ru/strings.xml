@@ -33,7 +33,7 @@
     <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
   </plurals>
   <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 час"</item>
+    <item quantity="one" msgid="4793697728599296830">"за 1 час"</item>
     <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ч."</item>
   </plurals>
   <plurals name="Ndays">
@@ -99,7 +99,7 @@
     <string name="delete_label" msgid="874742811918030739">"Удалить"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Удалить мероприятие"</string>
     <string name="save_label" msgid="2133599104834432589">"Готово"</string>
-    <string name="discard_label" msgid="4510607554910139220">"Отменить изменения"</string>
+    <string name="discard_label" msgid="4510607554910139220">"Отмена"</string>
     <string name="import_label" msgid="6993796574741477222">"Импорт"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Отложить все"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Отключить все"</string>
@@ -118,14 +118,14 @@
     <string name="delete_title" msgid="5143743507524995383">"Удалить"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Изменить ответ"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Настройки"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Вид календаря"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Мероприятия"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Настройки напоминаний"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Скрыть отклоненные мероприятия"</string>
-    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Выбрать уведомление или оповещение"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Скрыть отклоненные"</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Настроить уведомления"</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Оповещения и уведомления"</string>
-    <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Вибрация"</string>
+    <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Вибросигнал"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Выбрать мелодию"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Время напоминания по умолчанию"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Время напоминания по умолчанию"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Время напоминания"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Напомнить"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
 </resources>

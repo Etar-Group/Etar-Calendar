@@ -89,7 +89,7 @@
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Calendario"</string>
     <string name="view_event_organizer_label" msgid="2168441329713325834">"Organizador"</string>
     <string name="view_event_timezone_label" msgid="6461351857281070935">"Zona horaria local"</string>
-    <string name="view_event_response_label" msgid="8382281658458798329">"¿Asistiendo?"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"¿Asistirás?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Hoy, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Cargando..."</string>
     <string name="show_older_events" msgid="4031960000704544741">"Mostrando eventos a partir del <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Toca aquí para buscar más."</string>
@@ -101,7 +101,7 @@
     <string name="save_label" msgid="2133599104834432589">"Hecho"</string>
     <string name="discard_label" msgid="4510607554910139220">"Revertir"</string>
     <string name="import_label" msgid="6993796574741477222">"Importar"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"Posponer todo"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Posponer recordatorios"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Descartar todo"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
     <string name="daily" msgid="560350706808680448">"Cada día"</string>
@@ -113,7 +113,7 @@
     <string name="custom" msgid="3015205670911301856">"Personalizado... (no se puede personalizar por teléfono)"</string>
     <string name="modify_event" msgid="4501745557655992422">"Cambiar sólo este evento"</string>
     <string name="modify_all" msgid="7506579040966638538">"Cambiar todos los eventos de la serie"</string>
-    <string name="modify_all_following" msgid="4333745734894639276">"Cambiar éste y todos los eventos futuros"</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"Cambiar este y todos los eventos futuros"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"Este evento se suprimirá."</string>
     <string name="delete_title" msgid="5143743507524995383">"Eliminar"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Cambiar respuesta"</string>

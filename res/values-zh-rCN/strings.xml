@@ -20,7 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"内容"</string>
     <string name="when_label" msgid="894636567327261599">"时间"</string>
     <string name="where_label" msgid="3472482206065595118">"地点"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"来宾"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"邀请对象"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"重复"</string>
     <string name="no_title_label" msgid="7352118984125107858">"（无主题）"</string>
@@ -47,7 +47,7 @@
     <string name="week_view" msgid="6775043022159508060">"周"</string>
     <string name="month_view" msgid="7287101431749285412">"月"</string>
     <string name="event_view" msgid="7621353079385122317">"查看活动"</string>
-    <string name="event_create" msgid="6941040556709110617">"新活动"</string>
+    <string name="event_create" msgid="6941040556709110617">"新建活动"</string>
     <string name="event_edit" msgid="4006961928830064662">"编辑活动"</string>
     <string name="event_delete" msgid="2386667193277770442">"删除活动"</string>
     <string name="goto_today" msgid="9162136434410891230">"今天"</string>
@@ -78,10 +78,10 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"从"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"全天"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"日历"</string>
-    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"显示额外选项"</string>
+    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"显示更多选项"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"隐藏额外选项"</string>
     <string name="description_label" msgid="7193475046717505855">"说明"</string>
-    <string name="presence_label" msgid="6169724148441175862">"状态显示为"</string>
+    <string name="presence_label" msgid="6169724148441175862">"将我的状态显示为"</string>
     <string name="privacy_label" msgid="9215031965259597335">"隐私"</string>
     <string name="reminders_label" msgid="8345054160145333166">"提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"无日历"</string>
@@ -92,8 +92,8 @@
     <string name="view_event_response_label" msgid="8382281658458798329">"参加吗？"</string>
     <string name="agenda_today" msgid="6489447319363439068">"今天（<xliff:g id="DATE">%1$s</xliff:g>）"</string>
     <string name="loading" msgid="3772533493214331230">"正在载入..."</string>
-    <string name="show_older_events" msgid="4031960000704544741">"显示自 <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>以来发生的活动。点按可查看更多活动。"</string>
-    <string name="show_newer_events" msgid="2647889653936094369">"显示 <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>之前发生的活动。点按可查看更多活动。"</string>
+    <string name="show_older_events" msgid="4031960000704544741">"显示<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>以后发生的活动。点按可查看更多活动。"</string>
+    <string name="show_newer_events" msgid="2647889653936094369">"显示<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>之前发生的活动。点按可查看更多活动。"</string>
     <string name="num_events" msgid="3351672964607162257">"活动数"</string>
     <string name="edit_event_label" msgid="2900418236819088363">"编辑活动"</string>
     <string name="delete_label" msgid="874742811918030739">"删除"</string>
@@ -101,7 +101,7 @@
     <string name="save_label" msgid="2133599104834432589">"完成"</string>
     <string name="discard_label" msgid="4510607554910139220">"还原"</string>
     <string name="import_label" msgid="6993796574741477222">"导入"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"全部暂停"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"全部暂停再响"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"全部关闭"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"一次性活动"</string>
     <string name="daily" msgid="560350706808680448">"每天"</string>
@@ -112,7 +112,7 @@
     <string name="yearly" msgid="8576208380302949002">"每年（<xliff:g id="DATES">%s</xliff:g>）"</string>
     <string name="custom" msgid="3015205670911301856">"自定义...（无法在手机上自定义）"</string>
     <string name="modify_event" msgid="4501745557655992422">"仅更改此活动。"</string>
-    <string name="modify_all" msgid="7506579040966638538">"更改系列中的所有活动。"</string>
+    <string name="modify_all" msgid="7506579040966638538">"更改所有重复的活动"</string>
     <string name="modify_all_following" msgid="4333745734894639276">"更改此活动和所有将来的活动。"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"将会删除此活动。"</string>
     <string name="delete_title" msgid="5143743507524995383">"删除"</string>

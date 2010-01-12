@@ -40,9 +40,9 @@
     <item quantity="one" msgid="5988137255732166573">"1 dag"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dagar"</item>
   </plurals>
-    <string name="show_agenda_view" msgid="7971854300981408347">"Visa program"</string>
+    <string name="show_agenda_view" msgid="7971854300981408347">"Visa agenda"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Visa dag"</string>
-    <string name="agenda_view" msgid="5566084759423843245">"Program"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
     <string name="day_view" msgid="4467754504843584437">"Dag"</string>
     <string name="week_view" msgid="6775043022159508060">"Vecka"</string>
     <string name="month_view" msgid="7287101431749285412">"Månad"</string>
@@ -121,7 +121,7 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Inställning för kalendervy"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Inställningar för påminnelse"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Dölj avböjda händelser"</string>
-    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Ställ in varningar och avis."</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Ställ in varningar och aviseringar"</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Varningar och aviseringar"</string>
     <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibrera"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Välj ringsignal"</string>
