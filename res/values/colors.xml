@@ -26,7 +26,8 @@
     <color name="calendar_event_text_color">#ffffffff</color>
 
     <color name="calendar_all_day_background">#ffe8eef7</color>
-    <color name="week_weekend">#ff446688</color>
+    <color name="week_saturday">#ff446688</color>
+    <color name="week_sunday">#ff446688</color>
     <color name="calendar_hour_label">#ff446688</color>
     <color name="calendar_ampm_label">#ff446688</color>
     <color name="calendar_hour_background">#ffe8eef7</color>
