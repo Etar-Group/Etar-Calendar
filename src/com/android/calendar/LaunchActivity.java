@@ -29,7 +29,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-import com.google.android.googlelogin.GoogleLoginServiceConstants;
+import com.google.android.gsf.GoogleLoginServiceConstants;
 
 import java.io.IOException;
 

@@ -86,7 +86,7 @@ import android.widget.Toast;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
 
-import com.google.android.googlelogin.GoogleLoginServiceConstants;
+import com.google.android.gsf.GoogleLoginServiceConstants;
 
 import java.io.IOException;
 import java.util.ArrayList;
