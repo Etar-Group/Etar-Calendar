@@ -22,6 +22,8 @@
     <color name="panel_text_foreground">#ffffffff</color>
     <color name="daynames_background">#ffc3d9ff</color>
     <color name="daynames_text_color">#ff112abb</color>
+    <color name="sunday_text_color">#ff112abb</color>
+    <color name="saturday_text_color">#ff112abb</color>
     <color name="calendar_event_selected_text_color">#ff000000</color>
     <color name="calendar_event_text_color">#ffffffff</color>
 
@@ -44,6 +46,8 @@
     <color name="pressed">#fffab400</color>
         
     <color name="month_day_number">#ff404040</color>
+    <color name="month_saturday">#ff404040</color>
+    <color name="month_sunday">#ff404040</color>
     <color name="month_today_number">#ffffffff</color>
     <color name="month_other_month">#ff595959</color>
     <color name="month_other_month_day_number">#ffa0a0a0</color>

@@ -42,10 +42,10 @@ import android.os.Handler;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -356,14 +356,7 @@ public class CalendarView extends View
         setClickable(true);
         setOnCreateContextMenuListener(this);
 
-        mStartDay = Calendar.getInstance().getFirstDayOfWeek();
-        if (mStartDay == Calendar.SATURDAY) {
-            mStartDay = Time.SATURDAY;
-        } else if (mStartDay == Calendar.MONDAY) {
-            mStartDay = Time.MONDAY;
-        } else {
-            mStartDay = Time.SUNDAY;
-        }
+        mStartDay = Utils.getFirstDayOfWeek();
 
         mWeek_saturdayColor = mResources.getColor(R.color.week_saturday);
         mWeek_sundayColor = mResources.getColor(R.color.week_sunday);
@@ -1445,30 +1438,9 @@ public class CalendarView extends View
     private void drawDayHeader(String dateStr, int day, int cell, int x, Canvas canvas, Paint p) {
         float xCenter = x + mCellWidth / 2.0f;
 
-        boolean isSaturday = false;
-        boolean isSunday = false;
-        if (mStartDay == Time.SUNDAY) {
-            if (day == 6) {
-                isSaturday = true;
-            } else if (day == 0) {
-                isSunday = true;
-            }
-        } else if (mStartDay == Time.MONDAY) {
-            if (day == 5) {
-                isSaturday = true;
-            } else if (day == 6) {
-                isSunday = true;
-            }
-        } else if (mStartDay == Time.SATURDAY) {
-            if (day == 0) {
-                isSaturday = true;
-            } else if (day == 1) {
-                isSunday = true;
-            }
-        }
-        if (isSaturday) {
+        if (Utils.isSaturday(day, mStartDay)) {
             p.setColor(mWeek_saturdayColor);
-        } else if (isSunday) {
+        } else if (Utils.isSunday(day, mStartDay)) {
             p.setColor(mWeek_sundayColor);
         } else {
             p.setColor(mCalendarDateBannerTextColor);

@@ -17,6 +17,7 @@
 package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
+import dalvik.system.VMRuntime;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -43,8 +44,6 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 import android.widget.Gallery.LayoutParams;
 
-import dalvik.system.VMRuntime;
-
 import java.util.Calendar;
 
 public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
@@ -62,6 +61,14 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     private int mStartDay;
 
     private ProgressBar mProgressBar;
+
+    private static final int DAY_OF_WEEK_LABEL_IDS[] = {
+        R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6
+    };
+    private static final int DAY_OF_WEEK_KINDS[] = {
+        Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY,
+        Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY
+    };
 
     protected void startProgressSpinner() {
         // start the progress spinner
@@ -219,28 +226,21 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
         // Get first day of week based on locale and populate the day headers
         mStartDay = Calendar.getInstance().getFirstDayOfWeek();
         int diff = mStartDay - Calendar.SUNDAY - 1;
+        final int startDay = Utils.getFirstDayOfWeek();
+        final int sundayColor = getResources().getColor(R.color.sunday_text_color);
+        final int saturdayColor = getResources().getColor(R.color.saturday_text_color);
 
-        String dayString = DateUtils.getDayOfWeekString((Calendar.SUNDAY + diff) % 7 + 1,
-                DateUtils.LENGTH_MEDIUM);
-        ((TextView) findViewById(R.id.day0)).setText(dayString);
-        dayString = DateUtils.getDayOfWeekString((Calendar.MONDAY + diff) % 7 + 1,
-                DateUtils.LENGTH_MEDIUM);
-        ((TextView) findViewById(R.id.day1)).setText(dayString);
-        dayString = DateUtils.getDayOfWeekString((Calendar.TUESDAY + diff) % 7 + 1,
-                DateUtils.LENGTH_MEDIUM);
-        ((TextView) findViewById(R.id.day2)).setText(dayString);
-        dayString = DateUtils.getDayOfWeekString((Calendar.WEDNESDAY + diff) % 7 + 1,
-                DateUtils.LENGTH_MEDIUM);
-        ((TextView) findViewById(R.id.day3)).setText(dayString);
-        dayString = DateUtils.getDayOfWeekString((Calendar.THURSDAY + diff) % 7 + 1,
-                DateUtils.LENGTH_MEDIUM);
-        ((TextView) findViewById(R.id.day4)).setText(dayString);
-        dayString = DateUtils.getDayOfWeekString((Calendar.FRIDAY + diff) % 7 + 1,
-                DateUtils.LENGTH_MEDIUM);
-        ((TextView) findViewById(R.id.day5)).setText(dayString);
-        dayString = DateUtils.getDayOfWeekString((Calendar.SATURDAY + diff) % 7 + 1,
-                DateUtils.LENGTH_MEDIUM);
-        ((TextView) findViewById(R.id.day6)).setText(dayString);
+        for (int day = 0; day < 7; day++) {
+            final String dayString = DateUtils.getDayOfWeekString(
+                    (DAY_OF_WEEK_KINDS[day] + diff) % 7 +1, DateUtils.LENGTH_MEDIUM);
+            final TextView label = (TextView) findViewById(DAY_OF_WEEK_LABEL_IDS[day]);
+            label.setText(dayString);
+            if (Utils.isSunday(day, startDay)) {
+                label.setTextColor(sundayColor);
+            } else if (Utils.isSaturday(day, startDay)) {
+                label.setTextColor(saturdayColor);
+            }
+        }
 
         // Set the initial title
         TextView title = (TextView) findViewById(R.id.title);
