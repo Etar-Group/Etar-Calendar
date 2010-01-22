@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import com.google.android.gsf.GoogleLoginServiceConstants;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -25,11 +27,11 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-
-import com.google.android.gsf.GoogleLoginServiceConstants;
+import android.provider.Calendar.Calendars;
 
 import java.io.IOException;
 
@@ -37,8 +39,15 @@ import java.io.IOException;
 public class LaunchActivity extends Activity {
     static final String KEY_DETAIL_VIEW = "DETAIL_VIEW";
     static final String GMAIL_AUTH_SERVICE = "mail";
+    private static final String[] PROJECTION = new String[] {
+        Calendars._ID,
+        Calendars._SYNC_ACCOUNT
+    };
+    //Part of example on opening sync settings page
+//    private static final String AUTHORITIES_FILTER_KEY = "authorities";
 
     private Bundle mExtras;
+    private LaunchActivity mThis;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -53,6 +62,43 @@ public class LaunchActivity extends Activity {
 
         // Only try looking for an account if this is the first launch.
         if (icicle == null) {
+            //Check if any calendar providers have started writing data to the calendars table.
+            //This is currently the only way to check if an account that supports calendar other
+            //than a google account is available without explicitly checking for each type.
+            Cursor cursor = managedQuery(Calendars.CONTENT_URI, PROJECTION,
+                    "1) GROUP BY (_sync_account", //TODO Remove hack once group by support is added
+                    null /* selectionArgs */,
+                    Calendars._SYNC_ACCOUNT /*sort order*/);
+            Account[] accounts = AccountManager.get(this).getAccounts();
+            if(cursor != null && cursor.getCount() > 0 && accounts.length > 0) {
+                int accountColumn = cursor.getColumnIndexOrThrow(Calendars._SYNC_ACCOUNT);
+                boolean cont = cursor.moveToFirst();
+                while(cont) {
+                    String account = cursor.getString(accountColumn);
+                    //Find a matching account
+                    for(int i = 0; i < accounts.length; i++) {
+                        //Use the first account that supports calendar found for set up.
+                        if(account.equals(accounts[i].name)) {
+                            onAccountsLoaded(accounts[i]);
+                            return;
+                        }
+                    }
+                    cont = cursor.moveToNext();
+                }
+            }
+            //If we failed to find a valid Calendar ask the user to add a Calendar supported account
+            //Currently we're just bouncing it over to the create google account, but will do a UI
+            //change to fix this later.
+            //TODO
+
+            //This is an example of how to bounce to the sync settings page to add an account
+//            final Intent intent = new Intent(Settings.ACTION_SYNC_SETTINGS);
+//            intent.putExtra(AUTHORITIES_FILTER_KEY, new String[] {
+//                ContactsContract.AUTHORITY
+//            });
+//            startActivity(intent);
+//            return;
+
             // This will request a Gmail account and if none are present, it will
             // invoke SetupWizard to login or create one. The result is returned
             // via the Future2Callback.
