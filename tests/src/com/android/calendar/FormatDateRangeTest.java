@@ -172,7 +172,7 @@ public class FormatDateRangeTest extends AndroidTestCase {
             new DateTest(
                     Calendar.getInstance().get(Calendar.YEAR) - 1, 0, 3, 13, 0,
                     DateUtils.FORMAT_SHOW_DATE,
-                    "January 3, 2008"),
+                    "January 3, " + (Calendar.getInstance().get(Calendar.YEAR) - 1)),
     };
 
     @Override
