@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,14 +34,14 @@
     <string name="attendees_label">Guests</string>
     <!-- This is the label for the Guest Responses and count of an event e.g. Yes (3) -->
     <string name="response_label">"<xliff:g id="response_type">%s</xliff:g> (<xliff:g id="guest_count">%d</xliff:g>)"</string>
-    
+
     <!-- Some events repeat daily, weekly, monthly, or yearly.  This is the label
          for all the choices about how often an event repeats (including the choice
          of not repeating). -->
     <string name="repeats_label">Repetition</string>
     <!-- Title of event when no explicit title is specified by the user -->
     <string name="no_title_label">(No subject)</string>
-    
+
     <!-- Reminder format strings -->
     <plurals name="Nminutes">
         <!-- This is the label for a 1-minute reminder. -->
@@ -81,7 +81,7 @@
              days is a parameter. -->
         <item quantity="other"><xliff:g id="count">%d</xliff:g> days</item>
     </plurals>
-    
+
     <!-- Menu items: -->
     <skip />
     <!-- This is a label on a context menu item. Pressing this menu item displays the
@@ -121,7 +121,7 @@
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to see the list of calendars that he is viewing and to then add
          or remove selected calendars. -->
-    <string name="menu_select_calendars">"My calendars"</string>
+    <string name="menu_select_calendars">"Sync &amp; display options"</string>
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to view and edit his Settings (or Preferences) -->
     <string name="menu_preferences">"Settings"</string>
@@ -140,11 +140,13 @@
     <!-- Select Calendars activity -->
     <skip />
     <!-- Title of "My calendars" screen -->
-    <string name="calendars_title">"My calendars"</string>
-    <!-- Menu option for selecting calendars to add -->
-    <string name="add_calendars">"Add calendars"</string>
-    <!-- Menu option for selecting calendars to remove -->
-    <string name="remove_calendars">"Remove calendars"</string>
+    <string name="calendars_title">"Sync &amp; display options"</string>
+    <!-- Synced and visible status message -->
+    <string name="synced_visible">synced, visible</string>
+    <!-- Synced but not visible status message -->
+    <string name="synced_not_visible">synced, not visible</string>
+    <!-- not Synced or visible status message -->
+    <string name="not_synced_not_visible">not synced, not visible</string>
 
     <!-- Event edit activity -->
     <skip />
@@ -180,7 +182,7 @@
          if there were two additional reminders then this would show
          '2 more reminders' -->
     <string name="alert_missed_events_multiple">(<xliff:g id="reminder_count">%s</xliff:g> more reminders)</string>
-    
+
     <!-- Event info/edit screen labels:-->
     <skip />
     <!-- This is the title of the screen used to view the details of an event -->
@@ -190,7 +192,7 @@
     <string name="event_info_title_invite">Meeting invitation</string>
     <!-- Menu item to allow the user to add a reminder to an event -->
     <string name="add_new_reminder">Add reminder</string>
-        
+
     <!-- EditEventActivity specific strings: -->
     <skip />
     <!-- Events have a start date/time and an end date/time. The display shows
@@ -221,7 +223,7 @@
     <string name="reminders_label">Reminders</string>
     <string name="no_syncable_calendars">No calendars</string>
     <string name="no_calendars_found">You have no calendars.</string>
-    
+
     <!-- View Event -->
     <skip />
     <!-- Label for which calendar an event is part of -->
@@ -234,7 +236,7 @@
          a user is invited to a meeting or event.  The possible answers are
          'yes', 'no', and 'maybe' (and, initially, 'no response'). -->
     <string name="view_event_response_label">Attending?</string>
-    
+
     <!-- Agenda View strings -->
     <skip />
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
@@ -245,7 +247,7 @@
     <string name="show_older_events">Showing events since <xliff:g id="oldest_search_range">%1$s</xliff:g>. Tap to look for more.</string>
     <!-- This is shown at the bottom of the agenda view showing the range of events shown. -->
     <string name="show_newer_events">Showing events until <xliff:g id="newest_search_range">%1$s</xliff:g>. Tap to look for more.</string>
-    
+
     <!-- ICS Import activity -->
     <skip />
     <!-- This is a abbreviation for 'Number of events' and is a label next to
@@ -296,18 +298,18 @@
     <!-- Example: 'Monthly (every first Sunday)' -->
     <!--   1st parameter is an ordinal number, like 'first' -->
     <!--   2nd parameter is a day of the week, like 'Sunday' -->
-    <string name="monthly_on_day_count">"Monthly (every <xliff:g id="ordinal_number">%1$s</xliff:g> <xliff:g id="day_of_week">%2$s</xliff:g>)"</string> 
-    
+    <string name="monthly_on_day_count">"Monthly (every <xliff:g id="ordinal_number">%1$s</xliff:g> <xliff:g id="day_of_week">%2$s</xliff:g>)"</string>
+
     <!-- Example: "Monthly (on day 15)" -->
     <string name="monthly_on_day">"Monthly (on day <xliff:g id="day_of_month">%s</xliff:g>)"</string>
     <!-- Example: "Yearly (on April 15)" -->
     <string name="yearly">"Yearly (on <xliff:g id="dates">%s</xliff:g>)"</string>
-    <!-- This is a label for telling the user that this event repeats in 
+    <!-- This is a label for telling the user that this event repeats in
          custom (non-standard) way from the usual repeat rates (such as daily,
          weekly, etc.) and that the user cannot change this on the phone
          (but only on the web). -->
     <string name="custom">"Custom\u2026 (cannot customize on phone)"</string>
-    
+
     <!-- This is a choice in a list that the user sees when he tries to modify
          a repeating event.  This choice says to change just this one instance
          of this repeating event. -->
@@ -320,8 +322,9 @@
          a repeating event.  This choice says to change this instance and all
          future occurrences of this repeating event. -->
     <string name="modify_all_following">Change this and all future events.</string>
-    
+
     <!-- Dialogs -->
+
     <!-- Confirmation dialog message -->
     <skip />
     <!-- This is a confirmation message in a popup dialog that appears when the
