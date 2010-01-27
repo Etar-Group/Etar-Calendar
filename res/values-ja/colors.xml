@@ -18,7 +18,12 @@
 */
 -->
 <resources>
-    <color name="week_saturday">#ff4444aa</color>
-    <color name="week_sunday">#ffaa2222</color>
-    <color name="calendar_date_banner_text_color">#ffffffff</color>
+    <color name="week_saturday">#ff2222cc</color>
+    <color name="week_sunday">#ffcc2222</color>
+    <color name="calendar_date_banner_text_color">#ff000000</color>
+    <color name="saturday_text_color">#ff2222cc</color>
+    <color name="sunday_text_color">#ffcc2222</color>
+    <color name="daynames_text_color">#ff000000</color>
+    <color name="month_saturday">#ff2222cc</color>
+    <color name="month_sunday">#ffcc2222</color>
 </resources>

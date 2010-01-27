@@ -156,6 +156,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
      */
     private int mFirstJulianDay;
 
+    private int mStartDay;
+
     private final EventLoader mEventLoader;
 
     private ArrayList<Event> mEvents = new ArrayList<Event>();
@@ -170,6 +172,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private int mMonthOtherMonthDayNumberColor;
     private int mMonthDayNumberColor;
     private int mMonthTodayNumberColor;
+    private int mMonthSaturdayColor;
+    private int mMonthSundayColor;
 
     public MonthView(MonthActivity activity, Navigator navigator) {
         super(activity);
@@ -211,6 +215,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         mViewCalendar.monthDay = 1;
         long millis = mViewCalendar.normalize(true /* ignore DST */);
         mFirstJulianDay = Time.getJulianDay(millis, mViewCalendar.gmtoff);
+        mStartDay = Utils.getFirstDayOfWeek();
         mViewCalendar.set(now);
 
         mCursor = new DayOfMonthCursor(mViewCalendar.year,  mViewCalendar.month,
@@ -235,6 +240,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         mMonthOtherMonthDayNumberColor = res.getColor(R.color.month_other_month_day_number);
         mMonthDayNumberColor = res.getColor(R.color.month_day_number);
         mMonthTodayNumberColor = res.getColor(R.color.month_today_number);
+        mMonthSaturdayColor = res.getColor(R.color.month_saturday);
+        mMonthSundayColor = res.getColor(R.color.month_sunday);
 
         if (mShowToast) {
             LayoutInflater inflater;
@@ -784,10 +791,14 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         if (!withinCurrentMonth) {
             p.setColor(mMonthOtherMonthDayNumberColor);
         } else {
-            if (drawSelection || !isToday) {
-                p.setColor(mMonthDayNumberColor);
-            } else {
+            if (isToday && !drawSelection) {
                 p.setColor(mMonthTodayNumberColor);
+            } else if (Utils.isSunday(column, mStartDay)) {
+                p.setColor(mMonthSundayColor);
+            } else if (Utils.isSaturday(column, mStartDay)) {
+                p.setColor(mMonthSaturdayColor);
+            } else {
+                p.setColor(mMonthDayNumberColor);
             }
             //bolds the day if there's an event that day
             p.setFakeBoldText(eventDay[day-mFirstJulianDay]);
