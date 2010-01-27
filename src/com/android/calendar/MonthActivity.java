@@ -232,7 +232,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
 
         for (int day = 0; day < 7; day++) {
             final String dayString = DateUtils.getDayOfWeekString(
-                    (DAY_OF_WEEK_KINDS[day] + diff) % 7 +1, DateUtils.LENGTH_MEDIUM);
+                    (DAY_OF_WEEK_KINDS[day] + diff) % 7 + 1, DateUtils.LENGTH_MEDIUM);
             final TextView label = (TextView) findViewById(DAY_OF_WEEK_LABEL_IDS[day]);
             label.setText(dayString);
             if (Utils.isSunday(day, startDay)) {
