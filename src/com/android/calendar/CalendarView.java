@@ -75,8 +75,18 @@ public class CalendarView extends View
         implements View.OnCreateContextMenuListener, View.OnClickListener {
 
     private static float mScale = 0; // Used for supporting different screen densities
+    private static final long INVALID_EVENT_ID = -1; //This is used for remembering a null event
 
     private boolean mOnFlingCalled;
+    /**
+     * ID of the last event which was displayed with the toast popup.
+     *
+     * This is used to prevent popping up multiple quick views for the same event, especially
+     * during calendar syncs. This becomes valid when an event is selected, either by default
+     * on starting calendar or by scrolling to an event. It becomes invalid when the user
+     * explicitly scrolls to an empty time slot, changes views, or deletes the event.
+     */
+    private long mLastPopupEventID;
 
     protected CalendarApplication mCalendarApp;
     protected CalendarActivity mParentActivity;
@@ -343,6 +353,7 @@ public class CalendarView extends View
         mParentActivity = activity;
         mCalendarApp = (CalendarApplication) mParentActivity.getApplication();
         mDeleteEventHelper = new DeleteEventHelper(activity, false /* don't exit when done */);
+        mLastPopupEventID = INVALID_EVENT_ID;
 
         init(activity);
     }
@@ -740,7 +751,10 @@ public class CalendarView extends View
         mViewStartY = mFirstHour * (mCellHeight + HOUR_GAP) - mFirstHourOffset;
 
         int eventAreaWidth = mNumDays * (mCellWidth + DAY_GAP);
-        mPopup.dismiss();
+        //When we get new events we don't want to dismiss the popup unless the event changes
+        if (mSelectedEvent != null && mLastPopupEventID != mSelectedEvent.id) {
+            mPopup.dismiss();
+        }
         mPopup.setWidth(eventAreaWidth - 20);
         mPopup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
     }
@@ -788,6 +802,7 @@ public class CalendarView extends View
         Event selectedEvent = mSelectedEvent;
 
         mPopup.dismiss();
+        mLastPopupEventID = INVALID_EVENT_ID;
         if (mNumDays > 1) {
             // This is the Week view.
             // With touch, we always switch to Day/Agenda View
@@ -939,6 +954,7 @@ public class CalendarView extends View
                 return false;
             }
             mPopup.dismiss();
+            mLastPopupEventID = INVALID_EVENT_ID;
 
             long begin = selectedEvent.startMillis;
             long end = selectedEvent.endMillis;
@@ -959,6 +975,7 @@ public class CalendarView extends View
                 mSelectedEvent = mSelectedEvent.nextLeft;
             }
             if (mSelectedEvent == null) {
+                mLastPopupEventID = INVALID_EVENT_ID;
                 selectionDay -= 1;
             }
             redraw = true;
@@ -969,6 +986,7 @@ public class CalendarView extends View
                 mSelectedEvent = mSelectedEvent.nextRight;
             }
             if (mSelectedEvent == null) {
+                mLastPopupEventID = INVALID_EVENT_ID;
                 selectionDay += 1;
             }
             redraw = true;
@@ -979,6 +997,7 @@ public class CalendarView extends View
                 mSelectedEvent = mSelectedEvent.nextUp;
             }
             if (mSelectedEvent == null) {
+                mLastPopupEventID = INVALID_EVENT_ID;
                 if (!mSelectionAllDay) {
                     mSelectionHour -= 1;
                     adjustHourSelection();
@@ -994,6 +1013,7 @@ public class CalendarView extends View
                 mSelectedEvent = mSelectedEvent.nextDown;
             }
             if (mSelectedEvent == null) {
+                mLastPopupEventID = INVALID_EVENT_ID;
                 if (mSelectionAllDay) {
                     mSelectionAllDay = false;
                 } else {
@@ -1374,6 +1394,7 @@ public class CalendarView extends View
         int cell = mFirstJulianDay;
         for (int day = 0; day < mNumDays; day++, cell++) {
             drawEvents(cell, x, HOUR_GAP, canvas, p);
+            //TODO draw red line if the day is today.
             x += deltaX;
         }
     }
@@ -2278,6 +2299,11 @@ public class CalendarView extends View
             mPopup.dismiss();
             return;
         }
+        if (mLastPopupEventID == mSelectedEvent.id) {
+            return;
+        }
+
+        mLastPopupEventID = mSelectedEvent.id;
 
         // Remove any outstanding callbacks to dismiss the popup.
         getHandler().removeCallbacks(mDismissPopup);
@@ -3053,6 +3079,7 @@ public class CalendarView extends View
         if (mPopup != null) {
             mPopup.dismiss();
         }
+        mLastPopupEventID = INVALID_EVENT_ID;
         Handler handler = getHandler();
         if (handler != null) {
             handler.removeCallbacks(mDismissPopup);
