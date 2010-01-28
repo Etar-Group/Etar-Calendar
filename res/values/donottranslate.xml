@@ -17,4 +17,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Order of weekday/day label in week view -->
     <string name="weekday_day">%1$s %2$s</string>
+    <!-- Order of month year label in month view -->
+    <string name="month_year">%B %Y</string>
 </resources>

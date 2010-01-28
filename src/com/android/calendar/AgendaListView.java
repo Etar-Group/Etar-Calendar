@@ -46,7 +46,6 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     public AgendaListView(AgendaActivity agendaActivity) {
         super(agendaActivity, null);
         mAgendaActivity = agendaActivity;
-        mContext = agendaActivity;
 
         setOnItemClickListener(this);
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);

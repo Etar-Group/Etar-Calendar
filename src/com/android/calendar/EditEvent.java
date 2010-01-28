@@ -618,7 +618,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         mUri = intent.getData();
 
         if (mUri != null) {
-            mEventCursor = managedQuery(mUri, EVENT_PROJECTION, null, null);
+            mEventCursor = managedQuery(mUri, EVENT_PROJECTION, null, null, null);
             if (mEventCursor == null || mEventCursor.getCount() == 0) {
                 // The cursor is empty. This can happen if the event was deleted.
                 finish();

@@ -34,36 +34,36 @@ import android.widget.Button;
  * A helper class for deleting events.  If a normal event is selected for
  * deletion, then this pops up a confirmation dialog.  If the user confirms,
  * then the normal event is deleted.
- * 
+ *
  * <p>
  * If a repeating event is selected for deletion, then this pops up dialog
  * asking if the user wants to delete just this one instance, or all the
  * events in the series, or this event plus all following events.  The user
  * may also cancel the delete.
  * </p>
- * 
+ *
  * <p>
  * To use this class, create an instance, passing in the parent activity
  * and a boolean that determines if the parent activity should exit if the
  * event is deleted.  Then to use the instance, call one of the
  * {@link delete()} methods on this class.
- * 
+ *
  * An instance of this class may be created once and reused (by calling
  * {@link #delete()} multiple times).
  */
 public class DeleteEventHelper {
     private final Activity mParent;
     private final ContentResolver mContentResolver;
-    
+
     private long mStartMillis;
     private long mEndMillis;
     private Cursor mCursor;
-    
+
     /**
      * If true, then call finish() on the parent activity when done.
      */
     private boolean mExitWhenDone;
-    
+
     /**
      * These are the corresponding indices into the array of strings
      * "R.array.delete_repeating_labels" in the resource file.
@@ -71,7 +71,7 @@ public class DeleteEventHelper {
     static final int DELETE_SELECTED = 0;
     static final int DELETE_ALL_FOLLOWING = 1;
     static final int DELETE_ALL = 2;
-    
+
     private int mWhichDelete;
     private AlertDialog mAlertDialog;
 
@@ -89,13 +89,13 @@ public class DeleteEventHelper {
     private int mEventIndexId;
     private int mEventIndexRrule;
     private String mSyncId;
-    
+
     public DeleteEventHelper(Activity parent, boolean exitWhenDone) {
         mParent = parent;
         mContentResolver = mParent.getContentResolver();
         mExitWhenDone = exitWhenDone;
     }
-    
+
     public void setExitWhenDone(boolean exitWhenDone) {
         mExitWhenDone = exitWhenDone;
     }
@@ -122,7 +122,7 @@ public class DeleteEventHelper {
             new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int button) {
             mWhichDelete = button;
-            
+
             // Enable the "ok" button now that the user has selected which
             // events in the series to delete.
             Button ok = mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -141,7 +141,7 @@ public class DeleteEventHelper {
             }
         }
     };
-    
+
     /**
      * Does the required processing for deleting an event, which includes
      * first popping up a dialog asking for confirmation (if the event is
@@ -149,7 +149,7 @@ public class DeleteEventHelper {
      * event is a repeating event).  The "which" parameter is used to check
      * the initial selection and is only used for repeating events.  Set
      * "which" to -1 to have nothing selected initially.
-     * 
+     *
      * @param begin the begin time of the event, in UTC milliseconds
      * @param end the end time of the event, in UTC milliseconds
      * @param eventId the event id
@@ -158,29 +158,29 @@ public class DeleteEventHelper {
      */
     public void delete(long begin, long end, long eventId, int which) {
         Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, eventId);
-        Cursor cursor = mParent.managedQuery(uri, EVENT_PROJECTION, null, null);
+        Cursor cursor = mParent.managedQuery(uri, EVENT_PROJECTION, null, null, null);
         if (cursor == null) {
             return;
         }
         cursor.moveToFirst();
         delete(begin, end, cursor, which);
     }
-    
+
     /**
      * Does the required processing for deleting an event.  This method
      * takes a {@link Cursor} object as a parameter, which must point to
      * a row in the Events table containing the required database fields.
      * The required fields for a normal event are:
-     * 
+     *
      * <ul>
      *   <li> Events._ID </li>
      *   <li> Events.TITLE </li>
      *   <li> Events.RRULE </li>
      * </ul>
-     * 
+     *
      * The required fields for a repeating event include the above plus the
      * following fields:
-     * 
+     *
      * <ul>
      *   <li> Events.ALL_DAY </li>
      *   <li> Events.CALENDAR_ID </li>
@@ -188,7 +188,7 @@ public class DeleteEventHelper {
      *   <li> Events._SYNC_ID </li>
      *   <li> Events.EVENT_TIMEZONE </li>
      * </ul>
-     * 
+     *
      * @param begin the begin time of the event, in UTC milliseconds
      * @param end the end time of the event, in UTC milliseconds
      * @param cursor the database cursor containing the required fields
@@ -204,7 +204,7 @@ public class DeleteEventHelper {
         mEventIndexRrule = mCursor.getColumnIndexOrThrow(Events.RRULE);
         int eventIndexSyncId = mCursor.getColumnIndexOrThrow(Events._SYNC_ID);
         mSyncId = mCursor.getString(eventIndexSyncId);
-        
+
         // If this is a repeating event, then pop up a dialog asking the
         // user if they want to delete all of the repeating events or
         // just some of them.
@@ -233,7 +233,7 @@ public class DeleteEventHelper {
             .setNegativeButton(android.R.string.cancel, null)
             .show();
             mAlertDialog = dialog;
-            
+
             if (which == -1) {
                 // Disable the "Ok" button until the user selects which events
                 // to delete.
@@ -242,7 +242,7 @@ public class DeleteEventHelper {
             }
         }
     }
-    
+
     private void deleteRepeatingEvent(int which) {
         int indexDtstart = mCursor.getColumnIndexOrThrow(Events.DTSTART);
         int indexAllDay = mCursor.getColumnIndexOrThrow(Events.ALL_DAY);
@@ -265,7 +265,7 @@ public class DeleteEventHelper {
         if (mSyncId == null) {
             which += 1;
         }
-        
+
         switch (which) {
             case DELETE_SELECTED:
             {
@@ -275,16 +275,16 @@ public class DeleteEventHelper {
                 if (dtstart == mStartMillis) {
                     // TODO
                 }
-                
+
                 // Create a recurrence exception by creating a new event
                 // with the status "cancelled".
                 ContentValues values = new ContentValues();
-                
+
                 // The title might not be necessary, but it makes it easier
                 // to find this entry in the database when there is a problem.
                 String title = mCursor.getString(indexTitle);
                 values.put(Events.TITLE, title);
-                
+
                 String timezone = mCursor.getString(indexTimezone);
                 int calendarId = mCursor.getInt(indexCalendarId);
                 values.put(Events.EVENT_TIMEZONE, timezone);
@@ -295,7 +295,7 @@ public class DeleteEventHelper {
                 values.put(Events.ORIGINAL_EVENT, mSyncId);
                 values.put(Events.ORIGINAL_INSTANCE_TIME, mStartMillis);
                 values.put(Events.STATUS, Events.STATUS_CANCELED);
-                
+
                 mContentResolver.insert(Events.CONTENT_URI, values);
                 break;
             }
@@ -312,7 +312,7 @@ public class DeleteEventHelper {
                     mContentResolver.delete(uri, null /* where */, null /* selectionArgs */);
                     break;
                 }
-                
+
                 // Modify the repeating event to end just before this event time
                 EventRecurrence eventRecurrence = new EventRecurrence();
                 eventRecurrence.parse(rRule);
@@ -323,12 +323,12 @@ public class DeleteEventHelper {
                 date.set(mStartMillis);
                 date.second--;
                 date.normalize(false);
-                
+
                 // Google calendar seems to require the UNTIL string to be
                 // in UTC.
                 date.switchTimezone(Time.TIMEZONE_UTC);
                 eventRecurrence.until = date.format2445();
-                
+
                 ContentValues values = new ContentValues();
                 values.put(Events.DTSTART, dtstart);
                 values.put(Events.RRULE, eventRecurrence.toString());

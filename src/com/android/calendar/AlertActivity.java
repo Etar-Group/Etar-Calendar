@@ -208,11 +208,6 @@ public class AlertActivity extends Activity {
         lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
         lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
 
-        // Get the dim amount from the theme
-        TypedArray a = obtainStyledAttributes(com.android.internal.R.styleable.Theme);
-        lp.dimAmount = a.getFloat(android.R.styleable.Theme_backgroundDimAmount, 0.5f);
-        a.recycle();
-
         getWindow().setAttributes(lp);
 
         mResolver = getContentResolver();
