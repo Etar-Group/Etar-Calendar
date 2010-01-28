@@ -128,6 +128,11 @@ public class CalendarView extends View
 
     // Make this visible within the package for more informative debugging
     Time mBaseDate;
+    private Time mCurrentTime;
+    //Update the current time line every five minutes if the window is left open that long
+    private static final int UPDATE_CURRENT_TIME_DELAY = 300000;
+    private UpdateCurrentTime mUpdateCurrentTime = new UpdateCurrentTime();
+    private int mTodayJulianDay;
 
     private Typeface mBold = Typeface.DEFAULT_BOLD;
     private int mFirstJulianDay;
@@ -207,6 +212,13 @@ public class CalendarView extends View
     private static final int HOURS_RIGHT_MARGIN = 4;
     private static final int HOURS_MARGIN = HOURS_LEFT_MARGIN + HOURS_RIGHT_MARGIN;
 
+    private static int CURRENT_TIME_LINE_HEIGHT = 2;
+    private static int CURRENT_TIME_LINE_BORDER_WIDTH = 1;
+    private static int CURRENT_TIME_MARKER_INNER_WIDTH = 6;
+    private static int CURRENT_TIME_MARKER_HEIGHT = 6;
+    private static int CURRENT_TIME_MARKER_WIDTH = 8;
+    private static int CURRENT_TIME_LINE_SIDE_BUFFER = 1;
+
     /* package */ static final int MINUTES_PER_HOUR = 60;
     /* package */ static final int MINUTES_PER_DAY = MINUTES_PER_HOUR * 24;
     /* package */ static final int MILLIS_PER_MINUTE = 60 * 1000;
@@ -239,6 +251,8 @@ public class CalendarView extends View
     private static int mCalendarHourBackground;
     private static int mCalendarHourLabel;
     private static int mCalendarHourSelected;
+    private static int mCurrentTimeMarkerColor;
+    private static int mCurrentTimeMarkerBorderColor;
 
     private int mViewStartX;
     private int mViewStartY;
@@ -341,6 +355,13 @@ public class CalendarView extends View
 
                 HORIZONTAL_SCROLL_THRESHOLD *= mScale;
 
+                CURRENT_TIME_MARKER_HEIGHT *= mScale;
+                CURRENT_TIME_MARKER_WIDTH *= mScale;
+                CURRENT_TIME_LINE_HEIGHT *= mScale;
+                CURRENT_TIME_LINE_BORDER_WIDTH *= mScale;
+                CURRENT_TIME_MARKER_INNER_WIDTH *= mScale;
+                CURRENT_TIME_LINE_SIDE_BUFFER *= mScale;
+
                 SMALL_ROUND_RADIUS *= mScale;
             }
         }
@@ -369,6 +390,14 @@ public class CalendarView extends View
 
         mStartDay = Utils.getFirstDayOfWeek();
 
+        mCurrentTime = new Time();
+        long currentTime = System.currentTimeMillis();
+        mCurrentTime.set(currentTime);
+        //The % makes it go off at the next increment of 5 minutes.
+        postDelayed(mUpdateCurrentTime,
+                UPDATE_CURRENT_TIME_DELAY - (currentTime % UPDATE_CURRENT_TIME_DELAY));
+        mTodayJulianDay = Time.getJulianDay(currentTime, mCurrentTime.gmtoff);
+
         mWeek_saturdayColor = mResources.getColor(R.color.week_saturday);
         mWeek_sundayColor = mResources.getColor(R.color.week_sunday);
         mCalendarDateBannerTextColor = mResources.getColor(R.color.calendar_date_banner_text_color);
@@ -387,6 +416,8 @@ public class CalendarView extends View
         mPressedColor = mResources.getColor(R.color.pressed);
         mSelectedEventTextColor = mResources.getColor(R.color.calendar_event_selected_text_color);
         mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
+        mCurrentTimeMarkerColor = mResources.getColor(R.color.current_time_marker);
+        mCurrentTimeMarkerBorderColor = mResources.getColor(R.color.current_time_marker_border);
         mEventTextPaint.setColor(mEventTextColor);
         mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
         mEventTextPaint.setTextAlign(Paint.Align.LEFT);
@@ -1381,9 +1412,45 @@ public class CalendarView extends View
         }
     }
 
+    private void drawCurrentTimeMarker(int top, Canvas canvas, Paint p) {
+        top -= CURRENT_TIME_MARKER_HEIGHT / 2;
+        p.setColor(mCurrentTimeMarkerColor);
+        Paint.Style oldStyle = p.getStyle();
+        p.setStyle(Paint.Style.STROKE);
+        p.setStrokeWidth(2.0f);
+        Path mCurrentTimeMarker = mPath;
+        mCurrentTimeMarker.reset();
+        mCurrentTimeMarker.moveTo(0, top);
+        mCurrentTimeMarker.lineTo(0, CURRENT_TIME_MARKER_HEIGHT + top);
+        mCurrentTimeMarker.lineTo(CURRENT_TIME_MARKER_INNER_WIDTH, CURRENT_TIME_MARKER_HEIGHT + top);
+        mCurrentTimeMarker.lineTo(CURRENT_TIME_MARKER_WIDTH, CURRENT_TIME_MARKER_HEIGHT / 2 + top);
+        mCurrentTimeMarker.lineTo(CURRENT_TIME_MARKER_INNER_WIDTH, top);
+        mCurrentTimeMarker.lineTo(0, top);
+        canvas.drawPath(mCurrentTimeMarker, p);
+        p.setStyle(oldStyle);
+    }
+
+    private void drawCurrentTimeLine(Rect r, int left, int top, Canvas canvas, Paint p) {
+        //Do a white outline so it'll show up on a red event
+        p.setColor(mCurrentTimeMarkerBorderColor);
+        r.top = top - CURRENT_TIME_LINE_HEIGHT / 2 - CURRENT_TIME_LINE_BORDER_WIDTH;
+        r.bottom = top + CURRENT_TIME_LINE_HEIGHT / 2 + CURRENT_TIME_LINE_BORDER_WIDTH;
+        r.left = left + CURRENT_TIME_LINE_SIDE_BUFFER;
+        r.right = r.left + mCellWidth - 2 * CURRENT_TIME_LINE_SIDE_BUFFER;
+        canvas.drawRect(r, p);
+        //Then draw the red line
+        p.setColor(mCurrentTimeMarkerColor);
+        r.top = top - CURRENT_TIME_LINE_HEIGHT / 2;
+        r.bottom = top + CURRENT_TIME_LINE_HEIGHT / 2;
+        canvas.drawRect(r, p);
+    }
+
     private void doDraw(Canvas canvas) {
         Paint p = mPaint;
         Rect r = mRect;
+        int lineY = mCurrentTime.hour*(mCellHeight + HOUR_GAP)
+            + ((mCurrentTime.minute * mCellHeight) / 60)
+            + 1;
 
         drawGridBackground(r, canvas, p);
         drawHours(r, canvas, p);
@@ -1394,7 +1461,15 @@ public class CalendarView extends View
         int cell = mFirstJulianDay;
         for (int day = 0; day < mNumDays; day++, cell++) {
             drawEvents(cell, x, HOUR_GAP, canvas, p);
-            //TODO draw red line if the day is today.
+            //If this is today
+            if(cell == mTodayJulianDay) {
+                //And the current time shows up somewhere on the screen
+                if(lineY >= mViewStartY && lineY < mViewStartY + mViewHeight - 2) {
+                    //draw both the marker and the line
+                    drawCurrentTimeMarker(lineY, canvas, p);
+                    drawCurrentTimeLine(r, x, lineY, canvas, p);
+                }
+            }
             x += deltaX;
         }
     }
@@ -3072,7 +3147,7 @@ public class CalendarView extends View
     }
 
     /**
-     * Cleanup the pop-up.
+     * Cleanup the pop-up and timers.
      */
     public void cleanup() {
         // Protect against null-pointer exceptions
@@ -3083,11 +3158,19 @@ public class CalendarView extends View
         Handler handler = getHandler();
         if (handler != null) {
             handler.removeCallbacks(mDismissPopup);
+            handler.removeCallbacks(mUpdateCurrentTime);
         }
 
         // Turn off redraw
         mRemeasure = false;
         mRedrawScreen = false;
+    }
+
+    /**
+     * Restart the update timer
+     */
+    public void restartCurrentTimeUpdates() {
+        post(mUpdateCurrentTime);
     }
 
     @Override protected void onDetachedFromWindow() {
@@ -3105,6 +3188,19 @@ public class CalendarView extends View
             if (mPopup != null) {
                 mPopup.dismiss();
             }
+        }
+    }
+
+    class UpdateCurrentTime implements Runnable {
+        public void run() {
+            long currentTime = System.currentTimeMillis();
+            mCurrentTime.set(currentTime);
+            //% causes update to occur on 5 minute marks (11:10, 11:15, 11:20, etc.)
+            postDelayed(mUpdateCurrentTime,
+                    UPDATE_CURRENT_TIME_DELAY - (currentTime % UPDATE_CURRENT_TIME_DELAY));
+            mTodayJulianDay = Time.getJulianDay(currentTime, mCurrentTime.gmtoff);
+            mRedrawScreen = true;
+            invalidate();
         }
     }
 }
