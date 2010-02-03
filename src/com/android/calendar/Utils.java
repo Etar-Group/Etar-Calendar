@@ -97,9 +97,8 @@ public class Utils {
      * @param time the time to format
      * @return the string containing the weekday and the date
      */
-    public static String formatMonthYear(Time time) {
-        Resources res = Resources.getSystem();
-        return time.format(res.getString(com.android.internal.R.string.month_year));
+    public static String formatMonthYear(Context context, Time time) {
+        return time.format(context.getResources().getString(R.string.month_year));
     }
 
     // TODO: replace this with the correct i18n way to do this

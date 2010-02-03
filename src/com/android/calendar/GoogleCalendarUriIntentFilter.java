@@ -60,7 +60,7 @@ public class GoogleCalendarUriIntentFilter extends Activity {
                     String selection = Events.HTML_URI + " LIKE \"%eid=" + eid + "%\"";
 
                     Cursor eventCursor = managedQuery(Events.CONTENT_URI, EVENT_PROJECTION,
-                            selection, null);
+                            selection, null, null);
 
                     // TODO what to do when there's more than one match
                     if (eventCursor != null && eventCursor.getCount() > 0) {

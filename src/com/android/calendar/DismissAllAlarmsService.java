@@ -18,21 +18,20 @@ package com.android.calendar;
 
 import android.app.IntentService;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.IBinder;
 import android.provider.Calendar.CalendarAlerts;
 
 /**
- * Service for asynchronously marking all fired alarms as dismissed. 
+ * Service for asynchronously marking all fired alarms as dismissed.
  */
 public class DismissAllAlarmsService extends IntentService {
     private static final String[] PROJECTION = new String[] {
-            CalendarAlerts._ID,
             CalendarAlerts.STATE,
     };
-    private static final int COLUMN_INDEX_STATE = 1;  
+    private static final int COLUMN_INDEX_STATE = 0;
 
     public DismissAllAlarmsService() {
         super("DismissAllAlarmsService");
@@ -50,15 +49,10 @@ public class DismissAllAlarmsService extends IntentService {
         Uri uri = CalendarAlerts.CONTENT_URI_BY_INSTANCE;
         String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.FIRED;
         ContentResolver resolver = getContentResolver();
-        Cursor cursor = resolver.query(uri, PROJECTION, selection, null, null);
-        if (cursor != null) {
-            cursor.moveToPosition(-1);
-            while (cursor.moveToNext()) {
-                cursor.updateInt(COLUMN_INDEX_STATE, CalendarAlerts.DISMISSED);
-            }
-            cursor.commitUpdates();
-            cursor.close();
-        }
+
+        ContentValues values = new ContentValues();
+        values.put(PROJECTION[COLUMN_INDEX_STATE], CalendarAlerts.DISMISSED);
+        resolver.update(uri, values, selection, null);
 
         // Stop this service
         stopSelf();

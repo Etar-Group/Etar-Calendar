@@ -308,7 +308,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         mStartMillis = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
         mEndMillis = intent.getLongExtra(EVENT_END_TIME, 0);
         mAttendeeResponseFromIntent = intent.getIntExtra(ATTENDEE_STATUS, ATTENDEE_NO_RESPONSE);
-        mEventCursor = managedQuery(mUri, EVENT_PROJECTION, null, null);
+        mEventCursor = managedQuery(mUri, EVENT_PROJECTION, null, null, null);
         if (initEventCursor()) {
             // The cursor is empty. This can happen if the event was deleted.
             finish();
@@ -325,7 +325,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         // Calendars cursor
         Uri uri = Calendars.CONTENT_URI;
         String where = String.format(CALENDARS_WHERE, mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID));
-        mCalendarsCursor = managedQuery(uri, CALENDARS_PROJECTION, where, null);
+        mCalendarsCursor = managedQuery(uri, CALENDARS_PROJECTION, where, null, null);
         mCalendarOwnerAccount = "";
         if (mCalendarsCursor != null) {
             mCalendarsCursor.moveToFirst();
@@ -340,7 +340,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         // Attendees cursor
         uri = Attendees.CONTENT_URI;
         where = String.format(ATTENDEES_WHERE, mEventId);
-        mAttendeesCursor = managedQuery(uri, ATTENDEES_PROJECTION, where, ATTENDEES_SORT_ORDER);
+        mAttendeesCursor = managedQuery(uri, ATTENDEES_PROJECTION, where, null,
+                ATTENDEES_SORT_ORDER);
         initAttendeesCursor();
 
         mOrganizer = eventOrganizer;

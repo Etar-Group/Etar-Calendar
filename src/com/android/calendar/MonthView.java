@@ -35,7 +35,6 @@ import android.os.SystemClock;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.util.DayOfMonthCursor;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.ContextMenu;
@@ -408,7 +407,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mContext, EditEvent.class.getName());
+                    intent.setClassName(mParentActivity, EditEvent.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                     intent.putExtra(EVENT_END_TIME, endMillis);
                     mParentActivity.startActivity(intent);
@@ -986,7 +985,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 }
             } else {
                 flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
-                if (DateFormat.is24HourFormat(mContext)) {
+                if (DateFormat.is24HourFormat(mParentActivity)) {
                     flags |= DateUtils.FORMAT_24HOUR;
                 }
             }

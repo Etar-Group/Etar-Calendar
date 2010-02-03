@@ -617,7 +617,7 @@ public class CalendarView extends View
         mFirstDate = mBaseDate.monthDay;
 
         int flags = DateUtils.FORMAT_SHOW_YEAR;
-        if (DateFormat.is24HourFormat(mContext)) {
+        if (DateFormat.is24HourFormat(mParentActivity)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
         if (mNumDays > 1) {
@@ -845,7 +845,7 @@ public class CalendarView extends View
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mContext, EditEvent.class.getName());
+                    intent.setClassName(mParentActivity, EditEvent.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                     intent.putExtra(EVENT_END_TIME, endMillis);
                     mParentActivity.startActivity(intent);
@@ -855,7 +855,7 @@ public class CalendarView extends View
                     Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI,
                             selectedEvent.id);
                     intent.setData(eventUri);
-                    intent.setClassName(mContext, EventInfoActivity.class.getName());
+                    intent.setClassName(mParentActivity, EventInfoActivity.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, selectedEvent.startMillis);
                     intent.putExtra(EVENT_END_TIME, selectedEvent.endMillis);
                     mParentActivity.startActivity(intent);
@@ -870,7 +870,7 @@ public class CalendarView extends View
                     Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI,
                             selectedEvent.id);
                     intent.setData(eventUri);
-                    intent.setClassName(mContext, EventInfoActivity.class.getName());
+                    intent.setClassName(mParentActivity, EventInfoActivity.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, selectedEvent.startMillis);
                     intent.putExtra(EVENT_END_TIME, selectedEvent.endMillis);
                     mParentActivity.startActivity(intent);
@@ -889,7 +889,7 @@ public class CalendarView extends View
                 long startMillis = getSelectedTimeInMillis();
                 long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setClassName(mContext, EditEvent.class.getName());
+                intent.setClassName(mParentActivity, EditEvent.class.getName());
                 intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                 intent.putExtra(EVENT_END_TIME, endMillis);
                 mParentActivity.startActivity(intent);
@@ -898,7 +898,7 @@ public class CalendarView extends View
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, selectedEvent.id);
                 intent.setData(eventUri);
-                intent.setClassName(mContext, EventInfoActivity.class.getName());
+                intent.setClassName(mParentActivity, EventInfoActivity.class.getName());
                 intent.putExtra(EVENT_BEGIN_TIME, selectedEvent.startMillis);
                 intent.putExtra(EVENT_END_TIME, selectedEvent.endMillis);
                 mParentActivity.startActivity(intent);
@@ -2012,7 +2012,7 @@ public class CalendarView extends View
             if (false) {
                 int flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL
                         | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
-                if (DateFormat.is24HourFormat(mContext)) {
+                if (DateFormat.is24HourFormat(mParentActivity)) {
                     flags |= DateUtils.FORMAT_24HOUR;
                 }
                 String timeRange = DateUtils.formatDateRange(mParentActivity,
@@ -2402,7 +2402,7 @@ public class CalendarView extends View
                     | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_ALL
                     | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
         }
-        if (DateFormat.is24HourFormat(mContext)) {
+        if (DateFormat.is24HourFormat(mParentActivity)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
         String timeRange = DateUtils.formatDateRange(mParentActivity,
@@ -2600,7 +2600,7 @@ public class CalendarView extends View
         }
         date.normalize(true /* ignore isDst */);
         initView(view);
-        view.setFrame(getLeft(), getTop(), getRight(), getBottom());
+        view.layout(getLeft(), getTop(), getRight(), getBottom());
         view.reloadEvents();
         return switchForward;
     }
@@ -2696,7 +2696,7 @@ public class CalendarView extends View
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_info_details);
 
-                if (isEventEditable(mContext, mSelectedEvent)) {
+                if (isEventEditable(mParentActivity, mSelectedEvent)) {
                     item = menu.add(0, MenuHelper.MENU_EVENT_EDIT, 0, R.string.event_edit);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
                     item.setIcon(android.R.drawable.ic_menu_edit);
@@ -2729,7 +2729,7 @@ public class CalendarView extends View
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_info_details);
 
-                if (isEventEditable(mContext, mSelectedEvent)) {
+                if (isEventEditable(mParentActivity, mSelectedEvent)) {
                     item = menu.add(0, MenuHelper.MENU_EVENT_EDIT, 0, R.string.event_edit);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
                     item.setIcon(android.R.drawable.ic_menu_edit);
@@ -2785,7 +2785,7 @@ public class CalendarView extends View
                         Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, id);
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(eventUri);
-                        intent.setClassName(mContext, EventInfoActivity.class.getName());
+                        intent.setClassName(mParentActivity, EventInfoActivity.class.getName());
                         intent.putExtra(EVENT_BEGIN_TIME, mSelectedEvent.startMillis);
                         intent.putExtra(EVENT_END_TIME, mSelectedEvent.endMillis);
                         mParentActivity.startActivity(intent);
@@ -2798,7 +2798,7 @@ public class CalendarView extends View
                         Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, id);
                         Intent intent = new Intent(Intent.ACTION_EDIT);
                         intent.setData(eventUri);
-                        intent.setClassName(mContext, EditEvent.class.getName());
+                        intent.setClassName(mParentActivity, EditEvent.class.getName());
                         intent.putExtra(EVENT_BEGIN_TIME, mSelectedEvent.startMillis);
                         intent.putExtra(EVENT_END_TIME, mSelectedEvent.endMillis);
                         mParentActivity.startActivity(intent);
@@ -2819,7 +2819,7 @@ public class CalendarView extends View
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mContext, EditEvent.class.getName());
+                    intent.setClassName(mParentActivity, EditEvent.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                     intent.putExtra(EVENT_END_TIME, endMillis);
                     intent.putExtra(EditEvent.EVENT_ALL_DAY, mSelectionAllDay);

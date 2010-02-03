@@ -92,7 +92,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     /* Navigator interface methods */
     public void goTo(Time time, boolean animate) {
         TextView title = (TextView) findViewById(R.id.title);
-        title.setText(Utils.formatMonthYear(time));
+        title.setText(Utils.formatMonthYear(this, time));
 
         MonthView current = (MonthView) mSwitcher.getCurrentView();
         current.dismissPopup();
@@ -133,7 +133,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
         now.normalize(false);
 
         TextView title = (TextView) findViewById(R.id.title);
-        title.setText(Utils.formatMonthYear(now));
+        title.setText(Utils.formatMonthYear(this, now));
         mTime = now;
 
         MonthView view = (MonthView) mSwitcher.getCurrentView();
@@ -244,7 +244,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
 
         // Set the initial title
         TextView title = (TextView) findViewById(R.id.title);
-        title.setText(Utils.formatMonthYear(mTime));
+        title.setText(Utils.formatMonthYear(this, mTime));
 
         mEventLoader = new EventLoader(this);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_circular);
