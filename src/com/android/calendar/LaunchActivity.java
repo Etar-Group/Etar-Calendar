@@ -32,11 +32,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Calendar.Calendars;
+import android.util.Log;
 
 import java.io.IOException;
 
 
 public class LaunchActivity extends Activity {
+    private static final String TAG = "LaunchActivity";
+    
     static final String KEY_DETAIL_VIEW = "DETAIL_VIEW";
     static final String GMAIL_AUTH_SERVICE = "mail";
     private static final String[] PROJECTION = new String[] {
@@ -48,12 +51,12 @@ public class LaunchActivity extends Activity {
 
     private Bundle mExtras;
     private LaunchActivity mThis;
-
+    
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         mExtras = getIntent().getExtras();
-
+        
         // Our UI is not something intended for the user to see.  We just
         // stick around until we can figure out what to do next based on
         // the current state of the system.
@@ -61,6 +64,7 @@ public class LaunchActivity extends Activity {
         // setVisible(false);
 
         // Only try looking for an account if this is the first launch.
+Log.d(TAG, "onCreate");
         if (icicle == null) {
             //Check if any calendar providers have started writing data to the calendars table.
             //This is currently the only way to check if an account that supports calendar other
@@ -69,7 +73,9 @@ public class LaunchActivity extends Activity {
                     "1) GROUP BY (_sync_account", //TODO Remove hack once group by support is added
                     null /* selectionArgs */,
                     Calendars._SYNC_ACCOUNT /*sort order*/);
+Log.d(TAG, "managedQuery");
             Account[] accounts = AccountManager.get(this).getAccounts();
+Log.d(TAG, "getAccounts");
             if(cursor != null && cursor.getCount() > 0 && accounts.length > 0) {
                 int accountColumn = cursor.getColumnIndexOrThrow(Calendars._SYNC_ACCOUNT);
                 boolean cont = cursor.moveToFirst();
@@ -80,12 +86,14 @@ public class LaunchActivity extends Activity {
                         //Use the first account that supports calendar found for set up.
                         if(account.equals(accounts[i].name)) {
                             onAccountsLoaded(accounts[i]);
+Log.d(TAG, "returning from onCreate");
                             return;
                         }
                     }
                     cont = cursor.moveToNext();
                 }
             }
+Log.d(TAG, "no accounts found");
             //If we failed to find a valid Calendar ask the user to add a Calendar supported account
             //Currently we're just bouncing it over to the create google account, but will do a UI
             //change to fix this later.
@@ -111,6 +119,7 @@ public class LaunchActivity extends Activity {
                 public void run(AccountManagerFuture<Bundle> future) {
                     try {
                         Bundle result = future.getResult();
+Log.d(TAG, "run");
                         onAccountsLoaded(new Account(
                                 result.getString(GoogleLoginServiceConstants.AUTH_ACCOUNT_KEY),
                                 result.getString(AccountManager.KEY_ACCOUNT_TYPE)));
@@ -123,10 +132,12 @@ public class LaunchActivity extends Activity {
                     }
                 }
             }, null /* handler */);
+Log.d(TAG, "getAuthTokenByFeatures");
         }
     }
 
     private void onAccountsLoaded(Account account) {
+Log.d(TAG, "onAccountsLoaded start");
         // Get the data for from this intent, if any
         Intent myIntent = getIntent();
         Uri myData = myIntent.getData();
@@ -149,10 +160,12 @@ public class LaunchActivity extends Activity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String startActivity = prefs.getString(defaultViewKey,
                 CalendarPreferenceActivity.DEFAULT_START_VIEW);
+Log.d(TAG, "getDefaultSharedPreferences");
 
         intent.setClassName(this, startActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
+Log.d(TAG, "onAccountsLoaded done");
     }
 }
