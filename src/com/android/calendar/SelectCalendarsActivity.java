@@ -16,45 +16,36 @@
 
 package com.android.calendar;
 
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.ExpandableListActivity;
 import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.ContentObserver;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 
 
-public class SelectCalendarsActivity extends Activity implements ListView.OnItemClickListener {
+public class SelectCalendarsActivity extends ExpandableListActivity
+    implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private static final String TAG = "Calendar";
+    private static final String EXPANDED_KEY = "is_expanded";
     private View mView = null;
     private Cursor mCursor = null;
+    private ExpandableListView mList;
     private SelectCalendarsAdapter mAdapter;
     private ContentResolver mContentResolver;
     private static final String[] PROJECTION = new String[] {
         Calendars._ID,
-        Calendars.DISPLAY_NAME,
-        Calendars.COLOR,
-        Calendars.SELECTED,
-        Calendars.SYNC_EVENTS
+        Calendars._SYNC_ACCOUNT_TYPE,
+        Calendars._SYNC_ACCOUNT
     };
 
     @Override
@@ -64,22 +55,33 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
         setContentView(R.layout.calendars_activity);
         getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
                 Window.PROGRESS_INDETERMINATE_ON);
+        mList = getExpandableListView();
         mView = findViewById(R.id.calendars);
-        ListView items = (ListView) mView.findViewById(R.id.items);
         Context context = mView.getContext();
+        //TODO Move managedQuery into a background thread.
+        //TODO change to something that supports group by queries.
         mCursor = managedQuery(Calendars.CONTENT_URI, PROJECTION,
-                Calendars.SYNC_EVENTS + "=1",
+                "1) GROUP BY (_sync_account", //Cheap hack to make WHERE a GROUP BY query
                 null /* selectionArgs */,
-                Calendars.DEFAULT_SORT_ORDER);
+                Calendars._SYNC_ACCOUNT /*sort order*/);
         mContentResolver = getContentResolver();
-        mAdapter = new SelectCalendarsAdapter(context, mCursor);
-        items.setAdapter(mAdapter);
-        items.setOnItemClickListener(this);
-        
+        mAdapter = new SelectCalendarsAdapter(context, mCursor, this);
+        mList.setAdapter(mAdapter);
+
+        mList.setOnChildClickListener(this);
+
+        findViewById(R.id.btn_done).setOnClickListener(this);
+        findViewById(R.id.btn_discard).setOnClickListener(this);
+
         // Start a background sync to get the list of calendars from the server.
         startCalendarMetafeedSync();
+        int count = mList.getCount();
+        for(int i = 0; i < count; i++) {
+            mList.expandGroup(i);
+        }
+
     }
-    
+
     // Create an observer so that we can update the views whenever a
     // Calendar changes.
     private ContentObserver mObserver = new ContentObserver(new Handler())
@@ -108,145 +110,73 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
         super.onResume();
         mContentResolver.registerContentObserver(Calendar.Events.CONTENT_URI, true, mObserver);
     }
-    
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        CheckBox box = (CheckBox) view.findViewById(R.id.checkbox);
-        box.toggle();
-    }
-    
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuItem item;
-        item = menu.add(0, 0, 0, R.string.add_calendars)
-                .setOnMenuItemClickListener(new ChangeCalendarAction(false /* not remove */));
-        item.setIcon(android.R.drawable.ic_menu_add);
-        
-        item = menu.add(0, 0, 0, R.string.remove_calendars)
-                .setOnMenuItemClickListener(new ChangeCalendarAction(true /* remove */));
-        item.setIcon(android.R.drawable.ic_menu_delete);
-        return true;
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        boolean[] isExpanded;
+        mList = getExpandableListView();
+        if(mList != null) {
+            int count = mList.getCount();
+            isExpanded = new boolean[count];
+            for(int i = 0; i < count; i++) {
+                isExpanded[i] = mList.isGroupExpanded(i);
+            }
+        } else {
+            isExpanded = null;
+        }
+        outState.putBooleanArray(EXPANDED_KEY, isExpanded);
+        //TODO Store this to preferences instead so it remains on restart
     }
 
-    /**
-     * ChangeCalendarAction is used both for adding and removing calendars.
-     * The constructor takes a boolean argument that is false if adding
-     * calendars and true if removing calendars.  The user selects calendars
-     * to be added or removed from a pop-up list. 
-     */
-    public class ChangeCalendarAction implements OnMenuItemClickListener,
-            DialogInterface.OnClickListener, DialogInterface.OnMultiChoiceClickListener {
-        
-        int mNumItems;
-        long[] mCalendarIds;
-        boolean[] mIsChecked;
-        boolean mRemove;
-        private int mCheckedCount;
-        private Button mOkButtonInAddDeleteCalendar;
-        
-        public ChangeCalendarAction(boolean remove) {
-            mRemove = remove;
-        }
-
-        /*
-         * This is called when the user selects a calendar from either the
-         * "Add calendars" or "Remove calendars" popup dialog. 
-         */
-        public void onClick(DialogInterface dialog, int position, boolean isChecked) {
-            mIsChecked[position] = isChecked;
-            if (isChecked) {
-                mCheckedCount++;
-            } else {
-                mCheckedCount--;
-            }
-
-            mOkButtonInAddDeleteCalendar.setEnabled(mCheckedCount > 0);
-        }
-
-        /*
-         * This is called when the user presses the OK or Cancel button on the
-         * "Add calendars" or "Remove calendars" popup dialog. 
-         */
-        public void onClick(DialogInterface dialog, int which) {
-            // If the user cancelled the dialog, then do nothing.
-            if (which == DialogInterface.BUTTON_NEGATIVE) {
-                return;
-            }
-            
-            boolean changesFound = false;
-            for (int position = 0; position < mNumItems; position++) {
-                // If this calendar wasn't selected, then skip it.
-                if (!mIsChecked[position]) {
-                    continue;
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        mList = getExpandableListView();
+        boolean[] isExpanded = state.getBooleanArray(EXPANDED_KEY);
+        if(mList != null && isExpanded != null && mList.getCount() >= isExpanded.length) {
+            for(int i = 0; i < isExpanded.length; i++) {
+                if(isExpanded[i] && !mList.isGroupExpanded(i)) {
+                    mList.expandGroup(i);
+                } else if(!isExpanded[i] && mList.isGroupExpanded(i)){
+                    mList.collapseGroup(i);
                 }
-                changesFound = true;
-                
-                long id = mCalendarIds[position];
-                Uri uri = ContentUris.withAppendedId(Calendars.CONTENT_URI, id);
-                ContentValues values = new ContentValues();
-                int selected = 1;
-                if (mRemove) {
-                    selected = 0;
-                }
-                values.put(Calendars.SELECTED, selected);
-                values.put(Calendars.SYNC_EVENTS, selected);
-                mContentResolver.update(uri, values, null, null);
             }
-
-            // If there were any changes, then update the list of calendars
-            // that are synced.
-            if (changesFound) {
-                mCursor.requery();
-            }
-        }
-
-        public boolean onMenuItemClick(MenuItem item) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(SelectCalendarsActivity.this);
-            String selection;
-            if (mRemove) {
-                builder.setTitle(R.string.remove_calendars)
-                    .setIcon(android.R.drawable.ic_dialog_alert);
-                selection = Calendars.SYNC_EVENTS + "=1";
-            } else {
-                builder.setTitle(R.string.add_calendars);
-                selection = Calendars.SYNC_EVENTS + "=0";
-            }
-            Cursor cursor = mContentResolver.query(Calendars.CONTENT_URI, PROJECTION,
-                    selection, null /* selectionArgs */,
-                    Calendars.DEFAULT_SORT_ORDER);
-            if (cursor == null) {
-                Log.w(TAG, "Cannot get cursor for calendars");
-                return true;
-            }
-
-            int count = cursor.getCount();
-            mNumItems = count;
-            CharSequence[] calendarNames = new CharSequence[count];
-            mCalendarIds = new long[count];
-            mIsChecked = new boolean[count];
-            mCheckedCount = 0;
-            try {
-                int pos = 0;
-                while (cursor.moveToNext()) {
-                    mCalendarIds[pos] = cursor.getLong(0);
-                    calendarNames[pos] = cursor.getString(1);
-                    pos += 1;
-                }
-            } finally {
-                cursor.close();
-            }
-            
-            AlertDialog dialog = builder.setMultiChoiceItems(calendarNames, null, this)
-                .setPositiveButton(android.R.string.ok, this)
-                .setNegativeButton(android.R.string.cancel, this).create();
-            dialog.show();
-            mOkButtonInAddDeleteCalendar = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            mOkButtonInAddDeleteCalendar.setEnabled(false);
-
-            return true;
         }
     }
-    
+
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View view, int groupPosition,
+            int childPosition, long id) {
+        MultiStateButton button = (MultiStateButton) view.findViewById(R.id.multiStateButton);
+        return button.performClick();
+    }
+
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        MultiStateButton button = (MultiStateButton) view.findViewById(R.id.multiStateButton);
+        button.performClick();
+    }
+
+    /** {@inheritDoc} */
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_done: {
+                doSaveAction();
+                break;
+            }
+            case R.id.btn_discard: {
+                finish();
+                break;
+            }
+        }
+    }
+
+    /*TODO*/
+    private void doSaveAction() {
+        mAdapter.doSaveAction();
+        finish();
+    }
+
     // startCalendarMetafeedSync() checks the server for an updated list of
     // Calendars (in the background).
     //
@@ -255,7 +185,7 @@ public class SelectCalendarsActivity extends Activity implements ListView.OnItem
     // (when this finishes).  When a new calendar from the
     // web is added to the phone, then the events for that calendar are also
     // downloaded from the web.
-    // 
+    //
     // This sync is done automatically in the background when the
     // SelectCalendars activity is started.
     private void startCalendarMetafeedSync() {
