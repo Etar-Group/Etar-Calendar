@@ -46,7 +46,7 @@ public class DismissAllAlarmsService extends IntentService {
     @Override
     public void onHandleIntent(Intent intent) {
         // Mark all fired alarms as dismissed
-        Uri uri = CalendarAlerts.CONTENT_URI_BY_INSTANCE;
+        Uri uri = CalendarAlerts.CONTENT_URI;
         String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.FIRED;
         ContentResolver resolver = getContentResolver();
 
