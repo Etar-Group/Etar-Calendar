@@ -19,10 +19,10 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
-import android.accounts.Account;
+import com.android.common.Rfc822InputFilter;
+import com.android.common.Rfc822Validator;
+
 import android.accounts.AccountManager;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -83,12 +83,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.android.common.Rfc822InputFilter;
-import com.android.common.Rfc822Validator;
-
-import com.google.android.gsf.GoogleLoginServiceConstants;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -517,12 +511,12 @@ public class EditEvent extends Activity implements View.OnClickListener,
                     return;
                 }
 
-                int primaryCalendarPosition = findPrimaryCalendarPosition();
+                int defaultCalendarPosition = findDefaultCalendarPosition(mCalendarsCursor);
 
                 // populate the calendars spinner
                 CalendarsAdapter adapter = new CalendarsAdapter(EditEvent.this, mCalendarsCursor);
                 mCalendarsSpinner.setAdapter(adapter);
-                mCalendarsSpinner.setSelection(primaryCalendarPosition);
+                mCalendarsSpinner.setSelection(defaultCalendarPosition);
                 mCalendarsQueryComplete = true;
                 if (mSaveAfterQueryComplete) {
                     mLoadingCalendarsDialog.cancel();
@@ -535,7 +529,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 // a different calendar.  maybe not.  depends on what we want for the
                 // user experience.  this may change when we add support for multiple
                 // accounts, anyway.
-                if (mHasAttendeeData && cursor.moveToPosition(primaryCalendarPosition)) {
+                if (mHasAttendeeData && cursor.moveToPosition(defaultCalendarPosition)) {
                     String ownEmail = cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
                     if (ownEmail != null) {
                         String domain = extractDomain(ownEmail);
@@ -548,47 +542,29 @@ public class EditEvent extends Activity implements View.OnClickListener,
             }
         }
 
-        // Find the calendar position in the cursor that matches the signed-in
-        // account
-        private int findPrimaryCalendarPosition() {
-            int primaryCalendarPosition = -1;
-            try {
-                Account[] accounts = mAccountManager.getAccountsByTypeAndFeatures(
-                        GoogleLoginServiceConstants.ACCOUNT_TYPE, new String[] {
-                            GoogleLoginServiceConstants.FEATURE_LEGACY_HOSTED_OR_GOOGLE
-                        }, null, null).getResult();
-                if (accounts.length > 0) {
-                    for (int i = 0; i < accounts.length && primaryCalendarPosition == -1; ++i) {
-                        String name = accounts[i].name;
-                        if (name == null) {
-                            continue;
-                        }
-
-                        int position = 0;
-                        mCalendarsCursor.moveToPosition(-1);
-                        while (mCalendarsCursor.moveToNext()) {
-                            if (name.equals(mCalendarsCursor
-                                    .getString(CALENDARS_INDEX_OWNER_ACCOUNT))) {
-                                primaryCalendarPosition = position;
-                                break;
-                            }
-                            position++;
-                        }
-                    }
-                }
-            } catch (OperationCanceledException e) {
-                Log.w(TAG, "Ignoring unexpected exception", e);
-            } catch (IOException e) {
-                Log.w(TAG, "Ignoring unexpected exception", e);
-            } catch (AuthenticatorException e) {
-                Log.w(TAG, "Ignoring unexpected exception", e);
-            } finally {
-                if (primaryCalendarPosition != -1) {
-                    return primaryCalendarPosition;
-                } else {
-                    return 0;
-                }
+        // Find the calendar position in the cursor that matches calendar in preference
+        private int findDefaultCalendarPosition(Cursor calendarsCursor) {
+            if (calendarsCursor.getCount() <= 0) {
+                return -1;
             }
+
+            String defaultCalendar = Utils.getSharedPreference(EditEvent.this,
+                    CalendarPreferenceActivity.KEY_DEFAULT_CALENDAR, null);
+
+            if (defaultCalendar == null) {
+                return 0;
+            }
+
+            int position = 0;
+            calendarsCursor.moveToPosition(-1);
+            while(calendarsCursor.moveToNext()) {
+                if (defaultCalendar.equals(mCalendarsCursor
+                        .getString(CALENDARS_INDEX_OWNER_ACCOUNT))) {
+                    return position;
+                }
+                position++;
+            }
+            return 0;
         }
     }
 
@@ -1550,6 +1526,17 @@ public class EditEvent extends Activity implements View.OnClickListener,
         if (mHasAttendeeData && newEvent) {
             values.clear();
             int calendarCursorPosition = mCalendarsSpinner.getSelectedItemPosition();
+
+            // Save the default calendar for new events
+            if (mCalendarsCursor != null) {
+                if (mCalendarsCursor.moveToPosition(calendarCursorPosition)) {
+                    String defaultCalendar = mCalendarsCursor
+                            .getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+                    Utils.setSharedPreference(this,
+                            CalendarPreferenceActivity.KEY_DEFAULT_CALENDAR, defaultCalendar);
+                }
+            }
+
             String ownerEmail = mOwnerAccount;
             // Just in case mOwnerAccount is null, try to get owner from mCalendarsCursor
             if (ownerEmail == null && mCalendarsCursor != null &&
