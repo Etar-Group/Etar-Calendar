@@ -21,7 +21,6 @@ import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.text.format.Time;
 import android.view.animation.AlphaAnimation;
@@ -38,6 +37,18 @@ public class Utils {
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         context.startActivity(intent);
+    }
+
+    static String getSharedPreference(Context context, String key, String defaultValue) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(key, defaultValue);
+    }
+
+    static void setSharedPreference(Context context, String key, String value) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(key, value);
+        editor.commit();
     }
 
     static void setDefaultView(Context context, int viewId) {
