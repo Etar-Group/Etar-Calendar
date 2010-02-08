@@ -121,7 +121,7 @@
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to see the list of calendars that he is viewing and to then add
          or remove selected calendars. -->
-    <string name="menu_select_calendars">"Sync &amp; display options"</string>
+    <string name="menu_select_calendars">"Calendars"</string>
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to view and edit his Settings (or Preferences) -->
     <string name="menu_preferences">"Settings"</string>
@@ -140,7 +140,7 @@
     <!-- Select Calendars activity -->
     <skip />
     <!-- Title of "My calendars" screen -->
-    <string name="calendars_title">"Sync &amp; display options"</string>
+    <string name="calendars_title">"Calendars"</string>
     <!-- Synced and visible status message -->
     <string name="synced_visible">synced, visible</string>
     <!-- Synced but not visible status message -->
