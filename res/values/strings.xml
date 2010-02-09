@@ -40,7 +40,7 @@
          of not repeating). -->
     <string name="repeats_label">Repetition</string>
     <!-- Title of event when no explicit title is specified by the user -->
-    <string name="no_title_label">(No subject)</string>
+    <string name="no_title_label">(No title)</string>
 
     <!-- Reminder format strings -->
     <plurals name="Nminutes">
