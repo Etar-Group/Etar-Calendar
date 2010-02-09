@@ -38,7 +38,6 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.pim.ContactsAsyncHelper;
 import android.pim.EventRecurrence;
 import android.preference.PreferenceManager;
 import android.provider.Calendar;
@@ -50,9 +49,9 @@ import android.provider.Calendar.Reminders;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
-import android.provider.ContactsContract.QuickContact;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Presence;
+import android.provider.ContactsContract.QuickContact;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -70,10 +69,10 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.QuickContactBadge;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.QuickContactBadge;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -1000,6 +999,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                     if (photoId > 0 && vh.updateCounts < queryIndex) {
                         vh.updateCounts = queryIndex;
                         Uri personUri = ContentUris.withAppendedId(Contacts.CONTENT_URI, contactId);
+
+                        // TODO, modify to batch queries together
                         ContactsAsyncHelper.updateImageViewWithContactPhotoAsync(mContext, vh.badge,
                                 personUri, R.drawable.ic_contact_picture);
                     }
