@@ -1937,10 +1937,10 @@ public class EditEvent extends Activity implements View.OnClickListener,
     }
 
     private ContentValues getContentValuesFromUi() {
-        String title = mTitleTextView.getText().toString();
+        String title = mTitleTextView.getText().toString().trim();
         boolean isAllDay = mAllDayCheckBox.isChecked();
-        String location = mLocationTextView.getText().toString();
-        String description = mDescriptionTextView.getText().toString();
+        String location = mLocationTextView.getText().toString().trim();
+        String description = mDescriptionTextView.getText().toString().trim();
 
         ContentValues values = new ContentValues();
 
@@ -2016,17 +2016,17 @@ public class EditEvent extends Activity implements View.OnClickListener,
     }
 
     private boolean isEmpty() {
-        String title = mTitleTextView.getText().toString();
+        String title = mTitleTextView.getText().toString().trim();
         if (title.length() > 0) {
             return false;
         }
 
-        String location = mLocationTextView.getText().toString();
+        String location = mLocationTextView.getText().toString().trim();
         if (location.length() > 0) {
             return false;
         }
 
-        String description = mDescriptionTextView.getText().toString();
+        String description = mDescriptionTextView.getText().toString().trim();
         if (description.length() > 0) {
             return false;
         }
