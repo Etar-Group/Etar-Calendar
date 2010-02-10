@@ -11,9 +11,6 @@ LOCAL_SRC_FILES := $(call all-java-files-under,src)
 # library.
 LOCAL_JAVA_LIBRARIES := android.test.runner
 
-# TODO Remove this once LaunchActivity is cleaned up
-LOCAL_STATIC_JAVA_LIBRARIES := gsf-client
-
 LOCAL_STATIC_JAVA_LIBRARIES += android-common
 LOCAL_STATIC_JAVA_LIBRARIES += calendar # Shared calendar code
 

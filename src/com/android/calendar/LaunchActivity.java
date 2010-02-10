@@ -16,128 +16,63 @@
 
 package com.android.calendar;
 
-import com.google.android.gsf.GoogleLoginServiceConstants;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
-import android.accounts.AccountManagerFuture;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Calendar.Calendars;
-import android.util.Log;
-
-import java.io.IOException;
-
+import android.provider.Calendar;
+import android.provider.Settings;
 
 public class LaunchActivity extends Activity {
     private static final String TAG = "LaunchActivity";
-    
+
     static final String KEY_DETAIL_VIEW = "DETAIL_VIEW";
-    static final String GMAIL_AUTH_SERVICE = "mail";
-    private static final String[] PROJECTION = new String[] {
-        Calendars._ID,
-        Calendars._SYNC_ACCOUNT
-    };
     //Part of example on opening sync settings page
-//    private static final String AUTHORITIES_FILTER_KEY = "authorities";
+    private static final String AUTHORITIES_FILTER_KEY = "authorities";
 
     private Bundle mExtras;
-    private LaunchActivity mThis;
-    
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         mExtras = getIntent().getExtras();
-        
+
         // Our UI is not something intended for the user to see.  We just
         // stick around until we can figure out what to do next based on
         // the current state of the system.
-        // TODO: Removed until framework is fixed in b/2008662
+        // Removed because it causes draw problems when entering in landscape orientation
+        // TODO: Figure out draw problem. Original reason for removal due to b/2008662
         // setVisible(false);
 
         // Only try looking for an account if this is the first launch.
-Log.d(TAG, "onCreate");
         if (icicle == null) {
-            //Check if any calendar providers have started writing data to the calendars table.
-            //This is currently the only way to check if an account that supports calendar other
-            //than a google account is available without explicitly checking for each type.
-            Cursor cursor = managedQuery(Calendars.CONTENT_URI, PROJECTION,
-                    "1) GROUP BY (_sync_account", //TODO Remove hack once group by support is added
-                    null /* selectionArgs */,
-                    Calendars._SYNC_ACCOUNT /*sort order*/);
-Log.d(TAG, "managedQuery");
             Account[] accounts = AccountManager.get(this).getAccounts();
-Log.d(TAG, "getAccounts");
-            if(cursor != null && cursor.getCount() > 0 && accounts.length > 0) {
-                int accountColumn = cursor.getColumnIndexOrThrow(Calendars._SYNC_ACCOUNT);
-                boolean cont = cursor.moveToFirst();
-                while(cont) {
-                    String account = cursor.getString(accountColumn);
-                    //Find a matching account
-                    for(int i = 0; i < accounts.length; i++) {
-                        //Use the first account that supports calendar found for set up.
-                        if(account.equals(accounts[i].name)) {
-                            onAccountsLoaded(accounts[i]);
-Log.d(TAG, "returning from onCreate");
-                            return;
-                        }
-                    }
-                    cont = cursor.moveToNext();
-                }
+            if(accounts.length > 0) {
+                // If the only account is an account that can't use Calendar we let the user into
+                // Calendar, but they can't create any events until they add an account with a
+                // Calendar.
+                launchCalendarView();
+            } else {
+                // If we failed to find a valid Calendar, bounce the user to the account settings
+                // screen. Using the Calendar authority has the added benefit of only showing
+                // account types that use Calendar when you enter the add account screen from here.
+                // TODO bounce them to the add account screen if accessible from the public api
+                final Intent intent = new Intent(Settings.ACTION_SYNC_SETTINGS);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(AUTHORITIES_FILTER_KEY, new String[] {
+                    Calendar.AUTHORITY
+                });
+                startActivity(intent);
+                finish();
             }
-Log.d(TAG, "no accounts found");
-            //If we failed to find a valid Calendar ask the user to add a Calendar supported account
-            //Currently we're just bouncing it over to the create google account, but will do a UI
-            //change to fix this later.
-            //TODO
-
-            //This is an example of how to bounce to the sync settings page to add an account
-//            final Intent intent = new Intent(Settings.ACTION_SYNC_SETTINGS);
-//            intent.putExtra(AUTHORITIES_FILTER_KEY, new String[] {
-//                ContactsContract.AUTHORITY
-//            });
-//            startActivity(intent);
-//            return;
-
-            // This will request a Gmail account and if none are present, it will
-            // invoke SetupWizard to login or create one. The result is returned
-            // via the Future2Callback.
-            Bundle bundle = new Bundle();
-            bundle.putCharSequence("optional_message", getText(R.string.calendar_plug));
-            AccountManager.get(this).getAuthTokenByFeatures(
-                    GoogleLoginServiceConstants.ACCOUNT_TYPE, GMAIL_AUTH_SERVICE,
-                    new String[]{GoogleLoginServiceConstants.FEATURE_LEGACY_HOSTED_OR_GOOGLE}, this,
-                    bundle, null /* loginOptions */, new AccountManagerCallback<Bundle>() {
-                public void run(AccountManagerFuture<Bundle> future) {
-                    try {
-                        Bundle result = future.getResult();
-Log.d(TAG, "run");
-                        onAccountsLoaded(new Account(
-                                result.getString(GoogleLoginServiceConstants.AUTH_ACCOUNT_KEY),
-                                result.getString(AccountManager.KEY_ACCOUNT_TYPE)));
-                    } catch (OperationCanceledException e) {
-                        finish();
-                    } catch (IOException e) {
-                        finish();
-                    } catch (AuthenticatorException e) {
-                        finish();
-                    }
-                }
-            }, null /* handler */);
-Log.d(TAG, "getAuthTokenByFeatures");
         }
     }
 
-    private void onAccountsLoaded(Account account) {
-Log.d(TAG, "onAccountsLoaded start");
+    private void launchCalendarView() {
         // Get the data for from this intent, if any
         Intent myIntent = getIntent();
         Uri myData = myIntent.getData();
@@ -160,12 +95,10 @@ Log.d(TAG, "onAccountsLoaded start");
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String startActivity = prefs.getString(defaultViewKey,
                 CalendarPreferenceActivity.DEFAULT_START_VIEW);
-Log.d(TAG, "getDefaultSharedPreferences");
 
         intent.setClassName(this, startActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
-Log.d(TAG, "onAccountsLoaded done");
     }
 }
