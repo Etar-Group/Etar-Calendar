@@ -48,7 +48,6 @@ public class AlertReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (AlertService.DEBUG) {
-            Log.e(TAG, "==============================================================");
             Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent.toString());
         }
 
