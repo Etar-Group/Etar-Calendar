@@ -289,20 +289,19 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 // Also update the end time to keep the duration constant.
                 endTime.hour = hourOfDay + hourDuration;
                 endTime.minute = minute + minuteDuration;
-                endMillis = endTime.normalize(true);
             } else {
                 // The end time was changed.
                 startMillis = startTime.toMillis(true);
                 endTime.hour = hourOfDay;
                 endTime.minute = minute;
-                endMillis = endTime.normalize(true);
 
-                // Do not allow an event to have an end time before the start time.
+                // Move to the next day if the end time is before the start time.
                 if (endTime.before(startTime)) {
-                    endTime.set(startTime);
-                    endMillis = startMillis;
+                    endTime.monthDay = startTime.monthDay + 1;
                 }
             }
+
+            endMillis = endTime.normalize(true);
 
             setDate(mEndDateButton, endMillis);
             setTime(mStartTimeButton, startMillis);
