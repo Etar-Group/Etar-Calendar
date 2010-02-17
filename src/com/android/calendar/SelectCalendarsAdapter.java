@@ -17,17 +17,18 @@
 package com.android.calendar;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorDescription;
+import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -40,7 +41,7 @@ import android.view.ViewGroup;
 import android.widget.CursorTreeAdapter;
 import android.widget.TextView;
 
-public class SelectCalendarsAdapter extends CursorTreeAdapter {
+public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.OnClickListener {
 
     private static final int CLEAR_ALPHA_MASK = 0x00FFFFFF;
     private static final int HIGH_ALPHA = 255 << 24;
@@ -61,13 +62,21 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter {
 
     private final LayoutInflater mInflater;
     private final ContentResolver mResolver;
-    private final ContentValues mValues = new ContentValues();
     private final SelectCalendarsActivity mActivity;
-    private SelectCalendarsChild mChildren[];
-    private Cursor tagCursor;
     private Map<String, AuthenticatorDescription> mTypeToAuthDescription
         = new HashMap<String, AuthenticatorDescription>();
     protected AuthenticatorDescription[] mAuthDescs;
+
+    private Map<Long, Boolean[]> mCalendarChanges
+        = new HashMap<Long, Boolean[]>();
+    private Map<Long, Boolean[]> mCalendarInitialStates
+        = new HashMap<Long, Boolean[]>();
+    private static final int SELECTED_INDEX = 0;
+    private static final int SYNCED_INDEX = 1;
+    private static final int CHANGES_SIZE = 2;
+
+    private static AsyncCalendarsUpdater mCalendarsUpdater;
+    private static int mUpdateToken = 0;
 
     private static String syncedVisible;
     private static String syncedNotVisible;
@@ -90,106 +99,54 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter {
     private static final int SELECTED_COLUMN = 4;
     private static final int SYNCED_COLUMN = 5;
 
+    private class AsyncCalendarsUpdater extends AsyncQueryHandler {
+        public AsyncCalendarsUpdater(ContentResolver cr) {
+            super(cr);
+        }
+    }
+
     /**
-     * Data structure for holding all the information about a single account's calendars.
+     * Method for changing the sync/vis state when a calendar's button is pressed.
      *
+     * This gets called when the MultiStateButton for a calendar is clicked. It cycles the sync/vis
+     * state for the associated calendar and saves a change of state to a hashmap. It also compares
+     * against the original value and removes any changes from the hashmap if this is back
+     * at its initial state.
      */
-    private class SelectCalendarsChild {
-        private String mAccount;
-        private Boolean mIsVisible[] = null;
-        private Boolean mIsSynced[] = null;
-
-        SelectCalendarsChild(String account, Cursor cursor) {
-            mAccount = account;
-            initIsStatusArrays(cursor.getCount());
+    public void onClick(View v) {
+        View view = (View)v.getTag();
+        long id = (Long)view.getTag();
+        Uri uri = ContentUris.withAppendedId(Calendars.CONTENT_URI, id);
+        String status = syncedNotVisible;
+        Boolean[] change;
+        Boolean[] initialState = mCalendarInitialStates.get(id);
+        if (mCalendarChanges.containsKey(id)) {
+            change = mCalendarChanges.get(id);
+        } else {
+            change = new Boolean[CHANGES_SIZE];
+            change[SELECTED_INDEX] = initialState[SELECTED_INDEX];
+            change[SYNCED_INDEX] = initialState[SYNCED_INDEX];
+            mCalendarChanges.put(id, change);
         }
 
-        private void initIsStatusArrays(int cursorCount) {
-            mIsVisible = new Boolean[cursorCount];
-            mIsSynced = new Boolean[cursorCount];
+        if (change[SELECTED_INDEX]) {
+            change[SELECTED_INDEX] = false;
+            status = syncedNotVisible;
         }
-
-        private void initIsStatusArrayElement(Cursor cursor) {
-            int position = cursor.getPosition();
-            if(cursor.getInt(SYNCED_COLUMN) == 1) {
-                mIsSynced[position] = true;
-                if(cursor.getInt(SELECTED_COLUMN) == 1) {
-                    mIsVisible[position] = true;
-                } else {
-                    mIsVisible[position] = false;
-                }
-            } else {
-                mIsSynced[position] = false;
-                mIsVisible[position] = false;
-            }
+        else if (change[SYNCED_INDEX]) {
+            change[SYNCED_INDEX] = false;
+            status = notSyncedNotVisible;
         }
-
-        public String getAccount() {
-            return mAccount;
+        else
+        {
+            change[SYNCED_INDEX] = true;
+            change[SELECTED_INDEX] = true;
+            status = syncedVisible;
         }
-
-        public Boolean[] getSelected() {
-            return mIsVisible;
-        }
-
-        public Boolean[] getSynced() {
-            return mIsSynced;
-        }
-
-        public void setSelected(boolean value, int position) {
-            mIsVisible[position] = value;
-        }
-
-        public void setSynced(boolean value, int position) {
-            mIsSynced[position] = value;
-        }
-    }
-
-    private SelectCalendarsChild findChildByAccount(String act) {
-        for(int i = 0; i < mChildren.length; i++) {
-            if(act.equals(mChildren[i].getAccount())) {
-                return mChildren[i];
-            }
-        }
-        return null;
-    }
-
-    private class ButtonListener implements View.OnClickListener {
-        private final long mCalendarId;
-        private final int mPosition;
-        private final String mAccount;
-        private final View mView;
-
-        private ButtonListener(long calendarId, int position, String account, View view) {
-            mPosition = position;
-            mCalendarId = calendarId;
-            mAccount = account;
-            mView = view;
-        }
-
-        public void onClick(View buttonView) {
-            Uri uri = ContentUris.withAppendedId(Calendars.CONTENT_URI, mCalendarId);
-            String status = syncedNotVisible;
-            mValues.clear();
-            SelectCalendarsChild child = findChildByAccount(mAccount);
-            Boolean isSelected[] = child.getSelected();
-            Boolean isSynced[] = child.getSynced();
-
-            if(isSelected[mPosition]) {
-                isSelected[mPosition] = false;
-                status = syncedNotVisible;
-            }
-            else if(isSynced[mPosition]) {
-                isSynced[mPosition] = false;
-                status = notSyncedNotVisible;
-            }
-            else
-            {
-                isSynced[mPosition] = true;
-                isSelected[mPosition] = true;
-                status = syncedVisible;
-            }
-            setText(mView, R.id.status, status);
+        setText(view, R.id.status, status);
+        if (change[SELECTED_INDEX] == initialState[SELECTED_INDEX] &&
+                change[SYNCED_INDEX] == initialState[SYNCED_INDEX]) {
+            mCalendarChanges.remove(id);
         }
     }
 
@@ -202,39 +159,17 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter {
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mResolver = context.getContentResolver();
         mActivity = act;
+        if (mCalendarsUpdater == null) {
+            mCalendarsUpdater = new AsyncCalendarsUpdater(mResolver);
+        }
         if(cursor.getCount() == 0) {
             //Should never happen since Calendar requires an account exist to use it.
             Log.e(TAG, "SelectCalendarsAdapter: No accounts were returned!");
         }
-        updateChildren(cursor);
-        tagCursor = cursor;
         //Collect proper description for account types
         mAuthDescs = AccountManager.get(context).getAuthenticatorTypes();
         for (int i = 0; i < mAuthDescs.length; i++) {
             mTypeToAuthDescription.put(mAuthDescs[i].type, mAuthDescs[i]);
-        }
-    }
-
-    /**
-     * Updates the mChildren array at startup or if the number of accounts changed.
-     *
-     * @param cursor A cursor containing the account names.
-     */
-    private void updateChildren(Cursor cursor) {
-        int accountColumn = cursor.getColumnIndexOrThrow(Calendars._SYNC_ACCOUNT);
-        mChildren = new SelectCalendarsChild[cursor.getCount()];
-        cursor.moveToPosition(-1);
-        int position = -1;
-        String[] selectionArgs = new String[1];
-        while(cursor.moveToNext()) {
-            position++;
-            selectionArgs[0] = cursor.getString(accountColumn);
-            //TODO Move managedQuery into a background thread
-            Cursor childCursor = mActivity.managedQuery(Calendars.CONTENT_URI, PROJECTION,
-                    Calendars._SYNC_ACCOUNT + "=?"/*Selection*/,
-                    selectionArgs,
-                    Calendars.DISPLAY_NAME);
-            mChildren[position] = new SelectCalendarsChild(selectionArgs[0], childCursor);
         }
     }
 
@@ -243,36 +178,22 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter {
      * do updates on its own.
      */
     public void doSaveAction() {
-        //If we never got a cursor we shouldn't do anything.
-        if(tagCursor == null) return;
-        //Start the cursor at beginning and make sure it's not empty
-        tagCursor.moveToPosition(-1);
-        while(tagCursor.moveToNext()) {
-            Cursor childCursor = getChildrenCursor(tagCursor);
-            childCursor.moveToPosition(-1);
-            SelectCalendarsChild child = mChildren[tagCursor.getPosition()];
-            Boolean isSelected[] = child.getSelected();
-            Boolean isSynced[] = child.getSynced();
-            //Go through each account's calendars and update the sync and selected settings
-            while(childCursor.moveToNext()) {
-                int position = childCursor.getPosition();
-                int selected = childCursor.getInt(SELECTED_COLUMN);
-                int synced = childCursor.getInt(SYNCED_COLUMN);
-                int id = childCursor.getInt(ID_COLUMN);
-                //If we never saw this calendar on the screen we can ignore it.
-                if(isSelected[position] != null && isSynced[position] != null) {
-                    int newSelected = isSelected[position] ? 1 : 0;
-                    int newSynced = isSynced[position] ? 1 : 0;
-                    //likewise, if nothing changed we can ignore it.
-                    if(newSelected != selected || newSynced != synced) {
-                        Uri uri = ContentUris.withAppendedId(Calendars.CONTENT_URI, id);
-                        mValues.clear();
-                        mValues.put(Calendars.SELECTED, newSelected);
-                        mValues.put(Calendars.SYNC_EVENTS, newSynced);
-                        mResolver.update(uri, mValues, null, null);
-                    }
-                }
-            }
+        //Cancel the previous operation
+        mCalendarsUpdater.cancelOperation(mUpdateToken);
+        mUpdateToken++;
+
+        Iterator<Long> changeKeys = mCalendarChanges.keySet().iterator();
+        while (changeKeys.hasNext()) {
+            long id = changeKeys.next();
+            Boolean[] change = mCalendarChanges.get(id);
+            int newSelected = change[SELECTED_INDEX] ? 1 : 0;
+            int newSynced = change[SYNCED_INDEX] ? 1 : 0;
+
+            Uri uri = ContentUris.withAppendedId(Calendars.CONTENT_URI, id);
+            ContentValues values = new ContentValues();
+            values.put(Calendars.SELECTED, newSelected);
+            values.put(Calendars.SYNC_EVENTS, newSynced);
+            mCalendarsUpdater.startUpdate(mUpdateToken, id, uri, values, null, null);
         }
     }
 
@@ -293,8 +214,7 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter {
         CharSequence label = null;
         if (mTypeToAuthDescription.containsKey(accountType)) {
              try {
-                 AuthenticatorDescription desc = (AuthenticatorDescription)
-                         mTypeToAuthDescription.get(accountType);
+                 AuthenticatorDescription desc = mTypeToAuthDescription.get(accountType);
                  Context authContext = mActivity.createPackageContext(desc.packageName, 0);
                  label = authContext.getResources().getText(desc.labelId);
              } catch (PackageManager.NameNotFoundException e) {
@@ -332,26 +252,24 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter {
         String status = notSyncedNotVisible;
         int state = 2;
         int position = cursor.getPosition();
+        long id = cursor.getLong(ID_COLUMN);
 
-        //Update our internal tracking if it hasn't been set before
-        SelectCalendarsChild child = findChildByAccount(account);
-        if(child == null) {
-            Log.e(TAG, "bindChildView:Tried to load an account we don't know about.");
+        // First see if the user has already changed the state of this calendar
+        Boolean[] initialState = mCalendarChanges.get(id);
+        // if not just grab the initial state
+        if (initialState == null) {
+            initialState = mCalendarInitialStates.get(id);
         }
-        Boolean isSelected[] = child.getSelected();
-        Boolean isSynced[] = child.getSynced();
-        // Update the array length if a new calendar has been added
-        //TODO add code to updateIsStatusArrays to check if valid data already exists and keep it
-        int cursorCount = cursor.getCount();
-        if (cursorCount != isSelected.length) {
-            child.initIsStatusArrays(cursorCount);
+        // and create a new initial state if we've never seen this calendar before.
+        if(initialState == null) {
+            initialState = new Boolean[CHANGES_SIZE];
+            initialState[SELECTED_INDEX] = cursor.getInt(SELECTED_COLUMN) == 1;
+            initialState[SYNCED_INDEX] = cursor.getInt(SYNCED_COLUMN) == 1;
+            mCalendarInitialStates.put(id, initialState);
         }
-        //and set the initial value if we need to
-        if(isSelected[position] == null || isSynced[position] == null) {
-            child.initIsStatusArrayElement(cursor);
-        }
-        if(isSynced[position]) {
-            if(isSelected[position]) {
+
+        if(initialState[SYNCED_INDEX]) {
+            if(initialState[SELECTED_INDEX]) {
                 status = syncedVisible;
                 state = 0;
             } else {
@@ -365,13 +283,12 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter {
         setText(view, R.id.calendar, cursor.getString(NAME_COLUMN));
         setText(view, R.id.status, status);
         MultiStateButton button = (MultiStateButton) view.findViewById(R.id.multiStateButton);
-        long id = cursor.getLong(ID_COLUMN);
 
         //Set up the listeners so a click on the button will change the state.
         //The view already uses the onChildClick method in the activity.
-        ButtonListener bListener = new ButtonListener(id, position, account, view);
-        button.setOnClickListener(null);
-        button.setOnClickListener(bListener);
+        button.setTag(view);
+        view.setTag(id);
+        button.setOnClickListener(this);
         button.setButtonResources(SYNC_VIS_BUTTON_RES);
         button.setState(state);
     }
@@ -384,11 +301,6 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter {
         String accountType = cursor.getString(accountTypeColumn);
         setText(view, R.id.account, account);
         setText(view, R.id.account_type, getLabelForType(accountType).toString());
-        //This occurs if the user adds a new account while Calendar is running in the background and
-        //after the user has entered the SelectCalendars screen at least once this session.
-        if(cursor.getCount() != mChildren.length) {
-            updateChildren(cursor);
-        }
     }
 
     @Override
