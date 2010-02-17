@@ -92,7 +92,7 @@ public class LaunchActivity extends Activity {
         }
         intent.putExtras(myIntent);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
         String startActivity = prefs.getString(defaultViewKey,
                 CalendarPreferenceActivity.DEFAULT_START_VIEW);
 

@@ -19,11 +19,14 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.android.calendar"
-        android:sharedUserId="android.uid.calendar"
         android:sharedUserLabel="@string/app_label">
 
-    <original-package android:name="com.android.calendar" />
+    <!--
+       NOTE: and original-package cannot be used, since the Eclair
+       version was using a shared user ID with the provider.
+    -->
 
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>

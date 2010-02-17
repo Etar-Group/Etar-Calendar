@@ -40,12 +40,12 @@ public class Utils {
     }
 
     static String getSharedPreference(Context context, String key, String defaultValue) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         return prefs.getString(key, defaultValue);
     }
 
     static void setSharedPreference(Context context, String key, String value) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(key, value);
         editor.commit();
@@ -54,7 +54,7 @@ public class Utils {
     static void setDefaultView(Context context, int viewId) {
         String activityString = CalendarApplication.ACTIVITY_NAMES[viewId];
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         if (viewId == CalendarApplication.AGENDA_VIEW_ID ||
                 viewId == CalendarApplication.DAY_VIEW_ID) {

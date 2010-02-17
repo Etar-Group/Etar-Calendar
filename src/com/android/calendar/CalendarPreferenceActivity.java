@@ -16,16 +16,22 @@
 
 package com.android.calendar;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 
 public class CalendarPreferenceActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
+    // The name of the shared preferences file. This name must be maintained for historical
+    // reasons, as it's what PreferenceManager assigned the first time the file was created.
+    private static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
+
     // Preference keys
     static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
     static final String KEY_ALERTS_TYPE = "preferences_alerts_type";
@@ -51,10 +57,25 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     CheckBoxPreference mVibrate;
     RingtonePreference mRingtone;
 
+    /** Return a properly configured SharedPreferences instance */
+    public static SharedPreferences getSharedPreferences(Context context) {
+        return context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+    }
+
+    /** Set the default shared preferences in the proper context */
+    public static void setDefaultValues(Context context) {
+        PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
+                R.xml.preferences, false);
+    }
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
+        // Make sure to always use the same preferences file regardless of the package name
+        // we're running under
+        getPreferenceManager().setSharedPreferencesName(SHARED_PREFS_NAME);
+        
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
 

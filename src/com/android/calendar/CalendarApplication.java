@@ -17,8 +17,8 @@
 package com.android.calendar;
 
 import android.app.Application;
+import android.content.Context;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class CalendarApplication extends Application {
 
@@ -78,7 +78,7 @@ public class CalendarApplication extends Application {
          * Ensure the default values are set for any receiver, activity,
          * service, etc. of Calendar
          */
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        CalendarPreferenceActivity.setDefaultValues(this);
     }
 
 }

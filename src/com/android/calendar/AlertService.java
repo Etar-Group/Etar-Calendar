@@ -248,7 +248,7 @@ public class AlertService extends Service {
             }
         }
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         String reminderType = prefs.getString(CalendarPreferenceActivity.KEY_ALERTS_TYPE,
                 CalendarPreferenceActivity.ALERT_TYPE_STATUS_BAR);
 

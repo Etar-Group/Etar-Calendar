@@ -299,7 +299,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
 
         MonthView view1 = (MonthView) mSwitcher.getCurrentView();
         MonthView view2 = (MonthView) mSwitcher.getNextView();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
         String str = prefs.getString(CalendarPreferenceActivity.KEY_DETAILED_VIEW,
                 CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
         view1.setDetailedView(str);

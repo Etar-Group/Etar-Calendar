@@ -138,10 +138,10 @@ public class AgendaActivity extends Activity implements Navigator {
             Log.v(TAG, "OnResume to " + mTime.toString());
         }
 
-        SharedPreferences prefs =
-            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean hideDeclined = prefs
-                .getBoolean(CalendarPreferenceActivity.KEY_HIDE_DECLINED, false);
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(
+                getApplicationContext());
+        boolean hideDeclined = prefs.getBoolean(
+                CalendarPreferenceActivity.KEY_HIDE_DECLINED, false);
 
         mAgendaListView.setHideDeclinedEvents(hideDeclined);
         mAgendaListView.goTo(mTime, true);

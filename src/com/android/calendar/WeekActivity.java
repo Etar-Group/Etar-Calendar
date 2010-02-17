@@ -72,7 +72,7 @@ public class WeekActivity extends CalendarActivity implements ViewSwitcher.ViewF
 
         CalendarView view1 = (CalendarView) mViewSwitcher.getCurrentView();
         CalendarView view2 = (CalendarView) mViewSwitcher.getNextView();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
 
         String str = prefs.getString(CalendarPreferenceActivity.KEY_DETAILED_VIEW,
                 CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
