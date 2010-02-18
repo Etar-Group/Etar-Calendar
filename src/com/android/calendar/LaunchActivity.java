@@ -31,8 +31,6 @@ public class LaunchActivity extends Activity {
     private static final String TAG = "LaunchActivity";
 
     static final String KEY_DETAIL_VIEW = "DETAIL_VIEW";
-    //Part of example on opening sync settings page
-    private static final String AUTHORITIES_FILTER_KEY = "authorities";
 
     private Bundle mExtras;
 
@@ -61,9 +59,9 @@ public class LaunchActivity extends Activity {
                 // screen. Using the Calendar authority has the added benefit of only showing
                 // account types that use Calendar when you enter the add account screen from here.
                 // TODO bounce them to the add account screen if accessible from the public api
-                final Intent intent = new Intent(Settings.ACTION_SYNC_SETTINGS);
+                final Intent intent = new Intent(Settings.ACTION_ADD_ACCOUNT);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(AUTHORITIES_FILTER_KEY, new String[] {
+                intent.putExtra(Settings.EXTRA_AUTHORITIES, new String[] {
                     Calendar.AUTHORITY
                 });
                 startActivity(intent);
