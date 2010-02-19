@@ -16,9 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"캘린더"</string>
-    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Google 캘린더에 오신 것을 환영합니다."</font>" "\n"Google 캘린더는 더 간편하고 효율적이며 사용하기 쉬운 일정 관리 서비스를 제공하는 Google 서비스입니다."</string>
     <string name="what_label" msgid="1933578391985810049">"내용"</string>
-    <string name="when_label" msgid="894636567327261599">"일시"</string>
     <string name="where_label" msgid="3472482206065595118">"장소"</string>
     <string name="attendees_label" msgid="2971281641565729725">"참석자"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g>(<xliff:g id="GUEST_COUNT">%d</xliff:g>개)"</string>
@@ -55,8 +53,6 @@
     <string name="menu_preferences" msgid="9120238479503233925">"설정"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(<xliff:g id="MORE_COUNT">%d</xliff:g>개 일정 더보기...)"</string>
     <string name="calendars_title" msgid="4457305218812126946">"내 캘린더"</string>
-    <string name="add_calendars" msgid="1013326491414656517">"캘린더 추가"</string>
-    <string name="remove_calendars" msgid="1395151808187126222">"캘린더 삭제"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"일정 세부정보"</string>
     <string name="hint_what" msgid="709155115005044531">"일정 이름"</string>
     <string name="hint_where" msgid="3116239630502213241">"일정 장소"</string>

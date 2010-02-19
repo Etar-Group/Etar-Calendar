@@ -17,17 +17,11 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- This is the label underneath the icon for Calendar -->
     <string name="app_label">Calendar</string>
-    <!-- This is the welcome message when a user starts Calendar for the first time -->
-    <string name="calendar_plug"><font fgcolor="#ffffffff">Welcome to Google Calendar!</font>
-    \nA Google approach to managing your schedule built on the idea that scheduling events can be more intuitive, efficient, and accessible.
-    </string>
 
     <!-- Shared Labels. These labels are shared among the activities. -->
     <skip />
     <!-- This is the label for the title or name of an event -->
     <string name="what_label">What</string>
-    <!-- This is the label for the date and time of an event -->
-    <string name="when_label">When</string>
     <!-- This is the label for the location of an event -->
     <string name="where_label">Where</string>
     <!-- This is the label for the Guests/Attendees of an event -->

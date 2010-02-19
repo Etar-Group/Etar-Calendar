@@ -16,9 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
-    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Velkommen til Google Kalender!"</font>" "\n"Google mener, at planlægning af begivenheder skal være mere intuitiv, effektiv og lettilgængelig."</string>
     <string name="what_label" msgid="1933578391985810049">"Hvad"</string>
-    <string name="when_label" msgid="894636567327261599">"Hvornår"</string>
     <string name="where_label" msgid="3472482206065595118">"Hvor"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Gæster"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -55,8 +53,6 @@
     <string name="menu_preferences" msgid="9120238479503233925">"Indstillinger"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(plus <xliff:g id="MORE_COUNT">%d</xliff:g> flere ...)"</string>
     <string name="calendars_title" msgid="4457305218812126946">"Mine kalendere"</string>
-    <string name="add_calendars" msgid="1013326491414656517">"Tilføj kalendere"</string>
-    <string name="remove_calendars" msgid="1395151808187126222">"Fjern kalendere"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Detaljer om begivenhed"</string>
     <string name="hint_what" msgid="709155115005044531">"Begivenhedens navn"</string>
     <string name="hint_where" msgid="3116239630502213241">"Begivenhedens placering"</string>

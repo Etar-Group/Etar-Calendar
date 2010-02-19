@@ -16,9 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalendarz"</string>
-    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Witamy w Kalendarzu Google!"</font>" "\n"Zarządzanie harmonogramem w stylu Google, dzięki któremu planowanie wydarzeń jest intuicyjne, wydajne i wygodne."</string>
     <string name="what_label" msgid="1933578391985810049">"Co"</string>
-    <string name="when_label" msgid="894636567327261599">"Kiedy"</string>
     <string name="where_label" msgid="3472482206065595118">"Gdzie"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Goście"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -55,8 +53,6 @@
     <string name="menu_preferences" msgid="9120238479503233925">"Ustawienia"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(i <xliff:g id="MORE_COUNT">%d</xliff:g> więcej…)"</string>
     <string name="calendars_title" msgid="4457305218812126946">"Moje kalendarze"</string>
-    <string name="add_calendars" msgid="1013326491414656517">"Dodaj kalendarze"</string>
-    <string name="remove_calendars" msgid="1395151808187126222">"Usuń kalendarze"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Szczegóły wydarzenia"</string>
     <string name="hint_what" msgid="709155115005044531">"Nazwa wydarzenia"</string>
     <string name="hint_where" msgid="3116239630502213241">"Lokalizacja wydarzenia"</string>

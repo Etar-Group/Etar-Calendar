@@ -16,9 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"日历"</string>
-    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"欢迎使用 Google 日历！"</font>" "\n"Google 日历可用来管理您的日程安排，让您更直观、更高效、更轻松地安排活动。"</string>
     <string name="what_label" msgid="1933578391985810049">"内容"</string>
-    <string name="when_label" msgid="894636567327261599">"时间"</string>
     <string name="where_label" msgid="3472482206065595118">"地点"</string>
     <string name="attendees_label" msgid="2971281641565729725">"邀请对象"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -55,8 +53,6 @@
     <string name="menu_preferences" msgid="9120238479503233925">"设置"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"（以及 <xliff:g id="MORE_COUNT">%d</xliff:g> 个其他活动...）"</string>
     <string name="calendars_title" msgid="4457305218812126946">"我的日历"</string>
-    <string name="add_calendars" msgid="1013326491414656517">"添加日历"</string>
-    <string name="remove_calendars" msgid="1395151808187126222">"删除日历"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"活动详情"</string>
     <string name="hint_what" msgid="709155115005044531">"活动名称"</string>
     <string name="hint_where" msgid="3116239630502213241">"活动地点"</string>

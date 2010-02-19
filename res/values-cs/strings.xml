@@ -16,9 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalendář"</string>
-    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Vítá vás Kalendář Google!"</font>" "\n" Přístup společnosti Google ke správě vašeho časového plánu je založen na myšlence, že plánování událostí může být intuitivnější, efektivnější a přístupnější."</string>
     <string name="what_label" msgid="1933578391985810049">"Co"</string>
-    <string name="when_label" msgid="894636567327261599">"Kdy"</string>
     <string name="where_label" msgid="3472482206065595118">"Kde"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Hosté"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -55,8 +53,6 @@
     <string name="menu_preferences" msgid="9120238479503233925">"Nastavení"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(plus o <xliff:g id="MORE_COUNT">%d</xliff:g> více …)"</string>
     <string name="calendars_title" msgid="4457305218812126946">"Moje kalendáře"</string>
-    <string name="add_calendars" msgid="1013326491414656517">"Přidat kalendáře"</string>
-    <string name="remove_calendars" msgid="1395151808187126222">"Odebrat kalendáře"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Podrobnosti události"</string>
     <string name="hint_what" msgid="709155115005044531">"Název události"</string>
     <string name="hint_where" msgid="3116239630502213241">"Místo události"</string>

@@ -16,9 +16,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Календарь"</string>
-    <string name="calendar_plug" msgid="4861031284038774007"><font fgcolor="#ffffffff">"Добро пожаловать в Календарь Google!"</font>" "\n"Подход Google к управлению расписанием основан на принципах интуитивности, эффективности и доступности."</string>
     <string name="what_label" msgid="1933578391985810049">"Что"</string>
-    <string name="when_label" msgid="894636567327261599">"Когда"</string>
     <string name="where_label" msgid="3472482206065595118">"Где"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Гости"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -55,8 +53,6 @@
     <string name="menu_preferences" msgid="9120238479503233925">"Настройки"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(и еще <xliff:g id="MORE_COUNT">%d</xliff:g>…)"</string>
     <string name="calendars_title" msgid="4457305218812126946">"Мои календари"</string>
-    <string name="add_calendars" msgid="1013326491414656517">"Добавить календари"</string>
-    <string name="remove_calendars" msgid="1395151808187126222">"Удалить календари"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Детали мероприятия"</string>
     <string name="hint_what" msgid="709155115005044531">"Название мероприятия"</string>
     <string name="hint_where" msgid="3116239630502213241">"Место мероприятия"</string>
