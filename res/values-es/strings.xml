@@ -63,8 +63,6 @@
     <string name="loading_calendars_title" msgid="3819254313413902272">"Cargando calendarios"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Cargando calendarios..."</string>
     <string name="alert_title" msgid="7869592820853066853">"Notificaciones de Calendar"</string>
-    <string name="alert_when_label" msgid="106946701143025116">"Cuándo:"</string>
-    <string name="alert_where_label" msgid="4255965543493921820">"Dónde:"</string>
     <string name="alert_missed_events_single" msgid="8042891195314876684">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> recordatorios más)"</string>
     <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> recordatorios más)"</string>
     <string name="event_info_title" msgid="56024222340421620">"Ver evento"</string>
