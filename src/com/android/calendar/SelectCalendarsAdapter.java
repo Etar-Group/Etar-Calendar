@@ -29,6 +29,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -53,7 +54,7 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
 
     private static final String TAG = "Calendar";
 
-    //TODO replace with final icon names
+    // The drawables used for the button to change the visible and sync states on a calendar
     private static final int[] SYNC_VIS_BUTTON_RES = new int[] {
         R.drawable.widget_show,
         R.drawable.widget_sync,
@@ -67,6 +68,7 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
         = new HashMap<String, AuthenticatorDescription>();
     protected AuthenticatorDescription[] mAuthDescs;
 
+    // These track changes to the visible (selected) and synced state of calendars
     private Map<Long, Boolean[]> mCalendarChanges
         = new HashMap<Long, Boolean[]>();
     private Map<Long, Boolean[]> mCalendarInitialStates
@@ -75,8 +77,15 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     private static final int SYNCED_INDEX = 1;
     private static final int CHANGES_SIZE = 2;
 
+    // This is for keeping MatrixCursor copies so that we can requery in the background.
+    private static Map<String, Cursor> mChildrenCursors
+        = new HashMap<String, Cursor>();
+
     private static AsyncCalendarsUpdater mCalendarsUpdater;
-    private static int mUpdateToken = 0;
+    // This is to keep our update tokens separate from other tokens. Since we cancel old updates
+    // when a new update comes in, we'd like to leave a token space that won't be canceled.
+    private static final int MIN_UPDATE_TOKEN = 1000;
+    private static int mUpdateToken = MIN_UPDATE_TOKEN;
 
     private static String syncedVisible;
     private static String syncedNotVisible;
@@ -100,8 +109,77 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     private static final int SYNCED_COLUMN = 5;
 
     private class AsyncCalendarsUpdater extends AsyncQueryHandler {
+
         public AsyncCalendarsUpdater(ContentResolver cr) {
             super(cr);
+        }
+
+        @Override
+        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            if(cursor == null) {
+                return;
+            }
+
+            Cursor currentCursor = mChildrenCursors.get(cookie);
+            // Check if the new cursor has the same content as our old cursor
+            if (currentCursor != null) {
+                if (compareCursors(currentCursor, cursor)) {
+                    return;
+                }
+            }
+            // If not then make a new matrix cursor for our Map
+            MatrixCursor newCursor = matrixCursorFromCursor(cursor);
+            mChildrenCursors.put((String)cookie, newCursor);
+            try {
+                setChildrenCursor(token, newCursor);
+            } catch (NullPointerException e) {
+                Log.w(TAG, "Adapter expired, try again on the next query: " + e.getMessage());
+            }
+        }
+
+        /**
+         * Compares two cursors to see if they contain the same data.
+         */
+        private boolean compareCursors(Cursor c1, Cursor c2) {
+            if(c1 == null || c2 == null) {
+                return false;
+            }
+
+            int numColumns = c1.getColumnCount();
+            if (numColumns != c2.getColumnCount()) {
+                return false;
+            }
+
+            if (c1.getCount() != c2.getCount()) {
+                return false;
+            }
+
+            c1.moveToPosition(-1);
+            c2.moveToPosition(-1);
+            while(c1.moveToNext() && c2.moveToNext()) {
+                for(int i = 0; i < numColumns; i++) {
+                    if(!c1.getString(i).equals(c2.getString(i))) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private MatrixCursor matrixCursorFromCursor(Cursor cursor) {
+            MatrixCursor newCursor = new MatrixCursor(cursor.getColumnNames());
+            int numColumns = cursor.getColumnCount();
+            int count = cursor.getCount();
+            String data[] = new String[numColumns];
+            cursor.moveToPosition(-1);
+            while(cursor.moveToNext()) {
+                for(int i = 0; i < numColumns; i++) {
+                    data[i] = cursor.getString(i);
+                }
+                newCursor.addRow(data);
+            }
+            return newCursor;
         }
     }
 
@@ -178,9 +256,12 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
      * do updates on its own.
      */
     public void doSaveAction() {
-        //Cancel the previous operation
+        // Cancel the previous operation
         mCalendarsUpdater.cancelOperation(mUpdateToken);
         mUpdateToken++;
+        // This is to allow us to do queries and updates with the same AsyncQueryHandler without
+        // accidently canceling queries.
+        if(mUpdateToken < MIN_UPDATE_TOKEN) mUpdateToken = MIN_UPDATE_TOKEN;
 
         Iterator<Long> changeKeys = mCalendarChanges.keySet().iterator();
         while (changeKeys.hasNext()) {
@@ -308,8 +389,10 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
         int accountColumn = groupCursor.getColumnIndexOrThrow(Calendars._SYNC_ACCOUNT);
         String account = groupCursor.getString(accountColumn);
         //Get all the calendars for just this account.
-        //TODO Move managedQuery into a background thread in CP2
-        Cursor childCursor = mActivity.managedQuery(Calendars.CONTENT_URI, PROJECTION,
+        Cursor childCursor = mChildrenCursors.get(account);
+        mCalendarsUpdater.startQuery(groupCursor.getPosition(),
+                account,
+                Calendars.CONTENT_URI, PROJECTION,
                 Calendars._SYNC_ACCOUNT + "=\"" + account + "\"" /*Selection*/,
                 null /* selectionArgs */,
                 Calendars.DISPLAY_NAME);
