@@ -21,12 +21,15 @@ import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.widget.ViewFlipper;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class Utils {
     public static void startActivity(Context context, String className, long time) {
@@ -79,7 +82,19 @@ public class Utils {
      */
     public static final long timeFromIntentInMillis(Intent intent) {
         // If the time was specified, then use that.  Otherwise, use the current time.
+        Uri data = intent.getData();
         long millis = intent.getLongExtra(EVENT_BEGIN_TIME, -1);
+        if (millis == -1 && data != null && data.isHierarchical()) {
+            List<String> path = data.getPathSegments();
+            if(path.size() == 3 && path.get(1).equals("time")) {
+                try {
+                    millis = Long.valueOf(data.getLastPathSegment());
+                } catch (NumberFormatException e) {
+                    Log.i("Calendar", "timeFromIntentInMillis: Data existed but no valid time " +
+                            "found. Using current time.");
+                }
+            }
+        }
         if (millis == -1) {
             millis = System.currentTimeMillis();
         }
