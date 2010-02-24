@@ -88,6 +88,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.TimeZone;
 
@@ -854,10 +855,12 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         // validate the emails, out of paranoia.  they should already be
         // validated on input, but drop any invalid emails just to be safe.
-        for (Rfc822Token address : addresses) {
+        Iterator<Rfc822Token> addressIterator = addresses.iterator();
+        while (addressIterator.hasNext()) {
+            Rfc822Token address = addressIterator.next();
             if (!mEmailValidator.isValid(address.getAddress())) {
                 Log.w(TAG, "Dropping invalid attendee email address: " + address);
-                addresses.remove(address);
+                addressIterator.remove();
             }
         }
         return addresses;
