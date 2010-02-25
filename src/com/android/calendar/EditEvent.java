@@ -69,6 +69,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -1381,11 +1382,12 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 return false;
             }
 
-            // Avoid creating a new event if the calendars cursor is empty. This
-            // shouldn't ever happen since the setup wizard should ensure the user
-            // has a calendar.
-            if (mCalendarsCursor == null || mCalendarsCursor.getCount() == 0) {
-                Log.w("Cal", "The calendars table does not contain any calendars."
+            // Avoid creating a new event if the calendars cursor is empty or we clicked through
+            // too quickly and no calendar was selected (blame the monkey)
+            if (mCalendarsCursor == null || mCalendarsCursor.getCount() == 0 ||
+                    mCalendarsSpinner.getSelectedItemId() == AdapterView.INVALID_ROW_ID) {
+                Log.w("Cal", "The calendars table does not contain any calendars"
+                        + " or no calendar was selected."
                         + " New event was not created.");
                 return true;
             }
