@@ -95,7 +95,7 @@ public class Utils {
                 }
             }
         }
-        if (millis == -1) {
+        if (millis <= 0) {
             millis = System.currentTimeMillis();
         }
         return millis;
