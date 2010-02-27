@@ -289,7 +289,9 @@
     <!--   1st parameter is an ordinal number, like 'first' -->
     <!--   2nd parameter is a day of the week, like 'Sunday' -->
     <string name="monthly_on_day_count">"Monthly (every <xliff:g id="ordinal_number">%1$s</xliff:g> <xliff:g id="day_of_week">%2$s</xliff:g>)"</string>
-
+    <string name="monthly">Monthly</string>
+    <!-- Calendar spinner item, to select that an event recurs every year. -->
+    <string name="yearly_plain">Yearly</string>
     <!-- Example: "Monthly (on day 15)" -->
     <string name="monthly_on_day">"Monthly (on day <xliff:g id="day_of_month">%s</xliff:g>)"</string>
     <!-- Example: "Yearly (on April 15)" -->
