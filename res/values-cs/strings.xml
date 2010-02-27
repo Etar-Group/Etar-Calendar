@@ -21,7 +21,7 @@
     <string name="attendees_label" msgid="2971281641565729725">"Hosté"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Opakování"</string>
-    <string name="no_title_label" msgid="7352118984125107858">"(Bez předmětu)"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(bez názvu)"</string>
   <plurals name="Nminutes">
     <item quantity="one" msgid="4871052965772159239">"1 minuta"</item>
     <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minut"</item>
@@ -49,10 +49,13 @@
     <string name="event_edit" msgid="4006961928830064662">"Upravit událost"</string>
     <string name="event_delete" msgid="2386667193277770442">"Smazat událost"</string>
     <string name="goto_today" msgid="9162136434410891230">"Dnes"</string>
-    <string name="menu_select_calendars" msgid="6610470242968973936">"Moje kalendáře"</string>
+    <string name="menu_select_calendars" msgid="6200145996783123958">"Kalendáře"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Nastavení"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(plus o <xliff:g id="MORE_COUNT">%d</xliff:g> více …)"</string>
-    <string name="calendars_title" msgid="4457305218812126946">"Moje kalendáře"</string>
+    <string name="calendars_title" msgid="4046980972626276968">"Kalendáře"</string>
+    <string name="synced_visible" msgid="1406744353749335651">"synchronizováno, viditelné"</string>
+    <string name="synced_not_visible" msgid="54032655953110609">"synchronizováno, skryté"</string>
+    <string name="not_synced_not_visible" msgid="7178879061972059481">"nesynchronizováno, skryté"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Podrobnosti události"</string>
     <string name="hint_what" msgid="709155115005044531">"Název události"</string>
     <string name="hint_where" msgid="3116239630502213241">"Místo události"</string>
@@ -80,12 +83,9 @@
     <string name="reminders_label" msgid="8345054160145333166">"Připomenutí"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Žádné kalendáře"</string>
     <string name="no_calendars_found" msgid="755379468136462058">"Nemáte žádné kalendáře."</string>
-    <!-- no translation found for view_event_calendar_label (6126231656338241140) -->
-    <skip />
-    <!-- no translation found for view_event_organizer_label (2753151795647402277) -->
-    <skip />
-    <!-- no translation found for view_event_timezone_label (4757495486359041757) -->
-    <skip />
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendář:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizátor:"</string>
+    <string name="view_event_timezone_label" msgid="4757495486359041757">"Místní časové pásmo:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Zúčastníte se?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Dnes, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Načítání..."</string>

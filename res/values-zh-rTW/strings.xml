@@ -21,7 +21,8 @@
     <string name="attendees_label" msgid="2971281641565729725">"邀請對象"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"重複頻率"</string>
-    <string name="no_title_label" msgid="7352118984125107858">"(無主題)"</string>
+    <!-- no translation found for no_title_label (302177118061368042) -->
+    <skip />
   <plurals name="Nminutes">
     <item quantity="one" msgid="4871052965772159239">"1 分鐘"</item>
     <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> 分鐘"</item>
@@ -49,10 +50,18 @@
     <string name="event_edit" msgid="4006961928830064662">"編輯活動"</string>
     <string name="event_delete" msgid="2386667193277770442">"刪除活動"</string>
     <string name="goto_today" msgid="9162136434410891230">"今日"</string>
-    <string name="menu_select_calendars" msgid="6610470242968973936">"我的日曆"</string>
+    <!-- no translation found for menu_select_calendars (6200145996783123958) -->
+    <skip />
     <string name="menu_preferences" msgid="9120238479503233925">"設定"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(還有 <xliff:g id="MORE_COUNT">%d</xliff:g> 個...)"</string>
-    <string name="calendars_title" msgid="4457305218812126946">"我的日曆"</string>
+    <!-- no translation found for calendars_title (4046980972626276968) -->
+    <skip />
+    <!-- no translation found for synced_visible (1406744353749335651) -->
+    <skip />
+    <!-- no translation found for synced_not_visible (54032655953110609) -->
+    <skip />
+    <!-- no translation found for not_synced_not_visible (7178879061972059481) -->
+    <skip />
     <string name="event_edit_title" msgid="8487120407086532444">"活動詳細資訊"</string>
     <string name="hint_what" msgid="709155115005044531">"活動名稱"</string>
     <string name="hint_where" msgid="3116239630502213241">"活動地點"</string>

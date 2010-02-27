@@ -21,7 +21,7 @@
     <string name="attendees_label" msgid="2971281641565729725">"Гости"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Повторять"</string>
-    <string name="no_title_label" msgid="7352118984125107858">"(Без темы)"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(Нет заголовка)"</string>
   <plurals name="Nminutes">
     <item quantity="one" msgid="4871052965772159239">"1 минута"</item>
     <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> мин."</item>
@@ -49,10 +49,13 @@
     <string name="event_edit" msgid="4006961928830064662">"Изменить мероприятие"</string>
     <string name="event_delete" msgid="2386667193277770442">"Удалить мероприятие"</string>
     <string name="goto_today" msgid="9162136434410891230">"Сегодня"</string>
-    <string name="menu_select_calendars" msgid="6610470242968973936">"Мои календари"</string>
+    <string name="menu_select_calendars" msgid="6200145996783123958">"Календари"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Настройки"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(и еще <xliff:g id="MORE_COUNT">%d</xliff:g>…)"</string>
-    <string name="calendars_title" msgid="4457305218812126946">"Мои календари"</string>
+    <string name="calendars_title" msgid="4046980972626276968">"Календари"</string>
+    <string name="synced_visible" msgid="1406744353749335651">"синхронизировано, видимое"</string>
+    <string name="synced_not_visible" msgid="54032655953110609">"синхронизировано, невидимое"</string>
+    <string name="not_synced_not_visible" msgid="7178879061972059481">"не синхронизировано, невидимое"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Детали мероприятия"</string>
     <string name="hint_what" msgid="709155115005044531">"Название мероприятия"</string>
     <string name="hint_where" msgid="3116239630502213241">"Место мероприятия"</string>
@@ -80,12 +83,9 @@
     <string name="reminders_label" msgid="8345054160145333166">"Напоминания"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Нет календарей"</string>
     <string name="no_calendars_found" msgid="755379468136462058">"У вас нет календарей."</string>
-    <!-- no translation found for view_event_calendar_label (6126231656338241140) -->
-    <skip />
-    <!-- no translation found for view_event_organizer_label (2753151795647402277) -->
-    <skip />
-    <!-- no translation found for view_event_timezone_label (4757495486359041757) -->
-    <skip />
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Календарь:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"Организатор:"</string>
+    <string name="view_event_timezone_label" msgid="4757495486359041757">"Часовой пояс:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Принять приглашение?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Сегодня, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Загрузка…"</string>
