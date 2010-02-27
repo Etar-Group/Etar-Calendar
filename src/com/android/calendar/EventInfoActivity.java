@@ -840,7 +840,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             }
             date.set(mStartMillis);
             eventRecurrence.setStartDate(date);
-            String repeatString = eventRecurrence.getRepeatString();
+            String repeatString = EventRecurrenceFormatter.getRepeatString(getResources(),
+                    eventRecurrence);
             setTextCommon(R.id.repeat, repeatString);
         } else {
             setVisibilityCommon(R.id.repeat_container, View.GONE);
