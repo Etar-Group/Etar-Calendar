@@ -709,9 +709,12 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         if (cursor == null) {
             return;
         }
+        if(!cursor.moveToFirst()) {
+            cursor.close();
+            return;
+        }
 
         try {
-            cursor.moveToFirst();
             ContentValues values = new ContentValues();
 
             String title = cursor.getString(EVENT_INDEX_TITLE);
