@@ -154,9 +154,15 @@
     <string name="hint_description">"Event description"</string>
     <!-- Default value of Attendees/Guests field (as a hint to the user) -->
     <string name="hint_attendees">"Email addresses"</string>
-    <string name="creating_event">"Creating event\u2026"</string>
-    <string name="saving_event">"Saving event\u2026"</string>
+    <!-- Toast message displayed when a new event is created -->
+    <string name="creating_event">"Event created"</string>
+    <!-- Toast message displayed when an existing event is saved after being modified -->
+    <string name="saving_event">"Event saved"</string>
+    <!-- Title of message displayed to indicate available calendars are being loaded when creating
+         a new event -->
     <string name="loading_calendars_title">"Loading calendars"</string>
+    <!-- Body of message displayed to indicate available calendars are being loaded when creating
+         a new event -->
     <string name="loading_calendars_message">"Loading calendars\u2026"</string>
 
     <!-- The alert toast is not actually being displayed for some reason. -->
@@ -211,7 +217,9 @@
     <string name="privacy_label">Privacy</string>
     <!-- Label for the list of reminders for an event -->
     <string name="reminders_label">Reminders</string>
+    <!-- Title of alert shown if the user tries to create an event and has no calendars -->
     <string name="no_syncable_calendars">No calendars</string>
+    <!-- Body of alert shown if the user tries to create an event and has no calendars -->
     <string name="no_calendars_found">You have no calendars.</string>
 
     <!-- View Event -->
@@ -289,6 +297,8 @@
     <!--   1st parameter is an ordinal number, like 'first' -->
     <!--   2nd parameter is a day of the week, like 'Sunday' -->
     <string name="monthly_on_day_count">"Monthly (every <xliff:g id="ordinal_number">%1$s</xliff:g> <xliff:g id="day_of_week">%2$s</xliff:g>)"</string>
+    <!-- The common portion of a string describing how often an event repeats,
+         example: 'Monthly (on day 2)' -->
     <string name="monthly">Monthly</string>
     <!-- Calendar spinner item, to select that an event recurs every year. -->
     <string name="yearly_plain">Yearly</string>
