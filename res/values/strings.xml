@@ -369,4 +369,8 @@
     <!-- Default value for the number of reminder minutes -->
     <string name="preferences_default_reminder_default">10</string>
 
+    <!-- This is the title of a section in the Settings screen for "About" this application -->
+    <string name="preferences_about_title">About</string>
+    <!-- Build version of the application -->
+    <string name="preferences_build_version">Build version</string>
 </resources>

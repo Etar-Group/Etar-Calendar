@@ -21,7 +21,7 @@
             android:defaultValue="false"
             android:title="@string/preferences_hide_declined_title" />
     </PreferenceCategory>
-    
+
     <PreferenceCategory android:title="@string/preferences_alerts_title">
         <ListPreference
             android:key="preferences_alerts_type"
@@ -30,20 +30,20 @@
             android:entries="@array/preferences_alert_type_labels"
             android:entryValues="@array/preferences_alert_type_values"
             android:dialogTitle="@string/preferences_alerts_type_dialog" />
-        
+
         <RingtonePreference
             android:layout="?android:attr/preferenceLayoutChild"
             android:key="preferences_alerts_ringtone"
             android:title="@string/preferences_alerts_ringtone_title"
             android:ringtoneType="notification"
             android:defaultValue="content://settings/system/notification_sound" />
-        
+
         <CheckBoxPreference
             android:layout="?android:attr/preferenceLayoutChild"
             android:key="preferences_alerts_vibrate"
             android:defaultValue="false"
             android:title="@string/preferences_alerts_vibrate_title" />
-        
+
         <ListPreference
             android:key="preferences_default_reminder"
             android:defaultValue="@string/preferences_default_reminder_default"
@@ -52,4 +52,12 @@
             android:entryValues="@array/preferences_default_reminder_values"
             android:dialogTitle="@string/preferences_default_reminder_dialog" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/preferences_about_title">
+        <Preference
+            android:key="build_version"
+            android:title="@string/preferences_build_version" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

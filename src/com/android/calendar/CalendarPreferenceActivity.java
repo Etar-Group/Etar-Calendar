@@ -19,6 +19,8 @@ package com.android.calendar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -28,6 +30,8 @@ import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 
 public class CalendarPreferenceActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
+    private static final String BUILD_VERSION = "build_version";
+
     // The name of the shared preferences file. This name must be maintained for historical
     // reasons, as it's what PreferenceManager assigned the first time the file was created.
     private static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
@@ -75,7 +79,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
         // Make sure to always use the same preferences file regardless of the package name
         // we're running under
         getPreferenceManager().setSharedPreferencesName(SHARED_PREFS_NAME);
-        
+
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
 
@@ -84,6 +88,13 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
         mAlertType = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_TYPE);
         mVibrate = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE);
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
+
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            findPreference(BUILD_VERSION).setSummary(packageInfo.versionName);
+        } catch (NameNotFoundException e) {
+            findPreference(BUILD_VERSION).setSummary("?");
+        }
 
         updateChildPreferences();
     }
