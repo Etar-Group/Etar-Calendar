@@ -541,7 +541,14 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         boolean changed = EditEvent.saveReminders(ops, mEventId, reminderMinutes, mOriginalMinutes,
                 false /* no force save */);
         try {
+            // TODO Run this in a background process.
             cr.applyBatch(Calendars.CONTENT_URI.getAuthority(), ops);
+            // Update the "hasAlarm" field for the event
+            Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
+            int len = reminderMinutes.size();
+            ContentValues values = new ContentValues();
+            values.put(Events.HAS_ALARM, (len > 0) ? 1 : 0);
+            cr.update(uri, values, null, null);
         } catch (RemoteException e) {
             Log.w(TAG, "Ignoring exception: ", e);
         } catch (OperationApplicationException e) {
