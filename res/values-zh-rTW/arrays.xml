@@ -15,36 +15,41 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- no translation found for reminder_minutes_labels:0 (9134196715565887256) -->
-    <!-- no translation found for reminder_minutes_labels:1 (7350720278790900276) -->
-    <!-- no translation found for reminder_minutes_labels:2 (559329025736829220) -->
-    <!-- no translation found for reminder_minutes_labels:3 (4523534383318084162) -->
-    <!-- no translation found for reminder_minutes_labels:4 (7153990736543668084) -->
-    <!-- no translation found for reminder_minutes_labels:5 (2030352540011653596) -->
-    <!-- no translation found for reminder_minutes_labels:6 (7307245847296317340) -->
-    <!-- no translation found for reminder_minutes_labels:7 (5174730509775969611) -->
-    <!-- no translation found for reminder_minutes_labels:8 (1920425054049263702) -->
-    <!-- no translation found for reminder_minutes_labels:9 (6972139375792068825) -->
-    <!-- no translation found for reminder_minutes_labels:10 (5643568168685093982) -->
-    <!-- no translation found for reminder_minutes_labels:11 (2179302053572039553) -->
-    <!-- no translation found for reminder_minutes_labels:12 (314399712609472931) -->
-    <!-- no translation found for reminder_minutes_labels:13 (6908283876728494719) -->
-    <!-- no translation found for reminder_minutes_labels:14 (3390146235648970198) -->
-    <!-- no translation found for preferences_default_reminder_labels:1 (3377199512833209480) -->
-    <!-- no translation found for preferences_default_reminder_labels:2 (5023205715881387516) -->
-    <!-- no translation found for preferences_default_reminder_labels:3 (7720870540593319107) -->
-    <!-- no translation found for preferences_default_reminder_labels:4 (1653841700859180907) -->
-    <!-- no translation found for preferences_default_reminder_labels:5 (3741629746313107482) -->
-    <!-- no translation found for preferences_default_reminder_labels:6 (5357458446224446398) -->
-    <!-- no translation found for preferences_default_reminder_labels:7 (403143749684280703) -->
-    <!-- no translation found for preferences_default_reminder_labels:8 (5611574008997362948) -->
-    <!-- no translation found for preferences_default_reminder_labels:9 (30462793717552) -->
-    <!-- no translation found for preferences_default_reminder_labels:10 (119808229352802480) -->
-    <!-- no translation found for preferences_default_reminder_labels:11 (7456742278252094745) -->
-    <!-- no translation found for preferences_default_reminder_labels:12 (5263928189935026559) -->
-    <!-- no translation found for preferences_default_reminder_labels:13 (6451763179435252852) -->
-    <!-- no translation found for preferences_default_reminder_labels:14 (966666856467721784) -->
-    <!-- no translation found for preferences_default_reminder_labels:15 (5840973497558794742) -->
+  <string-array name="reminder_minutes_labels">
+    <item msgid="9134196715565887256">"1 分鐘"</item>
+    <item msgid="7350720278790900276">"5 分鐘"</item>
+    <item msgid="559329025736829220">"10 分鐘"</item>
+    <item msgid="4523534383318084162">"15 分鐘"</item>
+    <item msgid="7153990736543668084">"20 分鐘"</item>
+    <item msgid="2030352540011653596">"25 分鐘"</item>
+    <item msgid="7307245847296317340">"30 分鐘"</item>
+    <item msgid="5174730509775969611">"45 分鐘"</item>
+    <item msgid="1920425054049263702">"1 小時"</item>
+    <item msgid="6972139375792068825">"2 小時"</item>
+    <item msgid="5643568168685093982">"3 小時"</item>
+    <item msgid="2179302053572039553">"12 小時"</item>
+    <item msgid="314399712609472931">"24 小時"</item>
+    <item msgid="6908283876728494719">"2 天"</item>
+    <item msgid="3390146235648970198">"1 週"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"無"</item>
+    <item msgid="3377199512833209480">"1 分鐘"</item>
+    <item msgid="5023205715881387516">"5 分鐘"</item>
+    <item msgid="7720870540593319107">"10 分鐘"</item>
+    <item msgid="1653841700859180907">"15 分鐘"</item>
+    <item msgid="3741629746313107482">"20 分鐘"</item>
+    <item msgid="5357458446224446398">"25 分鐘"</item>
+    <item msgid="403143749684280703">"30 分鐘"</item>
+    <item msgid="5611574008997362948">"45 分鐘"</item>
+    <item msgid="30462793717552">"1 小時"</item>
+    <item msgid="119808229352802480">"2 小時"</item>
+    <item msgid="7456742278252094745">"3 小時"</item>
+    <item msgid="5263928189935026559">"12 小時"</item>
+    <item msgid="6451763179435252852">"24 小時"</item>
+    <item msgid="966666856467721784">"2 天"</item>
+    <item msgid="5840973497558794742">"1 週"</item>
+  </string-array>
   <string-array name="preferences_alert_type_labels">
     <item msgid="2724242028978664229">"警示"</item>
     <item msgid="8723674378160518790">"狀態列通知"</item>
