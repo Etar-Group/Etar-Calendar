@@ -331,7 +331,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             mCalendarOwnerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
         }
         String eventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
-        mIsOrganizer = mCalendarOwnerAccount.equals(eventOrganizer);
+        mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(eventOrganizer);
         mHasAttendeeData = mEventCursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
 
         updateView();
@@ -487,7 +487,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                         }
                     }
 
-                    if (mCalendarOwnerAttendeeId == -1 && mCalendarOwnerAccount.equals(email)) {
+                    if (mCalendarOwnerAttendeeId == -1 &&
+                            mCalendarOwnerAccount.equalsIgnoreCase(email)) {
                         mCalendarOwnerAttendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
                         mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
                     } else {
