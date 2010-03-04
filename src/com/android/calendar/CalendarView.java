@@ -2868,7 +2868,7 @@ public class CalendarView extends View
 
         cursor.moveToFirst();
         long calId = cursor.getLong(0);
-        cursor.deactivate();
+        cursor.close();
 
         Uri uri = Calendars.CONTENT_URI;
         String where = String.format(CALENDARS_WHERE, calId);
