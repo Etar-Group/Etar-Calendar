@@ -124,7 +124,12 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
             // Check if the new cursor has the same content as our old cursor
             if (currentCursor != null) {
                 if (compareCursors(currentCursor, cursor)) {
+                    cursor.close();
                     return;
+                } else {
+                    mActivity.stopManagingCursor(currentCursor);
+                    currentCursor.close();
+                    mChildrenCursors.remove(cookie);
                 }
             }
             // If not then make a new matrix cursor for our Map
@@ -132,13 +137,18 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
             mChildrenCursors.put((String)cookie, newCursor);
             try {
                 setChildrenCursor(token, newCursor);
+                mActivity.startManagingCursor(newCursor);
             } catch (NullPointerException e) {
                 Log.w(TAG, "Adapter expired, try again on the next query: " + e.getMessage());
             }
+            cursor.close();
         }
 
         /**
          * Compares two cursors to see if they contain the same data.
+         *
+         * @return Returns true of the cursors contain the same data and are not null, false
+         * otherwise
          */
         private boolean compareCursors(Cursor c1, Cursor c2) {
             if(c1 == null || c2 == null) {
