@@ -1018,7 +1018,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 // Round the time to the nearest half hour.
                 mStartTime.second = 0;
                 int minute = mStartTime.minute;
-                if (minute > 0 && minute <= 30) {
+                if (minute == 0) {
+                    // We are already on a half hour increment
+                } else if (minute > 0 && minute <= 30) {
                     mStartTime.minute = 30;
                 } else {
                     mStartTime.minute = 0;
