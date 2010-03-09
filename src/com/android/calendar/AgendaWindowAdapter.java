@@ -472,7 +472,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
         if (DEBUGLOG) {
             Log.e(TAG, "refresh " + goToTime.toString() + (forced ? " forced" : " not forced"));
         }
-        
+
         int startDay = Time.getJulianDay(goToTime.toMillis(false), goToTime.gmtoff);
 
         if (!forced && isInRange(startDay, startDay)) {
@@ -678,7 +678,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
             // Notify Listview of changes and update position
             int cursorSize = cursor.getCount();
-            if (cursorSize > 0 || mAdapterInfos.isEmpty()) {
+            if (cursorSize > 0 || mAdapterInfos.isEmpty() || data.queryType == QUERY_TYPE_CLEAN) {
                 final int listPositionOffset = processNewCursor(data, cursor);
                 if (data.goToTime == null) { // Typical Scrolling type query
                     notifyDataSetChanged();
@@ -692,9 +692,10 @@ public class AgendaWindowAdapter extends BaseAdapter {
                     if (newPosition >= 0) {
                         mAgendaListView.setSelection(newPosition + OFF_BY_ONE_BUG);
                     }
-                    if (DEBUGLOG)
+                    if (DEBUGLOG) {
                         Log.e(TAG, "Setting listview to " +
-                        		"findDayPositionNearestTime: " + (newPosition + OFF_BY_ONE_BUG));
+                                "findDayPositionNearestTime: " + (newPosition + OFF_BY_ONE_BUG));
+                    }
                 }
             } else {
                 cursor.close();

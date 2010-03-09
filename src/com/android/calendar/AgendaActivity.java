@@ -81,7 +81,7 @@ public class AgendaActivity extends Activity implements Navigator {
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        
+
         // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
         // TODO: We should restore the old heap size once the activity reaches the idle state
         VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
