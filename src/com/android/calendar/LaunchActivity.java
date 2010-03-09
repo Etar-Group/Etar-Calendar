@@ -97,9 +97,12 @@ public class LaunchActivity extends Activity {
         String startActivity;
         if (defaultViewKey.equals(VIEW_TYPE_DAY)) {
             startActivity = CalendarApplication.ACTIVITY_NAMES[CalendarApplication.DAY_VIEW_ID];
+        } else if (defaultViewKey.equals(CalendarPreferenceActivity.KEY_DETAILED_VIEW)) {
+            startActivity = prefs.getString(defaultViewKey,
+                    CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
         } else {
             startActivity = prefs.getString(defaultViewKey,
-                CalendarPreferenceActivity.DEFAULT_START_VIEW);
+                    CalendarPreferenceActivity.DEFAULT_START_VIEW);
         }
 
         intent.setClassName(this, startActivity);
