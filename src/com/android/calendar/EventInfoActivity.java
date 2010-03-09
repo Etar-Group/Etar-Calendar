@@ -257,6 +257,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mDeclinedAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mTentativeAttendees = new ArrayList<Attendee>();
+    ArrayList<Attendee> mNoResponseAttendees = new ArrayList<Attendee>();
     private int mColor;
 
     // This is called when one of the "remove reminder" buttons is selected.
@@ -461,6 +462,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         }
     }
 
+    @SuppressWarnings("fallthrough")
     private void initAttendeesCursor() {
         mOriginalAttendeeResponse = ATTENDEE_NO_RESPONSE;
         mCalendarOwnerAttendeeId = -1;
@@ -471,6 +473,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 mAcceptedAttendees.clear();
                 mDeclinedAttendees.clear();
                 mTentativeAttendees.clear();
+                mNoResponseAttendees.clear();
 
                 do {
                     int status = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
@@ -502,6 +505,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                             case Attendees.ATTENDEE_STATUS_DECLINED:
                                 mDeclinedAttendees.add(new Attendee(name, email));
                                 break;
+                            case Attendees.ATTENDEE_STATUS_NONE:
+                                mNoResponseAttendees.add(new Attendee(name, email));
+                                // Fallthrough so that no response is a subset of tentative
                             default:
                                 mTentativeAttendees.add(new Attendee(name, email));
                         }
@@ -897,14 +903,22 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     }
 
     private void updateAttendees() {
-        CharSequence[] entries;
-        entries = getResources().getTextArray(R.array.response_labels2);
         LinearLayout attendeesLayout = (LinearLayout) findViewById(R.id.attendee_list);
         attendeesLayout.removeAllViewsInLayout();
         ++mUpdateCounts;
-        addAttendeesToLayout(mAcceptedAttendees, attendeesLayout, entries[0]);
-        addAttendeesToLayout(mDeclinedAttendees, attendeesLayout, entries[2]);
-        addAttendeesToLayout(mTentativeAttendees, attendeesLayout, entries[1]);
+        if(mAcceptedAttendees.size() == 0 && mDeclinedAttendees.size() == 0 &&
+                mTentativeAttendees.size() == mNoResponseAttendees.size()) {
+            // If all guests have no response just list them as guests,
+            CharSequence guestsLabel = getResources().getText(R.string.attendees_label);
+            addAttendeesToLayout(mNoResponseAttendees, attendeesLayout, guestsLabel);
+        } else {
+            // If we have any responses then divide them up by response
+            CharSequence[] entries;
+            entries = getResources().getTextArray(R.array.response_labels2);
+            addAttendeesToLayout(mAcceptedAttendees, attendeesLayout, entries[0]);
+            addAttendeesToLayout(mDeclinedAttendees, attendeesLayout, entries[2]);
+            addAttendeesToLayout(mTentativeAttendees, attendeesLayout, entries[1]);
+        }
     }
 
     private void addAttendeesToLayout(ArrayList<Attendee> attendees, LinearLayout attendeeList,
