@@ -22,7 +22,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
@@ -86,7 +85,7 @@ public class Utils {
         long millis = intent.getLongExtra(EVENT_BEGIN_TIME, -1);
         if (millis == -1 && data != null && data.isHierarchical()) {
             List<String> path = data.getPathSegments();
-            if(path.size() == 3 && path.get(1).equals("time")) {
+            if(path.size() == 2 && path.get(0).equals("time")) {
                 try {
                     millis = Long.valueOf(data.getLastPathSegment());
                 } catch (NumberFormatException e) {
