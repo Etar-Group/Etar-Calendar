@@ -676,6 +676,11 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             return false;
         }
 
+        // If we never got an owner attendee id we can't set the status
+        if(mCalendarOwnerAttendeeId == -1) {
+            return false;
+        }
+
         if (!mIsRepeating) {
             // This is a non-repeating event
             updateResponse(cr, mEventId, mCalendarOwnerAttendeeId, status);
