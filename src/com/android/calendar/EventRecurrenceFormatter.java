@@ -17,7 +17,6 @@
 package com.android.calendar;
 
 import android.content.res.Resources;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.pim.EventRecurrence;
 
@@ -58,7 +57,7 @@ public class EventRecurrenceFormatter
                         return null;
                     }
 
-                    int day = recurrence.timeDay2Day(recurrence.startDate.weekDay);
+                    int day = EventRecurrence.timeDay2Day(recurrence.startDate.weekDay);
                     return String.format(format, dayToString(day));
                 }
             }
@@ -81,15 +80,6 @@ public class EventRecurrenceFormatter
         return DateUtils.getDayOfWeekString(dayToUtilDay(day), DateUtils.LENGTH_LONG);
     }
 
-    // Day of week used by DateUtils
-    private static final int UTILS_SU = 0;
-    private static final int UTILS_MO = 1;
-    private static final int UTILS_TU = 2;
-    private static final int UTILS_WE = 3;
-    private static final int UTILS_TH = 4;
-    private static final int UTILS_FR = 5;
-    private static final int UTILS_SA = 6;
-
     /**
      * Converts EventRecurrence's day of week to DateUtil's day of week.
      * @param day of week as an EventRecurrence value
@@ -97,13 +87,13 @@ public class EventRecurrenceFormatter
      */
     private static int dayToUtilDay(int day) {
         switch (day) {
-        case EventRecurrence.SU: return UTILS_SU;
-        case EventRecurrence.MO: return UTILS_MO;
-        case EventRecurrence.TU: return UTILS_TU;
-        case EventRecurrence.WE: return UTILS_WE;
-        case EventRecurrence.TH: return UTILS_TH;
-        case EventRecurrence.FR: return UTILS_FR;
-        case EventRecurrence.SA: return UTILS_SA;
+        case EventRecurrence.SU: return Calendar.SUNDAY;
+        case EventRecurrence.MO: return Calendar.MONDAY;
+        case EventRecurrence.TU: return Calendar.TUESDAY;
+        case EventRecurrence.WE: return Calendar.WEDNESDAY;
+        case EventRecurrence.TH: return Calendar.THURSDAY;
+        case EventRecurrence.FR: return Calendar.FRIDAY;
+        case EventRecurrence.SA: return Calendar.SATURDAY;
         default: throw new IllegalArgumentException("bad day argument: " + day);
         }
     }
