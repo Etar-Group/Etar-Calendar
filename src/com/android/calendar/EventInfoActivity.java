@@ -558,7 +558,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             boolean hasAlarm = len > 0;
             if (hasAlarm != mOriginalHasAlarm) {
                 ContentValues values = new ContentValues();
-                values.put(Events.HAS_ALARM, (len > 0) ? 1 : 0);
+                values.put(Events.HAS_ALARM, hasAlarm ? 1 : 0);
                 cr.update(uri, values, null, null);
             }
         } catch (RemoteException e) {
