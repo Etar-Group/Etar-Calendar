@@ -181,6 +181,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private static final int MENU_EDIT = 2;
     private static final int MENU_DELETE = 3;
 
+    private static final int ATTENDEE_ID_NONE = -1;
     private static final int ATTENDEE_NO_RESPONSE = -1;
     private static final int[] ATTENDEE_VALUES = {
             ATTENDEE_NO_RESPONSE,
@@ -204,7 +205,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
     private boolean mHasAttendeeData;
     private boolean mIsOrganizer;
-    private long mCalendarOwnerAttendeeId = -1;
+    private long mCalendarOwnerAttendeeId = ATTENDEE_ID_NONE;
     private String mCalendarOwnerAccount;
     private boolean mCanModifyCalendar;
     private boolean mIsBusyFreeCalendar;
@@ -465,7 +466,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     @SuppressWarnings("fallthrough")
     private void initAttendeesCursor() {
         mOriginalAttendeeResponse = ATTENDEE_NO_RESPONSE;
-        mCalendarOwnerAttendeeId = -1;
+        mCalendarOwnerAttendeeId = ATTENDEE_ID_NONE;
         mNumOfAttendees = 0;
         if (mAttendeesCursor != null) {
             mNumOfAttendees = mAttendeesCursor.getCount();
@@ -490,7 +491,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                         }
                     }
 
-                    if (mCalendarOwnerAttendeeId == -1 &&
+                    if (mCalendarOwnerAttendeeId == ATTENDEE_ID_NONE &&
                             mCalendarOwnerAccount.equalsIgnoreCase(email)) {
                         mCalendarOwnerAttendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
                         mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
@@ -677,7 +678,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         }
 
         // If we never got an owner attendee id we can't set the status
-        if(mCalendarOwnerAttendeeId == -1) {
+        if (mCalendarOwnerAttendeeId == ATTENDEE_ID_NONE) {
             return false;
         }
 
