@@ -39,7 +39,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.pim.EventRecurrence;
-import android.preference.PreferenceManager;
 import android.provider.Calendar;
 import android.provider.ContactsContract;
 import android.provider.Calendar.Attendees;
@@ -218,6 +217,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private ArrayList<Integer> mReminderValues;
     private ArrayList<String> mReminderLabels;
     private int mDefaultReminderMinutes;
+    private boolean mOriginalHasAlarm;
 
     private DeleteEventHelper mDeleteEventHelper;
     private EditResponseHelper mEditResponseHelper;
@@ -398,6 +398,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 reminderCursor.close();
             }
         }
+        mOriginalHasAlarm = hasAlarm;
 
         // Setup the + Add Reminder Button
         View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
@@ -554,9 +555,12 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             // Update the "hasAlarm" field for the event
             Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
             int len = reminderMinutes.size();
-            ContentValues values = new ContentValues();
-            values.put(Events.HAS_ALARM, (len > 0) ? 1 : 0);
-            cr.update(uri, values, null, null);
+            boolean hasAlarm = len > 0;
+            if (hasAlarm != mOriginalHasAlarm) {
+                ContentValues values = new ContentValues();
+                values.put(Events.HAS_ALARM, (len > 0) ? 1 : 0);
+                cr.update(uri, values, null, null);
+            }
         } catch (RemoteException e) {
             Log.w(TAG, "Ignoring exception: ", e);
         } catch (OperationApplicationException e) {
