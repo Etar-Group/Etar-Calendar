@@ -156,9 +156,11 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         Calendars._ID,           // 0
         Calendars.DISPLAY_NAME,  // 1
         Calendars.OWNER_ACCOUNT, // 2
+        Calendars.ORGANIZER_CAN_RESPOND // 3
     };
     static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
     static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
+    static final int CALENDARS_INDEX_OWNER_CAN_RESPOND = 3;
 
     static final String CALENDARS_WHERE = Calendars._ID + "=%d";
 
@@ -205,6 +207,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private boolean mHasAttendeeData;
     private boolean mIsOrganizer;
     private long mCalendarOwnerAttendeeId = ATTENDEE_ID_NONE;
+    private boolean mOrganizerCanRespond;
     private String mCalendarOwnerAccount;
     private boolean mCanModifyCalendar;
     private boolean mIsBusyFreeCalendar;
@@ -331,6 +334,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         if (mCalendarsCursor != null) {
             mCalendarsCursor.moveToFirst();
             mCalendarOwnerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+            mOrganizerCanRespond = mCalendarsCursor.getInt(CALENDARS_INDEX_OWNER_CAN_RESPOND) != 0;
         }
         String eventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
         mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(eventOrganizer);
@@ -1050,14 +1054,16 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     void updateResponse() {
         // we only let the user accept/reject/etc. a meeting if:
         // a) you can edit the event's containing calendar AND
-        // b) you're not the organizer and only attendee
+        // b) you're not the organizer and only attendee AND
+        // c) organizerCanRespond is enabled for the calendar
         // (if the attendee data has been hidden, the visible number of attendees
         // will be 1 -- the calendar owner's).
         // (there are more cases involved to be 100% accurate, such as
         // paying attention to whether or not an attendee status was
         // included in the feed, but we're currently omitting those corner cases
         // for simplicity).
-        if (!mCanModifyCalendar || (mHasAttendeeData && mIsOrganizer && mNumOfAttendees <= 1)) {
+        if (!mCanModifyCalendar || (mHasAttendeeData && mIsOrganizer && mNumOfAttendees <= 1) ||
+                (mIsOrganizer && !mOrganizerCanRespond)) {
             setVisibilityCommon(R.id.response_container, View.GONE);
             return;
         }
