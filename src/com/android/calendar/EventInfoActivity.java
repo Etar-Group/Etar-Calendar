@@ -163,6 +163,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     static final int CALENDARS_INDEX_OWNER_CAN_RESPOND = 3;
 
     static final String CALENDARS_WHERE = Calendars._ID + "=%d";
+    static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.DISPLAY_NAME + "=?";
 
     private static final String[] REMINDERS_PROJECTION = new String[] {
         Reminders._ID,      // 0
@@ -229,6 +230,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private int mOriginalAttendeeResponse;
     private int mAttendeeResponseFromIntent = ATTENDEE_NO_RESPONSE;
     private boolean mIsRepeating;
+    private boolean mIsDuplicateName;
 
     private Pattern mWildcardPattern = Pattern.compile("^.*$");
     private LayoutInflater mLayoutInflater;
@@ -335,6 +337,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             mCalendarsCursor.moveToFirst();
             mCalendarOwnerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
             mOrganizerCanRespond = mCalendarsCursor.getInt(CALENDARS_INDEX_OWNER_CAN_RESPOND) != 0;
+
+            String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
+            mIsDuplicateName = isDuplicateName(displayName);
         }
         String eventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
         mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(eventOrganizer);
@@ -440,6 +445,19 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         } else {
             setTitle(res.getString(R.string.event_info_title));
         }
+    }
+
+    boolean isDuplicateName(String displayName) {
+        Cursor dupNameCursor = managedQuery(Calendars.CONTENT_URI, CALENDARS_PROJECTION,
+                CALENDARS_DUPLICATE_NAME_WHERE, new String[] {displayName}, null);
+        boolean isDuplicateName = false;
+        if(dupNameCursor != null) {
+            if (dupNameCursor.getCount() > 1) {
+                isDuplicateName = true;
+            }
+            dupNameCursor.close();
+        }
+        return isDuplicateName;
     }
 
     /**
@@ -910,6 +928,13 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         // Calendar
         if (mCalendarsCursor != null) {
             String calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
+            if (mIsDuplicateName) {
+                calendarName = new StringBuilder(calendarName)
+                        .append(Utils.OPEN_EMAIL_MARKER)
+                        .append(mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT))
+                        .append(Utils.CLOSE_EMAIL_MARKER)
+                        .toString();
+            }
             setTextCommon(R.id.calendar, calendarName);
         } else {
             setVisibilityCommon(R.id.calendar_container, View.GONE);

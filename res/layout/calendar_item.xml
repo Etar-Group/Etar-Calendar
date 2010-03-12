@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dip"
-        android:layout_marginRight="27dip"
+        android:layout_marginRight="14dip"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
     />

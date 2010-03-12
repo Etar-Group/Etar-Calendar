@@ -22,7 +22,6 @@ import static android.provider.Calendar.EVENT_END_TIME;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
 
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -50,7 +49,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.pim.EventRecurrence;
-import android.preference.PreferenceManager;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
@@ -87,6 +85,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -154,9 +153,11 @@ public class EditEvent extends Activity implements View.OnClickListener,
             Calendars._ID,           // 0
             Calendars.DISPLAY_NAME,  // 1
             Calendars.OWNER_ACCOUNT, // 2
+            Calendars.COLOR,         // 3
     };
     private static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
     private static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
+    private static final int CALENDARS_INDEX_COLOR = 3;
     private static final String CALENDARS_WHERE = Calendars.ACCESS_LEVEL + ">=" +
             Calendars.CONTRIBUTOR_ACCESS + " AND " + Calendars.SYNC_EVENTS + "=1";
 
@@ -252,6 +253,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private ArrayList<Integer> mReminderValues;
     private ArrayList<String> mReminderLabels;
 
+    // This is to keep track of whether or not multiple calendars have the same display name
+    private static HashMap<String,Boolean> mIsDuplicateName = new HashMap<String,Boolean>();
+
     private Time mStartTime;
     private Time mEndTime;
     private int mModification = MODIFY_UNINITIALIZED;
@@ -259,7 +263,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
     private DeleteEventHelper mDeleteEventHelper;
     private QueryHandler mQueryHandler;
-    private AccountManager mAccountManager;
 
     /* This class is used to update the time buttons. */
     private class TimeListener implements OnTimeSetListener {
@@ -403,8 +406,29 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
+            View colorBar = view.findViewById(R.id.color);
+            if (colorBar != null) {
+                colorBar.setBackgroundDrawable(
+                        Utils.getColorChip(cursor.getInt(CALENDARS_INDEX_COLOR)));
+            }
+
             TextView name = (TextView) view.findViewById(R.id.calendar_name);
-            name.setText(cursor.getString(CALENDARS_INDEX_DISPLAY_NAME));
+            if (name != null) {
+                String displayName = cursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
+                name.setText(displayName);
+                name.setTextColor(0xFF000000);
+
+                TextView accountName = (TextView) view.findViewById(R.id.account_name);
+                if(accountName != null) {
+                    if (mIsDuplicateName.containsKey(displayName)
+                            && mIsDuplicateName.get(displayName)) {
+                        accountName.setText(cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT));
+                        accountName.setVisibility(TextView.VISIBLE);
+                    } else {
+                        accountName.setVisibility(TextView.GONE);
+                    }
+                }
+            }
         }
     }
 
@@ -512,6 +536,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
                     return;
                 }
 
+                Utils.checkForDuplicateNames(mIsDuplicateName, cursor,
+                        CALENDARS_INDEX_DISPLAY_NAME);
+
                 int defaultCalendarPosition = findDefaultCalendarPosition(mCalendarsCursor);
 
                 // populate the calendars spinner
@@ -582,7 +609,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
         super.onCreate(icicle);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.edit_event);
-        mAccountManager = AccountManager.get(this);
 
         boolean newEvent = false;
 

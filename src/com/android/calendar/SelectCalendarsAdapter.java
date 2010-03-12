@@ -16,10 +16,6 @@
 
 package com.android.calendar;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorDescription;
 import android.content.AsyncQueryHandler;
@@ -30,8 +26,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.MatrixCursor;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.provider.Calendar.Calendars;
 import android.text.TextUtils;
@@ -42,15 +36,11 @@ import android.view.ViewGroup;
 import android.widget.CursorTreeAdapter;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.OnClickListener {
-
-    private static final int CLEAR_ALPHA_MASK = 0x00FFFFFF;
-    private static final int HIGH_ALPHA = 255 << 24;
-    private static final int MED_ALPHA = 180 << 24;
-    private static final int LOW_ALPHA = 150 << 24;
-
-    /* The corner should be rounded on the top right and bottom right */
-    private static final float[] CORNERS = new float[] {0, 0, 5, 5, 5, 5, 0, 0};
 
     private static final String TAG = "Calendar";
 
@@ -91,22 +81,26 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     private static String syncedNotVisible;
     private static String notSyncedNotVisible;
 
+    // This is to keep track of whether or not multiple calendars have the same display name
+    private static HashMap<String, Boolean> mIsDuplicateName = new HashMap<String, Boolean>();
+
     private static final String[] PROJECTION = new String[] {
       Calendars._ID,
       Calendars._SYNC_ACCOUNT,
+      Calendars.OWNER_ACCOUNT,
       Calendars.DISPLAY_NAME,
       Calendars.COLOR,
       Calendars.SELECTED,
       Calendars.SYNC_EVENTS
     };
-
     //Keep these in sync with the projection
     private static final int ID_COLUMN = 0;
     private static final int ACCOUNT_COLUMN = 1;
-    private static final int NAME_COLUMN = 2;
-    private static final int COLOR_COLUMN = 3;
-    private static final int SELECTED_COLUMN = 4;
-    private static final int SYNCED_COLUMN = 5;
+    private static final int OWNER_COLUMN = 2;
+    private static final int NAME_COLUMN = 3;
+    private static final int COLOR_COLUMN = 4;
+    private static final int SELECTED_COLUMN = 5;
+    private static final int SYNCED_COLUMN = 6;
 
     private class AsyncCalendarsUpdater extends AsyncQueryHandler {
 
@@ -134,6 +128,9 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
             }
             // If not then make a new matrix cursor for our Map
             MatrixCursor newCursor = matrixCursorFromCursor(cursor);
+            // And update our list of duplicated names
+            Utils.checkForDuplicateNames(mIsDuplicateName, cursor, NAME_COLUMN);
+
             mChildrenCursors.put((String)cookie, newCursor);
             try {
                 setChildrenCursor(token, newCursor);
@@ -315,28 +312,6 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
         return label;
     }
 
-    private Drawable getColorChip(int color) {
-
-        /*
-         * We want the color chip to have a nice gradient using
-         * the color of the calendar. To do this we use a GradientDrawable.
-         * The color supplied has an alpha of FF so we first do:
-         * color & 0x00FFFFFF
-         * to clear the alpha. Then we add our alpha to it.
-         * We use 3 colors to get a step effect where it starts off very
-         * light and quickly becomes dark and then a slow transition to
-         * be even darker.
-         */
-        color &= CLEAR_ALPHA_MASK;
-        int startColor = color | HIGH_ALPHA;
-        int middleColor = color | MED_ALPHA;
-        int endColor = color | LOW_ALPHA;
-        int[] colors = new int[] {startColor, middleColor, endColor};
-        GradientDrawable d = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colors);
-        d.setCornerRadii(CORNERS);
-        return d;
-    }
-
     @Override
     protected void bindChildView(View view, Context context, Cursor cursor, boolean isLastChild) {
         String account = cursor.getString(ACCOUNT_COLUMN);
@@ -370,8 +345,16 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
         }
 
         view.findViewById(R.id.color)
-            .setBackgroundDrawable(getColorChip(cursor.getInt(COLOR_COLUMN)));
-        setText(view, R.id.calendar, cursor.getString(NAME_COLUMN));
+            .setBackgroundDrawable(Utils.getColorChip(cursor.getInt(COLOR_COLUMN)));
+        String name = cursor.getString(NAME_COLUMN);
+        if (mIsDuplicateName.containsKey(name) && mIsDuplicateName.get(name)) {
+            name = new StringBuilder(name)
+                    .append(Utils.OPEN_EMAIL_MARKER)
+                    .append(cursor.getString(OWNER_COLUMN))
+                    .append(Utils.CLOSE_EMAIL_MARKER)
+                    .toString();
+        }
+        setText(view, R.id.calendar, name);
         setText(view, R.id.status, status);
         MultiStateButton button = (MultiStateButton) view.findViewById(R.id.multiStateButton);
 

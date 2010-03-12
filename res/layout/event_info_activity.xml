@@ -4,21 +4,21 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-    
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1.0" >
-    
+
     <LinearLayout
         android:orientation="vertical"
         android:background="#fafafa"
@@ -33,14 +33,14 @@
             android:paddingBottom="8dip"
             android:paddingLeft="8dip"
             android:paddingRight="8dip">
-    
+
             <LinearLayout android:id="@+id/event"
-            	android:background="@drawable/bg_cal_card"
+                android:background="@drawable/bg_cal_card"
                 android:orientation="vertical"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_weight="1">
-    
+
                 <!-- WHAT -->
                 <TextView android:id="@+id/title"
                     android:layout_width="match_parent"
@@ -50,13 +50,36 @@
                     android:paddingBottom="7dip"
                     style="?android:attr/textAppearanceMedium"
                 />
-    
+
+                <!-- CALENDAR -->
+                <LinearLayout android:id="@+id/calendar_container"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dip">
+
+                    <TextView android:id="@+id/calendar_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dip"
+                        android:text="@string/view_event_calendar_label"
+                        style="?android:attr/textAppearanceSmall"
+                    />
+
+                    <TextView android:id="@+id/calendar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        style="?android:attr/textAppearanceSmall"
+                    />
+                </LinearLayout>
+
                 <View android:id="@+id/divider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:drawable/divider_horizontal_dark"
                 />
-    
+
                 <!-- WHEN -->
                 <TextView android:id="@+id/when"
                     android:layout_width="wrap_content"
@@ -65,13 +88,13 @@
                     android:textStyle="bold"
                     style="?android:attr/textAppearanceSmall"
                 />
-        
+
                 <!-- TIMEZONE -->
                 <LinearLayout android:id="@+id/timezone_container"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-            
+
                     <TextView android:id="@+id/timezone_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -79,20 +102,20 @@
                         android:text="@string/view_event_timezone_label"
                         style="?android:attr/textAppearanceSmall"
                     />
-    
+
                     <TextView android:id="@+id/timezone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="?android:attr/textAppearanceSmall"
                     />
                 </LinearLayout>
-            
+
                 <!-- REPEATS -->
                 <LinearLayout android:id="@+id/repeat_container"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                
+
                     <ImageView android:id="@+id/repeat_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -101,7 +124,7 @@
                         android:focusable="false"
                         android:clickable="false"
                     />
-        
+
                     <TextView android:id="@+id/repeat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -109,7 +132,7 @@
                         style="?android:attr/textAppearanceSmall"
                     />
                 </LinearLayout>
-    
+
                 <!-- WHERE -->
                 <TextView android:id="@+id/where"
                     android:layout_width="match_parent"
@@ -127,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dip"
                 >
-            
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -135,7 +158,7 @@
                         android:text="@string/view_event_organizer_label"
                         style="?android:attr/textAppearanceSmall"
                     />
-    
+
                     <TextView android:id="@+id/organizer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -152,29 +175,7 @@
                     android:autoLink="all"
                     style="?android:attr/textAppearanceSmall"
                 />
-        
-                <!-- CALENDAR -->
-                <LinearLayout android:id="@+id/calendar_container"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dip"
-                >
-            
-                    <TextView android:id="@+id/calendar_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dip"
-                        android:text="@string/view_event_calendar_label"
-                        style="?android:attr/textAppearanceSmall"
-                    />
-    
-                    <TextView android:id="@+id/calendar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="?android:attr/textAppearanceSmall"
-                    />
-                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 
@@ -187,13 +188,13 @@
             android:paddingRight="8dip"
             android:paddingTop="5dip"
             android:paddingBottom="1dip">
-        
+
             <TextView android:id="@+id/response_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/view_event_response_label"
                 style="@style/TextAppearance.EventInfo_Label"/>
-        
+
             <Spinner android:id="@+id/response_value"
                 style="?android:attr/textAppearanceMedium"
                 android:prompt="@string/view_event_response_label"
@@ -201,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/response_labels1"/>
         </LinearLayout>
-        
+
         <!-- GUEST LIST -->
         <LinearLayout
             android:id="@+id/attendee_list"
@@ -219,7 +220,7 @@
             android:paddingRight="7dip"
             android:paddingTop="5dip"
             android:paddingBottom="5dip">
-        
+
             <TextView android:id="@+id/reminders_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
