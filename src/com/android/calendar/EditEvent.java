@@ -1446,6 +1446,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
             values.put(Events.HAS_ATTENDEE_DATA, 1);
             // Create new event with new contents
             addRecurrenceRule(values);
+            if (mRrule != null) {
+                values.remove(Events.DTEND);
+            }
             eventIdIndex = ops.size();
             Builder b = ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(values);
             ops.add(b.build());
