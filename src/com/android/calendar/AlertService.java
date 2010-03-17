@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -304,11 +305,35 @@ public class AlertService extends Service {
             // neither. Pop-up dialog and status bar notification may include a
             // sound, an alert, or both. A status bar notification also includes
             // a toast.
-            boolean reminderVibrate =
+
+            // Find out the circumstances under which to vibrate.
+            // Migrate from pre-Froyo boolean setting if necessary.
+            String vibrateWhen; // "always" or "silent" or "never"
+            if(prefs.contains(CalendarPreferenceActivity.KEY_ALERTS_VIBRATE_WHEN))
+            {
+                // Look up Froyo setting
+                vibrateWhen =
+                    prefs.getString(CalendarPreferenceActivity.KEY_ALERTS_VIBRATE_WHEN, null);
+            } else if(prefs.contains(CalendarPreferenceActivity.KEY_ALERTS_VIBRATE)) {
+                // No Froyo setting. Migrate pre-Froyo setting to new Froyo-defined value.
+                boolean vibrate =
                     prefs.getBoolean(CalendarPreferenceActivity.KEY_ALERTS_VIBRATE, false);
+                vibrateWhen = vibrate ?
+                    context.getString(R.string.prefDefault_alerts_vibrate_true) :
+                    context.getString(R.string.prefDefault_alerts_vibrate_false);
+            } else {
+                // No setting. Use Froyo-defined default.
+                vibrateWhen = context.getString(R.string.prefDefault_alerts_vibrateWhen);
+            }
+            boolean vibrateAlways = vibrateWhen.equals("always");
+            boolean vibrateSilent = vibrateWhen.equals("silent");
+            AudioManager audioManager =
+                (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+            boolean nowSilent =
+                audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE;
 
             // Possibly generate a vibration
-            if (reminderVibrate) {
+            if (vibrateAlways || (vibrateSilent && nowSilent)) {
                 notification.defaults |= Notification.DEFAULT_VIBRATE;
             }
 

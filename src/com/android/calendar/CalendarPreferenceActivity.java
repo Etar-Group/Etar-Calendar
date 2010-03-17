@@ -40,6 +40,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
     static final String KEY_ALERTS_TYPE = "preferences_alerts_type";
     static final String KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate";
+    static final String KEY_ALERTS_VIBRATE_WHEN = "preferences_alerts_vibrateWhen";
     static final String KEY_ALERTS_RINGTONE = "preferences_alerts_ringtone";
     static final String KEY_DEFAULT_REMINDER = "preferences_default_reminder";
     static final String KEY_START_VIEW = "startView";
@@ -58,7 +59,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
             CalendarApplication.ACTIVITY_NAMES[CalendarApplication.DAY_VIEW_ID];
 
     ListPreference mAlertType;
-    CheckBoxPreference mVibrate;
+    ListPreference mVibrateWhen;
     RingtonePreference mRingtone;
 
     /** Return a properly configured SharedPreferences instance */
@@ -86,7 +87,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         mAlertType = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_TYPE);
-        mVibrate = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE);
+        mVibrateWhen = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE_WHEN);
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
 
         try {
@@ -107,11 +108,11 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
 
     private void updateChildPreferences() {
         if (mAlertType.getValue().equals(ALERT_TYPE_OFF)) {
-            mVibrate.setChecked(false);
-            mVibrate.setEnabled(false);
+            mVibrateWhen.setValue(getString(R.string.prefDefault_alerts_vibrate_false));
+            mVibrateWhen.setEnabled(false);
             mRingtone.setEnabled(false);
         } else {
-            mVibrate.setEnabled(true);
+            mVibrateWhen.setEnabled(true);
             mRingtone.setEnabled(true);
         }
     }
