@@ -503,6 +503,11 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         @Override
         protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            // If the query didn't return a cursor for some reason return
+            if (cursor == null) {
+                return;
+            }
+
             // If the Activity is finishing, then close the cursor.
             // Otherwise, use the new cursor in the adapter.
             if (isFinishing()) {
