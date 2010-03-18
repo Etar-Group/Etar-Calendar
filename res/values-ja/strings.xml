@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,7 +12,8 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
--->
+ -->
+
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"カレンダー"</string>
@@ -61,8 +62,8 @@
     <string name="hint_where" msgid="3116239630502213241">"場所"</string>
     <string name="hint_description" msgid="4198202812240544553">"内容"</string>
     <string name="hint_attendees" msgid="6036653711383143333">"メールアドレス"</string>
-    <string name="creating_event" msgid="8237877638457604455">"予定を作成中..."</string>
-    <string name="saving_event" msgid="8853425146353785688">"予定を保存中..."</string>
+    <string name="creating_event" msgid="5252306542761552414">"予定を作成しました"</string>
+    <string name="saving_event" msgid="7716081507367732169">"予定を保存しました"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"カレンダーを読み込み中"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"カレンダーを読み込み中..."</string>
     <string name="alert_title" msgid="7869592820853066853">"カレンダーの通知"</string>
@@ -105,6 +106,8 @@
     <string name="every_weekday" msgid="5896574838353902978">"平日（月～金）"</string>
     <string name="weekly" msgid="2006107373119027114">"毎週（<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>）"</string>
     <string name="monthly_on_day_count" msgid="6847991854413461795">"毎月（<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>）"</string>
+    <string name="monthly" msgid="4587116285383048586">"月次"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"毎年"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"毎月（<xliff:g id="DAY_OF_MONTH">%s</xliff:g>日）"</string>
     <string name="yearly" msgid="8576208380302949002">"毎年（<xliff:g id="DATES">%s</xliff:g>）"</string>
     <string name="custom" msgid="3015205670911301856">"編集 (携帯端末ではカスタマイズ不可)"</string>
@@ -125,4 +128,6 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"デフォルトの通知時間"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"リマインダー通知"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"概要"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"ビルドバージョン"</string>
 </resources>
