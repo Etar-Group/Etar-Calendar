@@ -115,6 +115,10 @@ public class CalendarView extends View
     private static final int FROM_LEFT = 4;
     private static final int FROM_RIGHT = 8;
 
+    private static final int ACCESS_LEVEL_NONE = 0;
+    private static final int ACCESS_LEVEL_DELETE = 1;
+    private static final int ACCESS_LEVEL_EDIT = 2;
+
     private static int HORIZONTAL_SCROLL_THRESHOLD = 50;
 
     private ContinueScroll mContinueScroll = new ContinueScroll();
@@ -2696,12 +2700,15 @@ public class CalendarView extends View
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_info_details);
 
-                if (isEventEditable(mParentActivity, mSelectedEvent)) {
+                int accessLevel = getEventAccessLevel(mParentActivity, mSelectedEvent);
+                if (accessLevel == ACCESS_LEVEL_EDIT) {
                     item = menu.add(0, MenuHelper.MENU_EVENT_EDIT, 0, R.string.event_edit);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
                     item.setIcon(android.R.drawable.ic_menu_edit);
                     item.setAlphabeticShortcut('e');
+                }
 
+                if (accessLevel >= ACCESS_LEVEL_DELETE) {
                     item = menu.add(0, MenuHelper.MENU_EVENT_DELETE, 0, R.string.event_delete);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
                     item.setIcon(android.R.drawable.ic_menu_delete);
@@ -2729,12 +2736,15 @@ public class CalendarView extends View
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_info_details);
 
-                if (isEventEditable(mParentActivity, mSelectedEvent)) {
+                int accessLevel = getEventAccessLevel(mParentActivity, mSelectedEvent);
+                if (accessLevel == ACCESS_LEVEL_EDIT) {
                     item = menu.add(0, MenuHelper.MENU_EVENT_EDIT, 0, R.string.event_edit);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
                     item.setIcon(android.R.drawable.ic_menu_edit);
                     item.setAlphabeticShortcut('e');
+                }
 
+                if (accessLevel >= ACCESS_LEVEL_DELETE) {
                     item = menu.add(0, MenuHelper.MENU_EVENT_DELETE, 0, R.string.event_delete);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
                     item.setIcon(android.R.drawable.ic_menu_delete);
@@ -2844,7 +2854,7 @@ public class CalendarView extends View
         }
     }
 
-    private static boolean isEventEditable(Context context, Event e) {
+    private static int getEventAccessLevel(Context context, Event e) {
         ContentResolver cr = context.getContentResolver();
 
         int visibility = Calendars.NO_ACCESS;
@@ -2858,12 +2868,12 @@ public class CalendarView extends View
                 null /* sort */);
 
         if (cursor == null) {
-            return false;
+            return ACCESS_LEVEL_NONE;
         }
 
         if (cursor.getCount() == 0) {
             cursor.close();
-            return false;
+            return ACCESS_LEVEL_NONE;
         }
 
         cursor.moveToFirst();
@@ -2883,15 +2893,19 @@ public class CalendarView extends View
         }
 
         if (visibility < Calendars.CONTRIBUTOR_ACCESS) {
-            return false;
+            return ACCESS_LEVEL_NONE;
         }
 
         if (e.guestsCanModify) {
-            return true;
+            return ACCESS_LEVEL_EDIT;
         }
 
-        return !TextUtils.isEmpty(calendarOwnerAccount) &&
-                calendarOwnerAccount.equalsIgnoreCase(e.organizer);
+        if (!TextUtils.isEmpty(calendarOwnerAccount) &&
+                calendarOwnerAccount.equalsIgnoreCase(e.organizer)) {
+            return ACCESS_LEVEL_EDIT;
+        }
+
+        return ACCESS_LEVEL_DELETE;
     }
 
     /**
