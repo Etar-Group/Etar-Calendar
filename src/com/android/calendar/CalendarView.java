@@ -2890,7 +2890,8 @@ public class CalendarView extends View
             return true;
         }
 
-        return !TextUtils.isEmpty(calendarOwnerAccount) && calendarOwnerAccount.equals(e.organizer);
+        return !TextUtils.isEmpty(calendarOwnerAccount) &&
+                calendarOwnerAccount.equalsIgnoreCase(e.organizer);
     }
 
     /**
