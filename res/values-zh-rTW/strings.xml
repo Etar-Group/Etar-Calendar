@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,7 +12,8 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
--->
+ -->
+
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Google 日曆"</string>
@@ -61,10 +62,8 @@
     <string name="hint_where" msgid="3116239630502213241">"活動地點"</string>
     <string name="hint_description" msgid="4198202812240544553">"活動說明"</string>
     <string name="hint_attendees" msgid="6036653711383143333">"電子郵件地址"</string>
-    <!-- no translation found for creating_event (5252306542761552414) -->
-    <skip />
-    <!-- no translation found for saving_event (7716081507367732169) -->
-    <skip />
+    <string name="creating_event" msgid="5252306542761552414">"建立的活動"</string>
+    <string name="saving_event" msgid="7716081507367732169">"儲存的活動"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"正在載入日曆"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"正在載入日曆..."</string>
     <string name="alert_title" msgid="7869592820853066853">"日曆通知"</string>
@@ -107,10 +106,8 @@
     <string name="every_weekday" msgid="5896574838353902978">"平日 (週一至週五)"</string>
     <string name="weekly" msgid="2006107373119027114">"每週 (每<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
     <string name="monthly_on_day_count" msgid="6847991854413461795">"每月 (<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
-    <!-- no translation found for monthly (4587116285383048586) -->
-    <skip />
-    <!-- no translation found for yearly_plain (3652692085322162449) -->
-    <skip />
+    <string name="monthly" msgid="4587116285383048586">"每月"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"每年"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"每月 (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> 日)"</string>
     <string name="yearly" msgid="8576208380302949002">"每年 (<xliff:g id="DATES">%s</xliff:g> 日)"</string>
     <string name="custom" msgid="3015205670911301856">"自訂... (無法在手機上自訂)"</string>
@@ -131,8 +128,6 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"預設提醒時間"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"預設提醒時間"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <!-- no translation found for preferences_about_title (2810624892412097879) -->
-    <skip />
-    <!-- no translation found for preferences_build_version (8242471883413502068) -->
-    <skip />
+    <string name="preferences_about_title" msgid="2810624892412097879">"相關資訊"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"版本"</string>
 </resources>
