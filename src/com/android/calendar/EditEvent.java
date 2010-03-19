@@ -990,13 +990,28 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 int itemIndex = 0;
                 CharSequence[] items;
                 if (mSyncId == null) {
-                    items = new CharSequence[2];
+                    if(isFirstEventInSeries()) {
+                        // Still display the option so the user knows all events are changing
+                        items = new CharSequence[1];
+                    } else {
+                        items = new CharSequence[2];
+                    }
                 } else {
-                    items = new CharSequence[3];
+                    if(isFirstEventInSeries()) {
+                        items = new CharSequence[2];
+                    } else {
+                        items = new CharSequence[3];
+                    }
                     items[itemIndex++] = getText(R.string.modify_event);
                 }
                 items[itemIndex++] = getText(R.string.modify_all);
-                items[itemIndex++] = getText(R.string.modify_all_following);
+
+                // Do one more check to make sure this remains at the end of the list
+                if(!isFirstEventInSeries()) {
+                    // TODO Find out why modify all following causes a dup of the first event if
+                    // it's operating on the first event.
+                    items[itemIndex++] = getText(R.string.modify_all_following);
+                }
 
                 // Display the modification dialog.
                 new AlertDialog.Builder(this)
