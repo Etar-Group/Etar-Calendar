@@ -253,9 +253,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private ArrayList<Integer> mReminderValues;
     private ArrayList<String> mReminderLabels;
 
-    // This is to keep track of whether or not multiple calendars have the same display name
-    private static HashMap<String,Boolean> mIsDuplicateName = new HashMap<String,Boolean>();
-
     private Time mStartTime;
     private Time mEndTime;
     private int mModification = MODIFY_UNINITIALIZED;
@@ -420,13 +417,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
                 TextView accountName = (TextView) view.findViewById(R.id.account_name);
                 if(accountName != null) {
-                    if (mIsDuplicateName.containsKey(displayName)
-                            && mIsDuplicateName.get(displayName)) {
-                        accountName.setText(cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT));
-                        accountName.setVisibility(TextView.VISIBLE);
-                    } else {
-                        accountName.setVisibility(TextView.GONE);
-                    }
+                    accountName.setText(cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT));
+                    accountName.setVisibility(TextView.VISIBLE);
                 }
             }
         }
@@ -540,9 +532,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
                     mNoCalendarsDialog = builder.show();
                     return;
                 }
-
-                Utils.checkForDuplicateNames(mIsDuplicateName, cursor,
-                        CALENDARS_INDEX_DISPLAY_NAME);
 
                 int defaultCalendarPosition = findDefaultCalendarPosition(mCalendarsCursor);
 
