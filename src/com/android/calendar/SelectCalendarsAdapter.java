@@ -347,10 +347,12 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
         view.findViewById(R.id.color)
             .setBackgroundDrawable(Utils.getColorChip(cursor.getInt(COLOR_COLUMN)));
         String name = cursor.getString(NAME_COLUMN);
-        if (mIsDuplicateName.containsKey(name) && mIsDuplicateName.get(name)) {
+        String owner = cursor.getString(OWNER_COLUMN);
+        if (mIsDuplicateName.containsKey(name) && mIsDuplicateName.get(name) &&
+                !name.equalsIgnoreCase(owner)) {
             name = new StringBuilder(name)
                     .append(Utils.OPEN_EMAIL_MARKER)
-                    .append(cursor.getString(OWNER_COLUMN))
+                    .append(owner)
                     .append(Utils.CLOSE_EMAIL_MARKER)
                     .toString();
         }
