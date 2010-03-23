@@ -44,6 +44,11 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
 
     private static final String TAG = "Calendar";
 
+    private static final String COLLATE_NOCASE = " COLLATE NOCASE";
+    private static final String IS_PRIMARY = "\"primary\"";
+    private static final String CALENDARS_ORDERBY = IS_PRIMARY + " DESC," + Calendars.DISPLAY_NAME +
+            COLLATE_NOCASE;
+
     // The drawables used for the button to change the visible and sync states on a calendar
     private static final int[] SYNC_VIS_BUTTON_RES = new int[] {
         R.drawable.widget_show,
@@ -91,7 +96,8 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
       Calendars.DISPLAY_NAME,
       Calendars.COLOR,
       Calendars.SELECTED,
-      Calendars.SYNC_EVENTS
+      Calendars.SYNC_EVENTS,
+      "(" + Calendars._SYNC_ACCOUNT + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY,
     };
     //Keep these in sync with the projection
     private static final int ID_COLUMN = 0;
@@ -101,6 +107,7 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     private static final int COLOR_COLUMN = 4;
     private static final int SELECTED_COLUMN = 5;
     private static final int SYNCED_COLUMN = 6;
+    private static final int PRIMARY_COLUMN = 7;
 
     private class AsyncCalendarsUpdater extends AsyncQueryHandler {
 
@@ -177,11 +184,10 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
         private MatrixCursor matrixCursorFromCursor(Cursor cursor) {
             MatrixCursor newCursor = new MatrixCursor(cursor.getColumnNames());
             int numColumns = cursor.getColumnCount();
-            int count = cursor.getCount();
             String data[] = new String[numColumns];
             cursor.moveToPosition(-1);
-            while(cursor.moveToNext()) {
-                for(int i = 0; i < numColumns; i++) {
+            while (cursor.moveToNext()) {
+                for (int i = 0; i < numColumns; i++) {
                     data[i] = cursor.getString(i);
                 }
                 newCursor.addRow(data);
@@ -390,7 +396,7 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
                 Calendars.CONTENT_URI, PROJECTION,
                 Calendars._SYNC_ACCOUNT + "=\"" + account + "\"" /*Selection*/,
                 null /* selectionArgs */,
-                Calendars.DISPLAY_NAME);
+                CALENDARS_ORDERBY);
         return childCursor;
     }
 
