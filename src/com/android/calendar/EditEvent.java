@@ -417,8 +417,10 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
                 TextView accountName = (TextView) view.findViewById(R.id.account_name);
                 if(accountName != null) {
+                    Resources res = context.getResources();
                     accountName.setText(cursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT));
                     accountName.setVisibility(TextView.VISIBLE);
+                    accountName.setTextColor(res.getColor(R.color.calendar_owner_text_color));
                 }
             }
         }

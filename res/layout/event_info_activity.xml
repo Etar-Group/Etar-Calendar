@@ -52,7 +52,7 @@
                 />
 
                 <!-- CALENDAR -->
-                <LinearLayout android:id="@+id/calendar_container"
+                <RelativeLayout android:id="@+id/calendar_container"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -70,9 +70,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
+                        android:layout_toRightOf="@id/calendar_label"
+                        android:layout_alignTop="@id/calendar_label"
                         style="?android:attr/textAppearanceSmall"
                     />
-                </LinearLayout>
+
+                    <TextView android:id="@+id/owner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:layout_alignLeft="@id/calendar_label"
+                        android:layout_below="@id/calendar_label"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+
+                </RelativeLayout>
 
                 <View android:id="@+id/divider"
                     android:layout_width="match_parent"

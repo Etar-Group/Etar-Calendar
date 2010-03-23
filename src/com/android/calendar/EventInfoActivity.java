@@ -930,11 +930,12 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             String calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
             String ownerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
             if (mIsDuplicateName && !calendarName.equalsIgnoreCase(ownerAccount)) {
-                calendarName = new StringBuilder(calendarName)
-                        .append(Utils.OPEN_EMAIL_MARKER)
-                        .append(ownerAccount)
-                        .append(Utils.CLOSE_EMAIL_MARKER)
-                        .toString();
+                Resources res = getResources();
+                TextView ownerText = (TextView) findViewById(R.id.owner);
+                ownerText.setText(ownerAccount);
+                ownerText.setTextColor(res.getColor(R.color.calendar_owner_text_color));
+            } else {
+                setVisibilityCommon(R.id.owner, View.GONE);
             }
             setTextCommon(R.id.calendar, calendarName);
         } else {

@@ -26,6 +26,7 @@
     <color name="saturday_text_color">#ff112abb</color>
     <color name="calendar_event_selected_text_color">#ff000000</color>
     <color name="calendar_event_text_color">#ffffffff</color>
+    <color name="calendar_owner_text_color">#ffbebebe</color>
 
     <color name="calendar_all_day_background">#ffe8eef7</color>
     <color name="week_saturday">#ff446688</color>
