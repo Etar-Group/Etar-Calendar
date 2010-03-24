@@ -475,9 +475,7 @@ public class CalendarView extends View
 
         p.setTextSize(HOURS_FONT_SIZE);
         p.setTypeface(null);
-        mIs24HourFormat = DateFormat.is24HourFormat(context);
-        mHourStrs = mIs24HourFormat ? CalendarData.s24Hours : CalendarData.s12HoursNoAmPm;
-        mHoursWidth = computeMaxStringWidth(0, mHourStrs, p);
+        updateIs24HourFormat();
 
         mAmString = DateUtils.getAMPMString(Calendar.AM);
         mPmString = DateUtils.getAMPMString(Calendar.PM);
@@ -524,6 +522,11 @@ public class CalendarView extends View
             // jump to the "View event" screen.
             switchViews(true /* trackball */);
         }
+    }
+
+    public void updateIs24HourFormat() {
+        mIs24HourFormat = DateFormat.is24HourFormat(mParentActivity);
+        mHourStrs = mIs24HourFormat ? CalendarData.s24Hours : CalendarData.s12HoursNoAmPm;
     }
 
     /**
