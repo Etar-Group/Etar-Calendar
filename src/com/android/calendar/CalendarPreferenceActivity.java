@@ -79,7 +79,9 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
 
         // Make sure to always use the same preferences file regardless of the package name
         // we're running under
-        getPreferenceManager().setSharedPreferencesName(SHARED_PREFS_NAME);
+        PreferenceManager preferenceManager = getPreferenceManager();
+        SharedPreferences sharedPreferences = getSharedPreferences(this);
+        preferenceManager.setSharedPreferencesName(SHARED_PREFS_NAME);
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
@@ -89,6 +91,15 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
         mAlertType = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_TYPE);
         mVibrateWhen = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE_WHEN);
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
+
+        // If needed, migrate vibration setting from a previous version
+        if (!sharedPreferences.contains(KEY_ALERTS_VIBRATE_WHEN) &&
+                sharedPreferences.contains(KEY_ALERTS_VIBRATE)) {
+            int stringId = sharedPreferences.getBoolean(KEY_ALERTS_VIBRATE, false) ?
+                    R.string.prefDefault_alerts_vibrate_true :
+                    R.string.prefDefault_alerts_vibrate_false;
+            mVibrateWhen.setValue(getString(stringId));
+        }
 
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
