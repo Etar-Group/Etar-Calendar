@@ -101,7 +101,7 @@
     <string name="import_label" msgid="6993796574741477222">"Importer"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Sæt alle i slumretilstand"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Annuller alle"</string>
-    <string name="does_not_repeat" msgid="1877681921029738999">"Engangsbegivenhed"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Én gang"</string>
     <string name="daily" msgid="560350706808680448">"Dagligt"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Hverdage (man.-fre.)"</string>
     <string name="weekly" msgid="2006107373119027114">"Ugentligt (hver <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
@@ -121,13 +121,21 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Indstillinger for kalendervisning"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Indstillinger for påmindelser"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skjul afviste begivenhed."</string>
-    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Angiv underretninger og meddelelser"</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Angiv underret./medd."</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Underretninger og meddelelser"</string>
-    <string name="preferences_alerts_vibrate_title" msgid="7997122314759645350">"Vibration"</string>
+    <!-- no translation found for preferences_alerts_vibrateWhen_title (8731372580674292759) -->
+    <skip />
+    <!-- no translation found for preferences_alerts_vibrateWhen_summary (2809567649955441757) -->
+    <skip />
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Vælg ringetone"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standardtid for påmindelser"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standard påmindelsestid"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Std.tid for påmindelser"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Std.tid for påmindelser"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Om"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Version "</string>
+    <!-- no translation found for prefEntries_alerts_vibrateWhen:0 (2539376794936035639) -->
+    <!-- no translation found for prefEntries_alerts_vibrateWhen:1 (8091719131860840185) -->
+    <!-- no translation found for prefEntries_alerts_vibrateWhen:2 (4552962311897985633) -->
+    <!-- no translation found for prefDialogTitle_vibrateWhen (8995274609647451109) -->
+    <skip />
 </resources>

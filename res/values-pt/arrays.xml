@@ -34,7 +34,7 @@
     <item msgid="3390146235648970198">"1 semana"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
-    <item msgid="7495163916242649023">"Nenhuma"</item>
+    <item msgid="7495163916242649023">"Nenhum"</item>
     <item msgid="3377199512833209480">"1 minuto"</item>
     <item msgid="5023205715881387516">"5 minutos"</item>
     <item msgid="7720870540593319107">"10 minutos"</item>
