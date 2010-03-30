@@ -21,6 +21,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.ContentObserver;
+import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Calendar.Calendars;
@@ -41,7 +42,6 @@ public class SelectCalendarsActivity extends ExpandableListActivity
     private Cursor mCursor = null;
     private ExpandableListView mList;
     private SelectCalendarsAdapter mAdapter;
-    private ContentResolver mContentResolver;
     private static final String[] PROJECTION = new String[] {
         Calendars._ID,
         Calendars._SYNC_ACCOUNT_TYPE,
@@ -64,8 +64,9 @@ public class SelectCalendarsActivity extends ExpandableListActivity
                 "1) GROUP BY (_sync_account", //Cheap hack to make WHERE a GROUP BY query
                 null /* selectionArgs */,
                 Calendars._SYNC_ACCOUNT /*sort order*/);
-        mContentResolver = getContentResolver();
-        mAdapter = new SelectCalendarsAdapter(context, mCursor, this);
+        MatrixCursor accountsCursor = Utils.matrixCursorFromCursor(mCursor);
+        startManagingCursor(accountsCursor);
+        mAdapter = new SelectCalendarsAdapter(context, accountsCursor, this);
         mList.setAdapter(mAdapter);
 
         mList.setOnChildClickListener(this);
@@ -79,36 +80,6 @@ public class SelectCalendarsActivity extends ExpandableListActivity
         for(int i = 0; i < count; i++) {
             mList.expandGroup(i);
         }
-
-    }
-
-    // Create an observer so that we can update the views whenever a
-    // Calendar changes.
-    private ContentObserver mObserver = new ContentObserver(new Handler())
-    {
-        @Override
-        public boolean deliverSelfNotifications() {
-            return true;
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            if (!isFinishing()) {
-                mCursor.requery();
-            }
-        }
-    };
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mContentResolver.unregisterContentObserver(mObserver);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mContentResolver.registerContentObserver(Calendar.Events.CONTENT_URI, true, mObserver);
     }
 
     @Override
