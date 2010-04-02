@@ -33,7 +33,7 @@
                      android:targetPackage="com.android.calendar"
                      android:label="calendar tests"/>
 
-    <instrumentation android:name="CalendarLaunchPerformance"
+    <instrumentation android:name="com.android.calendar.CalendarLaunchPerformance"
         android:targetPackage="com.android.calendar"
         android:label="Calendar Launch Performance">
     </instrumentation>

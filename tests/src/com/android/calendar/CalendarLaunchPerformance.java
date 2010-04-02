@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calendar.tests;
+package com.android.calendar;
 
 import android.app.Activity;
 import android.test.LaunchPerformanceBase;
