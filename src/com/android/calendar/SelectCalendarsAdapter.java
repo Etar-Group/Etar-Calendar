@@ -48,7 +48,8 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     private static final String IS_PRIMARY = "\"primary\"";
     private static final String CALENDARS_ORDERBY = IS_PRIMARY + " DESC," + Calendars.DISPLAY_NAME +
             COLLATE_NOCASE;
-    private static final String ACCOUNT_SELECTION = Calendars._SYNC_ACCOUNT + "=?";
+    private static final String ACCOUNT_SELECTION = Calendars._SYNC_ACCOUNT + "=?"
+            + " AND " + Calendars._SYNC_ACCOUNT_TYPE + "=?";
 
     // The drawables used for the button to change the visible and sync states on a calendar
     private static final int[] SYNC_VIS_BUTTON_RES = new int[] {
@@ -367,10 +368,12 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     @Override
     protected Cursor getChildrenCursor(Cursor groupCursor) {
         int accountColumn = groupCursor.getColumnIndexOrThrow(Calendars._SYNC_ACCOUNT);
+        int accountTypeColumn = groupCursor.getColumnIndexOrThrow(Calendars._SYNC_ACCOUNT_TYPE);
         String account = groupCursor.getString(accountColumn);
+        String accountType = groupCursor.getString(accountTypeColumn);
         //Get all the calendars for just this account.
         Cursor childCursor = mChildrenCursors.get(account);
-        new RefreshCalendars(groupCursor.getPosition(), account).run();
+        new RefreshCalendars(groupCursor.getPosition(), account, accountType).run();
         return childCursor;
     }
 
@@ -389,24 +392,27 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     private class RefreshCalendars implements Runnable {
 
         int mToken;
-        Object mAccount;
+        String mAccount;
+        String mAccountType;
 
-        public RefreshCalendars(int token, Object cookie) {
+        public RefreshCalendars(int token, String cookie, String accountType) {
             mToken = token;
             mAccount = cookie;
+            mAccountType = accountType;
         }
 
         public void run() {
             mCalendarsUpdater.cancelOperation(mToken);
             // Set up a refresh for some point in the future if we haven't stopped updates yet
             if(mRefresh) {
-                mView.postDelayed(new RefreshCalendars(mToken, mAccount), REFRESH_DELAY);
+                mView.postDelayed(new RefreshCalendars(mToken, mAccount, mAccountType),
+                        REFRESH_DELAY);
             }
             mCalendarsUpdater.startQuery(mToken,
                     mAccount,
                     Calendars.CONTENT_URI, PROJECTION,
                     ACCOUNT_SELECTION,
-                    new String[] { mAccount.toString() } /*selectionArgs*/,
+                    new String[] { mAccount, mAccountType } /*selectionArgs*/,
                     CALENDARS_ORDERBY);
         }
     }
