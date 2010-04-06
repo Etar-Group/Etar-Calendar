@@ -83,6 +83,18 @@ public class SelectCalendarsActivity extends ExpandableListActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mAdapter.startRefreshStopDelay();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAdapter.cancelRefreshStopDelay();
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         boolean[] isExpanded;

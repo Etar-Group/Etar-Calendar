@@ -61,6 +61,11 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     private final ContentResolver mResolver;
     private final SelectCalendarsActivity mActivity;
     private final View mView;
+    private final static Runnable mStopRefreshing = new Runnable() {
+        public void run() {
+            mRefresh = false;
+        }
+    };
     private Map<String, AuthenticatorDescription> mTypeToAuthDescription
         = new HashMap<String, AuthenticatorDescription>();
     protected AuthenticatorDescription[] mAuthDescs;
@@ -87,7 +92,7 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     private static final int REFRESH_DELAY = 5000;
     // How long to keep refreshing for
     private static final int REFRESH_DURATION = 60000;
-    private boolean mRefresh = true;
+    private static boolean mRefresh = true;
     private int mNumAccounts;
 
     private static String syncedVisible;
@@ -129,13 +134,6 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
                 return;
             }
 
-            // Set up a refresh for some point in the future if we haven't reached our max number
-            // of requeries yet. To make the code to track this easier we just use one count across
-            // all accounts and scale our max by the number of accounts.
-            if(mRefresh) {
-                mView.postDelayed(new RefreshCalendars(token, cookie), REFRESH_DELAY);
-            }
-
             Cursor currentCursor = mChildrenCursors.get(cookie);
             // Check if the new cursor has the same content as our old cursor
             if (currentCursor != null) {
@@ -155,7 +153,7 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
                 setChildrenCursor(token, newCursor);
                 mActivity.startManagingCursor(newCursor);
             } catch (NullPointerException e) {
-                Log.w(TAG, "Adapter expired, try again on the next query: " + e.getMessage());
+                Log.w(TAG, "Adapter expired, try again on the next query: " + e);
             }
             // Clean up our old cursor if we had one. We have to do this after setting the new
             // cursor so that our view doesn't throw on an invalid cursor.
@@ -237,11 +235,16 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
             mTypeToAuthDescription.put(mAuthDescs[i].type, mAuthDescs[i]);
         }
         mView = mActivity.getExpandableListView();
-        mView.postDelayed(new Runnable() {
-            public void run() {
-                mRefresh = false;
-            }
-        }, REFRESH_DURATION);
+        mRefresh = true;
+    }
+
+    public void startRefreshStopDelay() {
+        mRefresh = true;
+        mView.postDelayed(mStopRefreshing, REFRESH_DURATION);
+    }
+
+    public void cancelRefreshStopDelay() {
+        mView.removeCallbacks(mStopRefreshing);
     }
 
     /*
@@ -308,12 +311,8 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
 
         // First see if the user has already changed the state of this calendar
         Boolean[] initialState = mCalendarChanges.get(id);
-        // if not just grab the initial state
+        // if we haven't already started making changes update the initial state in case it changed
         if (initialState == null) {
-            initialState = mCalendarInitialStates.get(id);
-        }
-        // and create a new initial state if we've never seen this calendar before.
-        if(initialState == null) {
             initialState = new Boolean[CHANGES_SIZE];
             initialState[SELECTED_INDEX] = cursor.getInt(SELECTED_COLUMN) == 1;
             initialState[SYNCED_INDEX] = cursor.getInt(SYNCED_COLUMN) == 1;
@@ -371,12 +370,7 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
         String account = groupCursor.getString(accountColumn);
         //Get all the calendars for just this account.
         Cursor childCursor = mChildrenCursors.get(account);
-        mCalendarsUpdater.startQuery(groupCursor.getPosition(),
-                account,
-                Calendars.CONTENT_URI, PROJECTION,
-                ACCOUNT_SELECTION,
-                new String[] { account } /*selectionArgs*/,
-                CALENDARS_ORDERBY);
+        new RefreshCalendars(groupCursor.getPosition(), account).run();
         return childCursor;
     }
 
@@ -403,6 +397,11 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
         }
 
         public void run() {
+            mCalendarsUpdater.cancelOperation(mToken);
+            // Set up a refresh for some point in the future if we haven't stopped updates yet
+            if(mRefresh) {
+                mView.postDelayed(new RefreshCalendars(mToken, mAccount), REFRESH_DELAY);
+            }
             mCalendarsUpdater.startQuery(mToken,
                     mAccount,
                     Calendars.CONTENT_URI, PROJECTION,
