@@ -28,7 +28,6 @@ import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.provider.Calendar.Events;
 import android.text.format.Time;
 import android.util.Log;
@@ -215,8 +214,8 @@ public class AgendaActivity extends Activity implements Navigator {
     /* Navigator interface methods */
     public void goToToday() {
         Time now = new Time();
-        now.set(System.currentTimeMillis());
-        goTo(now, true);
+        now.setToNow();
+        mAgendaListView.goTo(now, true); // Force refresh
     }
 
     public void goTo(Time time, boolean animate) {
