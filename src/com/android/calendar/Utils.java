@@ -26,6 +26,7 @@ import android.database.MatrixCursor;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
@@ -130,7 +131,7 @@ public class Utils {
         c2.moveToPosition(-1);
         while(c1.moveToNext() && c2.moveToNext()) {
             for(int i = 0; i < numColumns; i++) {
-                if(!c1.getString(i).equals(c2.getString(i))) {
+                if(!TextUtils.equals(c1.getString(i), c2.getString(i))) {
                     return false;
                 }
             }
