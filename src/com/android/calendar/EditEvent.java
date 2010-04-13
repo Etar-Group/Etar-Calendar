@@ -1907,9 +1907,21 @@ public class EditEvent extends Activity implements View.OnClickListener,
         values.put(Events.DURATION, duration);
     }
 
+    private void clearRecurrence() {
+        mEventRecurrence.byday = null;
+        mEventRecurrence.bydayNum = null;
+        mEventRecurrence.bydayCount = 0;
+        mEventRecurrence.bymonth = null;
+        mEventRecurrence.bymonthCount = 0;
+        mEventRecurrence.bymonthday = null;
+        mEventRecurrence.bymonthdayCount = 0;
+    }
+
     private void updateRecurrenceRule() {
         int position = mRepeatsSpinner.getSelectedItemPosition();
         int selection = mRecurrenceIndexes.get(position);
+        // Make sure we don't have any leftover data from the previous setting
+        clearRecurrence();
 
         if (selection == DOES_NOT_REPEAT) {
             mRrule = null;
