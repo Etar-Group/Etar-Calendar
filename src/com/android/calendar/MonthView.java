@@ -26,12 +26,16 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.provider.Calendar.Attendees;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -60,7 +64,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private static float mScale = 0; // Used for supporting different screen densities
     private static int WEEK_GAP = 0;
     private static int MONTH_DAY_GAP = 1;
-    private static float HOUR_GAP = 0.5f;
+    private static float HOUR_GAP = 0f;
+    private static float MIN_EVENT_HEIGHT = 4f;
     private static int MONTH_DAY_TEXT_SIZE = 20;
     private static int WEEK_BANNER_HEIGHT = 17;
     private static int WEEK_TEXT_SIZE = 15;
@@ -69,9 +74,15 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private static int EVENT_DOT_LEFT_MARGIN = 7;
     private static int EVENT_DOT_W_H = 10;
     private static int EVENT_NUM_DAYS = 31;
-    private static int TEXT_BOTTOM_MARGIN = 7;
+    private static int TEXT_TOP_MARGIN = 7;
+    private static int BUSY_BITS_WIDTH = 6;
+    private static int BUSY_BITS_MARGIN = 4;
+    private static int DAY_NUMBER_OFFSET = 10;
 
     private static int HORIZONTAL_FLING_THRESHOLD = 50;
+
+    private static final int BUSY_BITS_COLOR = 0xFF6090F0;
+    private static final int LIGHT_GRAY_BGCOLOR = 0xFFDDDDDD;
 
     private int mCellHeight;
     private int mBorder;
@@ -123,6 +134,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private Canvas mCanvas;
     private boolean mRedrawScreen = true;
     private Rect mBitmapRect = new Rect();
+    private RectF mRectF = new RectF();
     private boolean mAnimating;
 
     // These booleans disable features that were taken out of the spec.
@@ -162,7 +174,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private ArrayList<Event> mEvents = new ArrayList<Event>();
 
     private Drawable mTodayBackground;
-    private Drawable mDayBackground;
 
     // Cached colors
     private int mMonthOtherMonthColor;
@@ -190,15 +201,19 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                     EVENT_DOT_TOP_MARGIN *= mScale;
                     EVENT_DOT_LEFT_MARGIN *= mScale;
                     EVENT_DOT_W_H *= mScale;
-                    TEXT_BOTTOM_MARGIN *= mScale;
+                    TEXT_TOP_MARGIN *= mScale;
                     HORIZONTAL_FLING_THRESHOLD *= mScale;
+                    MIN_EVENT_HEIGHT *= mScale;
+                    BUSY_BITS_WIDTH *= mScale;
+                    BUSY_BITS_MARGIN *= mScale;
+                    DAY_NUMBER_OFFSET *= mScale;
                 }
             }
 
         mEventLoader = activity.mEventLoader;
         mNavigator = navigator;
         mEventGeometry = new EventGeometry();
-        mEventGeometry.setMinEventHeight(1.0f);
+        mEventGeometry.setMinEventHeight(MIN_EVENT_HEIGHT);
         mEventGeometry.setHourGap(HOUR_GAP);
         init(activity);
     }
@@ -229,7 +244,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
         mEventDot = mResources.getDrawable(R.drawable.event_dot);
         mTodayBackground = mResources.getDrawable(R.drawable.month_view_today_background);
-        mDayBackground = mResources.getDrawable(R.drawable.month_view_background);
 
         // Cache color lookups
         Resources res = getResources();
@@ -446,21 +460,45 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             startMillis = 0;
         }
 
-        mEventLoader.loadEventDaysInBackground(startDay, EVENT_NUM_DAYS, eventDay,
-                new Runnable() {
+        final ArrayList<Event> events = new ArrayList<Event>();
+        mEventLoader.loadEventsInBackground(EVENT_NUM_DAYS, events, millis, new Runnable() {
             public void run() {
-                if (PROFILE_LOAD_TIME) {
-                    long endMillis = SystemClock.uptimeMillis();
-                    long elapsed = endMillis - startMillis;
-                    Log.i("Cal", (mViewCalendar.month+1) + "/" + mViewCalendar.year +
-                            " Month view load eventDays: " + elapsed);
-                }
-                //Refresh the screen when we're done and stop the spinner
+                mEvents = events;
                 mRedrawScreen = true;
                 mParentActivity.stopProgressSpinner();
                 invalidate();
+                int numEvents = events.size();
+
+                // Clear out event days
+                for (int i = 0; i < EVENT_NUM_DAYS; i++) {
+                    eventDay[i] = false;
+                }
+
+                // Compute the new set of days with events
+                for (int i = 0; i < numEvents; i++) {
+                    Event event = events.get(i);
+                    int startDay = event.startDay - mFirstJulianDay;
+                    int endDay = event.endDay - mFirstJulianDay + 1;
+                    if (startDay < 31 || endDay >= 0) {
+                        if (startDay < 0) {
+                            startDay = 0;
+                        }
+                        if (startDay > 31) {
+                            startDay = 31;
+                        }
+                        if (endDay < 0) {
+                            endDay = 0;
+                        }
+                        if (endDay > 31) {
+                            endDay = 31;
+                        }
+                        for (int j = startDay; j < endDay; j++) {
+                            eventDay[j] = true;
+                        }
+                    }
+                }
             }
-        });
+        }, null);
     }
 
     void animationStarted() {
@@ -688,6 +726,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             r.bottom = getMeasuredHeight();
         }
 
+
         // Draw the cell contents (excluding monthDay number)
         if (!withinCurrentMonth) {
             boolean firstDayOfNextmonth = isFirstDayOfNextMonth(row, column);
@@ -698,6 +737,9 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             if (column != 0) {
                 r.left--;
             }
+            p.setStyle(Style.FILL);
+            p.setColor(LIGHT_GRAY_BGCOLOR);
+            canvas.drawRect(r, p);
         } else if (drawSelection) {
             if (mSelectionMode == SELECTION_SELECTED) {
                 mBoxSelected.setBounds(r);
@@ -710,11 +752,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 mBoxLongPressed.draw(canvas);
             }
 
-            //Places a green dot in the upper left corner of the day if there is
-            //an event on that day
-            if (withinCurrentMonth && eventDay[day-mFirstJulianDay]) {
-                drawEvents(day, canvas, r, p);
-            }
+            //Places events for that day
+            drawEvents(day, canvas, r, p, false /*draw bb background*/);
             if (!mAnimating) {
                 updateEventDetails(day);
             }
@@ -726,24 +765,9 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 Drawable background = mTodayBackground;
                 background.setBounds(r);
                 background.draw(canvas);
-            } else {
-                // Use the bitmap cache to draw the day background
-                int width = r.right - r.left;
-                int height = r.bottom - r.top;
-                // Compute a unique id that depends on width and height.
-                int id = (height << MODULO_SHIFT) | width;
-                Bitmap bitmap = mDayBitmapCache.get(id);
-                if (bitmap == null) {
-                     bitmap = createBitmap(mDayBackground, width, height);
-                     mDayBitmapCache.put(id, bitmap);
-                }
-                canvas.drawBitmap(bitmap, r.left, r.top, p);
             }
-            //Places a green dot near the top of the day if there is
-            //an event on that day
-            if (withinCurrentMonth && eventDay[day-mFirstJulianDay]) {
-                drawEvents(day, canvas, r, p);
-            }
+            //Places events for that day
+            drawEvents(day, canvas, r, p, !isToday /*draw bb background*/);
         }
 
         // Draw week number
@@ -809,21 +833,65 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         /*Drawing of day number is done here
          *easy to find tags draw number draw day*/
         p.setTextAlign(Paint.Align.CENTER);
-        int right = r.right;
-        int textX = r.left + (right - r.left) / 2; // center of text
-        int textY = r.bottom - TEXT_BOTTOM_MARGIN - 2; // bottom of text
+        // center of text
+        int textX = r.left + (r.right - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH - r.left) / 2;
+        int textY = (int) (r.top + p.getTextSize() + TEXT_TOP_MARGIN); // bottom of text
         canvas.drawText(String.valueOf(mCursor.getDayAt(row, column)), textX, textY, p);
     }
 
-    ///Create and draw an event dot for  this day
-    private void drawEvents(int date, Canvas canvas, Rect rect, Paint p)
-    {
-        //Coords of the upper left corner where we'll draw the event dot
-        int top = rect.top + EVENT_DOT_TOP_MARGIN;
-        int left = (rect.left + rect.right-EVENT_DOT_W_H)/2;
-        Bitmap bitmap = createBitmap(mEventDot, EVENT_DOT_W_H, EVENT_DOT_W_H);
+    ///Create and draw the event busybits for this day
+    private void drawEvents(int date, Canvas canvas, Rect rect, Paint p, boolean drawBg) {
+        // The top of the busybits section lines up with the top of the day number
+        int top = rect.top + TEXT_TOP_MARGIN + BUSY_BITS_MARGIN;
+        int left = rect.right - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH;
 
-        canvas.drawBitmap(bitmap, left, top, p);
+        Style oldStyle = p.getStyle();
+        int oldColor = p.getColor();
+
+        ArrayList<Event> events = mEvents;
+        int numEvents = events.size();
+        EventGeometry geometry = mEventGeometry;
+
+        if (drawBg) {
+            RectF rf = mRectF;
+            rf.left = left;
+            rf.right = left + BUSY_BITS_WIDTH;
+            rf.bottom = rect.bottom - BUSY_BITS_MARGIN;
+            rf.top = top;
+
+            p.setColor(LIGHT_GRAY_BGCOLOR);
+            p.setStyle(Style.FILL);
+            canvas.drawRect(rf, p);
+        }
+
+        for (int i = 0; i < numEvents; i++) {
+            Event event = events.get(i);
+            if (!geometry.computeEventRect(date, left, top, BUSY_BITS_WIDTH, event)) {
+                continue;
+            }
+            drawEventRect(rect, event, canvas, p);
+        }
+
+    }
+
+    // Draw busybits for a single event
+    private RectF drawEventRect(Rect rect, Event event, Canvas canvas, Paint p) {
+
+        p.setColor(BUSY_BITS_COLOR);
+
+        int left = rect.right - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH;
+        int bottom = rect.bottom - BUSY_BITS_MARGIN;
+
+        RectF rf = mRectF;
+        rf.top = event.top;
+        // Make sure we don't go below the bottom of the bb bar
+        rf.bottom = Math.min(event.bottom, bottom);
+        rf.left = left;
+        rf.right = left + BUSY_BITS_WIDTH;
+
+        canvas.drawRect(rf, p);
+
+        return rf;
     }
 
     private boolean isFirstDayOfNextMonth(int row, int column) {
@@ -919,7 +987,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
     private void drawingCalc(int width, int height) {
         mCellHeight = (height - (6 * WEEK_GAP)) / 6;
-        mEventGeometry.setHourHeight((mCellHeight - 25.0f * HOUR_GAP) / 24.0f);
+        mEventGeometry
+                .setHourHeight((mCellHeight - BUSY_BITS_MARGIN * 2 - TEXT_TOP_MARGIN) / 24.0f);
         mCellWidth = (width - (6 * MONTH_DAY_GAP)) / 7;
         mBorder = (width - 6 * (mCellWidth + MONTH_DAY_GAP) - mCellWidth) / 2;
 
