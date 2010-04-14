@@ -288,12 +288,13 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
             @Override
             public boolean onDown(MotionEvent e) {
-                mLaunchDayView = false;
+                // Launch the Day/Agenda view when the finger lifts up,
+                // unless the finger moves before lifting up (onFling or onScroll).
+                mLaunchDayView = true;
                 return true;
             }
 
-            @Override
-            public void onShowPress(MotionEvent e) {
+            public void setSelectedCell(MotionEvent e) {
                 int x = (int) e.getX();
                 int y = (int) e.getY();
                 int row = (y - WEEK_GAP) / (WEEK_GAP + mCellHeight);
@@ -305,12 +306,14 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                     col = 6;
                 }
 
-                // Launch the Day/Agenda view when the finger lifts up,
-                // unless the finger moves before lifting up.
-                mLaunchDayView = true;
-
                 // Highlight the selected day.
                 mCursor.setSelectedRowColumn(row, col);
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+                // Highlight the selected day.
+                setSelectedCell(e);
                 mSelectionMode = SELECTION_PRESSED;
                 mRedrawScreen = true;
                 invalidate();
@@ -349,6 +352,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 if (mLaunchDayView) {
+                    setSelectedCell(e);
                     mSelectionMode = SELECTION_SELECTED;
                     mRedrawScreen = true;
                     invalidate();
