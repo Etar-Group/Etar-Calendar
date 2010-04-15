@@ -81,9 +81,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
     private static int HORIZONTAL_FLING_THRESHOLD = 50;
 
-    private static final int BUSY_BITS_COLOR = 0xFF6090F0;
-    private static final int LIGHT_GRAY_BGCOLOR = 0xFFDDDDDD;
-
     private int mCellHeight;
     private int mBorder;
     private boolean mLaunchDayView;
@@ -184,6 +181,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private int mMonthTodayNumberColor;
     private int mMonthSaturdayColor;
     private int mMonthSundayColor;
+    private int mBusybitsColor;
+    private int mMonthBgColor;
 
     public MonthView(MonthActivity activity, Navigator navigator) {
         super(activity);
@@ -255,6 +254,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         mMonthTodayNumberColor = res.getColor(R.color.month_today_number);
         mMonthSaturdayColor = res.getColor(R.color.month_saturday);
         mMonthSundayColor = res.getColor(R.color.month_sunday);
+        mBusybitsColor = res.getColor(R.color.month_busybits);
+        mMonthBgColor = res.getColor(R.color.month_bgcolor);
 
         if (mShowToast) {
             LayoutInflater inflater;
@@ -738,7 +739,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 r.left--;
             }
             p.setStyle(Style.FILL);
-            p.setColor(LIGHT_GRAY_BGCOLOR);
+            p.setColor(mMonthBgColor);
             canvas.drawRect(r, p);
         } else if (drawSelection) {
             if (mSelectionMode == SELECTION_SELECTED) {
@@ -859,7 +860,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             rf.bottom = rect.bottom - BUSY_BITS_MARGIN;
             rf.top = top;
 
-            p.setColor(LIGHT_GRAY_BGCOLOR);
+            p.setColor(mMonthBgColor);
             p.setStyle(Style.FILL);
             canvas.drawRect(rf, p);
         }
@@ -877,7 +878,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     // Draw busybits for a single event
     private RectF drawEventRect(Rect rect, Event event, Canvas canvas, Paint p) {
 
-        p.setColor(BUSY_BITS_COLOR);
+        p.setColor(mBusybitsColor);
 
         int left = rect.right - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH;
         int bottom = rect.bottom - BUSY_BITS_MARGIN;
