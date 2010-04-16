@@ -45,41 +45,41 @@ public class MenuHelper {
     public static final int MENU_MONTH = 9;
     public static final int MENU_SELECT_CALENDARS = 10;
     public static final int MENU_PREFERENCES = 11;
-    
+
     public static void onPrepareOptionsMenu(Activity activity, Menu menu) {
-        
+
         if (activity instanceof AgendaActivity) {
-            menu.setGroupVisible(MENU_GROUP_AGENDA, false);
+            menu.setGroupVisible(MENU_GROUP_AGENDA, true);
             menu.setGroupEnabled(MENU_GROUP_AGENDA, false);
         } else {
             menu.setGroupVisible(MENU_GROUP_AGENDA, true);
             menu.setGroupEnabled(MENU_GROUP_AGENDA, true);
         }
-        
+
         if (activity instanceof DayActivity) {
-            menu.setGroupVisible(MENU_GROUP_DAY, false);
+            menu.setGroupVisible(MENU_GROUP_DAY, true);
             menu.setGroupEnabled(MENU_GROUP_DAY, false);
         } else {
             menu.setGroupVisible(MENU_GROUP_DAY, true);
             menu.setGroupEnabled(MENU_GROUP_DAY, true);
         }
-        
+
         if (activity instanceof WeekActivity) {
-            menu.setGroupVisible(MENU_GROUP_WEEK, false);
+            menu.setGroupVisible(MENU_GROUP_WEEK, true);
             menu.setGroupEnabled(MENU_GROUP_WEEK, false);
         } else {
             menu.setGroupVisible(MENU_GROUP_WEEK, true);
             menu.setGroupEnabled(MENU_GROUP_WEEK, true);
         }
-        
+
         if (activity instanceof MonthActivity) {
-            menu.setGroupVisible(MENU_GROUP_MONTH, false);
+            menu.setGroupVisible(MENU_GROUP_MONTH, true);
             menu.setGroupEnabled(MENU_GROUP_MONTH, false);
         } else {
             menu.setGroupVisible(MENU_GROUP_MONTH, true);
             menu.setGroupEnabled(MENU_GROUP_MONTH, true);
         }
-        
+
         if (activity instanceof EventInfoActivity) {
             menu.setGroupVisible(MENU_GROUP_TODAY, false);
             menu.setGroupEnabled(MENU_GROUP_TODAY, false);
@@ -92,34 +92,34 @@ public class MenuHelper {
     public static boolean onCreateOptionsMenu(Menu menu) {
 
         MenuItem item;
-        item = menu.add(MENU_GROUP_AGENDA, MENU_AGENDA, 0, R.string.agenda_view);
-        item.setIcon(android.R.drawable.ic_menu_agenda);
-        item.setAlphabeticShortcut('a');
-        
         item = menu.add(MENU_GROUP_DAY, MENU_DAY, 0, R.string.day_view);
         item.setIcon(android.R.drawable.ic_menu_day);
         item.setAlphabeticShortcut('d');
-        
+
         item = menu.add(MENU_GROUP_WEEK, MENU_WEEK, 0, R.string.week_view);
         item.setIcon(android.R.drawable.ic_menu_week);
         item.setAlphabeticShortcut('w');
-        
+
         item = menu.add(MENU_GROUP_MONTH, MENU_MONTH, 0, R.string.month_view);
         item.setIcon(android.R.drawable.ic_menu_month);
         item.setAlphabeticShortcut('m');
-        
-        item = menu.add(MENU_GROUP_EVENT_CREATE, MENU_EVENT_CREATE, 0, R.string.event_create);
-        item.setIcon(android.R.drawable.ic_menu_add);
-        item.setAlphabeticShortcut('n');
-        
+
+        item = menu.add(MENU_GROUP_AGENDA, MENU_AGENDA, 0, R.string.agenda_view);
+        item.setIcon(android.R.drawable.ic_menu_agenda);
+        item.setAlphabeticShortcut('a');
+
         item = menu.add(MENU_GROUP_TODAY, MENU_GOTO_TODAY, 0, R.string.goto_today);
         item.setIcon(android.R.drawable.ic_menu_today);
         item.setAlphabeticShortcut('t');
-        
+
+        item = menu.add(MENU_GROUP_EVENT_CREATE, MENU_EVENT_CREATE, 0, R.string.event_create);
+        item.setIcon(android.R.drawable.ic_menu_add);
+        item.setAlphabeticShortcut('n');
+
         item = menu.add(MENU_GROUP_SELECT_CALENDARS, MENU_SELECT_CALENDARS,
                 0, R.string.menu_select_calendars);
         item.setIcon(android.R.drawable.ic_menu_manage);
-        
+
         item = menu.add(MENU_GROUP_PREFERENCES, MENU_PREFERENCES, 0, R.string.menu_preferences);
         item.setIcon(android.R.drawable.ic_menu_preferences);
         item.setAlphabeticShortcut('p');
