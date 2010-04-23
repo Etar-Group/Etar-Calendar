@@ -131,6 +131,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             Events.VISIBILITY,        // 13
             Events.OWNER_ACCOUNT,     // 14
             Events.HAS_ATTENDEE_DATA, // 15
+            Events.ORIGINAL_EVENT,    // 16 used for deleting exception events
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
