@@ -124,9 +124,6 @@ public class DeleteEventHelper {
         new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int button) {
             deleteExceptionEvent();
-            if (mExitWhenDone) {
-                mParent.finish();
-            }
         }
     };
 
