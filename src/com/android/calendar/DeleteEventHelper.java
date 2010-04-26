@@ -84,12 +84,10 @@ public class DeleteEventHelper {
         Events.DTSTART,
         Events._SYNC_ID,
         Events.EVENT_TIMEZONE,
-        Events.ORIGINAL_EVENT,
     };
 
     private int mEventIndexId;
     private int mEventIndexRrule;
-    private int mEventIndexOriginalEvent;
     private String mSyncId;
 
     public DeleteEventHelper(Activity parent, boolean exitWhenDone) {
@@ -114,16 +112,6 @@ public class DeleteEventHelper {
             if (mExitWhenDone) {
                 mParent.finish();
             }
-        }
-    };
-
-    /**
-     * This callback is used when an exception to an event is deleted
-     */
-    private DialogInterface.OnClickListener mDeleteExceptionDialogListener =
-        new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int button) {
-            deleteExceptionEvent();
         }
     };
 
@@ -214,7 +202,6 @@ public class DeleteEventHelper {
         mCursor = cursor;
         mEventIndexId = mCursor.getColumnIndexOrThrow(Events._ID);
         mEventIndexRrule = mCursor.getColumnIndexOrThrow(Events.RRULE);
-        mEventIndexOriginalEvent = mCursor.getColumnIndexOrThrow(Events.ORIGINAL_EVENT);
         int eventIndexSyncId = mCursor.getColumnIndexOrThrow(Events._SYNC_ID);
         mSyncId = mCursor.getString(eventIndexSyncId);
 
@@ -222,27 +209,15 @@ public class DeleteEventHelper {
         // user if they want to delete all of the repeating events or
         // just some of them.
         String rRule = mCursor.getString(mEventIndexRrule);
-        String originalEvent = mCursor.getString(this.mEventIndexOriginalEvent);
         if (rRule == null) {
-            AlertDialog dialog = new AlertDialog.Builder(mParent)
+            // This is a normal event. Pop up a confirmation dialog.
+            new AlertDialog.Builder(mParent)
             .setTitle(R.string.delete_title)
             .setMessage(R.string.delete_this_event_title)
             .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton(android.R.string.ok, mDeleteNormalDialogListener)
             .setNegativeButton(android.R.string.cancel, null)
-            .create();
-
-            if (originalEvent == null) {
-                // This is a normal event. Pop up a confirmation dialog.
-                dialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                        mParent.getText(android.R.string.ok),
-                        mDeleteNormalDialogListener);
-            } else {
-                // This is an exception event. Pop up a confirmation dialog.
-                dialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                        mParent.getText(android.R.string.ok),
-                        mDeleteExceptionDialogListener);
-            }
-            dialog.show();
+            .show();
         } else {
             // This is a repeating event.  Pop up a dialog asking which events
             // to delete.
@@ -266,17 +241,6 @@ public class DeleteEventHelper {
                 ok.setEnabled(false);
             }
         }
-    }
-
-    private void deleteExceptionEvent() {
-        long id = mCursor.getInt(mEventIndexId);
-
-        // update a recurrence exception by setting its status to "canceled"
-        ContentValues values = new ContentValues();
-        values.put(Events.STATUS, Events.STATUS_CANCELED);
-
-        Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
-        mContentResolver.update(uri, values, null, null);
     }
 
     private void deleteRepeatingEvent(int which) {
