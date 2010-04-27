@@ -54,9 +54,9 @@
     <string name="menu_preferences" msgid="9120238479503233925">"Ustawienia"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(i <xliff:g id="MORE_COUNT">%d</xliff:g> więcej…)"</string>
     <string name="calendars_title" msgid="4046980972626276968">"Kalendarze"</string>
-    <string name="synced_visible" msgid="1406744353749335651">"synchronizacja, widoczność"</string>
-    <string name="synced_not_visible" msgid="54032655953110609">"synchronizacja, brak widoczności"</string>
-    <string name="not_synced_not_visible" msgid="7178879061972059481">"brak synchronizacji, brak widoczności"</string>
+    <string name="synced_visible" msgid="1406744353749335651">"synchronizowany, widoczny"</string>
+    <string name="synced_not_visible" msgid="54032655953110609">"synchronizowany, niewidoczny"</string>
+    <string name="not_synced_not_visible" msgid="7178879061972059481">"bez synchronizacji, niewidoczny"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Szczegóły wydarzenia"</string>
     <string name="hint_what" msgid="709155115005044531">"Nazwa wydarzenia"</string>
     <string name="hint_where" msgid="3116239630502213241">"Lokalizacja wydarzenia"</string>
@@ -90,8 +90,8 @@
     <string name="view_event_response_label" msgid="8382281658458798329">"Uczestnictwo"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Dzisiaj, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Trwa wczytywanie..."</string>
-    <string name="show_older_events" msgid="4031960000704544741">"Pokazywanie wydarzeń od dnia <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Dotknij, aby wyszukać więcej."</string>
-    <string name="show_newer_events" msgid="2647889653936094369">"Pokazywanie wydarzeń do dnia <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Dotknij, aby wyszukać więcej."</string>
+    <string name="show_older_events" msgid="4031960000704544741">"Pokazuje wydarzenia od <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Dotknij, aby wyszukać więcej."</string>
+    <string name="show_newer_events" msgid="2647889653936094369">"Pokazuje wydarzenia do <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Dotknij, aby wyszukać więcej."</string>
     <string name="num_events" msgid="3351672964607162257">"Liczba wydarzeń"</string>
     <string name="edit_event_label" msgid="2900418236819088363">"Edytuj wydarzenie"</string>
     <string name="delete_label" msgid="874742811918030739">"Usuń"</string>
