@@ -116,6 +116,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         // TODO Events.GUESTS_CAN_INVITE_OTHERS has not been implemented in calendar provider
         Events.GUESTS_CAN_INVITE_OTHERS, // 15
         Events.ORGANIZER,            // 16
+        Events.ORIGINAL_EVENT        // 17 do not remove; used in DeleteEventHelper
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
