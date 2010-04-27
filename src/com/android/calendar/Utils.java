@@ -37,6 +37,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Utils {
+    // Set to 0 until we have UI to perform undo
+    public static final long UNDO_DELAY = 0;
+
     private static final int CLEAR_ALPHA_MASK = 0x00FFFFFF;
     private static final int HIGH_ALPHA = 255 << 24;
     private static final int MED_ALPHA = 180 << 24;

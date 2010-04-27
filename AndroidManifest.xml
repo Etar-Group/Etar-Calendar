@@ -130,6 +130,9 @@
                  <category android:name="android.intent.category.UNIT_TEST" />
             </intent-filter>
         </activity>
+
+        <service android:name=".AsyncQueryServiceHelper" />
+
     </application>
 </manifest>
 

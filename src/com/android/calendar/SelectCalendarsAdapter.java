@@ -59,7 +59,6 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     };
 
     private final LayoutInflater mInflater;
-    private final ContentResolver mResolver;
     private final SelectCalendarsActivity mActivity;
     private final View mView;
     private final static Runnable mStopRefreshing = new Runnable() {
@@ -123,10 +122,10 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     private static final int SYNCED_COLUMN = 6;
     private static final int PRIMARY_COLUMN = 7;
 
-    private class AsyncCalendarsUpdater extends AsyncQueryHandler {
+    private class AsyncCalendarsUpdater extends AsyncQueryService {
 
-        public AsyncCalendarsUpdater(ContentResolver cr) {
-            super(cr);
+        public AsyncCalendarsUpdater(Context context) {
+            super(context);
         }
 
         @Override
@@ -219,10 +218,9 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
         notSyncedNotVisible = context.getString(R.string.not_synced_not_visible);
 
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mResolver = context.getContentResolver();
         mActivity = act;
         if (mCalendarsUpdater == null) {
-            mCalendarsUpdater = new AsyncCalendarsUpdater(mResolver);
+            mCalendarsUpdater = new AsyncCalendarsUpdater(context);
         }
 
         mNumAccounts = cursor.getCount();
@@ -271,7 +269,8 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
             ContentValues values = new ContentValues();
             values.put(Calendars.SELECTED, newSelected);
             values.put(Calendars.SYNC_EVENTS, newSynced);
-            mCalendarsUpdater.startUpdate(mUpdateToken, id, uri, values, null, null);
+            mCalendarsUpdater.startUpdate(mUpdateToken, id, uri, values, null, null,
+                    Utils.UNDO_DELAY);
         }
     }
 

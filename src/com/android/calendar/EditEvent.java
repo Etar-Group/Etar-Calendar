@@ -1679,20 +1679,21 @@ public class EditEvent extends Activity implements View.OnClickListener,
             }
         }
 
-        try {
-            // TODO Move this to background thread
-            ContentProviderResult[] results =
-                getContentResolver().applyBatch(android.provider.Calendar.AUTHORITY, ops);
-            if (DEBUG) {
-                for (int i = 0; i < results.length; i++) {
-                    Log.v(TAG, "results = " + results[i].toString());
+        AsyncQueryService aqs;
+        if (DEBUG) {
+            aqs = new AsyncQueryService(this) {
+                @Override
+                protected void onBatchComplete(int token, Object cookie,
+                        ContentProviderResult[] results) {
+                    for (int i = 0; i < results.length; i++) {
+                        Log.v(TAG, "results = " + results[i].toString());
+                    }
                 }
-            }
-        } catch (RemoteException e) {
-            Log.w(TAG, "Ignoring unexpected remote exception", e);
-        } catch (OperationApplicationException e) {
-            Log.w(TAG, "Ignoring unexpected exception", e);
+            };
+        } else {
+            aqs = new AsyncQueryService(this);
         }
+        aqs.startBatch(0, 0, android.provider.Calendar.AUTHORITY, ops, Utils.UNDO_DELAY);
 
         return true;
     }

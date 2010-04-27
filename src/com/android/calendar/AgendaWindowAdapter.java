@@ -522,6 +522,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
                     do {
                         info = mAdapterInfos.poll();
                         if (info != null) {
+                            // TODO the following causes ANR's. Do this in a thread.
                             info.cursor.close();
                             deletedRows += info.size;
                             recycleMe = info;

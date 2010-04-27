@@ -22,16 +22,15 @@ import static android.provider.Calendar.EVENT_END_TIME;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
-import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Calendar.CalendarAlerts;
 import android.provider.Calendar.CalendarAlertsColumns;
 import android.provider.Calendar.Events;
@@ -105,7 +104,7 @@ public class AlertActivity extends Activity {
         values.put(PROJECTION[INDEX_STATE], CalendarAlerts.DISMISSED);
         String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.FIRED;
         mQueryHandler.startUpdate(0, null, CalendarAlerts.CONTENT_URI, values,
-                selection, null /* selectionArgs */);
+                selection, null /* selectionArgs */, Utils.UNDO_DELAY);
     }
 
     private void dismissAlarm(long id) {
@@ -113,12 +112,12 @@ public class AlertActivity extends Activity {
         values.put(PROJECTION[INDEX_STATE], CalendarAlerts.DISMISSED);
         String selection = CalendarAlerts._ID + "=" + id;
         mQueryHandler.startUpdate(0, null, CalendarAlerts.CONTENT_URI, values,
-                selection, null /* selectionArgs */);
+                selection, null /* selectionArgs */, Utils.UNDO_DELAY);
     }
 
-    private class QueryHandler extends AsyncQueryHandler {
-        public QueryHandler(ContentResolver cr) {
-            super(cr);
+    private class QueryHandler extends AsyncQueryService {
+        public QueryHandler(Context context) {
+            super(context);
         }
 
         @Override
@@ -211,7 +210,7 @@ public class AlertActivity extends Activity {
         getWindow().setAttributes(lp);
 
         mResolver = getContentResolver();
-        mQueryHandler = new QueryHandler(mResolver);
+        mQueryHandler = new QueryHandler(this);
         mAdapter = new AlertAdapter(this, R.layout.alert_item);
 
         mListView = (ListView) findViewById(R.id.alert_container);
@@ -286,7 +285,8 @@ public class AlertActivity extends Activity {
                 if (mCursor.isLast()) {
                     scheduleAlarmTime = alarmTime;
                 }
-                mQueryHandler.startInsert(0, scheduleAlarmTime, CalendarAlerts.CONTENT_URI, values);
+                mQueryHandler.startInsert(0, scheduleAlarmTime, CalendarAlerts.CONTENT_URI, values,
+                        Utils.UNDO_DELAY);
             }
 
             dismissFiredAlarms();
