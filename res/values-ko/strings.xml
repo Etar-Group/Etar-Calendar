@@ -97,7 +97,7 @@
     <string name="delete_label" msgid="874742811918030739">"삭제"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"일정 삭제"</string>
     <string name="save_label" msgid="2133599104834432589">"완료"</string>
-    <string name="discard_label" msgid="4510607554910139220">"되돌리기"</string>
+    <string name="discard_label" msgid="4510607554910139220">"취소"</string>
     <string name="import_label" msgid="6993796574741477222">"가져오기"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"모든 알람 일시 중지"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"모두 해제"</string>
@@ -122,9 +122,9 @@
     <string name="preferences_alerts_title" msgid="6511227171114210908">"알림 설정"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"거부한 일정 숨기기"</string>
     <string name="preferences_alerts_type_title" msgid="6934441966757833908">"알림 설정"</string>
-    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"알리미와 알림"</string>
+    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"알림 설정"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"진동"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"알림을 위해 진동도 함께 울림"</string>
+    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"진동 알림"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"알림음 선택"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"기본 알림 시간"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"기본 알림 시간"</string>
@@ -134,7 +134,7 @@
   <string-array name="prefEntries_alerts_vibrateWhen">
     <item msgid="2539376794936035639">"항상"</item>
     <item msgid="8091719131860840185">"무음 시에만"</item>
-    <item msgid="4552962311897985633">"안함"</item>
+    <item msgid="4552962311897985633">"사용 안함"</item>
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"진동"</string>
 </resources>

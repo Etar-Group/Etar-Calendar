@@ -96,8 +96,7 @@
     <string name="edit_event_label" msgid="2900418236819088363">"Editar evento"</string>
     <string name="delete_label" msgid="874742811918030739">"Eliminar"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Suprimir evento"</string>
-    <!-- no translation found for save_label (2133599104834432589) -->
-    <skip />
+    <string name="save_label" msgid="2133599104834432589">"OK"</string>
     <string name="discard_label" msgid="4510607554910139220">"Revertir"</string>
     <string name="import_label" msgid="6993796574741477222">"Importar"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Posponer recordatorios"</string>

@@ -53,7 +53,7 @@
   </string-array>
   <string-array name="preferences_alert_type_labels">
     <item msgid="2724242028978664229">"Alerte"</item>
-    <item msgid="8723674378160518790">"Notification de barre d\'état"</item>
+    <item msgid="8723674378160518790">"Barre d\'état"</item>
     <item msgid="8433736231022186661">"Désactiver"</item>
   </string-array>
   <string-array name="availability">

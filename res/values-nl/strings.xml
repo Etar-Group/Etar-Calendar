@@ -126,8 +126,8 @@
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Trillen"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Ook trillen voor herinneringen"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Beltoon selecteren"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standaard herinneringstijd"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standaard herinneringstijd"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Herinneringstijd"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Herinneringstijd"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Over"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Build-versie"</string>

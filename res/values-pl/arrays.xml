@@ -52,7 +52,7 @@
     <item msgid="5840973497558794742">"1 tydzień"</item>
   </string-array>
   <string-array name="preferences_alert_type_labels">
-    <item msgid="2724242028978664229">"Alert"</item>
+    <item msgid="2724242028978664229">"Alarm"</item>
     <item msgid="8723674378160518790">"Powiadomienie na pasku stanu"</item>
     <item msgid="8433736231022186661">"Wyłączone"</item>
   </string-array>
