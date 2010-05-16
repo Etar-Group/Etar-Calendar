@@ -32,7 +32,6 @@ import android.preference.PreferenceManager;
 import android.provider.Calendar.Events;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;

@@ -179,7 +179,7 @@ public class AlertActivity extends Activity {
 
     private OnItemClickListener mViewListener = new OnItemClickListener() {
 
-        public void onItemClick(AdapterView parent, View view, int position,
+        public void onItemClick(AdapterView<?> parent, View view, int position,
                 long i) {
             AlertActivity alertActivity = AlertActivity.this;
             Cursor cursor = alertActivity.getItemForView(view);

@@ -706,8 +706,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
         // Draw the cell contents (excluding monthDay number)
         if (!withinCurrentMonth) {
-            boolean firstDayOfNextmonth = isFirstDayOfNextMonth(row, column);
-
             // Adjust cell boundaries to compensate for the different border
             // style.
             r.top--;

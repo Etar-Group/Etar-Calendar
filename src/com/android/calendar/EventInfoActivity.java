@@ -901,7 +901,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             return;
         }
 
-        ContentResolver cr = getContentResolver();
         // Yes/No/Maybe Title
         View titleView = mLayoutInflater.inflate(R.layout.contact_item, null);
         titleView.findViewById(R.id.badge).setVisibility(View.GONE);
@@ -958,11 +957,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
     private class PresenceQueryHandler extends AsyncQueryHandler {
         Context mContext;
-        ContentResolver mContentResolver;
 
         public PresenceQueryHandler(Context context, ContentResolver cr) {
             super(cr);
-            mContentResolver = cr;
             mContext = context;
         }
 

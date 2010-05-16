@@ -2341,7 +2341,6 @@ public class CalendarView extends View
     void doSingleTapUp(MotionEvent ev) {
         int x = (int) ev.getX();
         int y = (int) ev.getY();
-        Event selectedEvent = mSelectedEvent;
         int selectedDay = mSelectionDay;
         int selectedHour = mSelectionHour;
 
