@@ -27,7 +27,6 @@ import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS_TENTATI
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
@@ -56,7 +55,6 @@ public class GoogleCalendarUriIntentFilter extends Activity {
             if (uri != null) {
                 String eid = uri.getQueryParameter("eid");
                 if (eid != null) {
-                    ContentResolver cr = getContentResolver();
                     String selection = Events.HTML_URI + " LIKE \"%eid=" + eid + "%\"";
 
                     Cursor eventCursor = managedQuery(Events.CONTENT_URI, EVENT_PROJECTION,

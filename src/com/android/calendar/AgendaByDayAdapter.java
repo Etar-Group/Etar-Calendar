@@ -189,7 +189,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
         mTodayJulianDay = Time.getJulianDay(now, time.gmtoff);
         LinkedList<MultipleDayInfo> multipleDayList = new LinkedList<MultipleDayInfo>();
         for (int position = 0; cursor.moveToNext(); position++) {
-            boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
             int startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
 
             // Skip over the days outside of the adapter's range
