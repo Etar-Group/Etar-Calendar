@@ -18,6 +18,7 @@ package com.android.calendar;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.TimeZone;
 
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
@@ -47,9 +48,10 @@ public class EditEventHelperTest extends AndroidTestCase {
     private static final int TEST_EVENT_ID = 1;
     private static final int TEST_EVENT_INDEX_ID = 0;
     private static final long TEST_END = 1272931200000L;
-    private static final long TEST_END2 = 1272956400000L;
+    private static long TEST_END2 = 1272956400000L;
     private static final long TEST_START = 1272844800000L;
-    private static final long TEST_START2 = 1272870000000L;
+    private static long TEST_START2 = 1272870000000L;
+    private static final String LOCAL_TZ = TimeZone.getDefault().getID();
 
     private static final int SAVE_EVENT_NEW_EVENT = 1;
     private static final int SAVE_EVENT_MOD_RECUR = 2;
@@ -80,7 +82,7 @@ public class EditEventHelperTest extends AndroidTestCase {
             "3", // 14 visibility
             "steve@gmail.com", // 15 owner account
             "1", // 16 has attendee data
-            "America/Los_Angeles", // 17 event timezone 2
+//            "America/Los_Angeles", // 17 event timezone 2
     }; // These should match up with EditEventHelper.EVENT_PROJECTION
 
     private static final String AUTHORITY_URI = "content://EditEventHelperAuthority/";
@@ -105,6 +107,19 @@ public class EditEventHelperTest extends AndroidTestCase {
     private EditEventHelper mHelper;
     private Context mContext;
     private int mCurrentSaveTest = 0;
+
+    @Override
+    public void setUp() {
+        Time time = new Time(Time.TIMEZONE_UTC);
+        time.set(TEST_START);
+        time.timezone = LOCAL_TZ;
+        TEST_START2 = time.normalize(true);
+
+        time.timezone = Time.TIMEZONE_UTC;
+        time.set(TEST_END);
+        time.timezone = LOCAL_TZ;
+        TEST_END2 = time.normalize(true);
+    }
 
     private Context buildTestContext() {
         MockContext context = new MockContext() {
@@ -689,6 +704,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mAttendees = TEST_ADDRESSES2;
 
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel2.mUri = mModel1.mUri;
         // And a new start time to ensure the time fields aren't removed
         mModel1.mOriginalStart = TEST_START2;
 
@@ -746,6 +762,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mAttendees = TEST_ADDRESSES2;
 
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel2.mUri = mModel1.mUri;
         // And a new start time to ensure the time fields aren't removed
         mModel1.mOriginalStart = TEST_START2;
 
@@ -1266,7 +1283,7 @@ public class EditEventHelperTest extends AndroidTestCase {
                                          // time
         mModel2.mEnd = TEST_END2; // Tuesday, May 4th, midnight America/LA
                                        // time
-        mModel2.mTimezone = "America/Los_Angeles";
+        mModel2.mTimezone = LOCAL_TZ; // "America/Los_Angeles";
 
         mHelper.setModelFromCursor(mModel1, c);
         assertEquals(mModel1, mModel2);
@@ -1299,7 +1316,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mExpectedValues.put(Events.DTSTART, TEST_START2); // LA time
         mExpectedValues.put(Events.DTEND, TEST_END2); // LA time
         // not an allday event so timezone isn't modified
-        mExpectedValues.put(Events.EVENT_TIMEZONE, "America/Los_Angeles");
+        mExpectedValues.put(Events.EVENT_TIMEZONE, LOCAL_TZ
+                /* "America/Los_Angeles" */);
 
         values = mHelper.getContentValuesFromModel(mModel1);
         assertEquals(values, mExpectedValues);
@@ -1406,19 +1424,18 @@ public class EditEventHelperTest extends AndroidTestCase {
         model.mAllDay = true;
         model.mHasAlarm = false;
         model.mCalendarId = 2;
-        model.mStart = TEST_START2; // Monday, May 3rd, midnight America/LA
-                                       // time
+        model.mStart = TEST_START2; // Monday, May 3rd, local Time
         model.mDuration = "P3652421990D";
-        model.mTimezone = "America/Los_Angeles"; // The model uses the same
-                                                 // timezone for allday
+        // The model uses the local timezone for allday
+        model.mTimezone = LOCAL_TZ;
         model.mRrule = "FREQ=DAILY;WKST=SU";
         model.mSyncId = "unique per calendar stuff";
         model.mTransparency = false;
         model.mVisibility = 2; // This is one less than the values written if >0
         model.mOwnerAccount = "steve@gmail.com";
         model.mHasAttendeeData = true;
-        model.mTimezone2 = "America/Los_Angeles";
-        // model.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        model.mTimezone2 = LOCAL_TZ;
+
 
         return model;
     }
@@ -1431,13 +1448,12 @@ public class EditEventHelperTest extends AndroidTestCase {
         values.put(Events.CALENDAR_ID, 2L);
         values.put(Events.EVENT_TIMEZONE, "UTC"); // Allday events are converted
                                                   // to UTC for the db
-        values.put(Events.EVENT_TIMEZONE2, "America/Los_Angeles");
+        values.put(Events.EVENT_TIMEZONE2, LOCAL_TZ);
         values.put(Events.TITLE, "The Question");
         values.put(Events.ALL_DAY, 1);
-        values.put(Events.DTSTART, TEST_START); // Monday, May 3rd, midnight
-                                                    // UTC time
-        values.put(Events.DTSTART2, TEST_START2); // Monday, May 3rd,
-                                                     // midnight America/LA time
+        values.put(Events.DTSTART, TEST_START); // Monday, May 3rd, midnight UTC time
+
+        values.put(Events.DTSTART2, TEST_START2); // Monday, May 3rd local time
         values.put(Events.RRULE, "FREQ=DAILY;WKST=SU");
         values.put(Events.DURATION, "P3652421990D");
         values.put(Events.DTEND, (Long) null);

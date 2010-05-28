@@ -58,7 +58,7 @@ public class EditEventHelper {
             Events.VISIBILITY, // 14
             Events.OWNER_ACCOUNT, // 15
             Events.HAS_ATTENDEE_DATA, // 16
-            Events.EVENT_TIMEZONE2, // 17
+//            Events.EVENT_TIMEZONE2, // 17
     };
     protected static final int EVENT_INDEX_ID = 0;
     protected static final int EVENT_INDEX_TITLE = 1;
@@ -77,7 +77,7 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_VISIBILITY = 14;
     protected static final int EVENT_INDEX_OWNER_ACCOUNT = 15;
     protected static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 16;
-    protected static final int EVENT_INDEX_TIMEZONE2 = 17;
+//    protected static final int EVENT_INDEX_TIMEZONE2 = 17;
 
     private static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
@@ -137,6 +137,10 @@ public class EditEventHelper {
 //                }
 //            }
 //        }
+        setDomainFromModel(model);
+    }
+
+    public void setDomainFromModel(CalendarEventModel model) {
         String domain = "gmail.com";
         if(model != null) {
             String ownerAccount = model.mOwnerAccount;
@@ -942,7 +946,8 @@ public class EditEventHelper {
         model.clear();
         cursor.moveToFirst();
 
-        String timezone2 = cursor.getString(EVENT_INDEX_TIMEZONE2);
+        // TODO add tz2 to view_event table so it can be used here.
+        String timezone2 = null; //cursor.getString(EVENT_INDEX_TIMEZONE2);
         if (TextUtils.isEmpty(timezone2)) {
             // if the db didn't have a tz2 yet assume the default for now
             // TODO handle allDay times in a way that lets us set alarms relative to

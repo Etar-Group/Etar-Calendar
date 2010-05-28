@@ -16,10 +16,15 @@
 
 package com.android.calendar;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.provider.Calendar.Events;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.TimeZone;
 
 /**
  * Stores all the information needed to fill out an entry in the events table.
@@ -29,6 +34,9 @@ import java.util.ArrayList;
  */
 public class CalendarEventModel {
     // TODO strip out fields that don't ever get used
+    /**
+     * The uri of the event in the db. This should only be null for new events.
+     */
     public Uri mUri = null;
     public int mId = -1;
     public int mCalendarId = -1;
@@ -63,7 +71,7 @@ public class CalendarEventModel {
 
     // PROVIDER_NOTES How does an event not have attendee data? The owner is added
     // as an attendee by default.
-    public boolean mHasAttendeeData = false;
+    public boolean mHasAttendeeData = true;
     public int mSelfAttendeeStatus = -1;
     public String mOriginalEvent = null;
     public Long mOriginalTime = null;
@@ -82,7 +90,56 @@ public class CalendarEventModel {
     public CalendarEventModel() {
         mReminderMinutes = new ArrayList<Integer>();
         mAttendees = "";
+        mTimezone = TimeZone.getDefault().getID();
+        mTimezone2 = mTimezone;
 
+    }
+
+    public CalendarEventModel(Context context) {
+        this();
+
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+        String defaultReminder =
+                prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER, "0");
+        int defaultReminderMins = Integer.parseInt(defaultReminder);
+        if (defaultReminderMins != 0) {
+            mHasAlarm = true;
+            mReminderMinutes.add(defaultReminderMins);
+        }
+    }
+
+    public CalendarEventModel(Context context, Intent intent) {
+        this(context);
+
+        String title = intent.getStringExtra(Events.TITLE);
+        if (title != null) {
+            mTitle = title;
+        }
+
+        String location = intent.getStringExtra(Events.EVENT_LOCATION);
+        if (location != null) {
+            mLocation = location;
+        }
+
+        String description = intent.getStringExtra(Events.DESCRIPTION);
+        if (description != null) {
+            mDescription = description;
+        }
+
+        int transparency = intent.getIntExtra(Events.TRANSPARENCY, -1);
+        if (transparency != -1) {
+            mTransparency = transparency != 0;
+        }
+
+        int visibility = intent.getIntExtra(Events.VISIBILITY, -1);
+        if (visibility != -1) {
+            mVisibility = visibility;
+        }
+
+        String rrule = intent.getStringExtra(Events.RRULE);
+        if (rrule != null) {
+            mRrule = rrule;
+        }
     }
 
     public boolean isValid() {
@@ -139,7 +196,7 @@ public class CalendarEventModel {
         mAllDay = false;
         mHasAlarm = false;
 
-        mHasAttendeeData = false;
+        mHasAttendeeData = true;
         mSelfAttendeeStatus = -1;
         mOriginalEvent = null;
         mOriginalTime = null;
