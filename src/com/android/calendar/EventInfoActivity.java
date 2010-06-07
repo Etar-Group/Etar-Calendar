@@ -109,8 +109,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         Events.DESCRIPTION,          // 8
         Events.EVENT_LOCATION,       // 9
         Events.HAS_ALARM,            // 10
-        Events.ACCESS_LEVEL,         // 11
-        Events.COLOR,                // 12
+        Calendars.ACCESS_LEVEL,      // 11
+        Calendars.COLOR,             // 12
         Events.HAS_ATTENDEE_DATA,    // 13
         Events.GUESTS_CAN_MODIFY,    // 14
         // TODO Events.GUESTS_CAN_INVITE_OTHERS has not been implemented in calendar provider
