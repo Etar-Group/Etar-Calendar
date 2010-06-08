@@ -329,7 +329,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         mCalendarOwnerAccount = "";
         if (mCalendarsCursor != null) {
             mCalendarsCursor.moveToFirst();
-            mCalendarOwnerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+            String tempAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+            mCalendarOwnerAccount = (tempAccount == null) ? "" : tempAccount;
         }
         String eventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
         mIsOrganizer = mCalendarOwnerAccount.equals(eventOrganizer);
