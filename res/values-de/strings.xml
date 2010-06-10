@@ -121,7 +121,7 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Einstellung für Kalenderansicht"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Erinnerungseinstellungen"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgel. Termine ausbl."</string>
-    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Benachr. &amp; Hinweis"</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Benachr. &amp; Hinweise"</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Benachrichtigungen &amp; Hinweise"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibration"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Bei Erinnerungen zusätzlich vibrieren"</string>
