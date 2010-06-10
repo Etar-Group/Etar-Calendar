@@ -125,7 +125,7 @@
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Оповещения и уведомления"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Вибросигнал"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Вибросигнал при напоминаниях"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Выбрать мелодию"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Звук уведомления"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Время напоминания"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Напомнить"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
