@@ -157,10 +157,10 @@ public class MenuHelper {
             long startMillis = nav.getSelectedTime();
             long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
             Intent intent = new Intent(Intent.ACTION_EDIT);
-            intent.setClassName(activity, EditEvent.class.getName());
+            intent.setClassName(activity, EditEventActivity.class.getName());
             intent.putExtra(EVENT_BEGIN_TIME, startMillis);
             intent.putExtra(EVENT_END_TIME, endMillis);
-            intent.putExtra(EditEvent.EVENT_ALL_DAY, nav.getAllDay());
+            intent.putExtra(EditEventHelper.EVENT_ALL_DAY, nav.getAllDay());
             activity.startActivity(intent);
             return true;
         }

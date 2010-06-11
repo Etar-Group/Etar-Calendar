@@ -805,7 +805,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         Intent intent = new Intent(Intent.ACTION_EDIT, uri);
         intent.putExtra(Calendar.EVENT_BEGIN_TIME, mStartMillis);
         intent.putExtra(Calendar.EVENT_END_TIME, mEndMillis);
-        intent.setClass(EventInfoActivity.this, EditEvent.class);
+        intent.setClass(EventInfoActivity.this, EditEventActivity.class);
         startActivity(intent);
         finish();
     }

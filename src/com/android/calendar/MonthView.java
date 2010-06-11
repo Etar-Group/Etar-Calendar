@@ -26,7 +26,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
@@ -35,11 +34,9 @@ import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.provider.Calendar.Attendees;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.ContextMenu;
 import android.view.GestureDetector;
@@ -271,7 +268,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             ta.recycle();
         }
 
-        mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+        mGestureDetector = new GestureDetector(getContext(),
+                new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                     float velocityY) {
@@ -419,14 +417,15 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 }
                 case MenuHelper.MENU_AGENDA: {
                     long startMillis = getSelectedTimeInMillis();
-                    Utils.startActivity(mParentActivity, AgendaActivity.class.getName(), startMillis);
+                    Utils.startActivity(mParentActivity, AgendaActivity.class.getName(),
+                            startMillis);
                     break;
                 }
                 case MenuHelper.MENU_EVENT_CREATE: {
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mParentActivity, EditEvent.class.getName());
+                    intent.setClassName(mParentActivity, EditEventActivity.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                     intent.putExtra(EVENT_END_TIME, endMillis);
                     mParentActivity.startActivity(intent);

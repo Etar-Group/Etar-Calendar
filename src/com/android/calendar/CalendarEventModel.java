@@ -28,9 +28,8 @@ import java.util.TimeZone;
 
 /**
  * Stores all the information needed to fill out an entry in the events table.
- *
- * This is a convenient way for storing information needed by the UI to write
- * to the events table. Only fields that are important to the UI are included.
+ * This is a convenient way for storing information needed by the UI to write to
+ * the events table. Only fields that are important to the UI are included.
  */
 public class CalendarEventModel {
     // TODO strip out fields that don't ever get used
@@ -38,26 +37,27 @@ public class CalendarEventModel {
      * The uri of the event in the db. This should only be null for new events.
      */
     public Uri mUri = null;
-    public int mId = -1;
-    public int mCalendarId = -1;
+    public long mId = -1;
+    public long mCalendarId = -1;
     public String mSyncId = null;
     public String mSyncAccount = null;
     public String mSyncAccountType = null;
+
     // PROVIDER_NOTES owner account comes from the calendars table
     public String mOwnerAccount = null;
-
     public String mTitle = null;
     public String mLocation = null;
     public String mDescription = null;
     public String mRrule = null;
     public String mOrganizer = null;
-    public boolean mIsOrganizer = false;
+    public boolean mIsOrganizer = true;
     public boolean mIsFirstEventInSeries = true;
 
     // This should be set the same as mStart when created and is used for making changes to
     // recurring events. It should not be updated after it is initially set.
     public long mOriginalStart = -1;
     public long mStart = -1;
+
     // This should be set the same as mEnd when created and is used for making changes to
     // recurring events. It should not be updated after it is initially set.
     public long mOriginalEnd = -1;
@@ -76,13 +76,13 @@ public class CalendarEventModel {
     public String mOriginalEvent = null;
     public Long mOriginalTime = null;
     public Boolean mOriginalAllDay = null;
-
     public boolean mGuestsCanModify = false;
     public boolean mGuestsCanInviteOthers = false;
     public boolean mGuestsCanSeeGuests = false;
-    public int mVisibility = 1;
 
+    public int mVisibility = 0;
     public ArrayList<Integer> mReminderMinutes;
+
     // PROVIDER_NOTES Using EditEventHelper the owner should not be included in this
     // list and will instead be added by saveEvent. Is this what we want?
     public String mAttendees;
@@ -91,7 +91,6 @@ public class CalendarEventModel {
         mReminderMinutes = new ArrayList<Integer>();
         mAttendees = "";
         mTimezone = TimeZone.getDefault().getID();
-        mTimezone2 = mTimezone;
 
     }
 
@@ -99,8 +98,8 @@ public class CalendarEventModel {
         this();
 
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
-        String defaultReminder =
-                prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER, "0");
+        String defaultReminder = prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER,
+                "0");
         int defaultReminderMins = Integer.parseInt(defaultReminder);
         if (defaultReminderMins != 0) {
             mHasAlarm = true;
@@ -183,7 +182,7 @@ public class CalendarEventModel {
         mDescription = null;
         mRrule = null;
         mOrganizer = null;
-        mIsOrganizer = false;
+        mIsOrganizer = true;
         mIsFirstEventInSeries = true;
 
         mOriginalStart = -1;
@@ -205,7 +204,7 @@ public class CalendarEventModel {
         mGuestsCanModify = false;
         mGuestsCanInviteOthers = false;
         mGuestsCanSeeGuests = false;
-        mVisibility = 1;
+        mVisibility = 0;
 
         mReminderMinutes = new ArrayList<Integer>();
         mAttendees = "";
@@ -217,7 +216,7 @@ public class CalendarEventModel {
         int result = 1;
         result = prime * result + (mAllDay ? 1231 : 1237);
         result = prime * result + ((mAttendees == null) ? 0 : mAttendees.hashCode());
-        result = prime * result + mCalendarId;
+        result = prime * result + (int) (mCalendarId ^ (mCalendarId >>> 32));
         result = prime * result + ((mDescription == null) ? 0 : mDescription.hashCode());
         result = prime * result + ((mDuration == null) ? 0 : mDuration.hashCode());
         result = prime * result + (int) (mEnd ^ (mEnd >>> 32));
@@ -226,7 +225,7 @@ public class CalendarEventModel {
         result = prime * result + (mGuestsCanSeeGuests ? 1231 : 1237);
         result = prime * result + (mHasAlarm ? 1231 : 1237);
         result = prime * result + (mHasAttendeeData ? 1231 : 1237);
-        result = prime * result + mId;
+        result = prime * result + (int) (mId ^ (mId >>> 32));
         result = prime * result + (mIsFirstEventInSeries ? 1231 : 1237);
         result = prime * result + (mIsOrganizer ? 1231 : 1237);
         result = prime * result + ((mLocation == null) ? 0 : mLocation.hashCode());

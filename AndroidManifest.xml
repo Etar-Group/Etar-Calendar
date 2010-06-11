@@ -69,7 +69,7 @@
             android:theme="@android:style/Theme.Light"
             android:exported="true" />
 
-        <activity android:name="EditEvent" android:label="@string/event_edit_title"
+        <activity android:name="EditEventActivity" android:label="@string/event_edit_title"
             android:theme="@android:style/Theme"
             android:configChanges="orientation|keyboardHidden">
 

@@ -18,13 +18,20 @@ package com.android.calendar;
 
 import com.android.common.Rfc822Validator;
 
-import android.content.*;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.OperationApplicationException;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
 import android.pim.EventRecurrence;
 import android.provider.Calendar.Attendees;
+import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
 import android.text.TextUtils;
@@ -34,11 +41,19 @@ import android.text.util.Rfc822Token;
 import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.TimeZone;
 
 public class EditEventHelper {
     private static final String TAG = "EditEventHelper";
+
     private static final boolean DEBUG = false;
+
+    public static final int MAX_REMINDERS = 5;
 
     protected static final String[] EVENT_PROJECTION = new String[] {
             Events._ID, // 0
@@ -58,7 +73,7 @@ public class EditEventHelper {
             Events.VISIBILITY, // 14
             Events.OWNER_ACCOUNT, // 15
             Events.HAS_ATTENDEE_DATA, // 16
-//            Events.EVENT_TIMEZONE2, // 17
+            Events.ORIGINAL_EVENT, // 17
     };
     protected static final int EVENT_INDEX_ID = 0;
     protected static final int EVENT_INDEX_TITLE = 1;
@@ -77,20 +92,21 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_VISIBILITY = 14;
     protected static final int EVENT_INDEX_OWNER_ACCOUNT = 15;
     protected static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 16;
-//    protected static final int EVENT_INDEX_TIMEZONE2 = 17;
+    protected static final int EVENT_INDEX_ORIGINAL_EVENT = 17;
 
-    private static final String[] REMINDERS_PROJECTION = new String[] {
+    public static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
             Reminders.MINUTES, // 1
-            Reminders.METHOD // 2
+            Reminders.METHOD, // 2
     };
-    private static final int REMINDERS_INDEX_MINUTES = 1;
-    private static final int REMINDERS_INDEX_METHOD = 2;
-    private static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=? AND (" +
-            Reminders.METHOD + "=?" + " OR " + Reminders.METHOD + "=?" + ")";
+    public static final int REMINDERS_INDEX_MINUTES = 1;
+    public static final int REMINDERS_INDEX_METHOD = 2;
+    public static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=? AND (" + Reminders.METHOD
+            + "=?" + " OR " + Reminders.METHOD + "=?" + ")";
+
     // Visible for testing
-    static final String ATTENDEES_DELETE_PREFIX = Attendees.EVENT_ID + "=? AND " +
-            Attendees.ATTENDEE_EMAIL + " IN (";
+    static final String ATTENDEES_DELETE_PREFIX = Attendees.EVENT_ID + "=? AND "
+            + Attendees.ATTENDEE_EMAIL + " IN (";
 
     public static final int DOES_NOT_REPEAT = 0;
     public static final int REPEATS_DAILY = 1;
@@ -109,40 +125,56 @@ public class EditEventHelper {
     protected static final int DAY_IN_SECONDS = 24 * 60 * 60;
 
     private Context mActivity;
-//    public int mModification;
+
+    // public int mModification;
     private Rfc822Validator mEmailValidator;
-    // This allows us to flag the event if something is wrong with it, right now if an uri is
-    // provided for an event that doesn't exist in the db.
+
+    // This allows us to flag the event if something is wrong with it, right now
+    // if an uri is provided for an event that doesn't exist in the db.
     protected boolean mEventOk = true;
+
+    /**
+     * This is the symbolic name for the key used to pass in the boolean for
+     * creating all-day events that is part of the extra data of the intent.
+     * This is used only for creating new events and is set to true if the
+     * default for the new event should be an all-day event.
+     */
+    public static final String EVENT_ALL_DAY = "allDay";
+
+    static final String[] CALENDARS_PROJECTION = new String[] {
+            Calendars._ID, // 0
+            Calendars.DISPLAY_NAME, // 1
+            Calendars.OWNER_ACCOUNT, // 2
+            Calendars.COLOR, // 3
+    };
+    static final int CALENDARS_INDEX_ID = 0;
+    static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
+    static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
+    static final int CALENDARS_INDEX_COLOR = 3;
+
+    static final String CALENDARS_WHERE_WRITEABLE_VISIBLE = Calendars.ACCESS_LEVEL + ">="
+            + Calendars.CONTRIBUTOR_ACCESS + " AND " + Calendars.SELECTED + "=1";
+
+    static final String[] ATTENDEES_PROJECTION = new String[] {
+            Attendees.ATTENDEE_NAME, // 0
+            Attendees.ATTENDEE_EMAIL, // 1
+            Attendees.ATTENDEE_RELATIONSHIP, // 2
+    };
+    static final int ATTENDEES_INDEX_NAME = 0;
+    static final int ATTENDEES_INDEX_EMAIL = 1;
+    static final int ATTENDEES_INDEX_RELATIONSHIP = 2;
+    static final String ATTENDEES_WHERE_NOT_ORGANIZER = Attendees.EVENT_ID + "=? AND "
+            + Attendees.ATTENDEE_RELATIONSHIP + "<>" + Attendees.RELATIONSHIP_ORGANIZER;
 
     public EditEventHelper(Context activity, CalendarEventModel model) {
         mActivity = activity;
-
-        // TODO Make a helper function for getting a cursor for the original event
-        // Leaving the code here for now so I have a reference to how it was done
-//        Uri uri = model.mUri;
-//        if (uri != null) {
-//            mEventCursor = eventCursor;
-//                    // mActivity.managedQuery(uri, EVENT_PROJECTION, null, null, null);
-//            if (mEventCursor == null || mEventCursor.getCount() == 0) {
-//                mEventOk = false;
-//            } else {
-//                mEventCursor.moveToFirst();
-//                String ownerAccount = mEventCursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
-//                if (!TextUtils.isEmpty(ownerAccount)) {
-//                    String ownerDomain = extractDomain(ownerAccount);
-//                    if (ownerDomain != null) {
-//                        domain = ownerDomain;
-//                    }
-//                }
-//            }
-//        }
         setDomainFromModel(model);
     }
 
+    // Sets up the email validator for the given model
     public void setDomainFromModel(CalendarEventModel model) {
         String domain = "gmail.com";
-        if(model != null) {
+        if (model != null) {
             String ownerAccount = model.mOwnerAccount;
             if (!TextUtils.isEmpty(ownerAccount)) {
                 String ownerDomain = extractDomain(ownerAccount);
@@ -155,7 +187,8 @@ public class EditEventHelper {
     }
 
     /**
-     * Saves the event.  Returns true if the event was successfully saved, false otherwise.
+     * Saves the event. Returns true if the event was successfully saved, false
+     * otherwise.
      *
      * @param model The event model to save
      * @param originalModel A model of the original event if it exists
@@ -188,19 +221,13 @@ public class EditEventHelper {
             return false;
         }
         if (originalModel != null && !isSameEvent(model, originalModel)) {
-            Log.e(TAG, "Attempted to update existing event but models didn't refer to the same " +
-                    "event.");
+            Log.e(TAG, "Attempted to update existing event but models didn't refer to the same "
+                    + "event.");
             return false;
         }
 
-
-        // TODO put toasts into whatever method this returns to
-        // TODO change tense of toast messages to fix b/2124902
-//        if (originalModel == null) {
-//            Toast.makeText(mActivity, R.string.creating_event, Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(mActivity, R.string.saving_event, Toast.LENGTH_SHORT).show();
-//        }
+        // TODO Check if anything has been changed and return false if it
+        // hasn't.
 
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
         int eventIdIndex = -1;
@@ -222,9 +249,8 @@ public class EditEventHelper {
             // Add hasAttendeeData for a new event
             values.put(Events.HAS_ATTENDEE_DATA, 1);
             eventIdIndex = ops.size();
-            ContentProviderOperation.Builder b = ContentProviderOperation
-                    .newInsert(Events.CONTENT_URI)
-                    .withValues(values);
+            ContentProviderOperation.Builder b = ContentProviderOperation.newInsert(
+                    Events.CONTENT_URI).withValues(values);
             ops.add(b.build());
             forceSaveReminders = true;
 
@@ -248,9 +274,8 @@ public class EditEventHelper {
             values.put(Events.ORIGINAL_ALL_DAY, allDay ? 1 : 0);
 
             eventIdIndex = ops.size();
-            ContentProviderOperation.Builder b = ContentProviderOperation
-                    .newInsert(Events.CONTENT_URI)
-                    .withValues(values);
+            ContentProviderOperation.Builder b = ContentProviderOperation.newInsert(
+                    Events.CONTENT_URI).withValues(values);
             ops.add(b.build());
             forceSaveReminders = true;
 
@@ -259,7 +284,7 @@ public class EditEventHelper {
             if (model.mRrule == null) {
                 // We've changed a recurring event to a non-recurring event.
                 // If the event we are editing is the first in the series,
-                // then delete the whole series.  Otherwise, update the series
+                // then delete the whole series. Otherwise, update the series
                 // to end at the new start time.
                 if (isFirstEventInSeries(model, originalModel)) {
                     ops.add(ContentProviderOperation.newDelete(uri).build());
@@ -269,15 +294,12 @@ public class EditEventHelper {
                     updatePastEvents(ops, originalModel, model.mOriginalStart);
                 }
                 eventIdIndex = ops.size();
-                ops.add(ContentProviderOperation
-                        .newInsert(Events.CONTENT_URI)
-                        .withValues(values)
+                ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(values)
                         .build());
             } else {
                 if (isFirstEventInSeries(model, originalModel)) {
                     checkTimeDependentFields(originalModel, model, values, modifyWhich);
-                    ContentProviderOperation.Builder b = ContentProviderOperation
-                            .newUpdate(uri)
+                    ContentProviderOperation.Builder b = ContentProviderOperation.newUpdate(uri)
                             .withValues(values);
                     ops.add(b.build());
                 } else {
@@ -287,10 +309,8 @@ public class EditEventHelper {
 
                     // Create a new event with the user-modified fields
                     eventIdIndex = ops.size();
-                    ops.add(ContentProviderOperation
-                            .newInsert(Events.CONTENT_URI)
-                            .withValues(values)
-                            .build());
+                    ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(
+                            values).build());
                 }
             }
             forceSaveReminders = true;
@@ -305,17 +325,12 @@ public class EditEventHelper {
                 ops.add(ContentProviderOperation.newDelete(uri).build());
 
                 eventIdIndex = ops.size();
-                ops.add(ContentProviderOperation
-                        .newInsert(Events.CONTENT_URI)
-                        .withValues(values)
+                ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(values)
                         .build());
                 forceSaveReminders = true;
             } else {
                 checkTimeDependentFields(originalModel, model, values, modifyWhich);
-                ops.add(ContentProviderOperation
-                        .newUpdate(uri)
-                        .withValues(values)
-                        .build());
+                ops.add(ContentProviderOperation.newUpdate(uri).withValues(values).build());
             }
         }
 
@@ -329,12 +344,11 @@ public class EditEventHelper {
         }
 
         if (newEvent) {
-            saveRemindersWithBackRef(ops, eventIdIndex, reminderMinutes,
-                    originalMinutes, forceSaveReminders);
+            saveRemindersWithBackRef(ops, eventIdIndex, reminderMinutes, originalMinutes,
+                    forceSaveReminders);
         } else if (uri != null) {
             long eventId = ContentUris.parseId(uri);
-            saveReminders(ops, eventId, reminderMinutes,
-                    originalMinutes, forceSaveReminders);
+            saveReminders(ops, eventId, reminderMinutes, originalMinutes, forceSaveReminders);
         }
 
         ContentProviderOperation.Builder b;
@@ -344,37 +358,21 @@ public class EditEventHelper {
         if (hasAttendeeData && newEvent) {
             values.clear();
 
-            // Save the default calendar for new events
-            // TODO Save the default somewhere else (controller/presenter?)
-//            if (mCalendarsCursor != null) {
-//                if (mCalendarsCursor.moveToPosition(calendarCursorPosition)) {
-//                    String defaultCalendar = mCalendarsCursor
-//                            .getString(CALENDARS_INDEX_OWNER_ACCOUNT);
-//                    Utils.setSharedPreference(this,
-//                            CalendarPreferenceActivity.KEY_DEFAULT_CALENDAR, defaultCalendar);
-//                }
-//            }
-
             String ownerEmail = model.mOwnerAccount;
             if (ownerEmail != null) {
                 values.put(Attendees.ATTENDEE_EMAIL, ownerEmail);
-                values.put(Attendees.ATTENDEE_RELATIONSHIP,
-                        Attendees.RELATIONSHIP_ORGANIZER);
-                values.put(Attendees.ATTENDEE_TYPE,
-                        Attendees.TYPE_NONE);
-                values.put(Attendees.ATTENDEE_STATUS,
-                        Attendees.ATTENDEE_STATUS_ACCEPTED);
+                values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
+                values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+                values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_ACCEPTED);
 
-                b = ContentProviderOperation
-                        .newInsert(Attendees.CONTENT_URI)
-                        .withValues(values);
+                b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI).withValues(values);
                 b.withValueBackReference(Reminders.EVENT_ID, eventIdIndex);
                 ops.add(b.build());
             }
         }
 
-        // TODO: is this the right test?  this currently checks if this is
-        // a new event or an existing event.  or is this a paranoia check?
+        // TODO: is this the right test? this currently checks if this is
+        // a new event or an existing event. or is this a paranoia check?
         if (hasAttendeeData && (newEvent || uri != null)) {
             String attendees = model.mAttendees;
             String originalAttendeesString;
@@ -383,11 +381,13 @@ public class EditEventHelper {
             } else {
                 originalAttendeesString = "";
             }
-            // Hit the content provider only if this is a new event or the user has changed it
+            // Hit the content provider only if this is a new event or the user
+            // has changed it
             if (newEvent || !TextUtils.equals(originalAttendeesString, attendees)) {
                 // figure out which attendees need to be added and which ones
-                // need to be deleted.  use a linked hash set, so we maintain
+                // need to be deleted. use a linked hash set, so we maintain
                 // order (but also remove duplicates).
+                setDomainFromModel(model);
                 LinkedHashSet<Rfc822Token> newAttendees = getAddressesFromList(attendees);
 
                 // the eventId is only used if eventIdIndex is -1.
@@ -403,10 +403,10 @@ public class EditEventHelper {
                     Rfc822Tokenizer.tokenize(originalAttendeesString, originalAttendees);
                     for (Rfc822Token originalAttendee : originalAttendees) {
                         if (newAttendees.contains(originalAttendee)) {
-                            // existing attendee.  remove from new attendees set.
+                            // existing attendee. remove from new attendees set.
                             newAttendees.remove(originalAttendee);
                         } else {
-                            // no longer in attendees.  mark as removed.
+                            // no longer in attendees. mark as removed.
                             removedAttendees.add(originalAttendee);
                         }
                     }
@@ -436,26 +436,20 @@ public class EditEventHelper {
                     // Insert the new attendees
                     for (Rfc822Token attendee : newAttendees) {
                         values.clear();
-                        values.put(Attendees.ATTENDEE_NAME,
-                                attendee.getName());
-                        values.put(Attendees.ATTENDEE_EMAIL,
-                                attendee.getAddress());
+                        values.put(Attendees.ATTENDEE_NAME, attendee.getName());
+                        values.put(Attendees.ATTENDEE_EMAIL, attendee.getAddress());
                         values.put(Attendees.ATTENDEE_RELATIONSHIP,
                                 Attendees.RELATIONSHIP_ATTENDEE);
-                        values.put(Attendees.ATTENDEE_TYPE,
-                                Attendees.TYPE_NONE);
-                        values.put(Attendees.ATTENDEE_STATUS,
-                                Attendees.ATTENDEE_STATUS_NONE);
+                        values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+                        values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
 
                         if (newEvent) {
-                            b = ContentProviderOperation
-                                    .newInsert(Attendees.CONTENT_URI)
+                            b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
                                     .withValues(values);
                             b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
                         } else {
                             values.put(Attendees.EVENT_ID, eventId);
-                            b = ContentProviderOperation
-                                    .newInsert(Attendees.CONTENT_URI)
+                            b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
                                     .withValues(values);
                         }
                         ops.add(b.build());
@@ -466,8 +460,8 @@ public class EditEventHelper {
 
         try {
             // TODO Move this to background service
-            ContentProviderResult[] results =
-                mActivity.getContentResolver().applyBatch(android.provider.Calendar.AUTHORITY, ops);
+            ContentProviderResult[] results = mActivity.getContentResolver().applyBatch(
+                    android.provider.Calendar.AUTHORITY, ops);
             if (DEBUG) {
                 for (int i = 0; i < results.length; i++) {
                     Log.v(TAG, "results = " + results[i].toString());
@@ -486,7 +480,7 @@ public class EditEventHelper {
         LinkedHashSet<Rfc822Token> addresses = new LinkedHashSet<Rfc822Token>();
         Rfc822Tokenizer.tokenize(list, addresses);
 
-        // validate the emails, out of paranoia.  they should already be
+        // validate the emails, out of paranoia. they should already be
         // validated on input, but drop any invalid emails just to be safe.
         Iterator<Rfc822Token> addressIterator = addresses.iterator();
         while (addressIterator.hasNext()) {
@@ -499,38 +493,33 @@ public class EditEventHelper {
         return addresses;
     }
 
-    // TODO think about how useful this is. Probably check if our event has changed early on and
-    // either update all or nothing. Should still do the if MODIFY_ALL bit.
-    void checkTimeDependentFields(CalendarEventModel originalModel,
-            CalendarEventModel model, ContentValues values, int modifyWhich) {
+    // TODO think about how useful this is. Probably check if our event has
+    // changed early on and either update all or nothing. Should still do the if
+    // MODIFY_ALL bit.
+    void checkTimeDependentFields(CalendarEventModel originalModel, CalendarEventModel model,
+            ContentValues values, int modifyWhich) {
         long oldBegin = model.mOriginalStart;
         long oldEnd = model.mOriginalEnd;
         boolean oldAllDay = originalModel.mAllDay;
         String oldRrule = originalModel.mRrule;
         String oldTimezone = originalModel.mTimezone;
-        String oldTimezone2 = originalModel.mTimezone2;
 
         long newBegin = model.mStart;
         long newEnd = model.mEnd;
         boolean newAllDay = model.mAllDay;
         String newRrule = model.mRrule;
         String newTimezone = model.mTimezone;
-        String newTimezone2 = model.mTimezone2;
 
         // If none of the time-dependent fields changed, then remove them.
         if (oldBegin == newBegin && oldEnd == newEnd && oldAllDay == newAllDay
                 && TextUtils.equals(oldRrule, newRrule)
-                && TextUtils.equals(oldTimezone, newTimezone)
-                && TextUtils.equals(oldTimezone2, newTimezone2)) {
+                && TextUtils.equals(oldTimezone, newTimezone)) {
             values.remove(Events.DTSTART);
-            values.remove(Events.DTSTART2);
             values.remove(Events.DTEND);
-            values.remove(Events.DTEND2);
             values.remove(Events.DURATION);
             values.remove(Events.ALL_DAY);
             values.remove(Events.RRULE);
             values.remove(Events.EVENT_TIMEZONE);
-            values.remove(Events.EVENT_TIMEZONE2);
             return;
         }
 
@@ -540,10 +529,10 @@ public class EditEventHelper {
 
         // If we are modifying all events then we need to set DTSTART to the
         // start time of the first event in the series, not the current
-        // date and time.  If the start time of the event was changed
+        // date and time. If the start time of the event was changed
         // (from, say, 3pm to 4pm), then we want to add the time difference
         // to the start time of the first event in the series (the DTSTART
-        // value).  If we are modifying one instance or all following instances,
+        // value). If we are modifying one instance or all following instances,
         // then we leave the DTSTART field alone.
         if (modifyWhich == MODIFY_ALL) {
             long oldStartMillis = originalModel.mStart;
@@ -560,24 +549,16 @@ public class EditEventHelper {
                 time.minute = 0;
                 time.second = 0;
                 oldStartMillis = time.toMillis(false);
-                if (!TextUtils.isEmpty(newTimezone2)) {
-                    // If we have tz2 also change dtstart2
-                    time.timezone = newTimezone2;
-                    oldStartMillis2 = time.toMillis(false);
-                }
             }
             values.put(Events.DTSTART, oldStartMillis);
-            if (!TextUtils.isEmpty(newTimezone2)) {
-                values.put(Events.DTSTART2, oldStartMillis2);
-            }
         }
     }
 
     /**
-     * Prepares an update to the original event so it stops where the new series begins
-     *
-     * When we update 'this and all following' events we need to change the original event to end
-     * before a new series starts. This creates an update to the old event's rrule to do that.
+     * Prepares an update to the original event so it stops where the new series
+     * begins When we update 'this and all following' events we need to change
+     * the original event to end before a new series starts. This creates an
+     * update to the old event's rrule to do that.
      *
      * @param ops The list of operations to add the update to
      * @param originalModel The original event that we're updating
@@ -587,38 +568,49 @@ public class EditEventHelper {
             CalendarEventModel originalModel, long initialBeginTime) {
         boolean allDay = originalModel.mAllDay;
         String oldRrule = originalModel.mRrule;
+
         EventRecurrence eventRecurrence = new EventRecurrence();
         eventRecurrence.parse(oldRrule);
 
         Time untilTime = new Time();
+        Time dtstart = new Time();
         long begin = initialBeginTime;
         ContentValues oldValues = new ContentValues();
 
         // The "until" time must be in UTC time in order for Google calendar
-        // to display it properly.  For all-day events, the "until" time string
-        // must include just the date field, and not the time field.  The
+        // to display it properly. For all-day events, the "until" time string
+        // must include just the date field, and not the time field. The
         // repeating events repeat up to and including the "until" time.
         untilTime.timezone = Time.TIMEZONE_UTC;
+        dtstart.timezone = originalModel.mTimezone;
+        dtstart.set(originalModel.mStart);
 
         // Subtract one second from the old begin time to get the new
         // "until" time.
-        untilTime.set(begin - 1000);  // subtract one second (1000 millis)
+        untilTime.set(begin - 1000); // subtract one second (1000 millis)
         if (allDay) {
             untilTime.hour = 0;
             untilTime.minute = 0;
             untilTime.second = 0;
             untilTime.allDay = true;
             untilTime.normalize(false);
+
+            dtstart.hour = 0;
+            dtstart.minute = 0;
+            dtstart.second = 0;
+            dtstart.allDay = true;
+            dtstart.timezone = Time.TIMEZONE_UTC;
         }
         eventRecurrence.until = untilTime.format2445();
 
         oldValues.put(Events.RRULE, eventRecurrence.toString());
-        ContentProviderOperation.Builder b =
-            ContentProviderOperation.newUpdate(originalModel.mUri).withValues(oldValues);
+        oldValues.put(Events.DTSTART, dtstart.normalize(true));
+        ContentProviderOperation.Builder b = ContentProviderOperation.newUpdate(originalModel.mUri)
+                .withValues(oldValues);
         ops.add(b.build());
     }
 
-    // Constructs a label given an arbitrary number of minutes.  For example,
+    // Constructs a label given an arbitrary number of minutes. For example,
     // if the given minutes is 63, then this returns the string "63 minutes".
     // As another example, if the given minutes is 120, then this returns
     // "2 hours".
@@ -637,7 +629,7 @@ public class EditEventHelper {
             value = minutes / 60;
             resId = R.plurals.Nhours;
         } else {
-            value = minutes / ( 24 * 60);
+            value = minutes / (24 * 60);
             resId = R.plurals.Ndays;
         }
 
@@ -646,10 +638,11 @@ public class EditEventHelper {
     }
 
     /**
-     * Uses the context to perform a query for reminders to an event and add them to the model
+     * Uses the context to perform a query for reminders to an event and add
+     * them to the model Given a context and an event model this will query the
+     * db for alarms if hasAlarm is set. This will throw if context is null and
+     * hasAlarm is true.
      *
-     * Given a context and an event model this will query the db for alarms if hasAlarm is set.
-     * This will throw if context is null and hasAlarm is true.
      * @param context
      * @param originalModel
      */
@@ -664,12 +657,11 @@ public class EditEventHelper {
             // TODO use background service to query
             Cursor reminderCursor = cr.query(uri, REMINDERS_PROJECTION, REMINDERS_WHERE,
                     new String[] {Long.toString(eventId), Integer.toString(Reminders.METHOD_ALERT),
-                    Integer.toString(Reminders.METHOD_DEFAULT)}, Reminders.MINUTES);
+                            Integer.toString(Reminders.METHOD_DEFAULT)}, Reminders.MINUTES);
             try {
                 // Add all the minute values to a local list
                 while (reminderCursor.moveToNext()) {
                     int minutes = reminderCursor.getInt(REMINDERS_INDEX_MINUTES);
-                    int type = reminderCursor.getInt(REMINDERS_INDEX_METHOD);
                     originalMinutes.add(minutes);
 
                 }
@@ -681,12 +673,12 @@ public class EditEventHelper {
     }
 
     /**
-     * Compares two models to ensure that they refer to the same event.
+     * Compares two models to ensure that they refer to the same event. This is
+     * a safety check to make sure an updated event model refers to the same
+     * event as the original model. If the original model is null then this is a
+     * new event or we're forcing an overwrite so we return true in that case.
+     * The important identifiers are the Calendar Id and the Event Id.
      *
-     * This is a safety check to make sure an updated event model refers to the same event as the
-     * original model. If the original model is null then this is a new event or we're forcing an
-     * overwrite so we return true in that case. The important identifiers are the Calendar Id and
-     * the Event Id.
      * @return
      */
     static boolean isSameEvent(CalendarEventModel model, CalendarEventModel originalModel) {
@@ -704,16 +696,15 @@ public class EditEventHelper {
         return true;
     }
 
-     /**
-     * Saves the reminders, if they changed.  Returns true if operations to update the database
-     * were added.
+    /**
+     * Saves the reminders, if they changed. Returns true if operations to
+     * update the database were added.
      *
      * @param ops the array of ContentProviderOperations
      * @param eventId the id of the event whose reminders are being updated
      * @param reminderMinutes the array of reminders set by the user
      * @param originalMinutes the original array of reminders
-     * @param forceSave if true, then save the reminders even if they didn't
-     *   change
+     * @param forceSave if true, then save the reminders even if they didn't change
      * @return true if operations to update the database were added
      */
     boolean saveReminders(ArrayList<ContentProviderOperation> ops, long eventId,
@@ -727,8 +718,8 @@ public class EditEventHelper {
         // Delete all the existing reminders for this event
         String where = Reminders.EVENT_ID + "=?";
         String[] args = new String[] {Long.toString(eventId)};
-        ContentProviderOperation.Builder b =
-                ContentProviderOperation.newDelete(Reminders.CONTENT_URI);
+        ContentProviderOperation.Builder b = ContentProviderOperation
+                .newDelete(Reminders.CONTENT_URI);
         b.withSelection(where, args);
         ops.add(b.build());
 
@@ -750,28 +741,28 @@ public class EditEventHelper {
     }
 
     /**
-     * Saves the reminders, if they changed.  Returns true if operations to update the database
-     * were added. Uses a reference id since an id isn't created until the row is added.
+     * Saves the reminders, if they changed. Returns true if operations to
+     * update the database were added. Uses a reference id since an id isn't
+     * created until the row is added.
      *
      * @param ops the array of ContentProviderOperations
      * @param eventId the id of the event whose reminders are being updated
      * @param reminderMinutes the array of reminders set by the user
      * @param originalMinutes the original array of reminders
-     * @param forceSave if true, then save the reminders even if they didn't
-     *   change
+     * @param forceSave if true, then save the reminders even if they didn't change
      * @return true if operations to update the database were added
      */
-    boolean saveRemindersWithBackRef(ArrayList<ContentProviderOperation> ops,
-            int eventIdIndex, ArrayList<Integer> reminderMinutes,
-            ArrayList<Integer> originalMinutes, boolean forceSave) {
+    boolean saveRemindersWithBackRef(ArrayList<ContentProviderOperation> ops, int eventIdIndex,
+            ArrayList<Integer> reminderMinutes, ArrayList<Integer> originalMinutes,
+            boolean forceSave) {
         // If the reminders have not changed, then don't update the database
         if (reminderMinutes.equals(originalMinutes) && !forceSave) {
             return false;
         }
 
         // Delete all the existing reminders for this event
-        ContentProviderOperation.Builder b =
-                ContentProviderOperation.newDelete(Reminders.CONTENT_URI);
+        ContentProviderOperation.Builder b = ContentProviderOperation
+                .newDelete(Reminders.CONTENT_URI);
         b.withSelection(Reminders.EVENT_ID + "=?", new String[1]);
         b.withSelectionBackReference(0, eventIdIndex);
         ops.add(b.build());
@@ -793,8 +784,8 @@ public class EditEventHelper {
         return true;
     }
 
-    // It's the first event in the series if the start time before being modified is the same as
-    // the original event's start time
+    // It's the first event in the series if the start time before being
+    // modified is the same as the original event's start time
     static boolean isFirstEventInSeries(CalendarEventModel model,
             CalendarEventModel originalModel) {
         return model.mOriginalStart == originalModel.mStart;
@@ -814,8 +805,8 @@ public class EditEventHelper {
             if (end > start) {
                 if (isAllDay) {
                     // if it's all day compute the duration in days
-                    long days =
-                            (end - start + DateUtils.DAY_IN_MILLIS - 1) / DateUtils.DAY_IN_MILLIS;
+                    long days = (end - start + DateUtils.DAY_IN_MILLIS - 1)
+                            / DateUtils.DAY_IN_MILLIS;
                     duration = "P" + days + "D";
                 } else {
                     // otherwise compute the duration in seconds
@@ -833,15 +824,12 @@ public class EditEventHelper {
         }
         // recurring events should have a duration and dtend set to null
         values.put(Events.DURATION, duration);
-        values.put(Events.DTEND, (Long)null);
-        values.put(Events.DTEND2, (Long)null);
+        values.put(Events.DTEND, (Long) null);
     }
 
-
-    // TODO move updateRecurrenceRule into the piece that writes rrule to the model
     /**
-     * Uses the recurrence selection and the model data to build an rrule and write
-     * it to the model.
+     * Uses the recurrence selection and the model data to build an rrule and
+     * write it to the model.
      *
      * @param selection the type of rrule
      * @param model The event to update
@@ -923,16 +911,15 @@ public class EditEventHelper {
         }
 
         // Set the week start day.
-        eventRecurrence.wkst = EventRecurrence
-                .calendarDay2Day(Calendar.getInstance().getFirstDayOfWeek());
+        eventRecurrence.wkst = EventRecurrence.calendarDay2Day(Calendar.getInstance()
+                .getFirstDayOfWeek());
         model.mRrule = eventRecurrence.toString();
     }
 
     /**
-     * Uses an event cursor to fill in the given model
-     *
-     * This method assumes the cursor used {@link #EVENT_PROJECTION} as it's query projection. It
-     * uses the cursor to fill in the given model with all the information available.
+     * Uses an event cursor to fill in the given model This method assumes the
+     * cursor used {@link #EVENT_PROJECTION} as it's query projection. It uses
+     * the cursor to fill in the given model with all the information available.
      *
      * @param model The model to fill in
      * @param cursor An event cursor that used {@link #EVENT_PROJECTION} for the query
@@ -946,15 +933,6 @@ public class EditEventHelper {
         model.clear();
         cursor.moveToFirst();
 
-        // TODO add tz2 to view_event table so it can be used here.
-        String timezone2 = null; //cursor.getString(EVENT_INDEX_TIMEZONE2);
-        if (TextUtils.isEmpty(timezone2)) {
-            // if the db didn't have a tz2 yet assume the default for now
-            // TODO handle allDay times in a way that lets us set alarms relative to
-            // the local time.
-            timezone2 = TimeZone.getDefault().getID();
-        }
-
         model.mId = cursor.getInt(EVENT_INDEX_ID);
         model.mTitle = cursor.getString(EVENT_INDEX_TITLE);
         model.mDescription = cursor.getString(EVENT_INDEX_DESCRIPTION);
@@ -964,7 +942,6 @@ public class EditEventHelper {
         model.mCalendarId = cursor.getInt(EVENT_INDEX_CALENDAR_ID);
         model.mStart = cursor.getLong(EVENT_INDEX_DTSTART);
         model.mTimezone = cursor.getString(EVENT_INDEX_TIMEZONE);
-        model.mTimezone2 = timezone2;
         String rRule = cursor.getString(EVENT_INDEX_RRULE);
         model.mRrule = rRule;
         model.mSyncId = cursor.getString(EVENT_INDEX_SYNC_ID);
@@ -972,11 +949,11 @@ public class EditEventHelper {
         int visibility = cursor.getInt(EVENT_INDEX_VISIBILITY);
         model.mOwnerAccount = cursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
         model.mHasAttendeeData = cursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
-
+        model.mOriginalEvent = cursor.getString(EVENT_INDEX_ORIGINAL_EVENT);
 
         if (visibility > 0) {
-            // For now the array contains the values 0, 2, and 3. We subtract one to make it easier
-            // to handle in code as 0,1,2.
+            // For now the array contains the values 0, 2, and 3. We subtract
+            // one to make it easier to handle in code as 0,1,2.
             // Default (0), Private (1), Public (2)
             visibility--;
         }
@@ -990,33 +967,14 @@ public class EditEventHelper {
         } else {
             model.mEnd = cursor.getLong(EVENT_INDEX_DTEND);
         }
-
-        // The model attempts to store allday times in a local timezone, so convert
-        // times if we can.
-        if (model.mAllDay) {
-            String timezone = model.mTimezone;
-            if (!TextUtils.isEmpty(timezone2) && !TextUtils.equals(timezone, timezone2)) {
-                Time time = new Time(timezone);
-                time.set(model.mStart);
-                time.timezone = timezone2;
-                model.mStart = time.normalize(true);
-                if (!hasRRule) {
-                    time.clear(timezone);
-                    time.set(model.mEnd);
-                    time.timezone = timezone2;
-                    model.mEnd = time.normalize(true);
-                }
-                model.mTimezone = timezone2;
-            }
-        }
     }
 
     /**
-     * Goes through an event model and fills in content values for saving
-     *
-     * This method will perform the initial collection of values from the model and put them into
-     * a set of ContentValues. It performs some basic work such as fixing the time on allDay events
-     * and choosing whether to use an rrule or dtend.
+     * Goes through an event model and fills in content values for saving This
+     * method will perform the initial collection of values from the model and
+     * put them into a set of ContentValues. It performs some basic work such as
+     * fixing the time on allDay events and choosing whether to use an rrule or
+     * dtend.
      *
      * @param model The complete model of the event you want to save
      * @return values
@@ -1026,12 +984,11 @@ public class EditEventHelper {
         boolean isAllDay = model.mAllDay;
         String location = model.mLocation.trim();
         String description = model.mDescription.trim();
-        String timezone = model.mTimezone;
         String rrule = model.mRrule;
+        String timezone = model.mTimezone;
         if (timezone == null) {
             timezone = TimeZone.getDefault().getID();
         }
-        String timezone2 = timezone;
         Time startTime = new Time(timezone);
         Time endTime = new Time(timezone);
 
@@ -1041,9 +998,7 @@ public class EditEventHelper {
         ContentValues values = new ContentValues();
 
         long startMillis;
-        long startMillis2;
         long endMillis;
-        long endMillis2;
         long calendarId = model.mCalendarId;
         if (isAllDay) {
             // Reset start and end time, ensure at least 1 day duration, and set
@@ -1052,7 +1007,6 @@ public class EditEventHelper {
             startTime.hour = 0;
             startTime.minute = 0;
             startTime.second = 0;
-            startMillis2 = startTime.normalize(true);
             startTime.timezone = timezone;
             startMillis = startTime.normalize(true);
 
@@ -1062,34 +1016,29 @@ public class EditEventHelper {
             if (endTime.monthDay == startTime.monthDay) {
                 endTime.monthDay++;
             }
-            endMillis2 = endTime.normalize(true);
             endTime.timezone = timezone;
             endMillis = endTime.normalize(true);
         } else {
             startMillis = startTime.toMillis(true);
-            startMillis2 = startMillis;
             endMillis = endTime.toMillis(true);
-            endMillis2 = endMillis;
         }
 
         values.put(Events.CALENDAR_ID, calendarId);
         values.put(Events.EVENT_TIMEZONE, timezone);
-        values.put(Events.EVENT_TIMEZONE2, timezone2);
         values.put(Events.TITLE, title);
         values.put(Events.ALL_DAY, isAllDay ? 1 : 0);
         values.put(Events.DTSTART, startMillis);
-        values.put(Events.DTSTART2, startMillis2);
         values.put(Events.RRULE, rrule);
         if (rrule != null) {
             addRecurrenceRule(values, model);
         } else {
-            values.put(Events.DURATION, (String)null);
+            values.put(Events.DURATION, (String) null);
             values.put(Events.DTEND, endMillis);
-            values.put(Events.DTEND2, endMillis2);
         }
         values.put(Events.DESCRIPTION, description);
         values.put(Events.EVENT_LOCATION, location);
         values.put(Events.TRANSPARENCY, model.mTransparency ? 1 : 0);
+        values.put(Events.HAS_ATTENDEE_DATA, model.mHasAttendeeData);
 
         int visibility = model.mVisibility;
         if (visibility > 0) {

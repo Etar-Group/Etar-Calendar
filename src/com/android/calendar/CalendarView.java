@@ -852,7 +852,7 @@ public class CalendarView extends View
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mParentActivity, EditEvent.class.getName());
+                    intent.setClassName(mParentActivity, EditEventActivity.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                     intent.putExtra(EVENT_END_TIME, endMillis);
                     mParentActivity.startActivity(intent);
@@ -896,7 +896,7 @@ public class CalendarView extends View
                 long startMillis = getSelectedTimeInMillis();
                 long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setClassName(mParentActivity, EditEvent.class.getName());
+                intent.setClassName(mParentActivity, EditEventActivity.class.getName());
                 intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                 intent.putExtra(EVENT_END_TIME, endMillis);
                 mParentActivity.startActivity(intent);
@@ -2810,7 +2810,7 @@ public class CalendarView extends View
                         Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, id);
                         Intent intent = new Intent(Intent.ACTION_EDIT);
                         intent.setData(eventUri);
-                        intent.setClassName(mParentActivity, EditEvent.class.getName());
+                        intent.setClassName(mParentActivity, EditEventActivity.class.getName());
                         intent.putExtra(EVENT_BEGIN_TIME, mSelectedEvent.startMillis);
                         intent.putExtra(EVENT_END_TIME, mSelectedEvent.endMillis);
                         mParentActivity.startActivity(intent);
@@ -2831,7 +2831,7 @@ public class CalendarView extends View
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mParentActivity, EditEvent.class.getName());
+                    intent.setClassName(mParentActivity, EditEventActivity.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                     intent.putExtra(EVENT_END_TIME, endMillis);
                     intent.putExtra(EditEvent.EVENT_ALL_DAY, mSelectionAllDay);

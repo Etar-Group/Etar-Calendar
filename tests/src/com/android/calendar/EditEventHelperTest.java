@@ -16,10 +16,6 @@
 
 package com.android.calendar;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.TimeZone;
-
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
@@ -38,11 +34,13 @@ import android.test.mock.MockContentResolver;
 import android.test.mock.MockContext;
 import android.test.mock.MockResources;
 import android.test.suitebuilder.annotation.SmallTest;
-import android.test.suitebuilder.annotation.MediumTest;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.text.util.Rfc822Token;
-import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.TimeZone;
 
 public class EditEventHelperTest extends AndroidTestCase {
     private static final int TEST_EVENT_ID = 1;
@@ -82,7 +80,7 @@ public class EditEventHelperTest extends AndroidTestCase {
             "3", // 14 visibility
             "steve@gmail.com", // 15 owner account
             "1", // 16 has attendee data
-//            "America/Los_Angeles", // 17 event timezone 2
+            null, //17 originalEvent
     }; // These should match up with EditEventHelper.EVENT_PROJECTION
 
     private static final String AUTHORITY_URI = "content://EditEventHelperAuthority/";
@@ -227,9 +225,7 @@ public class EditEventHelperTest extends AndroidTestCase {
     private void moveExpectedTimeValuesForwardOneDay() {
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
         mExpectedValues.put(Events.DTSTART, TEST_START + dayInMs);
-        mExpectedValues.put(Events.DTSTART2, TEST_START2 + dayInMs);
         mExpectedValues.put(Events.DTEND, TEST_END + dayInMs);
-        mExpectedValues.put(Events.DTEND2, TEST_END2 + dayInMs);
     }
 
     // Duplicates the delete and add for changing a single email address
@@ -403,7 +399,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         // Updating a recurring event with a new attendee list
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
-        mModel1.mOriginalStart = TEST_START2;
+        mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
         mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
@@ -451,7 +447,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         // Updating a recurring event with a new attendee list
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
-        mModel1.mOriginalStart = TEST_START2;
+        mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
         mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
@@ -459,7 +455,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         // Replace an existing recurring event with a non-recurring event
         mModel1.mRrule = null;
-        mModel1.mEnd = TEST_END2;
+        mModel1.mEnd = TEST_END;
         mCurrentSaveTest = SAVE_EVENT_RECUR_TO_NORECUR;
 
         assertTrue(mHelper.saveEvent(mModel1, mModel2, EditEventHelper.MODIFY_ALL));
@@ -506,14 +502,14 @@ public class EditEventHelperTest extends AndroidTestCase {
         // Updating a recurring event with a new attendee list
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
-        mModel1.mOriginalStart = TEST_START2;
+        mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
         mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
             "one.two.three@email.grue";
 
         mModel2.mRrule = null;
-        mModel2.mEnd = TEST_END2;
+        mModel2.mEnd = TEST_END;
         mCurrentSaveTest = SAVE_EVENT_NORECUR_TO_RECUR;
 
         assertTrue(mHelper.saveEvent(mModel1, mModel2, EditEventHelper.MODIFY_ALL));
@@ -539,7 +535,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         // Updating a recurring event with a new attendee list
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
-        mModel1.mOriginalStart = TEST_START2;
+        mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
         mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
@@ -588,7 +584,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
-        mModel1.mOriginalStart = TEST_START2;
+        mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
         mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
@@ -597,7 +593,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         // Modify the second instance of the event
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
         mModel1.mRrule = null;
-        mModel1.mEnd = TEST_END2 + dayInMs;
+        mModel1.mEnd = TEST_END + dayInMs;
         mModel1.mStart += dayInMs;
         mModel1.mOriginalStart = mModel1.mStart;
 
@@ -657,7 +653,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         // Modify the second instance of the event
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
         mModel1.mRrule = null;
-        mModel1.mEnd = TEST_END2 + dayInMs;
+        mModel1.mEnd = TEST_END + dayInMs;
         mModel1.mStart += dayInMs;
         mModel1.mOriginalStart = mModel1.mStart;
 
@@ -706,7 +702,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = mModel1.mUri;
         // And a new start time to ensure the time fields aren't removed
-        mModel1.mOriginalStart = TEST_START2;
+        mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
         mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
@@ -715,7 +711,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         // Move the event one day but keep original start set to the first instance
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
         mModel1.mRrule = null;
-        mModel1.mEnd = TEST_END2 + dayInMs;
+        mModel1.mEnd = TEST_END + dayInMs;
         mModel1.mStart += dayInMs;
 
         mCurrentSaveTest = SAVE_EVENT_FIRST_TO_NORECUR;
@@ -764,7 +760,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = mModel1.mUri;
         // And a new start time to ensure the time fields aren't removed
-        mModel1.mOriginalStart = TEST_START2;
+        mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
         mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
@@ -787,7 +783,6 @@ public class EditEventHelperTest extends AndroidTestCase {
         mExpectedValues.put(Events.HAS_ALARM, 0);
         moveExpectedTimeValuesForwardOneDay();
         mExpectedValues.put(Events.DTEND, (Long)null);
-        mExpectedValues.put(Events.DTEND2, (Long)null);
         // This is tested elsewhere, used for convenience here
         mHelper.checkTimeDependentFields(mModel2, mModel1, mExpectedValues,
                 EditEventHelper.MODIFY_ALL_FOLLOWING);
@@ -845,7 +840,6 @@ public class EditEventHelperTest extends AndroidTestCase {
         mExpectedValues.put(Events.HAS_ALARM, 0);
         moveExpectedTimeValuesForwardOneDay();
         mExpectedValues.put(Events.DTEND, (Long)null);
-        mExpectedValues.put(Events.DTEND2, (Long)null);
         // This is tested elsewhere, used for convenience here
         mHelper.updatePastEvents(expectedOps, mModel2, mModel1.mOriginalStart);
 
@@ -941,14 +935,11 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel2.mOriginalStart = mModel2.mStart;
 
         mExpectedValues.remove(Events.DTSTART);
-        mExpectedValues.remove(Events.DTSTART2);
         mExpectedValues.remove(Events.DTEND);
-        mExpectedValues.remove(Events.DTEND2);
         mExpectedValues.remove(Events.DURATION);
         mExpectedValues.remove(Events.ALL_DAY);
         mExpectedValues.remove(Events.RRULE);
         mExpectedValues.remove(Events.EVENT_TIMEZONE);
-        mExpectedValues.remove(Events.EVENT_TIMEZONE2);
 
         mHelper.checkTimeDependentFields(mModel1, mModel2, mValues,
                 EditEventHelper.MODIFY_SELECTED);
@@ -960,7 +951,7 @@ public class EditEventHelperTest extends AndroidTestCase {
     public void testUpdatePastEvents() {
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
         ArrayList<ContentProviderOperation> expectedOps = new ArrayList<ContentProviderOperation>();
-        long initialBeginTime = 1472864400000L; // Sep 3, 2016, 1AM
+        long initialBeginTime = 1472864400000L; // Sep 3, 2016, 12AM UTC time
         mValues = new ContentValues();
 
         mModel1 = buildTestModel();
@@ -969,6 +960,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mHelper = new EditEventHelper(mContext, null);
 
         mValues.put(Events.RRULE, "FREQ=DAILY;UNTIL=20160903;WKST=SU"); // yyyymmddThhmmssZ
+        mValues.put(Events.DTSTART, TEST_START);
 
         ContentProviderOperation.Builder b =
                 ContentProviderOperation.newUpdate(mModel1.mUri).withValues(mValues);
@@ -1166,7 +1158,6 @@ public class EditEventHelperTest extends AndroidTestCase {
         mExpectedValues.put(Events.RRULE, "Weekly, Monday");
         mExpectedValues.put(Events.DURATION, "P60S");
         mExpectedValues.put(Events.DTEND, (Long) null);
-        mExpectedValues.put(Events.DTEND2, (Long) null);
 
         mModel1.mRrule = "Weekly, Monday";
         mModel1.mStart = 1;
@@ -1254,9 +1245,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         c.addRow(TEST_CURSOR_DATA);
 
         mModel2.mAllDay = false;
-        mModel2.mStart = TEST_START; // UTC time, non-allday events don't
-                                         // have special tz rules
-        mModel2.mTimezone = "UTC";
+        mModel2.mStart = TEST_START; // UTC time
 
         mHelper.setModelFromCursor(mModel1, c);
         assertEquals(mModel1, mModel2);
@@ -1279,11 +1268,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         c.addRow(TEST_CURSOR_DATA);
 
         mModel2.mAllDay = true;
-        mModel2.mStart = TEST_START2; // Monday, May 3rd, midnight America/LA
-                                         // time
-        mModel2.mEnd = TEST_END2; // Tuesday, May 4th, midnight America/LA
-                                       // time
-        mModel2.mTimezone = LOCAL_TZ; // "America/Los_Angeles";
+        mModel2.mStart = TEST_START; // Monday, May 3rd, midnight
+        mModel2.mEnd = TEST_END; // Tuesday, May 4th, midnight
 
         mHelper.setModelFromCursor(mModel1, c);
         assertEquals(mModel1, mModel2);
@@ -1300,12 +1286,11 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertEquals(values, mExpectedValues);
 
         mModel1.mRrule = null;
-        mModel1.mEnd = TEST_END2; // LA time
+        mModel1.mEnd = TEST_END;
 
         mExpectedValues.put(Events.RRULE, (String) null);
         mExpectedValues.put(Events.DURATION, (String) null);
         mExpectedValues.put(Events.DTEND, TEST_END); // UTC time
-        mExpectedValues.put(Events.DTEND2, TEST_END2); // LA time
 
         values = mHelper.getContentValuesFromModel(mModel1);
         assertEquals(values, mExpectedValues);
@@ -1313,11 +1298,10 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mAllDay = false;
 
         mExpectedValues.put(Events.ALL_DAY, 0);
-        mExpectedValues.put(Events.DTSTART, TEST_START2); // LA time
-        mExpectedValues.put(Events.DTEND, TEST_END2); // LA time
+        mExpectedValues.put(Events.DTSTART, TEST_START);
+        mExpectedValues.put(Events.DTEND, TEST_END);
         // not an allday event so timezone isn't modified
-        mExpectedValues.put(Events.EVENT_TIMEZONE, LOCAL_TZ
-                /* "America/Los_Angeles" */);
+        mExpectedValues.put(Events.EVENT_TIMEZONE, "UTC");
 
         values = mHelper.getContentValuesFromModel(mModel1);
         assertEquals(values, mExpectedValues);
@@ -1424,17 +1408,16 @@ public class EditEventHelperTest extends AndroidTestCase {
         model.mAllDay = true;
         model.mHasAlarm = false;
         model.mCalendarId = 2;
-        model.mStart = TEST_START2; // Monday, May 3rd, local Time
+        model.mStart = TEST_START; // Monday, May 3rd, local Time
         model.mDuration = "P3652421990D";
         // The model uses the local timezone for allday
-        model.mTimezone = LOCAL_TZ;
+        model.mTimezone = "UTC";
         model.mRrule = "FREQ=DAILY;WKST=SU";
         model.mSyncId = "unique per calendar stuff";
         model.mTransparency = false;
         model.mVisibility = 2; // This is one less than the values written if >0
         model.mOwnerAccount = "steve@gmail.com";
         model.mHasAttendeeData = true;
-        model.mTimezone2 = LOCAL_TZ;
 
 
         return model;
@@ -1448,16 +1431,13 @@ public class EditEventHelperTest extends AndroidTestCase {
         values.put(Events.CALENDAR_ID, 2L);
         values.put(Events.EVENT_TIMEZONE, "UTC"); // Allday events are converted
                                                   // to UTC for the db
-        values.put(Events.EVENT_TIMEZONE2, LOCAL_TZ);
         values.put(Events.TITLE, "The Question");
         values.put(Events.ALL_DAY, 1);
         values.put(Events.DTSTART, TEST_START); // Monday, May 3rd, midnight UTC time
 
-        values.put(Events.DTSTART2, TEST_START2); // Monday, May 3rd local time
         values.put(Events.RRULE, "FREQ=DAILY;WKST=SU");
         values.put(Events.DURATION, "P3652421990D");
         values.put(Events.DTEND, (Long) null);
-        values.put(Events.DTEND2, (Long) null);
         values.put(Events.DESCRIPTION, "Evaluating Life, the Universe, and Everything");
         values.put(Events.EVENT_LOCATION, "Earth Mk2");
         values.put(Events.TRANSPARENCY, 0);
@@ -1471,7 +1451,6 @@ public class EditEventHelperTest extends AndroidTestCase {
         ContentValues values = buildTestValues();
         values.put(Events.DURATION, (String)null);
         values.put(Events.DTEND, TEST_END);
-        values.put(Events.DTEND2, TEST_END2);
         values.put(Events.RRULE, (String)null);
         return values;
     }
