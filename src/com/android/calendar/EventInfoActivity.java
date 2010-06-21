@@ -811,7 +811,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     }
 
     private void doDelete() {
-        mDeleteEventHelper.delete(mStartMillis, mEndMillis, mEventCursor, -1);
+        mDeleteEventHelper.delete(mStartMillis, mEndMillis, mEventCursor.getLong(EVENT_INDEX_ID),
+                -1);
     }
 
     private void updateView() {

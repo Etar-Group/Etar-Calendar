@@ -924,7 +924,7 @@ public class EditEventHelper {
      * @param model The model to fill in
      * @param cursor An event cursor that used {@link #EVENT_PROJECTION} for the query
      */
-    void setModelFromCursor(CalendarEventModel model, Cursor cursor) {
+    public static void setModelFromCursor(CalendarEventModel model, Cursor cursor) {
         if (model == null || cursor == null || cursor.getCount() != 1) {
             Log.wtf(TAG, "Attempted to build non-existent model or from an incorrect query.");
             return;
@@ -1038,7 +1038,7 @@ public class EditEventHelper {
         values.put(Events.DESCRIPTION, description);
         values.put(Events.EVENT_LOCATION, location);
         values.put(Events.TRANSPARENCY, model.mTransparency ? 1 : 0);
-        values.put(Events.HAS_ATTENDEE_DATA, model.mHasAttendeeData);
+        values.put(Events.HAS_ATTENDEE_DATA, model.mHasAttendeeData ? 1 : 0);
 
         int visibility = model.mVisibility;
         if (visibility > 0) {

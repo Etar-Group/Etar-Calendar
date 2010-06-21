@@ -16,6 +16,9 @@
 
 package com.android.calendar;
 
+import com.android.calendar.AgendaAdapter.ViewHolder;
+import com.android.calendar.AgendaWindowAdapter.EventInfo;
+
 import android.content.ContentUris;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -29,9 +32,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-
-import com.android.calendar.AgendaAdapter.ViewHolder;
-import com.android.calendar.AgendaWindowAdapter.EventInfo;
 
 public class AgendaListView extends ListView implements OnItemClickListener {
 

@@ -1236,7 +1236,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1 = new CalendarEventModel();
         mModel2 = buildTestModel();
 
-        mHelper.setModelFromCursor(mModel1, c);
+        EditEventHelper.setModelFromCursor(mModel1, c);
         assertEquals(mModel1, mModel2);
 
         TEST_CURSOR_DATA[EditEventHelper.EVENT_INDEX_ALL_DAY] = "0";
@@ -1247,7 +1247,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel2.mAllDay = false;
         mModel2.mStart = TEST_START; // UTC time
 
-        mHelper.setModelFromCursor(mModel1, c);
+        EditEventHelper.setModelFromCursor(mModel1, c);
         assertEquals(mModel1, mModel2);
 
         TEST_CURSOR_DATA[EditEventHelper.EVENT_INDEX_RRULE] = null;
@@ -1259,7 +1259,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel2.mEnd = TEST_END;
         mModel2.mDuration = null;
 
-        mHelper.setModelFromCursor(mModel1, c);
+        EditEventHelper.setModelFromCursor(mModel1, c);
         assertEquals(mModel1, mModel2);
 
         TEST_CURSOR_DATA[EditEventHelper.EVENT_INDEX_ALL_DAY] = "1";
@@ -1271,7 +1271,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel2.mStart = TEST_START; // Monday, May 3rd, midnight
         mModel2.mEnd = TEST_END; // Tuesday, May 4th, midnight
 
-        mHelper.setModelFromCursor(mModel1, c);
+        EditEventHelper.setModelFromCursor(mModel1, c);
         assertEquals(mModel1, mModel2);
     }
 
@@ -1434,6 +1434,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         values.put(Events.TITLE, "The Question");
         values.put(Events.ALL_DAY, 1);
         values.put(Events.DTSTART, TEST_START); // Monday, May 3rd, midnight UTC time
+        values.put(Events.HAS_ATTENDEE_DATA, 1);
 
         values.put(Events.RRULE, "FREQ=DAILY;WKST=SU");
         values.put(Events.DURATION, "P3652421990D");

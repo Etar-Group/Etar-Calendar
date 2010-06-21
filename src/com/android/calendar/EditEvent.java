@@ -38,7 +38,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.content.ContentProviderOperation.Builder;
 import android.content.DialogInterface.OnCancelListener;
@@ -47,7 +46,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.RemoteException;
 import android.pim.EventRecurrence;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
@@ -85,7 +83,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -453,7 +450,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 which = DeleteEventHelper.DELETE_ALL;
                 break;
             }
-            mDeleteEventHelper.delete(begin, end, mEventCursor, which);
+            mDeleteEventHelper.delete(begin, end, mEventCursor.getLong(EVENT_INDEX_ID), which);
             return;
         }
 

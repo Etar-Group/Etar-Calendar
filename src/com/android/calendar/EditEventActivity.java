@@ -109,10 +109,10 @@ public class EditEventActivity extends Activity {
                         return;
                     }
                     mOriginalModel = new CalendarEventModel();
-                    mHelper.setModelFromCursor(mOriginalModel, cursor);
+                    EditEventHelper.setModelFromCursor(mOriginalModel, cursor);
                     mOriginalModel.mUri = mUri;
 
-                    mHelper.setModelFromCursor(mModel, cursor);
+                    EditEventHelper.setModelFromCursor(mModel, cursor);
                     mModel.mUri = mUri;
                     mModel.mOriginalStart = mBegin;
                     mModel.mOriginalEnd = mEnd;
@@ -398,7 +398,7 @@ public class EditEventActivity extends Activity {
                 DeleteEventHelper deleteHelper = new DeleteEventHelper(this,
                         true /* exitWhenDone */);
                 // TODO update delete helper to use the model instead of the cursor
-                deleteHelper.delete(begin, end, mEventCursor, which);
+                deleteHelper.delete(begin, end, mModel, which);
                 break;
             default:
                 Log.e(TAG, "done: Unrecognized exit code.");

@@ -18,7 +18,6 @@ package com.android.calendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -53,11 +52,10 @@ import android.widget.Button;
  */
 public class DeleteEventHelper {
     private final Activity mParent;
-    private final ContentResolver mContentResolver;
 
     private long mStartMillis;
     private long mEndMillis;
-    private Cursor mCursor;
+    private CalendarEventModel mModel;
 
     /**
      * If true, then call finish() on the parent activity when done.
@@ -72,30 +70,38 @@ public class DeleteEventHelper {
     static final int DELETE_ALL_FOLLOWING = 1;
     static final int DELETE_ALL = 2;
 
+    static final int DELETE_DELAY = 0;
+    static final int DELETE_TOKEN = 5;
+    static final int QUERY_TOKEN = 4;
+
     private int mWhichDelete;
     private AlertDialog mAlertDialog;
 
-    private static final String[] EVENT_PROJECTION = new String[] {
-        Events._ID,
-        Events.TITLE,
-        Events.ALL_DAY,
-        Events.CALENDAR_ID,
-        Events.RRULE,
-        Events.DTSTART,
-        Events._SYNC_ID,
-        Events.EVENT_TIMEZONE,
-        Events.ORIGINAL_EVENT,
-    };
-
-    private int mEventIndexId;
-    private int mEventIndexRrule;
-    private int mEventIndexOriginalEvent;
     private String mSyncId;
+
+    private AsyncQueryService mService;
 
     public DeleteEventHelper(Activity parent, boolean exitWhenDone) {
         mParent = parent;
-        mContentResolver = mParent.getContentResolver();
+        // TODO move the creation of this service out into the activity.
+        mService = new AsyncQueryService(parent) {
+            @Override
+            protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+                if (cursor == null) {
+                    return;
+                }
+                cursor.moveToFirst();
+                CalendarEventModel mModel = new CalendarEventModel();
+                EditEventHelper.setModelFromCursor(mModel, cursor);
+                cursor.close();
+                DeleteEventHelper.this.delete(mStartMillis, mEndMillis, mModel, mWhichDelete);
+            }
+        };
         mExitWhenDone = exitWhenDone;
+    }
+
+    public void setAsyncQueryService(AsyncQueryService service) {
+        mService = service;
     }
 
     public void setExitWhenDone(boolean exitWhenDone) {
@@ -108,9 +114,9 @@ public class DeleteEventHelper {
     private DialogInterface.OnClickListener mDeleteNormalDialogListener =
             new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int button) {
-            long id = mCursor.getInt(mEventIndexId);
+            long id = mModel.mId; // mCursor.getInt(mEventIndexId);
             Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
-            mContentResolver.delete(uri, null /* where */, null /* selectionArgs */);
+            mService.startDelete(DELETE_TOKEN, null, uri, null, null, DELETE_DELAY);
             if (mExitWhenDone) {
                 mParent.finish();
             }
@@ -173,18 +179,18 @@ public class DeleteEventHelper {
      */
     public void delete(long begin, long end, long eventId, int which) {
         Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, eventId);
-        Cursor cursor = mParent.managedQuery(uri, EVENT_PROJECTION, null, null, null);
-        if (cursor == null) {
-            return;
-        }
-        cursor.moveToFirst();
-        delete(begin, end, cursor, which);
+        mService.startQuery(QUERY_TOKEN, null, uri, EditEventHelper.EVENT_PROJECTION, null, null,
+                null);
+        mStartMillis = begin;
+        mEndMillis = end;
+        mWhichDelete = which;
     }
 
     /**
      * Does the required processing for deleting an event.  This method
-     * takes a {@link Cursor} object as a parameter, which must point to
-     * a row in the Events table containing the required database fields.
+     * takes a {@link CalendarEventModel} object, which must have a valid
+     * uri for referencing the event in the database and have the required
+     * fields listed below.
      * The required fields for a normal event are:
      *
      * <ul>
@@ -204,28 +210,28 @@ public class DeleteEventHelper {
      *   <li> Events.EVENT_TIMEZONE </li>
      * </ul>
      *
+     * If the event no longer exists in the db this will still prompt
+     * the user but will return without modifying the db after the query
+     * returns.
+     *
      * @param begin the begin time of the event, in UTC milliseconds
      * @param end the end time of the event, in UTC milliseconds
      * @param cursor the database cursor containing the required fields
      * @param which one of the values {@link DELETE_SELECTED},
      *  {@link DELETE_ALL_FOLLOWING}, {@link DELETE_ALL}, or -1
      */
-    public void delete(long begin, long end, Cursor cursor, int which) {
+    public void delete(long begin, long end, CalendarEventModel model, int which) {
         mWhichDelete = which;
         mStartMillis = begin;
         mEndMillis = end;
-        mCursor = cursor;
-        mEventIndexId = mCursor.getColumnIndexOrThrow(Events._ID);
-        mEventIndexRrule = mCursor.getColumnIndexOrThrow(Events.RRULE);
-        mEventIndexOriginalEvent = mCursor.getColumnIndexOrThrow(Events.ORIGINAL_EVENT);
-        int eventIndexSyncId = mCursor.getColumnIndexOrThrow(Events._SYNC_ID);
-        mSyncId = mCursor.getString(eventIndexSyncId);
+        mModel = model;
+        mSyncId = model.mSyncId;
 
         // If this is a repeating event, then pop up a dialog asking the
         // user if they want to delete all of the repeating events or
         // just some of them.
-        String rRule = mCursor.getString(mEventIndexRrule);
-        String originalEvent = mCursor.getString(this.mEventIndexOriginalEvent);
+        String rRule = model.mRrule;
+        String originalEvent = model.mOriginalEvent;
         if (rRule == null) {
             AlertDialog dialog = new AlertDialog.Builder(mParent)
             .setTitle(R.string.delete_title)
@@ -272,27 +278,21 @@ public class DeleteEventHelper {
     }
 
     private void deleteExceptionEvent() {
-        long id = mCursor.getInt(mEventIndexId);
+        long id = mModel.mId; // mCursor.getInt(mEventIndexId);
 
         // update a recurrence exception by setting its status to "canceled"
         ContentValues values = new ContentValues();
         values.put(Events.STATUS, Events.STATUS_CANCELED);
 
         Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
-        mContentResolver.update(uri, values, null, null);
+        mService.startUpdate(DELETE_TOKEN, null, uri, values, null, null, DELETE_DELAY);
     }
 
     private void deleteRepeatingEvent(int which) {
-        int indexDtstart = mCursor.getColumnIndexOrThrow(Events.DTSTART);
-        int indexAllDay = mCursor.getColumnIndexOrThrow(Events.ALL_DAY);
-        int indexTitle = mCursor.getColumnIndexOrThrow(Events.TITLE);
-        int indexTimezone = mCursor.getColumnIndexOrThrow(Events.EVENT_TIMEZONE);
-        int indexCalendarId = mCursor.getColumnIndexOrThrow(Events.CALENDAR_ID);
-
-        String rRule = mCursor.getString(mEventIndexRrule);
-        boolean allDay = mCursor.getInt(indexAllDay) != 0;
-        long dtstart = mCursor.getLong(indexDtstart);
-        long id = mCursor.getInt(mEventIndexId);
+        String rRule = mModel.mRrule;
+        boolean allDay = mModel.mAllDay;
+        long dtstart = mModel.mStart;
+        long id = mModel.mId; // mCursor.getInt(mEventIndexId);
 
         // If the repeating event has not been given a sync id from the server
         // yet, then we can't delete a single instance of this event.  (This is
@@ -321,11 +321,11 @@ public class DeleteEventHelper {
 
                 // The title might not be necessary, but it makes it easier
                 // to find this entry in the database when there is a problem.
-                String title = mCursor.getString(indexTitle);
+                String title = mModel.mTitle;
                 values.put(Events.TITLE, title);
 
-                String timezone = mCursor.getString(indexTimezone);
-                int calendarId = mCursor.getInt(indexCalendarId);
+                String timezone = mModel.mTimezone;
+                long calendarId = mModel.mCalendarId;
                 values.put(Events.EVENT_TIMEZONE, timezone);
                 values.put(Events.ALL_DAY, allDay ? 1 : 0);
                 values.put(Events.CALENDAR_ID, calendarId);
@@ -335,12 +335,12 @@ public class DeleteEventHelper {
                 values.put(Events.ORIGINAL_INSTANCE_TIME, mStartMillis);
                 values.put(Events.STATUS, Events.STATUS_CANCELED);
 
-                mContentResolver.insert(Events.CONTENT_URI, values);
+                mService.startInsert(DELETE_TOKEN, null, Events.CONTENT_URI, values, DELETE_DELAY);
                 break;
             }
             case DELETE_ALL: {
                 Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
-                mContentResolver.delete(uri, null /* where */, null /* selectionArgs */);
+                mService.startDelete(DELETE_TOKEN, null, uri, null, null, DELETE_DELAY);
                 break;
             }
             case DELETE_ALL_FOLLOWING: {
@@ -348,7 +348,7 @@ public class DeleteEventHelper {
                 // following events, then delete them all.
                 if (dtstart == mStartMillis) {
                     Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
-                    mContentResolver.delete(uri, null /* where */, null /* selectionArgs */);
+                    mService.startDelete(DELETE_TOKEN, null, uri, null, null, DELETE_DELAY);
                     break;
                 }
 
@@ -372,7 +372,7 @@ public class DeleteEventHelper {
                 values.put(Events.DTSTART, dtstart);
                 values.put(Events.RRULE, eventRecurrence.toString());
                 Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
-                mContentResolver.update(uri, values, null, null);
+                mService.startUpdate(DELETE_TOKEN, null, uri, values, null, null, DELETE_DELAY);
                 break;
             }
         }
