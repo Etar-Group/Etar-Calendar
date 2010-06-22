@@ -19,7 +19,6 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
@@ -42,7 +41,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
-public class EditEventActivity extends Activity {
+public class EditEventActivity extends AbstractCalendarActivity {
     private static final String TAG = "EditEventActivity";
 
     private static final boolean DEBUG = false;
@@ -65,8 +64,6 @@ public class EditEventActivity extends Activity {
     private static final int MENU_ADD_REMINDER = 1;
 
     EditEventHelper mHelper;
-    // TODO clean up handling of mEventCursor
-    Cursor mEventCursor;
     CalendarEventModel mModel;
     CalendarEventModel mOriginalModel;
     EditEventView mView;
@@ -100,7 +97,6 @@ public class EditEventActivity extends Activity {
             long eventId;
             switch (token) {
                 case TOKEN_EVENT:
-                    mEventCursor = cursor;
                     if (cursor.getCount() == 0) {
                         // The cursor is empty. This can happen if the event
                         // was deleted.
@@ -110,9 +106,11 @@ public class EditEventActivity extends Activity {
                     }
                     mOriginalModel = new CalendarEventModel();
                     EditEventHelper.setModelFromCursor(mOriginalModel, cursor);
+                    EditEventHelper.setModelFromCursor(mModel, cursor);
+                    cursor.close();
+
                     mOriginalModel.mUri = mUri;
 
-                    EditEventHelper.setModelFromCursor(mModel, cursor);
                     mModel.mUri = mUri;
                     mModel.mOriginalStart = mBegin;
                     mModel.mOriginalEnd = mEnd;

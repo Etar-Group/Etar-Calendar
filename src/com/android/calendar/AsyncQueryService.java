@@ -30,6 +30,7 @@ import android.os.Message;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * A helper class that executes {@link ContentResolver} calls in a background
@@ -45,6 +46,9 @@ import java.util.ArrayList;
 public class AsyncQueryService extends Handler {
     private static final String TAG = "AsyncQuery";
     static final boolean localLOGV = true;
+
+    // Used for generating unique tokens for calls to this service
+    private static AtomicInteger mUniqueToken = new AtomicInteger(0);
 
     private Context mContext;
     private Handler mHandler = this; // can be overridden for testing
@@ -107,6 +111,13 @@ public class AsyncQueryService extends Handler {
 
     public AsyncQueryService(Context context) {
         mContext = context;
+    }
+
+    /**
+     * returns a practically unique token for db operations
+     */
+    public final int getNextToken() {
+        return mUniqueToken.getAndIncrement();
     }
 
     /**
@@ -187,7 +198,7 @@ public class AsyncQueryService extends Handler {
      *            execute before the delayed time when another operation is
      *            added. Useful for implementing single level undo.
      */
-    public final void startInsert(int token, Object cookie, Uri uri, ContentValues initialValues,
+    public void startInsert(int token, Object cookie, Uri uri, ContentValues initialValues,
             long delayMillis) {
         OperationInfo info = new OperationInfo();
         info.op = Operation.EVENT_ARG_INSERT;
@@ -223,7 +234,7 @@ public class AsyncQueryService extends Handler {
      *            execute before the delayed time when another operation is
      *            added. Useful for implementing single level undo.
      */
-    public final void startUpdate(int token, Object cookie, Uri uri, ContentValues values,
+    public void startUpdate(int token, Object cookie, Uri uri, ContentValues values,
             String selection, String[] selectionArgs, long delayMillis) {
         OperationInfo info = new OperationInfo();
         info.op = Operation.EVENT_ARG_UPDATE;
@@ -260,7 +271,7 @@ public class AsyncQueryService extends Handler {
      *            execute before the delayed time when another operation is
      *            added. Useful for implementing single level undo.
      */
-    public final void startDelete(int token, Object cookie, Uri uri, String selection,
+    public void startDelete(int token, Object cookie, Uri uri, String selection,
             String[] selectionArgs, long delayMillis) {
         OperationInfo info = new OperationInfo();
         info.op = Operation.EVENT_ARG_DELETE;
@@ -291,7 +302,7 @@ public class AsyncQueryService extends Handler {
      *            execute before the delayed time when another operation is
      *            added. Useful for implementing single level undo.
      */
-    public final void startBatch(int token, Object cookie, String authority,
+    public void startBatch(int token, Object cookie, String authority,
             ArrayList<ContentProviderOperation> cpo, long delayMillis) {
         OperationInfo info = new OperationInfo();
         info.op = Operation.EVENT_ARG_BATCH;

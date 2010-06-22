@@ -19,16 +19,11 @@ package com.android.calendar;
 import com.android.common.Rfc822Validator;
 
 import android.content.ContentProviderOperation;
-import android.content.ContentProviderResult;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.OperationApplicationException;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.RemoteException;
 import android.pim.EventRecurrence;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
@@ -124,7 +119,8 @@ public class EditEventHelper {
 
     protected static final int DAY_IN_SECONDS = 24 * 60 * 60;
 
-    private Context mActivity;
+    private AbstractCalendarActivity mActivity;
+    private AsyncQueryService mService;
 
     // public int mModification;
     private Rfc822Validator mEmailValidator;
@@ -166,8 +162,9 @@ public class EditEventHelper {
     static final String ATTENDEES_WHERE_NOT_ORGANIZER = Attendees.EVENT_ID + "=? AND "
             + Attendees.ATTENDEE_RELATIONSHIP + "<>" + Attendees.RELATIONSHIP_ORGANIZER;
 
-    public EditEventHelper(Context activity, CalendarEventModel model) {
+    public EditEventHelper(AbstractCalendarActivity activity, CalendarEventModel model) {
         mActivity = activity;
+        mService = activity.getAsyncQueryService();
         setDomainFromModel(model);
     }
 
@@ -458,20 +455,9 @@ public class EditEventHelper {
             }
         }
 
-        try {
-            // TODO Move this to background service
-            ContentProviderResult[] results = mActivity.getContentResolver().applyBatch(
-                    android.provider.Calendar.AUTHORITY, ops);
-            if (DEBUG) {
-                for (int i = 0; i < results.length; i++) {
-                    Log.v(TAG, "results = " + results[i].toString());
-                }
-            }
-        } catch (RemoteException e) {
-            Log.w(TAG, "Ignoring unexpected remote exception", e);
-        } catch (OperationApplicationException e) {
-            Log.w(TAG, "Ignoring unexpected exception", e);
-        }
+
+        mService.startBatch(mService.getNextToken(), null, android.provider.Calendar.AUTHORITY, ops,
+                Utils.UNDO_DELAY);
 
         return true;
     }
@@ -638,41 +624,6 @@ public class EditEventHelper {
     }
 
     /**
-     * Uses the context to perform a query for reminders to an event and add
-     * them to the model Given a context and an event model this will query the
-     * db for alarms if hasAlarm is set. This will throw if context is null and
-     * hasAlarm is true.
-     *
-     * @param context
-     * @param originalModel
-     */
-    void fillInOriginalMinutes(Context context, CalendarEventModel originalModel) {
-        // TODO Rewrite to use query service, possibly move to another class
-        boolean hasAlarm = (originalModel != null) && originalModel.mHasAlarm;
-        if (hasAlarm) {
-            ArrayList<Integer> originalMinutes = new ArrayList<Integer>();
-            long eventId = originalModel.mId;
-            ContentResolver cr = context.getContentResolver();
-            Uri uri = Reminders.CONTENT_URI;
-            // TODO use background service to query
-            Cursor reminderCursor = cr.query(uri, REMINDERS_PROJECTION, REMINDERS_WHERE,
-                    new String[] {Long.toString(eventId), Integer.toString(Reminders.METHOD_ALERT),
-                            Integer.toString(Reminders.METHOD_DEFAULT)}, Reminders.MINUTES);
-            try {
-                // Add all the minute values to a local list
-                while (reminderCursor.moveToNext()) {
-                    int minutes = reminderCursor.getInt(REMINDERS_INDEX_MINUTES);
-                    originalMinutes.add(minutes);
-
-                }
-            } finally {
-                reminderCursor.close();
-            }
-            originalModel.mReminderMinutes = originalMinutes;
-        }
-    }
-
-    /**
      * Compares two models to ensure that they refer to the same event. This is
      * a safety check to make sure an updated event model refers to the same
      * event as the original model. If the original model is null then this is a
@@ -800,26 +751,25 @@ public class EditEventHelper {
         long start = model.mStart;
         String duration = model.mDuration;
 
-        if (TextUtils.isEmpty(duration)) {
-            boolean isAllDay = model.mAllDay;
-            if (end > start) {
-                if (isAllDay) {
-                    // if it's all day compute the duration in days
-                    long days = (end - start + DateUtils.DAY_IN_MILLIS - 1)
-                            / DateUtils.DAY_IN_MILLIS;
-                    duration = "P" + days + "D";
-                } else {
-                    // otherwise compute the duration in seconds
-                    long seconds = (end - start) / DateUtils.SECOND_IN_MILLIS;
-                    duration = "P" + seconds + "S";
-                }
+        boolean isAllDay = model.mAllDay;
+        if (end > start) {
+            if (isAllDay) {
+                // if it's all day compute the duration in days
+                long days = (end - start + DateUtils.DAY_IN_MILLIS - 1)
+                        / DateUtils.DAY_IN_MILLIS;
+                duration = "P" + days + "D";
             } else {
-                // If no good duration info exists assume the default
-                if (isAllDay) {
-                    duration = "P1D";
-                } else {
-                    duration = "P3600S";
-                }
+                // otherwise compute the duration in seconds
+                long seconds = (end - start) / DateUtils.SECOND_IN_MILLIS;
+                duration = "P" + seconds + "S";
+            }
+        } else if (TextUtils.isEmpty(duration)) {
+
+            // If no good duration info exists assume the default
+            if (isAllDay) {
+                duration = "P1D";
+            } else {
+                duration = "P3600S";
             }
         }
         // recurring events should have a duration and dtend set to null

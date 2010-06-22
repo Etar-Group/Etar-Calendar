@@ -70,10 +70,6 @@ public class DeleteEventHelper {
     static final int DELETE_ALL_FOLLOWING = 1;
     static final int DELETE_ALL = 2;
 
-    static final int DELETE_DELAY = 0;
-    static final int DELETE_TOKEN = 5;
-    static final int QUERY_TOKEN = 4;
-
     private int mWhichDelete;
     private AlertDialog mAlertDialog;
 
@@ -116,7 +112,7 @@ public class DeleteEventHelper {
         public void onClick(DialogInterface dialog, int button) {
             long id = mModel.mId; // mCursor.getInt(mEventIndexId);
             Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
-            mService.startDelete(DELETE_TOKEN, null, uri, null, null, DELETE_DELAY);
+            mService.startDelete(mService.getNextToken(), null, uri, null, null, Utils.UNDO_DELAY);
             if (mExitWhenDone) {
                 mParent.finish();
             }
@@ -179,8 +175,8 @@ public class DeleteEventHelper {
      */
     public void delete(long begin, long end, long eventId, int which) {
         Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, eventId);
-        mService.startQuery(QUERY_TOKEN, null, uri, EditEventHelper.EVENT_PROJECTION, null, null,
-                null);
+        mService.startQuery(mService.getNextToken(), null, uri, EditEventHelper.EVENT_PROJECTION,
+                null, null, null);
         mStartMillis = begin;
         mEndMillis = end;
         mWhichDelete = which;
@@ -285,7 +281,8 @@ public class DeleteEventHelper {
         values.put(Events.STATUS, Events.STATUS_CANCELED);
 
         Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
-        mService.startUpdate(DELETE_TOKEN, null, uri, values, null, null, DELETE_DELAY);
+        mService.startUpdate(mService.getNextToken(), null, uri, values, null, null,
+                Utils.UNDO_DELAY);
     }
 
     private void deleteRepeatingEvent(int which) {
@@ -335,12 +332,14 @@ public class DeleteEventHelper {
                 values.put(Events.ORIGINAL_INSTANCE_TIME, mStartMillis);
                 values.put(Events.STATUS, Events.STATUS_CANCELED);
 
-                mService.startInsert(DELETE_TOKEN, null, Events.CONTENT_URI, values, DELETE_DELAY);
+                mService.startInsert(mService.getNextToken(), null, Events.CONTENT_URI, values,
+                        Utils.UNDO_DELAY);
                 break;
             }
             case DELETE_ALL: {
                 Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
-                mService.startDelete(DELETE_TOKEN, null, uri, null, null, DELETE_DELAY);
+                mService.startDelete(mService.getNextToken(), null, uri, null, null,
+                        Utils.UNDO_DELAY);
                 break;
             }
             case DELETE_ALL_FOLLOWING: {
@@ -348,7 +347,8 @@ public class DeleteEventHelper {
                 // following events, then delete them all.
                 if (dtstart == mStartMillis) {
                     Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
-                    mService.startDelete(DELETE_TOKEN, null, uri, null, null, DELETE_DELAY);
+                    mService.startDelete(mService.getNextToken(), null, uri, null, null,
+                            Utils.UNDO_DELAY);
                     break;
                 }
 
@@ -372,7 +372,8 @@ public class DeleteEventHelper {
                 values.put(Events.DTSTART, dtstart);
                 values.put(Events.RRULE, eventRecurrence.toString());
                 Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
-                mService.startUpdate(DELETE_TOKEN, null, uri, values, null, null, DELETE_DELAY);
+                mService.startUpdate(mService.getNextToken(), null, uri, values, null, null,
+                        Utils.UNDO_DELAY);
                 break;
             }
         }
