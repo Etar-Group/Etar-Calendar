@@ -16,11 +16,11 @@
 
 package com.android.calendar;
 
-import android.content.res.Resources;
-import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
+import android.test.suitebuilder.annotation.Smoke;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 
 
@@ -44,7 +44,7 @@ public class WeekNumberTest extends AndroidTestCase {
             allDayDate.set(day, month, year);
             allDayDate.normalize(true /* ignore isDst */);
 
-            this.expectedWeekNumber = expectedWeekNumber; 
+            this.expectedWeekNumber = expectedWeekNumber;
         }
     }
 
@@ -200,6 +200,7 @@ public class WeekNumberTest extends AndroidTestCase {
         super.setUp();
     }
 
+    @Smoke
     @SmallTest
     public void testAll() throws Exception {
         int len = tests.length;

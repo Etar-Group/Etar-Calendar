@@ -16,14 +16,13 @@
 
 package com.android.calendar;
 
-import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.test.suitebuilder.annotation.SmallTest;
-
-import junit.framework.TestCase;
+import android.test.suitebuilder.annotation.Smoke;
 
 import java.util.HashMap;
-import java.util.Map;
+
+import junit.framework.TestCase;
 
 /**
  * Test class for verifying helper functions in Calendar's Utils
@@ -71,6 +70,7 @@ public class UtilsTests extends TestCase {
         mDuplicateNameCursor.close();
     }
 
+    @Smoke
     @SmallTest
     public void testCheckForDuplicateNames() {
         Utils.checkForDuplicateNames(mIsDuplicateName, mDuplicateNameCursor, NAME_COLUMN);

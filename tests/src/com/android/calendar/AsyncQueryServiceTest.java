@@ -38,6 +38,7 @@ import android.test.mock.MockContext;
 import android.test.mock.MockCursor;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.test.suitebuilder.annotation.SmallTest;
+import android.test.suitebuilder.annotation.Smoke;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -80,6 +81,7 @@ public class AsyncQueryServiceTest extends ServiceTestCase<AsyncQueryServiceHelp
         super.setUp();
     }
 
+    @Smoke
     @SmallTest
     public void testQuery() throws Exception {
         int index = 0;

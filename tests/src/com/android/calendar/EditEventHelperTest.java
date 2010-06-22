@@ -34,6 +34,7 @@ import android.test.mock.MockContentResolver;
 import android.test.mock.MockContext;
 import android.test.mock.MockResources;
 import android.test.suitebuilder.annotation.SmallTest;
+import android.test.suitebuilder.annotation.Smoke;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.text.util.Rfc822Token;
@@ -325,6 +326,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         ops.add(b.build());
     }
 
+    @Smoke
     @SmallTest
     public void testSaveEventFailures() {
         mContext = buildTestContext();
@@ -350,6 +352,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertFalse(mHelper.saveEvent(mModel1, null, 0));
     }
 
+    @Smoke
     @SmallTest
     public void testSaveEventNewEvent() {
         // Creates a model of a new event for saving
@@ -386,6 +389,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         return true;
     }
 
+    @Smoke
     @SmallTest
     public void testSaveEventModifyRecurring() {
         // Creates an original and an updated recurring event model
@@ -434,6 +438,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         return true;
     }
 
+    @Smoke
     @SmallTest
     public void testSaveEventRecurringToNonRecurring() {
         // Creates an original and an updated recurring event model
@@ -489,6 +494,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         return true;
     }
 
+    @Smoke
     @SmallTest
     public void testSaveEventNonRecurringToRecurring() {
         // Creates an original non-recurring and an updated recurring event model
@@ -522,6 +528,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         return verifySaveEventModifyRecurring(ops);
     }
 
+    @Smoke
     @SmallTest
     public void testSaveEventUpdateNonRecurring() {
         // Creates an original non-recurring and an updated recurring event model
@@ -572,6 +579,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         return true;
     }
 
+    @Smoke
     @SmallTest
     public void testSaveEventModifySingleInstance() {
         // Creates an original non-recurring and an updated recurring event model
@@ -632,6 +640,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         return true;
     }
 
+    @Smoke
     @SmallTest
     public void testSaveEventModifyAllFollowingWithNonRecurring() {
         // Creates an original and an updated recurring event model. The update starts on the 2nd
@@ -688,6 +697,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         return true;
     }
 
+    @Smoke
     @SmallTest
     public void testSaveEventModifyAllFollowingFirstWithNonRecurring() {
         // Creates an original recurring and an updated non-recurring event model for the first
@@ -746,6 +756,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         return true;
     }
 
+    @Smoke
     @SmallTest
     public void testSaveEventModifyAllFollowingFirstWithRecurring() {
         // Creates an original recurring and an updated recurring event model for the first instance
@@ -803,6 +814,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         return true;
     }
 
+    @Smoke
     @SmallTest
     public void testSaveEventModifyAllFollowingWithRecurring() {
         // Creates an original recurring and an updated recurring event model
@@ -861,6 +873,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         return true;
     }
 
+    @Smoke
     @SmallTest
     public void testGetAddressesFromList() {
         mContext = buildTestContext();
@@ -875,6 +888,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertEquals(actual, expected);
     }
 
+    @Smoke
     @SmallTest
     public void testCheckTimeDependentFieldsNoChanges() {
         mContext = buildTestContext();
@@ -917,6 +931,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertEquals(mValues, mExpectedValues);
     }
 
+    @Smoke
     @SmallTest
     public void testCheckTimeDependentFieldsChanges() {
         mContext = buildTestContext();
@@ -947,6 +962,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
     }
 
+    @Smoke
     @SmallTest
     public void testUpdatePastEvents() {
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
@@ -982,6 +998,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertEquals(ops, expectedOps);
     }
 
+    @Smoke
     @SmallTest
     public void testConstructReminderLabel() {
         mContext = buildTestContext();
@@ -1000,6 +1017,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertEquals(label, "2 days");
     }
 
+    @Smoke
     @SmallTest
     public void testIsSameEvent() {
         mModel1 = new CalendarEventModel();
@@ -1021,6 +1039,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertFalse(EditEventHelper.isSameEvent(mModel1, mModel2));
     }
 
+    @Smoke
     @SmallTest
     public void testSaveReminders() {
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
@@ -1074,6 +1093,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertEquals(ops, expectedOps);
     }
 
+    @Smoke
     @SmallTest
     public void testSaveRemindersWithBackRef() {
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
@@ -1129,6 +1149,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertEquals(ops, expectedOps);
     }
 
+    @Smoke
     @SmallTest
     public void testIsFirstEventInSeries() {
         mModel1 = new CalendarEventModel();
@@ -1147,6 +1168,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertFalse(EditEventHelper.isFirstEventInSeries(mModel1, mModel2));
     }
 
+    @Smoke
     @SmallTest
     public void testAddRecurrenceRule() {
         mContext = buildTestContext();
@@ -1177,6 +1199,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
     }
 
+    @Smoke
     @SmallTest
     public void testUpdateRecurrenceRule() {
         int selection = EditEventHelper.DOES_NOT_REPEAT;
@@ -1226,6 +1249,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertEquals(mModel1.mRrule, "FREQ=YEARLY;WKST=SU");
     }
 
+    @Smoke
     @SmallTest
     public void testSetModelFromCursor() {
         mContext = buildTestContext();
@@ -1275,6 +1299,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertEquals(mModel1, mModel2);
     }
 
+    @Smoke
     @SmallTest
     public void testGetContentValuesFromModel() {
         mContext = buildTestContext();
@@ -1307,6 +1332,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertEquals(values, mExpectedValues);
     }
 
+    @Smoke
     @SmallTest
     public void testExtractDomain() {
         String domain = EditEventHelper.extractDomain("test.email@gmail.com");

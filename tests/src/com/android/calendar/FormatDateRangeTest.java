@@ -16,11 +16,10 @@
 
 package com.android.calendar;
 
-import android.content.res.Resources;
-import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -71,8 +70,6 @@ public class FormatDateRangeTest extends AndroidTestCase {
                  flags, output);
         }
     }
-
-    private Resources mResources;
 
     DateTest[] tests = {
             new DateTest(0, 10, 9, 8, 0, 0, 10, 9, 11, 0,
@@ -178,8 +175,6 @@ public class FormatDateRangeTest extends AndroidTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-
-        mResources = mContext.getResources();
     }
 
     @MediumTest
