@@ -39,18 +39,18 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.pim.EventRecurrence;
 import android.provider.Calendar;
-import android.provider.ContactsContract;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
+import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
+import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Presence;
 import android.provider.ContactsContract.QuickContact;
-import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -403,8 +403,8 @@ public class EventInfoActivity extends AbstractCalendarActivity implements View.
                 while (reminderCursor.moveToNext()) {
                     int minutes = reminderCursor.getInt(REMINDERS_INDEX_MINUTES);
                     mOriginalMinutes.add(minutes);
-                    EventViewUtils.addReminder(this, this, mReminderItems, mReminderValues,
-                            mReminderLabels, minutes);
+                    EventViewUtils.addReminder(this, mRemindersContainer, this, mReminderItems,
+                            mReminderValues, mReminderLabels, minutes);
                 }
             } finally {
                 reminderCursor.close();
@@ -638,10 +638,10 @@ public class EventInfoActivity extends AbstractCalendarActivity implements View.
         // TODO: when adding a new reminder, make it different from the
         // last one in the list (if any).
         if (mDefaultReminderMinutes == 0) {
-            EventViewUtils.addReminder(this, this, mReminderItems,
+            EventViewUtils.addReminder(this, mRemindersContainer, this, mReminderItems,
                     mReminderValues, mReminderLabels, 10 /* minutes */);
         } else {
-            EventViewUtils.addReminder(this, this, mReminderItems,
+            EventViewUtils.addReminder(this, mRemindersContainer, this, mReminderItems,
                     mReminderValues, mReminderLabels, mDefaultReminderMinutes);
         }
         updateRemindersVisibility();

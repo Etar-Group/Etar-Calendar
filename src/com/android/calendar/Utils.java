@@ -40,6 +40,17 @@ public class Utils {
     // Set to 0 until we have UI to perform undo
     public static final long UNDO_DELAY = 0;
 
+    // For recurring events which instances of the series are being modified
+    public static final int MODIFY_UNINITIALIZED = 0;
+    public static final int MODIFY_SELECTED = 1;
+    public static final int MODIFY_ALL_FOLLOWING = 2;
+    public static final int MODIFY_ALL = 3;
+
+    // When the edit event view finishes it passes back the appropriate exit code.
+    public static final int DONE_REVERT = 0;
+    public static final int DONE_SAVE = 1;
+    public static final int DONE_DELETE = 2;
+
     private static final int CLEAR_ALPHA_MASK = 0x00FFFFFF;
     private static final int HIGH_ALPHA = 255 << 24;
     private static final int MED_ALPHA = 180 << 24;
