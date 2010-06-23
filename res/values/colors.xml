@@ -65,5 +65,13 @@
     <color name="agenda_day_bar_color">#c8c8c8</color>
 
     <drawable name="agenda_item_declined">#88ffffff</drawable>
+
+    <color name="appwidget_date">#ff000000</color>
+    <color name="appwidget_when">#ff666666</color>
+    <color name="appwidget_title">#ff000000</color>
+    <color name="appwidget_where">#ff666666</color>
+    <color name="appwidget_conflict">#ff000000</color>
+    <color name="appwidget_no_events">#bb000000</color>
+    <color name="appwidget_page_count">#ff666666</color>
 </resources>
 

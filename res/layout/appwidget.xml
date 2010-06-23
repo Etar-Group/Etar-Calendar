@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/appwidget"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/appwidget_background"
+    android:focusable="true"
+    android:clickable="true">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:orientation="horizontal"
+        android:background="@drawable/appwidget_calendar_bgtop_blue">
+
+        <TextView
+            android:id="@+id/day_of_week"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="7dip"
+            android:layout_marginRight="7dip"
+            android:layout_marginBottom="5dip"
+            android:textColor="@color/appwidget_date"
+            android:textSize="18sp"
+            android:gravity="left|bottom"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/day_of_month"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="7dip"
+            android:layout_marginRight="7dip"
+            android:layout_marginBottom="5dip"
+            android:gravity="right|bottom"
+            android:textColor="@color/appwidget_date"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <!-- Container to show only a single page -->
+    <FrameLayout
+        android:id="@+id/single_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+    <!-- Flipper for event pages -->
+    <ViewFlipper
+        android:id="@+id/page_flipper"
+        android:autoStart="true"
+        android:flipInterval="@integer/flip_interval"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inAnimation="@anim/slide_in_fade"
+        android:outAnimation="@anim/slide_out_fade"
+        android:animateFirstView="false">
+    </ViewFlipper>
+
+    <!-- No Event -->
+    <TextView
+        android:id="@+id/no_events"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dip"
+        android:padding="7dip"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/appwidget_no_events"
+        android:text="@string/gadget_no_events" />
+
+
+
+</LinearLayout>

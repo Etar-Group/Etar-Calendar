@@ -403,4 +403,30 @@
     <!-- Dialog title for the Vibrate dialog -->
     <string name="prefDialogTitle_vibrateWhen">Vibrate</string>
 
+    <!-- Widget -->
+    <skip />
+    <!-- Title for calendar gadget when displayed in list of all other gadgets -->
+    <string name="gadget_title">Calendar</string>
+
+    <!-- Shown in gadget when additional events are available for display, but no room remaining -->
+    <plurals name="gadget_more_events">
+        <!-- additional events message for 1 event -->
+        <item quantity="one">1 more event</item>
+        <!-- additional events message for multiple events -->
+        <item quantity="other"><xliff:g id="number">%d</xliff:g> more events</item>
+    </plurals>
+
+    <!-- Caption to show on gadget when there are no upcoming calendar events -->
+    <string name="gadget_no_events">No upcoming calendar events</string>
+
+    <!-- Text to show on gadget when an event starts on the next day -->
+    <string name="tomorrow">Tomorrow</string>
+
+    <!-- Text to show on gadget when an event is currently in progress -->
+    <string name="in_progress">in progress</string>
+
+    <!-- Text to show on gadget when an all-day event is in progress -->
+    <string name="today">Today</string>
+
+
 </resources>

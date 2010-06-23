@@ -105,4 +105,72 @@
         <item name="android:gravity">center_vertical|left</item>
     </style>
 
+
+    <style name="TextAppearance.WidgetWhen">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">7dip</item>
+        <item name="android:layout_marginRight">7dip</item>
+
+        <item name="android:layout_marginTop">3dip</item>
+        <item name="android:layout_marginBottom">-3dip</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/appwidget_when</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TextAppearance.WidgetWhere">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">7dip</item>
+        <item name="android:layout_marginRight">7dip</item>
+
+        <item name="android:layout_marginBottom">-3dip</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/appwidget_where</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TextAppearance.WidgetTitle">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">7dip</item>
+        <item name="android:layout_marginRight">7dip</item>
+
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/appwidget_title</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="TextAppearance.WidgetConflict">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">7dip</item>
+        <item name="android:paddingRight">7dip</item>
+
+        <item name="android:layout_marginBottom">4dip</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/appwidget_conflict</item>
+    </style>
+
+    <style name="TextAppearance.WidgetPageCount">
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">5dip</item>
+        <item name="android:layout_marginRight">5dip</item>
+
+        <item name="android:layout_marginTop">3dip</item>
+        <item name="android:layout_marginBottom">7dip</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/appwidget_when</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
 </resources>

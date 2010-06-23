@@ -9,7 +9,7 @@ LOCAL_SRC_FILES := $(call all-java-files-under,src)
 # library.
 LOCAL_JAVA_LIBRARIES := android.test.runner
 
-LOCAL_STATIC_JAVA_LIBRARIES += android-common
+LOCAL_STATIC_JAVA_LIBRARIES += android-common guava
 
 LOCAL_PACKAGE_NAME := Calendar
 
