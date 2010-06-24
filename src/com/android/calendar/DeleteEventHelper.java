@@ -254,6 +254,10 @@ public class DeleteEventHelper {
             int labelsArrayId = R.array.delete_repeating_labels;
             if (mSyncId == null) {
                 labelsArrayId = R.array.delete_repeating_labels_no_selected;
+                if (which > 0) {
+                    which--;
+                    mWhichDelete--;
+                }
             }
             AlertDialog dialog = new AlertDialog.Builder(mParent)
             .setTitle(R.string.delete_title)
@@ -303,8 +307,7 @@ public class DeleteEventHelper {
         }
 
         switch (which) {
-            case DELETE_SELECTED:
-            {
+            case DELETE_SELECTED: {
                 // If we are deleting the first event in the series, then
                 // instead of creating a recurrence exception, just change
                 // the start time of the recurrence.

@@ -114,8 +114,8 @@ public class EditEventHelper {
 
     protected static final int MODIFY_UNINITIALIZED = 0;
     protected static final int MODIFY_SELECTED = 1;
-    protected static final int MODIFY_ALL = 2;
-    protected static final int MODIFY_ALL_FOLLOWING = 3;
+    protected static final int MODIFY_ALL_FOLLOWING = 2;
+    protected static final int MODIFY_ALL = 3;
 
     protected static final int DAY_IN_SECONDS = 24 * 60 * 60;
 
@@ -658,7 +658,7 @@ public class EditEventHelper {
      * @param forceSave if true, then save the reminders even if they didn't change
      * @return true if operations to update the database were added
      */
-    boolean saveReminders(ArrayList<ContentProviderOperation> ops, long eventId,
+    static boolean saveReminders(ArrayList<ContentProviderOperation> ops, long eventId,
             ArrayList<Integer> reminderMinutes, ArrayList<Integer> originalMinutes,
             boolean forceSave) {
         // If the reminders have not changed, then don't update the database

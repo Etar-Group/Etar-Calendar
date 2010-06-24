@@ -2834,7 +2834,7 @@ public class CalendarView extends View
                     intent.setClassName(mParentActivity, EditEventActivity.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                     intent.putExtra(EVENT_END_TIME, endMillis);
-                    intent.putExtra(EditEvent.EVENT_ALL_DAY, mSelectionAllDay);
+                    intent.putExtra(EditEventHelper.EVENT_ALL_DAY, mSelectionAllDay);
                     mParentActivity.startActivity(intent);
                     break;
                 }

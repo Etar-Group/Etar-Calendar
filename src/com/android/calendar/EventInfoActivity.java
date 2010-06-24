@@ -20,7 +20,6 @@ import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.AsyncQueryHandler;
 import android.content.ContentProviderOperation;
@@ -82,7 +81,7 @@ import java.util.HashMap;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
-public class EventInfoActivity extends Activity implements View.OnClickListener,
+public class EventInfoActivity extends AbstractCalendarActivity implements View.OnClickListener,
         AdapterView.OnItemSelectedListener {
     public static final boolean DEBUG = false;
 
@@ -331,7 +330,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
         // Calendars cursor
         Uri uri = Calendars.CONTENT_URI;
-        String where = String.format(CALENDARS_WHERE, mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID));
+        String where = String
+                .format(CALENDARS_WHERE, mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID));
         mCalendarsCursor = managedQuery(uri, CALENDARS_PROJECTION, where, null, null);
         mCalendarOwnerAccount = "";
         if (mCalendarsCursor != null) {
@@ -394,7 +394,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 // a reminder of 8 minutes) into a global list.
                 while (reminderCursor.moveToNext()) {
                     int minutes = reminderCursor.getInt(REMINDERS_INDEX_MINUTES);
-                    EditEvent.addMinutesToList(this, mReminderValues, mReminderLabels, minutes);
+                    EventViewUtils
+                            .addMinutesToList(this, mReminderValues, mReminderLabels, minutes);
                 }
 
                 // Second pass: create the reminder spinners
@@ -402,7 +403,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 while (reminderCursor.moveToNext()) {
                     int minutes = reminderCursor.getInt(REMINDERS_INDEX_MINUTES);
                     mOriginalMinutes.add(minutes);
-                    EditEvent.addReminder(this, this, mReminderItems, mReminderValues,
+                    EventViewUtils.addReminder(this, this, mReminderItems, mReminderValues,
                             mReminderLabels, minutes);
                 }
             } finally {
@@ -568,11 +569,11 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             return;
         }
         ContentResolver cr = getContentResolver();
-        ArrayList<Integer> reminderMinutes = EditEvent.reminderItemsToMinutes(mReminderItems,
+        ArrayList<Integer> reminderMinutes = EventViewUtils.reminderItemsToMinutes(mReminderItems,
                 mReminderValues);
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>(3);
-        boolean changed = EditEvent.saveReminders(ops, mEventId, reminderMinutes, mOriginalMinutes,
-                false /* no force save */);
+        boolean changed = EditEventHelper.saveReminders(ops, mEventId, reminderMinutes,
+                mOriginalMinutes, false /* no force save */);
         try {
             // TODO Run this in a background process.
             cr.applyBatch(Calendars.CONTENT_URI.getAuthority(), ops);
@@ -637,10 +638,10 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         // TODO: when adding a new reminder, make it different from the
         // last one in the list (if any).
         if (mDefaultReminderMinutes == 0) {
-            EditEvent.addReminder(this, this, mReminderItems,
+            EventViewUtils.addReminder(this, this, mReminderItems,
                     mReminderValues, mReminderLabels, 10 /* minutes */);
         } else {
-            EditEvent.addReminder(this, this, mReminderItems,
+            EventViewUtils.addReminder(this, this, mReminderItems,
                     mReminderValues, mReminderLabels, mDefaultReminderMinutes);
         }
         updateRemindersVisibility();

@@ -50,10 +50,6 @@ public class EditEventActivity extends AbstractCalendarActivity {
     static final int DONE_SAVE = 1;
     static final int DONE_DELETE = 2;
 
-    static final int MODIFY_UNINITIALIZED = 0;
-    static final int MODIFY_SELECTED = 1;
-    static final int MODIFY_ALL = 2;
-    static final int MODIFY_ALL_FOLLOWING = 3;
 
     private static final int TOKEN_EVENT = 0;
     private static final int TOKEN_ATTENDEES = 1;
@@ -70,7 +66,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
     QueryHandler mHandler;
 
     private AlertDialog mModifyDialog;
-    int mModification = MODIFY_UNINITIALIZED;
+    int mModification = EditEventHelper.MODIFY_UNINITIALIZED;
 
     private Uri mUri;
     private long mBegin;
@@ -300,7 +296,8 @@ public class EditEventActivity extends AbstractCalendarActivity {
     }
 
     protected void displayEditWhichDialogue() {
-        if (!TextUtils.isEmpty(mModel.mRrule) && mModification == MODIFY_UNINITIALIZED) {
+        if (!TextUtils.isEmpty(mModel.mRrule)
+                && mModification == EditEventHelper.MODIFY_UNINITIALIZED) {
             // If this event has not been synced, then don't allow deleting
             // or changing a single instance.
             String mSyncId = mModel.mSyncId;
@@ -326,12 +323,12 @@ public class EditEventActivity extends AbstractCalendarActivity {
                 }
                 items[itemIndex++] = getText(R.string.modify_event);
             }
-            items[itemIndex++] = getText(R.string.modify_all);
-
-            // Do one more check to make sure this remains at the end of the list
             if (!isFirstEventInSeries) {
                 items[itemIndex++] = getText(R.string.modify_all_following);
             }
+            items[itemIndex++] = getText(R.string.modify_all);
+
+
 
             // Display the modification dialog.
             if (mModifyDialog != null) {
@@ -346,12 +343,14 @@ public class EditEventActivity extends AbstractCalendarActivity {
             }).setTitle(R.string.edit_event_label).setItems(items, new OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     if (which == 0) {
-                        mModification = (mModel.mSyncId == null) ? MODIFY_ALL : MODIFY_SELECTED;
+                        mModification = (mModel.mSyncId == null)
+                                ? EditEventHelper.MODIFY_ALL_FOLLOWING
+                                : EditEventHelper.MODIFY_SELECTED;
                     } else if (which == 1) {
-                        mModification = (mModel.mSyncId == null) ? MODIFY_ALL_FOLLOWING
-                                : MODIFY_ALL;
+                        mModification = (mModel.mSyncId == null) ? EditEventHelper.MODIFY_ALL
+                                : EditEventHelper.MODIFY_ALL_FOLLOWING;
                     } else if (which == 2) {
-                        mModification = MODIFY_ALL_FOLLOWING;
+                        mModification = EditEventHelper.MODIFY_ALL;
                     }
 
                     mView.setModification(mModification);
@@ -379,24 +378,21 @@ public class EditEventActivity extends AbstractCalendarActivity {
                 finish();
                 break;
             case DONE_DELETE:
-                long begin = mModel.mStart;
-                long end = mModel.mEnd;
                 int which = -1;
                 switch (mModification) {
-                    case MODIFY_SELECTED:
+                    case EditEventHelper.MODIFY_SELECTED:
                         which = DeleteEventHelper.DELETE_SELECTED;
                         break;
-                    case MODIFY_ALL_FOLLOWING:
+                    case EditEventHelper.MODIFY_ALL_FOLLOWING:
                         which = DeleteEventHelper.DELETE_ALL_FOLLOWING;
                         break;
-                    case MODIFY_ALL:
+                    case EditEventHelper.MODIFY_ALL:
                         which = DeleteEventHelper.DELETE_ALL;
                         break;
                 }
                 DeleteEventHelper deleteHelper = new DeleteEventHelper(this,
                         true /* exitWhenDone */);
-                // TODO update delete helper to use the model instead of the cursor
-                deleteHelper.delete(begin, end, mModel, which);
+                deleteHelper.delete(mBegin, mEnd, mOriginalModel, which);
                 break;
             default:
                 Log.e(TAG, "done: Unrecognized exit code.");
