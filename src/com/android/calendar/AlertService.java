@@ -261,21 +261,18 @@ public class AlertService extends Service {
             return true;
         }
 
+        boolean quietUpdate = numFired == 0;
+        boolean highPriority = numFired > 0 &&
+                reminderType.equals(CalendarPreferenceActivity.ALERT_TYPE_ALERTS);
         postNotification(context, prefs, notificationEventName, notificationEventLocation,
-                numReminders, numFired == 0 /* quiet update */);
-
-        if (numFired > 0 && reminderType.equals(CalendarPreferenceActivity.ALERT_TYPE_ALERTS)) {
-            Intent alertIntent = new Intent();
-            alertIntent.setClass(context, AlertActivity.class);
-            alertIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(alertIntent);
-        }
+                numReminders, quietUpdate, highPriority);
 
         return true;
     }
 
     private static void postNotification(Context context, SharedPreferences prefs,
-            String eventName, String location, int numReminders, boolean quietUpdate) {
+            String eventName, String location, int numReminders,
+            boolean quietUpdate, boolean highPriority) {
         if (DEBUG) {
             Log.d(TAG, "###### creating new alarm notification, numReminders: " + numReminders
                     + (quietUpdate ? " QUIET" : " loud"));

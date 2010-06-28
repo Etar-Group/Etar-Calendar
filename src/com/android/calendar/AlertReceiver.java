@@ -108,6 +108,18 @@ public class AlertReceiver extends BroadcastReceiver {
 
     public static Notification makeNewAlertNotification(Context context, String title,
             String location, int numReminders) {
+        return makeNewAlertNotification(context, title, location,
+                numReminders, false);
+    }
+
+    /**
+     * Creates an alert notification. If high priority, this will set
+     * FLAG_HIGH_PRIORITY on the resulting notification and attach the a pending
+     * intent. Otherwise, it creates a standard notification.
+     */
+    public static Notification makeNewAlertNotification(Context context,
+            String title, String location, int numReminders,
+            boolean highPriority) {
         Resources res = context.getResources();
 
         // Create an intent triggered by clicking on the status icon.
@@ -137,6 +149,8 @@ public class AlertReceiver extends BroadcastReceiver {
             helperString = location;
         }
 
+        PendingIntent pendingClickIntent = PendingIntent.getActivity(
+                context, 0, clickIntent, 0);
         Notification notification = new Notification(
                 R.drawable.stat_notify_calendar,
                 null,
@@ -144,8 +158,14 @@ public class AlertReceiver extends BroadcastReceiver {
         notification.setLatestEventInfo(context,
                 title,
                 helperString,
-                PendingIntent.getActivity(context, 0, clickIntent, 0));
-        notification.deleteIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, 0);
+                pendingClickIntent
+                );
+        notification.deleteIntent = PendingIntent.getBroadcast(context, 0,
+                deleteIntent, 0);
+        if (highPriority) {
+            notification.flags |= Notification.FLAG_HIGH_PRIORITY;
+            notification.fullScreenIntent = pendingClickIntent;
+        }
 
         return notification;
     }
