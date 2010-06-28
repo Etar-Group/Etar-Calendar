@@ -120,6 +120,9 @@
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to view and edit his Settings (or Preferences) -->
     <string name="menu_preferences">"Settings"</string>
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to search their events. -->
+    <string name="search">"Search"</string>
 
     <!-- Month view -->
     <skip />
@@ -246,6 +249,11 @@
     <string name="show_older_events">Showing events since <xliff:g id="oldest_search_range">%1$s</xliff:g>. Tap to look for more.</string>
     <!-- This is shown at the bottom of the agenda view showing the range of events shown. -->
     <string name="show_newer_events">Showing events until <xliff:g id="newest_search_range">%1$s</xliff:g>. Tap to look for more.</string>
+
+    <!-- Search activity strings -->
+    <skip />
+    <!-- Title of the search screen -->
+    <string name="search_title">Search my calendars</string>
 
     <!-- ICS Import activity -->
     <skip />

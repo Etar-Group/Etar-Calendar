@@ -75,6 +75,10 @@
             </intent-filter>
         </activity>
 
+        <!-- Make all activities a searchable context -->
+        <meta-data android:name="android.app.default_searchable"
+            android:value=".SearchActivity"/>
+
         <activity android:name="MonthActivity" android:label="@string/month_view"
             android:theme="@style/CalendarTheme" />
         <activity android:name="WeekActivity" android:label="@string/week_view"
@@ -124,6 +128,15 @@
 
         <activity android:name="SelectCalendarsActivity" android:label="@string/calendars_title" />
         <activity android:name="CalendarPreferenceActivity" android:label="@string/preferences_title" />
+
+        <activity android:name="SearchActivity" android:label="@string/search_title"
+            android:launchMode="singleTop" android:theme="@android:style/Theme.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>
+        </activity>
+
         <activity android:name="AlertActivity" android:launchMode="singleInstance"
              android:theme="@android:style/Theme.Light" android:excludeFromRecents="true" />
         <receiver android:name="AlertReceiver">

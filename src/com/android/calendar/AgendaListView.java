@@ -20,6 +20,7 @@ import com.android.calendar.AgendaAdapter.ViewHolder;
 import com.android.calendar.AgendaWindowAdapter.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.text.format.Time;
 import android.util.Log;
@@ -35,19 +36,18 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     private static final boolean DEBUG = false;
 
     private AgendaWindowAdapter mWindowAdapter;
-
     private DeleteEventHelper mDeleteEventHelper;
 
-    public AgendaListView(AgendaActivity agendaActivity) {
-        super(agendaActivity, null);
 
+    public AgendaListView(Context context) {
+        super(context, null);
         setOnItemClickListener(this);
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         setVerticalScrollBarEnabled(false);
-        mWindowAdapter = new AgendaWindowAdapter(agendaActivity, this);
+        mWindowAdapter = new AgendaWindowAdapter(context, this);
         setAdapter(mWindowAdapter);
         mDeleteEventHelper =
-            new DeleteEventHelper(agendaActivity, null, false /* don't exit when done */);
+            new DeleteEventHelper(context, null, false /* don't exit when done */);
     }
 
     @Override protected void onDetachedFromWindow() {
@@ -69,6 +69,16 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     public void goTo(Time time, boolean forced) {
         mWindowAdapter.refresh(time, forced);
+    }
+
+    public void search(String searchQuery, boolean forced) {
+        Time time = new Time();
+        long goToTime = getFirstVisibleTime();
+        if (goToTime <= 0) {
+            goToTime = System.currentTimeMillis();
+        }
+        time.set(goToTime);
+        mWindowAdapter.refresh(time, searchQuery, forced);
     }
 
     public void refresh(boolean forced) {

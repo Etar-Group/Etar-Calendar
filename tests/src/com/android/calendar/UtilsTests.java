@@ -76,4 +76,17 @@ public class UtilsTests extends TestCase {
         Utils.checkForDuplicateNames(mIsDuplicateName, mDuplicateNameCursor, NAME_COLUMN);
         assertEquals(mIsDuplicateName, mIsDuplicateNameExpected);
     }
+
+    @Smoke
+    @SmallTest
+    public void testEquals() {
+        assertTrue(Utils.equals(null, null));
+        assertFalse(Utils.equals("", null));
+        assertFalse(Utils.equals(null, ""));
+        assertTrue(Utils.equals("",""));
+
+        Integer int1 = new Integer(1);
+        Integer int2 = new Integer(1);
+        assertTrue(Utils.equals(int1, int2));
+    }
 }

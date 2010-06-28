@@ -18,9 +18,11 @@ package com.android.calendar;
 
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.Calendar;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Instances;
@@ -64,7 +66,11 @@ public class AgendaWindowAdapter extends BaseAdapter {
     static final boolean DEBUGLOG = false;
     private static String TAG = "AgendaWindowAdapter";
 
-    private static final String AGENDA_SORT_ORDER = "startDay ASC, begin ASC, title ASC";
+    private static final String AGENDA_SORT_ORDER =
+        Calendar.Instances.START_DAY + " ASC, " +
+        Calendar.Instances.BEGIN + " ASC, " +
+        Calendar.Events.TITLE + " ASC";
+
     public static final int INDEX_TITLE = 1;
     public static final int INDEX_EVENT_LOCATION = 2;
     public static final int INDEX_ALL_DAY = 3;
@@ -108,8 +114,8 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
     private static final int PREFETCH_BOUNDARY = 1;
 
-    // Times to auto-expand/retry query after getting no data
-    private static final int RETRIES_ON_NO_DATA = 0;
+    /** Times to auto-expand/retry query after getting no data */
+    private static final int RETRIES_ON_NO_DATA = 1;
 
     private Context mContext;
 
@@ -117,11 +123,14 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
     private AgendaListView mAgendaListView;
 
-    private int mRowCount; // The sum of the rows in all the adapters
+    /** The sum of the rows in all the adapters */
+    private int mRowCount;
 
+    /** The number of times we have queried and gotten no results back */
     private int mEmptyCursorCount;
 
-    private DayAdapterInfo mLastUsedInfo; // Cached value of the last used adapter.
+    /** Cached value of the last used adapter */
+    private DayAdapterInfo mLastUsedInfo;
 
     private LinkedList<DayAdapterInfo> mAdapterInfos = new LinkedList<DayAdapterInfo>();
 
@@ -133,24 +142,24 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
     private boolean mDoneSettingUpHeaderFooter = false;
 
-    /*
+    /**
      * When the user scrolled to the top, a query will be made for older events
      * and this will be incremented. Don't make more requests if
      * mOlderRequests > mOlderRequestsProcessed.
      */
     private int mOlderRequests;
 
-    // Number of "older" query that has been processed.
+    /** Number of "older" query that has been processed. */
     private int mOlderRequestsProcessed;
 
-    /*
+    /**
      * When the user scrolled to the bottom, a query will be made for newer
      * events and this will be incremented. Don't make more requests if
      * mNewerRequests > mNewerRequestsProcessed.
      */
     private int mNewerRequests;
 
-    // Number of "newer" query that has been processed.
+    /** Number of "newer" query that has been processed. */
     private int mNewerRequestsProcessed;
 
     // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
@@ -159,6 +168,9 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
     private boolean mShuttingDown;
     private boolean mHideDeclined;
+
+    /** The current search query, or null if none */
+    private String mSearchQuery;
 
     // Types of Query
     private static final int QUERY_TYPE_OLDER = 0; // Query for older events
@@ -174,6 +186,8 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
         int end;
 
+        String searchQuery;
+
         int queryType;
 
         public QuerySpec(int queryType) {
@@ -188,6 +202,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
             result = prime * result + (int) (queryStartMillis ^ (queryStartMillis >>> 32));
             result = prime * result + queryType;
             result = prime * result + start;
+            result = prime * result + searchQuery.hashCode();
             if (goToTime != null) {
                 long goToTimeMillis = goToTime.toMillis(false);
                 result = prime * result + (int) (goToTimeMillis ^ (goToTimeMillis >>> 32));
@@ -202,9 +217,11 @@ public class AgendaWindowAdapter extends BaseAdapter {
             if (getClass() != obj.getClass()) return false;
             QuerySpec other = (QuerySpec) obj;
             if (end != other.end || queryStartMillis != other.queryStartMillis
-                    || queryType != other.queryType || start != other.start) {
+                    || queryType != other.queryType || start != other.start
+                    || Utils.equals(searchQuery, other.searchQuery)) {
                 return false;
             }
+
             if (goToTime != null) {
                 if (goToTime.toMillis(false) != other.goToTime.toMillis(false)) {
                     return false;
@@ -259,16 +276,18 @@ public class AgendaWindowAdapter extends BaseAdapter {
         }
     }
 
-    public AgendaWindowAdapter(AgendaActivity agendaActivity,
+    public AgendaWindowAdapter(Context context,
             AgendaListView agendaListView) {
-        mContext = agendaActivity;
+        mContext = context;
         mAgendaListView = agendaListView;
-        mQueryHandler = new QueryHandler(agendaActivity.getContentResolver());
+        mQueryHandler = new QueryHandler(context.getContentResolver());
 
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
 
-        LayoutInflater inflater = (LayoutInflater) agendaActivity
+        mSearchQuery = null;
+
+        LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mHeaderView = (TextView)inflater.inflate(R.layout.agenda_header_footer, null);
         mFooterView = (TextView)inflater.inflate(R.layout.agenda_header_footer, null);
@@ -469,6 +488,15 @@ public class AgendaWindowAdapter extends BaseAdapter {
     }
 
     public void refresh(Time goToTime, boolean forced) {
+        refresh(goToTime, mSearchQuery, forced);
+    }
+
+    public void refresh(Time goToTime, String searchQuery, boolean forced) {
+        if (!Utils.equals(searchQuery, mSearchQuery)) {
+            // When we change search terms, clean up any old state, start over
+            resetInstanceFields();
+        }
+        mSearchQuery = searchQuery;
         if (DEBUGLOG) {
             Log.e(TAG, "refresh " + goToTime.toString() + (forced ? " forced" : " not forced"));
         }
@@ -484,7 +512,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
         // Query for a total of MIN_QUERY_DURATION days
         int endDay = startDay + MIN_QUERY_DURATION;
 
-        queueQuery(startDay, endDay, goToTime, QUERY_TYPE_CLEAN);
+        queueQuery(startDay, endDay, goToTime, searchQuery, QUERY_TYPE_CLEAN);
     }
 
     public void close() {
@@ -539,6 +567,20 @@ public class AgendaWindowAdapter extends BaseAdapter {
         }
     }
 
+    /**
+     * Resets any transient state in this instance and puts it back into a state
+     * where it can be treated as a newly instantiated adapter
+     *
+     * TODO are these all of the fields that need to be reset?
+     */
+    private void resetInstanceFields() {
+        mEmptyCursorCount = 0;
+        mNewerRequests = 0;
+        mNewerRequestsProcessed = 0;
+        mOlderRequests = 0;
+        mOlderRequestsProcessed = 0;
+    }
+
     private String buildQuerySelection() {
         // Respect the preference to show/hide declined events
 
@@ -551,13 +593,17 @@ public class AgendaWindowAdapter extends BaseAdapter {
         }
     }
 
-    private Uri buildQueryUri(int start, int end) {
-        StringBuilder path = new StringBuilder();
-        path.append(start);
-        path.append('/');
-        path.append(end);
-        Uri uri = Uri.withAppendedPath(Instances.CONTENT_BY_DAY_URI, path.toString());
-        return uri;
+    private Uri buildQueryUri(int start, int end, String searchQuery) {
+        Uri rootUri = searchQuery == null ?
+                Instances.CONTENT_BY_DAY_URI :
+                Instances.CONTENT_SEARCH_BY_DAY_URI;
+        Uri.Builder builder = rootUri.buildUpon();
+        ContentUris.appendId(builder, start);
+        ContentUris.appendId(builder, end);
+        if (searchQuery != null) {
+            builder.appendPath(searchQuery);
+        }
+        return builder.build();
     }
 
     private boolean isInRange(int start, int end) {
@@ -584,15 +630,18 @@ public class AgendaWindowAdapter extends BaseAdapter {
         return queryDuration;
     }
 
-    private boolean queueQuery(int start, int end, Time goToTime, int queryType) {
+    private boolean queueQuery(int start, int end, Time goToTime,
+            String searchQuery, int queryType) {
         QuerySpec queryData = new QuerySpec(queryType);
         queryData.goToTime = goToTime;
         queryData.start = start;
         queryData.end = end;
+        queryData.searchQuery = searchQuery;
         return queueQuery(queryData);
     }
 
     private boolean queueQuery(QuerySpec queryData) {
+        queryData.searchQuery = mSearchQuery;
         Boolean queuedQuery;
         synchronized (mQueryQueue) {
             queuedQuery = false;
@@ -634,9 +683,12 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
         mQueryHandler.cancelOperation(0);
         if (BASICLOG) queryData.queryStartMillis = System.nanoTime();
-        mQueryHandler.startQuery(0, queryData, buildQueryUri(
-                queryData.start, queryData.end), PROJECTION,
-                buildQuerySelection(), null, AGENDA_SORT_ORDER);
+
+        Uri queryUri = buildQueryUri(
+                queryData.start, queryData.end, queryData.searchQuery);
+        mQueryHandler.startQuery(0, queryData, queryUri,
+                PROJECTION, buildQuerySelection(), null,
+                AGENDA_SORT_ORDER);
     }
 
     private String formatDateString(int julianDay) {
