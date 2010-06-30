@@ -1011,4 +1011,8 @@ public class EditEventHelper {
         }
         return null;
     }
+
+    public interface EditDoneRunnable extends Runnable {
+        public void setDoneCode(int code);
+    }
 }

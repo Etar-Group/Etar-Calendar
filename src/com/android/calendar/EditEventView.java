@@ -16,14 +16,16 @@
 
 package com.android.calendar;
 
+import com.android.calendar.EditEventHelper.EditDoneRunnable;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -86,7 +88,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
-    private EditEventActivity mActivity;
+    private Activity mActivity;
+    private EditDoneRunnable mDone;
     private View mView;
     private CalendarEventModel mModel;
     private Cursor mCalendarsCursor;
@@ -466,20 +469,24 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     mSaveAfterQueryComplete = true;
                 }
             } else if (fillModelFromUI()) {
-                mActivity.done(EditEventActivity.DONE_SAVE);
+                mDone.setDoneCode(Utils.DONE_SAVE);
+                mDone.run();
             } else {
-                mActivity.done(EditEventActivity.DONE_REVERT);
+                mDone.setDoneCode(Utils.DONE_REVERT);
+                mDone.run();
             }
             return;
         }
 
         if (v == mDeleteButton) {
-            mActivity.done(EditEventActivity.DONE_DELETE);
+            mDone.setDoneCode(Utils.DONE_DELETE);
+            mDone.run();
             return;
         }
 
         if (v == mDiscardButton) {
-            mActivity.done(EditEventActivity.DONE_REVERT);
+            mDone.setDoneCode(Utils.DONE_REVERT);
+            mDone.run();
             return;
         }
 
@@ -498,7 +505,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mLoadingCalendarsDialog = null;
             mSaveAfterQueryComplete = false;
         } else if (dialog == mNoCalendarsDialog) {
-            mActivity.done(EditEventActivity.DONE_REVERT);
+            mDone.setDoneCode(Utils.DONE_REVERT);
+            mDone.run();
             return;
         }
     }
@@ -506,7 +514,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     // This is called if the user clicks on a dialog button.
     public void onClick(DialogInterface dialog, int which) {
         if (dialog == mNoCalendarsDialog) {
-            mActivity.done(EditEventActivity.DONE_REVERT);
+            mDone.setDoneCode(Utils.DONE_REVERT);
+            mDone.run();
         }
     }
 
@@ -580,10 +589,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return true;
     }
 
-    public EditEventView(EditEventActivity activity, View view) {
+    public EditEventView(Activity activity, View view, EditDoneRunnable done) {
 
         mActivity = activity;
         mView = view;
+        mDone = done;
 
         // cache top level view elements
         mLoadingMessage = (TextView) view.findViewById(R.id.loading_message);
@@ -745,10 +755,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             ArrayList<Integer> minutes = model.mReminderMinutes;
             numReminders = minutes.size();
             for (Integer minute : minutes) {
-                EventViewUtils
-                        .addMinutesToList(mActivity, mReminderValues, mReminderLabels, minute);
-                EventViewUtils.addReminder(mActivity, this, mReminderItems, mReminderValues,
-                        mReminderLabels, minute);
+                EventViewUtils.addMinutesToList( mActivity, mReminderValues, mReminderLabels,
+                        minute);
+                EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
+                        mReminderValues, mReminderLabels, minute);
             }
         }
         updateRemindersVisibility(numReminders);
@@ -834,9 +844,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (mSaveAfterQueryComplete) {
             mLoadingCalendarsDialog.cancel();
             if (fillModelFromUI()) {
-                mActivity.done(EditEventActivity.DONE_SAVE);
+                mDone.setDoneCode(Utils.DONE_SAVE);
+                mDone.run();
             } else {
-                mActivity.done(EditEventActivity.DONE_REVERT);
+                mDone.setDoneCode(Utils.DONE_REVERT);
+                mDone.run();
             }
             return;
         }
@@ -846,10 +858,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mModification = modifyWhich;
         // If we are modifying all the events in a
         // series then disable and ignore the date.
-        if (modifyWhich == EditEventHelper.MODIFY_ALL) {
+        if (modifyWhich == Utils.MODIFY_ALL) {
             mStartDateButton.setEnabled(false);
             mEndDateButton.setEnabled(false);
-        } else if (modifyWhich == EditEventHelper.MODIFY_SELECTED) {
+        } else if (modifyWhich == Utils.MODIFY_SELECTED) {
             mRepeatsSpinner.setEnabled(false);
         }
     }
@@ -893,11 +905,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // TODO: when adding a new reminder, make it different from the
         // last one in the list (if any).
         if (mDefaultReminderMinutes == 0) {
-            EventViewUtils.addReminder(mActivity, this, mReminderItems, mReminderValues,
-                    mReminderLabels, 10 /* minutes */);
+            EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
+                    mReminderValues, mReminderLabels, 10 /* minutes */);
         } else {
-            EventViewUtils.addReminder(mActivity, this, mReminderItems, mReminderValues,
-                    mReminderLabels, mDefaultReminderMinutes);
+            EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
+                    mReminderValues, mReminderLabels, mDefaultReminderMinutes);
         }
         updateRemindersVisibility(mReminderItems.size());
         mScrollView.fling(REMINDER_FLING_VELOCITY);

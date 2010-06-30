@@ -120,7 +120,7 @@ public class EventViewUtils {
     // Adds a reminder to the displayed list of reminders.
     // Returns true if successfully added reminder, false if no reminders can
     // be added.
-    static boolean addReminder(Activity activity, View.OnClickListener listener,
+    static boolean addReminder(Activity activity, View view, View.OnClickListener listener,
             ArrayList<LinearLayout> items, ArrayList<Integer> values, ArrayList<String> labels,
             int minutes) {
 
@@ -129,7 +129,7 @@ public class EventViewUtils {
         }
 
         LayoutInflater inflater = activity.getLayoutInflater();
-        LinearLayout parent = (LinearLayout) activity.findViewById(R.id.reminder_items_container);
+        LinearLayout parent = (LinearLayout) view.findViewById(R.id.reminder_items_container);
         LinearLayout reminderItem = (LinearLayout) inflater.inflate(R.layout.edit_reminder_item,
                 null);
         parent.addView(reminderItem);
