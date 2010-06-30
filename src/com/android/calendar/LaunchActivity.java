@@ -16,15 +16,11 @@
 
 package com.android.calendar;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Calendar;
-import android.provider.Settings;
 
 public class LaunchActivity extends Activity {
     private static final String TAG = "LaunchActivity";
@@ -39,47 +35,7 @@ public class LaunchActivity extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         mExtras = getIntent().getExtras();
-
-        // Our UI is not something intended for the user to see.  We just
-        // stick around until we can figure out what to do next based on
-        // the current state of the system.
-        // Removed because it causes draw problems when entering in landscape orientation
-        // TODO: Figure out draw problem. Original reason for removal due to b/2008662
-        // setVisible(false);
-
-        // Only try looking for an account if this is the first launch.
-        if (icicle == null) {
-            Account[] accounts = AccountManager.get(this).getAccounts();
-            if(accounts.length > 0) {
-                // If the only account is an account that can't use Calendar we let the user into
-                // Calendar, but they can't create any events until they add an account with a
-                // Calendar.
-                launchCalendarView();
-            } else {
-                // If we failed to find a valid Calendar, bounce the user to the account settings
-                // screen. Using the Calendar authority has the added benefit of only showing
-                // account types that use Calendar when you enter the add account screen from here.
-                final Intent intent = new Intent(Settings.ACTION_ADD_ACCOUNT);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                intent.putExtra(Settings.EXTRA_AUTHORITIES, new String[] {
-                    Calendar.AUTHORITY
-                });
-                startActivityForResult(intent, 0);
-            }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Account[] accounts = AccountManager.get(this).getAccounts();
-        if(accounts.length > 0) {
-            // If the only account is an account that can't use Calendar we let the user into
-            // Calendar, but they can't create any events until they add an account with a
-            // Calendar.
-            launchCalendarView();
-        } else {
-            finish();
-        }
+        launchCalendarView();
     }
 
     private void launchCalendarView() {
