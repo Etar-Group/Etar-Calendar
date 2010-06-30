@@ -102,12 +102,11 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private Drawable mBoxSelected;
     private Drawable mBoxPressed;
     private Drawable mBoxLongPressed;
-    private Drawable mEventDot;
     private int mCellWidth;
 
     private Resources mResources;
-    private MonthActivity mParentActivity;
-    private Navigator mNavigator;
+    private Context mContext;
+    private CalendarController mNavigator;
     private final EventGeometry mEventGeometry;
 
     // Pre-allocate and reuse
@@ -151,9 +150,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private static final int SELECTION_SELECTED = 2;
     private static final int SELECTION_LONGPRESS = 3;
 
-    // Modulo used to pack (width,height) into a unique integer
-    private static final int MODULO_SHIFT = 16;
-
     private int mSelectionMode = SELECTION_HIDDEN;
 
     /**
@@ -181,7 +177,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private int mBusybitsColor;
     private int mMonthBgColor;
 
-    public MonthView(MonthActivity activity, Navigator navigator) {
+    public MonthView(Context activity, CalendarController navigator, EventLoader eventLoader) {
         super(activity);
         if (mScale == 0) {
             mScale = getContext().getResources().getDisplayMetrics().density;
@@ -206,7 +202,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 }
             }
 
-        mEventLoader = activity.mEventLoader;
+        mEventLoader = eventLoader;
         mNavigator = navigator;
         mEventGeometry = new EventGeometry();
         mEventGeometry.setMinEventHeight(MIN_EVENT_HEIGHT);
@@ -214,11 +210,11 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         init(activity);
     }
 
-    private void init(MonthActivity activity) {
+    private void init(Context activity) {
         setFocusable(true);
         setClickable(true);
         setOnCreateContextMenuListener(this);
-        mParentActivity = activity;
+        mContext = activity;
         mViewCalendar = new Time();
         long now = System.currentTimeMillis();
         mViewCalendar.set(now);
@@ -229,7 +225,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         mViewCalendar.set(now);
 
         mCursor = new DayOfMonthCursor(mViewCalendar.year,  mViewCalendar.month,
-                mViewCalendar.monthDay, mParentActivity.getStartDay());
+                mViewCalendar.monthDay, Calendar.getInstance().getFirstDayOfWeek());
         mToday = new Time();
         mToday.set(System.currentTimeMillis());
 
@@ -238,7 +234,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         mBoxPressed = mResources.getDrawable(R.drawable.month_view_pressed);
         mBoxLongPressed = mResources.getDrawable(R.drawable.month_view_longpress);
 
-        mEventDot = mResources.getDrawable(R.drawable.event_dot);
         mTodayBackground = mResources.getDrawable(R.drawable.month_view_today_background);
 
         // Cache color lookups
@@ -294,7 +289,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                     time.month -= 1;
                 }
                 time.normalize(true);
-                mParentActivity.goTo(time, true);
+                mNavigator.goTo(time, true);
 
                 return true;
             }
@@ -388,7 +383,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         final int flags = DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE
                 | DateUtils.FORMAT_ABBREV_MONTH;
 
-        final String title = DateUtils.formatDateTime(mParentActivity, startMillis, flags);
+        final String title = DateUtils.formatDateTime(mContext, startMillis, flags);
         menu.setHeaderTitle(title);
 
         item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.show_day_view);
@@ -412,12 +407,12 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             switch (item.getItemId()) {
                 case MenuHelper.MENU_DAY: {
                     long startMillis = getSelectedTimeInMillis();
-                    Utils.startActivity(mParentActivity, DayActivity.class.getName(), startMillis);
+                    Utils.startActivity(mContext, DayActivity.class.getName(), startMillis);
                     break;
                 }
                 case MenuHelper.MENU_AGENDA: {
                     long startMillis = getSelectedTimeInMillis();
-                    Utils.startActivity(mParentActivity, AgendaActivity.class.getName(),
+                    Utils.startActivity(mContext, AgendaActivity.class.getName(),
                             startMillis);
                     break;
                 }
@@ -425,10 +420,10 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mParentActivity, EditEventActivity.class.getName());
+                    intent.setClassName(mContext, EditEventActivity.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                     intent.putExtra(EVENT_END_TIME, endMillis);
-                    mParentActivity.startActivity(intent);
+                    mContext.startActivity(intent);
                     break;
                 }
                 default: {
@@ -451,7 +446,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         int startDay = Time.getJulianDay(millis, monthStart.gmtoff);
 
         // Load the days with events in the background
-        mParentActivity.startProgressSpinner();
+//FRAG_TODO        mParentActivity.startProgressSpinner();
         final long startMillis;
         if (PROFILE_LOAD_TIME) {
             startMillis = SystemClock.uptimeMillis();
@@ -465,7 +460,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             public void run() {
                 mEvents = events;
                 mRedrawScreen = true;
-                mParentActivity.stopProgressSpinner();
+//FRAG_TODO                mParentActivity.stopProgressSpinner();
                 invalidate();
                 int numEvents = events.size();
 
@@ -1056,17 +1051,17 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 }
             } else {
                 flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
-                if (DateFormat.is24HourFormat(mParentActivity)) {
+                if (DateFormat.is24HourFormat(mContext)) {
                     flags |= DateUtils.FORMAT_24HOUR;
                 }
             }
 
             String timeRange;
             if (showEndTime) {
-                timeRange = DateUtils.formatDateRange(mParentActivity,
+                timeRange = DateUtils.formatDateRange(mContext,
                         event.startMillis, event.endMillis, flags);
             } else {
-                timeRange = DateUtils.formatDateRange(mParentActivity,
+                timeRange = DateUtils.formatDateRange(mContext,
                         event.startMillis, event.startMillis, flags);
             }
 

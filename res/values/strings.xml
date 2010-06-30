@@ -17,6 +17,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- This is the label underneath the icon for Calendar -->
     <string name="app_label">Calendar</string>
+    <string name="app_aio_label">Calendar AllInOne</string>
 
     <!-- Shared Labels. These labels are shared among the activities. -->
     <skip />

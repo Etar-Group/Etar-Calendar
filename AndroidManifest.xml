@@ -59,6 +59,22 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="AllInOneActivity"
+            android:label="@string/app_aio_label"
+            android:theme="@style/CalendarTheme">
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.DEFAULT" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+                <category
+                    android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+
         <activity android:name="MonthActivity" android:label="@string/month_view"
             android:theme="@style/CalendarTheme" />
         <activity android:name="WeekActivity" android:label="@string/week_view"

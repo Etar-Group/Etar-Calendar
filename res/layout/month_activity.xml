@@ -20,9 +20,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <RelativeLayout
+    <RelativeLayout android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/windowTitleSize"
+        android:visibility="gone"
         style="?android:attr/windowTitleBackgroundStyle">
 
         <TextView android:id="@+id/title"
@@ -76,8 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1.0"
-        android:foregroundGravity="fill_horizontal|top"
-        android:foreground="@*android:drawable/title_bar_shadow">
+        android:foregroundGravity="fill_horizontal|top" >
         <ViewSwitcher android:id="@+id/switcher"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
