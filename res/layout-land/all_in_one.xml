@@ -30,7 +30,7 @@
         android:layout_width="300dip" />
 
     <fragment
-        android:name="com.android.calendar.MonthFragment"
+        android:name="com.android.calendar.SelectCalendars.SelectCalendarsFragment"
         android:id="@+id/calendar_list"
 
         android:layout_below="@id/mini_month"
