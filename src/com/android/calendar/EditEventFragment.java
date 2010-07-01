@@ -420,7 +420,7 @@ public class EditEventFragment extends Fragment {
                             which = DeleteEventHelper.DELETE_ALL;
                             break;
                     }
-                    DeleteEventHelper deleteHelper = new DeleteEventHelper(mContext,
+                    DeleteEventHelper deleteHelper = new DeleteEventHelper(mContext, mContext,
                             true /* exitWhenDone */);
                     // TODO update delete helper to use the model instead of the cursor
                     deleteHelper.delete(begin, end, mModel, which);

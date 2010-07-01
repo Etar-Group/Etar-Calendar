@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
@@ -52,6 +53,7 @@ import android.widget.Button;
  */
 public class DeleteEventHelper {
     private final Activity mParent;
+    private Context mContext;
 
     private long mStartMillis;
     private long mEndMillis;
@@ -77,10 +79,15 @@ public class DeleteEventHelper {
 
     private AsyncQueryService mService;
 
-    public DeleteEventHelper(Activity parent, boolean exitWhenDone) {
-        mParent = parent;
+    public DeleteEventHelper(Context context, Activity parentActivity, boolean exitWhenDone) {
+        if (exitWhenDone && parentActivity == null) {
+            throw new IllegalArgumentException("parentActivity is required to exit when done");
+        }
+
+        mContext = context;
+        mParent = parentActivity;
         // TODO move the creation of this service out into the activity.
-        mService = new AsyncQueryService(parent) {
+        mService = new AsyncQueryService(mContext) {
             @Override
             protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
                 if (cursor == null) {
@@ -229,7 +236,7 @@ public class DeleteEventHelper {
         String rRule = model.mRrule;
         String originalEvent = model.mOriginalEvent;
         if (rRule == null) {
-            AlertDialog dialog = new AlertDialog.Builder(mParent)
+            AlertDialog dialog = new AlertDialog.Builder(mContext)
             .setTitle(R.string.delete_title)
             .setMessage(R.string.delete_this_event_title)
             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -239,12 +246,12 @@ public class DeleteEventHelper {
             if (originalEvent == null) {
                 // This is a normal event. Pop up a confirmation dialog.
                 dialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                        mParent.getText(android.R.string.ok),
+                        mContext.getText(android.R.string.ok),
                         mDeleteNormalDialogListener);
             } else {
                 // This is an exception event. Pop up a confirmation dialog.
                 dialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                        mParent.getText(android.R.string.ok),
+                        mContext.getText(android.R.string.ok),
                         mDeleteExceptionDialogListener);
             }
             dialog.show();
@@ -259,7 +266,7 @@ public class DeleteEventHelper {
                     mWhichDelete--;
                 }
             }
-            AlertDialog dialog = new AlertDialog.Builder(mParent)
+            AlertDialog dialog = new AlertDialog.Builder(mContext)
             .setTitle(R.string.delete_title)
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setSingleChoiceItems(labelsArrayId, which, mDeleteListListener)

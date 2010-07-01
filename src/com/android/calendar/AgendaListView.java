@@ -53,7 +53,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         mWindowAdapter = new AgendaWindowAdapter(agendaActivity, this);
         setAdapter(mWindowAdapter);
         mDeleteEventHelper =
-            new DeleteEventHelper(agendaActivity, false /* don't exit when done */);
+            new DeleteEventHelper(agendaActivity, null, false /* don't exit when done */);
     }
 
     @Override protected void onDetachedFromWindow() {
