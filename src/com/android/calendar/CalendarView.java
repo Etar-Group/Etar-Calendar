@@ -48,6 +48,7 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -58,9 +59,12 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -76,6 +80,7 @@ public class CalendarView extends View
 
     private static float mScale = 0; // Used for supporting different screen densities
     private static final long INVALID_EVENT_ID = -1; //This is used for remembering a null event
+    private static final long ANIMATION_DURATION = 400;
 
     private boolean mOnFlingCalled;
     /**
@@ -88,8 +93,7 @@ public class CalendarView extends View
      */
     private long mLastPopupEventID;
 
-    protected CalendarApplication mCalendarApp;
-    protected CalendarActivity mParentActivity;
+    protected Context mContext;
 
     private static final String[] CALENDARS_PROJECTION = new String[] {
         Calendars._ID,          // 0
@@ -162,9 +166,6 @@ public class CalendarView extends View
     private int mSelectionDay;        // Julian day
     private int mSelectionHour;
 
-    /* package private so that CalendarActivity can read it when creating new
-     * events
-     */
     boolean mSelectionAllDay;
 
     private int mCellWidth;
@@ -180,7 +181,7 @@ public class CalendarView extends View
     private Paint mSelectionPaint = new Paint();
     private Path mPath = new Path();
 
-    protected boolean mDrawTextInEventRect;
+    protected boolean mDrawTextInEventRect = true;
     private int mStartDay;
 
     private PopupWindow mPopup;
@@ -339,9 +340,13 @@ public class CalendarView extends View
 
     private String mDateRange;
     private TextView mTitleTextView;
+    private CalendarController mController;
+    private ViewSwitcher mViewSwitcher;
+    private GestureDetector mGestureDetector;
 
-    public CalendarView(CalendarActivity activity) {
-        super(activity);
+    public CalendarView(Context context, CalendarController controller, ViewSwitcher viewSwitcher,
+            EventLoader eventLoader) {
+        super(context);
         if (mScale == 0) {
             mScale = getContext().getResources().getDisplayMetrics().density;
             if (mScale != 1) {
@@ -370,17 +375,19 @@ public class CalendarView extends View
             }
         }
 
-        mResources = activity.getResources();
-        mEventLoader = activity.mEventLoader;
+        mResources = context.getResources();
+        mEventLoader = eventLoader;
         mEventGeometry = new EventGeometry();
         mEventGeometry.setMinEventHeight(MIN_EVENT_HEIGHT);
         mEventGeometry.setHourGap(HOUR_GAP);
-        mParentActivity = activity;
-        mCalendarApp = (CalendarApplication) mParentActivity.getApplication();
-        mDeleteEventHelper = new DeleteEventHelper(activity, false /* don't exit when done */);
+        mContext = context;
+        mDeleteEventHelper = new DeleteEventHelper(context, null, false /* don't exit when done */);
         mLastPopupEventID = INVALID_EVENT_ID;
+        mController = controller;
+        mViewSwitcher = viewSwitcher;
+        mGestureDetector = new GestureDetector(context, new CalendarGestureListener());
 
-        init(activity);
+        init(context);
     }
 
     private void init(Context context) {
@@ -510,7 +517,10 @@ public class CalendarView extends View
         mHasAllDayEvent = new boolean[mNumDays];
 
         mNumHours = context.getResources().getInteger(R.integer.number_of_hours);
-        mTitleTextView = (TextView) mParentActivity.findViewById(R.id.title);
+
+// FRAG_TODO. Take this out.
+//        mTitleTextView = (TextView) findViewById(R.id.title);
+        mTitleTextView = new TextView(mContext);
     }
 
     /**
@@ -525,7 +535,7 @@ public class CalendarView extends View
     }
 
     public void updateIs24HourFormat() {
-        mIs24HourFormat = DateFormat.is24HourFormat(mParentActivity);
+        mIs24HourFormat = DateFormat.is24HourFormat(mContext);
         mHourStrs = mIs24HourFormat ? CalendarData.s24Hours : CalendarData.s12HoursNoAmPm;
     }
 
@@ -624,7 +634,7 @@ public class CalendarView extends View
         mFirstDate = mBaseDate.monthDay;
 
         int flags = DateUtils.FORMAT_SHOW_YEAR;
-        if (DateFormat.is24HourFormat(mParentActivity)) {
+        if (DateFormat.is24HourFormat(mContext)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
         if (mNumDays > 1) {
@@ -637,7 +647,7 @@ public class CalendarView extends View
                     | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH;
         }
 
-        mDateRange = DateUtils.formatDateRange(mParentActivity, start, end, flags);
+        mDateRange = DateUtils.formatDateRange(mContext, start, end, flags);
         // Do not set the title here because this is called when executing
         // initNextView() to prepare the Day view when sliding the finger
         // horizontally but we don't always want to change the title.  And
@@ -852,20 +862,20 @@ public class CalendarView extends View
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mParentActivity, EditEventActivity.class.getName());
+                    intent.setClassName(mContext, EditEventActivity.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                     intent.putExtra(EVENT_END_TIME, endMillis);
-                    mParentActivity.startActivity(intent);
+                    mContext.startActivity(intent);
                 } else {
                     // Switch to the EventInfo view
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI,
                             selectedEvent.id);
                     intent.setData(eventUri);
-                    intent.setClassName(mParentActivity, EventInfoActivity.class.getName());
+                    intent.setClassName(mContext, EventInfoActivity.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, selectedEvent.startMillis);
                     intent.putExtra(EVENT_END_TIME, selectedEvent.endMillis);
-                    mParentActivity.startActivity(intent);
+                    mContext.startActivity(intent);
                 }
             } else {
                 // This was a touch selection.  If the touch selected a single
@@ -877,14 +887,14 @@ public class CalendarView extends View
                     Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI,
                             selectedEvent.id);
                     intent.setData(eventUri);
-                    intent.setClassName(mParentActivity, EventInfoActivity.class.getName());
+                    intent.setClassName(mContext, EventInfoActivity.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, selectedEvent.startMillis);
                     intent.putExtra(EVENT_END_TIME, selectedEvent.endMillis);
-                    mParentActivity.startActivity(intent);
+                    mContext.startActivity(intent);
                 } else {
                     // Switch to the Day/Agenda view.
                     long millis = getSelectedTimeInMillis();
-                    Utils.startActivity(mParentActivity, mDetailedView, millis);
+                    Utils.startActivity(mContext, mDetailedView, millis);
                 }
             }
         } else {
@@ -896,19 +906,19 @@ public class CalendarView extends View
                 long startMillis = getSelectedTimeInMillis();
                 long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setClassName(mParentActivity, EditEventActivity.class.getName());
+                intent.setClassName(mContext, EditEventActivity.class.getName());
                 intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                 intent.putExtra(EVENT_END_TIME, endMillis);
-                mParentActivity.startActivity(intent);
+                mContext.startActivity(intent);
             } else {
                 // Switch to the EventInfo view
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, selectedEvent.id);
                 intent.setData(eventUri);
-                intent.setClassName(mParentActivity, EventInfoActivity.class.getName());
+                intent.setClassName(mContext, EventInfoActivity.class.getName());
                 intent.putExtra(EVENT_BEGIN_TIME, selectedEvent.startMillis);
                 intent.putExtra(EVENT_END_TIME, selectedEvent.endMillis);
-                mParentActivity.startActivity(intent);
+                mContext.startActivity(intent);
             }
         }
     }
@@ -946,13 +956,13 @@ public class CalendarView extends View
                     performLongClick();
                 }
                 break;
-            case KeyEvent.KEYCODE_BACK:
-                if (event.isTracking() && !event.isCanceled()) {
-                    mPopup.dismiss();
-                    mParentActivity.finish();
-                    return true;
-                }
-                break;
+//            case KeyEvent.KEYCODE_BACK:
+//                if (event.isTracking() && !event.isCanceled()) {
+//                    mPopup.dismiss();
+//                    mContext.finish();
+//                    return true;
+//                }
+//                break;
         }
         return super.onKeyUp(keyCode, event);
     }
@@ -1070,7 +1080,7 @@ public class CalendarView extends View
 
         if ((selectionDay < mFirstJulianDay) || (selectionDay > mLastJulianDay)) {
             boolean forward;
-            CalendarView view = mParentActivity.getNextView();
+            CalendarView view = (CalendarView) mViewSwitcher.getNextView();
             Time date = view.mBaseDate;
             date.set(mBaseDate);
             if (selectionDay < mFirstJulianDay) {
@@ -1085,7 +1095,7 @@ public class CalendarView extends View
 
             initView(view);
             mTitleTextView.setText(view.mDateRange);
-            mParentActivity.switchViews(forward, 0, 0);
+            switchViews(forward, 0, 0);
             return true;
         }
         mSelectionDay = selectionDay;
@@ -1099,6 +1109,56 @@ public class CalendarView extends View
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    private View switchViews(boolean forward, float xOffSet, float width) {
+        float progress = Math.abs(xOffSet) / width;
+        if (progress > 1.0f) {
+            progress = 1.0f;
+        }
+
+        float inFromXValue, inToXValue;
+        float outFromXValue, outToXValue;
+        if (forward) {
+            inFromXValue = 1.0f - progress;
+            inToXValue = 0.0f;
+            outFromXValue = -progress;
+            outToXValue = -1.0f;
+        } else {
+            inFromXValue = progress - 1.0f;
+            inToXValue = 0.0f;
+            outFromXValue = progress;
+            outToXValue = 1.0f;
+        }
+
+        // We have to allocate these animation objects each time we switch views
+        // because that is the only way to set the animation parameters.
+        TranslateAnimation inAnimation = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, inFromXValue,
+                Animation.RELATIVE_TO_SELF, inToXValue,
+                Animation.ABSOLUTE, 0.0f,
+                Animation.ABSOLUTE, 0.0f);
+
+        TranslateAnimation outAnimation = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, outFromXValue,
+                Animation.RELATIVE_TO_SELF, outToXValue,
+                Animation.ABSOLUTE, 0.0f,
+                Animation.ABSOLUTE, 0.0f);
+
+        // Reduce the animation duration based on how far we have already swiped.
+        long duration = (long) (ANIMATION_DURATION * (1.0f - progress));
+        inAnimation.setDuration(duration);
+        outAnimation.setDuration(duration);
+        mViewSwitcher.setInAnimation(inAnimation);
+        mViewSwitcher.setOutAnimation(outAnimation);
+
+        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+        view.cleanup();
+        mViewSwitcher.showNext();
+        view = (CalendarView) mViewSwitcher.getCurrentView();
+        view.requestFocus();
+        view.reloadEvents();
+        return view;
     }
 
     // This is called after scrolling stops to move the selected hour
@@ -1205,9 +1265,9 @@ public class CalendarView extends View
     void reloadEvents() {
         // Protect against this being called before this view has been
         // initialized.
-        if (mParentActivity == null) {
-            return;
-        }
+//        if (mContext == null) {
+//            return;
+//        }
 
         mSelectedEvent = null;
         mPrevSelectedEvent = null;
@@ -1228,7 +1288,7 @@ public class CalendarView extends View
         mLastReloadMillis = millis;
 
         // load events in the background
-        mParentActivity.startProgressSpinner();
+//        mContext.startProgressSpinner();
         final ArrayList<Event> events = new ArrayList<Event>();
         mEventLoader.loadEventsInBackground(mNumDays, events, millis, new Runnable() {
             public void run() {
@@ -1237,7 +1297,7 @@ public class CalendarView extends View
                 mRedrawScreen = true;
                 mComputeSelectedEvents = true;
                 recalc();
-                mParentActivity.stopProgressSpinner();
+//                mContext.stopProgressSpinner();
                 invalidate();
             }
         }, mCancelCallback);
@@ -1262,7 +1322,7 @@ public class CalendarView extends View
             } else {
                 canvas.translate(-(mViewWidth + mViewStartX), 0);
             }
-            CalendarView nextView = mParentActivity.getNextView();
+            CalendarView nextView = (CalendarView) mViewSwitcher.getNextView();
 
             // Prevent infinite recursive calls to onDraw().
             nextView.mTouchMode = TOUCH_MODE_INITIAL_STATE;
@@ -2019,10 +2079,10 @@ public class CalendarView extends View
             if (false) {
                 int flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL
                         | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
-                if (DateFormat.is24HourFormat(mParentActivity)) {
+                if (DateFormat.is24HourFormat(mContext)) {
                     flags |= DateUtils.FORMAT_24HOUR;
                 }
-                String timeRange = DateUtils.formatDateRange(mParentActivity,
+                String timeRange = DateUtils.formatDateRange(mContext,
                         ev.startMillis, ev.endMillis, flags);
                 Log.i("Cal", "left: " + left + " right: " + right + " top: " + top
                         + " bottom: " + bottom + " ev: " + timeRange + " " + ev.title);
@@ -2409,10 +2469,10 @@ public class CalendarView extends View
                     | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_ALL
                     | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
         }
-        if (DateFormat.is24HourFormat(mParentActivity)) {
+        if (DateFormat.is24HourFormat(mContext)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        String timeRange = DateUtils.formatDateRange(mParentActivity,
+        String timeRange = DateUtils.formatDateRange(mContext,
                 event.startMillis, event.endMillis, flags);
         TextView timeView = (TextView) mPopupView.findViewById(R.id.time);
         timeView.setText(timeRange);
@@ -2530,12 +2590,12 @@ public class CalendarView extends View
             // if we haven't already changed the title.
             if (distanceX >= HORIZONTAL_SCROLL_THRESHOLD) {
                 if (mPreviousDistanceX < HORIZONTAL_SCROLL_THRESHOLD) {
-                    CalendarView view = mParentActivity.getNextView();
+                    CalendarView view = (CalendarView) mViewSwitcher.getNextView();
                     mTitleTextView.setText(view.mDateRange);
                 }
             } else if (distanceX <= -HORIZONTAL_SCROLL_THRESHOLD) {
                 if (mPreviousDistanceX > -HORIZONTAL_SCROLL_THRESHOLD) {
-                    CalendarView view = mParentActivity.getNextView();
+                    CalendarView view = (CalendarView) mViewSwitcher.getNextView();
                     mTitleTextView.setText(view.mDateRange);
                 }
             } else {
@@ -2577,9 +2637,9 @@ public class CalendarView extends View
 
         if ((distanceX >= HORIZONTAL_SCROLL_THRESHOLD) && (distanceX > distanceY)) {
             boolean switchForward = initNextView(deltaX);
-            CalendarView view = mParentActivity.getNextView();
+            CalendarView view = (CalendarView) mViewSwitcher.getNextView();
             mTitleTextView.setText(view.mDateRange);
-            mParentActivity.switchViews(switchForward, mViewStartX, mViewWidth);
+            switchViews(switchForward, mViewStartX, mViewWidth);
             mViewStartX = 0;
             return;
         }
@@ -2591,7 +2651,7 @@ public class CalendarView extends View
 
     private boolean initNextView(int deltaX) {
         // Change the view to the previous day or week
-        CalendarView view = mParentActivity.getNextView();
+        CalendarView view = (CalendarView) mViewSwitcher.getNextView();
         Time date = view.mBaseDate;
         date.set(mBaseDate);
         boolean switchForward;
@@ -2617,15 +2677,15 @@ public class CalendarView extends View
 
         switch (action) {
         case MotionEvent.ACTION_DOWN:
-            mParentActivity.mGestureDetector.onTouchEvent(ev);
+            mGestureDetector.onTouchEvent(ev);
             return true;
 
         case MotionEvent.ACTION_MOVE:
-            mParentActivity.mGestureDetector.onTouchEvent(ev);
+            mGestureDetector.onTouchEvent(ev);
             return true;
 
         case MotionEvent.ACTION_UP:
-            mParentActivity.mGestureDetector.onTouchEvent(ev);
+            mGestureDetector.onTouchEvent(ev);
             if (mOnFlingCalled) {
                 return true;
             }
@@ -2633,7 +2693,7 @@ public class CalendarView extends View
                 mTouchMode = TOUCH_MODE_INITIAL_STATE;
                 if (Math.abs(mViewStartX) > HORIZONTAL_SCROLL_THRESHOLD) {
                     // The user has gone beyond the threshold so switch views
-                    mParentActivity.switchViews(mViewStartX > 0, mViewStartX, mViewWidth);
+                    switchViews(mViewStartX > 0, mViewStartX, mViewWidth);
                     mViewStartX = 0;
                     return true;
                 } else {
@@ -2659,13 +2719,13 @@ public class CalendarView extends View
 
         // This case isn't expected to happen.
         case MotionEvent.ACTION_CANCEL:
-            mParentActivity.mGestureDetector.onTouchEvent(ev);
+            mGestureDetector.onTouchEvent(ev);
             mScrolling = false;
             resetSelectedHour();
             return true;
 
         default:
-            if (mParentActivity.mGestureDetector.onTouchEvent(ev)) {
+            if (mGestureDetector.onTouchEvent(ev)) {
                 return true;
             }
             return super.onTouchEvent(ev);
@@ -2688,7 +2748,7 @@ public class CalendarView extends View
         int flags = DateUtils.FORMAT_SHOW_TIME
                 | DateUtils.FORMAT_CAP_NOON_MIDNIGHT
                 | DateUtils.FORMAT_SHOW_WEEKDAY;
-        final String title = DateUtils.formatDateTime(mParentActivity, startMillis, flags);
+        final String title = DateUtils.formatDateTime(mContext, startMillis, flags);
         menu.setHeaderTitle(title);
 
         int numSelectedEvents = mSelectedEvents.size();
@@ -2702,7 +2762,7 @@ public class CalendarView extends View
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_info_details);
 
-                int accessLevel = getEventAccessLevel(mParentActivity, mSelectedEvent);
+                int accessLevel = getEventAccessLevel(mContext, mSelectedEvent);
                 if (accessLevel == ACCESS_LEVEL_EDIT) {
                     item = menu.add(0, MenuHelper.MENU_EVENT_EDIT, 0, R.string.event_edit);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
@@ -2738,7 +2798,7 @@ public class CalendarView extends View
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_info_details);
 
-                int accessLevel = getEventAccessLevel(mParentActivity, mSelectedEvent);
+                int accessLevel = getEventAccessLevel(mContext, mSelectedEvent);
                 if (accessLevel == ACCESS_LEVEL_EDIT) {
                     item = menu.add(0, MenuHelper.MENU_EVENT_EDIT, 0, R.string.event_edit);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
@@ -2797,10 +2857,10 @@ public class CalendarView extends View
                         Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, id);
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(eventUri);
-                        intent.setClassName(mParentActivity, EventInfoActivity.class.getName());
+                        intent.setClassName(mContext, EventInfoActivity.class.getName());
                         intent.putExtra(EVENT_BEGIN_TIME, mSelectedEvent.startMillis);
                         intent.putExtra(EVENT_END_TIME, mSelectedEvent.endMillis);
-                        mParentActivity.startActivity(intent);
+                        mContext.startActivity(intent);
                     }
                     break;
                 }
@@ -2810,32 +2870,32 @@ public class CalendarView extends View
                         Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, id);
                         Intent intent = new Intent(Intent.ACTION_EDIT);
                         intent.setData(eventUri);
-                        intent.setClassName(mParentActivity, EditEventActivity.class.getName());
+                        intent.setClassName(mContext, EditEventActivity.class.getName());
                         intent.putExtra(EVENT_BEGIN_TIME, mSelectedEvent.startMillis);
                         intent.putExtra(EVENT_END_TIME, mSelectedEvent.endMillis);
-                        mParentActivity.startActivity(intent);
+                        mContext.startActivity(intent);
                     }
                     break;
                 }
                 case MenuHelper.MENU_DAY: {
                     long startMillis = getSelectedTimeInMillis();
-                    Utils.startActivity(mParentActivity, DayActivity.class.getName(), startMillis);
+                    Utils.startActivity(mContext, DayActivity.class.getName(), startMillis);
                     break;
                 }
                 case MenuHelper.MENU_AGENDA: {
                     long startMillis = getSelectedTimeInMillis();
-                    Utils.startActivity(mParentActivity, AgendaActivity.class.getName(), startMillis);
+                    Utils.startActivity(mContext, AgendaActivity.class.getName(), startMillis);
                     break;
                 }
                 case MenuHelper.MENU_EVENT_CREATE: {
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mParentActivity, EditEventActivity.class.getName());
+                    intent.setClassName(mContext, EditEventActivity.class.getName());
                     intent.putExtra(EVENT_BEGIN_TIME, startMillis);
                     intent.putExtra(EVENT_END_TIME, endMillis);
                     intent.putExtra(EditEventHelper.EVENT_ALL_DAY, mSelectionAllDay);
-                    mParentActivity.startActivity(intent);
+                    mContext.startActivity(intent);
                     break;
                 }
                 case MenuHelper.MENU_EVENT_DELETE: {
@@ -2948,7 +3008,7 @@ public class CalendarView extends View
 //            for (Event ev : mSelectedEvents) {
 //                int flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL
 //                        | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
-//                String timeRange = formatDateRange(mParentActivity,
+//                String timeRange = formatDateRange(mContext,
 //                        ev.startMillis, ev.endMillis, flags);
 //
 //                Log.i("Cal", "  " + timeRange + " " + ev.title);
@@ -3218,6 +3278,37 @@ public class CalendarView extends View
             mTodayJulianDay = Time.getJulianDay(currentTime, mCurrentTime.gmtoff);
             mRedrawScreen = true;
             invalidate();
+        }
+    }
+
+    class CalendarGestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onSingleTapUp(MotionEvent ev) {
+            CalendarView.this.doSingleTapUp(ev);
+            return true;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent ev) {
+            CalendarView.this.doLongPress(ev);
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            CalendarView.this.doScroll(e1, e2, distanceX, distanceY);
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            CalendarView.this.doFling(e1, e2, velocityX, velocityY);
+            return true;
+        }
+
+        @Override
+        public boolean onDown(MotionEvent ev) {
+            CalendarView.this.doDown(ev);
+            return true;
         }
     }
 }

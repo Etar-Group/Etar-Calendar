@@ -16,12 +16,16 @@
 
 package com.android.calendar;
 
+import android.content.Context;
+import android.widget.ViewSwitcher;
+
 
 public class WeekView extends CalendarView {
     private static final int CELL_MARGIN = 0;
 
-    public WeekView(CalendarActivity activity) {
-        super(activity);
+    public WeekView(Context activity, CalendarController controller,
+            ViewSwitcher viewSwitcher, EventLoader eventLoader) {
+        super(activity, controller, viewSwitcher, eventLoader);
         init();
     }
 

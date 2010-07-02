@@ -42,7 +42,7 @@
         android:layout_width="0px" />
 
     <fragment
-        android:name="com.android.calendar.MonthFragment"
+        android:name="com.android.calendar.DayFragment"
         android:id="@+id/month"
 
         android:layout_below="@id/mini_month"

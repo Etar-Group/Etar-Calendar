@@ -42,7 +42,7 @@
         android:layout_width="match_parent" />
 
     <fragment
-        android:name="com.android.calendar.MonthFragment"
+        android:name="com.android.calendar.DayFragment"
         android:id="@+id/month"
 
         android:layout_toRightOf="@id/mini_month"
