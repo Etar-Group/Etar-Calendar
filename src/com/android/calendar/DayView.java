@@ -16,12 +16,16 @@
 
 package com.android.calendar;
 
+import android.content.Context;
+import android.widget.ViewSwitcher;
+
 
 public class DayView extends CalendarView {
     private static final int CELL_MARGIN = 10;
 
-    public DayView(CalendarActivity activity) {
-        super(activity);
+    public DayView(Context activity, CalendarController controller,
+            ViewSwitcher viewSwitcher, EventLoader eventLoader) {
+        super(activity, controller, viewSwitcher, eventLoader);
         init();
     }
 

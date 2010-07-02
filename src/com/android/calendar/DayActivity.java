@@ -16,48 +16,15 @@
 
 package com.android.calendar;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ProgressBar;
-import android.widget.ViewSwitcher;
 
-public class DayActivity extends CalendarActivity implements ViewSwitcher.ViewFactory {
-    /**
-     * The view id used for all the views we create. It's OK to have all child
-     * views have the same ID. This ID is used to pick which view receives
-     * focus when a view hierarchy is saved / restore
-     */
-    private static final int VIEW_ID = 1;
-
+public class DayActivity extends Activity {
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.day_activity);
-
-        mSelectedDay = Utils.timeFromIntent(getIntent());
-        mViewSwitcher = (ViewSwitcher) findViewById(R.id.switcher);
-        mViewSwitcher.setFactory(this);
-        mViewSwitcher.getCurrentView().requestFocus();
-        mProgressBar = (ProgressBar) findViewById(R.id.progress_circular);
-    }
-
-    public View makeView() {
-        DayView view = new DayView(this);
-        view.setId(VIEW_ID);
-        view.setLayoutParams(new ViewSwitcher.LayoutParams(
-                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        view.setSelectedDay(mSelectedDay);
-        return view;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
-        mSelectedDay = view.getSelectedDay();
-
-        // Record Day View as the (new) default detailed view.
-        Utils.setDefaultView(this, CalendarApplication.DAY_VIEW_ID);
+        Fragment f = new DayFragment();
+        openFragmentTransaction().add(android.R.id.content, f).commit();
     }
 }
