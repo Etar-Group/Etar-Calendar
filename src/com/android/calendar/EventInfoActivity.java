@@ -424,7 +424,7 @@ public class EventInfoActivity extends AbstractCalendarActivity implements View.
         mReminderAdder = (LinearLayout) findViewById(R.id.reminder_adder);
         updateRemindersVisibility();
 
-        mDeleteEventHelper = new DeleteEventHelper(this, true /* exit when done */);
+        mDeleteEventHelper = new DeleteEventHelper(this, this, true /* exit when done */);
         mEditResponseHelper = new EditResponseHelper(this);
     }
 
