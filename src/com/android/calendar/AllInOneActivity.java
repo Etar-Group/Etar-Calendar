@@ -16,13 +16,25 @@
 
 package com.android.calendar;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
 
 public class AllInOneActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_in_one);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setStandardNavigationMode(getText(R.string.app_label));
+        getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
+        return true;
     }
 }

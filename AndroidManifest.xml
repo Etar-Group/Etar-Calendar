@@ -62,7 +62,7 @@
         <activity
             android:name="AllInOneActivity"
             android:label="@string/app_aio_label"
-            android:theme="@style/CalendarTheme">
+            android:theme="@style/CalendarTheme.WithActionBar">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN" />
