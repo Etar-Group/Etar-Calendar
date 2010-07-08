@@ -48,8 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1.0"
-        android:foregroundGravity="fill_horizontal|top"
-        android:foreground="@*android:drawable/title_bar_shadow">
+        android:foregroundGravity="fill_horizontal|top">
         <ViewSwitcher android:id="@+id/switcher"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

@@ -19,6 +19,9 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
+
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -77,6 +80,7 @@ import java.util.regex.Pattern;
   */
 public class CalendarView extends View
         implements View.OnCreateContextMenuListener, View.OnClickListener {
+    private static String TAG = "CalendarView";
 
     private static float mScale = 0; // Used for supporting different screen densities
     private static final long INVALID_EVENT_ID = -1; //This is used for remembering a null event
@@ -344,8 +348,8 @@ public class CalendarView extends View
     private ViewSwitcher mViewSwitcher;
     private GestureDetector mGestureDetector;
 
-    public CalendarView(Context context, CalendarController controller, ViewSwitcher viewSwitcher,
-            EventLoader eventLoader) {
+    public CalendarView(Context context, CalendarController controller,
+            ViewSwitcher viewSwitcher, EventLoader eventLoader) {
         super(context);
         if (mScale == 0) {
             mScale = getContext().getResources().getDisplayMetrics().density;
@@ -608,6 +612,30 @@ public class CalendarView extends View
         // on the current setting of DST.
         time.normalize(true /* ignore isDst */);
         return time;
+    }
+
+    /**
+     * return a negative number if a is less than b, a positive number if a is
+     * greater than b, and 0 if they are equal.
+     */
+    public int compareToShownTime(Time time) {
+        // Compare beginning of range
+        int diff = Time.compare(time, mBaseDate);
+        if (diff <= 0) {
+            return diff;
+        }
+
+        // Compare end of range
+        mBaseDate.monthDay += mNumDays;
+        diff = Time.compare(time, mBaseDate);
+        mBaseDate.monthDay -= mNumDays;
+
+        if (diff >= 0) {
+            return 1;
+        }
+
+        // In visible range
+        return 0;
     }
 
     private void recalc() {
@@ -891,10 +919,6 @@ public class CalendarView extends View
                     intent.putExtra(EVENT_BEGIN_TIME, selectedEvent.startMillis);
                     intent.putExtra(EVENT_END_TIME, selectedEvent.endMillis);
                     mContext.startActivity(intent);
-                } else {
-                    // Switch to the Day/Agenda view.
-                    long millis = getSelectedTimeInMillis();
-                    Utils.startActivity(mContext, mDetailedView, millis);
                 }
             }
         } else {
@@ -1094,8 +1118,13 @@ public class CalendarView extends View
             view.mSelectionDay = selectionDay;
 
             initView(view);
+
+            Time end = new Time(date);
+            end.monthDay += mNumDays - 1;
+            Log.d(TAG, "onKeyDown");
+            mController.sendEvent(this, EventType.GO_TO, date, end, -1, -1);
+
             mTitleTextView.setText(view.mDateRange);
-            switchViews(forward, 0, 0);
             return true;
         }
         mSelectionDay = selectionDay;
@@ -2524,8 +2553,16 @@ public class CalendarView extends View
             launchNewView = true;
         }
 
-        if (launchNewView) {
-            switchViews(false /* not the trackball */);
+        if (!launchNewView) {
+            Time startTime = new Time();
+            startTime.set(getSelectedTimeInMillis());
+
+            Time endTime = new Time(startTime);
+            endTime.hour++;
+
+//FRAG_TODO convert mDetailedView to viewType
+            mController.sendEvent(this, EventType.GO_TO, startTime, endTime, -1,
+                    ViewType.DAY);
         }
     }
 
@@ -2639,7 +2676,12 @@ public class CalendarView extends View
             boolean switchForward = initNextView(deltaX);
             CalendarView view = (CalendarView) mViewSwitcher.getNextView();
             mTitleTextView.setText(view.mDateRange);
-            switchViews(switchForward, mViewStartX, mViewWidth);
+
+            Time end = new Time(view.mBaseDate);
+            end.monthDay += mNumDays - 1;
+            Log.d(TAG, "doFling");
+            mController.sendEvent(this, EventType.SELECT, view.mBaseDate, end, -1, -1);
+
             mViewStartX = 0;
             return;
         }

@@ -19,6 +19,10 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -106,7 +110,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
     private Resources mResources;
     private Context mContext;
-    private CalendarController mNavigator;
+    private CalendarController mController;
     private final EventGeometry mEventGeometry;
 
     // Pre-allocate and reuse
@@ -177,7 +181,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private int mBusybitsColor;
     private int mMonthBgColor;
 
-    public MonthView(Context activity, CalendarController navigator, EventLoader eventLoader) {
+    public MonthView(Context activity, CalendarController controller, EventLoader eventLoader) {
         super(activity);
         if (mScale == 0) {
             mScale = getContext().getResources().getDisplayMetrics().density;
@@ -203,7 +207,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             }
 
         mEventLoader = eventLoader;
-        mNavigator = navigator;
+        mController = controller;
         mEventGeometry = new EventGeometry();
         mEventGeometry.setMinEventHeight(MIN_EVENT_HEIGHT);
         mEventGeometry.setHourGap(HOUR_GAP);
@@ -289,7 +293,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                     time.month -= 1;
                 }
                 time.normalize(true);
-                mNavigator.goTo(time, true);
+
+                mController.sendEvent(this, EventType.SELECT, time, null, -1, ViewType.MONTH);
 
                 return true;
             }
@@ -368,7 +373,11 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                     int x = (int) e.getX();
                     int y = (int) e.getY();
                     long millis = getSelectedMillisFor(x, y);
-                    Utils.startActivity(getContext(), mDetailedView, millis);
+
+                    Time startTime = new Time();
+                    startTime.set(getSelectedTimeInMillis());
+// FRAG_TODO convert mDetailedView to viewType
+                    mController.sendEvent(this, EventType.GO_TO, startTime, null, -1, ViewType.DAY);
                 }
 
                 return true;
@@ -1192,8 +1201,10 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
             // Check the duration to determine if this was a short press
             if (duration < ViewConfiguration.getLongPressTimeout()) {
-                long millis = getSelectedTimeInMillis();
-                Utils.startActivity(getContext(), mDetailedView, millis);
+                Time goToTime = new Time();
+                goToTime.set(getSelectedTimeInMillis());
+// FRAG_TODO convert mDetailedView to viewType
+                mController.sendEvent(this, EventType.GO_TO, goToTime, null, -1, ViewType.DAY);
             } else {
                 mSelectionMode = SELECTION_LONGPRESS;
                 mRedrawScreen = true;
@@ -1290,7 +1301,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
         if (other != null) {
             other.normalize(true /* ignore DST */);
-            mNavigator.goTo(other, true);
+            mController.sendEvent(this, EventType.GO_TO, other, null, -1, ViewType.MONTH);
         } else if (redraw) {
             mRedrawScreen = true;
             invalidate();

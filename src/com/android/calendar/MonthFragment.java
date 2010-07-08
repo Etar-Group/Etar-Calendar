@@ -18,6 +18,9 @@ package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -37,7 +40,8 @@ import android.widget.ViewSwitcher.ViewFactory;
 
 import java.util.Calendar;
 
-public class MonthFragment extends Fragment implements CalendarController, AnimationListener, ViewFactory {
+public class MonthFragment extends Fragment implements CalendarController.EventHandler,
+        AnimationListener, ViewFactory {
     private static final int DAY_OF_WEEK_LABEL_IDS[] = {
         R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6
     };
@@ -45,6 +49,7 @@ public class MonthFragment extends Fragment implements CalendarController, Anima
         Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY,
         Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY
     };
+    private static final String TAG = "MonthFragment";
 
     private Time mTime = new Time();
 
@@ -157,7 +162,7 @@ public class MonthFragment extends Fragment implements CalendarController, Anima
     }
 
     public View makeView() {
-        MonthView mv = new MonthView(getActivity(), this, mEventLoader);
+        MonthView mv = new MonthView(getActivity(), AllInOneActivity.mController, mEventLoader);
         mv.setLayoutParams(new ViewSwitcher.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
@@ -174,36 +179,39 @@ public class MonthFragment extends Fragment implements CalendarController, Anima
     }
 
     // CalendarController interface
-    public void goTo(Time time, boolean animate) {
-        MonthView current = (MonthView) mSwitcher.getCurrentView();
-        current.dismissPopup();
-        Time currentTime = current.getTime();
+    public void goTo(Time goToTime, boolean animate) {
+        MonthView currentView = (MonthView) mSwitcher.getCurrentView();
+        currentView.dismissPopup();
+        Time currentTime = currentView.getTime();
 
-        // Compute a month number that is monotonically increasing for any
-        // two adjacent months.
+        // TODO this logic need to change when MonthView supports multiple months
+
         // This is faster than calling getSelectedTime() because we avoid
         // a call to Time#normalize().
-        if (animate) {
-            int currentMonth = currentTime.month + currentTime.year * 12;
-            int nextMonth = time.month + time.year * 12;
-            if (nextMonth < currentMonth) {
+        int currentMonth = currentTime.month + currentTime.year * 12;
+        int goToMonth = goToTime.month + goToTime.year * 12;
+        if (goToMonth == currentMonth) {
+            // In visible range. No need to switch view
+            currentView.setSelectedTime(goToTime);
+        } else if (animate) {
+            if (goToMonth < currentMonth) {
                 mSwitcher.setInAnimation(mInAnimationPast);
                 mSwitcher.setOutAnimation(mOutAnimationPast);
             } else {
                 mSwitcher.setInAnimation(mInAnimationFuture);
                 mSwitcher.setOutAnimation(mOutAnimationFuture);
             }
+            cleanupMonthView();
+            MonthView mv = (MonthView) mSwitcher.getNextView();
+            mv.dismissPopup();
+            mv.setSelectedTime(goToTime);
+            mv.reloadEvents();
+            mv.animationStarted();
+            mSwitcher.showNext();
+            mv.requestFocus();
         }
 
-        cleanupMonthView();
-        MonthView mv = (MonthView) mSwitcher.getCurrentView();
-        mv.dismissPopup();
-        mv.setSelectedTime(time);
-        mv.reloadEvents();
-        mv.animationStarted();
-        mSwitcher.showNext();
-        mv.requestFocus();
-        mTime = time;
+        mTime = goToTime;
     }
 
     // CalendarController interface
@@ -242,5 +250,21 @@ public class MonthFragment extends Fragment implements CalendarController, Anima
     }
 
     public void onAnimationRepeat(Animation animation) {
+    }
+
+    public long getSupportedEventTypes() {
+        return EventType.GO_TO | EventType.SELECT;
+    }
+
+    public void handleEvent(EventInfo msg) {
+        if (msg.eventType == EventType.GO_TO) {
+// TODO support a range of time
+// TODO support event_id
+// TODO figure out the animate bit
+            goTo(msg.startTime, true);
+        } else if (msg.eventType == EventType.SELECT) {
+// TODO support select message
+            goTo(msg.startTime, true);
+        }
     }
 }

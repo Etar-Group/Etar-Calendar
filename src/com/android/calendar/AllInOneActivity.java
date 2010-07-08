@@ -16,24 +16,56 @@
 
 package com.android.calendar;
 
-import android.app.ActionBar;
+import static android.provider.Calendar.EVENT_BEGIN_TIME;
+
+import com.android.calendar.CalendarController.EventHandler;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.Menu;
 
 public class AllInOneActivity extends Activity {
+    public static CalendarController mController; // FRAG_TODO make private
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+
+        // This needs to be created before setContentView
+        mController = new CalendarController(this);
+
         setContentView(R.layout.all_in_one);
+        Fragment miniMonthView = findFragmentById(R.id.mini_month);
+        EventHandler fullMonthView = (EventHandler) findFragmentById(R.id.main_view);
+
+        mController.registerView((EventHandler) miniMonthView);
+        mController.registerView(fullMonthView);
+        mController.filterBroadcasts(miniMonthView.getView(), EventType.SELECT);
+
+        long timeMillis;
+        if (icicle != null) {
+            timeMillis = icicle.getLong(EVENT_BEGIN_TIME);
+        } else {
+            timeMillis = Utils.timeFromIntentInMillis(getIntent());
+        }
+
+        EventInfo event = new EventInfo();
+        event.eventType = EventType.GO_TO;
+        event.startTime = new Time();
+        event.startTime.set(timeMillis);
+        // FRAG_TODO restore event.viewType from icicle
+        mController.sendEvent(this, event);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setStandardNavigationMode(getText(R.string.app_label));
+        setTitle(getText(R.string.app_label));
         getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
         return true;
     }

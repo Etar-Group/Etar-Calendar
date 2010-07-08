@@ -16,6 +16,9 @@
 
 package com.android.calendar;
 
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+
 import dalvik.system.VMRuntime;
 
 import android.app.Fragment;
@@ -39,7 +42,7 @@ import android.widget.ViewSwitcher.ViewFactory;
 /**
  * This is the base class for Day and Week Activities.
  */
-public class DayFragment extends Fragment implements CalendarController, ViewFactory {
+public class DayFragment extends Fragment implements CalendarController.EventHandler, ViewFactory {
     /**
      * The view id used for all the views we create. It's OK to have all child
      * views have the same ID. This ID is used to pick which view receives
@@ -130,7 +133,8 @@ public class DayFragment extends Fragment implements CalendarController, ViewFac
 //        }
 //    }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.week_activity, null);
 
         mViewSwitcher = (ViewSwitcher) v.findViewById(R.id.switcher);
@@ -141,7 +145,8 @@ public class DayFragment extends Fragment implements CalendarController, ViewFac
     }
 
     public View makeView() {
-        CalendarView view = new CalendarView(getActivity(), this, mViewSwitcher, mEventLoader);
+        CalendarView view = new CalendarView(getActivity(), AllInOneActivity.mController,
+                mViewSwitcher, mEventLoader);
         view.setId(VIEW_ID);
         view.setLayoutParams(new ViewSwitcher.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -204,23 +209,39 @@ public class DayFragment extends Fragment implements CalendarController, ViewFac
     }
 
     /* Navigator interface methods */
-    public void goTo(Time time, boolean animate) {
-        if (animate) {
-            CalendarView current = (CalendarView) mViewSwitcher.getCurrentView();
-            if (current.getSelectedTime().before(time)) {
-                mViewSwitcher.setInAnimation(mInAnimationForward);
-                mViewSwitcher.setOutAnimation(mOutAnimationForward);
-            } else {
-                mViewSwitcher.setInAnimation(mInAnimationBackward);
-                mViewSwitcher.setOutAnimation(mOutAnimationBackward);
-            }
+    public void goTo(Time goToTime, boolean animate) {
+        CalendarView currentView = (CalendarView) mViewSwitcher.getCurrentView();
+        Time selectedTime = currentView.getSelectedTime();
+
+        // Going to the same time
+        if (selectedTime.equals(goToTime)) {
+            return;
         }
 
-        CalendarView next = (CalendarView) mViewSwitcher.getNextView();
-        next.setSelectedDay(time);
-        next.reloadEvents();
-        mViewSwitcher.showNext();
-        next.requestFocus();
+        // How does goTo time compared to what's already displaying?
+        int diff = currentView.compareToShownTime(goToTime);
+
+        if (diff == 0) {
+            // In visible range. No need to switch view
+            currentView.setSelectedDay(goToTime);
+        } else {
+            // Figure out which way to animate
+            if (animate) {
+                if (diff > 0) {
+                    mViewSwitcher.setInAnimation(mInAnimationForward);
+                    mViewSwitcher.setOutAnimation(mOutAnimationForward);
+                } else {
+                    mViewSwitcher.setInAnimation(mInAnimationBackward);
+                    mViewSwitcher.setOutAnimation(mOutAnimationBackward);
+                }
+            }
+
+            CalendarView next = (CalendarView) mViewSwitcher.getNextView();
+            next.setSelectedDay(goToTime);
+            next.reloadEvents();
+            mViewSwitcher.showNext();
+            next.requestFocus();
+        }
     }
 
     /**
@@ -276,6 +297,21 @@ public class DayFragment extends Fragment implements CalendarController, ViewFac
         return (CalendarView) mViewSwitcher.getNextView();
     }
 
+    public long getSupportedEventTypes() {
+        return EventType.GO_TO | EventType.SELECT;
+    }
+
+    public void handleEvent(EventInfo msg) {
+        if (msg.eventType == EventType.GO_TO) {
+// TODO support a range of time
+// TODO support event_id
+// TODO figure out the animate bit
+            goTo(msg.startTime, true);
+        } else if (msg.eventType == EventType.SELECT) {
+// TODO support select message
+            goTo(msg.startTime, true);
+        }
+    }
 //    @Override
 //    public boolean onPrepareOptionsMenu(Menu menu) {
 //        MenuHelper.onPrepareOptionsMenu(this, menu);
