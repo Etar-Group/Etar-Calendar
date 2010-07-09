@@ -275,7 +275,8 @@ public class AlertService extends Service {
             boolean quietUpdate, boolean highPriority) {
         if (DEBUG) {
             Log.d(TAG, "###### creating new alarm notification, numReminders: " + numReminders
-                    + (quietUpdate ? " QUIET" : " loud"));
+                    + (quietUpdate ? " QUIET" : " loud")
+                    + (highPriority ? " high-priority" : ""));
         }
 
         NotificationManager nm =
@@ -287,7 +288,7 @@ public class AlertService extends Service {
         }
 
         Notification notification = AlertReceiver.makeNewAlertNotification(context, eventName,
-                location, numReminders);
+                location, numReminders, highPriority);
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
