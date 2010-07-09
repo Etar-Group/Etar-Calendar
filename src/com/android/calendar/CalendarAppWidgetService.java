@@ -314,6 +314,9 @@ public class CalendarAppWidgetService extends IntentService {
         PendingIntent pendingIntent = getLaunchPendingIntent(context, startTime);
         views.setOnClickPendingIntent(R.id.appwidget, pendingIntent);
 
+        PendingIntent newEventIntent = getNewEventPendingIntent(context);
+        views.setOnClickPendingIntent(R.id.new_event_button, newEventIntent);
+
         return views;
     }
 
@@ -546,6 +549,13 @@ public class CalendarAppWidgetService extends IntentService {
         launchIntent.setData(data);
         return PendingIntent.getActivity(context, 0 /* no requestCode */,
                 launchIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private PendingIntent getNewEventPendingIntent(Context context) {
+        Intent newEventIntent = new Intent(Intent.ACTION_EDIT);
+        newEventIntent.setType("vnd.android.cursor.item/event");
+        return PendingIntent.getActivity(context, 0, newEventIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     static class MarkedEvents {

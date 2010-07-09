@@ -36,6 +36,7 @@ import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Reminders;
 import android.text.TextUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -219,8 +220,17 @@ public class EditEventFragment extends Fragment {
     private void startQuery() {
         Intent intent = mIntent;
         mUri = intent.getData();
-        mBegin = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
-        mEnd = intent.getLongExtra(EVENT_END_TIME, 0);
+
+        mBegin = intent.getLongExtra(EVENT_BEGIN_TIME, -1);
+        if (mBegin <= 0) {
+            // use a default value instead
+            mBegin = mHelper.constructDefaultStartTime(System.currentTimeMillis());
+        }
+        mEnd = intent.getLongExtra(EVENT_END_TIME, -1);
+        if (mEnd < mBegin) {
+            // use a default value instead
+            mEnd = mHelper.constructDefaultEndTime(mBegin);
+        }
 
         // Kick off the query for the event
         boolean newEvent = mUri == null;

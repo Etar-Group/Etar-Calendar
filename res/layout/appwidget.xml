@@ -32,31 +32,45 @@
         android:orientation="horizontal"
         android:background="@drawable/appwidget_calendar_bgtop_blue">
 
-        <TextView
-            android:id="@+id/day_of_week"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/header_day"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginLeft="7dip"
-            android:layout_marginRight="7dip"
-            android:layout_marginBottom="5dip"
-            android:textColor="@color/appwidget_date"
-            android:textSize="18sp"
-            android:gravity="left|bottom"
-            android:singleLine="true" />
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/day_of_week"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="7dip"
+                android:layout_marginRight="7dip"
+                android:layout_marginBottom="5dip"
+                android:textColor="@color/appwidget_date"
+                android:textSize="20sp"
+                android:gravity="left|bottom"
+                android:singleLine="true" />
 
-        <TextView
-            android:id="@+id/day_of_month"
+            <TextView
+                android:id="@+id/day_of_month"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="7dip"
+                android:layout_marginRight="7dip"
+                android:layout_marginBottom="5dip"
+                android:gravity="right|bottom"
+                android:textColor="@color/appwidget_date"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/new_event_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="7dip"
-            android:layout_marginRight="7dip"
-            android:layout_marginBottom="5dip"
-            android:gravity="right|bottom"
-            android:textColor="@color/appwidget_date"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:singleLine="true" />
+            android:src="@drawable/appwidget_btn_round_plus"
+            android:background="#0000" />
     </LinearLayout>
 
     <!-- Container to show only a single page -->
