@@ -31,21 +31,21 @@ public class EventGeometry {
         mCellMargin = cellMargin;
     }
 
-    void setHourGap(float gap) {
+    public void setHourGap(float gap) {
         mHourGap = gap;
     }
 
-    void setMinEventHeight(float height) {
+    public void setMinEventHeight(float height) {
         mMinEventHeight = height;
     }
 
-    void setHourHeight(float height) {
+    public void setHourHeight(float height) {
         mMinuteHeight = height / 60.0f;
     }
 
     // Computes the rectangle coordinates of the given event on the screen.
     // Returns true if the rectangle is visible on the screen.
-    boolean computeEventRect(int date, int left, int top, int cellWidth, Event event) {
+    public boolean computeEventRect(int date, int left, int top, int cellWidth, Event event) {
         if (event.allDay) {
             return false;
         }

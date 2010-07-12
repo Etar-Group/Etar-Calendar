@@ -14,13 +14,26 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.MiniMonth;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
+import com.android.calendar.AgendaActivity;
+import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.CalendarPreferenceActivity;
+import com.android.calendar.DayActivity;
+import com.android.calendar.DayOfMonthCursor;
+import com.android.calendar.EditEventActivity;
+import com.android.calendar.Event;
+import com.android.calendar.EventGeometry;
+import com.android.calendar.EventLoader;
+import com.android.calendar.MenuHelper;
+import com.android.calendar.MonthFragment;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -54,7 +67,7 @@ import android.widget.PopupWindow;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class MonthView extends View implements View.OnCreateContextMenuListener,
+public class MiniMonthView extends View implements View.OnCreateContextMenuListener,
         MonthFragment.MonthViewInterface {
 
     private static final boolean PROFILE_LOAD_TIME = false;
@@ -63,7 +76,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
     private static int WEEK_GAP = 0;
     private static int MONTH_DAY_GAP = 1;
     private static float HOUR_GAP = 0f;
-    private static float MIN_EVENT_HEIGHT = 4f;
+    private static float MIN_EVENT_HEIGHT = 2f;
     private static int MONTH_DAY_TEXT_SIZE = 20;
     private static int WEEK_BANNER_HEIGHT = 17;
     private static int WEEK_TEXT_SIZE = 15;
@@ -79,7 +92,14 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
 
     private static int HORIZONTAL_FLING_THRESHOLD = 50;
 
+    private static final int MIN_NUM_WEEKS = 3;
+    private static final int MAX_NUM_WEEKS = 16;
+    private static final int DEFAULT_NUM_WEEKS = 6;
+
+    private int mNumWeeks = DEFAULT_NUM_WEEKS;
+
     private int mCellHeight;
+    private int mCellWidth;
     private int mBorder;
     private boolean mLaunchDayView;
 
@@ -103,7 +123,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
     private Drawable mBoxSelected;
     private Drawable mBoxPressed;
     private Drawable mBoxLongPressed;
-    private int mCellWidth;
 
     private Resources mResources;
     private Context mContext;
@@ -134,6 +153,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
     // These booleans disable features that were taken out of the spec.
     private boolean mShowWeekNumbers = false;
     private boolean mShowToast = false;
+    private boolean mShowDNA = false;
 
     // Bitmap caches.
     // These improve performance by minimizing calls to NinePatchDrawable.draw() for common
@@ -178,7 +198,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
     private int mBusybitsColor;
     private int mMonthBgColor;
 
-    public MonthView(Context activity, CalendarController controller, EventLoader eventLoader) {
+    public MiniMonthView(Context activity, CalendarController controller, EventLoader eventLoader) {
         super(activity);
         if (mScale == 0) {
             mScale = getContext().getResources().getDisplayMetrics().density;
@@ -197,8 +217,9 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
                     TEXT_TOP_MARGIN *= mScale;
                     HORIZONTAL_FLING_THRESHOLD *= mScale;
                     MIN_EVENT_HEIGHT *= mScale;
-                    BUSY_BITS_WIDTH *= mScale;
-                    BUSY_BITS_MARGIN *= mScale;
+                    // The boolean check makes sure text is centered whether or not DNA view is on
+                    BUSY_BITS_WIDTH *= mScale * (mShowDNA ? 1 : 0);
+                    BUSY_BITS_MARGIN *= mScale * (mShowDNA ? 1 : 0);
                     DAY_NUMBER_OFFSET *= mScale;
                 }
             }
@@ -837,6 +858,9 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
 
     ///Create and draw the event busybits for this day
     private void drawEvents(int date, Canvas canvas, Rect rect, Paint p, boolean drawBg) {
+        if (!mShowDNA) {
+            return;
+        }
         // The top of the busybits section lines up with the top of the day number
         int top = rect.top + TEXT_TOP_MARGIN + BUSY_BITS_MARGIN;
         int left = rect.right - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH;
@@ -982,7 +1006,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void drawingCalc(int width, int height) {
-        mCellHeight = (height - (6 * WEEK_GAP)) / 6;
+        mCellHeight = (height - (mNumWeeks * WEEK_GAP)) / mNumWeeks;
         mEventGeometry
                 .setHourHeight((mCellHeight - BUSY_BITS_MARGIN * 2 - TEXT_TOP_MARGIN) / 24.0f);
         mCellWidth = (width - (6 * MONTH_DAY_GAP)) / 7;

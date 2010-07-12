@@ -39,7 +39,7 @@ import java.util.WeakHashMap;
 // New event at [time]
 
 
-class CalendarController {
+public class CalendarController {
     private static final String TAG = "CalendarController";
 
     private ArrayList<EventHandler> views = new ArrayList<EventHandler>(5);
@@ -50,7 +50,7 @@ class CalendarController {
     /**
      * One of the event types that are sent to or from the controller
      */
-    interface EventType {
+    public interface EventType {
         final long NEW_EVENT = 1L;
         final long VIEW_EVENT = 1L << 1;
         final long EDIT_EVENT = 1L << 2;
@@ -66,14 +66,14 @@ class CalendarController {
     /**
      * One of the Agenda/Day/Week/Month view types
      */
-    interface ViewType {
+    public interface ViewType {
         final long AGENDA = 1;
         final long DAY = 2;
         final long WEEK = 3;
         final long MONTH = 4;
     }
 
-    static class EventInfo {
+    public static class EventInfo {
         long eventType; // one of the EventType
         long viewType; // one of the ViewType
         long id; // event id
@@ -83,7 +83,7 @@ class CalendarController {
         int y; // y coordinate in the activity space
     }
 
-    interface EventHandler {
+    public interface EventHandler {
         long getSupportedEventTypes();
         void handleEvent(EventInfo event);
 
@@ -132,7 +132,7 @@ class CalendarController {
      * @param x x coordinate in the activity space
      * @param y y coordinate in the activity space
      */
-    void sendEventRelatedEvent(Object sender, long eventType, long eventId, int x, int y) {
+    public void sendEventRelatedEvent(Object sender, long eventType, long eventId, int x, int y) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         info.id = eventId;
@@ -151,7 +151,7 @@ class CalendarController {
      * @param end end time
      * @param viewType {@link ViewType}
      */
-    void sendEvent(Object sender, long eventType, Time start, Time end, long eventId,
+    public void sendEvent(Object sender, long eventType, Time start, Time end, long eventId,
             long viewType) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
@@ -162,7 +162,7 @@ class CalendarController {
         this.sendEvent(sender, info);
     }
 
-    void sendEvent(Object sender, final EventInfo event) {
+    public void sendEvent(Object sender, final EventInfo event) {
         // TODO Throw exception on invalid events
 
         Log.d(TAG, eventInfoToString(event));
@@ -189,15 +189,15 @@ class CalendarController {
         }
     }
 
-    void registerView(EventHandler view) {
+    public void registerView(EventHandler view) {
         views.add(view);
     }
 
-    void deregisterView(EventHandler view) {
+    public void deregisterView(EventHandler view) {
         views.remove(view);
     }
 
-    void filterBroadcasts(Object sender, long eventTypes) {
+    public void filterBroadcasts(Object sender, long eventTypes) {
         filters.put(sender, eventTypes);
     }
 

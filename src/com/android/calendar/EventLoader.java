@@ -226,7 +226,7 @@ public class EventLoader {
      * created are used, and the most recent call's worth of data is loaded into events and posted
      * via the uiCallback.
      */
-    void loadEventsInBackground(final int numDays, final ArrayList<Event> events,
+    public void loadEventsInBackground(final int numDays, final ArrayList<Event> events,
             long start, final Runnable successCallback, final Runnable cancelCallback) {
 
         // Increment the sequence number for requests.  We don't care if the

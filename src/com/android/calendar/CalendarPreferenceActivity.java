@@ -22,7 +22,6 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
@@ -55,7 +54,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     // Default preference values
     static final String DEFAULT_START_VIEW =
             CalendarApplication.ACTIVITY_NAMES[CalendarApplication.MONTH_VIEW_ID];
-    static final String DEFAULT_DETAILED_VIEW =
+    public static final String DEFAULT_DETAILED_VIEW =
             CalendarApplication.ACTIVITY_NAMES[CalendarApplication.DAY_VIEW_ID];
 
     ListPreference mAlertType;
