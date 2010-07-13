@@ -584,7 +584,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             selection = mRecurrenceIndexes.get(position);
         }
 
-        EditEventHelper.updateRecurrenceRule(selection, mModel);
+        EditEventHelper.updateRecurrenceRule(selection, mModel,
+                Utils.getFirstDayOfWeek(mActivity) + 1);
 
         return true;
     }

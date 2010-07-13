@@ -783,8 +783,11 @@ public class EditEventHelper {
      *
      * @param selection the type of rrule
      * @param model The event to update
+     * @param weekStart the week start day, specified as java.util.Calendar
+     * constants
      */
-    static void updateRecurrenceRule(int selection, CalendarEventModel model) {
+    static void updateRecurrenceRule(int selection, CalendarEventModel model,
+            int weekStart) {
         // Make sure we don't have any leftover data from the previous setting
         EventRecurrence eventRecurrence = new EventRecurrence();
 
@@ -861,8 +864,7 @@ public class EditEventHelper {
         }
 
         // Set the week start day.
-        eventRecurrence.wkst = EventRecurrence.calendarDay2Day(Calendar.getInstance()
-                .getFirstDayOfWeek());
+        eventRecurrence.wkst = EventRecurrence.calendarDay2Day(weekStart);
         model.mRrule = eventRecurrence.toString();
     }
 

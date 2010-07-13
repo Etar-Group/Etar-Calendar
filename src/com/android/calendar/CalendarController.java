@@ -51,7 +51,7 @@ import java.util.WeakHashMap;
 public class CalendarController {
     private static final String TAG = "CalendarController";
 
-    private ArrayList<EventHandler> views = new ArrayList<EventHandler>(5);
+    private ArrayList<EventHandler> eventHandlers = new ArrayList<EventHandler>(5);
     private WeakHashMap<Object, Long> filters = new WeakHashMap<Object, Long>(1);
 
     private Activity mActivity;
@@ -237,11 +237,12 @@ public class CalendarController {
 
         // Switch view/fragment as needed
         if (event.eventType == EventType.GO_TO || event.eventType == EventType.SELECT) {
-            setMainPane(null, R.id.main_pane, event.viewType, event.startTime.toMillis(false));
+            setMainPane(null, R.id.main_pane, event.viewType,
+                    event.startTime.toMillis(false), false);
         }
 
         // Dispatch to view(s)
-        for (EventHandler view : views) {
+        for (EventHandler view : eventHandlers) {
             if (view != null) {
                 boolean supportedEvent = (view.getSupportedEventTypes() & event.eventType) != 0;
                 if (supportedEvent) {
@@ -251,12 +252,12 @@ public class CalendarController {
         }
     }
 
-    public void registerView(EventHandler view) {
-        views.add(view);
+    public void registerEventHandler(EventHandler eventHandler) {
+        eventHandlers.add(eventHandler);
     }
 
-    public void deregisterView(EventHandler view) {
-        views.remove(view);
+    public void deregisterEventHandler(EventHandler eventHandler) {
+        eventHandlers.remove(eventHandler);
     }
 
     // FRAG_TODO doesn't work yet
@@ -283,8 +284,9 @@ public class CalendarController {
         }
     }
 
-    public void setMainPane(FragmentTransaction ft, int viewId, int viewType, long timeMillis) {
-        if(mViewType == viewType) {
+    public void setMainPane(FragmentTransaction ft, int viewId, int viewType,
+            long timeMillis, boolean force) {
+        if(!force && mViewType == viewType) {
             return;
         }
         mViewType = viewType;
@@ -292,7 +294,7 @@ public class CalendarController {
         // Deregister old view
         Fragment frag = mActivity.findFragmentById(viewId);
         if (frag != null) {
-            deregisterView((EventHandler) frag);
+            deregisterEventHandler((EventHandler) frag);
         }
 
         // Create new one
@@ -319,12 +321,20 @@ public class CalendarController {
         }
 
         ft.replace(viewId, frag);
-        registerView((EventHandler) frag);
+        registerEventHandler((EventHandler) frag);
 
         if (doCommit) {
             ft.commit();
         }
     }
+
+    /**
+     * @return the time that this controller is currently pointed at
+     */
+    public long getTime() {
+        return mTime.toMillis(false);
+    }
+
 
     private void launchManageCalendars() {
         Intent intent = new Intent(Intent.ACTION_VIEW);

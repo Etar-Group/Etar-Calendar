@@ -26,6 +26,8 @@ import com.android.calendar.SelectCalendars.SelectCalendarsFragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -33,7 +35,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class AllInOneActivity extends Activity {
+public class AllInOneActivity extends Activity implements OnSharedPreferenceChangeListener {
     private static String TAG = "AllInOneActivity";
     public static CalendarController mController; // FRAG_TODO make private
 
@@ -54,17 +56,34 @@ public class AllInOneActivity extends Activity {
             timeMillis = Utils.timeFromIntentInMillis(getIntent());
         }
 
+        initFragments(timeMillis);
+
+        // Listen for changes that would require this to be refreshed
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
+        prefs.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
+        prefs.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    private void initFragments(long timeMillis) {
         FragmentTransaction ft = openFragmentTransaction();
 
         Fragment miniMonthFrag = new MonthFragment(false, timeMillis);
         ft.replace(R.id.mini_month, miniMonthFrag);
-        mController.registerView((EventHandler) miniMonthFrag);
+        mController.registerEventHandler((EventHandler) miniMonthFrag);
 
         Fragment selectCalendarsFrag = new SelectCalendarsFragment();
         ft.replace(R.id.calendar_list, selectCalendarsFrag);
 
         // FRAG_TODO restore event.viewType from icicle
-        mController.setMainPane(ft, R.id.main_pane, ViewType.WEEK, timeMillis);
+        mController.setMainPane(ft, R.id.main_pane, ViewType.WEEK,
+                timeMillis, true);
 
         ft.commit(); // this needs to be after setMainPane()
 
@@ -113,5 +132,12 @@ public class AllInOneActivity extends Activity {
         }
         mController.sendEvent(this, EventType.SELECT, t, null, -1, viewType);
         return true;
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+        if (key.equals(CalendarPreferenceActivity.KEY_WEEK_START_DAY)) {
+            initFragments(mController.getTime());
+        }
     }
 }

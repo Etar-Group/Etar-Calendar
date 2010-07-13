@@ -95,9 +95,10 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
     private void setDayOfWeekHeader(View v) {
         Resources res = getActivity().getResources();
 
-        // Get first day of week based on locale and populate the day headers
-        int diff = Calendar.getInstance().getFirstDayOfWeek() - Calendar.SUNDAY - 1;
-        final int startDay = Utils.getFirstDayOfWeek();
+        // Get first day of week based on user preference or locale and
+        // populate the day headers
+        final int startDay = Utils.getFirstDayOfWeek(getActivity());
+        int diff = startDay - Calendar.SUNDAY;
         final int sundayColor = res.getColor(R.color.sunday_text_color);
         final int saturdayColor = res.getColor(R.color.saturday_text_color);
 

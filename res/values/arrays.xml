@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@
         <item>2 days</item>
         <item>1 week</item>
     </string-array>
-    
+
     <string-array name="reminder_minutes_values" translatable="false">
         <item>"1"</item>
         <item>"5"</item>
@@ -53,7 +53,7 @@
         <item>"2880"</item>
         <item>"10080"</item>
     </string-array>
-    
+
     <string-array name="preferences_default_reminder_labels">
         <item>None</item>
         <item>1 minute</item>
@@ -72,7 +72,7 @@
         <item>2 days</item>
         <item>1 week</item>
     </string-array>
-    
+
     <string-array name="preferences_default_reminder_values" translatable="false">
         <item>"0"</item>
         <item>"1"</item>
@@ -91,30 +91,44 @@
         <item>"2880"</item>
         <item>"10080"</item>
     </string-array>
-    
+
+    <string-array name="preferences_week_start_day_labels">
+        <item>Locale default</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+    </string-array>
+
+    <string-array name="preferences_week_start_day_values" translatable="false">
+        <item>"-1"</item>
+        <item>"7"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+    </string-array>
+
     <string-array name="preferences_alert_type_labels">
         <item>Alert</item>
         <item>Status bar notification</item>
         <item>Off</item>
     </string-array>
-    
+
     <string-array name="preferences_alert_type_values" translatable="false">
         <item>"0"</item>
         <item>"1"</item>
         <item>"2"</item>
     </string-array>
-    
+
     <string-array name="availability">
         <item>Busy</item>
         <item>Available</item>
     </string-array>
-    
+
     <string-array name="visibility">
         <item>Default</item>
         <item>Private</item>
         <item>Public</item>
     </string-array>
-    
+
     <string-array name="ordinal_labels">
         <item>first</item>
         <item>second</item>
@@ -123,7 +137,7 @@
         <item>last</item>
     </string-array>
 
-    <!-- Invitation responses -->    
+    <!-- Invitation responses -->
     <string-array name="response_labels1">
         <item>(No response)</item>
         <item>Yes</item>

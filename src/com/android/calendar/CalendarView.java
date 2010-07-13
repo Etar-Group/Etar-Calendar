@@ -399,7 +399,7 @@ public class CalendarView extends View
         setClickable(true);
         setOnCreateContextMenuListener(this);
 
-        mStartDay = Utils.getFirstDayOfWeek();
+        mStartDay = Utils.getFirstDayOfWeek(context);
 
         mCurrentTime = new Time();
         long currentTime = System.currentTimeMillis();

@@ -218,11 +218,11 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
         mViewCalendar.monthDay = 1;
         long millis = mViewCalendar.normalize(true /* ignore DST */);
         mFirstJulianDay = Time.getJulianDay(millis, mViewCalendar.gmtoff);
-        mStartDay = Utils.getFirstDayOfWeek();
+        mStartDay = Utils.getFirstDayOfWeek(activity);
         mViewCalendar.set(now);
 
         mCursor = new DayOfMonthCursor(mViewCalendar.year,  mViewCalendar.month,
-                mViewCalendar.monthDay, Calendar.getInstance().getFirstDayOfWeek());
+                mViewCalendar.monthDay, mStartDay + 1);
         mToday = new Time();
         mToday.set(System.currentTimeMillis());
 

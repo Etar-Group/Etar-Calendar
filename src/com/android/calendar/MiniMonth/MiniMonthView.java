@@ -271,13 +271,12 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mViewCalendar.monthDay = 1;
         long millis = mViewCalendar.normalize(true /* ignore DST */);
         mFirstJulianDay = Time.getJulianDay(millis, mViewCalendar.gmtoff);
-        mStartDayOfWeek = Utils.getFirstDayOfWeek();
+        mStartDayOfWeek = Utils.getFirstDayOfWeek(activity);
         mViewCalendar.set(now);
         makeFirstDayOfWeek(mViewCalendar);
         // The first week is mFocusWeek weeks earlier than the current week
         mFirstDay.set(now - WEEK_IN_MILLIS * mFocusWeek);
         makeFirstDayOfWeek(mFirstDay);
-
         mToday = new Time();
         mToday.set(System.currentTimeMillis());
         mIsEvenMonth = (mToday.month & 1) == 0;

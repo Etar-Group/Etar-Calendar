@@ -37,6 +37,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
 
     // Preference keys
     static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
+    static final String KEY_WEEK_START_DAY = "preferences_week_start_day";
     static final String KEY_ALERTS_TYPE = "preferences_alerts_type";
     static final String KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate";
     static final String KEY_ALERTS_VIBRATE_WHEN = "preferences_alerts_vibrateWhen";
@@ -50,6 +51,13 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     static final String ALERT_TYPE_ALERTS = "0";
     static final String ALERT_TYPE_STATUS_BAR = "1";
     static final String ALERT_TYPE_OFF = "2";
+
+    // These must be in sync with the array preferences_week_start_day_values
+    static final String WEEK_START_DEFAULT = "-1";
+    static final String WEEK_START_SATURDAY = "7";
+    static final String WEEK_START_SUNDAY = "1";
+    static final String WEEK_START_MONDAY = "2";
+
 
     // Default preference values
     static final String DEFAULT_START_VIEW =

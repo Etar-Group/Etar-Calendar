@@ -36,6 +36,7 @@ import android.text.format.Time;
 import android.text.util.Rfc822Token;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.TimeZone;
 
@@ -1197,49 +1198,50 @@ public class EditEventHelperTest extends AndroidTestCase {
     @SmallTest
     public void testUpdateRecurrenceRule() {
         int selection = EditEventHelper.DOES_NOT_REPEAT;
+        int weekStart = Calendar.SUNDAY;
         mModel1 = new CalendarEventModel();
         mModel1.mTimezone = Time.TIMEZONE_UTC;
         mModel1.mStart = 1272665741000L; // Fri, April 30th ~ 3:17PM
 
         mModel1.mRrule = "This should go away";
 
-        EditEventHelper.updateRecurrenceRule(selection, mModel1);
+        EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
         assertNull(mModel1.mRrule);
 
         mModel1.mRrule = "This shouldn't change";
         selection = EditEventHelper.REPEATS_CUSTOM;
 
-        EditEventHelper.updateRecurrenceRule(selection, mModel1);
+        EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
         assertEquals(mModel1.mRrule, "This shouldn't change");
 
         selection = EditEventHelper.REPEATS_DAILY;
 
-        EditEventHelper.updateRecurrenceRule(selection, mModel1);
+        EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
         assertEquals(mModel1.mRrule, "FREQ=DAILY;WKST=SU");
 
         selection = EditEventHelper.REPEATS_EVERY_WEEKDAY;
 
-        EditEventHelper.updateRecurrenceRule(selection, mModel1);
+        EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
         assertEquals(mModel1.mRrule, "FREQ=WEEKLY;WKST=SU;BYDAY=MO,TU,WE,TH,FR");
 
         selection = EditEventHelper.REPEATS_WEEKLY_ON_DAY;
 
-        EditEventHelper.updateRecurrenceRule(selection, mModel1);
+        EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
         assertEquals(mModel1.mRrule, "FREQ=WEEKLY;WKST=SU;BYDAY=FR");
 
         selection = EditEventHelper.REPEATS_MONTHLY_ON_DAY;
 
-        EditEventHelper.updateRecurrenceRule(selection, mModel1);
+        EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
         assertEquals(mModel1.mRrule, "FREQ=MONTHLY;WKST=SU;BYMONTHDAY=30");
 
         selection = EditEventHelper.REPEATS_MONTHLY_ON_DAY_COUNT;
 
-        EditEventHelper.updateRecurrenceRule(selection, mModel1);
+        EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
         assertEquals(mModel1.mRrule, "FREQ=MONTHLY;WKST=SU;BYDAY=-1FR");
 
         selection = EditEventHelper.REPEATS_YEARLY;
 
-        EditEventHelper.updateRecurrenceRule(selection, mModel1);
+        EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
         assertEquals(mModel1.mRrule, "FREQ=YEARLY;WKST=SU");
     }
 
