@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 The Android Open Source Project
+ * Copyright (C) 2010 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarPreferenceActivity;
 import com.android.calendar.DayActivity;
-import com.android.calendar.DayOfMonthCursor;
 import com.android.calendar.EditEventActivity;
 import com.android.calendar.Event;
 import com.android.calendar.EventGeometry;
@@ -42,6 +41,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.PorterDuff;
@@ -65,7 +65,6 @@ import android.view.ViewConfiguration;
 import android.widget.PopupWindow;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MiniMonthView extends View implements View.OnCreateContextMenuListener,
         MonthFragment.MonthViewInterface {
@@ -89,27 +88,57 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private static int BUSY_BITS_WIDTH = 6;
     private static int BUSY_BITS_MARGIN = 4;
     private static int DAY_NUMBER_OFFSET = 10;
+    private static long WEEK_IN_MILLIS = 604800000L;
 
-    private static int HORIZONTAL_FLING_THRESHOLD = 50;
+    private static int VERTICAL_FLING_THRESHOLD = 50;
 
     private static final int MIN_NUM_WEEKS = 3;
     private static final int MAX_NUM_WEEKS = 16;
-    private static final int DEFAULT_NUM_WEEKS = 6;
+    // TODO dynamically calculate based on the size of the view
+    private static final int DEFAULT_NUM_WEEKS = 10;
 
+    private int mStartDayOfWeek;
+    // How many weeks to display at a time
     private int mNumWeeks = DEFAULT_NUM_WEEKS;
+    // Which week position the selected day should snap to, this focuses the
+    // user's currently selected day about 1/3 of the way down the view.
+    private int mFocusWeek = DEFAULT_NUM_WEEKS / 3;
+    // The top left day displayed. Drawing and selecting use this as a reference
+    // point.
+    private Time mFirstDay = new Time();
+    // The current day being drawn to the canvas
+    private Time mDrawingDay = new Time();
+    // The distance in pixels to offset the y position of the weeks
+    private int mWeekOffset = 0;
 
+    // Height of a single day
     private int mCellHeight;
+    // Width of a single day
     private int mCellWidth;
+    // height of the view
+    private int mHeight;
+    // width of the view
+    private int mWidth;
+    // The number of pixels to leave as a buffer around the outside of the
+    // view.
     private int mBorder;
-    private boolean mLaunchDayView;
+    // Whether or not a touch event will select the day it's on
+    private boolean mSelectDay;
 
     private GestureDetector mGestureDetector;
+    // Handles flings, GoTos, and snapping to a week
+    private GoToScroll mGoToScroll = new GoToScroll();
 
     private String mDetailedView = CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW;
 
+    // The current local time on the device
     private Time mToday;
+    // The time being focused on, typically the first day in the week
+    // that is in the mFocusWeek position
     private Time mViewCalendar;
+    private Time mSelectedDay = new Time();
     private Time mSavedTime = new Time();   // the time when we entered this view
+    private boolean mIsEvenMonth; // whether today is in an even numbered month
 
     // This Time object is used to set the time for the other Month view.
     private Time mOtherViewCalendar = new Time();
@@ -117,8 +146,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     // This Time object is used for temporary calculations and is allocated
     // once to avoid extra garbage collection
     private Time mTempTime = new Time();
-
-    private DayOfMonthCursor mCursor;
 
     private Drawable mBoxSelected;
     private Drawable mBoxPressed;
@@ -140,7 +167,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private static final int POPUP_HEIGHT = 100;
     private int mPreviousPopupHeight;
     private static final int POPUP_DISMISS_DELAY = 3000;
-    private DismissPopup mDismissPopup = new DismissPopup();
 
     // For drawing to an off-screen Canvas
     private Bitmap mBitmap;
@@ -148,7 +174,10 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private boolean mRedrawScreen = true;
     private Rect mBitmapRect = new Rect();
     private RectF mRectF = new RectF();
+
     private boolean mAnimating;
+    private boolean mOnFlingCalled = false;
+    private boolean mScrolling = false;
 
     // These booleans disable features that were taken out of the spec.
     private boolean mShowWeekNumbers = false;
@@ -178,8 +207,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
      */
     private int mFirstJulianDay;
 
-    private int mStartDay;
-
     private final EventLoader mEventLoader;
 
     private ArrayList<Event> mEvents = new ArrayList<Event>();
@@ -187,6 +214,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private Drawable mTodayBackground;
 
     // Cached colors
+    // TODO rename colors here and in xml to reflect how they are used
     private int mMonthOtherMonthColor;
     private int mMonthWeekBannerColor;
     private int mMonthOtherMonthBannerColor;
@@ -214,8 +242,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                     EVENT_DOT_TOP_MARGIN *= mScale;
                     EVENT_DOT_LEFT_MARGIN *= mScale;
                     EVENT_DOT_W_H *= mScale;
-                    TEXT_TOP_MARGIN *= mScale;
-                    HORIZONTAL_FLING_THRESHOLD *= mScale;
+                    TEXT_TOP_MARGIN *= mScale * (mShowDNA ? 1 : 0);
+                    VERTICAL_FLING_THRESHOLD *= mScale;
                     MIN_EVENT_HEIGHT *= mScale;
                     // The boolean check makes sure text is centered whether or not DNA view is on
                     BUSY_BITS_WIDTH *= mScale * (mShowDNA ? 1 : 0);
@@ -243,13 +271,16 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mViewCalendar.monthDay = 1;
         long millis = mViewCalendar.normalize(true /* ignore DST */);
         mFirstJulianDay = Time.getJulianDay(millis, mViewCalendar.gmtoff);
-        mStartDay = Utils.getFirstDayOfWeek();
+        mStartDayOfWeek = Utils.getFirstDayOfWeek();
         mViewCalendar.set(now);
+        makeFirstDayOfWeek(mViewCalendar);
+        // The first week is mFocusWeek weeks earlier than the current week
+        mFirstDay.set(now - WEEK_IN_MILLIS * mFocusWeek);
+        makeFirstDayOfWeek(mFirstDay);
 
-        mCursor = new DayOfMonthCursor(mViewCalendar.year,  mViewCalendar.month,
-                mViewCalendar.monthDay, Calendar.getInstance().getFirstDayOfWeek());
         mToday = new Time();
         mToday.set(System.currentTimeMillis());
+        mIsEvenMonth = (mToday.month & 1) == 0;
 
         mResources = activity.getResources();
         mBoxSelected = mResources.getDrawable(R.drawable.month_view_selected);
@@ -287,64 +318,33 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
         mGestureDetector = new GestureDetector(getContext(),
                 new GestureDetector.SimpleOnGestureListener() {
+            int mScrollOffset;
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                     float velocityY) {
                 // The user might do a slow "fling" after touching the screen
                 // and we don't want the long-press to pop up a context menu.
                 // Setting mLaunchDayView to false prevents the long-press.
-                mLaunchDayView = false;
+                mSelectDay = false;
                 mSelectionMode = SELECTION_HIDDEN;
-
-                int distanceX = Math.abs((int) e2.getX() - (int) e1.getX());
-                int distanceY = Math.abs((int) e2.getY() - (int) e1.getY());
-                if (distanceY < HORIZONTAL_FLING_THRESHOLD || distanceY < distanceX) {
-                    return false;
-                }
-
-                // Switch to a different month
-                Time time = mOtherViewCalendar;
-                time.set(mViewCalendar);
-                if (velocityY < 0) {
-                    time.month += 1;
-                } else {
-                    time.month -= 1;
-                }
-                time.normalize(true);
-
-                mController.sendEvent(this, EventType.SELECT, time, null, -1, ViewType.CURRENT);
-
-                return true;
+                return doFling(e1, e2, velocityX, velocityY);
             }
 
             @Override
             public boolean onDown(MotionEvent e) {
-                // Launch the Day/Agenda view when the finger lifts up,
-                // unless the finger moves before lifting up (onFling or onScroll).
-                mLaunchDayView = true;
+                mSelectDay = true;
+                mOnFlingCalled = false;
+                mScrollOffset = 0;
+                getHandler().removeCallbacks(mGoToScroll);
                 return true;
-            }
-
-            public void setSelectedCell(MotionEvent e) {
-                int x = (int) e.getX();
-                int y = (int) e.getY();
-                int row = (y - WEEK_GAP) / (WEEK_GAP + mCellHeight);
-                int col = (x - mBorder) / (MONTH_DAY_GAP + mCellWidth);
-                if (row > 5) {
-                    row = 5;
-                }
-                if (col > 6) {
-                    col = 6;
-                }
-
-                // Highlight the selected day.
-                mCursor.setSelectedRowColumn(row, col);
             }
 
             @Override
             public void onShowPress(MotionEvent e) {
                 // Highlight the selected day.
-                setSelectedCell(e);
+//                setSelectedCell(e);
+                long millis = getSelectedMillisFor((int) e.getX(), (int) e.getY());
+                mSelectedDay.set(millis);
                 mSelectionMode = SELECTION_PRESSED;
                 mRedrawScreen = true;
                 invalidate();
@@ -355,8 +355,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 // If mLaunchDayView is true, then we haven't done any scrolling
                 // after touching the screen, so allow long-press to proceed
                 // with popping up the context menu.
-                if (mLaunchDayView) {
-                    mLaunchDayView = false;
+                if (mSelectDay) {
+                    mSelectDay = false;
                     mSelectionMode = SELECTION_LONGPRESS;
                     mRedrawScreen = true;
                     invalidate();
@@ -367,40 +367,147 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2,
                     float distanceX, float distanceY) {
-                // If the user moves his finger after touching, then do not
-                // launch the Day view when he lifts his finger.  Also, turn
-                // off the selection.
-                mLaunchDayView = false;
-
-                if (mSelectionMode != SELECTION_HIDDEN) {
-                    mSelectionMode = SELECTION_HIDDEN;
-                    mRedrawScreen = true;
-                    invalidate();
+//                MiniMonthView.this.doScroll(e1, e2, distanceX, distanceY);
+                // Use the distance from the current point to the initial touch instead
+                // of deltaX and deltaY to avoid accumulating floating-point rounding
+                // errors.  Also, we don't need floats, we can use ints.
+                int dY = (int) e1.getY() - (int) e2.getY() - mScrollOffset;
+                while (dY > mCellHeight) {
+                    dY -= mCellHeight;
+                    mScrollOffset += mCellHeight;
+                    mFirstDay.monthDay += 7;
                 }
+                while (dY < -mCellHeight) {
+                    dY += mCellHeight;
+                    mScrollOffset -= mCellHeight;
+                    mFirstDay.monthDay -= 7;
+                }
+                mFirstDay.normalize(true);
+                mWeekOffset = -dY;
+
+                mScrolling = true;
+                mRedrawScreen = true;
+                invalidate();
                 return true;
             }
 
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
-                if (mLaunchDayView) {
-                    setSelectedCell(e);
+                if (mSelectDay) {
                     mSelectionMode = SELECTION_SELECTED;
                     mRedrawScreen = true;
                     invalidate();
-                    mLaunchDayView = false;
+                    mSelectDay = false;
                     int x = (int) e.getX();
                     int y = (int) e.getY();
                     long millis = getSelectedMillisFor(x, y);
 
-                    Time startTime = new Time();
-                    startTime.set(getSelectedTimeInMillis());
+                    mTempTime.set(millis);
 // FRAG_TODO convert mDetailedView to viewType
-                    mController.sendEvent(this, EventType.GO_TO, startTime, null, -1, ViewType.DAY);
+                    mController.sendEvent(this, EventType.SELECT, mTempTime, null, -1,
+                            ViewType.DAY);
                 }
 
                 return true;
             }
         });
+    }
+
+    private void makeFirstDayOfWeek(Time time) {
+        int dayOfWeek = time.weekDay;
+        if (mStartDayOfWeek == Time.SUNDAY) {
+            time.monthDay -= dayOfWeek;
+        } else if (mStartDayOfWeek == Time.MONDAY) {
+            if (dayOfWeek == Time.SUNDAY) {
+                dayOfWeek += 7;
+            }
+            time.monthDay -= (dayOfWeek - Time.MONDAY);
+        } else if (mStartDayOfWeek == Time.SATURDAY) {
+            if (dayOfWeek != Time.SATURDAY) {
+                dayOfWeek += 7;
+            }
+            time.monthDay -= (dayOfWeek - Time.SATURDAY);
+        }
+        time.normalize(true);
+    }
+
+    boolean doFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        mSelectionMode = SELECTION_HIDDEN;
+        mOnFlingCalled = true;
+        int deltaX = (int) e2.getX() - (int) e1.getX();
+        int distanceX = Math.abs(deltaX);
+        int deltaY = (int) e2.getY() - (int) e1.getY();
+        int distanceY = Math.abs(deltaY);
+
+        if ((distanceY <= VERTICAL_FLING_THRESHOLD) || (distanceY < distanceX)) {
+            // TODO do we want to ignore user input if they aren't swiping mostly vertical?
+            return false;
+        }
+
+        // Continue scrolling vertically
+
+        Handler handler = getHandler();
+        if (handler != null) {
+            getHandler().removeCallbacks(mGoToScroll);
+        }
+        mGoToScroll.init((int) -velocityY / 100);
+        post(mGoToScroll);
+        return true;
+    }
+
+    // Encapsulates the code to continue the scrolling after the
+    // finger is lifted.  Instead of stopping the scroll immediately,
+    // the scroll continues for a given number of weeks and then snaps
+    // to be on a week.
+    private class GoToScroll implements Runnable {
+        int mWeeks;
+        int mScrollCount;
+        int mInitialOffset;
+        Time mStartTime = new Time();
+        private static final int SCROLL_REPEAT_INTERVAL = 30;
+        private static final int MAX_REPEAT_COUNT = 30;
+        private int SCROLL_REPEAT_COUNT = 10;
+
+        public void init(int numWeeks) {
+
+            mInitialOffset = mWeekOffset;
+            mWeeks = numWeeks; //Math.abs(numWeeks);
+            mStartTime.set(mFirstDay);
+
+            mScrollCount = 1;
+            SCROLL_REPEAT_COUNT = 10 + Math.abs(numWeeks) / 3;
+            if (SCROLL_REPEAT_COUNT > MAX_REPEAT_COUNT) {
+                SCROLL_REPEAT_COUNT = MAX_REPEAT_COUNT;
+            }
+        }
+
+        // At each step we set the first day and the y offset for the next
+        // position in a 'smooth' scroll.
+        public void run() {
+            // Calculate it based on the start so we don't accumulate rounding
+            // errors
+            mFirstDay.set(mStartTime.toMillis(true) + WEEK_IN_MILLIS
+                    * (long) Math.floor(mWeeks * mScrollCount / SCROLL_REPEAT_COUNT));
+            makeFirstDayOfWeek(mFirstDay);
+            mWeekOffset = (mWeeks * mCellHeight * mScrollCount / SCROLL_REPEAT_COUNT)
+                    % mCellHeight;
+            // Get the direction right and make it a smooth scroll from wherever
+            // we were before
+            mWeekOffset = -mWeekOffset +
+                (mInitialOffset - mInitialOffset * mScrollCount / SCROLL_REPEAT_COUNT);
+
+            if (mScrollCount < SCROLL_REPEAT_COUNT) {
+                postDelayed(this, SCROLL_REPEAT_INTERVAL);
+                mScrollCount++;
+            } else {
+                // Done scrolling.
+                mWeekOffset = 0;
+                mScrolling = false;
+            }
+
+            mRedrawScreen = true;
+            invalidate();
+        }
     }
 
     public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
@@ -462,6 +569,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     }
 
     public void reloadEvents() {
+        if (!mShowDNA) {
+            return;
+        }
         // Get the date for the beginning of the month
         Time monthStart = mTempTime;
         monthStart.set(mViewCalendar);
@@ -579,42 +689,62 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
         Paint p = new Paint();
         Rect r = mRect;
-        int columnDay1 = mCursor.getColumnOf(1);
-
-        // Get the Julian day for the date at row 0, column 0.
-        int day = mFirstJulianDay - columnDay1;
-
-        int weekNum = 0;
-        Calendar calendar = null;
-        if (mShowWeekNumbers) {
-            calendar = Calendar.getInstance();
-            boolean noPrevMonth = (columnDay1 == 0);
-
-            // Compute the week number for the first row.
-            weekNum = getWeekOfYear(0, 0, noPrevMonth, calendar);
+        int day = 0;
+        mDrawingDay.set(mFirstDay);
+        int lastWeek = mNumWeeks;
+        int row = 0;
+        if (mWeekOffset > mCellHeight) {
+            day = -14;
+            mDrawingDay.monthDay -= 14;
+            mDrawingDay.normalize(true);
+            row = -2;
+        } else if (mWeekOffset > 0) {
+            day = -7;
+            mDrawingDay.monthDay -= 7;
+            mDrawingDay.normalize(true);
+            row = -1;
+        } else if (mWeekOffset < 0) {
+            lastWeek++;
+            if (mWeekOffset < -mCellHeight) {
+                lastWeek++;
+            }
         }
 
-        for (int row = 0; row < 6; row++) {
+        for (; row < lastWeek; row++) {
             for (int column = 0; column < 7; column++) {
-                drawBox(day, weekNum, row, column, canvas, p, r, isLandscape);
-                day += 1;
+                drawBox(day, row, column, canvas, p, r, isLandscape);
+                day++;
+                mDrawingDay.monthDay++;
+                mDrawingDay.normalize(true);
             }
-
-            if (mShowWeekNumbers) {
-                weekNum += 1;
-                if (weekNum >= 53) {
-                    boolean inCurrentMonth = (day - mFirstJulianDay < 31);
-                    weekNum = getWeekOfYear(row + 1, 0, inCurrentMonth, calendar);
-                }
-            }
+//            if (mShowWeekNumbers) {
+//                weekNum += 1;
+//                if (weekNum >= 53) {
+//                    boolean inCurrentMonth = (day - mFirstJulianDay < 31);
+//                    weekNum = getWeekOfYear(row + 1, 0, inCurrentMonth, calendar);
+//                }
+//            }
         }
-
         drawGrid(canvas, p);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+
         if (mGestureDetector.onTouchEvent(event)) {
+            return true;
+        } else if (action == MotionEvent.ACTION_UP) {
+            int halfHeight = (mCellHeight / 2);
+            // slide to the nearest week if the fling wasn't fast enough to do do a proper scroll
+            if (mWeekOffset > halfHeight) {
+                mGoToScroll.init(-1);
+            } else if (mWeekOffset < -halfHeight) {
+                mGoToScroll.init(1);
+            } else {
+                mGoToScroll.init(0);
+            }
+            post(mGoToScroll);
             return true;
         }
 
@@ -624,20 +754,20 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private long getSelectedMillisFor(int x, int y) {
         int row = (y - WEEK_GAP) / (WEEK_GAP + mCellHeight);
         int column = (x - mBorder) / (MONTH_DAY_GAP + mCellWidth);
-        if (column > 6) {
-            column = 6;
-        }
+//        if (column > 6) {
+//            column = 6;
+//        }
 
-        DayOfMonthCursor c = mCursor;
+//        DayOfMonthCursor c = mCursor;
         Time time = mTempTime;
-        time.set(mViewCalendar);
+        time.set(mFirstDay);
 
         // Compute the day number from the row and column.  If the row and
         // column are in a different month from the current one, then the
         // monthDay might be negative or it might be greater than the number
         // of days in this month, but that is okay because the normalize()
         // method will adjust the month (and year) if necessary.
-        time.monthDay = 7 * row + column - c.getOffset() + 1;
+        time.monthDay += 7 * row + column;
         return time.normalize(true);
     }
 
@@ -685,82 +815,59 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         p.setColor(mMonthOtherMonthColor);
         p.setAntiAlias(false);
 
-        final int width = getMeasuredWidth();
-        final int height = getMeasuredHeight();
+        final int width = mWidth;
+        final int height = mHeight;
 
-        for (int row = 0; row < 6; row++) {
-            int y = WEEK_GAP + row * (WEEK_GAP + mCellHeight) - 1;
-            canvas.drawLine(0, y, width, y, p);
+        int count = 0;
+        int y = mWeekOffset;
+        if (y > mCellHeight) {
+            y -= mCellHeight;
         }
-        for (int column = 1; column < 7; column++) {
-            int x = mBorder + column * (MONTH_DAY_GAP + mCellWidth) - 1;
+        while (y <= height) {
+            canvas.drawLine(0, y, width, y, p);
+            // Compute directly to avoid rounding errors
+            y = count * height / mNumWeeks + mWeekOffset - 1;
+            count++;
+        }
+
+        int x = 0;
+        count = 0;
+        while (x <= width) {
             canvas.drawLine(x, WEEK_GAP, x, height, p);
+            // Compute directly to avoid rounding errors
+            x = count * mWidth / 7 + mBorder - 1;
+            count++;
         }
     }
 
-    /**
-     * Draw a single box onto the canvas.
-     * @param day The Julian day.
-     * @param weekNum The week number.
-     * @param row The row of the box (0-5).
-     * @param column The column of the box (0-6).
-     * @param canvas The canvas to draw on.
-     * @param p The paint used for drawing.
-     * @param r The rectangle used for each box.
-     * @param isLandscape Is the current orientation landscape.
-     */
-    private void drawBox(int day, int weekNum, int row, int column, Canvas canvas, Paint p,
+    private void drawBox(int day, int row, int column, Canvas canvas, Paint p,
             Rect r, boolean isLandscape) {
-
-        // Only draw the selection if we are in the press state or if we have
-        // moved the cursor with key input.
         boolean drawSelection = false;
+        // Check if we're drawing the selected day and if we should show
+        // it as selected.
         if (mSelectionMode != SELECTION_HIDDEN) {
-            drawSelection = mCursor.isSelected(row, column);
+            drawSelection = mSelectedDay.year == mDrawingDay.year &&
+                    mSelectedDay.yearDay == mDrawingDay.yearDay;
         }
 
-        boolean withinCurrentMonth = mCursor.isWithinCurrentMonth(row, column);
+        // Check if we're in a light or dark colored month
+        boolean colorSameAsCurrent = ((mDrawingDay.month & 1) == 0) == mIsEvenMonth;
         boolean isToday = false;
-        int dayOfBox = mCursor.getDayAt(row, column);
-        if (dayOfBox == mToday.monthDay && mCursor.getYear() == mToday.year
-                && mCursor.getMonth() == mToday.month) {
+        if (mDrawingDay.year == mToday.year && mDrawingDay.yearDay == mToday.yearDay) {
             isToday = true;
         }
-
-        int y = WEEK_GAP + row*(WEEK_GAP + mCellHeight);
-        int x = mBorder + column*(MONTH_DAY_GAP + mCellWidth);
+        // We calculate the position relative to the total size
+        // to avoid rounding errors.
+        int y = row * mHeight / mNumWeeks + mWeekOffset;
+        int x = column * mWidth / 7 + mBorder;
 
         r.left = x;
         r.top = y;
         r.right = x + mCellWidth;
         r.bottom = y + mCellHeight;
 
-
-        // Adjust the left column, right column, and bottom row to leave
-        // no border.
-        if (column == 0) {
-            r.left = -1;
-        } else if (column == 6) {
-            r.right += mBorder + 2;
-        }
-
-        if (row == 5) {
-            r.bottom = getMeasuredHeight();
-        }
-
-
         // Draw the cell contents (excluding monthDay number)
-        if (!withinCurrentMonth) {
-            // Adjust cell boundaries to compensate for the different border
-            // style.
-            r.top--;
-            if (column != 0) {
-                r.left--;
-            }
-            p.setStyle(Style.FILL);
-            p.setColor(mMonthBgColor);
-            canvas.drawRect(r, p);
-        } else if (drawSelection) {
+        if (drawSelection) {
             if (mSelectionMode == SELECTION_SELECTED) {
                 mBoxSelected.setBounds(r);
                 mBoxSelected.draw(canvas);
@@ -771,60 +878,37 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 mBoxLongPressed.setBounds(r);
                 mBoxLongPressed.draw(canvas);
             }
-
-            //Places events for that day
-            drawEvents(day, canvas, r, p, false /*draw bb background*/);
+        } else if (isToday) {
+            // We could cache this for a little bit more performance, but it's not on the
+            // performance radar...
+            Drawable background = mTodayBackground;
+            background.setBounds(r);
+            background.draw(canvas);
+        } else if (!colorSameAsCurrent) {
+            // Adjust cell boundaries to compensate for the different border
+            // style.
+            r.top--;
+            if (column != 0) {
+                r.left--;
+            }
+            p.setStyle(Style.FILL);
+            p.setColor(mMonthBgColor);
+            canvas.drawRect(r, p);
         } else {
-            // Today gets a different background
-            if (isToday) {
-                // We could cache this for a little bit more performance, but it's not on the
-                // performance radar...
-                Drawable background = mTodayBackground;
-                background.setBounds(r);
-                background.draw(canvas);
-            }
-            //Places events for that day
-            drawEvents(day, canvas, r, p, !isToday /*draw bb background*/);
-        }
-
-        // Draw week number
-        if (mShowWeekNumbers && column == 0) {
-            // Draw the banner
-            p.setStyle(Paint.Style.FILL);
-            p.setColor(mMonthWeekBannerColor);
-            if (isLandscape) {
-                int bottom = r.bottom;
-                r.bottom = r.top + WEEK_BANNER_HEIGHT;
-                r.left++;
-                canvas.drawRect(r, p);
-                r.bottom = bottom;
-                r.left--;
-            } else {
-                int top = r.top;
-                r.top = r.bottom - WEEK_BANNER_HEIGHT;
-                r.left++;
-                canvas.drawRect(r, p);
-                r.top = top;
+            // Adjust cell boundaries to compensate for the different border
+            // style.
+            r.top--;
+            if (column != 0) {
                 r.left--;
             }
-
-            // Draw the number
-            p.setColor(mMonthOtherMonthBannerColor);
-            p.setAntiAlias(true);
-            p.setTypeface(null);
-            p.setTextSize(WEEK_TEXT_SIZE);
-            p.setTextAlign(Paint.Align.LEFT);
-
-            int textX = r.left + WEEK_TEXT_PADDING;
-            int textY;
-            if (isLandscape) {
-                textY = r.top + WEEK_BANNER_HEIGHT - WEEK_TEXT_PADDING;
-            } else {
-                textY = r.bottom - WEEK_TEXT_PADDING;
-            }
-
-            canvas.drawText(String.valueOf(weekNum), textX, textY, p);
+            p.setStyle(Style.FILL);
+            p.setColor(Color.WHITE);
+            canvas.drawRect(r, p);
         }
+
+
+        // TODO Places events for that day
+        drawEvents(day, canvas, r, p, true /*draw bb background*/);
 
         // Draw the monthDay number
         p.setStyle(Paint.Style.FILL);
@@ -832,28 +916,36 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         p.setTypeface(null);
         p.setTextSize(MONTH_DAY_TEXT_SIZE);
 
-        if (!withinCurrentMonth) {
-            p.setColor(mMonthOtherMonthDayNumberColor);
+        if (!colorSameAsCurrent) {
+            if (Utils.isSunday(column, mStartDayOfWeek)) {
+                p.setColor(mMonthSundayColor);
+            } else if (Utils.isSaturday(column, mStartDayOfWeek)) {
+                p.setColor(mMonthSaturdayColor);
+            } else {
+                p.setColor(mMonthOtherMonthDayNumberColor);
+            }
         } else {
             if (isToday && !drawSelection) {
                 p.setColor(mMonthTodayNumberColor);
-            } else if (Utils.isSunday(column, mStartDay)) {
+            } else if (Utils.isSunday(column, mStartDayOfWeek)) {
                 p.setColor(mMonthSundayColor);
-            } else if (Utils.isSaturday(column, mStartDay)) {
+            } else if (Utils.isSaturday(column, mStartDayOfWeek)) {
                 p.setColor(mMonthSaturdayColor);
             } else {
                 p.setColor(mMonthDayNumberColor);
             }
-            //bolds the day if there's an event that day
-            p.setFakeBoldText(eventDay[day-mFirstJulianDay]);
+            // TODO bolds the day if there's an event that day
+//            p.setFakeBoldText(eventDay[day-mFirstJulianDay]);
         }
         /*Drawing of day number is done here
          *easy to find tags draw number draw day*/
         p.setTextAlign(Paint.Align.CENTER);
         // center of text
-        int textX = r.left + (r.right - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH - r.left) / 2;
-        int textY = (int) (r.top + p.getTextSize() + TEXT_TOP_MARGIN); // bottom of text
-        canvas.drawText(String.valueOf(mCursor.getDayAt(row, column)), textX, textY, p);
+        // TODO figure out why it's not actually centered
+        int textX = x + (mCellWidth - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH) / 2;
+        // bottom of text
+        int textY = y + mCellHeight / 2 + TEXT_TOP_MARGIN;
+        canvas.drawText(String.valueOf(mDrawingDay.monthDay), textX, textY, p);
     }
 
     ///Create and draw the event busybits for this day
@@ -914,49 +1006,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         return rf;
     }
 
-    private boolean isFirstDayOfNextMonth(int row, int column) {
-        if (column == 0) {
-            column = 6;
-            row--;
-        } else {
-            column--;
-        }
-        return mCursor.isWithinCurrentMonth(row, column);
-    }
-
-    private int getWeekOfYear(int row, int column, boolean isWithinCurrentMonth,
-            Calendar calendar) {
-        calendar.set(Calendar.DAY_OF_MONTH, mCursor.getDayAt(row, column));
-        if (isWithinCurrentMonth) {
-            calendar.set(Calendar.MONTH, mCursor.getMonth());
-            calendar.set(Calendar.YEAR, mCursor.getYear());
-        } else {
-            int month = mCursor.getMonth();
-            int year = mCursor.getYear();
-            if (row < 2) {
-                // Previous month
-                if (month == 0) {
-                    year--;
-                    month = 11;
-                } else {
-                    month--;
-                }
-            } else {
-                // Next month
-                if (month == 11) {
-                    year++;
-                    month = 0;
-                } else {
-                    month++;
-                }
-            }
-            calendar.set(Calendar.MONTH, month);
-            calendar.set(Calendar.YEAR, year);
-        }
-
-        return calendar.get(Calendar.WEEK_OF_YEAR);
-    }
-
     public void setDetailedView(String detailedView) {
         mDetailedView = detailedView;
     }
@@ -971,26 +1020,25 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mFirstJulianDay = Time.getJulianDay(millis, mViewCalendar.gmtoff);
         mViewCalendar.set(time);
 
-        mCursor = new DayOfMonthCursor(time.year, time.month, time.monthDay,
-                mCursor.getWeekStartDay());
+        Handler handler = getHandler();
+        if (handler != null) {
+            getHandler().removeCallbacks(mGoToScroll);
+        }
+        makeFirstDayOfWeek(mViewCalendar);
+        // Kick off a scroll to the selected day
+        mGoToScroll.init(mViewCalendar.getWeekNumber() - mFocusWeek - mFirstDay.getWeekNumber()
+                + 52 * (mViewCalendar.year - mFirstDay.year));
+        post(mGoToScroll);
+        mSelectedDay.set(time);
 
+
+        mSelectionMode = SELECTION_SELECTED;
         mRedrawScreen = true;
         invalidate();
     }
 
     public long getSelectedTimeInMillis() {
-        Time time = mTempTime;
-        time.set(mViewCalendar);
-
-        time.month += mCursor.getSelectedMonthOffset();
-        time.monthDay = mCursor.getSelectedDayOfMonth();
-
-        // Restore the saved hour:minute:second offset from when we entered
-        // this view.
-        time.second = mSavedTime.second;
-        time.minute = mSavedTime.minute;
-        time.hour = mSavedTime.hour;
-        return time.normalize(true);
+        return mSelectedDay.normalize(true);
     }
 
     public Time getTime() {
@@ -1006,6 +1054,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     }
 
     private void drawingCalc(int width, int height) {
+        mHeight = getMeasuredHeight();
+        mWidth = getMeasuredWidth();
         mCellHeight = (height - (mNumWeeks * WEEK_GAP)) / mNumWeeks;
         mEventGeometry
                 .setHourHeight((mCellHeight - BUSY_BITS_MARGIN * 2 - TEXT_TOP_MARGIN) / 24.0f);
@@ -1101,59 +1151,24 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         Time other = null;
 
         switch (keyCode) {
+            // TODO make month move correctly when selected week changes
         case KeyEvent.KEYCODE_ENTER:
             long millis = getSelectedTimeInMillis();
             Utils.startActivity(getContext(), mDetailedView, millis);
             return true;
         case KeyEvent.KEYCODE_DPAD_UP:
-            if (mCursor.up()) {
-                other = mOtherViewCalendar;
-                other.set(mViewCalendar);
-                other.month -= 1;
-                other.monthDay = mCursor.getSelectedDayOfMonth();
-
-                // restore the calendar cursor for the animation
-                mCursor.down();
-            }
             redraw = true;
             break;
 
         case KeyEvent.KEYCODE_DPAD_DOWN:
-            if (mCursor.down()) {
-                other = mOtherViewCalendar;
-                other.set(mViewCalendar);
-                other.month += 1;
-                other.monthDay = mCursor.getSelectedDayOfMonth();
-
-                // restore the calendar cursor for the animation
-                mCursor.up();
-            }
             redraw = true;
             break;
 
         case KeyEvent.KEYCODE_DPAD_LEFT:
-            if (mCursor.left()) {
-                other = mOtherViewCalendar;
-                other.set(mViewCalendar);
-                other.month -= 1;
-                other.monthDay = mCursor.getSelectedDayOfMonth();
-
-                // restore the calendar cursor for the animation
-                mCursor.right();
-            }
             redraw = true;
             break;
 
         case KeyEvent.KEYCODE_DPAD_RIGHT:
-            if (mCursor.right()) {
-                other = mOtherViewCalendar;
-                other.set(mViewCalendar);
-                other.month += 1;
-                other.monthDay = mCursor.getSelectedDayOfMonth();
-
-                // restore the calendar cursor for the animation
-                mCursor.left();
-            }
             redraw = true;
             break;
         }
@@ -1167,29 +1182,5 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         }
 
         return redraw;
-    }
-
-    class DismissPopup implements Runnable {
-        public void run() {
-            mPopup.dismiss();
-        }
-    }
-
-    // This is called when the activity is paused so that the popup can
-    // be dismissed.
-    void dismissPopup() {
-        if (!mShowToast) {
-            return;
-        }
-
-        // Protect against null-pointer exceptions
-        if (mPopup != null) {
-            mPopup.dismiss();
-        }
-
-        Handler handler = getHandler();
-        if (handler != null) {
-            handler.removeCallbacks(mDismissPopup);
-        }
     }
 }

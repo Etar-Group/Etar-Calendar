@@ -228,7 +228,7 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
         // a call to Time#normalize().
         int currentMonth = currentTime.month + currentTime.year * 12;
         int goToMonth = goToTime.month + goToTime.year * 12;
-        if (goToMonth == currentMonth) {
+        if (goToMonth == currentMonth || mUseMiniView) {
             // In visible range. No need to switch view
             currentView.setSelectedTime(goToTime);
         } else if (animate) {
@@ -239,6 +239,7 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
                 mSwitcher.setInAnimation(mInAnimationFuture);
                 mSwitcher.setOutAnimation(mOutAnimationFuture);
             }
+            // TODO clean this up
             if (!mUseMiniView) {
                 cleanupMonthView();
                 MonthView mv = (MonthView) mSwitcher.getNextView();
