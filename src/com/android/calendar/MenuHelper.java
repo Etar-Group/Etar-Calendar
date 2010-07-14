@@ -16,11 +16,12 @@
 
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
+
 import android.app.Activity;
-import android.content.Intent;
 import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -116,8 +117,8 @@ public class MenuHelper {
         item.setIcon(android.R.drawable.ic_menu_add);
         item.setAlphabeticShortcut('n');
 
-        item = menu.add(MENU_GROUP_SELECT_CALENDARS, MENU_SELECT_CALENDARS,
-                0, R.string.menu_select_calendars);
+        item = menu.add(MENU_GROUP_SELECT_CALENDARS, MENU_SELECT_CALENDARS, 0,
+                R.string.menu_select_calendars);
         item.setIcon(android.R.drawable.ic_menu_manage);
 
         item = menu.add(MENU_GROUP_PREFERENCES, MENU_PREFERENCES, 0, R.string.menu_preferences);
@@ -128,42 +129,51 @@ public class MenuHelper {
     }
 
     public static boolean onOptionsItemSelected(Activity activity, MenuItem item, Navigator nav) {
+        Time t;
         switch (item.getItemId()) {
-        case MENU_SELECT_CALENDARS: {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setClass(activity, SelectCalendarsActivity.class);
-            activity.startActivity(intent);
-            return true;
-        }
-        case MENU_GOTO_TODAY:
-            nav.goToToday();
-            return true;
-        case MENU_PREFERENCES:
-            Utils.startActivity(activity, CalendarPreferenceActivity.class.getName(), nav.getSelectedTime());
-            return true;
-        case MENU_AGENDA:
-            Utils.startActivity(activity, AgendaActivity.class.getName(), nav.getSelectedTime());
-            return true;
-        case MENU_DAY:
-            Utils.startActivity(activity, DayActivity.class.getName(), nav.getSelectedTime());
-            return true;
-        case MENU_WEEK:
-            Utils.startActivity(activity, WeekActivity.class.getName(), nav.getSelectedTime());
-            return true;
-        case MENU_MONTH:
-            Utils.startActivity(activity, MonthActivity.class.getName(), nav.getSelectedTime());
-            return true;
-        case MENU_EVENT_CREATE: {
-            long startMillis = nav.getSelectedTime();
-            long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
-            Intent intent = new Intent(Intent.ACTION_EDIT);
-            intent.setClassName(activity, EditEventActivity.class.getName());
-            intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-            intent.putExtra(EVENT_END_TIME, endMillis);
-            intent.putExtra(EditEventHelper.EVENT_ALL_DAY, nav.getAllDay());
-            activity.startActivity(intent);
-            return true;
-        }
+            case MENU_SELECT_CALENDARS:
+                AllInOneActivity.mController.sendEvent(activity, EventType.LAUNCH_MANAGE_CALENDARS,
+                        null, null, 0, 0);
+                return true;
+            case MENU_GOTO_TODAY:
+                nav.goToToday();
+                return true;
+            case MENU_PREFERENCES:
+                AllInOneActivity.mController.sendEvent(activity, EventType.LAUNCH_SETTINGS, null,
+                        null, 0, 0);
+                return true;
+            case MENU_AGENDA:
+                // FRAG_TODO switch all to time or long?
+                t = new Time();
+                t.set(nav.getSelectedTime());
+                AllInOneActivity.mController.sendEvent(activity, EventType.SELECT, t, null, -1,
+                        ViewType.AGENDA);
+                return true;
+            case MENU_DAY:
+                t = new Time();
+                t.set(nav.getSelectedTime());
+                AllInOneActivity.mController.sendEvent(activity, EventType.SELECT, t, null, -1,
+                        ViewType.DAY);
+                return true;
+            case MENU_WEEK:
+                t = new Time();
+                t.set(nav.getSelectedTime());
+                AllInOneActivity.mController.sendEvent(activity, EventType.SELECT, t, null, -1,
+                        ViewType.WEEK);
+                return true;
+            case MENU_MONTH:
+                t = new Time();
+                t.set(nav.getSelectedTime());
+                AllInOneActivity.mController.sendEvent(activity, EventType.SELECT, t, null, -1,
+                        ViewType.MONTH);
+                return true;
+            case MENU_EVENT_CREATE: {
+                long startMillis = nav.getSelectedTime();
+                long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
+                AllInOneActivity.mController.sendEventRelatedEvent(activity,
+                        EventType.CREATE_EVENT, -1, startMillis, endMillis, 0, 0);
+                return true;
+            }
         }
         return false;
     }

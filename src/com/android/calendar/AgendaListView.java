@@ -18,13 +18,9 @@ package com.android.calendar;
 
 import com.android.calendar.AgendaAdapter.ViewHolder;
 import com.android.calendar.AgendaWindowAdapter.EventInfo;
+import com.android.calendar.CalendarController.EventType;
 
-import android.content.ContentUris;
-import android.content.Intent;
 import android.graphics.Rect;
-import android.net.Uri;
-import android.provider.Calendar;
-import android.provider.Calendar.Events;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
@@ -40,12 +36,10 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     private AgendaWindowAdapter mWindowAdapter;
 
-    private AgendaActivity mAgendaActivity;
     private DeleteEventHelper mDeleteEventHelper;
 
     public AgendaListView(AgendaActivity agendaActivity) {
         super(agendaActivity, null);
-        mAgendaActivity = agendaActivity;
 
         setOnItemClickListener(this);
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -67,11 +61,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             // Switch to the EventInfo view
             EventInfo event = mWindowAdapter.getEventByPosition(position);
             if (event != null) {
-                Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                intent.putExtra(Calendar.EVENT_BEGIN_TIME, event.begin);
-                intent.putExtra(Calendar.EVENT_END_TIME, event.end);
-                mAgendaActivity.startActivity(intent);
+                AllInOneActivity.mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT,
+                        event.id, event.begin, event.end, 0, 0);
             }
         }
     }

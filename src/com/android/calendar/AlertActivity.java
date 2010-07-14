@@ -16,24 +16,19 @@
 
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
+import com.android.calendar.CalendarController.EventType;
 
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Calendar.CalendarAlerts;
 import android.provider.Calendar.CalendarAlertsColumns;
-import android.provider.Calendar.Events;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -178,20 +173,15 @@ public class AlertActivity extends Activity {
             AlertActivity alertActivity = AlertActivity.this;
             Cursor cursor = alertActivity.getItemForView(view);
 
-            long id = cursor.getInt(AlertActivity.INDEX_EVENT_ID);
-            long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
-            long endMillis = cursor.getLong(AlertActivity.INDEX_END);
-
-            Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, id);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            intent.setClass(alertActivity, EventInfoActivity.class);
-            intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-            intent.putExtra(EVENT_END_TIME, endMillis);
-
             // Mark this alarm as DISMISSED
             dismissAlarm(cursor.getLong(INDEX_ROW_ID));
 
-            startActivity(intent);
+            long id = cursor.getInt(AlertActivity.INDEX_EVENT_ID);
+            long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
+            long endMillis = cursor.getLong(AlertActivity.INDEX_END);
+            AllInOneActivity.mController.sendEventRelatedEvent(alertActivity, EventType.VIEW_EVENT,
+                    id, startMillis, endMillis, 0, 0);
+
             alertActivity.finish();
         }
     };

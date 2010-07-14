@@ -16,16 +16,12 @@
 
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
-
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -889,36 +885,20 @@ public class CalendarView extends View
                     // Switch to the EditEvent view
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mContext, EditEventActivity.class.getName());
-                    intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-                    intent.putExtra(EVENT_END_TIME, endMillis);
-                    mContext.startActivity(intent);
+                    mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
+                            startMillis, endMillis, 0, 0);
                 } else {
                     // Switch to the EventInfo view
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI,
-                            selectedEvent.id);
-                    intent.setData(eventUri);
-                    intent.setClassName(mContext, EventInfoActivity.class.getName());
-                    intent.putExtra(EVENT_BEGIN_TIME, selectedEvent.startMillis);
-                    intent.putExtra(EVENT_END_TIME, selectedEvent.endMillis);
-                    mContext.startActivity(intent);
+                    mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, selectedEvent.id,
+                            selectedEvent.startMillis, selectedEvent.endMillis, 0, 0);
                 }
             } else {
                 // This was a touch selection.  If the touch selected a single
                 // unambiguous event, then view that event.  Otherwise go to
                 // Day/Agenda view.
                 if (mSelectedEvents.size() == 1) {
-                    // Switch to the EventInfo view
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI,
-                            selectedEvent.id);
-                    intent.setData(eventUri);
-                    intent.setClassName(mContext, EventInfoActivity.class.getName());
-                    intent.putExtra(EVENT_BEGIN_TIME, selectedEvent.startMillis);
-                    intent.putExtra(EVENT_END_TIME, selectedEvent.endMillis);
-                    mContext.startActivity(intent);
+                    mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, selectedEvent.id,
+                            selectedEvent.startMillis, selectedEvent.endMillis, 0, 0);
                 }
             }
         } else {
@@ -929,20 +909,12 @@ public class CalendarView extends View
                 // Switch to the EditEvent view
                 long startMillis = getSelectedTimeInMillis();
                 long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setClassName(mContext, EditEventActivity.class.getName());
-                intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-                intent.putExtra(EVENT_END_TIME, endMillis);
-                mContext.startActivity(intent);
+
+                mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1, startMillis,
+                        endMillis, 0, 0);
             } else {
-                // Switch to the EventInfo view
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, selectedEvent.id);
-                intent.setData(eventUri);
-                intent.setClassName(mContext, EventInfoActivity.class.getName());
-                intent.putExtra(EVENT_BEGIN_TIME, selectedEvent.startMillis);
-                intent.putExtra(EVENT_END_TIME, selectedEvent.endMillis);
-                mContext.startActivity(intent);
+                mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, selectedEvent.id,
+                        selectedEvent.startMillis, selectedEvent.endMillis, 0, 0);
             }
         }
     }
@@ -2895,49 +2867,35 @@ public class CalendarView extends View
             switch (item.getItemId()) {
                 case MenuHelper.MENU_EVENT_VIEW: {
                     if (mSelectedEvent != null) {
-                        long id = mSelectedEvent.id;
-                        Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, id);
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(eventUri);
-                        intent.setClassName(mContext, EventInfoActivity.class.getName());
-                        intent.putExtra(EVENT_BEGIN_TIME, mSelectedEvent.startMillis);
-                        intent.putExtra(EVENT_END_TIME, mSelectedEvent.endMillis);
-                        mContext.startActivity(intent);
+                        mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT,
+                                mSelectedEvent.id, mSelectedEvent.startMillis,
+                                mSelectedEvent.endMillis, 0, 0);
                     }
                     break;
                 }
                 case MenuHelper.MENU_EVENT_EDIT: {
                     if (mSelectedEvent != null) {
-                        long id = mSelectedEvent.id;
-                        Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, id);
-                        Intent intent = new Intent(Intent.ACTION_EDIT);
-                        intent.setData(eventUri);
-                        intent.setClassName(mContext, EditEventActivity.class.getName());
-                        intent.putExtra(EVENT_BEGIN_TIME, mSelectedEvent.startMillis);
-                        intent.putExtra(EVENT_END_TIME, mSelectedEvent.endMillis);
-                        mContext.startActivity(intent);
+                        mController.sendEventRelatedEvent(this, EventType.EDIT_EVENT,
+                                mSelectedEvent.id, mSelectedEvent.startMillis,
+                                mSelectedEvent.endMillis, 0, 0);
                     }
                     break;
                 }
                 case MenuHelper.MENU_DAY: {
-                    long startMillis = getSelectedTimeInMillis();
-                    Utils.startActivity(mContext, DayActivity.class.getName(), startMillis);
+                    mController.sendEvent(this, EventType.SELECT, getSelectedTime(), null, -1,
+                            ViewType.DAY);
                     break;
                 }
                 case MenuHelper.MENU_AGENDA: {
-                    long startMillis = getSelectedTimeInMillis();
-                    Utils.startActivity(mContext, AgendaActivity.class.getName(), startMillis);
+                    mController.sendEvent(this, EventType.SELECT, getSelectedTime(), null, -1,
+                            ViewType.AGENDA);
                     break;
                 }
                 case MenuHelper.MENU_EVENT_CREATE: {
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mContext, EditEventActivity.class.getName());
-                    intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-                    intent.putExtra(EVENT_END_TIME, endMillis);
-                    intent.putExtra(EditEventHelper.EVENT_ALL_DAY, mSelectionAllDay);
-                    mContext.startActivity(intent);
+                    mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
+                            startMillis, endMillis, 0, 0);
                     break;
                 }
                 case MenuHelper.MENU_EVENT_DELETE: {
@@ -2946,7 +2904,8 @@ public class CalendarView extends View
                         long begin = selectedEvent.startMillis;
                         long end = selectedEvent.endMillis;
                         long id = selectedEvent.id;
-                        mDeleteEventHelper.delete(begin, end, id, -1);
+                        mController.sendEventRelatedEvent(this, EventType.DELETE_EVENT, id, begin,
+                                end, 0, 0);
                     }
                     break;
                 }

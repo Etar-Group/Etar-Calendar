@@ -20,6 +20,8 @@ import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS;
 
+import com.android.calendar.CalendarController.EventType;
+
 import android.content.ActivityNotFoundException;
 import android.content.AsyncQueryHandler;
 import android.content.ContentProviderOperation;
@@ -38,19 +40,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.pim.EventRecurrence;
-import android.provider.Calendar;
+import android.provider.ContactsContract;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
-import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
-import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Presence;
 import android.provider.ContactsContract.QuickContact;
+import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -802,12 +803,8 @@ public class EventInfoActivity extends AbstractCalendarActivity implements View.
     }
 
     private void doEdit() {
-        Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
-        Intent intent = new Intent(Intent.ACTION_EDIT, uri);
-        intent.putExtra(Calendar.EVENT_BEGIN_TIME, mStartMillis);
-        intent.putExtra(Calendar.EVENT_END_TIME, mEndMillis);
-        intent.setClass(EventInfoActivity.this, EditEventActivity.class);
-        startActivity(intent);
+        AllInOneActivity.mController.sendEventRelatedEvent(this, EventType.EDIT_EVENT, mEventId,
+                mStartMillis, mEndMillis, 0, 0);
         finish();
     }
 

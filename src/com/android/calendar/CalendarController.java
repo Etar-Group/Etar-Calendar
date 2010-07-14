@@ -16,8 +16,15 @@
 
 package com.android.calendar;
 
+import static android.provider.Calendar.EVENT_BEGIN_TIME;
+import static android.provider.Calendar.EVENT_END_TIME;
+
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.ContentUris;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Calendar.Events;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -51,7 +58,7 @@ public class CalendarController {
      * One of the event types that are sent to or from the controller
      */
     public interface EventType {
-        final long NEW_EVENT = 1L;
+        final long CREATE_EVENT = 1L;
         final long VIEW_EVENT = 1L << 1;
         final long EDIT_EVENT = 1L << 2;
         final long DELETE_EVENT = 1L << 3;
@@ -129,13 +136,20 @@ public class CalendarController {
      * @param sender object of the caller
      * @param eventType one of {@link EventType}
      * @param eventId event id
+     * @param start start time
+     * @param end end time
      * @param x x coordinate in the activity space
      * @param y y coordinate in the activity space
      */
-    public void sendEventRelatedEvent(Object sender, long eventType, long eventId, int x, int y) {
+    public void sendEventRelatedEvent(Object sender, long eventType, long eventId, long startMillis,
+            long endMillis, int x, int y) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         info.id = eventId;
+        info.startTime = new Time();
+        info.startTime.set(startMillis);
+        info.endTime = new Time();
+        info.endTime.set(endMillis);
         info.x = x;
         info.y = y;
         this.sendEvent(sender, info);
@@ -174,12 +188,33 @@ public class CalendarController {
             return;
         }
 
+        // Create/View/Edit/Delete Event, Calendars, and Settings
+        long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
+        if (event.eventType == EventType.CREATE_EVENT) {
+            launchCreateEvent(event.startTime.toMillis(false), endTime);
+            return;
+        } else if (event.eventType == EventType.VIEW_EVENT) {
+            launchViewEvent(event.id, event.startTime.toMillis(false), endTime);
+            return;
+        } else if (event.eventType == EventType.EDIT_EVENT) {
+            launchEditEvent(event.id, event.startTime.toMillis(false), endTime);
+            return;
+        } else if (event.eventType == EventType.DELETE_EVENT) {
+            launchDeleteEvent(event.id, event.startTime.toMillis(false), endTime);
+            return;
+        } else if (event.eventType == EventType.LAUNCH_MANAGE_CALENDARS) {
+            launchManageCalendars();
+            return;
+        } else if (event.eventType == EventType.LAUNCH_SETTINGS) {
+            launchSettings();
+            return;
+        }
+
         // TODO Move to ActionBar?
         setTitleInActionBar(event);
 
         // Dispatch to view(s)
         for (EventHandler view : views) {
-//            Log.d(TAG, "eventInfo = " + view);
             if (view != null) {
                 boolean supportedEvent = (view.getSupportedEventTypes() & event.eventType) != 0;
                 if (supportedEvent) {
@@ -212,8 +247,7 @@ public class CalendarController {
         if (event.endTime != null && !event.startTime.equals(event.endTime)) {
             end = event.endTime.toMillis(false /* use isDst */);
         }
-        String msg = DateUtils.formatDateRange(mActivity, start, end, DateUtils.FORMAT_SHOW_DATE
-                | DateUtils.FORMAT_ABBREV_MONTH);
+        String msg = DateUtils.formatDateRange(mActivity, start, end, DateUtils.FORMAT_SHOW_DATE);
 
         ActionBar ab = mActivity.getActionBar();
         if (ab != null) {
@@ -229,7 +263,7 @@ public class CalendarController {
             tmp = "Select time/event";
         } else if ((eventInfo.eventType & EventType.GO_TO) != 0) {
             tmp = "Go to time/event";
-        } else if ((eventInfo.eventType & EventType.NEW_EVENT) != 0) {
+        } else if ((eventInfo.eventType & EventType.CREATE_EVENT) != 0) {
             tmp = "New event";
         } else if ((eventInfo.eventType & EventType.VIEW_EVENT) != 0) {
             tmp = "View event";
@@ -256,5 +290,57 @@ public class CalendarController {
         builder.append(", y=");
         builder.append(eventInfo.y);
         return builder.toString();
+    }
+
+    private void launchManageCalendars() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setClass(mActivity, SelectCalendarsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        mActivity.startActivity(intent);
+    }
+
+    private void launchSettings() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setClassName(mActivity, CalendarPreferenceActivity.class.getName());
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        mActivity.startActivity(intent);
+    }
+
+    private void launchCreateEvent(long startMillis, long endMillis) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setClassName(mActivity, EditEventActivity.class.getName());
+        intent.putExtra(EVENT_BEGIN_TIME, startMillis);
+        intent.putExtra(EVENT_END_TIME, endMillis);
+        mActivity.startActivity(intent);
+    }
+
+    private void launchViewEvent(long eventId, long startMillis, long endMillis) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
+        intent.setData(eventUri);
+        intent.setClassName(mActivity, EventInfoActivity.class.getName());
+        intent.putExtra(EVENT_BEGIN_TIME, startMillis);
+        intent.putExtra(EVENT_END_TIME, endMillis);
+        mActivity.startActivity(intent);
+    }
+
+    private void launchEditEvent(long eventId, long startMillis, long endMillis) {
+        Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
+        Intent intent = new Intent(Intent.ACTION_EDIT, uri);
+        intent.putExtra(EVENT_BEGIN_TIME, startMillis);
+        intent.putExtra(EVENT_END_TIME, endMillis);
+        intent.setClass(mActivity, EditEventActivity.class);
+        mActivity.startActivity(intent);
+    }
+
+    private void launchDeleteEvent(long eventId, long startMillis, long endMillis) {
+        launchDeleteEventAndFinish(null, eventId, startMillis, endMillis, -1);
+    }
+
+    private void launchDeleteEventAndFinish(Activity parentActivity, long eventId, long startMillis,
+            long endMillis, int deleteWhich) {
+        DeleteEventHelper deleteEventHelper = new DeleteEventHelper(mActivity, parentActivity,
+                parentActivity != null /* exit when done */);
+        deleteEventHelper.delete(startMillis, endMillis, eventId, deleteWhich);
     }
 }

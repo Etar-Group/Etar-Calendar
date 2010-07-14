@@ -16,24 +16,20 @@
 
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
-
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -41,7 +37,6 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.SparseArray;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -49,6 +44,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.PopupWindow;
 
 import java.util.ArrayList;
@@ -412,24 +408,20 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case MenuHelper.MENU_DAY: {
-                    long startMillis = getSelectedTimeInMillis();
-                    Utils.startActivity(mContext, DayActivity.class.getName(), startMillis);
+                    mController.sendEvent(mContext, EventType.SELECT, MonthView.this
+                            .getSelectedTime(), null, -1, ViewType.DAY);
                     break;
                 }
                 case MenuHelper.MENU_AGENDA: {
-                    long startMillis = getSelectedTimeInMillis();
-                    Utils.startActivity(mContext, AgendaActivity.class.getName(),
-                            startMillis);
+                    mController.sendEvent(mContext, EventType.SELECT, MonthView.this
+                            .getSelectedTime(), null, -1, ViewType.AGENDA);
                     break;
                 }
                 case MenuHelper.MENU_EVENT_CREATE: {
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mContext, EditEventActivity.class.getName());
-                    intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-                    intent.putExtra(EVENT_END_TIME, endMillis);
-                    mContext.startActivity(intent);
+                    mController.sendEventRelatedEvent(mContext, EventType.CREATE_EVENT, -1,
+                            startMillis, endMillis, 0, 0);
                     break;
                 }
                 default: {
@@ -954,7 +946,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
         invalidate();
     }
 
-    public long getSelectedTimeInMillis() {
+    public Time getSelectedTime() {
         Time time = mTempTime;
         time.set(mViewCalendar);
 
@@ -966,7 +958,11 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
         time.second = mSavedTime.second;
         time.minute = mSavedTime.minute;
         time.hour = mSavedTime.hour;
-        return time.normalize(true);
+        return time;
+    }
+
+    public long getSelectedTimeInMillis() {
+        return getSelectedTime().normalize(true);
     }
 
     public Time getTime() {
@@ -1078,8 +1074,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
 
         switch (keyCode) {
         case KeyEvent.KEYCODE_ENTER:
-            long millis = getSelectedTimeInMillis();
-            Utils.startActivity(getContext(), mDetailedView, millis);
+            mController.sendEvent(mContext, EventType.SELECT, MonthView.this
+                    .getSelectedTime(), null, -1, ViewType.DAY);
             return true;
         case KeyEvent.KEYCODE_DPAD_UP:
             if (mCursor.up()) {
