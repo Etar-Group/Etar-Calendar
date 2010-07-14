@@ -312,7 +312,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 }
                 time.normalize(true);
 
-                mController.sendEvent(this, EventType.SELECT, time, null, -1, ViewType.MONTH);
+                mController.sendEvent(this, EventType.SELECT, time, null, -1, ViewType.CURRENT);
 
                 return true;
             }
@@ -1160,7 +1160,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
         if (other != null) {
             other.normalize(true /* ignore DST */);
-            mController.sendEvent(this, EventType.GO_TO, other, null, -1, ViewType.MONTH);
+            mController.sendEvent(this, EventType.GO_TO, other, null, -1, ViewType.CURRENT);
         } else if (redraw) {
             mRedrawScreen = true;
             invalidate();
