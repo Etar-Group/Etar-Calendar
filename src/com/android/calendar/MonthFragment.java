@@ -32,11 +32,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.widget.Gallery.LayoutParams;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
+import android.widget.Gallery.LayoutParams;
 import android.widget.ViewSwitcher.ViewFactory;
 
 import java.util.Calendar;
@@ -67,10 +67,16 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
     private boolean mUseMiniView = true;
 
     public MonthFragment() {
+        mTime.setToNow();
     }
 
-    public MonthFragment(boolean showTitle) {
+    public MonthFragment(boolean showTitle, long timeMillis) {
         mShowTitle = showTitle;
+        if (timeMillis == 0) {
+            mTime.setToNow();
+        } else {
+            mTime.set(timeMillis);
+        }
     }
 
     @Override
@@ -187,6 +193,7 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
         MonthView mv = new MonthView(getActivity(), AllInOneActivity.mController, mEventLoader);
         mv.setLayoutParams(new ViewSwitcher.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        mv.setSelectedTime(mTime);
 
         if (mShowTitle) {
             // TODO Probably not the best place for this. Clean up later.
@@ -202,6 +209,12 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
 
     // CalendarController interface
     public void goTo(Time goToTime, boolean animate) {
+        if (mSwitcher == null) {
+            // The view hasn't been set yet. Just save the time and use it later.
+            mTime.set(goToTime);
+            return;
+        }
+
         if (!mUseMiniView) {
             MonthView currentView = (MonthView) mSwitcher.getCurrentView();
             currentView.dismissPopup();

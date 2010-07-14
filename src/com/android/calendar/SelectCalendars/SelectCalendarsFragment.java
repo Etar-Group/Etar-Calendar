@@ -17,8 +17,6 @@
 package com.android.calendar.SelectCalendars;
 
 import com.android.calendar.R;
-import com.android.calendar.R.id;
-import com.android.calendar.R.layout;
 import com.android.calendar.Utils;
 
 import android.app.Activity;
@@ -78,7 +76,7 @@ public class SelectCalendarsFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         Activity activity = getActivity();
-        mView = inflater.inflate(R.layout.select_calendars_fragment, container);
+        mView = inflater.inflate(R.layout.select_calendars_fragment, null);
         mList = (ListView)mView.findViewById(R.id.calendars_list);
 
         mCursor = mContext.managedQuery(Calendars.CONTENT_URI, PROJECTION, null /* selection */,

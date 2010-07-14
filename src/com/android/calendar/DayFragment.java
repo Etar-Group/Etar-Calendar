@@ -94,6 +94,18 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         }
     };
 
+    public DayFragment() {
+        mSelectedDay.setToNow();
+    }
+
+    public DayFragment(long timeMillis) {
+        if (timeMillis == 0) {
+            mSelectedDay.setToNow();
+        } else {
+            mSelectedDay.set(timeMillis);
+        }
+    }
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -210,6 +222,12 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 
     /* Navigator interface methods */
     public void goTo(Time goToTime, boolean animate) {
+        if (mViewSwitcher == null) {
+            // The view hasn't been set yet. Just save the time and use it later.
+            mSelectedDay.set(goToTime);
+            return;
+        }
+
         CalendarView currentView = (CalendarView) mViewSwitcher.getCurrentView();
         Time selectedTime = currentView.getSelectedTime();
 

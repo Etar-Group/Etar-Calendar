@@ -19,16 +19,22 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 
 import com.android.calendar.CalendarController.EventHandler;
-import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.SelectCalendars.SelectCalendarsFragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 public class AllInOneActivity extends Activity {
+    private static String TAG = "AllInOneActivity";
     public static CalendarController mController; // FRAG_TODO make private
 
     @Override
@@ -39,13 +45,8 @@ public class AllInOneActivity extends Activity {
         mController = new CalendarController(this);
 
         setContentView(R.layout.all_in_one);
-        Fragment miniMonthView = findFragmentById(R.id.mini_month);
-        EventHandler fullMonthView = (EventHandler) findFragmentById(R.id.main_view);
 
-        mController.registerView((EventHandler) miniMonthView);
-        mController.registerView(fullMonthView);
-        mController.filterBroadcasts(miniMonthView.getView(), EventType.SELECT);
-
+        // Get time from intent or icicle
         long timeMillis;
         if (icicle != null) {
             timeMillis = icicle.getLong(EVENT_BEGIN_TIME);
@@ -53,20 +54,64 @@ public class AllInOneActivity extends Activity {
             timeMillis = Utils.timeFromIntentInMillis(getIntent());
         }
 
-        EventInfo event = new EventInfo();
-        event.eventType = EventType.GO_TO;
-        event.startTime = new Time();
-        event.startTime.set(timeMillis);
+        FragmentTransaction ft = openFragmentTransaction();
+
+        Fragment miniMonthFrag = new MonthFragment(false, timeMillis);
+        ft.replace(R.id.mini_month, miniMonthFrag);
+        mController.registerView((EventHandler) miniMonthFrag);
+
+        Fragment selectCalendarsFrag = new SelectCalendarsFragment();
+        ft.replace(R.id.calendar_list, selectCalendarsFrag);
+
         // FRAG_TODO restore event.viewType from icicle
-        mController.sendEvent(this, event);
+        mController.setMainPane(ft, R.id.main_pane, ViewType.WEEK, timeMillis);
+
+        ft.commit(); // this needs to be after setMainPane()
+
+        // Set title
+        String msg = DateUtils.formatDateRange(this, timeMillis, timeMillis,
+            DateUtils.FORMAT_SHOW_DATE);
+        Log.d(TAG, "################# onCreate " + timeMillis);
+        setTitle(msg);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        setTitle(getText(R.string.app_label));
         getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Time t = null;
+        int viewType = ViewType.CURRENT;
+        switch (item.getItemId()) {
+            case R.id.action_day:
+                viewType = ViewType.DAY;
+                break;
+            case R.id.action_week:
+                viewType = ViewType.WEEK;
+                break;
+            case R.id.action_month:
+                viewType = ViewType.MONTH;
+                break;
+            case R.id.action_today:
+                viewType = ViewType.CURRENT;
+                t = new Time();
+                t.setToNow();
+                break;
+            case R.id.action_create_event:
+                mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1, 0, 0, 0, 0);
+                return true;
+            case R.id.action_settings:
+                mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
+                return true;
+            default:
+                return false;
+        }
+        mController.sendEvent(this, EventType.SELECT, t, null, -1, viewType);
         return true;
     }
 }

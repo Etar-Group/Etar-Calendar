@@ -1074,6 +1074,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
 
         switch (keyCode) {
         case KeyEvent.KEYCODE_ENTER:
+// FRAG_TODO resolve detail view
             mController.sendEvent(mContext, EventType.SELECT, MonthView.this
                     .getSelectedTime(), null, -1, ViewType.DAY);
             return true;

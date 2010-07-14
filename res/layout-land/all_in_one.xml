@@ -19,18 +19,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:name="com.android.calendar.MonthFragment"
+    <FrameLayout
         android:id="@+id/mini_month"
 
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
 
-        android:layout_height="250dip"
-        android:layout_width="250dip" />
+        android:layout_height="425dip"
+        android:layout_width="350dip" />
 
-    <fragment
-        android:name="com.android.calendar.SelectCalendars.SelectCalendarsFragment"
+    <FrameLayout
         android:id="@+id/calendar_list"
 
         android:layout_below="@id/mini_month"
@@ -41,9 +39,8 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 
-    <fragment
-        android:name="com.android.calendar.DayFragment"
-        android:id="@+id/main_view"
+    <FrameLayout
+        android:id="@+id/main_pane"
 
         android:layout_toRightOf="@id/mini_month"
         android:layout_alignParentRight="true"

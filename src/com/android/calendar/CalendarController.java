@@ -21,6 +21,8 @@ import static android.provider.Calendar.EVENT_END_TIME;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.net.Uri;
@@ -54,6 +56,10 @@ public class CalendarController {
 
     private Activity mActivity;
 
+    private int mViewType = -1;
+
+    private Time mTime = new Time();
+
     /**
      * One of the event types that are sent to or from the controller
      */
@@ -74,15 +80,16 @@ public class CalendarController {
      * One of the Agenda/Day/Week/Month view types
      */
     public interface ViewType {
-        final long AGENDA = 1;
-        final long DAY = 2;
-        final long WEEK = 3;
-        final long MONTH = 4;
+        final int CURRENT = 0;
+        final int AGENDA = 1;
+        final int DAY = 2;
+        final int WEEK = 3;
+        final int MONTH = 4;
     }
 
     public static class EventInfo {
         long eventType; // one of the EventType
-        long viewType; // one of the ViewType
+        int viewType; // one of the ViewType
         long id; // event id
         Time startTime; // start of a range of time.
         Time endTime; // end of a range of time.
@@ -128,6 +135,7 @@ public class CalendarController {
 
     public CalendarController(Activity activity) {
         mActivity = activity;
+        mTime.setToNow();
     }
 
     /**
@@ -136,8 +144,8 @@ public class CalendarController {
      * @param sender object of the caller
      * @param eventType one of {@link EventType}
      * @param eventId event id
-     * @param start start time
-     * @param end end time
+     * @param startMillis start time
+     * @param endMillis end time
      * @param x x coordinate in the activity space
      * @param y y coordinate in the activity space
      */
@@ -166,7 +174,7 @@ public class CalendarController {
      * @param viewType {@link ViewType}
      */
     public void sendEvent(Object sender, long eventType, Time start, Time end, long eventId,
-            long viewType) {
+            int viewType) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         info.startTime = start;
@@ -188,7 +196,22 @@ public class CalendarController {
             return;
         }
 
-        // Create/View/Edit/Delete Event, Calendars, and Settings
+        // Launch Calendars, and Settings
+        if (event.eventType == EventType.LAUNCH_MANAGE_CALENDARS) {
+            launchManageCalendars();
+            return;
+        } else if (event.eventType == EventType.LAUNCH_SETTINGS) {
+            launchSettings();
+            return;
+        }
+
+        if (event.startTime == null || event.startTime.toMillis(false) == 0) {
+            event.startTime = mTime;
+        } else {
+            mTime = event.startTime;
+        }
+
+        // Create/View/Edit/Delete Event
         long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
         if (event.eventType == EventType.CREATE_EVENT) {
             launchCreateEvent(event.startTime.toMillis(false), endTime);
@@ -202,16 +225,20 @@ public class CalendarController {
         } else if (event.eventType == EventType.DELETE_EVENT) {
             launchDeleteEvent(event.id, event.startTime.toMillis(false), endTime);
             return;
-        } else if (event.eventType == EventType.LAUNCH_MANAGE_CALENDARS) {
-            launchManageCalendars();
-            return;
-        } else if (event.eventType == EventType.LAUNCH_SETTINGS) {
-            launchSettings();
-            return;
         }
 
-        // TODO Move to ActionBar?
+        // Set title bar
         setTitleInActionBar(event);
+
+        // Fix up view if not specified
+        if (event.viewType == ViewType.CURRENT) {
+            event.viewType = mViewType;
+        }
+
+        // Switch view/fragment as needed
+        if (event.eventType == EventType.GO_TO || event.eventType == EventType.SELECT) {
+            setMainPane(null, R.id.main_pane, event.viewType, event.startTime.toMillis(false));
+        }
 
         // Dispatch to view(s)
         for (EventHandler view : views) {
@@ -232,6 +259,7 @@ public class CalendarController {
         views.remove(view);
     }
 
+    // FRAG_TODO doesn't work yet
     public void filterBroadcasts(Object sender, long eventTypes) {
         filters.put(sender, eventTypes);
     }
@@ -255,41 +283,47 @@ public class CalendarController {
         }
     }
 
-    private String eventInfoToString(EventInfo eventInfo) {
-        String tmp = "Unknown";
-
-        StringBuilder builder = new StringBuilder();
-        if ((eventInfo.eventType & EventType.SELECT) != 0) {
-            tmp = "Select time/event";
-        } else if ((eventInfo.eventType & EventType.GO_TO) != 0) {
-            tmp = "Go to time/event";
-        } else if ((eventInfo.eventType & EventType.CREATE_EVENT) != 0) {
-            tmp = "New event";
-        } else if ((eventInfo.eventType & EventType.VIEW_EVENT) != 0) {
-            tmp = "View event";
-        } else if ((eventInfo.eventType & EventType.EDIT_EVENT) != 0) {
-            tmp = "Edit event";
-        } else if ((eventInfo.eventType & EventType.DELETE_EVENT) != 0) {
-            tmp = "Delete event";
-        } else if ((eventInfo.eventType & EventType.LAUNCH_MANAGE_CALENDARS) != 0) {
-            tmp = "Launch select calendar";
-        } else if ((eventInfo.eventType & EventType.LAUNCH_SETTINGS) != 0) {
-            tmp = "Launch settings";
+    public void setMainPane(FragmentTransaction ft, int viewId, int viewType, long timeMillis) {
+        if(mViewType == viewType) {
+            return;
         }
-        builder.append(tmp);
-        builder.append(": id=");
-        builder.append(eventInfo.id);
-        builder.append(", startTime=");
-        builder.append(eventInfo.startTime);
-        builder.append(", endTime=");
-        builder.append(eventInfo.endTime);
-        builder.append(", viewType=");
-        builder.append(eventInfo.viewType);
-        builder.append(", x=");
-        builder.append(eventInfo.x);
-        builder.append(", y=");
-        builder.append(eventInfo.y);
-        return builder.toString();
+        mViewType = viewType;
+
+        // Deregister old view
+        Fragment frag = mActivity.findFragmentById(viewId);
+        if (frag != null) {
+            deregisterView((EventHandler) frag);
+        }
+
+        // Create new one
+        switch (viewType) {
+            case ViewType.AGENDA:
+// FRAG_TODO Change this to agenda when we have AgendaFragment
+                frag = new MonthFragment(false, timeMillis);
+                break;
+            case ViewType.DAY:
+            case ViewType.WEEK:
+                frag = new DayFragment(timeMillis);
+                break;
+            case ViewType.MONTH:
+                frag = new MonthFragment(false, timeMillis);
+                break;
+            default:
+                throw new IllegalArgumentException("Must be Agenda, Day, Week, or Month ViewType");
+        }
+
+        boolean doCommit = false;
+        if (ft == null) {
+            doCommit = true;
+            ft = mActivity.openFragmentTransaction();
+        }
+
+        ft.replace(viewId, frag);
+        registerView((EventHandler) frag);
+
+        if (doCommit) {
+            ft.commit();
+        }
     }
 
     private void launchManageCalendars() {
@@ -342,5 +376,42 @@ public class CalendarController {
         DeleteEventHelper deleteEventHelper = new DeleteEventHelper(mActivity, parentActivity,
                 parentActivity != null /* exit when done */);
         deleteEventHelper.delete(startMillis, endMillis, eventId, deleteWhich);
+    }
+
+    private String eventInfoToString(EventInfo eventInfo) {
+        String tmp = "Unknown";
+
+        StringBuilder builder = new StringBuilder();
+        if ((eventInfo.eventType & EventType.SELECT) != 0) {
+            tmp = "Select time/event";
+        } else if ((eventInfo.eventType & EventType.GO_TO) != 0) {
+            tmp = "Go to time/event";
+        } else if ((eventInfo.eventType & EventType.CREATE_EVENT) != 0) {
+            tmp = "New event";
+        } else if ((eventInfo.eventType & EventType.VIEW_EVENT) != 0) {
+            tmp = "View event";
+        } else if ((eventInfo.eventType & EventType.EDIT_EVENT) != 0) {
+            tmp = "Edit event";
+        } else if ((eventInfo.eventType & EventType.DELETE_EVENT) != 0) {
+            tmp = "Delete event";
+        } else if ((eventInfo.eventType & EventType.LAUNCH_MANAGE_CALENDARS) != 0) {
+            tmp = "Launch select calendar";
+        } else if ((eventInfo.eventType & EventType.LAUNCH_SETTINGS) != 0) {
+            tmp = "Launch settings";
+        }
+        builder.append(tmp);
+        builder.append(": id=");
+        builder.append(eventInfo.id);
+        builder.append(", startTime=");
+        builder.append(eventInfo.startTime);
+        builder.append(", endTime=");
+        builder.append(eventInfo.endTime);
+        builder.append(", viewType=");
+        builder.append(eventInfo.viewType);
+        builder.append(", x=");
+        builder.append(eventInfo.x);
+        builder.append(", y=");
+        builder.append(eventInfo.y);
+        return builder.toString();
     }
 }

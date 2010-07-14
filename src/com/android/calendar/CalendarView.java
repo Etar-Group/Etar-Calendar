@@ -1094,7 +1094,7 @@ public class CalendarView extends View
             Time end = new Time(date);
             end.monthDay += mNumDays - 1;
             Log.d(TAG, "onKeyDown");
-            mController.sendEvent(this, EventType.GO_TO, date, end, -1, -1);
+            mController.sendEvent(this, EventType.GO_TO, date, end, -1, ViewType.CURRENT);
 
             mTitleTextView.setText(view.mDateRange);
             return true;
@@ -2652,7 +2652,8 @@ public class CalendarView extends View
             Time end = new Time(view.mBaseDate);
             end.monthDay += mNumDays - 1;
             Log.d(TAG, "doFling");
-            mController.sendEvent(this, EventType.SELECT, view.mBaseDate, end, -1, -1);
+            mController
+                    .sendEvent(this, EventType.SELECT, view.mBaseDate, end, -1, ViewType.CURRENT);
 
             mViewStartX = 0;
             return;
