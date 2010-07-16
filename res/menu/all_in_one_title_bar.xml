@@ -47,6 +47,11 @@
         android:icon="@android:drawable/ic_menu_add"
         android:showAsAction="always" />
     <item
+        android:id="@+id/action_manage_calendars"
+        android:title="@string/menu_select_calendars"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_settings"
         android:title="@string/menu_preferences"
         android:icon="@android:drawable/ic_menu_preferences"

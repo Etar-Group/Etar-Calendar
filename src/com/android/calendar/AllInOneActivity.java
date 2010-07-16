@@ -127,6 +127,9 @@ public class AllInOneActivity extends Activity implements OnSharedPreferenceChan
             case R.id.action_settings:
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
                 return true;
+            case R.id.action_manage_calendars:
+                mController.sendEvent(this, EventType.LAUNCH_MANAGE_CALENDARS, null, null, 0, 0);
+                return true;
             default:
                 return false;
         }
