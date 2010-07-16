@@ -348,7 +348,7 @@
     <string name="preferences_general_title">Calendar view setting</string>
     <!-- This is the title of a section in the Settings screen for settings
          related to reminders for calendar events -->
-    <string name="preferences_alerts_title">Reminder settings</string>
+    <string name="preferences_reminder_title">Reminder settings</string>
     <!-- Settings check box label to hide events that the user has declined to attend -->
     <string name="preferences_hide_declined_title">Hide declined events</string>
     <!-- Settings week start label to start week on specific day-->
@@ -357,20 +357,16 @@
     <string name="preferences_week_start_day_dialog">Week starts on</string>
     <!-- DO NOT TRANSLATE -->
     <string name="preferences_week_start_day_default">-1</string>
-    <!-- Settings option to bring up a dialog that lets the user choose how
-         reminder notifications should occur. -->
-    <string name="preferences_alerts_type_title">Set alerts &amp; notifications</string>
-    <!-- The title of a popup dialog that lets the user choose how
-         reminder notifications should occur. -->
-    <string name="preferences_alerts_type_dialog">Alerts &amp; notifications</string>
-    <!-- DO NOT TRANSLATE -->
-    <string name="preferences_alerts_type_default">1</string>
+    <!-- Settings check box label to enable or disable notifications -->
+    <string name="preferences_alerts_title">Notifications</string>
     <!-- Settings dialog label that specifies when the phone should vibrate -->
     <string name="preferences_alerts_vibrateWhen_title">Vibrate</string>
     <!-- Settings screen, setting summary text -->
     <string name="preferences_alerts_vibrateWhen_summary">Also vibrate for reminders</string>
     <!-- Title of ringtone selector dialog -->
     <string name="preferences_alerts_ringtone_title">Select ringtone</string>
+    <!-- Title of check box label to enable or disable pop-up notifications -->
+    <string name="preferences_alerts_popup_title">Pop-up notification</string>
     <!-- List item label for setting the default number of reminder minutes -->
     <string name="preferences_default_reminder_title">Default reminder time</string>
     <!-- Title of dialog for setting the default number of reminder minutes -->

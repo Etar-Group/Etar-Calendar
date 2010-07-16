@@ -22,6 +22,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
@@ -38,19 +39,17 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     // Preference keys
     static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
     static final String KEY_WEEK_START_DAY = "preferences_week_start_day";
-    static final String KEY_ALERTS_TYPE = "preferences_alerts_type";
+
+    static final String KEY_ALERTS = "preferences_alerts";
     static final String KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate";
     static final String KEY_ALERTS_VIBRATE_WHEN = "preferences_alerts_vibrateWhen";
     static final String KEY_ALERTS_RINGTONE = "preferences_alerts_ringtone";
+    static final String KEY_ALERTS_POPUP = "preferences_alerts_popup";
+
     static final String KEY_DEFAULT_REMINDER = "preferences_default_reminder";
     static final String KEY_START_VIEW = "startView";
     static final String KEY_DETAILED_VIEW = "preferredDetailedView";
     static final String KEY_DEFAULT_CALENDAR = "preference_defaultCalendar";
-
-    // These must be in sync with the array preferences_alert_type_values
-    static final String ALERT_TYPE_ALERTS = "0";
-    static final String ALERT_TYPE_STATUS_BAR = "1";
-    static final String ALERT_TYPE_OFF = "2";
 
     // These must be in sync with the array preferences_week_start_day_values
     static final String WEEK_START_DEFAULT = "-1";
@@ -58,6 +57,11 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     static final String WEEK_START_SUNDAY = "1";
     static final String WEEK_START_MONDAY = "2";
 
+    // These keys are kept to enable migrating users from previous versions
+    private static final String KEY_ALERTS_TYPE = "preferences_alerts_type";
+    private static final String ALERT_TYPE_ALERTS = "0";
+    private static final String ALERT_TYPE_STATUS_BAR = "1";
+    private static final String ALERT_TYPE_OFF = "2";
 
     // Default preference values
     static final String DEFAULT_START_VIEW =
@@ -65,9 +69,10 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     public static final String DEFAULT_DETAILED_VIEW =
             CalendarApplication.ACTIVITY_NAMES[CalendarApplication.DAY_VIEW_ID];
 
-    ListPreference mAlertType;
+    CheckBoxPreference mAlert;
     ListPreference mVibrateWhen;
     RingtonePreference mRingtone;
+    CheckBoxPreference mPopup;
 
     /** Return a properly configured SharedPreferences instance */
     public static SharedPreferences getSharedPreferences(Context context) {
@@ -95,18 +100,12 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-        mAlertType = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_TYPE);
+        mAlert = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS);
         mVibrateWhen = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE_WHEN);
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
+        mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
 
-        // If needed, migrate vibration setting from a previous version
-        if (!sharedPreferences.contains(KEY_ALERTS_VIBRATE_WHEN) &&
-                sharedPreferences.contains(KEY_ALERTS_VIBRATE)) {
-            int stringId = sharedPreferences.getBoolean(KEY_ALERTS_VIBRATE, false) ?
-                    R.string.prefDefault_alerts_vibrate_true :
-                    R.string.prefDefault_alerts_vibrate_false;
-            mVibrateWhen.setValue(getString(stringId));
-        }
+        migrateOldPreferences(sharedPreferences);
 
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -119,19 +118,61 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(KEY_ALERTS_TYPE)) {
+        if (key.equals(KEY_ALERTS)) {
             updateChildPreferences();
         }
     }
 
+    /**
+     * If necessary, upgrades previous versions of preferences to the current
+     * set of keys and values.
+     * @param prefs the preferences to upgrade
+     */
+    private void migrateOldPreferences(SharedPreferences prefs) {
+        // If needed, migrate vibration setting from a previous version
+        if (!prefs.contains(KEY_ALERTS_VIBRATE_WHEN) &&
+                prefs.contains(KEY_ALERTS_VIBRATE)) {
+            int stringId = prefs.getBoolean(KEY_ALERTS_VIBRATE, false) ?
+                    R.string.prefDefault_alerts_vibrate_true :
+                    R.string.prefDefault_alerts_vibrate_false;
+            mVibrateWhen.setValue(getString(stringId));
+        }
+        // If needed, migrate the old alerts type settin
+        if (!prefs.contains(KEY_ALERTS) && prefs.contains(KEY_ALERTS_TYPE)) {
+            String type = prefs.getString(KEY_ALERTS_TYPE, ALERT_TYPE_STATUS_BAR);
+            if (type.equals(ALERT_TYPE_OFF)) {
+                mAlert.setChecked(false);
+                mPopup.setChecked(false);
+                mPopup.setEnabled(false);
+            } else if (type.equals(ALERT_TYPE_STATUS_BAR)) {
+                mAlert.setChecked(true);
+                mPopup.setChecked(false);
+                mPopup.setEnabled(true);
+            } else if (type.equals(ALERT_TYPE_ALERTS)) {
+                mAlert.setChecked(true);
+                mPopup.setChecked(true);
+                mPopup.setEnabled(true);
+            }
+            // clear out the old setting
+            prefs.edit().remove(KEY_ALERTS_TYPE).commit();
+        }
+    }
+
+    /**
+     * Keeps the dependent settings in sync with the parent preference, so for
+     * example, when notifications are turned off, we disable the preferences
+     * for configuring the exact notification behavior.
+     */
     private void updateChildPreferences() {
-        if (mAlertType.getValue().equals(ALERT_TYPE_OFF)) {
+        if (mAlert.isChecked()) {
+            mVibrateWhen.setEnabled(true);
+            mRingtone.setEnabled(true);
+            mPopup.setEnabled(true);
+        } else {
             mVibrateWhen.setValue(getString(R.string.prefDefault_alerts_vibrate_false));
             mVibrateWhen.setEnabled(false);
             mRingtone.setEnabled(false);
-        } else {
-            mVibrateWhen.setEnabled(true);
-            mRingtone.setEnabled(true);
+            mPopup.setEnabled(false);
         }
     }
 }

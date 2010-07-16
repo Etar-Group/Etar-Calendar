@@ -29,14 +29,11 @@
             android:dialogTitle="@string/preferences_week_start_day_dialog" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/preferences_alerts_title">
-        <ListPreference
-            android:key="preferences_alerts_type"
-            android:defaultValue="@string/preferences_alerts_type_default"
-            android:title="@string/preferences_alerts_type_title"
-            android:entries="@array/preferences_alert_type_labels"
-            android:entryValues="@array/preferences_alert_type_values"
-            android:dialogTitle="@string/preferences_alerts_type_dialog" />
+    <PreferenceCategory android:title="@string/preferences_reminder_title">
+        <CheckBoxPreference
+            android:key="preferences_alerts"
+            android:defaultValue="true"
+            android:title="@string/preferences_alerts_title" />
 
         <RingtonePreference
             android:layout="?android:attr/preferenceLayoutChild"
@@ -54,6 +51,12 @@
             android:entryValues="@array/prefValues_alerts_vibrateWhen"
             android:defaultValue="@string/prefDefault_alerts_vibrateWhen"
             android:dialogTitle="@string/prefDialogTitle_vibrateWhen" />
+
+        <CheckBoxPreference
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:key="preferences_alerts_popup"
+            android:defaultValue="false"
+            android:title="@string/preferences_alerts_popup_title" />
 
         <ListPreference
             android:key="preferences_default_reminder"

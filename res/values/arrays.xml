@@ -106,18 +106,6 @@
         <item>"2"</item>
     </string-array>
 
-    <string-array name="preferences_alert_type_labels">
-        <item>Alert</item>
-        <item>Status bar notification</item>
-        <item>Off</item>
-    </string-array>
-
-    <string-array name="preferences_alert_type_values" translatable="false">
-        <item>"0"</item>
-        <item>"1"</item>
-        <item>"2"</item>
-    </string-array>
-
     <string-array name="availability">
         <item>Busy</item>
         <item>Available</item>
