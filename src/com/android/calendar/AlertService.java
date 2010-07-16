@@ -250,11 +250,12 @@ public class AlertService extends Service {
         }
 
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
-        String reminderType = prefs.getString(CalendarPreferenceActivity.KEY_ALERTS_TYPE,
-                CalendarPreferenceActivity.ALERT_TYPE_STATUS_BAR);
+
+        boolean doAlert = prefs.getBoolean(CalendarPreferenceActivity.KEY_ALERTS, true);
+        boolean doPopup = prefs.getBoolean(CalendarPreferenceActivity.KEY_ALERTS_POPUP, false);
 
         // TODO check for this before adding stuff to the alerts table.
-        if (reminderType.equals(CalendarPreferenceActivity.ALERT_TYPE_OFF)) {
+        if (!doAlert) {
             if (DEBUG) {
                 Log.d(TAG, "alert preference is OFF");
             }
@@ -262,8 +263,7 @@ public class AlertService extends Service {
         }
 
         boolean quietUpdate = numFired == 0;
-        boolean highPriority = numFired > 0 &&
-                reminderType.equals(CalendarPreferenceActivity.ALERT_TYPE_ALERTS);
+        boolean highPriority = numFired > 0 && doPopup;
         postNotification(context, prefs, notificationEventName, notificationEventLocation,
                 numReminders, quietUpdate, highPriority);
 
