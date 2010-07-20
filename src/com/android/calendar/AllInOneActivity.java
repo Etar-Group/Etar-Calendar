@@ -174,8 +174,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // Create new one
         switch (viewType) {
             case ViewType.AGENDA:
-// FRAG_TODO Change this to agenda when we have AgendaFragment
-                frag = new MonthFragment(false, timeMillis);
+                frag = new AgendaFragment(timeMillis);
                 break;
             case ViewType.DAY:
             case ViewType.WEEK:
