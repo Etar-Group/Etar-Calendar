@@ -41,14 +41,38 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-    
+
+            <!-- CALENDARS -->
+            <LinearLayout android:id="@+id/calendar_group"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditEvent_Layout">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:background="@android:drawable/divider_horizontal_dark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edit_event_calendar_label"
+                    style="@style/TextAppearance.EditEvent_Label"/>
+
+                <Spinner android:id="@+id/calendars"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:prompt="@string/edit_event_calendar_label"/>
+            </LinearLayout>
+
             <!-- WHAT -->
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/EditEvent_Layout">
-    
+
                 <TextView android:id="@+id/what_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -189,30 +213,6 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_description"
                     android:capitalize="sentences"/>
-            </LinearLayout>
-
-            <!-- CALENDARS -->
-            <LinearLayout android:id="@+id/calendar_group"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/EditEvent_Layout">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:background="@android:drawable/divider_horizontal_dark" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/edit_event_calendar_label"
-                    style="@style/TextAppearance.EditEvent_Label"/>
-
-                <Spinner android:id="@+id/calendars"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:prompt="@string/edit_event_calendar_label"/>
             </LinearLayout>
 
             <!-- GUESTS/ATTENDEES -->
