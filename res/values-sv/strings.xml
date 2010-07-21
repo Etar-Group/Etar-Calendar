@@ -121,8 +121,8 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Inställning för kalendervy"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Inställningar för påminnelse"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Dölj avböjda händelser"</string>
-    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Ställ in varningar och aviseringar"</string>
-    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Varningar och aviseringar"</string>
+
+
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrera"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Vibrera även vid påminnelser"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Välj ringsignal"</string>
