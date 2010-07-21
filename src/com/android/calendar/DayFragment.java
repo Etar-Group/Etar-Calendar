@@ -237,7 +237,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         }
 
         // How does goTo time compared to what's already displaying?
-        int diff = currentView.compareToShownTime(goToTime);
+        int diff = currentView.compareToVisibleTimeRange(goToTime);
 
         if (diff == 0) {
             // In visible range. No need to switch view
@@ -316,7 +316,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
     }
 
     public long getSupportedEventTypes() {
-        return EventType.GO_TO | EventType.SELECT;
+        return EventType.GO_TO;
     }
 
     public void handleEvent(EventInfo msg) {
@@ -324,8 +324,6 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 // TODO support a range of time
 // TODO support event_id
 // TODO figure out the animate bit
-            goTo(msg.startTime, true);
-        } else if (msg.eventType == EventType.SELECT) {
 // TODO support select message
             goTo(msg.startTime, true);
         }

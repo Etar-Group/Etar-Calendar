@@ -147,7 +147,8 @@ public class CalendarView extends View
     private int mLastJulianDay;
 
     private int mMonthLength;
-    private int mFirstDate;
+    private int mFirstVisibleDate;
+    private int mFirstVisibleDayOfWeek;
     private int[] mEarliestStartHour;    // indexed by the week day offset
     private boolean[] mHasAllDayEvent;   // indexed by the week day offset
 
@@ -182,7 +183,7 @@ public class CalendarView extends View
     private Path mPath = new Path();
 
     protected boolean mDrawTextInEventRect = true;
-    private int mStartDay;
+    private int mFirstDayOfWeek; // First day of the week
 
     private PopupWindow mPopup;
     private View mPopupView;
@@ -399,7 +400,7 @@ public class CalendarView extends View
         setClickable(true);
         setOnCreateContextMenuListener(this);
 
-        mStartDay = Utils.getFirstDayOfWeek(context);
+        mFirstDayOfWeek = Utils.getFirstDayOfWeek(context);
 
         mCurrentTime = new Time();
         long currentTime = System.currentTimeMillis();
@@ -611,27 +612,50 @@ public class CalendarView extends View
     }
 
     /**
-     * return a negative number if a is less than b, a positive number if a is
-     * greater than b, and 0 if they are equal.
+     * return a negative number if "time" is comes before the visible time
+     * range, a positive number if "time" is after the visible time range, and 0
+     * if it is in the visible time range.
      */
-    public int compareToShownTime(Time time) {
+    public int compareToVisibleTimeRange(Time time) {
+
+        int savedHour = mBaseDate.hour;
+        int savedMinute = mBaseDate.minute;
+        int savedSec = mBaseDate.second;
+
+        mBaseDate.hour = 0;
+        mBaseDate.minute = 0;
+        mBaseDate.second = 0;
+
+        Log.d(TAG, "Begin " + mBaseDate.toString());
+        Log.d(TAG, "Diff  " + time.toString());
+
         // Compare beginning of range
         int diff = Time.compare(time, mBaseDate);
-        if (diff <= 0) {
-            return diff;
+        if (diff > 0) {
+            // Compare end of range
+            mBaseDate.monthDay += mNumDays;
+            mBaseDate.normalize(true);
+            diff = Time.compare(time, mBaseDate);
+
+            Log.d(TAG, "End   " + mBaseDate.toString());
+
+            mBaseDate.monthDay -= mNumDays;
+            mBaseDate.normalize(true);
+            if (diff < 0) {
+                // in visible time
+                diff = 0;
+            } else if (diff == 0) {
+                // Midnight of following day
+                diff = 1;
+            }
         }
 
-        // Compare end of range
-        mBaseDate.monthDay += mNumDays;
-        diff = Time.compare(time, mBaseDate);
-        mBaseDate.monthDay -= mNumDays;
+        Log.d(TAG, "Diff: " + diff);
 
-        if (diff >= 0) {
-            return 1;
-        }
-
-        // In visible range
-        return 0;
+        mBaseDate.hour = savedHour;
+        mBaseDate.minute = savedMinute;
+        mBaseDate.second = savedSec;
+        return diff;
     }
 
     private void recalc() {
@@ -639,7 +663,7 @@ public class CalendarView extends View
         // 7 days at a time.
         if (mNumDays == 7) {
             int dayOfWeek = mBaseDate.weekDay;
-            int diff = dayOfWeek - mStartDay;
+            int diff = dayOfWeek - mFirstDayOfWeek;
             if (diff != 0) {
                 if (diff < 0) {
                     diff += 7;
@@ -655,7 +679,8 @@ public class CalendarView extends View
         mLastJulianDay = mFirstJulianDay + mNumDays - 1;
 
         mMonthLength = mBaseDate.getActualMaximum(Time.MONTH_DAY);
-        mFirstDate = mBaseDate.monthDay;
+        mFirstVisibleDate = mBaseDate.monthDay;
+        mFirstVisibleDayOfWeek = mBaseDate.weekDay;
 
         int flags = DateUtils.FORMAT_SHOW_YEAR;
         if (DateFormat.is24HourFormat(mContext)) {
@@ -849,7 +874,7 @@ public class CalendarView extends View
 
         view.mSelectedEvent = null;
         view.mPrevSelectedEvent = null;
-        view.mStartDay = mStartDay;
+        view.mFirstDayOfWeek = mFirstDayOfWeek;
         if (view.mEvents.size() > 0) {
             view.mSelectionAllDay = mSelectionAllDay;
         } else {
@@ -1452,7 +1477,20 @@ public class CalendarView extends View
         p.setTypeface(mBold);
         p.setAntiAlias(true);
         for (int day = 0; day < mNumDays; day++, cell++) {
-            drawDayHeader(dayNames[day + mStartDay], day, cell, x, canvas, p);
+            int dayOfWeek = day + mFirstDayOfWeek + mFirstVisibleDayOfWeek;
+            while (dayOfWeek >= 7) {
+                dayOfWeek -= 7;
+            }
+
+            if (Utils.isSaturday(dayOfWeek, mFirstDayOfWeek)) {
+                p.setColor(mWeek_saturdayColor);
+            } else if (Utils.isSunday(dayOfWeek, mFirstDayOfWeek)) {
+                p.setColor(mWeek_sundayColor);
+            } else {
+                p.setColor(mCalendarDateBannerTextColor);
+            }
+
+            drawDayHeader(dayNames[dayOfWeek], day, cell, x, canvas, p);
             x += deltaX;
         }
     }
@@ -1602,15 +1640,7 @@ public class CalendarView extends View
     private void drawDayHeader(String dateStr, int day, int cell, int x, Canvas canvas, Paint p) {
         float xCenter = x + mCellWidth / 2.0f;
 
-        if (Utils.isSaturday(day, mStartDay)) {
-            p.setColor(mWeek_saturdayColor);
-        } else if (Utils.isSunday(day, mStartDay)) {
-            p.setColor(mWeek_sundayColor);
-        } else {
-            p.setColor(mCalendarDateBannerTextColor);
-        }
-
-        int dateNum = mFirstDate + day;
+        int dateNum = mFirstVisibleDate + day;
         if (dateNum > mMonthLength) {
             dateNum -= mMonthLength;
         }
@@ -2653,7 +2683,7 @@ public class CalendarView extends View
             end.monthDay += mNumDays - 1;
             Log.d(TAG, "doFling");
             mController
-                    .sendEvent(this, EventType.SELECT, view.mBaseDate, end, -1, ViewType.CURRENT);
+                    .sendEvent(this, EventType.GO_TO, view.mBaseDate, end, -1, ViewType.CURRENT);
 
             mViewStartX = 0;
             return;
@@ -2883,12 +2913,12 @@ public class CalendarView extends View
                     break;
                 }
                 case MenuHelper.MENU_DAY: {
-                    mController.sendEvent(this, EventType.SELECT, getSelectedTime(), null, -1,
+                    mController.sendEvent(this, EventType.GO_TO, getSelectedTime(), null, -1,
                             ViewType.DAY);
                     break;
                 }
                 case MenuHelper.MENU_AGENDA: {
-                    mController.sendEvent(this, EventType.SELECT, getSelectedTime(), null, -1,
+                    mController.sendEvent(this, EventType.GO_TO, getSelectedTime(), null, -1,
                             ViewType.AGENDA);
                     break;
                 }
