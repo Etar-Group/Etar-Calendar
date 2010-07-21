@@ -17,6 +17,12 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/action_refresh"
+        android:alphabeticShortcut="r"
+        android:title="@string/goto_today"
+        android:icon="@drawable/ic_menu_refresh"
+        android:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_day"
         android:alphabeticShortcut="d"
         android:title="@string/day_view"
@@ -36,7 +42,7 @@
         android:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_agenda"
-        android:alphabeticShortcut="m"
+        android:alphabeticShortcut="a"
         android:title="@string/agenda_view"
         android:icon="@android:drawable/ic_menu_agenda"
         android:showAsAction="ifRoom" />
@@ -48,17 +54,19 @@
         android:showAsAction="always" />
     <item
         android:id="@+id/action_create_event"
-        android:alphabeticShortcut="r"
+        android:alphabeticShortcut="n"
         android:title="@string/event_create"
         android:icon="@android:drawable/ic_menu_add"
         android:showAsAction="always" />
     <item
         android:id="@+id/action_manage_calendars"
+        android:alphabeticShortcut="c"
         android:title="@string/menu_select_calendars"
         android:icon="@android:drawable/ic_menu_manage"
         android:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_settings"
+        android:alphabeticShortcut="s"
         android:title="@string/menu_preferences"
         android:icon="@android:drawable/ic_menu_preferences"
         android:showAsAction="ifRoom" />

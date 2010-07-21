@@ -119,6 +119,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         Time t = null;
         int viewType = ViewType.CURRENT;
         switch (item.getItemId()) {
+            case R.id.action_refresh:
+                mController.refreshCalendars();
+                return true;
             case R.id.action_day:
                 viewType = ViewType.DAY;
                 break;

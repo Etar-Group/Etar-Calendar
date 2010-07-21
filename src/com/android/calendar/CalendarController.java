@@ -19,12 +19,18 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
+import android.accounts.Account;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
+import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
+import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 
@@ -34,6 +40,10 @@ import java.util.WeakHashMap;
 
 public class CalendarController {
     private static final String TAG = "CalendarController";
+    private static final String REFRESH_SELECTION = Calendars.SYNC_EVENTS + "=?";
+    private static final String[] REFRESH_ARGS = new String[] { "1" };
+    private static final String REFRESH_ORDER = Calendars._SYNC_ACCOUNT + ","
+            + Calendars.ACCOUNT_TYPE;
 
     private Context mContext;
 
@@ -46,6 +56,8 @@ public class CalendarController {
     private int mViewType = -1;
     private int mPreviousViewType = -1;
     private Time mTime = new Time();
+
+    private AsyncQueryService mService;
 
     /**
      * One of the event types that are sent to or from the controller
@@ -123,6 +135,12 @@ public class CalendarController {
     public CalendarController(Context context) {
         mContext = context;
         mTime.setToNow();
+        mService = new AsyncQueryService(context) {
+            @Override
+            protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+                doRefresh(cursor);
+            }
+        };
     }
 
     /**
@@ -336,6 +354,68 @@ public class CalendarController {
         DeleteEventHelper deleteEventHelper = new DeleteEventHelper(mContext, parentActivity,
                 parentActivity != null /* exit when done */);
         deleteEventHelper.delete(startMillis, endMillis, eventId, deleteWhich);
+    }
+
+    public void refreshCalendars() {
+        Log.d(TAG, "RefreshCalendars starting");
+        // get the account, url, and current sync state
+        mService.startQuery(mService.getNextToken(), null, Calendars.CONTENT_URI,
+                new String[] {Calendars._ID, // 0
+                        Calendars._SYNC_ACCOUNT, // 1
+                        Calendars._SYNC_ACCOUNT_TYPE, // 2
+                        },
+                REFRESH_SELECTION, REFRESH_ARGS, REFRESH_ORDER);
+
+    }
+
+    private void doRefresh(Cursor cursor) {
+        if (cursor == null) {
+            return;
+        }
+
+        String previousAccount = null;
+        String previousType = null;
+        Log.d(TAG, "Refreshing " + cursor.getCount() + " calendars");
+        try {
+            while (cursor.moveToNext()) {
+                Account account = null;
+                String accountName = cursor.getString(1);
+                String accountType = cursor.getString(2);
+                // Only need to schedule one sync per account and they're
+                // ordered by account,type
+                if (TextUtils.equals(accountName, previousAccount) &&
+                        TextUtils.equals(accountType, previousType)) {
+                    continue;
+                }
+                previousAccount = accountName;
+                previousType = accountType;
+                account = new Account(accountName, accountType);
+                scheduleSync(account, false /* two-way sync */, null);
+            }
+        } finally {
+            cursor.close();
+        }
+    }
+
+    /**
+     * Schedule a calendar sync for the account.
+     * @param account the account for which to schedule a sync
+     * @param uploadChangesOnly if set, specify that the sync should only send
+     *   up local changes.  This is typically used for a local sync, a user override of
+     *   too many deletions, or a sync after a calendar is unselected.
+     * @param url the url feed for the calendar to sync (may be null, in which case a poll of
+     *   all feeds is done.)
+     */
+    void scheduleSync(Account account, boolean uploadChangesOnly, String url) {
+        Bundle extras = new Bundle();
+        if (uploadChangesOnly) {
+            extras.putBoolean(ContentResolver.SYNC_EXTRAS_UPLOAD, uploadChangesOnly);
+        }
+        if (url != null) {
+            extras.putString("feed", url);
+            extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        }
+        ContentResolver.requestSync(account, Calendars.CONTENT_URI.getAuthority(), extras);
     }
 
     private String eventInfoToString(EventInfo eventInfo) {
