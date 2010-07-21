@@ -146,25 +146,25 @@ public class MenuHelper {
                 // FRAG_TODO switch all to time or long?
                 t = new Time();
                 t.set(nav.getSelectedTime());
-                AllInOneActivity.mController.sendEvent(activity, EventType.SELECT, t, null, -1,
+                AllInOneActivity.mController.sendEvent(activity, EventType.GO_TO, t, null, -1,
                         ViewType.AGENDA);
                 return true;
             case MENU_DAY:
                 t = new Time();
                 t.set(nav.getSelectedTime());
-                AllInOneActivity.mController.sendEvent(activity, EventType.SELECT, t, null, -1,
+                AllInOneActivity.mController.sendEvent(activity, EventType.GO_TO, t, null, -1,
                         ViewType.DAY);
                 return true;
             case MENU_WEEK:
                 t = new Time();
                 t.set(nav.getSelectedTime());
-                AllInOneActivity.mController.sendEvent(activity, EventType.SELECT, t, null, -1,
+                AllInOneActivity.mController.sendEvent(activity, EventType.GO_TO, t, null, -1,
                         ViewType.WEEK);
                 return true;
             case MENU_MONTH:
                 t = new Time();
                 t.set(nav.getSelectedTime());
-                AllInOneActivity.mController.sendEvent(activity, EventType.SELECT, t, null, -1,
+                AllInOneActivity.mController.sendEvent(activity, EventType.GO_TO, t, null, -1,
                         ViewType.MONTH);
                 return true;
             case MENU_EVENT_CREATE: {

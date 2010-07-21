@@ -296,7 +296,7 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
     }
 
     public long getSupportedEventTypes() {
-        return EventType.GO_TO | EventType.SELECT;
+        return EventType.GO_TO;
     }
 
     public void handleEvent(EventInfo msg) {
@@ -304,8 +304,6 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
 // TODO support a range of time
 // TODO support event_id
 // TODO figure out the animate bit
-            goTo(msg.startTime, true);
-        } else if (msg.eventType == EventType.SELECT) {
 // TODO support select message
             goTo(msg.startTime, true);
         }

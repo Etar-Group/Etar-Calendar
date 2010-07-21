@@ -403,7 +403,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
                     mTempTime.set(millis);
 // FRAG_TODO convert mDetailedView to viewType
-                    mController.sendEvent(this, EventType.SELECT, mTempTime, null, -1,
+                    mController.sendEvent(this, EventType.GO_TO, mTempTime, null, -1,
                             ViewType.DAY);
                 }
 

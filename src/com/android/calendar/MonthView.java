@@ -287,7 +287,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
                 }
                 time.normalize(true);
 
-                mController.sendEvent(this, EventType.SELECT, time, null, -1, ViewType.MONTH);
+                mController.sendEvent(this, EventType.GO_TO, time, null, -1, ViewType.MONTH);
 
                 return true;
             }
@@ -408,12 +408,12 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case MenuHelper.MENU_DAY: {
-                    mController.sendEvent(mContext, EventType.SELECT, MonthView.this
+                    mController.sendEvent(mContext, EventType.GO_TO, MonthView.this
                             .getSelectedTime(), null, -1, ViewType.DAY);
                     break;
                 }
                 case MenuHelper.MENU_AGENDA: {
-                    mController.sendEvent(mContext, EventType.SELECT, MonthView.this
+                    mController.sendEvent(mContext, EventType.GO_TO, MonthView.this
                             .getSelectedTime(), null, -1, ViewType.AGENDA);
                     break;
                 }
@@ -1075,7 +1075,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
         switch (keyCode) {
         case KeyEvent.KEYCODE_ENTER:
 // FRAG_TODO resolve detail view
-            mController.sendEvent(mContext, EventType.SELECT, MonthView.this
+            mController.sendEvent(mContext, EventType.GO_TO, MonthView.this
                     .getSelectedTime(), null, -1, ViewType.DAY);
             return true;
         case KeyEvent.KEYCODE_DPAD_UP:

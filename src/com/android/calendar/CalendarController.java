@@ -19,45 +19,32 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Calendar.Events;
-import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.WeakHashMap;
-
-// Go to next/previous [agenda/day/week/month]
-// Go to range of days
-// Go to [agenda/day/week/month] view centering on time
-// Selected time and optionally event_id
-//
-// Setting
-// Select Calendars
-//
-// View [event id] at x,y
-// Edit [event id] at x,y
-// Delete [event id]
-// New event at [time]
-
 
 public class CalendarController {
     private static final String TAG = "CalendarController";
 
+    private Context mContext;
+
     private ArrayList<EventHandler> eventHandlers = new ArrayList<EventHandler>(5);
+    private LinkedList<EventHandler> mToBeRemovedEventHandlers = new LinkedList<EventHandler>();
+    private boolean mDispatchInProgress;
+
     private WeakHashMap<Object, Long> filters = new WeakHashMap<Object, Long>(1);
 
-    private Activity mActivity;
-
     private int mViewType = -1;
-
+    private int mPreviousViewType = -1;
     private Time mTime = new Time();
 
     /**
@@ -69,11 +56,10 @@ public class CalendarController {
         final long EDIT_EVENT = 1L << 2;
         final long DELETE_EVENT = 1L << 3;
 
-        final long SELECT = 1L << 4;
-        final long GO_TO = 1L << 5;
+        final long GO_TO = 1L << 4;
 
-        final long LAUNCH_MANAGE_CALENDARS = 1L << 6;
-        final long LAUNCH_SETTINGS = 1L << 7;
+        final long LAUNCH_MANAGE_CALENDARS = 1L << 5;
+        final long LAUNCH_SETTINGS = 1L << 6;
     }
 
     /**
@@ -97,6 +83,7 @@ public class CalendarController {
         int y; // y coordinate in the activity space
     }
 
+    // FRAG_TODO remove unneeded api's
     public interface EventHandler {
         long getSupportedEventTypes();
         void handleEvent(EventInfo event);
@@ -133,8 +120,8 @@ public class CalendarController {
 
     }
 
-    public CalendarController(Activity activity) {
-        mActivity = activity;
+    public CalendarController(Context context) {
+        mContext = context;
         mTime.setToNow();
     }
 
@@ -227,105 +214,61 @@ public class CalendarController {
             return;
         }
 
-        // Set title bar
-        setTitleInActionBar(event);
+        mPreviousViewType = mViewType;
 
         // Fix up view if not specified
         if (event.viewType == ViewType.CURRENT) {
             event.viewType = mViewType;
+        } else {
+            mViewType = event.viewType;
         }
 
-        // Switch view/fragment as needed
-        if (event.eventType == EventType.GO_TO || event.eventType == EventType.SELECT) {
-            setMainPane(null, R.id.main_pane, event.viewType,
-                    event.startTime.toMillis(false), false);
-        }
+        synchronized (this) {
+            mDispatchInProgress = true;
 
-        // Dispatch to view(s)
-        for (EventHandler view : eventHandlers) {
-            if (view != null) {
-                boolean supportedEvent = (view.getSupportedEventTypes() & event.eventType) != 0;
-                if (supportedEvent) {
-                    view.handleEvent(event);
+            // Dispatch to event handler(s)
+            for (int i = 0; i < eventHandlers.size(); ++i) {
+                EventHandler eventHandler = eventHandlers.get(i);
+                if (eventHandler != null
+                        && (eventHandler.getSupportedEventTypes() & event.eventType) != 0) {
+                    if (mToBeRemovedEventHandlers.contains(eventHandler)) {
+                        continue;
+                    }
+                    eventHandler.handleEvent(event);
                 }
             }
+
+            // Deregister removed handlers
+            if (mToBeRemovedEventHandlers.size() > 0) {
+                for (EventHandler zombie : mToBeRemovedEventHandlers) {
+                    eventHandlers.remove(zombie);
+                }
+                mToBeRemovedEventHandlers.clear();
+            }
+            mDispatchInProgress = false;
         }
     }
 
     public void registerEventHandler(EventHandler eventHandler) {
-        eventHandlers.add(eventHandler);
+        synchronized (this) {
+            eventHandlers.add(eventHandler);
+        }
     }
 
     public void deregisterEventHandler(EventHandler eventHandler) {
-        eventHandlers.remove(eventHandler);
+        synchronized (this) {
+            if (mDispatchInProgress) {
+                // To avoid ConcurrencyException, stash away the event handler for now.
+                mToBeRemovedEventHandlers.add(eventHandler);
+            } else {
+                eventHandlers.remove(eventHandler);
+            }
+        }
     }
 
     // FRAG_TODO doesn't work yet
     public void filterBroadcasts(Object sender, long eventTypes) {
         filters.put(sender, eventTypes);
-    }
-
-    private void setTitleInActionBar(EventInfo event) {
-        if (event.eventType != EventType.SELECT && event.eventType != EventType.GO_TO) {
-            return;
-        }
-
-        long start = event.startTime.toMillis(false /* use isDst */);
-        long end = start;
-
-        if (event.endTime != null && !event.startTime.equals(event.endTime)) {
-            end = event.endTime.toMillis(false /* use isDst */);
-        }
-        String msg = DateUtils.formatDateRange(mActivity, start, end, DateUtils.FORMAT_SHOW_DATE);
-
-        ActionBar ab = mActivity.getActionBar();
-        if (ab != null) {
-            ab.setTitle(msg);
-        }
-    }
-
-    public void setMainPane(FragmentTransaction ft, int viewId, int viewType,
-            long timeMillis, boolean force) {
-        if(!force && mViewType == viewType) {
-            return;
-        }
-        mViewType = viewType;
-
-        // Deregister old view
-        Fragment frag = mActivity.findFragmentById(viewId);
-        if (frag != null) {
-            deregisterEventHandler((EventHandler) frag);
-        }
-
-        // Create new one
-        switch (viewType) {
-            case ViewType.AGENDA:
-// FRAG_TODO Change this to agenda when we have AgendaFragment
-                frag = new MonthFragment(false, timeMillis);
-                break;
-            case ViewType.DAY:
-            case ViewType.WEEK:
-                frag = new DayFragment(timeMillis);
-                break;
-            case ViewType.MONTH:
-                frag = new MonthFragment(false, timeMillis);
-                break;
-            default:
-                throw new IllegalArgumentException("Must be Agenda, Day, Week, or Month ViewType");
-        }
-
-        boolean doCommit = false;
-        if (ft == null) {
-            doCommit = true;
-            ft = mActivity.openFragmentTransaction();
-        }
-
-        ft.replace(viewId, frag);
-        registerEventHandler((EventHandler) frag);
-
-        if (doCommit) {
-            ft.commit();
-        }
     }
 
     /**
@@ -335,37 +278,44 @@ public class CalendarController {
         return mTime.toMillis(false);
     }
 
+    public int getViewType() {
+        return mViewType;
+    }
+
+    public int getPreviousViewType() {
+        return mPreviousViewType;
+    }
 
     private void launchManageCalendars() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClass(mActivity, SelectCalendarsActivity.class);
+        intent.setClass(mContext, SelectCalendarsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        mActivity.startActivity(intent);
+        mContext.startActivity(intent);
     }
 
     private void launchSettings() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClassName(mActivity, CalendarPreferenceActivity.class.getName());
+        intent.setClassName(mContext, CalendarPreferenceActivity.class.getName());
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        mActivity.startActivity(intent);
+        mContext.startActivity(intent);
     }
 
     private void launchCreateEvent(long startMillis, long endMillis) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClassName(mActivity, EditEventActivity.class.getName());
+        intent.setClassName(mContext, EditEventActivity.class.getName());
         intent.putExtra(EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EVENT_END_TIME, endMillis);
-        mActivity.startActivity(intent);
+        mContext.startActivity(intent);
     }
 
     private void launchViewEvent(long eventId, long startMillis, long endMillis) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
         intent.setData(eventUri);
-        intent.setClassName(mActivity, EventInfoActivity.class.getName());
+        intent.setClassName(mContext, EventInfoActivity.class.getName());
         intent.putExtra(EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EVENT_END_TIME, endMillis);
-        mActivity.startActivity(intent);
+        mContext.startActivity(intent);
     }
 
     private void launchEditEvent(long eventId, long startMillis, long endMillis) {
@@ -373,8 +323,8 @@ public class CalendarController {
         Intent intent = new Intent(Intent.ACTION_EDIT, uri);
         intent.putExtra(EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EVENT_END_TIME, endMillis);
-        intent.setClass(mActivity, EditEventActivity.class);
-        mActivity.startActivity(intent);
+        intent.setClass(mContext, EditEventActivity.class);
+        mContext.startActivity(intent);
     }
 
     private void launchDeleteEvent(long eventId, long startMillis, long endMillis) {
@@ -383,7 +333,7 @@ public class CalendarController {
 
     private void launchDeleteEventAndFinish(Activity parentActivity, long eventId, long startMillis,
             long endMillis, int deleteWhich) {
-        DeleteEventHelper deleteEventHelper = new DeleteEventHelper(mActivity, parentActivity,
+        DeleteEventHelper deleteEventHelper = new DeleteEventHelper(mContext, parentActivity,
                 parentActivity != null /* exit when done */);
         deleteEventHelper.delete(startMillis, endMillis, eventId, deleteWhich);
     }
@@ -392,9 +342,7 @@ public class CalendarController {
         String tmp = "Unknown";
 
         StringBuilder builder = new StringBuilder();
-        if ((eventInfo.eventType & EventType.SELECT) != 0) {
-            tmp = "Select time/event";
-        } else if ((eventInfo.eventType & EventType.GO_TO) != 0) {
+        if ((eventInfo.eventType & EventType.GO_TO) != 0) {
             tmp = "Go to time/event";
         } else if ((eventInfo.eventType & EventType.CREATE_EVENT) != 0) {
             tmp = "New event";
