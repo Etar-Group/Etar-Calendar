@@ -1477,9 +1477,9 @@ public class CalendarView extends View
         p.setTypeface(mBold);
         p.setAntiAlias(true);
         for (int day = 0; day < mNumDays; day++, cell++) {
-            int dayOfWeek = day + mFirstDayOfWeek + mFirstVisibleDayOfWeek;
-            while (dayOfWeek >= 7) {
-                dayOfWeek -= 7;
+            int dayOfWeek = day + mFirstVisibleDayOfWeek;
+            if (dayOfWeek >= 14) {
+                dayOfWeek -= 14;
             }
 
             if (Utils.isSaturday(dayOfWeek, mFirstDayOfWeek)) {
@@ -2680,7 +2680,8 @@ public class CalendarView extends View
             mTitleTextView.setText(view.mDateRange);
 
             Time end = new Time(view.mBaseDate);
-            end.monthDay += mNumDays - 1;
+            end.monthDay += mNumDays;
+            end.normalize(true);
             Log.d(TAG, "doFling");
             mController
                     .sendEvent(this, EventType.GO_TO, view.mBaseDate, end, -1, ViewType.CURRENT);
