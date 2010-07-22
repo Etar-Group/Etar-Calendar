@@ -121,8 +121,8 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"日历视图设置"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"提醒设置"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"隐藏已拒绝的活动"</string>
-    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"设置警报和通知"</string>
-    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"警报和通知"</string>
+
+
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"振动"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"收到提醒时也振动"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"选择铃声"</string>

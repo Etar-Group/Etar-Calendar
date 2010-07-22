@@ -121,8 +121,8 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Ρυθμίσεις προβολής ημερολογίου"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Ρυθμίσεις υπενθύμισης"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Απόκρυψη συμβάντων που έχουν απορριφθεί"</string>
-    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Ορισμός προειδοποιήσεων &amp; ειδοποιήσεων"</string>
-    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Προειδοποιήσεις &amp; ειδοποιήσεις"</string>
+
+
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Δόνηση"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Δόνηση και στις υπενθυμίσεις"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Επιλογή ήχου κλήσης"</string>
