@@ -88,7 +88,10 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private static int BUSY_BITS_WIDTH = 6;
     private static int BUSY_BITS_MARGIN = 4;
     private static int DAY_NUMBER_OFFSET = 10;
-    private static long WEEK_IN_MILLIS = 604800000L;
+    private static final int MIN_YEAR = 1970;
+    private static final int MAX_YEAR = 2036;
+    private static final int MIN_WEEK = MIN_YEAR * 52;
+    private static final int MAX_WEEK = (MAX_YEAR + 1) * 52;
 
     private static int VERTICAL_FLING_THRESHOLD = 50;
 
@@ -275,7 +278,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mViewCalendar.set(now);
         makeFirstDayOfWeek(mViewCalendar);
         // The first week is mFocusWeek weeks earlier than the current week
-        mFirstDay.set(now - WEEK_IN_MILLIS * mFocusWeek);
+        mFirstDay.set(now - DateUtils.WEEK_IN_MILLIS * mFocusWeek);
         makeFirstDayOfWeek(mFirstDay);
         mToday = new Time();
         mToday.set(System.currentTimeMillis());
@@ -469,6 +472,15 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
         public void init(int numWeeks) {
 
+            int currWeek = mFirstDay.getWeekNumber() + 52 * mFirstDay.year;
+            int endWeek = currWeek + numWeeks;
+            if (endWeek < MIN_WEEK) {
+                // Will send it to the first week of 1970
+                numWeeks = MIN_WEEK - currWeek;
+            } else if (endWeek + mNumWeeks - 1 > MAX_WEEK) {
+                // Will send it to the last week of 2036
+                numWeeks = MAX_WEEK - currWeek - mNumWeeks + 1;
+            }
             mInitialOffset = mWeekOffset;
             mWeeks = numWeeks; //Math.abs(numWeeks);
             mStartTime.set(mFirstDay);
@@ -485,7 +497,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         public void run() {
             // Calculate it based on the start so we don't accumulate rounding
             // errors
-            mFirstDay.set(mStartTime.toMillis(true) + WEEK_IN_MILLIS
+            mFirstDay.set(mStartTime.toMillis(true) + DateUtils.WEEK_IN_MILLIS
                     * (long) Math.floor(mWeeks * mScrollCount / SCROLL_REPEAT_COUNT));
             makeFirstDayOfWeek(mFirstDay);
             mWeekOffset = (mWeeks * mCellHeight * mScrollCount / SCROLL_REPEAT_COUNT)
