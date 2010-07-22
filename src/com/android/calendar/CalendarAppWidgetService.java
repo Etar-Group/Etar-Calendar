@@ -87,8 +87,6 @@ public class CalendarAppWidgetService extends IntentService {
     // update about six hours from now.
     private static final long UPDATE_NO_EVENTS = DateUtils.HOUR_IN_MILLIS * 6;
 
-    private static final String KEY_DETAIL_VIEW = "DETAIL_VIEW";
-
     public CalendarAppWidgetService() {
         super(TAG);
     }
@@ -542,7 +540,7 @@ public class CalendarAppWidgetService extends IntentService {
                 Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED |
                 Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if (goToTime != 0) {
-            launchIntent.putExtra(KEY_DETAIL_VIEW, true);
+            launchIntent.putExtra(Utils.INTENT_KEY_DETAIL_VIEW, true);
             dataString += "/" + goToTime;
         }
         Uri data = Uri.parse(dataString);

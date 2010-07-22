@@ -152,8 +152,6 @@ public class CalendarView extends View
     private int[] mEarliestStartHour;    // indexed by the week day offset
     private boolean[] mHasAllDayEvent;   // indexed by the week day offset
 
-    private String mDetailedView = CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW;
-
     /**
      * This variable helps to avoid unnecessarily reloading events by keeping
      * track of the start millis parameter used for the most recent loading
@@ -702,10 +700,6 @@ public class CalendarView extends View
         // horizontally but we don't always want to change the title.  And
         // if we change the title here and then change it back in the caller
         // then we get an annoying flicker.
-    }
-
-    void setDetailedView(String detailedView) {
-        mDetailedView = detailedView;
     }
 
     @Override
@@ -2562,9 +2556,7 @@ public class CalendarView extends View
             Time endTime = new Time(startTime);
             endTime.hour++;
 
-//FRAG_TODO convert mDetailedView to viewType
-            mController.sendEvent(this, EventType.GO_TO, startTime, endTime, -1,
-                    ViewType.DAY);
+            mController.sendEvent(this, EventType.GO_TO, startTime, endTime, -1, ViewType.DETAIL);
         }
     }
 

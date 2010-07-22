@@ -47,8 +47,14 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     static final String KEY_ALERTS_POPUP = "preferences_alerts_popup";
 
     static final String KEY_DEFAULT_REMINDER = "preferences_default_reminder";
-    static final String KEY_START_VIEW = "startView";
-    static final String KEY_DETAILED_VIEW = "preferredDetailedView";
+
+    /** Key to SharePreference for default view (CalendarController.ViewType) */
+    static final String KEY_START_VIEW = "preferred_startView";
+    /**
+     *  Key to SharePreference for default detail view (CalendarController.ViewType)
+     *  Typically used by widget
+     */
+    static final String KEY_DETAILED_VIEW = "preferred_detailedView";
     static final String KEY_DEFAULT_CALENDAR = "preference_defaultCalendar";
 
     // These must be in sync with the array preferences_week_start_day_values
@@ -64,10 +70,8 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     private static final String ALERT_TYPE_OFF = "2";
 
     // Default preference values
-    static final String DEFAULT_START_VIEW =
-            CalendarApplication.ACTIVITY_NAMES[CalendarApplication.MONTH_VIEW_ID];
-    public static final String DEFAULT_DETAILED_VIEW =
-            CalendarApplication.ACTIVITY_NAMES[CalendarApplication.DAY_VIEW_ID];
+    public static final int DEFAULT_START_VIEW = CalendarController.ViewType.WEEK;
+    public static final int DEFAULT_DETAILED_VIEW = CalendarController.ViewType.DAY;
 
     CheckBoxPreference mAlert;
     ListPreference mVibrateWhen;

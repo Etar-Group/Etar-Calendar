@@ -18,6 +18,9 @@ package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 
+import com.android.calendar.CalendarController.ViewType;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +29,7 @@ import android.database.MatrixCursor;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -62,6 +66,29 @@ public class Utils {
     /* The corner should be rounded on the top right and bottom right */
     private static final float[] CORNERS = new float[] {0, 0, 5, 5, 5, 5, 0, 0};
 
+    public static final String INTENT_KEY_DETAIL_VIEW = "DETAIL_VIEW";
+    public static final String INTENT_KEY_VIEW_TYPE = "VIEW";
+    public static final String INTENT_VALUE_VIEW_TYPE_DAY = "DAY";
+
+    public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
+        Bundle extras = activity.getIntent().getExtras();
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(activity);
+
+        if (extras != null) {
+            if (extras.getBoolean(INTENT_KEY_DETAIL_VIEW, false)) {
+                // This is the "detail" view which is either agenda or day view
+                return prefs.getInt(CalendarPreferenceActivity.KEY_DETAILED_VIEW,
+                        CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
+            } else if (INTENT_VALUE_VIEW_TYPE_DAY.equals(extras.getString(INTENT_KEY_VIEW_TYPE))) {
+                // Not sure who uses this. This logic came from LaunchActivity
+                return ViewType.DAY;
+            }
+        }
+
+        // Default to the last view
+        return prefs.getInt(CalendarPreferenceActivity.KEY_START_VIEW,
+                CalendarPreferenceActivity.DEFAULT_START_VIEW);
+    }
 
     public static void startActivity(Context context, String className, long time) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -78,6 +105,11 @@ public class Utils {
         return prefs.getString(key, defaultValue);
     }
 
+    public static int getSharedPreference(Context context, String key, int defaultValue) {
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+        return prefs.getInt(key, defaultValue);
+    }
+
     static void setSharedPreference(Context context, String key, String value) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
@@ -85,19 +117,23 @@ public class Utils {
         editor.commit();
     }
 
+    /**
+     * Save default agenda/day/week/month view for next time
+     *
+     * @param context
+     * @param viewId {@link CalendarController.ViewType}
+     */
     static void setDefaultView(Context context, int viewId) {
-        String activityString = CalendarApplication.ACTIVITY_NAMES[viewId];
-
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        if (viewId == CalendarApplication.AGENDA_VIEW_ID ||
-                viewId == CalendarApplication.DAY_VIEW_ID) {
+        if (viewId == CalendarController.ViewType.AGENDA
+                || viewId == CalendarController.ViewType.DAY) {
             // Record the (new) detail start view only for Agenda and Day
-            editor.putString(CalendarPreferenceActivity.KEY_DETAILED_VIEW, activityString);
+            editor.putInt(CalendarPreferenceActivity.KEY_DETAILED_VIEW, viewId);
         }
 
         // Record the (new) start view
-        editor.putString(CalendarPreferenceActivity.KEY_START_VIEW, activityString);
+        editor.putInt(CalendarPreferenceActivity.KEY_START_VIEW, viewId);
         editor.commit();
     }
 
@@ -242,8 +278,7 @@ public class Utils {
      */
     public static int getFirstDayOfWeek(Context context) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
-        String pref = prefs.getString(
-                CalendarPreferenceActivity.KEY_WEEK_START_DAY,
+        String pref = prefs.getString(CalendarPreferenceActivity.KEY_WEEK_START_DAY,
                 CalendarPreferenceActivity.WEEK_START_DEFAULT);
 
         int startDay;

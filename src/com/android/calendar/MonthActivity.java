@@ -102,9 +102,6 @@ public class MonthActivity extends Activity {
         super.onPause();
 //FRAG_TODO        mContentResolver.unregisterContentObserver(mObserver);
 //FRAG_TODO        unregisterReceiver(mIntentReceiver);
-
-        // Record Month View as the (new) start view
-        Utils.setDefaultView(this, CalendarApplication.MONTH_VIEW_ID);
     }
 
     @Override

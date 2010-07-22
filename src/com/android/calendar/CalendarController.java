@@ -78,6 +78,7 @@ public class CalendarController {
      * One of the Agenda/Day/Week/Month view types
      */
     public interface ViewType {
+        final int DETAIL = -1;
         final int CURRENT = 0;
         final int AGENDA = 1;
         final int DAY = 2;
@@ -89,6 +90,7 @@ public class CalendarController {
         long eventType; // one of the EventType
         int viewType; // one of the ViewType
         long id; // event id
+        Time selectedTime; // the selected time in focus
         Time startTime; // start of a range of time.
         Time endTime; // end of a range of time.
         int x; // x coordinate in the activity space
@@ -173,9 +175,9 @@ public class CalendarController {
      *
      * @param sender object of the caller
      * @param eventType one of {@link EventType}
-     * @param eventId event id
      * @param start start time
      * @param end end time
+     * @param eventId event id
      * @param viewType {@link ViewType}
      */
     public void sendEvent(Object sender, long eventType, Time start, Time end, long eventId,
@@ -235,7 +237,12 @@ public class CalendarController {
         mPreviousViewType = mViewType;
 
         // Fix up view if not specified
-        if (event.viewType == ViewType.CURRENT) {
+        if (event.viewType == ViewType.DETAIL) {
+            event.viewType = Utils.getSharedPreference(mContext,
+                    CalendarPreferenceActivity.KEY_DETAILED_VIEW,
+                    CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
+            mViewType = event.viewType;
+        } else if (event.viewType == ViewType.CURRENT) {
             event.viewType = mViewType;
         } else {
             mViewType = event.viewType;
@@ -440,9 +447,11 @@ public class CalendarController {
         builder.append(tmp);
         builder.append(": id=");
         builder.append(eventInfo.id);
-        builder.append(", startTime=");
+        builder.append(", selected=");
+        builder.append(eventInfo.selectedTime);
+        builder.append(", start=");
         builder.append(eventInfo.startTime);
-        builder.append(", endTime=");
+        builder.append(", end=");
         builder.append(eventInfo.endTime);
         builder.append(", viewType=");
         builder.append(eventInfo.viewType);

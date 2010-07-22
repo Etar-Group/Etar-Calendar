@@ -43,8 +43,13 @@
              (android.test) library. -->
         <uses-library android:name="android.test.runner" />
 
-        <activity android:name="LaunchActivity"
-            android:theme="@android:style/Theme.NoDisplay">
+        <activity
+            android:name="AllInOneActivity"
+            android:theme="@style/CalendarTheme.WithActionBar">
+        </activity>
+
+        <activity-alias android:name="LaunchActivity"
+            android:targetActivity=".AllInOneActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -57,23 +62,7 @@
                 <data android:host="com.android.calendar" />
                 <data android:scheme="content"/>
             </intent-filter>
-        </activity>
-
-        <activity
-            android:name="AllInOneActivity"
-            android:label="@string/app_aio_label"
-            android:theme="@style/CalendarTheme.WithActionBar">
-            <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN" />
-                <category
-                    android:name="android.intent.category.DEFAULT" />
-                <category
-                    android:name="android.intent.category.LAUNCHER" />
-                <category
-                    android:name="android.intent.category.BROWSABLE" />
-            </intent-filter>
-        </activity>
+        </activity-alias>
 
         <!-- Make all activities a searchable context -->
         <meta-data android:name="android.app.default_searchable"

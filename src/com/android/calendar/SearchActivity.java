@@ -190,9 +190,6 @@ public class SearchActivity extends Activity implements Navigator {
         mAgendaListView.onPause();
         mContentResolver.unregisterContentObserver(mObserver);
         unregisterReceiver(mIntentReceiver);
-
-        // Record Agenda View as the (new) default detailed view.
-        Utils.setDefaultView(this, CalendarApplication.AGENDA_VIEW_ID);
     }
 
     @Override

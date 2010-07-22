@@ -21,9 +21,6 @@ import static android.provider.Calendar.EVENT_END_TIME;
 
 import com.android.calendar.AgendaActivity;
 import com.android.calendar.CalendarController;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarController.ViewType;
-import com.android.calendar.CalendarPreferenceActivity;
 import com.android.calendar.DayActivity;
 import com.android.calendar.EditEventActivity;
 import com.android.calendar.Event;
@@ -33,6 +30,8 @@ import com.android.calendar.MenuHelper;
 import com.android.calendar.MonthFragment;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
 
 import android.content.Context;
 import android.content.Intent;
@@ -43,10 +42,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -54,7 +53,6 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.SparseArray;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -62,6 +60,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.PopupWindow;
 
 import java.util.ArrayList;
@@ -131,8 +130,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private GestureDetector mGestureDetector;
     // Handles flings, GoTos, and snapping to a week
     private GoToScroll mGoToScroll = new GoToScroll();
-
-    private String mDetailedView = CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW;
 
     // The current local time on the device
     private Time mToday;
@@ -405,9 +402,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                     long millis = getSelectedMillisFor(x, y);
 
                     mTempTime.set(millis);
-// FRAG_TODO convert mDetailedView to viewType
                     mController.sendEvent(this, EventType.GO_TO, mTempTime, null, -1,
-                            ViewType.DAY);
+                            ViewType.DETAIL);
                 }
 
                 return true;
@@ -1017,10 +1013,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         return rf;
     }
 
-    public void setDetailedView(String detailedView) {
-        mDetailedView = detailedView;
-    }
-
     public void setSelectedTime(Time time) {
         // Save the selected time so that we can restore it later when we switch views.
         mSavedTime.set(time);
@@ -1121,10 +1113,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
             // Check the duration to determine if this was a short press
             if (duration < ViewConfiguration.getLongPressTimeout()) {
-                Time goToTime = new Time();
-                goToTime.set(getSelectedTimeInMillis());
-// FRAG_TODO convert mDetailedView to viewType
-                mController.sendEvent(this, EventType.GO_TO, goToTime, null, -1, ViewType.DAY);
+                mController.sendEvent(this, EventType.GO_TO, mSelectedDay, null, -1,
+                        ViewType.DETAIL);
             } else {
                 mSelectionMode = SELECTION_LONGPRESS;
                 mRedrawScreen = true;
@@ -1164,8 +1154,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         switch (keyCode) {
             // TODO make month move correctly when selected week changes
         case KeyEvent.KEYCODE_ENTER:
-            long millis = getSelectedTimeInMillis();
-            Utils.startActivity(getContext(), mDetailedView, millis);
+            mController.sendEvent(this, EventType.GO_TO, mSelectedDay, null, -1, ViewType.DETAIL);
             return true;
         case KeyEvent.KEYCODE_DPAD_UP:
             redraw = true;

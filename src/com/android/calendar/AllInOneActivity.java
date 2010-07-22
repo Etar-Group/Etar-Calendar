@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
@@ -40,7 +38,8 @@ import android.view.View;
 
 public class AllInOneActivity extends Activity implements EventHandler,
         OnSharedPreferenceChangeListener {
-    private static String TAG = "AllInOneActivity";
+    private static final String TAG = "AllInOneActivity";
+    private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     public static CalendarController mController; // FRAG_TODO make private
 
     @Override
@@ -49,7 +48,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         // This needs to be created before setContentView
         mController = new CalendarController(this);
-        // Must be the first to register. Needed to remove other eventhandlers
+
+        // Must be the first to register so that this activity can modify the
+        // list the event handlers during dispatching.
         mController.registerEventHandler(this);
 
         setContentView(R.layout.all_in_one);
@@ -57,16 +58,30 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // Get time from intent or icicle
         long timeMillis;
         if (icicle != null) {
-            timeMillis = icicle.getLong(EVENT_BEGIN_TIME);
+            timeMillis = icicle.getLong(BUNDLE_KEY_RESTORE_TIME);
         } else {
             timeMillis = Utils.timeFromIntentInMillis(getIntent());
         }
 
-        initFragments(timeMillis);
+        initFragments(timeMillis, Utils.getViewTypeFromIntentAndSharedPref(this));
 
         // Listen for changes that would require this to be refreshed
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //FRAG_TODO save highlighted days of the week;
+        Utils.setDefaultView(this, mController.getViewType());
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putLong(BUNDLE_KEY_RESTORE_TIME, mController.getTime());
     }
 
     @Override
@@ -77,7 +92,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         prefs.unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    private void initFragments(long timeMillis) {
+    private void initFragments(long timeMillis, int viewType) {
         FragmentTransaction ft = openFragmentTransaction();
 
         boolean multipane = (getResources().getConfiguration().screenLayout &
@@ -95,15 +110,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
             findViewById(R.id.calendar_list).setVisibility(View.GONE);
         }
 
-        // FRAG_TODO restore event.viewType from icicle
-        setMainPane(ft, R.id.main_pane, ViewType.WEEK, timeMillis, true);
+        setMainPane(ft, R.id.main_pane, viewType, timeMillis, true);
 
         ft.commit(); // this needs to be after setMainPane()
 
-        // Set title
-        String msg = DateUtils.formatDateRange(this, timeMillis, timeMillis,
-            DateUtils.FORMAT_SHOW_DATE);
-        setTitle(msg);
+        Time t = new Time();
+        t.set(timeMillis);
+        mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
     }
 
     @Override
@@ -158,7 +171,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if (key.equals(CalendarPreferenceActivity.KEY_WEEK_START_DAY)) {
-            initFragments(mController.getTime());
+            initFragments(mController.getTime(), mController.getViewType());
         }
     }
 
@@ -187,7 +200,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 frag = new MonthFragment(false, timeMillis);
                 break;
             default:
-                throw new IllegalArgumentException("Must be Agenda, Day, Week, or Month ViewType");
+                throw new IllegalArgumentException(
+                        "Must be Agenda, Day, Week, or Month ViewType, not " + viewType);
         }
 
         boolean doCommit = false;
@@ -212,7 +226,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         long start = event.startTime.toMillis(false /* use isDst */);
         long end = start;
 
-        if (event.endTime != null && !event.startTime.equals(event.endTime)) {
+        if (event.endTime != null) {
             end = event.endTime.toMillis(false /* use isDst */);
         }
         String msg = DateUtils.formatDateRange(this, start, end, DateUtils.FORMAT_SHOW_DATE);

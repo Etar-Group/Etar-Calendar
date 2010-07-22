@@ -146,13 +146,6 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
 
         MonthViewInterface current = (MonthViewInterface) mSwitcher.getCurrentView();
         current.setSelectedTime(mTime);
-
-        MonthViewInterface next = (MonthViewInterface) mSwitcher.getNextView();
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(getActivity());
-        String str = prefs.getString(CalendarPreferenceActivity.KEY_DETAILED_VIEW,
-                CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
-        current.setDetailedView(str);
-        next.setDetailedView(str);
     }
 
     @Override
@@ -315,7 +308,6 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
         public void setSelectedTime(Time time);
         public void animationStarted();
         public void animationFinished();
-        public void setDetailedView(String detailedView);
         public Time getTime();
     }
 }

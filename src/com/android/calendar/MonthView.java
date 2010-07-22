@@ -81,8 +81,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
 
     private GestureDetector mGestureDetector;
 
-    private String mDetailedView = CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW;
-
     private Time mToday;
     private Time mViewCalendar;
     private Time mSavedTime = new Time();   // the time when we entered this view
@@ -369,8 +367,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
 
                     Time startTime = new Time();
                     startTime.set(getSelectedTimeInMillis());
-// FRAG_TODO convert mDetailedView to viewType
-                    mController.sendEvent(this, EventType.GO_TO, startTime, null, -1, ViewType.DAY);
+                    mController.sendEvent(this, EventType.GO_TO, startTime, null, -1,
+                            ViewType.DETAIL);
                 }
 
                 return true;
@@ -925,10 +923,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
         return calendar.get(Calendar.WEEK_OF_YEAR);
     }
 
-    public void setDetailedView(String detailedView) {
-        mDetailedView = detailedView;
-    }
-
     public void setSelectedTime(Time time) {
         // Save the selected time so that we can restore it later when we switch views.
         mSavedTime.set(time);
@@ -1034,8 +1028,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
             if (duration < ViewConfiguration.getLongPressTimeout()) {
                 Time goToTime = new Time();
                 goToTime.set(getSelectedTimeInMillis());
-// FRAG_TODO convert mDetailedView to viewType
-                mController.sendEvent(this, EventType.GO_TO, goToTime, null, -1, ViewType.DAY);
+                mController.sendEvent(this, EventType.GO_TO, getSelectedTime(), null, -1,
+                        ViewType.DETAIL);
             } else {
                 mSelectionMode = SELECTION_LONGPRESS;
                 mRedrawScreen = true;
