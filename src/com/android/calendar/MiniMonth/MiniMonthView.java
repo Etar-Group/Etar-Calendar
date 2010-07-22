@@ -93,6 +93,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private static final int MAX_WEEK = (MAX_YEAR + 1) * 52;
 
     private static int VERTICAL_FLING_THRESHOLD = 50;
+    private static final int DESIRED_CELL_HEIGHT = 40;
 
     private static final int MIN_NUM_WEEKS = 3;
     private static final int MAX_NUM_WEEKS = 16;
@@ -833,8 +834,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         while (y <= height) {
             canvas.drawLine(0, y, width, y, p);
             // Compute directly to avoid rounding errors
-            y = count * height / mNumWeeks + mWeekOffset - 1;
             count++;
+            y = count * height / mNumWeeks + mWeekOffset - 1;
         }
 
         int x = 0;
@@ -1059,6 +1060,12 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private void drawingCalc(int width, int height) {
         mHeight = getMeasuredHeight();
         mWidth = getMeasuredWidth();
+        mNumWeeks = mHeight / DESIRED_CELL_HEIGHT;
+        if (mNumWeeks < MIN_NUM_WEEKS) {
+            mNumWeeks = MIN_NUM_WEEKS;
+        } else if (mNumWeeks > MAX_NUM_WEEKS) {
+            mNumWeeks = MAX_NUM_WEEKS;
+        }
         mCellHeight = (height - (mNumWeeks * WEEK_GAP)) / mNumWeeks;
         mEventGeometry
                 .setHourHeight((mCellHeight - BUSY_BITS_MARGIN * 2 - TEXT_TOP_MARGIN) / 24.0f);
