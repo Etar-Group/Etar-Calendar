@@ -66,7 +66,7 @@
 
         <!-- Make all activities a searchable context -->
         <meta-data android:name="android.app.default_searchable"
-            android:value=".SearchActivity"/>
+            android:value="com.android.calendar.SearchActivity"/>
 
         <activity android:name="MonthActivity" android:label="@string/month_view"
             android:theme="@style/CalendarTheme" />
