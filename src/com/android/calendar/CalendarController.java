@@ -51,6 +51,9 @@ public class CalendarController {
     private LinkedList<EventHandler> mToBeRemovedEventHandlers = new LinkedList<EventHandler>();
     private boolean mDispatchInProgress;
 
+    private static WeakHashMap<Context, CalendarController> instances =
+        new WeakHashMap<Context, CalendarController>();
+
     private WeakHashMap<Object, Long> filters = new WeakHashMap<Object, Long>(1);
 
     private int mViewType = -1;
@@ -134,7 +137,24 @@ public class CalendarController {
 
     }
 
-    public CalendarController(Context context) {
+    /**
+     * Creates and/or returns an instance of CalendarController associated with
+     * the supplied context. It is best to pass in the current Activity.
+     *
+     * @param context The activity if at all possible.
+     */
+    public static CalendarController getInstance(Context context) {
+        synchronized (instances) {
+            CalendarController controller = instances.get(context);
+            if (controller == null) {
+                controller = new CalendarController(context);
+                instances.put(context, controller);
+            }
+            return controller;
+        }
+    }
+
+    private CalendarController(Context context) {
         mContext = context;
         mTime.setToNow();
         mService = new AsyncQueryService(context) {

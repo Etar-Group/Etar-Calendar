@@ -16,6 +16,11 @@
 
 package com.android.calendar;
 
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+
+import dalvik.system.VMRuntime;
+
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -30,11 +35,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-
-import dalvik.system.VMRuntime;
 
 public class AgendaFragment extends Fragment implements CalendarController.EventHandler {
 

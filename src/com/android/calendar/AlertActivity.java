@@ -179,8 +179,8 @@ public class AlertActivity extends Activity {
             long id = cursor.getInt(AlertActivity.INDEX_EVENT_ID);
             long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
             long endMillis = cursor.getLong(AlertActivity.INDEX_END);
-            AllInOneActivity.mController.sendEventRelatedEvent(alertActivity, EventType.VIEW_EVENT,
-                    id, startMillis, endMillis, 0, 0);
+            CalendarController.getInstance(alertActivity).sendEventRelatedEvent(alertActivity,
+                    EventType.VIEW_EVENT, id, startMillis, endMillis, 0, 0);
 
             alertActivity.finish();
         }

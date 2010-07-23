@@ -803,8 +803,8 @@ public class EventInfoActivity extends AbstractCalendarActivity implements View.
     }
 
     private void doEdit() {
-        AllInOneActivity.mController.sendEventRelatedEvent(this, EventType.EDIT_EVENT, mEventId,
-                mStartMillis, mEndMillis, 0, 0);
+        CalendarController.getInstance(this).sendEventRelatedEvent(this, EventType.EDIT_EVENT,
+                mEventId, mStartMillis, mEndMillis, 0, 0);
         finish();
     }
 

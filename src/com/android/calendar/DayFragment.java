@@ -157,8 +157,8 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
     }
 
     public View makeView() {
-        CalendarView view = new CalendarView(getActivity(), AllInOneActivity.mController,
-                mViewSwitcher, mEventLoader);
+        CalendarView view = new CalendarView(getActivity(), CalendarController
+                .getInstance(getActivity()), mViewSwitcher, mEventLoader);
         view.setId(VIEW_ID);
         view.setLayoutParams(new ViewSwitcher.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));

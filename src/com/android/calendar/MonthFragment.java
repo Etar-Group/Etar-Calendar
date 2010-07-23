@@ -22,8 +22,8 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.MiniMonth.MiniMonthView;
 
+import android.app.Activity;
 import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -167,8 +167,9 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
     }
 
     public View makeView() {
+        Activity activity = getActivity();
         if (mUseMiniView) {
-            MiniMonthView mv = new MiniMonthView(getActivity(), AllInOneActivity.mController,
+            MiniMonthView mv = new MiniMonthView(activity, CalendarController.getInstance(activity),
                     mEventLoader);
             mv.setLayoutParams(new ViewSwitcher.LayoutParams(
                     LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -184,7 +185,8 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
             }
             return mv;
         }
-        MonthView mv = new MonthView(getActivity(), AllInOneActivity.mController, mEventLoader);
+        MonthView mv = new MonthView(activity, CalendarController.getInstance(activity),
+                mEventLoader);
         mv.setLayoutParams(new ViewSwitcher.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         mv.setSelectedTime(mTime);

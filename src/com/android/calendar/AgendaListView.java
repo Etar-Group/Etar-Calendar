@@ -37,10 +37,12 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     private AgendaWindowAdapter mWindowAdapter;
     private DeleteEventHelper mDeleteEventHelper;
+    private Context mContext;
 
 
     public AgendaListView(Context context) {
         super(context, null);
+        mContext = context;
         setOnItemClickListener(this);
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         setVerticalScrollBarEnabled(false);
@@ -61,8 +63,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             // Switch to the EventInfo view
             EventInfo event = mWindowAdapter.getEventByPosition(position);
             if (event != null) {
-                AllInOneActivity.mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT,
-                        event.id, event.begin, event.end, 0, 0);
+                CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
+                        EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0);
             }
         }
     }

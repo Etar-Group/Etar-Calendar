@@ -40,14 +40,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
         OnSharedPreferenceChangeListener {
     private static final String TAG = "AllInOneActivity";
     private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
-    public static CalendarController mController; // FRAG_TODO make private
+    private static CalendarController mController;
 
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
         // This needs to be created before setContentView
-        mController = new CalendarController(this);
+        mController = CalendarController.getInstance(this);
 
         // Must be the first to register so that this activity can modify the
         // list the event handlers during dispatching.
