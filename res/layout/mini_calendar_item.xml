@@ -25,7 +25,7 @@
     android:layout_marginBottom="6dip"
     android:layout_weight="1">
 
-    <ImageButton android:id="@+id/color"
+    <ImageView android:id="@+id/color"
         android:layout_width="30dip"
         android:layout_height="30dip"
         android:layout_marginLeft="6dip"
