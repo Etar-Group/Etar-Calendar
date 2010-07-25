@@ -19,9 +19,8 @@
     <item
         android:id="@+id/action_refresh"
         android:alphabeticShortcut="r"
-        android:title="@string/goto_today"
-        android:icon="@drawable/ic_menu_refresh"
-        android:showAsAction="ifRoom" />
+        android:title="@string/calendar_refresh"
+        android:icon="@drawable/ic_menu_refresh" />
     <item
         android:id="@+id/action_day"
         android:alphabeticShortcut="d"
@@ -62,12 +61,10 @@
         android:id="@+id/action_manage_calendars"
         android:alphabeticShortcut="c"
         android:title="@string/menu_select_calendars"
-        android:icon="@android:drawable/ic_menu_manage"
-        android:showAsAction="ifRoom" />
+        android:icon="@android:drawable/ic_menu_my_calendar" />
     <item
         android:id="@+id/action_settings"
         android:alphabeticShortcut="s"
         android:title="@string/menu_preferences"
-        android:icon="@android:drawable/ic_menu_preferences"
-        android:showAsAction="ifRoom" />
+        android:icon="@android:drawable/ic_menu_preferences" />
 </menu>
