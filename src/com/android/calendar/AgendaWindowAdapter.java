@@ -492,10 +492,6 @@ public class AgendaWindowAdapter extends BaseAdapter {
     }
 
     public void refresh(Time goToTime, String searchQuery, boolean forced) {
-        if (!Utils.equals(searchQuery, mSearchQuery)) {
-            // When we change search terms, clean up any old state, start over
-            resetInstanceFields();
-        }
         mSearchQuery = searchQuery;
         if (DEBUGLOG) {
             Log.e(TAG, "refresh " + goToTime.toString() + (forced ? " forced" : " not forced"));
@@ -565,20 +561,6 @@ public class AgendaWindowAdapter extends BaseAdapter {
             }
             return recycleMe;
         }
-    }
-
-    /**
-     * Resets any transient state in this instance and puts it back into a state
-     * where it can be treated as a newly instantiated adapter
-     *
-     * TODO are these all of the fields that need to be reset?
-     */
-    private void resetInstanceFields() {
-        mEmptyCursorCount = 0;
-        mNewerRequests = 0;
-        mNewerRequestsProcessed = 0;
-        mOlderRequests = 0;
-        mOlderRequestsProcessed = 0;
     }
 
     private String buildQuerySelection() {

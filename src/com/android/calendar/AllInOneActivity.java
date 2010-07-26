@@ -152,6 +152,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 t = new Time();
                 t.setToNow();
                 break;
+            case R.id.action_search:
+                onSearchRequested();
+                return true;
             case R.id.action_create_event:
                 mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1, 0, 0, 0, 0);
                 return true;

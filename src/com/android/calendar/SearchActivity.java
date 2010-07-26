@@ -202,6 +202,8 @@ public class SearchActivity extends Activity implements Navigator {
     }
 
     private void search(String searchQuery) {
+        mAgendaListView = new AgendaListView(this);
+        setContentView(mAgendaListView);
         mAgendaListView.search(searchQuery, true);
     }
 

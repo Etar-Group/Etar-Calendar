@@ -17,11 +17,6 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_refresh"
-        android:alphabeticShortcut="r"
-        android:title="@string/calendar_refresh"
-        android:icon="@drawable/ic_menu_refresh" />
-    <item
         android:id="@+id/action_day"
         android:alphabeticShortcut="d"
         android:title="@string/day_view"
@@ -57,6 +52,15 @@
         android:title="@string/event_create"
         android:icon="@android:drawable/ic_menu_add"
         android:showAsAction="always" />
+    <item android:id="@+id/action_search"
+        android:alphabeticShortcut="f"
+        android:title="@string/search"
+        android:icon="@android:drawable/ic_menu_search" />
+    <item
+        android:id="@+id/action_refresh"
+        android:alphabeticShortcut="r"
+        android:title="@string/calendar_refresh"
+        android:icon="@drawable/ic_menu_refresh" />
     <item
         android:id="@+id/action_manage_calendars"
         android:alphabeticShortcut="c"
