@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.android.calendar.MiniMonth;
+package com.android.calendar.Month;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
 import com.android.calendar.AgendaActivity;
 import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.DayActivity;
 import com.android.calendar.EditEventActivity;
 import com.android.calendar.Event;
@@ -30,8 +32,6 @@ import com.android.calendar.MenuHelper;
 import com.android.calendar.MonthFragment;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarController.ViewType;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,10 +42,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -53,6 +53,7 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.SparseArray;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -60,7 +61,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.PopupWindow;
 
 import java.util.ArrayList;
@@ -76,6 +76,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private static float HOUR_GAP = 0f;
     private static float MIN_EVENT_HEIGHT = 2f;
     private static int MONTH_DAY_TEXT_SIZE = 20;
+    private static int MONTH_NAME_TEXT_SIZE = 16;
+    private static int MONTH_NAME_PADDING = 4;
+    private static int MONTH_NAME_SPACE = MONTH_NAME_TEXT_SIZE + 2 * MONTH_NAME_PADDING;
     private static int WEEK_BANNER_HEIGHT = 17;
     private static int WEEK_TEXT_SIZE = 15;
     private static int WEEK_TEXT_PADDING = 3;
@@ -250,6 +253,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                     BUSY_BITS_WIDTH *= mScale * (mShowDNA ? 1 : 0);
                     BUSY_BITS_MARGIN *= mScale * (mShowDNA ? 1 : 0);
                     DAY_NUMBER_OFFSET *= mScale;
+                    MONTH_NAME_TEXT_SIZE *= mScale;
+                    MONTH_NAME_PADDING *= mScale;
+                    MONTH_NAME_SPACE = MONTH_NAME_TEXT_SIZE + 2 * MONTH_NAME_PADDING;
                 }
             }
 
@@ -734,6 +740,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 //            }
         }
         drawGrid(canvas, p);
+        drawMonthNames(canvas, p);
     }
 
     @Override
@@ -815,6 +822,13 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     }
 
     /**
+     * Draw the names of the month on the left.
+     */
+    private void drawMonthNames(Canvas canvas, Paint p) {
+
+    }
+
+    /**
      * Draw the grid lines for the calendar
      * @param canvas The canvas to draw on.
      * @param p The paint used for drawing.
@@ -823,7 +837,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         p.setColor(mMonthOtherMonthColor);
         p.setAntiAlias(false);
 
-        final int width = mWidth;
+        final int width = mWidth + MONTH_NAME_SPACE;
         final int height = mHeight;
 
         int count = 0;
@@ -832,19 +846,19 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             y -= mCellHeight;
         }
         while (y <= height) {
-            canvas.drawLine(0, y, width, y, p);
+            canvas.drawLine(MONTH_NAME_SPACE, y, width, y, p);
             // Compute directly to avoid rounding errors
             count++;
             y = count * height / mNumWeeks + mWeekOffset - 1;
         }
 
-        int x = 0;
+        int x = MONTH_NAME_SPACE;
         count = 0;
         while (x <= width) {
             canvas.drawLine(x, WEEK_GAP, x, height, p);
-            // Compute directly to avoid rounding errors
-            x = count * mWidth / 7 + mBorder - 1;
             count++;
+            // Compute directly to avoid rounding errors
+            x = count * mWidth / 7 + mBorder - 1 + MONTH_NAME_SPACE;
         }
     }
 
@@ -867,7 +881,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         // We calculate the position relative to the total size
         // to avoid rounding errors.
         int y = row * mHeight / mNumWeeks + mWeekOffset;
-        int x = column * mWidth / 7 + mBorder;
+        int x = column * mWidth / 7 + mBorder + MONTH_NAME_SPACE;
 
         r.left = x;
         r.top = y;
@@ -1059,7 +1073,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
     private void drawingCalc(int width, int height) {
         mHeight = getMeasuredHeight();
-        mWidth = getMeasuredWidth();
+        mWidth = getMeasuredWidth() - MONTH_NAME_SPACE;
         mNumWeeks = mHeight / DESIRED_CELL_HEIGHT;
         if (mNumWeeks < MIN_NUM_WEEKS) {
             mNumWeeks = MIN_NUM_WEEKS;
