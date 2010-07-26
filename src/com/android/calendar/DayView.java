@@ -25,7 +25,7 @@ public class DayView extends CalendarView {
 
     public DayView(Context activity, CalendarController controller,
             ViewSwitcher viewSwitcher, EventLoader eventLoader) {
-        super(activity, controller, viewSwitcher, eventLoader);
+        super(activity, controller, viewSwitcher, eventLoader, 1);
         init();
     }
 

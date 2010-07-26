@@ -344,7 +344,7 @@ public class CalendarView extends View
     private GestureDetector mGestureDetector;
 
     public CalendarView(Context context, CalendarController controller,
-            ViewSwitcher viewSwitcher, EventLoader eventLoader) {
+            ViewSwitcher viewSwitcher, EventLoader eventLoader, int numDays) {
         super(context);
         if (mScale == 0) {
             mScale = getContext().getResources().getDisplayMetrics().density;
@@ -385,6 +385,7 @@ public class CalendarView extends View
         mController = controller;
         mViewSwitcher = viewSwitcher;
         mGestureDetector = new GestureDetector(context, new CalendarGestureListener());
+        mNumDays = numDays;
 
         init(context);
     }

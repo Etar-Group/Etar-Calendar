@@ -193,8 +193,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 frag = new AgendaFragment(timeMillis);
                 break;
             case ViewType.DAY:
+                frag = new DayFragment(timeMillis, 1);
+                break;
             case ViewType.WEEK:
-                frag = new DayFragment(timeMillis);
+                frag = new DayFragment(timeMillis, 7);
                 break;
             case ViewType.MONTH:
                 frag = new MonthFragment(false, timeMillis);

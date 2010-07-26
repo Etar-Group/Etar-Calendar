@@ -25,7 +25,7 @@ public class WeekView extends CalendarView {
 
     public WeekView(Context activity, CalendarController controller,
             ViewSwitcher viewSwitcher, EventLoader eventLoader) {
-        super(activity, controller, viewSwitcher, eventLoader);
+        super(activity, controller, viewSwitcher, eventLoader, 7);
         init();
     }
 

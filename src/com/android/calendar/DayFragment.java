@@ -94,11 +94,14 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         }
     };
 
+    private int mNumDays;
+
     public DayFragment() {
         mSelectedDay.setToNow();
     }
 
-    public DayFragment(long timeMillis) {
+    public DayFragment(long timeMillis, int numOfDays) {
+        mNumDays = numOfDays;
         if (timeMillis == 0) {
             mSelectedDay.setToNow();
         } else {
@@ -147,7 +150,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.week_activity, null);
+        View v = inflater.inflate(R.layout.day_activity, null);
 
         mViewSwitcher = (ViewSwitcher) v.findViewById(R.id.switcher);
         mViewSwitcher.setFactory(this);
@@ -158,7 +161,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 
     public View makeView() {
         CalendarView view = new CalendarView(getActivity(), CalendarController
-                .getInstance(getActivity()), mViewSwitcher, mEventLoader);
+                .getInstance(getActivity()), mViewSwitcher, mEventLoader, mNumDays);
         view.setId(VIEW_ID);
         view.setLayoutParams(new ViewSwitcher.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
