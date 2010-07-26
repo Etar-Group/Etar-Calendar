@@ -81,7 +81,7 @@
     <skip />
     <!-- This is a label on a context menu item. Pressing this menu item updates your
         Calendar's data. -->
-    <string name="calendar_refresh"> "Refresh"</string>
+    <string name="calendar_refresh"> "Sync now"</string>
     <!-- This is a label on a context menu item. Pressing this menu item displays the
          Agenda view. -->
     <string name="show_agenda_view">"Show agenda"</string>
