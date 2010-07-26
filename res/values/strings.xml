@@ -79,8 +79,8 @@
 
     <!-- Menu items: -->
     <skip />
-    <!-- This is a label on a context menu item. Pressing this menu item updates your
-        Calendar's data. -->
+    <!-- This is a label on a context menu item. Pressing this menu item to initiate
+        syncing of your Calendar data with the server. -->
     <string name="calendar_refresh"> "Sync now"</string>
     <!-- This is a label on a context menu item. Pressing this menu item displays the
          Agenda view. -->
