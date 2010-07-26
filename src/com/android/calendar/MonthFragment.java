@@ -20,7 +20,7 @@ import static android.provider.Calendar.EVENT_BEGIN_TIME;
 
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.MiniMonth.MiniMonthView;
+import com.android.calendar.Month.MiniMonthView;
 
 import android.app.Activity;
 import android.app.Fragment;
