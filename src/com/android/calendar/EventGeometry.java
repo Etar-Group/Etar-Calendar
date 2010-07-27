@@ -70,7 +70,7 @@ public class EventGeometry {
         // If the event ends on a future day, then show it extending to
         // the end of this day.
         if (endDay > date) {
-            endTime = CalendarView.MINUTES_PER_DAY;
+            endTime = DayView.MINUTES_PER_DAY;
         }
 
         int col = event.getColumn();

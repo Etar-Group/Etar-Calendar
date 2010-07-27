@@ -132,7 +132,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 //    public void onRestoreInstanceState(Bundle savedInstanceState) {
 //        super.onRestoreInstanceState(savedInstanceState);
 //
-//        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+//        DayView view = (DayView) mViewSwitcher.getCurrentView();
 //        Time time = new Time();
 //        time.set(savedInstanceState.getLong(BUNDLE_KEY_RESTORE_TIME));
 //        view.setSelectedDay(time);
@@ -160,7 +160,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
     }
 
     public View makeView() {
-        CalendarView view = new CalendarView(getActivity(), CalendarController
+        DayView view = new DayView(getActivity(), CalendarController
                 .getInstance(getActivity()), mViewSwitcher, mEventLoader, mNumDays);
         view.setId(VIEW_ID);
         view.setLayoutParams(new ViewSwitcher.LayoutParams(
@@ -174,11 +174,11 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         super.onResume();
         mEventLoader.startBackgroundThread();
         eventsChanged();
-        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+        DayView view = (DayView) mViewSwitcher.getCurrentView();
         view.updateIs24HourFormat();
         view.restartCurrentTimeUpdates();
 
-        view = (CalendarView) mViewSwitcher.getNextView();
+        view = (DayView) mViewSwitcher.getNextView();
         view.updateIs24HourFormat();
 
         // Register for Intent broadcasts
@@ -206,9 +206,9 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 //        mContentResolver.unregisterContentObserver(mObserver);
 //        unregisterReceiver(mIntentReceiver);
 
-        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+        DayView view = (DayView) mViewSwitcher.getCurrentView();
         view.cleanup();
-        view = (CalendarView) mViewSwitcher.getNextView();
+        view = (DayView) mViewSwitcher.getNextView();
         view.cleanup();
         mEventLoader.stopBackgroundThread();
     }
@@ -231,7 +231,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
             return;
         }
 
-        CalendarView currentView = (CalendarView) mViewSwitcher.getCurrentView();
+        DayView currentView = (DayView) mViewSwitcher.getCurrentView();
         Time selectedTime = currentView.getSelectedTime();
 
         // Going to the same time
@@ -257,7 +257,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
                 }
             }
 
-            CalendarView next = (CalendarView) mViewSwitcher.getNextView();
+            DayView next = (DayView) mViewSwitcher.getNextView();
             next.setSelectedDay(goToTime);
             next.reloadEvents();
             mViewSwitcher.showNext();
@@ -273,7 +273,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
      * @return the selected time in milliseconds
      */
     public long getSelectedTimeInMillis() {
-        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+        DayView view = (DayView) mViewSwitcher.getCurrentView();
         return view.getSelectedTimeInMillis();
     }
 
@@ -283,39 +283,39 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 
     public void goToToday() {
         mSelectedDay.set(System.currentTimeMillis());
-        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+        DayView view = (DayView) mViewSwitcher.getCurrentView();
         view.setSelectedDay(mSelectedDay);
         view.reloadEvents();
     }
 
     public boolean getAllDay() {
-        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+        DayView view = (DayView) mViewSwitcher.getCurrentView();
         return view.mSelectionAllDay;
     }
 
     public void eventsChanged() {
-        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+        DayView view = (DayView) mViewSwitcher.getCurrentView();
         view.clearCachedEvents();
         view.reloadEvents();
     }
 
     Event getSelectedEvent() {
-        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+        DayView view = (DayView) mViewSwitcher.getCurrentView();
         return view.getSelectedEvent();
     }
 
     boolean isEventSelected() {
-        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+        DayView view = (DayView) mViewSwitcher.getCurrentView();
         return view.isEventSelected();
     }
 
     Event getNewEvent() {
-        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+        DayView view = (DayView) mViewSwitcher.getCurrentView();
         return view.getNewEvent();
     }
 
-    public CalendarView getNextView() {
-        return (CalendarView) mViewSwitcher.getNextView();
+    public DayView getNextView() {
+        return (DayView) mViewSwitcher.getNextView();
     }
 
     public long getSupportedEventTypes() {
