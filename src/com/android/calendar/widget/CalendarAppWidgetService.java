@@ -630,6 +630,12 @@ public class CalendarAppWidgetService extends IntentService {
                 end = convertUtcToLocal(recycle, end);
             }
 
+            if (end < now) {
+                // we might get some extra events when querying, in order to
+                // deal with all-day events
+                continue;
+            }
+
             boolean inProgress = now < end && now > start;
 
             // Skip events that have already passed their flip times
@@ -699,6 +705,12 @@ public class CalendarAppWidgetService extends IntentService {
      * Query across all calendars for upcoming event instances from now until
      * some time in the future.
      *
+     * Widen the time range that we query by one day on each end so that we can
+     * catch all-day events. All-day events are stored starting at midnight in
+     * UTC but should be included in the list of events starting at midnight
+     * local time. This may fetch more events than we actually want, so we
+     * filter them out later.
+     *
      * @param resolver {@link ContentResolver} to use when querying
      *            {@link Instances#CONTENT_URI}.
      * @param searchDuration Distance into the future to look for event
@@ -709,10 +721,13 @@ public class CalendarAppWidgetService extends IntentService {
     private Cursor getUpcomingInstancesCursor(ContentResolver resolver,
             long searchDuration, long now) {
         // Search for events from now until some time in the future
-        long end = now + searchDuration;
+
+        // Add a day on either side to catch all-day events
+        long begin = now - DateUtils.DAY_IN_MILLIS;
+        long end = now + searchDuration + DateUtils.DAY_IN_MILLIS;
 
         Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI,
-                String.format("%d/%d", now, end));
+                String.format("%d/%d", begin, end));
 
         return resolver.query(uri, EVENT_PROJECTION, EVENT_SELECTION, null,
                 EVENT_SORT_ORDER);
