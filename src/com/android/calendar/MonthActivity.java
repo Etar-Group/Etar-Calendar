@@ -24,8 +24,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.format.Time;
-import android.view.Menu;
-import android.view.MenuItem;
 
 public class MonthActivity extends Activity {
     private static final int INITIAL_HEAP_SIZE = 4 * 1024 * 1024;
@@ -118,23 +116,5 @@ public class MonthActivity extends Activity {
 
 //FRAG_TODO        mContentResolver.registerContentObserver(Events.CONTENT_URI,
 //FRAG_TODO                true, mObserver);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuHelper.onPrepareOptionsMenu(this, menu);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuHelper.onCreateOptionsMenu(menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-//FRAG_TODO        MenuHelper.onOptionsItemSelected(this, item, this);
-        return super.onOptionsItemSelected(item);
     }
 }

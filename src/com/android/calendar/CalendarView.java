@@ -82,6 +82,13 @@ public class CalendarView extends View
     private static final long INVALID_EVENT_ID = -1; //This is used for remembering a null event
     private static final long ANIMATION_DURATION = 400;
 
+    private static final int MENU_AGENDA = 2;
+    private static final int MENU_DAY = 3;
+    private static final int MENU_EVENT_VIEW = 5;
+    private static final int MENU_EVENT_CREATE = 6;
+    private static final int MENU_EVENT_EDIT = 7;
+    private static final int MENU_EVENT_DELETE = 8;
+
     private boolean mOnFlingCalled;
     /**
      * ID of the last event which was displayed with the toast popup.
@@ -2514,15 +2521,14 @@ public class CalendarView extends View
 
     // The following routines are called from the parent activity when certain
     // touch events occur.
-
-    void doDown(MotionEvent ev) {
+    private void doDown(MotionEvent ev) {
         mTouchMode = TOUCH_MODE_DOWN;
         mViewStartX = 0;
         mOnFlingCalled = false;
         getHandler().removeCallbacks(mContinueScroll);
     }
 
-    void doSingleTapUp(MotionEvent ev) {
+    private void doSingleTapUp(MotionEvent ev) {
         int x = (int) ev.getX();
         int y = (int) ev.getY();
         int selectedDay = mSelectionDay;
@@ -2561,7 +2567,7 @@ public class CalendarView extends View
         }
     }
 
-    void doLongPress(MotionEvent ev) {
+    private void doLongPress(MotionEvent ev) {
         int x = (int) ev.getX();
         int y = (int) ev.getY();
 
@@ -2577,7 +2583,7 @@ public class CalendarView extends View
         performLongClick();
     }
 
-    void doScroll(MotionEvent e1, MotionEvent e2, float deltaX, float deltaY) {
+    private void doScroll(MotionEvent e1, MotionEvent e2, float deltaX, float deltaY) {
         // Use the distance from the current point to the initial touch instead
         // of deltaX and deltaY to avoid accumulating floating-point rounding
         // errors.  Also, we don't need floats, we can use ints.
@@ -2658,7 +2664,7 @@ public class CalendarView extends View
         invalidate();
     }
 
-    void doFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+    private void doFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         mTouchMode = TOUCH_MODE_INITIAL_STATE;
         mSelectionMode = SELECTION_HIDDEN;
         mOnFlingCalled = true;
@@ -2797,32 +2803,32 @@ public class CalendarView extends View
             // If there is a selected event, then allow it to be viewed and
             // edited.
             if (numSelectedEvents >= 1) {
-                item = menu.add(0, MenuHelper.MENU_EVENT_VIEW, 0, R.string.event_view);
+                item = menu.add(0, MENU_EVENT_VIEW, 0, R.string.event_view);
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_info_details);
 
                 int accessLevel = getEventAccessLevel(mContext, mSelectedEvent);
                 if (accessLevel == ACCESS_LEVEL_EDIT) {
-                    item = menu.add(0, MenuHelper.MENU_EVENT_EDIT, 0, R.string.event_edit);
+                    item = menu.add(0, MENU_EVENT_EDIT, 0, R.string.event_edit);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
                     item.setIcon(android.R.drawable.ic_menu_edit);
                     item.setAlphabeticShortcut('e');
                 }
 
                 if (accessLevel >= ACCESS_LEVEL_DELETE) {
-                    item = menu.add(0, MenuHelper.MENU_EVENT_DELETE, 0, R.string.event_delete);
+                    item = menu.add(0, MENU_EVENT_DELETE, 0, R.string.event_delete);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
                     item.setIcon(android.R.drawable.ic_menu_delete);
                 }
 
-                item = menu.add(0, MenuHelper.MENU_EVENT_CREATE, 0, R.string.event_create);
+                item = menu.add(0, MENU_EVENT_CREATE, 0, R.string.event_create);
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_add);
                 item.setAlphabeticShortcut('n');
             } else {
                 // Otherwise, if the user long-pressed on a blank hour, allow
                 // them to create an event.  They can also do this by tapping.
-                item = menu.add(0, MenuHelper.MENU_EVENT_CREATE, 0, R.string.event_create);
+                item = menu.add(0, MENU_EVENT_CREATE, 0, R.string.event_create);
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_add);
                 item.setAlphabeticShortcut('n');
@@ -2833,55 +2839,39 @@ public class CalendarView extends View
             // If there is a selected event, then allow it to be viewed and
             // edited.
             if (numSelectedEvents >= 1) {
-                item = menu.add(0, MenuHelper.MENU_EVENT_VIEW, 0, R.string.event_view);
+                item = menu.add(0, MENU_EVENT_VIEW, 0, R.string.event_view);
                 item.setOnMenuItemClickListener(mContextMenuHandler);
                 item.setIcon(android.R.drawable.ic_menu_info_details);
 
                 int accessLevel = getEventAccessLevel(mContext, mSelectedEvent);
                 if (accessLevel == ACCESS_LEVEL_EDIT) {
-                    item = menu.add(0, MenuHelper.MENU_EVENT_EDIT, 0, R.string.event_edit);
+                    item = menu.add(0, MENU_EVENT_EDIT, 0, R.string.event_edit);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
                     item.setIcon(android.R.drawable.ic_menu_edit);
                     item.setAlphabeticShortcut('e');
                 }
 
                 if (accessLevel >= ACCESS_LEVEL_DELETE) {
-                    item = menu.add(0, MenuHelper.MENU_EVENT_DELETE, 0, R.string.event_delete);
+                    item = menu.add(0, MENU_EVENT_DELETE, 0, R.string.event_delete);
                     item.setOnMenuItemClickListener(mContextMenuHandler);
                     item.setIcon(android.R.drawable.ic_menu_delete);
                 }
-
-                item = menu.add(0, MenuHelper.MENU_EVENT_CREATE, 0, R.string.event_create);
-                item.setOnMenuItemClickListener(mContextMenuHandler);
-                item.setIcon(android.R.drawable.ic_menu_add);
-                item.setAlphabeticShortcut('n');
-
-                item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.show_day_view);
-                item.setOnMenuItemClickListener(mContextMenuHandler);
-                item.setIcon(android.R.drawable.ic_menu_day);
-                item.setAlphabeticShortcut('d');
-
-                item = menu.add(0, MenuHelper.MENU_AGENDA, 0, R.string.show_agenda_view);
-                item.setOnMenuItemClickListener(mContextMenuHandler);
-                item.setIcon(android.R.drawable.ic_menu_agenda);
-                item.setAlphabeticShortcut('a');
-            } else {
-                // No events are selected
-                item = menu.add(0, MenuHelper.MENU_EVENT_CREATE, 0, R.string.event_create);
-                item.setOnMenuItemClickListener(mContextMenuHandler);
-                item.setIcon(android.R.drawable.ic_menu_add);
-                item.setAlphabeticShortcut('n');
-
-                item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.show_day_view);
-                item.setOnMenuItemClickListener(mContextMenuHandler);
-                item.setIcon(android.R.drawable.ic_menu_day);
-                item.setAlphabeticShortcut('d');
-
-                item = menu.add(0, MenuHelper.MENU_AGENDA, 0, R.string.show_agenda_view);
-                item.setOnMenuItemClickListener(mContextMenuHandler);
-                item.setIcon(android.R.drawable.ic_menu_agenda);
-                item.setAlphabeticShortcut('a');
             }
+
+            item = menu.add(0, MENU_EVENT_CREATE, 0, R.string.event_create);
+            item.setOnMenuItemClickListener(mContextMenuHandler);
+            item.setIcon(android.R.drawable.ic_menu_add);
+            item.setAlphabeticShortcut('n');
+
+            item = menu.add(0, MENU_DAY, 0, R.string.show_day_view);
+            item.setOnMenuItemClickListener(mContextMenuHandler);
+            item.setIcon(android.R.drawable.ic_menu_day);
+            item.setAlphabeticShortcut('d');
+
+            item = menu.add(0, MENU_AGENDA, 0, R.string.show_agenda_view);
+            item.setOnMenuItemClickListener(mContextMenuHandler);
+            item.setIcon(android.R.drawable.ic_menu_agenda);
+            item.setAlphabeticShortcut('a');
         }
 
         mPopup.dismiss();
@@ -2890,7 +2880,7 @@ public class CalendarView extends View
     private class ContextMenuHandler implements MenuItem.OnMenuItemClickListener {
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
-                case MenuHelper.MENU_EVENT_VIEW: {
+                case MENU_EVENT_VIEW: {
                     if (mSelectedEvent != null) {
                         mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT,
                                 mSelectedEvent.id, mSelectedEvent.startMillis,
@@ -2898,7 +2888,7 @@ public class CalendarView extends View
                     }
                     break;
                 }
-                case MenuHelper.MENU_EVENT_EDIT: {
+                case MENU_EVENT_EDIT: {
                     if (mSelectedEvent != null) {
                         mController.sendEventRelatedEvent(this, EventType.EDIT_EVENT,
                                 mSelectedEvent.id, mSelectedEvent.startMillis,
@@ -2906,24 +2896,24 @@ public class CalendarView extends View
                     }
                     break;
                 }
-                case MenuHelper.MENU_DAY: {
+                case MENU_DAY: {
                     mController.sendEvent(this, EventType.GO_TO, getSelectedTime(), null, -1,
                             ViewType.DAY);
                     break;
                 }
-                case MenuHelper.MENU_AGENDA: {
+                case MENU_AGENDA: {
                     mController.sendEvent(this, EventType.GO_TO, getSelectedTime(), null, -1,
                             ViewType.AGENDA);
                     break;
                 }
-                case MenuHelper.MENU_EVENT_CREATE: {
+                case MENU_EVENT_CREATE: {
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
                             startMillis, endMillis, 0, 0);
                     break;
                 }
-                case MenuHelper.MENU_EVENT_DELETE: {
+                case MENU_EVENT_DELETE: {
                     if (mSelectedEvent != null) {
                         Event selectedEvent = mSelectedEvent;
                         long begin = selectedEvent.startMillis;

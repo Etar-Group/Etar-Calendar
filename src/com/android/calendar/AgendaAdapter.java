@@ -129,7 +129,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         /*
         // Repeating info
         View repeatContainer = view.findViewById(R.id.repeat_icon);
-        String rrule = cursor.getString(AgendaActivity.INDEX_RRULE);
+        String rrule = cursor.getString(AgendaWindowAdapter.INDEX_RRULE);
         if (rrule != null) {
             repeatContainer.setVisibility(View.VISIBLE);
         } else {
@@ -139,9 +139,9 @@ public class AgendaAdapter extends ResourceCursorAdapter {
 
         /*
         // Reminder
-        boolean hasAlarm = cursor.getInt(AgendaActivity.INDEX_HAS_ALARM) != 0;
+        boolean hasAlarm = cursor.getInt(AgendaWindowAdapter.INDEX_HAS_ALARM) != 0;
         if (hasAlarm) {
-            updateReminder(view, context, begin, cursor.getLong(AgendaActivity.INDEX_EVENT_ID));
+            updateReminder(view, context, begin, cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID));
         }
         */
 

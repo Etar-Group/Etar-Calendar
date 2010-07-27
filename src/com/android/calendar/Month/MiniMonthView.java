@@ -16,25 +16,17 @@
 
 package com.android.calendar.Month;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
-
-import com.android.calendar.AgendaActivity;
 import com.android.calendar.CalendarController;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarController.ViewType;
-import com.android.calendar.DayActivity;
-import com.android.calendar.EditEventActivity;
 import com.android.calendar.Event;
 import com.android.calendar.EventGeometry;
 import com.android.calendar.EventLoader;
-import com.android.calendar.MenuHelper;
 import com.android.calendar.MonthFragment;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -42,10 +34,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -54,7 +46,6 @@ import android.text.format.Time;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -62,6 +53,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.PopupWindow;
 
 import java.util.ArrayList;
@@ -103,6 +95,10 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private static int DAY_NUMBER_OFFSET = 10;
     private static int DESIRED_CELL_HEIGHT = 40;
     private static int VERTICAL_FLING_THRESHOLD = 50;
+
+    private static final int MENU_AGENDA = 2;
+    private static final int MENU_DAY = 3;
+    private static final int MENU_EVENT_CREATE = 6;
 
     // The number of days worth of events to load
     private int mEventNumDays = 7 * (DEFAULT_NUM_WEEKS + 4);
@@ -539,17 +535,17 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         final String title = DateUtils.formatDateTime(mContext, startMillis, flags);
         menu.setHeaderTitle(title);
 
-        item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.show_day_view);
+        item = menu.add(0, MENU_DAY, 0, R.string.show_day_view);
         item.setOnMenuItemClickListener(mContextMenuHandler);
         item.setIcon(android.R.drawable.ic_menu_day);
         item.setAlphabeticShortcut('d');
 
-        item = menu.add(0, MenuHelper.MENU_AGENDA, 0, R.string.show_agenda_view);
+        item = menu.add(0, MENU_AGENDA, 0, R.string.show_agenda_view);
         item.setOnMenuItemClickListener(mContextMenuHandler);
         item.setIcon(android.R.drawable.ic_menu_agenda);
         item.setAlphabeticShortcut('a');
 
-        item = menu.add(0, MenuHelper.MENU_EVENT_CREATE, 0, R.string.event_create);
+        item = menu.add(0, MENU_EVENT_CREATE, 0, R.string.event_create);
         item.setOnMenuItemClickListener(mContextMenuHandler);
         item.setIcon(android.R.drawable.ic_menu_add);
         item.setAlphabeticShortcut('n');
@@ -558,25 +554,21 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private class ContextMenuHandler implements MenuItem.OnMenuItemClickListener {
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
-                case MenuHelper.MENU_DAY: {
-                    long startMillis = getSelectedTimeInMillis();
-                    Utils.startActivity(mContext, DayActivity.class.getName(), startMillis);
+                case MENU_DAY: {
+                    mController.sendEvent(this, EventType.GO_TO, mSelectedDay, null, -1,
+                            ViewType.DAY);
                     break;
                 }
-                case MenuHelper.MENU_AGENDA: {
-                    long startMillis = getSelectedTimeInMillis();
-                    Utils.startActivity(mContext, AgendaActivity.class.getName(),
-                            startMillis);
+                case MENU_AGENDA: {
+                    mController.sendEvent(this, EventType.GO_TO, mSelectedDay, null, -1,
+                            ViewType.AGENDA);
                     break;
                 }
-                case MenuHelper.MENU_EVENT_CREATE: {
+                case MENU_EVENT_CREATE: {
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setClassName(mContext, EditEventActivity.class.getName());
-                    intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-                    intent.putExtra(EVENT_END_TIME, endMillis);
-                    mContext.startActivity(intent);
+                    mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
+                            startMillis, endMillis, 0, 0);
                     break;
                 }
                 default: {

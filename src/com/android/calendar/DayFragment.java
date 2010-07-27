@@ -331,25 +331,4 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
             goTo(msg.startTime, true);
         }
     }
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        MenuHelper.onPrepareOptionsMenu(this, menu);
-//        return super.onPrepareOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        if (! MenuHelper.onCreateOptionsMenu(menu)) {
-//            return false;
-//        }
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (MenuHelper.onOptionsItemSelected(this, item, this)) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 }

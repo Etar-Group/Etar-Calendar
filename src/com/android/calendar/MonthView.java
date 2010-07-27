@@ -75,6 +75,10 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
 
     private static int HORIZONTAL_FLING_THRESHOLD = 50;
 
+    private static final int MENU_AGENDA = 2;
+    private static final int MENU_DAY = 3;
+    private static final int MENU_EVENT_CREATE = 6;
+
     private int mCellHeight;
     private int mBorder;
     private boolean mLaunchDayView;
@@ -386,17 +390,17 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
         final String title = DateUtils.formatDateTime(mContext, startMillis, flags);
         menu.setHeaderTitle(title);
 
-        item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.show_day_view);
+        item = menu.add(0, MENU_DAY, 0, R.string.show_day_view);
         item.setOnMenuItemClickListener(mContextMenuHandler);
         item.setIcon(android.R.drawable.ic_menu_day);
         item.setAlphabeticShortcut('d');
 
-        item = menu.add(0, MenuHelper.MENU_AGENDA, 0, R.string.show_agenda_view);
+        item = menu.add(0, MENU_AGENDA, 0, R.string.show_agenda_view);
         item.setOnMenuItemClickListener(mContextMenuHandler);
         item.setIcon(android.R.drawable.ic_menu_agenda);
         item.setAlphabeticShortcut('a');
 
-        item = menu.add(0, MenuHelper.MENU_EVENT_CREATE, 0, R.string.event_create);
+        item = menu.add(0, MENU_EVENT_CREATE, 0, R.string.event_create);
         item.setOnMenuItemClickListener(mContextMenuHandler);
         item.setIcon(android.R.drawable.ic_menu_add);
         item.setAlphabeticShortcut('n');
@@ -405,17 +409,17 @@ public class MonthView extends View implements View.OnCreateContextMenuListener,
     private class ContextMenuHandler implements MenuItem.OnMenuItemClickListener {
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
-                case MenuHelper.MENU_DAY: {
+                case MENU_DAY: {
                     mController.sendEvent(mContext, EventType.GO_TO, MonthView.this
                             .getSelectedTime(), null, -1, ViewType.DAY);
                     break;
                 }
-                case MenuHelper.MENU_AGENDA: {
+                case MENU_AGENDA: {
                     mController.sendEvent(mContext, EventType.GO_TO, MonthView.this
                             .getSelectedTime(), null, -1, ViewType.AGENDA);
                     break;
                 }
-                case MenuHelper.MENU_EVENT_CREATE: {
+                case MENU_EVENT_CREATE: {
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     mController.sendEventRelatedEvent(mContext, EventType.CREATE_EVENT, -1,

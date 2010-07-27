@@ -15,8 +15,8 @@
  */
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import dalvik.system.VMRuntime;
+
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -32,8 +32,6 @@ import android.provider.Calendar.Events;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 
 /**
  */
@@ -190,24 +188,6 @@ public class SearchActivity extends Activity implements Navigator {
         mAgendaListView.onPause();
         mContentResolver.unregisterContentObserver(mObserver);
         unregisterReceiver(mIntentReceiver);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuHelper.onPrepareOptionsMenu(this, menu);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuHelper.onCreateOptionsMenu(menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        MenuHelper.onOptionsItemSelected(this, item, this);
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

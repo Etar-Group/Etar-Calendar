@@ -68,16 +68,6 @@
         <meta-data android:name="android.app.default_searchable"
             android:value="com.android.calendar.SearchActivity"/>
 
-        <activity android:name="MonthActivity" android:label="@string/month_view"
-            android:theme="@style/CalendarTheme" />
-        <activity android:name="WeekActivity" android:label="@string/week_view"
-            android:theme="@style/CalendarTheme" />
-        <activity android:name="DayActivity" android:label="@string/day_view"
-            android:theme="@style/CalendarTheme" />
-        <activity android:name="AgendaActivity" android:label="@string/agenda_view"
-            android:theme="@android:style/Theme.Light"
-            android:exported="true" />
-
         <activity android:name="EditEventActivity" android:label="@string/event_edit_title"
             android:theme="@android:style/Theme"
             android:configChanges="orientation|keyboardHidden">
