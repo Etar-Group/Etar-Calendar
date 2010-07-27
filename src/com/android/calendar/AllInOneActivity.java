@@ -99,7 +99,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
 
         if (multipane) {
-            Fragment miniMonthFrag = new MonthFragment(false, timeMillis);
+            Fragment miniMonthFrag = new MonthFragment(false, timeMillis, true);
             ft.replace(R.id.mini_month, miniMonthFrag);
             mController.registerEventHandler((EventHandler) miniMonthFrag);
 
@@ -202,7 +202,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 frag = new DayFragment(timeMillis, 7);
                 break;
             case ViewType.MONTH:
-                frag = new MonthFragment(false, timeMillis);
+                frag = new MonthFragment(false, timeMillis, false);
                 break;
             default:
                 throw new IllegalArgumentException(

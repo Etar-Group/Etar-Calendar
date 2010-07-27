@@ -29,7 +29,6 @@ import com.android.calendar.Utils;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -49,7 +48,6 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -66,174 +64,176 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
     private static final boolean PROFILE_LOAD_TIME = false;
 
-    private static final int MIN_YEAR = 1970;
-    private static final int MAX_YEAR = 2036;
-    private static final int MIN_WEEK = MIN_YEAR * 52;
-    private static final int MAX_WEEK = (MAX_YEAR + 1) * 52;
+    // TODO Move to a more general location
+    public static final int MIN_YEAR = 1970;
+    public static final int MAX_YEAR = 2036;
+    public static final int MIN_WEEK = MIN_YEAR * 52;
+    public static final int MAX_WEEK = (MAX_YEAR + 1) * 52;
 
-    private static final int MIN_NUM_WEEKS = 3;
-    private static final int MAX_NUM_WEEKS = 16;
-    private static final int DEFAULT_NUM_WEEKS = 10;
+    protected static final int MIN_NUM_WEEKS = 3;
+    protected static final int MAX_NUM_WEEKS = 16;
+    protected static final int DEFAULT_NUM_WEEKS = 10;
+
     // The number of days before and after the visible range that we should
     // query for events. This lets us display DNA for a couple weeks when users
     // start scrolling.
     private static final int EVENT_QUERY_BUFFER_DAYS = 14;
 
-    private static float mScale = 0; // Used for supporting different screen densities
-    private static int WEEK_GAP = 0;
-    private static int MONTH_DAY_GAP = 1;
-    private static float HOUR_GAP = 0f;
-    private static float MIN_EVENT_HEIGHT = 2f;
-    private static int MONTH_DAY_TEXT_SIZE = 20;
-    private static int MONTH_NAME_TEXT_SIZE = 16;
-    private static int MONTH_NAME_PADDING = 4;
-    private static int MONTH_NAME_SPACE = MONTH_NAME_TEXT_SIZE + 2 * MONTH_NAME_PADDING;
-    private static int WEEK_BANNER_HEIGHT = 17;
-    private static int WEEK_TEXT_SIZE = 15;
-    private static int WEEK_TEXT_PADDING = 3;
-    private static int EVENT_DOT_TOP_MARGIN = 5;
-    private static int EVENT_DOT_LEFT_MARGIN = 7;
-    private static int EVENT_DOT_W_H = 10;
-    private static int TEXT_TOP_MARGIN = 7;
-    private static int BUSY_BITS_WIDTH = 6;
-    private static int BUSY_BITS_MARGIN = 4;
-    private static int DAY_NUMBER_OFFSET = 10;
-    private static int DESIRED_CELL_HEIGHT = 40;
-    private static int VERTICAL_FLING_THRESHOLD = 50;
+    protected static float mScale = 0; // Used for supporting different screen densities
+    protected static int WEEK_GAP = 0;
+    protected static int MONTH_DAY_GAP = 1;
+    protected static float HOUR_GAP = 0f;
+    protected static float MIN_EVENT_HEIGHT = 2f;
+    protected static int MONTH_DAY_TEXT_SIZE = 20;
+    protected static int MONTH_NAME_TEXT_SIZE = 16;
+    protected static int MONTH_NAME_PADDING = 4;
+    protected static int WEEK_BANNER_HEIGHT = 17;
+    protected static int WEEK_TEXT_SIZE = 15;
+    protected static int WEEK_TEXT_PADDING = 3;
+    protected static int EVENT_DOT_TOP_MARGIN = 5;
+    protected static int EVENT_DOT_LEFT_MARGIN = 7;
+    protected static int EVENT_DOT_W_H = 10;
+    protected static int TEXT_TOP_MARGIN = 7;
+    protected static int BUSY_BITS_WIDTH = 6;
+    protected static int BUSY_BITS_MARGIN = 4;
+    protected static int DAY_NUMBER_OFFSET = 10;
+    protected static int VERTICAL_FLING_THRESHOLD = 50;
 
-    private static final int MENU_AGENDA = 2;
-    private static final int MENU_DAY = 3;
-    private static final int MENU_EVENT_CREATE = 6;
+    protected static final int MENU_AGENDA = 2;
+    protected static final int MENU_DAY = 3;
+    protected static final int MENU_EVENT_CREATE = 6;
+
+    // These are non-static to allow subclasses to override in a second view
+    protected int mMonthNameSpace = MONTH_NAME_TEXT_SIZE + 2 * MONTH_NAME_PADDING;
+    protected int mDesiredCellHeight = 40;
 
     // The number of days worth of events to load
-    private int mEventNumDays = 7 * (DEFAULT_NUM_WEEKS + 4);
+    protected int mEventNumDays = 7 * (DEFAULT_NUM_WEEKS + 4);
     // Which day of the week the display starts on
-    private int mStartDayOfWeek;
+    protected int mStartDayOfWeek;
     // How many weeks to display at a time
-    private int mNumWeeks = DEFAULT_NUM_WEEKS;
+    protected int mNumWeeks = DEFAULT_NUM_WEEKS;
     // Which week position the selected day should snap to, this focuses the
     // user's currently selected day about 1/3 of the way down the view.
-    private int mFocusWeek = DEFAULT_NUM_WEEKS / 3;
+    protected int mFocusWeek = DEFAULT_NUM_WEEKS / 3;
     // The top left day displayed. Drawing and selecting use this as a reference
     // point.
-    private Time mFirstDay = new Time();
+    protected Time mFirstDay = new Time();
     // The current day being drawn to the canvas
-    private Time mDrawingDay = new Time();
+    protected Time mDrawingDay = new Time();
     // The distance in pixels to offset the y position of the weeks
-    private int mWeekOffset = 0;
+    protected int mWeekOffset = 0;
 
     // Height of a single day
-    private int mCellHeight;
+    protected int mCellHeight;
     // Width of a single day
-    private int mCellWidth;
+    protected int mCellWidth;
     // height of the view
-    private int mHeight;
+    protected int mHeight;
     // width of the view
-    private int mWidth;
+    protected int mWidth;
     // The number of pixels to leave as a buffer around the outside of the
     // view.
-    private int mBorder;
+    protected int mBorder;
     // Whether or not a touch event will select the day it's on
-    private boolean mSelectDay;
+    protected boolean mSelectDay;
 
-    private GestureDetector mGestureDetector;
+    protected GestureDetector mGestureDetector;
     // Handles flings, GoTos, and snapping to a week
-    private GoToScroll mGoToScroll = new GoToScroll();
+    protected GoToScroll mGoToScroll = new GoToScroll();
 
     // The current local time on the device
-    private Time mToday;
+    protected Time mToday;
     // The time being focused on, typically the first day in the week
     // that is in the mFocusWeek position
-    private Time mViewCalendar;
-    private Time mSelectedDay = new Time();
-    private Time mSavedTime = new Time();   // the time when we entered this view
-    private boolean mIsEvenMonth; // whether today is in an even numbered month
+    protected Time mViewCalendar;
+    protected Time mSelectedDay = new Time();
+    protected Time mSavedTime = new Time();   // the time when we entered this view
+    protected boolean mIsEvenMonth; // whether today is in an even numbered month
 
     // This Time object is used to set the time for the other Month view.
-    private Time mOtherViewCalendar = new Time();
+    protected Time mOtherViewCalendar = new Time();
 
     // This Time object is used for temporary calculations and is allocated
     // once to avoid extra garbage collection
-    private Time mTempTime = new Time();
+    protected Time mTempTime = new Time();
 
-    private Drawable mBoxSelected;
-    private Drawable mBoxPressed;
-    private Drawable mBoxLongPressed;
+    protected Drawable mBoxSelected;
+    protected Drawable mBoxPressed;
+    protected Drawable mBoxLongPressed;
 
-    private Resources mResources;
-    private Context mContext;
-    private CalendarController mController;
-    private final EventGeometry mEventGeometry;
+    protected Resources mResources;
+    protected Context mContext;
+    protected CalendarController mController;
+    protected final EventGeometry mEventGeometry;
 
     // Pre-allocate and reuse
-    private Rect mRect = new Rect();
+    protected Rect mRect = new Rect();
 
     //An array of which days have events for quick reference
-    private boolean[] eventDay = new boolean[mEventNumDays];
+    protected boolean[] eventDay = new boolean[mEventNumDays];
 
-    private PopupWindow mPopup;
-    private View mPopupView;
-    private static final int POPUP_HEIGHT = 100;
-    private int mPreviousPopupHeight;
-    private static final int POPUP_DISMISS_DELAY = 3000;
+    protected PopupWindow mPopup;
+    protected View mPopupView;
+    protected static final int POPUP_HEIGHT = 100;
+    protected int mPreviousPopupHeight;
+    protected static final int POPUP_DISMISS_DELAY = 3000;
 
     // For drawing to an off-screen Canvas
-    private Bitmap mBitmap;
-    private Canvas mCanvas;
-    private boolean mRedrawScreen = true;
-    private Rect mBitmapRect = new Rect();
-    private RectF mRectF = new RectF();
+    protected Bitmap mBitmap;
+    protected Canvas mCanvas;
+    protected boolean mRedrawScreen = true;
+    protected Rect mBitmapRect = new Rect();
+    protected RectF mRectF = new RectF();
 
-    private boolean mAnimating;
-    private boolean mOnFlingCalled = false;
-    private boolean mScrolling = false;
+    protected boolean mAnimating;
+    protected boolean mOnFlingCalled = false;
+    protected boolean mScrolling = false;
 
-    // These booleans disable features that were taken out of the spec.
-    private boolean mShowWeekNumbers = false;
-    private boolean mShowToast = false;
-    private boolean mShowDNA = true;
+    protected boolean mShowDNA = true;
+    protected int mGoToView = ViewType.CURRENT;
 
     // Bitmap caches.
     // These improve performance by minimizing calls to NinePatchDrawable.draw() for common
     // drawables for day backgrounds.
     // mDayBitmapCache is indexed by a unique integer constructed from the width/height.
-    private SparseArray<Bitmap> mDayBitmapCache = new SparseArray<Bitmap>(4);
+    protected SparseArray<Bitmap> mDayBitmapCache = new SparseArray<Bitmap>(4);
 
-    private ContextMenuHandler mContextMenuHandler = new ContextMenuHandler();
+    protected ContextMenuHandler mContextMenuHandler = new ContextMenuHandler();
 
     /**
      * The selection modes are HIDDEN, PRESSED, SELECTED, and LONGPRESS.
      */
-    private static final int SELECTION_HIDDEN = 0;
-    private static final int SELECTION_PRESSED = 1;
-    private static final int SELECTION_SELECTED = 2;
-    private static final int SELECTION_LONGPRESS = 3;
+    protected static final int SELECTION_HIDDEN = 0;
+    protected static final int SELECTION_PRESSED = 1;
+    protected static final int SELECTION_SELECTED = 2;
+    protected static final int SELECTION_LONGPRESS = 3;
 
-    private int mSelectionMode = SELECTION_HIDDEN;
+    protected int mSelectionMode = SELECTION_HIDDEN;
 
     /**
      * The first Julian day for which we have event data.
      */
-    private int mFirstEventJulianDay;
+    protected int mFirstEventJulianDay;
 
-    private final EventLoader mEventLoader;
+    protected final EventLoader mEventLoader;
 
-    private ArrayList<Event> mEvents = new ArrayList<Event>();
+    protected ArrayList<Event> mEvents = new ArrayList<Event>();
 
-    private Drawable mTodayBackground;
+    protected Drawable mTodayBackground;
 
     // Cached colors
     // TODO rename colors here and in xml to reflect how they are used
-    private int mMonthOtherMonthColor;
-    private int mMonthWeekBannerColor;
-    private int mMonthOtherMonthBannerColor;
-    private int mMonthOtherMonthDayNumberColor;
-    private int mMonthDayNumberColor;
-    private int mMonthTodayNumberColor;
-    private int mMonthSaturdayColor;
-    private int mMonthSundayColor;
-    private int mBusybitsColor;
-    private int mMonthBgColor;
+    protected int mMonthOtherMonthColor;
+    protected int mMonthWeekBannerColor;
+    protected int mMonthOtherMonthBannerColor;
+    protected int mMonthOtherMonthDayNumberColor;
+    protected int mMonthDayNumberColor;
+    protected int mMonthTodayNumberColor;
+    protected int mMonthSaturdayColor;
+    protected int mMonthSundayColor;
+    protected int mBusybitsColor;
+    protected int mMonthBgColor;
 
     public MiniMonthView(Context activity, CalendarController controller, EventLoader eventLoader) {
         super(activity);
@@ -243,7 +243,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                     WEEK_GAP *= mScale;
                     MONTH_DAY_GAP *= mScale;
                     HOUR_GAP *= mScale;
-                    DESIRED_CELL_HEIGHT *= mScale;
+                    mDesiredCellHeight *= mScale;
                     MONTH_DAY_TEXT_SIZE *= mScale;
                     WEEK_BANNER_HEIGHT *= mScale;
                     WEEK_TEXT_SIZE *= mScale;
@@ -260,7 +260,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                     DAY_NUMBER_OFFSET *= mScale;
                     MONTH_NAME_TEXT_SIZE *= mScale;
                     MONTH_NAME_PADDING *= mScale;
-                    MONTH_NAME_SPACE = MONTH_NAME_TEXT_SIZE + 2 * MONTH_NAME_PADDING;
+                    mMonthNameSpace = MONTH_NAME_TEXT_SIZE + 2 * MONTH_NAME_PADDING;
                 }
             }
 
@@ -312,20 +312,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mMonthSundayColor = res.getColor(R.color.month_sunday);
         mBusybitsColor = res.getColor(R.color.month_busybits);
         mMonthBgColor = res.getColor(R.color.month_bgcolor);
-
-        if (mShowToast) {
-            LayoutInflater inflater;
-            inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            mPopupView = inflater.inflate(R.layout.month_bubble, null);
-            mPopup = new PopupWindow(activity);
-            mPopup.setContentView(mPopupView);
-            Resources.Theme dialogTheme = getResources().newTheme();
-            dialogTheme.applyStyle(android.R.style.Theme_Dialog, true);
-            TypedArray ta = dialogTheme.obtainStyledAttributes(new int[] {
-                android.R.attr.windowBackground });
-            mPopup.setBackgroundDrawable(ta.getDrawable(0));
-            ta.recycle();
-        }
 
         mGestureDetector = new GestureDetector(getContext(),
                 new GestureDetector.SimpleOnGestureListener() {
@@ -415,7 +401,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
                     mTempTime.set(millis);
                     mController.sendEvent(this, EventType.GO_TO, mTempTime, null, -1,
-                            ViewType.DETAIL);
+                            mGoToView);
                 }
 
                 return true;
@@ -848,7 +834,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         p.setColor(mMonthOtherMonthColor);
         p.setAntiAlias(false);
 
-        final int width = mWidth + MONTH_NAME_SPACE;
+        final int width = mWidth + mMonthNameSpace;
         final int height = mHeight;
 
         int count = 0;
@@ -857,19 +843,19 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             y -= mCellHeight;
         }
         while (y <= height) {
-            canvas.drawLine(MONTH_NAME_SPACE, y, width, y, p);
+            canvas.drawLine(mMonthNameSpace, y, width, y, p);
             // Compute directly to avoid rounding errors
             count++;
             y = count * height / mNumWeeks + mWeekOffset - 1;
         }
 
-        int x = MONTH_NAME_SPACE;
+        int x = mMonthNameSpace;
         count = 0;
         while (x <= width) {
             canvas.drawLine(x, WEEK_GAP, x, height, p);
             count++;
             // Compute directly to avoid rounding errors
-            x = count * mWidth / 7 + mBorder - 1 + MONTH_NAME_SPACE;
+            x = count * mWidth / 7 + mBorder - 1 + mMonthNameSpace;
         }
     }
 
@@ -893,7 +879,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         // We calculate the position relative to the total size
         // to avoid rounding errors.
         int y = row * mHeight / mNumWeeks + mWeekOffset;
-        int x = column * mWidth / 7 + mBorder + MONTH_NAME_SPACE;
+        int x = column * mWidth / 7 + mBorder + mMonthNameSpace;
 
         r.left = x;
         r.top = y;
@@ -1052,6 +1038,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     }
 
     public void setSelectedTime(Time time) {
+        Log.d(TAG, "Setting time to " + time);
         // Save the selected time so that we can restore it later when we switch views.
         mSavedTime.set(time);
 
@@ -1095,8 +1082,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
     private void drawingCalc(int width, int height) {
         mHeight = getMeasuredHeight();
-        mWidth = getMeasuredWidth() - MONTH_NAME_SPACE;
-        mNumWeeks = mHeight / DESIRED_CELL_HEIGHT;
+        mWidth = getMeasuredWidth() - mMonthNameSpace;
+        mNumWeeks = mHeight / mDesiredCellHeight;
         if (mNumWeeks < MIN_NUM_WEEKS) {
             mNumWeeks = MIN_NUM_WEEKS;
         } else if (mNumWeeks > MAX_NUM_WEEKS) {
@@ -1110,12 +1097,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 .setHourHeight((mCellHeight - BUSY_BITS_MARGIN * 2 - TEXT_TOP_MARGIN) / 24.0f);
         mCellWidth = (width - (6 * MONTH_DAY_GAP)) / 7;
         mBorder = (width - 6 * (mCellWidth + MONTH_DAY_GAP) - mCellWidth) / 2;
-
-        if (mShowToast) {
-            mPopup.dismiss();
-            mPopup.setWidth(width - 20);
-            mPopup.setHeight(POPUP_HEIGHT);
-        }
 
         if (((mBitmap == null)
                     || mBitmap.isRecycled()
@@ -1160,7 +1141,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             // Check the duration to determine if this was a short press
             if (duration < ViewConfiguration.getLongPressTimeout()) {
                 mController.sendEvent(this, EventType.GO_TO, mSelectedDay, null, -1,
-                        ViewType.DETAIL);
+                        mGoToView);
             } else {
                 mSelectionMode = SELECTION_LONGPRESS;
                 mRedrawScreen = true;
@@ -1195,12 +1176,11 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
         mSelectionMode = SELECTION_SELECTED;
         boolean redraw = false;
-        Time other = null;
 
         switch (keyCode) {
             // TODO make month move correctly when selected week changes
         case KeyEvent.KEYCODE_ENTER:
-            mController.sendEvent(this, EventType.GO_TO, mSelectedDay, null, -1, ViewType.DETAIL);
+            mController.sendEvent(this, EventType.GO_TO, mSelectedDay, null, -1, mGoToView);
             return true;
         case KeyEvent.KEYCODE_DPAD_UP:
             redraw = true;
@@ -1219,10 +1199,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             break;
         }
 
-        if (other != null) {
-            other.normalize(true /* ignore DST */);
-            mController.sendEvent(this, EventType.GO_TO, other, null, -1, ViewType.CURRENT);
-        } else if (redraw) {
+        if (redraw) {
             mRedrawScreen = true;
             invalidate();
         }

@@ -237,11 +237,10 @@ public class CalendarController {
             return;
         }
 
-        if (event.startTime == null || event.startTime.toMillis(false) == 0) {
-            event.startTime = mTime;
-        } else {
-            mTime = event.startTime;
+        if (event.startTime != null && event.startTime.toMillis(false) != 0) {
+            mTime.set(event.startTime);
         }
+        event.startTime = mTime;
 
         // Create/View/Edit/Delete Event
         long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);

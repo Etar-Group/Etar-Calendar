@@ -20,6 +20,7 @@ import static android.provider.Calendar.EVENT_BEGIN_TIME;
 
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.month.FullMonthView;
 import com.android.calendar.month.MiniMonthView;
 
 import android.app.Activity;
@@ -32,11 +33,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.widget.Gallery.LayoutParams;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-import android.widget.Gallery.LayoutParams;
 import android.widget.ViewSwitcher.ViewFactory;
 
 import java.util.Calendar;
@@ -70,8 +71,9 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
         mTime.setToNow();
     }
 
-    public MonthFragment(boolean showTitle, long timeMillis) {
+    public MonthFragment(boolean showTitle, long timeMillis, boolean useMiniView) {
         mShowTitle = showTitle;
+        mUseMiniView = useMiniView;
         if (timeMillis == 0) {
             mTime.setToNow();
         } else {
@@ -156,41 +158,20 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
         }
 
         mEventLoader.stopBackgroundThread();
-        if (!mUseMiniView) {
-            cleanupMonthView();
-        }
-    }
-
-    private void cleanupMonthView() {
-        MonthView mv = (MonthView) mSwitcher.getCurrentView();
-        mv.dismissPopup();
     }
 
     public View makeView() {
         Activity activity = getActivity();
+        MiniMonthView mv;
         if (mUseMiniView) {
-            MiniMonthView mv = new MiniMonthView(activity, CalendarController.getInstance(activity),
+            mv = new MiniMonthView(activity, CalendarController.getInstance(activity),
                     mEventLoader);
-            mv.setLayoutParams(new ViewSwitcher.LayoutParams(
-                    LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
-            if (mShowTitle) {
-                // TODO Probably not the best place for this. Clean up later.
-
-                // Set the initial title
-                mv.findViewById(R.id.title_bar).setVisibility(View.VISIBLE);
-
-                TextView title = (TextView) mv.findViewById(R.id.title);
-                title.setText(Utils.formatMonthYear(getActivity(), mTime));
-            }
-            return mv;
+        } else {
+            mv = new FullMonthView(activity, CalendarController.getInstance(activity),
+                    mEventLoader);
         }
-        MonthView mv = new MonthView(activity, CalendarController.getInstance(activity),
-                mEventLoader);
         mv.setLayoutParams(new ViewSwitcher.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        mv.setSelectedTime(mTime);
-
         if (mShowTitle) {
             // TODO Probably not the best place for this. Clean up later.
 
@@ -210,46 +191,15 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
             mTime.set(goToTime);
             return;
         }
-
-        if (!mUseMiniView) {
-            MonthView currentView = (MonthView) mSwitcher.getCurrentView();
-            currentView.dismissPopup();
-        }
         MonthViewInterface currentView = (MonthViewInterface) mSwitcher.getCurrentView();
         Time currentTime = currentView.getTime();
 
-        // TODO this logic need to change when MonthView supports multiple months
-
-        // This is faster than calling getSelectedTime() because we avoid
-        // a call to Time#normalize().
-        int currentMonth = currentTime.month + currentTime.year * 12;
-        int goToMonth = goToTime.month + goToTime.year * 12;
-        if (goToMonth == currentMonth || mUseMiniView) {
-            // In visible range. No need to switch view
+        // Only move if we're on a new day
+        if (currentTime.year != goToTime.year || currentTime.yearDay != goToTime.yearDay) {
             currentView.setSelectedTime(goToTime);
-        } else if (animate) {
-            if (goToMonth < currentMonth) {
-                mSwitcher.setInAnimation(mInAnimationPast);
-                mSwitcher.setOutAnimation(mOutAnimationPast);
-            } else {
-                mSwitcher.setInAnimation(mInAnimationFuture);
-                mSwitcher.setOutAnimation(mOutAnimationFuture);
-            }
-            // TODO clean this up
-            if (!mUseMiniView) {
-                cleanupMonthView();
-                MonthView mv = (MonthView) mSwitcher.getNextView();
-                mv.dismissPopup();
-            }
-            MonthViewInterface mv = (MonthViewInterface) mSwitcher.getNextView();
-            mv.setSelectedTime(goToTime);
-            mv.reloadEvents();
-            mv.animationStarted();
-            mSwitcher.showNext();
-            ((View)mv).requestFocus();
         }
 
-        mTime = goToTime;
+        mTime.set(goToTime);
     }
 
     // CalendarController interface
@@ -300,7 +250,7 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
 // TODO support event_id
 // TODO figure out the animate bit
 // TODO support select message
-            goTo(msg.startTime, true);
+            goTo(msg.startTime, false);
         }
     }
 
