@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.alerts;
+
+import com.android.calendar.R;
+import com.android.calendar.R.drawable;
+import com.android.calendar.R.string;
 
 import android.app.Notification;
 import android.app.PendingIntent;

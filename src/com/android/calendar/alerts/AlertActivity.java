@@ -14,9 +14,16 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.alerts;
 
+import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.R;
+import com.android.calendar.R.id;
+import com.android.calendar.R.layout;
+import com.android.calendar.R.string;
+import com.android.calendar.Utils;
 
 import android.app.Activity;
 import android.app.AlarmManager;

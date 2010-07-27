@@ -116,9 +116,11 @@
             <meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>
         </activity>
 
-        <activity android:name="AlertActivity" android:launchMode="singleInstance"
+        <!-- Declarations for alerts/reminders -->
+        <activity android:name=".alerts.AlertActivity" android:launchMode="singleInstance"
              android:theme="@android:style/Theme.Light" android:excludeFromRecents="true" />
-        <receiver android:name="AlertReceiver">
+
+        <receiver android:name=".alerts.AlertReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.EVENT_REMINDER" />
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
@@ -128,9 +130,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="AlertService" />
+        <service android:name=".alerts.AlertService" />
 
-        <service android:name="DismissAllAlarmsService" />
+        <service android:name=".alerts.DismissAllAlarmsService" />
 
         <!-- Declarations for the widget -->
         <receiver android:name=".widget.CalendarAppWidgetReceiver" android:enabled="false">

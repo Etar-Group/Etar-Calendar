@@ -37,31 +37,31 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     private static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
 
     // Preference keys
-    static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
-    static final String KEY_WEEK_START_DAY = "preferences_week_start_day";
+    public static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
+    public static final String KEY_WEEK_START_DAY = "preferences_week_start_day";
 
-    static final String KEY_ALERTS = "preferences_alerts";
-    static final String KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate";
-    static final String KEY_ALERTS_VIBRATE_WHEN = "preferences_alerts_vibrateWhen";
-    static final String KEY_ALERTS_RINGTONE = "preferences_alerts_ringtone";
-    static final String KEY_ALERTS_POPUP = "preferences_alerts_popup";
+    public static final String KEY_ALERTS = "preferences_alerts";
+    public static final String KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate";
+    public static final String KEY_ALERTS_VIBRATE_WHEN = "preferences_alerts_vibrateWhen";
+    public static final String KEY_ALERTS_RINGTONE = "preferences_alerts_ringtone";
+    public static final String KEY_ALERTS_POPUP = "preferences_alerts_popup";
 
-    static final String KEY_DEFAULT_REMINDER = "preferences_default_reminder";
+    public static final String KEY_DEFAULT_REMINDER = "preferences_default_reminder";
 
     /** Key to SharePreference for default view (CalendarController.ViewType) */
-    static final String KEY_START_VIEW = "preferred_startView";
+    public static final String KEY_START_VIEW = "preferred_startView";
     /**
      *  Key to SharePreference for default detail view (CalendarController.ViewType)
      *  Typically used by widget
      */
-    static final String KEY_DETAILED_VIEW = "preferred_detailedView";
-    static final String KEY_DEFAULT_CALENDAR = "preference_defaultCalendar";
+    public static final String KEY_DETAILED_VIEW = "preferred_detailedView";
+    public static final String KEY_DEFAULT_CALENDAR = "preference_defaultCalendar";
 
     // These must be in sync with the array preferences_week_start_day_values
-    static final String WEEK_START_DEFAULT = "-1";
-    static final String WEEK_START_SATURDAY = "7";
-    static final String WEEK_START_SUNDAY = "1";
-    static final String WEEK_START_MONDAY = "2";
+    public static final String WEEK_START_DEFAULT = "-1";
+    public static final String WEEK_START_SATURDAY = "7";
+    public static final String WEEK_START_SUNDAY = "1";
+    public static final String WEEK_START_MONDAY = "2";
 
     // These keys are kept to enable migrating users from previous versions
     private static final String KEY_ALERTS_TYPE = "preferences_alerts_type";

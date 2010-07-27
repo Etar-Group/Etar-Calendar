@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.android.calendar;
+package com.android.calendar.alerts;
 
 import android.app.IntentService;
 import android.content.ContentResolver;
