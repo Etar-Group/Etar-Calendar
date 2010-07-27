@@ -14,43 +14,14 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <RelativeLayout
+    android:layout_height="0dip"
+    android:layout_weight="1.0"
+    android:foregroundGravity="fill_horizontal|top">
+    <ViewSwitcher
+        android:id="@+id/switcher"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/windowTitleSize"
-        style="?android:attr/windowTitleBackgroundStyle">
-
-        <TextView android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            style="?android:attr/windowTitleStyle"
-            android:background="@null"
-            android:fadingEdge="horizontal"
-        />
-
-        <ProgressBar android:id="@+id/progress_circular"
-            style="?android:attr/progressBarStyleSmall"
-            android:visibility="gone"
-            android:max="10000"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="6dip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1.0"
-        android:foregroundGravity="fill_horizontal|top">
-        <ViewSwitcher android:id="@+id/switcher"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
-</LinearLayout>
+        android:layout_height="match_parent" />
+</FrameLayout>
