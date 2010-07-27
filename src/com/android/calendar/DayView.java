@@ -2546,23 +2546,24 @@ public class DayView extends View
         boolean launchNewView = false;
         if (mSelectedEvent != null) {
             // If the tap is on an event, launch the "View event" view
-            launchNewView = true;
-        } else if (mSelectedEvent == null && selectedDay == mSelectionDay
-                && selectedHour == mSelectionHour) {
-            // If the tap is on an already selected hour slot,
-            // then launch the Day/Agenda view. Otherwise, just select the hour
-            // slot.
-            launchNewView = true;
-        }
-
-        if (!launchNewView) {
-            Time startTime = new Time();
-            startTime.set(getSelectedTimeInMillis());
+            mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mSelectedEvent.id,
+                    mSelectedEvent.startMillis, mSelectedEvent.endMillis, (int) ev.getRawX(),
+                    (int) ev.getRawY());
+        } else if (selectedDay == mSelectionDay && selectedHour == mSelectionHour) {
+            // If the tap is on an already selected hour slot, then create a new
+            // event
+            mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
+                    getSelectedTimeInMillis(), 0, (int) ev.getRawX(), (int) ev.getRawY());
+        } else {
+            Time startTime = new Time(mBaseDate);
+            startTime.setJulianDay(mSelectionDay);
+            startTime.hour = mSelectionHour;
+            startTime.normalize(true /* ignore isDst */);
 
             Time endTime = new Time(startTime);
             endTime.hour++;
 
-            mController.sendEvent(this, EventType.GO_TO, startTime, endTime, -1, ViewType.DETAIL);
+            mController.sendEvent(this, EventType.GO_TO, startTime, endTime, -1, ViewType.CURRENT);
         }
     }
 
