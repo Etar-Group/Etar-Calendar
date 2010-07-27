@@ -58,6 +58,7 @@ public class CalendarController {
     private WeakHashMap<Object, Long> filters = new WeakHashMap<Object, Long>(1);
 
     private int mViewType = -1;
+    private int mDetailViewType = -1;
     private int mPreviousViewType = -1;
     private Time mTime = new Time();
 
@@ -158,6 +159,9 @@ public class CalendarController {
     private CalendarController(Context context) {
         mContext = context;
         mTime.setToNow();
+        mDetailViewType = Utils.getSharedPreference(mContext,
+                CalendarPreferenceActivity.KEY_DETAILED_VIEW,
+                CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
         mService = new AsyncQueryService(context) {
             @Override
             protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
@@ -259,14 +263,16 @@ public class CalendarController {
 
         // Fix up view if not specified
         if (event.viewType == ViewType.DETAIL) {
-            event.viewType = Utils.getSharedPreference(mContext,
-                    CalendarPreferenceActivity.KEY_DETAILED_VIEW,
-                    CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
-            mViewType = event.viewType;
+            event.viewType = mDetailViewType;
+            mViewType = mDetailViewType;
         } else if (event.viewType == ViewType.CURRENT) {
             event.viewType = mViewType;
         } else {
             mViewType = event.viewType;
+
+            if (event.viewType == ViewType.AGENDA || event.viewType == ViewType.DAY) {
+                mDetailViewType = mViewType;
+            }
         }
 
         synchronized (this) {
