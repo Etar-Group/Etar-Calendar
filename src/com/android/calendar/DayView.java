@@ -71,12 +71,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * This is the base class for a set of classes that implement views (day view
- * and week view to start with) that share some common code.
-  */
-public class CalendarView extends View
+ * View for multi-day view. So far only 1 and 7 day have been tested.
+ */
+public class DayView extends View
         implements View.OnCreateContextMenuListener, View.OnClickListener {
-    private static String TAG = "CalendarView";
+    private static String TAG = "DayView";
 
     private static float mScale = 0; // Used for supporting different screen densities
     private static final long INVALID_EVENT_ID = -1; //This is used for remembering a null event
@@ -350,7 +349,7 @@ public class CalendarView extends View
     private ViewSwitcher mViewSwitcher;
     private GestureDetector mGestureDetector;
 
-    public CalendarView(Context context, CalendarController controller,
+    public DayView(Context context, CalendarController controller,
             ViewSwitcher viewSwitcher, EventLoader eventLoader, int numDays) {
         super(context);
         if (mScale == 0) {
@@ -866,7 +865,7 @@ public class CalendarView extends View
      *
      * @param view the view to initialize.
      */
-    private void initView(CalendarView view) {
+    private void initView(DayView view) {
         view.mSelectionHour = mSelectionHour;
         view.mSelectedEvents.clear();
         view.mComputeSelectedEvents = true;
@@ -1103,7 +1102,7 @@ public class CalendarView extends View
 
         if ((selectionDay < mFirstJulianDay) || (selectionDay > mLastJulianDay)) {
             boolean forward;
-            CalendarView view = (CalendarView) mViewSwitcher.getNextView();
+            DayView view = (DayView) mViewSwitcher.getNextView();
             Time date = view.mBaseDate;
             date.set(mBaseDate);
             if (selectionDay < mFirstJulianDay) {
@@ -1180,10 +1179,10 @@ public class CalendarView extends View
         mViewSwitcher.setInAnimation(inAnimation);
         mViewSwitcher.setOutAnimation(outAnimation);
 
-        CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
+        DayView view = (DayView) mViewSwitcher.getCurrentView();
         view.cleanup();
         mViewSwitcher.showNext();
-        view = (CalendarView) mViewSwitcher.getCurrentView();
+        view = (DayView) mViewSwitcher.getCurrentView();
         view.requestFocus();
         view.reloadEvents();
         return view;
@@ -1350,7 +1349,7 @@ public class CalendarView extends View
             } else {
                 canvas.translate(-(mViewWidth + mViewStartX), 0);
             }
-            CalendarView nextView = (CalendarView) mViewSwitcher.getNextView();
+            DayView nextView = (DayView) mViewSwitcher.getNextView();
 
             // Prevent infinite recursive calls to onDraw().
             nextView.mTouchMode = TOUCH_MODE_INITIAL_STATE;
@@ -2628,12 +2627,12 @@ public class CalendarView extends View
             // if we haven't already changed the title.
             if (distanceX >= HORIZONTAL_SCROLL_THRESHOLD) {
                 if (mPreviousDistanceX < HORIZONTAL_SCROLL_THRESHOLD) {
-                    CalendarView view = (CalendarView) mViewSwitcher.getNextView();
+                    DayView view = (DayView) mViewSwitcher.getNextView();
                     mTitleTextView.setText(view.mDateRange);
                 }
             } else if (distanceX <= -HORIZONTAL_SCROLL_THRESHOLD) {
                 if (mPreviousDistanceX > -HORIZONTAL_SCROLL_THRESHOLD) {
-                    CalendarView view = (CalendarView) mViewSwitcher.getNextView();
+                    DayView view = (DayView) mViewSwitcher.getNextView();
                     mTitleTextView.setText(view.mDateRange);
                 }
             } else {
@@ -2675,7 +2674,7 @@ public class CalendarView extends View
 
         if ((distanceX >= HORIZONTAL_SCROLL_THRESHOLD) && (distanceX > distanceY)) {
             boolean switchForward = initNextView(deltaX);
-            CalendarView view = (CalendarView) mViewSwitcher.getNextView();
+            DayView view = (DayView) mViewSwitcher.getNextView();
             mTitleTextView.setText(view.mDateRange);
 
             Time end = new Time(view.mBaseDate);
@@ -2696,7 +2695,7 @@ public class CalendarView extends View
 
     private boolean initNextView(int deltaX) {
         // Change the view to the previous day or week
-        CalendarView view = (CalendarView) mViewSwitcher.getNextView();
+        DayView view = (DayView) mViewSwitcher.getNextView();
         Time date = view.mBaseDate;
         date.set(mBaseDate);
         boolean switchForward;
@@ -3300,30 +3299,30 @@ public class CalendarView extends View
     class CalendarGestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onSingleTapUp(MotionEvent ev) {
-            CalendarView.this.doSingleTapUp(ev);
+            DayView.this.doSingleTapUp(ev);
             return true;
         }
 
         @Override
         public void onLongPress(MotionEvent ev) {
-            CalendarView.this.doLongPress(ev);
+            DayView.this.doLongPress(ev);
         }
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            CalendarView.this.doScroll(e1, e2, distanceX, distanceY);
+            DayView.this.doScroll(e1, e2, distanceX, distanceY);
             return true;
         }
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            CalendarView.this.doFling(e1, e2, velocityX, velocityY);
+            DayView.this.doFling(e1, e2, velocityX, velocityY);
             return true;
         }
 
         @Override
         public boolean onDown(MotionEvent ev) {
-            CalendarView.this.doDown(ev);
+            DayView.this.doDown(ev);
             return true;
         }
     }
