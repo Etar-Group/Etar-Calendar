@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.widget;
 
 import com.google.common.annotations.VisibleForTesting;
 
-import com.android.calendar.CalendarAppWidgetModel.EventInfo;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
 
 
 import android.app.AlarmManager;

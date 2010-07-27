@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.widget;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

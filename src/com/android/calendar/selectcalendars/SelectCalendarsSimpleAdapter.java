@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calendar.SelectCalendars;
+package com.android.calendar.selectcalendars;
 
 import com.android.calendar.R;
 

@@ -15,9 +15,11 @@
 ** limitations under the License.
 */
 
-package com.android.calendar;
+package com.android.calendar.widget;
 
-import com.android.calendar.CalendarAppWidgetService.MarkedEvents;
+import com.android.calendar.widget.CalendarAppWidgetModel;
+import com.android.calendar.widget.CalendarAppWidgetService;
+import com.android.calendar.widget.CalendarAppWidgetService.MarkedEvents;
 
 import android.database.MatrixCursor;
 import android.test.AndroidTestCase;

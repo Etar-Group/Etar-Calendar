@@ -20,7 +20,7 @@ import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
-import com.android.calendar.SelectCalendars.SelectCalendarsFragment;
+import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
 import android.app.ActionBar;
 import android.app.Activity;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calendar.Month;
+package com.android.calendar.month;
 
 import com.android.calendar.CalendarController;
 import com.android.calendar.Event;

@@ -133,7 +133,7 @@
         <service android:name="DismissAllAlarmsService" />
 
         <!-- Declarations for the widget -->
-        <receiver android:name="CalendarAppWidgetReceiver" android:enabled="false">
+        <receiver android:name=".widget.CalendarAppWidgetReceiver" android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
@@ -145,7 +145,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="CalendarAppWidgetProvider" android:label="@string/gadget_title">
+        <receiver android:name=".widget.CalendarAppWidgetProvider" android:label="@string/gadget_title">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.android.calendar.APPWIDGET_UPDATE" />
@@ -153,7 +153,7 @@
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/appwidget_info" />
         </receiver>
 
-        <service android:name="CalendarAppWidgetService" />
+        <service android:name=".widget.CalendarAppWidgetService" />
 
         <activity android:name="CalendarTests" android:label="Calendar Tests">
             <intent-filter>
