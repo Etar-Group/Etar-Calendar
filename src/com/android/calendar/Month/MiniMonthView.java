@@ -51,6 +51,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -68,7 +69,18 @@ import java.util.ArrayList;
 public class MiniMonthView extends View implements View.OnCreateContextMenuListener,
         MonthFragment.MonthViewInterface {
 
+    private static final String TAG = "MiniMonthView";
+
     private static final boolean PROFILE_LOAD_TIME = false;
+
+    private static final int MIN_YEAR = 1970;
+    private static final int MAX_YEAR = 2036;
+    private static final int MIN_WEEK = MIN_YEAR * 52;
+    private static final int MAX_WEEK = (MAX_YEAR + 1) * 52;
+
+    private static final int MIN_NUM_WEEKS = 3;
+    private static final int MAX_NUM_WEEKS = 16;
+    private static final int DEFAULT_NUM_WEEKS = 10;
 
     private static float mScale = 0; // Used for supporting different screen densities
     private static int WEEK_GAP = 0;
@@ -85,24 +97,16 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private static int EVENT_DOT_TOP_MARGIN = 5;
     private static int EVENT_DOT_LEFT_MARGIN = 7;
     private static int EVENT_DOT_W_H = 10;
-    private static int EVENT_NUM_DAYS = 31;
     private static int TEXT_TOP_MARGIN = 7;
     private static int BUSY_BITS_WIDTH = 6;
     private static int BUSY_BITS_MARGIN = 4;
     private static int DAY_NUMBER_OFFSET = 10;
-    private static final int MIN_YEAR = 1970;
-    private static final int MAX_YEAR = 2036;
-    private static final int MIN_WEEK = MIN_YEAR * 52;
-    private static final int MAX_WEEK = (MAX_YEAR + 1) * 52;
-
+    private static int DESIRED_CELL_HEIGHT = 40;
     private static int VERTICAL_FLING_THRESHOLD = 50;
-    private static final int DESIRED_CELL_HEIGHT = 40;
 
-    private static final int MIN_NUM_WEEKS = 3;
-    private static final int MAX_NUM_WEEKS = 16;
-    // TODO dynamically calculate based on the size of the view
-    private static final int DEFAULT_NUM_WEEKS = 10;
-
+    // The number of days worth of events to load
+    private int mEventNumDays = 7 * (DEFAULT_NUM_WEEKS + 4);
+    // Which day of the week the display starts on
     private int mStartDayOfWeek;
     // How many weeks to display at a time
     private int mNumWeeks = DEFAULT_NUM_WEEKS;
@@ -164,7 +168,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private Rect mRect = new Rect();
 
     //An array of which days have events for quick reference
-    private boolean[] eventDay = new boolean[31];
+    private boolean[] eventDay = new boolean[mEventNumDays];
 
     private PopupWindow mPopup;
     private View mPopupView;
@@ -186,7 +190,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     // These booleans disable features that were taken out of the spec.
     private boolean mShowWeekNumbers = false;
     private boolean mShowToast = false;
-    private boolean mShowDNA = false;
+    private boolean mShowDNA = true;
 
     // Bitmap caches.
     // These improve performance by minimizing calls to NinePatchDrawable.draw() for common
@@ -207,9 +211,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private int mSelectionMode = SELECTION_HIDDEN;
 
     /**
-     * The first Julian day of the current month.
+     * The first Julian day for which we have event data.
      */
-    private int mFirstJulianDay;
+    private int mFirstEventJulianDay;
 
     private final EventLoader mEventLoader;
 
@@ -238,7 +242,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                     WEEK_GAP *= mScale;
                     MONTH_DAY_GAP *= mScale;
                     HOUR_GAP *= mScale;
-
+                    DESIRED_CELL_HEIGHT *= mScale;
                     MONTH_DAY_TEXT_SIZE *= mScale;
                     WEEK_BANNER_HEIGHT *= mScale;
                     WEEK_TEXT_SIZE *= mScale;
@@ -277,7 +281,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mViewCalendar.set(now);
         mViewCalendar.monthDay = 1;
         long millis = mViewCalendar.normalize(true /* ignore DST */);
-        mFirstJulianDay = Time.getJulianDay(millis, mViewCalendar.gmtoff);
+        mFirstEventJulianDay = Time.getJulianDay(millis, mViewCalendar.gmtoff);
         mStartDayOfWeek = Utils.getFirstDayOfWeek(activity);
         mViewCalendar.set(now);
         makeFirstDayOfWeek(mViewCalendar);
@@ -517,6 +521,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 // Done scrolling.
                 mWeekOffset = 0;
                 mScrolling = false;
+                reloadEvents();
             }
 
             mRedrawScreen = true;
@@ -587,14 +592,15 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             return;
         }
         // Get the date for the beginning of the month
-        Time monthStart = mTempTime;
-        monthStart.set(mViewCalendar);
-        monthStart.monthDay = 1;
-        monthStart.hour = 0;
-        monthStart.minute = 0;
-        monthStart.second = 0;
-        long millis = monthStart.normalize(true /* ignore isDst */);
-        int startDay = Time.getJulianDay(millis, monthStart.gmtoff);
+        Time eventsStart = mTempTime;
+        eventsStart.set(mFirstDay);
+        // Query from 2 weeks before our first day to two weeks after our last day
+        eventsStart.monthDay -= 14;
+        eventsStart.hour = 0;
+        eventsStart.minute = 0;
+        eventsStart.second = 0;
+        long millis = eventsStart.normalize(true /* ignore isDst */);
+        mFirstEventJulianDay = Time.getJulianDay(millis, eventsStart.gmtoff);
 
         // Load the days with events in the background
 //FRAG_TODO        mParentActivity.startProgressSpinner();
@@ -607,42 +613,43 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         }
 
         final ArrayList<Event> events = new ArrayList<Event>();
-        mEventLoader.loadEventsInBackground(EVENT_NUM_DAYS, events, millis, new Runnable() {
+        mEventLoader.loadEventsInBackground(mEventNumDays, events, millis, new Runnable() {
             public void run() {
+                Log.d(TAG, "found " + events.size() + " events");
                 mEvents = events;
-                mRedrawScreen = true;
 //FRAG_TODO                mParentActivity.stopProgressSpinner();
-                invalidate();
                 int numEvents = events.size();
-
                 // Clear out event days
-                for (int i = 0; i < EVENT_NUM_DAYS; i++) {
+                for (int i = 0; i < mEventNumDays; i++) {
                     eventDay[i] = false;
                 }
 
                 // Compute the new set of days with events
                 for (int i = 0; i < numEvents; i++) {
                     Event event = events.get(i);
-                    int startDay = event.startDay - mFirstJulianDay;
-                    int endDay = event.endDay - mFirstJulianDay + 1;
-                    if (startDay < 31 || endDay >= 0) {
+                    int startDay = event.startDay - mFirstEventJulianDay;
+                    int endDay = event.endDay - mFirstEventJulianDay + 1;
+                    if (startDay < mEventNumDays || endDay >= 0) {
                         if (startDay < 0) {
                             startDay = 0;
                         }
-                        if (startDay > 31) {
-                            startDay = 31;
+                        if (startDay > mEventNumDays) {
+                            continue;
                         }
                         if (endDay < 0) {
-                            endDay = 0;
+                            continue;
                         }
-                        if (endDay > 31) {
-                            endDay = 31;
+                        if (endDay > mEventNumDays) {
+                            endDay = mEventNumDays;
                         }
                         for (int j = startDay; j < endDay; j++) {
                             eventDay[j] = true;
                         }
                     }
                 }
+
+                mRedrawScreen = true;
+                invalidate();
             }
         }, null);
     }
@@ -871,6 +878,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             drawSelection = mSelectedDay.year == mDrawingDay.year &&
                     mSelectedDay.yearDay == mDrawingDay.yearDay;
         }
+        int julianDay = Time.getJulianDay(mDrawingDay.toMillis(true), mDrawingDay.gmtoff);
 
         // Check if we're in a light or dark colored month
         boolean colorSameAsCurrent = ((mDrawingDay.month & 1) == 0) == mIsEvenMonth;
@@ -930,7 +938,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
 
         // TODO Places events for that day
-        drawEvents(day, canvas, r, p, true /*draw bb background*/);
+        drawEvents(julianDay, canvas, r, p, colorSameAsCurrent);
 
         // Draw the monthDay number
         p.setStyle(Paint.Style.FILL);
@@ -956,8 +964,14 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             } else {
                 p.setColor(mMonthDayNumberColor);
             }
-            // TODO bolds the day if there's an event that day
-//            p.setFakeBoldText(eventDay[day-mFirstJulianDay]);
+        }
+
+        // bolds the day if there's an event that day
+        int julianOffset = julianDay - mFirstEventJulianDay;
+        if (julianOffset >= 0 && julianOffset < mEventNumDays) {
+            p.setFakeBoldText(eventDay[julianOffset]);
+        } else {
+            p.setFakeBoldText(false);
         }
         /*Drawing of day number is done here
          *easy to find tags draw number draw day*/
@@ -966,7 +980,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         // TODO figure out why it's not actually centered
         int textX = x + (mCellWidth - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH) / 2;
         // bottom of text
-        int textY = y + mCellHeight / 2 + TEXT_TOP_MARGIN;
+        int textY = y + (mCellHeight + MONTH_DAY_TEXT_SIZE - 1) / 2 /*+ TEXT_TOP_MARGIN*/;
         canvas.drawText(String.valueOf(mDrawingDay.monthDay), textX, textY, p);
     }
 
@@ -975,8 +989,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         if (!mShowDNA) {
             return;
         }
+        Log.d(TAG, "Drawing event for " + date);
         // The top of the busybits section lines up with the top of the day number
-        int top = rect.top + TEXT_TOP_MARGIN + BUSY_BITS_MARGIN;
+        int top = rect.top /*+ TEXT_TOP_MARGIN*/ + BUSY_BITS_MARGIN;
         int left = rect.right - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH;
 
         Style oldStyle = p.getStyle();
@@ -986,23 +1001,26 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         int numEvents = events.size();
         EventGeometry geometry = mEventGeometry;
 
-        if (drawBg) {
-            RectF rf = mRectF;
-            rf.left = left;
-            rf.right = left + BUSY_BITS_WIDTH;
-            rf.bottom = rect.bottom - BUSY_BITS_MARGIN;
-            rf.top = top;
+        RectF rf = mRectF;
+        rf.left = left;
+        rf.right = left + BUSY_BITS_WIDTH;
+        rf.bottom = rect.bottom - BUSY_BITS_MARGIN;
+        rf.top = top;
+        p.setStyle(Style.FILL);
 
+        if (drawBg) {
             p.setColor(mMonthBgColor);
-            p.setStyle(Style.FILL);
-            canvas.drawRect(rf, p);
+        } else {
+            p.setColor(Color.WHITE);
         }
+        canvas.drawRect(rf, p);
 
         for (int i = 0; i < numEvents; i++) {
             Event event = events.get(i);
             if (!geometry.computeEventRect(date, left, top, BUSY_BITS_WIDTH, event)) {
                 continue;
             }
+            Log.d(TAG, "geometry returned true");
             drawEventRect(rect, event, canvas, p);
         }
 
@@ -1035,7 +1053,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mViewCalendar.set(time);
         mViewCalendar.monthDay = 1;
         long millis = mViewCalendar.normalize(true /* ignore DST */);
-        mFirstJulianDay = Time.getJulianDay(millis, mViewCalendar.gmtoff);
+        mFirstEventJulianDay = Time.getJulianDay(millis, mViewCalendar.gmtoff);
         mViewCalendar.set(time);
 
         Handler handler = getHandler();
@@ -1080,6 +1098,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         } else if (mNumWeeks > MAX_NUM_WEEKS) {
             mNumWeeks = MAX_NUM_WEEKS;
         }
+        // This lets us query 2 weeks before and after the first visible day
+        mEventNumDays = 7 * (mNumWeeks + 4);
+        eventDay = new boolean[mEventNumDays];
         mCellHeight = (height - (mNumWeeks * WEEK_GAP)) / mNumWeeks;
         mEventGeometry
                 .setHourHeight((mCellHeight - BUSY_BITS_MARGIN * 2 - TEXT_TOP_MARGIN) / 24.0f);
