@@ -50,12 +50,14 @@
     <color name="month_saturday">#ff404040</color>
     <color name="month_sunday">#ff404040</color>
     <color name="month_today_number">#ffffffff</color>
-    <color name="month_other_month">#ff595959</color>
+    <color name="month_grid_lines">#ff595959</color>
     <color name="month_other_month_day_number">#ffa0a0a0</color>
     <color name="month_other_month_banner">#80595959</color>
     <color name="month_week_banner">#FFDDDDDD</color>
     <color name="month_busybits">#FF6090F0</color>
-    <color name="month_bgcolor">#FFDDDDDD</color>
+    <color name="month_other_bgcolor">#FFDDDDDD</color>
+    <color name="month_today_bgcolor">#FF888888</color>
+    <color name="month_bgcolor">#FFFFFFFF</color>
 
     <color name="event_center">#ff6bd697</color>
 

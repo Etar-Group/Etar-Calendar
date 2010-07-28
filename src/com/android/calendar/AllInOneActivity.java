@@ -41,6 +41,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final String TAG = "AllInOneActivity";
     private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     private static CalendarController mController;
+    private static boolean mIsMultipane;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -48,6 +49,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
+
+        mIsMultipane = (getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
 
         // Must be the first to register so that this activity can modify the
         // list the event handlers during dispatching.
@@ -95,10 +99,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private void initFragments(long timeMillis, int viewType) {
         FragmentTransaction ft = openFragmentTransaction();
 
-        boolean multipane = (getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
-
-        if (multipane) {
+        if (mIsMultipane) {
             Fragment miniMonthFrag = new MonthFragment(false, timeMillis, true);
             ft.replace(R.id.mini_month, miniMonthFrag);
             mController.registerEventHandler((EventHandler) miniMonthFrag);
@@ -256,12 +257,17 @@ public class AllInOneActivity extends Activity implements EventHandler,
             setMainPane(null, R.id.main_pane, event.viewType,
                     event.startTime.toMillis(false), false);
 
-            // FRAG_TODO only for XL screen
+            if (!mIsMultipane) {
+                return;
+            }
             if (event.viewType == ViewType.MONTH) {
                 // hide minimonth and calendar frag
-                // show agenda view
+                findViewById(R.id.mini_month).setVisibility(View.GONE);
+                findViewById(R.id.calendar_list).setVisibility(View.GONE);
             } else {
                 // show minimonth and calendar frag
+                findViewById(R.id.mini_month).setVisibility(View.VISIBLE);
+                findViewById(R.id.calendar_list).setVisibility(View.VISIBLE);
             }
         }
     }

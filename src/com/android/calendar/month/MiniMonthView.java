@@ -31,7 +31,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.PorterDuff;
@@ -62,7 +61,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private static final String TAG = "MiniMonthView";
     private static final boolean DEBUG = false;
 
-    private static final boolean PROFILE_LOAD_TIME = false;
+    protected static final boolean PROFILE_LOAD_TIME = false;
 
     // TODO Move to a more general location
     public static final int MIN_YEAR = 1970;
@@ -121,6 +120,10 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected Time mFirstDay = new Time();
     // The current day being drawn to the canvas
     protected Time mDrawingDay = new Time();
+    // Whether the current day being drawn is today
+    protected boolean mDrawingToday;
+    // Whether the current day being drawn is selected
+    protected boolean mDrawingSelected;
     // The distance in pixels to offset the y position of the weeks
     protected int mWeekOffset = 0;
 
@@ -171,7 +174,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected Rect mRect = new Rect();
 
     //An array of which days have events for quick reference
-    protected boolean[] eventDay = new boolean[mEventNumDays];
+    protected boolean[] mEventDays = new boolean[mEventNumDays];
 
     protected PopupWindow mPopup;
     protected View mPopupView;
@@ -224,16 +227,32 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
     // Cached colors
     // TODO rename colors here and in xml to reflect how they are used
-    protected int mMonthOtherMonthColor;
+    // Current months have the same even/odd-ness as the month of the current
+    // date. Other months don't.
+    // Color of grid lines
+    protected int mMonthGridLineColor;
+    // Not currently used
     protected int mMonthWeekBannerColor;
+    // Not currently used
     protected int mMonthOtherMonthBannerColor;
+    // Text color for day in other months
     protected int mMonthOtherMonthDayNumberColor;
+    // Text color for day in current months
     protected int mMonthDayNumberColor;
+    // Text color for today's day number
     protected int mMonthTodayNumberColor;
+    // Text color for Saturday day numbers
     protected int mMonthSaturdayColor;
+    // Text color for Sunday day numbers
     protected int mMonthSundayColor;
-    protected int mBusybitsColor;
+    // Color of the "DNA" event squares
+    protected int mMonthBusybitsColor;
+    // Background color for 'other' months
+    protected int mMonthOtherMonthBgColor;
+    // Background color for 'current' months
     protected int mMonthBgColor;
+    // Background color for 'today'
+    protected int mMonthTodayBgColor;
 
     public MiniMonthView(Context activity, CalendarController controller, EventLoader eventLoader) {
         super(activity);
@@ -302,7 +321,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
         // Cache color lookups
         Resources res = getResources();
-        mMonthOtherMonthColor = res.getColor(R.color.month_other_month);
+        mMonthGridLineColor = res.getColor(R.color.month_grid_lines);
         mMonthWeekBannerColor = res.getColor(R.color.month_week_banner);
         mMonthOtherMonthBannerColor = res.getColor(R.color.month_other_month_banner);
         mMonthOtherMonthDayNumberColor = res.getColor(R.color.month_other_month_day_number);
@@ -310,8 +329,10 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mMonthTodayNumberColor = res.getColor(R.color.month_today_number);
         mMonthSaturdayColor = res.getColor(R.color.month_saturday);
         mMonthSundayColor = res.getColor(R.color.month_sunday);
-        mBusybitsColor = res.getColor(R.color.month_busybits);
+        mMonthBusybitsColor = res.getColor(R.color.month_busybits);
+        mMonthOtherMonthBgColor = res.getColor(R.color.month_other_bgcolor);
         mMonthBgColor = res.getColor(R.color.month_bgcolor);
+        mMonthTodayBgColor = res.getColor(R.color.month_today_bgcolor);
 
         mGestureDetector = new GestureDetector(getContext(),
                 new GestureDetector.SimpleOnGestureListener() {
@@ -489,6 +510,13 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         // At each step we set the first day and the y offset for the next
         // position in a 'smooth' scroll.
         public void run() {
+            if (mCellHeight <= 0) {
+                // The view isn't done initializing yet, just set it to the current day
+                mWeekOffset = 0;
+                mScrolling = false;
+                mFirstDay.set(mStartTime.toMillis(true) + DateUtils.WEEK_IN_MILLIS * mWeeks);
+                return;
+            }
             // Calculate it based on the start so we don't accumulate rounding
             // errors
             mFirstDay.set(mStartTime.toMillis(true) + DateUtils.WEEK_IN_MILLIS
@@ -598,7 +626,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 int numEvents = events.size();
                 // Clear out event days
                 for (int i = 0; i < mEventNumDays; i++) {
-                    eventDay[i] = false;
+                    mEventDays[i] = false;
                 }
 
                 long millis = getFirstEventStartMillis();
@@ -622,7 +650,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                             endDay = mEventNumDays;
                         }
                         for (int j = startDay; j < endDay; j++) {
-                            eventDay[j] = true;
+                            mEventDays[j] = true;
                         }
                     }
                 }
@@ -632,7 +660,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         }, null);
     }
 
-    private long getFirstEventStartMillis() {
+    protected long getFirstEventStartMillis() {
         Time eventsStart = mTempTime;
         eventsStart.set(mFirstDay);
         // Query is from 2 weeks before our first day to two weeks after our
@@ -694,7 +722,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         }
     }
 
-    private void doDraw(Canvas canvas) {
+    protected void doDraw(Canvas canvas) {
         boolean isLandscape = getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
 
@@ -723,21 +751,31 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
         for (; row < lastWeek; row++) {
             for (int column = 0; column < 7; column++) {
+                setDrawingBooleans();
                 drawBox(day, row, column, canvas, p, r, isLandscape);
                 day++;
                 mDrawingDay.monthDay++;
                 mDrawingDay.normalize(true);
             }
-//            if (mShowWeekNumbers) {
-//                weekNum += 1;
-//                if (weekNum >= 53) {
-//                    boolean inCurrentMonth = (day - mFirstJulianDay < 31);
-//                    weekNum = getWeekOfYear(row + 1, 0, inCurrentMonth, calendar);
-//                }
-//            }
         }
         drawGrid(canvas, p);
         drawMonthNames(canvas, p);
+    }
+
+    protected void setDrawingBooleans() {
+        mDrawingToday = false;
+        // Check if the date we're drawing is today
+        if (mDrawingDay.year == mToday.year && mDrawingDay.yearDay == mToday.yearDay) {
+            mDrawingToday = true;
+        }
+
+        mDrawingSelected = false;
+        // Check if we're drawing the selected day and if we should show
+        // it as selected.
+        if (mSelectionMode != SELECTION_HIDDEN) {
+            mDrawingSelected = mSelectedDay.year == mDrawingDay.year &&
+                    mSelectedDay.yearDay == mDrawingDay.yearDay;
+        }
     }
 
     @Override
@@ -766,11 +804,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private long getSelectedMillisFor(int x, int y) {
         int row = (y - WEEK_GAP) / (WEEK_GAP + mCellHeight);
         int column = (x - mBorder) / (MONTH_DAY_GAP + mCellWidth);
-//        if (column > 6) {
-//            column = 6;
-//        }
-
-//        DayOfMonthCursor c = mCursor;
         Time time = mTempTime;
         time.set(mFirstDay);
 
@@ -821,7 +854,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     /**
      * Draw the names of the month on the left.
      */
-    private void drawMonthNames(Canvas canvas, Paint p) {
+    protected void drawMonthNames(Canvas canvas, Paint p) {
 
     }
 
@@ -830,8 +863,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
      * @param canvas The canvas to draw on.
      * @param p The paint used for drawing.
      */
-    private void drawGrid(Canvas canvas, Paint p) {
-        p.setColor(mMonthOtherMonthColor);
+    protected void drawGrid(Canvas canvas, Paint p) {
+        p.setColor(mMonthGridLineColor);
         p.setAntiAlias(false);
 
         final int width = mWidth + mMonthNameSpace;
@@ -859,23 +892,13 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         }
     }
 
-    private void drawBox(int day, int row, int column, Canvas canvas, Paint p,
+    protected void drawBox(int day, int row, int column, Canvas canvas, Paint p,
             Rect r, boolean isLandscape) {
-        boolean drawSelection = false;
-        // Check if we're drawing the selected day and if we should show
-        // it as selected.
-        if (mSelectionMode != SELECTION_HIDDEN) {
-            drawSelection = mSelectedDay.year == mDrawingDay.year &&
-                    mSelectedDay.yearDay == mDrawingDay.yearDay;
-        }
+
         int julianDay = Time.getJulianDay(mDrawingDay.toMillis(true), mDrawingDay.gmtoff);
 
         // Check if we're in a light or dark colored month
         boolean colorSameAsCurrent = ((mDrawingDay.month & 1) == 0) == mIsEvenMonth;
-        boolean isToday = false;
-        if (mDrawingDay.year == mToday.year && mDrawingDay.yearDay == mToday.yearDay) {
-            isToday = true;
-        }
         // We calculate the position relative to the total size
         // to avoid rounding errors.
         int y = row * mHeight / mNumWeeks + mWeekOffset;
@@ -887,7 +910,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         r.bottom = y + mCellHeight;
 
         // Draw the cell contents (excluding monthDay number)
-        if (drawSelection) {
+        if (mDrawingSelected) {
             if (mSelectionMode == SELECTION_SELECTED) {
                 mBoxSelected.setBounds(r);
                 mBoxSelected.draw(canvas);
@@ -898,22 +921,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 mBoxLongPressed.setBounds(r);
                 mBoxLongPressed.draw(canvas);
             }
-        } else if (isToday) {
-            // We could cache this for a little bit more performance, but it's not on the
-            // performance radar...
-            Drawable background = mTodayBackground;
-            background.setBounds(r);
-            background.draw(canvas);
-        } else if (!colorSameAsCurrent) {
-            // Adjust cell boundaries to compensate for the different border
-            // style.
-            r.top--;
-            if (column != 0) {
-                r.left--;
-            }
-            p.setStyle(Style.FILL);
-            p.setColor(mMonthBgColor);
-            canvas.drawRect(r, p);
         } else {
             // Adjust cell boundaries to compensate for the different border
             // style.
@@ -922,7 +929,13 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 r.left--;
             }
             p.setStyle(Style.FILL);
-            p.setColor(Color.WHITE);
+            if (mDrawingToday) {
+                p.setColor(mMonthTodayBgColor);
+            } else if (!colorSameAsCurrent) {
+                p.setColor(mMonthOtherMonthBgColor);
+            } else {
+                p.setColor(mMonthBgColor);
+            }
             canvas.drawRect(r, p);
         }
 
@@ -945,7 +958,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 p.setColor(mMonthOtherMonthDayNumberColor);
             }
         } else {
-            if (isToday && !drawSelection) {
+            if (mDrawingToday && !mDrawingSelected) {
                 p.setColor(mMonthTodayNumberColor);
             } else if (Utils.isSunday(column, mStartDayOfWeek)) {
                 p.setColor(mMonthSundayColor);
@@ -959,7 +972,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         // bolds the day if there's an event that day
         int julianOffset = julianDay - mFirstEventJulianDay;
         if (julianOffset >= 0 && julianOffset < mEventNumDays) {
-            p.setFakeBoldText(eventDay[julianOffset]);
+            p.setFakeBoldText(mEventDays[julianOffset]);
         } else {
             p.setFakeBoldText(false);
         }
@@ -975,7 +988,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     }
 
     ///Create and draw the event busybits for this day
-    private void drawEvents(int date, Canvas canvas, Rect rect, Paint p, boolean drawBg) {
+    protected void drawEvents(int date, Canvas canvas, Rect rect, Paint p, boolean drawBg) {
         if (!mShowDNA) {
             return;
         }
@@ -1001,9 +1014,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         p.setStyle(Style.FILL);
 
         if (drawBg) {
-            p.setColor(mMonthBgColor);
+            p.setColor(mMonthOtherMonthBgColor);
         } else {
-            p.setColor(Color.WHITE);
+            p.setColor(mMonthBgColor);
         }
         canvas.drawRect(rf, p);
 
@@ -1018,9 +1031,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     }
 
     // Draw busybits for a single event
-    private RectF drawEventRect(Rect rect, Event event, Canvas canvas, Paint p) {
+    protected RectF drawEventRect(Rect rect, Event event, Canvas canvas, Paint p) {
 
-        p.setColor(mBusybitsColor);
+        p.setColor(mMonthBusybitsColor);
 
         int left = rect.right - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH;
         int bottom = rect.bottom - BUSY_BITS_MARGIN;
@@ -1080,7 +1093,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mSelectionMode = selectionMode;
     }
 
-    private void drawingCalc(int width, int height) {
+    protected void drawingCalc(int width, int height) {
         mHeight = getMeasuredHeight();
         mWidth = getMeasuredWidth() - mMonthNameSpace;
         mNumWeeks = mHeight / mDesiredCellHeight;
@@ -1091,10 +1104,12 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         }
         // This lets us query 2 weeks before and after the first visible day
         mEventNumDays = 7 * (mNumWeeks + 4);
-        eventDay = new boolean[mEventNumDays];
+        mEventDays = new boolean[mEventNumDays];
         mCellHeight = (height - (mNumWeeks * WEEK_GAP)) / mNumWeeks;
+        // TODO use something other than mEventGeometry, which has rounding
+        // errors and is slow(ish)
         mEventGeometry
-                .setHourHeight((mCellHeight - BUSY_BITS_MARGIN * 2 - TEXT_TOP_MARGIN) / 24.0f);
+                .setHourHeight((mCellHeight - BUSY_BITS_MARGIN * 2) / 24.0f + 0.1f);
         mCellWidth = (width - (6 * MONTH_DAY_GAP)) / 7;
         mBorder = (width - 6 * (mCellWidth + MONTH_DAY_GAP) - mCellWidth) / 2;
 
