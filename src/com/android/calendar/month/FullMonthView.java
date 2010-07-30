@@ -45,7 +45,8 @@ public class FullMonthView extends MiniMonthView {
     protected static int MAX_TITLE_LENGTH = 25;
     protected static int MAX_EVENTS_PER_DAY = 2;
     protected static int EVENT_TEXT_SIZE = 14;
-    protected static int EVENT_TEXT_BUFFER = 2;
+    protected static int EVENT_TEXT_BUFFER = 4;
+    protected static int EVENT_SWATCH_SIZE = 8;
     protected static String ALL_DAY_STRING;
 
     protected int[] mEventDayCounts = new int[mEventNumDays];
@@ -55,6 +56,8 @@ public class FullMonthView extends MiniMonthView {
             mStringBuilder, Locale.getDefault());
     protected Resources mRes;
 
+    protected Rect mSwatchRect = new Rect();
+
     public FullMonthView(Context activity, CalendarController controller, EventLoader eventLoader) {
         super(activity, controller, eventLoader);
         mRes = getResources();
@@ -63,6 +66,7 @@ public class FullMonthView extends MiniMonthView {
         mDesiredCellHeight = (int) (100 * mScale);
         MONTH_DAY_TEXT_SIZE = (int) (12 * mScale);
         MONTH_NAME_PADDING = (int) (2 * mScale);
+        EVENT_SWATCH_SIZE *= mScale;
         EVENT_TEXT_SIZE *= mScale;
         EVENT_TEXT_BUFFER *= mScale;
         mMonthNameSpace = 0;
@@ -209,10 +213,18 @@ public class FullMonthView extends MiniMonthView {
             Log.d(TAG, "Drawing event for " + date);
         }
 
-        // The point at which to start drawing the event text
+        // We do / 4 because the text is slightly smaller than it's size
+        int halfDiff = (EVENT_TEXT_SIZE - EVENT_SWATCH_SIZE) / 4;
+        // The point at which to start drawing the event
         int bot = rect.top + TEXT_TOP_MARGIN + MONTH_DAY_TEXT_SIZE + EVENT_TEXT_SIZE
                 + EVENT_TEXT_BUFFER;
-        int left = rect.left + TEXT_TOP_MARGIN;
+        int left = rect.left + EVENT_SWATCH_SIZE + 2 * EVENT_TEXT_BUFFER;
+        int swatchTop = bot - EVENT_SWATCH_SIZE - halfDiff;
+        int swatchBot = bot - halfDiff;
+        int swatchLeft = rect.left + EVENT_TEXT_BUFFER;
+        int swatchRight = swatchLeft + EVENT_SWATCH_SIZE;
+
+        Rect swatchRect = mSwatchRect;
 
         p.setTextAlign(Paint.Align.LEFT);
         p.setTextSize(EVENT_TEXT_SIZE);
@@ -232,6 +244,10 @@ public class FullMonthView extends MiniMonthView {
                 return;
             }
             Event event = dayEvents.get(i + j);
+            int color = event.color;
+            swatchRect.set(swatchLeft, swatchTop, swatchRight, swatchBot);
+            p.setColor(color);
+            canvas.drawRect(swatchRect, p);
             CharSequence disp = event.title;
             if (disp.length() > MAX_TITLE_LENGTH) {
                 disp = disp.subSequence(0, MAX_TITLE_LENGTH);
@@ -265,6 +281,8 @@ public class FullMonthView extends MiniMonthView {
             canvas.drawText(disp.toString(), left, bot, p);
 
             bot += EVENT_TEXT_SIZE + EVENT_TEXT_BUFFER;
+            swatchTop += 2 * (EVENT_TEXT_SIZE + EVENT_TEXT_BUFFER);
+            swatchBot += 2 * (EVENT_TEXT_SIZE + EVENT_TEXT_BUFFER);
         }
         if (numEvents > MAX_EVENTS_PER_DAY - j) {
             int value = numEvents - MAX_EVENTS_PER_DAY - j;
