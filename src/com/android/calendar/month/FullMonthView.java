@@ -52,6 +52,7 @@ public class FullMonthView extends MiniMonthView {
     protected int[] mEventDayCounts = new int[mEventNumDays];
     protected ArrayList<ArrayList<Event>> mEventDayList = new ArrayList<ArrayList<Event>>();
     protected static StringBuilder mStringBuilder = new StringBuilder(50);
+    // TODO recreate formatter when locale changes
     protected static Formatter mFormatter = new Formatter(
             mStringBuilder, Locale.getDefault());
     protected Resources mRes;
@@ -64,8 +65,8 @@ public class FullMonthView extends MiniMonthView {
         ALL_DAY_STRING = mRes.getString(R.string.edit_event_all_day_label);
 
         mDesiredCellHeight = (int) (100 * mScale);
-        MONTH_DAY_TEXT_SIZE = (int) (12 * mScale);
-        MONTH_NAME_PADDING = (int) (2 * mScale);
+        mMonthDayTextSize = (int) (12 * mScale);
+        mMonthNamePadding = (int) (2 * mScale);
         EVENT_SWATCH_SIZE *= mScale;
         EVENT_TEXT_SIZE *= mScale;
         EVENT_TEXT_BUFFER *= mScale;
@@ -172,7 +173,7 @@ public class FullMonthView extends MiniMonthView {
         drawEvents(julianDay, canvas, r, p, colorSameAsCurrent);
 
         // Draw the monthDay number
-        p.setTextSize(MONTH_DAY_TEXT_SIZE);
+        p.setTextSize(mMonthDayTextSize);
 
         if (mDrawingToday && !mDrawingSelected) {
             p.setColor(mMonthTodayNumberColor);
@@ -191,18 +192,18 @@ public class FullMonthView extends MiniMonthView {
         } else {
             p.setFakeBoldText(false);
         }
-        /*Drawing of day number is done here
-         *easy to find tags draw number draw day*/
+        /* Drawing of day number is done here
+         * easy to find tags draw number draw day*/
         p.setTextAlign(Paint.Align.LEFT);
         // center of text
         // TODO figure out why it's not actually centered
         int textX = x + TEXT_TOP_MARGIN;
         // bottom of text
-        int textY = y + TEXT_TOP_MARGIN + MONTH_DAY_TEXT_SIZE;
+        int textY = y + TEXT_TOP_MARGIN + mMonthDayTextSize;
         canvas.drawText(String.valueOf(mDrawingDay.monthDay), textX, textY, p);
     }
 
-    ///Create and draw the event busybits for this day
+    // Create and draw the event busybits for this day
     @Override
     protected void drawEvents(int date, Canvas canvas, Rect rect, Paint p, boolean drawBg) {
         int julianOffset = date - mFirstEventJulianDay;
@@ -215,8 +216,8 @@ public class FullMonthView extends MiniMonthView {
 
         // We do / 4 because the text is slightly smaller than it's size
         int halfDiff = (EVENT_TEXT_SIZE - EVENT_SWATCH_SIZE) / 4;
-        // The point at which to start drawing the event
-        int bot = rect.top + TEXT_TOP_MARGIN + MONTH_DAY_TEXT_SIZE + EVENT_TEXT_SIZE
+        // The point at which to start drawing the event text
+        int bot = rect.top + TEXT_TOP_MARGIN + mMonthDayTextSize + EVENT_TEXT_SIZE
                 + EVENT_TEXT_BUFFER;
         int left = rect.left + EVENT_SWATCH_SIZE + 2 * EVENT_TEXT_BUFFER;
         int swatchTop = bot - EVENT_SWATCH_SIZE - halfDiff;
@@ -284,7 +285,18 @@ public class FullMonthView extends MiniMonthView {
             swatchTop += 2 * (EVENT_TEXT_SIZE + EVENT_TEXT_BUFFER);
             swatchBot += 2 * (EVENT_TEXT_SIZE + EVENT_TEXT_BUFFER);
         }
-        if (numEvents > MAX_EVENTS_PER_DAY - j) {
+        // Count all the events that are already over, we may not have counted
+        // them already if there were all day events
+        if (mDrawingToday) {
+            j = 0;
+            long millis = System.currentTimeMillis();
+            for (int i = 0; i < numEvents; i++) {
+                if (dayEvents.get(i).endMillis < millis) {
+                    j++;
+                }
+            }
+        }
+        if (numEvents > MAX_EVENTS_PER_DAY + j) {
             int value = numEvents - MAX_EVENTS_PER_DAY - j;
             String format = mRes.getQuantityString(R.plurals.gadget_more_events, value);
             canvas.drawText(String.format(format, value), left, bot, p);

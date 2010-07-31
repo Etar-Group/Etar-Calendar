@@ -33,6 +33,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -83,9 +84,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected static int MONTH_DAY_GAP = 1;
     protected static float HOUR_GAP = 0f;
     protected static float MIN_EVENT_HEIGHT = 2f;
-    protected static int MONTH_DAY_TEXT_SIZE = 20;
     protected static int MONTH_NAME_TEXT_SIZE = 16;
-    protected static int MONTH_NAME_PADDING = 4;
     protected static int WEEK_BANNER_HEIGHT = 17;
     protected static int WEEK_TEXT_SIZE = 15;
     protected static int WEEK_TEXT_PADDING = 3;
@@ -103,8 +102,10 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected static final int MENU_EVENT_CREATE = 6;
 
     // These are non-static to allow subclasses to override in a second view
-    protected int mMonthNameSpace = MONTH_NAME_TEXT_SIZE + 2 * MONTH_NAME_PADDING;
+    protected int mMonthNamePadding = 6;
+    protected int mMonthNameSpace = 12 + 2 * mMonthNamePadding;
     protected int mDesiredCellHeight = 40;
+    protected int mMonthDayTextSize = 20;
 
     // The number of days worth of events to load
     protected int mEventNumDays = 7 * (DEFAULT_NUM_WEEKS + 4);
@@ -140,6 +141,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected int mBorder;
     // Whether or not a touch event will select the day it's on
     protected boolean mSelectDay;
+    // The y-offset when a touch event occurred
+    protected int mInitialOffset;
 
     protected GestureDetector mGestureDetector;
     // Handles flings, GoTos, and snapping to a week
@@ -188,6 +191,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected boolean mRedrawScreen = true;
     protected Rect mBitmapRect = new Rect();
     protected RectF mRectF = new RectF();
+    protected Path mMonthNamePath = new Path();
 
     protected boolean mAnimating;
     protected boolean mOnFlingCalled = false;
@@ -263,7 +267,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                     MONTH_DAY_GAP *= mScale;
                     HOUR_GAP *= mScale;
                     mDesiredCellHeight *= mScale;
-                    MONTH_DAY_TEXT_SIZE *= mScale;
+                    mMonthDayTextSize *= mScale;
                     WEEK_BANNER_HEIGHT *= mScale;
                     WEEK_TEXT_SIZE *= mScale;
                     WEEK_TEXT_PADDING *= mScale;
@@ -278,8 +282,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                     BUSY_BITS_MARGIN *= mScale * (mShowDNA ? 1 : 0);
                     DAY_NUMBER_OFFSET *= mScale;
                     MONTH_NAME_TEXT_SIZE *= mScale;
-                    MONTH_NAME_PADDING *= mScale;
-                    mMonthNameSpace = MONTH_NAME_TEXT_SIZE + 2 * MONTH_NAME_PADDING;
+                    mMonthNamePadding *= mScale;
+                    mMonthNameSpace = MONTH_NAME_TEXT_SIZE + 2 * mMonthNamePadding;
                 }
             }
 
@@ -350,6 +354,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
             @Override
             public boolean onDown(MotionEvent e) {
+                mInitialOffset = mWeekOffset;
                 mSelectDay = true;
                 mOnFlingCalled = false;
                 mScrollOffset = 0;
@@ -389,7 +394,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 // Use the distance from the current point to the initial touch instead
                 // of deltaX and deltaY to avoid accumulating floating-point rounding
                 // errors.  Also, we don't need floats, we can use ints.
-                int dY = (int) e1.getY() - (int) e2.getY() - mScrollOffset;
+                int dY = (int) e1.getY() - (int) e2.getY() - mScrollOffset - mInitialOffset;
                 while (dY > mCellHeight) {
                     dY -= mCellHeight;
                     mScrollOffset += mCellHeight;
@@ -479,7 +484,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private class GoToScroll implements Runnable {
         int mWeeks;
         int mScrollCount;
-        int mInitialOffset;
         Time mStartTime = new Time();
         private static final int SCROLL_REPEAT_INTERVAL = 30;
         private static final int MAX_REPEAT_COUNT = 30;
@@ -521,13 +525,21 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             // errors
             mFirstDay.set(mStartTime.toMillis(true) + DateUtils.WEEK_IN_MILLIS
                     * (long) Math.floor(mWeeks * mScrollCount / SCROLL_REPEAT_COUNT));
-            makeFirstDayOfWeek(mFirstDay);
             mWeekOffset = (mWeeks * mCellHeight * mScrollCount / SCROLL_REPEAT_COUNT)
                     % mCellHeight;
             // Get the direction right and make it a smooth scroll from wherever
             // we were before
             mWeekOffset = -mWeekOffset +
                 (mInitialOffset - mInitialOffset * mScrollCount / SCROLL_REPEAT_COUNT);
+
+            if (mWeekOffset > mCellHeight) {
+                mWeekOffset -= mCellHeight;
+                mFirstDay.monthDay -= 7;
+            } else if (mWeekOffset < -mCellHeight) {
+                mWeekOffset += mCellHeight;
+                mFirstDay.monthDay += 7;
+            }
+            makeFirstDayOfWeek(mFirstDay);
 
             if (mScrollCount < SCROLL_REPEAT_COUNT) {
                 postDelayed(this, SCROLL_REPEAT_INTERVAL);
@@ -732,21 +744,13 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mDrawingDay.set(mFirstDay);
         int lastWeek = mNumWeeks;
         int row = 0;
-        if (mWeekOffset > mCellHeight) {
-            day = -14;
-            mDrawingDay.monthDay -= 14;
-            mDrawingDay.normalize(true);
-            row = -2;
-        } else if (mWeekOffset > 0) {
+        if (mWeekOffset > 0) {
             day = -7;
             mDrawingDay.monthDay -= 7;
             mDrawingDay.normalize(true);
             row = -1;
         } else if (mWeekOffset < 0) {
             lastWeek++;
-            if (mWeekOffset < -mCellHeight) {
-                lastWeek++;
-            }
         }
 
         for (; row < lastWeek; row++) {
@@ -760,6 +764,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         }
         drawGrid(canvas, p);
         drawMonthNames(canvas, p);
+        // TODO add in method for drawing week numbers
     }
 
     protected void setDrawingBooleans() {
@@ -855,6 +860,75 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
      * Draw the names of the month on the left.
      */
     protected void drawMonthNames(Canvas canvas, Paint p) {
+        Time tempTime = mTempTime;
+        tempTime.set(mFirstDay);
+        boolean isFirstDay = true;
+        Time lastDay = new Time(mFirstDay);
+        lastDay.monthDay += mNumWeeks * 7 - 1;
+        if (mWeekOffset < 0) {
+            lastDay.monthDay += 7;
+        }
+        lastDay.normalize(true);
+        int row = 0;
+        if (mWeekOffset > 0) {
+            row = -1;
+            tempTime.monthDay -= 7;
+            tempTime.normalize(true);
+        }
+        p.setColor(mMonthDayNumberColor);
+        p.setFakeBoldText(false);
+        p.setAntiAlias(true);
+        p.setTextAlign(Paint.Align.LEFT);
+        p.setTextSize(mMonthDayTextSize);
+        do {
+            // Start at the first full week of this month
+            int weekDay = tempTime.weekDay;
+            if (weekDay != mStartDayOfWeek) {
+                int moveDay = mStartDayOfWeek;
+                if (moveDay < weekDay) {
+                    moveDay += 7;
+                }
+                moveDay -= weekDay;
+                tempTime.monthDay += moveDay;
+                tempTime.normalize(true);
+                row++;
+            }
+            // and end on the last week of the month
+            int endOfMonth;
+            if (tempTime.month == lastDay.month) {
+                endOfMonth = lastDay.monthDay;
+            } else {
+                endOfMonth = tempTime.getActualMaximum(Time.MONTH_DAY);
+            }
+            int weekDiff = (endOfMonth - tempTime.monthDay) / 7 + 1;
+            // Only display the name if 2 or more weeks are showing
+            if (weekDiff > 1) {
+                String monthName = tempTime.format("%b");
+                int textWidth = (int) p.measureText(monthName);
+                // Compute directly to avoid rounding errors
+                // This places the text at the center of the weeks where the
+                // first day of the week is in the current month
+                int top = row * mHeight / mNumWeeks + mWeekOffset;
+                int bot = (row + weekDiff) * mHeight / mNumWeeks + mWeekOffset;
+                if (top < 0) {
+                    top = 0;
+                }
+                if (bot > mHeight) {
+                    bot = mHeight;
+                }
+                // Have to flip the offset since it's from the bottom instead of
+                // from the top
+                int offset = mHeight - top - (bot - top + textWidth) / 2;
+                canvas.drawTextOnPath(monthName, mMonthNamePath, offset,
+                        -mMonthNamePadding, p);
+            }
+            // Move the row to the next month
+            row += (endOfMonth - tempTime.monthDay + 1) / 7;
+            isFirstDay = false;
+            // Move our time marker to the next month
+            tempTime.monthDay = endOfMonth + 1;
+            tempTime.normalize(true);
+        } while(tempTime.before(lastDay));
 
     }
 
@@ -947,7 +1021,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         p.setStyle(Paint.Style.FILL);
         p.setAntiAlias(true);
         p.setTypeface(null);
-        p.setTextSize(MONTH_DAY_TEXT_SIZE);
+        p.setTextSize(mMonthDayTextSize);
 
         if (!colorSameAsCurrent) {
             if (Utils.isSunday(column, mStartDayOfWeek)) {
@@ -983,7 +1057,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         // TODO figure out why it's not actually centered
         int textX = x + (mCellWidth - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH) / 2;
         // bottom of text
-        int textY = y + (mCellHeight + MONTH_DAY_TEXT_SIZE - 1) / 2 /*+ TEXT_TOP_MARGIN*/;
+        int textY = y + (mCellHeight + mMonthDayTextSize - 1) / 2 /*+ TEXT_TOP_MARGIN*/;
         canvas.drawText(String.valueOf(mDrawingDay.monthDay), textX, textY, p);
     }
 
@@ -1051,7 +1125,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     }
 
     public void setSelectedTime(Time time) {
-        Log.d(TAG, "Setting time to " + time);
+        if (DEBUG) {
+            Log.d(TAG, "Setting time to " + time);
+        }
         // Save the selected time so that we can restore it later when we switch views.
         mSavedTime.set(time);
 
@@ -1106,6 +1182,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mEventNumDays = 7 * (mNumWeeks + 4);
         mEventDays = new boolean[mEventNumDays];
         mCellHeight = (height - (mNumWeeks * WEEK_GAP)) / mNumWeeks;
+        mFocusWeek = mNumWeeks / 3;
         // TODO use something other than mEventGeometry, which has rounding
         // errors and is slow(ish)
         mEventGeometry
@@ -1129,6 +1206,10 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         mBitmapRect.bottom = height;
         mBitmapRect.left = 0;
         mBitmapRect.right = width;
+        mMonthNamePath.reset();
+        mMonthNamePath.moveTo(mMonthNameSpace, height);
+        mMonthNamePath.lineTo(mMonthNameSpace, 0);
+        setSelectedTime(mSelectedDay);
     }
 
     @Override
