@@ -24,6 +24,8 @@
     <string name="what_label">What</string>
     <!-- This is the label for the location of an event -->
     <string name="where_label">Where</string>
+    <!-- This is the label for the timezone of an event [CHAR LIMIT=30] -->
+    <string name="timezone_label">Timezone</string>
     <!-- This is the label for the Guests/Attendees of an event -->
     <string name="attendees_label">Guests</string>
     <!-- This is the label for the Guest Responses and count of an event e.g. Yes (3) -->
@@ -207,6 +209,8 @@
     <string name="edit_event_show_extra_options">Show extra options</string>
     <!-- Menu item to hide extra options that are used less often -->
     <string name="edit_event_hide_extra_options">Hide extra options</string>
+    <!-- Menu item to show all choices [CHAR LIMIT=24]-->
+    <string name="edit_event_show_all">Show all \u003E</string>
     <!-- Label for the event description -->
     <string name="description_label">Description</string>
     <!-- Label for the 'Presence' of an event, which can be either 'busy' (the default)

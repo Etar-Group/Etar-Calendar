@@ -19,12 +19,14 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
+import com.android.calendar.TimezoneAdapter.TimezoneRow;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -85,10 +87,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.TimeZone;
 
 public class EditEvent extends Activity implements View.OnClickListener,
@@ -195,6 +197,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private static final int MODIFY_ALL = 2;
     private static final int MODIFY_ALL_FOLLOWING = 3;
 
+    // unique id assigned to the timezone dialog
+    private static final int TIMEZONE_DIALOG_ID = 7172;
+
     private static final int DAY_IN_SECONDS = 24 * 60 * 60;
 
     private int mFirstDayOfWeek; // cached in onCreate
@@ -209,6 +214,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private Button mSaveButton;
     private Button mDeleteButton;
     private Button mDiscardButton;
+    private Button mTimezoneButton;
     private CheckBox mAllDayCheckBox;
     private Spinner mCalendarsSpinner;
     private Spinner mRepeatsSpinner;
@@ -217,6 +223,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private TextView mTitleTextView;
     private TextView mLocationTextView;
     private TextView mDescriptionTextView;
+    private TextView mTimezoneTextView;
+    private TextView mTimezoneFooterView;
     private View mRemindersSeparator;
     private LinearLayout mRemindersContainer;
     private LinearLayout mExtraOptions;
@@ -225,6 +233,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private Rfc822Validator mEmailValidator;
     private MultiAutoCompleteTextView mAttendeesList;
     private EmailAddressAdapter mAddressAdapter;
+    private TimezoneAdapter mTimezoneAdapter;
     private String mOriginalAttendees = "";
 
     // Used to control the visibility of the Guests textview. Default to true
@@ -236,6 +245,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private boolean mSaveAfterQueryComplete;
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
+    private AlertDialog mTimezoneDialog;
     private ContentValues mInitialValues;
     private String mOwnerAccount;
 
@@ -255,6 +265,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
     private Time mStartTime;
     private Time mEndTime;
+    private String mTimezone;
     private int mModification = MODIFY_UNINITIALIZED;
     private int mDefaultReminderMinutes;
 
@@ -487,6 +498,11 @@ public class EditEvent extends Activity implements View.OnClickListener,
     public void onClick(DialogInterface dialog, int which) {
         if (dialog == mNoCalendarsDialog) {
             finish();
+        } else if (dialog == mTimezoneDialog) {
+            if (which >= 0 && which < mTimezoneAdapter.getCount()) {
+                setTimezone(which);
+                dialog.dismiss();
+            }
         }
     }
 
@@ -612,6 +628,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         mStartTime = new Time();
         mEndTime = new Time();
+        mTimezone = TimeZone.getDefault().getID();
+        mTimezoneAdapter = new TimezoneAdapter(this, mTimezone);
 
         Intent intent = getIntent();
         mUri = intent.getData();
@@ -637,7 +655,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             mHasAttendeeData = mEventCursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
             allDay = mEventCursor.getInt(EVENT_INDEX_ALL_DAY) != 0;
             String rrule = mEventCursor.getString(EVENT_INDEX_RRULE);
-            String timezone = mEventCursor.getString(EVENT_INDEX_TIMEZONE);
+            mTimezone = mEventCursor.getString(EVENT_INDEX_TIMEZONE);
             long calendarId = mEventCursor.getInt(EVENT_INDEX_CALENDAR_ID);
             mOwnerAccount = mEventCursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
             if (!TextUtils.isEmpty(mOwnerAccount)) {
@@ -653,7 +671,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             mInitialValues.put(EVENT_END_TIME, end);
             mInitialValues.put(Events.ALL_DAY, allDay ? 1 : 0);
             mInitialValues.put(Events.RRULE, rrule);
-            mInitialValues.put(Events.EVENT_TIMEZONE, timezone);
+            mInitialValues.put(Events.EVENT_TIMEZONE, mTimezone);
             mInitialValues.put(Events.CALENDAR_ID, calendarId);
         } else {
             newEvent = true;
@@ -674,41 +692,46 @@ public class EditEvent extends Activity implements View.OnClickListener,
         // If the event is all-day, read the times in UTC timezone
         if (begin != 0) {
             if (allDay) {
-                String tz = mStartTime.timezone;
                 mStartTime.timezone = Time.TIMEZONE_UTC;
                 mStartTime.set(begin);
-                mStartTime.timezone = tz;
+                mStartTime.timezone = mTimezone;
 
                 // Calling normalize to calculate isDst
                 mStartTime.normalize(true);
             } else {
+                mStartTime.timezone = mTimezone;
                 mStartTime.set(begin);
             }
         }
 
         if (end != 0) {
             if (allDay) {
-                String tz = mStartTime.timezone;
                 mEndTime.timezone = Time.TIMEZONE_UTC;
                 mEndTime.set(end);
-                mEndTime.timezone = tz;
+                mEndTime.timezone = mTimezone;
 
                 // Calling normalize to calculate isDst
                 mEndTime.normalize(true);
             } else {
+                mEndTime.timezone = mTimezone;
                 mEndTime.set(end);
             }
         }
+
+        LayoutInflater inflater = getLayoutInflater();
 
         // cache all the widgets
         mTitleTextView = (TextView) findViewById(R.id.title);
         mLocationTextView = (TextView) findViewById(R.id.location);
         mDescriptionTextView = (TextView) findViewById(R.id.description);
+        mTimezoneTextView = (TextView) findViewById(R.id.timezone_label);
+        mTimezoneFooterView = (TextView) inflater.inflate(R.layout.timezone_footer, null);
         mStartDateButton = (Button) findViewById(R.id.start_date);
         mEndDateButton = (Button) findViewById(R.id.end_date);
         mStartTimeButton = (Button) findViewById(R.id.start_time);
         mEndTimeButton = (Button) findViewById(R.id.end_time);
         mAllDayCheckBox = (CheckBox) findViewById(R.id.is_all_day);
+        mTimezoneButton = (Button) findViewById(R.id.timezone);
         mCalendarsSpinner = (Spinner) findViewById(R.id.calendars);
         mRepeatsSpinner = (Spinner) findViewById(R.id.repeats);
         mAvailabilitySpinner = (Spinner) findViewById(R.id.availability);
@@ -743,6 +766,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
                     mStartTimeButton.setVisibility(View.GONE);
                     mEndTimeButton.setVisibility(View.GONE);
+                    mTimezoneButton.setVisibility(View.GONE);
+                    mTimezoneTextView.setVisibility(View.GONE);
                 } else {
                     if (mEndTime.hour == 0 && mEndTime.minute == 0) {
                         mEndTime.monthDay++;
@@ -753,6 +778,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
                     mStartTimeButton.setVisibility(View.VISIBLE);
                     mEndTimeButton.setVisibility(View.VISIBLE);
+                    mTimezoneButton.setVisibility(View.VISIBLE);
+                    mTimezoneTextView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -1074,6 +1101,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         updateRemindersVisibility();
         populateWhen();
+        populateTimezone();
         populateRepeats();
     }
 
@@ -1114,6 +1142,64 @@ public class EditEvent extends Activity implements View.OnClickListener,
         }
 
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
+        super.onPrepareDialog(id, dialog, args);
+        if (id == TIMEZONE_DIALOG_ID) {
+            final AlertDialog alertDialog = (AlertDialog) dialog;
+            mTimezoneDialog = alertDialog;
+            mTimezoneAdapter.showInitialTimezones();
+            // remove the footer if it is still there, which happens if a user
+            // dismisses the dialog without expanding it, then opens it again
+            alertDialog.getListView().removeFooterView(mTimezoneFooterView);
+            alertDialog.getListView().addFooterView(mTimezoneFooterView);
+            final int row = mTimezoneAdapter.getRowById(mTimezone);
+            alertDialog.getListView().post(new Runnable() {
+                @Override
+                public void run() {
+                    alertDialog.getListView().setItemChecked(row, true);
+                    alertDialog.getListView().setSelection(row);
+                }
+            });
+        }
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id, Bundle bundle) {
+        switch (id) {
+        case TIMEZONE_DIALOG_ID:
+            mTimezoneAdapter = new TimezoneAdapter(this, mTimezone);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.timezone_label);
+            builder.setSingleChoiceItems(mTimezoneAdapter,
+                    mTimezoneAdapter.getRowById(mTimezone), this);
+            mTimezoneDialog = builder.create();
+            mTimezoneFooterView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mTimezoneDialog.getListView().removeFooterView(mTimezoneFooterView);
+                    mTimezoneAdapter.showAllTimezones();
+                    final int row = mTimezoneAdapter.getRowById(mTimezone);
+                    // we need to post the selection changes to have them have
+                    // any effect
+                    mTimezoneDialog.getListView().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mTimezoneDialog.getListView().setItemChecked(row, true);
+                            mTimezoneDialog.getListView().setSelection(row);
+                        }
+                    });
+                }
+            });
+            // because onPrepareDialog is not called before the dialog is shown
+            // for the first call to showDialog, we need to add the footer here
+            mTimezoneDialog.getListView().addFooterView(mTimezoneFooterView);
+            return mTimezoneDialog;
+        default:
+            return null;
+        }
     }
 
     private void addReminder() {
@@ -1174,6 +1260,16 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         mStartTimeButton.setOnClickListener(new TimeClickListener(mStartTime));
         mEndTimeButton.setOnClickListener(new TimeClickListener(mEndTime));
+    }
+
+    private void populateTimezone() {
+        mTimezoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(TIMEZONE_DIALOG_ID);
+            }
+        });
+        setTimezone(mTimezoneAdapter.getRowById(mTimezone));
     }
 
     private void populateRepeats() {
@@ -1393,7 +1489,22 @@ public class EditEvent extends Activity implements View.OnClickListener,
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR |
                 DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_MONTH |
                 DateUtils.FORMAT_ABBREV_WEEKDAY;
-        view.setText(DateUtils.formatDateTime(this, millis, flags));
+
+        // Unfortunately, DateUtils doesn't support a timezone other than the
+        // default timezone provided by the system, so we have this ugly hack
+        // here to trick it into formatting our time correctly. In order to
+        // prevent all sorts of craziness, we synchronize on the TimeZone class
+        // to prevent other threads from reading an incorrect timezone from
+        // calls to TimeZone#getDefault()
+        // TODO fix this if/when DateUtils allows for passing in a timezone
+        String dateString;
+        synchronized (TimeZone.class) {
+            TimeZone.setDefault(TimeZone.getTimeZone(mTimezone));
+            dateString = DateUtils.formatDateTime(this, millis, flags);
+            // setting the default back to null restores the correct behavior
+            TimeZone.setDefault(null);
+        }
+        view.setText(dateString);
     }
 
     private void setTime(TextView view, long millis) {
@@ -1401,7 +1512,31 @@ public class EditEvent extends Activity implements View.OnClickListener,
         if (DateFormat.is24HourFormat(this)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        view.setText(DateUtils.formatDateTime(this, millis, flags));
+
+        // Unfortunately, DateUtils doesn't support a timezone other than the
+        // default timezone provided by the system, so we have this ugly hack
+        // here to trick it into formatting our time correctly. In order to
+        // prevent all sorts of craziness, we synchronize on the TimeZone class
+        // to prevent other threads from reading an incorrect timezone from
+        // calls to TimeZone#getDefault()
+        // TODO fix this if/when DateUtils allows for passing in a timezone
+        String timeString;
+        synchronized (TimeZone.class) {
+            TimeZone.setDefault(TimeZone.getTimeZone(mTimezone));
+            timeString = DateUtils.formatDateTime(this, millis, flags);
+            TimeZone.setDefault(null);
+        }
+        view.setText(timeString);
+    }
+
+    private void setTimezone(int i) {
+        if (i < 0 || i > mTimezoneAdapter.getCount()) {
+            return; // do nothing
+        }
+        TimezoneRow timezone = mTimezoneAdapter.getItem(i);
+        mTimezoneButton.setText(timezone.toString());
+        mTimezone = timezone.mId;
+        mTimezoneAdapter.setCurrentTimezone(mTimezone);
     }
 
     // Saves the event.  Returns true if it is okay to exit this activity.
@@ -1443,6 +1578,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         ContentValues values = getContentValuesFromUi();
         Uri uri = mUri;
+
+        // save the timezone as a recent one
+        mTimezoneAdapter.saveRecentTimezone(mTimezone);
 
         // Update the "hasAlarm" field for the event
         ArrayList<Integer> reminderMinutes = reminderItemsToMinutes(mReminderItems,
@@ -2002,25 +2140,24 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         ContentValues values = new ContentValues();
 
-        String timezone = null;
         long startMillis;
         long endMillis;
         long calendarId;
         if (isAllDay) {
             // Reset start and end time, increment the monthDay by 1, and set
             // the timezone to UTC, as required for all-day events.
-            timezone = Time.TIMEZONE_UTC;
+            mTimezone = Time.TIMEZONE_UTC;
             mStartTime.hour = 0;
             mStartTime.minute = 0;
             mStartTime.second = 0;
-            mStartTime.timezone = timezone;
+            mStartTime.timezone = mTimezone;
             startMillis = mStartTime.normalize(true);
 
             mEndTime.hour = 0;
             mEndTime.minute = 0;
             mEndTime.second = 0;
             mEndTime.monthDay++;
-            mEndTime.timezone = timezone;
+            mEndTime.timezone = mTimezone;
             endMillis = mEndTime.normalize(true);
 
             if (mEventCursor == null) {
@@ -2030,31 +2167,21 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 calendarId = mInitialValues.getAsLong(Events.CALENDAR_ID);
             }
         } else {
-            startMillis = mStartTime.toMillis(true);
-            endMillis = mEndTime.toMillis(true);
             if (mEventCursor != null) {
-                // This is an existing event
-                timezone = mEventCursor.getString(EVENT_INDEX_TIMEZONE);
-
-                // The timezone might be null if we are changing an existing
-                // all-day event to a non-all-day event.  We need to assign
-                // a timezone to the non-all-day event.
-                if (TextUtils.isEmpty(timezone)) {
-                    timezone = TimeZone.getDefault().getID();
-                }
                 calendarId = mInitialValues.getAsLong(Events.CALENDAR_ID);
             } else {
                 // This is a new event
                 calendarId = mCalendarsSpinner.getSelectedItemId();
-
-                // The timezone for a new event is the currently displayed
-                // timezone, NOT the timezone of the containing calendar.
-                timezone = TimeZone.getDefault().getID();
             }
+            // mTimezone is set automatically in onClick
+            mStartTime.timezone = mTimezone;
+            mEndTime.timezone = mTimezone;
+            startMillis = mStartTime.toMillis(true);
+            endMillis = mEndTime.toMillis(true);
         }
 
         values.put(Events.CALENDAR_ID, calendarId);
-        values.put(Events.EVENT_TIMEZONE, timezone);
+        values.put(Events.EVENT_TIMEZONE, mTimezone);
         values.put(Events.TITLE, title);
         values.put(Events.ALL_DAY, isAllDay ? 1 : 0);
         values.put(Events.DTSTART, startMillis);
