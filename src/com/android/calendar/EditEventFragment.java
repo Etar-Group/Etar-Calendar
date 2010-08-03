@@ -36,7 +36,6 @@ import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Reminders;
 import android.text.TextUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -152,6 +151,7 @@ public class EditEventFragment extends Fragment {
                         }
                         if (b.length() > 0) {
                             mModel.mAttendees = b.toString();
+                            mOriginalModel.mAttendees = new String(mModel.mAttendees);
                         }
                     } finally {
                         cursor.close();
@@ -182,10 +182,11 @@ public class EditEventFragment extends Fragment {
                     break;
                 case TOKEN_REMINDERS:
                     try {
-                        // Add all reminders to the model
+                        // Add all reminders to the models
                         while (cursor.moveToNext()) {
                             int minutes = cursor.getInt(EditEventHelper.REMINDERS_INDEX_MINUTES);
                             mModel.mReminderMinutes.add(minutes);
+                            mOriginalModel.mReminderMinutes.add(minutes);
                         }
                     } finally {
                         cursor.close();
