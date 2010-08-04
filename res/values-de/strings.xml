@@ -89,7 +89,7 @@
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Lokale Zeitzone:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Teilnahme?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Heute, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="loading" msgid="3772533493214331230">"Ladevorgang läuft..."</string>
+    <string name="loading" msgid="3772533493214331230">"Wird geladen..."</string>
     <string name="show_older_events" msgid="4031960000704544741">"Termine seit <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> werden angezeigt. Tippen Sie, um die Suche zu erweitern."</string>
     <string name="show_newer_events" msgid="2647889653936094369">"Termine bis <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> werden angezeigt. Tippen Sie, um die Suche zu erweitern."</string>
     <string name="num_events" msgid="3351672964607162257">"Anzahl Termine"</string>
