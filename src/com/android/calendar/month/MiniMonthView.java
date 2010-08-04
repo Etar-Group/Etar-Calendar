@@ -96,7 +96,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected static int BUSY_BITS_MARGIN = 4;
     protected static int DAY_NUMBER_OFFSET = 10;
     protected static int VERTICAL_FLING_THRESHOLD = 50;
-    protected static int INITIAL_FLING_DIVISOR = 200;
+    protected static int INITIAL_FLING_DIVISOR = 160;
 
     protected static final int MENU_AGENDA = 2;
     protected static final int MENU_DAY = 3;
@@ -486,8 +486,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 //        int mScrollCount;
         Time mStartTime = new Time();
         private static final int SCROLL_REPEAT_INTERVAL = 30;
-        private static final int MAX_REPEAT_COUNT = 30;
         private static final int MAX_FLING_DURATION_MILLIS = 512;
+        private static final int INITIAL_FLING_DURATION_MILLIS = 256;
+        private static final int FLING_DURATION_INCREMENT = 32;
         private int mFlingDurationMillis = 256;
         private long mInitialSystemTime;
 
@@ -508,7 +509,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
 
             int absNumWeeks = Math.abs(numWeeksToScroll);
 
-            mFlingDurationMillis = 256 + absNumWeeks * 32;
+            mFlingDurationMillis = INITIAL_FLING_DURATION_MILLIS + absNumWeeks
+                    * FLING_DURATION_INCREMENT;
             if (mFlingDurationMillis > MAX_FLING_DURATION_MILLIS) {
                 mFlingDurationMillis = MAX_FLING_DURATION_MILLIS;
             }

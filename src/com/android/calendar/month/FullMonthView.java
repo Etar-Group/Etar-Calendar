@@ -42,8 +42,11 @@ public class FullMonthView extends MiniMonthView {
     static final String TAG = "FullMonthView";
     static final boolean DEBUG = false;
 
+    private static final int BASE_CELL_HEIGHT = 100;
+    private static final int DAY_NUM_TEXT_SIZE = 12;
+    private static final int BASE_SCREEN_HEIGHT = 800;
+    private static final int SCREEN_HEIGHT_ADJUSTMENT_FACTOR = 8;
     protected static int MAX_TITLE_LENGTH = 25;
-    protected static int MAX_EVENTS_PER_DAY = 2;
     protected static int EVENT_TEXT_SIZE = 14;
     protected static int EVENT_TEXT_BUFFER = 4;
     protected static int EVENT_SWATCH_SIZE = 8;
@@ -63,10 +66,7 @@ public class FullMonthView extends MiniMonthView {
         super(activity, controller, eventLoader);
         mRes = getResources();
         ALL_DAY_STRING = mRes.getString(R.string.edit_event_all_day_label);
-
-        mDesiredCellHeight = (int) (100 * mScale);
-        mMonthDayTextSize = (int) (12 * mScale);
-        mMonthNamePadding = (int) (2 * mScale);
+        mMonthDayTextSize = (int) (DAY_NUM_TEXT_SIZE * mScale);
         EVENT_SWATCH_SIZE *= mScale;
         EVENT_TEXT_SIZE *= mScale;
         EVENT_TEXT_BUFFER *= mScale;
@@ -229,12 +229,25 @@ public class FullMonthView extends MiniMonthView {
 
         p.setTextAlign(Paint.Align.LEFT);
         p.setTextSize(EVENT_TEXT_SIZE);
+        int textHeight = (int) (-p.ascent());
+        // How far we move down before drawing the next line of text
+        int stepHeight = textHeight + EVENT_TEXT_BUFFER;
+        // How far to move down between events (2 lines)
+        int doubleStepHeight = 2 * stepHeight;
+        // This is the height past which we cannot fit an event and the 'x more
+        // events' message in the cell.
+        int maxEventHeight = rect.top + mCellHeight - doubleStepHeight - (int)p.descent();
+        // This is the height past which we cannot fit one more event
+        int maxAllEventsHeight = rect.top + mCellHeight - stepHeight - (int)p.descent();
 
         ArrayList<Event> dayEvents = mEventDayList.get(julianOffset);
         int numEvents = dayEvents.size();
         Time time = new Time();
+        int eventsDisplayed = 0;
         int j = 0;
-        for (int i = 0; i < MAX_EVENTS_PER_DAY; i++) {
+        // Keep drawing while we have room for 'more events' or all the events
+        for (int i = 0; i < numEvents && (bot < maxEventHeight ||
+                (numEvents - eventsDisplayed - j <= 1 && bot < maxAllEventsHeight)); i++) {
             if (mDrawingToday) {
                 long millis = System.currentTimeMillis();
                 while (i + j < numEvents && dayEvents.get(i + j).endMillis < millis) {
@@ -273,17 +286,18 @@ public class FullMonthView extends MiniMonthView {
                         .toString();
             }
 
-            bot += EVENT_TEXT_SIZE + EVENT_TEXT_BUFFER;
+            bot += stepHeight;
             if (mDrawingToday && !mDrawingSelected) {
                 p.setColor(mMonthDayNumberColor);
             } else {
                 p.setColor(mMonthOtherMonthDayNumberColor);
             }
             canvas.drawText(disp.toString(), left, bot, p);
+            eventsDisplayed++;
 
-            bot += EVENT_TEXT_SIZE + EVENT_TEXT_BUFFER;
-            swatchTop += 2 * (EVENT_TEXT_SIZE + EVENT_TEXT_BUFFER);
-            swatchBot += 2 * (EVENT_TEXT_SIZE + EVENT_TEXT_BUFFER);
+            bot += stepHeight;
+            swatchTop += doubleStepHeight;
+            swatchBot += doubleStepHeight;
         }
         // Count all the events that are already over, we may not have counted
         // them already if there were all day events
@@ -296,10 +310,10 @@ public class FullMonthView extends MiniMonthView {
                 }
             }
         }
-        if (numEvents > MAX_EVENTS_PER_DAY + j) {
-            int value = numEvents - MAX_EVENTS_PER_DAY - j;
-            String format = mRes.getQuantityString(R.plurals.gadget_more_events, value);
-            canvas.drawText(String.format(format, value), left, bot, p);
+        if (numEvents > eventsDisplayed + j) {
+            int value = numEvents - eventsDisplayed - j;
+            String moreEvents = mRes.getQuantityString(R.plurals.gadget_more_events, value);
+            canvas.drawText(String.format(moreEvents, value), swatchLeft, bot, p);
         }
     }
 
@@ -374,6 +388,8 @@ public class FullMonthView extends MiniMonthView {
 
     @Override
     protected void drawingCalc(int width, int height) {
+        mDesiredCellHeight = BASE_CELL_HEIGHT + Math.max(height - BASE_SCREEN_HEIGHT, 0)
+                / SCREEN_HEIGHT_ADJUSTMENT_FACTOR;
         super.drawingCalc(width, height);
         mEventDayCounts = new int[mEventNumDays];
     }
