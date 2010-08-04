@@ -21,6 +21,8 @@ import com.android.calendar.widget.CalendarAppWidgetModel;
 import com.android.calendar.widget.CalendarAppWidgetService;
 import com.android.calendar.widget.CalendarAppWidgetService.MarkedEvents;
 
+import java.util.TimeZone;
+
 import android.database.MatrixCursor;
 import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
@@ -33,6 +35,8 @@ import android.view.View;
 public class CalendarAppWidgetServiceTest extends AndroidTestCase {
     private static final String TAG = "CalendarAppWidgetService";
 
+    private static final String DEFAULT_TIMEZONE = "America/Los_Angeles";
+
     final long now = 1262340000000L; // Fri Jan 01 2010 02:00:00 GMT-0800 (PST)
     final long ONE_MINUTE = 60000;
     final long ONE_HOUR = 60 * ONE_MINUTE;
@@ -41,6 +45,8 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 
     final String title = "Title";
     final String location = "Location";
+
+
 
 //    TODO Disabled test since this CalendarAppWidgetModel is not used for the no event case
 //
@@ -61,6 +67,20 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 //
 //        assertEquals(expected.toString(), actual.toString());
 //    }
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        // we want to run these tests in a predictable timezone
+        TimeZone.setDefault(TimeZone.getTimeZone(DEFAULT_TIMEZONE));
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        // this restores the previous default timezone
+        TimeZone.setDefault(null);
+    }
 
     @SmallTest
     public void testGetAppWidgetModel_1Event() throws Exception {
