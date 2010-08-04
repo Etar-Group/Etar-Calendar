@@ -143,7 +143,7 @@
     </string-array>
 
     <!-- This list was taken from package/apps/Settings/res/xml/timezones.xml -->
-    <string-array name="timezone_values">
+    <string-array name="timezone_values" translatable="false">
         <item>"Pacific/Majuro"</item>
         <item>"Pacific/Midway"</item>
         <item>"Pacific/Honolulu"</item>
