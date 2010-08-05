@@ -33,8 +33,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
-import android.view.animation.AlphaAnimation;
-import android.widget.ViewFlipper;
 
 import java.util.Calendar;
 import java.util.List;
@@ -90,16 +88,6 @@ public class Utils {
                 CalendarPreferenceActivity.DEFAULT_START_VIEW);
     }
 
-    public static void startActivity(Context context, String className, long time) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-
-        intent.setClassName(context, className);
-        intent.putExtra(EVENT_BEGIN_TIME, time);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-        context.startActivity(intent);
-    }
-
     static String getSharedPreference(Context context, String key, String defaultValue) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         return prefs.getString(key, defaultValue);
@@ -135,12 +123,6 @@ public class Utils {
         // Record the (new) start view
         editor.putInt(CalendarPreferenceActivity.KEY_START_VIEW, viewId);
         editor.commit();
-    }
-
-    public static final Time timeFromIntent(Intent intent) {
-        Time time = new Time();
-        time.set(timeFromIntentInMillis(intent));
-        return time;
     }
 
     public static MatrixCursor matrixCursorFromCursor(Cursor cursor) {
@@ -215,21 +197,6 @@ public class Utils {
         return millis;
     }
 
-    public static final void applyAlphaAnimation(ViewFlipper v) {
-        AlphaAnimation in = new AlphaAnimation(0.0f, 1.0f);
-
-        in.setStartOffset(0);
-        in.setDuration(500);
-
-        AlphaAnimation out = new AlphaAnimation(1.0f, 0.0f);
-
-        out.setStartOffset(0);
-        out.setDuration(500);
-
-        v.setInAnimation(in);
-        v.setOutAnimation(out);
-    }
-
     public static Drawable getColorChip(int color) {
         /*
          * We want the color chip to have a nice gradient using
@@ -260,16 +227,6 @@ public class Utils {
      */
     public static String formatMonthYear(Context context, Time time) {
         return time.format(context.getResources().getString(R.string.month_year));
-    }
-
-    /**
-     * Sets the time to the beginning of the day (midnight) by clearing the
-     * hour, minute, and second fields.
-     */
-    static void setTimeToStartOfDay(Time time) {
-        time.second = 0;
-        time.minute = 0;
-        time.hour = 0;
     }
 
     /**
