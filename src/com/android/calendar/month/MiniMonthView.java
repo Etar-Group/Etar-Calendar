@@ -96,6 +96,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected static int BUSY_BITS_MARGIN = 4;
     protected static int DAY_NUMBER_OFFSET = 10;
     protected static int VERTICAL_FLING_THRESHOLD = 50;
+    protected static int INITIAL_FLING_DIVISOR = 200;
 
     protected static final int MENU_AGENDA = 2;
     protected static final int MENU_DAY = 3;
@@ -106,13 +107,14 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected int mMonthNameSpace = 12 + 2 * mMonthNamePadding;
     protected int mDesiredCellHeight = 40;
     protected int mMonthDayTextSize = 20;
+    protected int mFlingDivisor;
 
     // The number of days worth of events to load
     protected int mEventNumDays = 7 * (DEFAULT_NUM_WEEKS + 4);
     // Which day of the week the display starts on
     protected int mStartDayOfWeek;
     // How many weeks to display at a time
-    protected int mNumWeeks = DEFAULT_NUM_WEEKS;
+    protected int mNumWeeksDisplayed = DEFAULT_NUM_WEEKS;
     // Which week position the selected day should snap to, this focuses the
     // user's currently selected day about 1/3 of the way down the view.
     protected int mFocusWeek = DEFAULT_NUM_WEEKS / 3;
@@ -365,7 +367,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             @Override
             public void onShowPress(MotionEvent e) {
                 // Highlight the selected day.
-//                setSelectedCell(e);
                 long millis = getSelectedMillisFor((int) e.getX(), (int) e.getY());
                 mSelectedDay.set(millis);
                 mSelectionMode = SELECTION_PRESSED;
@@ -390,7 +391,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2,
                     float distanceX, float distanceY) {
-//                MiniMonthView.this.doScroll(e1, e2, distanceX, distanceY);
                 // Use the distance from the current point to the initial touch instead
                 // of deltaX and deltaY to avoid accumulating floating-point rounding
                 // errors.  Also, we don't need floats, we can use ints.
@@ -472,7 +472,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         if (handler != null) {
             getHandler().removeCallbacks(mGoToScroll);
         }
-        mGoToScroll.init((int) -velocityY / 100);
+        mGoToScroll.init((int) -velocityY / mFlingDivisor);
         post(mGoToScroll);
         return true;
     }
@@ -483,32 +483,36 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     // to be on a week.
     private class GoToScroll implements Runnable {
         int mWeeks;
-        int mScrollCount;
+//        int mScrollCount;
         Time mStartTime = new Time();
         private static final int SCROLL_REPEAT_INTERVAL = 30;
         private static final int MAX_REPEAT_COUNT = 30;
-        private int SCROLL_REPEAT_COUNT = 10;
+        private static final int MAX_FLING_DURATION_MILLIS = 512;
+        private int mFlingDurationMillis = 256;
+        private long mInitialSystemTime;
 
-        public void init(int numWeeks) {
+        public void init(int numWeeksToScroll) {
 
-            int currWeek = mFirstDay.getWeekNumber() + 52 * mFirstDay.year;
-            int endWeek = currWeek + numWeeks;
-            if (endWeek < MIN_WEEK) {
+            int currFirstWeek = mFirstDay.getWeekNumber() + 52 * mFirstDay.year;
+            int targetFirstWeek = currFirstWeek + numWeeksToScroll;
+            if (targetFirstWeek < MIN_WEEK) {
                 // Will send it to the first week of 1970
-                numWeeks = MIN_WEEK - currWeek;
-            } else if (endWeek + mNumWeeks - 1 > MAX_WEEK) {
+                numWeeksToScroll = MIN_WEEK - currFirstWeek;
+            } else if (targetFirstWeek + mNumWeeksDisplayed - 1 > MAX_WEEK) {
                 // Will send it to the last week of 2036
-                numWeeks = MAX_WEEK - currWeek - mNumWeeks + 1;
+                numWeeksToScroll = MAX_WEEK - currFirstWeek - mNumWeeksDisplayed + 1;
             }
             mInitialOffset = mWeekOffset;
-            mWeeks = numWeeks; //Math.abs(numWeeks);
+            mWeeks = numWeeksToScroll;
             mStartTime.set(mFirstDay);
 
-            mScrollCount = 1;
-            SCROLL_REPEAT_COUNT = 10 + Math.abs(numWeeks) / 3;
-            if (SCROLL_REPEAT_COUNT > MAX_REPEAT_COUNT) {
-                SCROLL_REPEAT_COUNT = MAX_REPEAT_COUNT;
+            int absNumWeeks = Math.abs(numWeeksToScroll);
+
+            mFlingDurationMillis = 256 + absNumWeeks * 32;
+            if (mFlingDurationMillis > MAX_FLING_DURATION_MILLIS) {
+                mFlingDurationMillis = MAX_FLING_DURATION_MILLIS;
             }
+            mInitialSystemTime = System.currentTimeMillis();
         }
 
         // At each step we set the first day and the y offset for the next
@@ -521,16 +525,21 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 mFirstDay.set(mStartTime.toMillis(true) + DateUtils.WEEK_IN_MILLIS * mWeeks);
                 return;
             }
+            int elapsedTime = (int) (System.currentTimeMillis() - mInitialSystemTime);
+            if (elapsedTime > mFlingDurationMillis) {
+                elapsedTime = mFlingDurationMillis;
+            }
             // Calculate it based on the start so we don't accumulate rounding
             // errors
+            // We don't pre-compute elapsed/duration due to integer arithmetic
             mFirstDay.set(mStartTime.toMillis(true) + DateUtils.WEEK_IN_MILLIS
-                    * (long) Math.floor(mWeeks * mScrollCount / SCROLL_REPEAT_COUNT));
-            mWeekOffset = (mWeeks * mCellHeight * mScrollCount / SCROLL_REPEAT_COUNT)
+                    * (long) Math.floor(mWeeks * elapsedTime / mFlingDurationMillis));
+            mWeekOffset = (mWeeks * mCellHeight * elapsedTime / mFlingDurationMillis)
                     % mCellHeight;
             // Get the direction right and make it a smooth scroll from wherever
             // we were before
             mWeekOffset = -mWeekOffset +
-                (mInitialOffset - mInitialOffset * mScrollCount / SCROLL_REPEAT_COUNT);
+                (mInitialOffset - mInitialOffset * elapsedTime / mFlingDurationMillis);
 
             if (mWeekOffset > mCellHeight) {
                 mWeekOffset -= mCellHeight;
@@ -541,9 +550,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             }
             makeFirstDayOfWeek(mFirstDay);
 
-            if (mScrollCount < SCROLL_REPEAT_COUNT) {
+            if (elapsedTime < mFlingDurationMillis) {
                 postDelayed(this, SCROLL_REPEAT_INTERVAL);
-                mScrollCount++;
             } else {
                 // Done scrolling.
                 mWeekOffset = 0;
@@ -742,7 +750,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         Rect r = mRect;
         int day = 0;
         mDrawingDay.set(mFirstDay);
-        int lastWeek = mNumWeeks;
+        int lastWeek = mNumWeeksDisplayed;
         int row = 0;
         if (mWeekOffset > 0) {
             day = -7;
@@ -864,7 +872,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         tempTime.set(mFirstDay);
         boolean isFirstDay = true;
         Time lastDay = new Time(mFirstDay);
-        lastDay.monthDay += mNumWeeks * 7 - 1;
+        lastDay.monthDay += mNumWeeksDisplayed * 7 - 1;
         if (mWeekOffset < 0) {
             lastDay.monthDay += 7;
         }
@@ -908,8 +916,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 // Compute directly to avoid rounding errors
                 // This places the text at the center of the weeks where the
                 // first day of the week is in the current month
-                int top = row * mHeight / mNumWeeks + mWeekOffset;
-                int bot = (row + weekDiff) * mHeight / mNumWeeks + mWeekOffset;
+                int top = row * mHeight / mNumWeeksDisplayed + mWeekOffset;
+                int bot = (row + weekDiff) * mHeight / mNumWeeksDisplayed + mWeekOffset;
                 if (top < 0) {
                     top = 0;
                 }
@@ -953,7 +961,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
             canvas.drawLine(mMonthNameSpace, y, width, y, p);
             // Compute directly to avoid rounding errors
             count++;
-            y = count * height / mNumWeeks + mWeekOffset - 1;
+            y = count * height / mNumWeeksDisplayed + mWeekOffset - 1;
         }
 
         int x = mMonthNameSpace;
@@ -975,7 +983,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         boolean colorSameAsCurrent = ((mDrawingDay.month & 1) == 0) == mIsEvenMonth;
         // We calculate the position relative to the total size
         // to avoid rounding errors.
-        int y = row * mHeight / mNumWeeks + mWeekOffset;
+        int y = row * mHeight / mNumWeeksDisplayed + mWeekOffset;
         int x = column * mWidth / 7 + mBorder + mMonthNameSpace;
 
         r.left = x;
@@ -1172,17 +1180,18 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected void drawingCalc(int width, int height) {
         mHeight = getMeasuredHeight();
         mWidth = getMeasuredWidth() - mMonthNameSpace;
-        mNumWeeks = mHeight / mDesiredCellHeight;
-        if (mNumWeeks < MIN_NUM_WEEKS) {
-            mNumWeeks = MIN_NUM_WEEKS;
-        } else if (mNumWeeks > MAX_NUM_WEEKS) {
-            mNumWeeks = MAX_NUM_WEEKS;
+        mNumWeeksDisplayed = mHeight / mDesiredCellHeight;
+        if (mNumWeeksDisplayed < MIN_NUM_WEEKS) {
+            mNumWeeksDisplayed = MIN_NUM_WEEKS;
+        } else if (mNumWeeksDisplayed > MAX_NUM_WEEKS) {
+            mNumWeeksDisplayed = MAX_NUM_WEEKS;
         }
         // This lets us query 2 weeks before and after the first visible day
-        mEventNumDays = 7 * (mNumWeeks + 4);
+        mEventNumDays = 7 * (mNumWeeksDisplayed + 4);
         mEventDays = new boolean[mEventNumDays];
-        mCellHeight = (height - (mNumWeeks * WEEK_GAP)) / mNumWeeks;
-        mFocusWeek = mNumWeeks / 3;
+        mCellHeight = (height - (mNumWeeksDisplayed * WEEK_GAP)) / mNumWeeksDisplayed;
+        mFocusWeek = mNumWeeksDisplayed / 3;
+        mFlingDivisor = INITIAL_FLING_DIVISOR * MAX_NUM_WEEKS / mNumWeeksDisplayed;
         // TODO use something other than mEventGeometry, which has rounding
         // errors and is slow(ish)
         mEventGeometry

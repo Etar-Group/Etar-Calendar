@@ -104,7 +104,7 @@ public class FullMonthView extends MiniMonthView {
             canvas.drawLine(mMonthNameSpace, y, width, y, p);
             // Compute directly to avoid rounding errors
             count++;
-            y = count * height / mNumWeeks + mWeekOffset - 1;
+            y = count * height / mNumWeeksDisplayed + mWeekOffset - 1;
         }
 
         int x = mMonthNameSpace;
@@ -126,7 +126,7 @@ public class FullMonthView extends MiniMonthView {
         boolean colorSameAsCurrent = ((mDrawingDay.month & 1) == 0) == mIsEvenMonth;
         // We calculate the position relative to the total size
         // to avoid rounding errors.
-        int y = row * mHeight / mNumWeeks + mWeekOffset;
+        int y = row * mHeight / mNumWeeksDisplayed + mWeekOffset;
         int x = column * mWidth / 7 + mBorder + mMonthNameSpace;
 
         r.left = x;
