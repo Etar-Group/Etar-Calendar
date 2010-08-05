@@ -54,6 +54,8 @@ public class SearchActivity extends Activity implements Navigator {
 
     private Time mTime;
 
+    private String mQuery = null;
+
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -168,7 +170,9 @@ public class SearchActivity extends Activity implements Navigator {
                 CalendarPreferenceActivity.KEY_HIDE_DECLINED, false);
 
         mAgendaListView.setHideDeclinedEvents(hideDeclined);
-        mAgendaListView.goTo(mTime, true);
+        if (mQuery == null) {
+            mAgendaListView.goTo(mTime, true);
+        }
         mAgendaListView.onResume();
 
         // Register for Intent broadcasts
@@ -202,9 +206,10 @@ public class SearchActivity extends Activity implements Navigator {
     }
 
     private void search(String searchQuery) {
+        mQuery = searchQuery;
         mAgendaListView = new AgendaListView(this);
         setContentView(mAgendaListView);
-        mAgendaListView.search(searchQuery, true);
+        mAgendaListView.search(mQuery, true);
     }
 
 

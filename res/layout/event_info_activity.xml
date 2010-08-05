@@ -103,6 +103,7 @@
 
                 <!-- TIMEZONE -->
                 <LinearLayout android:id="@+id/timezone_container"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -124,6 +125,7 @@
 
                 <!-- REPEATS -->
                 <LinearLayout android:id="@+id/repeat_container"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -157,6 +159,7 @@
 
                 <!-- Organizer -->
                 <LinearLayout android:id="@+id/organizer_container"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -193,6 +196,7 @@
 
         <!-- RESPONSE -->
         <LinearLayout android:id="@+id/response_container"
+            android:visibility="gone"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
