@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,10 +51,11 @@
     <item msgid="966666856467721784">"за 2 дня"</item>
     <item msgid="5840973497558794742">"за 1 неделю"</item>
   </string-array>
-  <string-array name="preferences_alert_type_labels">
-    <item msgid="2724242028978664229">"Оповещение"</item>
-    <item msgid="8723674378160518790">"Уведомление в строке состояния"</item>
-    <item msgid="8433736231022186661">"Выкл."</item>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"Региональные настройки по умолчанию"</item>
+    <item msgid="134027225275475280">"суббота"</item>
+    <item msgid="95029346069903091">"воскресенье"</item>
+    <item msgid="5840983116375063739">"понедельник"</item>
   </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"Занят"</item>

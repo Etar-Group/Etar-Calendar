@@ -17,6 +17,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Agenda"</string>
+    <string name="app_aio_label" msgid="3058561424021284581">"Calendar AllInOne"</string>
     <string name="what_label" msgid="1933578391985810049">"Objet"</string>
     <string name="where_label" msgid="3472482206065595118">"Lieu"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Invités"</string>
@@ -39,6 +40,8 @@
     <item quantity="one" msgid="5988137255732166573">"1 jour"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> jours"</item>
   </plurals>
+    <!-- no translation found for calendar_refresh (6172731193680500025) -->
+    <skip />
     <string name="show_agenda_view" msgid="7971854300981408347">"Afficher l\'agenda"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Afficher le jour"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Mon planning"</string>
@@ -52,6 +55,8 @@
     <string name="goto_today" msgid="9162136434410891230">"Aujourd\'hui"</string>
     <string name="menu_select_calendars" msgid="6200145996783123958">"Agendas"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Paramètres"</string>
+    <!-- no translation found for search (550656004486017426) -->
+    <skip />
     <string name="plus_N_more" msgid="2527895721728080055">"(et <xliff:g id="MORE_COUNT">%d</xliff:g> autres…)"</string>
     <string name="calendars_title" msgid="4046980972626276968">"Agendas"</string>
     <string name="synced_visible" msgid="1406744353749335651">"synchronisé, visible"</string>
@@ -92,6 +97,8 @@
     <string name="loading" msgid="3772533493214331230">"Chargement…"</string>
     <string name="show_older_events" msgid="4031960000704544741">"Affichage des événements depuis le <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Appuyez pour en consulter d\'autres."</string>
     <string name="show_newer_events" msgid="2647889653936094369">"Affichage des événements jusqu\'au <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Appuyez pour en consulter d\'autres."</string>
+    <!-- no translation found for search_title (8898015280250716254) -->
+    <skip />
     <string name="num_events" msgid="3351672964607162257">"Nbre d\'événements"</string>
     <string name="edit_event_label" msgid="2900418236819088363">"Modifier l\'événement"</string>
     <string name="delete_label" msgid="874742811918030739">"Supprimer"</string>
@@ -119,13 +126,15 @@
     <string name="change_response_title" msgid="7704714776070974984">"Modifier la réponse"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Paramètres"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Paramètres d\'affichage de l\'agenda"</string>
-    <string name="preferences_alerts_title" msgid="6511227171114210908">"Paramètres de rappel"</string>
+    <string name="preferences_reminder_title" msgid="6940022527071973010">"Paramètres de rappel"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Masquer évén. refusés"</string>
-
-
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"1er jour de la semaine :"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"1er jour de la semaine :"</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"Notifications"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibreur"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Vibrer également pour les rappels"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Sonnerie"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notification dans une fenêtre pop-up"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Rappel par défaut"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Rappel par défaut"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
@@ -137,4 +146,13 @@
     <item msgid="4552962311897985633">"Jamais"</item>
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Vibreur"</string>
+    <string name="gadget_title" msgid="939918875331310945">"Agenda"</string>
+  <plurals name="gadget_more_events">
+    <item quantity="one" msgid="1813062802420615657">"1 événement supplémentaire"</item>
+    <item quantity="other" msgid="7993512762778431065">"<xliff:g id="NUMBER">%d</xliff:g> autres événements"</item>
+  </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"Aucun événement d\'agenda à venir"</string>
+    <string name="tomorrow" msgid="614434811813859237">"Demain"</string>
+    <string name="in_progress" msgid="3637799356103489011">"en cours"</string>
+    <string name="today" msgid="8577375020252453006">"Aujourd\'hui"</string>
 </resources>

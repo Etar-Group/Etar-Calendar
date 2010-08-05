@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,10 +51,11 @@
     <item msgid="966666856467721784">"2일"</item>
     <item msgid="5840973497558794742">"1주"</item>
   </string-array>
-  <string-array name="preferences_alert_type_labels">
-    <item msgid="2724242028978664229">"알리미 사용"</item>
-    <item msgid="8723674378160518790">"상태 표시줄 알림"</item>
-    <item msgid="8433736231022186661">"사용 안함"</item>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"언어 기본값"</item>
+    <item msgid="134027225275475280">"토요일"</item>
+    <item msgid="95029346069903091">"일요일"</item>
+    <item msgid="5840983116375063739">"월요일"</item>
   </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"바쁨"</item>
@@ -73,7 +74,7 @@
     <item msgid="7564374178324652137">"마지막"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item msgid="3654955385120106241">"(응답 없음)"</item>
+    <item msgid="3654955385120106241">"(응답 안함)"</item>
     <item msgid="3724434080904437698">"예"</item>
     <item msgid="8854145743148992583">"미정"</item>
     <item msgid="6174292185978948873">"아니요"</item>

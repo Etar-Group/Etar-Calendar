@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,10 +51,11 @@
     <item msgid="966666856467721784">"2 dny"</item>
     <item msgid="5840973497558794742">"1 týden"</item>
   </string-array>
-  <string-array name="preferences_alert_type_labels">
-    <item msgid="2724242028978664229">"Upozornění"</item>
-    <item msgid="8723674378160518790">"Oznámení na stavovém řádku"</item>
-    <item msgid="8433736231022186661">"Vypnuto"</item>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"Výchozí hodnota národního prostředí"</item>
+    <item msgid="134027225275475280">"Sobota"</item>
+    <item msgid="95029346069903091">"Neděle"</item>
+    <item msgid="5840983116375063739">"Pondělí"</item>
   </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"Zaneprázdněný"</item>
