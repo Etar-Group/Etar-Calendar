@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 The Android Open Source Project
+ * Copyright (C) 2010 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -148,6 +148,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 //        }
 //    }
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.day_activity, null);
@@ -319,7 +320,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
     }
 
     public long getSupportedEventTypes() {
-        return EventType.GO_TO;
+        return EventType.GO_TO | EventType.EVENTS_CHANGED;
     }
 
     public void handleEvent(EventInfo msg) {
@@ -329,6 +330,8 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 // TODO figure out the animate bit
 // TODO support select message
             goTo(msg.startTime, true);
+        } else if (msg.eventType == EventType.EVENTS_CHANGED) {
+            eventsChanged();
         }
     }
 }

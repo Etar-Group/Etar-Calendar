@@ -39,17 +39,13 @@ import android.view.ViewGroup;
 public class AgendaFragment extends Fragment implements CalendarController.EventHandler {
 
     private static final String TAG = AgendaFragment.class.getSimpleName();
-
     private static boolean DEBUG = false;
 
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
-
     private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
 
     private ContentResolver mContentResolver;
-
     private AgendaListView mAgendaListView;
-
     private Time mTime;
 
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
@@ -200,7 +196,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
     @Override
     public long getSupportedEventTypes() {
-        return EventType.GO_TO;
+        return EventType.GO_TO | EventType.EVENTS_CHANGED;
     }
 
     @Override
@@ -210,6 +206,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             // TODO support event_id
             // TODO figure out the animate bit
             goTo(event.startTime, true);
+        } else if (event.eventType == EventType.EVENTS_CHANGED) {
+            eventsChanged();
         }
     }
 }

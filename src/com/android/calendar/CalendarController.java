@@ -78,6 +78,8 @@ public class CalendarController {
 
         final long LAUNCH_MANAGE_CALENDARS = 1L << 5;
         final long LAUNCH_SETTINGS = 1L << 6;
+
+        final long EVENTS_CHANGED = 1L << 7;
     }
 
     /**
@@ -134,7 +136,8 @@ public class CalendarController {
         boolean getAllDay();
 
         /**
-         * TODO comment
+         * This notifies the handler that the database has changed and it should
+         * update its view.
          */
         void eventsChanged();
 

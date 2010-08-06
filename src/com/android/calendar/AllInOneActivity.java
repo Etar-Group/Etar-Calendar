@@ -26,12 +26,17 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.ContentResolver;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.database.ContentObserver;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Calendar;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,9 +44,26 @@ import android.view.View;
 public class AllInOneActivity extends Activity implements EventHandler,
         OnSharedPreferenceChangeListener {
     private static final String TAG = "AllInOneActivity";
+    private static final boolean DEBUG = false;
     private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     private static CalendarController mController;
     private static boolean mIsMultipane;
+    private ContentResolver mContentResolver;
+
+    // Create an observer so that we can update the views whenever a
+    // Calendar event changes.
+    private ContentObserver mObserver = new ContentObserver(new Handler())
+    {
+        @Override
+        public boolean deliverSelfNotifications() {
+            return true;
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            eventsChanged();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -49,6 +71,20 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
+        // Get time from intent or icicle
+        long timeMillis;
+        if (icicle != null) {
+            timeMillis = icicle.getLong(BUNDLE_KEY_RESTORE_TIME);
+        } else {
+            timeMillis = Utils.timeFromIntentInMillis(getIntent());
+        }
+        int viewType = Utils.getViewTypeFromIntentAndSharedPref(this);
+        Time t = new Time();
+        t.set(timeMillis);
+
+        // Set this before adding any handlers so that our previous view will be
+        // correct
+        mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
 
         mIsMultipane = (getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
@@ -59,24 +95,25 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         setContentView(R.layout.all_in_one);
 
-        // Get time from intent or icicle
-        long timeMillis;
-        if (icicle != null) {
-            timeMillis = icicle.getLong(BUNDLE_KEY_RESTORE_TIME);
-        } else {
-            timeMillis = Utils.timeFromIntentInMillis(getIntent());
-        }
 
-        initFragments(timeMillis, Utils.getViewTypeFromIntentAndSharedPref(this));
+        initFragments(timeMillis, viewType);
 
         // Listen for changes that would require this to be refreshed
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
+        mContentResolver = getContentResolver();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mContentResolver.registerContentObserver(Calendar.Events.CONTENT_URI, true, mObserver);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        mContentResolver.unregisterContentObserver(mObserver);
         //FRAG_TODO save highlighted days of the week;
         Utils.setDefaultView(this, mController.getViewType());
     }
@@ -188,6 +225,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // Deregister old view
         Fragment frag = findFragmentById(viewId);
         if (frag != null) {
+            if (DEBUG) {
+                Log.d(TAG, "Removing handler with viewId " + viewId + " and type " + viewType);
+            }
             mController.deregisterEventHandler((EventHandler) frag);
         }
 
@@ -217,6 +257,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
 
         ft.replace(viewId, frag);
+        if (DEBUG) {
+            Log.d(TAG, "Adding handler with viewId " + viewId + " and type " + viewType);
+        }
+        // TODO find some way to prevent double registering if this gets called
+        // again before the ft finishes.
         mController.registerEventHandler((EventHandler) frag);
 
         if (doCommit) {
@@ -274,6 +319,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     // EventHandler Interface
     public void eventsChanged() {
+        mController.sendEvent(this, EventType.EVENTS_CHANGED, null, null, -1, ViewType.CURRENT);
     }
 
     // EventHandler Interface

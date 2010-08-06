@@ -241,7 +241,7 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
     }
 
     public long getSupportedEventTypes() {
-        return EventType.GO_TO;
+        return EventType.GO_TO | EventType.EVENTS_CHANGED;
     }
 
     public void handleEvent(EventInfo msg) {
@@ -251,6 +251,8 @@ public class MonthFragment extends Fragment implements CalendarController.EventH
 // TODO figure out the animate bit
 // TODO support select message
             goTo(msg.startTime, false);
+        } else if (msg.eventType == EventType.EVENTS_CHANGED) {
+            eventsChanged();
         }
     }
 
