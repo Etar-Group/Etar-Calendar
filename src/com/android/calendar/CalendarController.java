@@ -25,6 +25,7 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -399,6 +400,17 @@ public class CalendarController {
                         },
                 REFRESH_SELECTION, REFRESH_ARGS, REFRESH_ORDER);
 
+        // TEMP only
+        if (mContext instanceof Activity) {
+            Log.d(TAG, "rotate");
+            Activity a = ((Activity) mContext);
+            int newOrientation =
+                    a.getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT ?
+                    ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE :
+                    ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+            a.setRequestedOrientation(newOrientation);
+            return;
+        }
     }
 
     private class RefreshInBackground extends AsyncTask<Cursor, Integer, Integer> {
