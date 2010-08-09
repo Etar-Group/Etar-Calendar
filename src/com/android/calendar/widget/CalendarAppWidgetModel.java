@@ -32,13 +32,12 @@ class CalendarAppWidgetModel {
     EventInfo[] eventInfos;
 
     public CalendarAppWidgetModel() {
-        this(2);
+        this(1);
     }
 
     public CalendarAppWidgetModel(int size) {
-        // we round up to the nearest even integer
-        eventInfos = new EventInfo[2 * ((size + 1) / 2)];
-        for (int i = 0; i < eventInfos.length; i++) {
+        eventInfos = new EventInfo[size];
+        for (int i = 0; i < size; i++) {
             eventInfos[i] = new EventInfo();
         }
         visibNoEvents = View.GONE;
@@ -51,6 +50,8 @@ class CalendarAppWidgetModel {
         String where;
         int visibTitle; // Visibility value for Title textview (View.GONE or View.VISIBLE)
         String title;
+
+        long start;
 
         public EventInfo() {
             visibWhen = View.GONE;

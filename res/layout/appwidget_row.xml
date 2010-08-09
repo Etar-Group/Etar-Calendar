@@ -16,46 +16,23 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/appwidget_page"
+    android:id="@+id/appwidget_row"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:addStatesFromChildren="true">
+    android:addStatesFromChildren="true"
+    android:focusableInTouchMode="true">
 
-     <!-- Event #1 -->
     <TextView
-        android:id="@+id/when1"
+        android:id="@+id/title"
+        style="@style/TextAppearance.WidgetTitle" />
+
+    <TextView
+        android:id="@+id/when"
         style="@style/TextAppearance.WidgetWhen" />
 
     <TextView
-        android:id="@+id/where1"
+        android:id="@+id/where"
         style="@style/TextAppearance.WidgetWhere" />
-
-    <TextView
-        android:id="@+id/title1"
-        android:layout_marginBottom="6dip"
-        style="@style/TextAppearance.WidgetTitle" />
-
-    <!-- Event #2 -->
-    <TextView
-        android:id="@+id/when2"
-        style="@style/TextAppearance.WidgetWhen" />
-
-    <TextView
-        android:id="@+id/where2"
-        style="@style/TextAppearance.WidgetWhere" />
-
-    <TextView
-        android:id="@+id/title2"
-        style="@style/TextAppearance.WidgetTitle" />
-
-    <!-- Page count -->
-    <TextView
-        android:id="@+id/page_count"
-        android:gravity="right|bottom"
-        android:layout_gravity="bottom"
-        android:layout_weight="1"
-        style="@style/TextAppearance.WidgetPageCount">
-    </TextView>
 
 </LinearLayout>
