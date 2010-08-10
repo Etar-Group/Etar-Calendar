@@ -46,6 +46,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
     private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
+    private static final int HANDLER_KEY = 0;
     private static CalendarController mController;
     private static boolean mIsMultipane;
     private ContentResolver mContentResolver;
@@ -82,16 +83,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
         Time t = new Time();
         t.set(timeMillis);
 
-        // Set this before adding any handlers so that our previous view will be
-        // correct
-        mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
-
         mIsMultipane = (getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
 
-        // Must be the first to register so that this activity can modify the
-        // list the event handlers during dispatching.
-        mController.registerEventHandler(this);
+        // Must be the first to register because this activity can modify the
+        // list of event handlers in it's handle method. This affects who the
+        // rest of the handlers the controller dispatches to are.
+        mController.registerEventHandler(HANDLER_KEY, this);
 
         setContentView(R.layout.all_in_one);
 
@@ -139,7 +137,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (mIsMultipane) {
             Fragment miniMonthFrag = new MonthFragment(false, timeMillis, true);
             ft.replace(R.id.mini_month, miniMonthFrag);
-            mController.registerEventHandler((EventHandler) miniMonthFrag);
+            mController.registerEventHandler(R.id.mini_month, (EventHandler) miniMonthFrag);
 
             Fragment selectCalendarsFrag = new SelectCalendarsFragment();
             ft.replace(R.id.calendar_list, selectCalendarsFrag);
@@ -222,16 +220,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
             return;
         }
 
-        // Deregister old view
-        Fragment frag = findFragmentById(viewId);
-        if (frag != null) {
-            if (DEBUG) {
-                Log.d(TAG, "Removing handler with viewId " + viewId + " and type " + viewType);
-            }
-            mController.deregisterEventHandler((EventHandler) frag);
-        }
-
-        // Create new one
+        // Create new fragment
+        Fragment frag;
         switch (viewType) {
             case ViewType.AGENDA:
                 frag = new AgendaFragment(timeMillis);
@@ -260,9 +250,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (DEBUG) {
             Log.d(TAG, "Adding handler with viewId " + viewId + " and type " + viewType);
         }
-        // TODO find some way to prevent double registering if this gets called
-        // again before the ft finishes.
-        mController.registerEventHandler((EventHandler) frag);
+        // If the key is already registered this will replace it
+        mController.registerEventHandler(viewId, (EventHandler) frag);
 
         if (doCommit) {
             ft.commit();
@@ -288,12 +277,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
     }
 
-    // EventHandler Interface
+    @Override
     public long getSupportedEventTypes() {
         return EventType.GO_TO;
     }
 
-    // EventHandler Interface
+    @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
             // Set title bar
@@ -317,26 +306,26 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
     }
 
-    // EventHandler Interface
+    @Override
     public void eventsChanged() {
         mController.sendEvent(this, EventType.EVENTS_CHANGED, null, null, -1, ViewType.CURRENT);
     }
 
-    // EventHandler Interface
+    @Override
     public boolean getAllDay() {
         return false;
     }
 
-    // EventHandler Interface
+    @Override
     public long getSelectedTime() {
         return 0;
     }
 
-    // EventHandler Interface
+    @Override
     public void goTo(Time time, boolean animate) {
     }
 
-    // EventHandler Interface
+    @Override
     public void goToToday() {
     }
 }
