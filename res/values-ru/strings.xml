@@ -153,6 +153,6 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Нет предстоящих событий календаря"</string>
     <string name="tomorrow" msgid="614434811813859237">"Завтра"</string>
-    <string name="in_progress" msgid="3637799356103489011">"началось"</string>
+    <string name="in_progress" msgid="3637799356103489011">"в процессе"</string>
     <string name="today" msgid="8577375020252453006">"Сегодня"</string>
 </resources>

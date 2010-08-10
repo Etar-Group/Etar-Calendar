@@ -17,7 +17,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Google 日曆"</string>
-    <string name="app_aio_label" msgid="3058561424021284581">"Calendar AllInOne"</string>
+    <string name="app_aio_label" msgid="3058561424021284581">"萬用日曆"</string>
     <string name="what_label" msgid="1933578391985810049">"主題"</string>
     <string name="where_label" msgid="3472482206065595118">"地點"</string>
     <string name="attendees_label" msgid="2971281641565729725">"邀請對象"</string>
