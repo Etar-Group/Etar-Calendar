@@ -19,6 +19,8 @@
     <string name="app_label" msgid="5452708708398908131">"Agenda"</string>
     <string name="what_label" msgid="1933578391985810049">"Wat"</string>
     <string name="where_label" msgid="3472482206065595118">"Waar"</string>
+    <!-- no translation found for timezone_label (2030635806231207425) -->
+    <skip />
     <string name="attendees_label" msgid="2971281641565729725">"Gasten"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Herhaling"</string>
@@ -78,6 +80,8 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Agenda"</string>
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Extra opties weergeven"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Extra opties verbergen"</string>
+    <!-- no translation found for edit_event_show_all (6107214899021208078) -->
+    <skip />
     <string name="description_label" msgid="7193475046717505855">"Beschrijving"</string>
     <string name="presence_label" msgid="6169724148441175862">"Mij weergeven als"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
