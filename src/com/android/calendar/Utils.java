@@ -230,6 +230,28 @@ public class Utils {
     }
 
     /**
+     * Returns a list joined together by the provided delimiter, for example,
+     * ["a", "b", "c"] could be joined into "a,b,c"
+     *
+     * @param things the things to join together
+     * @param delim the delimiter to use
+     * @return a string contained the things joined together
+     */
+    public static String join(List<?> things, String delim) {
+        StringBuilder builder = new StringBuilder();
+        boolean first = true;
+        for (Object thing : things) {
+            if (first) {
+                first = false;
+            } else {
+                builder.append(delim);
+            }
+            builder.append(thing.toString());
+        }
+        return builder.toString();
+    }
+
+    /**
      * Get first day of week as android.text.format.Time constant.
      * @return the first day of week in android.text.format.Time
      */
