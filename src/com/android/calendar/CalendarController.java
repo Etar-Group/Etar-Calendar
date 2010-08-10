@@ -36,11 +36,14 @@ import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
 public class CalendarController {
+    private static final boolean DEBUG = true;
     private static final String TAG = "CalendarController";
     private static final String REFRESH_SELECTION = Calendars.SYNC_EVENTS + "=?";
     private static final String[] REFRESH_ARGS = new String[] { "1" };
@@ -49,8 +52,12 @@ public class CalendarController {
 
     private Context mContext;
 
-    private ArrayList<EventHandler> eventHandlers = new ArrayList<EventHandler>(5);
-    private LinkedList<EventHandler> mToBeRemovedEventHandlers = new LinkedList<EventHandler>();
+    // This uses a LinkedHashMap so that we can replace fragments based on the
+    // view id they are being expanded into since we can't guarantee a reference
+    // to the handler will be findable
+    private LinkedHashMap<Integer,EventHandler> eventHandlers =
+            new LinkedHashMap<Integer,EventHandler>(5);
+    private LinkedList<Integer> mToBeRemovedEventHandlers = new LinkedList<Integer>();
     private boolean mDispatchInProgress;
 
     private static WeakHashMap<Context, CalendarController> instances =
@@ -140,7 +147,6 @@ public class CalendarController {
          * update its view.
          */
         void eventsChanged();
-
     }
 
     /**
@@ -223,12 +229,16 @@ public class CalendarController {
     public void sendEvent(Object sender, final EventInfo event) {
         // TODO Throw exception on invalid events
 
-        Log.d(TAG, eventInfoToString(event));
+        if (DEBUG) {
+            Log.d(TAG, eventInfoToString(event));
+        }
 
         Long filteredTypes = filters.get(sender);
         if (filteredTypes != null && (filteredTypes.longValue() & event.eventType) != 0) {
             // Suppress event per filter
-            Log.d(TAG, "Event suppressed");
+            if (DEBUG) {
+                Log.d(TAG, "Event suppressed");
+            }
             return;
         }
 
@@ -281,12 +291,18 @@ public class CalendarController {
         synchronized (this) {
             mDispatchInProgress = true;
 
+            if (DEBUG) {
+                Log.d(TAG, "sendEvent: Dispatching to " + eventHandlers.size() + " handlers");
+            }
             // Dispatch to event handler(s)
-            for (int i = 0; i < eventHandlers.size(); ++i) {
-                EventHandler eventHandler = eventHandlers.get(i);
+            for (Iterator<Entry<Integer, EventHandler>> handlers =
+                    eventHandlers.entrySet().iterator(); handlers.hasNext();) {
+                Entry<Integer, EventHandler> entry = handlers.next();
+                int key = entry.getKey();
+                EventHandler eventHandler = entry.getValue();
                 if (eventHandler != null
                         && (eventHandler.getSupportedEventTypes() & event.eventType) != 0) {
-                    if (mToBeRemovedEventHandlers.contains(eventHandler)) {
+                    if (mToBeRemovedEventHandlers.contains(key)) {
                         continue;
                     }
                     eventHandler.handleEvent(event);
@@ -295,7 +311,7 @@ public class CalendarController {
 
             // Deregister removed handlers
             if (mToBeRemovedEventHandlers.size() > 0) {
-                for (EventHandler zombie : mToBeRemovedEventHandlers) {
+                for (Integer zombie : mToBeRemovedEventHandlers) {
                     eventHandlers.remove(zombie);
                 }
                 mToBeRemovedEventHandlers.clear();
@@ -304,19 +320,26 @@ public class CalendarController {
         }
     }
 
-    public void registerEventHandler(EventHandler eventHandler) {
+    /**
+     * Adds or updates an event handler. This uses a LinkedHashMap so that we can
+     * replace fragments based on the view id they are being expanded into.
+     *
+     * @param key The view id or placeholder for this handler
+     * @param eventHandler Typically a fragment or activity in the calendar app
+     */
+    public void registerEventHandler(int key, EventHandler eventHandler) {
         synchronized (this) {
-            eventHandlers.add(eventHandler);
+            eventHandlers.put(key, eventHandler);
         }
     }
 
-    public void deregisterEventHandler(EventHandler eventHandler) {
+    public void deregisterEventHandler(Integer key) {
         synchronized (this) {
             if (mDispatchInProgress) {
                 // To avoid ConcurrencyException, stash away the event handler for now.
-                mToBeRemovedEventHandlers.add(eventHandler);
+                mToBeRemovedEventHandlers.add(key);
             } else {
-                eventHandlers.remove(eventHandler);
+                eventHandlers.remove(key);
             }
         }
     }
@@ -495,6 +518,8 @@ public class CalendarController {
             tmp = "Launch select calendar";
         } else if ((eventInfo.eventType & EventType.LAUNCH_SETTINGS) != 0) {
             tmp = "Launch settings";
+        } else if ((eventInfo.eventType & EventType.EVENTS_CHANGED) != 0) {
+            tmp = "Refresh events";
         }
         builder.append(tmp);
         builder.append(": id=");
