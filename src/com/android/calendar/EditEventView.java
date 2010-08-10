@@ -17,6 +17,7 @@
 package com.android.calendar;
 
 import com.android.calendar.EditEventHelper.EditDoneRunnable;
+import com.android.calendar.TimezoneAdapter.TimezoneRow;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
 
@@ -40,6 +41,8 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.text.util.Rfc822Tokenizer;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -58,9 +61,12 @@ import android.widget.TimePicker;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
         DialogInterface.OnClickListener {
+
+    private static final String TAG = EditEventView.class.getSimpleName();
 
     private static final int REMINDER_FLING_VELOCITY = 2000;
 
@@ -73,6 +79,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Button mSaveButton;
     Button mDeleteButton;
     Button mDiscardButton;
+    Button mTimezoneButton;
     CheckBox mAllDayCheckBox;
     Spinner mCalendarsSpinner;
     Spinner mRepeatsSpinner;
@@ -81,6 +88,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     TextView mTitleTextView;
     TextView mLocationTextView;
     TextView mDescriptionTextView;
+    TextView mTimezoneTextView;
+    TextView mTimezoneFooterView;
     View mRemindersSeparator;
     LinearLayout mRemindersContainer;
     LinearLayout mExtraOptions;
@@ -88,6 +97,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
+    private AlertDialog mTimezoneDialog;
     private Activity mActivity;
     private EditDoneRunnable mDone;
     private View mView;
@@ -95,6 +105,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private Cursor mCalendarsCursor;
     private EmailAddressAdapter mAddressAdapter;
     private Rfc822Validator mEmailValidator;
+    private TimezoneAdapter mTimezoneAdapter;
 
     private ArrayList<Integer> mRecurrenceIndexes = new ArrayList<Integer>(0);
     private ArrayList<Integer> mReminderValues;
@@ -106,6 +117,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private Time mStartTime;
     private Time mEndTime;
+    private String mTimezone;
     private int mModification = EditEventHelper.MODIFY_UNINITIALIZED;
 
     private EventRecurrence mEventRecurrence = new EventRecurrence();
@@ -250,6 +262,44 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         mStartTimeButton.setOnClickListener(new TimeClickListener(mStartTime));
         mEndTimeButton.setOnClickListener(new TimeClickListener(mEndTime));
+    }
+
+    private void populateTimezone() {
+        mTimezoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimezoneDialog();
+            }
+        });
+        setTimezone(mTimezoneAdapter.getRowById(mTimezone));
+    }
+
+    private void showTimezoneDialog() {
+        mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        builder.setTitle(R.string.timezone_label);
+        builder.setSingleChoiceItems(
+                mTimezoneAdapter, mTimezoneAdapter.getRowById(mTimezone), this);
+        mTimezoneDialog = builder.create();
+        mTimezoneFooterView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTimezoneDialog.getListView().removeFooterView(mTimezoneFooterView);
+                mTimezoneAdapter.showAllTimezones();
+                final int row = mTimezoneAdapter.getRowById(mTimezone);
+                // we need to post the selection changes to have them have
+                // any effect
+                mTimezoneDialog.getListView().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTimezoneDialog.getListView().setItemChecked(row, true);
+                        mTimezoneDialog.getListView().setSelection(row);
+                    }
+                });
+            }
+        });
+        mTimezoneDialog.getListView().addFooterView(mTimezoneFooterView);
+        mTimezoneDialog.show();
     }
 
     private void populateRepeats() {
@@ -469,6 +519,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     mSaveAfterQueryComplete = true;
                 }
             } else if (fillModelFromUI()) {
+                if (!mModel.mAllDay) {
+                    mTimezoneAdapter.saveRecentTimezone(mTimezone);
+                }
                 mDone.setDoneCode(Utils.DONE_SAVE);
                 mDone.run();
             } else {
@@ -516,6 +569,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (dialog == mNoCalendarsDialog) {
             mDone.setDoneCode(Utils.DONE_REVERT);
             mDone.run();
+        } else if (dialog == mTimezoneDialog) {
+            if (which >= 0 && which < mTimezoneAdapter.getCount()) {
+                setTimezone(which);
+                dialog.dismiss();
+            }
         }
     }
 
@@ -553,9 +611,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (mModel.mAllDay) {
             // Reset start and end time, increment the monthDay by 1, and set
             // the timezone to UTC, as required for all-day events.
+            mTimezone = Time.TIMEZONE_UTC;
             mStartTime.hour = 0;
             mStartTime.minute = 0;
             mStartTime.second = 0;
+            mStartTime.timezone = mTimezone;
             mModel.mStart = mStartTime.normalize(true);
 
             // Round up to the next day
@@ -566,11 +626,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mEndTime.hour = 0;
             mEndTime.minute = 0;
             mEndTime.second = 0;
+            mEndTime.timezone = mTimezone;
             mModel.mEnd = mEndTime.normalize(true);
         } else {
+            mStartTime.timezone = mTimezone;
+            mEndTime.timezone = mTimezone;
             mModel.mStart = mStartTime.toMillis(true);
             mModel.mEnd = mEndTime.toMillis(true);
         }
+        mModel.mTimezone = mTimezone;
         mModel.mVisibility = mVisibilitySpinner.getSelectedItemPosition();
         mModel.mTransparency = mTransparencySpinner.getSelectedItemPosition() != 0;
 
@@ -600,14 +664,19 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mLoadingMessage = (TextView) view.findViewById(R.id.loading_message);
         mScrollView = (ScrollView) view.findViewById(R.id.scroll_view);
 
+        LayoutInflater inflater = activity.getLayoutInflater();
+
         // cache all the widgets
         mTitleTextView = (TextView) view.findViewById(R.id.title);
         mLocationTextView = (TextView) view.findViewById(R.id.location);
         mDescriptionTextView = (TextView) view.findViewById(R.id.description);
+        mTimezoneTextView = (TextView) view.findViewById(R.id.timezone_label);
+        mTimezoneFooterView = (TextView) inflater.inflate(R.layout.timezone_footer, null);
         mStartDateButton = (Button) view.findViewById(R.id.start_date);
         mEndDateButton = (Button) view.findViewById(R.id.end_date);
         mStartTimeButton = (Button) view.findViewById(R.id.start_time);
         mEndTimeButton = (Button) view.findViewById(R.id.end_time);
+        mTimezoneButton = (Button) view.findViewById(R.id.timezone);
         mAllDayCheckBox = (CheckBox) view.findViewById(R.id.is_all_day);
         mCalendarsSpinner = (Spinner) view.findViewById(R.id.calendars);
         mRepeatsSpinner = (Spinner) view.findViewById(R.id.repeats);
@@ -625,6 +694,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         mStartTime = new Time();
         mEndTime = new Time();
+        mTimezone = TimeZone.getDefault().getID();
+        mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
 
         // Display loading screen
         setModel(null);
@@ -651,20 +722,23 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         long begin = model.mStart;
         long end = model.mEnd;
-        String tz = model.mTimezone;
-        String tzEdit = mStartTime.timezone;
+        mTimezone = model.mTimezone;
+        mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
+        if (mTimezoneDialog != null) {
+            mTimezoneDialog.getListView().setAdapter(mTimezoneAdapter);
+        }
+
+        Log.d(TAG, "Model timezone is: " + mTimezone);
 
         // Set up the starting times
         if (begin > 0) {
-            mStartTime.timezone = tz;
+            mStartTime.timezone = mTimezone;
             mStartTime.set(begin);
-            mStartTime.timezone = tzEdit;
             mStartTime.normalize(true);
         }
         if (end > 0) {
-            mEndTime.timezone = tz;
+            mEndTime.timezone = mTimezone;
             mEndTime.set(end);
-            mEndTime.timezone = tzEdit;
             mEndTime.normalize(true);
         }
         String rrule = model.mRrule;
@@ -709,6 +783,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
                     mStartTimeButton.setVisibility(View.GONE);
                     mEndTimeButton.setVisibility(View.GONE);
+                    mTimezoneButton.setVisibility(View.GONE);
+                    mTimezoneTextView.setVisibility(View.GONE);
                 } else {
                     if (mEndTime.hour == 0 && mEndTime.minute == 0) {
                         mEndTime.monthDay++;
@@ -719,6 +795,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
                     mStartTimeButton.setVisibility(View.VISIBLE);
                     mEndTimeButton.setVisibility(View.VISIBLE);
+                    mTimezoneButton.setVisibility(View.VISIBLE);
+                    mTimezoneTextView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -794,6 +872,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         populateWhen();
+        populateTimezone();
         populateRepeats();
         mScrollView.setVisibility(View.VISIBLE);
         mLoadingMessage.setVisibility(View.GONE);
@@ -892,6 +971,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return 0;
     }
 
+
     private void updateRemindersVisibility(int numReminders) {
         if (numReminders == 0) {
             mRemindersSeparator.setVisibility(View.GONE);
@@ -947,7 +1027,22 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
                 | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_MONTH
                 | DateUtils.FORMAT_ABBREV_WEEKDAY;
-        view.setText(DateUtils.formatDateTime(mActivity, millis, flags));
+
+        // Unfortunately, DateUtils doesn't support a timezone other than the
+        // default timezone provided by the system, so we have this ugly hack
+        // here to trick it into formatting our time correctly. In order to
+        // prevent all sorts of craziness, we synchronize on the TimeZone class
+        // to prevent other threads from reading an incorrect timezone from
+        // calls to TimeZone#getDefault()
+        // TODO fix this if/when DateUtils allows for passing in a timezone
+        String dateString;
+        synchronized (TimeZone.class) {
+            TimeZone.setDefault(TimeZone.getTimeZone(mTimezone));
+            dateString = DateUtils.formatDateTime(mActivity, millis, flags);
+            // setting the default back to null restores the correct behavior
+            TimeZone.setDefault(null);
+        }
+        view.setText(dateString);
     }
 
     private void setTime(TextView view, long millis) {
@@ -955,6 +1050,30 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (DateFormat.is24HourFormat(mActivity)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        view.setText(DateUtils.formatDateTime(mActivity, millis, flags));
+
+        // Unfortunately, DateUtils doesn't support a timezone other than the
+        // default timezone provided by the system, so we have this ugly hack
+        // here to trick it into formatting our time correctly. In order to
+        // prevent all sorts of craziness, we synchronize on the TimeZone class
+        // to prevent other threads from reading an incorrect timezone from
+        // calls to TimeZone#getDefault()
+        // TODO fix this if/when DateUtils allows for passing in a timezone
+        String timeString;
+        synchronized (TimeZone.class) {
+            TimeZone.setDefault(TimeZone.getTimeZone(mTimezone));
+            timeString = DateUtils.formatDateTime(mActivity, millis, flags);
+            TimeZone.setDefault(null);
+        }
+        view.setText(timeString);
+    }
+
+    private void setTimezone(int i) {
+        if (i < 0 || i >= mTimezoneAdapter.getCount()) {
+            return; // do nothing
+        }
+        TimezoneRow timezone = mTimezoneAdapter.getItem(i);
+        mTimezoneButton.setText(timezone.toString());
+        mTimezone = timezone.mId;
+        mTimezoneAdapter.setCurrentTimezone(mTimezone);
     }
 }

@@ -147,6 +147,18 @@
 
                 </LinearLayout>
 
+                <TextView android:id="@+id/timezone_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/timezone_label"
+                    style="@style/TextAppearance.EditEvent_Label"/>
+
+                <Button android:id="@+id/timezone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    style="?android:attr/textAppearanceMediumInverse"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
