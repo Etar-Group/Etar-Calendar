@@ -128,7 +128,7 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Configuração de visualização do calendário"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Definições de lembrete"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos recusados"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"A semana começa na"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"A semana começa"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"A semana começa na"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificações"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrar"</string>

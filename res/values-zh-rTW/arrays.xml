@@ -52,10 +52,10 @@
     <item msgid="5840973497558794742">"1 週"</item>
   </string-array>
   <string-array name="preferences_week_start_day_labels">
-    <item msgid="986150274035512339">"語言代碼預設值"</item>
-    <item msgid="134027225275475280">"星期六"</item>
-    <item msgid="95029346069903091">"星期日"</item>
-    <item msgid="5840983116375063739">"星期一"</item>
+    <item msgid="986150274035512339">"地區設定預設值"</item>
+    <item msgid="134027225275475280">"週六"</item>
+    <item msgid="95029346069903091">"週日"</item>
+    <item msgid="5840983116375063739">"週一"</item>
   </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"忙碌"</item>
