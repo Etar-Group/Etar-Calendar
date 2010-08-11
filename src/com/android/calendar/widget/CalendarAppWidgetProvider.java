@@ -16,6 +16,9 @@
 
 package com.android.calendar.widget;
 
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -24,7 +27,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.text.format.DateUtils;
+import android.text.format.Time;
+import android.util.Log;
+import android.widget.RemoteViews;
 
 /**
  * Simple widget to show next upcoming calendar event.
@@ -37,7 +44,6 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             "com.android.calendar.APPWIDGET_UPDATE";
 
     // TODO Move these to Calendar.java
-    static final String EXTRA_WIDGET_IDS = "com.android.calendar.EXTRA_WIDGET_IDS";
     static final String EXTRA_EVENT_IDS = "com.android.calendar.EXTRA_EVENT_IDS";
 
     /**
@@ -49,7 +55,9 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         // coming in without extras, which AppWidgetProvider then blocks.
         final String action = intent.getAction();
         if (ACTION_CALENDAR_APPWIDGET_UPDATE.equals(action)) {
-            performUpdate(context, null /* all widgets */,
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            performUpdate(context, appWidgetManager,
+                    appWidgetManager.getAppWidgetIds(getComponentName(context)),
                     null /* no eventIds */);
         } else {
             super.onReceive(context, intent);
@@ -92,7 +100,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      */
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        performUpdate(context, appWidgetIds, null /* no eventIds */);
+        performUpdate(context, appWidgetManager, appWidgetIds, null /* no eventIds */);
     }
 
 
@@ -116,19 +124,42 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      * @param changedEventIds Specific events known to be changed. If present,
      *            we use it to decide if an update is necessary.
      */
-    private void performUpdate(Context context, int[] appWidgetIds,
+    private void performUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds,
             long[] changedEventIds) {
-            // Launch over to service so it can perform update
-            final Intent updateIntent = new Intent(context, CalendarAppWidgetService.class);
-
-            if (appWidgetIds != null) {
-                updateIntent.putExtra(EXTRA_WIDGET_IDS, appWidgetIds);
-            }
+        // Launch over to service so it can perform update
+        for (int appWidgetId : appWidgetIds) {
+            if (LOGD) Log.d(TAG, "Building widget update...");
+            Intent updateIntent = new Intent(context, CalendarAppWidgetService.class);
+            updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
             if (changedEventIds != null) {
                 updateIntent.putExtra(EXTRA_EVENT_IDS, changedEventIds);
             }
+            updateIntent.setData(Uri.parse(updateIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
-            context.startService(updateIntent);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.appwidget);
+            // Calendar header
+            Time time = new Time();
+            time.setToNow();
+            String dayOfWeek = DateUtils.getDayOfWeekString(
+                    time.weekDay + 1, DateUtils.LENGTH_MEDIUM).toUpperCase();
+            views.setTextViewText(R.id.day_of_week, dayOfWeek);
+            views.setTextViewText(R.id.day_of_month, Integer.toString(time.monthDay));
+            // Attach to list of events
+            views.setRemoteAdapter(R.id.events_list, updateIntent);
+
+            // Clicking on the widget launches Calendar
+            // TODO fix this exact behavior?
+//            long startTime = Math.max(currentTime, events.firstTime);
+            long startTime = System.currentTimeMillis();
+
+            PendingIntent pendingIntent = getLaunchPendingIntent(context, startTime);
+            views.setOnClickPendingIntent(R.id.appwidget, pendingIntent);
+
+            PendingIntent newEventIntent = getNewEventPendingIntent(context);
+            views.setOnClickPendingIntent(R.id.new_event_button, newEventIntent);
+
+            appWidgetManager.updateAppWidget(appWidgetId, views);
+        }
     }
 
     /**
@@ -143,5 +174,38 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         updateIntent.setComponent(new ComponentName(context, CalendarAppWidgetProvider.class));
         return PendingIntent.getBroadcast(context, 0 /* no requestCode */,
                 updateIntent, 0 /* no flags */);
+    }
+
+    /**
+     * Build a {@link PendingIntent} to launch the Calendar app. This correctly
+     * sets action, category, and flags so that we don't duplicate tasks when
+     * Calendar was also launched from a normal desktop icon. If the go to time
+     * is 0, then calendar will be launched without a starting time.
+     *
+     * @param goToTime time that calendar should take the user to, or 0 to
+     *            indicate no specific start time.
+     */
+    static PendingIntent getLaunchPendingIntent(Context context, long goToTime) {
+        Intent launchIntent = new Intent();
+        String dataString = "content://com.android.calendar/time";
+        launchIntent.setAction(Intent.ACTION_VIEW);
+        launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED |
+                Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        if (goToTime != 0) {
+            launchIntent.putExtra(Utils.INTENT_KEY_DETAIL_VIEW, true);
+            dataString += "/" + goToTime;
+        }
+        Uri data = Uri.parse(dataString);
+        launchIntent.setData(data);
+        return PendingIntent.getActivity(context, 0 /* no requestCode */,
+                launchIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private static PendingIntent getNewEventPendingIntent(Context context) {
+        Intent newEventIntent = new Intent(Intent.ACTION_EDIT);
+        newEventIntent.setType("vnd.android.cursor.item/event");
+        return PendingIntent.getActivity(context, 0, newEventIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }

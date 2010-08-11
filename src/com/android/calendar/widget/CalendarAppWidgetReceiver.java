@@ -16,6 +16,7 @@
 
 package com.android.calendar.widget;
 
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +30,8 @@ public class CalendarAppWidgetReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // Launch over to service so it can perform update
-        final Intent updateIntent = new Intent(context, CalendarAppWidgetService.class);
+        final Intent updateIntent = new Intent(
+                CalendarAppWidgetProvider.ACTION_CALENDAR_APPWIDGET_UPDATE);
 
         // Copy over the relevant extra fields if they exist
         if (intent.hasExtra(CalendarAppWidgetProvider.EXTRA_EVENT_IDS)) {
@@ -37,12 +39,18 @@ public class CalendarAppWidgetReceiver extends BroadcastReceiver {
             updateIntent.putExtra(CalendarAppWidgetProvider.EXTRA_EVENT_IDS, data);
         }
 
-        if (intent.hasExtra(CalendarAppWidgetProvider.EXTRA_WIDGET_IDS)) {
-            int[] data = intent.getIntArrayExtra(CalendarAppWidgetProvider.EXTRA_WIDGET_IDS);
-            updateIntent.putExtra(CalendarAppWidgetProvider.EXTRA_WIDGET_IDS, data);
+        if (intent.hasExtra(AppWidgetManager.EXTRA_APPWIDGET_ID)) {
+            int data = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                    AppWidgetManager.INVALID_APPWIDGET_ID);
+            updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, data);
+        }
+
+        if (intent.hasExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS)) {
+            int[] data = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
+            updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, data);
         }
 
         if (LOGD) Log.d(TAG, "Something changed, updating widget");
-        context.startService(updateIntent);
+        context.sendBroadcast(updateIntent);
     }
 }

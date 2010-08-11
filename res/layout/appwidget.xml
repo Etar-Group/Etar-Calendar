@@ -73,38 +73,13 @@
             android:background="#0000" />
     </LinearLayout>
 
-    <!-- Container to show only a single page -->
-    <FrameLayout
-        android:id="@+id/single_page"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
-
-    <!-- Flipper for event pages -->
-    <ViewFlipper
-        android:id="@+id/page_flipper"
-        android:autoStart="true"
-        android:flipInterval="@integer/flip_interval"
+    <!-- Events container -->
+    <ListView
+        android:id="@+id/events_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:inAnimation="@anim/slide_in_fade"
-        android:outAnimation="@anim/slide_out_fade"
-        android:animateFirstView="false">
-    </ViewFlipper>
-
-    <!-- No Event -->
-    <TextView
-        android:id="@+id/no_events"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dip"
-        android:padding="7dip"
-        android:gravity="center"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="@color/appwidget_no_events"
-        android:text="@string/gadget_no_events" />
-
-
+        android:cacheColorHint="#00000000"
+        android:dividerHeight="3dip"
+        android:divider="#0000" />
 
 </LinearLayout>
