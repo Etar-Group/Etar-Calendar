@@ -65,7 +65,7 @@
         </activity-alias>
 
         <activity android:name="EditEventActivity" android:label="@string/event_edit_title"
-            android:theme="@android:style/Theme"
+            android:theme="@android:style/Theme.Light.Holo"
             android:configChanges="orientation|keyboardHidden">
 
             <intent-filter>

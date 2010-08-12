@@ -17,6 +17,7 @@
 package com.android.calendar.event;
 
 import com.android.calendar.CalendarEventModel;
+import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarPreferenceActivity;
 import com.android.calendar.EmailAddressAdapter;
 import com.android.calendar.R;
@@ -47,7 +48,6 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.text.util.Rfc822Tokenizer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -57,6 +57,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.ScrollView;
@@ -67,6 +68,7 @@ import android.widget.TimePicker;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.TimeZone;
 
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
@@ -75,6 +77,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private static final String TAG = EditEventView.class.getSimpleName();
 
     private static final int REMINDER_FLING_VELOCITY = 2000;
+
+    private LayoutInflater mLayoutInflater;
 
     TextView mLoadingMessage;
     ScrollView mScrollView;
@@ -91,6 +95,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Spinner mRepeatsSpinner;
     Spinner mTransparencySpinner;
     Spinner mVisibilitySpinner;
+    Spinner mResponseSpinner;
     TextView mTitleTextView;
     TextView mLocationTextView;
     TextView mDescriptionTextView;
@@ -98,8 +103,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     TextView mTimezoneFooterView;
     View mRemindersSeparator;
     LinearLayout mRemindersContainer;
-    LinearLayout mExtraOptions;
     MultiAutoCompleteTextView mAttendeesList;
+    ImageButton mAddAttendeesButton;
+    ListView mGuestList;
+    AttendeesAdapter mAttendeesAdapter;
 
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
@@ -178,6 +185,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             setDate(mEndDateButton, endMillis);
             setTime(mStartTimeButton, startMillis);
             setTime(mEndTimeButton, endMillis);
+        }
+    }
+
+    private class AddAttendeeClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            mAttendeesList.performValidation();
+            mAttendeesAdapter.addAttendees(mAttendeesList.getText().toString());
+            mAttendeesList.setText("");
         }
     }
 
@@ -597,8 +613,24 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mModel.mAllDay = mAllDayCheckBox.isChecked();
         mModel.mLocation = mLocationTextView.getText().toString().trim();
         mModel.mDescription = mDescriptionTextView.getText().toString().trim();
-        if (mAttendeesList != null) {
-            mModel.mAttendees = mAttendeesList.getText().toString().trim();
+        int position = mResponseSpinner.getSelectedItemPosition();
+        if (position > 0) {
+            mModel.mSelfAttendeeStatus = EditEventHelper.ATTENDEE_VALUES[position];
+        }
+
+        if (mGuestList != null) {
+            AttendeesAdapter adapter = (AttendeesAdapter) mGuestList.getAdapter();
+            if (adapter != null && !adapter.isEmpty()) {
+                int size = adapter.getCount();
+                mModel.mAttendeesList.clear();
+                for (int i = 0; i < size; i++) {
+                    Attendee attendee = adapter.getItem(i);
+                    if (attendee == null || adapter.isRemoved(i)) {
+                        continue;
+                    }
+                    mModel.addAttendee(attendee);
+                }
+            }
         }
 
         // If this was a new event we need to fill in the Calendar information
@@ -652,7 +684,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (mModification == EditEventHelper.MODIFY_SELECTED) {
             selection = EditEventHelper.DOES_NOT_REPEAT;
         } else {
-            int position = mRepeatsSpinner.getSelectedItemPosition();
+            position = mRepeatsSpinner.getSelectedItemPosition();
             selection = mRecurrenceIndexes.get(position);
         }
 
@@ -672,14 +704,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mLoadingMessage = (TextView) view.findViewById(R.id.loading_message);
         mScrollView = (ScrollView) view.findViewById(R.id.scroll_view);
 
-        LayoutInflater inflater = activity.getLayoutInflater();
+        mLayoutInflater = activity.getLayoutInflater();
 
         // cache all the widgets
         mTitleTextView = (TextView) view.findViewById(R.id.title);
         mLocationTextView = (TextView) view.findViewById(R.id.location);
         mDescriptionTextView = (TextView) view.findViewById(R.id.description);
         mTimezoneTextView = (TextView) view.findViewById(R.id.timezone_label);
-        mTimezoneFooterView = (TextView) inflater.inflate(R.layout.timezone_footer, null);
+        mTimezoneFooterView = (TextView) mLayoutInflater.inflate(R.layout.timezone_footer, null);
         mStartDateButton = (Button) view.findViewById(R.id.start_date);
         mEndDateButton = (Button) view.findViewById(R.id.end_date);
         mStartTimeButton = (Button) view.findViewById(R.id.start_time);
@@ -690,20 +722,25 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mRepeatsSpinner = (Spinner) view.findViewById(R.id.repeats);
         mTransparencySpinner = (Spinner) view.findViewById(R.id.availability);
         mVisibilitySpinner = (Spinner) view.findViewById(R.id.visibility);
+        mResponseSpinner = (Spinner) view.findViewById(R.id.response_value);
         mRemindersSeparator = view.findViewById(R.id.reminders_separator);
         mRemindersContainer = (LinearLayout) view.findViewById(R.id.reminder_items_container);
-        mExtraOptions = (LinearLayout) view.findViewById(R.id.extra_options_container);
 
-        mSaveButton = (Button) mView.findViewById(R.id.save);
-        mDeleteButton = (Button) mView.findViewById(R.id.delete);
+        mSaveButton = (Button) view.findViewById(R.id.save);
+        mDeleteButton = (Button) view.findViewById(R.id.delete);
 
-        mDiscardButton = (Button) mView.findViewById(R.id.discard);
+        mDiscardButton = (Button) view.findViewById(R.id.discard);
         mDiscardButton.setOnClickListener(this);
+
+        mAddAttendeesButton = (ImageButton) view.findViewById(R.id.attendee_add);
+        mAddAttendeesButton.setOnClickListener(new AddAttendeeClickListener());
 
         mStartTime = new Time();
         mEndTime = new Time();
         mTimezone = TimeZone.getDefault().getID();
         mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
+
+        mGuestList = (ListView) mView.findViewById(R.id.attendee_list);
 
         // Display loading screen
         setModel(null);
@@ -863,16 +900,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         ImageButton reminderRemoveButton = (ImageButton) mView.findViewById(R.id.reminder_add);
         reminderRemoveButton.setOnClickListener(addReminderOnClickListener);
 
-        String attendees = model.mAttendees;
-        if (model.mHasAttendeeData && !TextUtils.isEmpty(attendees)) {
-            mAttendeesList.setText(attendees);
-        }
-
         mTitleTextView.setText(model.mTitle);
         mLocationTextView.setText(model.mLocation);
         mDescriptionTextView.setText(model.mDescription);
         mTransparencySpinner.setSelection(model.mTransparency ? 1 : 0);
         mVisibilitySpinner.setSelection(model.mVisibility);
+        mResponseSpinner.setSelection(findResponseIndexFor(model.mSelfAttendeeStatus));
 
         if (model.mUri != null) {
             // This is an existing event so hide the calendar spinner
@@ -886,8 +919,19 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         populateWhen();
         populateTimezone();
         populateRepeats();
+        updateAttendees(model.mAttendeesList);
         mScrollView.setVisibility(View.VISIBLE);
         mLoadingMessage.setVisibility(View.GONE);
+    }
+
+    private int findResponseIndexFor(int response) {
+        int size = EditEventHelper.ATTENDEE_VALUES.length;
+        for (int index = 0; index < size; index++) {
+            if (EditEventHelper.ATTENDEE_VALUES[index] == response) {
+                return index;
+            }
+        }
+        return 0;
     }
 
     public void setCalendarsCursor(Cursor cursor) {
@@ -983,6 +1027,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return 0;
     }
 
+    public void updateAttendees(HashMap<String, Attendee> attendeesList) {
+        if (mAttendeesAdapter == null) {
+            mAttendeesAdapter = new AttendeesAdapter(mActivity, mEmailValidator);
+        }
+        if (attendeesList.size() > 0) {
+            mAttendeesAdapter.addAttendees(attendeesList);
+            mGuestList.setAdapter(mAttendeesAdapter);
+        }
+    }
 
     private void updateRemindersVisibility(int numReminders) {
         if (numReminders == 0) {

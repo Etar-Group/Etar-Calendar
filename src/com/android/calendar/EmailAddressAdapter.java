@@ -20,9 +20,9 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
-import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.util.Rfc822Token;
 import android.view.View;
 import android.widget.ResourceCursorAdapter;
@@ -46,7 +46,7 @@ public class EmailAddressAdapter extends ResourceCursorAdapter {
     };
 
     public EmailAddressAdapter(Context context) {
-        super(context, android.R.layout.simple_dropdown_item_1line, null);
+        super(context, R.layout.simple_dropdown_item_1line, null);
         mContentResolver = context.getContentResolver();
     }
 

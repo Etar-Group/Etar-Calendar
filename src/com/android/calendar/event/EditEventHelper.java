@@ -19,6 +19,7 @@ package com.android.calendar.event;
 import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
+import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 import com.android.common.Rfc822Validator;
@@ -28,6 +29,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.pim.EventRecurrence;
 import android.provider.Calendar.Attendees;
@@ -40,11 +42,14 @@ import android.text.format.Time;
 import android.text.util.Rfc822Token;
 import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.QuickContactBadge;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.TimeZone;
 
 public class EditEventHelper {
@@ -133,6 +138,15 @@ public class EditEventHelper {
     // if an uri is provided for an event that doesn't exist in the db.
     protected boolean mEventOk = true;
 
+    public static final int ATTENDEE_NO_RESPONSE = -1;
+    public static final int ATTENDEE_ID_NONE = -1;
+    public static final int[] ATTENDEE_VALUES = {
+            ATTENDEE_NO_RESPONSE,
+            Attendees.ATTENDEE_STATUS_ACCEPTED,
+            Attendees.ATTENDEE_STATUS_TENTATIVE,
+            Attendees.ATTENDEE_STATUS_DECLINED,
+    };
+
     /**
      * This is the symbolic name for the key used to pass in the boolean for
      * creating all-day events that is part of the extra data of the intent.
@@ -156,15 +170,36 @@ public class EditEventHelper {
             + Calendars.CONTRIBUTOR_ACCESS + " AND " + Calendars.SELECTED + "=1";
 
     static final String[] ATTENDEES_PROJECTION = new String[] {
-            Attendees.ATTENDEE_NAME, // 0
-            Attendees.ATTENDEE_EMAIL, // 1
-            Attendees.ATTENDEE_RELATIONSHIP, // 2
+            Attendees._ID, // 0
+            Attendees.ATTENDEE_NAME, // 1
+            Attendees.ATTENDEE_EMAIL, // 2
+            Attendees.ATTENDEE_RELATIONSHIP, // 3
+            Attendees.ATTENDEE_STATUS, // 4
     };
-    static final int ATTENDEES_INDEX_NAME = 0;
-    static final int ATTENDEES_INDEX_EMAIL = 1;
-    static final int ATTENDEES_INDEX_RELATIONSHIP = 2;
+    static final int ATTENDEES_INDEX_ID = 0;
+    static final int ATTENDEES_INDEX_NAME = 1;
+    static final int ATTENDEES_INDEX_EMAIL = 2;
+    static final int ATTENDEES_INDEX_RELATIONSHIP = 3;
+    static final int ATTENDEES_INDEX_STATUS = 4;
     static final String ATTENDEES_WHERE_NOT_ORGANIZER = Attendees.EVENT_ID + "=? AND "
             + Attendees.ATTENDEE_RELATIONSHIP + "<>" + Attendees.RELATIONSHIP_ORGANIZER;
+    static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=?";
+
+    public static class ContactViewHolder {
+        QuickContactBadge badge;
+        ImageView presence;
+        int updateCounts;
+    }
+
+    public static class AttendeeItem {
+        public boolean mRemoved;
+        public boolean mDivider;
+        public String mDividerLabel;
+        public Attendee mAttendee;
+        public Drawable mBadge;
+        public int mPresence;
+        public int mUpdateCounts;
+    }
 
     public EditEventHelper(AbstractCalendarActivity activity, CalendarEventModel model) {
         mActivity = activity;
@@ -364,21 +399,34 @@ public class EditEventHelper {
                 values.put(Attendees.ATTENDEE_EMAIL, ownerEmail);
                 values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
                 values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
-                values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_ACCEPTED);
+                values.put(Attendees.ATTENDEE_STATUS, model.mSelfAttendeeStatus);
 
                 b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI).withValues(values);
-                b.withValueBackReference(Reminders.EVENT_ID, eventIdIndex);
+                b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
                 ops.add(b.build());
             }
+        } else if (hasAttendeeData &&
+                model.mSelfAttendeeStatus != originalModel.mSelfAttendeeStatus &&
+                model.mOwnerAttendeeId != -1) {
+            if (DEBUG) {
+                Log.d(TAG, "Setting attendee status to " + model.mSelfAttendeeStatus);
+            }
+            Uri attUri = ContentUris.withAppendedId(Attendees.CONTENT_URI, model.mOwnerAttendeeId);
+
+            values.clear();
+            values.put(Attendees.ATTENDEE_STATUS, model.mSelfAttendeeStatus);
+            values.put(Attendees.EVENT_ID, model.mId);
+            b = ContentProviderOperation.newUpdate(attUri).withValues(values);
+            ops.add(b.build());
         }
 
         // TODO: is this the right test? this currently checks if this is
         // a new event or an existing event. or is this a paranoia check?
         if (hasAttendeeData && (newEvent || uri != null)) {
-            String attendees = model.mAttendees;
+            String attendees = model.getAttendeesString();
             String originalAttendeesString;
             if (originalModel != null) {
-                originalAttendeesString = originalModel.mAttendees;
+                originalAttendeesString = originalModel.getAttendeesString();
             } else {
                 originalAttendeesString = "";
             }
@@ -389,7 +437,8 @@ public class EditEventHelper {
                 // need to be deleted. use a linked hash set, so we maintain
                 // order (but also remove duplicates).
                 setDomainFromModel(model);
-                LinkedHashSet<Rfc822Token> newAttendees = getAddressesFromList(attendees);
+                HashMap<String, Attendee> newAttendees = model.mAttendeesList;
+                LinkedList<String> removedAttendees = new LinkedList<String>();
 
                 // the eventId is only used if eventIdIndex is -1.
                 // TODO: clean up this code.
@@ -399,16 +448,15 @@ public class EditEventHelper {
                 // new events (being inserted into the Events table) won't
                 // have any existing attendees.
                 if (!newEvent) {
-                    HashSet<Rfc822Token> removedAttendees = new HashSet<Rfc822Token>();
-                    HashSet<Rfc822Token> originalAttendees = new HashSet<Rfc822Token>();
-                    Rfc822Tokenizer.tokenize(originalAttendeesString, originalAttendees);
-                    for (Rfc822Token originalAttendee : originalAttendees) {
-                        if (newAttendees.contains(originalAttendee)) {
+                    removedAttendees.clear();
+                    HashMap<String, Attendee> originalAttendees = originalModel.mAttendeesList;
+                    for (String originalEmail : originalAttendees.keySet()) {
+                        if (newAttendees.containsKey(originalEmail)) {
                             // existing attendee. remove from new attendees set.
-                            newAttendees.remove(originalAttendee);
+                            newAttendees.remove(originalEmail);
                         } else {
                             // no longer in attendees. mark as removed.
-                            removedAttendees.add(originalAttendee);
+                            removedAttendees.add(originalEmail);
                         }
                     }
 
@@ -420,12 +468,12 @@ public class EditEventHelper {
                         args[0] = Long.toString(eventId);
                         int i = 1;
                         StringBuilder deleteWhere = new StringBuilder(ATTENDEES_DELETE_PREFIX);
-                        for (Rfc822Token removedAttendee : removedAttendees) {
+                        for (String removedAttendee : removedAttendees) {
                             if (i > 1) {
                                 deleteWhere.append(",");
                             }
                             deleteWhere.append("?");
-                            args[i++] = removedAttendee.getAddress();
+                            args[i++] = removedAttendee;
                         }
                         deleteWhere.append(")");
                         b.withSelection(deleteWhere.toString(), args);
@@ -435,10 +483,10 @@ public class EditEventHelper {
 
                 if (newAttendees.size() > 0) {
                     // Insert the new attendees
-                    for (Rfc822Token attendee : newAttendees) {
+                    for (Attendee attendee : newAttendees.values()) {
                         values.clear();
-                        values.put(Attendees.ATTENDEE_NAME, attendee.getName());
-                        values.put(Attendees.ATTENDEE_EMAIL, attendee.getAddress());
+                        values.put(Attendees.ATTENDEE_NAME, attendee.mName);
+                        values.put(Attendees.ATTENDEE_EMAIL, attendee.mEmail);
                         values.put(Attendees.ATTENDEE_RELATIONSHIP,
                                 Attendees.RELATIONSHIP_ATTENDEE);
                         values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
@@ -466,17 +514,21 @@ public class EditEventHelper {
         return true;
     }
 
-    public LinkedHashSet<Rfc822Token> getAddressesFromList(String list) {
+    public static LinkedHashSet<Rfc822Token> getAddressesFromList(String list,
+            Rfc822Validator validator) {
         LinkedHashSet<Rfc822Token> addresses = new LinkedHashSet<Rfc822Token>();
         Rfc822Tokenizer.tokenize(list, addresses);
+        if (validator == null) {
+            return addresses;
+        }
 
         // validate the emails, out of paranoia. they should already be
         // validated on input, but drop any invalid emails just to be safe.
         Iterator<Rfc822Token> addressIterator = addresses.iterator();
         while (addressIterator.hasNext()) {
             Rfc822Token address = addressIterator.next();
-            if (!mEmailValidator.isValid(address.getAddress())) {
-                Log.v(TAG, "Dropping invalid attendee email address: " + address);
+            if (!validator.isValid(address.getAddress())) {
+                Log.v(TAG, "Dropping invalid attendee email address: " + address.getAddress());
                 addressIterator.remove();
             }
         }
@@ -737,9 +789,9 @@ public class EditEventHelper {
      * @param forceSave if true, then save the reminders even if they didn't change
      * @return true if operations to update the database were added
      */
-    public boolean saveRemindersWithBackRef(ArrayList<ContentProviderOperation> ops, int eventIdIndex,
-            ArrayList<Integer> reminderMinutes, ArrayList<Integer> originalMinutes,
-            boolean forceSave) {
+    public boolean saveRemindersWithBackRef(ArrayList<ContentProviderOperation> ops,
+            int eventIdIndex, ArrayList<Integer> reminderMinutes,
+            ArrayList<Integer> originalMinutes, boolean forceSave) {
         // If the reminders have not changed, then don't update the database
         if (reminderMinutes.equals(originalMinutes) && !forceSave) {
             return false;

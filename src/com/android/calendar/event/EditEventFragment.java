@@ -21,6 +21,7 @@ import static android.provider.Calendar.EVENT_END_TIME;
 
 import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.CalendarEventModel;
+import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.DeleteEventHelper;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
@@ -121,8 +122,12 @@ public class EditEventFragment extends Fragment {
 
                     displayEditWhichDialogue();
 
-                    // Reminders cursor
                     eventId = mModel.mId;
+                    // If there are attendees or alarms query for them
+                    // We only query one table at a time so that we can easily
+                    // tell if we are finished with all our queries. At a later
+                    // point we might want to parallelize this and keep track of
+                    // which queries are done.
                     if (mModel.mHasAttendeeData && eventId != -1) {
                         Uri attUri = Attendees.CONTENT_URI;
                         String[] whereArgs = {
@@ -130,8 +135,19 @@ public class EditEventFragment extends Fragment {
                         };
                         mHandler.startQuery(TOKEN_ATTENDEES, null, attUri,
                                 EditEventHelper.ATTENDEES_PROJECTION,
-                                EditEventHelper.ATTENDEES_WHERE_NOT_ORGANIZER /* selection */,
+                                EditEventHelper.ATTENDEES_WHERE /* selection */,
                                 whereArgs /* selection args */, null /* sort order */);
+                    } else if (mModel.mHasAlarm) {
+                        Uri rUri = Reminders.CONTENT_URI;
+                        String[] remArgs = {
+                                Long.toString(eventId), Integer.toString(Reminders.METHOD_ALERT),
+                                Integer.toString(Reminders.METHOD_DEFAULT)
+                        };
+                        mHandler
+                                .startQuery(TOKEN_REMINDERS, null, rUri,
+                                        EditEventHelper.REMINDERS_PROJECTION,
+                                        EditEventHelper.REMINDERS_WHERE /* selection */,
+                                        remArgs /* selection args */, null /* sort order */);
                     } else {
                         // Set the model if there are no more queries to
                         // make
@@ -140,25 +156,31 @@ public class EditEventFragment extends Fragment {
                     break;
                 case TOKEN_ATTENDEES:
                     try {
-                        StringBuilder b = new StringBuilder();
                         while (cursor.moveToNext()) {
                             String name = cursor.getString(EditEventHelper.ATTENDEES_INDEX_NAME);
                             String email = cursor.getString(EditEventHelper.ATTENDEES_INDEX_EMAIL);
+                            int status = cursor.getInt(EditEventHelper.ATTENDEES_INDEX_STATUS);
                             int relationship = cursor
                                     .getInt(EditEventHelper.ATTENDEES_INDEX_RELATIONSHIP);
                             if (email != null) {
-                                if (name != null && name.length() > 0 && !name.equals(email)) {
-                                    b.append('"').append(name).append("\" ");
-                                }
-                                b.append('<').append(email).append(">, ");
                                 if (relationship == Attendees.RELATIONSHIP_ORGANIZER) {
                                     mModel.mOrganizer = email;
                                 }
+                                if (mModel.mOwnerAccount != null &&
+                                        mModel.mOwnerAccount.equalsIgnoreCase(email)) {
+                                    int attendeeId =
+                                        cursor.getInt(EditEventHelper.ATTENDEES_INDEX_ID);
+                                    mModel.mOwnerAttendeeId = attendeeId;
+                                    mModel.mSelfAttendeeStatus = status;
+                                    mOriginalModel.mOwnerAttendeeId = attendeeId;
+                                    mOriginalModel.mSelfAttendeeStatus = status;
+                                    continue;
+                                }
                             }
-                        }
-                        if (b.length() > 0) {
-                            mModel.mAttendees = b.toString();
-                            mOriginalModel.mAttendees = new String(mModel.mAttendees);
+                            Attendee attendee = new Attendee(name, email);
+                            attendee.mStatus = status;
+                            mModel.addAttendee(attendee);
+                            mOriginalModel.addAttendee(attendee);
                         }
                     } finally {
                         cursor.close();
@@ -177,10 +199,7 @@ public class EditEventFragment extends Fragment {
                                 .startQuery(TOKEN_REMINDERS, null, rUri,
                                         EditEventHelper.REMINDERS_PROJECTION,
                                         EditEventHelper.REMINDERS_WHERE /* selection */,
-                                        remArgs /* selection args */, null /*
-                                                                            * sort
-                                                                            * order
-                                                                            */);
+                                        remArgs /* selection args */, null /* sort order */);
                     } else {
                         // Set the model if there are no more queries to
                         // make
@@ -254,6 +273,7 @@ public class EditEventFragment extends Fragment {
             }
             mModel.mStart = mBegin;
             mModel.mEnd = mEnd;
+            mModel.mSelfAttendeeStatus = Attendees.ATTENDEE_STATUS_ACCEPTED;
             mView.setModel(mModel);
 
             // Start a query in the background to read the list of calendars
@@ -383,7 +403,8 @@ public class EditEventFragment extends Fragment {
             }).setTitle(R.string.edit_event_label).setItems(items, new OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     if (which == 0) {
-                        mModification = (mModel.mSyncId == null) ? Utils.MODIFY_ALL : Utils.MODIFY_SELECTED;
+                        mModification = (mModel.mSyncId == null) ? Utils.MODIFY_ALL
+                                : Utils.MODIFY_SELECTED;
                     } else if (which == 1) {
                         mModification = (mModel.mSyncId == null) ? Utils.MODIFY_ALL_FOLLOWING
                                 : Utils.MODIFY_ALL;
