@@ -133,13 +133,14 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         private static final String TAG = CalendarFactory.class.getSimpleName();
 
-        private static final boolean LOGD = true;
+        private static final boolean LOGD = false;
 
         private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String action = intent.getAction();
-                if (action.equals(Intent.ACTION_TIMEZONE_CHANGED)
+                if (action.equals(CalendarAppWidgetProvider.ACTION_CALENDAR_APPWIDGET_UPDATE)
+                        || action.equals(Intent.ACTION_TIMEZONE_CHANGED)
                         || action.equals(Intent.ACTION_TIME_CHANGED)
                         || action.equals(Intent.ACTION_DATE_CHANGED)
                         || (action.equals(Intent.ACTION_PROVIDER_CHANGED)
@@ -179,6 +180,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         public void onCreate() {
             loadData();
             IntentFilter filter = new IntentFilter();
+            filter.addAction(CalendarAppWidgetProvider.ACTION_CALENDAR_APPWIDGET_UPDATE);
             filter.addAction(Intent.ACTION_TIME_CHANGED);
             filter.addAction(Intent.ACTION_DATE_CHANGED);
             filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
