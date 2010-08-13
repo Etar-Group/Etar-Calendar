@@ -165,6 +165,16 @@ public class CalendarController {
         }
     }
 
+    /**
+     * Removes an instance when it is no longer needed. This should be called in
+     * an activity's onDestroy method.
+     *
+     * @param context The activity used to create the controller
+     */
+    public static void removeInstance(Context context) {
+        instances.remove(context);
+    }
+
     private CalendarController(Context context) {
         mContext = context;
         mTime.setToNow();

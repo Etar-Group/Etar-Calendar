@@ -129,6 +129,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
         prefs.unregisterOnSharedPreferenceChangeListener(this);
+        CalendarController.removeInstance(this);
     }
 
     private void initFragments(long timeMillis, int viewType) {
