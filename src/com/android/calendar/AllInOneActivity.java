@@ -50,6 +50,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static CalendarController mController;
     private static boolean mIsMultipane;
     private ContentResolver mContentResolver;
+    private int mPreviousView;
+    private int mCurrentView;
 
     // Create an observer so that we can update the views whenever a
     // Calendar event changes.
@@ -93,8 +95,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         setContentView(R.layout.all_in_one);
 
-
         initFragments(timeMillis, viewType);
+        mPreviousView = viewType;
+        mCurrentView = viewType;
 
         // Listen for changes that would require this to be refreshed
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
@@ -154,6 +157,16 @@ public class AllInOneActivity extends Activity implements EventHandler,
         Time t = new Time();
         t.set(timeMillis);
         mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mPreviousView == mCurrentView) {
+            super.onBackPressed();
+        } else {
+            mCurrentView = mPreviousView;
+            mController.sendEvent(this, EventType.GO_TO, null, null, -1, mCurrentView);
+        }
     }
 
     @Override
@@ -221,6 +234,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
             return;
         }
 
+        if (viewType != mCurrentView) {
+            // The rules for this previous view are different than the
+            // controller's and are used for intercepting the back button.
+            mPreviousView = mCurrentView;
+            mCurrentView = viewType;
+        }
         // Create new fragment
         Fragment frag;
         switch (viewType) {
