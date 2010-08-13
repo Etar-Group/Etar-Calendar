@@ -82,7 +82,7 @@
     <!-- Menu items: -->
     <skip />
     <!-- This is a label on a context menu item. Pressing this menu item to initiate
-        syncing of your Calendar data with the server. -->
+        syncing of your Calendar data with the server. [CHAR LIMIT=11] -->
     <string name="calendar_refresh"> "Refresh"</string>
     <!-- This is a label on a context menu item. Pressing this menu item displays the
          Agenda view. -->
@@ -126,7 +126,7 @@
          user to view and edit his Settings (or Preferences) -->
     <string name="menu_preferences">"Settings"</string>
     <!-- This is a label on a menu item. Pressing this menu item allows the
-         user to search their events. -->
+         user to search their events. [CHAR LIMIT=11]-->
     <string name="search">"Search"</string>
 
     <!-- Month view -->
@@ -216,8 +216,8 @@
     <string name="edit_event_show_extra_options">Show extra options</string>
     <!-- Menu item to hide extra options that are used less often -->
     <string name="edit_event_hide_extra_options">Hide extra options</string>
-    <!-- Menu item to show all choices [CHAR LIMIT=24]-->
-    <string name="edit_event_show_all">Show all \u003E</string>
+    <!-- Menu item to show all choices [CHAR LIMIT=22]-->
+    <string name="edit_event_show_all">Show all</string>
     <!-- Label for the event description -->
     <string name="description_label">Description</string>
     <!-- Label for the 'Presence' of an event, which can be either 'busy' (the default)
@@ -259,7 +259,7 @@
 
     <!-- Search activity strings -->
     <skip />
-    <!-- Title of the search screen -->
+    <!-- Title of the search screen [CHAR LIMIT=30] -->
     <string name="search_title">Search my calendars</string>
 
     <!-- ICS Import activity -->
