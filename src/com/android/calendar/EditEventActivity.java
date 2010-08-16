@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import com.android.calendar.event.EditEventFragment;
+
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.FrameLayout;

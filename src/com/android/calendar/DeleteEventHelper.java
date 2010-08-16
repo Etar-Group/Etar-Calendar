@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import com.android.calendar.event.EditEventHelper;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
@@ -68,9 +70,9 @@ public class DeleteEventHelper {
      * These are the corresponding indices into the array of strings
      * "R.array.delete_repeating_labels" in the resource file.
      */
-    static final int DELETE_SELECTED = 0;
-    static final int DELETE_ALL_FOLLOWING = 1;
-    static final int DELETE_ALL = 2;
+    public static final int DELETE_SELECTED = 0;
+    public static final int DELETE_ALL_FOLLOWING = 1;
+    public static final int DELETE_ALL = 2;
 
     private int mWhichDelete;
     private AlertDialog mAlertDialog;

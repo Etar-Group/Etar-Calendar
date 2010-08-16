@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.event;
 
+import com.android.calendar.AbstractCalendarActivity;
+import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarEventModel;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
 import com.android.common.Rfc822Validator;
 
 import android.content.ContentProviderOperation;
@@ -37,7 +42,6 @@ import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -50,7 +54,7 @@ public class EditEventHelper {
 
     public static final int MAX_REMINDERS = 5;
 
-    protected static final String[] EVENT_PROJECTION = new String[] {
+    public static final String[] EVENT_PROJECTION = new String[] {
             Events._ID, // 0
             Events.TITLE, // 1
             Events.DESCRIPTION, // 2
@@ -462,7 +466,7 @@ public class EditEventHelper {
         return true;
     }
 
-    LinkedHashSet<Rfc822Token> getAddressesFromList(String list) {
+    public LinkedHashSet<Rfc822Token> getAddressesFromList(String list) {
         LinkedHashSet<Rfc822Token> addresses = new LinkedHashSet<Rfc822Token>();
         Rfc822Tokenizer.tokenize(list, addresses);
 
@@ -580,7 +584,7 @@ public class EditEventHelper {
      * @param originalModel The original event that we're updating
      * @param initialBeginTime The original start time for the exception
      */
-    void updatePastEvents(ArrayList<ContentProviderOperation> ops,
+    public void updatePastEvents(ArrayList<ContentProviderOperation> ops,
             CalendarEventModel originalModel, long initialBeginTime) {
         boolean allDay = originalModel.mAllDay;
         String oldRrule = originalModel.mRrule;
@@ -630,7 +634,7 @@ public class EditEventHelper {
     // if the given minutes is 63, then this returns the string "63 minutes".
     // As another example, if the given minutes is 120, then this returns
     // "2 hours".
-    String constructReminderLabel(int minutes, boolean abbrev) {
+    public String constructReminderLabel(int minutes, boolean abbrev) {
         Resources resources = mActivity.getResources();
         int value, resId;
 
@@ -662,7 +666,7 @@ public class EditEventHelper {
      *
      * @return
      */
-    static boolean isSameEvent(CalendarEventModel model, CalendarEventModel originalModel) {
+    public static boolean isSameEvent(CalendarEventModel model, CalendarEventModel originalModel) {
         if (originalModel == null) {
             return true;
         }
@@ -688,7 +692,7 @@ public class EditEventHelper {
      * @param forceSave if true, then save the reminders even if they didn't change
      * @return true if operations to update the database were added
      */
-    static boolean saveReminders(ArrayList<ContentProviderOperation> ops, long eventId,
+    public static boolean saveReminders(ArrayList<ContentProviderOperation> ops, long eventId,
             ArrayList<Integer> reminderMinutes, ArrayList<Integer> originalMinutes,
             boolean forceSave) {
         // If the reminders have not changed, then don't update the database
@@ -733,7 +737,7 @@ public class EditEventHelper {
      * @param forceSave if true, then save the reminders even if they didn't change
      * @return true if operations to update the database were added
      */
-    boolean saveRemindersWithBackRef(ArrayList<ContentProviderOperation> ops, int eventIdIndex,
+    public boolean saveRemindersWithBackRef(ArrayList<ContentProviderOperation> ops, int eventIdIndex,
             ArrayList<Integer> reminderMinutes, ArrayList<Integer> originalMinutes,
             boolean forceSave) {
         // If the reminders have not changed, then don't update the database

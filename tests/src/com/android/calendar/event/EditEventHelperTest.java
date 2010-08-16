@@ -14,7 +14,14 @@
  * the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.event;
+
+import com.android.calendar.AbstractCalendarActivity;
+import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarEventModel;
+import com.android.calendar.R;
+import com.android.calendar.R.plurals;
+import com.android.calendar.event.EditEventHelper;
 
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;

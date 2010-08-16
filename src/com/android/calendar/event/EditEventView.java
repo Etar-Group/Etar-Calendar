@@ -14,10 +14,16 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.event;
 
-import com.android.calendar.EditEventHelper.EditDoneRunnable;
+import com.android.calendar.CalendarEventModel;
+import com.android.calendar.CalendarPreferenceActivity;
+import com.android.calendar.EmailAddressAdapter;
+import com.android.calendar.R;
+import com.android.calendar.TimezoneAdapter;
 import com.android.calendar.TimezoneAdapter.TimezoneRow;
+import com.android.calendar.Utils;
+import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
 

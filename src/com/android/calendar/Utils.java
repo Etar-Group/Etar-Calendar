@@ -88,7 +88,7 @@ public class Utils {
                 CalendarPreferenceActivity.DEFAULT_START_VIEW);
     }
 
-    static String getSharedPreference(Context context, String key, String defaultValue) {
+    public static String getSharedPreference(Context context, String key, String defaultValue) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         return prefs.getString(key, defaultValue);
     }
@@ -98,7 +98,7 @@ public class Utils {
         return prefs.getInt(key, defaultValue);
     }
 
-    static void setSharedPreference(Context context, String key, String value) {
+    public static void setSharedPreference(Context context, String key, String value) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(key, value);

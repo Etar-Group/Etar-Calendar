@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.calendar;
+package com.android.calendar.event;
+
+import com.android.calendar.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -37,7 +39,7 @@ public class EventViewUtils {
     // if the given minutes is 63, then this returns the string "63 minutes".
     // As another example, if the given minutes is 120, then this returns
     // "2 hours".
-    static String constructReminderLabel(Context context, int minutes, boolean abbrev) {
+    public static String constructReminderLabel(Context context, int minutes, boolean abbrev) {
         Resources resources = context.getResources();
         int value, resId;
 
@@ -67,7 +69,7 @@ public class EventViewUtils {
      * @param minutes the minutes to search for in the values list
      * @return the index of "minutes" in the "values" list
      */
-    static int findMinutesInReminderList(ArrayList<Integer> values, int minutes) {
+    public static int findMinutesInReminderList(ArrayList<Integer> values, int minutes) {
         int index = values.indexOf(minutes);
         if (index == -1) {
             // This should never happen.
@@ -77,7 +79,7 @@ public class EventViewUtils {
         return index;
     }
 
-    static ArrayList<Integer> reminderItemsToMinutes(ArrayList<LinearLayout> reminderItems,
+    public static ArrayList<Integer> reminderItemsToMinutes(ArrayList<LinearLayout> reminderItems,
             ArrayList<Integer> reminderValues) {
         int len = reminderItems.size();
         ArrayList<Integer> reminderMinutes = new ArrayList<Integer>(len);
@@ -93,7 +95,7 @@ public class EventViewUtils {
     // Checks our list of minute value-label pairs and adds any custom times
     // this event
     // might contain.
-    static void addMinutesToList(Context context, ArrayList<Integer> values,
+    public static void addMinutesToList(Context context, ArrayList<Integer> values,
             ArrayList<String> labels, int minutes) {
         int index = values.indexOf(minutes);
         if (index != -1) {
@@ -120,7 +122,7 @@ public class EventViewUtils {
     // Adds a reminder to the displayed list of reminders.
     // Returns true if successfully added reminder, false if no reminders can
     // be added.
-    static boolean addReminder(Activity activity, View view, View.OnClickListener listener,
+    public static boolean addReminder(Activity activity, View view, View.OnClickListener listener,
             ArrayList<LinearLayout> items, ArrayList<Integer> values, ArrayList<String> labels,
             int minutes) {
 

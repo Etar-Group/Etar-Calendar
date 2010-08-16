@@ -17,6 +17,8 @@
 package com.android.calendar;
 
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.event.EditEventHelper;
+import com.android.calendar.event.EventViewUtils;
 
 import android.app.Activity;
 import android.app.Fragment;

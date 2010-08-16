@@ -14,10 +14,16 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.event;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
+
+import com.android.calendar.AbstractCalendarActivity;
+import com.android.calendar.CalendarEventModel;
+import com.android.calendar.DeleteEventHelper;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
