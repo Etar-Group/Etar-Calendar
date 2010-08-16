@@ -240,7 +240,21 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
         }
 
         clear();
+
+        TimeZone gmt = TimeZone.getTimeZone("GMT");
         for (String id : ids) {
+            if (!sTimezones.containsKey(id)) {
+                // a timezone we don't know about, so try to add it...
+                TimeZone newTz = TimeZone.getTimeZone(id);
+                // since TimeZone.getTimeZone actually returns a clone of GMT
+                // when it doesn't recognize the ID, this appears to be the only
+                // reliable way to check to see if the ID is a valid timezone
+                if (!newTz.equals(gmt)) {
+                    sTimezones.put(id, new TimezoneRow(id, newTz.getDisplayName()));
+                } else {
+                    continue;
+                }
+            }
             add(sTimezones.get(id));
         }
         mShowingAll = false;

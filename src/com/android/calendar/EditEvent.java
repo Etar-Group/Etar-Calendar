@@ -77,6 +77,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.Spinner;
@@ -196,9 +197,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private static final int MODIFY_SELECTED = 1;
     private static final int MODIFY_ALL = 2;
     private static final int MODIFY_ALL_FOLLOWING = 3;
-
-    // unique id assigned to the timezone dialog
-    private static final int TIMEZONE_DIALOG_ID = 7172;
 
     private static final int DAY_IN_SECONDS = 24 * 60 * 60;
 
@@ -629,7 +627,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
         mStartTime = new Time();
         mEndTime = new Time();
         mTimezone = TimeZone.getDefault().getID();
-        mTimezoneAdapter = new TimezoneAdapter(this, mTimezone);
 
         Intent intent = getIntent();
         mUri = intent.getData();
@@ -655,7 +652,11 @@ public class EditEvent extends Activity implements View.OnClickListener,
             mHasAttendeeData = mEventCursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
             allDay = mEventCursor.getInt(EVENT_INDEX_ALL_DAY) != 0;
             String rrule = mEventCursor.getString(EVENT_INDEX_RRULE);
-            mTimezone = mEventCursor.getString(EVENT_INDEX_TIMEZONE);
+            if (!allDay) {
+                // only load the event timezone for non-all-day events
+                // otherwise it defaults to device default
+                mTimezone = mEventCursor.getString(EVENT_INDEX_TIMEZONE);
+            }
             long calendarId = mEventCursor.getInt(EVENT_INDEX_CALENDAR_ID);
             mOwnerAccount = mEventCursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
             if (!TextUtils.isEmpty(mOwnerAccount)) {
@@ -688,6 +689,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
             mQueryHandler.startQuery(0, null, Calendars.CONTENT_URI, CALENDARS_PROJECTION,
                     CALENDARS_WHERE, null /* selection args */, null /* sort order */);
         }
+
+        mTimezoneAdapter = new TimezoneAdapter(this, mTimezone);
 
         // If the event is all-day, read the times in UTC timezone
         if (begin != 0) {
@@ -778,6 +781,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
                     mStartTimeButton.setVisibility(View.VISIBLE);
                     mEndTimeButton.setVisibility(View.VISIBLE);
+                    setTimezone(mTimezoneAdapter.getRowById(mTimezone));
                     mTimezoneButton.setVisibility(View.VISIBLE);
                     mTimezoneTextView.setVisibility(View.VISIBLE);
                 }
@@ -1144,64 +1148,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
         return super.onPrepareOptionsMenu(menu);
     }
 
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
-        super.onPrepareDialog(id, dialog, args);
-        if (id == TIMEZONE_DIALOG_ID) {
-            final AlertDialog alertDialog = (AlertDialog) dialog;
-            mTimezoneDialog = alertDialog;
-            mTimezoneAdapter.showInitialTimezones();
-            // remove the footer if it is still there, which happens if a user
-            // dismisses the dialog without expanding it, then opens it again
-            alertDialog.getListView().removeFooterView(mTimezoneFooterView);
-            alertDialog.getListView().addFooterView(mTimezoneFooterView);
-            final int row = mTimezoneAdapter.getRowById(mTimezone);
-            alertDialog.getListView().post(new Runnable() {
-                @Override
-                public void run() {
-                    alertDialog.getListView().setItemChecked(row, true);
-                    alertDialog.getListView().setSelection(row);
-                }
-            });
-        }
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id, Bundle bundle) {
-        switch (id) {
-        case TIMEZONE_DIALOG_ID:
-            mTimezoneAdapter = new TimezoneAdapter(this, mTimezone);
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.timezone_label);
-            builder.setSingleChoiceItems(mTimezoneAdapter,
-                    mTimezoneAdapter.getRowById(mTimezone), this);
-            mTimezoneDialog = builder.create();
-            mTimezoneFooterView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mTimezoneDialog.getListView().removeFooterView(mTimezoneFooterView);
-                    mTimezoneAdapter.showAllTimezones();
-                    final int row = mTimezoneAdapter.getRowById(mTimezone);
-                    // we need to post the selection changes to have them have
-                    // any effect
-                    mTimezoneDialog.getListView().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mTimezoneDialog.getListView().setItemChecked(row, true);
-                            mTimezoneDialog.getListView().setSelection(row);
-                        }
-                    });
-                }
-            });
-            // because onPrepareDialog is not called before the dialog is shown
-            // for the first call to showDialog, we need to add the footer here
-            mTimezoneDialog.getListView().addFooterView(mTimezoneFooterView);
-            return mTimezoneDialog;
-        default:
-            return null;
-        }
-    }
-
     private void addReminder() {
         // TODO: when adding a new reminder, make it different from the
         // last one in the list (if any).
@@ -1266,10 +1212,39 @@ public class EditEvent extends Activity implements View.OnClickListener,
         mTimezoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(TIMEZONE_DIALOG_ID);
+                showTimezoneDialog();
             }
         });
         setTimezone(mTimezoneAdapter.getRowById(mTimezone));
+    }
+
+    private void showTimezoneDialog() {
+        mTimezoneAdapter = new TimezoneAdapter(this, mTimezone);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.timezone_label);
+        int row = mTimezoneAdapter.getRowById(mTimezone);
+        builder.setSingleChoiceItems(mTimezoneAdapter, row, this);
+        mTimezoneDialog = builder.create();
+        final ListView lv = mTimezoneDialog.getListView();
+        mTimezoneFooterView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lv.removeFooterView(mTimezoneFooterView);
+                mTimezoneAdapter.showAllTimezones();
+                final int row = mTimezoneAdapter.getRowById(mTimezone);
+                // we need to post the selection changes to have them have
+                // any effect
+                lv.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        lv.setItemChecked(row, true);
+                        lv.setSelection(row);
+                    }
+                });
+            }
+        });
+        lv.addFooterView(mTimezoneFooterView);
+        mTimezoneDialog.show();
     }
 
     private void populateRepeats() {
@@ -1537,6 +1512,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
         mTimezoneButton.setText(timezone.toString());
         mTimezone = timezone.mId;
         mTimezoneAdapter.setCurrentTimezone(mTimezone);
+        mStartTime.timezone = mTimezone;
+        mEndTime.timezone = mTimezone;
     }
 
     // Saves the event.  Returns true if it is okay to exit this activity.
@@ -1580,7 +1557,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
         Uri uri = mUri;
 
         // save the timezone as a recent one
-        mTimezoneAdapter.saveRecentTimezone(mTimezone);
+        if (!mAllDayCheckBox.isChecked()) {
+            mTimezoneAdapter.saveRecentTimezone(mTimezone);
+        }
 
         // Update the "hasAlarm" field for the event
         ArrayList<Integer> reminderMinutes = reminderItemsToMinutes(mReminderItems,
