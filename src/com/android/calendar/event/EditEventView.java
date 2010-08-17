@@ -728,13 +728,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         long begin = model.mStart;
         long end = model.mEnd;
-        mTimezone = model.mTimezone;
-        mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
-        if (mTimezoneDialog != null) {
-            mTimezoneDialog.getListView().setAdapter(mTimezoneAdapter);
-        }
-
-        Log.d(TAG, "Model timezone is: " + mTimezone);
+        mTimezone = model.mTimezone; // this will be UTC for all day events
 
         // Set up the starting times
         if (begin > 0) {
@@ -798,7 +792,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                         setDate(mEndDateButton, endMillis);
                         setTime(mEndTimeButton, endMillis);
                     }
-
                     mStartTimeButton.setVisibility(View.VISIBLE);
                     mEndTimeButton.setVisibility(View.VISIBLE);
                     mTimezoneButton.setVisibility(View.VISIBLE);
@@ -809,8 +802,19 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         if (model.mAllDay) {
             mAllDayCheckBox.setChecked(true);
+            // put things back in local time for all day events
+            mTimezone = TimeZone.getDefault().getID();
+            mStartTime.timezone = mTimezone;
+            mStartTime.normalize(true);
+            mEndTime.timezone = mTimezone;
+            mEndTime.normalize(true);
         } else {
             mAllDayCheckBox.setChecked(false);
+        }
+
+        mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
+        if (mTimezoneDialog != null) {
+            mTimezoneDialog.getListView().setAdapter(mTimezoneAdapter);
         }
 
         mSaveButton.setOnClickListener(this);
@@ -1080,6 +1084,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         TimezoneRow timezone = mTimezoneAdapter.getItem(i);
         mTimezoneButton.setText(timezone.toString());
         mTimezone = timezone.mId;
+        mStartTime.timezone = mTimezone;
+        mStartTime.normalize(true);
+        mEndTime.timezone = mTimezone;
+        mEndTime.normalize(true);
         mTimezoneAdapter.setCurrentTimezone(mTimezone);
     }
 }
