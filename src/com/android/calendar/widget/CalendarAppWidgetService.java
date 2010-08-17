@@ -192,6 +192,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         }
 
         @Override
+        public void onDataSetChanged() {
+        }
+
+        @Override
         public void onDestroy() {
             mCursor.close();
             mContext.unregisterReceiver(mIntentReceiver);
