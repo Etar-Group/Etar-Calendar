@@ -781,7 +781,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
                     mStartTimeButton.setVisibility(View.VISIBLE);
                     mEndTimeButton.setVisibility(View.VISIBLE);
-                    setTimezone(mTimezoneAdapter.getRowById(mTimezone));
                     mTimezoneButton.setVisibility(View.VISIBLE);
                     mTimezoneTextView.setVisibility(View.VISIBLE);
                 }
@@ -1513,7 +1512,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
         mTimezone = timezone.mId;
         mTimezoneAdapter.setCurrentTimezone(mTimezone);
         mStartTime.timezone = mTimezone;
+        mStartTime.normalize(true);
         mEndTime.timezone = mTimezone;
+        mEndTime.normalize(true);
     }
 
     // Saves the event.  Returns true if it is okay to exit this activity.
