@@ -90,7 +90,8 @@ public class EditEventFragment extends Fragment {
 
             // If the Activity is finishing, then close the cursor.
             // Otherwise, use the new cursor in the adapter.
-            if (EditEventFragment.this.getActivity().isFinishing()) {
+            final Activity activity = EditEventFragment.this.getActivity();
+            if (activity == null || activity.isFinishing()) {
                 cursor.close();
                 return;
             }
