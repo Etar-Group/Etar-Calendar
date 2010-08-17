@@ -15,31 +15,46 @@
  */
 package com.android.calendar;
 
+import static android.provider.Calendar.EVENT_BEGIN_TIME;
+import static android.provider.Calendar.EVENT_END_TIME;
+
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
+
 import dalvik.system.VMRuntime;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Calendar;
 import android.provider.Calendar.Events;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 
-/**
- */
-public class SearchActivity extends Activity implements Navigator {
+public class SearchActivity extends Activity implements CalendarController.EventHandler {
 
     private static final String TAG = SearchActivity.class.getSimpleName();
 
-    private static boolean DEBUG = false;
+    private static final boolean DEBUG = false;
+
+    private static final int HANDLER_KEY = 0;
 
     private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
 
@@ -48,25 +63,17 @@ public class SearchActivity extends Activity implements Navigator {
     protected static final String BUNDLE_KEY_RESTORE_SEARCH_QUERY =
         "key_restore_search_query";
 
+    private static boolean mIsMultipane;
+
+    private CalendarController mController;
+
+    private EventInfoFragment mEventInfoFragment;
+
+    private long mCurrentEventId = -1;
+
+    private DeleteEventHelper mDeleteEventHelper;
+
     private ContentResolver mContentResolver;
-
-    private AgendaListView mAgendaListView;
-
-    private Time mTime;
-
-    private String mQuery = null;
-
-    private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals(Intent.ACTION_TIME_CHANGED)
-                    || action.equals(Intent.ACTION_DATE_CHANGED)
-                    || action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                mAgendaListView.refresh(true);
-            }
-        }
-    };
 
     private ContentObserver mObserver = new ContentObserver(new Handler()) {
         @Override
@@ -76,13 +83,20 @@ public class SearchActivity extends Activity implements Navigator {
 
         @Override
         public void onChange(boolean selfChange) {
-            mAgendaListView.refresh(true);
+            eventsChanged();
         }
     };
 
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        // This needs to be created before setContentView
+        mController = CalendarController.getInstance(this);
+
+        mIsMultipane = (getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
+
+        setContentView(R.layout.search);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
@@ -90,15 +104,17 @@ public class SearchActivity extends Activity implements Navigator {
         // TODO: We should restore the old heap size once the activity reaches the idle state
         VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
 
-        mAgendaListView = new AgendaListView(this);
-        setContentView(mAgendaListView);
-
         mContentResolver = getContentResolver();
 
-        setTitle(R.string.search);
+        // Must be the first to register because this activity can modify the
+        // list of event handlers in it's handle method. This affects who the
+        // rest of the handlers the controller dispatches to are.
+        mController.registerEventHandler(HANDLER_KEY, this);
+
+        mDeleteEventHelper = new DeleteEventHelper(this, this,
+                false /* don't exit when done */);
 
         long millis = 0;
-        mTime = new Time();
         if (icicle != null) {
             // Returns 0 if key not found
             millis = icicle.getLong(BUNDLE_KEY_RESTORE_TIME);
@@ -110,11 +126,79 @@ public class SearchActivity extends Activity implements Navigator {
             // Didn't find a time in the bundle, look in intent or current time
             millis = Utils.timeFromIntentInMillis(getIntent());
         }
+
         Intent intent = getIntent();
-        mTime.set(millis);
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            search(query);
+            initFragments(millis, query);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CalendarController.removeInstance(this);
+    }
+
+    private void initFragments(long timeMillis, String query) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction ft = fragmentManager.openTransaction();
+
+        AgendaFragment searchResultsFragment = new AgendaFragment(timeMillis);
+        ft.replace(R.id.search_results, searchResultsFragment);
+        mController.registerEventHandler(R.id.search_results, searchResultsFragment);
+        if (!mIsMultipane) {
+            findViewById(R.id.event_info).setVisibility(View.GONE);
+        }
+
+        ft.commit();
+        Time t = new Time();
+        t.set(timeMillis);
+        search(query, t);
+    }
+
+    private void showEventInfo(long eventId, long startMillis, long endMillis) {
+        if (mIsMultipane) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction ft = fragmentManager.openTransaction();
+
+            mEventInfoFragment =
+                new EventInfoFragment(eventId, startMillis, endMillis);
+            ft.replace(R.id.event_info, mEventInfoFragment);
+            ft.commit();
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
+            intent.setData(eventUri);
+            intent.setClassName(this, EventInfoActivity.class.getName());
+            intent.putExtra(EVENT_BEGIN_TIME, startMillis);
+            intent.putExtra(EVENT_END_TIME, endMillis);
+            startActivity(intent);
+        }
+        mCurrentEventId = eventId;
+    }
+
+    private void search(String searchQuery, Time goToTime) {
+        EventInfo searchEventInfo = new EventInfo();
+        searchEventInfo.eventType = EventType.SEARCH;
+        searchEventInfo.query = searchQuery;
+        searchEventInfo.viewType = ViewType.AGENDA;
+        if (goToTime != null) {
+            searchEventInfo.startTime = goToTime;
+        }
+        mController.sendEvent(this, searchEventInfo);
+    }
+
+    private void deleteEvent(long eventId, long startMillis, long endMillis) {
+        mDeleteEventHelper.delete(startMillis, endMillis, eventId, -1);
+        if (mIsMultipane && mEventInfoFragment != null
+                && eventId == mCurrentEventId) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction ft = fragmentManager.openTransaction();
+            ft.remove(mEventInfoFragment);
+            ft.commit();
+            mEventInfoFragment = null;
+            mCurrentEventId = -1;
         }
     }
 
@@ -133,103 +217,75 @@ public class SearchActivity extends Activity implements Navigator {
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            search(query);
-        } else {
-            long time = Utils.timeFromIntentInMillis(intent);
-            if (time > 0) {
-                mTime.set(time);
-                goTo(mTime, false);
-            }
+            search(query, null);
         }
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        long firstVisibleTime = mAgendaListView.getFirstVisibleTime();
-        if (firstVisibleTime > 0) {
-            mTime.set(firstVisibleTime);
-            outState.putLong(BUNDLE_KEY_RESTORE_TIME, firstVisibleTime);
-            if (DEBUG) {
-                Log.v(TAG, "onSaveInstanceState " + mTime.toString());
-            }
-        }
+        outState.putLong(BUNDLE_KEY_RESTORE_TIME, mController.getTime());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (DEBUG) {
-            Log.v(TAG, "OnResume to " + mTime.toString());
-        }
-
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(
-                getApplicationContext());
-        boolean hideDeclined = prefs.getBoolean(
-                CalendarPreferenceActivity.KEY_HIDE_DECLINED, false);
-
-        mAgendaListView.setHideDeclinedEvents(hideDeclined);
-        if (mQuery == null) {
-            mAgendaListView.goTo(mTime, true);
-        }
-        mAgendaListView.onResume();
-
-        // Register for Intent broadcasts
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_TIME_CHANGED);
-        filter.addAction(Intent.ACTION_DATE_CHANGED);
-        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        registerReceiver(mIntentReceiver, filter);
-
         mContentResolver.registerContentObserver(Events.CONTENT_URI, true, mObserver);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
-        mAgendaListView.onPause();
         mContentResolver.unregisterContentObserver(mObserver);
-        unregisterReceiver(mIntentReceiver);
+    }
+
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        switch (keyCode) {
+//            case KeyEvent.KEYCODE_DEL:
+//                // Delete the currently selected event (if any)
+//                mAgendaListView.deleteSelectedEvent();
+//                break;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
+
+    @Override
+    public void goToToday() {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_DEL:
-                // Delete the currently selected event (if any)
-                mAgendaListView.deleteSelectedEvent();
-                break;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    private void search(String searchQuery) {
-        mQuery = searchQuery;
-        mAgendaListView = new AgendaListView(this);
-        setContentView(mAgendaListView);
-        mAgendaListView.search(mQuery, true);
-    }
-
-
-    /* Navigator interface methods */
-    public void goToToday() {
-        Time now = new Time();
-        now.setToNow();
-        mAgendaListView.goTo(now, true); // Force refresh
-    }
-
     public void goTo(Time time, boolean animate) {
-        mAgendaListView.goTo(time, false);
     }
 
+    @Override
     public long getSelectedTime() {
-        return mAgendaListView.getSelectedTime();
+        return 0;
     }
 
+    @Override
     public boolean getAllDay() {
         return false;
+    }
+
+    @Override
+    public void eventsChanged() {
+        mController.sendEvent(this, EventType.EVENTS_CHANGED, null, null, -1, ViewType.CURRENT);
+    }
+
+    @Override
+    public long getSupportedEventTypes() {
+        return EventType.VIEW_EVENT | EventType.DELETE_EVENT;
+    }
+
+    @Override
+    public void handleEvent(EventInfo event) {
+        long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
+        if (event.eventType == EventType.VIEW_EVENT) {
+            showEventInfo(event.id, event.startTime.toMillis(false), endTime);
+        } else if (event.eventType == EventType.DELETE_EVENT) {
+            deleteEvent(event.id, event.startTime.toMillis(false), endTime);
+        }
     }
 
 }

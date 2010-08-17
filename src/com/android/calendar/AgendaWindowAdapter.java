@@ -487,12 +487,11 @@ public class AgendaWindowAdapter extends BaseAdapter {
         return null;
     }
 
-    public void refresh(Time goToTime, boolean forced) {
-        refresh(goToTime, mSearchQuery, forced);
-    }
-
     public void refresh(Time goToTime, String searchQuery, boolean forced) {
-        mSearchQuery = searchQuery;
+        if (searchQuery != null) {
+            mSearchQuery = searchQuery;
+        }
+
         if (DEBUGLOG) {
             Log.e(TAG, "refresh " + goToTime.toString() + (forced ? " forced" : " not forced"));
         }

@@ -69,17 +69,15 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
     }
 
-    public void goTo(Time time, boolean forced) {
-        mWindowAdapter.refresh(time, forced);
-    }
-
-    public void search(String searchQuery, boolean forced) {
-        Time time = new Time();
-        long goToTime = getFirstVisibleTime();
-        if (goToTime <= 0) {
-            goToTime = System.currentTimeMillis();
+    public void goTo(Time time, String searchQuery, boolean forced) {
+        if (time == null) {
+            time = new Time();
+            long goToTime = getFirstVisibleTime();
+            if (goToTime <= 0) {
+                goToTime = System.currentTimeMillis();
+            }
+            time.set(goToTime);
         }
-        time.set(goToTime);
         mWindowAdapter.refresh(time, searchQuery, forced);
     }
 
@@ -90,7 +88,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             goToTime = System.currentTimeMillis();
         }
         time.set(goToTime);
-        mWindowAdapter.refresh(time, forced);
+        mWindowAdapter.refresh(time, null, forced);
     }
 
     public void deleteSelectedEvent() {
