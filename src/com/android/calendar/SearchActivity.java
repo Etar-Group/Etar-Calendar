@@ -46,6 +46,8 @@ import android.provider.Calendar.Events;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class SearchActivity extends Activity implements CalendarController.EventHandler {
@@ -199,6 +201,36 @@ public class SearchActivity extends Activity implements CalendarController.Event
             ft.commit();
             mEventInfoFragment = null;
             mCurrentEventId = -1;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.search_title_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Time t = null;
+        switch (item.getItemId()) {
+            case R.id.action_today:
+                t = new Time();
+                t.setToNow();
+                mController.sendEvent(this, EventType.GO_TO, t, null, -1, ViewType.CURRENT);
+                return true;
+            case R.id.action_search:
+                onSearchRequested();
+                return true;
+            case R.id.action_manage_calendars:
+                mController.sendEvent(this, EventType.LAUNCH_MANAGE_CALENDARS, null, null, 0, 0);
+                return true;
+            case R.id.action_settings:
+                mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
+                return true;
+            default:
+                return false;
         }
     }
 

@@ -80,7 +80,7 @@
         </activity>
 
         <activity android:name="EventInfoActivity" android:label="@string/event_info_title"
-            android:theme="@android:style/Theme.Light"
+            android:theme="@style/CalendarTheme.WithActionBar"
             android:configChanges="orientation|keyboardHidden">
 
             <intent-filter>
@@ -109,7 +109,7 @@
         <activity android:name="CalendarPreferenceActivity" android:label="@string/preferences_title" />
 
         <activity android:name="SearchActivity" android:label="@string/search_title"
-            android:launchMode="singleTop" android:theme="@android:style/Theme.Light">
+            android:launchMode="singleTop" android:theme="@style/CalendarTheme.WithActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>

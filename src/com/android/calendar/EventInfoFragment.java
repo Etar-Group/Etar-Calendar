@@ -306,7 +306,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
                     // The cursor is empty. This can happen if the event was
                     // deleted.
                     // FRAG_TODO we should no longer rely on Activity.finish()
-                    getActivity().finish();
+                    activity.finish();
                     return;
                 }
                 updateEvent(mView);
@@ -323,6 +323,8 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
                 updateCalendar(mView);
                 // FRAG_TODO fragments shouldn't set the title anymore
                 updateTitle();
+                // update the action bar since our option set might have changed
+                activity.invalidateOptionsMenu();
 
                 // this is used for both attendees and reminders
                 args = new String[] { Long.toString(mEventId) };
@@ -356,7 +358,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
                     while (reminderCursor.moveToNext()) {
                         int minutes = reminderCursor.getInt(REMINDERS_INDEX_MINUTES);
                         EventViewUtils.addMinutesToList(
-                                getActivity(), mReminderValues, mReminderLabels, minutes);
+                                activity, mReminderValues, mReminderLabels, minutes);
                     }
 
                     // Second pass: create the reminder spinners
@@ -364,7 +366,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
                     while (reminderCursor.moveToNext()) {
                         int minutes = reminderCursor.getInt(REMINDERS_INDEX_MINUTES);
                         mOriginalMinutes.add(minutes);
-                        EventViewUtils.addReminder(getActivity(), mRemindersContainer,
+                        EventViewUtils.addReminder(activity, mRemindersContainer,
                                 EventInfoFragment.this, mReminderItems, mReminderValues,
                                 mReminderLabels, minutes);
                     }
@@ -378,7 +380,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
                 String calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
                 String ownerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
                 if (mIsDuplicateName && !calendarName.equalsIgnoreCase(ownerAccount)) {
-                    Resources res = getActivity().getResources();
+                    Resources res = activity.getResources();
                     TextView ownerText = (TextView) mView.findViewById(R.id.owner);
                     ownerText.setText(ownerAccount);
                     ownerText.setTextColor(res.getColor(R.color.calendar_owner_text_color));
@@ -685,13 +687,16 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
                 R.string.add_new_reminder);
         item.setIcon(R.drawable.ic_menu_reminder);
         item.setAlphabeticShortcut('r');
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(MENU_GROUP_EDIT, MENU_EDIT, 0, R.string.edit_event_label);
         item.setIcon(android.R.drawable.ic_menu_edit);
         item.setAlphabeticShortcut('e');
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(MENU_GROUP_DELETE, MENU_DELETE, 0, R.string.delete_event_label);
         item.setIcon(android.R.drawable.ic_menu_delete);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
