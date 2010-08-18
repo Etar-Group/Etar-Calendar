@@ -146,6 +146,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             views.setTextViewText(R.id.day_of_month, Integer.toString(time.monthDay));
             // Attach to list of events
             views.setRemoteAdapter(R.id.events_list, updateIntent);
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.events_list);
 
             // Clicking on the widget launches Calendar
             // TODO fix this exact behavior?
@@ -171,9 +172,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      */
     static PendingIntent getUpdateIntent(Context context) {
         Intent updateIntent = new Intent(ACTION_CALENDAR_APPWIDGET_UPDATE);
-        // in order for the factory instance to also receive updates, we can't
-        // target this specifically to the provider
-        // updateIntent.setComponent(new ComponentName(context, CalendarAppWidgetProvider.class));
+        updateIntent.setComponent(new ComponentName(context, CalendarAppWidgetProvider.class));
         return PendingIntent.getBroadcast(context, 0 /* no requestCode */,
                 updateIntent, 0 /* no flags */);
     }

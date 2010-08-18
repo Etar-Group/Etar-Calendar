@@ -58,7 +58,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     private static final String TAG = "CalendarAppWidgetService";
     private static final boolean LOGD = false;
 
-    private static final int EVENT_MAX_COUNT = 10;
+    private static final int EVENT_MAX_COUNT = 20;
 
     private static final String EVENT_SORT_ORDER = Instances.START_DAY + " ASC, "
             + Instances.START_MINUTE + " ASC, " + Instances.END_DAY + " ASC, "
@@ -135,33 +135,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         private static final boolean LOGD = false;
 
-        private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                if (action.equals(CalendarAppWidgetProvider.ACTION_CALENDAR_APPWIDGET_UPDATE)
-                        || action.equals(Intent.ACTION_TIMEZONE_CHANGED)
-                        || action.equals(Intent.ACTION_TIME_CHANGED)
-                        || action.equals(Intent.ACTION_DATE_CHANGED)
-                        || (action.equals(Intent.ACTION_PROVIDER_CHANGED)
-                                && intent.getData().equals(Calendar.CONTENT_URI))) {
-                    loadData();
-                }
-            }
-        };
-
-        private final ContentObserver mContentObserver = new ContentObserver(new Handler()) {
-            @Override
-            public boolean deliverSelfNotifications() {
-                return true;
-            }
-
-            @Override
-            public void onChange(boolean selfChange) {
-                loadData();
-            }
-        };
-
         private final int mAppWidgetId;
 
         private Context mContext;
@@ -179,27 +152,16 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         @Override
         public void onCreate() {
             loadData();
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(CalendarAppWidgetProvider.ACTION_CALENDAR_APPWIDGET_UPDATE);
-            filter.addAction(Intent.ACTION_TIME_CHANGED);
-            filter.addAction(Intent.ACTION_DATE_CHANGED);
-            filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-            filter.addAction(Intent.ACTION_PROVIDER_CHANGED);
-            mContext.registerReceiver(mIntentReceiver, filter);
-
-            mContext.getContentResolver().registerContentObserver(
-                    Events.CONTENT_URI, true, mContentObserver);
         }
 
         @Override
         public void onDataSetChanged() {
+            loadData();
         }
 
         @Override
         public void onDestroy() {
             mCursor.close();
-            mContext.unregisterReceiver(mIntentReceiver);
-            mContext.getContentResolver().unregisterContentObserver(mContentObserver);
         }
 
 
