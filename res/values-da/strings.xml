@@ -20,6 +20,8 @@
     <string name="app_aio_label" msgid="3058561424021284581">"Kalender AllInOne"</string>
     <string name="what_label" msgid="1933578391985810049">"Hvad"</string>
     <string name="where_label" msgid="3472482206065595118">"Hvor"</string>
+    <!-- no translation found for timezone_label (2030635806231207425) -->
+    <skip />
     <string name="attendees_label" msgid="2971281641565729725">"Gæster"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Gentagelse"</string>
@@ -83,6 +85,8 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalender"</string>
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Vis flere indstillinger"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Skjul flere indstillinger"</string>
+    <!-- no translation found for edit_event_show_all (6107214899021208078) -->
+    <skip />
     <string name="description_label" msgid="7193475046717505855">"Beskrivelse"</string>
     <string name="presence_label" msgid="6169724148441175862">"Vis mig som"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Fortrolighed"</string>
