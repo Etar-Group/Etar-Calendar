@@ -19,20 +19,14 @@ package com.android.calendar.widget;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.os.Handler;
-import android.provider.Calendar;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
-import android.provider.Calendar.Events;
 import android.provider.Calendar.Instances;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -58,11 +52,11 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     private static final String TAG = "CalendarAppWidgetService";
     private static final boolean LOGD = false;
 
-    private static final int EVENT_MAX_COUNT = 20;
+    private static final int EVENT_MIN_COUNT = 20;
 
     private static final String EVENT_SORT_ORDER = Instances.START_DAY + " ASC, "
             + Instances.START_MINUTE + " ASC, " + Instances.END_DAY + " ASC, "
-            + Instances.END_MINUTE + " ASC LIMIT " + EVENT_MAX_COUNT;
+            + Instances.END_MINUTE + " ASC";
 
     // TODO can't use parameter here because provider is dropping them
     private static final String EVENT_SELECTION = Calendars.SELECTED + "=1 AND "
@@ -311,6 +305,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         protected static MarkedEvents buildMarkedEvents(Cursor cursor, long now) {
             MarkedEvents events = new MarkedEvents();
             final Time recycle = new Time();
+            final long localOffset = TimeZone.getDefault().getOffset(now);
+            long targetDay = -1;
 
             cursor.moveToPosition(-1);
             while (cursor.moveToNext()) {
@@ -318,7 +314,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 long eventId = cursor.getLong(INDEX_EVENT_ID);
                 long start = cursor.getLong(INDEX_BEGIN);
                 long end = cursor.getLong(INDEX_END);
-
                 boolean allDay = cursor.getInt(INDEX_ALL_DAY) != 0;
 
                 if (LOGD) {
@@ -332,13 +327,18 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     end = convertUtcToLocal(recycle, end);
                 }
 
+                // we might get some extra events when querying, in order to
+                // deal with all-day events
                 if (end < now) {
-                    // we might get some extra events when querying, in order to
-                    // deal with all-day events
                     continue;
                 }
 
-                boolean inProgress = now < end && now > start;
+                // we have already reached our minimum event count, so we ignore
+                // events past the end of that day
+                long endDay = Time.getJulianDay(end, localOffset);
+                if (targetDay > 0 && endDay > targetDay) {
+                    continue;
+                }
 
                 // Skip events that have already passed their flip times
                 long eventFlip = getEventFlip(cursor, start, end, allDay);
@@ -347,55 +347,12 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     continue;
                 }
 
-//                /* Scan through the events with the following logic:
-//                 *   Rule #1 Show A) all the events that are in progress including
-//                 *     all day events and B) the next upcoming event and any events
-//                 *     with the same start time.
-//                 *
-//                 *   Rule #2 If there are no events in progress, show A) the next
-//                 *     upcoming event and B) any events with the same start time.
-//                 *
-//                 *   Rule #3 If no events start at the same time at A in rule 2,
-//                 *     show A) the next upcoming event and B) the following upcoming
-//                 *     event + any events with the same start time.
-//                 */
-//                if (inProgress) {
-//                    // events for part A of Rule #1
-//                    events.markedIds.add(row);
-//                    events.inProgressCount++;
-//                    if (events.firstTime == -1) {
-//                        events.firstTime = start;
-//                    }
-//                } else {
-//                    if (events.primaryCount == 0) {
-//                        // first upcoming event
-//                        events.markedIds.add(row);
-//                        events.primaryTime = start;
-//                        events.primaryCount++;
-//                        if (events.firstTime == -1) {
-//                            events.firstTime = start;
-//                        }
-//                    } else if (events.primaryTime == start) {
-//                        // any events with same start time as first upcoming event
-//                        events.markedIds.add(row);
-//                        events.primaryCount++;
-//                    } else if (events.markedIds.size() == 1) {
-//                        // only one upcoming event, so we take the next upcoming
-//                        events.markedIds.add(row);
-//                        events.secondaryTime = start;
-//                        events.secondaryCount++;
-//                    } else if (events.secondaryCount > 0
-//                            && events.secondaryTime == start) {
-//                        // any events with same start time as next upcoming
-//                        events.markedIds.add(row);
-//                        events.secondaryCount++;
-//                    } else {
-//                        // looks like we're done
-//                        break;
-//                    }
-//                }
-
                 events.markedIds.add(row);
+                // we've reached the minimum number of events to display, so just
+                // finish up whatever day we're on
+                if (targetDay == -1 && events.markedIds.size() >= EVENT_MIN_COUNT) {
+                    targetDay = endDay;
+                }
             }
             return events;
         }
