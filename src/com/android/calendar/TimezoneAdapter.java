@@ -249,6 +249,8 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
                 // reliable way to check to see if the ID is a valid timezone
                 if (!newTz.equals(TimeZone.getTimeZone("GMT"))) {
                     sTimezones.put(id, new TimezoneRow(id, newTz.getDisplayName()));
+                } else {
+                    continue;
                 }
             }
             add(sTimezones.get(id));
