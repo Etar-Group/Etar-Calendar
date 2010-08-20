@@ -50,9 +50,11 @@ public class EventInfoActivity extends AbstractCalendarActivity
         Uri uri = intent.getData();
         long startMillis = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
         long endMillis = intent.getLongExtra(EVENT_END_TIME, 0);
-        int attendeeResponseFromIntent = intent.getIntExtra(ATTENDEE_STATUS, ATTENDEE_NO_RESPONSE);
-        Fragment f = new EventInfoFragment(uri, startMillis, endMillis, attendeeResponseFromIntent);
-        openFragmentTransaction().add(android.R.id.content, f).commit();
+        int attendeeResponseFromIntent = intent.getIntExtra(
+                ATTENDEE_STATUS, ATTENDEE_NO_RESPONSE);
+        Fragment f = new EventInfoFragment(
+                uri, startMillis, endMillis, attendeeResponseFromIntent);
+        getFragmentManager().openTransaction().add(android.R.id.content, f).commit();
 
         mDeleteEventHelper = new DeleteEventHelper(this, this, true /* exit when done */);
         mController.registerEventHandler(HANDLER_KEY, this);
