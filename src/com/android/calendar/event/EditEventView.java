@@ -287,6 +287,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         builder.setSingleChoiceItems(
                 mTimezoneAdapter, mTimezoneAdapter.getRowById(mTimezone), this);
         mTimezoneDialog = builder.create();
+        mTimezoneFooterView.setText(
+                mActivity.getString(R.string.edit_event_show_all) + " >");
         mTimezoneFooterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
