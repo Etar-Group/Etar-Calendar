@@ -86,6 +86,8 @@ public class CalendarController {
         final long LAUNCH_SETTINGS = 1L << 6;
 
         final long EVENTS_CHANGED = 1L << 7;
+
+        final long SEARCH = 1L << 8;
     }
 
     /**
@@ -109,6 +111,7 @@ public class CalendarController {
         Time endTime; // end of a range of time.
         int x; // x coordinate in the activity space
         int y; // y coordinate in the activity space
+        String query; // query for a user search
     }
 
     // FRAG_TODO remove unneeded api's
@@ -251,36 +254,6 @@ public class CalendarController {
             return;
         }
 
-        // Launch Calendars, and Settings
-        if (event.eventType == EventType.LAUNCH_MANAGE_CALENDARS) {
-            launchManageCalendars();
-            return;
-        } else if (event.eventType == EventType.LAUNCH_SETTINGS) {
-            launchSettings();
-            return;
-        }
-
-        if (event.startTime != null && event.startTime.toMillis(false) != 0) {
-            mTime.set(event.startTime);
-        }
-        event.startTime = mTime;
-
-        // Create/View/Edit/Delete Event
-        long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
-        if (event.eventType == EventType.CREATE_EVENT) {
-            launchCreateEvent(event.startTime.toMillis(false), endTime);
-            return;
-        } else if (event.eventType == EventType.VIEW_EVENT) {
-            launchViewEvent(event.id, event.startTime.toMillis(false), endTime);
-            return;
-        } else if (event.eventType == EventType.EDIT_EVENT) {
-            launchEditEvent(event.id, event.startTime.toMillis(false), endTime);
-            return;
-        } else if (event.eventType == EventType.DELETE_EVENT) {
-            launchDeleteEvent(event.id, event.startTime.toMillis(false), endTime);
-            return;
-        }
-
         mPreviousViewType = mViewType;
 
         // Fix up view if not specified
@@ -297,6 +270,13 @@ public class CalendarController {
             }
         }
 
+        // Fix up start time if not specified
+        if (event.startTime != null && event.startTime.toMillis(false) != 0) {
+            mTime.set(event.startTime);
+        }
+        event.startTime = mTime;
+
+        boolean handled = false;
         synchronized (this) {
             mDispatchInProgress = true;
 
@@ -315,6 +295,7 @@ public class CalendarController {
                         continue;
                     }
                     eventHandler.handleEvent(event);
+                    handled = true;
                 }
             }
 
@@ -326,6 +307,33 @@ public class CalendarController {
                 mToBeRemovedEventHandlers.clear();
             }
             mDispatchInProgress = false;
+        }
+
+        if (!handled) {
+            // Launch Calendars, and Settings
+            if (event.eventType == EventType.LAUNCH_MANAGE_CALENDARS) {
+                launchManageCalendars();
+                return;
+            } else if (event.eventType == EventType.LAUNCH_SETTINGS) {
+                launchSettings();
+                return;
+            }
+
+            // Create/View/Edit/Delete Event
+            long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
+            if (event.eventType == EventType.CREATE_EVENT) {
+                launchCreateEvent(event.startTime.toMillis(false), endTime);
+                return;
+            } else if (event.eventType == EventType.VIEW_EVENT) {
+                launchViewEvent(event.id, event.startTime.toMillis(false), endTime);
+                return;
+            } else if (event.eventType == EventType.EDIT_EVENT) {
+                launchEditEvent(event.id, event.startTime.toMillis(false), endTime);
+                return;
+            } else if (event.eventType == EventType.DELETE_EVENT) {
+                launchDeleteEvent(event.id, event.startTime.toMillis(false), endTime);
+                return;
+            }
         }
     }
 
@@ -517,6 +525,8 @@ public class CalendarController {
             tmp = "Launch settings";
         } else if ((eventInfo.eventType & EventType.EVENTS_CHANGED) != 0) {
             tmp = "Refresh events";
+        } else if ((eventInfo.eventType & EventType.SEARCH) != 0) {
+            tmp = "Search";
         }
         builder.append(tmp);
         builder.append(": id=");

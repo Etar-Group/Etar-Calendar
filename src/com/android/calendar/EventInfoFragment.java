@@ -91,6 +91,12 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
 
     public static final String TAG = "EventInfoActivity";
 
+    private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
+
+    private static final String BUNDLE_KEY_START_MILLIS = "key_start_millis";
+
+    private static final String BUNDLE_KEY_END_MILLIS = "key_end_millis";
+
     private static final int MAX_REMINDERS = 5;
 
     /**
@@ -235,7 +241,6 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
     private int mDefaultReminderMinutes;
     private boolean mOriginalHasAlarm;
 
-    private DeleteEventHelper mDeleteEventHelper;
     private EditResponseHelper mEditResponseHelper;
 
     private int mResponseOffset;
@@ -287,6 +292,13 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
 
         @Override
         protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            // if the activity is finishing, then close the cursor and return
+            final Activity activity = getActivity();
+            if (activity == null || activity.isFinishing()) {
+                cursor.close();
+                return;
+            }
+
             switch (token) {
             case TOKEN_QUERY_EVENT:
                 mEventCursor = Utils.matrixCursorFromCursor(cursor);
@@ -309,6 +321,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
             case TOKEN_QUERY_CALENDARS:
                 mCalendarsCursor = Utils.matrixCursorFromCursor(cursor);
                 updateCalendar(mView);
+                // FRAG_TODO fragments shouldn't set the title anymore
                 updateTitle();
 
                 // this is used for both attendees and reminders
@@ -380,11 +393,21 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
 
     }
 
+    public EventInfoFragment() {
+        mUri = null;
+    }
+
     public EventInfoFragment(Uri uri, long startMillis, long endMillis, int attendeeResponse) {
         mUri = uri;
         mStartMillis = startMillis;
         mEndMillis = endMillis;
         mAttendeeResponseFromIntent = attendeeResponse;
+    }
+
+    public EventInfoFragment(long eventId, long startMillis, long endMillis) {
+        this(ContentUris.withAppendedId(Events.CONTENT_URI, eventId),
+                startMillis, endMillis, EventInfoActivity.ATTENDEE_NO_RESPONSE);
+        mEventId = eventId;
     }
 
     // This is called when one of the "remove reminder" buttons is selected.
@@ -427,8 +450,6 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        // FRAG_TODO we should no longer rely on Activity.finish()
-        mDeleteEventHelper = new DeleteEventHelper(activity, activity, true /* exit when done */);
         mEditResponseHelper = new EditResponseHelper(activity);
         setHasOptionsMenu(true);
         mHandler = new QueryHandler(activity);
@@ -471,6 +492,14 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
         reminderAddButton.setOnClickListener(addReminderOnClickListener);
 
         mReminderAdder = (LinearLayout) mView.findViewById(R.id.reminder_adder);
+
+        if (mUri == null) {
+            // restore event ID from bundle
+            mEventId = savedInstanceState.getLong(BUNDLE_KEY_EVENT_ID);
+            mUri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
+            mStartMillis = savedInstanceState.getLong(BUNDLE_KEY_START_MILLIS);
+            mEndMillis = savedInstanceState.getLong(BUNDLE_KEY_END_MILLIS);
+        }
 
         // start loading the data
         mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
@@ -582,12 +611,16 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        // FRAG_TODO we should no longer rely on Activity.finish()
-        if (!getActivity().isFinishing()) {
-            return;
-        }
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(BUNDLE_KEY_EVENT_ID, mEventId);
+        outState.putLong(BUNDLE_KEY_START_MILLIS, mStartMillis);
+        outState.putLong(BUNDLE_KEY_END_MILLIS, mEndMillis);
+    }
+
+
+    @Override
+    public void onDestroyView() {
         ArrayList<Integer> reminderMinutes = EventViewUtils.reminderItemsToMinutes(mReminderItems,
                 mReminderValues);
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>(3);
@@ -611,6 +644,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
         if (changed) {
             Toast.makeText(getActivity(), R.string.saving_event, Toast.LENGTH_SHORT).show();
         }
+        super.onDestroyView();
     }
 
     @Override
@@ -825,13 +859,11 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
     private void doEdit() {
         CalendarController.getInstance(getActivity()).sendEventRelatedEvent(
                 this, EventType.EDIT_EVENT, mEventId, mStartMillis, mEndMillis, 0, 0);
-        // FRAG_TODO we should no longer rely on Activity.finish()
-        getActivity().finish();
     }
 
     private void doDelete() {
-        mDeleteEventHelper.delete(mStartMillis, mEndMillis, mEventCursor.getLong(EVENT_INDEX_ID),
-                -1);
+        CalendarController.getInstance(getActivity()).sendEventRelatedEvent(
+                this, EventType.DELETE_EVENT, mEventId, mStartMillis, mEndMillis, 0, 0);
     }
 
     private void updateEvent(View view) {

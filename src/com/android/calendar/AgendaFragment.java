@@ -44,33 +44,10 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
 
-    private ContentResolver mContentResolver;
     private AgendaListView mAgendaListView;
     private Time mTime;
 
-    private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals(Intent.ACTION_TIME_CHANGED)
-                    || action.equals(Intent.ACTION_DATE_CHANGED)
-                    || action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                eventsChanged();
-            }
-        }
-    };
-
-    private ContentObserver mObserver = new ContentObserver(new Handler()) {
-        @Override
-        public boolean deliverSelfNotifications() {
-            return true;
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            eventsChanged();
-        }
-    };
+    private String mQuery;
 
     public AgendaFragment() {
         this(0);
@@ -91,7 +68,6 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
         // TODO: We should restore the old heap size once the activity reaches the idle state
         VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
-        mContentResolver = getActivity().getContentResolver();
     }
 
     @Override
@@ -99,8 +75,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             Bundle savedInstanceState) {
         Context context = getActivity();
         mAgendaListView = new AgendaListView(context);
+        mAgendaListView.goTo(mTime, mQuery, false);
         return mAgendaListView;
-
     }
 
     @Override
@@ -116,7 +92,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 CalendarPreferenceActivity.KEY_HIDE_DECLINED, false);
 
         mAgendaListView.setHideDeclinedEvents(hideDeclined);
-        mAgendaListView.goTo(mTime, true);
+        mAgendaListView.goTo(mTime, mQuery, true);
         mAgendaListView.onResume();
 
 //        // Register for Intent broadcasts
@@ -165,7 +141,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         }
         Time now = new Time();
         now.setToNow();
-        mAgendaListView.goTo(now, true); // Force refresh
+        mAgendaListView.goTo(now, mQuery, true); // Force refresh
     }
 
     @Override
@@ -176,7 +152,19 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             mTime.set(time);
             return;
         }
-        mAgendaListView.goTo(time, false);
+        mAgendaListView.goTo(time, mQuery, false);
+    }
+
+    private void search(String query, Time time) {
+        mQuery = query;
+        if (time != null) {
+            mTime.set(time);
+        }
+        if (mAgendaListView == null) {
+            // The view hasn't been set yet. Just return.
+            return;
+        }
+        mAgendaListView.goTo(time, mQuery, true);
     }
 
     @Override
@@ -196,7 +184,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
     @Override
     public long getSupportedEventTypes() {
-        return EventType.GO_TO | EventType.EVENTS_CHANGED;
+        return EventType.GO_TO | EventType.EVENTS_CHANGED | EventType.SEARCH;
     }
 
     @Override
@@ -206,6 +194,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             // TODO support event_id
             // TODO figure out the animate bit
             goTo(event.startTime, true);
+        } else if (event.eventType == EventType.SEARCH) {
+            search(event.query, event.startTime);
         } else if (event.eventType == EventType.EVENTS_CHANGED) {
             eventsChanged();
         }
