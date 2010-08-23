@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.agenda;
 
-import com.android.calendar.AgendaAdapter.ViewHolder;
-import com.android.calendar.AgendaWindowAdapter.EventInfo;
+import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.DeleteEventHelper;
+import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
+import com.android.calendar.agenda.AgendaWindowAdapter.EventInfo;
 
 import android.content.Context;
 import android.graphics.Rect;

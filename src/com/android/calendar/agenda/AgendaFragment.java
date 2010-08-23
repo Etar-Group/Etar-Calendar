@@ -14,27 +14,24 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
-
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-
-import dalvik.system.VMRuntime;
+package com.android.calendar.agenda;
 
 import android.app.Fragment;
-import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.ContentObserver;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarPreferenceActivity;
+
+import dalvik.system.VMRuntime;
 
 public class AgendaFragment extends Fragment implements CalendarController.EventHandler {
 

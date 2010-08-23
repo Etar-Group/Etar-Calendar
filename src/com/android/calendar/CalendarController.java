@@ -103,15 +103,15 @@ public class CalendarController {
     }
 
     public static class EventInfo {
-        long eventType; // one of the EventType
-        int viewType; // one of the ViewType
-        long id; // event id
-        Time selectedTime; // the selected time in focus
-        Time startTime; // start of a range of time.
-        Time endTime; // end of a range of time.
-        int x; // x coordinate in the activity space
-        int y; // y coordinate in the activity space
-        String query; // query for a user search
+        public long eventType; // one of the EventType
+        public int viewType; // one of the ViewType
+        public long id; // event id
+        public Time selectedTime; // the selected time in focus
+        public Time startTime; // start of a range of time.
+        public Time endTime; // end of a range of time.
+        public int x; // x coordinate in the activity space
+        public int y; // y coordinate in the activity space
+        public String query; // query for a user search
     }
 
     // FRAG_TODO remove unneeded api's

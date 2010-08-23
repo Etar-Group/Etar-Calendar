@@ -21,6 +21,7 @@ import static android.provider.Calendar.EVENT_END_TIME;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.agenda.AgendaFragment;
 
 import dalvik.system.VMRuntime;
 

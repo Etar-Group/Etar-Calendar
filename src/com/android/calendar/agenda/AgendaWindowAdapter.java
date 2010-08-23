@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.agenda;
+
+import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;

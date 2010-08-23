@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<com.android.calendar.AgendaItemView
+<com.android.calendar.agenda.AgendaItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/content"
     android:layout_height="wrap_content"
@@ -57,4 +57,4 @@
         android:textColor="?android:attr/textColorSecondary"
         style="?android:attr/textAppearanceSmallInverse" />
 
-</com.android.calendar.AgendaItemView>
+</com.android.calendar.agenda.AgendaItemView>

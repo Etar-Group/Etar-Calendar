@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.agenda;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -22,7 +22,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
-import com.android.calendar.AgendaAdapter.ViewHolder;
+import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
 
 /**
  * A custom layout for each item in the Agenda list view.

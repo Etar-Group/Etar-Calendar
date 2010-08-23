@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.agenda;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -26,7 +26,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.android.calendar.AgendaWindowAdapter.DayAdapterInfo;
+import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
+import com.android.calendar.R;
 
 import java.util.ArrayList;
 import java.util.Formatter;

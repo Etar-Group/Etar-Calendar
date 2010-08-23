@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.agenda;
+
+import com.android.calendar.R;
 
 import android.content.Context;
 import android.content.res.Resources;
