@@ -44,6 +44,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Calendar;
 import android.provider.Calendar.Events;
+import android.provider.SearchRecentSuggestions;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -182,6 +183,13 @@ public class SearchActivity extends Activity implements CalendarController.Event
     }
 
     private void search(String searchQuery, Time goToTime) {
+        // save query in recent queries
+        SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                CalendarRecentSuggestionsProvider.AUTHORITY,
+                CalendarRecentSuggestionsProvider.MODE);
+        suggestions.saveRecentQuery(searchQuery, null);
+
+
         EventInfo searchEventInfo = new EventInfo();
         searchEventInfo.eventType = EventType.SEARCH;
         searchEventInfo.query = searchQuery;

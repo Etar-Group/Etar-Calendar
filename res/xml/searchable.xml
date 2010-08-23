@@ -15,5 +15,7 @@
 -->
 
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
-    android:label="@string/app_label" >
+    android:label="@string/app_label"
+    android:searchSuggestAuthority="com.android.calendar.CalendarRecentSuggestionsProvider"
+    android:searchSuggestSelection=" ?" >
 </searchable>
