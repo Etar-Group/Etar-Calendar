@@ -309,7 +309,7 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
         }
         recents.add(id);
         recentsString = Utils.join(recents, RECENT_TIMEZONES_DELIMITER);
-        prefs.edit().putString(KEY_RECENT_TIMEZONES, recentsString).commit();
+        Utils.setSharedPreference(mContext, KEY_RECENT_TIMEZONES, recentsString);
     }
 
     private static void loadFromResources(Resources resources) {
