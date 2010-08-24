@@ -934,6 +934,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
             }
 
             setTextCommon(view, R.id.timezone, displayName);
+            setVisibilityCommon(view, R.id.timezone_container, View.VISIBLE);
         } else {
             setVisibilityCommon(view, R.id.timezone_container, View.GONE);
         }
@@ -951,6 +952,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
             String repeatString = EventRecurrenceFormatter.getRepeatString(
                     getActivity().getResources(), eventRecurrence);
             setTextCommon(view, R.id.repeat, repeatString);
+            setVisibilityCommon(view, R.id.repeat_container, View.VISIBLE);
         } else {
             setVisibilityCommon(view, R.id.repeat_container, View.GONE);
         }
