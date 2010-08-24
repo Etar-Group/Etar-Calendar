@@ -24,11 +24,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.Time;
@@ -98,11 +100,37 @@ public class Utils {
         return prefs.getInt(key, defaultValue);
     }
 
+
+    private static class PreferenceCommitTask extends
+            AsyncTask<SharedPreferences.Editor, Integer, Boolean> {
+        @Override
+        protected Boolean doInBackground(Editor... params) {
+            Editor editor = params[0];
+            return editor.commit();
+        }
+    }
+
+    /**
+     * Commits the given shared preferences editor asynchronously in the
+     * background.
+     *
+     * @param editor the editor to commit
+     */
+    public static void commitSharedPreferencesEditor(Editor editor) {
+        (new PreferenceCommitTask()).execute(editor);
+    }
+
+    /**
+     * Asynchronously sets the preference with the given key to the given value
+     *
+     * @param context the context to use to get preferences from
+     * @param key the key of the preference to set
+     * @param value the value to set
+     */
     public static void setSharedPreference(Context context, String key, String value) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(key, value);
-        editor.commit();
+        Editor editor = prefs.edit().putString(key, value);
+        commitSharedPreferencesEditor(editor);
     }
 
     /**
@@ -114,6 +142,7 @@ public class Utils {
     static void setDefaultView(Context context, int viewId) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
+
         if (viewId == CalendarController.ViewType.AGENDA
                 || viewId == CalendarController.ViewType.DAY) {
             // Record the (new) detail start view only for Agenda and Day
@@ -122,7 +151,8 @@ public class Utils {
 
         // Record the (new) start view
         editor.putInt(CalendarPreferenceActivity.KEY_START_VIEW, viewId);
-        editor.commit();
+
+        commitSharedPreferencesEditor(editor);
     }
 
     public static MatrixCursor matrixCursorFromCursor(Cursor cursor) {
