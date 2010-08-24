@@ -39,6 +39,7 @@ import android.util.Log;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class Utils {
     // Set to 0 until we have UI to perform undo
@@ -328,6 +329,22 @@ public class Utils {
         return (firstDayOfWeek == Time.SUNDAY && column == 0)
             || (firstDayOfWeek == Time.MONDAY && column == 6)
             || (firstDayOfWeek == Time.SATURDAY && column == 1);
+    }
+
+    /**
+     * Convert given UTC time into current local time.
+     *
+     * @param recycle Time object to recycle, otherwise null.
+     * @param utcTime Time to convert, in UTC.
+     */
+    public static long convertUtcToLocal(Time recycle, long utcTime) {
+        if (recycle == null) {
+            recycle = new Time();
+        }
+        recycle.timezone = Time.TIMEZONE_UTC;
+        recycle.set(utcTime);
+        recycle.timezone = TimeZone.getDefault().getID();
+        return recycle.normalize(true);
     }
 
     /**
