@@ -28,8 +28,6 @@ import android.net.Uri;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Instances;
-import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -41,22 +39,22 @@ import com.google.common.annotations.VisibleForTesting;
 
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
+import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
 
 
 public class CalendarAppWidgetService extends RemoteViewsService {
     private static final String TAG = "CalendarAppWidgetService";
     private static final boolean LOGD = false;
 
-    private static final int EVENT_MIN_COUNT = 20;
+    static final int EVENT_MIN_COUNT = 20;
+
+    static final int EVENT_MAX_COUNT = 503;
 
     private static final String EVENT_SORT_ORDER = Instances.START_DAY + " ASC, "
             + Instances.START_MINUTE + " ASC, " + Instances.END_DAY + " ASC, "
-            + Instances.END_MINUTE + " ASC";
+            + Instances.END_MINUTE + " ASC LIMIT " + EVENT_MAX_COUNT;
 
     // TODO can't use parameter here because provider is dropping them
     private static final String EVENT_SELECTION = Calendars.SELECTED + "=1 AND "
@@ -69,6 +67,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         Instances.TITLE,
         Instances.EVENT_LOCATION,
         Instances.EVENT_ID,
+        Instances.START_DAY,
+        Instances.END_DAY
     };
 
     static final int INDEX_ALL_DAY = 0;
@@ -77,8 +77,12 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     static final int INDEX_TITLE = 3;
     static final int INDEX_EVENT_LOCATION = 4;
     static final int INDEX_EVENT_ID = 5;
+    static final int INDEX_START_DAY = 6;
+    static final int INDEX_END_DAY = 7;
 
-    private static final long SEARCH_DURATION = DateUtils.WEEK_IN_MILLIS;
+    static final int MAX_DAYS = 7;
+
+    private static final long SEARCH_DURATION = MAX_DAYS * DateUtils.DAY_IN_MILLIS;
 
     // If no next-update calculated, or bad trigger time in past, schedule
     // update about six hours from now.
@@ -87,40 +91,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         return new CalendarFactory(getApplicationContext(), intent);
-    }
-
-    protected static class MarkedEvents {
-
-        /**
-         * The row IDs of all events marked for display
-         */
-        List<Integer> markedIds = new ArrayList<Integer>(10);
-
-        /**
-         * The start time of the first marked event
-         */
-        long firstTime = -1;
-
-        /** The number of events currently in progress */
-        int inProgressCount = 0; // Number of events with same start time as the primary evt.
-
-        /** The start time of the next upcoming event */
-        long primaryTime = -1;
-
-        /**
-         * The number of events that share the same start time as the next
-         * upcoming event
-         */
-        int primaryCount = 0; // Number of events with same start time as the secondary evt.
-
-        /** The start time of the next next upcoming event */
-        long secondaryTime = 1;
-
-        /**
-         * The number of events that share the same start time as the next next
-         * upcoming event.
-         */
-        int secondaryCount = 0;
     }
 
     protected static class CalendarFactory implements RemoteViewsService.RemoteViewsFactory {
@@ -158,7 +128,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             mCursor.close();
         }
 
-
         @Override
         public RemoteViews getLoadingView() {
             RemoteViews views = new RemoteViews(mContext.getPackageName(),
@@ -173,11 +142,29 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 return null;
             }
 
-            if (mModel.eventInfos.length > 0) {
+            if (mModel.mEventInfos.isEmpty() || mModel.mRowInfos.isEmpty()) {
+                RemoteViews views = new RemoteViews(mContext.getPackageName(),
+                        R.layout.appwidget_no_events);
+                PendingIntent launchIntent =
+                    CalendarAppWidgetProvider.getLaunchPendingIntent(
+                            mContext, 0);
+                views.setOnClickPendingIntent(R.id.appwidget_no_events, launchIntent);
+                return views;
+            }
+
+
+            RowInfo rowInfo = mModel.mRowInfos.get(position);
+            if (rowInfo.mType == RowInfo.TYPE_DAY) {
+                RemoteViews views = new RemoteViews(mContext.getPackageName(),
+                        R.layout.appwidget_day);
+                DayInfo dayInfo = mModel.mDayInfos.get(rowInfo.mIndex);
+                updateTextView(views, R.id.date, View.VISIBLE, dayInfo.mDayLabel);
+                return views;
+            } else {
                 RemoteViews views = new RemoteViews(mContext.getPackageName(),
                         R.layout.appwidget_row);
 
-                EventInfo e = mModel.eventInfos[position];
+                EventInfo e = mModel.mEventInfos.get(rowInfo.mIndex);
 
                 updateTextView(views, R.id.when, e.visibWhen, e.when);
                 updateTextView(views, R.id.where, e.visibWhere, e.where);
@@ -188,27 +175,19 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                             mContext, e.start);
                 views.setOnClickPendingIntent(R.id.appwidget_row, launchIntent);
                 return views;
-            } else {
-                RemoteViews views = new RemoteViews(mContext.getPackageName(),
-                        R.layout.appwidget_no_events);
-                PendingIntent launchIntent =
-                    CalendarAppWidgetProvider.getLaunchPendingIntent(
-                            mContext, 0);
-                views.setOnClickPendingIntent(R.id.appwidget_no_events, launchIntent);
-                return views;
             }
         }
 
         @Override
         public int getViewTypeCount() {
-            return 3;
+            return 4;
         }
 
         @Override
         public int getCount() {
             // if there are no events, we still return 1 to represent the "no
             // events" view
-            return Math.max(1, mModel.eventInfos.length);
+            return Math.max(1, mModel.mRowInfos.size());
         }
 
         @Override
@@ -230,9 +209,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
             mCursor = getUpcomingInstancesCursor(
                     mContext.getContentResolver(), SEARCH_DURATION, now);
-            MarkedEvents markedEvents = buildMarkedEvents(mCursor, now);
-            mModel = buildAppWidgetModel(mContext, mCursor, markedEvents, now);
-            long triggerTime = calculateUpdateTime(mCursor, markedEvents);
+            mModel = buildAppWidgetModel(mContext, mCursor);
+            long triggerTime = calculateUpdateTime(mModel);
             // Schedule an alarm to wake ourselves up for the next update.  We also cancel
             // all existing wake-ups because PendingIntents don't match against extras.
 
@@ -290,102 +268,11 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             return matrixCursor;
         }
 
-        /**
-         * Walk the given instances cursor and build a list of marked events to be
-         * used when updating the widget. This structure is also used to check if
-         * updates are needed.
-         *
-         * @param cursor Valid cursor across {@link Instances#CONTENT_URI}.
-         * @param watchEventIds Specific events to watch for, setting
-         *            {@link MarkedEvents#watchFound} if found during marking.
-         * @param now Current system time to use for this update, possibly from
-         *            {@link System#currentTimeMillis()}
-         */
-        @VisibleForTesting
-        protected static MarkedEvents buildMarkedEvents(Cursor cursor, long now) {
-            MarkedEvents events = new MarkedEvents();
-            final Time recycle = new Time();
-            final long localOffset = TimeZone.getDefault().getOffset(now);
-            long targetDay = -1;
-
-            cursor.moveToPosition(-1);
-            while (cursor.moveToNext()) {
-                int row = cursor.getPosition();
-                long eventId = cursor.getLong(INDEX_EVENT_ID);
-                long start = cursor.getLong(INDEX_BEGIN);
-                long end = cursor.getLong(INDEX_END);
-                boolean allDay = cursor.getInt(INDEX_ALL_DAY) != 0;
-
-                if (LOGD) {
-                    Log.d(TAG, "Row #" + row + " allDay:" + allDay + " start:" + start
-                            + " end:" + end + " eventId:" + eventId);
-                }
-
-                // Adjust all-day times into local timezone
-                if (allDay) {
-                    start = convertUtcToLocal(recycle, start);
-                    end = convertUtcToLocal(recycle, end);
-                }
-
-                // we might get some extra events when querying, in order to
-                // deal with all-day events
-                if (end < now) {
-                    continue;
-                }
-
-                // we have already reached our minimum event count, so we ignore
-                // events past the end of that day
-                long endDay = Time.getJulianDay(end, localOffset);
-                if (targetDay > 0 && endDay > targetDay) {
-                    continue;
-                }
-
-                // Skip events that have already passed their flip times
-                long eventFlip = getEventFlip(cursor, start, end, allDay);
-                if (LOGD) Log.d(TAG, "Calculated flip time " + formatDebugTime(eventFlip, now));
-                if (eventFlip < now) {
-                    continue;
-                }
-
-                events.markedIds.add(row);
-                // we've reached the minimum number of events to display, so just
-                // finish up whatever day we're on
-                if (targetDay == -1 && events.markedIds.size() >= EVENT_MIN_COUNT) {
-                    targetDay = endDay;
-                }
-            }
-            return events;
-        }
-
         @VisibleForTesting
         protected static CalendarAppWidgetModel buildAppWidgetModel(
-                Context context, Cursor cursor, MarkedEvents events, long currentTime) {
-            int eventCount = events.markedIds.size();
-            CalendarAppWidgetModel model = new CalendarAppWidgetModel(eventCount);
-            Time time = new Time();
-            time.set(currentTime);
-            time.monthDay++;
-            time.hour = 0;
-            time.minute = 0;
-            time.second = 0;
-            long startOfNextDay = time.normalize(true);
-
-            time.set(currentTime);
-
-            // Calendar header
-            String dayOfWeek = DateUtils.getDayOfWeekString(
-                    time.weekDay + 1, DateUtils.LENGTH_MEDIUM).toUpperCase();
-
-            model.dayOfWeek = dayOfWeek;
-            model.dayOfMonth = Integer.toString(time.monthDay);
-
-            int i = 0;
-            for (Integer id : events.markedIds) {
-                populateEvent(context, cursor, id, model, time, i, true,
-                        startOfNextDay, currentTime);
-                i++;
-            }
-
+                Context context, Cursor cursor) {
+            CalendarAppWidgetModel model = new CalendarAppWidgetModel(context);
+            model.buildFromCursor(cursor);
             return model;
         }
 
@@ -396,22 +283,22 @@ public class CalendarAppWidgetService extends RemoteViewsService {
          * @param cursor Valid cursor on {@link Instances#CONTENT_URI}
          * @param events {@link MarkedEvents} parsed from the cursor
          */
-        private long calculateUpdateTime(Cursor cursor, MarkedEvents events) {
+        private long calculateUpdateTime(CalendarAppWidgetModel model) {
             long result = -1;
-            if (!events.markedIds.isEmpty()) {
-                cursor.moveToPosition(events.markedIds.get(0));
-                long start = cursor.getLong(INDEX_BEGIN);
-                long end = cursor.getLong(INDEX_END);
-                boolean allDay = cursor.getInt(INDEX_ALL_DAY) != 0;
+            if (!model.mEventInfos.isEmpty()) {
+                EventInfo firstEvent = model.mEventInfos.get(0);
+                long start = firstEvent.start;
+                long end = firstEvent.end;
+                boolean allDay = firstEvent.allDay;
 
                 // Adjust all-day times into local timezone
                 if (allDay) {
                     final Time recycle = new Time();
-                    start = convertUtcToLocal(recycle, start);
-                    end = convertUtcToLocal(recycle, end);
+                    start = Utils.convertUtcToLocal(recycle, start);
+                    end = Utils.convertUtcToLocal(recycle, end);
                 }
 
-                result = getEventFlip(cursor, start, end, allDay);
+                result = getEventFlip(start, end, allDay);
 
                 // Make sure an update happens at midnight or earlier
                 long midnight = getNextMidnightTimeMillis();
@@ -431,154 +318,47 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             return midnight;
         }
 
-        /**
-         * Format given time for debugging output.
-         *
-         * @param unixTime Target time to report.
-         * @param now Current system time from {@link System#currentTimeMillis()}
-         *            for calculating time difference.
-         */
-        static private String formatDebugTime(long unixTime, long now) {
-            Time time = new Time();
-            time.set(unixTime);
-
-            long delta = unixTime - now;
-            if (delta > DateUtils.MINUTE_IN_MILLIS) {
-                delta /= DateUtils.MINUTE_IN_MILLIS;
-                return String.format("[%d] %s (%+d mins)", unixTime,
-                        time.format("%H:%M:%S"), delta);
-            } else {
-                delta /= DateUtils.SECOND_IN_MILLIS;
-                return String.format("[%d] %s (%+d secs)", unixTime,
-                        time.format("%H:%M:%S"), delta);
-            }
-        }
-
-        /**
-         * Convert given UTC time into current local time.
-         *
-         * @param recycle Time object to recycle, otherwise null.
-         * @param utcTime Time to convert, in UTC.
-         */
-        static private long convertUtcToLocal(Time recycle, long utcTime) {
-            if (recycle == null) {
-                recycle = new Time();
-            }
-            recycle.timezone = Time.TIMEZONE_UTC;
-            recycle.set(utcTime);
-            recycle.timezone = TimeZone.getDefault().getID();
-            return recycle.normalize(true);
-        }
-
-        /**
-         * Calculate flipping point for the given event; when we should hide this
-         * event and show the next one. This is defined as the end time of the
-         * event.
-         *
-         * @param start Event start time in local timezone.
-         * @param end Event end time in local timezone.
-         */
-        static private long getEventFlip(Cursor cursor, long start, long end, boolean allDay) {
-            return end;
-        }
-
         static void updateTextView(RemoteViews views, int id, int visibility, String string) {
             views.setViewVisibility(id, visibility);
             if (visibility == View.VISIBLE) {
                 views.setTextViewText(id, string);
             }
         }
+    }
 
-        /**
-         * Pulls the information for a single event from the cursor and populates
-         * the corresponding model object with the data.
-         *
-         * @param context a Context to use for accessing resources
-         * @param cursor the cursor to retrieve the data from
-         * @param rowId the ID of the row to retrieve
-         * @param model the model object to populate
-         * @param recycle a Time instance to recycle
-         * @param eventIndex which event index in the model to populate
-         * @param showTitleLocation whether or not to show the title and location
-         * @param startOfNextDay the beginning of the next day
-         * @param currentTime the current time
-         */
-        static private void populateEvent(Context context, Cursor cursor, int rowId,
-                CalendarAppWidgetModel model, Time recycle, int eventIndex,
-                boolean showTitleLocation, long startOfNextDay, long currentTime) {
-            cursor.moveToPosition(rowId);
+    /**
+     * Format given time for debugging output.
+     *
+     * @param unixTime Target time to report.
+     * @param now Current system time from {@link System#currentTimeMillis()}
+     *            for calculating time difference.
+     */
+    static String formatDebugTime(long unixTime, long now) {
+        Time time = new Time();
+        time.set(unixTime);
 
-            // When
-            boolean allDay = cursor.getInt(INDEX_ALL_DAY) != 0;
-            long start = cursor.getLong(INDEX_BEGIN);
-            long end = cursor.getLong(INDEX_END);
-            if (allDay) {
-                start = convertUtcToLocal(recycle, start);
-                end = convertUtcToLocal(recycle, end);
-            }
-
-            boolean eventIsInProgress = start <= currentTime && end > currentTime;
-            boolean eventIsToday = start < startOfNextDay;
-            boolean eventIsTomorrow = !eventIsToday && !eventIsInProgress
-                    && (start < (startOfNextDay + DateUtils.DAY_IN_MILLIS));
-
-            // Compute a human-readable string for the start time of the event
-            String whenString;
-            if (eventIsInProgress && allDay) {
-                // All day events for the current day display as just "Today"
-                whenString = context.getString(R.string.today);
-            } else if (eventIsTomorrow && allDay) {
-                // All day events for the next day display as just "Tomorrow"
-                whenString = context.getString(R.string.tomorrow);
-            } else {
-                int flags = DateUtils.FORMAT_ABBREV_ALL;
-                if (allDay) {
-                    flags |= DateUtils.FORMAT_UTC;
-                } else {
-                    flags |= DateUtils.FORMAT_SHOW_TIME;
-                    if (DateFormat.is24HourFormat(context)) {
-                        flags |= DateUtils.FORMAT_24HOUR;
-                    }
-                }
-                // Show day of the week if not today or tomorrow
-                if (!eventIsTomorrow && !eventIsToday) {
-                    flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
-                }
-                whenString = DateUtils.formatDateRange(context, start, start, flags);
-                // TODO better i18n formatting
-                if (eventIsTomorrow) {
-                    whenString += (", ");
-                    whenString += context.getString(R.string.tomorrow);
-                } else if (eventIsInProgress) {
-                    whenString += " (";
-                    whenString += context.getString(R.string.in_progress);
-                    whenString += ")";
-                }
-            }
-
-            model.eventInfos[eventIndex].start = start;
-            model.eventInfos[eventIndex].when = whenString;
-            model.eventInfos[eventIndex].visibWhen = View.VISIBLE;
-
-            if (showTitleLocation) {
-                // What
-                String titleString = cursor.getString(INDEX_TITLE);
-                if (TextUtils.isEmpty(titleString)) {
-                    titleString = context.getString(R.string.no_title_label);
-                }
-                model.eventInfos[eventIndex].title = titleString;
-                model.eventInfos[eventIndex].visibTitle = View.VISIBLE;
-
-                // Where
-                String whereString = cursor.getString(INDEX_EVENT_LOCATION);
-                if (!TextUtils.isEmpty(whereString)) {
-                    model.eventInfos[eventIndex].visibWhere = View.VISIBLE;
-                    model.eventInfos[eventIndex].where = whereString;
-                } else {
-                    model.eventInfos[eventIndex].visibWhere = View.GONE;
-                }
-                if (LOGD) Log.d(TAG, " Title:" + titleString + " Where:" + whereString);
-            }
+        long delta = unixTime - now;
+        if (delta > DateUtils.MINUTE_IN_MILLIS) {
+            delta /= DateUtils.MINUTE_IN_MILLIS;
+            return String.format("[%d] %s (%+d mins)", unixTime,
+                    time.format("%H:%M:%S"), delta);
+        } else {
+            delta /= DateUtils.SECOND_IN_MILLIS;
+            return String.format("[%d] %s (%+d secs)", unixTime,
+                    time.format("%H:%M:%S"), delta);
         }
+    }
+
+    /**
+     * Calculate flipping point for the given event; when we should hide this
+     * event and show the next one. This is defined as the end time of the
+     * event.
+     *
+     * @param start Event start time in local timezone.
+     * @param end Event end time in local timezone.
+     * @param allDay whether or not the event is all-day
+     */
+    static long getEventFlip(long start, long end, boolean allDay) {
+        return end;
     }
 }
