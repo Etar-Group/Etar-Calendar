@@ -23,7 +23,7 @@
         android:id="@+id/mini_month"
 
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
 
         android:layout_height="320dip"
         android:layout_width="350dip" />
@@ -31,10 +31,10 @@
      <FrameLayout
         android:id="@+id/calendar_list"
 
-        android:layout_toRightOf="@id/mini_month"
+        android:layout_toLeftOf="@id/mini_month"
         android:layout_alignBottom="@id/mini_month"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
 
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
