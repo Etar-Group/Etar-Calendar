@@ -15,7 +15,6 @@
 -->
 
 <resources>
-    <integer name="number_of_hours">10</integer>
     <integer name="flip_interval">5000</integer>
     <integer name="slide_transition_duration">600</integer>
 </resources>

@@ -88,6 +88,8 @@ public class DayView extends View
     private static final int MENU_EVENT_EDIT = 7;
     private static final int MENU_EVENT_DELETE = 8;
 
+    private static int DEFAULT_CELL_HEIGHT = 52;
+
     private boolean mOnFlingCalled;
     /**
      * ID of the last event which was displayed with the toast popup.
@@ -376,6 +378,7 @@ public class DayView extends View
                 CURRENT_TIME_LINE_SIDE_BUFFER *= mScale;
 
                 SMALL_ROUND_RADIUS *= mScale;
+                DEFAULT_CELL_HEIGHT *= mScale;
             }
         }
 
@@ -520,8 +523,6 @@ public class DayView extends View
 
         mEarliestStartHour = new int[mNumDays];
         mHasAllDayEvent = new boolean[mNumDays];
-
-        mNumHours = context.getResources().getInteger(R.integer.number_of_hours);
 
 // FRAG_TODO. Take this out.
 //        mTitleTextView = (TextView) findViewById(R.id.title);
@@ -815,13 +816,13 @@ public class DayView extends View
         mAllDayHeight = allDayHeight;
 
         mGridAreaHeight = height - mFirstCell;
-        mCellHeight = (mGridAreaHeight - ((mNumHours + 1) * HOUR_GAP)) / mNumHours;
-        int usedGridAreaHeight = (mCellHeight + HOUR_GAP) * mNumHours + HOUR_GAP;
-        int bottomSpace = mGridAreaHeight - usedGridAreaHeight;
+        // TODO Load preference and change with pinch to zoom
+        mCellHeight = DEFAULT_CELL_HEIGHT;
+        mNumHours = mGridAreaHeight / mCellHeight;
         mEventGeometry.setHourHeight(mCellHeight);
 
         // Create an off-screen bitmap that we can draw into.
-        mBitmapHeight = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) + bottomSpace;
+        mBitmapHeight = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP);
         if ((mBitmap == null || mBitmap.getHeight() < mBitmapHeight) && width > 0 &&
                 mBitmapHeight > 0) {
             if (mBitmap != null) {
