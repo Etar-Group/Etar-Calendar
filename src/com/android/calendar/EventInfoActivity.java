@@ -269,7 +269,13 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     // This is called when one of the "remove reminder" buttons is selected.
     public void onClick(View v) {
         LinearLayout reminderItem = (LinearLayout) v.getParent();
+        if (reminderItem == null) {
+            return;
+        }
         LinearLayout parent = (LinearLayout) reminderItem.getParent();
+        if (parent == null) {
+            return;
+        }
         parent.removeView(reminderItem);
         mReminderItems.remove(reminderItem);
         updateRemindersVisibility();
