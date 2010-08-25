@@ -27,6 +27,10 @@
             android:entries="@array/preferences_week_start_day_labels"
             android:entryValues="@array/preferences_week_start_day_values"
             android:dialogTitle="@string/preferences_week_start_day_dialog" />
+        <PreferenceScreen
+            android:key="preferences_clear_search_history"
+            android:title="@string/preferences_clear_search_history_title"
+            android:summary="@string/preferences_clear_search_history_summary" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/preferences_reminder_title">

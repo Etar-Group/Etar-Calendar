@@ -64,10 +64,6 @@
             </intent-filter>
         </activity-alias>
 
-        <!-- Make all activities a searchable context -->
-        <meta-data android:name="android.app.default_searchable"
-            android:value="com.android.calendar.SearchActivity"/>
-
         <activity android:name="EditEventActivity" android:label="@string/event_edit_title"
             android:theme="@android:style/Theme"
             android:configChanges="orientation|keyboardHidden">
@@ -108,6 +104,11 @@
         <activity android:name="SelectCalendarsActivity" android:label="@string/calendars_title" />
         <activity android:name="CalendarPreferenceActivity" android:label="@string/preferences_title" />
 
+        <!-- Declarations for search -->
+        <!-- Make all activities a searchable context -->
+        <meta-data android:name="android.app.default_searchable"
+            android:value="com.android.calendar.SearchActivity"/>
+
         <activity android:name="SearchActivity" android:label="@string/search_title"
             android:launchMode="singleTop" android:theme="@style/CalendarTheme.WithActionBar">
             <intent-filter>
@@ -115,6 +116,9 @@
             </intent-filter>
             <meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>
         </activity>
+
+        <provider android:name=".CalendarRecentSuggestionsProvider"
+            android:authorities="com.android.calendar.CalendarRecentSuggestionsProvider" />
 
         <!-- Declarations for alerts/reminders -->
         <activity android:name=".alerts.AlertActivity" android:launchMode="singleInstance"

@@ -24,10 +24,13 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
+import android.provider.SearchRecentSuggestions;
+import android.widget.Toast;
 
 public class CalendarPreferenceActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
     private static final String BUILD_VERSION = "build_version";
@@ -39,6 +42,8 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     // Preference keys
     public static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
     public static final String KEY_WEEK_START_DAY = "preferences_week_start_day";
+
+    public static final String KEY_CLEAR_SEARCH_HISTORY = "preferences_clear_search_history";
 
     public static final String KEY_ALERTS = "preferences_alerts";
     public static final String KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate";
@@ -179,4 +184,22 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
             mPopup.setEnabled(false);
         }
     }
+
+
+    @Override @SuppressWarnings("deprecation")
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        String key = preference.getKey();
+        if (key.equals(KEY_CLEAR_SEARCH_HISTORY)) {
+            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                    CalendarRecentSuggestionsProvider.AUTHORITY,
+                    CalendarRecentSuggestionsProvider.MODE);
+            suggestions.clearHistory();
+            Toast.makeText(this, R.string.search_history_cleared,
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
+
 }
