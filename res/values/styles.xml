@@ -54,24 +54,21 @@
 
     <style name="TextAppearance.AgendaView_ValueLabel">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="TextAppearance.EditEvent_Label">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-        <item name="android:textColor">?android:attr/textColorSecondaryInverse</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingLeft">2dip</item>
     </style>
 
     <style name="TextAppearance.EventInfo_Label">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-        <item name="android:textColor">?android:attr/textColorSecondary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingLeft">2dip</item>
     </style>
 
-    <style name="EditEvent_Layout">
+    <style name="EditEvent_Layout" parent="android:Theme.Light.Holo">
         <item name="android:paddingLeft">6dip</item>
         <item name="android:paddingRight">7dip</item>
         <item name="android:paddingTop">8dip</item>
@@ -79,18 +76,15 @@
 
     <style name="TextAppearance.Alert_Title">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="TextAppearance.Alert_Label">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="TextAppearance.Alert_Value">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="CalendarTheme" parent="android:Theme.Light.NoTitleBar">
@@ -105,8 +99,7 @@
     <style name="MultiStateButton">
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceSmallInverse</item>
-        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:gravity">center_vertical|left</item>
     </style>
 

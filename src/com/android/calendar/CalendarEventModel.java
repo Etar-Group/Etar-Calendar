@@ -20,10 +20,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Events;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.TimeZone;
 
 /**
@@ -32,6 +34,41 @@ import java.util.TimeZone;
  * the events table. Only fields that are important to the UI are included.
  */
 public class CalendarEventModel {
+    public static class Attendee {
+        @Override
+        public int hashCode() {
+            return (mEmail == null) ? 0 : mEmail.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (!(obj instanceof Attendee)) {
+                return false;
+            }
+            Attendee other = (Attendee) obj;
+            if (!TextUtils.equals(mEmail, other.mEmail)) {
+                return false;
+            }
+            return true;
+        }
+
+        public String mName;
+        public String mEmail;
+        public int mStatus;
+
+        public Attendee(String name, String email) {
+            mName = name;
+            mEmail = email;
+            mStatus = Attendees.ATTENDEE_STATUS_NONE;
+        }
+    }
+
     // TODO strip out fields that don't ever get used
     /**
      * The uri of the event in the db. This should only be null for new events.
@@ -73,6 +110,7 @@ public class CalendarEventModel {
     // as an attendee by default.
     public boolean mHasAttendeeData = true;
     public int mSelfAttendeeStatus = -1;
+    public int mOwnerAttendeeId = -1;
     public String mOriginalEvent = null;
     public Long mOriginalTime = null;
     public Boolean mOriginalAllDay = null;
@@ -85,13 +123,12 @@ public class CalendarEventModel {
 
     // PROVIDER_NOTES Using EditEventHelper the owner should not be included in this
     // list and will instead be added by saveEvent. Is this what we want?
-    public String mAttendees;
+    public LinkedHashMap<String, Attendee> mAttendeesList;
 
     public CalendarEventModel() {
         mReminderMinutes = new ArrayList<Integer>();
-        mAttendees = "";
+        mAttendeesList = new LinkedHashMap<String, Attendee>();
         mTimezone = TimeZone.getDefault().getID();
-
     }
 
     public CalendarEventModel(Context context) {
@@ -197,6 +234,7 @@ public class CalendarEventModel {
 
         mHasAttendeeData = true;
         mSelfAttendeeStatus = -1;
+        mOwnerAttendeeId = -1;
         mOriginalEvent = null;
         mOriginalTime = null;
         mOriginalAllDay = null;
@@ -207,7 +245,28 @@ public class CalendarEventModel {
         mVisibility = 0;
 
         mReminderMinutes = new ArrayList<Integer>();
-        mAttendees = "";
+        mAttendeesList.clear();
+    }
+
+    public void addAttendee(Attendee attendee) {
+        mAttendeesList.put(attendee.mEmail, attendee);
+    }
+
+    public void removeAttendee(Attendee attendee) {
+        mAttendeesList.remove(attendee.mEmail);
+    }
+
+    public String getAttendeesString() {
+        StringBuilder b = new StringBuilder();
+        for (Attendee attendee : mAttendeesList.values()) {
+            String name = attendee.mName;
+            String email = attendee.mEmail;
+            String status = Integer.toString(attendee.mStatus);
+            b.append("name:").append(name);
+            b.append(" email:").append(email);
+            b.append(" status:").append(status);
+        }
+        return b.toString();
     }
 
     @Override
@@ -215,7 +274,7 @@ public class CalendarEventModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + (mAllDay ? 1231 : 1237);
-        result = prime * result + ((mAttendees == null) ? 0 : mAttendees.hashCode());
+        result = prime * result + ((mAttendeesList == null) ? 0 : getAttendeesString().hashCode());
         result = prime * result + (int) (mCalendarId ^ (mCalendarId >>> 32));
         result = prime * result + ((mDescription == null) ? 0 : mDescription.hashCode());
         result = prime * result + ((mDuration == null) ? 0 : mDuration.hashCode());
@@ -239,6 +298,7 @@ public class CalendarEventModel {
         result = prime * result + ((mReminderMinutes == null) ? 0 : mReminderMinutes.hashCode());
         result = prime * result + ((mRrule == null) ? 0 : mRrule.hashCode());
         result = prime * result + mSelfAttendeeStatus;
+        result = prime * result + mOwnerAttendeeId;
         result = prime * result + (int) (mStart ^ (mStart >>> 32));
         result = prime * result + ((mSyncAccount == null) ? 0 : mSyncAccount.hashCode());
         result = prime * result + ((mSyncAccountType == null) ? 0 : mSyncAccountType.hashCode());
@@ -269,11 +329,11 @@ public class CalendarEventModel {
         if (mAllDay != other.mAllDay) {
             return false;
         }
-        if (mAttendees == null) {
-            if (other.mAttendees != null) {
+        if (mAttendeesList == null) {
+            if (other.mAttendeesList != null) {
                 return false;
             }
-        } else if (!mAttendees.equals(other.mAttendees)) {
+        } else if (!TextUtils.equals(getAttendeesString(), other.getAttendeesString())) {
             return false;
         }
 
@@ -398,6 +458,9 @@ public class CalendarEventModel {
         }
 
         if (mSelfAttendeeStatus != other.mSelfAttendeeStatus) {
+            return false;
+        }
+        if (mOwnerAttendeeId != other.mOwnerAttendeeId) {
             return false;
         }
         if (mStart != other.mStart) {

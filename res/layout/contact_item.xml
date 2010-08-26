@@ -18,7 +18,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:paddingLeft="0dip"
-    android:paddingRight="9dip"
+    android:paddingRight="0dip"
     android:minHeight="48dip">
 
     <QuickContactBadge
@@ -37,24 +37,34 @@
         android:src="@drawable/ic_contact_picture"
         style="?android:attr/quickContactBadgeStyleWindowMedium" />
 
-    <TextView
-        android:id="@+id/name"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:inputType="none"
-        android:paddingLeft="2dip"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/badge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <ImageView
         android:id="@+id/presence"
         android:scaleType="fitXY"
         android:visibility="gone"
-        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/badge"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <ImageButton android:id="@+id/contact_remove"
+        style="@style/MinusButton"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:inputType="none"
+        android:paddingLeft="2dip"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/presence"
+        android:layout_toLeftOf="@id/contact_remove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.EditEvent_Label"/>
 
     <View
         android:id="@+id/separator"

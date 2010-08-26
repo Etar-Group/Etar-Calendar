@@ -20,8 +20,6 @@ import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.R;
-import com.android.calendar.R.plurals;
-import com.android.calendar.event.EditEventHelper;
 
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
@@ -363,7 +361,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mHelper = new EditEventHelper(mActivity, null);
 
         mModel1 = buildTestModel();
-        mModel1.mAttendees = TEST_ADDRESSES2;
+//        mModel1.mAttendees = TEST_ADDRESSES2;
         mCurrentSaveTest = SAVE_EVENT_NEW_EVENT;
 
         assertTrue(mHelper.saveEvent(mModel1, null, 0));
@@ -401,7 +399,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-        mModel1.mAttendees = TEST_ADDRESSES2;
+//        mModel1.mAttendees = TEST_ADDRESSES2;
 
         // Updating a recurring event with a new attendee list
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
@@ -409,8 +407,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-            "one.two.three@email.grue";
+//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
+//            "one.two.three@email.grue";
         mCurrentSaveTest = SAVE_EVENT_MOD_RECUR;
 
         assertTrue(mHelper.saveEvent(mModel1, mModel2, EditEventHelper.MODIFY_ALL));
@@ -450,7 +448,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-        mModel1.mAttendees = TEST_ADDRESSES2;
+//        mModel1.mAttendees = TEST_ADDRESSES2;
 
         // Updating a recurring event with a new attendee list
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
@@ -458,8 +456,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-            "one.two.three@email.grue";
+//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
+//            "one.two.three@email.grue";
 
         // Replace an existing recurring event with a non-recurring event
         mModel1.mRrule = null;
@@ -506,7 +504,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-        mModel1.mAttendees = TEST_ADDRESSES2;
+//        mModel1.mAttendees = TEST_ADDRESSES2;
 
         // Updating a recurring event with a new attendee list
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
@@ -514,8 +512,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-            "one.two.three@email.grue";
+//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
+//            "one.two.three@email.grue";
 
         mModel2.mRrule = null;
         mModel2.mEnd = TEST_END;
@@ -540,7 +538,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-        mModel1.mAttendees = TEST_ADDRESSES2;
+//        mModel1.mAttendees = TEST_ADDRESSES2;
 
         // Updating a recurring event with a new attendee list
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
@@ -548,8 +546,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-            "one.two.three@email.grue";
+//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
+//            "one.two.three@email.grue";
 
         mModel2.mRrule = null;
         mModel2.mEnd = TEST_END2;
@@ -591,15 +589,15 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-        mModel1.mAttendees = TEST_ADDRESSES2;
+//        mModel1.mAttendees = TEST_ADDRESSES2;
 
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-            "one.two.three@email.grue";
+//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
+//            "one.two.three@email.grue";
 
         // Modify the second instance of the event
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
@@ -653,14 +651,14 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-        mModel1.mAttendees = TEST_ADDRESSES2;
+//        mModel1.mAttendees = TEST_ADDRESSES2;
 
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
 
         // The original model is assumed correct so drop the no good bit
-        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-            "one.two.three@email.grue";
+//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
+//            "one.two.three@email.grue";
 
         // Modify the second instance of the event
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
@@ -710,7 +708,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-        mModel1.mAttendees = TEST_ADDRESSES2;
+//        mModel1.mAttendees = TEST_ADDRESSES2;
 
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = mModel1.mUri;
@@ -718,8 +716,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-            "one.two.three@email.grue";
+//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
+//            "one.two.three@email.grue";
 
         // Move the event one day but keep original start set to the first instance
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
@@ -769,7 +767,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-        mModel1.mAttendees = TEST_ADDRESSES2;
+//        mModel1.mAttendees = TEST_ADDRESSES2;
 
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = mModel1.mUri;
@@ -777,8 +775,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-            "one.two.three@email.grue";
+//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
+//            "one.two.three@email.grue";
 
         // Move the event one day but keep original start set to the first instance
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
@@ -828,14 +826,14 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-        mModel1.mAttendees = TEST_ADDRESSES2;
+//        mModel1.mAttendees = TEST_ADDRESSES2;
 
         mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
 
         // The original model is assumed correct so drop the no good bit
-        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-            "one.two.three@email.grue";
+//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
+//            "one.two.three@email.grue";
 
         // Move the event one day and the original start so it references the second instance
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
@@ -887,7 +885,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         expected.add(new Rfc822Token("First Last", "first@email.com", "comment"));
         expected.add(new Rfc822Token(null, "one.two.three@email.grue", ""));
 
-        LinkedHashSet<Rfc822Token> actual = mHelper.getAddressesFromList(TEST_ADDRESSES);
+        LinkedHashSet<Rfc822Token> actual = mHelper.getAddressesFromList(TEST_ADDRESSES, null);
         assertEquals(actual, expected);
     }
 

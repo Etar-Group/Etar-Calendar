@@ -30,7 +30,6 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -39,20 +38,19 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.RemoteException;
 import android.pim.EventRecurrence;
-import android.provider.ContactsContract;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
+import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
+import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Presence;
 import android.provider.ContactsContract.QuickContact;
-import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -60,7 +58,6 @@ import android.text.format.Time;
 import android.text.util.Linkify;
 import android.text.util.Rfc822Token;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -87,7 +84,7 @@ import java.util.regex.Pattern;
 
 public class EventInfoFragment extends Fragment implements View.OnClickListener,
         AdapterView.OnItemSelectedListener {
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     public static final String TAG = "EventInfoActivity";
 
@@ -200,15 +197,6 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
     private static final int MENU_EDIT = 2;
     private static final int MENU_DELETE = 3;
 
-    private static final int ATTENDEE_ID_NONE = -1;
-    private static final int ATTENDEE_NO_RESPONSE = -1;
-    private static final int[] ATTENDEE_VALUES = {
-            ATTENDEE_NO_RESPONSE,
-            Attendees.ATTENDEE_STATUS_ACCEPTED,
-            Attendees.ATTENDEE_STATUS_TENTATIVE,
-            Attendees.ATTENDEE_STATUS_DECLINED,
-    };
-
     private View mView;
     private LinearLayout mRemindersContainer;
     private LinearLayout mOrganizerContainer;
@@ -225,7 +213,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
 
     private boolean mHasAttendeeData;
     private boolean mIsOrganizer;
-    private long mCalendarOwnerAttendeeId = ATTENDEE_ID_NONE;
+    private long mCalendarOwnerAttendeeId = EditEventHelper.ATTENDEE_ID_NONE;
     private boolean mOrganizerCanRespond;
     private String mCalendarOwnerAccount;
     private boolean mCanModifyCalendar;
@@ -245,7 +233,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
 
     private int mResponseOffset;
     private int mOriginalAttendeeResponse;
-    private int mAttendeeResponseFromIntent = ATTENDEE_NO_RESPONSE;
+    private int mAttendeeResponseFromIntent = EditEventHelper.ATTENDEE_NO_RESPONSE;
     private boolean mIsRepeating;
     private boolean mIsDuplicateName;
 
@@ -547,8 +535,8 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
 
     @SuppressWarnings("fallthrough")
     private void initAttendeesCursor(View view) {
-        mOriginalAttendeeResponse = ATTENDEE_NO_RESPONSE;
-        mCalendarOwnerAttendeeId = ATTENDEE_ID_NONE;
+        mOriginalAttendeeResponse = EditEventHelper.ATTENDEE_NO_RESPONSE;
+        mCalendarOwnerAttendeeId = EditEventHelper.ATTENDEE_ID_NONE;
         mNumOfAttendees = 0;
         if (mAttendeesCursor != null) {
             mNumOfAttendees = mAttendeesCursor.getCount();
@@ -573,7 +561,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
                         }
                     }
 
-                    if (mCalendarOwnerAttendeeId == ATTENDEE_ID_NONE &&
+                    if (mCalendarOwnerAttendeeId == EditEventHelper.ATTENDEE_ID_NONE &&
                             mCalendarOwnerAccount.equalsIgnoreCase(email)) {
                         mCalendarOwnerAttendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
                         mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
@@ -767,7 +755,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
             return false;
         }
 
-        int status = ATTENDEE_VALUES[position];
+        int status = EditEventHelper.ATTENDEE_VALUES[position];
 
         // If the status has not changed, then don't update the database
         if (status == mOriginalAttendeeResponse) {
@@ -775,7 +763,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
         }
 
         // If we never got an owner attendee id we can't set the status
-        if (mCalendarOwnerAttendeeId == ATTENDEE_ID_NONE) {
+        if (mCalendarOwnerAttendeeId == EditEventHelper.ATTENDEE_ID_NONE) {
             return false;
         }
 
@@ -852,9 +840,9 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
     }
 
     private int findResponseIndexFor(int response) {
-        int size = ATTENDEE_VALUES.length;
+        int size = EditEventHelper.ATTENDEE_VALUES.length;
         for (int index = 0; index < size; index++) {
-            if (ATTENDEE_VALUES[index] == response) {
+            if (EditEventHelper.ATTENDEE_VALUES[index] == response) {
                 return index;
             }
         }
@@ -1181,7 +1169,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
          * no response option.
          */
         if ((mOriginalAttendeeResponse != Attendees.ATTENDEE_STATUS_INVITED)
-                && (mOriginalAttendeeResponse != ATTENDEE_NO_RESPONSE)
+                && (mOriginalAttendeeResponse != EditEventHelper.ATTENDEE_NO_RESPONSE)
                 && (mOriginalAttendeeResponse != Attendees.ATTENDEE_STATUS_NONE)) {
             CharSequence[] entries;
             entries = getActivity().getResources().getTextArray(R.array.response_labels2);
@@ -1194,7 +1182,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
         }
 
         int index;
-        if (mAttendeeResponseFromIntent != ATTENDEE_NO_RESPONSE) {
+        if (mAttendeeResponseFromIntent != EditEventHelper.ATTENDEE_NO_RESPONSE) {
             index = findResponseIndexFor(mAttendeeResponseFromIntent);
         } else {
             index = findResponseIndexFor(mOriginalAttendeeResponse);

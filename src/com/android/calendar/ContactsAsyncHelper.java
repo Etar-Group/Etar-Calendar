@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import com.android.calendar.event.EditEventHelper.AttendeeItem;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -53,6 +55,7 @@ public class ContactsAsyncHelper extends Handler {
 
     // constants
     private static final int EVENT_LOAD_IMAGE = 1;
+    private static final int EVENT_LOAD_DRAWABLE = 2;
     private static final int DEFAULT_TOKEN = -1;
 
     // static objects
@@ -69,6 +72,8 @@ public class ContactsAsyncHelper extends Handler {
         public Uri uri;
         public int defaultResource;
         public Object result;
+        public AttendeeItem item;
+        public Runnable callback;
     }
 
     /**
@@ -85,6 +90,7 @@ public class ContactsAsyncHelper extends Handler {
             WorkerArgs args = (WorkerArgs) msg.obj;
 
             switch (msg.arg1) {
+                case EVENT_LOAD_DRAWABLE:
                 case EVENT_LOAD_IMAGE:
                     InputStream inputStream = null;
                     try {
@@ -176,6 +182,43 @@ public class ContactsAsyncHelper extends Handler {
     }
 
     /**
+     * Start an image load, attach the result to the specified CallerInfo object.
+     * Note, when the query is started, we make the ImageView INVISIBLE if the
+     * placeholderImageResource value is -1.  When we're given a valid (!= -1)
+     * placeholderImageResource value, we make sure the image is visible.
+     */
+    public static final void retrieveContactPhotoAsync(Context context,
+            AttendeeItem item, Runnable run, Uri person) {
+
+        // in case the source caller info is null, the URI will be null as well.
+        // just return as there's nothing to do.
+        if (person == null) {
+            return;
+        }
+
+        // Added additional Cookie field in the callee to handle arguments
+        // sent to the callback function.
+
+        // setup arguments
+        WorkerArgs args = new WorkerArgs();
+        args.context = context;
+        args.item = item;
+        args.uri = person;
+        args.callback = run;
+
+        // setup message arguments
+        Message msg = sThreadHandler.obtainMessage(DEFAULT_TOKEN);
+        msg.arg1 = EVENT_LOAD_DRAWABLE;
+        msg.obj = args;
+
+        if (DBG) Log.d(LOG_TAG, "Begin loading drawable: " + args.uri);
+
+
+        // notify the thread to begin working
+        sThreadHandler.sendMessage(msg);
+    }
+
+    /**
      * Called when loading is done.
      */
     @Override
@@ -183,17 +226,22 @@ public class ContactsAsyncHelper extends Handler {
         WorkerArgs args = (WorkerArgs) msg.obj;
         switch (msg.arg1) {
             case EVENT_LOAD_IMAGE:
-                boolean imagePresent = false;
-
                 // if the image has been loaded then display it, otherwise set default.
                 // in either case, make sure the image is visible.
                 if (args.result != null) {
                     args.view.setVisibility(View.VISIBLE);
                     args.view.setImageDrawable((Drawable) args.result);
-                    imagePresent = true;
                 } else if (args.defaultResource != -1) {
                     args.view.setVisibility(View.VISIBLE);
                     args.view.setImageResource(args.defaultResource);
+                }
+                break;
+            case EVENT_LOAD_DRAWABLE:
+                if (args.result != null) {
+                    args.item.mBadge = (Drawable) args.result;
+                    if (args.callback != null) {
+                        args.callback.run();
+                    }
                 }
                 break;
             default:
