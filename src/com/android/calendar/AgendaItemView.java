@@ -19,7 +19,9 @@ package com.android.calendar;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.util.AttributeSet;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.RelativeLayout;
 
 import com.android.calendar.AgendaAdapter.ViewHolder;
@@ -29,6 +31,8 @@ import com.android.calendar.AgendaAdapter.ViewHolder;
  */
 public class AgendaItemView extends RelativeLayout {
     Paint mPaint = new Paint();
+
+    private Bundle mTempEventBundle;
 
     public AgendaItemView(Context context) {
         super(context);
@@ -53,5 +57,20 @@ public class AgendaItemView extends RelativeLayout {
                 canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
             }
         }
+    }
+
+    @Override
+    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+        if (mTempEventBundle == null) {
+            mTempEventBundle = new Bundle();
+        }
+        ViewHolder holder = (ViewHolder) getTag();
+        if (holder != null) {
+            // this way to be consistent with CalendarView
+            Bundle bundle = mTempEventBundle;
+            bundle.putInt("color", holder.calendarColor);
+            event.setParcelableData(bundle);
+        }
+        return super.dispatchPopulateAccessibilityEvent(event);
     }
 }
