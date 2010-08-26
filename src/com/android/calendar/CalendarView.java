@@ -38,6 +38,7 @@ import android.graphics.Typeface;
 import android.graphics.Paint.Style;
 import android.graphics.Path.Direction;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
@@ -58,6 +59,8 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -339,6 +342,13 @@ public class CalendarView extends View
 
     private String mDateRange;
     private TextView mTitleTextView;
+
+    // Accessibility support related members
+
+    private int mPrevSelectionDay;
+    private int mPrevSelectionHour;
+    private CharSequence mPrevTitleTextViewText;
+    private Bundle mTempEventBundle;
 
     public CalendarView(CalendarActivity activity) {
         super(activity);
@@ -1284,6 +1294,8 @@ public class CalendarView extends View
         if ((mTouchMode & TOUCH_MODE_HSCROLL) != 0) {
             canvas.restore();
         }
+
+        sendAccessibilityEvents();
     }
 
     private void drawCalendarView(Canvas canvas) {
@@ -1536,6 +1548,142 @@ public class CalendarView extends View
             canvas.drawText(time, right, y, p);
             y += mCellHeight + HOUR_GAP;
         }
+    }
+
+    private void sendAccessibilityEvents() {
+        if (!isShown() || !AccessibilityManager.getInstance(mContext).isEnabled()) {
+            return;
+        }
+        // if the title text has changed => announce period
+        CharSequence titleTextViewText = mTitleTextView.getText();
+        // intended use of identity comparison
+        boolean titleChanged = titleTextViewText != mPrevTitleTextViewText;
+        if (titleChanged) {
+            mPrevTitleTextViewText = titleTextViewText;
+            sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
+        }
+        // if title or selection has changed => announce selection
+        // Note: if the title has changed we want to send both events
+        if (titleChanged || mPrevSelectionDay != mSelectionDay
+                || mPrevSelectionHour != mSelectionHour) {
+            mPrevSelectionDay = mSelectionDay;
+            mPrevSelectionHour = mSelectionHour;
+            sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SELECTED);
+        }
+    }
+
+    @Override
+    public void sendAccessibilityEvent(int eventType) {
+        // we send only selection events since semantically we select
+        // certain element and not always this view gets focus which
+        // triggers firing of a focus accessibility event
+        if (eventType == AccessibilityEvent.TYPE_VIEW_FOCUSED) {
+            return;
+        }
+        super.sendAccessibilityEvent(eventType);
+    }
+
+    @Override
+    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            // add the currently shown period (day/week)
+            if (mNumDays == 1) {
+                // for daily view the title has enough context information
+                event.getText().add(mTitleTextView.getText());
+            } else {
+                // since the title view does not contain enough context we
+                // compute a more descriptive title for the shown time frame
+                int flags = DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_ABBREV_MONTH
+                        | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_WEEKDAY
+                        | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
+                if (DateFormat.is24HourFormat(mParentActivity)) {
+                    flags |= DateUtils.FORMAT_24HOUR;
+                }
+
+                long start = mBaseDate.toMillis(false);
+                long gmtOff = mBaseDate.gmtoff;
+                int firstJulianDay = Time.getJulianDay(start, gmtOff);
+
+                Time time = new Time(mBaseDate);
+                time.setJulianDay(firstJulianDay);
+                long startTime = time.normalize(true);
+                time.setJulianDay(firstJulianDay + mNumDays);
+                long endTime = time.normalize(true);
+
+                String timeRange = DateUtils.formatDateRange(mParentActivity, startTime, endTime,
+                        flags);
+                event.getText().add(timeRange);
+            }
+        } else if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SELECTED) {
+            int flags = 0;
+            // add the selection
+            if (mNumDays == 1) {
+                // if day view we need only hour information
+                flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
+            } else {
+                flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE
+                        | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
+            }
+            long startTime = getSelectedTimeInMillis();
+            long endTime = startTime + MILLIS_PER_HOUR;
+            if (DateFormat.is24HourFormat(mParentActivity)) {
+                flags |= DateUtils.FORMAT_24HOUR;
+            }
+            String timeRange = DateUtils.formatDateRange(mParentActivity, startTime, endTime,
+                    flags);
+            event.getText().add(timeRange);
+
+            // add the selected event data if such
+            if (mSelectedEvent != null) {
+                Event selectedEvent = mSelectedEvent;
+                if (mTempEventBundle == null) {
+                    mTempEventBundle = new Bundle();
+                }
+                Bundle bundle = mTempEventBundle;
+                bundle.clear();
+                bundle.putLong("id", selectedEvent.id);
+                bundle.putInt("color", selectedEvent.color);
+                bundle.putCharSequence("title", selectedEvent.title);
+                bundle.putCharSequence("location", selectedEvent.location);
+                bundle.putBoolean("allDay", selectedEvent.allDay);
+                bundle.putInt("startDay", selectedEvent.startDay);
+                bundle.putInt("endDay", selectedEvent.endDay);
+                bundle.putInt("startTime", selectedEvent.startTime);
+                bundle.putInt("endTime", selectedEvent.endTime);
+                bundle.putLong("startMillis", selectedEvent.startMillis);
+                bundle.putLong("endMillis", selectedEvent.endMillis);
+                bundle.putString("organizer", selectedEvent.organizer);
+                bundle.putBoolean("guestsCanModify", selectedEvent.guestsCanModify);
+                event.setParcelableData(bundle);
+            }
+        }
+
+        // add day event count, events for same hour count and
+        // the index of the selected event for the same hour
+        int todayEventCount = 0;
+        int sameHourEventCount = 0;
+        int currentSameHourEventIndex = 0;
+        int selectionHourStart = mSelectionHour * MINUTES_PER_HOUR;
+        int selectionHourEnd = selectionHourStart + MINUTES_PER_HOUR;
+        for (int i = 0, count = mEvents.size(); i < count; i++) {
+            Event calendarEvent = mEvents.get(i);
+            if (calendarEvent.endDay == mSelectionDay) {
+                todayEventCount++;
+                if (selectionHourStart >= calendarEvent.endTime
+                        || selectionHourEnd <= calendarEvent.startTime) {
+                    continue;
+                }
+                if (calendarEvent == mSelectedEvent) {
+                    currentSameHourEventIndex = sameHourEventCount;
+                }
+                sameHourEventCount++;
+            }
+        }
+        event.setAddedCount(todayEventCount);
+        event.setItemCount(sameHourEventCount);
+        event.setCurrentItemIndex(currentSameHourEventIndex);
+
+        return true;
     }
 
     private void drawDayHeader(String dateStr, int day, int cell, int x, Canvas canvas, Paint p) {
@@ -2424,6 +2572,8 @@ public class CalendarView extends View
 
         mPopup.showAtLocation(this, Gravity.BOTTOM | Gravity.LEFT, mHoursWidth, 5);
         postDelayed(mDismissPopup, POPUP_DISMISS_DELAY);
+
+        sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SELECTED);
     }
 
     // The following routines are called from the parent activity when certain
@@ -3181,6 +3331,11 @@ public class CalendarView extends View
         // Turn off redraw
         mRemeasure = false;
         mRedrawScreen = false;
+
+        // clear the cached values for accessibility support
+        mPrevSelectionDay = 0;
+        mPrevSelectionHour = 0;
+        mPrevTitleTextViewText = null;
     }
 
     /**
@@ -3221,4 +3376,3 @@ public class CalendarView extends View
         }
     }
 }
-

@@ -42,7 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_what"
-                android:capitalize="sentences"/>
+                android:capitalize="sentences"
+                android:contentDescription="@string/what_label"/>
         </LinearLayout>
 
         <!-- WHEN -->
@@ -68,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:gravity="left|center_vertical"
+                    android:contentDescription="@string/content_description_edit_event_from_date"
                     style="?android:attr/textAppearanceMediumInverse"/>
 
                 <Button android:id="@+id/start_time"
@@ -75,6 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="left|center_vertical"
+                    android:contentDescription="@string/content_description_edit_event_from_time"
                     style="?android:attr/textAppearanceMediumInverse"/>
 
             </LinearLayout>
@@ -95,6 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:gravity="left|center_vertical"
+                    android:contentDescription="@string/content_description_edit_event_to_date"
                     style="?android:attr/textAppearanceMediumInverse"/>
 
                 <Button android:id="@+id/end_time"
@@ -102,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="left|center_vertical"
+                    android:contentDescription="@string/content_description_edit_event_to_time"
                     style="?android:attr/textAppearanceMediumInverse"/>
             </LinearLayout>
 
@@ -115,6 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
+                android:contentDescription="@string/timezone_label"
                 style="?android:attr/textAppearanceMediumInverse"/>
 
             <LinearLayout
@@ -134,7 +140,8 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="15dip"
                     android:paddingBottom="15dip"
-                    android:paddingRight="1dip"/>
+                    android:paddingRight="1dip"
+                    android:contentDescription="@string/edit_event_all_day_label"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -160,7 +167,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_where"
-                android:capitalize="sentences"/>
+                android:capitalize="sentences"
+                android:contentDescription="@string/where_label"/>
         </LinearLayout>
 
         <!-- DESCRIPTION -->
@@ -180,7 +188,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_description"
-                android:capitalize="sentences"/>
+                android:capitalize="sentences"
+                android:contentDescription="@string/description_label"/>
         </LinearLayout>
 
         <!-- CALENDARS -->
@@ -205,7 +214,8 @@
             <Spinner android:id="@+id/calendars"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:prompt="@string/edit_event_calendar_label"/>
+                android:prompt="@string/edit_event_calendar_label"
+                android:contentDescription="@string/edit_event_calendar_label"/>
         </LinearLayout>
 
         <!-- GUESTS/ATTENDEES -->
@@ -228,7 +238,8 @@
                 android:hint="@string/hint_attendees"
                 android:layout_marginTop="6dip"
                 android:layout_marginBottom="6dip"
-                android:imeOptions="actionNext"/>
+                android:imeOptions="actionNext"
+                android:contentDescription="@string/attendees_label"/>
         </LinearLayout>
 
         <!-- REPEATS -->
@@ -247,7 +258,8 @@
             <Spinner android:id="@+id/repeats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:prompt="@string/repeats_label"/>
+                android:prompt="@string/repeats_label"
+                android:contentDescription="@string/repeats_label"/>
         </LinearLayout>
 
         <!-- MORE OPTIONS -->
@@ -274,7 +286,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/availability"
-                    android:prompt="@string/presence_label"/>
+                    android:prompt="@string/presence_label"
+                    android:contentDescription="@string/presence_label"/>
             </LinearLayout>
 
             <!-- PRIVACY -->
@@ -294,7 +307,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/visibility"
-                    android:prompt="@string/privacy_label"/>
+                    android:prompt="@string/privacy_label"
+                    android:contentDescription="@string/privacy_label"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -342,6 +356,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="7dip"
                 android:gravity="center_vertical|right"
+                android:contentDescription="@string/add_new_reminder"
             />
         </LinearLayout>
 
