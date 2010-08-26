@@ -26,7 +26,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
@@ -35,11 +34,9 @@ import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.provider.Calendar.Attendees;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.ContextMenu;
 import android.view.GestureDetector;
@@ -51,6 +48,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -183,6 +182,12 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private int mMonthSundayColor;
     private int mBusybitsColor;
     private int mMonthBgColor;
+
+    // Accessibility support related members
+
+    private int mPrevSelectedDayOfMonth;
+    private int mPrevSelectedMonth;
+    private CharSequence mPrevTitleTextViewText;
 
     public MonthView(MonthActivity activity, Navigator navigator) {
         super(activity);
@@ -550,6 +555,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         if (mBitmap != null) {
             canvas.drawBitmap(mBitmap, mBitmapRect, mBitmapRect, null);
         }
+
+        sendAccessibilityEvents();
     }
 
     private void doDraw(Canvas canvas) {
@@ -591,6 +598,31 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         drawGrid(canvas, p);
     }
 
+    private void sendAccessibilityEvents() {
+        if (!isShown() || !AccessibilityManager.getInstance(mContext).isEnabled()) {
+            return;
+        }
+        // if the title text has changed => announce period
+        TextView titleView = (TextView) mParentActivity.findViewById(R.id.title);
+        CharSequence titleTextViewText = titleView.getText();
+        // intended use of identity comparison
+        boolean titleChanged = titleTextViewText != mPrevTitleTextViewText;
+        if (titleChanged) {
+            mPrevTitleTextViewText = titleTextViewText;
+            sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
+        }
+        int selectedMonth = mCursor.getMonth();
+        int selectedDayOfMonth = mCursor.getSelectedDayOfMonth();
+        // if title or selection has changed => announce selection
+        // Note: if the title has changed we want to send both events
+        if (titleChanged || mPrevSelectedMonth != selectedMonth
+                || mPrevSelectedDayOfMonth != selectedDayOfMonth) {
+            mPrevSelectedMonth = selectedMonth;
+            mPrevSelectedDayOfMonth = selectedDayOfMonth;
+            sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SELECTED);
+        }
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (mGestureDetector.onTouchEvent(event)) {
@@ -598,6 +630,50 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         }
 
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    public void sendAccessibilityEvent(int eventType) {
+        // do not send focus events since we are not focused every time we
+        // are shown and the corresponding activity will make the announcement
+        if (eventType == AccessibilityEvent.TYPE_VIEW_FOCUSED) {
+            return;
+        }
+        super.sendAccessibilityEvent(eventType);
+    }
+
+    @Override
+    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            // the variable has been updated before we are called here
+            // so we avoid calling findViewById
+            event.getText().add(mPrevTitleTextViewText);
+        } else if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SELECTED) {
+            // add the selection
+            long startMillis = getSelectedTimeInMillis();
+            int flags = DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE
+                    | DateUtils.FORMAT_ABBREV_MONTH;
+            String text = DateUtils.formatDateTime(mParentActivity, startMillis, flags);
+            event.getText().add(text);
+
+            // add event count
+            int todayEventCount = 0;
+            int selectedDayOfMonth = mCursor.getSelectedDayOfMonth();
+            for (int i = 0, count = mEvents.size(); i < count; i++) {
+                Event calendarEvent = mEvents.get(i);
+                int startDay = calendarEvent.startDay - mFirstJulianDay + 1;
+                int endDay = calendarEvent.endDay - mFirstJulianDay + 1;
+                if (startDay <= selectedDayOfMonth && endDay >= selectedDayOfMonth) {
+                    todayEventCount++;
+                }
+            }
+            // set only the event count for the selected date since neither
+            // there is a selected event nor the count of events per month
+            // brings useful information (as opposed to CalendarView)
+            event.setItemCount(todayEventCount);
+        }
+
+        return true;
     }
 
     private long getSelectedMillisFor(int x, int y) {

@@ -16,6 +16,9 @@
 
 package com.android.calendar;
 
+import com.android.calendar.AgendaAdapter.ViewHolder;
+import com.android.calendar.AgendaWindowAdapter.EventInfo;
+
 import android.content.ContentUris;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -25,13 +28,11 @@ import android.provider.Calendar.Events;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-
-import com.android.calendar.AgendaAdapter.ViewHolder;
-import com.android.calendar.AgendaWindowAdapter.EventInfo;
 
 public class AgendaListView extends ListView implements OnItemClickListener {
 
@@ -42,6 +43,12 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     private AgendaActivity mAgendaActivity;
     private DeleteEventHelper mDeleteEventHelper;
+
+    /**
+     * Reusable view to fetch the day title for accessibility support with no
+     * code duplication reducing fragility.
+     */
+    private View mLazyTempView;
 
     public AgendaListView(AgendaActivity agendaActivity) {
         super(agendaActivity, null);
@@ -59,6 +66,27 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     @Override protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         mWindowAdapter.close();
+    }
+
+    @Override
+    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+        int titlePosition = 0 ;
+        AgendaByDayAdapter.RowInfo rowInfo = null;
+        // find the index of the item with day title
+        for (titlePosition = getSelectedItemPosition() - 1; titlePosition >= 0; titlePosition--) {
+            Object previousItem = mWindowAdapter.getItem(titlePosition);
+            if (previousItem instanceof AgendaByDayAdapter.RowInfo) {
+                break;
+            }
+        }
+        // append the day title
+        mLazyTempView = mWindowAdapter.getView(titlePosition, mLazyTempView, null);
+        if (mLazyTempView != null && mLazyTempView instanceof TextView) {
+            TextView weekDayTitleView = (TextView) mLazyTempView;
+            CharSequence weekDayTitleViewText = weekDayTitleView.getText();
+            event.getText().add(weekDayTitleViewText);
+        }
+        return super.dispatchPopulateAccessibilityEvent(event);
     }
 
     // Implementation of the interface OnItemClickListener

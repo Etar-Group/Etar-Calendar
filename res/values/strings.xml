@@ -225,6 +225,18 @@
     <string name="no_syncable_calendars">No calendars</string>
     <!-- Body of alert shown if the user tries to create an event and has no calendars -->
     <string name="no_calendars_found">You have no calendars.</string>
+    <!-- The content description for the date part of the "From" input field. [CHAR LIMIT=NONE] -->
+    <string name="content_description_edit_event_from_date">From date</string>
+    <!-- The content description for the date part of the "From" input field. [CHAR LIMIT=NONE] -->
+    <string name="content_description_edit_event_from_time">From time</string>
+    <!-- The content description for the date part of the "To" input field. [CHAR LIMIT=NONE] -->
+    <string name="content_description_edit_event_to_date">To date</string>
+    <!-- The content description for the date part of the "To" input field. [CHAR LIMIT=NONE] -->
+    <string name="content_description_edit_event_to_time">To time</string>
+    <!-- The content description for the widget for selecting a reminder type. [CHAR LIMIT=NONE] -->
+    <string name="content_description_edit_event_reminders">Reminders</string>
+    <!-- The content description for the widget for removing a reminder from an event. [CHAR LIMIT=NONE] -->
+    <string name="content_description_edit_event_remove_reminder">Remove reminder</string>
 
     <!-- View Event -->
     <skip />

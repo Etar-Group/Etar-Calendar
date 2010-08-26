@@ -277,7 +277,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         mRowInfo = rowInfo;
     }
 
-    private static class RowInfo {
+    static class RowInfo {
         // mType is either a day header (TYPE_DAY) or an event (TYPE_MEETING)
         final int mType;
 
