@@ -21,7 +21,8 @@ import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventViewUtils;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.ActivityNotFoundException;
 import android.content.AsyncQueryHandler;
 import android.content.ContentProviderOperation;
@@ -58,6 +59,7 @@ import android.text.format.Time;
 import android.text.util.Linkify;
 import android.text.util.Rfc822Token;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -66,6 +68,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -82,7 +86,7 @@ import java.util.HashMap;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
-public class EventInfoFragment extends Fragment implements View.OnClickListener,
+public class EventInfoFragment extends DialogFragment implements View.OnClickListener,
         AdapterView.OnItemSelectedListener {
     public static final boolean DEBUG = false;
 
@@ -93,6 +97,8 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
     private static final String BUNDLE_KEY_START_MILLIS = "key_start_millis";
 
     private static final String BUNDLE_KEY_END_MILLIS = "key_end_millis";
+
+    private static final String BUNDLE_KEY_IS_DIALOG = "key_fragment_is_dialog";
 
     private static final int MAX_REMINDERS = 5;
 
@@ -273,6 +279,12 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
 
     private QueryHandler mHandler;
 
+    private static final int DIALOG_WIDTH = 500; // FRAG_TODO scale
+    private static final int DIALOG_HEIGHT = 500;
+    private boolean mIsDialog = false;
+    private int mX = -1;
+    private int mY = -1;
+
     private class QueryHandler extends AsyncQueryService {
         public QueryHandler(Context context) {
             super(context);
@@ -388,6 +400,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
     }
 
     public EventInfoFragment(Uri uri, long startMillis, long endMillis, int attendeeResponse) {
+        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         mUri = uri;
         mStartMillis = startMillis;
         mEndMillis = endMillis;
@@ -398,6 +411,47 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
         this(ContentUris.withAppendedId(Events.CONTENT_URI, eventId),
                 startMillis, endMillis, EventInfoActivity.ATTENDEE_NO_RESPONSE);
         mEventId = eventId;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            mIsDialog = savedInstanceState.getBoolean(BUNDLE_KEY_IS_DIALOG, false);
+        }
+
+        if (mIsDialog) {
+            applyDialogParams();
+        }
+    }
+
+    private void applyDialogParams() {
+        Dialog dialog = getDialog();
+        dialog.setCanceledOnTouchOutside(true);
+
+        Window window = dialog.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+        WindowManager.LayoutParams a = window.getAttributes();
+        a.dimAmount = .4f;
+
+        a.width = DIALOG_WIDTH;
+        a.height = DIALOG_HEIGHT;
+
+        if (mX != -1 || mY != -1) {
+            a.x = mX - a.width / 2;
+            a.y = mY - a.height / 2;
+            a.gravity = Gravity.LEFT | Gravity.TOP;
+        }
+
+        window.setAttributes(a);
+    }
+
+    public void setDialogParams(int x, int y) {
+        mIsDialog = true;
+        mX = x;
+        mY = y;
     }
 
     // This is called when one of the "remove reminder" buttons is selected.
@@ -606,6 +660,8 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
         outState.putLong(BUNDLE_KEY_EVENT_ID, mEventId);
         outState.putLong(BUNDLE_KEY_START_MILLIS, mStartMillis);
         outState.putLong(BUNDLE_KEY_END_MILLIS, mEndMillis);
+
+        outState.putBoolean(BUNDLE_KEY_IS_DIALOG, mIsDialog);
     }
 
 
@@ -639,7 +695,6 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (mEventCursor != null) {
             mEventCursor.close();
         }
@@ -649,6 +704,7 @@ public class EventInfoFragment extends Fragment implements View.OnClickListener,
         if (mAttendeesCursor != null) {
             mAttendeesCursor.close();
         }
+        super.onDestroy();
     }
 
     private boolean canAddReminders() {

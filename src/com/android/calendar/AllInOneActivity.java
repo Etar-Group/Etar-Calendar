@@ -300,7 +300,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public long getSupportedEventTypes() {
-        return EventType.GO_TO;
+        return EventType.GO_TO | EventType.VIEW_EVENT;
     }
 
     @Override
@@ -324,6 +324,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 findViewById(R.id.mini_month).setVisibility(View.VISIBLE);
                 findViewById(R.id.calendar_list).setVisibility(View.VISIBLE);
             }
+        } else if (event.eventType == EventType.VIEW_EVENT) {
+            EventInfoFragment fragment = new EventInfoFragment(event.id, event.startTime
+                    .toMillis(false), event.endTime.toMillis(false));
+            fragment.setDialogParams(event.x, event.y);
+            fragment.show(getFragmentManager(), "EventInfoFragment");
         }
     }
 
