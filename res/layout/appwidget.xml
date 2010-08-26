@@ -28,9 +28,18 @@
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="40dip"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/appwidget_calendar_bgtop_blue">
+
+        <ImageView
+            android:id="@+id/widget_logo"
+            android:src="@drawable/app_icon"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="10dip"
+            android:scaleType="centerInside" />
 
         <LinearLayout
             android:id="@+id/header_day"
