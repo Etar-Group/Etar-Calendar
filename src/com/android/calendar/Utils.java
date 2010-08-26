@@ -187,6 +187,13 @@ public class Utils {
         editor.apply();
     }
 
+    static void setSharedPreference(Context context, String key, int value) {
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(key, value);
+        editor.apply();
+    }
+
     /**
      * Save default agenda/day/week/month view for next time
      *

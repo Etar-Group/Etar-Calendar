@@ -54,6 +54,8 @@ public class GeneralPreferences extends PreferenceFragment implements
 
     public static final String KEY_DEFAULT_REMINDER = "preferences_default_reminder";
 
+    public static final String KEY_DEFAULT_CELL_HEIGHT = "preferences_default_cell_height";
+
     /** Key to SharePreference for default view (CalendarController.ViewType) */
     public static final String KEY_START_VIEW = "preferred_startView";
     /**
