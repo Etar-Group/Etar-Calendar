@@ -101,26 +101,6 @@ public class Utils {
         return prefs.getInt(key, defaultValue);
     }
 
-
-    private static class PreferenceCommitTask extends
-            AsyncTask<SharedPreferences.Editor, Integer, Boolean> {
-        @Override
-        protected Boolean doInBackground(Editor... params) {
-            Editor editor = params[0];
-            return editor.commit();
-        }
-    }
-
-    /**
-     * Commits the given shared preferences editor asynchronously in the
-     * background.
-     *
-     * @param editor the editor to commit
-     */
-    public static void commitSharedPreferencesEditor(Editor editor) {
-        (new PreferenceCommitTask()).execute(editor);
-    }
-
     /**
      * Asynchronously sets the preference with the given key to the given value
      *
@@ -130,8 +110,7 @@ public class Utils {
      */
     public static void setSharedPreference(Context context, String key, String value) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
-        Editor editor = prefs.edit().putString(key, value);
-        commitSharedPreferencesEditor(editor);
+        prefs.edit().putString(key, value).startCommit();
     }
 
     /**
@@ -152,8 +131,7 @@ public class Utils {
 
         // Record the (new) start view
         editor.putInt(CalendarPreferenceActivity.KEY_START_VIEW, viewId);
-
-        commitSharedPreferencesEditor(editor);
+        editor.startCommit();
     }
 
     public static MatrixCursor matrixCursorFromCursor(Cursor cursor) {
