@@ -100,6 +100,7 @@ public class CalendarController {
         final int DAY = 2;
         final int WEEK = 3;
         final int MONTH = 4;
+        final int EDIT = 5;
     }
 
     public static class EventInfo {
@@ -207,6 +208,9 @@ public class CalendarController {
             long endMillis, int x, int y) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
+        if (eventType == EventType.EDIT_EVENT) {
+            info.viewType = ViewType.EDIT;
+        }
         info.id = eventId;
         info.startTime = new Time();
         info.startTime.set(startMillis);
@@ -442,6 +446,11 @@ public class CalendarController {
                         Calendars._SYNC_ACCOUNT_TYPE, // 2
                         },
                 REFRESH_SELECTION, REFRESH_ARGS, REFRESH_ORDER);
+    }
+
+    // Forces the viewType. Should only be used for initialization.
+    public void setViewType(int viewType) {
+        mViewType = viewType;
     }
 
     private class RefreshInBackground extends AsyncTask<Cursor, Integer, Integer> {

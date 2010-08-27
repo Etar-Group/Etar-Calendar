@@ -16,7 +16,6 @@
 
 package com.android.calendar.event;
 
-import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
@@ -27,6 +26,7 @@ import com.android.common.Rfc822Validator;
 import android.content.ContentProviderOperation;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -128,7 +128,7 @@ public class EditEventHelper {
 
     protected static final int DAY_IN_SECONDS = 24 * 60 * 60;
 
-    private AbstractCalendarActivity mActivity;
+    private Context mContext;
     private AsyncQueryService mService;
 
     // public int mModification;
@@ -201,9 +201,9 @@ public class EditEventHelper {
         public int mUpdateCounts;
     }
 
-    public EditEventHelper(AbstractCalendarActivity activity, CalendarEventModel model) {
-        mActivity = activity;
-        mService = activity.getAsyncQueryService();
+    public EditEventHelper(Context context, CalendarEventModel model) {
+        mContext = context;
+        mService = new AsyncQueryService(context);
         setDomainFromModel(model);
     }
 
@@ -687,7 +687,7 @@ public class EditEventHelper {
     // As another example, if the given minutes is 120, then this returns
     // "2 hours".
     public String constructReminderLabel(int minutes, boolean abbrev) {
-        Resources resources = mActivity.getResources();
+        Resources resources = mContext.getResources();
         int value, resId;
 
         if (minutes % 60 != 0) {

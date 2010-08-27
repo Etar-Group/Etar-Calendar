@@ -24,13 +24,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.Time;
@@ -72,9 +70,13 @@ public class Utils {
     public static final String INTENT_VALUE_VIEW_TYPE_DAY = "DAY";
 
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
-        Bundle extras = activity.getIntent().getExtras();
+        Intent intent = activity.getIntent();
+        Bundle extras = intent.getExtras();
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(activity);
 
+        if (TextUtils.equals(intent.getAction(),Intent.ACTION_EDIT)) {
+            return ViewType.EDIT;
+        }
         if (extras != null) {
             if (extras.getBoolean(INTENT_KEY_DETAIL_VIEW, false)) {
                 // This is the "detail" view which is either agenda or day view

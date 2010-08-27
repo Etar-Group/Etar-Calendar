@@ -107,6 +107,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     ImageButton mAddAttendeesButton;
     ListView mGuestList;
     AttendeesAdapter mAttendeesAdapter;
+    AddAttendeeClickListener mAddAttendeesListener;
 
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
@@ -530,22 +531,20 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     public void onClick(View v) {
         if (v == mSaveButton) {
             // If we're creating a new event but haven't gotten any calendars
-            // yet let the
-            // user know we're waiting for calendars to finish loading. The save
-            // button
-            // isn't enabled until we have a non-null mModel.
+            // yet let the user know we're waiting for calendars to finish
+            // loading. The save button isn't enabled until we have a non-null
+            // mModel.
+            mAddAttendeesListener.onClick(v);
             if (mCalendarsCursor == null && mModel.mUri == null) {
                 if (mLoadingCalendarsDialog == null) {
                     // Create the progress dialog
-                    mLoadingCalendarsDialog = ProgressDialog.show(mActivity, mActivity
-                            .getText(R.string.loading_calendars_title), mActivity
-                            .getText(R.string.loading_calendars_message), true, true, this);
+                    mLoadingCalendarsDialog = ProgressDialog.show(mActivity,
+                            mActivity.getText(R.string.loading_calendars_title),
+                            mActivity.getText(R.string.loading_calendars_message), true, true,
+                            this);
                     mSaveAfterQueryComplete = true;
                 }
             } else if (fillModelFromUI()) {
-                if (!mModel.mAllDay) {
-                    mTimezoneAdapter.saveRecentTimezone(mTimezone);
-                }
                 mDone.setDoneCode(Utils.DONE_SAVE);
                 mDone.run();
             } else {
@@ -602,7 +601,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     // Goes through the UI elements and updates the model as necessary
-    private boolean fillModelFromUI() {
+    public boolean fillModelFromUI() {
         if (mModel == null) {
             return false;
         }
@@ -691,6 +690,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         EditEventHelper.updateRecurrenceRule(selection, mModel,
                 Utils.getFirstDayOfWeek(mActivity) + 1);
 
+        // Save the timezone so we can display it as a standard option next time
+        if (!mModel.mAllDay) {
+            mTimezoneAdapter.saveRecentTimezone(mTimezone);
+        }
         return true;
     }
 
@@ -733,7 +736,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mDiscardButton.setOnClickListener(this);
 
         mAddAttendeesButton = (ImageButton) view.findViewById(R.id.attendee_add);
-        mAddAttendeesButton.setOnClickListener(new AddAttendeeClickListener());
+        mAddAttendeesListener = new AddAttendeeClickListener();
+        mAddAttendeesButton.setOnClickListener(mAddAttendeesListener);
 
         mStartTime = new Time();
         mEndTime = new Time();

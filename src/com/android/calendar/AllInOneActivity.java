@@ -16,11 +16,15 @@
 
 package com.android.calendar;
 
+import static android.provider.Calendar.EVENT_BEGIN_TIME;
+import static android.provider.Calendar.EVENT_END_TIME;
+
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
+import com.android.calendar.event.EditEventFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
 import android.app.ActionBar;
@@ -28,10 +32,12 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Calendar;
@@ -97,8 +103,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
         setContentView(R.layout.all_in_one);
 
         initFragments(timeMillis, viewType);
-        mPreviousView = viewType;
-        mCurrentView = viewType;
 
         // Listen for changes that would require this to be refreshed
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
@@ -117,7 +121,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         super.onPause();
         mContentResolver.unregisterContentObserver(mObserver);
         //FRAG_TODO save highlighted days of the week;
-        Utils.setDefaultView(this, mController.getViewType());
+        if (mController.getViewType() != ViewType.EDIT) {
+            Utils.setDefaultView(this, mController.getViewType());
+        }
     }
 
     @Override
@@ -146,18 +152,58 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
             Fragment selectCalendarsFrag = new SelectCalendarsFragment();
             ft.replace(R.id.calendar_list, selectCalendarsFrag);
-        } else {
+        }
+        if (!mIsMultipane || viewType == ViewType.EDIT){
             findViewById(R.id.mini_month).setVisibility(View.GONE);
             findViewById(R.id.calendar_list).setVisibility(View.GONE);
         }
 
-        setMainPane(ft, R.id.main_pane, viewType, timeMillis, true);
+        EventInfo info = null;
+        if (viewType == ViewType.EDIT) {
+            mPreviousView = CalendarPreferenceActivity.getSharedPreferences(this).getInt(
+                    CalendarPreferenceActivity.KEY_START_VIEW,
+                    CalendarPreferenceActivity.DEFAULT_START_VIEW);
+
+            int eventId = -1;
+            Intent intent = getIntent();
+            Uri data = intent.getData();
+            if (data != null) {
+                try {
+                    eventId = Integer.parseInt(data.getLastPathSegment());
+                } catch (NumberFormatException e) {
+                    if (DEBUG) {
+                        Log.d(TAG, "Create new event");
+                    }
+                }
+            }
+            long begin = intent.getLongExtra(EVENT_BEGIN_TIME, -1);
+            long end = intent.getLongExtra(EVENT_END_TIME, -1);
+            info = new EventInfo();
+            if (end != -1) {
+                info.endTime = new Time();
+                info.endTime.set(end);
+            }
+            if (begin != -1) {
+                info.startTime = new Time();
+                info.startTime.set(begin);
+            }
+            info.id = eventId;
+            // We set the viewtype so if the user presses back when they are
+            // done editing the controller knows we were in the Edit Event
+            // screen.
+            mController.setViewType(viewType);
+        } else {
+            mPreviousView = viewType;
+        }
+        setMainPane(ft, R.id.main_pane, viewType, timeMillis, true, info);
 
         ft.commit(); // this needs to be after setMainPane()
 
         Time t = new Time();
         t.set(timeMillis);
-        mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
+        if (viewType != ViewType.EDIT) {
+            mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
+        }
     }
 
     @Override
@@ -165,8 +211,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (mPreviousView == mCurrentView) {
             super.onBackPressed();
         } else {
-            mCurrentView = mPreviousView;
-            mController.sendEvent(this, EventType.GO_TO, null, null, -1, mCurrentView);
+            mController.sendEvent(this, EventType.GO_TO, null, null, -1, mPreviousView);
         }
     }
 
@@ -230,15 +275,17 @@ public class AllInOneActivity extends Activity implements EventHandler,
     }
 
     private void setMainPane(FragmentTransaction ft, int viewId, int viewType,
-            long timeMillis, boolean force) {
-        if(!force && mController.getPreviousViewType() == viewType) {
+            long timeMillis, boolean force, EventInfo e) {
+        if(!force && mCurrentView == viewType) {
             return;
         }
 
         if (viewType != mCurrentView) {
             // The rules for this previous view are different than the
             // controller's and are used for intercepting the back button.
-            mPreviousView = mCurrentView;
+            if (mCurrentView != ViewType.EDIT && mCurrentView > 0) {
+                mPreviousView = mCurrentView;
+            }
             mCurrentView = viewType;
         }
         // Create new fragment
@@ -255,6 +302,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 break;
             case ViewType.MONTH:
                 frag = new MonthFragment(false, timeMillis, false);
+                break;
+            case ViewType.EDIT:
+                frag = new EditEventFragment(e, mPreviousView);
                 break;
             default:
                 throw new IllegalArgumentException(
@@ -300,7 +350,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public long getSupportedEventTypes() {
-        return EventType.GO_TO | EventType.VIEW_EVENT;
+        return EventType.GO_TO | EventType.VIEW_EVENT | EventType.EDIT_EVENT |
+                EventType.CREATE_EVENT;
     }
 
     @Override
@@ -310,7 +361,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             setTitleInActionBar(event);
 
             setMainPane(null, R.id.main_pane, event.viewType,
-                    event.startTime.toMillis(false), false);
+                    event.startTime.toMillis(false), false, event);
 
             if (!mIsMultipane) {
                 return;
@@ -329,6 +380,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     .toMillis(false), event.endTime.toMillis(false));
             fragment.setDialogParams(event.x, event.y);
             fragment.show(getFragmentManager(), "EventInfoFragment");
+        } else if (event.eventType == EventType.EDIT_EVENT ||
+                event.eventType == EventType.CREATE_EVENT) {
+            setMainPane(null, R.id.main_pane, ViewType.EDIT, -1, true, event);
+            // hide minimonth and calendar frag
+            findViewById(R.id.mini_month).setVisibility(View.GONE);
+            findViewById(R.id.calendar_list).setVisibility(View.GONE);
         }
     }
 

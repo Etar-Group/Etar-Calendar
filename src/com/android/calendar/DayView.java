@@ -29,13 +29,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.Path.Direction;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.graphics.Paint.Style;
-import android.graphics.Path.Direction;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.Calendar.Attendees;
@@ -47,6 +47,7 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -57,7 +58,6 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -199,7 +199,6 @@ public class DayView extends View
     // For drawing to an off-screen Canvas
     private Bitmap mBitmap;
     private Canvas mCanvas;
-    private boolean mRedrawScreen = true;
     private boolean mRemeasure = true;
 
     private final EventLoader mEventLoader;
@@ -599,7 +598,6 @@ public class DayView extends View
 
         // Force a redraw of the selection box.
         mSelectionMode = SELECTION_SELECTED;
-        mRedrawScreen = true;
         mRemeasure = true;
         invalidate();
     }
@@ -885,7 +883,6 @@ public class DayView extends View
         // Redraw the screen so that the selection box will be redrawn.  We may
         // have scrolled to a different part of the day in some other view
         // so the selection box in this view may no longer be visible.
-        view.mRedrawScreen = true;
         view.recalc();
     }
 
@@ -963,7 +960,6 @@ public class DayView extends View
                     // the "selected" state.  We treat short-press and
                     // long-press the same here because nothing was selected.
                     mSelectionMode = SELECTION_SELECTED;
-                    mRedrawScreen = true;
                     invalidate();
                     break;
                 }
@@ -973,7 +969,6 @@ public class DayView extends View
                     switchViews(true /* trackball */);
                 } else {
                     mSelectionMode = SELECTION_LONGPRESS;
-                    mRedrawScreen = true;
                     invalidate();
                     performLongClick();
                 }
@@ -998,14 +993,12 @@ public class DayView extends View
                 // Display the selection box but don't move or select it
                 // on this key press.
                 mSelectionMode = SELECTION_SELECTED;
-                mRedrawScreen = true;
                 invalidate();
                 return true;
             } else if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
                 // Display the selection box but don't select it
                 // on this key press.
                 mSelectionMode = SELECTION_PRESSED;
-                mRedrawScreen = true;
                 invalidate();
                 return true;
             }
@@ -1130,7 +1123,6 @@ public class DayView extends View
         mComputeSelectedEvents = true;
 
         if (redraw) {
-            mRedrawScreen = true;
             invalidate();
             return true;
         }
@@ -1321,7 +1313,6 @@ public class DayView extends View
             public void run() {
                 mEvents = events;
                 mRemeasure = true;
-                mRedrawScreen = true;
                 mComputeSelectedEvents = true;
                 recalc();
 //                mContext.stopProgressSpinner();
@@ -1337,9 +1328,8 @@ public class DayView extends View
             mRemeasure = false;
         }
 
-        if (mRedrawScreen && mCanvas != null) {
+        if (mCanvas != null) {
             doDraw(mCanvas);
-            mRedrawScreen = false;
         }
 
         if ((mTouchMode & TOUCH_MODE_HSCROLL) != 0) {
@@ -2540,7 +2530,6 @@ public class DayView extends View
         }
 
         mSelectionMode = SELECTION_SELECTED;
-        mRedrawScreen = true;
         invalidate();
 
         boolean launchNewView = false;
@@ -2578,7 +2567,6 @@ public class DayView extends View
         }
 
         mSelectionMode = SELECTION_LONGPRESS;
-        mRedrawScreen = true;
         invalidate();
         performLongClick();
     }
@@ -2659,7 +2647,6 @@ public class DayView extends View
 
         if (mSelectionMode != SELECTION_HIDDEN) {
             mSelectionMode = SELECTION_HIDDEN;
-            mRedrawScreen = true;
         }
         invalidate();
     }
@@ -2757,7 +2744,6 @@ public class DayView extends View
             if (mScrolling) {
                 mScrolling = false;
                 resetSelectedHour();
-                mRedrawScreen = true;
                 invalidate();
             }
             return true;
@@ -2785,7 +2771,6 @@ public class DayView extends View
         // and change the selection to the long-press state.
         if (mSelectionMode != SELECTION_LONGPRESS) {
             mSelectionMode = SELECTION_LONGPRESS;
-            mRedrawScreen = true;
             invalidate();
         }
 
@@ -3232,7 +3217,6 @@ public class DayView extends View
                 // Done scrolling.
                 mScrolling = false;
                 resetSelectedHour();
-                mRedrawScreen = true;
             }
 
             invalidate();
@@ -3256,7 +3240,6 @@ public class DayView extends View
 
         // Turn off redraw
         mRemeasure = false;
-        mRedrawScreen = false;
     }
 
     /**
@@ -3292,7 +3275,6 @@ public class DayView extends View
             postDelayed(mUpdateCurrentTime,
                     UPDATE_CURRENT_TIME_DELAY - (currentTime % UPDATE_CURRENT_TIME_DELAY));
             mTodayJulianDay = Time.getJulianDay(currentTime, mCurrentTime.gmtoff);
-            mRedrawScreen = true;
             invalidate();
         }
     }

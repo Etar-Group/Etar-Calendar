@@ -16,10 +16,10 @@
 
 package com.android.calendar.event;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
-
-import com.android.calendar.AbstractCalendarActivity;
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventHandler;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.DeleteEventHelper;
@@ -31,26 +31,27 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
+import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
 import android.text.TextUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class EditEventFragment extends Fragment {
+public class EditEventFragment extends Fragment implements EventHandler {
     private static final String TAG = "EditEventActivity";
 
     private static final boolean DEBUG = false;
@@ -69,13 +70,16 @@ public class EditEventFragment extends Fragment {
     private AlertDialog mModifyDialog;
     int mModification = Utils.MODIFY_UNINITIALIZED;
 
-    private Intent mIntent;
+    private EventInfo mEvent;
     private Uri mUri;
     private long mBegin;
     private long mEnd;
-    private boolean mFullscreen;
+    private int mReturnView;
 
     private Activity mContext;
+    private Done mOnDone = new Done();
+
+    private boolean mSaveOnDetach = true;
 
     private class QueryHandler extends AsyncQueryHandler {
         public QueryHandler(ContentResolver cr) {
@@ -240,20 +244,35 @@ public class EditEventFragment extends Fragment {
         }
     }
 
-    public EditEventFragment(boolean fullscreen) {
-        mFullscreen = fullscreen;
+    public EditEventFragment() {
+        mEvent = null;
+    }
+
+    public EditEventFragment(EventInfo event, int returnView) {
+        mEvent = event;
+        mReturnView = returnView;
     }
 
     private void startQuery() {
-        Intent intent = mIntent;
-        mUri = intent.getData();
+        mUri = null;
+        mBegin = -1;
+        mEnd = -1;
+        if (mEvent != null) {
+            if (mEvent.id != -1) {
+                mUri = ContentUris.withAppendedId(Events.CONTENT_URI, mEvent.id);
+            }
+            if (mEvent.startTime != null) {
+                mBegin = mEvent.startTime.toMillis(true);
+            }
+            if (mEvent.endTime != null) {
+                mEnd = mEvent.endTime.toMillis(true);
+            }
+        }
 
-        mBegin = intent.getLongExtra(EVENT_BEGIN_TIME, -1);
         if (mBegin <= 0) {
             // use a default value instead
             mBegin = mHelper.constructDefaultStartTime(System.currentTimeMillis());
         }
-        mEnd = intent.getLongExtra(EVENT_END_TIME, -1);
         if (mEnd < mBegin) {
             // use a default value instead
             mEnd = mHelper.constructDefaultEndTime(mBegin);
@@ -288,15 +307,10 @@ public class EditEventFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mContext = activity;
-        mIntent = activity.getIntent();
 
-        mHelper = new EditEventHelper((AbstractCalendarActivity) activity, null);
+        mHelper = new EditEventHelper(activity, null);
         mHandler = new QueryHandler(activity.getContentResolver());
-        if (mIntent != null) {
-            mModel = new CalendarEventModel(activity, mIntent);
-        } else {
-            mModel = new CalendarEventModel(activity);
-        }
+        mModel = new CalendarEventModel(activity);
     }
 
     @Override
@@ -304,14 +318,7 @@ public class EditEventFragment extends Fragment {
             Bundle savedInstanceState) {
 //        mContext.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         View view = inflater.inflate(R.layout.edit_event, null);
-        if (!mFullscreen) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(280, 250);
-            params.leftMargin = 100;
-            params.topMargin = 150;
-            params.setMargins(50, 100, 50, 50);
-            view.setLayoutParams(params);
-        }
-        mView = new EditEventView(mContext, view, new Done());
+        mView = new EditEventView(mContext, view, mOnDone);
         startQuery();
         return view;
     }
@@ -426,9 +433,12 @@ public class EditEventFragment extends Fragment {
         }
 
         public void run() {
+            Time start = null;
+            // We only want this to get called once, either because the user
+            // pressed back/home or one of the buttons on screen
+            mSaveOnDetach = false;
             switch (mCode) {
                 case Utils.DONE_REVERT:
-                    mContext.finish();
                     break;
                 case Utils.DONE_SAVE:
                     if (mModel != null && !mModel.equals(mOriginalModel)) {
@@ -440,9 +450,10 @@ public class EditEventFragment extends Fragment {
                                 Toast.makeText(mContext, R.string.creating_event,
                                         Toast.LENGTH_SHORT).show();
                             }
+                            start = new Time();
+                            start.set(mModel.mStart);
                         }
                     }
-                    mContext.finish();
                     break;
                 case Utils.DONE_DELETE:
                     long begin = mModel.mStart;
@@ -460,16 +471,26 @@ public class EditEventFragment extends Fragment {
                             break;
                     }
                     DeleteEventHelper deleteHelper = new DeleteEventHelper(mContext, mContext,
-                            true /* exitWhenDone */);
+                            false /* exitWhenDone */);
                     // TODO update delete helper to use the model instead of the cursor
                     deleteHelper.delete(begin, end, mModel, which);
                     break;
                 default:
                     Log.e(TAG, "done: Unrecognized exit code.");
-                    mContext.finish();
                     break;
             }
+            CalendarController controller = CalendarController.getInstance(mContext);
+            controller.sendEvent(EditEventFragment.this, EventType.GO_TO, start, null, -1,
+                    mReturnView);
         }
+    }
+
+    @Override
+    public void onPause() {
+        if (mSaveOnDetach && mView != null) {
+            mView.onClick(mView.mSaveButton);
+        }
+        super.onPause();
     }
 
     @Override
@@ -479,10 +500,41 @@ public class EditEventFragment extends Fragment {
         if (mView != null) {
             mView.setModel(null);
         }
-
         if (mModifyDialog != null) {
             mModifyDialog.dismiss();
             mModifyDialog = null;
         }
+    }
+
+    @Override
+    public void eventsChanged() {
+        // TODO Requery to see if event has changed
+    }
+
+    @Override
+    public boolean getAllDay() {
+        return false;
+    }
+
+    @Override
+    public long getSelectedTime() {
+        return mBegin;
+    }
+
+    @Override
+    public long getSupportedEventTypes() {
+        return 0;
+    }
+
+    @Override
+    public void goTo(Time time, boolean animate) {
+    }
+
+    @Override
+    public void goToToday() {
+    }
+
+    @Override
+    public void handleEvent(EventInfo event) {
     }
 }

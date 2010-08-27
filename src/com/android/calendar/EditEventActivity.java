@@ -46,7 +46,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
 //        mF2.setId(777);
 //        mView.addView(mF2, params);
 
-        mFragment1 = new EditEventFragment(true);
+        mFragment1 = new EditEventFragment();
 //        mFragment2 = new EditEventFragment(true);
 
         FragmentTransaction ft = getFragmentManager().openTransaction();

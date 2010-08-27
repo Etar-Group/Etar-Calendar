@@ -62,18 +62,12 @@
                 <data android:host="com.android.calendar" />
                 <data android:scheme="content"/>
             </intent-filter>
-        </activity-alias>
-
-        <activity android:name="EditEventActivity" android:label="@string/event_edit_title"
-            android:theme="@android:style/Theme.Light.Holo"
-            android:configChanges="orientation|keyboardHidden">
-
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/event" />
             </intent-filter>
-        </activity>
+        </activity-alias>
 
         <activity android:name="EventInfoActivity" android:label="@string/event_info_title"
             android:theme="@style/CalendarTheme.WithActionBar"
