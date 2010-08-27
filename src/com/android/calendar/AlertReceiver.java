@@ -113,9 +113,8 @@ public class AlertReceiver extends BroadcastReceiver {
     }
 
     /**
-     * Creates an alert notification. If high priority, this will set
-     * FLAG_HIGH_PRIORITY on the resulting notification and attach the a pending
-     * intent. Otherwise, it creates a standard notification.
+     * Creates an alert notification. If high priority, this will attach a pending intent.
+     * Otherwise, it creates a standard notification.
      */
     public static Notification makeNewAlertNotification(Context context,
             String title, String location, int numReminders,
@@ -163,7 +162,6 @@ public class AlertReceiver extends BroadcastReceiver {
         notification.deleteIntent = PendingIntent.getBroadcast(context, 0,
                 deleteIntent, 0);
         if (highPriority) {
-            notification.flags |= Notification.FLAG_HIGH_PRIORITY;
             notification.fullScreenIntent = pendingClickIntent;
         }
 
