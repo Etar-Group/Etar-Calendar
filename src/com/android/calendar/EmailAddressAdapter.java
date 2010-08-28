@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 The Android Open Source Project
+ * Copyright (C) 2010 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,61 +16,53 @@
 
 package com.android.calendar;
 
-import android.content.ContentResolver;
+import com.android.common.contacts.BaseEmailAddressAdapter;
+
 import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
-import android.provider.ContactsContract.CommonDataKinds.Email;
-import android.provider.ContactsContract.Contacts;
-import android.provider.ContactsContract.Data;
-import android.text.util.Rfc822Token;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ResourceCursorAdapter;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-// Customized from com.android.email.EmailAddressAdapter
+/**
+* An adaptation of {@link BaseEmailAddressAdapter} for the Email app. The main
+* purpose of the class is to bind the generic implementation to the resources
+* defined locally: strings and layouts.
+*/
+public class EmailAddressAdapter extends BaseEmailAddressAdapter {
 
-public class EmailAddressAdapter extends ResourceCursorAdapter {
-    public static final int NAME_INDEX = 1;
-    public static final int DATA_INDEX = 2;
+   private LayoutInflater mInflater;
 
-    private static final String SORT_ORDER =
-            Contacts.TIMES_CONTACTED + " DESC, " + Contacts.DISPLAY_NAME;
+   public EmailAddressAdapter(Context context) {
+       super(context);
+       mInflater = LayoutInflater.from(context);
+   }
 
-    private ContentResolver mContentResolver;
+   @Override
+   protected View inflateItemView(ViewGroup parent) {
+       return mInflater.inflate(R.layout.email_autocomplete_item, parent, false);
+   }
 
-    private static final String[] PROJECTION = {
-        Data._ID,               // 0
-        Contacts.DISPLAY_NAME,  // 1
-        Email.DATA              // 2
-    };
+   @Override
+   protected View inflateItemViewLoading(ViewGroup parent) {
+       return mInflater.inflate(R.layout.email_autocomplete_item_loading, parent, false);
+   }
 
-    public EmailAddressAdapter(Context context) {
-        super(context, R.layout.simple_dropdown_item_1line, null);
-        mContentResolver = context.getContentResolver();
-    }
+   @Override
+   protected void bindView(View view, String directoryType, String directoryName,
+           String displayName, String emailAddress) {
+     TextView text1 = (TextView)view.findViewById(R.id.text1);
+     TextView text2 = (TextView)view.findViewById(R.id.text2);
+     text1.setText(displayName);
+     text2.setText(emailAddress);
+   }
 
-    @Override
-    public final String convertToString(Cursor cursor) {
-        return makeDisplayString(cursor);
-    }
-
-    private final String makeDisplayString(Cursor cursor) {
-        String name = cursor.getString(NAME_INDEX);
-        String address = cursor.getString(DATA_INDEX);
-
-        return new Rfc822Token(name, address, null).toString();
-    }
-
-    @Override
-    public final void bindView(View view, Context context, Cursor cursor) {
-        ((TextView) view).setText(makeDisplayString(cursor));
-    }
-
-    @Override
-    public Cursor runQueryOnBackgroundThread(CharSequence constraint) {
-        String filter = constraint == null ? "" : constraint.toString();
-        Uri uri = Uri.withAppendedPath(Email.CONTENT_FILTER_URI, Uri.encode(filter));
-        return mContentResolver.query(uri, PROJECTION, null, null, SORT_ORDER);
-    }
+   @Override
+   protected void bindViewLoading(View view, String directoryType, String directoryName) {
+       TextView text1 = (TextView)view.findViewById(R.id.text1);
+       String text = getContext().getString(R.string.directory_searching_fmt,
+               TextUtils.isEmpty(directoryName) ? directoryType : directoryName);
+       text1.setText(text);
+   }
 }
