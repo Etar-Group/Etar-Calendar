@@ -476,6 +476,10 @@ public class EditEventFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
+        if (mView != null) {
+            mView.setModel(null);
+        }
+
         if (mModifyDialog != null) {
             mModifyDialog.dismiss();
             mModifyDialog = null;

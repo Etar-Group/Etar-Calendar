@@ -756,6 +756,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      */
     public void setModel(CalendarEventModel model) {
         mModel = model;
+
+        // Need to close the autocomplete adapter to prevent leaking cursors.
+        if (mAddressAdapter != null) {
+            mAddressAdapter.close();
+            mAddressAdapter = null;
+        }
+
         if (model == null) {
             // Display loading screen
             mLoadingMessage.setVisibility(View.VISIBLE);

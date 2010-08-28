@@ -452,5 +452,8 @@
     <!-- Text to show on gadget when an all-day event is in progress -->
     <string name="today">Today</string>
 
+    <!-- Displayed in email address autocomplete list when searching for contacts
+         in corporate directories. Example:  "Searching bigcompany.com..." [CHAR LIMIT=64] -->
+    <string name="directory_searching_fmt">Searching <xliff:g id="domain">%s</xliff:g>\u2026</string>
 
 </resources>
