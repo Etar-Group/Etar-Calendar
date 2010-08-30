@@ -85,7 +85,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Takvim"</string>
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Ek seçenekleri göster"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Ek seçenekleri gizle"</string>
-    <!-- no translation found for edit_event_show_all (6107214899021208078) -->
+    <!-- no translation found for edit_event_show_all (4558049350756058301) -->
     <skip />
     <string name="description_label" msgid="7193475046717505855">"Açıklama"</string>
     <string name="presence_label" msgid="6169724148441175862">"Durumumu şu şekilde göster:"</string>
@@ -134,6 +134,12 @@
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Reddedilmiş etkin. gizle"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Haftanın ilk günü"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Haftanın ilk günü"</string>
+    <!-- no translation found for preferences_clear_search_history_title (6619916370215282982) -->
+    <skip />
+    <!-- no translation found for preferences_clear_search_history_summary (5813077357221990) -->
+    <skip />
+    <!-- no translation found for search_history_cleared (7317062958300188595) -->
+    <skip />
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Bildirimler"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Titreşim"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Anımsatıcılar için de titret"</string>
@@ -158,4 +164,6 @@
     <string name="tomorrow" msgid="614434811813859237">"Yarın"</string>
     <string name="in_progress" msgid="3637799356103489011">"etkinlik devam ediyor"</string>
     <string name="today" msgid="8577375020252453006">"Bugün"</string>
+    <!-- no translation found for directory_searching_fmt (1232037509095606687) -->
+    <skip />
 </resources>
