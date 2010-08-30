@@ -85,7 +85,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalender"</string>
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Vis flere indstillinger"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Skjul flere indstillinger"</string>
-    <!-- no translation found for edit_event_show_all (6107214899021208078) -->
+    <!-- no translation found for edit_event_show_all (4558049350756058301) -->
     <skip />
     <string name="description_label" msgid="7193475046717505855">"Beskrivelse"</string>
     <string name="presence_label" msgid="6169724148441175862">"Vis mig som"</string>
@@ -134,6 +134,12 @@
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skjul afviste begivenhed."</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Ugen starter"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Ugen starter"</string>
+    <!-- no translation found for preferences_clear_search_history_title (6619916370215282982) -->
+    <skip />
+    <!-- no translation found for preferences_clear_search_history_summary (5813077357221990) -->
+    <skip />
+    <!-- no translation found for search_history_cleared (7317062958300188595) -->
+    <skip />
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Underretninger"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibration"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Vibrer også ved påmindelser"</string>
@@ -159,4 +165,6 @@
     <string name="tomorrow" msgid="614434811813859237">"I morgen"</string>
     <string name="in_progress" msgid="3637799356103489011">"i gang"</string>
     <string name="today" msgid="8577375020252453006">"I dag"</string>
+    <!-- no translation found for directory_searching_fmt (1232037509095606687) -->
+    <skip />
 </resources>
