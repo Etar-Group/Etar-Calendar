@@ -110,7 +110,7 @@ public class Utils {
      */
     public static void setSharedPreference(Context context, String key, String value) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
-        prefs.edit().putString(key, value).startCommit();
+        prefs.edit().putString(key, value).apply();
     }
 
     /**
@@ -131,7 +131,7 @@ public class Utils {
 
         // Record the (new) start view
         editor.putInt(CalendarPreferenceActivity.KEY_START_VIEW, viewId);
-        editor.startCommit();
+        editor.apply();
     }
 
     public static MatrixCursor matrixCursorFromCursor(Cursor cursor) {
