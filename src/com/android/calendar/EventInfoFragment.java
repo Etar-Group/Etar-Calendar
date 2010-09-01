@@ -40,22 +40,26 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.pim.EventRecurrence;
+import android.provider.ContactsContract;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
-import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
-import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Presence;
 import android.provider.ContactsContract.QuickContact;
+import android.provider.ContactsContract.CommonDataKinds.Email;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StrikethroughSpan;
 import android.text.util.Linkify;
 import android.text.util.Rfc822Token;
 import android.util.Log;
@@ -66,12 +70,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -83,7 +89,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 public class EventInfoFragment extends DialogFragment implements View.OnClickListener,
@@ -378,15 +383,15 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
             case TOKEN_QUERY_DUPLICATE_CALENDARS:
                 mIsDuplicateName = cursor.getCount() > 1;
                 String calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
-                String ownerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
-                if (mIsDuplicateName && !calendarName.equalsIgnoreCase(ownerAccount)) {
-                    Resources res = activity.getResources();
-                    TextView ownerText = (TextView) mView.findViewById(R.id.owner);
-                    ownerText.setText(ownerAccount);
-                    ownerText.setTextColor(res.getColor(R.color.calendar_owner_text_color));
-                } else {
-                    setVisibilityCommon(mView, R.id.owner, View.GONE);
-                }
+//CLEANUP                String ownerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+//                if (mIsDuplicateName && !calendarName.equalsIgnoreCase(ownerAccount)) {
+//                    Resources res = activity.getResources();
+//                    TextView ownerText = (TextView) mView.findViewById(R.id.owner);
+//                    ownerText.setText(ownerAccount);
+//                    ownerText.setTextColor(res.getColor(R.color.calendar_owner_text_color));
+//                } else {
+//                    setVisibilityCommon(mView, R.id.owner, View.GONE);
+//                }
                 setTextCommon(mView, R.id.calendar, calendarName);
                 break;
             }
@@ -437,11 +442,10 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         a.dimAmount = .4f;
 
         a.width = DIALOG_WIDTH;
-        a.height = DIALOG_HEIGHT;
 
         if (mX != -1 || mY != -1) {
-            a.x = mX - a.width / 2;
-            a.y = mY - a.height / 2;
+            a.x = mX - a.width - 64; // FRAG_TODO event sender should return the left edge or a rect
+            a.y = mY - 64; // FRAG_TODO should set height after layout is done
             a.gravity = Gravity.LEFT | Gravity.TOP;
         }
 
@@ -535,7 +539,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         ImageButton reminderAddButton = (ImageButton) mView.findViewById(R.id.reminder_add);
         reminderAddButton.setOnClickListener(addReminderOnClickListener);
 
-        mReminderAdder = (LinearLayout) mView.findViewById(R.id.reminder_adder);
+//CLEANUP        mReminderAdder = (LinearLayout) mView.findViewById(R.id.reminder_adder);
 
         if (mUri == null) {
             // restore event ID from bundle
@@ -548,6 +552,13 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         // start loading the data
         mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
                 null, null, null);
+
+        Button b = (Button) mView.findViewById(R.id.done);
+        b.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventInfoFragment.this.dismiss();
+            }});
 
         return mView;
     }
@@ -584,6 +595,14 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         Attendee(String name, String email) {
             mName = name;
             mEmail = email;
+        }
+
+        String getDisplayName() {
+            if (TextUtils.isEmpty(mName)) {
+                return mEmail;
+            } else {
+                return mName;
+            }
         }
     }
 
@@ -630,11 +649,11 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
                             case Attendees.ATTENDEE_STATUS_DECLINED:
                                 mDeclinedAttendees.add(new Attendee(name, email));
                                 break;
-                            case Attendees.ATTENDEE_STATUS_NONE:
-                                mNoResponseAttendees.add(new Attendee(name, email));
-                                // Fallthrough so that no response is a subset of tentative
-                            default:
+                            case Attendees.ATTENDEE_STATUS_TENTATIVE:
                                 mTentativeAttendees.add(new Attendee(name, email));
+                                break;
+                            default:
+                                mNoResponseAttendees.add(new Attendee(name, email));
                         }
                     }
                 } while (mAttendeesCursor.moveToNext());
@@ -646,12 +665,12 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         // only show the organizer if we're not the organizer and if
         // we have attendee data (might have been removed by the server
         // for events with a lot of attendees).
-        if (!mIsOrganizer && mHasAttendeeData) {
-            mOrganizerContainer.setVisibility(View.VISIBLE);
-            mOrganizerView.setText(mOrganizer);
-        } else {
-            mOrganizerContainer.setVisibility(View.GONE);
-        }
+//CLEANUP        if (!mIsOrganizer && mHasAttendeeData) {
+//            mOrganizerContainer.setVisibility(View.VISIBLE);
+//            mOrganizerView.setText(mOrganizer);
+//        } else {
+//            mOrganizerContainer.setVisibility(View.GONE);
+//        }
     }
 
     @Override
@@ -776,7 +795,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         return true;
     }
 
-//    @Override
+//CLEANUP    @Override
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {
 //        if (keyCode == KeyEvent.KEYCODE_DEL) {
 //            doDelete();
@@ -786,12 +805,12 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
 //    }
 
     private void updateRemindersVisibility() {
-        if (mIsBusyFreeCalendar) {
-            mRemindersContainer.setVisibility(View.GONE);
-        } else {
-            mRemindersContainer.setVisibility(View.VISIBLE);
-            mReminderAdder.setVisibility(canAddReminders() ? View.VISIBLE : View.GONE);
-        }
+//CLEANUP        if (mIsBusyFreeCalendar) {
+//            mRemindersContainer.setVisibility(View.GONE);
+//        } else {
+//            mRemindersContainer.setVisibility(View.VISIBLE);
+//            mReminderAdder.setVisibility(canAddReminders() ? View.VISIBLE : View.GONE);
+//        }
     }
 
     /**
@@ -933,14 +952,13 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
         mColor = mEventCursor.getInt(EVENT_INDEX_COLOR) & 0xbbffffff;
 
-        View calBackground = view.findViewById(R.id.cal_background);
-        calBackground.setBackgroundColor(mColor);
+        view.findViewById(R.id.color).setBackgroundColor(mColor);
 
         TextView title = (TextView) view.findViewById(R.id.title);
         title.setTextColor(mColor);
 
-        View divider = view.findViewById(R.id.divider);
-        divider.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
+//        View divider = view.findViewById(R.id.divider);
+//        divider.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
 
         // What
         if (eventName != null) {
@@ -962,26 +980,26 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         when = DateUtils.formatDateRange(getActivity(), mStartMillis, mEndMillis, flags);
         setTextCommon(view, R.id.when, when);
 
-        // Show the event timezone if it is different from the local timezone
-        Time time = new Time();
-        String localTimezone = time.timezone;
-        if (allDay) {
-            localTimezone = Time.TIMEZONE_UTC;
-        }
-        if (eventTimezone != null && !localTimezone.equals(eventTimezone) && !allDay) {
-            String displayName;
-            TimeZone tz = TimeZone.getTimeZone(localTimezone);
-            if (tz == null || tz.getID().equals("GMT")) {
-                displayName = localTimezone;
-            } else {
-                displayName = tz.getDisplayName();
-            }
-
-            setTextCommon(view, R.id.timezone, displayName);
-            setVisibilityCommon(view, R.id.timezone_container, View.VISIBLE);
-        } else {
-            setVisibilityCommon(view, R.id.timezone_container, View.GONE);
-        }
+//CLEANUP        // Show the event timezone if it is different from the local timezone
+//        Time time = new Time();
+//        String localTimezone = time.timezone;
+//        if (allDay) {
+//            localTimezone = Time.TIMEZONE_UTC;
+//        }
+//        if (eventTimezone != null && !localTimezone.equals(eventTimezone) && !allDay) {
+//            String displayName;
+//            TimeZone tz = TimeZone.getTimeZone(localTimezone);
+//            if (tz == null || tz.getID().equals("GMT")) {
+//                displayName = localTimezone;
+//            } else {
+//                displayName = tz.getDisplayName();
+//            }
+//
+//            setTextCommon(view, R.id.timezone, displayName);
+//            setVisibilityCommon(view, R.id.timezone_container, View.VISIBLE);
+//        } else {
+//            setVisibilityCommon(view, R.id.timezone_container, View.GONE);
+//        }
 
         // Repeat
         if (rRule != null) {
@@ -1056,28 +1074,86 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
                     mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) == Calendars.FREEBUSY_ACCESS;
             mCanModifyEvent = mCanModifyCalendar
                     && (mIsOrganizer || (mEventCursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0));
+            if (mCanModifyEvent) {
+                Button b = (Button) mView.findViewById(R.id.edit);
+                b.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        doEdit();
+                        EventInfoFragment.this.dismiss();
+                    }});
+                b.setVisibility(View.VISIBLE);
+            }
         } else {
-            setVisibilityCommon(view, R.id.calendar_container, View.GONE);
+//CLEANUP            setVisibilityCommon(view, R.id.calendar_container, View.GONE);
         }
     }
 
     private void updateAttendees(View view) {
-        LinearLayout attendeesLayout = (LinearLayout) view.findViewById(R.id.attendee_list);
-        attendeesLayout.removeAllViewsInLayout();
-        ++mUpdateCounts;
-        if(mAcceptedAttendees.size() == 0 && mDeclinedAttendees.size() == 0 &&
-                mTentativeAttendees.size() == mNoResponseAttendees.size()) {
-            // If all guests have no response just list them as guests,
-            CharSequence guestsLabel =
-                getActivity().getResources().getText(R.string.attendees_label);
-            addAttendeesToLayout(mNoResponseAttendees, attendeesLayout, guestsLabel);
-        } else {
-            // If we have any responses then divide them up by response
-            CharSequence[] entries;
-            entries = getActivity().getResources().getTextArray(R.array.response_labels2);
-            addAttendeesToLayout(mAcceptedAttendees, attendeesLayout, entries[0]);
-            addAttendeesToLayout(mDeclinedAttendees, attendeesLayout, entries[2]);
-            addAttendeesToLayout(mTentativeAttendees, attendeesLayout, entries[1]);
+        TextView tv = (TextView) view.findViewById(R.id.attendee_list);
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        formatAttendees(mAcceptedAttendees, sb, Attendees.ATTENDEE_STATUS_ACCEPTED);
+        formatAttendees(mDeclinedAttendees, sb, Attendees.ATTENDEE_STATUS_DECLINED);
+        formatAttendees(mTentativeAttendees, sb, Attendees.ATTENDEE_STATUS_TENTATIVE);
+        formatAttendees(mNoResponseAttendees, sb, Attendees.ATTENDEE_STATUS_NONE);
+        tv.setText(sb);
+
+//CLEANUP        LinearLayout attendeesLayout = (LinearLayout) view.findViewById(R.id.attendee_list);
+//        attendeesLayout.removeAllViewsInLayout();
+//        ++mUpdateCounts;
+//        if(mAcceptedAttendees.size() == 0 && mDeclinedAttendees.size() == 0 &&
+//                mTentativeAttendees.size() == mNoResponseAttendees.size()) {
+//            // If all guests have no response just list them as guests,
+//            CharSequence guestsLabel =
+//                getActivity().getResources().getText(R.string.attendees_label);
+//            addAttendeesToLayout(mNoResponseAttendees, attendeesLayout, guestsLabel);
+//        } else {
+//            // If we have any responses then divide them up by response
+//            CharSequence[] entries;
+//            entries = getActivity().getResources().getTextArray(R.array.response_labels2);
+//            addAttendeesToLayout(mAcceptedAttendees, attendeesLayout, entries[0]);
+//            addAttendeesToLayout(mDeclinedAttendees, attendeesLayout, entries[2]);
+//            addAttendeesToLayout(mTentativeAttendees, attendeesLayout, entries[1]);
+//        }
+    }
+
+    private void formatAttendees(ArrayList<Attendee> attendees, SpannableStringBuilder sb, int type) {
+        if (attendees.size() <= 0) {
+            return;
+        }
+
+        int begin = sb.length();
+        boolean firstTime = sb.length() == 0;
+
+        if (firstTime == false) {
+            begin += 2; // skip over the ", " for formatting.
+        }
+
+        for (Attendee attendee : attendees) {
+            if (firstTime) {
+                firstTime = false;
+            } else {
+                sb.append(", ");
+            }
+
+            String name = attendee.getDisplayName();
+            sb.append(name);
+        }
+
+        switch (type) {
+            case Attendees.ATTENDEE_STATUS_ACCEPTED:
+                break;
+            case Attendees.ATTENDEE_STATUS_DECLINED:
+                sb.setSpan(new StrikethroughSpan(), begin, sb.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                // fall through
+            default:
+                // The last INCLUSIVE causes the foreground color to be applied
+                // to the rest of the span. If not, the comma at the end of the
+                // declined or tentative may be black.
+                sb.setSpan(new ForegroundColorSpan(0xFF888888), begin, sb.length(),
+                        Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+                break;
         }
     }
 
@@ -1207,7 +1283,8 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         // paying attention to whether or not an attendee status was
         // included in the feed, but we're currently omitting those corner cases
         // for simplicity).
-        if (!mCanModifyCalendar || (mHasAttendeeData && mIsOrganizer && mNumOfAttendees <= 1) ||
+//CLEANUP
+        if (true || !mCanModifyCalendar || (mHasAttendeeData && mIsOrganizer && mNumOfAttendees <= 1) ||
                 (mIsOrganizer && !mOrganizerCanRespond)) {
             setVisibilityCommon(view, R.id.response_container, View.GONE);
             return;
