@@ -618,7 +618,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         if (mGuestList != null) {
-            AttendeesAdapter adapter = (AttendeesAdapter) mGuestList.getAdapter();
+            AttendeesAdapter adapter = mAttendeesAdapter;
             if (adapter != null && !adapter.isEmpty()) {
                 int size = adapter.getCount();
                 mModel.mAttendeesList.clear();
@@ -1044,8 +1044,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         if (attendeesList.size() > 0) {
             mAttendeesAdapter.addAttendees(attendeesList);
-            mGuestList.setAdapter(mAttendeesAdapter);
         }
+        mGuestList.setAdapter(mAttendeesAdapter);
     }
 
     private void updateRemindersVisibility(int numReminders) {
