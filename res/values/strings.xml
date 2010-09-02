@@ -24,8 +24,8 @@
     <string name="what_label">What</string>
     <!-- This is the label for the location of an event -->
     <string name="where_label">Where</string>
-    <!-- This is the label for the timezone of an event [CHAR LIMIT=30] -->
-    <string name="timezone_label">Timezone</string>
+    <!-- This is the label for the time zone of an event [CHAR LIMIT=30] -->
+    <string name="timezone_label">Time zone</string>
     <!-- This is the label for the Guests/Attendees of an event -->
     <string name="attendees_label">Guests</string>
     <!-- This is the label for the Guest Responses and count of an event e.g. Yes (3) -->
@@ -386,6 +386,15 @@
     <string name="preferences_default_reminder_dialog">Default reminder time</string>
     <!-- Default value for the number of reminder minutes -->
     <string name="preferences_default_reminder_default">10</string>
+    <!-- Settings check box label to keep Calendar in a fixed 'home' time zone [CHAR LIMIT = 18] -->
+    <string name="preferences_use_home_tz_title">Use home time zone</string>
+    <!-- Settings description of what setting Calendar to use a fixed 'home' time
+        zone does [CHAR LIMIT = 60]-->
+    <string name="preferences_use_home_tz_descrip">Displays calendars and event times in your home time zone when traveling</string>
+    <!-- Settings title for selecting a 'home' time zone to display Calendar in [CHAR LIMIT = 18] -->
+    <string name="preferences_home_tz_title">Home time zone</string>
+    <!-- DO NOT TRANSLATE -->
+    <string name="preferences_home_tz_default">America/Los_Angeles</string>
 
     <!-- This is the title of a section in the Settings screen for "About" this application -->
     <string name="preferences_about_title">About</string>
