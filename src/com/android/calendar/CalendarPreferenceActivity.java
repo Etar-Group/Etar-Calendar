@@ -46,6 +46,8 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     static final String KEY_START_VIEW = "startView";
     static final String KEY_DETAILED_VIEW = "preferredDetailedView";
     static final String KEY_DEFAULT_CALENDAR = "preference_defaultCalendar";
+    static final String KEY_HOME_TZ_ENABLED = "preferences_home_tz_enabled";
+    static final String KEY_HOME_TZ = "preferences_home_tz";
 
     // These must be in sync with the array preferences_alert_type_values
     static final String ALERT_TYPE_ALERTS = "0";
