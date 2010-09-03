@@ -1284,7 +1284,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         // included in the feed, but we're currently omitting those corner cases
         // for simplicity).
 //CLEANUP
-        if (true || !mCanModifyCalendar || (mHasAttendeeData && mIsOrganizer && mNumOfAttendees <= 1) ||
+        if (!mCanModifyCalendar || (mHasAttendeeData && mIsOrganizer && mNumOfAttendees <= 1) ||
                 (mIsOrganizer && !mOrganizerCanRespond)) {
             setVisibilityCommon(view, R.id.response_container, View.GONE);
             return;
