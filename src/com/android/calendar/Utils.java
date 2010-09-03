@@ -35,6 +35,7 @@ import android.text.format.Time;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -68,6 +69,14 @@ public class Utils {
     public static final String INTENT_KEY_DETAIL_VIEW = "DETAIL_VIEW";
     public static final String INTENT_KEY_VIEW_TYPE = "VIEW";
     public static final String INTENT_VALUE_VIEW_TYPE_DAY = "DAY";
+    
+    private volatile static boolean mFirstTZRequest = true;
+    private volatile static boolean mTZQueryInProgress = false;
+
+    private volatile static boolean mUseHomeTZ = false;
+    private volatile static String mHomeTZ = Time.getCurrentTimezone();
+
+    private static HashSet<Runnable> mTZCallbacks = new HashSet<Runnable>();
 
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
         Intent intent = activity.getIntent();
@@ -91,6 +100,46 @@ public class Utils {
         // Default to the last view
         return prefs.getInt(CalendarPreferenceActivity.KEY_START_VIEW,
                 CalendarPreferenceActivity.DEFAULT_START_VIEW);
+    }
+
+    /**
+     * Gets the time zone that Calendar should be displayed in
+     *
+     * This is a helper method to get the appropriate time zone for Calendar. If this
+     * is the first time this method has been called it will initiate an asynchronous
+     * query to verify that the data in preferences is correct. The callback supplied
+     * will only be called if this query returns a value other than what is stored in
+     * preferences and should cause the calling activity to refresh anything that
+     * depends on calling this method.
+     *
+     * @param context The calling activity
+     * @param callback The runnable that should execute if a query returns new values
+     * @return The string value representing the time zone Calendar should display
+     */
+    public static String getTimeZone(Context context, Runnable callback) {
+        synchronized (mTZCallbacks){
+            if (mFirstTZRequest) {
+                mTZQueryInProgress = true;
+                mFirstTZRequest = false;
+
+                SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+                mUseHomeTZ = prefs.getBoolean(
+                        CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED, false);
+                mHomeTZ = prefs.getString(
+                        CalendarPreferenceActivity.KEY_HOME_TZ, Time.getCurrentTimezone());
+                // TODO kick off async query
+                // When the async query returns it should synchronize on
+                // mTZCallbacks, update mUseHomeTZ, mHomeTZ, and the
+                // preferences, set mTZQueryInProgress to false, and call all
+                // the runnables in mTZCallbacks.
+                // TODO remove this line when we have a query
+                mTZQueryInProgress = false;
+            }
+            if (mTZQueryInProgress) {
+                mTZCallbacks.add(callback);
+            }
+        }
+        return mUseHomeTZ ? mHomeTZ : Time.getCurrentTimezone();
     }
 
     public static String getSharedPreference(Context context, String key, String defaultValue) {

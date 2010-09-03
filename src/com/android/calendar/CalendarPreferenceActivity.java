@@ -73,6 +73,8 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     private static final String ALERT_TYPE_ALERTS = "0";
     private static final String ALERT_TYPE_STATUS_BAR = "1";
     private static final String ALERT_TYPE_OFF = "2";
+    static final String KEY_HOME_TZ_ENABLED = "preferences_home_tz_enabled";
+    static final String KEY_HOME_TZ = "preferences_home_tz";
 
     // Default preference values
     public static final int DEFAULT_START_VIEW = CalendarController.ViewType.WEEK;
