@@ -120,22 +120,24 @@ public class Utils {
             }
             return;
         }
+        boolean updatePrefs = false;
         synchronized (mTZCallbacks) {
             if (CalendarPreferenceActivity.LOCAL_TZ.equals(timeZone)) {
-                if (!mUseHomeTZ) {
-                    return;
+                if (mUseHomeTZ) {
+                    updatePrefs = true;
                 }
                 mUseHomeTZ = false;
             } else {
-                if (TextUtils.equals(mHomeTZ, timeZone)) {
-                    return;
+                if (!mUseHomeTZ || !TextUtils.equals(mHomeTZ, timeZone)) {
+                    updatePrefs = true;
                 }
                 mUseHomeTZ = true;
                 mHomeTZ = timeZone;
             }
         }
-        setSharedPreference(context, CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED, mUseHomeTZ);
-        if (mUseHomeTZ) {
+        if (updatePrefs) {
+            setSharedPreference(context, CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED,
+                    mUseHomeTZ);
             setSharedPreference(context, CalendarPreferenceActivity.KEY_HOME_TZ, mHomeTZ);
         }
         // TODO async update db
