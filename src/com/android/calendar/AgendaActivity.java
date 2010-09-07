@@ -17,6 +17,7 @@
 package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
+import dalvik.system.VMRuntime;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -35,8 +36,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import dalvik.system.VMRuntime;
-
 public class AgendaActivity extends Activity implements Navigator {
 
     private static final String TAG = "AgendaActivity";
@@ -52,6 +51,16 @@ public class AgendaActivity extends Activity implements Navigator {
     private AgendaListView mAgendaListView;
 
     private Time mTime;
+
+    // This gets run if the time zone is updated in the db
+    private Runnable mUpdateTZ = new Runnable() {
+        @Override
+        public void run() {
+            long time = mTime.toMillis(true);
+            mTime = new Time(Utils.getTimeZone(AgendaActivity.this, this));
+            mTime.set(time);
+        }
+    };
 
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -93,7 +102,7 @@ public class AgendaActivity extends Activity implements Navigator {
         setTitle(R.string.agenda_view);
 
         long millis = 0;
-        mTime = new Time();
+        mTime = new Time(Utils.getTimeZone(this, mUpdateTZ));
         if (icicle != null) {
             // Returns 0 if key not found
             millis = icicle.getLong(BUNDLE_KEY_RESTORE_TIME);
@@ -213,7 +222,7 @@ public class AgendaActivity extends Activity implements Navigator {
 
     /* Navigator interface methods */
     public void goToToday() {
-        Time now = new Time();
+        Time now = new Time(Utils.getTimeZone(this, mUpdateTZ));
         now.setToNow();
         mAgendaListView.goTo(now, true); // Force refresh
     }

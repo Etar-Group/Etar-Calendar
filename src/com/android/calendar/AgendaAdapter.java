@@ -26,16 +26,10 @@ import android.view.View;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
-import java.util.Formatter;
-import java.util.Locale;
-
 public class AgendaAdapter extends ResourceCursorAdapter {
     private String mNoTitleLabel;
     private Resources mResources;
     private int mDeclinedColor;
-    // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
-    private Formatter mFormatter;
-    private StringBuilder mStringBuilder;
 
     static class ViewHolder {
         int overLayColor; // Used by AgendaItemView to gray out the entire item if so desired
@@ -52,8 +46,6 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         mResources = context.getResources();
         mNoTitleLabel = mResources.getString(R.string.no_title_label);
         mDeclinedColor = mResources.getColor(R.drawable.agenda_item_declined);
-        mStringBuilder = new StringBuilder(50);
-        mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
     }
 
     @Override
@@ -113,8 +105,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         if (DateFormat.is24HourFormat(context)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        mStringBuilder.setLength(0);
-        whenString = DateUtils.formatDateRange(context, mFormatter, begin, end, flags).toString();
+
+        whenString = Utils.formatDateRange(context, begin, end, flags).toString();
         when.setText(whenString);
 
         String rrule = cursor.getString(AgendaWindowAdapter.INDEX_RRULE);

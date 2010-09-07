@@ -118,7 +118,6 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
         } catch (NameNotFoundException e) {
             findPreference(BUILD_VERSION).setSummary("?");
         }
-
         updateChildPreferences();
     }
 
@@ -131,15 +130,6 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
         }
     }
 
-    private void updateTZPreferences() {
-        String tz = mHomeTZ.getValue();
-        if (!mUseHomeTZ.isChecked()) {
-            tz = LOCAL_TZ;
-        }
-        Utils.setTimeZone(this, tz);
-        mHomeTZ.setSummary(mHomeTZ.getEntry());
-    }
-
     private void updateChildPreferences() {
         if (mAlertType.getValue().equals(ALERT_TYPE_OFF)) {
             mVibrateWhen.setValue(getString(R.string.prefDefault_alerts_vibrate_false));
@@ -149,5 +139,14 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
             mVibrateWhen.setEnabled(true);
             mRingtone.setEnabled(true);
         }
+    }
+
+    private void updateTZPreferences() {
+        String tz = mHomeTZ.getValue();
+        if (!mUseHomeTZ.isChecked()) {
+            tz = LOCAL_TZ;
+        }
+        Utils.setTimeZone(this, tz);
+        mHomeTZ.setSummary(mHomeTZ.getEntry());
     }
 }

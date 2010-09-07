@@ -29,15 +29,13 @@ import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.Formatter;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Locale;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /*
@@ -153,10 +151,6 @@ public class AgendaWindowAdapter extends BaseAdapter {
     // Number of "newer" query that has been processed.
     private int mNewerRequestsProcessed;
 
-    // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
-    private Formatter mFormatter;
-    private StringBuilder mStringBuilder;
-
     private boolean mShuttingDown;
     private boolean mHideDeclined;
 
@@ -164,6 +158,9 @@ public class AgendaWindowAdapter extends BaseAdapter {
     private static final int QUERY_TYPE_OLDER = 0; // Query for older events
     private static final int QUERY_TYPE_NEWER = 1; // Query for newer events
     private static final int QUERY_TYPE_CLEAN = 2; // Delete everything and query around a date
+
+    // Placeholder if we need some code for updating the tz later.
+    private Runnable mUpdateTZ = null;
 
     private static class QuerySpec {
         long queryStartMillis;
@@ -264,9 +261,6 @@ public class AgendaWindowAdapter extends BaseAdapter {
         mContext = agendaActivity;
         mAgendaListView = agendaListView;
         mQueryHandler = new QueryHandler(agendaActivity.getContentResolver());
-
-        mStringBuilder = new StringBuilder(50);
-        mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
 
         LayoutInflater inflater = (LayoutInflater) agendaActivity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -447,11 +441,11 @@ public class AgendaWindowAdapter extends BaseAdapter {
             boolean allDay = info.cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
 
             if (allDay) { // UTC
-                Time time = new Time();
+                Time time = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
                 time.setJulianDay(Time.getJulianDay(event.begin, 0));
                 event.begin = time.toMillis(false /* use isDst */);
             } else if (isDayHeader) { // Trim to midnight.
-                Time time = new Time();
+                Time time = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
                 time.set(event.begin);
                 time.hour = 0;
                 time.minute = 0;
@@ -623,9 +617,9 @@ public class AgendaWindowAdapter extends BaseAdapter {
         }
 
         if (BASICLOG) {
-            Time time = new Time();
+            Time time = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
             time.setJulianDay(queryData.start);
-            Time time2 = new Time();
+            Time time2 = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
             time2.setJulianDay(queryData.end);
             Log.v(TAG, "startQuery: " + time.toString() + " to "
                     + time2.toString() + " then go to " + queryData.goToTime);
@@ -639,11 +633,10 @@ public class AgendaWindowAdapter extends BaseAdapter {
     }
 
     private String formatDateString(int julianDay) {
-        Time time = new Time();
+        Time time = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
         time.setJulianDay(julianDay);
         long millis = time.toMillis(false);
-        mStringBuilder.setLength(0);
-        return DateUtils.formatDateRange(mContext, mFormatter, millis, millis,
+        return Utils.formatDateRange(mContext, millis, millis,
                 DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_DATE
                         | DateUtils.FORMAT_ABBREV_MONTH).toString();
     }
