@@ -76,6 +76,9 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     static final String KEY_HOME_TZ_ENABLED = "preferences_home_tz_enabled";
     static final String KEY_HOME_TZ = "preferences_home_tz";
 
+    // The value to use when setting Calendar to use the device's time zone
+    public static final String LOCAL_TZ = "AUTO";
+
     // Default preference values
     public static final int DEFAULT_START_VIEW = CalendarController.ViewType.WEEK;
     public static final int DEFAULT_DETAILED_VIEW = CalendarController.ViewType.DAY;
@@ -84,6 +87,8 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
     ListPreference mVibrateWhen;
     RingtonePreference mRingtone;
     CheckBoxPreference mPopup;
+    CheckBoxPreference mUseHomeTZ;
+    ListPreference mHomeTZ;
 
     /** Return a properly configured SharedPreferences instance */
     public static SharedPreferences getSharedPreferences(Context context) {
@@ -115,6 +120,9 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
         mVibrateWhen = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE_WHEN);
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
+        mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
+        mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
+        mHomeTZ.setSummary(mHomeTZ.getEntry());
 
         migrateOldPreferences(sharedPreferences);
 
@@ -132,6 +140,18 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
         if (key.equals(KEY_ALERTS)) {
             updateChildPreferences();
         }
+        if (key.equals(KEY_HOME_TZ) || key.equals(KEY_HOME_TZ_ENABLED)) {
+            updateTZPreferences();
+        }
+    }
+
+    private void updateTZPreferences() {
+        String tz = mHomeTZ.getValue();
+        if (!mUseHomeTZ.isChecked()) {
+            tz = LOCAL_TZ;
+        }
+        Utils.setTimeZone(this, tz);
+        mHomeTZ.setSummary(mHomeTZ.getEntry());
     }
 
     /**

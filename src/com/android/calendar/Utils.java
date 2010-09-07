@@ -41,6 +41,8 @@ import java.util.Map;
 import java.util.TimeZone;
 
 public class Utils {
+    private static final boolean DEBUG = true;
+    private static final String TAG = "CalUtils";
     // Set to 0 until we have UI to perform undo
     public static final long UNDO_DELAY = 0;
 
@@ -62,14 +64,13 @@ public class Utils {
 
     protected static final String OPEN_EMAIL_MARKER = " <";
     protected static final String CLOSE_EMAIL_MARKER = ">";
-
     /* The corner should be rounded on the top right and bottom right */
     private static final float[] CORNERS = new float[] {0, 0, 5, 5, 5, 5, 0, 0};
 
     public static final String INTENT_KEY_DETAIL_VIEW = "DETAIL_VIEW";
     public static final String INTENT_KEY_VIEW_TYPE = "VIEW";
     public static final String INTENT_VALUE_VIEW_TYPE_DAY = "DAY";
-    
+
     private volatile static boolean mFirstTZRequest = true;
     private volatile static boolean mTZQueryInProgress = false;
 
@@ -100,6 +101,44 @@ public class Utils {
         // Default to the last view
         return prefs.getInt(CalendarPreferenceActivity.KEY_START_VIEW,
                 CalendarPreferenceActivity.DEFAULT_START_VIEW);
+    }
+
+    /**
+     * Writes a new home time zone to the db.
+     *
+     * Updates the home time zone in the db asynchronously and updates
+     * the local cache. Sending a time zone of **tbd** will cause it to
+     * be set to the device's time zone. null or empty tz will be ignored.
+     *
+     * @param context The calling activity
+     * @param timeZone The time zone to set Calendar to, or **tbd**
+     */
+    public static void setTimeZone(Context context, String timeZone) {
+        if (TextUtils.isEmpty(timeZone)) {
+            if (DEBUG) {
+                Log.d(TAG, "Empty time zone, nothing to be done.");
+            }
+            return;
+        }
+        synchronized (mTZCallbacks) {
+            if (CalendarPreferenceActivity.LOCAL_TZ.equals(timeZone)) {
+                if (!mUseHomeTZ) {
+                    return;
+                }
+                mUseHomeTZ = false;
+            } else {
+                if (TextUtils.equals(mHomeTZ, timeZone)) {
+                    return;
+                }
+                mUseHomeTZ = true;
+                mHomeTZ = timeZone;
+            }
+        }
+        setSharedPreference(context, CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED, mUseHomeTZ);
+        if (mUseHomeTZ) {
+            setSharedPreference(context, CalendarPreferenceActivity.KEY_HOME_TZ, mHomeTZ);
+        }
+        // TODO async update db
     }
 
     /**
@@ -162,6 +201,13 @@ public class Utils {
     public static void setSharedPreference(Context context, String key, String value) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         prefs.edit().putString(key, value).apply();
+    }
+
+    static void setSharedPreference(Context context, String key, boolean value) {
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
     }
 
     /**
