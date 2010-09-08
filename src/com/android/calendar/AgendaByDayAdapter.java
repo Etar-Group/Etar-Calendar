@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import com.android.calendar.AgendaWindowAdapter.DayAdapterInfo;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.text.format.DateUtils;
@@ -26,13 +28,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.android.calendar.AgendaWindowAdapter.DayAdapterInfo;
-
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Locale;
 
 public class AgendaByDayAdapter extends BaseAdapter {
     private static final int TYPE_DAY = 0;
@@ -44,10 +42,9 @@ public class AgendaByDayAdapter extends BaseAdapter {
     private final LayoutInflater mInflater;
     private ArrayList<RowInfo> mRowInfo;
     private int mTodayJulianDay;
-    private Time mTmpTime = new Time();
-    // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
-    private Formatter mFormatter;
-    private StringBuilder mStringBuilder;
+
+    // Placeholder if we need some code for updating the tz later.
+    private Runnable mUpdateTZ = null;
 
     static class ViewHolder {
         TextView dateView;
@@ -57,8 +54,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
         mContext = context;
         mAgendaAdapter = new AgendaAdapter(context, R.layout.agenda_item);
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mStringBuilder = new StringBuilder(50);
-        mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
     }
 
     public int getCount() {
@@ -132,20 +127,18 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 agendaDayView.setTag(holder);
             }
 
-            // Re-use the member variable "mTime" which is set to the local timezone.
-            Time date = mTmpTime;
+            Time date = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
             long millis = date.setJulianDay(row.mData);
             int flags = DateUtils.FORMAT_SHOW_YEAR
                     | DateUtils.FORMAT_SHOW_DATE;
 
-            mStringBuilder.setLength(0);
             String dateViewText;
             if (row.mData == mTodayJulianDay) {
-                dateViewText = mContext.getString(R.string.agenda_today, DateUtils.formatDateRange(
-                        mContext, mFormatter, millis, millis, flags).toString());
+                dateViewText = mContext.getString(R.string.agenda_today, Utils.formatDateRange(
+                        mContext, millis, millis, flags).toString());
             } else {
                 flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
-                dateViewText = DateUtils.formatDateRange(mContext, mFormatter, millis, millis,
+                dateViewText = Utils.formatDateRange(mContext, millis, millis,
                         flags).toString();
             }
 
@@ -183,7 +176,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         Cursor cursor = dayAdapterInfo.cursor;
         ArrayList<RowInfo> rowInfo = new ArrayList<RowInfo>();
         int prevStartDay = -1;
-        Time time = new Time();
+        Time time = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
         long now = System.currentTimeMillis();
         time.set(now);
         mTodayJulianDay = Time.getJulianDay(now, time.gmtoff);

@@ -30,9 +30,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class AgendaListView extends ListView implements OnItemClickListener {
 
@@ -49,6 +49,9 @@ public class AgendaListView extends ListView implements OnItemClickListener {
      * code duplication reducing fragility.
      */
     private View mLazyTempView;
+
+    // Placeholder if we need some code for updating the tz later.
+    private Runnable mUpdateTZ = null;
 
     public AgendaListView(AgendaActivity agendaActivity) {
         super(agendaActivity, null);
@@ -109,7 +112,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     }
 
     public void refresh(boolean forced) {
-        Time time = new Time();
+        Time time = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
         long goToTime = getFirstVisibleTime();
         if (goToTime <= 0) {
             goToTime = System.currentTimeMillis();
