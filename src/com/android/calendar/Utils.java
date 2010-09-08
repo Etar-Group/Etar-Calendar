@@ -31,12 +31,15 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.Formatter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -70,6 +73,9 @@ public class Utils {
     public static final String INTENT_KEY_DETAIL_VIEW = "DETAIL_VIEW";
     public static final String INTENT_KEY_VIEW_TYPE = "VIEW";
     public static final String INTENT_VALUE_VIEW_TYPE_DAY = "DAY";
+
+    private static StringBuilder mSB = new StringBuilder(50);
+    private static Formatter mF = new Formatter(mSB, Locale.getDefault());
 
     private volatile static boolean mFirstTZRequest = true;
     private volatile static boolean mTZQueryInProgress = false;
@@ -186,6 +192,27 @@ public class Utils {
     public static String getSharedPreference(Context context, String key, String defaultValue) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         return prefs.getString(key, defaultValue);
+    }
+
+    /**
+     * Formats a date or a time range according to the local conventions.
+     *
+     * @param context the context is required only if the time is shown
+     * @param startMillis the start time in UTC milliseconds
+     * @param endMillis the end time in UTC milliseconds
+     * @param flags a bit mask of options See
+     * {@link #formatDateRange(Context, Formatter, long, long, int, String) formatDateRange}
+     * @return a string containing the formatted date/time range.
+     */
+    public static String formatDateRange(Context context, long startMillis,
+            long endMillis, int flags) {
+        String date;
+        synchronized (mSB) {
+            mSB.setLength(0);
+            date = DateUtils.formatDateRange(context, mF, startMillis, endMillis, flags,
+                    getTimeZone(context, null)).toString();
+        }
+        return date;
     }
 
     public static int getSharedPreference(Context context, String key, int defaultValue) {
