@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
@@ -32,7 +33,8 @@ import android.preference.RingtonePreference;
 import android.provider.SearchRecentSuggestions;
 import android.widget.Toast;
 
-public class CalendarPreferenceActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
+public class CalendarPreferenceActivity extends PreferenceActivity implements
+        OnSharedPreferenceChangeListener, OnPreferenceChangeListener {
     private static final String BUILD_VERSION = "build_version";
 
     // The name of the shared preferences file. This name must be maintained for historical
@@ -121,8 +123,10 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
+        mUseHomeTZ.setOnPreferenceChangeListener(this);
         mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
         mHomeTZ.setSummary(mHomeTZ.getEntry());
+        mHomeTZ.setOnPreferenceChangeListener(this);
 
         migrateOldPreferences(sharedPreferences);
 
@@ -140,18 +144,29 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements On
         if (key.equals(KEY_ALERTS)) {
             updateChildPreferences();
         }
-        if (key.equals(KEY_HOME_TZ) || key.equals(KEY_HOME_TZ_ENABLED)) {
-            updateTZPreferences();
-        }
     }
 
-    private void updateTZPreferences() {
-        String tz = mHomeTZ.getValue();
-        if (!mUseHomeTZ.isChecked()) {
-            tz = LOCAL_TZ;
+    /**
+     * Handles time zone preference changes
+     */
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        String tz;
+        if (preference == mUseHomeTZ) {
+            if ((Boolean)newValue) {
+                tz = mHomeTZ.getValue();
+            } else {
+                tz = LOCAL_TZ;
+            }
+        } else if (preference == mHomeTZ) {
+            mHomeTZ.setValue((String)newValue);
+            mHomeTZ.setSummary(mHomeTZ.getEntry());
+            tz = (String)newValue;
+        } else {
+            return false;
         }
         Utils.setTimeZone(this, tz);
-        mHomeTZ.setSummary(mHomeTZ.getEntry());
+        return true;
     }
 
     /**
