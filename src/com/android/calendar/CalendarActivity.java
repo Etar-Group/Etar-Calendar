@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import dalvik.system.VMRuntime;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -38,8 +40,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
 
-import dalvik.system.VMRuntime;
-
 /**
  * This is the base class for Day and Week Activities.
  */
@@ -60,7 +60,17 @@ public class CalendarActivity extends Activity implements Navigator {
     protected Animation mOutAnimationBackward;
     EventLoader mEventLoader;
 
-    Time mSelectedDay = new Time();
+    Time mSelectedDay;
+
+    // This gets run if the time zone is updated in the db
+    private Runnable mUpdateTZ = new Runnable() {
+        @Override
+        public void run() {
+            // We want this to keep the same day so we swap the tz
+            mSelectedDay.timezone = Utils.getTimeZone(CalendarActivity.this, this);
+            mSelectedDay.normalize(true);
+        }
+    };
 
     /* package */ GestureDetector mGestureDetector;
 
@@ -98,6 +108,8 @@ public class CalendarActivity extends Activity implements Navigator {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
+        mSelectedDay = new Time(Utils.getTimeZone(this, mUpdateTZ));
+
         // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
         // TODO: We should restore the old heap size once the activity reaches the idle state
         VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
@@ -119,7 +131,7 @@ public class CalendarActivity extends Activity implements Navigator {
         super.onRestoreInstanceState(savedInstanceState);
 
         CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
-        Time time = new Time();
+        Time time = new Time(Utils.getTimeZone(this, mUpdateTZ));
         time.set(savedInstanceState.getLong(BUNDLE_KEY_RESTORE_TIME));
         view.setSelectedDay(time);
     }
@@ -128,7 +140,7 @@ public class CalendarActivity extends Activity implements Navigator {
     protected void onNewIntent(Intent intent) {
         long timeMillis = Utils.timeFromIntentInMillis(intent);
         if (timeMillis > 0) {
-            Time time = new Time();
+            Time time = new Time(Utils.getTimeZone(this, mUpdateTZ));
             time.set(timeMillis);
             goTo(time, false);
         }
@@ -141,7 +153,7 @@ public class CalendarActivity extends Activity implements Navigator {
         eventsChanged();
         CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
         view.updateIs24HourFormat();
-        view.restartCurrentTimeUpdates();
+        view.updateView();
 
         view = (CalendarView) mViewSwitcher.getNextView();
         view.updateIs24HourFormat();
