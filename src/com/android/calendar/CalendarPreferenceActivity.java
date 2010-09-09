@@ -25,11 +25,15 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
-import android.preference.Preference.OnPreferenceChangeListener;
+import android.text.format.Time;
+
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class CalendarPreferenceActivity extends PreferenceActivity implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener {
@@ -72,6 +76,8 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
     CheckBoxPreference mUseHomeTZ;
     ListPreference mHomeTZ;
 
+    private StringBuilder mTZSummary = new StringBuilder();
+
 
     /** Return a properly configured SharedPreferences instance */
     public static SharedPreferences getSharedPreferences(Context context) {
@@ -105,7 +111,15 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
         mUseHomeTZ.setOnPreferenceChangeListener(this);
         mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
-        mHomeTZ.setSummary(mHomeTZ.getEntry());
+        String tz = mHomeTZ.getValue();
+        boolean isDST = (new Time(tz)).isDst != 0;
+
+        TimeZone timeZone = TimeZone.getTimeZone(tz);
+        mTZSummary.setLength(0);
+        mTZSummary.append(mHomeTZ.getEntry()).append(" (")
+                .append(timeZone.getDisplayName(isDST, TimeZone.SHORT, Locale.getDefault()))
+                .append(")");
+        mHomeTZ.setSummary(mTZSummary.toString());
         mHomeTZ.setOnPreferenceChangeListener(this);
 
         // If needed, migrate vibration setting from a previous version
@@ -156,9 +170,15 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
                 tz = LOCAL_TZ;
             }
         } else if (preference == mHomeTZ) {
-            mHomeTZ.setValue((String)newValue);
-            mHomeTZ.setSummary(mHomeTZ.getEntry());
             tz = (String)newValue;
+            mHomeTZ.setValue(tz);
+            boolean isDST = (new Time(tz)).isDst != 0;
+            TimeZone timeZone = TimeZone.getTimeZone(tz);
+            mTZSummary.setLength(0);
+            mTZSummary.append(mHomeTZ.getEntry()).append(" (")
+                    .append(timeZone.getDisplayName(isDST, TimeZone.SHORT, Locale.getDefault()))
+                    .append(")");
+            mHomeTZ.setSummary(mTZSummary.toString());
         } else {
             return false;
         }
