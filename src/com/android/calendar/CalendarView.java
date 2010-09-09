@@ -259,6 +259,7 @@ public class CalendarView extends View
     private static int mCalendarHourLabel;
     private static int mCalendarHourSelected;
     private static int mCurrentTimeMarkerColor;
+    private static int mCurrentTimeLineColor;
     private static int mCurrentTimeMarkerBorderColor;
 
     private int mViewStartX;
@@ -431,6 +432,7 @@ public class CalendarView extends View
         mSelectedEventTextColor = mResources.getColor(R.color.calendar_event_selected_text_color);
         mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
         mCurrentTimeMarkerColor = mResources.getColor(R.color.current_time_marker);
+        mCurrentTimeLineColor = mResources.getColor(R.color.current_time_line);
         mCurrentTimeMarkerBorderColor = mResources.getColor(R.color.current_time_marker_border);
         mEventTextPaint.setColor(mEventTextColor);
         mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
@@ -1432,21 +1434,14 @@ public class CalendarView extends View
     }
 
     private void drawCurrentTimeMarker(int top, Canvas canvas, Paint p) {
-        top -= CURRENT_TIME_MARKER_HEIGHT / 2;
+        Rect r = new Rect();
+        r.top = top - CURRENT_TIME_LINE_HEIGHT / 2;
+        r.bottom = top + CURRENT_TIME_LINE_HEIGHT / 2;
+        r.left = 0;
+        r.right = mHoursWidth;
+        
         p.setColor(mCurrentTimeMarkerColor);
-        Paint.Style oldStyle = p.getStyle();
-        p.setStyle(Paint.Style.STROKE);
-        p.setStrokeWidth(2.0f);
-        Path mCurrentTimeMarker = mPath;
-        mCurrentTimeMarker.reset();
-        mCurrentTimeMarker.moveTo(0, top);
-        mCurrentTimeMarker.lineTo(0, CURRENT_TIME_MARKER_HEIGHT + top);
-        mCurrentTimeMarker.lineTo(CURRENT_TIME_MARKER_INNER_WIDTH, CURRENT_TIME_MARKER_HEIGHT + top);
-        mCurrentTimeMarker.lineTo(CURRENT_TIME_MARKER_WIDTH, CURRENT_TIME_MARKER_HEIGHT / 2 + top);
-        mCurrentTimeMarker.lineTo(CURRENT_TIME_MARKER_INNER_WIDTH, top);
-        mCurrentTimeMarker.lineTo(0, top);
-        canvas.drawPath(mCurrentTimeMarker, p);
-        p.setStyle(oldStyle);
+        canvas.drawRect(r, p);
     }
 
     private void drawCurrentTimeLine(Rect r, int left, int top, Canvas canvas, Paint p) {
@@ -1458,7 +1453,7 @@ public class CalendarView extends View
         r.right = r.left + mCellWidth - 2 * CURRENT_TIME_LINE_SIDE_BUFFER;
         canvas.drawRect(r, p);
         //Then draw the red line
-        p.setColor(mCurrentTimeMarkerColor);
+        p.setColor(mCurrentTimeLineColor);
         r.top = top - CURRENT_TIME_LINE_HEIGHT / 2;
         r.bottom = top + CURRENT_TIME_LINE_HEIGHT / 2;
         canvas.drawRect(r, p);
@@ -2374,21 +2369,13 @@ public class CalendarView extends View
 
         // If this event is selected, then use the selection color
         if (mSelectedEvent == event) {
-            if (mSelectionMode == SELECTION_PRESSED) {
+            if (mSelectionMode == SELECTION_PRESSED || mSelectionMode == SELECTION_SELECTED) {
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
-                // box = mBoxPressed;
-                p.setColor(mPressedColor); // FIXME:pressed
-                eventTextPaint.setColor(mSelectedEventTextColor);
-            } else if (mSelectionMode == SELECTION_SELECTED) {
-                // Also, remember the last selected event that we drew
-                mPrevSelectedEvent = event;
-                // box = mBoxSelected;
                 p.setColor(mSelectionColor);
                 eventTextPaint.setColor(mSelectedEventTextColor);
             } else if (mSelectionMode == SELECTION_LONGPRESS) {
-                // box = mBoxLongPressed;
-                p.setColor(mPressedColor); // FIXME: longpressed (maybe -- this doesn't seem to work)
+                p.setColor(mSelectionColor);
                 eventTextPaint.setColor(mSelectedEventTextColor);
             } else {
                 p.setColor(color);
