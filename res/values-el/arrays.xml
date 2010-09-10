@@ -33,89 +33,91 @@
     <item msgid="6908283876728494719">"2 ημέρες"</item>
     <item msgid="3390146235648970198">"1 εβδομάδα"</item>
   </string-array>
-    <!-- no translation found for timezone_labels:0 (6833649526258274889) -->
-    <!-- no translation found for timezone_labels:1 (7176569939440505575) -->
-    <!-- no translation found for timezone_labels:2 (5000628410717488070) -->
-    <!-- no translation found for timezone_labels:3 (3809977082338992040) -->
-    <!-- no translation found for timezone_labels:4 (1206600898319778734) -->
-    <!-- no translation found for timezone_labels:5 (4251553449779733536) -->
-    <!-- no translation found for timezone_labels:6 (4796372144693551811) -->
-    <!-- no translation found for timezone_labels:7 (4589419122570218444) -->
-    <!-- no translation found for timezone_labels:8 (1653398220457872326) -->
-    <!-- no translation found for timezone_labels:9 (229005026661478023) -->
-    <!-- no translation found for timezone_labels:10 (1545268116831476742) -->
-    <!-- no translation found for timezone_labels:11 (9135129204936732090) -->
-    <!-- no translation found for timezone_labels:12 (3703110560723049255) -->
-    <!-- no translation found for timezone_labels:13 (5458958644945369505) -->
-    <!-- no translation found for timezone_labels:14 (355450740949670294) -->
-    <!-- no translation found for timezone_labels:15 (5786717434693228701) -->
-    <!-- no translation found for timezone_labels:16 (165048018515834952) -->
-    <!-- no translation found for timezone_labels:17 (5398045998666341917) -->
-    <!-- no translation found for timezone_labels:18 (8167627904199889197) -->
-    <!-- no translation found for timezone_labels:19 (2793058279461039833) -->
-    <!-- no translation found for timezone_labels:20 (5247265991408608312) -->
-    <!-- no translation found for timezone_labels:21 (7862856378699038344) -->
-    <!-- no translation found for timezone_labels:22 (7307349572838946177) -->
-    <!-- no translation found for timezone_labels:23 (2287491943472924232) -->
-    <!-- no translation found for timezone_labels:24 (6337125611768317903) -->
-    <!-- no translation found for timezone_labels:25 (1083966762112959704) -->
-    <!-- no translation found for timezone_labels:26 (3208435599095023369) -->
-    <!-- no translation found for timezone_labels:27 (8380333624463354109) -->
-    <!-- no translation found for timezone_labels:28 (8737442113188999866) -->
-    <!-- no translation found for timezone_labels:29 (72424340270348400) -->
-    <!-- no translation found for timezone_labels:30 (3665952257850630547) -->
-    <!-- no translation found for timezone_labels:31 (3284290759549286849) -->
-    <!-- no translation found for timezone_labels:32 (3112943938015033049) -->
-    <!-- no translation found for timezone_labels:33 (1746966478800108111) -->
-    <!-- no translation found for timezone_labels:34 (7008598576103662879) -->
-    <!-- no translation found for timezone_labels:35 (1358916275855835758) -->
-    <!-- no translation found for timezone_labels:36 (5900185968201011015) -->
-    <!-- no translation found for timezone_labels:37 (4975304496845689895) -->
-    <!-- no translation found for timezone_labels:38 (4099790960681254059) -->
-    <!-- no translation found for timezone_labels:39 (4174072690298729061) -->
-    <!-- no translation found for timezone_labels:40 (5233437715028921599) -->
-    <!-- no translation found for timezone_labels:41 (612137838544847325) -->
-    <!-- no translation found for timezone_labels:42 (385832033162858704) -->
-    <!-- no translation found for timezone_labels:43 (1439592855284837653) -->
-    <!-- no translation found for timezone_labels:44 (3703352987270492256) -->
-    <!-- no translation found for timezone_labels:45 (1657996636394546903) -->
-    <!-- no translation found for timezone_labels:46 (3719675800096223903) -->
-    <!-- no translation found for timezone_labels:47 (4216389209911081345) -->
-    <!-- no translation found for timezone_labels:48 (4949871918709805735) -->
-    <!-- no translation found for timezone_labels:49 (2863183321532922311) -->
-    <!-- no translation found for timezone_labels:50 (1943529325618264999) -->
-    <!-- no translation found for timezone_labels:51 (5094507376721687886) -->
-    <!-- no translation found for timezone_labels:52 (2849654571454095226) -->
-    <!-- no translation found for timezone_labels:53 (3641915655045056824) -->
-    <!-- no translation found for timezone_labels:54 (5795351343828254400) -->
-    <!-- no translation found for timezone_labels:55 (8779467771115356898) -->
-    <!-- no translation found for timezone_labels:56 (297412491658718331) -->
-    <!-- no translation found for timezone_labels:57 (2290076787008042202) -->
-    <!-- no translation found for timezone_labels:58 (4119703758417825749) -->
-    <!-- no translation found for timezone_labels:59 (9161760299912900568) -->
-    <!-- no translation found for timezone_labels:60 (5753596907402377327) -->
-    <!-- no translation found for timezone_labels:61 (6275146302340764856) -->
-    <!-- no translation found for timezone_labels:62 (2385588555356900033) -->
-    <!-- no translation found for timezone_labels:63 (7651147941145227340) -->
-    <!-- no translation found for timezone_labels:64 (7831696303531874014) -->
-    <!-- no translation found for timezone_labels:65 (7943498021949728203) -->
-    <!-- no translation found for timezone_labels:66 (707009198021550118) -->
-    <!-- no translation found for timezone_labels:67 (4268864549735629220) -->
-    <!-- no translation found for timezone_labels:68 (4584239166170514795) -->
-    <!-- no translation found for timezone_labels:69 (4972387553080120086) -->
-    <!-- no translation found for timezone_labels:70 (5749349714875345358) -->
-    <!-- no translation found for timezone_labels:71 (4435870687083770252) -->
-    <!-- no translation found for timezone_labels:72 (4857952326324510625) -->
-    <!-- no translation found for timezone_labels:73 (7802545626741434274) -->
-    <!-- no translation found for timezone_labels:74 (7184691104734480971) -->
-    <!-- no translation found for timezone_labels:75 (7795651165061255022) -->
-    <!-- no translation found for timezone_labels:76 (1858052331367859514) -->
-    <!-- no translation found for timezone_labels:77 (4396794682654884440) -->
-    <!-- no translation found for timezone_labels:78 (4152655496917506653) -->
-    <!-- no translation found for timezone_labels:79 (3608508135351982746) -->
-    <!-- no translation found for timezone_labels:80 (722180563708274099) -->
-    <!-- no translation found for timezone_labels:81 (1736037231626139044) -->
-    <!-- no translation found for timezone_labels:82 (8187746821081424875) -->
+  <string-array name="timezone_labels">
+    <item msgid="6833649526258274889">"Νήσοι Μάρσαλ"</item>
+    <item msgid="7176569939440505575">"Νήσος Μιντγουέι"</item>
+    <item msgid="5000628410717488070">"Χαβάη"</item>
+    <item msgid="3809977082338992040">"Αλάσκα"</item>
+    <item msgid="1206600898319778734">"Ώρα Ειρηνικού"</item>
+    <item msgid="4251553449779733536">"Τιχουάνα"</item>
+    <item msgid="4796372144693551811">"Αριζόνα"</item>
+    <item msgid="4589419122570218444">"Τσιουάουα"</item>
+    <item msgid="1653398220457872326">"Ορεινή ώρα"</item>
+    <item msgid="229005026661478023">"Κεντρική Αμερική"</item>
+    <item msgid="1545268116831476742">"Κεντρική ώρα"</item>
+    <item msgid="9135129204936732090">"Πόλη του Μεξικού"</item>
+    <item msgid="3703110560723049255">"Σασκάτσιουαν"</item>
+    <item msgid="5458958644945369505">"Μπογκοτά"</item>
+    <item msgid="355450740949670294">"Ανατολική ώρα"</item>
+    <item msgid="5786717434693228701">"Βενεζουέλα"</item>
+    <item msgid="165048018515834952">"Ώρα Ατλαντικού"</item>
+    <item msgid="5398045998666341917">"Μανάους"</item>
+    <item msgid="8167627904199889197">"Σαντιάγκο"</item>
+    <item msgid="2793058279461039833">"Νέα Γη"</item>
+    <item msgid="5247265991408608312">"Μπραζίλια"</item>
+    <item msgid="7862856378699038344">"Μπουένος Άιρες"</item>
+    <item msgid="7307349572838946177">"Γροιλανδία"</item>
+    <item msgid="2287491943472924232">"Μοντεβίδεο"</item>
+    <item msgid="6337125611768317903">"Μέσος Ατλαντικός"</item>
+    <item msgid="1083966762112959704">"Αζόρες"</item>
+    <item msgid="3208435599095023369">"Νήσοι Πρ. Ακρωτ."</item>
+    <item msgid="8380333624463354109">"Καζαμπλάνκα"</item>
+    <item msgid="8737442113188999866">"Λονδίνο, Δουβλ."</item>
+    <item msgid="72424340270348400">"Άμστ., Βερολίνο"</item>
+    <item msgid="3665952257850630547">"Βελιγράδι"</item>
+    <item msgid="3284290759549286849">"Βρυξέλλες"</item>
+    <item msgid="3112943938015033049">"Σαράγεβο"</item>
+    <item msgid="1746966478800108111">"Βίντχουκ"</item>
+    <item msgid="7008598576103662879">"Ώρα Δ. Αφρικής"</item>
+    <item msgid="1358916275855835758">"Αμμάν, Ιορδανία"</item>
+    <item msgid="5900185968201011015">"Αθήνα, Κωνσταντ."</item>
+    <item msgid="4975304496845689895">"Βηρυτός, Λίβανος"</item>
+    <item msgid="4099790960681254059">"Κάιρο"</item>
+    <item msgid="4174072690298729061">"Ελσίνκι"</item>
+    <item msgid="5233437715028921599">"Ιερουσαλήμ"</item>
+    <item msgid="612137838544847325">"Μινσκ"</item>
+    <item msgid="385832033162858704">"Χαράρε"</item>
+    <item msgid="1439592855284837653">"Βαγδάτη"</item>
+    <item msgid="3703352987270492256">"Μόσχα"</item>
+    <item msgid="1657996636394546903">"Κουβέιτ"</item>
+    <item msgid="3719675800096223903">"Ναϊρόμπι"</item>
+    <item msgid="4216389209911081345">"Τεχεράνη"</item>
+    <item msgid="4949871918709805735">"Μπακού"</item>
+    <item msgid="2863183321532922311">"Τιφλίδα"</item>
+    <item msgid="1943529325618264999">"Γερεβάν"</item>
+    <item msgid="5094507376721687886">"Ντουμπάι"</item>
+    <item msgid="2849654571454095226">"Καμπούλ"</item>
+    <item msgid="3641915655045056824">"Ισλ., Καράτσι"</item>
+    <item msgid="5795351343828254400">"Ural\'sk"</item>
+    <item msgid="8779467771115356898">"Εκατερίνμπουργκ"</item>
+    <item msgid="297412491658718331">"Καλκούτα"</item>
+    <item msgid="2290076787008042202">"Σρι Λάνκα"</item>
+    <item msgid="4119703758417825749">"Κατμαντού"</item>
+    <item msgid="9161760299912900568">"Αστάνα"</item>
+    <item msgid="5753596907402377327">"Γιανγκόν"</item>
+    <item msgid="6275146302340764856">"Κρασνογιάρσκ"</item>
+    <item msgid="2385588555356900033">"Μπανγκόκ"</item>
+    <item msgid="7651147941145227340">"Πεκίνο"</item>
+    <item msgid="7831696303531874014">"Χονγκ Κονγκ"</item>
+    <item msgid="7943498021949728203">"Ιρκούτσκ"</item>
+    <item msgid="707009198021550118">"Κουάλα Λουμπούρ"</item>
+    <item msgid="4268864549735629220">"Περθ"</item>
+    <item msgid="4584239166170514795">"Ταϊπέι"</item>
+    <item msgid="4972387553080120086">"Σεούλ"</item>
+    <item msgid="5749349714875345358">"Τόκιο, Οσάκα"</item>
+    <item msgid="4435870687083770252">"Γιακούτσκ"</item>
+    <item msgid="4857952326324510625">"Αδελαίδα"</item>
+    <item msgid="7802545626741434274">"Ντάργουιν"</item>
+    <item msgid="7184691104734480971">"Μπρισμπέιν"</item>
+    <item msgid="7795651165061255022">"Χόμπαρτ"</item>
+    <item msgid="1858052331367859514">"Σύδνεϊ, Καμπέρα"</item>
+    <item msgid="4396794682654884440">"Βλαδιβοστόκ"</item>
+    <item msgid="4152655496917506653">"Γκουάμ"</item>
+    <item msgid="3608508135351982746">"Μάγκανταν"</item>
+    <item msgid="722180563708274099">"Όκλαντ"</item>
+    <item msgid="1736037231626139044">"Φίτζι"</item>
+    <item msgid="8187746821081424875">"Τόνγκα"</item>
+  </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item msgid="7495163916242649023">"Κανένα"</item>
     <item msgid="3377199512833209480">"1 λεπτό"</item>
