@@ -20,8 +20,7 @@
     <string name="app_aio_label" msgid="3058561424021284581">"Kalender AllInOne"</string>
     <string name="what_label" msgid="1933578391985810049">"Vad"</string>
     <string name="where_label" msgid="3472482206065595118">"Var"</string>
-    <!-- no translation found for timezone_label (2030635806231207425) -->
-    <skip />
+    <string name="timezone_label" msgid="2030635806231207425">"Tidszon"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Gäster"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Upprepning"</string>
@@ -42,8 +41,7 @@
     <item quantity="one" msgid="5988137255732166573">"1 dag"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dagar"</item>
   </plurals>
-    <!-- no translation found for calendar_refresh (6172731193680500025) -->
-    <skip />
+    <string name="calendar_refresh" msgid="6172731193680500025">"Uppdatera"</string>
     <string name="show_agenda_view" msgid="7971854300981408347">"Visa agenda"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Visa dag"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
@@ -57,8 +55,7 @@
     <string name="goto_today" msgid="9162136434410891230">"Idag"</string>
     <string name="menu_select_calendars" msgid="6200145996783123958">"Kalendrar"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Inställningar"</string>
-    <!-- no translation found for search (550656004486017426) -->
-    <skip />
+    <string name="search" msgid="550656004486017426">"Sök"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(och <xliff:g id="MORE_COUNT">%d</xliff:g> till …)"</string>
     <string name="calendars_title" msgid="4046980972626276968">"Kalendrar"</string>
     <string name="synced_visible" msgid="1406744353749335651">"synkat, visas"</string>
@@ -85,8 +82,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalender"</string>
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Visa fler alternativ"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Dölj fler alternativ"</string>
-    <!-- no translation found for edit_event_show_all (4558049350756058301) -->
-    <skip />
+    <string name="edit_event_show_all" msgid="4558049350756058301">"Visa alla"</string>
     <string name="description_label" msgid="7193475046717505855">"Beskrivning"</string>
     <string name="presence_label" msgid="6169724148441175862">"Visa mig som"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Sekretess"</string>
@@ -99,16 +95,18 @@
     <string name="view_event_response_label" msgid="8382281658458798329">"Delta?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Idag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Hämtar…"</string>
-    <string name="show_older_events" msgid="4031960000704544741">"Visar händelser sedan <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Peka om du vill visa fler."</string>
-    <string name="show_newer_events" msgid="2647889653936094369">"Visar händelser fram till <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Peka om du vill visa fler."</string>
-    <!-- no translation found for search_title (8898015280250716254) -->
+    <!-- no translation found for show_older_events (6819097859184398737) -->
     <skip />
+    <!-- no translation found for show_newer_events (3434093781980113106) -->
+    <skip />
+    <string name="search_title" msgid="8898015280250716254">"Sök i mina kalendrar"</string>
     <string name="num_events" msgid="3351672964607162257">"Antal händelser"</string>
     <string name="edit_event_label" msgid="2900418236819088363">"Redigera händelse"</string>
     <string name="delete_label" msgid="874742811918030739">"Ta bort"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Ta bort händelse"</string>
     <string name="save_label" msgid="2133599104834432589">"Färdig"</string>
-    <string name="discard_label" msgid="4510607554910139220">"Återgå"</string>
+    <!-- no translation found for discard_label (2394623883289782541) -->
+    <skip />
     <string name="import_label" msgid="6993796574741477222">"Importera"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Sätt alla på snooze"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Ta bort alla permanent"</string>
@@ -148,6 +146,12 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standardtid för påminnelse"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standardtid för påminnelse"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <!-- no translation found for preferences_use_home_tz_title (5597546849968598210) -->
+    <skip />
+    <!-- no translation found for preferences_use_home_tz_descrip (4835375381297413746) -->
+    <skip />
+    <!-- no translation found for preferences_home_tz_title (6680000444088818578) -->
+    <skip />
     <string name="preferences_about_title" msgid="2810624892412097879">"Om"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Programversion"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
