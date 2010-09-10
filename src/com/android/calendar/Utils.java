@@ -18,6 +18,9 @@ package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 
+import android.content.AsyncQueryHandler;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -53,6 +56,24 @@ public class Utils {
     /* The corner should be rounded on the top right and bottom right */
     private static final float[] CORNERS = new float[] {0, 0, 5, 5, 5, 5, 0, 0};
 
+    // TODO switch these to use Calendar.java when it gets added
+    private static final String TIMEZONE_COLUMN_KEY = "key";
+    private static final String TIMEZONE_COLUMN_VALUE = "value";
+    private static final String TIMEZONE_KEY_TYPE = "timezoneType";
+    private static final String TIMEZONE_KEY_INSTANCES = "timezoneInstances";
+    private static final String TIMEZONE_KEY_INSTANCES_PREVIOUS = "timezoneInstancesPrevious";
+    private static final String TIMEZONE_TYPE_AUTO = "auto";
+    private static final String TIMEZONE_TYPE_HOME = "home";
+    private static final String[] TIMEZONE_POJECTION = new String[] {
+        TIMEZONE_COLUMN_KEY,
+        TIMEZONE_COLUMN_VALUE,
+    };
+    // Uri.parse("content://" + AUTHORITY + "/reminders");
+    private static final Uri TIMEZONE_URI =
+            Uri.parse("content://" + android.provider.Calendar.AUTHORITY + "/properties");
+    private static final String TIMEZONE_UPDATE_WHERE = "key=?";
+
+
     private static StringBuilder mSB = new StringBuilder(50);
     private static Formatter mF = new Formatter(mSB, Locale.getDefault());
     private volatile static boolean mFirstTZRequest = true;
@@ -62,6 +83,55 @@ public class Utils {
     private volatile static String mHomeTZ = Time.getCurrentTimezone();
 
     private static HashSet<Runnable> mTZCallbacks = new HashSet<Runnable>();
+    private static int mToken = 1;
+    private static AsyncTZHandler mHandler;
+
+    private static class AsyncTZHandler extends AsyncQueryHandler {
+        public AsyncTZHandler(ContentResolver cr) {
+            super(cr);
+        }
+
+        @Override
+        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            synchronized (mTZCallbacks) {
+                boolean writePrefs = false;
+                // Check the values in the db
+                while(cursor.moveToNext()) {
+                    int keyColumn = cursor.getColumnIndexOrThrow(TIMEZONE_COLUMN_KEY);
+                    int valueColumn = cursor.getColumnIndexOrThrow(TIMEZONE_COLUMN_VALUE);
+                    String key = cursor.getString(keyColumn);
+                    String value = cursor.getString(valueColumn);
+                    if (TextUtils.equals(key, TIMEZONE_KEY_TYPE)) {
+                        boolean useHomeTZ = !TextUtils.equals(value, TIMEZONE_TYPE_AUTO);
+                        if (useHomeTZ != mUseHomeTZ) {
+                            writePrefs = true;
+                            mUseHomeTZ = useHomeTZ;
+                        }
+                    } else if (TextUtils.equals(key, TIMEZONE_KEY_INSTANCES_PREVIOUS)) {
+                        if (!TextUtils.isEmpty(value) && !TextUtils.equals(mHomeTZ, value)) {
+                            writePrefs = true;
+                            mHomeTZ = value;
+                        }
+                    }
+                }
+                if (writePrefs) {
+                    // Write the prefs
+                    setSharedPreference((Context)cookie,
+                            CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED, mUseHomeTZ);
+                    setSharedPreference((Context)cookie,
+                            CalendarPreferenceActivity.KEY_HOME_TZ, mHomeTZ);
+                }
+
+                mTZQueryInProgress = false;
+                for (Runnable callback : mTZCallbacks) {
+                    if (callback != null) {
+                        callback.run();
+                    }
+                }
+                mTZCallbacks.clear();
+            }
+        }
+    }
 
     public static void startActivity(Context context, String className, long time) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -111,12 +181,37 @@ public class Utils {
             }
         }
         if (updatePrefs) {
+            // Write the prefs
             setSharedPreference(context, CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED,
                     mUseHomeTZ);
             setSharedPreference(context, CalendarPreferenceActivity.KEY_HOME_TZ, mHomeTZ);
-        }
 
-        // TODO async update db
+            // Update the db
+            ContentValues values = new ContentValues();
+            if (mHandler == null) {
+                mHandler = new AsyncTZHandler(context.getContentResolver());
+            }
+
+            mHandler.cancelOperation(mToken);
+
+            String[] selArgs = new String[] {TIMEZONE_KEY_TYPE};
+            values.put(TIMEZONE_COLUMN_VALUE, mUseHomeTZ ? TIMEZONE_TYPE_HOME : TIMEZONE_TYPE_AUTO);
+            mHandler.startUpdate(mToken, null, TIMEZONE_URI, values, TIMEZONE_UPDATE_WHERE,
+                    selArgs);
+
+            if (mUseHomeTZ) {
+                selArgs[0] = TIMEZONE_KEY_INSTANCES;
+                values.clear();
+                values.put(TIMEZONE_COLUMN_VALUE, mHomeTZ);
+                mHandler.startUpdate(mToken, null, TIMEZONE_URI, values, TIMEZONE_UPDATE_WHERE,
+                        selArgs);
+            }
+
+            // skip 0 so query can use it
+            if (++mToken == 0) {
+                mToken = 1;
+            }
+        }
     }
 
     /**
@@ -144,13 +239,15 @@ public class Utils {
                         CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED, false);
                 mHomeTZ = prefs.getString(
                         CalendarPreferenceActivity.KEY_HOME_TZ, Time.getCurrentTimezone());
-                // TODO kick off async query
+
                 // When the async query returns it should synchronize on
                 // mTZCallbacks, update mUseHomeTZ, mHomeTZ, and the
                 // preferences, set mTZQueryInProgress to false, and call all
                 // the runnables in mTZCallbacks.
-                // TODO remove this line when we have a query
-                mTZQueryInProgress = false;
+                if (mHandler == null) {
+                    mHandler = new AsyncTZHandler(context.getContentResolver());
+                }
+                mHandler.startQuery(0, context, TIMEZONE_URI, TIMEZONE_POJECTION, null, null, null);
             }
             if (mTZQueryInProgress) {
                 mTZCallbacks.add(callback);
