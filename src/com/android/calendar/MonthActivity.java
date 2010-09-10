@@ -29,22 +29,25 @@ import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.provider.Calendar.Events;
+import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.widget.Gallery.LayoutParams;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-import android.widget.Gallery.LayoutParams;
 
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
         Navigator, AnimationListener {
@@ -61,6 +64,17 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     private int mStartDay;
 
     private ProgressBar mProgressBar;
+
+    // This gets run if the time zone is updated in the db
+    private Runnable mUpdateTZ = new Runnable() {
+        @Override
+        public void run() {
+            // We want mTime to stay on the same day, so we swap the tz
+            mTime.timezone = Utils.getTimeZone(MonthActivity.this, this);
+            mTime.normalize(true);
+            updateTitle(mTime);
+        }
+    };
 
     private static final int DAY_OF_WEEK_LABEL_IDS[] = {
         R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6
@@ -89,10 +103,28 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
         return mv;
     }
 
+    public void updateTitle(Time time) {
+        TextView title = (TextView) findViewById(R.id.title);
+        StringBuffer date = new StringBuffer(Utils.formatMonthYear(this, time));
+        if (!TextUtils.equals(Utils.getTimeZone(this, mUpdateTZ), Time.getCurrentTimezone())) {
+            int flags = DateUtils.FORMAT_SHOW_TIME;
+            if (DateFormat.is24HourFormat(this)) {
+                flags |= DateUtils.FORMAT_24HOUR;
+            }
+            long start = System.currentTimeMillis();
+            String tz = Utils.getTimeZone(this, mUpdateTZ);
+            boolean isDST = time.isDst != 0;
+            TimeZone timeZone = TimeZone.getTimeZone(tz);
+            date.append(" (").append(Utils.formatDateRange(this, start, start, flags)).append(" ")
+                    .append(timeZone.getDisplayName(isDST, TimeZone.SHORT, Locale.getDefault()))
+                    .append(")");
+        }
+        title.setText(date.toString());
+    }
+
     /* Navigator interface methods */
     public void goTo(Time time, boolean animate) {
-        TextView title = (TextView) findViewById(R.id.title);
-        title.setText(Utils.formatMonthYear(this, time));
+        updateTitle(time);
 
         MonthView current = (MonthView) mSwitcher.getCurrentView();
         current.dismissPopup();
@@ -126,7 +158,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     }
 
     public void goToToday() {
-        Time now = new Time();
+        Time now = new Time(Utils.getTimeZone(this, mUpdateTZ));
         now.set(System.currentTimeMillis());
         now.minute = 0;
         now.second = 0;
@@ -219,7 +251,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
             time = Utils.timeFromIntentInMillis(getIntent());
         }
 
-        mTime = new Time();
+        mTime = new Time(Utils.getTimeZone(this, mUpdateTZ));
         mTime.set(time);
         mTime.normalize(true);
 
@@ -266,7 +298,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     protected void onNewIntent(Intent intent) {
         long timeMillis = Utils.timeFromIntentInMillis(intent);
         if (timeMillis > 0) {
-            Time time = new Time();
+            Time time = new Time(Utils.getTimeZone(this, mUpdateTZ));
             time.set(timeMillis);
             goTo(time, false);
         }
@@ -294,6 +326,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
     @Override
     protected void onResume() {
         super.onResume();
+        mUpdateTZ.run();
         mEventLoader.startBackgroundThread();
         eventsChanged();
 
@@ -302,6 +335,8 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
         String str = prefs.getString(CalendarPreferenceActivity.KEY_DETAILED_VIEW,
                 CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
+        view1.updateView();
+        view2.updateView();
         view1.setDetailedView(str);
         view2.setDetailedView(str);
 

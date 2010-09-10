@@ -27,10 +27,10 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -39,6 +39,7 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.SparseArray;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -47,7 +48,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.PopupWindow;
@@ -90,14 +90,14 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
     private Time mToday;
     private Time mViewCalendar;
-    private Time mSavedTime = new Time();   // the time when we entered this view
+    private Time mSavedTime;   // the time when we entered this view
 
     // This Time object is used to set the time for the other Month view.
-    private Time mOtherViewCalendar = new Time();
+    private Time mOtherViewCalendar;
 
     // This Time object is used for temporary calculations and is allocated
     // once to avoid extra garbage collection
-    private Time mTempTime = new Time();
+    private Time mTempTime;
 
     private DayOfMonthCursor mCursor;
 
@@ -182,6 +182,24 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private int mPrevSelectedMonth;
     private CharSequence mPrevTitleTextViewText;
 
+    // This gets run if the time zone is updated in the db
+    private Runnable mUpdateTZ = new Runnable() {
+        @Override
+        public void run() {
+            String tz = Utils.getTimeZone(mContext, this);
+            // These fields we want to keep the same time represented
+            mSavedTime.switchTimezone(tz);
+            mToday.switchTimezone(tz);
+            mTempTime.switchTimezone(tz);
+
+            // These fields we want to keep the same day represented
+            mViewCalendar.timezone = tz;
+            mViewCalendar.normalize(true);
+            mOtherViewCalendar.timezone = tz;
+            mOtherViewCalendar.normalize(true);
+        }
+    };
+
     public MonthView(MonthActivity activity, Navigator navigator) {
         super(activity);
         if (mScale == 0) {
@@ -207,20 +225,25 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 }
             }
 
+        String tz = Utils.getTimeZone(mContext, mUpdateTZ);
+        mSavedTime = new Time(tz);
+        mOtherViewCalendar = new Time(tz);
+        mTempTime = new Time(tz);
+
         mEventLoader = activity.mEventLoader;
         mNavigator = navigator;
         mEventGeometry = new EventGeometry();
         mEventGeometry.setMinEventHeight(MIN_EVENT_HEIGHT);
         mEventGeometry.setHourGap(HOUR_GAP);
-        init(activity);
+        init(activity, tz);
     }
 
-    private void init(MonthActivity activity) {
+    private void init(MonthActivity activity, String timeZone) {
         setFocusable(true);
         setClickable(true);
         setOnCreateContextMenuListener(this);
         mParentActivity = activity;
-        mViewCalendar = new Time();
+        mViewCalendar = new Time(timeZone);
         long now = System.currentTimeMillis();
         mViewCalendar.set(now);
         mViewCalendar.monthDay = 1;
@@ -231,7 +254,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
         mCursor = new DayOfMonthCursor(mViewCalendar.year,  mViewCalendar.month,
                 mViewCalendar.monthDay, mParentActivity.getStartDay());
-        mToday = new Time();
+        mToday = new Time(timeZone);
         mToday.set(System.currentTimeMillis());
 
         mResources = activity.getResources();
@@ -384,7 +407,8 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         final int flags = DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE
                 | DateUtils.FORMAT_ABBREV_MONTH;
 
-        final String title = DateUtils.formatDateTime(mParentActivity, startMillis, flags);
+        final String title = Utils.formatDateRange(mParentActivity, startMillis, startMillis,
+                flags);
         menu.setHeaderTitle(title);
 
         item = menu.add(0, MenuHelper.MENU_DAY, 0, R.string.show_day_view);
@@ -642,7 +666,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             long startMillis = getSelectedTimeInMillis();
             int flags = DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE
                     | DateUtils.FORMAT_ABBREV_MONTH;
-            String text = DateUtils.formatDateTime(mParentActivity, startMillis, flags);
+            String text = Utils.formatDateRange(mParentActivity, startMillis, startMillis, flags);
             event.getText().add(text);
 
             // add event count
@@ -1120,10 +1144,10 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
             String timeRange;
             if (showEndTime) {
-                timeRange = DateUtils.formatDateRange(mParentActivity,
+                timeRange = Utils.formatDateRange(mParentActivity,
                         event.startMillis, event.endMillis, flags);
             } else {
-                timeRange = DateUtils.formatDateRange(mParentActivity,
+                timeRange = Utils.formatDateRange(mParentActivity,
                         event.startMillis, event.startMillis, flags);
             }
 
@@ -1383,5 +1407,9 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         if (handler != null) {
             handler.removeCallbacks(mDismissPopup);
         }
+    }
+
+    public void updateView() {
+        mUpdateTZ.run();
     }
 }

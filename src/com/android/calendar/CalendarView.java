@@ -30,13 +30,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.Path.Direction;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.graphics.Paint.Style;
-import android.graphics.Path.Direction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,6 +49,7 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -58,7 +59,6 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
@@ -67,6 +67,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -93,6 +95,24 @@ public class CalendarView extends View
 
     protected CalendarApplication mCalendarApp;
     protected CalendarActivity mParentActivity;
+
+    // This runs when we need to update the tz
+    private Runnable mUpdateTZ = new Runnable() {
+        @Override
+        public void run() {
+            String tz = Utils.getTimeZone(mContext, this);
+            // BaseDate we want to keep on the same day, so we swap tz
+            mBaseDate.timezone = tz;
+            mBaseDate.normalize(true);
+            // CurrentTime we want to keep at the same absolute time, so we
+            // call switch tz
+            mCurrentTime.switchTimezone(tz);
+            mTimeZone = TimeZone.getTimeZone(tz);
+            recalc();
+            mTitleTextView.setText(mDateRange);
+        }
+    };
+    private Context mContext;
 
     private static final String[] CALENDARS_PROJECTION = new String[] {
         Calendars._ID,          // 0
@@ -341,6 +361,7 @@ public class CalendarView extends View
 
     private boolean mScrolling = false;
 
+    private TimeZone mTimeZone;
     private String mDateRange;
     private TextView mTitleTextView;
 
@@ -405,7 +426,10 @@ public class CalendarView extends View
 
         mStartDay = Utils.getFirstDayOfWeek();
 
-        mCurrentTime = new Time();
+        mTimeZone = TimeZone.getTimeZone(Utils.getTimeZone(context, mUpdateTZ));
+
+        mContext = context;
+        mCurrentTime = new Time(Utils.getTimeZone(context, mUpdateTZ));
         long currentTime = System.currentTimeMillis();
         mCurrentTime.set(currentTime);
         //The % makes it go off at the next increment of 5 minutes.
@@ -514,7 +538,7 @@ public class CalendarView extends View
         // Enable touching the popup window
         mPopupView.setOnClickListener(this);
 
-        mBaseDate = new Time();
+        mBaseDate = new Time(Utils.getTimeZone(context, mUpdateTZ));
         long millis = System.currentTimeMillis();
         mBaseDate.set(millis);
 
@@ -627,7 +651,7 @@ public class CalendarView extends View
             }
         }
 
-        final long start = mBaseDate.toMillis(false /* use isDst */);
+        long start = mBaseDate.normalize(true /* use isDst */);
         long end = start;
         mFirstJulianDay = Time.getJulianDay(start, mBaseDate.gmtoff);
         mLastJulianDay = mFirstJulianDay + mNumDays - 1;
@@ -649,7 +673,24 @@ public class CalendarView extends View
                     | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH;
         }
 
-        mDateRange = DateUtils.formatDateRange(mParentActivity, start, end, flags);
+        mDateRange = Utils.formatDateRange(mParentActivity, start, end, flags);
+
+        if (!TextUtils.equals(Utils.getTimeZone(mContext, mUpdateTZ), Time.getCurrentTimezone())) {
+            flags = DateUtils.FORMAT_SHOW_TIME;
+            if (DateFormat.is24HourFormat(mParentActivity)) {
+                flags |= DateUtils.FORMAT_24HOUR;
+            }
+            start = System.currentTimeMillis();
+
+            String tz = Utils.getTimeZone(mContext, mUpdateTZ);
+            boolean isDST = mBaseDate.isDst != 0;
+            StringBuilder title = new StringBuilder(mDateRange);
+            title.append(" (").append(Utils.formatDateRange(mContext, start, start, flags))
+                    .append(" ")
+                    .append(mTimeZone.getDisplayName(isDST, TimeZone.SHORT, Locale.getDefault()))
+                    .append(")");
+            mDateRange = title.toString();
+        }
         // Do not set the title here because this is called when executing
         // initNextView() to prepare the Day view when sliding the finger
         // horizontally but we don't always want to change the title.  And
@@ -1226,7 +1267,7 @@ public class CalendarView extends View
         mSelectedEvents.clear();
 
         // The start date is the beginning of the week at 12am
-        Time weekStart = new Time();
+        Time weekStart = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
         weekStart.set(mBaseDate);
         weekStart.hour = 0;
         weekStart.minute = 0;
@@ -1439,7 +1480,7 @@ public class CalendarView extends View
         r.bottom = top + CURRENT_TIME_LINE_HEIGHT / 2;
         r.left = 0;
         r.right = mHoursWidth;
-        
+
         p.setColor(mCurrentTimeMarkerColor);
         canvas.drawRect(r, p);
     }
@@ -1605,7 +1646,7 @@ public class CalendarView extends View
                 time.setJulianDay(firstJulianDay + mNumDays);
                 long endTime = time.normalize(true);
 
-                String timeRange = DateUtils.formatDateRange(mParentActivity, startTime, endTime,
+                String timeRange = Utils.formatDateRange(mParentActivity, startTime, endTime,
                         flags);
                 event.getText().add(timeRange);
             }
@@ -1624,7 +1665,7 @@ public class CalendarView extends View
             if (DateFormat.is24HourFormat(mParentActivity)) {
                 flags |= DateUtils.FORMAT_24HOUR;
             }
-            String timeRange = DateUtils.formatDateRange(mParentActivity, startTime, endTime,
+            String timeRange = Utils.formatDateRange(mParentActivity, startTime, endTime,
                     flags);
             event.getText().add(timeRange);
 
@@ -2165,7 +2206,7 @@ public class CalendarView extends View
                 if (DateFormat.is24HourFormat(mParentActivity)) {
                     flags |= DateUtils.FORMAT_24HOUR;
                 }
-                String timeRange = DateUtils.formatDateRange(mParentActivity,
+                String timeRange = Utils.formatDateRange(mParentActivity,
                         ev.startMillis, ev.endMillis, flags);
                 Log.i("Cal", "left: " + left + " right: " + right + " top: " + top
                         + " bottom: " + bottom + " ev: " + timeRange + " " + ev.title);
@@ -2547,7 +2588,7 @@ public class CalendarView extends View
         if (DateFormat.is24HourFormat(mParentActivity)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        String timeRange = DateUtils.formatDateRange(mParentActivity,
+        String timeRange = Utils.formatDateRange(mParentActivity,
                 event.startMillis, event.endMillis, flags);
         TextView timeView = (TextView) mPopupView.findViewById(R.id.time);
         timeView.setText(timeRange);
@@ -2825,7 +2866,8 @@ public class CalendarView extends View
         int flags = DateUtils.FORMAT_SHOW_TIME
                 | DateUtils.FORMAT_CAP_NOON_MIDNIGHT
                 | DateUtils.FORMAT_SHOW_WEEKDAY;
-        final String title = DateUtils.formatDateTime(mParentActivity, startMillis, flags);
+        final String title = Utils.formatDateRange(mParentActivity, startMillis, startMillis,
+                flags);
         menu.setHeaderTitle(title);
 
         int numSelectedEvents = mSelectedEvents.size();
@@ -3085,7 +3127,7 @@ public class CalendarView extends View
 //            for (Event ev : mSelectedEvents) {
 //                int flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL
 //                        | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
-//                String timeRange = formatDateRange(mParentActivity,
+//                String timeRange = Utils.formatDateRange(mParentActivity,
 //                        ev.startMillis, ev.endMillis, flags);
 //
 //                Log.i("Cal", "  " + timeRange + " " + ev.title);
@@ -3328,7 +3370,8 @@ public class CalendarView extends View
     /**
      * Restart the update timer
      */
-    public void restartCurrentTimeUpdates() {
+    public void updateView() {
+        mUpdateTZ.run();
         post(mUpdateCurrentTime);
     }
 

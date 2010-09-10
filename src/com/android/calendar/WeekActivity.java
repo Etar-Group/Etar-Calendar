@@ -60,7 +60,7 @@ public class WeekActivity extends CalendarActivity implements ViewSwitcher.ViewF
     protected void onNewIntent(Intent intent) {
         long timeMillis = Utils.timeFromIntentInMillis(intent);
         if (timeMillis > 0) {
-            Time time = new Time();
+            Time time = new Time(Utils.getTimeZone(this, null));
             time.set(timeMillis);
             goTo(time, false);
         }
