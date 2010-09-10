@@ -30,11 +30,17 @@ import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Calendar.Events;
+import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class AgendaActivity extends Activity implements Navigator {
 
@@ -52,6 +58,8 @@ public class AgendaActivity extends Activity implements Navigator {
 
     private Time mTime;
 
+    private String mTitle;
+
     // This gets run if the time zone is updated in the db
     private Runnable mUpdateTZ = new Runnable() {
         @Override
@@ -59,6 +67,7 @@ public class AgendaActivity extends Activity implements Navigator {
             long time = mTime.toMillis(true);
             mTime = new Time(Utils.getTimeZone(AgendaActivity.this, this));
             mTime.set(time);
+            updateTitle();
         }
     };
 
@@ -99,7 +108,7 @@ public class AgendaActivity extends Activity implements Navigator {
 
         mContentResolver = getContentResolver();
 
-        setTitle(R.string.agenda_view);
+        mTitle = getResources().getString(R.string.agenda_view);
 
         long millis = 0;
         mTime = new Time(Utils.getTimeZone(this, mUpdateTZ));
@@ -128,6 +137,25 @@ public class AgendaActivity extends Activity implements Navigator {
             millis = System.currentTimeMillis();
         }
         mTime.set(millis);
+        updateTitle();
+    }
+
+    private void updateTitle() {
+        StringBuilder title = new StringBuilder(mTitle);
+        String tz = Utils.getTimeZone(this, mUpdateTZ);
+        if (!TextUtils.equals(tz, Time.getCurrentTimezone())) {
+            int flags = DateUtils.FORMAT_SHOW_TIME;
+            if (DateFormat.is24HourFormat(this)) {
+                flags |= DateUtils.FORMAT_24HOUR;
+            }
+            boolean isDST = mTime.isDst != 0;
+            long start = System.currentTimeMillis();
+            TimeZone timeZone = TimeZone.getTimeZone(tz);
+            title.append(" (").append(Utils.formatDateRange(this, start, start, flags)).append(" ")
+                    .append(timeZone.getDisplayName(isDST, TimeZone.SHORT, Locale.getDefault()))
+                    .append(")");
+        }
+        setTitle(title.toString());
     }
 
     @Override
@@ -163,6 +191,7 @@ public class AgendaActivity extends Activity implements Navigator {
         registerReceiver(mIntentReceiver, filter);
 
         mContentResolver.registerContentObserver(Events.CONTENT_URI, true, mObserver);
+        mUpdateTZ.run();
     }
 
     @Override
