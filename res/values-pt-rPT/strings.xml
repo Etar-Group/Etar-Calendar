@@ -19,8 +19,7 @@
     <string name="app_label" msgid="5452708708398908131">"Calendário"</string>
     <string name="what_label" msgid="1933578391985810049">"O quê"</string>
     <string name="where_label" msgid="3472482206065595118">"Onde"</string>
-    <!-- no translation found for timezone_label (2030635806231207425) -->
-    <skip />
+    <!-- outdated translation 2030635806231207425 -->     <string name="timezone_label" msgid="3988530993300431650">"Fuso horário"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Convidados"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Repetição"</string>
@@ -80,8 +79,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Calendário"</string>
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Mostrar opções extra"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Ocultar opções extra"</string>
-    <!-- no translation found for edit_event_show_all (6107214899021208078) -->
-    <skip />
+    <string name="edit_event_show_all" msgid="6107214899021208078">"Mostrar tudo &gt;"</string>
     <string name="description_label" msgid="7193475046717505855">"Descrição"</string>
     <string name="presence_label" msgid="6169724148441175862">"Mostrar-me como"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacidade"</string>
@@ -145,6 +143,12 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Hora predefinida do lembrete"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Hora predefinida do lembrete"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <!-- no translation found for preferences_use_home_tz_title (5597546849968598210) -->
+    <skip />
+    <!-- no translation found for preferences_use_home_tz_descrip (4835375381297413746) -->
+    <skip />
+    <!-- no translation found for preferences_home_tz_title (6680000444088818578) -->
+    <skip />
     <string name="preferences_about_title" msgid="2810624892412097879">"Acerca de"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versão da compilação"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
