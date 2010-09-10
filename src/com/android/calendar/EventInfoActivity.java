@@ -40,18 +40,18 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.pim.EventRecurrence;
 import android.provider.Calendar;
-import android.provider.ContactsContract;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
+import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
+import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Presence;
 import android.provider.ContactsContract.QuickContact;
-import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -265,6 +265,14 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     ArrayList<Attendee> mTentativeAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mNoResponseAttendees = new ArrayList<Attendee>();
     private int mColor;
+
+    // This gets run if the time zone is updated in the db
+    private Runnable mUpdateTZ = new Runnable() {
+        @Override
+        public void run() {
+            updateView();
+        }
+    };
 
     // This is called when one of the "remove reminder" buttons is selected.
     public void onClick(View v) {
@@ -863,16 +871,17 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
                 flags |= DateUtils.FORMAT_24HOUR;
             }
         }
-        when = DateUtils.formatDateRange(this, mStartMillis, mEndMillis, flags);
+        when = Utils.formatDateRange(this, mStartMillis, mEndMillis, flags);
         setTextCommon(R.id.when, when);
 
         // Show the event timezone if it is different from the local timezone
-        Time time = new Time();
-        String localTimezone = time.timezone;
+        String localTimezone = Utils.getTimeZone(this, mUpdateTZ);
         if (allDay) {
             localTimezone = Time.TIMEZONE_UTC;
         }
-        if (eventTimezone != null && !localTimezone.equals(eventTimezone) && !allDay) {
+        if (eventTimezone != null && !allDay &&
+                (!TextUtils.equals(localTimezone, eventTimezone) ||
+                !TextUtils.equals(localTimezone, Time.getCurrentTimezone()))) {
             String displayName;
             TimeZone tz = TimeZone.getTimeZone(localTimezone);
             if (tz == null || tz.getID().equals("GMT")) {
@@ -890,7 +899,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         if (rRule != null) {
             EventRecurrence eventRecurrence = new EventRecurrence();
             eventRecurrence.parse(rRule);
-            Time date = new Time();
+            Time date = new Time(Utils.getTimeZone(this, mUpdateTZ));
             if (allDay) {
                 date.timezone = Time.TIMEZONE_UTC;
             }
