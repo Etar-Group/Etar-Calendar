@@ -90,6 +90,7 @@
         <item>"Belgrade"</item>
         <item>"Brussels"</item>
         <item>"Sarajevo"</item>
+        <item>"Paris"</item>
         <item>"Windhoek"</item>
         <item>"W. Africa Time"</item>
         <item>"Amman, Jordan"</item>
@@ -177,6 +178,7 @@
         <item>"Europe/Belgrade"</item>
         <item>"Europe/Brussels"</item>
         <item>"Europe/Sarajevo"</item>
+        <item>"Europe/Paris"</item>
         <item>"Africa/Windhoek"</item>
         <item>"Africa/Brazzaville"</item>
         <item>"Asia/Amman"</item>
