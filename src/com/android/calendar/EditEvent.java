@@ -26,25 +26,24 @@ import com.android.common.Rfc822Validator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.AsyncQueryHandler;
 import android.content.ContentProviderOperation;
+import android.content.ContentProviderOperation.Builder;
 import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
-import android.content.ContentProviderOperation.Builder;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
@@ -91,7 +90,6 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.TimeZone;
 
 public class EditEvent extends Activity implements View.OnClickListener,
@@ -269,6 +267,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
     private DeleteEventHelper mDeleteEventHelper;
     private QueryHandler mQueryHandler;
+
+    // This is here in case we need to update tz info later
+    private Runnable mUpdateTZ = null;
 
     /* This class is used to update the time buttons. */
     private class TimeListener implements OnTimeSetListener {
@@ -626,7 +627,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         mStartTime = new Time();
         mEndTime = new Time();
-        mTimezone = TimeZone.getDefault().getID();
+        mTimezone = Utils.getTimeZone(this, mUpdateTZ); //TimeZone.getDefault().getID();
 
         Intent intent = getIntent();
         mUri = intent.getData();
