@@ -22,15 +22,15 @@
     <color name="panel_text_foreground">#ffffffff</color>
     <color name="daynames_background">#FFDDDDDD</color>
     <color name="daynames_text_color">#ff000000</color>
-    <color name="sunday_text_color">#ff446688</color>
-    <color name="saturday_text_color">#ff446688</color>
+    <color name="sunday_text_color">#ff757575</color>
+    <color name="saturday_text_color">#ff757575</color>
     <color name="calendar_event_selected_text_color">#ff000000</color>
     <color name="calendar_event_text_color">#ffffffff</color>
     <color name="calendar_owner_text_color">#ffbebebe</color>
 
     <color name="calendar_all_day_background">#ffDDDDDD</color>
-    <color name="week_saturday">#ff446688</color>
-    <color name="week_sunday">#ff446688</color>
+    <color name="week_saturday">#ff757575</color>
+    <color name="week_sunday">#ff757575</color>
     <color name="calendar_hour_label">#ff000000</color>
     <color name="calendar_ampm_label">#ff000000</color>
     <color name="calendar_hour_background">#ffDDDDDD</color>
@@ -39,19 +39,20 @@
     <color name="calendar_date_selected">#ffB0B0B0</color>
     <color name="calendar_date_banner_text_color">#ff000000</color>
     <color name="calendar_grid_area_background">#ffffffff</color>
-    <color name="calendar_grid_area_selected">#ffffffcc</color>
+    <color name="calendar_grid_area_selected">#fff0d398</color>
     <color name="calendar_grid_line_horizontal_color">#ffdddddd</color>
-    <color name="calendar_grid_line_vertical_color">#ff808080</color>
+    <color name="calendar_grid_line_vertical_color">#ffdddddd</color>
     <color name="calendar_grid_line_highlight_color">#ff707070</color>
     <color name="selection">#ffffaa00</color>
-    <color name="pressed">#fffab400</color>
+    <color name="pressed">#fff0d398</color>
 
     <color name="month_day_number">#ff404040</color>
     <color name="month_saturday">#ff404040</color>
     <color name="month_sunday">#ff404040</color>
     <color name="month_today_number">#ffffffff</color>
-    <color name="month_other_month">#ff595959</color>
-    <color name="month_other_month_day_number">#ffa0a0a0</color>
+    <color name="month_today_bgcolor">#FF888888</color>
+    <color name="month_other_month">#ffa0a0a0</color>
+    <color name="month_other_month_day_number">#ff404040</color>
     <color name="month_other_month_banner">#80595959</color>
     <color name="month_week_banner">#FFDDDDDD</color>
     <color name="month_busybits">#FF6090F0</color>
@@ -59,7 +60,8 @@
 
     <color name="event_center">#ff6bd697</color>
 
-    <color name="current_time_marker">#aaff0033</color>
+    <color name="current_time_marker">#aacababa</color>
+    <color name="current_time_line">#aaff0033</color>
     <color name="current_time_marker_border">#aaffffff</color>
 
     <color name="agenda_day_bar_color">#c8c8c8</color>

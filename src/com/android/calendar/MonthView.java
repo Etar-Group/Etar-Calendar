@@ -101,10 +101,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
     private DayOfMonthCursor mCursor;
 
-    private Drawable mBoxSelected;
-    private Drawable mBoxPressed;
-    private Drawable mBoxLongPressed;
-    private Drawable mEventDot;
     private int mCellWidth;
 
     private Resources mResources;
@@ -153,9 +149,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private static final int SELECTION_SELECTED = 2;
     private static final int SELECTION_LONGPRESS = 3;
 
-    // Modulo used to pack (width,height) into a unique integer
-    private static final int MODULO_SHIFT = 16;
-
     private int mSelectionMode = SELECTION_HIDDEN;
 
     /**
@@ -169,8 +162,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
 
     private ArrayList<Event> mEvents = new ArrayList<Event>();
 
-    private Drawable mTodayBackground;
-
     // Cached colors
     private int mMonthOtherMonthColor;
     private int mMonthWeekBannerColor;
@@ -178,10 +169,12 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private int mMonthOtherMonthDayNumberColor;
     private int mMonthDayNumberColor;
     private int mMonthTodayNumberColor;
+    private int mMonthTodayBackgroundColor;
     private int mMonthSaturdayColor;
     private int mMonthSundayColor;
     private int mBusybitsColor;
     private int mMonthBgColor;
+    private int mPressedColor;
 
     // Accessibility support related members
 
@@ -242,12 +235,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         mToday.set(System.currentTimeMillis());
 
         mResources = activity.getResources();
-        mBoxSelected = mResources.getDrawable(R.drawable.month_view_selected);
-        mBoxPressed = mResources.getDrawable(R.drawable.month_view_pressed);
-        mBoxLongPressed = mResources.getDrawable(R.drawable.month_view_longpress);
-
-        mEventDot = mResources.getDrawable(R.drawable.event_dot);
-        mTodayBackground = mResources.getDrawable(R.drawable.month_view_today_background);
 
         // Cache color lookups
         Resources res = getResources();
@@ -257,10 +244,12 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         mMonthOtherMonthDayNumberColor = res.getColor(R.color.month_other_month_day_number);
         mMonthDayNumberColor = res.getColor(R.color.month_day_number);
         mMonthTodayNumberColor = res.getColor(R.color.month_today_number);
+        mMonthTodayBackgroundColor = res.getColor(R.color.month_today_bgcolor);
         mMonthSaturdayColor = res.getColor(R.color.month_saturday);
         mMonthSundayColor = res.getColor(R.color.month_sunday);
         mBusybitsColor = res.getColor(R.color.month_busybits);
         mMonthBgColor = res.getColor(R.color.month_bgcolor);
+        mPressedColor = res.getColor(R.color.pressed);
 
         if (mShowToast) {
             LayoutInflater inflater;
@@ -737,7 +726,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
      * @param p The paint used for drawing.
      */
     private void drawGrid(Canvas canvas, Paint p) {
-        p.setColor(mMonthOtherMonthColor);
+        p.setColor(mMonthWeekBannerColor);
         p.setAntiAlias(false);
 
         final int width = getMeasuredWidth();
@@ -813,19 +802,12 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 r.left--;
             }
             p.setStyle(Style.FILL);
-            p.setColor(mMonthBgColor);
+            p.setColor(mMonthOtherMonthColor);
             canvas.drawRect(r, p);
         } else if (drawSelection) {
-            if (mSelectionMode == SELECTION_SELECTED) {
-                mBoxSelected.setBounds(r);
-                mBoxSelected.draw(canvas);
-            } else if (mSelectionMode == SELECTION_PRESSED) {
-                mBoxPressed.setBounds(r);
-                mBoxPressed.draw(canvas);
-            } else {
-                mBoxLongPressed.setBounds(r);
-                mBoxLongPressed.draw(canvas);
-            }
+            p.setStyle(Style.FILL);
+            p.setColor(mPressedColor);
+            canvas.drawRect(r, p);
 
             //Places events for that day
             drawEvents(day, canvas, r, p, false /*draw bb background*/);
@@ -835,11 +817,9 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         } else {
             // Today gets a different background
             if (isToday) {
-                // We could cache this for a little bit more performance, but it's not on the
-                // performance radar...
-                Drawable background = mTodayBackground;
-                background.setBounds(r);
-                background.draw(canvas);
+                p.setStyle(Style.FILL);
+                p.setColor(mMonthTodayBackgroundColor);
+                canvas.drawRect(r, p);
             }
             //Places events for that day
             drawEvents(day, canvas, r, p, !isToday /*draw bb background*/);
