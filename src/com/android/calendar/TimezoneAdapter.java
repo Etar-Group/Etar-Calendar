@@ -16,21 +16,20 @@
 
 package com.android.calendar;
 
+import com.android.calendar.TimezoneAdapter.TimezoneRow;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.text.format.DateUtils;
 import android.widget.ArrayAdapter;
 
-import com.android.calendar.TimezoneAdapter.TimezoneRow;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 
 /**
@@ -166,9 +165,13 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
 
     /**
      * Static cache of all known timezones, mapped to their string IDs. This is
-     * lazily-loaded on the first call to {@link #loadFromResources(Resources)}
+     * lazily-loaded on the first call to {@link #loadFromResources(Resources)}.
+     * Loading is called in a synchronized block during initialization of this
+     * class and is based off the resources available to the calling context.
+     * This class should not be used outside of the initial context.
+     * LinkedHashMap is used to preserve ordering.
      */
-    private static Map<String, TimezoneRow> sTimezones;
+    private static LinkedHashMap<String, TimezoneRow> sTimezones;
 
     private Context mContext;
 
@@ -217,7 +220,6 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
      * @param currentTimezone
      */
     public void showInitialTimezones() {
-        loadFromResources(mContext.getResources());
 
         // we use a linked hash set to guarantee only unique IDs are added, and
         // also to maintain the insertion order of the timezones
@@ -241,21 +243,24 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
 
         clear();
 
-        TimeZone gmt = TimeZone.getTimeZone("GMT");
-        for (String id : ids) {
-            if (!sTimezones.containsKey(id)) {
-                // a timezone we don't know about, so try to add it...
-                TimeZone newTz = TimeZone.getTimeZone(id);
-                // since TimeZone.getTimeZone actually returns a clone of GMT
-                // when it doesn't recognize the ID, this appears to be the only
-                // reliable way to check to see if the ID is a valid timezone
-                if (!newTz.equals(gmt)) {
-                    sTimezones.put(id, new TimezoneRow(id, newTz.getDisplayName()));
-                } else {
-                    continue;
+        synchronized (TimezoneAdapter.class) {
+            loadFromResources(mContext.getResources());
+            TimeZone gmt = TimeZone.getTimeZone("GMT");
+            for (String id : ids) {
+                if (!sTimezones.containsKey(id)) {
+                    // a timezone we don't know about, so try to add it...
+                    TimeZone newTz = TimeZone.getTimeZone(id);
+                    // since TimeZone.getTimeZone actually returns a clone of GMT
+                    // when it doesn't recognize the ID, this appears to be the only
+                    // reliable way to check to see if the ID is a valid timezone
+                    if (!newTz.equals(gmt)) {
+                        sTimezones.put(id, new TimezoneRow(id, newTz.getDisplayName()));
+                    } else {
+                        continue;
+                    }
                 }
+                add(sTimezones.get(id));
             }
-            add(sTimezones.get(id));
         }
         mShowingAll = false;
     }
@@ -264,7 +269,6 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
      * Populates this adapter with all known timezones.
      */
     public void showAllTimezones() {
-        loadFromResources(mContext.getResources());
         List<TimezoneRow> timezones = new ArrayList<TimezoneRow>(sTimezones.values());
         Collections.sort(timezones);
         clear();
@@ -314,10 +318,32 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
         prefs.edit().putString(KEY_RECENT_TIMEZONES, recentsString).commit();
     }
 
-    private static void loadFromResources(Resources resources) {
+    /**
+     * Returns an array of ids/time zones.
+     *
+     * This returns a double indexed array of ids and time zones
+     * for Calendar. It is an inefficient method and shouldn't be
+     * called often, but can be used for one time generation of
+     * this list.
+     *
+     * @return double array of tz ids and tz names
+     */
+    public CharSequence[][] getAllTimezones() {
+        CharSequence[][] timeZones = new CharSequence[2][sTimezones.size()];
+        List<String> ids = new ArrayList<String>(sTimezones.keySet());
+        List<TimezoneRow> timezones = new ArrayList<TimezoneRow>(sTimezones.values());
+        int i = 0;
+        for (TimezoneRow row : timezones) {
+            timeZones[0][i] = ids.get(i);
+            timeZones[1][i++] = row.toString();
+        }
+        return timeZones;
+    }
+
+    private void loadFromResources(Resources resources) {
         if (sTimezones == null) {
-            sTimezones = new HashMap<String, TimezoneRow>(90);
             List<String> ids = Arrays.asList(resources.getStringArray(R.array.timezone_values));
+            sTimezones = new LinkedHashMap<String, TimezoneRow>(ids.size());
             List<String> labels = Arrays.asList(resources.getStringArray(R.array.timezone_labels));
             int i = 0;
             for (String id : ids) {
