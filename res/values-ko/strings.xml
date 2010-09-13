@@ -20,8 +20,7 @@
     <string name="app_aio_label" msgid="3058561424021284581">"캘린더 올인원"</string>
     <string name="what_label" msgid="1933578391985810049">"내용"</string>
     <string name="where_label" msgid="3472482206065595118">"장소"</string>
-    <!-- no translation found for timezone_label (2030635806231207425) -->
-    <skip />
+    <string name="timezone_label" msgid="2030635806231207425">"시간대"</string>
     <string name="attendees_label" msgid="2971281641565729725">"참석자"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g>(<xliff:g id="GUEST_COUNT">%d</xliff:g>개)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"반복"</string>
@@ -42,8 +41,7 @@
     <item quantity="one" msgid="5988137255732166573">"1일"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g>일"</item>
   </plurals>
-    <!-- no translation found for calendar_refresh (6172731193680500025) -->
-    <skip />
+    <string name="calendar_refresh" msgid="6172731193680500025">"새로고침"</string>
     <string name="show_agenda_view" msgid="7971854300981408347">"일정목록 표시"</string>
     <string name="show_day_view" msgid="5782512782605466016">"요일 표시"</string>
     <string name="agenda_view" msgid="5566084759423843245">"일정목록"</string>
@@ -57,8 +55,7 @@
     <string name="goto_today" msgid="9162136434410891230">"오늘"</string>
     <string name="menu_select_calendars" msgid="6200145996783123958">"캘린더"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"설정"</string>
-    <!-- no translation found for search (550656004486017426) -->
-    <skip />
+    <string name="search" msgid="550656004486017426">"검색"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(<xliff:g id="MORE_COUNT">%d</xliff:g>개 일정 더보기...)"</string>
     <string name="calendars_title" msgid="4046980972626276968">"캘린더"</string>
     <string name="synced_visible" msgid="1406744353749335651">"동기화 됨, 표시됨"</string>
@@ -85,8 +82,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"캘린더"</string>
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"나머지 옵션 표시"</string>
     <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"나머지 옵션 숨기기"</string>
-    <!-- no translation found for edit_event_show_all (4558049350756058301) -->
-    <skip />
+    <string name="edit_event_show_all" msgid="4558049350756058301">"모두 표시"</string>
     <string name="description_label" msgid="7193475046717505855">"설명"</string>
     <string name="presence_label" msgid="6169724148441175862">"내 상태"</string>
     <string name="privacy_label" msgid="9215031965259597335">"공개여부"</string>
@@ -99,16 +95,18 @@
     <string name="view_event_response_label" msgid="8382281658458798329">"참석하시겠습니까?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"오늘, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"로드 중..."</string>
-    <string name="show_older_events" msgid="4031960000704544741">"<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> 이후의 일정입니다. 더 보려면 누르세요."</string>
-    <string name="show_newer_events" msgid="2647889653936094369">"<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>까지의 일정입니다. 더 보려면 누르세요."</string>
-    <!-- no translation found for search_title (8898015280250716254) -->
+    <!-- no translation found for show_older_events (6819097859184398737) -->
     <skip />
+    <!-- no translation found for show_newer_events (3434093781980113106) -->
+    <skip />
+    <string name="search_title" msgid="8898015280250716254">"내 캘린더 검색"</string>
     <string name="num_events" msgid="3351672964607162257">"일정 개수"</string>
     <string name="edit_event_label" msgid="2900418236819088363">"일정 수정"</string>
     <string name="delete_label" msgid="874742811918030739">"삭제"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"일정 삭제"</string>
     <string name="save_label" msgid="2133599104834432589">"완료"</string>
-    <string name="discard_label" msgid="4510607554910139220">"취소"</string>
+    <!-- no translation found for discard_label (2394623883289782541) -->
+    <skip />
     <string name="import_label" msgid="6993796574741477222">"가져오기"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"모든 알람 일시 중지"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"모두 해제"</string>
@@ -148,6 +146,12 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"기본 알림 시간"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"기본 알림 시간"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <!-- no translation found for preferences_use_home_tz_title (5597546849968598210) -->
+    <skip />
+    <!-- no translation found for preferences_use_home_tz_descrip (4835375381297413746) -->
+    <skip />
+    <!-- no translation found for preferences_home_tz_title (6680000444088818578) -->
+    <skip />
     <string name="preferences_about_title" msgid="2810624892412097879">"정보"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"빌드 버전"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
