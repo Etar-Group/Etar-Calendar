@@ -238,6 +238,7 @@ public class CalendarActivity extends Activity implements Navigator {
 
     public void goToToday() {
         mSelectedDay.set(System.currentTimeMillis());
+        mSelectedDay.normalize(true);
         CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
         view.setSelectedDay(mSelectedDay);
         view.reloadEvents();

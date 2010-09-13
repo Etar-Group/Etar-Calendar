@@ -30,10 +30,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
-import android.text.format.Time;
-
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class CalendarPreferenceActivity extends PreferenceActivity implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener {
@@ -76,8 +72,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
     CheckBoxPreference mUseHomeTZ;
     ListPreference mHomeTZ;
 
-    private StringBuilder mTZSummary = new StringBuilder();
-
+    private static CharSequence[][] mTimezones;
 
     /** Return a properly configured SharedPreferences instance */
     public static SharedPreferences getSharedPreferences(Context context) {
@@ -112,14 +107,13 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
         mUseHomeTZ.setOnPreferenceChangeListener(this);
         mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
         String tz = mHomeTZ.getValue();
-        boolean isDST = (new Time(tz)).isDst != 0;
 
-        TimeZone timeZone = TimeZone.getTimeZone(tz);
-        mTZSummary.setLength(0);
-        mTZSummary.append(mHomeTZ.getEntry()).append(" (")
-                .append(timeZone.getDisplayName(isDST, TimeZone.SHORT, Locale.getDefault()))
-                .append(")");
-        mHomeTZ.setSummary(mTZSummary.toString());
+        if (mTimezones == null) {
+            mTimezones = (new TimezoneAdapter(this, tz)).getAllTimezones();
+        }
+        mHomeTZ.setEntryValues(mTimezones[0]);
+        mHomeTZ.setEntries(mTimezones[1]);
+        mHomeTZ.setSummary(mHomeTZ.getEntry());
         mHomeTZ.setOnPreferenceChangeListener(this);
 
         // If needed, migrate vibration setting from a previous version
@@ -171,14 +165,9 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
             }
         } else if (preference == mHomeTZ) {
             tz = (String)newValue;
+            // We set the value here so we can read back the entry
             mHomeTZ.setValue(tz);
-            boolean isDST = (new Time(tz)).isDst != 0;
-            TimeZone timeZone = TimeZone.getTimeZone(tz);
-            mTZSummary.setLength(0);
-            mTZSummary.append(mHomeTZ.getEntry()).append(" (")
-                    .append(timeZone.getDisplayName(isDST, TimeZone.SHORT, Locale.getDefault()))
-                    .append(")");
-            mHomeTZ.setSummary(mTZSummary.toString());
+            mHomeTZ.setSummary(mHomeTZ.getEntry());
         } else {
             return false;
         }
