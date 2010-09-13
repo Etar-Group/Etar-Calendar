@@ -93,7 +93,7 @@ public class AlertAdapter extends ResourceCursorAdapter {
         if (DateFormat.is24HourFormat(context)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        when = DateUtils.formatDateRange(context, startMillis, endMillis, flags);
+        when = Utils.formatDateRange(context, startMillis, endMillis, flags);
         textView = (TextView) view.findViewById(R.id.when);
         textView.setText(when);
         
