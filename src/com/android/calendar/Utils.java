@@ -194,6 +194,11 @@ public class Utils {
 
             mHandler.cancelOperation(mToken);
 
+            // skip 0 so query can use it
+            if (++mToken == 0) {
+                mToken = 1;
+            }
+
             String[] selArgs = new String[] {TIMEZONE_KEY_TYPE};
             values.put(TIMEZONE_COLUMN_VALUE, mUseHomeTZ ? TIMEZONE_TYPE_HOME : TIMEZONE_TYPE_AUTO);
             mHandler.startUpdate(mToken, null, TIMEZONE_URI, values, TIMEZONE_UPDATE_WHERE,
@@ -205,11 +210,6 @@ public class Utils {
                 values.put(TIMEZONE_COLUMN_VALUE, mHomeTZ);
                 mHandler.startUpdate(mToken, null, TIMEZONE_URI, values, TIMEZONE_UPDATE_WHERE,
                         selArgs);
-            }
-
-            // skip 0 so query can use it
-            if (++mToken == 0) {
-                mToken = 1;
             }
         }
     }
