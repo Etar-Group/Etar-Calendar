@@ -30,6 +30,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
+import android.provider.Calendar.CalendarCache;
 
 public class CalendarPreferenceActivity extends PreferenceActivity implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener {
@@ -57,14 +58,12 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
     static final String ALERT_TYPE_STATUS_BAR = "1";
     static final String ALERT_TYPE_OFF = "2";
 
-    // The value to use when setting Calendar to use the device's time zone
-    public static final String LOCAL_TZ = "AUTO";
-
     // Default preference values
     static final String DEFAULT_START_VIEW =
             CalendarApplication.ACTIVITY_NAMES[CalendarApplication.MONTH_VIEW_ID];
     static final String DEFAULT_DETAILED_VIEW =
             CalendarApplication.ACTIVITY_NAMES[CalendarApplication.DAY_VIEW_ID];
+
 
     ListPreference mAlertType;
     ListPreference mVibrateWhen;
@@ -161,7 +160,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
             if ((Boolean)newValue) {
                 tz = mHomeTZ.getValue();
             } else {
-                tz = LOCAL_TZ;
+                tz = CalendarCache.TIMEZONE_TYPE_AUTO;
             }
         } else if (preference == mHomeTZ) {
             tz = (String)newValue;
