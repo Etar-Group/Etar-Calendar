@@ -240,9 +240,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
             case R.id.action_month:
                 viewType = ViewType.MONTH;
                 break;
-            case R.id.action_agenda:
-                viewType = ViewType.AGENDA;
-                break;
             case R.id.action_today:
                 viewType = ViewType.CURRENT;
                 t = new Time();

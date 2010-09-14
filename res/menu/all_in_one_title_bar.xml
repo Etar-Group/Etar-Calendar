@@ -40,12 +40,6 @@
         android:icon="@android:drawable/ic_menu_month"
         android:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_agenda"
-        android:alphabeticShortcut="a"
-        android:title="@string/agenda_view"
-        android:icon="@android:drawable/ic_menu_agenda"
-        android:showAsAction="ifRoom" />
-    <item
         android:id="@+id/action_today"
         android:alphabeticShortcut="t"
         android:title="@string/goto_today"
