@@ -18,9 +18,6 @@ package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 
-import android.content.AsyncQueryHandler;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,17 +27,15 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.util.CalendarUtils.TimeZoneUtils;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.widget.ViewFlipper;
 
 import java.util.Calendar;
 import java.util.Formatter;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class Utils {
@@ -56,82 +51,11 @@ public class Utils {
     /* The corner should be rounded on the top right and bottom right */
     private static final float[] CORNERS = new float[] {0, 0, 5, 5, 5, 5, 0, 0};
 
-    // TODO switch these to use Calendar.java when it gets added
-    private static final String TIMEZONE_COLUMN_KEY = "key";
-    private static final String TIMEZONE_COLUMN_VALUE = "value";
-    private static final String TIMEZONE_KEY_TYPE = "timezoneType";
-    private static final String TIMEZONE_KEY_INSTANCES = "timezoneInstances";
-    private static final String TIMEZONE_KEY_INSTANCES_PREVIOUS = "timezoneInstancesPrevious";
-    private static final String TIMEZONE_TYPE_AUTO = "auto";
-    private static final String TIMEZONE_TYPE_HOME = "home";
-    private static final String[] TIMEZONE_POJECTION = new String[] {
-        TIMEZONE_COLUMN_KEY,
-        TIMEZONE_COLUMN_VALUE,
-    };
-    // Uri.parse("content://" + AUTHORITY + "/reminders");
-    private static final Uri TIMEZONE_URI =
-            Uri.parse("content://" + android.provider.Calendar.AUTHORITY + "/properties");
-    private static final String TIMEZONE_UPDATE_WHERE = "key=?";
+    // The name of the shared preferences file. This name must be maintained for historical
+    // reasons, as it's what PreferenceManager assigned the first time the file was created.
+    private static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
 
-
-    private static StringBuilder mSB = new StringBuilder(50);
-    private static Formatter mF = new Formatter(mSB, Locale.getDefault());
-    private volatile static boolean mFirstTZRequest = true;
-    private volatile static boolean mTZQueryInProgress = false;
-
-    private volatile static boolean mUseHomeTZ = false;
-    private volatile static String mHomeTZ = Time.getCurrentTimezone();
-
-    private static HashSet<Runnable> mTZCallbacks = new HashSet<Runnable>();
-    private static int mToken = 1;
-    private static AsyncTZHandler mHandler;
-
-    private static class AsyncTZHandler extends AsyncQueryHandler {
-        public AsyncTZHandler(ContentResolver cr) {
-            super(cr);
-        }
-
-        @Override
-        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
-            synchronized (mTZCallbacks) {
-                boolean writePrefs = false;
-                // Check the values in the db
-                while(cursor.moveToNext()) {
-                    int keyColumn = cursor.getColumnIndexOrThrow(TIMEZONE_COLUMN_KEY);
-                    int valueColumn = cursor.getColumnIndexOrThrow(TIMEZONE_COLUMN_VALUE);
-                    String key = cursor.getString(keyColumn);
-                    String value = cursor.getString(valueColumn);
-                    if (TextUtils.equals(key, TIMEZONE_KEY_TYPE)) {
-                        boolean useHomeTZ = !TextUtils.equals(value, TIMEZONE_TYPE_AUTO);
-                        if (useHomeTZ != mUseHomeTZ) {
-                            writePrefs = true;
-                            mUseHomeTZ = useHomeTZ;
-                        }
-                    } else if (TextUtils.equals(key, TIMEZONE_KEY_INSTANCES_PREVIOUS)) {
-                        if (!TextUtils.isEmpty(value) && !TextUtils.equals(mHomeTZ, value)) {
-                            writePrefs = true;
-                            mHomeTZ = value;
-                        }
-                    }
-                }
-                if (writePrefs) {
-                    // Write the prefs
-                    setSharedPreference((Context)cookie,
-                            CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED, mUseHomeTZ);
-                    setSharedPreference((Context)cookie,
-                            CalendarPreferenceActivity.KEY_HOME_TZ, mHomeTZ);
-                }
-
-                mTZQueryInProgress = false;
-                for (Runnable callback : mTZCallbacks) {
-                    if (callback != null) {
-                        callback.run();
-                    }
-                }
-                mTZCallbacks.clear();
-            }
-        }
-    }
+    private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
 
     public static void startActivity(Context context, String className, long time) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -159,59 +83,7 @@ public class Utils {
      * @param timeZone The time zone to set Calendar to, or **tbd**
      */
     public static void setTimeZone(Context context, String timeZone) {
-        if (TextUtils.isEmpty(timeZone)) {
-            if (DEBUG) {
-                Log.d(TAG, "Empty time zone, nothing to be done.");
-            }
-            return;
-        }
-        boolean updatePrefs = false;
-        synchronized (mTZCallbacks) {
-            if (CalendarPreferenceActivity.LOCAL_TZ.equals(timeZone)) {
-                if (mUseHomeTZ) {
-                    updatePrefs = true;
-                }
-                mUseHomeTZ = false;
-            } else {
-                if (!mUseHomeTZ || !TextUtils.equals(mHomeTZ, timeZone)) {
-                    updatePrefs = true;
-                }
-                mUseHomeTZ = true;
-                mHomeTZ = timeZone;
-            }
-        }
-        if (updatePrefs) {
-            // Write the prefs
-            setSharedPreference(context, CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED,
-                    mUseHomeTZ);
-            setSharedPreference(context, CalendarPreferenceActivity.KEY_HOME_TZ, mHomeTZ);
-
-            // Update the db
-            ContentValues values = new ContentValues();
-            if (mHandler == null) {
-                mHandler = new AsyncTZHandler(context.getContentResolver());
-            }
-
-            mHandler.cancelOperation(mToken);
-
-            // skip 0 so query can use it
-            if (++mToken == 0) {
-                mToken = 1;
-            }
-
-            String[] selArgs = new String[] {TIMEZONE_KEY_TYPE};
-            values.put(TIMEZONE_COLUMN_VALUE, mUseHomeTZ ? TIMEZONE_TYPE_HOME : TIMEZONE_TYPE_AUTO);
-            mHandler.startUpdate(mToken, null, TIMEZONE_URI, values, TIMEZONE_UPDATE_WHERE,
-                    selArgs);
-
-            if (mUseHomeTZ) {
-                selArgs[0] = TIMEZONE_KEY_INSTANCES;
-                values.clear();
-                values.put(TIMEZONE_COLUMN_VALUE, mHomeTZ);
-                mHandler.startUpdate(mToken, null, TIMEZONE_URI, values, TIMEZONE_UPDATE_WHERE,
-                        selArgs);
-            }
-        }
+        mTZUtils.setTimeZone(context, timeZone);
     }
 
     /**
@@ -229,31 +101,7 @@ public class Utils {
      * @return The string value representing the time zone Calendar should display
      */
     public static String getTimeZone(Context context, Runnable callback) {
-        synchronized (mTZCallbacks){
-            if (mFirstTZRequest) {
-                mTZQueryInProgress = true;
-                mFirstTZRequest = false;
-
-                SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
-                mUseHomeTZ = prefs.getBoolean(
-                        CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED, false);
-                mHomeTZ = prefs.getString(
-                        CalendarPreferenceActivity.KEY_HOME_TZ, Time.getCurrentTimezone());
-
-                // When the async query returns it should synchronize on
-                // mTZCallbacks, update mUseHomeTZ, mHomeTZ, and the
-                // preferences, set mTZQueryInProgress to false, and call all
-                // the runnables in mTZCallbacks.
-                if (mHandler == null) {
-                    mHandler = new AsyncTZHandler(context.getContentResolver());
-                }
-                mHandler.startQuery(0, context, TIMEZONE_URI, TIMEZONE_POJECTION, null, null, null);
-            }
-            if (mTZQueryInProgress) {
-                mTZCallbacks.add(callback);
-            }
-        }
-        return mUseHomeTZ ? mHomeTZ : Time.getCurrentTimezone();
+        return mTZUtils.getTimeZone(context, callback);
     }
 
     /**
@@ -268,26 +116,13 @@ public class Utils {
      */
     public static String formatDateRange(Context context, long startMillis,
             long endMillis, int flags) {
-        String date;
-        synchronized (mSB) {
-            mSB.setLength(0);
-            date = DateUtils.formatDateRange(context, mF, startMillis, endMillis, flags,
-                    getTimeZone(context, null)).toString();
-        }
-        return date;
+        return mTZUtils.formatDateRange(context, startMillis, endMillis, flags);
     }
 
     static void setSharedPreference(Context context, String key, String value) {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(key, value);
-        editor.commit();
-    }
-
-    static void setSharedPreference(Context context, String key, boolean value) {
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(key, value);
         editor.commit();
     }
 
