@@ -16,18 +16,19 @@
 
 package com.android.calendar;
 
+import com.android.calendar.TimezoneAdapter.TimezoneRow;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.widget.ArrayAdapter;
-
-import com.android.calendar.TimezoneAdapter.TimezoneRow;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,8 @@ import java.util.TimeZone;
  * {@link #showAllTimezones()}.
  */
 public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
+    private static final String TAG = "TimezoneAdapter";
+    private static final boolean DEBUG = true;
 
     /**
      * {@link TimezoneRow} is an immutable class for representing a timezone. We
@@ -314,13 +317,18 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
 
     private static void loadFromResources(Resources resources) {
         if (sTimezones == null) {
-            sTimezones = new HashMap<String, TimezoneRow>(90);
-            List<String> ids = Arrays.asList(resources.getStringArray(R.array.timezone_values));
-            List<String> labels = Arrays.asList(resources.getStringArray(R.array.timezone_labels));
-            int i = 0;
-            for (String id : ids) {
-                sTimezones.put(id, new TimezoneRow(id, labels.get(i)));
-                i++;
+            String[] ids = resources.getStringArray(R.array.timezone_values);
+            String[] labels = resources.getStringArray(R.array.timezone_labels);
+
+            int length = ids.length;
+            sTimezones = new LinkedHashMap<String, TimezoneRow>(length);
+
+            if (ids.length != labels.length) {
+                Log.wtf(TAG, "ids length (" + ids.length + ") and labels length(" + labels.length +
+                        ") should be equal but aren't.");
+            }
+            for (int i = 0; i < length; i++) {
+                sTimezones.put(ids[i], new TimezoneRow(ids[i], labels[i]));
             }
         }
     }
