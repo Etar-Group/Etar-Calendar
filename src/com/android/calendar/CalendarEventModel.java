@@ -134,8 +134,8 @@ public class CalendarEventModel {
     public CalendarEventModel(Context context) {
         this();
 
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
-        String defaultReminder = prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER,
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        String defaultReminder = prefs.getString(GeneralPreferences.KEY_DEFAULT_REMINDER,
                 "0");
         int defaultReminderMins = Integer.parseInt(defaultReminder);
         if (defaultReminderMins != 0) {

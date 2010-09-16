@@ -233,7 +233,7 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
         ids.add(TimeZone.getDefault().getID());
 
         // add in recent timezone selections
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(mContext);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(mContext);
         String recentsString = prefs.getString(KEY_RECENT_TIMEZONES, null);
         if (recentsString != null) {
             String[] recents = recentsString.split(RECENT_TIMEZONES_DELIMITER);
@@ -297,7 +297,7 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
      * @see {@link #MAX_RECENT_TIMEZONES}
      */
     public void saveRecentTimezone(String id) {
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(mContext);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(mContext);
         String recentsString = prefs.getString(KEY_RECENT_TIMEZONES, null);
         List<String> recents;
         if (recentsString == null) {

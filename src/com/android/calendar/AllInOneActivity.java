@@ -105,7 +105,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         initFragments(timeMillis, viewType);
 
         // Listen for changes that would require this to be refreshed
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
         mContentResolver = getContentResolver();
     }
@@ -137,7 +137,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     protected void onDestroy() {
         super.onDestroy();
 
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
         prefs.unregisterOnSharedPreferenceChangeListener(this);
         CalendarController.removeInstance(this);
     }
@@ -160,9 +160,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         EventInfo info = null;
         if (viewType == ViewType.EDIT) {
-            mPreviousView = CalendarPreferenceActivity.getSharedPreferences(this).getInt(
-                    CalendarPreferenceActivity.KEY_START_VIEW,
-                    CalendarPreferenceActivity.DEFAULT_START_VIEW);
+            mPreviousView = GeneralPreferences.getSharedPreferences(this).getInt(
+                    GeneralPreferences.KEY_START_VIEW,
+                    GeneralPreferences.DEFAULT_START_VIEW);
 
             int eventId = -1;
             Intent intent = getIntent();
@@ -266,7 +266,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-        if (key.equals(CalendarPreferenceActivity.KEY_WEEK_START_DAY)) {
+        if (key.equals(GeneralPreferences.KEY_WEEK_START_DAY)) {
             initFragments(mController.getTime(), mController.getViewType());
         }
     }

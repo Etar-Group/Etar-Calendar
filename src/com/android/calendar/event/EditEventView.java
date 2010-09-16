@@ -18,7 +18,7 @@ package com.android.calendar.event;
 
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
-import com.android.calendar.CalendarPreferenceActivity;
+import com.android.calendar.GeneralPreferences;
 import com.android.calendar.EmailAddressAdapter;
 import com.android.calendar.R;
 import com.android.calendar.TimezoneAdapter;
@@ -640,7 +640,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 String defaultCalendar = mCalendarsCursor
                         .getString(EditEventHelper.CALENDARS_INDEX_OWNER_ACCOUNT);
                 Utils.setSharedPreference(mActivity,
-                        CalendarPreferenceActivity.KEY_DEFAULT_CALENDAR, defaultCalendar);
+                        GeneralPreferences.KEY_DEFAULT_CALENDAR, defaultCalendar);
                 mModel.mOwnerAccount = defaultCalendar;
                 mModel.mOrganizer = defaultCalendar;
                 mModel.mCalendarId = mCalendarsCursor.getLong(EditEventHelper.CALENDARS_INDEX_ID);
@@ -884,8 +884,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         String[] labels = r.getStringArray(R.array.reminder_minutes_labels);
         mReminderLabels = new ArrayList<String>(Arrays.asList(labels));
 
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(mActivity);
-        String durationString = prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER,
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(mActivity);
+        String durationString = prefs.getString(GeneralPreferences.KEY_DEFAULT_REMINDER,
                 "0");
         mDefaultReminderMinutes = Integer.parseInt(durationString);
 
@@ -1021,7 +1021,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         String defaultCalendar = Utils.getSharedPreference(mActivity,
-                CalendarPreferenceActivity.KEY_DEFAULT_CALENDAR, null);
+                GeneralPreferences.KEY_DEFAULT_CALENDAR, null);
 
         if (defaultCalendar == null) {
             return 0;

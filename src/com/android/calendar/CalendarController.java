@@ -183,8 +183,8 @@ public class CalendarController {
         mContext = context;
         mTime.setToNow();
         mDetailViewType = Utils.getSharedPreference(mContext,
-                CalendarPreferenceActivity.KEY_DETAILED_VIEW,
-                CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
+                GeneralPreferences.KEY_DETAILED_VIEW,
+                GeneralPreferences.DEFAULT_DETAILED_VIEW);
         mService = new AsyncQueryService(context) {
             @Override
             protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
@@ -394,7 +394,7 @@ public class CalendarController {
 
     private void launchSettings() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClassName(mContext, CalendarPreferenceActivity.class.getName());
+        intent.setClassName(mContext, CalendarSettingsActivity.class.getName());
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         mContext.startActivity(intent);
     }

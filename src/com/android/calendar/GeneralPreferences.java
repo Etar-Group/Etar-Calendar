@@ -16,6 +16,7 @@
 
 package com.android.calendar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -26,14 +27,14 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.provider.SearchRecentSuggestions;
 import android.widget.Toast;
 
-public class CalendarPreferenceActivity extends PreferenceActivity implements
+public class GeneralPreferences extends PreferenceFragment implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener {
     private static final String BUILD_VERSION = "build_version";
 
@@ -104,13 +105,15 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
     }
 
     @Override
-    protected void onCreate(Bundle icicle) {
+    public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+
+        final Activity activity = getActivity();
 
         // Make sure to always use the same preferences file regardless of the package name
         // we're running under
-        PreferenceManager preferenceManager = getPreferenceManager();
-        SharedPreferences sharedPreferences = getSharedPreferences(this);
+        final PreferenceManager preferenceManager = getPreferenceManager();
+        final SharedPreferences sharedPreferences = getSharedPreferences(activity);
         preferenceManager.setSharedPreferencesName(SHARED_PREFS_NAME);
 
         // Load the preferences from an XML resource
@@ -131,7 +134,8 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
         migrateOldPreferences(sharedPreferences);
 
         try {
-            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            final PackageInfo packageInfo =
+                    activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0);
             findPreference(BUILD_VERSION).setSummary(packageInfo.versionName);
         } catch (NameNotFoundException e) {
             findPreference(BUILD_VERSION).setSummary("?");
@@ -165,7 +169,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
         } else {
             return false;
         }
-        Utils.setTimeZone(this, tz);
+        Utils.setTimeZone(getActivity(), tz);
         return true;
     }
 
@@ -181,7 +185,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
             int stringId = prefs.getBoolean(KEY_ALERTS_VIBRATE, false) ?
                     R.string.prefDefault_alerts_vibrate_true :
                     R.string.prefDefault_alerts_vibrate_false;
-            mVibrateWhen.setValue(getString(stringId));
+            mVibrateWhen.setValue(getActivity().getString(stringId));
         }
         // If needed, migrate the old alerts type settin
         if (!prefs.contains(KEY_ALERTS) && prefs.contains(KEY_ALERTS_TYPE)) {
@@ -215,7 +219,8 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
             mRingtone.setEnabled(true);
             mPopup.setEnabled(true);
         } else {
-            mVibrateWhen.setValue(getString(R.string.prefDefault_alerts_vibrate_false));
+            mVibrateWhen.setValue(
+                    getActivity().getString(R.string.prefDefault_alerts_vibrate_false));
             mVibrateWhen.setEnabled(false);
             mRingtone.setEnabled(false);
             mPopup.setEnabled(false);
@@ -227,11 +232,11 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key = preference.getKey();
         if (key.equals(KEY_CLEAR_SEARCH_HISTORY)) {
-            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(getActivity(),
                     CalendarRecentSuggestionsProvider.AUTHORITY,
                     CalendarRecentSuggestionsProvider.MODE);
             suggestions.clearHistory();
-            Toast.makeText(this, R.string.search_history_cleared,
+            Toast.makeText(getActivity(), R.string.search_history_cleared,
                     Toast.LENGTH_SHORT).show();
             return true;
         }

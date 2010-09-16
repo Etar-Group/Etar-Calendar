@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 The Android Open Source Project
+ * Copyright (C) 2010 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,13 @@
 
 package com.android.calendar;
 
-import android.app.Application;
+import android.preference.PreferenceActivity;
 
-public class CalendarApplication extends Application {
+import java.util.List;
+
+public class CalendarSettingsActivity extends PreferenceActivity {
     @Override
-    public void onCreate() {
-        super.onCreate();
-
-        /*
-         * Ensure the default values are set for any receiver, activity,
-         * service, etc. of Calendar
-         */
-        GeneralPreferences.setDefaultValues(this);
+    public void onBuildHeaders(List<Header> target) {
+        loadHeadersFromResource(R.xml.calendar_settings_headers, target);
     }
 }

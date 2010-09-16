@@ -88,7 +88,7 @@ public class Utils {
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
         Intent intent = activity.getIntent();
         Bundle extras = intent.getExtras();
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(activity);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(activity);
 
         if (TextUtils.equals(intent.getAction(),Intent.ACTION_EDIT)) {
             return ViewType.EDIT;
@@ -96,8 +96,8 @@ public class Utils {
         if (extras != null) {
             if (extras.getBoolean(INTENT_KEY_DETAIL_VIEW, false)) {
                 // This is the "detail" view which is either agenda or day view
-                return prefs.getInt(CalendarPreferenceActivity.KEY_DETAILED_VIEW,
-                        CalendarPreferenceActivity.DEFAULT_DETAILED_VIEW);
+                return prefs.getInt(GeneralPreferences.KEY_DETAILED_VIEW,
+                        GeneralPreferences.DEFAULT_DETAILED_VIEW);
             } else if (INTENT_VALUE_VIEW_TYPE_DAY.equals(extras.getString(INTENT_KEY_VIEW_TYPE))) {
                 // Not sure who uses this. This logic came from LaunchActivity
                 return ViewType.DAY;
@@ -105,8 +105,8 @@ public class Utils {
         }
 
         // Default to the last view
-        return prefs.getInt(CalendarPreferenceActivity.KEY_START_VIEW,
-                CalendarPreferenceActivity.DEFAULT_START_VIEW);
+        return prefs.getInt(GeneralPreferences.KEY_START_VIEW,
+                GeneralPreferences.DEFAULT_START_VIEW);
     }
 
     /**
@@ -128,7 +128,7 @@ public class Utils {
         }
         boolean updatePrefs = false;
         synchronized (mTZCallbacks) {
-            if (CalendarPreferenceActivity.LOCAL_TZ.equals(timeZone)) {
+            if (GeneralPreferences.LOCAL_TZ.equals(timeZone)) {
                 if (mUseHomeTZ) {
                     updatePrefs = true;
                 }
@@ -142,9 +142,9 @@ public class Utils {
             }
         }
         if (updatePrefs) {
-            setSharedPreference(context, CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED,
+            setSharedPreference(context, GeneralPreferences.KEY_HOME_TZ_ENABLED,
                     mUseHomeTZ);
-            setSharedPreference(context, CalendarPreferenceActivity.KEY_HOME_TZ, mHomeTZ);
+            setSharedPreference(context, GeneralPreferences.KEY_HOME_TZ, mHomeTZ);
         }
         // TODO async update db
     }
@@ -169,11 +169,11 @@ public class Utils {
                 mTZQueryInProgress = true;
                 mFirstTZRequest = false;
 
-                SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+                SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
                 mUseHomeTZ = prefs.getBoolean(
-                        CalendarPreferenceActivity.KEY_HOME_TZ_ENABLED, false);
+                        GeneralPreferences.KEY_HOME_TZ_ENABLED, false);
                 mHomeTZ = prefs.getString(
-                        CalendarPreferenceActivity.KEY_HOME_TZ, Time.getCurrentTimezone());
+                        GeneralPreferences.KEY_HOME_TZ, Time.getCurrentTimezone());
                 // TODO kick off async query
                 // When the async query returns it should synchronize on
                 // mTZCallbacks, update mUseHomeTZ, mHomeTZ, and the
@@ -190,7 +190,7 @@ public class Utils {
     }
 
     public static String getSharedPreference(Context context, String key, String defaultValue) {
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         return prefs.getString(key, defaultValue);
     }
 
@@ -216,7 +216,7 @@ public class Utils {
     }
 
     public static int getSharedPreference(Context context, String key, int defaultValue) {
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         return prefs.getInt(key, defaultValue);
     }
 
@@ -228,12 +228,12 @@ public class Utils {
      * @param value the value to set
      */
     public static void setSharedPreference(Context context, String key, String value) {
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         prefs.edit().putString(key, value).apply();
     }
 
     static void setSharedPreference(Context context, String key, boolean value) {
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(key, value);
         editor.apply();
@@ -246,17 +246,17 @@ public class Utils {
      * @param viewId {@link CalendarController.ViewType}
      */
     static void setDefaultView(Context context, int viewId) {
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
 
         if (viewId == CalendarController.ViewType.AGENDA
                 || viewId == CalendarController.ViewType.DAY) {
             // Record the (new) detail start view only for Agenda and Day
-            editor.putInt(CalendarPreferenceActivity.KEY_DETAILED_VIEW, viewId);
+            editor.putInt(GeneralPreferences.KEY_DETAILED_VIEW, viewId);
         }
 
         // Record the (new) start view
-        editor.putInt(CalendarPreferenceActivity.KEY_START_VIEW, viewId);
+        editor.putInt(GeneralPreferences.KEY_START_VIEW, viewId);
         editor.apply();
     }
 
@@ -391,12 +391,12 @@ public class Utils {
      * @return the first day of week in android.text.format.Time
      */
     public static int getFirstDayOfWeek(Context context) {
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
-        String pref = prefs.getString(CalendarPreferenceActivity.KEY_WEEK_START_DAY,
-                CalendarPreferenceActivity.WEEK_START_DEFAULT);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        String pref = prefs.getString(GeneralPreferences.KEY_WEEK_START_DAY,
+                GeneralPreferences.WEEK_START_DEFAULT);
 
         int startDay;
-        if (CalendarPreferenceActivity.WEEK_START_DEFAULT.equals(pref)) {
+        if (GeneralPreferences.WEEK_START_DEFAULT.equals(pref)) {
             startDay = Calendar.getInstance().getFirstDayOfWeek();
         } else {
             startDay = Integer.parseInt(pref);

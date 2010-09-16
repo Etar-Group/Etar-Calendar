@@ -16,7 +16,7 @@
 
 package com.android.calendar.alerts;
 
-import com.android.calendar.CalendarPreferenceActivity;
+import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
 import com.android.calendar.R.string;
 
@@ -253,10 +253,10 @@ public class AlertService extends Service {
             }
         }
 
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
 
-        boolean doAlert = prefs.getBoolean(CalendarPreferenceActivity.KEY_ALERTS, true);
-        boolean doPopup = prefs.getBoolean(CalendarPreferenceActivity.KEY_ALERTS_POPUP, false);
+        boolean doAlert = prefs.getBoolean(GeneralPreferences.KEY_ALERTS, true);
+        boolean doPopup = prefs.getBoolean(GeneralPreferences.KEY_ALERTS_POPUP, false);
 
         // TODO check for this before adding stuff to the alerts table.
         if (!doAlert) {
@@ -311,15 +311,15 @@ public class AlertService extends Service {
             // Find out the circumstances under which to vibrate.
             // Migrate from pre-Froyo boolean setting if necessary.
             String vibrateWhen; // "always" or "silent" or "never"
-            if(prefs.contains(CalendarPreferenceActivity.KEY_ALERTS_VIBRATE_WHEN))
+            if(prefs.contains(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN))
             {
                 // Look up Froyo setting
                 vibrateWhen =
-                    prefs.getString(CalendarPreferenceActivity.KEY_ALERTS_VIBRATE_WHEN, null);
-            } else if(prefs.contains(CalendarPreferenceActivity.KEY_ALERTS_VIBRATE)) {
+                    prefs.getString(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN, null);
+            } else if(prefs.contains(GeneralPreferences.KEY_ALERTS_VIBRATE)) {
                 // No Froyo setting. Migrate pre-Froyo setting to new Froyo-defined value.
                 boolean vibrate =
-                    prefs.getBoolean(CalendarPreferenceActivity.KEY_ALERTS_VIBRATE, false);
+                    prefs.getBoolean(GeneralPreferences.KEY_ALERTS_VIBRATE, false);
                 vibrateWhen = vibrate ?
                     context.getString(R.string.prefDefault_alerts_vibrate_true) :
                     context.getString(R.string.prefDefault_alerts_vibrate_false);
@@ -342,7 +342,7 @@ public class AlertService extends Service {
             // Possibly generate a sound. If 'Silent' is chosen, the ringtone
             // string will be empty.
             String reminderRingtone = prefs.getString(
-                    CalendarPreferenceActivity.KEY_ALERTS_RINGTONE, null);
+                    GeneralPreferences.KEY_ALERTS_RINGTONE, null);
             notification.sound = TextUtils.isEmpty(reminderRingtone) ? null : Uri
                     .parse(reminderRingtone);
         }

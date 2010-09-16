@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarPreferenceActivity;
+import com.android.calendar.GeneralPreferences;
 
 import dalvik.system.VMRuntime;
 
@@ -83,10 +83,10 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             Log.v(TAG, "OnResume to " + mTime.toString());
         }
 
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(
                 getActivity());
         boolean hideDeclined = prefs.getBoolean(
-                CalendarPreferenceActivity.KEY_HIDE_DECLINED, false);
+                GeneralPreferences.KEY_HIDE_DECLINED, false);
 
         mAgendaListView.setHideDeclinedEvents(hideDeclined);
         mAgendaListView.goTo(mTime, mQuery, true);

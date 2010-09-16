@@ -525,9 +525,9 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         String[] labels = r.getStringArray(R.array.reminder_minutes_labels);
         mReminderLabels = new ArrayList<String>(Arrays.asList(labels));
 
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(getActivity());
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(getActivity());
         String durationString =
-                prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER, "0");
+                prefs.getString(GeneralPreferences.KEY_DEFAULT_REMINDER, "0");
         mDefaultReminderMinutes = Integer.parseInt(durationString);
 
         // Setup the + Add Reminder Button

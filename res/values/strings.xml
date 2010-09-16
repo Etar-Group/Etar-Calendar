@@ -356,6 +356,11 @@
          changing the response to an invitation. -->
     <string name="change_response_title">Change response</string>
 
+    <!-- This the title of a menu for General Preferences.
+         Pressing the menu item lets user to view and edit his general settings
+         (or preferences) [CHAR LIMIT=30] -->
+    <string name="menu_general_preferences">General Preferences</string>
+
     <!-- This is the title of the screen for setting user preferences. -->
     <string name="preferences_title">"Settings"</string>
     <!-- This is the title of a section in the Settings screen for settings

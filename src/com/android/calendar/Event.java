@@ -294,8 +294,8 @@ public class Event implements Comparable<Event>, Cloneable {
             String orderBy = Instances.SORT_CALENDAR_VIEW;
 
             // Respect the preference to show/hide declined events
-            SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
-            boolean hideDeclined = prefs.getBoolean(CalendarPreferenceActivity.KEY_HIDE_DECLINED,
+            SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+            boolean hideDeclined = prefs.getBoolean(GeneralPreferences.KEY_HIDE_DECLINED,
                     false);
 
             String where = null;
