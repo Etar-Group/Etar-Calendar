@@ -58,11 +58,6 @@
         android:title="@string/calendar_refresh"
         android:icon="@drawable/ic_menu_refresh" />
     <item
-        android:id="@+id/action_manage_calendars"
-        android:alphabeticShortcut="c"
-        android:title="@string/menu_select_calendars"
-        android:icon="@android:drawable/ic_menu_my_calendar" />
-    <item
         android:id="@+id/action_settings"
         android:alphabeticShortcut="s"
         android:title="@string/menu_preferences"

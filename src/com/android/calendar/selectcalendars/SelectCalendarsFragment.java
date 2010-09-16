@@ -124,8 +124,6 @@ public class SelectCalendarsFragment extends Fragment
                 SELECTION_ARGS, Calendars._SYNC_ACCOUNT);
     }
 
-
-
     /*
      * Write back the changes that have been made.
      */

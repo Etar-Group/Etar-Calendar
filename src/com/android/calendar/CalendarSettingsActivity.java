@@ -16,7 +16,13 @@
 
 package com.android.calendar;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.ContentResolver;
+import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.provider.Calendar;
+import android.provider.Calendar.Calendars;
 
 import java.util.List;
 
@@ -24,5 +30,23 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     @Override
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.calendar_settings_headers, target);
+        Account[] accounts = AccountManager.get(this).getAccounts();
+        if (accounts != null) {
+            int length = accounts.length;
+            for (int i = 0; i < length; i++) {
+                Account acct = accounts[i];
+                if (ContentResolver.getIsSyncable(acct, Calendar.AUTHORITY) > 0) {
+                    Header accountHeader = new Header();
+                    accountHeader.title = acct.name;
+                    accountHeader.fragment =
+                            "com.android.calendar.selectcalendars.SelectCalendarsSyncFragment";
+                    Bundle args = new Bundle();
+                    args.putString(Calendars.ACCOUNT_NAME, acct.name);
+                    args.putString(Calendars.ACCOUNT_TYPE, acct.type);
+                    accountHeader.fragmentArguments = args;
+                    target.add(1, accountHeader);
+                }
+            }
+        }
     }
 }

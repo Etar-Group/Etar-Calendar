@@ -85,12 +85,11 @@ public class CalendarController {
 
         final long GO_TO = 1L << 4;
 
-        final long LAUNCH_MANAGE_CALENDARS = 1L << 5;
-        final long LAUNCH_SETTINGS = 1L << 6;
+        final long LAUNCH_SETTINGS = 1L << 5;
 
-        final long EVENTS_CHANGED = 1L << 7;
+        final long EVENTS_CHANGED = 1L << 6;
 
-        final long SEARCH = 1L << 8;
+        final long SEARCH = 1L << 7;
     }
 
     /**
@@ -328,11 +327,8 @@ public class CalendarController {
         }
 
         if (!handled) {
-            // Launch Calendars, and Settings
-            if (event.eventType == EventType.LAUNCH_MANAGE_CALENDARS) {
-                launchManageCalendars();
-                return;
-            } else if (event.eventType == EventType.LAUNCH_SETTINGS) {
+            // Launch Settings
+            if (event.eventType == EventType.LAUNCH_SETTINGS) {
                 launchSettings();
                 return;
             }
@@ -400,13 +396,6 @@ public class CalendarController {
 
     public int getPreviousViewType() {
         return mPreviousViewType;
-    }
-
-    private void launchManageCalendars() {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClass(mContext, SelectCalendarsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        mContext.startActivity(intent);
     }
 
     private void launchSettings() {
@@ -555,8 +544,6 @@ public class CalendarController {
             tmp = "Edit event";
         } else if ((eventInfo.eventType & EventType.DELETE_EVENT) != 0) {
             tmp = "Delete event";
-        } else if ((eventInfo.eventType & EventType.LAUNCH_MANAGE_CALENDARS) != 0) {
-            tmp = "Launch select calendar";
         } else if ((eventInfo.eventType & EventType.LAUNCH_SETTINGS) != 0) {
             tmp = "Launch settings";
         } else if ((eventInfo.eventType & EventType.EVENTS_CHANGED) != 0) {

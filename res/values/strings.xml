@@ -150,6 +150,18 @@
     <string name="synced_not_visible">synced, not visible</string>
     <!-- not Synced or visible status message -->
     <string name="not_synced_not_visible">not synced, not visible</string>
+    <!-- Synced status message displayed when the given calendar is stored/synced on the device
+        [CHAR LIMIT=60] -->
+    <string name="synced"> synced</string>
+    <!-- Not synced status message displayed when the given calendar is not stored/synced on the
+        device [CHAR LIMIT=60] -->
+    <string name="not_synced"> not synced</string>
+    <!-- Message displayed to user when an account with Calendars is not being auto-synced
+        [CHAR LIMIT=120]-->
+    <string name="acct_not_synced">This account is not being synced and your calendars may
+        not update correctly.</string>
+    <!-- Label on button that takes user to the Accounts and Sync settings page [CHAR LIMIT=60] -->
+    <string name="accounts">Accounts &amp; sync</string>
 
     <!-- Event edit activity -->
     <skip />
