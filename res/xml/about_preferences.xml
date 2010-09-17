@@ -14,11 +14,13 @@
      limitations under the License.
 -->
 
-<preference-headers
-        xmlns:android="http://schemas.android.com/apk/res/android">
-    <header android:fragment="com.android.calendar.GeneralPreferences"
-            android:title="@string/menu_general_preferences" />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <header android:fragment="com.android.calendar.AboutPreferences"
-            android:title="@string/menu_about_preferences" />
-</preference-headers>
+    <PreferenceCategory
+        android:title="@string/preferences_about_title">
+        <Preference
+            android:key="build_version"
+            android:title="@string/preferences_build_version" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
