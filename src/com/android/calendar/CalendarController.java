@@ -21,6 +21,9 @@ import static android.provider.Calendar.EVENT_END_TIME;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -113,6 +116,7 @@ public class CalendarController {
         public int x; // x coordinate in the activity space
         public int y; // y coordinate in the activity space
         public String query; // query for a user search
+        public ComponentName componentName;  // used in combination with query
     }
 
     // FRAG_TODO remove unneeded api's
@@ -233,12 +237,22 @@ public class CalendarController {
      */
     public void sendEvent(Object sender, long eventType, Time start, Time end, long eventId,
             int viewType) {
+        sendEvent(sender, eventType, start, end, eventId, viewType, null, null);
+    }
+
+    /**
+     * sendEvent() variant mainly used for search.
+     */
+    public void sendEvent(Object sender, long eventType, Time start, Time end, long eventId,
+            int viewType, String query, ComponentName componentName) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         info.startTime = start;
         info.endTime = end;
         info.id = eventId;
         info.viewType = viewType;
+        info.query = query;
+        info.componentName = componentName;
         this.sendEvent(sender, info);
     }
 
@@ -336,6 +350,9 @@ public class CalendarController {
                 return;
             } else if (event.eventType == EventType.DELETE_EVENT) {
                 launchDeleteEvent(event.id, event.startTime.toMillis(false), endTime);
+                return;
+            } else if (event.eventType == EventType.SEARCH) {
+                launchSearch(event.id, event.query, event.componentName);
                 return;
             }
         }
@@ -435,6 +452,16 @@ public class CalendarController {
         DeleteEventHelper deleteEventHelper = new DeleteEventHelper(mContext, parentActivity,
                 parentActivity != null /* exit when done */);
         deleteEventHelper.delete(startMillis, endMillis, eventId, deleteWhich);
+    }
+
+    private void launchSearch(long eventId, String query, ComponentName componentName) {
+        final SearchManager searchManager =
+                (SearchManager)mContext.getSystemService(Context.SEARCH_SERVICE);
+        final SearchableInfo searchableInfo = searchManager.getSearchableInfo(componentName);
+        final Intent intent = new Intent(Intent.ACTION_SEARCH);
+        intent.putExtra(SearchManager.QUERY, query);
+        intent.setComponent(searchableInfo.getSearchActivity());
+        mContext.startActivity(intent);
     }
 
     public void refreshCalendars() {

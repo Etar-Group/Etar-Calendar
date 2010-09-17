@@ -20,7 +20,8 @@
         android:alphabeticShortcut="f"
         android:title="@string/search"
         android:icon="@android:drawable/ic_menu_search"
-        android:showAsAction="ifRoom" />
+        android:showAsAction="ifRoom"
+        android:actionViewClass="android.widget.SearchView" />
     <item
         android:id="@+id/action_today"
         android:alphabeticShortcut="t"

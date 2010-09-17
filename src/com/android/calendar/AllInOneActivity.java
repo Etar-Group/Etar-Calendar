@@ -31,7 +31,10 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -47,9 +50,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
 public class AllInOneActivity extends Activity implements EventHandler,
-        OnSharedPreferenceChangeListener {
+        OnSharedPreferenceChangeListener, SearchView.OnQueryChangeListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
     private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
@@ -220,6 +224,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
         super.onCreateOptionsMenu(menu);
 
         getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setIconifiedByDefault(true);
+        searchView.setOnQueryChangeListener(this);
+
         return true;
     }
 
@@ -245,9 +254,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 t = new Time();
                 t.setToNow();
                 break;
-            case R.id.action_search:
-                onSearchRequested();
-                return true;
             case R.id.action_create_event:
                 mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1, 0, 0, 0, 0);
                 return true;
@@ -407,5 +413,18 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public void goToToday() {
+    }
+
+    @Override
+    public boolean onQueryTextChanged(String newText) {
+        return false;
+    }
+
+    @Override
+    public boolean onSubmitQuery(String query) {
+        mController.sendEvent(
+                this, EventType.SEARCH, null, null, -1,
+                ViewType.CURRENT, query, getComponentName());
+        return false;
     }
 }

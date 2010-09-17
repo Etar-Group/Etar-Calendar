@@ -26,33 +26,28 @@ import com.android.calendar.agenda.AgendaFragment;
 import dalvik.system.VMRuntime;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Calendar;
 import android.provider.Calendar.Events;
 import android.provider.SearchRecentSuggestions;
 import android.text.format.Time;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
-public class SearchActivity extends Activity implements CalendarController.EventHandler {
+public class SearchActivity extends Activity
+        implements CalendarController.EventHandler, SearchView.OnQueryChangeListener {
 
     private static final String TAG = SearchActivity.class.getSimpleName();
 
@@ -217,6 +212,9 @@ public class SearchActivity extends Activity implements CalendarController.Event
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.search_title_bar, menu);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setIconifiedByDefault(true);
+        searchView.setOnQueryChangeListener(this);
         return true;
     }
 
@@ -329,4 +327,16 @@ public class SearchActivity extends Activity implements CalendarController.Event
         }
     }
 
+    @Override
+    public boolean onQueryTextChanged(String newText) {
+        return false;
+    }
+
+    @Override
+    public boolean onSubmitQuery(String query) {
+        mController.sendEvent(
+                this, EventType.SEARCH, null, null, -1,
+                ViewType.CURRENT, query, getComponentName());
+        return false;
+    }
 }
