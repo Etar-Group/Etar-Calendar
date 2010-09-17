@@ -87,7 +87,7 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="CalendarTheme" parent="android:Theme.Light.NoTitleBar">
+    <style name="CalendarTheme" parent="android:Theme.Light.Holo">
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
