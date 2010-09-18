@@ -270,6 +270,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private Runnable mUpdateTZ = new Runnable() {
         @Override
         public void run() {
+            if (EventInfoActivity.this.isFinishing()) {
+                return;
+            }
             updateView();
         }
     };
