@@ -84,11 +84,4 @@
             android:dialogTitle="@string/preferences_default_reminder_dialog" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/preferences_about_title">
-        <Preference
-            android:key="build_version"
-            android:title="@string/preferences_build_version" />
-    </PreferenceCategory>
-
 </PreferenceScreen>

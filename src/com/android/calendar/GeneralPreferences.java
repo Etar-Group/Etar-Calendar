@@ -36,8 +36,6 @@ import android.widget.Toast;
 
 public class GeneralPreferences extends PreferenceFragment implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener {
-    private static final String BUILD_VERSION = "build_version";
-
     // The name of the shared preferences file. This name must be maintained for historical
     // reasons, as it's what PreferenceManager assigned the first time the file was created.
     private static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
@@ -101,7 +99,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     /** Set the default shared preferences in the proper context */
     public static void setDefaultValues(Context context) {
         PreferenceManager.setDefaultValues(context, SHARED_PREFS_NAME, Context.MODE_PRIVATE,
-                R.xml.preferences, false);
+                R.xml.general_preferences, false);
     }
 
     @Override
@@ -117,7 +115,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         preferenceManager.setSharedPreferencesName(SHARED_PREFS_NAME);
 
         // Load the preferences from an XML resource
-        addPreferencesFromResource(R.xml.preferences);
+        addPreferencesFromResource(R.xml.general_preferences);
 
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
@@ -132,14 +130,6 @@ public class GeneralPreferences extends PreferenceFragment implements
         mHomeTZ.setOnPreferenceChangeListener(this);
 
         migrateOldPreferences(sharedPreferences);
-
-        try {
-            final PackageInfo packageInfo =
-                    activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0);
-            findPreference(BUILD_VERSION).setSummary(packageInfo.versionName);
-        } catch (NameNotFoundException e) {
-            findPreference(BUILD_VERSION).setSummary("?");
-        }
 
         updateChildPreferences();
     }
