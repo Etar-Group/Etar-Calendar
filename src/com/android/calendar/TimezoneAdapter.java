@@ -318,7 +318,7 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
         }
         recents.add(id);
         recentsString = Utils.join(recents, RECENT_TIMEZONES_DELIMITER);
-        prefs.edit().putString(KEY_RECENT_TIMEZONES, recentsString).commit();
+        prefs.edit().putString(KEY_RECENT_TIMEZONES, recentsString).apply();
     }
 
     /**
