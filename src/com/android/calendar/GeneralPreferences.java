@@ -20,8 +20,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -31,6 +29,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
+import android.provider.Calendar.CalendarCache;
 import android.provider.SearchRecentSuggestions;
 import android.widget.Toast;
 
@@ -77,9 +76,6 @@ public class GeneralPreferences extends PreferenceFragment implements
     static final String KEY_HOME_TZ_ENABLED = "preferences_home_tz_enabled";
     static final String KEY_HOME_TZ = "preferences_home_tz";
 
-    // The value to use when setting Calendar to use the device's time zone
-    public static final String LOCAL_TZ = "AUTO";
-
     // Default preference values
     public static final int DEFAULT_START_VIEW = CalendarController.ViewType.WEEK;
     public static final int DEFAULT_DETAILED_VIEW = CalendarController.ViewType.DAY;
@@ -90,6 +86,8 @@ public class GeneralPreferences extends PreferenceFragment implements
     CheckBoxPreference mPopup;
     CheckBoxPreference mUseHomeTZ;
     ListPreference mHomeTZ;
+
+    private static CharSequence[][] mTimezones;
 
     /** Return a properly configured SharedPreferences instance */
     public static SharedPreferences getSharedPreferences(Context context) {
@@ -126,8 +124,18 @@ public class GeneralPreferences extends PreferenceFragment implements
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
         mUseHomeTZ.setOnPreferenceChangeListener(this);
         mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
+        String tz = mHomeTZ.getValue();
+
+        if (mTimezones == null) {
+            mTimezones = (new TimezoneAdapter(getActivity(), tz)).getAllTimezones();
+        }
+        mHomeTZ.setEntryValues(mTimezones[0]);
+        mHomeTZ.setEntries(mTimezones[1]);
         mHomeTZ.setSummary(mHomeTZ.getEntry());
         mHomeTZ.setOnPreferenceChangeListener(this);
+//        mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
+//        mHomeTZ.setSummary(mHomeTZ.getEntry());
+//        mHomeTZ.setOnPreferenceChangeListener(this);
 
         migrateOldPreferences(sharedPreferences);
 
@@ -150,12 +158,13 @@ public class GeneralPreferences extends PreferenceFragment implements
             if ((Boolean)newValue) {
                 tz = mHomeTZ.getValue();
             } else {
-                tz = LOCAL_TZ;
+                tz = CalendarCache.TIMEZONE_TYPE_AUTO;
             }
         } else if (preference == mHomeTZ) {
-            mHomeTZ.setValue((String)newValue);
+            tz = (String) newValue;
+            // We set the value here so we can read back the entry
+            mHomeTZ.setValue(tz);
             mHomeTZ.setSummary(mHomeTZ.getEntry());
-            tz = (String)newValue;
         } else {
             return false;
         }
