@@ -82,6 +82,31 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="3dip"
+                android:paddingLeft="3dip" >
+
+                <TextView android:id="@+id/start_date_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:visibility="gone"
+                    style="@style/TextAppearance.EditEvent_homeTime"/>
+
+                <TextView android:id="@+id/start_time_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:visibility="gone"
+                    style="@style/TextAppearance.EditEvent_homeTime"/>
+
+            </LinearLayout>
+
             <TextView android:id="@+id/to_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,6 +133,31 @@
                     android:gravity="left|center_vertical"
                     android:contentDescription="@string/content_description_edit_event_to_time"
                     style="?android:attr/textAppearanceMediumInverse"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="3dip"
+                android:paddingLeft="3dip" >
+
+                <TextView android:id="@+id/end_date_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:visibility="gone"
+                    style="@style/TextAppearance.EditEvent_homeTime"/>
+
+                <TextView android:id="@+id/end_time_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:visibility="gone"
+                    style="@style/TextAppearance.EditEvent_homeTime"/>
+
             </LinearLayout>
 
             <TextView android:id="@+id/timezone_label"
