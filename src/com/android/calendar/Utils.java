@@ -123,7 +123,7 @@ public class Utils {
         SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     static void setDefaultView(Context context, int viewId) {
@@ -139,7 +139,7 @@ public class Utils {
 
         // Record the (new) start view
         editor.putString(CalendarPreferenceActivity.KEY_START_VIEW, activityString);
-        editor.commit();
+        editor.apply();
     }
 
     public static final Time timeFromIntent(Intent intent) {
