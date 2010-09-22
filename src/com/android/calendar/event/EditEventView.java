@@ -16,10 +16,11 @@
 
 package com.android.calendar.event;
 
+import com.android.calendar.AllInOneActivity;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
-import com.android.calendar.GeneralPreferences;
 import com.android.calendar.EmailAddressAdapter;
+import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
 import com.android.calendar.TimezoneAdapter;
 import com.android.calendar.TimezoneAdapter.TimezoneRow;
@@ -37,11 +38,13 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.pim.EventRecurrence;
 import android.provider.Calendar.Calendars;
+import android.provider.Settings;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -592,6 +595,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (dialog == mNoCalendarsDialog) {
             mDone.setDoneCode(Utils.DONE_REVERT);
             mDone.run();
+            if (which == DialogInterface.BUTTON_POSITIVE) {
+                Intent nextIntent = new Intent(Settings.ACTION_ADD_ACCOUNT);
+                final String[] array = {"com.android.calendar"};
+                nextIntent.putExtra(Settings.EXTRA_AUTHORITIES, array);
+                mActivity.startActivity(nextIntent);
+            }
         } else if (dialog == mTimezoneDialog) {
             if (which >= 0 && which < mTimezoneAdapter.getCount()) {
                 setTimezone(which);
@@ -744,7 +753,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mTimezone = TimeZone.getDefault().getID();
         mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
 
-        mGuestList = (ListView) mView.findViewById(R.id.attendee_list);
+        mGuestList = (ListView) view.findViewById(R.id.attendee_list);
 
         // Display loading screen
         setModel(null);
@@ -957,9 +966,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             // Create an error message for the user that, when clicked,
             // will exit this activity without saving the event.
             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-            builder.setTitle(R.string.no_syncable_calendars).setIcon(
-                    android.R.drawable.ic_dialog_alert).setMessage(R.string.no_calendars_found)
-                    .setPositiveButton(android.R.string.ok, this).setOnCancelListener(this);
+            builder.setTitle(R.string.no_syncable_calendars)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage(R.string.no_calendars_found)
+                    .setPositiveButton(R.string.add_account, this)
+                    .setNegativeButton(android.R.string.no, this)
+                    .setOnCancelListener(this);
             mNoCalendarsDialog = builder.show();
             return;
         }

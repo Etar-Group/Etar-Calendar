@@ -509,7 +509,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         if (mView != null) {
             mView.setModel(null);
         }
