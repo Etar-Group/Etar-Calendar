@@ -16,6 +16,14 @@
 
 package com.android.calendar.widget;
 
+import com.google.common.annotations.VisibleForTesting;
+
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
+import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
+import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -25,6 +33,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.os.Bundle;
+import android.provider.Calendar;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Instances;
@@ -34,14 +44,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-
-import com.google.common.annotations.VisibleForTesting;
-
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
-import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
-import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
 
 
 public class CalendarAppWidgetService extends RemoteViewsService {
@@ -145,13 +147,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             if (mModel.mEventInfos.isEmpty() || mModel.mRowInfos.isEmpty()) {
                 RemoteViews views = new RemoteViews(mContext.getPackageName(),
                         R.layout.appwidget_no_events);
-                PendingIntent launchIntent =
-                    CalendarAppWidgetProvider.getLaunchPendingIntent(
-                            mContext, 0);
-                views.setOnClickPendingIntent(R.id.appwidget_no_events, launchIntent);
+                final Intent intent =  CalendarAppWidgetProvider.getLaunchFillInIntent(0);
+                views.setOnClickFillInIntent(R.id.appwidget_no_events, intent);
                 return views;
             }
-
 
             RowInfo rowInfo = mModel.mRowInfos.get(position);
             if (rowInfo.mType == RowInfo.TYPE_DAY) {
@@ -170,10 +169,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 updateTextView(views, R.id.where, e.visibWhere, e.where);
                 updateTextView(views, R.id.title, e.visibTitle, e.title);
 
-                PendingIntent launchIntent =
-                    CalendarAppWidgetProvider.getLaunchPendingIntent(
-                            mContext, e.start);
-                views.setOnClickPendingIntent(R.id.appwidget_row, launchIntent);
+                // An element in ListView.
+                final Intent fillInIntent =
+                        CalendarAppWidgetProvider.getLaunchFillInIntent(e.start);
+                views.setOnClickFillInIntent(R.id.appwidget_row, fillInIntent);
                 return views;
             }
         }

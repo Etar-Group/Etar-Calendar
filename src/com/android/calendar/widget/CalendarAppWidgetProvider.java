@@ -124,7 +124,8 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      * @param changedEventIds Specific events known to be changed. If present,
      *            we use it to decide if an update is necessary.
      */
-    private void performUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds,
+    private void performUpdate(Context context,
+            AppWidgetManager appWidgetManager, int[] appWidgetIds,
             long[] changedEventIds) {
         // Launch over to service so it can perform update
         for (int appWidgetId : appWidgetIds) {
@@ -150,13 +151,17 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
 
             // Clicking on the widget launches Calendar
             // TODO fix this exact behavior?
-//            long startTime = Math.max(currentTime, events.firstTime);
+            // long startTime = Math.max(currentTime, events.firstTime);
             long startTime = System.currentTimeMillis();
 
-            PendingIntent pendingIntent = getLaunchPendingIntent(context, startTime);
-            views.setOnClickPendingIntent(R.id.appwidget, pendingIntent);
+            // Each list item will call setOnClickExtra() to let the list know which item
+            // is selected by a user.
+            final PendingIntent updateEventIntent = getLaunchPendingIntentTemplate(context);
+            views.setPendingIntentTemplate(R.id.events_list, updateEventIntent);
 
-            PendingIntent newEventIntent = getNewEventPendingIntent(context);
+            // ImageButton is not a collection so we cannot/shouldn't call
+            // setPendingIntentTemplate().
+            final PendingIntent newEventIntent = getNewEventPendingIntent(context);
             views.setOnClickPendingIntent(R.id.new_event_button, newEventIntent);
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -178,29 +183,37 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
     }
 
     /**
-     * Build a {@link PendingIntent} to launch the Calendar app. This correctly
-     * sets action, category, and flags so that we don't duplicate tasks when
-     * Calendar was also launched from a normal desktop icon. If the go to time
-     * is 0, then calendar will be launched without a starting time.
-     *
-     * @param goToTime time that calendar should take the user to, or 0 to
-     *            indicate no specific start time.
+     * Build a {@link PendingIntent} to launch the Calendar app. This should be used
+     * in combination with {@link RemoteViews#setPendingIntentTemplate(int, PendingIntent)}.
      */
-    static PendingIntent getLaunchPendingIntent(Context context, long goToTime) {
+    static PendingIntent getLaunchPendingIntentTemplate(Context context) {
         Intent launchIntent = new Intent();
-        String dataString = "content://com.android.calendar/time";
         launchIntent.setAction(Intent.ACTION_VIEW);
         launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED |
                 Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return PendingIntent.getActivity(context, 0 /* no requestCode */,
+                launchIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+    /**
+     * Build an {@link Intent} available as FillInIntent to launch the Calendar app.
+     * This should be used in combination with
+     * {@link RemoteViews#setOnClickFillInIntent(int, Intent)}.
+     * If the go to time is 0, then calendar will be launched without a starting time.
+     *
+     * @param goToTime time that calendar should take the user to, or 0 to
+     *            indicate no specific start time.
+     */
+    static Intent getLaunchFillInIntent(long goToTime) {
+        final Intent fillInIntent = new Intent();
+        String dataString = "content://com.android.calendar/time";
         if (goToTime != 0) {
-            launchIntent.putExtra(Utils.INTENT_KEY_DETAIL_VIEW, true);
+            fillInIntent.putExtra(Utils.INTENT_KEY_DETAIL_VIEW, true);
             dataString += "/" + goToTime;
         }
         Uri data = Uri.parse(dataString);
-        launchIntent.setData(data);
-        return PendingIntent.getActivity(context, 0 /* no requestCode */,
-                launchIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        fillInIntent.setData(data);
+        return fillInIntent;
     }
 
     private static PendingIntent getNewEventPendingIntent(Context context) {

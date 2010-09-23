@@ -26,6 +26,7 @@ import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.event.EditEventFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
+import com.android.calendar.widget.CalendarAppWidgetProvider;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -165,18 +166,19 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     GeneralPreferences.KEY_START_VIEW,
                     GeneralPreferences.DEFAULT_START_VIEW);
 
-            int eventId = -1;
+            long eventId = -1;
             Intent intent = getIntent();
             Uri data = intent.getData();
             if (data != null) {
                 try {
-                    eventId = Integer.parseInt(data.getLastPathSegment());
+                    eventId = Long.parseLong(data.getLastPathSegment());
                 } catch (NumberFormatException e) {
                     if (DEBUG) {
                         Log.d(TAG, "Create new event");
                     }
                 }
             }
+
             long begin = intent.getLongExtra(EVENT_BEGIN_TIME, -1);
             long end = intent.getLongExtra(EVENT_END_TIME, -1);
             info = new EventInfo();
