@@ -108,7 +108,7 @@
 
     <!-- Choices for timezones, must be kept in sync with timezone_values. This
          list was taken from package/apps/Settings/res/xml/timezones.xml
-         [CHAR LIMIT=16]-->
+         [CHAR LIMIT=20] -->
     <string-array name="timezone_labels">
         <item>"Marshall Islands"</item>
         <item>"Midway Island"</item>
