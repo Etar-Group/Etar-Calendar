@@ -53,10 +53,14 @@ public class Utils {
     public static final int MODIFY_ALL_FOLLOWING = 2;
     public static final int MODIFY_ALL = 3;
 
-    // When the edit event view finishes it passes back the appropriate exit code.
-    public static final int DONE_REVERT = 0;
-    public static final int DONE_SAVE = 1;
-    public static final int DONE_DELETE = 2;
+    // When the edit event view finishes it passes back the appropriate exit
+    // code.
+    public static final int DONE_REVERT = 1 << 0;
+    public static final int DONE_SAVE = 1 << 1;
+    public static final int DONE_DELETE = 1 << 2;
+    // And should re run with DONE_EXIT if it should also leave the view, just
+    // exiting is identical to reverting
+    public static final int DONE_EXIT = 1 << 0;
 
     private static final int CLEAR_ALPHA_MASK = 0x00FFFFFF;
     private static final int HIGH_ALPHA = 255 << 24;
@@ -66,7 +70,7 @@ public class Utils {
     protected static final String OPEN_EMAIL_MARKER = " <";
     protected static final String CLOSE_EMAIL_MARKER = ">";
     /* The corner should be rounded on the top right and bottom right */
-    private static final float[] CORNERS = new float[] {0, 0, 5, 5, 5, 5, 0, 0};
+    private static final float[] CORNERS = new float[] { 0, 0, 5, 5, 5, 5, 0, 0 };
 
     public static final String INTENT_KEY_DETAIL_VIEW = "DETAIL_VIEW";
     public static final String INTENT_KEY_VIEW_TYPE = "VIEW";
@@ -85,7 +89,7 @@ public class Utils {
         Bundle extras = intent.getExtras();
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(activity);
 
-        if (TextUtils.equals(intent.getAction(),Intent.ACTION_EDIT)) {
+        if (TextUtils.equals(intent.getAction(), Intent.ACTION_EDIT)) {
             return ViewType.EDIT;
         }
         if (extras != null) {
@@ -100,16 +104,15 @@ public class Utils {
         }
 
         // Default to the last view
-        return prefs.getInt(GeneralPreferences.KEY_START_VIEW,
-                GeneralPreferences.DEFAULT_START_VIEW);
+        return prefs.getInt(
+                GeneralPreferences.KEY_START_VIEW, GeneralPreferences.DEFAULT_START_VIEW);
     }
 
     /**
-     * Writes a new home time zone to the db.
-     *
-     * Updates the home time zone in the db asynchronously and updates
-     * the local cache. Sending a time zone of **tbd** will cause it to
-     * be set to the device's time zone. null or empty tz will be ignored.
+     * Writes a new home time zone to the db. Updates the home time zone in the
+     * db asynchronously and updates the local cache. Sending a time zone of
+     * **tbd** will cause it to be set to the device's time zone. null or empty
+     * tz will be ignored.
      *
      * @param context The calling activity
      * @param timeZone The time zone to set Calendar to, or **tbd**
@@ -119,18 +122,19 @@ public class Utils {
     }
 
     /**
-     * Gets the time zone that Calendar should be displayed in
-     *
-     * This is a helper method to get the appropriate time zone for Calendar. If this
-     * is the first time this method has been called it will initiate an asynchronous
-     * query to verify that the data in preferences is correct. The callback supplied
-     * will only be called if this query returns a value other than what is stored in
-     * preferences and should cause the calling activity to refresh anything that
-     * depends on calling this method.
+     * Gets the time zone that Calendar should be displayed in This is a helper
+     * method to get the appropriate time zone for Calendar. If this is the
+     * first time this method has been called it will initiate an asynchronous
+     * query to verify that the data in preferences is correct. The callback
+     * supplied will only be called if this query returns a value other than
+     * what is stored in preferences and should cause the calling activity to
+     * refresh anything that depends on calling this method.
      *
      * @param context The calling activity
-     * @param callback The runnable that should execute if a query returns new values
-     * @return The string value representing the time zone Calendar should display
+     * @param callback The runnable that should execute if a query returns new
+     *            values
+     * @return The string value representing the time zone Calendar should
+     *         display
      */
     public static String getTimeZone(Context context, Runnable callback) {
         return mTZUtils.getTimeZone(context, callback);
@@ -142,12 +146,12 @@ public class Utils {
      * @param context the context is required only if the time is shown
      * @param startMillis the start time in UTC milliseconds
      * @param endMillis the end time in UTC milliseconds
-     * @param flags a bit mask of options See
-     * {@link #formatDateRange(Context, Formatter, long, long, int, String) formatDateRange}
+     * @param flags a bit mask of options See {@link #formatDateRange(Context,
+     *            Formatter, long, long, int, String) formatDateRange}
      * @return a string containing the formatted date/time range.
      */
-    public static String formatDateRange(Context context, long startMillis,
-            long endMillis, int flags) {
+    public static String formatDateRange(
+            Context context, long startMillis, long endMillis, int flags) {
         return mTZUtils.formatDateRange(context, startMillis, endMillis, flags);
     }
 
@@ -218,11 +222,11 @@ public class Utils {
     /**
      * Compares two cursors to see if they contain the same data.
      *
-     * @return Returns true of the cursors contain the same data and are not null, false
-     * otherwise
+     * @return Returns true of the cursors contain the same data and are not
+     *         null, false otherwise
      */
     public static boolean compareCursors(Cursor c1, Cursor c2) {
-        if(c1 == null || c2 == null) {
+        if (c1 == null || c2 == null) {
             return false;
         }
 
@@ -237,9 +241,9 @@ public class Utils {
 
         c1.moveToPosition(-1);
         c2.moveToPosition(-1);
-        while(c1.moveToNext() && c2.moveToNext()) {
-            for(int i = 0; i < numColumns; i++) {
-                if(!TextUtils.equals(c1.getString(i), c2.getString(i))) {
+        while (c1.moveToNext() && c2.moveToNext()) {
+            for (int i = 0; i < numColumns; i++) {
+                if (!TextUtils.equals(c1.getString(i), c2.getString(i))) {
                     return false;
                 }
             }
@@ -253,17 +257,18 @@ public class Utils {
      * then that time is returned. Otherwise, the current time is returned.
      */
     public static final long timeFromIntentInMillis(Intent intent) {
-        // If the time was specified, then use that.  Otherwise, use the current time.
+        // If the time was specified, then use that. Otherwise, use the current
+        // time.
         Uri data = intent.getData();
         long millis = intent.getLongExtra(EVENT_BEGIN_TIME, -1);
         if (millis == -1 && data != null && data.isHierarchical()) {
             List<String> path = data.getPathSegments();
-            if(path.size() == 2 && path.get(0).equals("time")) {
+            if (path.size() == 2 && path.get(0).equals("time")) {
                 try {
                     millis = Long.valueOf(data.getLastPathSegment());
                 } catch (NumberFormatException e) {
-                    Log.i("Calendar", "timeFromIntentInMillis: Data existed but no valid time " +
-                            "found. Using current time.");
+                    Log.i("Calendar", "timeFromIntentInMillis: Data existed but no valid time "
+                            + "found. Using current time.");
                 }
             }
         }
@@ -275,28 +280,26 @@ public class Utils {
 
     public static Drawable getColorChip(int color) {
         /*
-         * We want the color chip to have a nice gradient using
-         * the color of the calendar. To do this we use a GradientDrawable.
-         * The color supplied has an alpha of FF so we first do:
-         * color & 0x00FFFFFF
-         * to clear the alpha. Then we add our alpha to it.
-         * We use 3 colors to get a step effect where it starts off very
-         * light and quickly becomes dark and then a slow transition to
-         * be even darker.
+         * We want the color chip to have a nice gradient using the color of the
+         * calendar. To do this we use a GradientDrawable. The color supplied
+         * has an alpha of FF so we first do: color & 0x00FFFFFF to clear the
+         * alpha. Then we add our alpha to it. We use 3 colors to get a step
+         * effect where it starts off very light and quickly becomes dark and
+         * then a slow transition to be even darker.
          */
         color &= CLEAR_ALPHA_MASK;
         int startColor = color | HIGH_ALPHA;
         int middleColor = color | MED_ALPHA;
         int endColor = color | LOW_ALPHA;
-        int[] colors = new int[] {startColor, middleColor, endColor};
+        int[] colors = new int[] { startColor, middleColor, endColor };
         GradientDrawable d = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colors);
         d.setCornerRadii(CORNERS);
         return d;
     }
 
     /**
-     * Formats the given Time object so that it gives the month and year
-     * (for example, "September 2007").
+     * Formats the given Time object so that it gives the month and year (for
+     * example, "September 2007").
      *
      * @param time the time to format
      * @return the string containing the weekday and the date
@@ -329,12 +332,13 @@ public class Utils {
 
     /**
      * Get first day of week as android.text.format.Time constant.
+     *
      * @return the first day of week in android.text.format.Time
      */
     public static int getFirstDayOfWeek(Context context) {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
-        String pref = prefs.getString(GeneralPreferences.KEY_WEEK_START_DAY,
-                GeneralPreferences.WEEK_START_DEFAULT);
+        String pref = prefs.getString(
+                GeneralPreferences.KEY_WEEK_START_DAY, GeneralPreferences.WEEK_START_DEFAULT);
 
         int startDay;
         if (GeneralPreferences.WEEK_START_DEFAULT.equals(pref)) {
@@ -354,26 +358,28 @@ public class Utils {
 
     /**
      * Determine whether the column position is Saturday or not.
+     *
      * @param column the column position
      * @param firstDayOfWeek the first day of week in android.text.format.Time
      * @return true if the column is Saturday position
      */
     public static boolean isSaturday(int column, int firstDayOfWeek) {
         return (firstDayOfWeek == Time.SUNDAY && column == 6)
-            || (firstDayOfWeek == Time.MONDAY && column == 5)
-            || (firstDayOfWeek == Time.SATURDAY && column == 0);
+                || (firstDayOfWeek == Time.MONDAY && column == 5)
+                || (firstDayOfWeek == Time.SATURDAY && column == 0);
     }
 
     /**
      * Determine whether the column position is Sunday or not.
+     *
      * @param column the column position
      * @param firstDayOfWeek the first day of week in android.text.format.Time
      * @return true if the column is Sunday position
      */
     public static boolean isSunday(int column, int firstDayOfWeek) {
         return (firstDayOfWeek == Time.SUNDAY && column == 0)
-            || (firstDayOfWeek == Time.MONDAY && column == 6)
-            || (firstDayOfWeek == Time.SATURDAY && column == 1);
+                || (firstDayOfWeek == Time.MONDAY && column == 6)
+                || (firstDayOfWeek == Time.SATURDAY && column == 1);
     }
 
     /**
@@ -394,15 +400,15 @@ public class Utils {
 
     /**
      * Scan through a cursor of calendars and check if names are duplicated.
+     * This travels a cursor containing calendar display names and fills in the
+     * provided map with whether or not each name is repeated.
      *
-     * This travels a cursor containing calendar display names and fills in the provided map with
-     * whether or not each name is repeated.
      * @param isDuplicateName The map to put the duplicate check results in.
      * @param cursor The query of calendars to check
      * @param nameIndex The column of the query that contains the display name
      */
-    public static void checkForDuplicateNames(Map<String, Boolean> isDuplicateName, Cursor cursor,
-            int nameIndex) {
+    public static void checkForDuplicateNames(
+            Map<String, Boolean> isDuplicateName, Cursor cursor, int nameIndex) {
         isDuplicateName.clear();
         cursor.moveToPosition(-1);
         while (cursor.moveToNext()) {
@@ -416,6 +422,7 @@ public class Utils {
 
     /**
      * Null-safe object comparison
+     *
      * @param s1
      * @param s2
      * @return

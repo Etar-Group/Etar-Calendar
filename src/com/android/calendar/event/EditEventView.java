@@ -16,7 +16,6 @@
 
 package com.android.calendar.event;
 
-import com.android.calendar.AllInOneActivity;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.EmailAddressAdapter;
@@ -51,6 +50,7 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.text.util.Rfc822Tokenizer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -77,7 +77,7 @@ import java.util.TimeZone;
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
         DialogInterface.OnClickListener {
 
-    private static final String TAG = EditEventView.class.getSimpleName();
+    private static final String TAG = "EditEvent";
 
     private static final int REMINDER_FLING_VELOCITY = 2000;
 
@@ -307,8 +307,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         builder.setSingleChoiceItems(
                 mTimezoneAdapter, mTimezoneAdapter.getRowById(mTimezone), this);
         mTimezoneDialog = builder.create();
-        mTimezoneFooterView.setText(
-                mActivity.getString(R.string.edit_event_show_all) + " >");
+        mTimezoneFooterView.setText(mActivity.getString(R.string.edit_event_show_all) + " >");
         mTimezoneFooterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -342,8 +341,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 DateUtils.getDayOfWeekString(Calendar.WEDNESDAY, DateUtils.LENGTH_MEDIUM),
                 DateUtils.getDayOfWeekString(Calendar.THURSDAY, DateUtils.LENGTH_MEDIUM),
                 DateUtils.getDayOfWeekString(Calendar.FRIDAY, DateUtils.LENGTH_MEDIUM),
-                DateUtils.getDayOfWeekString(Calendar.SATURDAY, DateUtils.LENGTH_MEDIUM),
-        };
+                DateUtils.getDayOfWeekString(Calendar.SATURDAY, DateUtils.LENGTH_MEDIUM), };
         String[] ordinals = r.getStringArray(R.array.ordinal_labels);
 
         // Only display "Custom" in the spinner if the device does not support
@@ -407,20 +405,20 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                         break;
                     case EventRecurrence.WEEKLY:
                         if (mEventRecurrence.repeatsOnEveryWeekDay()) {
-                            position = recurrenceIndexes
-                                    .indexOf(EditEventHelper.REPEATS_EVERY_WEEKDAY);
+                            position = recurrenceIndexes.indexOf(
+                                    EditEventHelper.REPEATS_EVERY_WEEKDAY);
                         } else {
-                            position = recurrenceIndexes
-                                    .indexOf(EditEventHelper.REPEATS_WEEKLY_ON_DAY);
+                            position = recurrenceIndexes.indexOf(
+                                    EditEventHelper.REPEATS_WEEKLY_ON_DAY);
                         }
                         break;
                     case EventRecurrence.MONTHLY:
                         if (mEventRecurrence.repeatsMonthlyOnDayCount()) {
-                            position = recurrenceIndexes
-                                    .indexOf(EditEventHelper.REPEATS_MONTHLY_ON_DAY_COUNT);
+                            position = recurrenceIndexes.indexOf(
+                                    EditEventHelper.REPEATS_MONTHLY_ON_DAY_COUNT);
                         } else {
-                            position = recurrenceIndexes
-                                    .indexOf(EditEventHelper.REPEATS_MONTHLY_ON_DAY);
+                            position = recurrenceIndexes.indexOf(
+                                    EditEventHelper.REPEATS_MONTHLY_ON_DAY);
                         }
                         break;
                     case EventRecurrence.YEARLY:
@@ -490,8 +488,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         public void onClick(View v) {
-            new DatePickerDialog(mActivity, new DateListener(v), mTime.year, mTime.month,
-                    mTime.monthDay).show();
+            new DatePickerDialog(
+                    mActivity, new DateListener(v), mTime.year, mTime.month, mTime.monthDay).show();
         }
     }
 
@@ -528,6 +526,25 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
     }
 
+    /**
+     * Does prep steps for saving a calendar event.
+     *
+     * This triggers a parse of the attendees list and checks if the event is
+     * ready to be saved. An event is ready to be saved so long as it has a
+     * calendar it can be associated with, either because it's an existing event
+     * or we've finished querying
+     *
+     * @return false if no calendar had been loaded yet, true otherwise
+     */
+    public boolean prepareForSave() {
+        if (mCalendarsCursor == null && mModel.mUri == null) {
+            return false;
+        }
+        mAddAttendeesListener.onClick(null);
+        fillModelFromUI();
+        return true;
+    }
+
     // This is called if the user clicks on one of the buttons: "Save",
     // "Discard", or "Delete". This is also called if the user clicks
     // on the "remove reminder" button.
@@ -548,7 +565,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     mSaveAfterQueryComplete = true;
                 }
             } else if (fillModelFromUI()) {
-                mDone.setDoneCode(Utils.DONE_SAVE);
+                mDone.setDoneCode(Utils.DONE_SAVE | Utils.DONE_EXIT);
                 mDone.run();
             } else {
                 mDone.setDoneCode(Utils.DONE_REVERT);
@@ -558,7 +575,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         if (v == mDeleteButton) {
-            mDone.setDoneCode(Utils.DONE_DELETE);
+            mDone.setDoneCode(Utils.DONE_DELETE | Utils.DONE_EXIT);
             mDone.run();
             return;
         }
@@ -614,8 +631,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (mModel == null) {
             return false;
         }
-        mModel.mReminderMinutes = EventViewUtils.reminderItemsToMinutes(mReminderItems,
-                mReminderValues);
+        mModel.mReminderMinutes = EventViewUtils.reminderItemsToMinutes(
+                mReminderItems, mReminderValues);
         mModel.mHasAlarm = mReminderItems.size() > 0;
         mModel.mTitle = mTitleTextView.getText().toString().trim();
         mModel.mAllDay = mAllDayCheckBox.isChecked();
@@ -646,10 +663,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mModel.mCalendarId = mCalendarsSpinner.getSelectedItemId();
             int calendarCursorPosition = mCalendarsSpinner.getSelectedItemPosition();
             if (mCalendarsCursor.moveToPosition(calendarCursorPosition)) {
-                String defaultCalendar = mCalendarsCursor
-                        .getString(EditEventHelper.CALENDARS_INDEX_OWNER_ACCOUNT);
-                Utils.setSharedPreference(mActivity,
-                        GeneralPreferences.KEY_DEFAULT_CALENDAR, defaultCalendar);
+                String defaultCalendar = mCalendarsCursor.getString(
+                        EditEventHelper.CALENDARS_INDEX_OWNER_ACCOUNT);
+                Utils.setSharedPreference(
+                        mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, defaultCalendar);
                 mModel.mOwnerAccount = defaultCalendar;
                 mModel.mOrganizer = defaultCalendar;
                 mModel.mCalendarId = mCalendarsCursor.getLong(EditEventHelper.CALENDARS_INDEX_ID);
@@ -696,8 +713,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             selection = mRecurrenceIndexes.get(position);
         }
 
-        EditEventHelper.updateRecurrenceRule(selection, mModel,
-                Utils.getFirstDayOfWeek(mActivity) + 1);
+        EditEventHelper.updateRecurrenceRule(
+                selection, mModel, Utils.getFirstDayOfWeek(mActivity) + 1);
 
         // Save the timezone so we can display it as a standard option next time
         if (!mModel.mAllDay) {
@@ -894,8 +911,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mReminderLabels = new ArrayList<String>(Arrays.asList(labels));
 
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(mActivity);
-        String durationString = prefs.getString(GeneralPreferences.KEY_DEFAULT_REMINDER,
-                "0");
+        String durationString = prefs.getString(GeneralPreferences.KEY_DEFAULT_REMINDER, "0");
         mDefaultReminderMinutes = Integer.parseInt(durationString);
 
         int numReminders = 0;
@@ -903,8 +919,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             ArrayList<Integer> minutes = model.mReminderMinutes;
             numReminders = minutes.size();
             for (Integer minute : minutes) {
-                EventViewUtils.addMinutesToList( mActivity, mReminderValues, mReminderLabels,
-                        minute);
+                EventViewUtils.addMinutesToList(
+                        mActivity, mReminderValues, mReminderLabels, minute);
                 EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
                         mReminderValues, mReminderLabels, minute);
             }
@@ -954,7 +970,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return 0;
     }
 
-    public void setCalendarsCursor(Cursor cursor) {
+    public void setCalendarsCursor(Cursor cursor, boolean userVisible) {
         // If there are no syncable calendars, then we cannot allow
         // creating a new event.
         mCalendarsCursor = cursor;
@@ -962,6 +978,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             // Cancel the "loading calendars" dialog if it exists
             if (mSaveAfterQueryComplete) {
                 mLoadingCalendarsDialog.cancel();
+            }
+            if (!userVisible) {
+                return;
             }
             // Create an error message for the user that, when clicked,
             // will exit this activity without saving the event.
@@ -1002,12 +1021,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         if (mSaveAfterQueryComplete) {
             mLoadingCalendarsDialog.cancel();
-            if (fillModelFromUI()) {
-                mDone.setDoneCode(Utils.DONE_SAVE);
+            if (prepareForSave() && fillModelFromUI()) {
+                int exit = userVisible ? Utils.DONE_EXIT : 0;
+                mDone.setDoneCode(Utils.DONE_SAVE | exit);
                 mDone.run();
-            } else {
-                mDone.setDoneCode(Utils.DONE_REVERT);
+            } else if (userVisible) {
+                mDone.setDoneCode(Utils.DONE_EXIT);
                 mDone.run();
+            } else if (Log.isLoggable(TAG, Log.DEBUG)) {
+                Log.d(TAG, "SetCalendarsCursor:Save failed and unable to exit view");
             }
             return;
         }
@@ -1032,8 +1054,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return -1;
         }
 
-        String defaultCalendar = Utils.getSharedPreference(mActivity,
-                GeneralPreferences.KEY_DEFAULT_CALENDAR, null);
+        String defaultCalendar = Utils.getSharedPreference(
+                mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, null);
 
         if (defaultCalendar == null) {
             return 0;
@@ -1107,9 +1129,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      * followed by any combination of letters and symbols, including one+ dots
      * and zero commas, should insert an extra comma (followed by the space).
      */
-    private static InputFilter[] sRecipientFilters = new InputFilter[] {
-        new Rfc822InputFilter()
-    };
+    private static InputFilter[] sRecipientFilters = new InputFilter[] { new Rfc822InputFilter() };
 
     private void setDate(TextView view, long millis) {
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR

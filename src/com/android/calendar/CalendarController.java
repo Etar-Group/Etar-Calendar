@@ -70,6 +70,7 @@ public class CalendarController {
     private int mViewType = -1;
     private int mDetailViewType = -1;
     private int mPreviousViewType = -1;
+    private long mEventId = -1;
     private Time mTime = new Time();
 
     private AsyncQueryService mService;
@@ -90,6 +91,9 @@ public class CalendarController {
         final long EVENTS_CHANGED = 1L << 6;
 
         final long SEARCH = 1L << 7;
+
+        // User has pressed the home key
+        final long USER_HOME = 1L << 8;
     }
 
     /**
@@ -293,6 +297,16 @@ public class CalendarController {
         }
         event.startTime = mTime;
 
+        // Store the eventId if we're entering edit event
+        if ((event.eventType & (EventType.CREATE_EVENT | EventType.EDIT_EVENT)) != 0 ||
+                (event.eventType == EventType.GO_TO && event.viewType == ViewType.EDIT)) {
+            if (event.id > 0) {
+                mEventId = event.id;
+            } else {
+                mEventId = -1;
+            }
+        }
+
         boolean handled = false;
         synchronized (this) {
             mDispatchInProgress = true;
@@ -390,6 +404,13 @@ public class CalendarController {
         return mTime.toMillis(false);
     }
 
+    /**
+     * @return the last event ID the edit view was launched with
+     */
+    public long getEventId() {
+        return mEventId;
+    }
+
     public int getViewType() {
         return mViewType;
     }
@@ -410,6 +431,7 @@ public class CalendarController {
         intent.setClassName(mContext, EditEventActivity.class.getName());
         intent.putExtra(EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EVENT_END_TIME, endMillis);
+        mEventId = -1;
         mContext.startActivity(intent);
     }
 
@@ -429,6 +451,7 @@ public class CalendarController {
         intent.putExtra(EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EVENT_END_TIME, endMillis);
         intent.setClass(mContext, EditEventActivity.class);
+        mEventId = eventId;
         mContext.startActivity(intent);
     }
 
@@ -467,6 +490,11 @@ public class CalendarController {
     // Forces the viewType. Should only be used for initialization.
     public void setViewType(int viewType) {
         mViewType = viewType;
+    }
+
+    // Sets the eventId. Should only be used for initialization.
+    public void setEventId(long eventId) {
+        mEventId = eventId;
     }
 
     private class RefreshInBackground extends AsyncTask<Cursor, Integer, Integer> {
