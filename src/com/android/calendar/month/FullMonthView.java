@@ -242,7 +242,6 @@ public class FullMonthView extends MiniMonthView {
 
         ArrayList<Event> dayEvents = mEventDayList.get(julianOffset);
         int numEvents = dayEvents.size();
-        Time time = new Time();
         int eventsDisplayed = 0;
         int j = 0;
         // Keep drawing while we have room for 'more events' or all the events
@@ -277,13 +276,12 @@ public class FullMonthView extends MiniMonthView {
             // Have to clear out the sb or it will keep appending forever
             mStringBuilder.setLength(0);
             if (!event.allDay) {
-            disp = DateUtils.formatDateRange(mContext, mFormatter, event.startMillis,
-                    event.endMillis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL)
-                    .toString();
+                disp = DateUtils.formatDateRange(mContext, mFormatter, event.startMillis,
+                        event.endMillis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
+                        Utils.getTimeZone(mContext, null)).toString();
             } else {
                 disp = DateUtils.formatDateRange(mContext, mFormatter, event.startMillis,
-                        event.endMillis, DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_UTC)
-                        .toString();
+                        event.endMillis, DateUtils.FORMAT_ABBREV_ALL, Time.TIMEZONE_UTC).toString();
             }
 
             bot += stepHeight;
@@ -319,6 +317,9 @@ public class FullMonthView extends MiniMonthView {
 
     @Override
     public void reloadEvents() {
+        // Ensure everything is in the correct time zone. This may affect what
+        // day today is and can be called by the fragment when the db changes.
+        mUpdateTZ.run();
         if (!mShowDNA) {
             return;
         }
