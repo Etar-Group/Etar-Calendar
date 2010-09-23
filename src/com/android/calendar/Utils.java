@@ -31,15 +31,13 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.util.CalendarUtils.TimeZoneUtils;
 import android.util.Log;
 
 import java.util.Calendar;
 import java.util.Formatter;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -74,16 +72,13 @@ public class Utils {
     public static final String INTENT_KEY_VIEW_TYPE = "VIEW";
     public static final String INTENT_VALUE_VIEW_TYPE_DAY = "DAY";
 
-    private static StringBuilder mSB = new StringBuilder(50);
-    private static Formatter mF = new Formatter(mSB, Locale.getDefault());
+    // The name of the shared preferences file. This name must be maintained for
+    // historical
+    // reasons, as it's what PreferenceManager assigned the first time the file
+    // was created.
+    private static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
 
-    private volatile static boolean mFirstTZRequest = true;
-    private volatile static boolean mTZQueryInProgress = false;
-
-    private volatile static boolean mUseHomeTZ = false;
-    private volatile static String mHomeTZ = Time.getCurrentTimezone();
-
-    private static HashSet<Runnable> mTZCallbacks = new HashSet<Runnable>();
+    private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
 
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
         Intent intent = activity.getIntent();
@@ -120,33 +115,7 @@ public class Utils {
      * @param timeZone The time zone to set Calendar to, or **tbd**
      */
     public static void setTimeZone(Context context, String timeZone) {
-        if (TextUtils.isEmpty(timeZone)) {
-            if (DEBUG) {
-                Log.d(TAG, "Empty time zone, nothing to be done.");
-            }
-            return;
-        }
-        boolean updatePrefs = false;
-        synchronized (mTZCallbacks) {
-            if (GeneralPreferences.LOCAL_TZ.equals(timeZone)) {
-                if (mUseHomeTZ) {
-                    updatePrefs = true;
-                }
-                mUseHomeTZ = false;
-            } else {
-                if (!mUseHomeTZ || !TextUtils.equals(mHomeTZ, timeZone)) {
-                    updatePrefs = true;
-                }
-                mUseHomeTZ = true;
-                mHomeTZ = timeZone;
-            }
-        }
-        if (updatePrefs) {
-            setSharedPreference(context, GeneralPreferences.KEY_HOME_TZ_ENABLED,
-                    mUseHomeTZ);
-            setSharedPreference(context, GeneralPreferences.KEY_HOME_TZ, mHomeTZ);
-        }
-        // TODO async update db
+        mTZUtils.setTimeZone(context, timeZone);
     }
 
     /**
@@ -164,34 +133,7 @@ public class Utils {
      * @return The string value representing the time zone Calendar should display
      */
     public static String getTimeZone(Context context, Runnable callback) {
-        synchronized (mTZCallbacks){
-            if (mFirstTZRequest) {
-                mTZQueryInProgress = true;
-                mFirstTZRequest = false;
-
-                SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
-                mUseHomeTZ = prefs.getBoolean(
-                        GeneralPreferences.KEY_HOME_TZ_ENABLED, false);
-                mHomeTZ = prefs.getString(
-                        GeneralPreferences.KEY_HOME_TZ, Time.getCurrentTimezone());
-                // TODO kick off async query
-                // When the async query returns it should synchronize on
-                // mTZCallbacks, update mUseHomeTZ, mHomeTZ, and the
-                // preferences, set mTZQueryInProgress to false, and call all
-                // the runnables in mTZCallbacks.
-                // TODO remove this line when we have a query
-                mTZQueryInProgress = false;
-            }
-            if (mTZQueryInProgress) {
-                mTZCallbacks.add(callback);
-            }
-        }
-        return mUseHomeTZ ? mHomeTZ : Time.getCurrentTimezone();
-    }
-
-    public static String getSharedPreference(Context context, String key, String defaultValue) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
-        return prefs.getString(key, defaultValue);
+        return mTZUtils.getTimeZone(context, callback);
     }
 
     /**
@@ -206,13 +148,12 @@ public class Utils {
      */
     public static String formatDateRange(Context context, long startMillis,
             long endMillis, int flags) {
-        String date;
-        synchronized (mSB) {
-            mSB.setLength(0);
-            date = DateUtils.formatDateRange(context, mF, startMillis, endMillis, flags,
-                    getTimeZone(context, null)).toString();
-        }
-        return date;
+        return mTZUtils.formatDateRange(context, startMillis, endMillis, flags);
+    }
+
+    public static String getSharedPreference(Context context, String key, String defaultValue) {
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        return prefs.getString(key, defaultValue);
     }
 
     public static int getSharedPreference(Context context, String key, int defaultValue) {
