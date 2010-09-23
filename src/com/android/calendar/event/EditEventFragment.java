@@ -32,6 +32,7 @@ import android.app.Fragment;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
@@ -49,6 +50,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 public class EditEventFragment extends Fragment implements EventHandler {
@@ -80,6 +82,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private Done mOnDone = new Done();
 
     private boolean mSaveOnDetach = true;
+
+    private InputMethodManager mInputMethodManager;
 
     private class QueryHandler extends AsyncQueryHandler {
         public QueryHandler(ContentResolver cr) {
@@ -311,6 +315,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
         mHelper = new EditEventHelper(activity, null);
         mHandler = new QueryHandler(activity.getContentResolver());
         mModel = new CalendarEventModel(activity);
+        mInputMethodManager = (InputMethodManager)
+                activity.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     @Override
@@ -478,6 +484,13 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 default:
                     Log.e(TAG, "done: Unrecognized exit code.");
                     break;
+            }
+            // Hide a software keyboard so that user won't see it even after this Fragment's
+            // disappearing.
+            final View focusedView = mContext.getCurrentFocus();
+            if (focusedView != null) {
+                mInputMethodManager.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
+                focusedView.clearFocus();
             }
             CalendarController controller = CalendarController.getInstance(mContext);
             controller.sendEvent(EditEventFragment.this, EventType.GO_TO, start, null, -1,
