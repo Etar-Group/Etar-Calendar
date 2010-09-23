@@ -212,7 +212,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             dataString += "/" + goToTime;
         }
         Uri data = Uri.parse(dataString);
-        fillInIntent.setData(data);
+        fillInIntent.setDataAndType(data, "vnd.android.cursor.item/event");
         return fillInIntent;
     }
 
