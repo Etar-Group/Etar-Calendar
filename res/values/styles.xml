@@ -71,6 +71,12 @@
         <item name="android:paddingLeft">2dip</item>
     </style>
 
+    <style name="TextAppearance.EditEvent_homeTime">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:paddingRight">2dip</item>
+    </style>
+
     <style name="EditEvent_Layout">
         <item name="android:paddingLeft">6dip</item>
         <item name="android:paddingRight">7dip</item>
