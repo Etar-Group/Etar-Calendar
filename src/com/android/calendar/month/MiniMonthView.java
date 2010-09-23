@@ -120,9 +120,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected int mFocusWeek = DEFAULT_NUM_WEEKS / 3;
     // The top left day displayed. Drawing and selecting use this as a reference
     // point.
-    protected Time mFirstDay = new Time();
+    protected Time mFirstDay;
     // The current day being drawn to the canvas
-    protected Time mDrawingDay = new Time();
+    protected Time mDrawingDay;
     // Whether the current day being drawn is today
     protected boolean mDrawingToday;
     // Whether the current day being drawn is selected
@@ -155,16 +155,16 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     // The time being focused on, typically the first day in the week
     // that is in the mFocusWeek position
     protected Time mViewCalendar;
-    protected Time mSelectedDay = new Time();
-    protected Time mSavedTime = new Time();   // the time when we entered this view
+    protected Time mSelectedDay;
+    protected Time mSavedTime; // the time when we entered this view
     protected boolean mIsEvenMonth; // whether today is in an even numbered month
 
     // This Time object is used to set the time for the other Month view.
-    protected Time mOtherViewCalendar = new Time();
+    protected Time mOtherViewCalendar;
 
     // This Time object is used for temporary calculations and is allocated
     // once to avoid extra garbage collection
-    protected Time mTempTime = new Time();
+    protected Time mTempTime;
 
     protected Drawable mBoxSelected;
     protected Drawable mBoxPressed;
@@ -260,6 +260,36 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     // Background color for 'today'
     protected int mMonthTodayBgColor;
 
+    protected Runnable mUpdateTZ = new Runnable() {
+        @Override
+        public void run() {
+            String tz = Utils.getTimeZone(mContext, this);
+
+            // These fields we want to keep the same day
+            mFirstDay.timezone = tz;
+            mFirstDay.normalize(true);
+            mDrawingDay.timezone = tz;
+            mDrawingDay.normalize(true);
+            mViewCalendar.timezone = tz;
+            mViewCalendar.normalize(true);
+            mSelectedDay.timezone = tz;
+            mSelectedDay.normalize(true);
+            mSavedTime.timezone = tz;
+            mSavedTime.normalize(true);
+            mOtherViewCalendar.timezone = tz;
+            mOtherViewCalendar.normalize(true);
+            mTempTime.timezone = tz;
+            mTempTime.normalize(true);
+
+            // These fields we want to keep the same time but allow to switch
+            // days
+            mToday.switchTimezone(tz);
+            mToday.normalize(true);
+
+            invalidate();
+        }
+    };
+
     public MiniMonthView(Context activity, CalendarController controller, EventLoader eventLoader) {
         super(activity);
         if (mScale == 0) {
@@ -302,7 +332,17 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         setClickable(true);
         setOnCreateContextMenuListener(this);
         mContext = activity;
-        mViewCalendar = new Time();
+
+        String tz = Utils.getTimeZone(activity, mUpdateTZ);
+        mViewCalendar = new Time(tz);
+        mFirstDay = new Time(tz);
+        mDrawingDay = new Time(tz);
+        mSelectedDay = new Time(tz);
+        mSavedTime = new Time(tz);
+        mToday = new Time(tz);
+        mOtherViewCalendar = new Time(tz);
+        mTempTime = new Time(tz);
+
         long now = System.currentTimeMillis();
         mViewCalendar.set(now);
         mViewCalendar.monthDay = 1;
@@ -314,7 +354,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         // The first week is mFocusWeek weeks earlier than the current week
         mFirstDay.set(now - DateUtils.WEEK_IN_MILLIS * mFocusWeek);
         makeFirstDayOfWeek(mFirstDay);
-        mToday = new Time();
         mToday.set(System.currentTimeMillis());
         mIsEvenMonth = (mToday.month & 1) == 0;
 
@@ -484,7 +523,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     private class GoToScroll implements Runnable {
         int mWeeks;
 //        int mScrollCount;
-        Time mStartTime = new Time();
+        Time mStartTime;
         private static final int SCROLL_REPEAT_INTERVAL = 30;
         private static final int MAX_FLING_DURATION_MILLIS = 512;
         private static final int INITIAL_FLING_DURATION_MILLIS = 256;
@@ -503,6 +542,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
                 // Will send it to the last week of 2036
                 numWeeksToScroll = MAX_WEEK - currFirstWeek - mNumWeeksDisplayed + 1;
             }
+            mStartTime = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
             mInitialOffset = mWeekOffset;
             mWeeks = numWeeksToScroll;
             mStartTime.set(mFirstDay);
@@ -573,7 +613,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         final int flags = DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_SHOW_DATE
                 | DateUtils.FORMAT_ABBREV_MONTH;
 
-        final String title = DateUtils.formatDateTime(mContext, startMillis, flags);
+        final String title = Utils.formatDateRange(mContext, startMillis, startMillis, flags);
         menu.setHeaderTitle(title);
 
         item = menu.add(0, MENU_DAY, 0, R.string.show_day_view);
@@ -621,6 +661,9 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     }
 
     public void reloadEvents() {
+        // Ensure everything is in the correct time zone. This may affect what
+        // day today is and can be called by the fragment when the db changes.
+        mUpdateTZ.run();
         if (!mShowDNA) {
             return;
         }
