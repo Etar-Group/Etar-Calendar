@@ -19,7 +19,7 @@
     <string name="app_label" msgid="5452708708398908131">"日历"</string>
     <string name="what_label" msgid="1933578391985810049">"内容"</string>
     <string name="where_label" msgid="3472482206065595118">"地点"</string>
-    <!-- outdated translation 2030635806231207425 -->     <string name="timezone_label" msgid="3988530993300431650">"时区"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"时区"</string>
     <string name="attendees_label" msgid="2971281641565729725">"邀请对象"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"重复"</string>
@@ -86,18 +86,12 @@
     <string name="reminders_label" msgid="8345054160145333166">"提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"无日历"</string>
     <string name="no_calendars_found" msgid="755379468136462058">"您没有日历。"</string>
-    <!-- no translation found for content_description_edit_event_from_date (4180292119507352306) -->
-    <skip />
-    <!-- no translation found for content_description_edit_event_from_time (6740212065246258103) -->
-    <skip />
-    <!-- no translation found for content_description_edit_event_to_date (2731432809487159262) -->
-    <skip />
-    <!-- no translation found for content_description_edit_event_to_time (5266222191518214928) -->
-    <skip />
-    <!-- no translation found for content_description_edit_event_reminders (62776037465727715) -->
-    <skip />
-    <!-- no translation found for content_description_edit_event_remove_reminder (877549621029991866) -->
-    <skip />
+    <string name="content_description_edit_event_from_date" msgid="4180292119507352306">"开始日期"</string>
+    <string name="content_description_edit_event_from_time" msgid="6740212065246258103">"开始时间"</string>
+    <string name="content_description_edit_event_to_date" msgid="2731432809487159262">"结束日期"</string>
+    <string name="content_description_edit_event_to_time" msgid="5266222191518214928">"结束时间"</string>
+    <string name="content_description_edit_event_reminders" msgid="62776037465727715">"提醒"</string>
+    <string name="content_description_edit_event_remove_reminder" msgid="877549621029991866">"删除提醒"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"日历："</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"组织者："</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"本地时区："</string>
@@ -143,12 +137,9 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"默认提醒时间"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"默认提醒时间"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <!-- no translation found for preferences_use_home_tz_title (5597546849968598210) -->
-    <skip />
-    <!-- no translation found for preferences_use_home_tz_descrip (4835375381297413746) -->
-    <skip />
-    <!-- no translation found for preferences_home_tz_title (6680000444088818578) -->
-    <skip />
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"使用主时区"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行时按主时区显示日历和活动时间"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"主时区"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"关于"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"版本号"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
