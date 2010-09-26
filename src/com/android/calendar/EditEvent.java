@@ -63,6 +63,7 @@ import android.text.format.Time;
 import android.text.util.Rfc822Token;
 import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -1306,32 +1307,51 @@ public class EditEvent extends Activity implements View.OnClickListener,
         }
     }
 
+    /**
+     * Removes "Show all timezone" footer and adds all timezones to the dialog.
+     */
+    private void showAllTimezone(ListView listView) {
+        final ListView lv = listView;  // For making this variable available from Runnable.
+        lv.removeFooterView(mTimezoneFooterView);
+        mTimezoneAdapter.showAllTimezones();
+        final int row = mTimezoneAdapter.getRowById(mTimezone);
+        // we need to post the selection changes to have them have any effect.
+        lv.post(new Runnable() {
+            @Override
+            public void run() {
+                lv.setItemChecked(row, true);
+                lv.setSelection(row);
+            }
+        });
+    }
+
     private void showTimezoneDialog() {
         mTimezoneAdapter = new TimezoneAdapter(this, mTimezone);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.timezone_label);
-        int row = mTimezoneAdapter.getRowById(mTimezone);
-        builder.setSingleChoiceItems(mTimezoneAdapter, row, this);
-        mTimezoneDialog = builder.create();
+        final int row = mTimezoneAdapter.getRowById(mTimezone);
+        mTimezoneDialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.timezone_label)
+                .setSingleChoiceItems(mTimezoneAdapter, row, this)
+                .create();
         final ListView lv = mTimezoneDialog.getListView();
         mTimezoneFooterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lv.removeFooterView(mTimezoneFooterView);
-                mTimezoneAdapter.showAllTimezones();
-                final int row = mTimezoneAdapter.getRowById(mTimezone);
-                // we need to post the selection changes to have them have
-                // any effect
-                lv.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        lv.setItemChecked(row, true);
-                        lv.setSelection(row);
-                    }
-                });
+                showAllTimezone(lv);
             }
         });
         lv.addFooterView(mTimezoneFooterView);
+        mTimezoneDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER &&
+                        lv.getSelectedView() == mTimezoneFooterView) {
+                    showAllTimezone(lv);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
         mTimezoneDialog.show();
     }
 
