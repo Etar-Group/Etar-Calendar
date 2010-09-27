@@ -26,7 +26,6 @@ import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.event.EditEventFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
-import com.android.calendar.widget.CalendarAppWidgetProvider;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -55,6 +54,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
     private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
+    private static final String BUNDLE_KEY_RESTORE_EDIT = "key_restore_edit";
+    private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
     private static final int HANDLER_KEY = 0;
     private static CalendarController mController;
     private static boolean mIsMultipane;
@@ -64,8 +65,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     // Create an observer so that we can update the views whenever a
     // Calendar event changes.
-    private ContentObserver mObserver = new ContentObserver(new Handler())
-    {
+    private ContentObserver mObserver = new ContentObserver(new Handler()) {
         @Override
         public boolean deliverSelfNotifications() {
             return true;
@@ -90,12 +90,25 @@ public class AllInOneActivity extends Activity implements EventHandler,
         } else {
             timeMillis = Utils.timeFromIntentInMillis(getIntent());
         }
-        int viewType = Utils.getViewTypeFromIntentAndSharedPref(this);
+        boolean restoreEdit = icicle != null ? icicle.getBoolean(BUNDLE_KEY_RESTORE_EDIT, false)
+                : false;
+        int viewType;
+        if (restoreEdit) {
+            viewType = ViewType.EDIT;
+        } else {
+            viewType = Utils.getViewTypeFromIntentAndSharedPref(this);
+        }
         Time t = new Time();
         t.set(timeMillis);
 
-        mIsMultipane = (getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
+        if (icicle != null && getIntent() != null) {
+            Log.d(TAG, "both, icicle:" + icicle.toString() + "  intent:" + getIntent().toString());
+        } else {
+            Log.d(TAG, "not both, icicle:" + icicle + " intent:" + getIntent());
+        }
+
+        mIsMultipane = (getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
 
         // Must be the first to register because this activity can modify the
         // list of event handlers in it's handle method. This affects who the
@@ -104,7 +117,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         setContentView(R.layout.all_in_one);
 
-        initFragments(timeMillis, viewType);
+        initFragments(timeMillis, viewType, icicle);
 
         // Listen for changes that would require this to be refreshed
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
@@ -122,10 +135,16 @@ public class AllInOneActivity extends Activity implements EventHandler,
     protected void onPause() {
         super.onPause();
         mContentResolver.unregisterContentObserver(mObserver);
-        //FRAG_TODO save highlighted days of the week;
+        // FRAG_TODO save highlighted days of the week;
         if (mController.getViewType() != ViewType.EDIT) {
             Utils.setDefaultView(this, mController.getViewType());
         }
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        mController.sendEvent(this, EventType.USER_HOME, null, null, -1, ViewType.CURRENT);
+        super.onUserLeaveHint();
     }
 
     @Override
@@ -133,6 +152,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
         super.onSaveInstanceState(outState);
 
         outState.putLong(BUNDLE_KEY_RESTORE_TIME, mController.getTime());
+        if (mCurrentView == ViewType.EDIT) {
+            outState.putBoolean(BUNDLE_KEY_RESTORE_EDIT, true);
+            outState.putLong(BUNDLE_KEY_EVENT_ID, mController.getEventId());
+        }
     }
 
     @Override
@@ -144,7 +167,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         CalendarController.removeInstance(this);
     }
 
-    private void initFragments(long timeMillis, int viewType) {
+    private void initFragments(long timeMillis, int viewType, Bundle icicle) {
         FragmentTransaction ft = getFragmentManager().openTransaction();
 
         if (mIsMultipane) {
@@ -155,7 +178,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             Fragment selectCalendarsFrag = new SelectCalendarsFragment();
             ft.replace(R.id.calendar_list, selectCalendarsFrag);
         }
-        if (!mIsMultipane || viewType == ViewType.EDIT){
+        if (!mIsMultipane || viewType == ViewType.EDIT) {
             findViewById(R.id.mini_month).setVisibility(View.GONE);
             findViewById(R.id.calendar_list).setVisibility(View.GONE);
         }
@@ -163,8 +186,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         EventInfo info = null;
         if (viewType == ViewType.EDIT) {
             mPreviousView = GeneralPreferences.getSharedPreferences(this).getInt(
-                    GeneralPreferences.KEY_START_VIEW,
-                    GeneralPreferences.DEFAULT_START_VIEW);
+                    GeneralPreferences.KEY_START_VIEW, GeneralPreferences.DEFAULT_START_VIEW);
 
             long eventId = -1;
             Intent intent = getIntent();
@@ -177,6 +199,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                         Log.d(TAG, "Create new event");
                     }
                 }
+            } else if (icicle != null && icicle.containsKey(BUNDLE_KEY_EVENT_ID)) {
+                eventId = icicle.getLong(BUNDLE_KEY_EVENT_ID);
             }
 
             long begin = intent.getLongExtra(EVENT_BEGIN_TIME, -1);
@@ -193,8 +217,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
             info.id = eventId;
             // We set the viewtype so if the user presses back when they are
             // done editing the controller knows we were in the Edit Event
-            // screen.
+            // screen. Likewise for eventId
             mController.setViewType(viewType);
+            mController.setEventId(eventId);
         } else {
             mPreviousView = viewType;
         }
@@ -269,13 +294,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if (key.equals(GeneralPreferences.KEY_WEEK_START_DAY)) {
-            initFragments(mController.getTime(), mController.getViewType());
+            initFragments(mController.getTime(), mController.getViewType(), null);
         }
     }
 
-    private void setMainPane(FragmentTransaction ft, int viewId, int viewType,
-            long timeMillis, boolean force, EventInfo e) {
-        if(!force && mCurrentView == viewType) {
+    private void setMainPane(FragmentTransaction ft, int viewId, int viewType, long timeMillis,
+            boolean force, EventInfo e) {
+        if (!force && mCurrentView == viewType) {
             return;
         }
 
@@ -349,18 +374,25 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public long getSupportedEventTypes() {
-        return EventType.GO_TO | EventType.VIEW_EVENT | EventType.EDIT_EVENT |
-                EventType.CREATE_EVENT;
+        return EventType.GO_TO | EventType.VIEW_EVENT | EventType.EDIT_EVENT
+                | EventType.CREATE_EVENT;
     }
 
     @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
+            if (mCurrentView == ViewType.EDIT) {
+                // If we are leaving the edit view ping it so it has a chance to
+                // save if it needs to
+                EventHandler editHandler = (EventHandler) getFragmentManager().findFragmentById(
+                        R.id.main_pane);
+                editHandler.handleEvent(event);
+            }
             // Set title bar
             setTitleInActionBar(event);
 
-            setMainPane(null, R.id.main_pane, event.viewType,
-                    event.startTime.toMillis(false), false, event);
+            setMainPane(null, R.id.main_pane, event.viewType, event.startTime.toMillis(false),
+                    false, event);
 
             if (!mIsMultipane) {
                 return;
@@ -375,12 +407,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 findViewById(R.id.calendar_list).setVisibility(View.VISIBLE);
             }
         } else if (event.eventType == EventType.VIEW_EVENT) {
-            EventInfoFragment fragment = new EventInfoFragment(event.id, event.startTime
-                    .toMillis(false), event.endTime.toMillis(false));
+            EventInfoFragment fragment = new EventInfoFragment(
+                    event.id, event.startTime.toMillis(false), event.endTime.toMillis(false));
             fragment.setDialogParams(event.x, event.y);
             fragment.show(getFragmentManager(), "EventInfoFragment");
-        } else if (event.eventType == EventType.EDIT_EVENT ||
-                event.eventType == EventType.CREATE_EVENT) {
+        } else if (event.eventType == EventType.EDIT_EVENT
+                || event.eventType == EventType.CREATE_EVENT) {
             setMainPane(null, R.id.main_pane, ViewType.EDIT, -1, true, event);
             // hide minimonth and calendar frag
             findViewById(R.id.mini_month).setVisibility(View.GONE);
@@ -418,9 +450,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public boolean onSubmitQuery(String query) {
-        mController.sendEvent(
-                this, EventType.SEARCH, null, null, -1,
-                ViewType.CURRENT, query, getComponentName());
+        mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, query,
+                getComponentName());
         return false;
     }
 }

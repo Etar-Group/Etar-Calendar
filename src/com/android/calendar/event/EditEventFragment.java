@@ -230,18 +230,13 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     mView.setModel(mModel);
                     break;
                 case TOKEN_CALENDARS:
-                    // startManagingCursor(cursor);
                     MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
-
-                    // Stop the spinner
-//                    mContext.getWindow().setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
-//                            Window.PROGRESS_VISIBILITY_OFF);
 
                     if (DEBUG) {
                         Log.d(TAG, "onQueryComplete: setting cursor with "
                                 + matrixCursor.getCount() + " calendars");
                     }
-                    mView.setCalendarsCursor(matrixCursor);
+                    mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed());
                     cursor.close();
                     break;
             }
@@ -443,48 +438,54 @@ public class EditEventFragment extends Fragment implements EventHandler {
             // We only want this to get called once, either because the user
             // pressed back/home or one of the buttons on screen
             mSaveOnDetach = false;
-            switch (mCode) {
-                case Utils.DONE_REVERT:
-                    break;
-                case Utils.DONE_SAVE:
-                    if (mModel != null && !mModel.equals(mOriginalModel)) {
-                        if (mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
-                            if (mModel.mUri != null) {
-                                Toast.makeText(mContext, R.string.saving_event, Toast.LENGTH_SHORT)
-                                        .show();
-                            } else {
-                                Toast.makeText(mContext, R.string.creating_event,
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                            start = new Time();
-                            start.set(mModel.mStart);
+
+            if ((mCode & Utils.DONE_SAVE) != 0) {
+                if (mModel != null && !mModel.equals(mOriginalModel)) {
+                    if (mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
+                        if (mModel.mUri != null) {
+                            Toast.makeText(mContext, R.string.saving_event, Toast.LENGTH_SHORT)
+                                    .show();
+                        } else {
+                            Toast.makeText(mContext, R.string.creating_event,
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
-                    break;
-                case Utils.DONE_DELETE:
-                    long begin = mModel.mStart;
-                    long end = mModel.mEnd;
-                    int which = -1;
-                    switch (mModification) {
-                        case Utils.MODIFY_SELECTED:
-                            which = DeleteEventHelper.DELETE_SELECTED;
-                            break;
-                        case Utils.MODIFY_ALL_FOLLOWING:
-                            which = DeleteEventHelper.DELETE_ALL_FOLLOWING;
-                            break;
-                        case Utils.MODIFY_ALL:
-                            which = DeleteEventHelper.DELETE_ALL;
-                            break;
-                    }
-                    DeleteEventHelper deleteHelper = new DeleteEventHelper(mContext, mContext,
-                            false /* exitWhenDone */);
-                    // TODO update delete helper to use the model instead of the cursor
-                    deleteHelper.delete(begin, end, mModel, which);
-                    break;
-                default:
-                    Log.e(TAG, "done: Unrecognized exit code.");
-                    break;
+                }
             }
+
+            if ((mCode & Utils.DONE_DELETE) != 0) {
+                long begin = mModel.mStart;
+                long end = mModel.mEnd;
+                int which = -1;
+                switch (mModification) {
+                    case Utils.MODIFY_SELECTED:
+                        which = DeleteEventHelper.DELETE_SELECTED;
+                        break;
+                    case Utils.MODIFY_ALL_FOLLOWING:
+                        which = DeleteEventHelper.DELETE_ALL_FOLLOWING;
+                        break;
+                    case Utils.MODIFY_ALL:
+                        which = DeleteEventHelper.DELETE_ALL;
+                        break;
+                }
+                DeleteEventHelper deleteHelper = new DeleteEventHelper(mContext, mContext,
+                        false /* exitWhenDone */);
+                // TODO update delete helper to use the model instead of the cursor
+                deleteHelper.delete(begin, end, mModel, which);
+            }
+
+            if ((mCode & Utils.DONE_EXIT) != 0) {
+                // This will exit the edit event screen, should be called
+                // when we want to return to the main calendar views
+                if (mModel != null) {
+                    start = new Time();
+                    start.set(mModel.mStart);
+                }
+                CalendarController controller = CalendarController.getInstance(mContext);
+                controller.sendEvent(EditEventFragment.this, EventType.GO_TO, start, null, -1,
+                        mReturnView);
+            }
+
             // Hide a software keyboard so that user won't see it even after this Fragment's
             // disappearing.
             final View focusedView = mContext.getCurrentFocus();
@@ -492,23 +493,11 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 mInputMethodManager.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
                 focusedView.clearFocus();
             }
-            CalendarController controller = CalendarController.getInstance(mContext);
-            controller.sendEvent(EditEventFragment.this, EventType.GO_TO, start, null, -1,
-                    mReturnView);
         }
-    }
-
-    @Override
-    public void onPause() {
-        if (mSaveOnDetach && mView != null) {
-            mView.onClick(mView.mSaveButton);
-        }
-        super.onPause();
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (mView != null) {
             mView.setModel(null);
         }
@@ -516,6 +505,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
             mModifyDialog.dismiss();
             mModifyDialog = null;
         }
+
+        super.onDestroy();
     }
 
     @Override
@@ -535,7 +526,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     @Override
     public long getSupportedEventTypes() {
-        return 0;
+        return EventType.USER_HOME;
     }
 
     @Override
@@ -548,5 +539,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     @Override
     public void handleEvent(EventInfo event) {
+        // It's currently unclear if we want to save the event or not when home
+        // is pressed. When creating a new event we shouldn't save since we
+        // can't get the id of the new event easily.
+        if ((false && event.eventType == EventType.USER_HOME) || (event.eventType == EventType.GO_TO
+                && mSaveOnDetach)) {
+            if (mView != null && mView.prepareForSave()) {
+                mOnDone.setDoneCode(Utils.DONE_SAVE);
+                mOnDone.run();
+            }
+        }
     }
 }
