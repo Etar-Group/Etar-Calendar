@@ -62,6 +62,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private ContentResolver mContentResolver;
     private int mPreviousView;
     private int mCurrentView;
+    private boolean mPaused = true;
+    private boolean mUpdateOnResume = false;
 
     // Create an observer so that we can update the views whenever a
     // Calendar event changes.
@@ -122,6 +124,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // Listen for changes that would require this to be refreshed
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
+
         mContentResolver = getContentResolver();
     }
 
@@ -129,12 +132,23 @@ public class AllInOneActivity extends Activity implements EventHandler,
     protected void onResume() {
         super.onResume();
         mContentResolver.registerContentObserver(Calendar.Events.CONTENT_URI, true, mObserver);
+        if (mUpdateOnResume) {
+            initFragments(mController.getTime(), mController.getViewType(), null);
+            mUpdateOnResume = false;
+        }
+        mPaused = false;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        mPaused = true;
         mContentResolver.unregisterContentObserver(mObserver);
+        if (isFinishing()) {
+            // Stop listening for changes that would require this to be refreshed
+            SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
+            prefs.unregisterOnSharedPreferenceChangeListener(this);
+        }
         // FRAG_TODO save highlighted days of the week;
         if (mController.getViewType() != ViewType.EDIT) {
             Utils.setDefaultView(this, mController.getViewType());
@@ -294,7 +308,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if (key.equals(GeneralPreferences.KEY_WEEK_START_DAY)) {
-            initFragments(mController.getTime(), mController.getViewType(), null);
+            if (mPaused) {
+                mUpdateOnResume = true;
+            } else {
+                initFragments(mController.getTime(), mController.getViewType(), null);
+            }
         }
     }
 

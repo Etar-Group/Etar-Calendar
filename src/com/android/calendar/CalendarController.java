@@ -60,6 +60,8 @@ public class CalendarController {
     private LinkedHashMap<Integer,EventHandler> eventHandlers =
             new LinkedHashMap<Integer,EventHandler>(5);
     private LinkedList<Integer> mToBeRemovedEventHandlers = new LinkedList<Integer>();
+    private LinkedHashMap<Integer, EventHandler> mToBeAddedEventHandlers = new LinkedHashMap<
+            Integer, EventHandler>();
     private boolean mDispatchInProgress;
 
     private static WeakHashMap<Context, CalendarController> instances =
@@ -330,6 +332,8 @@ public class CalendarController {
                 }
             }
 
+            mDispatchInProgress = false;
+
             // Deregister removed handlers
             if (mToBeRemovedEventHandlers.size() > 0) {
                 for (Integer zombie : mToBeRemovedEventHandlers) {
@@ -337,7 +341,12 @@ public class CalendarController {
                 }
                 mToBeRemovedEventHandlers.clear();
             }
-            mDispatchInProgress = false;
+            // Add new handlers
+            if (mToBeAddedEventHandlers.size() > 0) {
+                for (Entry<Integer, EventHandler> food : mToBeAddedEventHandlers.entrySet()) {
+                    eventHandlers.put(food.getKey(), food.getValue());
+                }
+            }
         }
 
         if (!handled) {
@@ -377,7 +386,11 @@ public class CalendarController {
      */
     public void registerEventHandler(int key, EventHandler eventHandler) {
         synchronized (this) {
-            eventHandlers.put(key, eventHandler);
+            if (mDispatchInProgress) {
+                mToBeAddedEventHandlers.put(key, eventHandler);
+            } else {
+                eventHandlers.put(key, eventHandler);
+            }
         }
     }
 

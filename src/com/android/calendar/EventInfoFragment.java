@@ -16,6 +16,7 @@
 
 package com.android.calendar;
 
+import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventViewUtils;
@@ -40,18 +41,18 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.pim.EventRecurrence;
-import android.provider.ContactsContract;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
+import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
+import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.Presence;
 import android.provider.ContactsContract.QuickContact;
-import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -70,11 +71,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -92,7 +93,7 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class EventInfoFragment extends DialogFragment implements View.OnClickListener,
-        AdapterView.OnItemSelectedListener {
+        AdapterView.OnItemSelectedListener, CalendarController.EventHandler {
     public static final boolean DEBUG = false;
 
     public static final String TAG = "EventInfoActivity";
@@ -283,6 +284,13 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
     private int mColor;
 
     private QueryHandler mHandler;
+
+    private Runnable mTZUpdater = new Runnable() {
+        @Override
+        public void run() {
+            updateEvent(mView);
+        }
+    };
 
     private static final int DIALOG_WIDTH = 500; // FRAG_TODO scale
     private static final int DIALOG_HEIGHT = 500;
@@ -977,7 +985,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
                 flags |= DateUtils.FORMAT_24HOUR;
             }
         }
-        when = DateUtils.formatDateRange(getActivity(), mStartMillis, mEndMillis, flags);
+        when = Utils.formatDateRange(getActivity(), mStartMillis, mEndMillis, flags);
         setTextCommon(view, R.id.when, when);
 
 //CLEANUP        // Show the event timezone if it is different from the local timezone
@@ -1005,7 +1013,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         if (rRule != null) {
             EventRecurrence eventRecurrence = new EventRecurrence();
             eventRecurrence.parse(rRule);
-            Time date = new Time();
+            Time date = new Time(Utils.getTimeZone(getActivity(), mTZUpdater));
             if (allDay) {
                 date.timezone = Time.TIMEZONE_UTC;
             }
@@ -1373,5 +1381,43 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
 
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void eventsChanged() {
+    }
+
+    @Override
+    public boolean getAllDay() {
+        return false;
+    }
+
+    @Override
+    public long getSelectedTime() {
+        return mStartMillis;
+    }
+
+    @Override
+    public long getSupportedEventTypes() {
+        return EventType.EVENTS_CHANGED;
+    }
+
+    @Override
+    public void goTo(Time time, boolean animate) {
+    }
+
+    @Override
+    public void goToToday() {
+
+    }
+
+    @Override
+    public void handleEvent(EventInfo event) {
+        if (event.eventType == EventType.EVENTS_CHANGED) {
+            // reload the data
+            mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
+                    null, null, null);
+        }
+
     }
 }
