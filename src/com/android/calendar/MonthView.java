@@ -834,7 +834,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             canvas.drawRect(r, p);
 
             //Places events for that day
-            drawEvents(day, canvas, r, p, false /*draw bb background*/);
+            drawEvents(day, canvas, r, p, true /*draw bb background*/);
             if (!mAnimating) {
                 updateEventDetails(day);
             }
@@ -846,7 +846,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 canvas.drawRect(r, p);
             }
             //Places events for that day
-            drawEvents(day, canvas, r, p, !isToday /*draw bb background*/);
+            drawEvents(day, canvas, r, p, true /*draw bb background*/);
         }
 
         // Draw week number

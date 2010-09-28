@@ -67,11 +67,6 @@
             style="@style/MonthView_DayLabel" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:background="@android:drawable/divider_horizontal_dark" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
