@@ -87,6 +87,10 @@ public class CalendarEventModel {
     public String mDescription = null;
     public String mRrule = null;
     public String mOrganizer = null;
+    public String mOrganizerDisplayName = null;
+    /**
+     * Read-Only - Derived from other fields
+     */
     public boolean mIsOrganizer = true;
     public boolean mIsFirstEventInSeries = true;
 
@@ -117,6 +121,16 @@ public class CalendarEventModel {
     public boolean mGuestsCanModify = false;
     public boolean mGuestsCanInviteOthers = false;
     public boolean mGuestsCanSeeGuests = false;
+
+// NEW vvvvvvvvvvvvvvv
+    // FRAG_TODO update equal/hashcode/clear
+    public boolean mOrganizerCanRespond = false;
+    public int mCalendarAccessLevel = 0;
+
+    // The model can't be updated with a calendar cursor until it has been
+    // updated with an event cursor.
+    public boolean mModelUpdatedWithEventCursor;
+// NEW ^^^^^^^^^^^^^
 
     public int mVisibility = 0;
     public ArrayList<Integer> mReminderMinutes;
@@ -219,6 +233,7 @@ public class CalendarEventModel {
         mDescription = null;
         mRrule = null;
         mOrganizer = null;
+        mOrganizerDisplayName = null;
         mIsOrganizer = true;
         mIsFirstEventInSeries = true;
 

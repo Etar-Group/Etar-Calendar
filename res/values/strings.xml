@@ -246,6 +246,8 @@
     <string name="no_calendars_found">Before you can add an event, you must add at least one Calendar account to the device. Touch \u0022Add account\u0022 to add an account. Or if you just added an account, wait for it to finish syncing and try again.</string>
     <!-- Title of a button shown when there is no account available and the system prompt a user to add one. [CHAR LIMIT=none] -->
     <string name="add_account">Add account</string>
+    <!-- Label for adding guests to an event [CHAR LIMIT=32]-->
+    <string name="add_guests_label">Add guests</string>
 
     <!-- View Event -->
     <skip />
@@ -285,8 +287,8 @@
     <!-- Button labels: -->
     <skip />
     <!-- This is the title of a popup window that is displayed when the user
-         edits a repeating event. -->
-    <string name="edit_event_label">"Edit event"</string>
+         edits a repeating event. [CHAR LIMIT=20]-->
+    <string name="edit_event_label">"Open event"</string>
     <!-- The button label for deleting an event -->
     <string name="delete_label">"Delete"</string>
     <!-- A menu item for deleting an event -->

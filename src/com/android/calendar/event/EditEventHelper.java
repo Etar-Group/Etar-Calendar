@@ -42,6 +42,7 @@ import android.text.format.Time;
 import android.text.util.Rfc822Token;
 import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.QuickContactBadge;
 
@@ -78,6 +79,8 @@ public class EditEventHelper {
             Events.OWNER_ACCOUNT, // 15
             Events.HAS_ATTENDEE_DATA, // 16
             Events.ORIGINAL_EVENT, // 17
+            Events.ORGANIZER, // 18
+            Events.GUESTS_CAN_MODIFY, // 19
     };
     protected static final int EVENT_INDEX_ID = 0;
     protected static final int EVENT_INDEX_TITLE = 1;
@@ -97,6 +100,8 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_OWNER_ACCOUNT = 15;
     protected static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 16;
     protected static final int EVENT_INDEX_ORIGINAL_EVENT = 17;
+    protected static final int EVENT_INDEX_ORGANIZER = 18;
+    protected static final int EVENT_INDEX_GUESTS_CAN_MODIFY = 19;
 
     public static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
@@ -160,14 +165,22 @@ public class EditEventHelper {
             Calendars.DISPLAY_NAME, // 1
             Calendars.OWNER_ACCOUNT, // 2
             Calendars.COLOR, // 3
+            Calendars.ORGANIZER_CAN_RESPOND, // 4
+            Calendars.ACCESS_LEVEL, // 5
+            Calendars.SELECTED, // 6
     };
     static final int CALENDARS_INDEX_ID = 0;
     static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
     static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
     static final int CALENDARS_INDEX_COLOR = 3;
+    static final int CALENDARS_INDEX_ORGANIZER_CAN_RESPOND = 4;
+    static final int CALENDARS_INDEX_ACCESS_LEVEL = 5;
+    static final int CALENDARS_INDEX_SELECTED = 6;
 
     static final String CALENDARS_WHERE_WRITEABLE_VISIBLE = Calendars.ACCESS_LEVEL + ">="
             + Calendars.CONTRIBUTOR_ACCESS + " AND " + Calendars.SELECTED + "=1";
+
+    static final String CALENDARS_WHERE = Calendars._ID + "=?";
 
     static final String[] ATTENDEES_PROJECTION = new String[] {
             Attendees._ID, // 0
@@ -988,6 +1001,9 @@ public class EditEventHelper {
         model.mOwnerAccount = cursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
         model.mHasAttendeeData = cursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
         model.mOriginalEvent = cursor.getString(EVENT_INDEX_ORIGINAL_EVENT);
+        model.mOrganizer = cursor.getString(EVENT_INDEX_ORGANIZER);
+        model.mIsOrganizer = model.mOwnerAccount.equalsIgnoreCase(model.mOrganizer);
+        model.mGuestsCanModify = cursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0;
 
         if (visibility > 0) {
             // For now the array contains the values 0, 2, and 3. We subtract
@@ -1005,6 +1021,91 @@ public class EditEventHelper {
         } else {
             model.mEnd = cursor.getLong(EVENT_INDEX_DTEND);
         }
+
+        model.mModelUpdatedWithEventCursor = true;
+    }
+
+    /**
+     * Uses a calendar cursor to fill in the given model This method assumes the
+     * cursor used {@link #CALENDARS_PROJECTION} as it's query projection. It uses
+     * the cursor to fill in the given model with all the information available.
+     *
+     * @param model The model to fill in
+     * @param cursor An event cursor that used {@link #CALENDARS_PROJECTION} for the query
+     * @return returns true if model was updated with the info in the cursor.
+     */
+    public static boolean setModelFromCalendarCursor(CalendarEventModel model, Cursor cursor) {
+        if (model == null || cursor == null) {
+            Log.wtf(TAG, "Attempted to build non-existent model or from an incorrect query.");
+            return false;
+        }
+
+        if (model.mCalendarId == -1) {
+            return false;
+        }
+
+        if (!model.mModelUpdatedWithEventCursor) {
+            Log.wtf(TAG,
+                    "Can't update model with a Calendar cursor until it has seen an Event cursor.");
+            return false;
+        }
+
+        cursor.moveToPosition(-1);
+        while (cursor.moveToNext()) {
+            if (model.mCalendarId != cursor.getInt(EVENT_INDEX_CALENDAR_ID)) {
+                continue;
+            }
+
+            model.mOrganizerCanRespond = cursor.getInt(CALENDARS_INDEX_ORGANIZER_CAN_RESPOND) != 0;
+
+            model.mCalendarAccessLevel = cursor.getInt(CALENDARS_INDEX_ACCESS_LEVEL);
+
+            return true;
+       }
+       return false;
+    }
+
+    public static boolean canModifyEvent(CalendarEventModel model) {
+        return canModifyCalendar(model)
+                && (model.mIsOrganizer || model.mGuestsCanModify);
+    }
+
+    public static boolean canModifyCalendar(CalendarEventModel model) {
+        return model.mCalendarAccessLevel >= Calendars.CONTRIBUTOR_ACCESS
+                || model.mCalendarId == -1;
+    }
+
+    public static boolean canRespond(CalendarEventModel model) {
+        // For non-organizers, write permission to the calendar is sufficient.
+        // For organizers, the user needs a) write permission to the calendar
+        // AND b) ownerCanRespond == true AND c) attendee data exist
+        // (this means num of attendees > 1, the calendar owner's and others).
+        // Note that mAttendeeList omits the organizer.
+
+        // (there are more cases involved to be 100% accurate, such as
+        // paying attention to whether or not an attendee status was
+        // included in the feed, but we're currently omitting those corner cases
+        // for simplicity).
+
+        if (!canModifyCalendar(model)) {
+            return false;
+        }
+
+        if (!model.mIsOrganizer) {
+            return true;
+        }
+
+        if (!model.mOrganizerCanRespond) {
+            return false;
+        }
+
+        // This means we don't have the attendees data so we can't send
+        // the list of attendees and the status back to the server
+        if (model.mHasAttendeeData && model.mAttendeesList.size() == 0) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

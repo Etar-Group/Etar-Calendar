@@ -53,6 +53,7 @@ import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -79,10 +80,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private static final String TAG = "EditEvent";
 
+    private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
+
     private static final int REMINDER_FLING_VELOCITY = 2000;
 
     private LayoutInflater mLayoutInflater;
 
+    ArrayList<View> mViewList = new ArrayList<View>();
     TextView mLoadingMessage;
     ScrollView mScrollView;
     Button mStartDateButton;
@@ -104,7 +108,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     TextView mDescriptionTextView;
     TextView mTimezoneTextView;
     TextView mTimezoneFooterView;
-    View mRemindersSeparator;
     LinearLayout mRemindersContainer;
     MultiAutoCompleteTextView mAttendeesList;
     ImageButton mAddAttendeesButton;
@@ -130,7 +133,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private int mDefaultReminderMinutes;
 
     private boolean mSaveAfterQueryComplete = false;
-    private boolean mCalendarsCursorSet = false;
 
     private Time mStartTime;
     private Time mEndTime;
@@ -736,23 +738,36 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mLayoutInflater = activity.getLayoutInflater();
 
         // cache all the widgets
+        mCalendarsSpinner = (Spinner) view.findViewById(R.id.calendars);
+        mViewList.add(mCalendarsSpinner);
         mTitleTextView = (TextView) view.findViewById(R.id.title);
+        mViewList.add(mTitleTextView);
         mLocationTextView = (TextView) view.findViewById(R.id.location);
+        mViewList.add(mLocationTextView);
         mDescriptionTextView = (TextView) view.findViewById(R.id.description);
+        mViewList.add(mDescriptionTextView);
         mTimezoneTextView = (TextView) view.findViewById(R.id.timezone_label);
         mTimezoneFooterView = (TextView) mLayoutInflater.inflate(R.layout.timezone_footer, null);
         mStartDateButton = (Button) view.findViewById(R.id.start_date);
+        mViewList.add(mStartDateButton);
         mEndDateButton = (Button) view.findViewById(R.id.end_date);
+        mViewList.add(mEndDateButton);
         mStartTimeButton = (Button) view.findViewById(R.id.start_time);
+        mViewList.add(mStartTimeButton);
         mEndTimeButton = (Button) view.findViewById(R.id.end_time);
+        mViewList.add(mEndTimeButton);
         mTimezoneButton = (Button) view.findViewById(R.id.timezone);
+        mViewList.add(mTimezoneButton);
         mAllDayCheckBox = (CheckBox) view.findViewById(R.id.is_all_day);
-        mCalendarsSpinner = (Spinner) view.findViewById(R.id.calendars);
+        mViewList.add(mAllDayCheckBox);
         mRepeatsSpinner = (Spinner) view.findViewById(R.id.repeats);
+        mViewList.add(mRepeatsSpinner);
         mTransparencySpinner = (Spinner) view.findViewById(R.id.availability);
+        mViewList.add(mTransparencySpinner);
         mVisibilitySpinner = (Spinner) view.findViewById(R.id.visibility);
+        mViewList.add(mVisibilitySpinner);
+
         mResponseSpinner = (Spinner) view.findViewById(R.id.response_value);
-        mRemindersSeparator = view.findViewById(R.id.reminders_separator);
         mRemindersContainer = (LinearLayout) view.findViewById(R.id.reminder_items_container);
 
         mSaveButton = (Button) view.findViewById(R.id.save);
@@ -761,7 +776,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mDiscardButton = (Button) view.findViewById(R.id.discard);
         mDiscardButton.setOnClickListener(this);
 
-        mAddAttendeesButton = (ImageButton) view.findViewById(R.id.attendee_add);
+        mAddAttendeesButton = (ImageButton) view.findViewById(R.id.add_attendee_button);
         mAddAttendeesListener = new AddAttendeeClickListener();
         mAddAttendeesButton.setOnClickListener(mAddAttendeesListener);
 
@@ -824,7 +839,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         // If the user is allowed to change the attendees set up the view and
         // validator
-        if (model.mHasAttendeeData) {
+        if (!model.mHasAttendeeData) {
+            mView.findViewById(R.id.attendees_group).setVisibility(View.GONE);
+        } else if (!EditEventHelper.canModifyEvent(model)) {
+            mView.findViewById(R.id.add_attendees_label).setVisibility(View.GONE);
+            mView.findViewById(R.id.add_attendees_group).setVisibility(View.GONE);
+            mAddAttendeesButton.setVisibility(View.GONE);
+        } else {
             String domain = "gmail.com";
             if (!TextUtils.isEmpty(model.mOwnerAccount)) {
                 String ownerDomain = EditEventHelper.extractDomain(model.mOwnerAccount);
@@ -835,9 +856,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mAddressAdapter = new EmailAddressAdapter(mActivity);
             mEmailValidator = new Rfc822Validator(domain);
             mAttendeesList = initMultiAutoCompleteTextView(R.id.attendees);
-        } else {
-            View attGroup = mView.findViewById(R.id.attendees_group);
-            attGroup.setVisibility(View.GONE);
+            mViewList.add(mAttendeesList);
         }
 
         mAllDayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -893,10 +912,19 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTimezoneDialog.getListView().setAdapter(mTimezoneAdapter);
         }
 
-        mSaveButton.setOnClickListener(this);
-        mDeleteButton.setOnClickListener(this);
-        mSaveButton.setEnabled(true);
-        mDeleteButton.setEnabled(true);
+        if (EditEventHelper.canRespond(model) || EditEventHelper.canModifyEvent(model)) {
+            mSaveButton.setOnClickListener(this);
+            mSaveButton.setEnabled(true);
+        } else {
+            mSaveButton.setEnabled(false);
+        }
+
+        if (EditEventHelper.canModifyCalendar(model)) {
+            mDeleteButton.setOnClickListener(this);
+            mDeleteButton.setEnabled(true);
+        } else {
+            mDeleteButton.setEnabled(false);
+        }
 
         // Initialize the reminder values array.
         Resources r = mActivity.getResources();
@@ -925,23 +953,37 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                         mReminderValues, mReminderLabels, minute);
             }
         }
-        updateRemindersVisibility(numReminders);
 
-        // Setup the + Add Reminder Button
+        ImageButton reminderAddButton = (ImageButton) mView.findViewById(R.id.reminder_add);
         View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
             public void onClick(View v) {
                 addReminder();
             }
         };
-        ImageButton reminderRemoveButton = (ImageButton) mView.findViewById(R.id.reminder_add);
-        reminderRemoveButton.setOnClickListener(addReminderOnClickListener);
+        reminderAddButton.setOnClickListener(addReminderOnClickListener);
+        updateRemindersVisibility(numReminders);
 
         mTitleTextView.setText(model.mTitle);
+        if (model.mIsOrganizer || TextUtils.isEmpty(model.mOrganizer)
+                || model.mOrganizer.endsWith(GOOGLE_SECONDARY_CALENDAR)) {
+            mView.findViewById(R.id.organizer_label).setVisibility(View.GONE);
+            mView.findViewById(R.id.organizer).setVisibility(View.GONE);
+        } else {
+            ((TextView) mView.findViewById(R.id.organizer)).setText(model.mOrganizerDisplayName);
+        }
         mLocationTextView.setText(model.mLocation);
         mDescriptionTextView.setText(model.mDescription);
         mTransparencySpinner.setSelection(model.mTransparency ? 1 : 0);
         mVisibilitySpinner.setSelection(model.mVisibility);
         mResponseSpinner.setSelection(findResponseIndexFor(model.mSelfAttendeeStatus));
+        View responseLabel = mView.findViewById(R.id.response_label);
+        if (EditEventHelper.canRespond(model)) {
+            responseLabel.setVisibility(View.VISIBLE);
+            mResponseSpinner.setVisibility(View.VISIBLE);
+        } else {
+            responseLabel.setVisibility(View.GONE);
+            mResponseSpinner.setVisibility(View.GONE);
+        }
 
         if (model.mUri != null) {
             // This is an existing event so hide the calendar spinner
@@ -956,6 +998,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         populateTimezone();
         populateRepeats();
         updateAttendees(model.mAttendeesList);
+        if (!EditEventHelper.canModifyEvent(mModel)) {
+            for (View v : mViewList) {
+                v.setEnabled(false);
+            }
+        }
         mScrollView.setVisibility(View.VISIBLE);
         mLoadingMessage.setVisibility(View.GONE);
     }
@@ -1001,7 +1048,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         CalendarsAdapter adapter = new CalendarsAdapter(mActivity, cursor);
         mCalendarsSpinner.setAdapter(adapter);
         mCalendarsSpinner.setSelection(defaultCalendarPosition);
-        mCalendarsCursorSet = true;
 
         // Find user domain and set it to the validator.
         // TODO: we may want to update this validator if the user actually picks
@@ -1072,6 +1118,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return 0;
     }
 
+    // FRAG_TODO convert this from listview to linearlayout
     public void updateAttendees(HashMap<String, Attendee> attendeesList) {
         if (mAttendeesAdapter == null) {
             mAttendeesAdapter = new AttendeesAdapter(mActivity, mEmailValidator);
@@ -1084,10 +1131,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private void updateRemindersVisibility(int numReminders) {
         if (numReminders == 0) {
-            mRemindersSeparator.setVisibility(View.GONE);
             mRemindersContainer.setVisibility(View.GONE);
         } else {
-            mRemindersSeparator.setVisibility(View.VISIBLE);
             mRemindersContainer.setVisibility(View.VISIBLE);
         }
     }

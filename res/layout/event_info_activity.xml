@@ -16,12 +16,11 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    android:orientation="vertical"
     android:background="#fafafa"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="4dip"
-    android:layout_alignParentTop="true">
+    android:layout_height="match_parent"
+    android:padding="4dip">
 
     <LinearLayout
         android:id="@+id/event"
@@ -104,7 +103,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dip"
             android:text="@string/view_event_organizer_label"
             style="?android:attr/textAppearanceMedium" />
 
@@ -119,7 +117,8 @@
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="1"
         android:paddingTop="16dip"
         android:paddingBottom="12dip"
         android:autoLink="all"
@@ -155,6 +154,8 @@
         android:id="@+id/attendee_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:paddingTop="4dip"
         style="?android:attr/textAppearanceMedium" />
 
@@ -164,7 +165,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="4dip">
+        android:paddingTop="4dip"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/reminders_label"
@@ -212,8 +214,8 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="gone"
-            android:text="@string/event_edit" />
+            android:enabled="false"
+            android:text="@string/edit_event_label" />
 
         <Button
             android:id="@+id/done"
