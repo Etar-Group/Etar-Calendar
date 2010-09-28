@@ -402,7 +402,7 @@ public class Event implements Comparable<Event>, Cloneable {
      *
      * @param eventsList the list of events, sorted into increasing time order
      */
-    static void computePositions(ArrayList<Event> eventsList) {
+    private static void computePositions(ArrayList<Event> eventsList) {
         if (eventsList == null)
             return;
 
@@ -432,13 +432,16 @@ public class Event implements Comparable<Event>, Cloneable {
                         + " "  + e.title);
             }
 
-            // Remove the inactive events. An event on the active list
-            // becomes inactive when its end time is less than or equal to
-            // the current event's start time.
+            // Remove the inactive events.
+            // An event on the active list becomes inactive when its end time + margin time is less
+            // than or equal to the current event's start time. For more information about
+            // the margin time, see the comment in EVENT_OVERWRAP_MARGIN_TIME.
             Iterator<Event> iter = activeList.iterator();
             while (iter.hasNext()) {
                 Event active = iter.next();
-                if (active.getEndMillis() <= start) {
+                float duration = Math.max(active.getEndMillis() - active.getStartMillis(),
+                        CalendarView.EVENT_OVERWRAP_MARGIN_TIME);
+                if ((active.getStartMillis() + duration) <= start) {
                     if (false && event.allDay) {
                         Event e = active;
                         Log.i("Cal", "  removing: start,end day: " + e.startDay + "," + e.endDay

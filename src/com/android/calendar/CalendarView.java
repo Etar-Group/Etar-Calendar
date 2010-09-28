@@ -260,6 +260,28 @@ public class CalendarView extends View
     private static final int MAX_EVENT_TEXT_LEN = 500;
     private static float MIN_EVENT_HEIGHT = 15.0F;  // in pixels
 
+    // This value forces the position calculator to take care of the overwap which can't be
+    // detected from the view of event time but actually is detected when rendering them.
+    //
+    // Detail:
+    // Imagine there are two events: A (from 1:00pm to 1:01pm) and B (from 1:02pm to 2:00pm).
+    // The position calculator (Event#doComputePositions()), marks them as "not overwrapped"
+    // as A finishes before B's begin time, so those events are put on the same column
+    // (or, horizontal position).
+    // From the view of renderer, however, the actual rectangle for A is larger than "1 min."
+    // for accomodating at least 1 line of text in it.
+    // As a result, A's rectangle is overwrapped by B's, and A becomes hard to be touched
+    // without trackball or DPAD (as, it is beneath B from the user' view).
+    // This values forces the original calculator to take care of the actual overwrap detected in
+    // rendering time.
+    //
+    // Note:
+    // Theoretically we can calcurate an ideal value for this purpose by making the calculator
+    // understand the relation between each event and pixel-level height of actual rectangles,
+    // but we don't do so as currently the calculator doesn't have convenient way to obtain
+    // necessary values for the calculation.
+    /* package */ static int EVENT_OVERWRAP_MARGIN_TIME = MILLIS_PER_MINUTE * 15;
+
     private static int mSelectionColor;
     private static int mPressedColor;
     private static int mSelectedEventTextColor;
