@@ -34,8 +34,8 @@ import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -168,6 +168,15 @@ public class AgendaWindowAdapter extends BaseAdapter {
     // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
     private Formatter mFormatter;
     private StringBuilder mStringBuilder;
+    private String mTimeZone;
+
+    private Runnable mTZUpdater = new Runnable() {
+        @Override
+        public void run() {
+            mTimeZone = Utils.getTimeZone(mContext, this);
+            notifyDataSetChanged();
+        }
+    };
 
     private boolean mShuttingDown;
     private boolean mHideDeclined;
@@ -265,6 +274,8 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
         @Override
         public String toString() {
+            // Static class, so the time in this toString will not reflect the
+            // home tz settings. This should only affect debugging.
             Time time = new Time();
             StringBuilder sb = new StringBuilder();
             time.setJulianDay(start);
@@ -282,6 +293,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
     public AgendaWindowAdapter(Context context,
             AgendaListView agendaListView) {
         mContext = context;
+        mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         mAgendaListView = agendaListView;
         mQueryHandler = new QueryHandler(context.getContentResolver());
 
@@ -469,11 +481,11 @@ public class AgendaWindowAdapter extends BaseAdapter {
             boolean allDay = info.cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
 
             if (allDay) { // UTC
-                Time time = new Time();
+                Time time = new Time(mTimeZone);
                 time.setJulianDay(Time.getJulianDay(event.begin, 0));
                 event.begin = time.toMillis(false /* use isDst */);
             } else if (isDayHeader) { // Trim to midnight.
-                Time time = new Time();
+                Time time = new Time(mTimeZone);
                 time.set(event.begin);
                 time.hour = 0;
                 time.minute = 0;
@@ -657,9 +669,9 @@ public class AgendaWindowAdapter extends BaseAdapter {
         }
 
         if (BASICLOG) {
-            Time time = new Time();
+            Time time = new Time(mTimeZone);
             time.setJulianDay(queryData.start);
-            Time time2 = new Time();
+            Time time2 = new Time(mTimeZone);
             time2.setJulianDay(queryData.end);
             Log.v(TAG, "startQuery: " + time.toString() + " to "
                     + time2.toString() + " then go to " + queryData.goToTime);
@@ -676,13 +688,13 @@ public class AgendaWindowAdapter extends BaseAdapter {
     }
 
     private String formatDateString(int julianDay) {
-        Time time = new Time();
+        Time time = new Time(mTimeZone);
         time.setJulianDay(julianDay);
         long millis = time.toMillis(false);
         mStringBuilder.setLength(0);
         return DateUtils.formatDateRange(mContext, mFormatter, millis, millis,
                 DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_DATE
-                        | DateUtils.FORMAT_ABBREV_MONTH).toString();
+                        | DateUtils.FORMAT_ABBREV_MONTH, mTimeZone).toString();
     }
 
     private void updateHeaderFooter(final int start, final int end) {
@@ -916,6 +928,10 @@ public class AgendaWindowAdapter extends BaseAdapter {
             }
         }
         return title;
+    }
+
+    public void onResume() {
+        mTZUpdater.run();
     }
 
     public void setHideDeclinedEvents(boolean hideDeclined) {

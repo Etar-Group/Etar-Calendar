@@ -19,6 +19,7 @@ package com.android.calendar.agenda;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.DeleteEventHelper;
+import com.android.calendar.Utils;
 import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
 import com.android.calendar.agenda.AgendaWindowAdapter.EventInfo;
 
@@ -28,9 +29,9 @@ import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class AgendaListView extends ListView implements OnItemClickListener {
 
@@ -40,11 +41,19 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     private AgendaWindowAdapter mWindowAdapter;
     private DeleteEventHelper mDeleteEventHelper;
     private Context mContext;
+    private String mTimeZone;
 
+    private Runnable mTZUpdater = new Runnable() {
+        @Override
+        public void run() {
+            mTimeZone = Utils.getTimeZone(mContext, this);
+        }
+    };
 
     public AgendaListView(Context context) {
         super(context, null);
         mContext = context;
+        mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         setOnItemClickListener(this);
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         setVerticalScrollBarEnabled(false);
@@ -73,7 +82,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     public void goTo(Time time, String searchQuery, boolean forced) {
         if (time == null) {
-            time = new Time();
+            time = new Time(mTimeZone);
             long goToTime = getFirstVisibleTime();
             if (goToTime <= 0) {
                 goToTime = System.currentTimeMillis();
@@ -84,7 +93,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     }
 
     public void refresh(boolean forced) {
-        Time time = new Time();
+        Time time = new Time(mTimeZone);
         long goToTime = getFirstVisibleTime();
         if (goToTime <= 0) {
             goToTime = System.currentTimeMillis();
@@ -207,7 +216,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     }
 
     public void onResume() {
-        mWindowAdapter.notifyDataSetChanged();
+        mTZUpdater.run();
+        mWindowAdapter.onResume();
     }
     public void onPause() {
         mWindowAdapter.notifyDataSetInvalidated();
