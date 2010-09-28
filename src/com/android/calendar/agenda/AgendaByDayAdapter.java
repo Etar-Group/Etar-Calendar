@@ -16,8 +16,13 @@
 
 package com.android.calendar.agenda;
 
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
+
 import android.content.Context;
 import android.database.Cursor;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.LayoutInflater;
@@ -25,9 +30,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
-import com.android.calendar.R;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -45,7 +47,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
     private final LayoutInflater mInflater;
     private ArrayList<RowInfo> mRowInfo;
     private int mTodayJulianDay;
-    private Time mTmpTime = new Time();
+    private Time mTmpTime;
+    private String mTimeZone;
     // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
     private Formatter mFormatter;
     private StringBuilder mStringBuilder;
@@ -54,12 +57,23 @@ public class AgendaByDayAdapter extends BaseAdapter {
         TextView dateView;
     }
 
+    private Runnable mTZUpdater = new Runnable() {
+        @Override
+        public void run() {
+            mTimeZone = Utils.getTimeZone(mContext, this);
+            mTmpTime = new Time(mTimeZone);
+            notifyDataSetChanged();
+        }
+    };
+
     public AgendaByDayAdapter(Context context) {
         mContext = context;
         mAgendaAdapter = new AgendaAdapter(context, R.layout.agenda_item);
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
+        mTimeZone = Utils.getTimeZone(context, mTZUpdater);
+        mTmpTime = new Time(mTimeZone);
     }
 
     public int getCount() {
@@ -133,7 +147,15 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 agendaDayView.setTag(holder);
             }
 
-            // Re-use the member variable "mTime" which is set to the local timezone.
+            // Re-use the member variable "mTime" which is set to the local
+            // time zone.
+            // It's difficult to find and update all these adapters when the
+            // home tz changes so check it here and update if needed.
+            String tz = Utils.getTimeZone(mContext, mTZUpdater);
+            if (!TextUtils.equals(tz, mTmpTime.timezone)) {
+                mTimeZone = tz;
+                mTmpTime = new Time(tz);
+            }
             Time date = mTmpTime;
             long millis = date.setJulianDay(row.mData);
             int flags = DateUtils.FORMAT_SHOW_YEAR
@@ -143,11 +165,11 @@ public class AgendaByDayAdapter extends BaseAdapter {
             String dateViewText;
             if (row.mData == mTodayJulianDay) {
                 dateViewText = mContext.getString(R.string.agenda_today, DateUtils.formatDateRange(
-                        mContext, mFormatter, millis, millis, flags).toString());
+                        mContext, mFormatter, millis, millis, flags, mTimeZone).toString());
             } else {
                 flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
                 dateViewText = DateUtils.formatDateRange(mContext, mFormatter, millis, millis,
-                        flags).toString();
+                        flags, mTimeZone).toString();
             }
 
             if (AgendaWindowAdapter.BASICLOG) {
@@ -184,7 +206,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         Cursor cursor = dayAdapterInfo.cursor;
         ArrayList<RowInfo> rowInfo = new ArrayList<RowInfo>();
         int prevStartDay = -1;
-        Time time = new Time();
+        Time time = new Time(mTimeZone);
         long now = System.currentTimeMillis();
         time.set(now);
         mTodayJulianDay = Time.getJulianDay(now, time.gmtoff);

@@ -17,6 +17,7 @@
 package com.android.calendar.agenda;
 
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -24,6 +25,7 @@ import android.database.Cursor;
 import android.provider.Calendar.Attendees;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.view.View;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
@@ -39,6 +41,13 @@ public class AgendaAdapter extends ResourceCursorAdapter {
     private Formatter mFormatter;
     private StringBuilder mStringBuilder;
 
+    private Runnable mTZUpdater = new Runnable() {
+        @Override
+        public void run() {
+            notifyDataSetChanged();
+        }
+    };
+
     static class ViewHolder {
         int overLayColor; // Used by AgendaItemView to gray out the entire item if so desired
 
@@ -51,6 +60,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
 
     public AgendaAdapter(Context context, int resource) {
         super(context, resource, null);
+
         mResources = context.getResources();
         mNoTitleLabel = mResources.getString(R.string.no_title_label);
         mDeclinedColor = mResources.getColor(R.drawable.agenda_item_declined);
@@ -105,10 +115,13 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         long begin = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
         long end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
         boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
-        int flags;
+        int flags = 0;
         String whenString;
+        // It's difficult to update all the adapters so just query this each
+        // time we need to build the view.
+        String tz = Utils.getTimeZone(context, mTZUpdater);;
         if (allDay) {
-            flags = DateUtils.FORMAT_UTC;
+            tz = Time.TIMEZONE_UTC;
         } else {
             flags = DateUtils.FORMAT_SHOW_TIME;
         }
@@ -116,7 +129,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             flags |= DateUtils.FORMAT_24HOUR;
         }
         mStringBuilder.setLength(0);
-        whenString = DateUtils.formatDateRange(context, mFormatter, begin, end, flags).toString();
+        whenString = DateUtils.formatDateRange(context, mFormatter, begin, end, flags, tz)
+                .toString();
         when.setText(whenString);
 
         String rrule = cursor.getString(AgendaWindowAdapter.INDEX_RRULE);

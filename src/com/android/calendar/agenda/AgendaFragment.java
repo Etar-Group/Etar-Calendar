@@ -16,6 +16,14 @@
 
 package com.android.calendar.agenda;
 
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.GeneralPreferences;
+import com.android.calendar.Utils;
+
+import dalvik.system.VMRuntime;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,13 +33,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.android.calendar.CalendarController;
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.GeneralPreferences;
-
-import dalvik.system.VMRuntime;
 
 public class AgendaFragment extends Fragment implements CalendarController.EventHandler {
 
@@ -43,15 +44,26 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
     private AgendaListView mAgendaListView;
     private Time mTime;
+    private String mTimeZone;
 
     private String mQuery;
+
+    private Runnable mTZUpdater = new Runnable() {
+        @Override
+        public void run() {
+            mTimeZone = Utils.getTimeZone(getActivity(), this);
+            mTime = new Time(mTimeZone);
+        }
+    };
 
     public AgendaFragment() {
         this(0);
     }
 
     public AgendaFragment(long timeMillis) {
-        mTime = new Time();
+
+        mTimeZone = Utils.getTimeZone(getActivity(), mTZUpdater);
+        mTime = new Time(mTimeZone);
         if (timeMillis == 0) {
             mTime.setToNow();
         } else {
@@ -136,7 +148,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             mTime.setToNow();
             return;
         }
-        Time now = new Time();
+        Time now = new Time(mTimeZone);
         now.setToNow();
         mAgendaListView.goTo(now, mQuery, true); // Force refresh
     }
