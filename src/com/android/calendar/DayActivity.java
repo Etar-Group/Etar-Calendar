@@ -50,13 +50,17 @@ public class DayActivity extends CalendarActivity implements ViewSwitcher.ViewFa
         view.setSelectedDay(mSelectedDay);
         return view;
     }
-
+    
     @Override
     protected void onPause() {
         super.onPause();
         CalendarView view = (CalendarView) mViewSwitcher.getCurrentView();
         mSelectedDay = view.getSelectedDay();
-
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
         // Record Day View as the (new) default detailed view.
         Utils.setDefaultView(this, CalendarApplication.DAY_VIEW_ID);
     }
