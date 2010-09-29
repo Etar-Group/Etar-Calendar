@@ -160,6 +160,17 @@ public class DayView extends View
     private int[] mEarliestStartHour;    // indexed by the week day offset
     private boolean[] mHasAllDayEvent;   // indexed by the week day offset
 
+    private Runnable mTZUpdater = new Runnable() {
+        @Override
+        public void run() {
+            String tz = Utils.getTimeZone(mContext, this);
+            mBaseDate.timezone = tz;
+            mBaseDate.normalize(true);
+            mCurrentTime.switchTimezone(tz);
+            invalidate();
+        }
+    };
+
     /**
      * This variable helps to avoid unnecessarily reloading events by keeping
      * track of the start millis parameter used for the most recent loading
@@ -409,7 +420,7 @@ public class DayView extends View
 
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(context);
 
-        mCurrentTime = new Time();
+        mCurrentTime = new Time(Utils.getTimeZone(context, mTZUpdater));
         long currentTime = System.currentTimeMillis();
         mCurrentTime.set(currentTime);
         //The % makes it go off at the next increment of 5 minutes.
@@ -517,7 +528,7 @@ public class DayView extends View
         // Enable touching the popup window
         mPopupView.setOnClickListener(this);
 
-        mBaseDate = new Time();
+        mBaseDate = new Time(Utils.getTimeZone(context, mTZUpdater));
         long millis = System.currentTimeMillis();
         mBaseDate.set(millis);
 
@@ -1289,12 +1300,15 @@ public class DayView extends View
 //            return;
 //        }
 
+        // Make sure our time zones are up to date
+        mTZUpdater.run();
+
         mSelectedEvent = null;
         mPrevSelectedEvent = null;
         mSelectedEvents.clear();
 
         // The start date is the beginning of the week at 12am
-        Time weekStart = new Time();
+        Time weekStart = new Time(Utils.getTimeZone(mContext, mTZUpdater));
         weekStart.set(mBaseDate);
         weekStart.hour = 0;
         weekStart.minute = 0;
@@ -2495,7 +2509,7 @@ public class DayView extends View
         if (DateFormat.is24HourFormat(mContext)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        String timeRange = DateUtils.formatDateRange(mContext,
+        String timeRange = Utils.formatDateRange(mContext,
                 event.startMillis, event.endMillis, flags);
         TextView timeView = (TextView) mPopupView.findViewById(R.id.time);
         timeView.setText(timeRange);
