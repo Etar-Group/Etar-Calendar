@@ -21,7 +21,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Debug;
-import android.preference.PreferenceManager;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Instances;
@@ -377,8 +376,6 @@ public class Event implements Comparable<Event>, Cloneable {
 
                 events.add(e);
             }
-
-            computePositions(events);
         } finally {
             if (c != null) {
                 c.close();
@@ -401,20 +398,28 @@ public class Event implements Comparable<Event>, Cloneable {
      * the same time.
      *
      * @param eventsList the list of events, sorted into increasing time order
+     * @param minimumDurationMillis minimum duration acceptable as cell height of each event
+     * rectangle in millisecond. Should be 0 when it is not determined.
      */
-    static void computePositions(ArrayList<Event> eventsList) {
-        if (eventsList == null)
+    /* package */ static void computePositions(ArrayList<Event> eventsList,
+            float minimumDurationMillis) {
+        if (eventsList == null) {
             return;
+        }
 
         // Compute the column positions separately for the all-day events
-        doComputePositions(eventsList, false);
-        doComputePositions(eventsList, true);
+        doComputePositions(eventsList, minimumDurationMillis, false);
+        doComputePositions(eventsList, minimumDurationMillis, true);
     }
 
     private static void doComputePositions(ArrayList<Event> eventsList,
-            boolean doAllDayEvents) {
-        ArrayList<Event> activeList = new ArrayList<Event>();
-        ArrayList<Event> groupList = new ArrayList<Event>();
+            float minimumDurationMillis, boolean doAllDayEvents) {
+        final ArrayList<Event> activeList = new ArrayList<Event>();
+        final ArrayList<Event> groupList = new ArrayList<Event>();
+
+        if (minimumDurationMillis < 0.0f) {
+            minimumDurationMillis = 0.0f;
+        }
 
         long colMask = 0;
         int maxCols = 0;
@@ -424,28 +429,16 @@ public class Event implements Comparable<Event>, Cloneable {
                 continue;
 
             long start = event.getStartMillis();
-            if (false && event.allDay) {
-                Event e = event;
-                Log.i("Cal", "event start,end day: " + e.startDay + "," + e.endDay
-                        + " start,end time: " + e.startTime + "," + e.endTime
-                        + " start,end millis: " + e.getStartMillis() + "," + e.getEndMillis()
-                        + " "  + e.title);
-            }
-
             // Remove the inactive events. An event on the active list
             // becomes inactive when its end time is less than or equal to
             // the current event's start time.
             Iterator<Event> iter = activeList.iterator();
             while (iter.hasNext()) {
-                Event active = iter.next();
-                if (active.getEndMillis() <= start) {
-                    if (false && event.allDay) {
-                        Event e = active;
-                        Log.i("Cal", "  removing: start,end day: " + e.startDay + "," + e.endDay
-                                + " start,end time: " + e.startTime + "," + e.endTime
-                                + " start,end millis: " + e.getStartMillis() + "," + e.getEndMillis()
-                                + " "  + e.title);
-                    }
+                final Event active = iter.next();
+
+                float duration = Math.max(active.getEndMillis() - active.getStartMillis(),
+                        minimumDurationMillis);
+                if ((active.getStartMillis() + duration) <= start) {
                     colMask &= ~(1L << active.getColumn());
                     iter.remove();
                 }
