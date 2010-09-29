@@ -41,6 +41,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Calendar;
+import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -48,6 +50,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
+
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class AllInOneActivity extends Activity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryChangeListener {
@@ -64,6 +70,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private int mCurrentView;
     private boolean mPaused = true;
     private boolean mUpdateOnResume = false;
+    private TextView mHomeTime;
+
+    private Runnable mHomeTimeUpdater = new Runnable() {
+        @Override
+        public void run() {
+            updateHomeClock();
+        }
+    };
 
     // Create an observer so that we can update the views whenever a
     // Calendar event changes.
@@ -118,8 +132,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mController.registerEventHandler(HANDLER_KEY, this);
 
         setContentView(R.layout.all_in_one);
+        mHomeTime = (TextView) findViewById(R.id.home_time);
 
         initFragments(timeMillis, viewType, icicle);
+
 
         // Listen for changes that would require this to be refreshed
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
@@ -136,6 +152,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             initFragments(mController.getTime(), mController.getViewType(), null);
             mUpdateOnResume = false;
         }
+        updateHomeClock();
         mPaused = false;
     }
 
@@ -143,6 +160,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     protected void onPause() {
         super.onPause();
         mPaused = true;
+        mHomeTime.getHandler().removeCallbacks(mHomeTimeUpdater);
         mContentResolver.unregisterContentObserver(mObserver);
         if (isFinishing()) {
             // Stop listening for changes that would require this to be refreshed
@@ -390,6 +408,34 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
     }
 
+    private void updateHomeClock() {
+        String tz = Utils.getTimeZone(this, mHomeTimeUpdater);
+        if (mIsMultipane && (mCurrentView == ViewType.DAY || mCurrentView == ViewType.WEEK)
+                && !TextUtils.equals(tz, Time.getCurrentTimezone())) {
+            Time time = new Time(tz);
+            time.setToNow();
+            long millis = time.toMillis(true);
+            boolean isDST = time.isDst != 0;
+            int flags = DateUtils.FORMAT_SHOW_TIME;
+            if (DateFormat.is24HourFormat(this)) {
+                flags |= DateUtils.FORMAT_24HOUR;
+            }
+            // Formats the time as
+            String timeString =
+                    (new StringBuilder(Utils.formatDateRange(this, millis, millis, flags)))
+                    .append(" ").append(TimeZone.getTimeZone(tz).getDisplayName(
+                            isDST, TimeZone.SHORT, Locale.getDefault()))
+                    .toString();
+            mHomeTime.setText(timeString);
+            mHomeTime.setVisibility(View.VISIBLE);
+            // Update when the minute changes
+            mHomeTime.postDelayed(
+                    mHomeTimeUpdater, DateUtils.MINUTE_IN_MILLIS - (millis % DateUtils.MINUTE_IN_MILLIS));
+        } else {
+            mHomeTime.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public long getSupportedEventTypes() {
         return EventType.GO_TO | EventType.VIEW_EVENT | EventType.EDIT_EVENT
@@ -436,6 +482,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             findViewById(R.id.mini_month).setVisibility(View.GONE);
             findViewById(R.id.calendar_list).setVisibility(View.GONE);
         }
+        updateHomeClock();
     }
 
     @Override
