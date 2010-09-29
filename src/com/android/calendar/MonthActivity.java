@@ -318,9 +318,6 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
         view = (MonthView) mSwitcher.getNextView();
         view.dismissPopup();
         mEventLoader.stopBackgroundThread();
-
-        // Record Month View as the (new) start view
-        Utils.setDefaultView(this, CalendarApplication.MONTH_VIEW_ID);
     }
 
     @Override
@@ -350,6 +347,9 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
 
         mContentResolver.registerContentObserver(Events.CONTENT_URI,
                 true, mObserver);
+
+        // Record Month View as the (new) start view
+        Utils.setDefaultView(this, CalendarApplication.MONTH_VIEW_ID);
     }
 
     @Override
