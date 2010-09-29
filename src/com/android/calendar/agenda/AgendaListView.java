@@ -93,7 +93,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     }
 
     public void refresh(boolean forced) {
-        Time time = new Time(mTimeZone);
+        Time time = new Time(Utils.getTimeZone(mContext, null));
         long goToTime = getFirstVisibleTime();
         if (goToTime <= 0) {
             goToTime = System.currentTimeMillis();

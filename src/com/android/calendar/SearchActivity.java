@@ -165,6 +165,7 @@ public class SearchActivity extends Activity
                 new EventInfoFragment(eventId, startMillis, endMillis);
             ft.replace(R.id.event_info, mEventInfoFragment);
             ft.commit();
+            mController.registerEventHandler(R.id.event_info, mEventInfoFragment);
         } else {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
@@ -204,6 +205,7 @@ public class SearchActivity extends Activity
             ft.remove(mEventInfoFragment);
             ft.commit();
             mEventInfoFragment = null;
+            mController.deregisterEventHandler(R.id.event_info);
             mCurrentEventId = -1;
         }
     }
@@ -267,6 +269,8 @@ public class SearchActivity extends Activity
     protected void onResume() {
         super.onResume();
         mContentResolver.registerContentObserver(Events.CONTENT_URI, true, mObserver);
+        // We call this in case the user changed the time zone
+        eventsChanged();
     }
 
     @Override
