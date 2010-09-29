@@ -580,9 +580,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     @Override
     public void onPause() {
         super.onPause();
-        if (!isFinishing()) {
-            return;
-        }
+
         ContentResolver cr = getContentResolver();
         ArrayList<Integer> reminderMinutes = EditEvent.reminderItemsToMinutes(mReminderItems,
                 mReminderValues);
@@ -725,6 +723,9 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         if (mCalendarOwnerAttendeeId == ATTENDEE_ID_NONE) {
             return false;
         }
+
+        // Update the locally cached values
+        mAttendeeResponseFromIntent = mOriginalAttendeeResponse = status;
 
         if (!mIsRepeating) {
             // This is a non-repeating event
