@@ -1798,7 +1798,13 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 values.put(Attendees.ATTENDEE_EMAIL, ownerEmail);
                 values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
                 values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
-                values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_ACCEPTED);
+                int initialStatus = Attendees.ATTENDEE_STATUS_ACCEPTED;
+
+                // Don't accept for secondary calendars
+                if (ownerEmail.endsWith("calendar.google.com")) {
+                    initialStatus = Attendees.ATTENDEE_STATUS_NONE;
+                }
+                values.put(Attendees.ATTENDEE_STATUS, initialStatus);
 
                 b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
                         .withValues(values);
