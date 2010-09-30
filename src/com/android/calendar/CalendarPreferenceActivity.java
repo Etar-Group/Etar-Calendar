@@ -31,6 +31,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.provider.Calendar.CalendarCache;
+import android.text.TextUtils;
 
 public class CalendarPreferenceActivity extends PreferenceActivity implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener {
@@ -73,6 +74,9 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
 
     private static CharSequence[][] mTimezones;
 
+    // In case we need to update something later
+    private Runnable mTZUpdater = null;
+
     /** Return a properly configured SharedPreferences instance */
     public static SharedPreferences getSharedPreferences(Context context) {
         return context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
@@ -112,7 +116,12 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
         }
         mHomeTZ.setEntryValues(mTimezones[0]);
         mHomeTZ.setEntries(mTimezones[1]);
-        mHomeTZ.setSummary(mHomeTZ.getEntry());
+        CharSequence tzName = mHomeTZ.getEntry();
+        if (!TextUtils.isEmpty(tzName)) {
+            mHomeTZ.setSummary(tzName);
+        } else {
+            mHomeTZ.setSummary(Utils.getTimeZone(this, mTZUpdater));
+        }
         mHomeTZ.setOnPreferenceChangeListener(this);
 
         // If needed, migrate vibration setting from a previous version
@@ -164,7 +173,6 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
             }
         } else if (preference == mHomeTZ) {
             tz = (String)newValue;
-            // We set the value here so we can read back the entry
             mHomeTZ.setValue(tz);
             mHomeTZ.setSummary(mHomeTZ.getEntry());
         } else {
