@@ -748,8 +748,10 @@ public class DayView extends View
         remeasure(width, height);
     }
 
-    // Measures the space needed for various parts of the view after
-    // loading new events.  This can change if there are all-day events.
+    /**
+     * Measures the space needed for various parts of the view after
+     * loading new events.  This can change if there are all-day events.
+     */
     private void remeasure(int width, int height) {
 
         // First, clear the array of earliest start times, and the array
@@ -759,13 +761,26 @@ public class DayView extends View
             mHasAllDayEvent[day] = false;
         }
 
+        // We first measure cell height, as the value isn't affected by events.
+        // After measuring the cell height, we compute the layout relation between each event
+        // before measuring cell width, as the cell width should be adjusted along with the
+        // relation.
+        //
+        // Examples: A (1:00pm - 1:01pm), B (1:02pm - 2:00pm)
+        // We should mark them as "overwapped". Though they are not overwapped logically, but
+        // minimum cell height implicitly expands the cell height of A and it should look like
+        // (1:00pm - 1:15pm) after the cell height adjustment.
+
+        // TODO: Load preference and change with pinch to zoom
+        mCellHeight = DEFAULT_CELL_HEIGHT;
+
         // Compute the space needed for the all-day events, if any.
         // Make a pass over all the events, and keep track of the maximum
         // number of all-day events in any one day.  Also, keep track of
         // the earliest event in each day.
         int maxAllDayEvents = 0;
-        ArrayList<Event> events = mEvents;
-        int len = events.size();
+        final ArrayList<Event> events = mEvents;
+        final int len = events.size();
         for (int ii = 0; ii < len; ii++) {
             Event event = events.get(ii);
             if (event.startDay > mLastJulianDay || event.endDay < mFirstJulianDay)
@@ -805,6 +820,8 @@ public class DayView extends View
         }
         mMaxAllDayEvents = maxAllDayEvents;
 
+        // Calcurates mAllDayHeight
+
         mFirstCell = mBannerPlusMargin;
         int allDayHeight = 0;
         if (maxAllDayEvents > 0) {
@@ -827,10 +844,12 @@ public class DayView extends View
         mAllDayHeight = allDayHeight;
 
         mGridAreaHeight = height - mFirstCell;
-        // TODO Load preference and change with pinch to zoom
-        mCellHeight = DEFAULT_CELL_HEIGHT;
         mNumHours = mGridAreaHeight / mCellHeight;
         mEventGeometry.setHourHeight(mCellHeight);
+
+        final float minimumDurationMillis =
+                MIN_EVENT_HEIGHT * DateUtils.MINUTE_IN_MILLIS / (mCellHeight / 60.0f);
+        Event.computePositions(events, minimumDurationMillis);
 
         // Create an off-screen bitmap that we can draw into.
         mBitmapHeight = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP);
@@ -858,7 +877,7 @@ public class DayView extends View
         }
         mViewStartY = mFirstHour * (mCellHeight + HOUR_GAP) - mFirstHourOffset;
 
-        int eventAreaWidth = mNumDays * (mCellWidth + DAY_GAP);
+        final int eventAreaWidth = mNumDays * (mCellWidth + DAY_GAP);
         //When we get new events we don't want to dismiss the popup unless the event changes
         if (mSelectedEvent != null && mLastPopupEventID != mSelectedEvent.id) {
             mPopup.dismiss();
@@ -1293,7 +1312,7 @@ public class DayView extends View
         }
     };
 
-    void reloadEvents() {
+    /* package */ void reloadEvents() {
         // Protect against this being called before this view has been
         // initialized.
 //        if (mContext == null) {
