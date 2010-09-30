@@ -28,16 +28,31 @@
         android:layout_height="350dip"
         android:layout_width="350dip" />
 
-    <FrameLayout
-        android:id="@+id/calendar_list"
-
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_below="@id/mini_month"
         android:layout_alignRight="@id/mini_month"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-
+        android:layout_alignParentBottom="true"
         android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent" >
+
+        <FrameLayout
+            android:id="@+id/calendar_list"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/home_time"
+            android:layout_below="@id/calendar_list"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            style="?android:attr/textAppearanceMedium"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/main_pane"
