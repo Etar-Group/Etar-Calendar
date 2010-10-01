@@ -17,19 +17,18 @@
 
 package com.android.calendar.widget;
 
-import com.android.calendar.widget.CalendarAppWidgetModel;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
-import com.android.calendar.widget.CalendarAppWidgetService;
 import com.android.calendar.widget.CalendarAppWidgetService.CalendarFactory;
-
-import java.util.TimeZone;
 
 import android.database.MatrixCursor;
 import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Suppress;
 import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.view.View;
+
+import java.util.TimeZone;
 
 // adb shell am instrument -w -e class com.android.providers.calendar.CalendarAppWidgetServiceTest
 //   com.android.providers.calendar.tests/android.test.InstrumentationTestRunner
@@ -109,7 +108,7 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 
         // Test
         CalendarAppWidgetModel actual = CalendarFactory.buildAppWidgetModel(
-                getContext(), cursor);
+                getContext(), cursor, Time.getCurrentTimezone());
 
         assertEquals(expected.toString(), actual.toString());
     }
@@ -157,7 +156,7 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 
         // Test
         CalendarAppWidgetModel actual = CalendarFactory.buildAppWidgetModel(
-                getContext(), cursor);
+                getContext(), cursor, Time.getCurrentTimezone());
 
         assertEquals(expected.toString(), actual.toString());
     }
@@ -200,7 +199,7 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 
         // Test
         CalendarAppWidgetModel actual = CalendarFactory.buildAppWidgetModel(
-                getContext(), cursor);
+                getContext(), cursor, Time.getCurrentTimezone());
 
         assertEquals(expected.toString(), actual.toString());
     }
@@ -243,7 +242,7 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 
         // Test
         CalendarAppWidgetModel actual = CalendarFactory.buildAppWidgetModel(
-                getContext(), cursor);
+                getContext(), cursor, Time.getCurrentTimezone());
 
         assertEquals(expected.toString(), actual.toString());
     }
@@ -286,7 +285,7 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 
         // Test
         CalendarAppWidgetModel actual = CalendarAppWidgetService.CalendarFactory.buildAppWidgetModel(
-                getContext(), cursor);
+                getContext(), cursor, Time.getCurrentTimezone());
 
         assertEquals(expected.toString(), actual.toString());
     }

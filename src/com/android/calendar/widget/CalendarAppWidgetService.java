@@ -16,13 +16,12 @@
 
 package com.android.calendar.widget;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
+import com.google.common.annotations.VisibleForTesting;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -33,11 +32,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.os.Bundle;
-import android.provider.Calendar;
 import android.provider.Calendar.Attendees;
+import android.provider.Calendar.CalendarCache;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Instances;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -206,9 +205,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 mCursor.close();
             }
 
-            mCursor = getUpcomingInstancesCursor(
-                    mContext.getContentResolver(), SEARCH_DURATION, now);
-            mModel = buildAppWidgetModel(mContext, mCursor);
+            ContentResolver cr = mContext.getContentResolver();
+            mCursor = getUpcomingInstancesCursor(cr, SEARCH_DURATION, now);
+            String tz = getTimeZoneFromDB(cr);
+            mModel = buildAppWidgetModel(mContext, mCursor, tz);
             long triggerTime = calculateUpdateTime(mModel);
             // Schedule an alarm to wake ourselves up for the next update.  We also cancel
             // all existing wake-ups because PendingIntents don't match against extras.
@@ -267,11 +267,38 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             return matrixCursor;
         }
 
+        private String getTimeZoneFromDB(ContentResolver resolver) {
+            String tz = null;
+            Cursor tzCursor = null;
+            try {
+                tzCursor = resolver.query(
+                        CalendarCache.URI, CalendarCache.POJECTION, null, null, null);
+                if (tzCursor != null) {
+                    int keyColumn = tzCursor.getColumnIndexOrThrow(CalendarCache.KEY);
+                    int valueColumn = tzCursor.getColumnIndexOrThrow(CalendarCache.VALUE);
+                    while (tzCursor.moveToNext()) {
+                        if (TextUtils.equals(tzCursor.getString(keyColumn),
+                                CalendarCache.TIMEZONE_KEY_INSTANCES)) {
+                            tz = tzCursor.getString(valueColumn);
+                        }
+                    }
+                }
+                if (tz == null) {
+                    tz = Time.getCurrentTimezone();
+                }
+            } finally {
+                if (tzCursor != null) {
+                    tzCursor.close();
+                }
+            }
+            return tz;
+        }
+
         @VisibleForTesting
         protected static CalendarAppWidgetModel buildAppWidgetModel(
-                Context context, Cursor cursor) {
+                Context context, Cursor cursor, String timeZone) {
             CalendarAppWidgetModel model = new CalendarAppWidgetModel(context);
-            model.buildFromCursor(cursor);
+            model.buildFromCursor(cursor, timeZone);
             return model;
         }
 

@@ -16,6 +16,9 @@
 
 package com.android.calendar.widget;
 
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
@@ -24,9 +27,6 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
-
-import com.android.calendar.R;
-import com.android.calendar.Utils;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -39,6 +39,8 @@ class CalendarAppWidgetModel {
 
     private static final boolean LOGD = false;
 
+    private String mHomeTZName;
+    private boolean mShowTZ;
     /**
      * {@link RowInfo} is a class that represents a single row in the widget. It
      * is actually only a pointer to either a {@link DayInfo} or an
@@ -267,12 +269,18 @@ class CalendarAppWidgetModel {
         mContext = context;
     }
 
-    public void buildFromCursor(Cursor cursor) {
-        Time recycle = new Time();
+    public void buildFromCursor(Cursor cursor, String timeZone) {
+        Time recycle = new Time(timeZone);
         final ArrayList<LinkedList<RowInfo>> mBuckets =
             new ArrayList<LinkedList<RowInfo>>(CalendarAppWidgetService.MAX_DAYS);
         for (int i = 0; i < CalendarAppWidgetService.MAX_DAYS; i++) {
             mBuckets.add(new LinkedList<RowInfo>());
+        }
+        recycle.setToNow();
+        mShowTZ = !TextUtils.equals(timeZone, Time.getCurrentTimezone());
+        if (mShowTZ) {
+            mHomeTZName = TimeZone.getTimeZone(timeZone).getDisplayName(recycle.isDst != 0,
+                    TimeZone.SHORT);
         }
 
         cursor.moveToPosition(-1);
@@ -359,10 +367,10 @@ class CalendarAppWidgetModel {
         boolean eventIsInProgress = start <= mNow && end > mNow;
 
         // Compute a human-readable string for the start time of the event
-        String whenString;
+        StringBuilder whenString = new StringBuilder();
         int visibWhen;
         if (allDay) {
-            whenString = "";
+            whenString.setLength(0);
             visibWhen = View.GONE;
         } else {
             int flags = DateUtils.FORMAT_ABBREV_ALL;
@@ -372,22 +380,25 @@ class CalendarAppWidgetModel {
             }
             if (endDay > startDay) {
                 flags |= DateUtils.FORMAT_SHOW_DATE;
-                whenString = DateUtils.formatDateRange(mContext, start, end, flags);
+                whenString.append(Utils.formatDateRange(mContext, start, end, flags));
             } else {
-                whenString = DateUtils.formatDateRange(mContext, start, start, flags);
+                whenString.append(Utils.formatDateRange(mContext, start, start, flags));
+            }
+            String tz = Utils.getTimeZone(mContext, null);
+            if (mShowTZ) {
+                whenString.append(" ").append(mHomeTZName);
             }
             // TODO better i18n formatting
             if (eventIsInProgress) {
-                whenString += " (";
-                whenString += mContext.getString(R.string.in_progress);
-                whenString += ")";
+                whenString.append(" (").append(mContext.getString(R.string.in_progress))
+                        .append(")");
             }
             visibWhen = View.VISIBLE;
         }
         eventInfo.start = start;
         eventInfo.end = end;
         eventInfo.allDay = allDay;
-        eventInfo.when = whenString;
+        eventInfo.when = whenString.toString();
         eventInfo.visibWhen = visibWhen;
 
         // What
