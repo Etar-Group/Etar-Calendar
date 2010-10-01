@@ -97,7 +97,8 @@
         </activity>
 
         <activity android:name="SelectCalendarsActivity" android:label="@string/calendars_title" />
-        <activity android:name="CalendarSettingsActivity" android:label="@string/preferences_title" />
+        <activity android:name="CalendarSettingsActivity" android:label="@string/preferences_title"
+            android:theme="@android:style/Theme.Light.Holo"/>
 
         <!-- Declarations for search -->
         <!-- Make all activities a searchable context -->
