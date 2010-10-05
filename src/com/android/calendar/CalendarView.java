@@ -1575,6 +1575,12 @@ public class CalendarView extends View
             r.right = mHoursWidth;
             canvas.drawRect(r, p);
 
+            boolean drawBorder = false;
+            if (!drawBorder) {
+                r.top += HOUR_GAP;
+                r.bottom -= HOUR_GAP;
+            }
+
             // Also draw the highlight on the grid
             p.setColor(mCalendarGridAreaSelected);
             int daynum = mSelectionDay - mFirstJulianDay;
@@ -1583,12 +1589,15 @@ public class CalendarView extends View
             canvas.drawRect(r, p);
 
             // Draw a border around the highlighted grid hour.
-            Path path = mPath;
-            r.top += HOUR_GAP;
-            r.bottom -= HOUR_GAP;
-            path.reset();
-            path.addRect(r.left, r.top, r.right, r.bottom, Direction.CW);
-            canvas.drawPath(path, mSelectionPaint);
+            if (drawBorder) {
+                Path path = mPath;
+                r.top += HOUR_GAP;
+                r.bottom -= HOUR_GAP;
+                path.reset();
+                path.addRect(r.left, r.top, r.right, r.bottom, Direction.CW);
+                canvas.drawPath(path, mSelectionPaint);
+            }
+
             saveSelectionPosition(r.left, r.top, r.right, r.bottom);
         }
 
