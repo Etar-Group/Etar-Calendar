@@ -20,13 +20,9 @@ import android.app.ExpandableListActivity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.ContentObserver;
 import android.database.MatrixCursor;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Calendar.Calendars;
-import android.provider.Calendar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -38,6 +34,7 @@ public class SelectCalendarsActivity extends ExpandableListActivity
 
     private static final String TAG = "Calendar";
     private static final String EXPANDED_KEY = "is_expanded";
+    private static final String ACCOUNT_UNIQUE_KEY = "ACCOUNT_KEY";
     private View mView = null;
     private Cursor mCursor = null;
     private ExpandableListView mList;
@@ -45,7 +42,9 @@ public class SelectCalendarsActivity extends ExpandableListActivity
     private static final String[] PROJECTION = new String[] {
         Calendars._ID,
         Calendars._SYNC_ACCOUNT_TYPE,
-        Calendars._SYNC_ACCOUNT
+        Calendars._SYNC_ACCOUNT,
+        Calendars._SYNC_ACCOUNT_TYPE + " || " + Calendars._SYNC_ACCOUNT + " AS " +
+                ACCOUNT_UNIQUE_KEY,
     };
 
     @Override
@@ -61,7 +60,7 @@ public class SelectCalendarsActivity extends ExpandableListActivity
         //TODO Move managedQuery into a background thread.
         //TODO change to something that supports group by queries.
         mCursor = managedQuery(Calendars.CONTENT_URI, PROJECTION,
-                "1) GROUP BY (_sync_account", //Cheap hack to make WHERE a GROUP BY query
+                "1) GROUP BY (" + ACCOUNT_UNIQUE_KEY, //Cheap hack to make WHERE a GROUP BY query
                 null /* selectionArgs */,
                 Calendars._SYNC_ACCOUNT /*sort order*/);
         MatrixCursor accountsCursor = Utils.matrixCursorFromCursor(mCursor);
