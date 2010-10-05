@@ -199,7 +199,7 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
     protected boolean mOnFlingCalled = false;
     protected boolean mScrolling = false;
 
-    protected boolean mShowDNA = true;
+    protected boolean mShowDNA = false;
     protected int mGoToView = ViewType.CURRENT;
 
     // Bitmap caches.
@@ -664,9 +664,6 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         // Ensure everything is in the correct time zone. This may affect what
         // day today is and can be called by the fragment when the db changes.
         mUpdateTZ.run();
-        if (!mShowDNA) {
-            return;
-        }
 
         long millis = getFirstEventStartMillis();
 

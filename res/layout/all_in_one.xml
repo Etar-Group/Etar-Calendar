@@ -25,7 +25,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
 
-        android:layout_height="320dip"
+        android:layout_height="300dip"
         android:layout_width="350dip" />
 
     <LinearLayout

@@ -320,9 +320,6 @@ public class FullMonthView extends MiniMonthView {
         // Ensure everything is in the correct time zone. This may affect what
         // day today is and can be called by the fragment when the db changes.
         mUpdateTZ.run();
-        if (!mShowDNA) {
-            return;
-        }
 
         long millis = getFirstEventStartMillis();
 
