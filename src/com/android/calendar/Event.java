@@ -36,9 +36,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 // TODO: should Event be Parcelable so it can be passed via Intents?
 public class Event implements Comparable<Event>, Cloneable {
 
+    private static final String TAG = "CalEvent";
     private static final boolean PROFILE = false;
 
-    private static final String[] PROJECTION = new String[] {
+    // The projection to use when querying instances to build a list of events
+    public static final String[] EVENT_PROJECTION = new String[] {
             Instances.TITLE,                 // 0
             Instances.EVENT_LOCATION,        // 1
             Instances.ALL_DAY,               // 2
@@ -100,7 +102,7 @@ public class Event implements Comparable<Event>, Cloneable {
 
     public boolean hasAlarm;
     public boolean isRepeating;
-    
+
     public int selfAttendeeStatus;
 
     // The coordinates of the event rectangle drawn on the screen.
@@ -302,13 +304,8 @@ public class Event implements Comparable<Event>, Cloneable {
                 where = Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
             }
 
-            c = Instances.query(context.getContentResolver(), PROJECTION,
+            c = Instances.query(context.getContentResolver(), EVENT_PROJECTION,
                     start - DateUtils.DAY_IN_MILLIS, end + DateUtils.DAY_IN_MILLIS, where, orderBy);
-
-            if (c == null) {
-                Log.e("Cal", "loadEvents() returned null cursor!");
-                return;
-            }
 
             // Check if we should return early because there are more recent
             // load requests waiting.
@@ -316,66 +313,8 @@ public class Event implements Comparable<Event>, Cloneable {
                 return;
             }
 
-            count = c.getCount();
+            buildEventsFromCursor(events, c, context, startDay, endDay);
 
-            if (count == 0) {
-                return;
-            }
-
-            Resources res = context.getResources();
-            while (c.moveToNext()) {
-                Event e = new Event();
-
-                e.id = c.getLong(PROJECTION_EVENT_ID_INDEX);
-                e.title = c.getString(PROJECTION_TITLE_INDEX);
-                e.location = c.getString(PROJECTION_LOCATION_INDEX);
-                e.allDay = c.getInt(PROJECTION_ALL_DAY_INDEX) != 0;
-                e.organizer = c.getString(PROJECTION_ORGANIZER_INDEX);
-                e.guestsCanModify = c.getInt(PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX) != 0;
-
-                String timezone = c.getString(PROJECTION_TIMEZONE_INDEX);
-
-                if (e.title == null || e.title.length() == 0) {
-                    e.title = res.getString(R.string.no_title_label);
-                }
-
-                if (!c.isNull(PROJECTION_COLOR_INDEX)) {
-                    // Read the color from the database
-                    e.color = c.getInt(PROJECTION_COLOR_INDEX);
-                } else {
-                    e.color = res.getColor(R.color.event_center);
-                }
-
-                long eStart = c.getLong(PROJECTION_BEGIN_INDEX);
-                long eEnd = c.getLong(PROJECTION_END_INDEX);
-
-                e.startMillis = eStart;
-                e.startTime = c.getInt(PROJECTION_START_MINUTE_INDEX);
-                e.startDay = c.getInt(PROJECTION_START_DAY_INDEX);
-
-                e.endMillis = eEnd;
-                e.endTime = c.getInt(PROJECTION_END_MINUTE_INDEX);
-                e.endDay = c.getInt(PROJECTION_END_DAY_INDEX);
-
-                if (e.startDay > endDay || e.endDay < startDay) {
-                    continue;
-                }
-
-                e.hasAlarm = c.getInt(PROJECTION_HAS_ALARM_INDEX) != 0;
-
-                // Check if this is a repeating event
-                String rrule = c.getString(PROJECTION_RRULE_INDEX);
-                String rdate = c.getString(PROJECTION_RDATE_INDEX);
-                if (!TextUtils.isEmpty(rrule) || !TextUtils.isEmpty(rdate)) {
-                    e.isRepeating = true;
-                } else {
-                    e.isRepeating = false;
-                }
-                
-                e.selfAttendeeStatus = c.getInt(PROJECTION_SELF_ATTENDEE_STATUS_INDEX);
-
-                events.add(e);
-            }
         } finally {
             if (c != null) {
                 c.close();
@@ -383,6 +322,75 @@ public class Event implements Comparable<Event>, Cloneable {
             if (PROFILE) {
                 Debug.stopMethodTracing();
             }
+        }
+    }
+
+    public static void buildEventsFromCursor(ArrayList<Event> events, Cursor c, Context context,
+            int startDay, int endDay) {
+        if (c == null || events == null) {
+            Log.e(TAG, "buildEventsFromCursor: null cursor or null events list!");
+            return;
+        }
+
+        int count = c.getCount();
+
+        if (count == 0) {
+            return;
+        }
+
+        Resources res = context.getResources();
+        while (c.moveToNext()) {
+            Event e = new Event();
+
+            e.id = c.getLong(PROJECTION_EVENT_ID_INDEX);
+            e.title = c.getString(PROJECTION_TITLE_INDEX);
+            e.location = c.getString(PROJECTION_LOCATION_INDEX);
+            e.allDay = c.getInt(PROJECTION_ALL_DAY_INDEX) != 0;
+            e.organizer = c.getString(PROJECTION_ORGANIZER_INDEX);
+            e.guestsCanModify = c.getInt(PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX) != 0;
+
+            String timezone = c.getString(PROJECTION_TIMEZONE_INDEX);
+
+            if (e.title == null || e.title.length() == 0) {
+                e.title = res.getString(R.string.no_title_label);
+            }
+
+            if (!c.isNull(PROJECTION_COLOR_INDEX)) {
+                // Read the color from the database
+                e.color = c.getInt(PROJECTION_COLOR_INDEX);
+            } else {
+                e.color = res.getColor(R.color.event_center);
+            }
+
+            long eStart = c.getLong(PROJECTION_BEGIN_INDEX);
+            long eEnd = c.getLong(PROJECTION_END_INDEX);
+
+            e.startMillis = eStart;
+            e.startTime = c.getInt(PROJECTION_START_MINUTE_INDEX);
+            e.startDay = c.getInt(PROJECTION_START_DAY_INDEX);
+
+            e.endMillis = eEnd;
+            e.endTime = c.getInt(PROJECTION_END_MINUTE_INDEX);
+            e.endDay = c.getInt(PROJECTION_END_DAY_INDEX);
+
+            if (e.startDay > endDay || e.endDay < startDay) {
+                continue;
+            }
+
+            e.hasAlarm = c.getInt(PROJECTION_HAS_ALARM_INDEX) != 0;
+
+            // Check if this is a repeating event
+            String rrule = c.getString(PROJECTION_RRULE_INDEX);
+            String rdate = c.getString(PROJECTION_RDATE_INDEX);
+            if (!TextUtils.isEmpty(rrule) || !TextUtils.isEmpty(rdate)) {
+                e.isRepeating = true;
+            } else {
+                e.isRepeating = false;
+            }
+
+            e.selfAttendeeStatus = c.getInt(PROJECTION_SELF_ATTENDEE_STATUS_INDEX);
+
+            events.add(e);
         }
     }
 

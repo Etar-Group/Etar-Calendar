@@ -42,6 +42,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     // Preference keys
     public static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
     public static final String KEY_WEEK_START_DAY = "preferences_week_start_day";
+    public static final String KEY_SHOW_WEEK_NUM = "preferences_show_week_num";
 
     public static final String KEY_CLEAR_SEARCH_HISTORY = "preferences_clear_search_history";
 
@@ -79,6 +80,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     // Default preference values
     public static final int DEFAULT_START_VIEW = CalendarController.ViewType.WEEK;
     public static final int DEFAULT_DETAILED_VIEW = CalendarController.ViewType.DAY;
+    public static final boolean DEFAULT_SHOW_WEEK_NUM = true;
 
     CheckBoxPreference mAlert;
     ListPreference mVibrateWhen;

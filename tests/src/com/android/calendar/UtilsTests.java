@@ -19,6 +19,7 @@ package com.android.calendar;
 import android.database.MatrixCursor;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Smoke;
+import android.text.format.Time;
 
 import java.util.HashMap;
 
@@ -48,6 +49,18 @@ public class UtilsTests extends TestCase {
         {"John Jameson"},
         {"Pepper Pots"}
     };
+    // First date is Thursday, Jan 1st, 1970.
+    private static final int[] JULIAN_DAYS = {2440588, 2440589, 2440590, 2440591, 2440592, 2440593,
+            2440594, 2440595, 2440596, 2440597, 2440598, 2440599, 2440600, 2440601
+    };
+    private static final int[] EXPECTED_WEEK_MONDAY_START = {
+            0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2 };
+    private static final int[] EXPECTED_WEEK_SUNDAY_START = {
+            0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2 };
+    private static final int[] EXPECTED_WEEK_SATURDAY_START = {
+            0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2 };
+    private static final int[] WEEKS_FOR_JULIAN_MONDAYS = {1, 2};
+    private static final int[] EXPECTED_JULIAN_MONDAYS = {2440592, 2440599};
 
     @Override
     public void setUp() {
@@ -75,6 +88,28 @@ public class UtilsTests extends TestCase {
     public void testCheckForDuplicateNames() {
         Utils.checkForDuplicateNames(mIsDuplicateName, mDuplicateNameCursor, NAME_COLUMN);
         assertEquals(mIsDuplicateName, mIsDuplicateNameExpected);
+    }
+
+    @Smoke
+    @SmallTest
+    public void testGetWeeksSinceEpochFromJulianDay() {
+        for (int i = 0; i < JULIAN_DAYS.length; i++) {
+            assertEquals(EXPECTED_WEEK_MONDAY_START[i],
+                    Utils.getWeeksSinceEpochFromJulianDay(JULIAN_DAYS[i], Time.MONDAY));
+            assertEquals(EXPECTED_WEEK_SUNDAY_START[i],
+                    Utils.getWeeksSinceEpochFromJulianDay(JULIAN_DAYS[i], Time.SUNDAY));
+            assertEquals(EXPECTED_WEEK_SATURDAY_START[i],
+                    Utils.getWeeksSinceEpochFromJulianDay(JULIAN_DAYS[i], Time.SATURDAY));
+        }
+    }
+
+    @Smoke
+    @SmallTest
+    public void testGetJulianMondayFromWeeksSinceEpoch() {
+        for (int i = 0; i < WEEKS_FOR_JULIAN_MONDAYS.length; i++) {
+            assertEquals(EXPECTED_JULIAN_MONDAYS[i],
+                    Utils.getJulianMondayFromWeeksSinceEpoch(WEEKS_FOR_JULIAN_MONDAYS[i]));
+        }
     }
 
     @Smoke

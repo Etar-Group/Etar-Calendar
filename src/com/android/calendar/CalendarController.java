@@ -52,6 +52,11 @@ public class CalendarController {
     private static final String REFRESH_ORDER = Calendars._SYNC_ACCOUNT + ","
             + Calendars._SYNC_ACCOUNT_TYPE;
 
+    public static final int MIN_CALENDAR_YEAR = 1970;
+    public static final int MAX_CALENDAR_YEAR = 2036;
+    public static final int MIN_CALENDAR_WEEK = 0;
+    public static final int MAX_CALENDAR_WEEK = 3497; // weeks between 1/1/1970 and 1/1/2037
+
     private Context mContext;
 
     // This uses a LinkedHashMap so that we can replace fragments based on the
@@ -223,6 +228,7 @@ public class CalendarController {
         info.id = eventId;
         info.startTime = new Time();
         info.startTime.set(startMillis);
+        info.selectedTime = info.startTime;
         info.endTime = new Time();
         info.endTime.set(endMillis);
         info.x = x;
@@ -253,6 +259,7 @@ public class CalendarController {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         info.startTime = start;
+        info.selectedTime = start;
         info.endTime = end;
         info.id = eventId;
         info.viewType = viewType;

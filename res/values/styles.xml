@@ -42,6 +42,15 @@
         <item name="android:paddingBottom">2dip</item>
         <item name="android:textAppearance">@style/TextAppearance.MonthView_DayLabel</item>
     </style>
+    
+    <style name="MonthView_MiniMonthLabel">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">2dip</item>
+        <item name="android:paddingBottom">2dip</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/month_day_number</item>
+    </style>
 
     <style name="TextAppearance" parent="android:TextAppearance">
     </style>

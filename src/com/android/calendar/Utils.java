@@ -76,6 +76,8 @@ public class Utils {
     public static final String INTENT_KEY_VIEW_TYPE = "VIEW";
     public static final String INTENT_VALUE_VIEW_TYPE_DAY = "DAY";
 
+    public static final int MONDAY_BEFORE_JULIAN_EPOCH = Time.EPOCH_JULIAN_DAY - 3;
+
     // The name of the shared preferences file. This name must be maintained for
     // historical
     // reasons, as it's what PreferenceManager assigned the first time the file
@@ -331,6 +333,43 @@ public class Utils {
     }
 
     /**
+     * Returns the week since {@link Time#EPOCH_JULIAN_DAY} (Jan 1, 1970)
+     * adjusted for first day of week.
+     *
+     * This takes a julian day and the week start day and calculates which
+     * week since {@link Time#EPOCH_JULIAN_DAY} that day occurs in, starting
+     * at 0. *Do not* use this to compute the ISO week number for the year.
+     *
+     * @param julianDay The julian day to calculate the week number for
+     * @param firstDayOfWeek Which week day is the first day of the week,
+     *          see {@link Time#SUNDAY}
+     * @return Weeks since the epoch
+     */
+    public static int getWeeksSinceEpochFromJulianDay(int julianDay, int firstDayOfWeek) {
+        int diff = Time.THURSDAY - firstDayOfWeek;
+        if (diff < 0) {
+            diff += 7;
+        }
+        int refDay = Time.EPOCH_JULIAN_DAY - diff;
+        return (julianDay - refDay) / 7;
+    }
+
+    /**
+     * Takes a number of weeks since the epoch and calculates the Julian day of
+     * the Monday for that week.
+     *
+     * This assumes that the week containing the {@link Time#EPOCH_JULIAN_DAY}
+     * is considered week 0. It returns the Julian day for the Monday
+     * {@code week} weeks after the Monday of the week containing the epoch.
+     *
+     * @param week Number of weeks since the epoch
+     * @return The julian day for the Monday of the given week since the epoch
+     */
+    public static int getJulianMondayFromWeeksSinceEpoch(int week) {
+        return MONDAY_BEFORE_JULIAN_EPOCH + week * 7;
+    }
+
+    /**
      * Get first day of week as android.text.format.Time constant.
      *
      * @return the first day of week in android.text.format.Time
@@ -354,6 +393,17 @@ public class Utils {
         } else {
             return Time.SUNDAY;
         }
+    }
+
+    /**
+     * Get first day of week as android.text.format.Time constant.
+     *
+     * @return the first day of week in android.text.format.Time
+     */
+    public static boolean getShowWeekNumber(Context context) {
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        return prefs.getBoolean(
+                GeneralPreferences.KEY_SHOW_WEEK_NUM, GeneralPreferences.DEFAULT_SHOW_WEEK_NUM);
     }
 
     /**

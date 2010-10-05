@@ -25,6 +25,7 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.event.EditEventFragment;
+import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
 import android.app.ActionBar;
@@ -203,7 +204,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
         FragmentTransaction ft = getFragmentManager().openTransaction();
 
         if (mIsMultipane) {
-            Fragment miniMonthFrag = new MonthFragment(false, timeMillis, true);
+            View miniMonth = findViewById(R.id.mini_month);
+            Fragment miniMonthFrag = new MonthByWeekFragment(true); //new MonthFragment(false, timeMillis, true);
             ft.replace(R.id.mini_month, miniMonthFrag);
             mController.registerEventHandler(R.id.mini_month, (EventHandler) miniMonthFrag);
 
