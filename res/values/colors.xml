@@ -44,7 +44,7 @@
     <color name="calendar_grid_line_vertical_color">#ffdddddd</color>
     <color name="calendar_grid_line_highlight_color">#ff707070</color>
     <color name="selection">#ffffaa00</color>
-    <color name="pressed">#fff0d398</color>
+    <color name="pressed">#ffefede9</color>
 
     <color name="month_day_number">#ff404040</color>
     <color name="month_saturday">#ff404040</color>
