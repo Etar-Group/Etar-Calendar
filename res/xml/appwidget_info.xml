@@ -18,6 +18,7 @@
     android:minWidth="292dip"
     android:minHeight="292dip"
     android:updatePeriodMillis="0"
+    android:previewImage="@drawable/preview"
     android:initialLayout="@layout/appwidget"
     >
 </appwidget-provider>
