@@ -66,9 +66,6 @@ import android.text.util.Rfc822Token;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -201,14 +198,6 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
             Reminders.METHOD_DEFAULT + ")";
     private static final String REMINDERS_SORT = Reminders.MINUTES;
 
-    private static final int MENU_GROUP_REMINDER = 1;
-    private static final int MENU_GROUP_EDIT = 2;
-    private static final int MENU_GROUP_DELETE = 3;
-
-    private static final int MENU_ADD_REMINDER = 1;
-    private static final int MENU_EDIT = 2;
-    private static final int MENU_DELETE = 3;
-
     private View mView;
     private LinearLayout mRemindersContainer;
     private LinearLayout mOrganizerContainer;
@@ -226,7 +215,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
     private boolean mHasAttendeeData;
     private boolean mIsOrganizer;
     private long mCalendarOwnerAttendeeId = EditEventHelper.ATTENDEE_ID_NONE;
-    private boolean mOrganizerCanRespond;
+    private boolean mOwnerCanRespond;
     private String mCalendarOwnerAccount;
     private boolean mCanModifyCalendar;
     private boolean mIsBusyFreeCalendar;
@@ -293,7 +282,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
     };
 
     private static final int DIALOG_WIDTH = 500; // FRAG_TODO scale
-    private static final int DIALOG_HEIGHT = 500;
+    private static final int DIALOG_HEIGHT = 600;
     private boolean mIsDialog = false;
     private int mX = -1;
     private int mY = -1;
@@ -339,22 +328,26 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
                 // update the action bar since our option set might have changed
                 activity.invalidateOptionsMenu();
 
-                // this is used for both attendees and reminders
-                args = new String[] { Long.toString(mEventId) };
+                if (!mIsBusyFreeCalendar) {
+                    // this is used for both attendees and reminders
+                    args = new String[] { Long.toString(mEventId) };
 
-                // start attendees query
-                uri = Attendees.CONTENT_URI;
-                startQuery(TOKEN_QUERY_ATTENDEES, null, uri, ATTENDEES_PROJECTION,
-                        ATTENDEES_WHERE, args, ATTENDEES_SORT_ORDER);
+                    // start attendees query
+                    uri = Attendees.CONTENT_URI;
+                    startQuery(TOKEN_QUERY_ATTENDEES, null, uri, ATTENDEES_PROJECTION,
+                            ATTENDEES_WHERE, args, ATTENDEES_SORT_ORDER);
 
-                // start reminders query
-                mOriginalHasAlarm = mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) != 0;
-                if (mOriginalHasAlarm) {
-                    uri = Reminders.CONTENT_URI;
-                    startQuery(TOKEN_QUERY_REMINDERS, null, uri, REMINDERS_PROJECTION,
-                            REMINDERS_WHERE, args, REMINDERS_SORT);
+                    // start reminders query
+                    mOriginalHasAlarm = mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) != 0;
+                    if (mOriginalHasAlarm) {
+                        uri = Reminders.CONTENT_URI;
+                        startQuery(TOKEN_QUERY_REMINDERS, null, uri, REMINDERS_PROJECTION,
+                                REMINDERS_WHERE, args, REMINDERS_SORT);
+                    } else {
+                        // if no reminders, hide the appropriate fields
+                        updateRemindersVisibility();
+                    }
                 } else {
-                    // if no reminders, hide the appropriate fields
                     updateRemindersVisibility();
                 }
                 break;
@@ -450,6 +443,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         a.dimAmount = .4f;
 
         a.width = DIALOG_WIDTH;
+        a.height = DIALOG_HEIGHT;
 
         if (mX != -1 || mY != -1) {
             a.x = mX - a.width - 64; // FRAG_TODO event sender should return the left edge or a rect
@@ -507,7 +501,6 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mEditResponseHelper = new EditResponseHelper(activity);
-        setHasOptionsMenu(true);
         mHandler = new QueryHandler(activity);
         mPresenceQueryHandler = new PresenceQueryHandler(activity, activity.getContentResolver());
     }
@@ -547,7 +540,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         ImageButton reminderAddButton = (ImageButton) mView.findViewById(R.id.reminder_add);
         reminderAddButton.setOnClickListener(addReminderOnClickListener);
 
-//CLEANUP        mReminderAdder = (LinearLayout) mView.findViewById(R.id.reminder_adder);
+        mReminderAdder = (LinearLayout) mView.findViewById(R.id.reminder_adder);
 
         if (mUri == null) {
             // restore event ID from bundle
@@ -751,74 +744,13 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         updateRemindersVisibility();
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        MenuItem item;
-        item = menu.add(MENU_GROUP_REMINDER, MENU_ADD_REMINDER, 0,
-                R.string.add_new_reminder);
-        item.setIcon(R.drawable.ic_menu_reminder);
-        item.setAlphabeticShortcut('r');
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        item = menu.add(MENU_GROUP_EDIT, MENU_EDIT, 0, R.string.edit_event_label);
-        item.setIcon(android.R.drawable.ic_menu_edit);
-        item.setAlphabeticShortcut('e');
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        item = menu.add(MENU_GROUP_DELETE, MENU_DELETE, 0, R.string.delete_event_label);
-        item.setIcon(android.R.drawable.ic_menu_delete);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        boolean canAddReminders = canAddReminders();
-        menu.setGroupVisible(MENU_GROUP_REMINDER, canAddReminders);
-        menu.setGroupEnabled(MENU_GROUP_REMINDER, canAddReminders);
-
-        menu.setGroupVisible(MENU_GROUP_EDIT, mCanModifyEvent);
-        menu.setGroupEnabled(MENU_GROUP_EDIT, mCanModifyEvent);
-        menu.setGroupVisible(MENU_GROUP_DELETE, mCanModifyCalendar);
-        menu.setGroupEnabled(MENU_GROUP_DELETE, mCanModifyCalendar);
-
-        super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        switch (item.getItemId()) {
-            case MENU_ADD_REMINDER:
-                addReminder();
-                break;
-            case MENU_EDIT:
-                doEdit();
-                break;
-            case MENU_DELETE:
-                doDelete();
-                break;
-        }
-        return true;
-    }
-
-//CLEANUP    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_DEL) {
-//            doDelete();
-//            return true;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
-
     private void updateRemindersVisibility() {
-//CLEANUP        if (mIsBusyFreeCalendar) {
-//            mRemindersContainer.setVisibility(View.GONE);
-//        } else {
-//            mRemindersContainer.setVisibility(View.VISIBLE);
-//            mReminderAdder.setVisibility(canAddReminders() ? View.VISIBLE : View.GONE);
-//        }
+        if (mIsBusyFreeCalendar) {
+            mRemindersContainer.setVisibility(View.GONE);
+        } else {
+            mRemindersContainer.setVisibility(View.VISIBLE);
+            mReminderAdder.setVisibility(canAddReminders() ? View.VISIBLE : View.GONE);
+        }
     }
 
     /**
@@ -1050,9 +982,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         }
 
         // Description
-        if (description == null || description.length() == 0) {
-            setVisibilityCommon(view, R.id.description, View.GONE);
-        } else {
+        if (description != null && description.length() != 0) {
             setTextCommon(view, R.id.description, description);
         }
     }
@@ -1063,7 +993,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
             mCalendarsCursor.moveToFirst();
             String tempAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
             mCalendarOwnerAccount = (tempAccount == null) ? "" : tempAccount;
-            mOrganizerCanRespond = mCalendarsCursor.getInt(CALENDARS_INDEX_OWNER_CAN_RESPOND) != 0;
+            mOwnerCanRespond = mCalendarsCursor.getInt(CALENDARS_INDEX_OWNER_CAN_RESPOND) != 0;
 
             String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
 
@@ -1082,15 +1012,17 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
                     mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) == Calendars.FREEBUSY_ACCESS;
             mCanModifyEvent = mCanModifyCalendar
                     && (mIsOrganizer || (mEventCursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0));
-            if (mCanModifyEvent) {
+
+            if (!mIsBusyFreeCalendar) {
                 Button b = (Button) mView.findViewById(R.id.edit);
+                b.setEnabled(true);
                 b.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         doEdit();
                         EventInfoFragment.this.dismiss();
-                    }});
-                b.setVisibility(View.VISIBLE);
+                    }
+                });
             }
         } else {
 //CLEANUP            setVisibilityCommon(view, R.id.calendar_container, View.GONE);
@@ -1291,9 +1223,11 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         // paying attention to whether or not an attendee status was
         // included in the feed, but we're currently omitting those corner cases
         // for simplicity).
-//CLEANUP
+
+        // TODO Switch to EditEventHelper.canRespond when this class uses CalendarEventModel.
+
         if (!mCanModifyCalendar || (mHasAttendeeData && mIsOrganizer && mNumOfAttendees <= 1) ||
-                (mIsOrganizer && !mOrganizerCanRespond)) {
+                (mIsOrganizer && !mOwnerCanRespond)) {
             setVisibilityCommon(view, R.id.response_container, View.GONE);
             return;
         }

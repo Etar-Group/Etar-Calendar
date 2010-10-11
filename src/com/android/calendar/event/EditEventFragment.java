@@ -58,10 +58,19 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     private static final boolean DEBUG = false;
 
-    private static final int TOKEN_EVENT = 0;
-    private static final int TOKEN_ATTENDEES = 1;
-    private static final int TOKEN_REMINDERS = 2;
-    private static final int TOKEN_CALENDARS = 3;
+    private static final int TOKEN_EVENT = 1;
+    private static final int TOKEN_ATTENDEES = 1 << 1;
+    private static final int TOKEN_REMINDERS = 1 << 2;
+    private static final int TOKEN_CALENDARS = 1 << 3;
+    private static final int TOKEN_ALL = TOKEN_EVENT | TOKEN_ATTENDEES | TOKEN_REMINDERS
+            | TOKEN_CALENDARS;
+
+    /**
+     * A bitfield of TOKEN_* to keep track which query hasn't been completed
+     * yet. Once all queries have returned, the model can be applied to the
+     * view.
+     */
+    private int mOutstandingQueries;
 
     EditEventHelper mHelper;
     CalendarEventModel mModel;
@@ -111,7 +120,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
                         // The cursor is empty. This can happen if the event
                         // was deleted.
                         cursor.close();
-                        mContext.finish();
+                        mOnDone.setDoneCode(Utils.DONE_EXIT);
+                        mOnDone.run();
                         return;
                     }
                     mOriginalModel = new CalendarEventModel();
@@ -131,11 +141,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     displayEditWhichDialogue();
 
                     eventId = mModel.mId;
-                    // If there are attendees or alarms query for them
-                    // We only query one table at a time so that we can easily
-                    // tell if we are finished with all our queries. At a later
-                    // point we might want to parallelize this and keep track of
-                    // which queries are done.
+
+                    // TOKEN_ATTENDEES
                     if (mModel.mHasAttendeeData && eventId != -1) {
                         Uri attUri = Attendees.CONTENT_URI;
                         String[] whereArgs = {
@@ -145,7 +152,12 @@ public class EditEventFragment extends Fragment implements EventHandler {
                                 EditEventHelper.ATTENDEES_PROJECTION,
                                 EditEventHelper.ATTENDEES_WHERE /* selection */,
                                 whereArgs /* selection args */, null /* sort order */);
-                    } else if (mModel.mHasAlarm) {
+                    } else {
+                        setModelIfDone(TOKEN_ATTENDEES);
+                    }
+
+                    // TOKEN_REMINDERS
+                    if (mModel.mHasAlarm) {
                         Uri rUri = Reminders.CONTENT_URI;
                         String[] remArgs = {
                                 Long.toString(eventId), Integer.toString(Reminders.METHOD_ALERT),
@@ -157,10 +169,18 @@ public class EditEventFragment extends Fragment implements EventHandler {
                                         EditEventHelper.REMINDERS_WHERE /* selection */,
                                         remArgs /* selection args */, null /* sort order */);
                     } else {
-                        // Set the model if there are no more queries to
-                        // make
-                        mView.setModel(mModel);
+                        setModelIfDone(TOKEN_REMINDERS);
                     }
+
+                    // TOKEN_CALENDARS
+                    String[] selArgs = {
+                        Long.toString(mModel.mCalendarId)
+                    };
+                    mHandler.startQuery(TOKEN_CALENDARS, null, Calendars.CONTENT_URI,
+                            EditEventHelper.CALENDARS_PROJECTION, EditEventHelper.CALENDARS_WHERE,
+                            selArgs /* selection args */, null /* sort order */);
+
+                    setModelIfDone(TOKEN_EVENT);
                     break;
                 case TOKEN_ATTENDEES:
                     try {
@@ -170,10 +190,21 @@ public class EditEventFragment extends Fragment implements EventHandler {
                             int status = cursor.getInt(EditEventHelper.ATTENDEES_INDEX_STATUS);
                             int relationship = cursor
                                     .getInt(EditEventHelper.ATTENDEES_INDEX_RELATIONSHIP);
-                            if (email != null) {
-                                if (relationship == Attendees.RELATIONSHIP_ORGANIZER) {
+                            if (relationship == Attendees.RELATIONSHIP_ORGANIZER) {
+                                if (email != null) {
                                     mModel.mOrganizer = email;
+                                    mModel.mIsOrganizer = mModel.mOwnerAccount
+                                            .equalsIgnoreCase(email);
                                 }
+
+                                if (TextUtils.isEmpty(name)) {
+                                    mModel.mOrganizerDisplayName = mModel.mOrganizer;
+                                } else {
+                                    mModel.mOrganizerDisplayName = name;
+                                }
+                            }
+
+                            if (email != null) {
                                 if (mModel.mOwnerAccount != null &&
                                         mModel.mOwnerAccount.equalsIgnoreCase(email)) {
                                     int attendeeId =
@@ -193,26 +224,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     } finally {
                         cursor.close();
                     }
-                    // This is done after attendees so we know when our
-                    // model is filled out
-                    eventId = mModel.mId;
-                    boolean hasAlarm = mModel.mHasAlarm;
-                    if (hasAlarm) {
-                        Uri rUri = Reminders.CONTENT_URI;
-                        String[] remArgs = {
-                                Long.toString(eventId), Integer.toString(Reminders.METHOD_ALERT),
-                                Integer.toString(Reminders.METHOD_DEFAULT)
-                        };
-                        mHandler
-                                .startQuery(TOKEN_REMINDERS, null, rUri,
-                                        EditEventHelper.REMINDERS_PROJECTION,
-                                        EditEventHelper.REMINDERS_WHERE /* selection */,
-                                        remArgs /* selection args */, null /* sort order */);
-                    } else {
-                        // Set the model if there are no more queries to
-                        // make
-                        mView.setModel(mModel);
-                    }
+
+                    setModelIfDone(TOKEN_ATTENDEES);
                     break;
                 case TOKEN_REMINDERS:
                     try {
@@ -225,20 +238,38 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     } finally {
                         cursor.close();
                     }
-                    // Set the model after we finish all the necessary
-                    // queries.
-                    mView.setModel(mModel);
+
+                    setModelIfDone(TOKEN_REMINDERS);
                     break;
                 case TOKEN_CALENDARS:
-                    MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
-
-                    if (DEBUG) {
-                        Log.d(TAG, "onQueryComplete: setting cursor with "
-                                + matrixCursor.getCount() + " calendars");
+                    try {
+                        if (mModel.mCalendarId == -1) {
+                            // Populate Calendar spinner only if no calendar is set e.g. new event
+                            MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
+                            if (DEBUG) {
+                                Log.d(TAG, "onQueryComplete: setting cursor with "
+                                        + matrixCursor.getCount() + " calendars");
+                            }
+                            mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed());
+                        } else {
+                            // Populate model for an existing event
+                            EditEventHelper.setModelFromCalendarCursor(mModel, cursor);
+                        }
+                    } finally {
+                        cursor.close();
                     }
-                    mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed());
-                    cursor.close();
+
+                    setModelIfDone(TOKEN_CALENDARS);
                     break;
+            }
+        }
+    }
+
+    void setModelIfDone(int queryType) {
+        synchronized (this) {
+            mOutstandingQueries &= ~queryType;
+            if (mOutstandingQueries == 0) {
+                mView.setModel(mModel);
             }
         }
     }
@@ -258,6 +289,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
         mEnd = -1;
         if (mEvent != null) {
             if (mEvent.id != -1) {
+                mModel.mId = mEvent.id;
                 mUri = ContentUris.withAppendedId(Events.CONTENT_URI, mEvent.id);
             }
             if (mEvent.startTime != null) {
@@ -280,19 +312,20 @@ public class EditEventFragment extends Fragment implements EventHandler {
         // Kick off the query for the event
         boolean newEvent = mUri == null;
         if (!newEvent) {
+            mOutstandingQueries = TOKEN_ALL;
             if (DEBUG) {
-                Log.d(TAG, "onCreate: uri for event is " + mUri.toString());
+                Log.d(TAG, "startQuery: uri for event is " + mUri.toString());
             }
             mHandler.startQuery(TOKEN_EVENT, null, mUri, EditEventHelper.EVENT_PROJECTION,
                     null /* selection */, null /* selection args */, null /* sort order */);
         } else {
+            mOutstandingQueries = TOKEN_CALENDARS;
             if (DEBUG) {
-                Log.d(TAG, "onCreate: Editing a new event.");
+                Log.d(TAG, "startQuery: Editing a new event.");
             }
             mModel.mStart = mBegin;
             mModel.mEnd = mEnd;
             mModel.mSelfAttendeeStatus = Attendees.ATTENDEE_STATUS_ACCEPTED;
-            mView.setModel(mModel);
 
             // Start a query in the background to read the list of calendars
             mHandler.startQuery(TOKEN_CALENDARS, null, Calendars.CONTENT_URI,
