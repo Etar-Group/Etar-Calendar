@@ -402,7 +402,7 @@ public class Event implements Comparable<Event>, Cloneable {
      * rectangle in millisecond. Should be 0 when it is not determined.
      */
     /* package */ static void computePositions(ArrayList<Event> eventsList,
-            float minimumDurationMillis) {
+            long minimumDurationMillis) {
         if (eventsList == null) {
             return;
         }
@@ -413,12 +413,12 @@ public class Event implements Comparable<Event>, Cloneable {
     }
 
     private static void doComputePositions(ArrayList<Event> eventsList,
-            float minimumDurationMillis, boolean doAllDayEvents) {
+            long minimumDurationMillis, boolean doAllDayEvents) {
         final ArrayList<Event> activeList = new ArrayList<Event>();
         final ArrayList<Event> groupList = new ArrayList<Event>();
 
-        if (minimumDurationMillis < 0.0f) {
-            minimumDurationMillis = 0.0f;
+        if (minimumDurationMillis < 0) {
+            minimumDurationMillis = 0;
         }
 
         long colMask = 0;
@@ -436,8 +436,9 @@ public class Event implements Comparable<Event>, Cloneable {
             while (iter.hasNext()) {
                 final Event active = iter.next();
 
-                float duration = Math.max(active.getEndMillis() - active.getStartMillis(),
-                        minimumDurationMillis);
+                final long duration =
+                        Math.max(active.getEndMillis() - active.getStartMillis(),
+                                minimumDurationMillis);
                 if ((active.getStartMillis() + duration) <= start) {
                     colMask &= ~(1L << active.getColumn());
                     iter.remove();
