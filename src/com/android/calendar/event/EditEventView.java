@@ -53,6 +53,7 @@ import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -303,8 +304,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     private void showTimezoneDialog() {
-        mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        mTimezoneAdapter = new TimezoneAdapter(builder.getContext(), mTimezone);
         builder.setTitle(R.string.timezone_label);
         builder.setSingleChoiceItems(
                 mTimezoneAdapter, mTimezoneAdapter.getRowById(mTimezone), this);
@@ -759,7 +760,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mTimezoneButton = (Button) view.findViewById(R.id.timezone);
         mViewList.add(mTimezoneButton);
         mAllDayCheckBox = (CheckBox) view.findViewById(R.id.is_all_day);
-        mViewList.add(mAllDayCheckBox);
         mRepeatsSpinner = (Spinner) view.findViewById(R.id.repeats);
         mViewList.add(mRepeatsSpinner);
         mTransparencySpinner = (Spinner) view.findViewById(R.id.availability);
@@ -817,6 +817,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return;
         }
 
+        boolean canModifyCalendar = EditEventHelper.canModifyCalendar(model);
+        boolean canModifyEvent = EditEventHelper.canModifyEvent(model);
+        boolean canRespond = EditEventHelper.canRespond(model);
+
         long begin = model.mStart;
         long end = model.mEnd;
         mTimezone = model.mTimezone; // this will be UTC for all day events
@@ -841,7 +845,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // validator
         if (!model.mHasAttendeeData) {
             mView.findViewById(R.id.attendees_group).setVisibility(View.GONE);
-        } else if (!EditEventHelper.canModifyEvent(model)) {
+        } else if (!canModifyEvent) {
+            // Hide views used for adding attendees
             mView.findViewById(R.id.add_attendees_label).setVisibility(View.GONE);
             mView.findViewById(R.id.add_attendees_group).setVisibility(View.GONE);
             mAddAttendeesButton.setVisibility(View.GONE);
@@ -859,41 +864,49 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mViewList.add(mAttendeesList);
         }
 
-        mAllDayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    if (mEndTime.hour == 0 && mEndTime.minute == 0) {
-                        mEndTime.monthDay--;
-                        long endMillis = mEndTime.normalize(true);
+        if (canModifyEvent) {
+            mAllDayCheckBox
+                    .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if (isChecked) {
+                                if (mEndTime.hour == 0 && mEndTime.minute == 0) {
+                                    mEndTime.monthDay--;
+                                    long endMillis = mEndTime.normalize(true);
 
-                        // Do not allow an event to have an end time before the
-                        // start time.
-                        if (mEndTime.before(mStartTime)) {
-                            mEndTime.set(mStartTime);
-                            endMillis = mEndTime.normalize(true);
+                                    // Do not allow an event to have an end time
+                                    // before the
+                                    // start time.
+                                    if (mEndTime.before(mStartTime)) {
+                                        mEndTime.set(mStartTime);
+                                        endMillis = mEndTime.normalize(true);
+                                    }
+                                    setDate(mEndDateButton, endMillis);
+                                    setTime(mEndTimeButton, endMillis);
+                                }
+
+                                mStartTimeButton.setVisibility(View.GONE);
+                                mEndTimeButton.setVisibility(View.GONE);
+                                mTimezoneButton.setVisibility(View.GONE);
+                                mTimezoneTextView.setVisibility(View.GONE);
+                            } else {
+                                if (mEndTime.hour == 0 && mEndTime.minute == 0) {
+                                    mEndTime.monthDay++;
+                                    long endMillis = mEndTime.normalize(true);
+                                    setDate(mEndDateButton, endMillis);
+                                    setTime(mEndTimeButton, endMillis);
+                                }
+                                mStartTimeButton.setVisibility(View.VISIBLE);
+                                mEndTimeButton.setVisibility(View.VISIBLE);
+                                mTimezoneButton.setVisibility(View.VISIBLE);
+                                mTimezoneTextView.setVisibility(View.VISIBLE);
+                            }
                         }
-                        setDate(mEndDateButton, endMillis);
-                        setTime(mEndTimeButton, endMillis);
-                    }
-
-                    mStartTimeButton.setVisibility(View.GONE);
-                    mEndTimeButton.setVisibility(View.GONE);
-                    mTimezoneButton.setVisibility(View.GONE);
-                    mTimezoneTextView.setVisibility(View.GONE);
-                } else {
-                    if (mEndTime.hour == 0 && mEndTime.minute == 0) {
-                        mEndTime.monthDay++;
-                        long endMillis = mEndTime.normalize(true);
-                        setDate(mEndDateButton, endMillis);
-                        setTime(mEndTimeButton, endMillis);
-                    }
-                    mStartTimeButton.setVisibility(View.VISIBLE);
-                    mEndTimeButton.setVisibility(View.VISIBLE);
-                    mTimezoneButton.setVisibility(View.VISIBLE);
-                    mTimezoneTextView.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+                    });
+        } else {
+            // Hide all day if read only
+            mView.findViewById(R.id.is_all_day_label).setVisibility(View.GONE);
+            mAllDayCheckBox.setVisibility(View.GONE);
+        }
 
         if (model.mAllDay) {
             mAllDayCheckBox.setChecked(true);
@@ -912,14 +925,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTimezoneDialog.getListView().setAdapter(mTimezoneAdapter);
         }
 
-        if (EditEventHelper.canRespond(model) || EditEventHelper.canModifyEvent(model)) {
+        if (canRespond || canModifyEvent) {
             mSaveButton.setOnClickListener(this);
             mSaveButton.setEnabled(true);
         } else {
             mSaveButton.setEnabled(false);
         }
 
-        if (EditEventHelper.canModifyCalendar(model)) {
+        if (canModifyCalendar) {
             mDeleteButton.setOnClickListener(this);
             mDeleteButton.setEnabled(true);
         } else {
@@ -977,7 +990,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mVisibilitySpinner.setSelection(model.mVisibility);
         mResponseSpinner.setSelection(findResponseIndexFor(model.mSelfAttendeeStatus));
         View responseLabel = mView.findViewById(R.id.response_label);
-        if (EditEventHelper.canRespond(model)) {
+        if (canRespond) {
             responseLabel.setVisibility(View.VISIBLE);
             mResponseSpinner.setVisibility(View.VISIBLE);
         } else {
@@ -998,7 +1011,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         populateTimezone();
         populateRepeats();
         updateAttendees(model.mAttendeesList);
-        if (!EditEventHelper.canModifyEvent(mModel)) {
+        if (!canModifyEvent) {
             for (View v : mViewList) {
                 v.setEnabled(false);
             }

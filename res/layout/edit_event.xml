@@ -141,6 +141,7 @@
                 <!-- ALL DAY -->
                 <TableRow>
                     <TextView
+                        android:id="@+id/is_all_day_label"
                         android:text="@string/edit_event_all_day_label"
                         style="@style/TextAppearance.EditEvent_Label"
                         android:layout_height="match_parent"

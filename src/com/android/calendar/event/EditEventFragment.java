@@ -472,7 +472,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
             // pressed back/home or one of the buttons on screen
             mSaveOnDetach = false;
 
-            if ((mCode & Utils.DONE_SAVE) != 0) {
+            if ((mCode & Utils.DONE_SAVE) != 0
+                    && mModel != null
+                    && (EditEventHelper.canRespond(mModel) || EditEventHelper
+                            .canModifyEvent(mModel))) {
                 if (mModel != null && !mModel.equals(mOriginalModel)) {
                     if (mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
                         if (mModel.mUri != null) {
@@ -486,7 +489,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 }
             }
 
-            if ((mCode & Utils.DONE_DELETE) != 0) {
+            if ((mCode & Utils.DONE_DELETE) != 0 && mModel != null
+                    && EditEventHelper.canModifyCalendar(mModel)) {
                 long begin = mModel.mStart;
                 long end = mModel.mEnd;
                 int which = -1;
