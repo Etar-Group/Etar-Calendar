@@ -439,7 +439,7 @@ public class Event implements Comparable<Event>, Cloneable {
             Iterator<Event> iter = activeList.iterator();
             while (iter.hasNext()) {
                 Event active = iter.next();
-                float duration = Math.max(active.getEndMillis() - active.getStartMillis(),
+                final long duration = Math.max(active.getEndMillis() - active.getStartMillis(),
                         CalendarView.EVENT_OVERWRAP_MARGIN_TIME);
                 if ((active.getStartMillis() + duration) <= start) {
                     if (false && event.allDay) {
