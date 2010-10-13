@@ -280,7 +280,7 @@ public class CalendarView extends View
     // understand the relation between each event and pixel-level height of actual rectangles,
     // but we don't do so as currently the calculator doesn't have convenient way to obtain
     // necessary values for the calculation.
-    /* package */ static int EVENT_OVERWRAP_MARGIN_TIME = MILLIS_PER_MINUTE * 15;
+    /* package */ static long EVENT_OVERWRAP_MARGIN_TIME = MILLIS_PER_MINUTE * 15;
 
     private static int mSelectionColor;
     private static int mPressedColor;
