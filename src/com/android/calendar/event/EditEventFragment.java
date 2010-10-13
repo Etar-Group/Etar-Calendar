@@ -475,18 +475,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if ((mCode & Utils.DONE_SAVE) != 0
                     && mModel != null
                     && (EditEventHelper.canRespond(mModel) || EditEventHelper
-                            .canModifyEvent(mModel))) {
-                if (mModel != null && !mModel.equals(mOriginalModel)) {
-                    if (mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
-                        if (mModel.mUri != null) {
-                            Toast.makeText(mContext, R.string.saving_event, Toast.LENGTH_SHORT)
-                                    .show();
-                        } else {
-                            Toast.makeText(mContext, R.string.creating_event,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                            .canModifyEvent(mModel)) && !mModel.equals(mOriginalModel)
+                    && mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
+                int stringResource;
+                if (mModel.mUri != null) {
+                    stringResource = R.string.saving_event;
+                } else {
+                    stringResource = R.string.creating_event;
                 }
+                Toast.makeText(mContext, stringResource, Toast.LENGTH_SHORT).show();
             }
 
             if ((mCode & Utils.DONE_DELETE) != 0 && mModel != null

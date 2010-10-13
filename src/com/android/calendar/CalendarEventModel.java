@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.provider.Calendar.Attendees;
+import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.text.TextUtils;
 
@@ -122,15 +123,12 @@ public class CalendarEventModel {
     public boolean mGuestsCanInviteOthers = false;
     public boolean mGuestsCanSeeGuests = false;
 
-// NEW vvvvvvvvvvvvvvv
-    // FRAG_TODO update equal/hashcode/clear
     public boolean mOrganizerCanRespond = false;
-    public int mCalendarAccessLevel = 0;
+    public int mCalendarAccessLevel = Calendars.CONTRIBUTOR_ACCESS;
 
     // The model can't be updated with a calendar cursor until it has been
     // updated with an event cursor.
     public boolean mModelUpdatedWithEventCursor;
-// NEW ^^^^^^^^^^^^^
 
     public int mVisibility = 0;
     public ArrayList<Integer> mReminderMinutes;
@@ -258,6 +256,9 @@ public class CalendarEventModel {
         mGuestsCanInviteOthers = false;
         mGuestsCanSeeGuests = false;
         mVisibility = 0;
+        mOrganizerCanRespond = false;
+        mCalendarAccessLevel = Calendars.CONTRIBUTOR_ACCESS;
+        mModelUpdatedWithEventCursor = false;
 
         mReminderMinutes = new ArrayList<Integer>();
         mAttendeesList.clear();
@@ -297,6 +298,9 @@ public class CalendarEventModel {
         result = prime * result + (mGuestsCanInviteOthers ? 1231 : 1237);
         result = prime * result + (mGuestsCanModify ? 1231 : 1237);
         result = prime * result + (mGuestsCanSeeGuests ? 1231 : 1237);
+        result = prime * result + (mOrganizerCanRespond ? 1231 : 1237);
+        result = prime * result + (mModelUpdatedWithEventCursor ? 1231 : 1237);
+        result = prime * result + mCalendarAccessLevel;
         result = prime * result + (mHasAlarm ? 1231 : 1237);
         result = prime * result + (mHasAttendeeData ? 1231 : 1237);
         result = prime * result + (int) (mId ^ (mId >>> 32));
@@ -382,6 +386,15 @@ public class CalendarEventModel {
             return false;
         }
         if (mGuestsCanSeeGuests != other.mGuestsCanSeeGuests) {
+            return false;
+        }
+        if (mOrganizerCanRespond != other.mOrganizerCanRespond) {
+            return false;
+        }
+        if (mCalendarAccessLevel != other.mCalendarAccessLevel) {
+            return false;
+        }
+        if (mModelUpdatedWithEventCursor != other.mModelUpdatedWithEventCursor) {
             return false;
         }
         if (mHasAlarm != other.mHasAlarm) {
