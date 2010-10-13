@@ -847,8 +847,8 @@ public class DayView extends View
         mNumHours = mGridAreaHeight / mCellHeight;
         mEventGeometry.setHourHeight(mCellHeight);
 
-        final float minimumDurationMillis =
-                MIN_EVENT_HEIGHT * DateUtils.MINUTE_IN_MILLIS / (mCellHeight / 60.0f);
+        final long minimumDurationMillis = (long)
+                (MIN_EVENT_HEIGHT * DateUtils.MINUTE_IN_MILLIS / (mCellHeight / 60.0f));
         Event.computePositions(events, minimumDurationMillis);
 
         // Create an off-screen bitmap that we can draw into.
