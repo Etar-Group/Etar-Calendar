@@ -160,7 +160,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     protected void onPause() {
         super.onPause();
         mPaused = true;
-        mHomeTime.getHandler().removeCallbacks(mHomeTimeUpdater);
+        mHomeTime.removeCallbacks(mHomeTimeUpdater);
         mContentResolver.unregisterContentObserver(mObserver);
         if (isFinishing()) {
             // Stop listening for changes that would require this to be refreshed
@@ -430,7 +430,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mHomeTime.setVisibility(View.VISIBLE);
             // Update when the minute changes
             mHomeTime.postDelayed(
-                    mHomeTimeUpdater, DateUtils.MINUTE_IN_MILLIS - (millis % DateUtils.MINUTE_IN_MILLIS));
+                    mHomeTimeUpdater,
+                    DateUtils.MINUTE_IN_MILLIS - (millis % DateUtils.MINUTE_IN_MILLIS));
         } else {
             mHomeTime.setVisibility(View.GONE);
         }
