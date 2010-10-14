@@ -198,9 +198,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private class AddAttendeeClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            mAttendeesList.performValidation();
-            mAttendeesAdapter.addAttendees(mAttendeesList.getText().toString());
-            mAttendeesList.setText("");
+            // Checking for null since this method may be called even though the
+            // add button wasn't clicked e.g. when the Save button is clicked.
+            // The mAttendeesList may not be setup since the user doesn't have
+            // permission to add attendees.
+            if (mAttendeesList != null && mAttendeesAdapter != null) {
+                mAttendeesList.performValidation();
+                mAttendeesAdapter.addAttendees(mAttendeesList.getText().toString());
+                mAttendeesList.setText("");
+            }
         }
     }
 
