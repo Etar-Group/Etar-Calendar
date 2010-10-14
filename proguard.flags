@@ -1,0 +1,2 @@
+-keep class com.android.calendar.selectcalendars.SelectCalendarsSyncFragment
+-keep class com.android.calendar.AboutPreferences

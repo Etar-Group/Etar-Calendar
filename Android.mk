@@ -11,6 +11,8 @@ LOCAL_STATIC_JAVA_LIBRARIES += android-common guava
 
 LOCAL_PACKAGE_NAME := Calendar
 
+LOCAL_PROGUARD_FLAG_FILES := proguard.flags
+
 include $(BUILD_PACKAGE)
 
 # Use the following include to make our test apk.
