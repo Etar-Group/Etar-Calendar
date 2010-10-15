@@ -14,26 +14,23 @@
      limitations under the License.
 -->
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <FrameLayout
-        android:id="@+id/event_info"
-
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-
-        android:layout_height="match_parent"
-        android:layout_width="500dip" />
+    android:layout_height="match_parent"
+    android:background="#ffdddddd">
 
     <FrameLayout
         android:id="@+id/search_results"
-
-        android:layout_toLeftOf="@id/event_info"
-        android:layout_alignParentLeft="true"
-
         android:layout_height="match_parent"
-        android:layout_width="match_parent" />
-</RelativeLayout>
+        android:layout_width="0px"
+        android:layout_weight=".3"
+        android:layout_marginTop="80dip" />
+
+    <FrameLayout
+        android:id="@+id/event_info"
+        android:layout_height="match_parent"
+        android:layout_width="0px"
+        android:layout_weight=".7"
+        android:layout_marginTop="20dip" />
+</LinearLayout>

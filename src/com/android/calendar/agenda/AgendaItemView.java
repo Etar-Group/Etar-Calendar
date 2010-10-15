@@ -16,13 +16,15 @@
 
 package com.android.calendar.agenda;
 
+import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
+import com.android.calendar.R;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.RelativeLayout;
-
-import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
 
 /**
  * A custom layout for each item in the Agenda list view.
@@ -43,11 +45,16 @@ public class AgendaItemView extends RelativeLayout {
         super.dispatchDraw(canvas);
         ViewHolder holder = (ViewHolder) getTag();
         if (holder != null) {
-            /* Draw vertical color stripe */
-            mPaint.setColor(holder.calendarColor);
-            canvas.drawRect(0, 0, 5, getHeight(), mPaint);
+            final View color = findViewById(R.id.agenda_item_color);
+            if (color != null) {
+                color.setBackgroundColor(holder.calendarColor);
+            } else {
+                // Draw vertical color stripe
+                mPaint.setColor(holder.calendarColor);
+                canvas.drawRect(0, 0, 5, getHeight(), mPaint);
+            }
 
-            /* Gray out item if the event was declined */
+            // Gray out item if the event was declined
             if (holder.overLayColor != 0) {
                 mPaint.setColor(holder.overLayColor);
                 canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);

@@ -22,11 +22,21 @@
     android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeight">
 
+    <!-- TODO: should be aligned with @id/title correctly without using
+         android:layout_marginTop -->
+    <View
+        android:id="@+id/agenda_item_color"
+        android:layout_width="12dip"
+        android:layout_height="12dip"
+        android:layout_alignTop="@+id/title"
+        android:layout_marginTop="5dip"
+        android:layout_marginRight="10dip" />
+
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
+        android:layout_toRightOf="@id/agenda_item_color"
         android:ellipsize="end"
         android:maxLines="2"
         android:textStyle="bold"

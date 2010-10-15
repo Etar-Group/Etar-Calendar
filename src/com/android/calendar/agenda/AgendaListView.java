@@ -59,6 +59,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         setVerticalScrollBarEnabled(false);
         mWindowAdapter = new AgendaWindowAdapter(context, this);
         setAdapter(mWindowAdapter);
+        setCacheColorHint(0x00000000);
         mDeleteEventHelper =
             new DeleteEventHelper(context, null, false /* don't exit when done */);
     }
