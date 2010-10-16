@@ -20,15 +20,11 @@ import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.R;
-import com.android.calendar.R.id;
-import com.android.calendar.R.layout;
-import com.android.calendar.R.string;
 import com.android.calendar.Utils;
 
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -36,20 +32,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Calendar.CalendarAlerts;
 import android.provider.Calendar.CalendarAlertsColumns;
+import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * The alert panel that pops up when there is a calendar event alarm.
  * This activity is started by an intent that specifies an event id.
   */
-public class AlertActivity extends Activity {
+public class AlertActivity extends Activity implements OnClickListener {
+    private static final String TAG = "AlertActivity";
 
     // The default snooze delay: 5 minutes
     public static final long SNOOZE_DELAY = 5 * 60 * 1000L;
@@ -92,7 +90,6 @@ public class AlertActivity extends Activity {
     // as it is used consistently everywhere.
     public static final int NOTIFICATION_ID = 0;
 
-    private ContentResolver mResolver;
     private AlertAdapter mAdapter;
     private QueryHandler mQueryHandler;
     private Cursor mCursor;
@@ -206,7 +203,6 @@ public class AlertActivity extends Activity {
 
         getWindow().setAttributes(lp);
 
-        mResolver = getContentResolver();
         mQueryHandler = new QueryHandler(this);
         mAdapter = new AlertAdapter(this, R.layout.alert_item);
 
@@ -216,9 +212,9 @@ public class AlertActivity extends Activity {
         mListView.setOnItemClickListener(mViewListener);
 
         mSnoozeAllButton = (Button) findViewById(R.id.snooze_all);
-        mSnoozeAllButton.setOnClickListener(mSnoozeAllListener);
+        mSnoozeAllButton.setOnClickListener(this);
         mDismissAllButton = (Button) findViewById(R.id.dismiss_all);
-        mDismissAllButton.setOnClickListener(mDismissAllListener);
+        mDismissAllButton.setOnClickListener(this);
 
         // Disable the buttons, since they need mCursor, which is created asynchronously
         mSnoozeAllButton.setEnabled(false);
@@ -235,7 +231,11 @@ public class AlertActivity extends Activity {
             mQueryHandler.startQuery(0, null, uri, PROJECTION, SELECTION,
                     SELECTIONARG, CalendarAlerts.DEFAULT_SORT_ORDER);
         } else {
-            mCursor.requery();
+            if (!mCursor.requery()) {
+                Log.w(TAG, "Cursor#requery() failed.");
+                mCursor.close();
+                mCursor = null;
+            }
         }
     }
 
@@ -257,43 +257,44 @@ public class AlertActivity extends Activity {
         }
     }
 
-    private OnClickListener mSnoozeAllListener = new OnClickListener() {
-        public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
+        if (v == mSnoozeAllButton) {
             long alarmTime = System.currentTimeMillis() + SNOOZE_DELAY;
 
             NotificationManager nm =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancel(NOTIFICATION_ID);
 
-            long scheduleAlarmTime = 0;
-            mCursor.moveToPosition(-1);
-            while (mCursor.moveToNext()) {
-                long eventId = mCursor.getLong(INDEX_EVENT_ID);
-                long begin = mCursor.getLong(INDEX_BEGIN);
-                long end = mCursor.getLong(INDEX_END);
+            if (mCursor != null) {
+                long scheduleAlarmTime = 0;
+                mCursor.moveToPosition(-1);
+                while (mCursor.moveToNext()) {
+                    long eventId = mCursor.getLong(INDEX_EVENT_ID);
+                    long begin = mCursor.getLong(INDEX_BEGIN);
+                    long end = mCursor.getLong(INDEX_END);
 
-                // Set the "minutes" to zero to indicate this is a snoozed
-                // alarm.  There is code in AlertService.java that checks
-                // this field.
-                ContentValues values =
-                        makeContentValues(eventId, begin, end, alarmTime, 0 /* minutes */);
+                    // Set the "minutes" to zero to indicate this is a snoozed
+                    // alarm.  There is code in AlertService.java that checks
+                    // this field.
+                    ContentValues values =
+                            makeContentValues(eventId, begin, end, alarmTime, 0 /* minutes */);
 
-                // Create a new alarm entry in the CalendarAlerts table
-                if (mCursor.isLast()) {
-                    scheduleAlarmTime = alarmTime;
+                    // Create a new alarm entry in the CalendarAlerts table
+                    if (mCursor.isLast()) {
+                        scheduleAlarmTime = alarmTime;
+                    }
+                    mQueryHandler.startInsert(0,
+                            scheduleAlarmTime, CalendarAlerts.CONTENT_URI, values,
+                            Utils.UNDO_DELAY);
                 }
-                mQueryHandler.startInsert(0, scheduleAlarmTime, CalendarAlerts.CONTENT_URI, values,
-                        Utils.UNDO_DELAY);
+            } else {
+                Log.d(TAG, "Cursor object is null. Ignore the Snooze request.");
             }
 
             dismissFiredAlarms();
-
             finish();
-        }
-    };
-
-    private OnClickListener mDismissAllListener = new OnClickListener() {
-        public void onClick(View v) {
+        } else if (v == mDismissAllButton) {
             NotificationManager nm =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancel(NOTIFICATION_ID);
@@ -302,14 +303,14 @@ public class AlertActivity extends Activity {
 
             finish();
         }
-    };
+    }
 
     public boolean isEmpty() {
-        return (mCursor.getCount() == 0);
+        return mCursor != null ? (mCursor.getCount() == 0) : true;
     }
 
     public Cursor getItemForView(View view) {
-        int index = mListView.getPositionForView(view);
+        final int index = mListView.getPositionForView(view);
         if (index < 0) {
             return null;
         }
