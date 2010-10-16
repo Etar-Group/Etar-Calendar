@@ -70,6 +70,8 @@
     <color name="current_time_marker_border">#aaffffff</color>
 
     <color name="agenda_day_bar_color">#c8c8c8</color>
+    <color name="agenda_item_selected">#ffffffff</color>
+    <color name="agenda_item_not_selected">#00000000</color>
 
     <drawable name="agenda_item_declined">#88ffffff</drawable>
 

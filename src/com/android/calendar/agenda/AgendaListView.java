@@ -19,11 +19,13 @@ package com.android.calendar.agenda;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.DeleteEventHelper;
+import com.android.calendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
 import com.android.calendar.agenda.AgendaWindowAdapter.EventInfo;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.text.format.Time;
 import android.util.Log;
@@ -59,21 +61,24 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         setVerticalScrollBarEnabled(false);
         mWindowAdapter = new AgendaWindowAdapter(context, this);
         setAdapter(mWindowAdapter);
-        setCacheColorHint(0x00000000);
+        setCacheColorHint(context.getResources().getColor(R.color.agenda_item_not_selected));
         mDeleteEventHelper =
             new DeleteEventHelper(context, null, false /* don't exit when done */);
     }
 
-    @Override protected void onDetachedFromWindow() {
+    @Override
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         mWindowAdapter.close();
     }
 
     // Implementation of the interface OnItemClickListener
+    @Override
     public void onItemClick(AdapterView<?> a, View v, int position, long id) {
         if (id != -1) {
             // Switch to the EventInfo view
             EventInfo event = mWindowAdapter.getEventByPosition(position);
+            mWindowAdapter.setSelectedPosition(position);
             if (event != null) {
                 CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
                         EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0);

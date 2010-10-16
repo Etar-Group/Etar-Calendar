@@ -23,7 +23,9 @@ import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.Calendar;
 import android.provider.Calendar.Attendees;
@@ -67,12 +69,12 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
     static final boolean BASICLOG = false;
     static final boolean DEBUGLOG = false;
-    private static String TAG = "AgendaWindowAdapter";
+    private static final String TAG = "AgendaWindowAdapter";
 
     private static final String AGENDA_SORT_ORDER =
-        Calendar.Instances.START_DAY + " ASC, " +
-        Calendar.Instances.BEGIN + " ASC, " +
-        Calendar.Events.TITLE + " ASC";
+            Calendar.Instances.START_DAY + " ASC, " +
+            Calendar.Instances.BEGIN + " ASC, " +
+            Calendar.Events.TITLE + " ASC";
 
     public static final int INDEX_TITLE = 1;
     public static final int INDEX_EVENT_LOCATION = 2;
@@ -104,26 +106,21 @@ public class AgendaWindowAdapter extends BaseAdapter {
     };
 
     // Listview may have a bug where the index/position is not consistent when there's a header.
+    // position == positionInListView - OFF_BY_ONE_BUG
     // TODO Need to look into this.
     private static final int OFF_BY_ONE_BUG = 1;
-
     private static final int MAX_NUM_OF_ADAPTERS = 5;
-
     private static final int IDEAL_NUM_OF_EVENTS = 50;
-
     private static final int MIN_QUERY_DURATION = 7; // days
-
     private static final int MAX_QUERY_DURATION = 60; // days
-
     private static final int PREFETCH_BOUNDARY = 1;
 
     /** Times to auto-expand/retry query after getting no data */
     private static final int RETRIES_ON_NO_DATA = 1;
 
     private Context mContext;
-
+    private Resources mResources;
     private QueryHandler mQueryHandler;
-
     private AgendaListView mAgendaListView;
 
     /** The sum of the rows in all the adapters */
@@ -135,14 +132,12 @@ public class AgendaWindowAdapter extends BaseAdapter {
     /** Cached value of the last used adapter */
     private DayAdapterInfo mLastUsedInfo;
 
-    private LinkedList<DayAdapterInfo> mAdapterInfos = new LinkedList<DayAdapterInfo>();
-
-    private ConcurrentLinkedQueue<QuerySpec> mQueryQueue = new ConcurrentLinkedQueue<QuerySpec>();
-
+    private final LinkedList<DayAdapterInfo> mAdapterInfos =
+            new LinkedList<DayAdapterInfo>();
+    private final ConcurrentLinkedQueue<QuerySpec> mQueryQueue =
+            new ConcurrentLinkedQueue<QuerySpec>();
     private TextView mHeaderView;
-
     private TextView mFooterView;
-
     private boolean mDoneSettingUpHeaderFooter = false;
 
     /**
@@ -184,6 +179,10 @@ public class AgendaWindowAdapter extends BaseAdapter {
     /** The current search query, or null if none */
     private String mSearchQuery;
 
+    private int mSelectedPosition = -1;
+
+    private final int mSelectedAgendaItemColor;
+
     // Types of Query
     private static final int QUERY_TYPE_OLDER = 0; // Query for older events
     private static final int QUERY_TYPE_NEWER = 1; // Query for newer events
@@ -191,15 +190,10 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
     private static class QuerySpec {
         long queryStartMillis;
-
         Time goToTime;
-
         int start;
-
         int end;
-
         String searchQuery;
-
         int queryType;
 
         public QuerySpec(int queryType) {
@@ -249,23 +243,16 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
     static class EventInfo {
         long begin;
-
         long end;
-
         long id;
     }
 
     static class DayAdapterInfo {
         Cursor cursor;
-
         AgendaByDayAdapter dayAdapter;
-
         int start; // start day of the cursor's coverage
-
         int end; // end day of the cursor's coverage
-
         int offset; // offset in position in the list view
-
         int size; // dayAdapter.getCount()
 
         public DayAdapterInfo(Context context) {
@@ -293,6 +280,9 @@ public class AgendaWindowAdapter extends BaseAdapter {
     public AgendaWindowAdapter(Context context,
             AgendaListView agendaListView) {
         mContext = context;
+        mResources = context.getResources();
+        mSelectedAgendaItemColor = mResources.getColor(R.color.agenda_item_selected);
+
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         mAgendaListView = agendaListView;
         mQueryHandler = new QueryHandler(context.getContentResolver());
@@ -391,7 +381,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
             queueQuery(new QuerySpec(QUERY_TYPE_OLDER));
         }
 
-        View v;
+        final View v;
         DayAdapterInfo info = getAdapterInfoByPosition(position);
         if (info != null) {
             v = info.dayAdapter.getView(position - info.offset, convertView,
@@ -402,6 +392,12 @@ public class AgendaWindowAdapter extends BaseAdapter {
             TextView tv = new TextView(mContext);
             tv.setText("Bug! " + position);
             v = tv;
+        }
+
+        if (mSelectedPosition == position) {
+            v.setBackgroundColor(mSelectedAgendaItemColor);
+        } else {
+            v.setBackgroundResource(0);
         }
 
         if (DEBUGLOG) {
@@ -454,29 +450,29 @@ public class AgendaWindowAdapter extends BaseAdapter {
         return null;
     }
 
-    public EventInfo getEventByPosition(int position) {
-        if (DEBUGLOG) Log.e(TAG, "getEventByPosition " + position);
+    public EventInfo getEventByPosition(final int positionInListView) {
+        if (DEBUGLOG) Log.e(TAG, "getEventByPosition " + positionInListView);
 
         EventInfo event = new EventInfo();
-        position -= OFF_BY_ONE_BUG;
-        DayAdapterInfo info = getAdapterInfoByPosition(position);
+        final int positionInAdapter = positionInListView - OFF_BY_ONE_BUG;
+        DayAdapterInfo info = getAdapterInfoByPosition(positionInAdapter);
         if (info == null) {
             return null;
         }
 
-        position = info.dayAdapter.getCursorPosition(position - info.offset);
-        if (position == Integer.MIN_VALUE) {
+        int cursorPosition = info.dayAdapter.getCursorPosition(positionInAdapter - info.offset);
+        if (cursorPosition == Integer.MIN_VALUE) {
             return null;
         }
 
         boolean isDayHeader = false;
-        if (position < 0) {
-            position = -position;
+        if (cursorPosition < 0) {
+            cursorPosition = -cursorPosition;
             isDayHeader = true;
         }
 
-        if (position < info.cursor.getCount()) {
-            info.cursor.moveToPosition(position);
+        if (cursorPosition < info.cursor.getCount()) {
+            info.cursor.moveToPosition(cursorPosition);
             event.begin = info.cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
             boolean allDay = info.cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
 
@@ -936,5 +932,9 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
     public void setHideDeclinedEvents(boolean hideDeclined) {
         mHideDeclined = hideDeclined;
+    }
+
+    public void setSelectedPosition(int positionInListView) {
+        mSelectedPosition = positionInListView - OFF_BY_ONE_BUG;
     }
 }
