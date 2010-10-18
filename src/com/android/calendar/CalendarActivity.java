@@ -157,6 +157,7 @@ public class CalendarActivity extends Activity implements Navigator {
 
         view = (CalendarView) mViewSwitcher.getNextView();
         view.updateIs24HourFormat();
+        view.updateView();
 
         // Register for Intent broadcasts
         IntentFilter filter = new IntentFilter();
