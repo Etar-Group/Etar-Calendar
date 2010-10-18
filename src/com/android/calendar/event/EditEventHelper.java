@@ -206,12 +206,17 @@ public class EditEventHelper {
 
     public static class AttendeeItem {
         public boolean mRemoved;
-        public boolean mDivider;
-        public String mDividerLabel;
         public Attendee mAttendee;
         public Drawable mBadge;
         public int mPresence;
         public int mUpdateCounts;
+        public View mView;
+
+        public AttendeeItem(Attendee attendee, int presence, Drawable badge) {
+            mAttendee = attendee;
+            mPresence = presence;
+            mBadge = badge;
+        }
     }
 
     public EditEventHelper(Context context, CalendarEventModel model) {
