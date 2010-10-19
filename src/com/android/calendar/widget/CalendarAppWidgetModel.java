@@ -34,9 +34,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 class CalendarAppWidgetModel {
-
     private static final String TAG = CalendarAppWidgetModel.class.getSimpleName();
-
     private static final boolean LOGD = false;
 
     private String mHomeTZName;
@@ -48,9 +46,7 @@ class CalendarAppWidgetModel {
      * day header or an event.
      */
     static class RowInfo {
-
         static final int TYPE_DAY = 0;
-
         static final int TYPE_MEETING = 1;
 
         /**
@@ -87,6 +83,7 @@ class CalendarAppWidgetModel {
         long start;
         long end;
         boolean allDay;
+        int color;
 
         public EventInfo() {
             visibWhen = View.GONE;
@@ -109,6 +106,8 @@ class CalendarAppWidgetModel {
             builder.append(visibWhere);
             builder.append(", where=");
             builder.append(where);
+            builder.append(", color=");
+            builder.append(String.format("0x%x", color));
             builder.append("]");
             return builder.toString();
         }
@@ -126,6 +125,7 @@ class CalendarAppWidgetModel {
             result = prime * result + visibWhere;
             result = prime * result + ((when == null) ? 0 : when.hashCode());
             result = prime * result + ((where == null) ? 0 : where.hashCode());
+            result = prime * result + color;
             return result;
         }
 
@@ -163,8 +163,11 @@ class CalendarAppWidgetModel {
             if (where == null) {
                 if (other.where != null)
                     return false;
-            } else if (!where.equals(other.where))
+            } else if (!where.equals(other.where)) {
                 return false;
+            } else if (color != other.color) {
+                return false;
+            }
             return true;
         }
     }
@@ -223,23 +226,14 @@ class CalendarAppWidgetModel {
     }
 
     String mDayOfWeek;
-
     String mDayOfMonth;
-
     final List<RowInfo> mRowInfos;
-
     final List<EventInfo> mEventInfos;
-
     final List<DayInfo> mDayInfos;
-
     final Context mContext;
-
     final long mNow;
-
     final long mStartOfNextDay;
-
     final int mTodayJulianDay;
-
     final int mMaxJulianDay;
 
     public CalendarAppWidgetModel(Context context) {
@@ -270,9 +264,9 @@ class CalendarAppWidgetModel {
     }
 
     public void buildFromCursor(Cursor cursor, String timeZone) {
-        Time recycle = new Time(timeZone);
+        final Time recycle = new Time(timeZone);
         final ArrayList<LinkedList<RowInfo>> mBuckets =
-            new ArrayList<LinkedList<RowInfo>>(CalendarAppWidgetService.MAX_DAYS);
+                new ArrayList<LinkedList<RowInfo>>(CalendarAppWidgetService.MAX_DAYS);
         for (int i = 0; i < CalendarAppWidgetService.MAX_DAYS; i++) {
             mBuckets.add(new LinkedList<RowInfo>());
         }
@@ -285,18 +279,19 @@ class CalendarAppWidgetModel {
 
         cursor.moveToPosition(-1);
         while (cursor.moveToNext()) {
-            int rowId = cursor.getPosition();
-            long eventId = cursor.getLong(CalendarAppWidgetService.INDEX_EVENT_ID);
-            boolean allDay = cursor.getInt(CalendarAppWidgetService.INDEX_ALL_DAY) != 0;
+            final int rowId = cursor.getPosition();
+            final long eventId = cursor.getLong(CalendarAppWidgetService.INDEX_EVENT_ID);
+            final boolean allDay = cursor.getInt(CalendarAppWidgetService.INDEX_ALL_DAY) != 0;
             long start = cursor.getLong(CalendarAppWidgetService.INDEX_BEGIN);
             long end = cursor.getLong(CalendarAppWidgetService.INDEX_END);
-            String title = cursor.getString(CalendarAppWidgetService.INDEX_TITLE);
-            String location = cursor.getString(CalendarAppWidgetService.INDEX_EVENT_LOCATION);
-
+            final String title = cursor.getString(CalendarAppWidgetService.INDEX_TITLE);
+            final String location =
+                    cursor.getString(CalendarAppWidgetService.INDEX_EVENT_LOCATION);
             // we don't compute these ourselves because it seems to produce the
             // wrong endDay for all day events
-            int startDay = cursor.getInt(CalendarAppWidgetService.INDEX_START_DAY);
-            int endDay = cursor.getInt(CalendarAppWidgetService.INDEX_END_DAY);
+            final int startDay = cursor.getInt(CalendarAppWidgetService.INDEX_START_DAY);
+            final int endDay = cursor.getInt(CalendarAppWidgetService.INDEX_END_DAY);
+            final int color = cursor.getInt(CalendarAppWidgetService.INDEX_COLOR);
 
             // Adjust all-day times into local timezone
             if (allDay) {
@@ -325,7 +320,7 @@ class CalendarAppWidgetModel {
 
             int i = mEventInfos.size();
             mEventInfos.add(populateEventInfo(
-                    allDay, start, end, startDay, endDay, title, location));
+                    allDay, start, end, startDay, endDay, title, location, color));
             // populate the day buckets that this event falls into
             int from = Math.max(startDay, mTodayJulianDay);
             int to = Math.min(endDay, mMaxJulianDay);
@@ -361,7 +356,7 @@ class CalendarAppWidgetModel {
     }
 
     private EventInfo populateEventInfo(boolean allDay, long start, long end,
-            int startDay, int endDay, String title, String location) {
+            int startDay, int endDay, String title, String location, int color) {
         EventInfo eventInfo = new EventInfo();
 
         boolean eventIsInProgress = start <= mNow && end > mNow;
@@ -400,6 +395,7 @@ class CalendarAppWidgetModel {
         eventInfo.allDay = allDay;
         eventInfo.when = whenString.toString();
         eventInfo.visibWhen = visibWhen;
+        eventInfo.color = color;
 
         // What
         if (TextUtils.isEmpty(title)) {

@@ -47,7 +47,6 @@ import android.widget.RemoteViewsService;
 
 public class CalendarAppWidgetService extends RemoteViewsService {
     private static final String TAG = "CalendarAppWidgetService";
-    private static final boolean LOGD = false;
 
     static final int EVENT_MIN_COUNT = 20;
 
@@ -69,7 +68,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         Instances.EVENT_LOCATION,
         Instances.EVENT_ID,
         Instances.START_DAY,
-        Instances.END_DAY
+        Instances.END_DAY,
+        Instances.COLOR
     };
 
     static final int INDEX_ALL_DAY = 0;
@@ -80,6 +80,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     static final int INDEX_EVENT_ID = 5;
     static final int INDEX_START_DAY = 6;
     static final int INDEX_END_DAY = 7;
+    static final int INDEX_COLOR = 8;
 
     static final int MAX_DAYS = 7;
 
@@ -95,23 +96,14 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     }
 
     protected static class CalendarFactory implements RemoteViewsService.RemoteViewsFactory {
-
         private static final String TAG = CalendarFactory.class.getSimpleName();
-
         private static final boolean LOGD = false;
-
-        private final int mAppWidgetId;
-
         private Context mContext;
-
         private CalendarAppWidgetModel mModel;
-
         private Cursor mCursor;
 
         protected CalendarFactory(Context context, Intent intent) {
             mContext = context;
-            mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
-                    AppWidgetManager.INVALID_APPWIDGET_ID);
         }
 
         @Override
@@ -162,15 +154,18 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 RemoteViews views = new RemoteViews(mContext.getPackageName(),
                         R.layout.appwidget_row);
 
-                EventInfo e = mModel.mEventInfos.get(rowInfo.mIndex);
+                final EventInfo eventInfo = mModel.mEventInfos.get(rowInfo.mIndex);
 
-                updateTextView(views, R.id.when, e.visibWhen, e.when);
-                updateTextView(views, R.id.where, e.visibWhere, e.where);
-                updateTextView(views, R.id.title, e.visibTitle, e.title);
+                updateTextView(views, R.id.when, eventInfo.visibWhen, eventInfo.when);
+                updateTextView(views, R.id.where, eventInfo.visibWhere, eventInfo.where);
+                updateTextView(views, R.id.title, eventInfo.visibTitle, eventInfo.title);
+
+                views.setViewVisibility(R.id.color, View.VISIBLE);
+                views.setInt(R.id.color, "setBackgroundColor", eventInfo.color);
 
                 // An element in ListView.
                 final Intent fillInIntent =
-                        CalendarAppWidgetProvider.getLaunchFillInIntent(e.start);
+                        CalendarAppWidgetProvider.getLaunchFillInIntent(eventInfo.start);
                 views.setOnClickFillInIntent(R.id.appwidget_row, fillInIntent);
                 return views;
             }
@@ -199,15 +194,15 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         }
 
         private void loadData() {
-            long now = System.currentTimeMillis();
+            final long now = System.currentTimeMillis();
             if (LOGD) Log.d(TAG, "Querying for widget events...");
             if (mCursor != null) {
                 mCursor.close();
             }
 
-            ContentResolver cr = mContext.getContentResolver();
-            mCursor = getUpcomingInstancesCursor(cr, SEARCH_DURATION, now);
-            String tz = getTimeZoneFromDB(cr);
+            final ContentResolver resolver = mContext.getContentResolver();
+            mCursor = getUpcomingInstancesCursor(resolver, SEARCH_DURATION, now);
+            String tz = getTimeZoneFromDB(resolver);
             mModel = buildAppWidgetModel(mContext, mCursor, tz);
             long triggerTime = calculateUpdateTime(mModel);
             // Schedule an alarm to wake ourselves up for the next update.  We also cancel

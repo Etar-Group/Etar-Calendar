@@ -18,7 +18,7 @@
     android:id="@+id/date"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:background="@color/agenda_day_bar_color"
+    android:background="@color/agenda_day_bar_bg_color"
     android:padding="4dip"
     android:textStyle="bold"
     android:textColor="?android:attr/textColorSecondary"

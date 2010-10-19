@@ -68,13 +68,17 @@
 
     <color name="event_center">#ff6bd697</color>
 
-    <color name="agenda_day_bar_color">#c8c8c8</color>
+    <color name="agenda_day_bar_bg_color">#ff000000</color>
+    <color name="agenda_day_bar_title_color">#ffc8c8c8</color>
     <color name="agenda_item_selected">#ffffffff</color>
     <color name="agenda_item_not_selected">#00000000</color>
 
     <drawable name="agenda_item_declined">#88ffffff</drawable>
 
-    <color name="appwidget_date">#ff000000</color>
+    <color name="appwidget_date">#ff9fd300</color>
+    <color name="appwidget_week">#ffdbdbdb</color>
+    <color name="appwidget_month">#ff9fd300</color>
+
     <color name="appwidget_title">#ff000000</color>
     <color name="appwidget_when">#ff000000</color>
     <color name="appwidget_where">#ff666666</color>
