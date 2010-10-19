@@ -31,6 +31,8 @@ import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 import dalvik.system.VMRuntime;
 
 import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -59,7 +61,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class AllInOneActivity extends Activity implements EventHandler,
-        OnSharedPreferenceChangeListener, SearchView.OnQueryChangeListener {
+        OnSharedPreferenceChangeListener, SearchView.OnQueryChangeListener,
+        ActionBar.TabListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
     private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
@@ -75,6 +78,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private boolean mPaused = true;
     private boolean mUpdateOnResume = false;
     private TextView mHomeTime;
+
+    // Action bar and Navigation bar (left side of Action bar)
+    private ActionBar mActionBar;
+    private ActionBar.Tab mDayTab;
+    private ActionBar.Tab mWeekTab;
+    private ActionBar.Tab mMonthTab;
 
     private Runnable mHomeTimeUpdater = new Runnable() {
         @Override
@@ -150,6 +159,25 @@ public class AllInOneActivity extends Activity implements EventHandler,
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         mContentResolver = getContentResolver();
+
+        mActionBar = getActionBar();
+        mActionBar.setTabNavigationMode();
+        if (mActionBar == null) {
+            Log.w(TAG, "ActionBar is null.");
+        } else {
+            mDayTab = mActionBar.newTab();
+            mDayTab.setText(getString(R.string.day_view));
+            mDayTab.setTabListener(this);
+            mActionBar.addTab(mDayTab);
+            mWeekTab = mActionBar.newTab();
+            mWeekTab.setText(getString(R.string.week_view));
+            mWeekTab.setTabListener(this);
+            mActionBar.addTab(mWeekTab);
+            mMonthTab = mActionBar.newTab();
+            mMonthTab.setText(getString(R.string.month_view));
+            mMonthTab.setTabListener(this);
+            mActionBar.addTab(mMonthTab);
+        }
     }
 
     @Override
@@ -305,15 +333,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
             case R.id.action_refresh:
                 mController.refreshCalendars();
                 return true;
-            case R.id.action_day:
-                viewType = ViewType.DAY;
-                break;
-            case R.id.action_week:
-                viewType = ViewType.WEEK;
-                break;
-            case R.id.action_month:
-                viewType = ViewType.MONTH;
-                break;
             case R.id.action_today:
                 viewType = ViewType.CURRENT;
                 t = new Time();
@@ -399,22 +418,20 @@ public class AllInOneActivity extends Activity implements EventHandler,
     }
 
     private void setTitleInActionBar(EventInfo event) {
-        if (event.eventType != EventType.GO_TO) {
+        if (event.eventType != EventType.GO_TO || mActionBar == null) {
             return;
         }
 
-        long start = event.startTime.toMillis(false /* use isDst */);
-        long end = start;
-
+        final long start = event.startTime.toMillis(false /* use isDst */);
+        final long end;
         if (event.endTime != null) {
             end = event.endTime.toMillis(false /* use isDst */);
+        } else {
+            end = start;
         }
-        String msg = DateUtils.formatDateRange(this, start, end, DateUtils.FORMAT_SHOW_DATE);
 
-        ActionBar ab = getActionBar();
-        if (ab != null) {
-            ab.setTitle(msg);
-        }
+        final String msg = Utils.formatDateRange(this, start, end, DateUtils.FORMAT_SHOW_DATE);
+        // TODO: add title here.
     }
 
     private void updateHomeClock() {
@@ -462,8 +479,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
                         R.id.main_pane);
                 editHandler.handleEvent(event);
             }
+
             // Set title bar
-            setTitleInActionBar(event);
+            // TODO: Currently we don't have an appropriate way to add title bar when
+            //        ActionBar is in TabNavigation mode.
+            // setTitleInActionBar(event);
 
             setMainPane(null, R.id.main_pane, event.viewType, event.startTime.toMillis(false),
                     false, event);
@@ -528,5 +548,26 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, query,
                 getComponentName());
         return false;
+    }
+
+    @Override
+    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        if (tab == mDayTab) {
+            mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
+        } else if (tab == mWeekTab) {
+            mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
+        } else if (tab == mMonthTab) {
+            mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.MONTH);
+        } else {
+            Log.w(TAG, "TabSelected event from unknown tab: " + tab);
+        }
+    }
+
+    @Override
+    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+    }
+
+    @Override
+    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
     }
 }
