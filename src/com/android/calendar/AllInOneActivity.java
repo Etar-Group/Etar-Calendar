@@ -28,6 +28,8 @@ import com.android.calendar.event.EditEventFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
+import dalvik.system.VMRuntime;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -60,6 +62,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryChangeListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
+    private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
     private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     private static final String BUNDLE_KEY_RESTORE_EDIT = "key_restore_edit";
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
@@ -97,6 +100,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+
+        // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
+        // TODO: We should restore the old heap size once the activity reaches the idle state
+        VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
 
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);

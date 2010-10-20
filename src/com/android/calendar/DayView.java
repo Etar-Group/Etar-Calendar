@@ -32,6 +32,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.Path.Direction;
+import android.graphics.drawable.Drawable;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -88,7 +89,7 @@ public class DayView extends View
     private static final int MENU_EVENT_EDIT = 7;
     private static final int MENU_EVENT_DELETE = 8;
 
-    private static int DEFAULT_CELL_HEIGHT = 52;
+    private static int DEFAULT_CELL_HEIGHT = 43;
 
     private boolean mOnFlingCalled;
     /**
@@ -119,8 +120,6 @@ public class DayView extends View
     private static final int ATTENDEES_INDEX_RELATIONSHIP = 1;
     private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=%d";
 
-    private static float SMALL_ROUND_RADIUS = 3.0F;
-
     private static final int FROM_NONE = 0;
     private static final int FROM_ABOVE = 1;
     private static final int FROM_BELOW = 2;
@@ -134,13 +133,6 @@ public class DayView extends View
     private static int HORIZONTAL_SCROLL_THRESHOLD = 50;
 
     private ContinueScroll mContinueScroll = new ContinueScroll();
-
-    static private class DayHeader{
-        int cell;
-        String dateString;
-    }
-
-    private DayHeader[] dayHeaders = new DayHeader[32];
 
     // Make this visible within the package for more informative debugging
     Time mBaseDate;
@@ -186,6 +178,7 @@ public class DayView extends View
 
     boolean mSelectionAllDay;
 
+    /** Width of a day or non-conflicting event */
     private int mCellWidth;
 
     // Pre-allocate these objects and re-use them
@@ -217,6 +210,9 @@ public class DayView extends View
     private final EventLoader mEventLoader;
     protected final EventGeometry mEventGeometry;
 
+    private static final int GRID_LINE_INNER_WIDTH = 1;
+    private static final int GRID_LINE_WIDTH = 5;
+
     private static final int DAY_GAP = 1;
     private static final int HOUR_GAP = 1;
     private static int SINGLE_ALLDAY_HEIGHT = 20;
@@ -236,10 +232,7 @@ public class DayView extends View
 
     private static int CURRENT_TIME_LINE_HEIGHT = 2;
     private static int CURRENT_TIME_LINE_BORDER_WIDTH = 1;
-    private static int CURRENT_TIME_MARKER_INNER_WIDTH = 6;
-    private static int CURRENT_TIME_MARKER_HEIGHT = 6;
-    private static int CURRENT_TIME_MARKER_WIDTH = 8;
-    private static int CURRENT_TIME_LINE_SIDE_BUFFER = 1;
+    private static final int CURRENT_TIME_LINE_SIDE_BUFFER = 3;
 
     /* package */ static final int MINUTES_PER_HOUR = 60;
     /* package */ static final int MINUTES_PER_DAY = MINUTES_PER_HOUR * 24;
@@ -247,13 +240,28 @@ public class DayView extends View
     /* package */ static final int MILLIS_PER_HOUR = (3600 * 1000);
     /* package */ static final int MILLIS_PER_DAY = MILLIS_PER_HOUR * 24;
 
-    private static int NORMAL_FONT_SIZE = 12;
-    private static int EVENT_TEXT_FONT_SIZE = 12;
-    private static int HOURS_FONT_SIZE = 12;
-    private static int AMPM_FONT_SIZE = 9;
+    private static final int DAY_HEADER_ALPHA = 0x26000000;
+    private static final int DAY_HEADER_TODAY_ALPHA = 0x99000000;
+    private static float DAY_HEADER_ONE_DAY_LEFT_MARGIN = 18;
+    private static float DAY_HEADER_ONE_DAY_RIGHT_MARGIN = 5;
+    private static float DAY_HEADER_ONE_DAY_BOTTOM_MARGIN = 6;
+    private static float DAY_HEADER_LEFT_MARGIN = 5;
+    private static float DAY_HEADER_RIGHT_MARGIN = 7;
+    private static float DAY_HEADER_BOTTOM_MARGIN = 3;
+    private static float DAY_HEADER_FONT_SIZE = 14;
+    private static float DATE_HEADER_FONT_SIZE = 24;
+    private static float NORMAL_FONT_SIZE = 12;
+    private static float EVENT_TEXT_FONT_SIZE = 12;
+    private static float HOURS_FONT_SIZE = 12;
+    private static float AMPM_FONT_SIZE = 9;
     private static int MIN_CELL_WIDTH_FOR_TEXT = 27;
     private static final int MAX_EVENT_TEXT_LEN = 500;
     private static float MIN_EVENT_HEIGHT = 15.0F;  // in pixels
+    private static float CALENDAR_COLOR_SQUARE_SIZE = 11;
+    private static float EVENT_TEXT_TOP_MARGIN = 4;
+    private static float EVENT_TEXT_BOTTOM_MARGIN = 0;
+    private static float EVENT_TEXT_LEFT_MARGIN = 12;
+    private static float EVENT_TEXT_RIGHT_MARGIN = 9;
 
     private static int mSelectionColor;
     private static int mPressedColor;
@@ -262,19 +270,19 @@ public class DayView extends View
     private static int mWeek_saturdayColor;
     private static int mWeek_sundayColor;
     private static int mCalendarDateBannerTextColor;
-    private static int mCalendarAllDayBackground;
+//    private static int mCalendarAllDayBackground;
     private static int mCalendarAmPmLabel;
-    private static int mCalendarDateBannerBackground;
+//    private static int mCalendarDateBannerBackground;
     private static int mCalendarDateSelected;
-    private static int mCalendarGridAreaBackground;
+//    private static int mCalendarGridAreaBackground;
     private static int mCalendarGridAreaSelected;
     private static int mCalendarGridLineHorizontalColor;
     private static int mCalendarGridLineVerticalColor;
-    private static int mCalendarHourBackground;
+    private static int mCalendarGridLineInnerHorizontalColor;
+    private static int mCalendarGridLineInnerVerticalColor;
+//    private static int mCalendarHourBackground;
     private static int mCalendarHourLabel;
     private static int mCalendarHourSelected;
-    private static int mCurrentTimeMarkerColor;
-    private static int mCurrentTimeMarkerBorderColor;
 
     private int mViewStartX;
     private int mViewStartY;
@@ -286,17 +294,18 @@ public class DayView extends View
     private int mCellHeight;
     private int mScrollStartY;
     private int mPreviousDirection;
-    private int mPreviousDistanceX;
 
     private int mHoursTextHeight;
     private int mEventTextAscent;
     private int mEventTextHeight;
     private int mAllDayHeight;
-    private int mBannerPlusMargin;
+    private static int DAY_HEADER_HEIGHT = 45;
     private int mMaxAllDayEvents;
 
     protected int mNumDays = 7;
     private int mNumHours = 10;
+
+    /** Width of the time line (list of hours) to the left. */
     private int mHoursWidth;
     private int mDateStrWidth;
     private int mFirstCell;
@@ -314,6 +323,9 @@ public class DayView extends View
     private Event mPrevSelectedEvent;
     private Rect mPrevBox = new Rect();
     protected final Resources mResources;
+    protected final Drawable mCurrentTimeLine;
+    protected final Drawable mTodayHeaderDrawable;
+    protected final Drawable mBackgroundDrawable;
     private String mAmString;
     private String mPmString;
     private DeleteEventHelper mDeleteEventHelper;
@@ -355,8 +367,6 @@ public class DayView extends View
 
     private boolean mScrolling = false;
 
-    private String mDateRange;
-    private TextView mTitleTextView;
     private CalendarController mController;
     private ViewSwitcher mViewSwitcher;
     private GestureDetector mGestureDetector;
@@ -381,19 +391,31 @@ public class DayView extends View
 
                 HORIZONTAL_SCROLL_THRESHOLD *= mScale;
 
-                CURRENT_TIME_MARKER_HEIGHT *= mScale;
-                CURRENT_TIME_MARKER_WIDTH *= mScale;
                 CURRENT_TIME_LINE_HEIGHT *= mScale;
                 CURRENT_TIME_LINE_BORDER_WIDTH *= mScale;
-                CURRENT_TIME_MARKER_INNER_WIDTH *= mScale;
-                CURRENT_TIME_LINE_SIDE_BUFFER *= mScale;
 
-                SMALL_ROUND_RADIUS *= mScale;
                 DEFAULT_CELL_HEIGHT *= mScale;
+                DAY_HEADER_HEIGHT *= mScale;
+                DAY_HEADER_LEFT_MARGIN *= mScale;
+                DAY_HEADER_RIGHT_MARGIN *= mScale;
+                DAY_HEADER_BOTTOM_MARGIN *= mScale;
+                DAY_HEADER_ONE_DAY_LEFT_MARGIN *= mScale;
+                DAY_HEADER_ONE_DAY_RIGHT_MARGIN *= mScale;
+                DAY_HEADER_ONE_DAY_BOTTOM_MARGIN *= mScale;
+                DAY_HEADER_FONT_SIZE *= mScale;
+                DATE_HEADER_FONT_SIZE *= mScale;
+                CALENDAR_COLOR_SQUARE_SIZE *= mScale;
+                EVENT_TEXT_TOP_MARGIN *= mScale;
+                EVENT_TEXT_BOTTOM_MARGIN *= mScale;
+                EVENT_TEXT_LEFT_MARGIN *= mScale;
+                EVENT_TEXT_RIGHT_MARGIN *= mScale;
             }
         }
 
         mResources = context.getResources();
+        mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_week_holo_light);
+        mTodayHeaderDrawable = mResources.getDrawable(R.drawable.today_blue_week_holo_light);
+        mBackgroundDrawable = mResources.getDrawable(R.drawable.calendar_background_holo_light);
         mEventLoader = eventLoader;
         mEventGeometry = new EventGeometry();
         mEventGeometry.setMinEventHeight(MIN_EVENT_HEIGHT);
@@ -431,23 +453,23 @@ public class DayView extends View
         mWeek_saturdayColor = mResources.getColor(R.color.week_saturday);
         mWeek_sundayColor = mResources.getColor(R.color.week_sunday);
         mCalendarDateBannerTextColor = mResources.getColor(R.color.calendar_date_banner_text_color);
-        mCalendarAllDayBackground = mResources.getColor(R.color.calendar_all_day_background);
+//        mCalendarAllDayBackground = mResources.getColor(R.color.calendar_all_day_background);
         mCalendarAmPmLabel = mResources.getColor(R.color.calendar_ampm_label);
-        mCalendarDateBannerBackground = mResources.getColor(R.color.calendar_date_banner_background);
+//        mCalendarDateBannerBackground = mResources.getColor(R.color.calendar_date_banner_background);
         mCalendarDateSelected = mResources.getColor(R.color.calendar_date_selected);
-        mCalendarGridAreaBackground = mResources.getColor(R.color.calendar_grid_area_background);
+//        mCalendarGridAreaBackground = mResources.getColor(R.color.calendar_grid_area_background);
         mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected);
         mCalendarGridLineHorizontalColor = mResources.getColor(R.color.calendar_grid_line_horizontal_color);
         mCalendarGridLineVerticalColor = mResources.getColor(R.color.calendar_grid_line_vertical_color);
-        mCalendarHourBackground = mResources.getColor(R.color.calendar_hour_background);
+        mCalendarGridLineInnerHorizontalColor = mResources.getColor(R.color.calendar_grid_line_inner_horizontal_color);
+        mCalendarGridLineInnerVerticalColor = mResources.getColor(R.color.calendar_grid_line_inner_vertical_color);
+//        mCalendarHourBackground = mResources.getColor(R.color.calendar_hour_background);
         mCalendarHourLabel = mResources.getColor(R.color.calendar_hour_label);
         mCalendarHourSelected = mResources.getColor(R.color.calendar_hour_selected);
         mSelectionColor = mResources.getColor(R.color.selection);
         mPressedColor = mResources.getColor(R.color.pressed);
         mSelectedEventTextColor = mResources.getColor(R.color.calendar_event_selected_text_color);
         mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
-        mCurrentTimeMarkerColor = mResources.getColor(R.color.current_time_marker);
-        mCurrentTimeMarkerBorderColor = mResources.getColor(R.color.current_time_marker_border);
         mEventTextPaint.setColor(mEventTextColor);
         mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
         mEventTextPaint.setTextAlign(Paint.Align.LEFT);
@@ -493,10 +515,11 @@ public class DayView extends View
 
         // Figure out how much space we need for the 3-letter abbrev names
         // in the worst case.
-        p.setTextSize(NORMAL_FONT_SIZE);
+        p.setTextSize(DATE_HEADER_FONT_SIZE);
         p.setTypeface(mBold);
         String[] dateStrs = {" 28", " 30"};
         mDateStrWidth = computeMaxStringWidth(0, dateStrs, p);
+        p.setTextSize(DAY_HEADER_FONT_SIZE);
         mDateStrWidth += computeMaxStringWidth(0, mDayStrs, p);
 
         p.setTextSize(HOURS_FONT_SIZE);
@@ -534,10 +557,6 @@ public class DayView extends View
 
         mEarliestStartHour = new int[mNumDays];
         mHasAllDayEvent = new boolean[mNumDays];
-
-// FRAG_TODO. Take this out.
-//        mTitleTextView = (TextView) findViewById(R.id.title);
-        mTitleTextView = new TextView(mContext);
     }
 
     /**
@@ -606,7 +625,6 @@ public class DayView extends View
         // Force a recalculation of the first visible hour
         mFirstHour = -1;
         recalc();
-        mTitleTextView.setText(mDateRange);
 
         // Force a redraw of the selection box.
         mSelectionMode = SELECTION_SELECTED;
@@ -689,34 +707,12 @@ public class DayView extends View
         }
 
         final long start = mBaseDate.toMillis(false /* use isDst */);
-        long end = start;
         mFirstJulianDay = Time.getJulianDay(start, mBaseDate.gmtoff);
         mLastJulianDay = mFirstJulianDay + mNumDays - 1;
 
         mMonthLength = mBaseDate.getActualMaximum(Time.MONTH_DAY);
         mFirstVisibleDate = mBaseDate.monthDay;
         mFirstVisibleDayOfWeek = mBaseDate.weekDay;
-
-        int flags = DateUtils.FORMAT_SHOW_YEAR;
-        if (DateFormat.is24HourFormat(mContext)) {
-            flags |= DateUtils.FORMAT_24HOUR;
-        }
-        if (mNumDays > 1) {
-            mBaseDate.monthDay += mNumDays - 1;
-            end = mBaseDate.toMillis(true /* ignore isDst */);
-            mBaseDate.monthDay -= mNumDays - 1;
-            flags |= DateUtils.FORMAT_NO_MONTH_DAY;
-        } else {
-            flags |= DateUtils.FORMAT_SHOW_WEEKDAY
-                    | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH;
-        }
-
-        mDateRange = DateUtils.formatDateRange(mContext, start, end, flags);
-        // Do not set the title here because this is called when executing
-        // initNextView() to prepare the Day view when sliding the finger
-        // horizontally but we don't always want to change the title.  And
-        // if we change the title here and then change it back in the caller
-        // then we get an annoying flicker.
     }
 
     @Override
@@ -727,9 +723,6 @@ public class DayView extends View
         mCellWidth = (gridAreaWidth - (mNumDays * DAY_GAP)) / mNumDays;
 
         Paint p = new Paint();
-        p.setTextSize(NORMAL_FONT_SIZE);
-        int bannerTextHeight = (int) Math.abs(p.ascent());
-
         p.setTextSize(HOURS_FONT_SIZE);
         mHoursTextHeight = (int) Math.abs(p.ascent());
 
@@ -738,12 +731,6 @@ public class DayView extends View
         mEventTextAscent = (int) Math.ceil(ascent);
         float totalHeight = ascent + p.descent();
         mEventTextHeight = (int) Math.ceil(totalHeight);
-
-        if (mNumDays > 1) {
-            mBannerPlusMargin = bannerTextHeight + 14;
-        } else {
-            mBannerPlusMargin = 0;
-        }
 
         remeasure(width, height);
     }
@@ -822,7 +809,7 @@ public class DayView extends View
 
         // Calcurates mAllDayHeight
 
-        mFirstCell = mBannerPlusMargin;
+        mFirstCell = DAY_HEADER_HEIGHT;
         int allDayHeight = 0;
         if (maxAllDayEvents > 0) {
             // If there is at most one all-day event per day, then use less
@@ -837,7 +824,7 @@ public class DayView extends View
                     allDayHeight = MAX_ALLDAY_HEIGHT;
                 }
             }
-            mFirstCell = mBannerPlusMargin + allDayHeight + ALLDAY_TOP_MARGIN;
+            mFirstCell = DAY_HEADER_HEIGHT + allDayHeight + ALLDAY_TOP_MARGIN;
         } else {
             mSelectionAllDay = false;
         }
@@ -1125,16 +1112,13 @@ public class DayView extends View
         }
 
         if ((selectionDay < mFirstJulianDay) || (selectionDay > mLastJulianDay)) {
-            boolean forward;
             DayView view = (DayView) mViewSwitcher.getNextView();
             Time date = view.mBaseDate;
             date.set(mBaseDate);
             if (selectionDay < mFirstJulianDay) {
                 date.monthDay -= mNumDays;
-                forward = false;
             } else {
                 date.monthDay += mNumDays;
-                forward = true;
             }
             date.normalize(true /* ignore isDst */);
             view.mSelectionDay = selectionDay;
@@ -1145,8 +1129,6 @@ public class DayView extends View
             end.monthDay += mNumDays - 1;
             Log.d(TAG, "onKeyDown");
             mController.sendEvent(this, EventType.GO_TO, date, end, -1, ViewType.CURRENT);
-
-            mTitleTextView.setText(view.mDateRange);
             return true;
         }
         mSelectionDay = selectionDay;
@@ -1426,12 +1408,10 @@ public class DayView extends View
 
         if (mMaxAllDayEvents != 0) {
             drawAllDayEvents(mFirstJulianDay, mNumDays, r, canvas, p);
-            drawUpperLeftCorner(r, canvas, p);
+//            drawUpperLeftCorner(r, canvas, p);
         }
 
-        if (mNumDays > 1) {
-            drawDayHeaderLoop(r, canvas, p);
-        }
+        drawDayHeaderLoop(r, canvas, p);
 
         // Draw the AM and PM indicators if we're in 12 hour mode
         if (!mIs24HourFormat) {
@@ -1448,47 +1428,59 @@ public class DayView extends View
     // This isn't really the upper-left corner.  It's the square area just
     // below the upper-left corner, above the hours and to the left of the
     // all-day area.
-    private void drawUpperLeftCorner(Rect r, Canvas canvas, Paint p) {
-        p.setColor(mCalendarHourBackground);
-        r.top = mBannerPlusMargin;
-        r.bottom = r.top + mAllDayHeight + ALLDAY_TOP_MARGIN;
-        r.left = 0;
-        r.right = mHoursWidth;
-        canvas.drawRect(r, p);
-    }
+//    private void drawUpperLeftCorner(Rect r, Canvas canvas, Paint p) {
+//        p.setColor(mCalendarHourBackground);
+//        r.top = DAY_HEADER_HEIGHT;
+//        r.bottom = r.top + mAllDayHeight + ALLDAY_TOP_MARGIN;
+//        r.left = 0;
+//        r.right = mHoursWidth;
+//        canvas.drawRect(r, p);
+//    }
 
     private void drawDayHeaderLoop(Rect r, Canvas canvas, Paint p) {
         // Draw the horizontal day background banner
-        p.setColor(mCalendarDateBannerBackground);
-        r.top = 0;
-        r.bottom = mBannerPlusMargin;
-        r.left = 0;
-        r.right = mHoursWidth + mNumDays * (mCellWidth + DAY_GAP);
-        canvas.drawRect(r, p);
-
+        // p.setColor(mCalendarDateBannerBackground);
+        // r.top = 0;
+        // r.bottom = DAY_HEADER_HEIGHT;
+        // r.left = 0;
+        // r.right = mHoursWidth + mNumDays * (mCellWidth + DAY_GAP);
+        // canvas.drawRect(r, p);
+        //
         // Fill the extra space on the right side with the default background
-        r.left = r.right;
-        r.right = mViewWidth;
-        p.setColor(mCalendarGridAreaBackground);
-        canvas.drawRect(r, p);
+        // r.left = r.right;
+        // r.right = mViewWidth;
+        // p.setColor(mCalendarGridAreaBackground);
+        // canvas.drawRect(r, p);
 
-        // Draw a highlight on the selected day (if any), but only if we are
-        // displaying more than one day.
-        if (mSelectionMode != SELECTION_HIDDEN) {
-            if (mNumDays > 1) {
+        int todayNum = mTodayJulianDay - mFirstJulianDay;
+        if (mNumDays > 1) {
+            r.top = 0;
+            r.bottom = DAY_HEADER_HEIGHT;
+
+            // Highlight today
+            if (mFirstJulianDay <= mTodayJulianDay
+                    && mTodayJulianDay < (mFirstJulianDay + mNumDays)) {
+                r.left = mHoursWidth + todayNum * (mCellWidth + DAY_GAP);
+                r.right = r.left + mCellWidth;
+                mTodayHeaderDrawable.setBounds(r);
+                mTodayHeaderDrawable.draw(canvas);
+            }
+
+            // Draw a highlight on the selected day (if any), but only if we are
+            // displaying more than one day.
+            int selectedDayNum = mSelectionDay - mFirstJulianDay;
+            if (mSelectionMode != SELECTION_HIDDEN && selectedDayNum >= 0
+                    && selectedDayNum < mNumDays) {
                 p.setColor(mCalendarDateSelected);
-                r.top = 0;
-                r.bottom = mBannerPlusMargin;
-                int daynum = mSelectionDay - mFirstJulianDay;
-                r.left = mHoursWidth + daynum * (mCellWidth + DAY_GAP);
+                r.left = mHoursWidth + selectedDayNum * (mCellWidth + DAY_GAP);
                 r.right = r.left + mCellWidth;
                 canvas.drawRect(r, p);
             }
         }
 
-        p.setTextSize(NORMAL_FONT_SIZE);
-        p.setTextAlign(Paint.Align.CENTER);
-        int x = mHoursWidth;
+        p.setTypeface(mBold);
+        p.setTextAlign(Paint.Align.RIGHT);
+        float x = mHoursWidth;
         int deltaX = mCellWidth + DAY_GAP;
         int cell = mFirstJulianDay;
 
@@ -1499,7 +1491,6 @@ public class DayView extends View
             dayNames = mDayStrs2Letter;
         }
 
-        p.setTypeface(mBold);
         p.setAntiAlias(true);
         for (int day = 0; day < mNumDays; day++, cell++) {
             int dayOfWeek = day + mFirstVisibleDayOfWeek;
@@ -1507,17 +1498,25 @@ public class DayView extends View
                 dayOfWeek -= 14;
             }
 
+            int color = mCalendarDateBannerTextColor;
             if (Utils.isSaturday(dayOfWeek, mFirstDayOfWeek)) {
-                p.setColor(mWeek_saturdayColor);
+                color = mWeek_saturdayColor;
             } else if (Utils.isSunday(dayOfWeek, mFirstDayOfWeek)) {
-                p.setColor(mWeek_sundayColor);
-            } else {
-                p.setColor(mCalendarDateBannerTextColor);
+                color = mWeek_sundayColor;
             }
 
+            color &= 0x00FFFFFF;
+            if (todayNum == day) {
+                color |= DAY_HEADER_TODAY_ALPHA;
+            } else {
+                color |= DAY_HEADER_ALPHA;
+            }
+
+            p.setColor(color);
             drawDayHeader(dayNames[dayOfWeek], day, cell, x, canvas, p);
             x += deltaX;
         }
+        p.setTypeface(null);
     }
 
     private void drawAmPm(Canvas canvas, Paint p) {
@@ -1543,37 +1542,15 @@ public class DayView extends View
         }
     }
 
-    private void drawCurrentTimeMarker(int top, Canvas canvas, Paint p) {
-        top -= CURRENT_TIME_MARKER_HEIGHT / 2;
-        p.setColor(mCurrentTimeMarkerColor);
-        Paint.Style oldStyle = p.getStyle();
-        p.setStyle(Paint.Style.STROKE);
-        p.setStrokeWidth(2.0f);
-        Path mCurrentTimeMarker = mPath;
-        mCurrentTimeMarker.reset();
-        mCurrentTimeMarker.moveTo(0, top);
-        mCurrentTimeMarker.lineTo(0, CURRENT_TIME_MARKER_HEIGHT + top);
-        mCurrentTimeMarker.lineTo(CURRENT_TIME_MARKER_INNER_WIDTH, CURRENT_TIME_MARKER_HEIGHT + top);
-        mCurrentTimeMarker.lineTo(CURRENT_TIME_MARKER_WIDTH, CURRENT_TIME_MARKER_HEIGHT / 2 + top);
-        mCurrentTimeMarker.lineTo(CURRENT_TIME_MARKER_INNER_WIDTH, top);
-        mCurrentTimeMarker.lineTo(0, top);
-        canvas.drawPath(mCurrentTimeMarker, p);
-        p.setStyle(oldStyle);
-    }
+    private void drawCurrentTimeLine(Rect r, final int left, final int top, Canvas canvas, Paint p) {
+        r.left = left - CURRENT_TIME_LINE_SIDE_BUFFER;
+        r.right = left + mCellWidth + CURRENT_TIME_LINE_SIDE_BUFFER;
 
-    private void drawCurrentTimeLine(Rect r, int left, int top, Canvas canvas, Paint p) {
-        //Do a white outline so it'll show up on a red event
-        p.setColor(mCurrentTimeMarkerBorderColor);
-        r.top = top - CURRENT_TIME_LINE_HEIGHT / 2 - CURRENT_TIME_LINE_BORDER_WIDTH;
-        r.bottom = top + CURRENT_TIME_LINE_HEIGHT / 2 + CURRENT_TIME_LINE_BORDER_WIDTH;
-        r.left = left + CURRENT_TIME_LINE_SIDE_BUFFER;
-        r.right = r.left + mCellWidth - 2 * CURRENT_TIME_LINE_SIDE_BUFFER;
-        canvas.drawRect(r, p);
-        //Then draw the red line
-        p.setColor(mCurrentTimeMarkerColor);
-        r.top = top - CURRENT_TIME_LINE_HEIGHT / 2;
-        r.bottom = top + CURRENT_TIME_LINE_HEIGHT / 2;
-        canvas.drawRect(r, p);
+        r.top = top - mCurrentTimeLine.getIntrinsicHeight() / 2;
+        r.bottom = r.top + mCurrentTimeLine.getIntrinsicHeight();
+
+        mCurrentTimeLine.setBounds(r);
+        mCurrentTimeLine.draw(canvas);
     }
 
     private void doDraw(Canvas canvas) {
@@ -1596,8 +1573,6 @@ public class DayView extends View
             if(cell == mTodayJulianDay) {
                 //And the current time shows up somewhere on the screen
                 if(lineY >= mViewStartY && lineY < mViewStartY + mViewHeight - 2) {
-                    //draw both the marker and the line
-                    drawCurrentTimeMarker(lineY, canvas, p);
                     drawCurrentTimeLine(r, x, lineY, canvas, p);
                 }
             }
@@ -1606,19 +1581,21 @@ public class DayView extends View
     }
 
     private void drawHours(Rect r, Canvas canvas, Paint p) {
+        // Comment out as the background will be a drawable
+
         // Draw the background for the hour labels
-        p.setColor(mCalendarHourBackground);
-        r.top = 0;
-        r.bottom = 24 * (mCellHeight + HOUR_GAP) + HOUR_GAP;
-        r.left = 0;
-        r.right = mHoursWidth;
-        canvas.drawRect(r, p);
+        // p.setColor(mCalendarHourBackground);
+        // r.top = 0;
+        // r.bottom = 24 * (mCellHeight + HOUR_GAP) + HOUR_GAP;
+        // r.left = 0;
+        // r.right = mHoursWidth;
+        // canvas.drawRect(r, p);
 
         // Fill the bottom left corner with the default grid background
-        r.top = r.bottom;
-        r.bottom = mBitmapHeight;
-        p.setColor(mCalendarGridAreaBackground);
-        canvas.drawRect(r, p);
+        // r.top = r.bottom;
+        // r.bottom = mBitmapHeight;
+        // p.setColor(mCalendarGridAreaBackground);
+        // canvas.drawRect(r, p);
 
         // Draw a highlight on the selected hour (if needed)
         if (mSelectionMode != SELECTION_HIDDEN && !mSelectionAllDay) {
@@ -1662,69 +1639,92 @@ public class DayView extends View
         }
     }
 
-    private void drawDayHeader(String dateStr, int day, int cell, int x, Canvas canvas, Paint p) {
-        float xCenter = x + mCellWidth / 2.0f;
-
+    private void drawDayHeader(String dayStr, int day, int cell, float x, Canvas canvas, Paint p) {
         int dateNum = mFirstVisibleDate + day;
         if (dateNum > mMonthLength) {
             dateNum -= mMonthLength;
         }
 
-        String dateNumStr;
-        // Add a leading zero if the date is a single digit
-        if (dateNum < 10) {
-            dateNumStr = "0" + dateNum;
+        // Draw day of the month
+        String dateNumStr = String.valueOf(dateNum);
+        if (mNumDays > 1) {
+            float y = DAY_HEADER_HEIGHT - DAY_HEADER_BOTTOM_MARGIN;
+
+            // Draw day of the month
+            x += mCellWidth - DAY_HEADER_RIGHT_MARGIN;
+            p.setTextSize(DATE_HEADER_FONT_SIZE);
+            canvas.drawText(dateNumStr, x, y, p);
+
+            // Draw day of the week
+            x -= p.measureText(dateNumStr) + DAY_HEADER_LEFT_MARGIN;
+            p.setTextSize(DAY_HEADER_FONT_SIZE);
+            canvas.drawText(dayStr, x, y, p);
         } else {
-            dateNumStr = String.valueOf(dateNum);
+            float y = DAY_HEADER_HEIGHT - DAY_HEADER_ONE_DAY_BOTTOM_MARGIN;
+            p.setTextAlign(Paint.Align.RIGHT);
+
+            // Draw day of the week
+            x += DAY_HEADER_ONE_DAY_LEFT_MARGIN;
+            p.setTextSize(DAY_HEADER_FONT_SIZE);
+            canvas.drawText(dayStr, x, y, p);
+
+            // Draw day of the month
+            x += p.measureText(dayStr) + DAY_HEADER_ONE_DAY_RIGHT_MARGIN;
+            p.setTextSize(DATE_HEADER_FONT_SIZE);
+            canvas.drawText(dateNumStr, x, y, p);
         }
-
-        DayHeader header = dayHeaders[day];
-        if (header == null || header.cell != cell) {
-            // The day header string is regenerated on every draw during drag and fling animation.
-            // Caching day header since formatting the string takes surprising long time.
-
-            dayHeaders[day] = new DayHeader();
-            dayHeaders[day].cell = cell;
-            dayHeaders[day].dateString = getResources().getString(
-                    R.string.weekday_day, dateStr, dateNumStr);
-        }
-        dateStr = dayHeaders[day].dateString;
-
-        float y = mBannerPlusMargin - 7;
-        canvas.drawText(dateStr, xCenter, y, p);
     }
 
     private void drawGridBackground(Rect r, Canvas canvas, Paint p) {
         Paint.Style savedStyle = p.getStyle();
 
-        // Clear the background
-        p.setColor(mCalendarGridAreaBackground);
         r.top = 0;
         r.bottom = mBitmapHeight;
         r.left = 0;
         r.right = mViewWidth;
-        canvas.drawRect(r, p);
+        // p.setColor(mCalendarGridAreaBackground);
+        // canvas.drawRect(r, p);
+        mBackgroundDrawable.setBounds(r);
+        mBackgroundDrawable.draw(canvas);
 
-        // Draw the horizontal grid lines
+        // Draw the outer horizontal grid lines
         p.setColor(mCalendarGridLineHorizontalColor);
         p.setStyle(Style.STROKE);
-        p.setStrokeWidth(0);
+        p.setStrokeWidth(GRID_LINE_WIDTH);
         p.setAntiAlias(false);
-        float startX = mHoursWidth;
-        float stopX = mHoursWidth + (mCellWidth + DAY_GAP) * mNumDays;
+        final float startX = 0;
+        final float stopX = mHoursWidth + (mCellWidth + DAY_GAP) * mNumDays;
         float y = 0;
-        float deltaY = mCellHeight + HOUR_GAP;
+        final float deltaY = mCellHeight + HOUR_GAP;
         for (int hour = 0; hour <= 24; hour++) {
             canvas.drawLine(startX, y, stopX, y, p);
             y += deltaY;
         }
 
-        // Draw the vertical grid lines
+        // Draw the outer vertical grid lines
         p.setColor(mCalendarGridLineVerticalColor);
-        float startY = 0;
-        float stopY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP);
-        float deltaX = mCellWidth + DAY_GAP;
+        final float startY = 0;
+        final float stopY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP);
+        final float deltaX = mCellWidth + DAY_GAP;
         float x = mHoursWidth + mCellWidth;
+        for (int day = 0; day < mNumDays; day++) {
+            canvas.drawLine(x, startY, x, stopY, p);
+            x += deltaX;
+        }
+
+        // Draw the inner horizontal grid lines
+        p.setColor(mCalendarGridLineInnerHorizontalColor);
+        p.setStrokeWidth(GRID_LINE_INNER_WIDTH);
+        y = 0;
+        x = 0;
+        for (int hour = 0; hour <= 24; hour++) {
+            canvas.drawLine(startX, y, stopX, y, p);
+            y += deltaY;
+        }
+
+        // Draw the inner vertical grid lines
+        p.setColor(mCalendarGridLineInnerVerticalColor);
+        x = mHoursWidth + mCellWidth;
         for (int day = 0; day < mNumDays; day++) {
             canvas.drawLine(x, startY, x, stopY, p);
             x += deltaX;
@@ -1804,36 +1804,46 @@ public class DayView extends View
         Paint eventTextPaint = mEventTextPaint;
 
         // Draw the background for the all-day events area
-        r.top = mBannerPlusMargin;
-        r.bottom = r.top + mAllDayHeight + ALLDAY_TOP_MARGIN;
-        r.left = mHoursWidth;
-        r.right = r.left + mNumDays * (mCellWidth + DAY_GAP);
-        p.setColor(mCalendarAllDayBackground);
-        canvas.drawRect(r, p);
+        // r.top = DAY_HEADER_HEIGHT;
+        // r.bottom = r.top + mAllDayHeight + ALLDAY_TOP_MARGIN;
+        // r.left = mHoursWidth;
+        // r.right = r.left + mNumDays * (mCellWidth + DAY_GAP);
+        // p.setColor(mCalendarAllDayBackground);
+        // canvas.drawRect(r, p);
 
         // Fill the extra space on the right side with the default background
-        r.left = r.right;
-        r.right = mViewWidth;
-        p.setColor(mCalendarGridAreaBackground);
-        canvas.drawRect(r, p);
+        // r.left = r.right;
+        // r.right = mViewWidth;
+        // p.setColor(mCalendarGridAreaBackground);
+        // canvas.drawRect(r, p);
 
-        // Draw the vertical grid lines
+        // Draw the outer vertical grid lines
         p.setColor(mCalendarGridLineVerticalColor);
         p.setStyle(Style.STROKE);
-        p.setStrokeWidth(0);
+        p.setStrokeWidth(GRID_LINE_WIDTH);
         p.setAntiAlias(false);
-        float startY = r.top;
-        float stopY = r.bottom;
-        float deltaX = mCellWidth + DAY_GAP;
+        final float startY = DAY_HEADER_HEIGHT;
+        final float stopY = startY + mAllDayHeight + ALLDAY_TOP_MARGIN;
+        final float deltaX = mCellWidth + DAY_GAP;
         float x = mHoursWidth + mCellWidth;
-        for (int day = 0; day <= mNumDays; day++) {
+        for (int day = 0; day < mNumDays; day++) {
             canvas.drawLine(x, startY, x, stopY, p);
             x += deltaX;
         }
+
+        // Draw the inner vertical grid lines
+        p.setColor(mCalendarGridLineInnerVerticalColor);
+        x = mHoursWidth + mCellWidth;
+        p.setStrokeWidth(GRID_LINE_INNER_WIDTH);
+        for (int day = 0; day < mNumDays; day++) {
+            canvas.drawLine(x, startY, x, stopY, p);
+            x += deltaX;
+        }
+
         p.setAntiAlias(true);
         p.setStyle(Style.FILL);
 
-        int y = mBannerPlusMargin + ALLDAY_TOP_MARGIN;
+        int y = DAY_HEADER_HEIGHT + ALLDAY_TOP_MARGIN;
         float left = mHoursWidth;
         int lastDay = firstDay + numDays - 1;
         ArrayList<Event> events = mEvents;
@@ -1892,7 +1902,7 @@ public class DayView extends View
             }
 
             // Draw the highlight on the selected all-day area
-            float top = mBannerPlusMargin + 1;
+            float top = DAY_HEADER_HEIGHT + 1;
             float bottom = top + mAllDayHeight + ALLDAY_TOP_MARGIN - 1;
             int daynum = mSelectionDay - mFirstJulianDay;
             left = mHoursWidth + daynum * (mCellWidth + DAY_GAP) + 1;
@@ -1988,7 +1998,7 @@ public class DayView extends View
         rf.bottom = event.bottom;
         rf.left = event.left;
         rf.right = event.right;
-        canvas.drawRoundRect(rf, SMALL_ROUND_RADIUS, SMALL_ROUND_RADIUS, p);
+        canvas.drawRect(rf, p);
 
         rf.left += 2;
         rf.right -= 2;
@@ -2323,8 +2333,15 @@ public class DayView extends View
         mSelectedEvent = startEvent;
     }
 
-
     private RectF drawEventRect(Event event, Canvas canvas, Paint p, Paint eventTextPaint) {
+        RectF rf = mRectF;
+        rf.top = event.top + 1;
+        rf.bottom = event.bottom;
+        rf.left = event.left + 1;
+        rf.right = event.right - 1;
+// FRAG_TODO Add constant
+p.setColor(0xAAFFFFFF);
+        canvas.drawRect(rf, p);
 
         int color = event.color;
 
@@ -2367,26 +2384,18 @@ public class DayView extends View
             eventTextPaint.setColor(mEventTextColor);
         }
 
-
-        RectF rf = mRectF;
         rf.top = event.top;
-        rf.bottom = event.bottom;
+        rf.bottom = rf.top + CALENDAR_COLOR_SQUARE_SIZE;
         rf.left = event.left;
-        rf.right = event.right - 1;
+        rf.right = rf.left + CALENDAR_COLOR_SQUARE_SIZE;
 
-        canvas.drawRoundRect(rf, SMALL_ROUND_RADIUS, SMALL_ROUND_RADIUS, p);
+        canvas.drawRect(rf, p);
 
-        // Draw a darker border
-        float[] hsv = new float[3];
-        Color.colorToHSV(p.getColor(), hsv);
-        hsv[1] = 1.0f;
-        hsv[2] *= 0.75f;
-        mPaintBorder.setColor(Color.HSVToColor(hsv));
-        canvas.drawRoundRect(rf, SMALL_ROUND_RADIUS, SMALL_ROUND_RADIUS, mPaintBorder);
-
-        rf.left += 2;
-        rf.right -= 2;
-
+        // Setup rect for drawEventText which follows
+        rf.top = event.top + EVENT_TEXT_TOP_MARGIN;
+        rf.bottom = event.bottom - EVENT_TEXT_BOTTOM_MARGIN;
+        rf.left = event.left + EVENT_TEXT_LEFT_MARGIN;
+        rf.right = event.right - EVENT_TEXT_RIGHT_MARGIN;
         return rf;
     }
 
@@ -2566,7 +2575,6 @@ public class DayView extends View
         mSelectionMode = SELECTION_SELECTED;
         invalidate();
 
-        boolean launchNewView = false;
         if (mSelectedEvent != null) {
             // If the tap is on an event, launch the "View event" view
             mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mSelectedEvent.id,
@@ -2618,7 +2626,6 @@ public class DayView extends View
             int absDistanceX = Math.abs(distanceX);
             int absDistanceY = Math.abs(distanceY);
             mScrollStartY = mViewStartY;
-            mPreviousDistanceX = 0;
             mPreviousDirection = 0;
 
             // If the x distance is at least twice the y distance, then lock
@@ -2644,27 +2651,6 @@ public class DayView extends View
                     mPreviousDirection = direction;
                 }
             }
-
-            // If we have moved at least the HORIZONTAL_SCROLL_THRESHOLD,
-            // then change the title to the new day (or week), but only
-            // if we haven't already changed the title.
-            if (distanceX >= HORIZONTAL_SCROLL_THRESHOLD) {
-                if (mPreviousDistanceX < HORIZONTAL_SCROLL_THRESHOLD) {
-                    DayView view = (DayView) mViewSwitcher.getNextView();
-                    mTitleTextView.setText(view.mDateRange);
-                }
-            } else if (distanceX <= -HORIZONTAL_SCROLL_THRESHOLD) {
-                if (mPreviousDistanceX > -HORIZONTAL_SCROLL_THRESHOLD) {
-                    DayView view = (DayView) mViewSwitcher.getNextView();
-                    mTitleTextView.setText(view.mDateRange);
-                }
-            } else {
-                if (mPreviousDistanceX >= HORIZONTAL_SCROLL_THRESHOLD
-                        || mPreviousDistanceX <= -HORIZONTAL_SCROLL_THRESHOLD) {
-                    mTitleTextView.setText(mDateRange);
-                }
-            }
-            mPreviousDistanceX = distanceX;
         }
 
         if ((mTouchMode & TOUCH_MODE_VSCROLL) != 0) {
@@ -2695,9 +2681,8 @@ public class DayView extends View
         int distanceY = Math.abs(deltaY);
 
         if ((distanceX >= HORIZONTAL_SCROLL_THRESHOLD) && (distanceX > distanceY)) {
-            boolean switchForward = initNextView(deltaX);
+            initNextView(deltaX);
             DayView view = (DayView) mViewSwitcher.getNextView();
-            mTitleTextView.setText(view.mDateRange);
 
             Time end = new Time(view.mBaseDate);
             end.monthDay += mNumDays;
@@ -2767,7 +2752,6 @@ public class DayView extends View
                     // the view to snap back.  Also call recalc() to ensure
                     // that we have the correct starting date and title.
                     recalc();
-                    mTitleTextView.setText(mDateRange);
                     invalidate();
                     mViewStartX = 0;
                 }
@@ -2955,7 +2939,6 @@ public class DayView extends View
         ContentResolver cr = context.getContentResolver();
 
         int visibility = Calendars.NO_ACCESS;
-        int relationship = Attendees.RELATIONSHIP_ORGANIZER;
 
         // Get the calendar id for this event
         Cursor cursor = cr.query(ContentUris.withAppendedId(Events.CONTENT_URI, e.id),
@@ -3067,7 +3050,7 @@ public class DayView extends View
             float minYdistance = 10000.0f;  // any large number
             Event closestEvent = null;
             float drawHeight = mAllDayHeight;
-            int yOffset = mBannerPlusMargin + ALLDAY_TOP_MARGIN;
+            int yOffset = DAY_HEADER_HEIGHT + ALLDAY_TOP_MARGIN;
             for (int i = 0; i < numEvents; i++) {
                 Event event = events.get(i);
                 if (!event.allDay) {

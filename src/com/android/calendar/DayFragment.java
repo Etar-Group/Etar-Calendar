@@ -19,8 +19,6 @@ package com.android.calendar;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 
-import dalvik.system.VMRuntime;
-
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -29,6 +27,7 @@ import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +48,6 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
      * focus when a view hierarchy is saved / restore
      */
     private static final int VIEW_ID = 1;
-
-    private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
 
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
 
@@ -113,11 +110,6 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
-        // TODO: We should restore the old heap size once the activity reaches the idle state
-        VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
-
-//        setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT);
         Context context = getActivity();
 
         mInAnimationForward = AnimationUtils.loadAnimation(context, R.anim.slide_left_in);
@@ -127,26 +119,6 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 
         mEventLoader = new EventLoader(context);
     }
-
-//    @Override
-//    public void onRestoreInstanceState(Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//
-//        DayView view = (DayView) mViewSwitcher.getCurrentView();
-//        Time time = new Time();
-//        time.set(savedInstanceState.getLong(BUNDLE_KEY_RESTORE_TIME));
-//        view.setSelectedDay(time);
-//    }
-//
-//    @Override
-//    public void onNewIntent(Intent intent) {
-//        long timeMillis = Utils.timeFromIntentInMillis(intent);
-//        if (timeMillis > 0) {
-//            Time time = new Time();
-//            time.set(timeMillis);
-//            goTo(time, false);
-//        }
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
