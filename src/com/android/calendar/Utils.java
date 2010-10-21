@@ -396,12 +396,10 @@ public class Utils {
     }
 
     /**
-     * Get first day of week as android.text.format.Time constant.
-     *
-     * @return the first day of week in android.text.format.Time
+     * @return true when week number should be shown.
      */
     public static boolean getShowWeekNumber(Context context) {
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         return prefs.getBoolean(
                 GeneralPreferences.KEY_SHOW_WEEK_NUM, GeneralPreferences.DEFAULT_SHOW_WEEK_NUM);
     }
