@@ -24,6 +24,7 @@ import com.android.calendar.Utils;
 
 import dalvik.system.VMRuntime;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -45,6 +46,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private AgendaListView mAgendaListView;
     private Time mTime;
     private String mTimeZone;
+    private long mInitialTimeMillis;
 
     private String mQuery;
 
@@ -61,13 +63,18 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     }
 
     public AgendaFragment(long timeMillis) {
+        mInitialTimeMillis = timeMillis;
+    }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
         mTimeZone = Utils.getTimeZone(getActivity(), mTZUpdater);
         mTime = new Time(mTimeZone);
-        if (timeMillis == 0) {
+        if (mInitialTimeMillis == 0) {
             mTime.setToNow();
         } else {
-            mTime.set(timeMillis);
+            mTime.set(mInitialTimeMillis);
         }
     }
 
