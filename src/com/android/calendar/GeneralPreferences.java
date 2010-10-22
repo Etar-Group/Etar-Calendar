@@ -80,7 +80,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     // Default preference values
     public static final int DEFAULT_START_VIEW = CalendarController.ViewType.WEEK;
     public static final int DEFAULT_DETAILED_VIEW = CalendarController.ViewType.DAY;
-    public static final boolean DEFAULT_SHOW_WEEK_NUM = true;
+    public static final boolean DEFAULT_SHOW_WEEK_NUM = false;
 
     CheckBoxPreference mAlert;
     ListPreference mVibrateWhen;
@@ -129,7 +129,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         String tz = mHomeTZ.getValue();
 
         if (mTimezones == null) {
-            mTimezones = (new TimezoneAdapter(getActivity(), tz)).getAllTimezones();
+            mTimezones = (new TimezoneAdapter(activity, tz)).getAllTimezones();
         }
         mHomeTZ.setEntryValues(mTimezones[0]);
         mHomeTZ.setEntries(mTimezones[1]);
@@ -229,9 +229,10 @@ public class GeneralPreferences extends PreferenceFragment implements
     }
 
 
-    @Override @SuppressWarnings("deprecation")
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        String key = preference.getKey();
+    @Override
+    public boolean onPreferenceTreeClick(
+            PreferenceScreen preferenceScreen, Preference preference) {
+        final String key = preference.getKey();
         if (key.equals(KEY_CLEAR_SEARCH_HISTORY)) {
             SearchRecentSuggestions suggestions = new SearchRecentSuggestions(getActivity(),
                     CalendarRecentSuggestionsProvider.AUTHORITY,

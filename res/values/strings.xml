@@ -430,6 +430,9 @@
     <!-- DO NOT TRANSLATE -->
     <string name="preferences_home_tz_default">America/Los_Angeles</string>
 
+    <!-- Title of the settings item to show week number in week view [CHAR LIMIT=40] -->
+    <string name="preferences_show_week_num_title">Show week number</string>
+
     <!-- This is the title of a section in the Settings screen for "About" this application -->
     <string name="preferences_about_title">About</string>
     <!-- Build version of the application -->
