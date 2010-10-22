@@ -758,6 +758,8 @@ public class MiniMonthView extends View implements View.OnCreateContextMenuListe
         clearBitmapCache();
         if (mBitmap != null) {
             mBitmap.recycle();
+            mBitmap = null;
+            mCanvas = null;
         }
     }
 
