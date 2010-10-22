@@ -69,7 +69,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mTimeZone = Utils.getTimeZone(getActivity(), mTZUpdater);
+        mTimeZone = Utils.getTimeZone(activity, mTZUpdater);
         mTime = new Time(mTimeZone);
         if (mInitialTimeMillis == 0) {
             mTime.setToNow();
