@@ -3271,6 +3271,7 @@ p.setColor(0xAAFFFFFF);
         if (mBitmap != null) {
             mBitmap.recycle();
             mBitmap = null;
+            mCanvas = null;
         }
         super.onDetachedFromWindow();
     }
