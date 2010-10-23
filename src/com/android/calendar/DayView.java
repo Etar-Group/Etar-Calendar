@@ -89,7 +89,7 @@ public class DayView extends View
     private static final int MENU_EVENT_EDIT = 7;
     private static final int MENU_EVENT_DELETE = 8;
 
-    private static int DEFAULT_CELL_HEIGHT = 43;
+    private static int DEFAULT_CELL_HEIGHT = 64;
 
     private boolean mOnFlingCalled;
     /**
@@ -242,7 +242,7 @@ public class DayView extends View
 
     private static final int DAY_HEADER_ALPHA = 0x26000000;
     private static final int DAY_HEADER_TODAY_ALPHA = 0x99000000;
-    private static float DAY_HEADER_ONE_DAY_LEFT_MARGIN = 18;
+    private static float DAY_HEADER_ONE_DAY_LEFT_MARGIN = -12;
     private static float DAY_HEADER_ONE_DAY_RIGHT_MARGIN = 5;
     private static float DAY_HEADER_ONE_DAY_BOTTOM_MARGIN = 6;
     private static float DAY_HEADER_LEFT_MARGIN = 5;
@@ -258,10 +258,14 @@ public class DayView extends View
     private static final int MAX_EVENT_TEXT_LEN = 500;
     private static float MIN_EVENT_HEIGHT = 15.0F;  // in pixels
     private static float CALENDAR_COLOR_SQUARE_SIZE = 11;
-    private static float EVENT_TEXT_TOP_MARGIN = 4;
-    private static float EVENT_TEXT_BOTTOM_MARGIN = 0;
-    private static float EVENT_TEXT_LEFT_MARGIN = 12;
-    private static float EVENT_TEXT_RIGHT_MARGIN = 9;
+    private static float EVENT_RECT_TOP_MARGIN = 0;
+    private static float EVENT_RECT_BOTTOM_MARGIN = 1;
+    private static float EVENT_RECT_LEFT_MARGIN = 0;
+    private static float EVENT_RECT_RIGHT_MARGIN = 1;
+    private static float EVENT_TEXT_TOP_MARGIN = 8;
+    private static float EVENT_TEXT_BOTTOM_MARGIN = 5;
+    private static float EVENT_TEXT_LEFT_MARGIN = 8;
+    private static float EVENT_TEXT_RIGHT_MARGIN = 7;
 
     private static int mSelectionColor;
     private static int mPressedColor;
@@ -273,16 +277,16 @@ public class DayView extends View
 //    private static int mCalendarAllDayBackground;
     private static int mCalendarAmPmLabel;
 //    private static int mCalendarDateBannerBackground;
-    private static int mCalendarDateSelected;
+//    private static int mCalendarDateSelected;
 //    private static int mCalendarGridAreaBackground;
-    private static int mCalendarGridAreaSelected;
+//    private static int mCalendarGridAreaSelected;
     private static int mCalendarGridLineHorizontalColor;
     private static int mCalendarGridLineVerticalColor;
     private static int mCalendarGridLineInnerHorizontalColor;
     private static int mCalendarGridLineInnerVerticalColor;
 //    private static int mCalendarHourBackground;
     private static int mCalendarHourLabel;
-    private static int mCalendarHourSelected;
+//    private static int mCalendarHourSelected;
 
     private int mViewStartX;
     private int mViewStartY;
@@ -409,6 +413,10 @@ public class DayView extends View
                 EVENT_TEXT_BOTTOM_MARGIN *= mScale;
                 EVENT_TEXT_LEFT_MARGIN *= mScale;
                 EVENT_TEXT_RIGHT_MARGIN *= mScale;
+                EVENT_RECT_TOP_MARGIN *= mScale;
+                EVENT_RECT_BOTTOM_MARGIN *= mScale;
+                EVENT_RECT_LEFT_MARGIN *= mScale;
+                EVENT_RECT_RIGHT_MARGIN *= mScale;
             }
         }
 
@@ -456,16 +464,16 @@ public class DayView extends View
 //        mCalendarAllDayBackground = mResources.getColor(R.color.calendar_all_day_background);
         mCalendarAmPmLabel = mResources.getColor(R.color.calendar_ampm_label);
 //        mCalendarDateBannerBackground = mResources.getColor(R.color.calendar_date_banner_background);
-        mCalendarDateSelected = mResources.getColor(R.color.calendar_date_selected);
+//        mCalendarDateSelected = mResources.getColor(R.color.calendar_date_selected);
 //        mCalendarGridAreaBackground = mResources.getColor(R.color.calendar_grid_area_background);
-        mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected);
+//        mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected);
         mCalendarGridLineHorizontalColor = mResources.getColor(R.color.calendar_grid_line_horizontal_color);
         mCalendarGridLineVerticalColor = mResources.getColor(R.color.calendar_grid_line_vertical_color);
         mCalendarGridLineInnerHorizontalColor = mResources.getColor(R.color.calendar_grid_line_inner_horizontal_color);
         mCalendarGridLineInnerVerticalColor = mResources.getColor(R.color.calendar_grid_line_inner_vertical_color);
 //        mCalendarHourBackground = mResources.getColor(R.color.calendar_hour_background);
         mCalendarHourLabel = mResources.getColor(R.color.calendar_hour_label);
-        mCalendarHourSelected = mResources.getColor(R.color.calendar_hour_selected);
+//        mCalendarHourSelected = mResources.getColor(R.color.calendar_hour_selected);
         mSelectionColor = mResources.getColor(R.color.selection);
         mPressedColor = mResources.getColor(R.color.pressed);
         mSelectedEventTextColor = mResources.getColor(R.color.calendar_event_selected_text_color);
@@ -1477,14 +1485,15 @@ public class DayView extends View
 
             // Draw a highlight on the selected day (if any), but only if we are
             // displaying more than one day.
-            int selectedDayNum = mSelectionDay - mFirstJulianDay;
-            if (mSelectionMode != SELECTION_HIDDEN && selectedDayNum >= 0
-                    && selectedDayNum < mNumDays) {
-                p.setColor(mCalendarDateSelected);
-                r.left = mHoursWidth + selectedDayNum * (mCellWidth + DAY_GAP);
-                r.right = r.left + mCellWidth;
-                canvas.drawRect(r, p);
-            }
+            //
+            // int selectedDayNum = mSelectionDay - mFirstJulianDay;
+            // if (mSelectionMode != SELECTION_HIDDEN && selectedDayNum >= 0
+            // && selectedDayNum < mNumDays) {
+            // p.setColor(mCalendarDateSelected);
+            // r.left = mHoursWidth + selectedDayNum * (mCellWidth + DAY_GAP);
+            // r.right = r.left + mCellWidth;
+            // canvas.drawRect(r, p);
+            // }
         }
 
         p.setTypeface(mBold);
@@ -1607,30 +1616,30 @@ public class DayView extends View
         // canvas.drawRect(r, p);
 
         // Draw a highlight on the selected hour (if needed)
-        if (mSelectionMode != SELECTION_HIDDEN && !mSelectionAllDay) {
-            p.setColor(mCalendarHourSelected);
-            r.top = mSelectionHour * (mCellHeight + HOUR_GAP);
-            r.bottom = r.top + mCellHeight + 2 * HOUR_GAP;
-            r.left = 0;
-            r.right = mHoursWidth;
-            canvas.drawRect(r, p);
-
-            // Also draw the highlight on the grid
-            p.setColor(mCalendarGridAreaSelected);
-            int daynum = mSelectionDay - mFirstJulianDay;
-            r.left = mHoursWidth + daynum * (mCellWidth + DAY_GAP);
-            r.right = r.left + mCellWidth;
-            canvas.drawRect(r, p);
-
-            // Draw a border around the highlighted grid hour.
-            Path path = mPath;
-            r.top += HOUR_GAP;
-            r.bottom -= HOUR_GAP;
-            path.reset();
-            path.addRect(r.left, r.top, r.right, r.bottom, Direction.CW);
-            canvas.drawPath(path, mSelectionPaint);
-            saveSelectionPosition(r.left, r.top, r.right, r.bottom);
-        }
+        // if (mSelectionMode != SELECTION_HIDDEN && !mSelectionAllDay) {
+        // p.setColor(mCalendarHourSelected);
+        // r.top = mSelectionHour * (mCellHeight + HOUR_GAP);
+        // r.bottom = r.top + mCellHeight + 2 * HOUR_GAP;
+        // r.left = 0;
+        // r.right = mHoursWidth;
+        // canvas.drawRect(r, p);
+        //
+        // // Also draw the highlight on the grid
+        // p.setColor(mCalendarGridAreaSelected);
+        // int daynum = mSelectionDay - mFirstJulianDay;
+        // r.left = mHoursWidth + daynum * (mCellWidth + DAY_GAP);
+        // r.right = r.left + mCellWidth;
+        // canvas.drawRect(r, p);
+        //
+        // // Draw a border around the highlighted grid hour.
+        // Path path = mPath;
+        // r.top += HOUR_GAP;
+        // r.bottom -= HOUR_GAP;
+        // path.reset();
+        // path.addRect(r.left, r.top, r.right, r.bottom, Direction.CW);
+        // canvas.drawPath(path, mSelectionPaint);
+        // saveSelectionPosition(r.left, r.top, r.right, r.bottom);
+        // }
 
         p.setColor(mCalendarHourLabel);
         p.setTextSize(HOURS_FONT_SIZE);
@@ -1670,7 +1679,7 @@ public class DayView extends View
             canvas.drawText(dayStr, x, y, p);
         } else {
             float y = DAY_HEADER_HEIGHT - DAY_HEADER_ONE_DAY_BOTTOM_MARGIN;
-            p.setTextAlign(Paint.Align.RIGHT);
+            p.setTextAlign(Paint.Align.LEFT);
 
             // Draw day of the week
             x += DAY_HEADER_ONE_DAY_LEFT_MARGIN;
@@ -2347,28 +2356,23 @@ public class DayView extends View
     }
 
     private RectF drawEventRect(Event event, Canvas canvas, Paint p, Paint eventTextPaint) {
+        // Draw the Event Rect
         RectF rf = mRectF;
-        rf.top = event.top + 1;
-        rf.bottom = event.bottom;
-        rf.left = event.left + 1;
-        rf.right = event.right - 1;
-// FRAG_TODO Add constant
-p.setColor(0xAAFFFFFF);
+        rf.top = event.top + EVENT_RECT_TOP_MARGIN;
+        rf.bottom = event.bottom - EVENT_RECT_BOTTOM_MARGIN;
+        rf.left = event.left + EVENT_RECT_LEFT_MARGIN;
+        rf.right = event.right - EVENT_RECT_RIGHT_MARGIN;
+
+        // TEMP behavior
+        p.setAntiAlias(false);
+        p.setColor(0xAAAAAAAA);
+        p.setStrokeWidth(1);
+        p.setStyle(Style.STROKE);
         canvas.drawRect(rf, p);
-
-        int color = event.color;
-
-        // Fade visible boxes if event was declined.
-        boolean declined = (event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED);
-        if (declined) {
-            int alpha = color & 0xff000000;
-            color &= 0x00ffffff;
-            int red = (color & 0x00ff0000) >> 16;
-            int green = (color & 0x0000ff00) >> 8;
-            int blue = (color & 0x0000ff);
-            color = ((red >> 1) << 16) | ((green >> 1) << 8) | (blue >> 1);
-            color += 0x7F7F7F + alpha;
-        }
+        rf.right++;
+        rf.bottom++;
+        int color = 0xAAFFFFFF;
+        int eventTextColor = mEventTextColor;
 
         // If this event is selected, then use the selection color
         if (mSelectedEvent == event) {
@@ -2376,39 +2380,67 @@ p.setColor(0xAAFFFFFF);
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
                 // box = mBoxPressed;
-                p.setColor(mPressedColor); // FIXME:pressed
-                eventTextPaint.setColor(mSelectedEventTextColor);
+                color = mPressedColor; // FIXME:pressed
+                eventTextColor = mSelectedEventTextColor;
             } else if (mSelectionMode == SELECTION_SELECTED) {
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
                 // box = mBoxSelected;
-                p.setColor(mSelectionColor);
-                eventTextPaint.setColor(mSelectedEventTextColor);
+                color = mSelectionColor;
+                eventTextColor = mSelectedEventTextColor;
             } else if (mSelectionMode == SELECTION_LONGPRESS) {
                 // box = mBoxLongPressed;
-                p.setColor(mPressedColor); // FIXME: longpressed (maybe -- this doesn't seem to work)
-                eventTextPaint.setColor(mSelectedEventTextColor);
-            } else {
-                p.setColor(color);
-                eventTextPaint.setColor(mEventTextColor);
+                color = mPressedColor; // FIXME: longpressed (maybe -- this doesn't seem to work)
+                eventTextColor = mSelectedEventTextColor;
             }
-        } else {
-            p.setColor(color);
-            eventTextPaint.setColor(mEventTextColor);
         }
 
-        rf.top = event.top;
-        rf.bottom = rf.top + CALENDAR_COLOR_SQUARE_SIZE;
-        rf.left = event.left;
-        rf.right = rf.left + CALENDAR_COLOR_SQUARE_SIZE;
-
+        p.setColor(color);
+        p.setStyle(Style.FILL);
+        eventTextPaint.setColor(eventTextColor);
         canvas.drawRect(rf, p);
 
+        // Draw cal color square border
+        // TODO clean up once design is final
+        rf.top = event.top - 2;
+        rf.left = event.left - 3;
+        rf.bottom = rf.top + CALENDAR_COLOR_SQUARE_SIZE;
+        rf.right = rf.left + CALENDAR_COLOR_SQUARE_SIZE;
+        p.setColor(0xFFFFFFFF);
+        p.setStyle(Style.STROKE);
+        canvas.drawRect(rf, p);
+
+        // Draw cal color
+        rf.top++;
+        rf.left++;
+        p.setColor(event.color);
+        p.setStyle(Style.FILL);
+        canvas.drawRect(rf, p);
+
+        boolean declined = (event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED);
+        if (declined) {
+            boolean aa = p.isAntiAlias();
+            if (!aa) {
+                p.setAntiAlias(true);
+            }
+            // Temp behavior
+            p.setColor(0x88FFFFFF);
+            canvas.drawLine(rf.right, rf.top, rf.left, rf.bottom, p);
+            if (!aa) {
+                p.setAntiAlias(false);
+            }
+        }
+
         // Setup rect for drawEventText which follows
-        rf.top = event.top + EVENT_TEXT_TOP_MARGIN;
-        rf.bottom = event.bottom - EVENT_TEXT_BOTTOM_MARGIN;
-        rf.left = event.left + EVENT_TEXT_LEFT_MARGIN;
-        rf.right = event.right - EVENT_TEXT_RIGHT_MARGIN;
+        rf.top = event.top + EVENT_RECT_TOP_MARGIN;
+        rf.bottom = event.bottom - EVENT_RECT_BOTTOM_MARGIN;
+        rf.left = event.left + EVENT_RECT_LEFT_MARGIN;
+        rf.right = event.right - EVENT_RECT_RIGHT_MARGIN;
+
+        rf.top += EVENT_TEXT_TOP_MARGIN;
+        rf.bottom -= EVENT_TEXT_BOTTOM_MARGIN;
+        rf.left += EVENT_TEXT_LEFT_MARGIN;
+        rf.right -= EVENT_TEXT_RIGHT_MARGIN;
         return rf;
     }
 
@@ -2700,7 +2732,6 @@ p.setColor(0xAAFFFFFF);
             Time end = new Time(view.mBaseDate);
             end.monthDay += mNumDays;
             end.normalize(true);
-            Log.d(TAG, "doFling");
             mController
                     .sendEvent(this, EventType.GO_TO, view.mBaseDate, end, -1, ViewType.CURRENT);
 
