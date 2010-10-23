@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/appwidget_background"
+    android:background="@drawable/blue_bg_widget_calendar_holo_light"
     android:focusable="true"
     android:clickable="true">
 
@@ -28,43 +28,45 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="#ff000000">
+        android:background="#00000000">
+
+        <LinearLayout
+            android:id="@+id/holder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+            <TextView
+                 android:id="@+id/day_of_week"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="13dip"
+                 android:layout_marginBottom="-6dip"
+                 android:textColor="@color/appwidget_week"
+                 android:textSize="14sp"
+                 android:gravity="left"
+                 android:singleLine="true" />
+
+            <TextView
+                 android:id="@+id/month"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/appwidget_month"
+                 android:textSize="14sp"
+                 android:gravity="left"
+                 android:singleLine="true" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/day_of_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="7dip"
-            android:layout_marginRight="5dip"
-            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dip"
+            android:layout_toRightOf="@id/holder"
+            android:layout_alignParentTop="true"
             android:textColor="@color/appwidget_date"
-            android:textSize="32sp"
-            android:gravity="left"
-            android:singleLine="true" />
-
-        <TextView
-            android:id="@+id/day_of_week"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_toRightOf="@id/day_of_month"
-            android:textColor="@color/appwidget_week"
-            android:textSize="14sp"
-            android:gravity="left"
-            android:singleLine="true" />
-
-        <TextView
-            android:id="@+id/month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_toRightOf="@id/day_of_month"
-            android:layout_alignBottom="@id/day_of_month"
-            android:layout_below="@id/day_of_week"
-            android:textColor="@color/appwidget_month"
-            android:textSize="14sp"
+            android:textSize="40sp"
             android:gravity="left"
             android:singleLine="true" />
 
@@ -73,6 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/day_of_month"
+            android:layout_marginBottom="4dip"
             android:gravity="center_vertical"
             android:src="@drawable/ic_widget_calendar_holo_light"
             android:background="#0000" />
@@ -83,6 +87,8 @@
         android:id="@+id/events_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="27dip"
+        android:divider="#00000000"
         android:dividerHeight="0dip"
         android:cacheColorHint="#00000000"/>
 </LinearLayout>
