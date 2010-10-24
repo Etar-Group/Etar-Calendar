@@ -27,16 +27,15 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.Path.Direction;
-import android.graphics.drawable.Drawable;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.Calendar.Attendees;
@@ -67,6 +66,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -768,15 +768,24 @@ public class DayView extends View
         int maxAllDayEvents = 0;
         final ArrayList<Event> events = mEvents;
         final int len = events.size();
+        // Num of all-day-events on each day.
+        final int eventsCount[] = new int[mLastJulianDay - mFirstJulianDay + 1];
+        Arrays.fill(eventsCount, 0);
         for (int ii = 0; ii < len; ii++) {
             Event event = events.get(ii);
-            if (event.startDay > mLastJulianDay || event.endDay < mFirstJulianDay)
+            if (event.startDay > mLastJulianDay || event.endDay < mFirstJulianDay) {
                 continue;
+            }
             if (event.allDay) {
-                int max = event.getColumn() + 1;
-                if (maxAllDayEvents < max) {
-                    maxAllDayEvents = max;
+                final int firstDay = Math.max(event.startDay, mFirstJulianDay);
+                final int lastDay = Math.min(event.endDay, mLastJulianDay);
+                for (int day = firstDay; day <= lastDay; day++) {
+                    final int count = ++eventsCount[day - mFirstJulianDay];
+                    if (maxAllDayEvents < count) {
+                        maxAllDayEvents = count;
+                    }
                 }
+
                 int daynum = event.startDay - mFirstJulianDay;
                 int durationDays = event.endDay - event.startDay + 1;
                 if (daynum < 0) {
@@ -1852,16 +1861,20 @@ public class DayView extends View
         float numRectangles = mMaxAllDayEvents;
         for (int i = 0; i < numEvents; i++) {
             Event event = events.get(i);
-            if (!event.allDay)
+            if (!event.allDay) {
                 continue;
+            }
             int startDay = event.startDay;
             int endDay = event.endDay;
-            if (startDay > lastDay || endDay < firstDay)
+            if (startDay > lastDay || endDay < firstDay) {
                 continue;
-            if (startDay < firstDay)
+            }
+            if (startDay < firstDay) {
                 startDay = firstDay;
-            if (endDay > lastDay)
+            }
+            if (endDay > lastDay) {
                 endDay = lastDay;
+            }
             int startIndex = startDay - firstDay;
             int endIndex = endDay - firstDay;
             float height = drawHeight / numRectangles;
@@ -1980,7 +1993,7 @@ public class DayView extends View
         }
     }
 
-    RectF drawAllDayEventRect(Event event, Canvas canvas, Paint p, Paint eventTextPaint) {
+    private RectF drawAllDayEventRect(Event event, Canvas canvas, Paint p, Paint eventTextPaint) {
         // If this event is selected, then use the selection color
         if (mSelectedEvent == event) {
             // Also, remember the last selected event that we drew
