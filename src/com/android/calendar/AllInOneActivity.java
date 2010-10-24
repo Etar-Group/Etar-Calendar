@@ -305,10 +305,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public void onBackPressed() {
-        if (mPreviousView == mCurrentView) {
-            super.onBackPressed();
-        } else {
+        if (mCurrentView == ViewType.EDIT || mCurrentView == ViewType.DETAIL) {
             mController.sendEvent(this, EventType.GO_TO, null, null, -1, mPreviousView);
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -406,6 +406,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
 
         ft.replace(viewId, frag);
+
         if (DEBUG) {
             Log.d(TAG, "Adding handler with viewId " + viewId + " and type " + viewType);
         }
