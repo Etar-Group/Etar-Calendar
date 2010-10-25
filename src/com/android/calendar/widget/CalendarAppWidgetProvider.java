@@ -142,8 +142,9 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             Time time = new Time();
             time.setToNow();
             final String dayOfWeek = DateUtils.getDayOfWeekString(
-                    time.weekDay + 1, DateUtils.LENGTH_LONG);
-            final String month = DateUtils.getMonthString(time.month, DateUtils.LENGTH_LONG);
+                    time.weekDay + 1, DateUtils.LENGTH_MEDIUM);
+            final String month =
+                    DateUtils.getMonthString(time.month, DateUtils.LENGTH_MEDIUM).toUpperCase();
             views.setTextViewText(R.id.day_of_week, dayOfWeek);
             views.setTextViewText(R.id.day_of_month, Integer.toString(time.monthDay));
             views.setTextViewText(R.id.month, month);

@@ -18,39 +18,59 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff000000">
+    android:background="#00000000">
 
-    <LinearLayout
-        android:id="@+id/appwidget_row"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="1dip"
-        android:layout_marginLeft="3dip"
-        android:layout_marginRight="3dip"
-        android:padding="5dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:addStatesFromChildren="true"
-        android:background="#ffdadada">
-        <TextView
-            android:id="@+id/title"
-            style="@style/TextAppearance.WidgetTitle" />
+        android:layout_marginLeft="2dip"
+        android:layout_marginRight="3dip"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip"
+        android:paddingTop="4dip"
+        android:paddingBottom="2dip"
+        android:background="#20000000">
+        <LinearLayout
+            android:id="@+id/appwidget_row"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:paddingTop="2dip"
+            android:paddingLeft="6dip"
+            android:paddingBottom="6dip"
+            android:orientation="vertical"
+            android:addStatesFromChildren="true"
+            android:background="#ffdadada">
+            <TextView
+                android:id="@+id/title"
+                style="@style/TextAppearance.WidgetTitle" />
 
-        <TextView
-            android:id="@+id/when"
-            style="@style/TextAppearance.WidgetWhen" />
+            <TextView
+                android:id="@+id/when"
+                style="@style/TextAppearance.WidgetWhen" />
 
-        <TextView
-            android:id="@+id/where"
-            style="@style/TextAppearance.WidgetWhere" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/where"
+                style="@style/TextAppearance.WidgetWhere" />
+        </LinearLayout>
+    </FrameLayout>
 
     <!-- This overwraps with LinearLayout -->
     <FrameLayout
+        android:layout_width="13dip"
+        android:layout_height="13dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="#ffffffff" />
+    <FrameLayout
         android:id="@+id/color"
-        android:layout_width="15dip"
-        android:layout_height="15dip"
+        android:layout_width="11dip"
+        android:layout_height="11dip"
+        android:layout_marginTop="1dip"
+        android:layout_marginLeft="1dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" />
 </RelativeLayout>

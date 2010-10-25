@@ -339,11 +339,15 @@ class CalendarAppWidgetModel {
         int count = 0;
         for (LinkedList<RowInfo> bucket : mBuckets) {
             if (!bucket.isEmpty()) {
-                DayInfo dayInfo = populateDayInfo(day, recycle);
-                // Add the day header
-                int dayIndex = mDayInfos.size();
-                mDayInfos.add(dayInfo);
-                mRowInfos.add(new RowInfo(RowInfo.TYPE_DAY, dayIndex));
+                // We don't show day header in today
+                if (day != mTodayJulianDay) {
+                    final DayInfo dayInfo = populateDayInfo(day, recycle);
+                    // Add the day header
+                    final int dayIndex = mDayInfos.size();                    
+                    mDayInfos.add(dayInfo);
+                    mRowInfos.add(new RowInfo(RowInfo.TYPE_DAY, dayIndex));
+                }
+
                 // Add the event row infos
                 mRowInfos.addAll(bucket);
                 count += bucket.size();
@@ -421,11 +425,6 @@ class CalendarAppWidgetModel {
         flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
 
         String label;
-        if (julianDay == mTodayJulianDay) {
-            label = mContext.getString(R.string.today);
-            return new DayInfo(julianDay, label);
-        }
-
         if (julianDay == mTodayJulianDay + 1) {
             label = mContext.getString(R.string.tomorrow);
         } else {
