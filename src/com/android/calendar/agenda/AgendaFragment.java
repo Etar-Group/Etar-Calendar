@@ -64,6 +64,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
     public AgendaFragment(long timeMillis) {
         mInitialTimeMillis = timeMillis;
+        mTime = new Time();
     }
 
     @Override
