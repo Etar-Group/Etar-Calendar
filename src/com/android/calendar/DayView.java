@@ -279,7 +279,7 @@ public class DayView extends View
 //    private static int mCalendarDateBannerBackground;
 //    private static int mCalendarDateSelected;
 //    private static int mCalendarGridAreaBackground;
-//    private static int mCalendarGridAreaSelected;
+    private static int mCalendarGridAreaSelected;
     private static int mCalendarGridLineHorizontalColor;
     private static int mCalendarGridLineVerticalColor;
     private static int mCalendarGridLineInnerHorizontalColor;
@@ -466,7 +466,7 @@ public class DayView extends View
 //        mCalendarDateBannerBackground = mResources.getColor(R.color.calendar_date_banner_background);
 //        mCalendarDateSelected = mResources.getColor(R.color.calendar_date_selected);
 //        mCalendarGridAreaBackground = mResources.getColor(R.color.calendar_grid_area_background);
-//        mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected);
+        mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected);
         mCalendarGridLineHorizontalColor = mResources.getColor(R.color.calendar_grid_line_horizontal_color);
         mCalendarGridLineVerticalColor = mResources.getColor(R.color.calendar_grid_line_vertical_color);
         mCalendarGridLineInnerHorizontalColor = mResources.getColor(R.color.calendar_grid_line_inner_horizontal_color);
@@ -1616,30 +1616,30 @@ public class DayView extends View
         // canvas.drawRect(r, p);
 
         // Draw a highlight on the selected hour (if needed)
-        // if (mSelectionMode != SELECTION_HIDDEN && !mSelectionAllDay) {
-        // p.setColor(mCalendarHourSelected);
-        // r.top = mSelectionHour * (mCellHeight + HOUR_GAP);
-        // r.bottom = r.top + mCellHeight + 2 * HOUR_GAP;
-        // r.left = 0;
-        // r.right = mHoursWidth;
-        // canvas.drawRect(r, p);
-        //
-        // // Also draw the highlight on the grid
-        // p.setColor(mCalendarGridAreaSelected);
-        // int daynum = mSelectionDay - mFirstJulianDay;
-        // r.left = mHoursWidth + daynum * (mCellWidth + DAY_GAP);
-        // r.right = r.left + mCellWidth;
-        // canvas.drawRect(r, p);
-        //
-        // // Draw a border around the highlighted grid hour.
-        // Path path = mPath;
-        // r.top += HOUR_GAP;
-        // r.bottom -= HOUR_GAP;
-        // path.reset();
-        // path.addRect(r.left, r.top, r.right, r.bottom, Direction.CW);
-        // canvas.drawPath(path, mSelectionPaint);
-        // saveSelectionPosition(r.left, r.top, r.right, r.bottom);
-        // }
+        if (mSelectionMode != SELECTION_HIDDEN && !mSelectionAllDay) {
+            // p.setColor(mCalendarHourSelected);
+            r.top = mSelectionHour * (mCellHeight + HOUR_GAP);
+            r.bottom = r.top + mCellHeight + 2 * HOUR_GAP;
+            // r.left = 0;
+            // r.right = mHoursWidth;
+            // canvas.drawRect(r, p);
+
+            // Also draw the highlight on the grid
+            p.setColor(mCalendarGridAreaSelected);
+            int daynum = mSelectionDay - mFirstJulianDay;
+            r.left = mHoursWidth + daynum * (mCellWidth + DAY_GAP);
+            r.right = r.left + mCellWidth;
+            canvas.drawRect(r, p);
+
+            // Draw a border around the highlighted grid hour.
+            Path path = mPath;
+            r.top += HOUR_GAP;
+            r.bottom -= HOUR_GAP;
+            path.reset();
+            path.addRect(r.left, r.top, r.right, r.bottom, Direction.CW);
+            canvas.drawPath(path, mSelectionPaint);
+            saveSelectionPosition(r.left, r.top, r.right, r.bottom);
+        }
 
         p.setColor(mCalendarHourLabel);
         p.setTextSize(HOURS_FONT_SIZE);
