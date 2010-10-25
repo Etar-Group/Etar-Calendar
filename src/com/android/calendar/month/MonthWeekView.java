@@ -34,6 +34,8 @@ public class MonthWeekView extends View {
 
     private static final int MINI_DAY_NUMBER_TEXT_SIZE = 14;
 
+    private final boolean mDrawVLines = false;
+
     protected int mPadding = 2;
 
     protected Rect r = new Rect();
@@ -267,12 +269,13 @@ public class MonthWeekView extends View {
 
         r.top = 3;
         r.bottom = mHeight - 2;
-
-        for (; i < nDays; i++) {
-            int x = i * (mWidth - mPadding * 2) / nDays + mPadding;
-            r.left = x;
-            r.right = x + 1;
-            canvas.drawRect(r, p);
+        if (mDrawVLines) {
+            for (; i < nDays; i++) {
+                int x = i * (mWidth - mPadding * 2) / nDays + mPadding;
+                r.left = x;
+                r.right = x + 1;
+                canvas.drawRect(r, p);
+            }
         }
         if (mHasSelectedDay) {
 
