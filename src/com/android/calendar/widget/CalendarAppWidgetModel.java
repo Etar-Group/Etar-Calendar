@@ -310,14 +310,6 @@ class CalendarAppWidgetModel {
                 continue;
             }
 
-            // Skip events that have already passed their flip times
-            long eventFlip = CalendarAppWidgetService.getEventFlip(start, end, allDay);
-            if (LOGD) Log.d(TAG, "Calculated flip time "
-                    + CalendarAppWidgetService.formatDebugTime(eventFlip, mNow));
-            if (eventFlip < mNow) {
-                continue;
-            }
-
             int i = mEventInfos.size();
             mEventInfos.add(populateEventInfo(
                     allDay, start, end, startDay, endDay, title, location, color));
