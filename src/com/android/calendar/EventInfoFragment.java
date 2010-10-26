@@ -19,39 +19,29 @@ package com.android.calendar;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.event.EditEventHelper;
-import com.android.calendar.event.EventViewUtils;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ActivityNotFoundException;
-import android.content.AsyncQueryHandler;
-import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.database.MatrixCursor;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.pim.EventRecurrence;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
-import android.provider.Calendar.Reminders;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
-import android.provider.ContactsContract.CommonDataKinds.Email;
-import android.provider.ContactsContract.Contacts;
-import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Intents;
-import android.provider.ContactsContract.Presence;
 import android.provider.ContactsContract.QuickContact;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -61,6 +51,7 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
+import android.text.style.StyleSpan;
 import android.text.util.Linkify;
 import android.text.util.Rfc822Token;
 import android.util.Log;
@@ -76,20 +67,14 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.QuickContactBadge;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.regex.Pattern;
 
-public class EventInfoFragment extends DialogFragment implements View.OnClickListener,
+public class EventInfoFragment extends DialogFragment implements
         AdapterView.OnItemSelectedListener, CalendarController.EventHandler {
     public static final boolean DEBUG = false;
 
@@ -103,8 +88,6 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
 
     private static final String BUNDLE_KEY_IS_DIALOG = "key_fragment_is_dialog";
 
-    private static final int MAX_REMINDERS = 5;
-
     /**
      * These are the corresponding indices into the array of strings
      * "R.array.change_response_labels" in the resource file.
@@ -116,8 +99,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
     private static final int TOKEN_QUERY_EVENT = 0;
     private static final int TOKEN_QUERY_CALENDARS = 1;
     private static final int TOKEN_QUERY_ATTENDEES = 2;
-    private static final int TOKEN_QUERY_REMINDERS = 3;
-    private static final int TOKEN_QUERY_DUPLICATE_CALENDARS = 4;
+    private static final int TOKEN_QUERY_DUPLICATE_CALENDARS = 3;
 
     private static final String[] EVENT_PROJECTION = new String[] {
         Events._ID,                  // 0  do not remove; used in DeleteEventHelper
@@ -130,15 +112,11 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         Events.EVENT_TIMEZONE,       // 7  do not remove; used in DeleteEventHelper
         Events.DESCRIPTION,          // 8
         Events.EVENT_LOCATION,       // 9
-        Events.HAS_ALARM,            // 10
-        Calendars.ACCESS_LEVEL,      // 11
-        Calendars.COLOR,             // 12
-        Events.HAS_ATTENDEE_DATA,    // 13
-        Events.GUESTS_CAN_MODIFY,    // 14
-        // TODO Events.GUESTS_CAN_INVITE_OTHERS has not been implemented in calendar provider
-        Events.GUESTS_CAN_INVITE_OTHERS, // 15
-        Events.ORGANIZER,            // 16
-        Events.ORIGINAL_EVENT        // 17 do not remove; used in DeleteEventHelper
+        Calendars.ACCESS_LEVEL,      // 10
+        Calendars.COLOR,             // 11
+        Events.HAS_ATTENDEE_DATA,    // 12
+        Events.ORGANIZER,            // 13
+        Events.ORIGINAL_EVENT        // 14 do not remove; used in DeleteEventHelper
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -149,13 +127,10 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
     private static final int EVENT_INDEX_EVENT_TIMEZONE = 7;
     private static final int EVENT_INDEX_DESCRIPTION = 8;
     private static final int EVENT_INDEX_EVENT_LOCATION = 9;
-    private static final int EVENT_INDEX_HAS_ALARM = 10;
-    private static final int EVENT_INDEX_ACCESS_LEVEL = 11;
-    private static final int EVENT_INDEX_COLOR = 12;
-    private static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 13;
-    private static final int EVENT_INDEX_GUESTS_CAN_MODIFY = 14;
-    private static final int EVENT_INDEX_CAN_INVITE_OTHERS = 15;
-    private static final int EVENT_INDEX_ORGANIZER = 16;
+    private static final int EVENT_INDEX_ACCESS_LEVEL = 10;
+    private static final int EVENT_INDEX_COLOR = 11;
+    private static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 12;
+    private static final int EVENT_INDEX_ORGANIZER = 13;
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
@@ -188,20 +163,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
     static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.DISPLAY_NAME + "=?";
 
-    private static final String[] REMINDERS_PROJECTION = new String[] {
-        Reminders._ID,      // 0
-        Reminders.MINUTES,  // 1
-    };
-    private static final int REMINDERS_INDEX_MINUTES = 1;
-    private static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=? AND (" +
-            Reminders.METHOD + "=" + Reminders.METHOD_ALERT + " OR " + Reminders.METHOD + "=" +
-            Reminders.METHOD_DEFAULT + ")";
-    private static final String REMINDERS_SORT = Reminders.MINUTES;
-
     private View mView;
-    private LinearLayout mRemindersContainer;
-    private LinearLayout mOrganizerContainer;
-    private TextView mOrganizerView;
 
     private Uri mUri;
     private long mEventId;
@@ -219,16 +181,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
     private String mCalendarOwnerAccount;
     private boolean mCanModifyCalendar;
     private boolean mIsBusyFreeCalendar;
-    private boolean mCanModifyEvent;
     private int mNumOfAttendees;
-    private String mOrganizer;
-
-    private ArrayList<Integer> mOriginalMinutes = new ArrayList<Integer>();
-    private ArrayList<LinearLayout> mReminderItems = new ArrayList<LinearLayout>(0);
-    private ArrayList<Integer> mReminderValues;
-    private ArrayList<String> mReminderLabels;
-    private int mDefaultReminderMinutes;
-    private boolean mOriginalHasAlarm;
 
     private EditResponseHelper mEditResponseHelper;
 
@@ -236,35 +189,8 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
     private int mOriginalAttendeeResponse;
     private int mAttendeeResponseFromIntent = EditEventHelper.ATTENDEE_NO_RESPONSE;
     private boolean mIsRepeating;
-    private boolean mIsDuplicateName;
 
     private Pattern mWildcardPattern = Pattern.compile("^.*$");
-    private LayoutInflater mLayoutInflater;
-    private LinearLayout mReminderAdder;
-
-    // TODO This can be removed when the contacts content provider doesn't return duplicates
-    private int mUpdateCounts;
-    private static class ViewHolder {
-        QuickContactBadge badge;
-        ImageView presence;
-        int updateCounts;
-    }
-    private HashMap<String, ViewHolder> mViewHolders = new HashMap<String, ViewHolder>();
-    private PresenceQueryHandler mPresenceQueryHandler;
-
-    private static final Uri CONTACT_DATA_WITH_PRESENCE_URI = Data.CONTENT_URI;
-
-    int PRESENCE_PROJECTION_CONTACT_ID_INDEX = 0;
-    int PRESENCE_PROJECTION_PRESENCE_INDEX = 1;
-    int PRESENCE_PROJECTION_EMAIL_INDEX = 2;
-    int PRESENCE_PROJECTION_PHOTO_ID_INDEX = 3;
-
-    private static final String[] PRESENCE_PROJECTION = new String[] {
-        Email.CONTACT_ID,           // 0
-        Email.CONTACT_PRESENCE,     // 1
-        Email.DATA,                 // 2
-        Email.PHOTO_ID,             // 3
-    };
 
     ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mDeclinedAttendees = new ArrayList<Attendee>();
@@ -329,26 +255,12 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
                 activity.invalidateOptionsMenu();
 
                 if (!mIsBusyFreeCalendar) {
-                    // this is used for both attendees and reminders
                     args = new String[] { Long.toString(mEventId) };
 
                     // start attendees query
                     uri = Attendees.CONTENT_URI;
                     startQuery(TOKEN_QUERY_ATTENDEES, null, uri, ATTENDEES_PROJECTION,
                             ATTENDEES_WHERE, args, ATTENDEES_SORT_ORDER);
-
-                    // start reminders query
-                    mOriginalHasAlarm = mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) != 0;
-                    if (mOriginalHasAlarm) {
-                        uri = Reminders.CONTENT_URI;
-                        startQuery(TOKEN_QUERY_REMINDERS, null, uri, REMINDERS_PROJECTION,
-                                REMINDERS_WHERE, args, REMINDERS_SORT);
-                    } else {
-                        // if no reminders, hide the appropriate fields
-                        updateRemindersVisibility();
-                    }
-                } else {
-                    updateRemindersVisibility();
                 }
                 break;
             case TOKEN_QUERY_ATTENDEES:
@@ -356,44 +268,29 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
                 initAttendeesCursor(mView);
                 updateResponse(mView);
                 break;
-            case TOKEN_QUERY_REMINDERS:
-                MatrixCursor reminderCursor = Utils.matrixCursorFromCursor(cursor);
-                try {
-                    // First pass: collect all the custom reminder minutes
-                    // (e.g., a reminder of 8 minutes) into a global list.
-                    while (reminderCursor.moveToNext()) {
-                        int minutes = reminderCursor.getInt(REMINDERS_INDEX_MINUTES);
-                        EventViewUtils.addMinutesToList(
-                                activity, mReminderValues, mReminderLabels, minutes);
-                    }
-
-                    // Second pass: create the reminder spinners
-                    reminderCursor.moveToPosition(-1);
-                    while (reminderCursor.moveToNext()) {
-                        int minutes = reminderCursor.getInt(REMINDERS_INDEX_MINUTES);
-                        mOriginalMinutes.add(minutes);
-                        EventViewUtils.addReminder(activity, mRemindersContainer,
-                                EventInfoFragment.this, mReminderItems, mReminderValues,
-                                mReminderLabels, minutes);
-                    }
-                } finally {
-                    updateRemindersVisibility();
-                    reminderCursor.close();
-                }
-                break;
             case TOKEN_QUERY_DUPLICATE_CALENDARS:
-                mIsDuplicateName = cursor.getCount() > 1;
+                Resources res = activity.getResources();
+                SpannableStringBuilder sb = new SpannableStringBuilder();
+
+                // Label
+                String label = res.getString(R.string.view_event_calendar_label);
+                sb.append(label).append(" ");
+                sb.setSpan(new StyleSpan(Typeface.BOLD), 0, label.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                // Calendar display name
                 String calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
-//CLEANUP                String ownerAccount = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
-//                if (mIsDuplicateName && !calendarName.equalsIgnoreCase(ownerAccount)) {
-//                    Resources res = activity.getResources();
-//                    TextView ownerText = (TextView) mView.findViewById(R.id.owner);
-//                    ownerText.setText(ownerAccount);
-//                    ownerText.setTextColor(res.getColor(R.color.calendar_owner_text_color));
-//                } else {
-//                    setVisibilityCommon(mView, R.id.owner, View.GONE);
-//                }
-                setTextCommon(mView, R.id.calendar, calendarName);
+                sb.append(calendarName);
+
+                // Show email account if display name is not unique and
+                // display name != email
+                String email = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
+                if (cursor.getCount() > 1 && !calendarName.equalsIgnoreCase(email)) {
+                    sb.append(" (").append(email).append(")");
+                }
+
+                TextView calendarTv = (TextView) mView.findViewById(R.id.calendar);
+                calendarTv.setText(sb);
                 break;
             }
             cursor.close();
@@ -460,15 +357,6 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         mY = y;
     }
 
-    // This is called when one of the "remove reminder" buttons is selected.
-    public void onClick(View v) {
-        LinearLayout reminderItem = (LinearLayout) v.getParent();
-        LinearLayout parent = (LinearLayout) reminderItem.getParent();
-        parent.removeView(reminderItem);
-        mReminderItems.remove(reminderItem);
-        updateRemindersVisibility();
-    }
-
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
         // If they selected the "No response" option, then don't display the
         // dialog asking which events to change.
@@ -502,45 +390,12 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         super.onAttach(activity);
         mEditResponseHelper = new EditResponseHelper(activity);
         mHandler = new QueryHandler(activity);
-        mPresenceQueryHandler = new PresenceQueryHandler(activity, activity.getContentResolver());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mLayoutInflater = inflater;
         mView = inflater.inflate(R.layout.event_info_activity, null);
-        mRemindersContainer = (LinearLayout) mView.findViewById(R.id.reminders_container);
-        mOrganizerContainer = (LinearLayout) mView.findViewById(R.id.organizer_container);
-        mOrganizerView = (TextView) mView.findViewById(R.id.organizer);
-
-        // Initialize the reminder values array.
-        Resources r = getActivity().getResources();
-        String[] strings = r.getStringArray(R.array.reminder_minutes_values);
-        int size = strings.length;
-        ArrayList<Integer> list = new ArrayList<Integer>(size);
-        for (int i = 0 ; i < size ; i++) {
-            list.add(Integer.parseInt(strings[i]));
-        }
-        mReminderValues = list;
-        String[] labels = r.getStringArray(R.array.reminder_minutes_labels);
-        mReminderLabels = new ArrayList<String>(Arrays.asList(labels));
-
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(getActivity());
-        String durationString =
-                prefs.getString(GeneralPreferences.KEY_DEFAULT_REMINDER, "0");
-        mDefaultReminderMinutes = Integer.parseInt(durationString);
-
-        // Setup the + Add Reminder Button
-        View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                addReminder();
-            }
-        };
-        ImageButton reminderAddButton = (ImageButton) mView.findViewById(R.id.reminder_add);
-        reminderAddButton.setOnClickListener(addReminderOnClickListener);
-
-        mReminderAdder = (LinearLayout) mView.findViewById(R.id.reminder_adder);
 
         if (mUri == null) {
             // restore event ID from bundle
@@ -625,16 +480,6 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
                     String name = mAttendeesCursor.getString(ATTENDEES_INDEX_NAME);
                     String email = mAttendeesCursor.getString(ATTENDEES_INDEX_EMAIL);
 
-                    if (mAttendeesCursor.getInt(ATTENDEES_INDEX_RELATIONSHIP) ==
-                            Attendees.RELATIONSHIP_ORGANIZER) {
-                        // Overwrites the one from Event table if available
-                        if (name != null && name.length() > 0) {
-                            mOrganizer = name;
-                        } else if (email != null && email.length() > 0) {
-                            mOrganizer = email;
-                        }
-                    }
-
                     if (mCalendarOwnerAttendeeId == EditEventHelper.ATTENDEE_ID_NONE &&
                             mCalendarOwnerAccount.equalsIgnoreCase(email)) {
                         mCalendarOwnerAttendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
@@ -663,15 +508,6 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
                 updateAttendees(view);
             }
         }
-        // only show the organizer if we're not the organizer and if
-        // we have attendee data (might have been removed by the server
-        // for events with a lot of attendees).
-//CLEANUP        if (!mIsOrganizer && mHasAttendeeData) {
-//            mOrganizerContainer.setVisibility(View.VISIBLE);
-//            mOrganizerView.setText(mOrganizer);
-//        } else {
-//            mOrganizerContainer.setVisibility(View.GONE);
-//        }
     }
 
     @Override
@@ -687,27 +523,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
 
     @Override
     public void onDestroyView() {
-        ArrayList<Integer> reminderMinutes = EventViewUtils.reminderItemsToMinutes(mReminderItems,
-                mReminderValues);
-        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>(3);
-        boolean changed = EditEventHelper.saveReminders(ops, mEventId, reminderMinutes,
-                mOriginalMinutes, false /* no force save */);
-        mHandler.startBatch(mHandler.getNextToken(), null,
-                Calendars.CONTENT_URI.getAuthority(), ops, Utils.UNDO_DELAY);
-
-        // Update the "hasAlarm" field for the event
-        Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
-        int len = reminderMinutes.size();
-        boolean hasAlarm = len > 0;
-        if (hasAlarm != mOriginalHasAlarm) {
-            ContentValues values = new ContentValues();
-            values.put(Events.HAS_ALARM, hasAlarm ? 1 : 0);
-            mHandler.startUpdate(mHandler.getNextToken(), null, uri, values,
-                    null, null, Utils.UNDO_DELAY);
-        }
-
-        changed |= saveResponse();
-        if (changed) {
+        if (saveResponse()) {
             Toast.makeText(getActivity(), R.string.saving_event, Toast.LENGTH_SHORT).show();
         }
         super.onDestroyView();
@@ -725,32 +541,6 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
             mAttendeesCursor.close();
         }
         super.onDestroy();
-    }
-
-    private boolean canAddReminders() {
-        return !mIsBusyFreeCalendar && mReminderItems.size() < MAX_REMINDERS;
-    }
-
-    private void addReminder() {
-        // TODO: when adding a new reminder, make it different from the
-        // last one in the list (if any).
-        if (mDefaultReminderMinutes == 0) {
-            EventViewUtils.addReminder(getActivity(), mRemindersContainer, this, mReminderItems,
-                    mReminderValues, mReminderLabels, 10 /* minutes */);
-        } else {
-            EventViewUtils.addReminder(getActivity(), mRemindersContainer, this, mReminderItems,
-                    mReminderValues, mReminderLabels, mDefaultReminderMinutes);
-        }
-        updateRemindersVisibility();
-    }
-
-    private void updateRemindersVisibility() {
-        if (mIsBusyFreeCalendar) {
-            mRemindersContainer.setVisibility(View.GONE);
-        } else {
-            mRemindersContainer.setVisibility(View.VISIBLE);
-            mReminderAdder.setVisibility(canAddReminders() ? View.VISIBLE : View.GONE);
-        }
     }
 
     /**
@@ -869,11 +659,6 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
                 this, EventType.EDIT_EVENT, mEventId, mStartMillis, mEndMillis, 0, 0);
     }
 
-    private void doDelete() {
-        CalendarController.getInstance(getActivity()).sendEventRelatedEvent(
-                this, EventType.DELETE_EVENT, mEventId, mStartMillis, mEndMillis, 0, 0);
-    }
-
     private void updateEvent(View view) {
         if (mEventCursor == null) {
             return;
@@ -888,7 +673,6 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         String location = mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION);
         String description = mEventCursor.getString(EVENT_INDEX_DESCRIPTION);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
-        boolean hasAlarm = mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) != 0;
         String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
         mColor = mEventCursor.getInt(EVENT_INDEX_COLOR) & 0xbbffffff;
 
@@ -907,12 +691,11 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
 
         // When
         String when;
-        int flags;
+        int flags = DateUtils.FORMAT_SHOW_DATE;
         if (allDay) {
-            flags = DateUtils.FORMAT_UTC | DateUtils.FORMAT_SHOW_WEEKDAY
-            | DateUtils.FORMAT_SHOW_DATE;
+            flags |= DateUtils.FORMAT_UTC | DateUtils.FORMAT_SHOW_WEEKDAY;
         } else {
-            flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE;
+            flags |= DateUtils.FORMAT_SHOW_TIME;
             if (DateFormat.is24HourFormat(getActivity())) {
                 flags |= DateUtils.FORMAT_24HOUR;
             }
@@ -1005,13 +788,10 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
             String eventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
             mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(eventOrganizer);
             mHasAttendeeData = mEventCursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
-            mOrganizer = eventOrganizer;
             mCanModifyCalendar =
                     mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) >= Calendars.CONTRIBUTOR_ACCESS;
             mIsBusyFreeCalendar =
                     mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) == Calendars.FREEBUSY_ACCESS;
-            mCanModifyEvent = mCanModifyCalendar
-                    && (mIsOrganizer || (mEventCursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0));
 
             if (!mIsBusyFreeCalendar) {
                 Button b = (Button) mView.findViewById(R.id.edit);
@@ -1025,7 +805,7 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
                 });
             }
         } else {
-//CLEANUP            setVisibilityCommon(view, R.id.calendar_container, View.GONE);
+            setVisibilityCommon(view, R.id.calendar, View.GONE);
         }
     }
 
@@ -1036,25 +816,18 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         formatAttendees(mDeclinedAttendees, sb, Attendees.ATTENDEE_STATUS_DECLINED);
         formatAttendees(mTentativeAttendees, sb, Attendees.ATTENDEE_STATUS_TENTATIVE);
         formatAttendees(mNoResponseAttendees, sb, Attendees.ATTENDEE_STATUS_NONE);
-        tv.setText(sb);
 
-//CLEANUP        LinearLayout attendeesLayout = (LinearLayout) view.findViewById(R.id.attendee_list);
-//        attendeesLayout.removeAllViewsInLayout();
-//        ++mUpdateCounts;
-//        if(mAcceptedAttendees.size() == 0 && mDeclinedAttendees.size() == 0 &&
-//                mTentativeAttendees.size() == mNoResponseAttendees.size()) {
-//            // If all guests have no response just list them as guests,
-//            CharSequence guestsLabel =
-//                getActivity().getResources().getText(R.string.attendees_label);
-//            addAttendeesToLayout(mNoResponseAttendees, attendeesLayout, guestsLabel);
-//        } else {
-//            // If we have any responses then divide them up by response
-//            CharSequence[] entries;
-//            entries = getActivity().getResources().getTextArray(R.array.response_labels2);
-//            addAttendeesToLayout(mAcceptedAttendees, attendeesLayout, entries[0]);
-//            addAttendeesToLayout(mDeclinedAttendees, attendeesLayout, entries[2]);
-//            addAttendeesToLayout(mTentativeAttendees, attendeesLayout, entries[1]);
-//        }
+        if (sb.length() > 0) {
+            // Add the label after the attendees are formatted because
+            // formatAttendees would prepend ", " if sb.length != 0
+            String label = getActivity().getResources().getString(R.string.attendees_label);
+            sb.insert(0, label);
+            sb.insert(label.length(), " ");
+            sb.setSpan(new StyleSpan(Typeface.BOLD), 0, label.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            tv.setText(sb);
+        }
     }
 
     private void formatAttendees(ArrayList<Attendee> attendees, SpannableStringBuilder sb, int type) {
@@ -1097,121 +870,6 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         }
     }
 
-    private void addAttendeesToLayout(ArrayList<Attendee> attendees, LinearLayout attendeeList,
-            CharSequence sectionTitle) {
-        if (attendees.size() == 0) {
-            return;
-        }
-
-        // Yes/No/Maybe Title
-        View titleView = mLayoutInflater.inflate(R.layout.contact_item, null);
-        titleView.findViewById(R.id.badge).setVisibility(View.GONE);
-        View divider = titleView.findViewById(R.id.separator);
-        divider.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
-
-        TextView title = (TextView) titleView.findViewById(R.id.name);
-        title.setText(getActivity().getString(R.string.response_label, sectionTitle,
-                attendees.size()));
-        title.setTextAppearance(getActivity(), R.style.TextAppearance_EventInfo_Label);
-        attendeeList.addView(titleView);
-
-        // Attendees
-        int numOfAttendees = attendees.size();
-        StringBuilder selection = new StringBuilder(Email.DATA + " IN (");
-        String[] selectionArgs = new String[numOfAttendees];
-
-        for (int i = 0; i < numOfAttendees; ++i) {
-            Attendee attendee = attendees.get(i);
-            selectionArgs[i] = attendee.mEmail;
-
-            View v = mLayoutInflater.inflate(R.layout.contact_item, null);
-            v.setTag(attendee);
-
-            View separator = v.findViewById(R.id.separator);
-            separator.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
-
-            // Text
-            TextView tv = (TextView) v.findViewById(R.id.name);
-            String name = attendee.mName;
-            if (name == null || name.length() == 0) {
-                name = attendee.mEmail;
-            }
-            tv.setText(name);
-
-            ViewHolder vh = new ViewHolder();
-            vh.badge = (QuickContactBadge) v.findViewById(R.id.badge);
-            vh.badge.assignContactFromEmail(attendee.mEmail, true);
-            vh.presence = (ImageView) v.findViewById(R.id.presence);
-            mViewHolders.put(attendee.mEmail, vh);
-
-            if (i == 0) {
-                selection.append('?');
-            } else {
-                selection.append(", ?");
-            }
-
-            attendeeList.addView(v);
-        }
-        selection.append(')');
-
-        mPresenceQueryHandler.startQuery(mUpdateCounts, attendees, CONTACT_DATA_WITH_PRESENCE_URI,
-                PRESENCE_PROJECTION, selection.toString(), selectionArgs, null);
-    }
-
-    private class PresenceQueryHandler extends AsyncQueryHandler {
-        Context mContext;
-
-        public PresenceQueryHandler(Context context, ContentResolver cr) {
-            super(cr);
-            mContext = context;
-        }
-
-        @Override
-        protected void onQueryComplete(int queryIndex, Object cookie, Cursor cursor) {
-            if (cursor == null) {
-                if (DEBUG) {
-                    Log.e(TAG, "onQueryComplete: cursor == null");
-                }
-                return;
-            }
-
-            try {
-                cursor.moveToPosition(-1);
-                while (cursor.moveToNext()) {
-                    String email = cursor.getString(PRESENCE_PROJECTION_EMAIL_INDEX);
-                    int contactId = cursor.getInt(PRESENCE_PROJECTION_CONTACT_ID_INDEX);
-                    ViewHolder vh = mViewHolders.get(email);
-                    int photoId = cursor.getInt(PRESENCE_PROJECTION_PHOTO_ID_INDEX);
-                    if (DEBUG) {
-                        Log.e(TAG, "onQueryComplete Id: " + contactId + " PhotoId: " + photoId
-                                + " Email: " + email);
-                    }
-                    if (vh == null) {
-                        continue;
-                    }
-                    ImageView presenceView = vh.presence;
-                    if (presenceView != null) {
-                        int status = cursor.getInt(PRESENCE_PROJECTION_PRESENCE_INDEX);
-                        presenceView.setImageResource(Presence.getPresenceIconResourceId(status));
-                        presenceView.setVisibility(View.VISIBLE);
-                    }
-
-                    if (photoId > 0 && vh.updateCounts < queryIndex) {
-                        vh.updateCounts = queryIndex;
-                        Uri personUri = ContentUris.withAppendedId(Contacts.CONTENT_URI,
-                                contactId);
-
-                        // TODO, modify to batch queries together
-                        ContactsAsyncHelper.updateImageViewWithContactPhotoAsync(mContext,
-                                vh.badge, personUri, R.drawable.ic_contact_picture);
-                    }
-                }
-            } finally {
-                cursor.close();
-            }
-        }
-    }
-
     void updateResponse(View view) {
         // we only let the user accept/reject/etc. a meeting if:
         // a) you can edit the event's containing calendar AND
@@ -1225,7 +883,6 @@ public class EventInfoFragment extends DialogFragment implements View.OnClickLis
         // for simplicity).
 
         // TODO Switch to EditEventHelper.canRespond when this class uses CalendarEventModel.
-
         if (!mCanModifyCalendar || (mHasAttendeeData && mIsOrganizer && mNumOfAttendees <= 1) ||
                 (mIsOrganizer && !mOwnerCanRespond)) {
             setVisibilityCommon(view, R.id.response_container, View.GONE);

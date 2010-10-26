@@ -76,7 +76,7 @@
     </style>
 
     <style name="TextAppearance.EventInfo_Label">
-        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingLeft">2dip</item>
     </style>

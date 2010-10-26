@@ -320,8 +320,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
         getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
 
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setIconifiedByDefault(true);
-        searchView.setOnQueryChangeListener(this);
+        if (searchView != null) {
+            searchView.setIconifiedByDefault(true);
+            searchView.setOnQueryChangeListener(this);
+        }
 
         return true;
     }
