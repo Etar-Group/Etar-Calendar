@@ -25,13 +25,11 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.Path.Direction;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
@@ -202,9 +200,6 @@ public class DayView extends View
     private static final int POPUP_DISMISS_DELAY = 3000;
     private DismissPopup mDismissPopup = new DismissPopup();
 
-    // For drawing to an off-screen Canvas
-    private Bitmap mBitmap;
-    private Canvas mCanvas;
     private boolean mRemeasure = true;
 
     private final EventLoader mEventLoader;
@@ -242,6 +237,8 @@ public class DayView extends View
 
     private static final int DAY_HEADER_ALPHA = 0x26000000;
     private static final int DAY_HEADER_TODAY_ALPHA = 0x99000000;
+    // TODO replace event draws with assets
+    private static final int EVENT_OUTLINE_COLOR = 0x33333333;
     private static float DAY_HEADER_ONE_DAY_LEFT_MARGIN = -12;
     private static float DAY_HEADER_ONE_DAY_RIGHT_MARGIN = 5;
     private static float DAY_HEADER_ONE_DAY_BOTTOM_MARGIN = 6;
@@ -258,9 +255,9 @@ public class DayView extends View
     private static final int MAX_EVENT_TEXT_LEN = 500;
     private static float MIN_EVENT_HEIGHT = 15.0F;  // in pixels
     private static float CALENDAR_COLOR_SQUARE_SIZE = 11;
-    private static float EVENT_RECT_TOP_MARGIN = 0;
+    private static float EVENT_RECT_TOP_MARGIN = 1;
     private static float EVENT_RECT_BOTTOM_MARGIN = 1;
-    private static float EVENT_RECT_LEFT_MARGIN = 0;
+    private static float EVENT_RECT_LEFT_MARGIN = 1;
     private static float EVENT_RECT_RIGHT_MARGIN = 1;
     private static float EVENT_TEXT_TOP_MARGIN = 8;
     private static float EVENT_TEXT_BOTTOM_MARGIN = 5;
@@ -291,7 +288,6 @@ public class DayView extends View
     private int mViewStartX;
     private int mViewStartY;
     private int mMaxViewStartY;
-    private int mBitmapHeight;
     private int mViewHeight;
     private int mViewWidth;
     private int mGridAreaHeight;
@@ -861,17 +857,8 @@ public class DayView extends View
                 (MIN_EVENT_HEIGHT * DateUtils.MINUTE_IN_MILLIS / (mCellHeight / 60.0f));
         Event.computePositions(events, minimumDurationMillis);
 
-        // Create an off-screen bitmap that we can draw into.
-        mBitmapHeight = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP);
-        if ((mBitmap == null || mBitmap.getHeight() < mBitmapHeight) && width > 0 &&
-                mBitmapHeight > 0) {
-            if (mBitmap != null) {
-                mBitmap.recycle();
-            }
-            mBitmap = Bitmap.createBitmap(width, mBitmapHeight, Bitmap.Config.RGB_565);
-            mCanvas = new Canvas(mBitmap);
-        }
-        mMaxViewStartY = mBitmapHeight - mGridAreaHeight;
+        // Compute the top of our reachable view
+        mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
 
         if (mFirstHour == -1) {
             initFirstHour();
@@ -1297,12 +1284,12 @@ public class DayView extends View
             if (mFirstHour < 24 - mNumHours) {
                 mFirstHour += 1;
                 mViewStartY += (mCellHeight + HOUR_GAP);
-                if (mViewStartY > mBitmapHeight - mGridAreaHeight) {
-                    mViewStartY = mBitmapHeight - mGridAreaHeight;
+                if (mViewStartY > mMaxViewStartY) {
+                    mViewStartY = mMaxViewStartY;
                 }
                 return;
             } else if (mFirstHour == 24 - mNumHours && mFirstHourOffset > 0) {
-                mViewStartY = mBitmapHeight - mGridAreaHeight;
+                mViewStartY = mMaxViewStartY;
             }
         }
     }
@@ -1366,62 +1353,53 @@ public class DayView extends View
             remeasure(getWidth(), getHeight());
             mRemeasure = false;
         }
+        canvas.save();
 
-        if (mCanvas != null) {
-            doDraw(mCanvas);
-        }
+        float yTranslate = -mViewStartY + DAY_HEADER_HEIGHT + mAllDayHeight;
+        // offset canvas by the current drag and header position
+        canvas.translate(-mViewStartX, yTranslate);
+        // clip to everything below the allDay area
+        Rect dest = mDestRect;
+        dest.top = (int) (mFirstCell - yTranslate);
+        dest.bottom = (int) (mViewHeight - yTranslate);
+        dest.left = 0;
+        dest.right = mViewWidth;
+        canvas.save();
+        canvas.clipRect(dest);
+        // Draw the movable part of the view
+        doDraw(canvas);
+        // restore to having no clip
+        canvas.restore();
 
         if ((mTouchMode & TOUCH_MODE_HSCROLL) != 0) {
-            canvas.save();
+            float xTranslate;
             if (mViewStartX > 0) {
-                canvas.translate(mViewWidth - mViewStartX, 0);
+                xTranslate = mViewWidth;
             } else {
-                canvas.translate(-(mViewWidth + mViewStartX), 0);
+                xTranslate = -mViewWidth;
             }
+            // Move the canvas around to prep it for the next view
+            // specifically, shift it by a screen and undo the
+            // yTranslation which will be redone in the nextView's onDraw().
+            canvas.translate(xTranslate, -yTranslate);
             DayView nextView = (DayView) mViewSwitcher.getNextView();
 
             // Prevent infinite recursive calls to onDraw().
             nextView.mTouchMode = TOUCH_MODE_INITIAL_STATE;
 
             nextView.onDraw(canvas);
-            canvas.restore();
-            canvas.save();
-            canvas.translate(-mViewStartX, 0);
-        }
-
-        if (mBitmap != null) {
-            drawCalendarView(canvas);
+            // Move it back for this view
+            canvas.translate(-xTranslate, 0);
+        } else {
+            // If we drew another view we already translated it back
+            // If we didn't draw another view we should be at the edge of the
+            // screen
+            canvas.translate(mViewStartX, -yTranslate);
         }
 
         // Draw the fixed areas (that don't scroll) directly to the canvas.
         drawAfterScroll(canvas);
         mComputeSelectedEvents = false;
-
-        if ((mTouchMode & TOUCH_MODE_HSCROLL) != 0) {
-            canvas.restore();
-        }
-    }
-
-    private void drawCalendarView(Canvas canvas) {
-
-        // Copy the scrollable region from the big bitmap to the canvas.
-        Rect src = mSrcRect;
-        Rect dest = mDestRect;
-
-        src.top = mViewStartY;
-        src.bottom = mViewStartY + mGridAreaHeight;
-        src.left = 0;
-        src.right = mViewWidth;
-
-        dest.top = mFirstCell;
-        dest.bottom = mViewHeight;
-        dest.left = 0;
-        dest.right = mViewWidth;
-
-        canvas.save();
-        canvas.clipRect(dest);
-        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-        canvas.drawBitmap(mBitmap, src, dest, null);
         canvas.restore();
     }
 
@@ -1433,6 +1411,8 @@ public class DayView extends View
             drawAllDayEvents(mFirstJulianDay, mNumDays, r, canvas, p);
 //            drawUpperLeftCorner(r, canvas, p);
         }
+
+        drawScrollLine(r, canvas, p);
 
         drawDayHeaderLoop(r, canvas, p);
 
@@ -1459,6 +1439,19 @@ public class DayView extends View
 //        r.right = mHoursWidth;
 //        canvas.drawRect(r, p);
 //    }
+
+    // TODO cleanup and constant extraction
+    private void drawScrollLine(Rect r, Canvas canvas, Paint p) {
+        p.setColor(EVENT_OUTLINE_COLOR);
+        p.setStyle(Style.FILL);
+        p.setAntiAlias(false);
+        r.left = 0;
+        r.right = mViewWidth;
+        r.top = mFirstCell - 1;
+        r.bottom = mFirstCell + 1;
+        canvas.drawRect(r, p);
+        p.setAntiAlias(true);
+    }
 
     private void drawDayHeaderLoop(Rect r, Canvas canvas, Paint p) {
         // Draw the horizontal day background banner
@@ -1703,7 +1696,7 @@ public class DayView extends View
         Paint.Style savedStyle = p.getStyle();
 
         r.top = 0;
-        r.bottom = mBitmapHeight;
+        r.bottom = mMaxViewStartY + mGridAreaHeight;
         r.left = 0;
         r.right = mViewWidth;
         // p.setColor(mCalendarGridAreaBackground);
@@ -1711,10 +1704,10 @@ public class DayView extends View
         // TODO readd code for drawing bg image instead of color
         // mBackgroundDrawable.setBounds(r);
         // mBackgroundDrawable.draw(canvas);
-        p.setAntiAlias(false);
-        p.setColor(mBackgroundColor);
-        p.setStyle(Style.FILL);
-        canvas.drawRect(r, p);
+//        p.setAntiAlias(false);
+//        p.setColor(0x00000000);
+//        p.setStyle(Style.FILL);
+//        canvas.drawRect(r, p);
 
         // Draw the outer horizontal grid lines
         p.setColor(mCalendarGridLineHorizontalColor);
@@ -2376,12 +2369,14 @@ public class DayView extends View
 
         // TEMP behavior
         p.setAntiAlias(false);
-        p.setColor(0xAAAAAAAA);
-        p.setStrokeWidth(1);
+        p.setColor(EVENT_OUTLINE_COLOR);
+        p.setStrokeWidth(2);
         p.setStyle(Style.STROKE);
         canvas.drawRect(rf, p);
-        rf.right++;
-        rf.bottom++;
+        rf.top++;
+        rf.left ++;
+        rf.right--;
+        rf.bottom--;
         int color = 0xAAFFFFFF;
         int eventTextColor = mEventTextColor;
 
@@ -2473,6 +2468,7 @@ public class DayView extends View
 
         float width = rf.right - rf.left;
         float height = rf.bottom - rf.top;
+        p.setAntiAlias(true);
 
         // Leave one pixel extra space between lines
         int lineHeight = mEventTextHeight + 1;
@@ -3325,11 +3321,6 @@ public class DayView extends View
 
     @Override protected void onDetachedFromWindow() {
         cleanup();
-        if (mBitmap != null) {
-            mBitmap.recycle();
-            mBitmap = null;
-            mCanvas = null;
-        }
         super.onDetachedFromWindow();
     }
 

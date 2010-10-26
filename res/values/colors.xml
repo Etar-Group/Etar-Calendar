@@ -60,7 +60,7 @@
     <color name="month_other_bgcolor">#FFDDDDDD</color>
     <color name="month_selected_week_bgcolor">#FFD4DFFD</color>
     <color name="month_today_bgcolor">#FF888888</color>
-    <color name="month_bgcolor">#FFF2F2FD</color>
+    <color name="month_bgcolor">#FFFFFFFF</color>
     <color name="month_title_color">#FFC8CAD0</color>
     <color name="month_selection_bar_color">#FF6699FF</color>
     <color name="month_selection_outline_color">#336699FF</color>
