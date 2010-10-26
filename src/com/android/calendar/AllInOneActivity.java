@@ -28,11 +28,8 @@ import com.android.calendar.event.EditEventFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
-import dalvik.system.VMRuntime;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -110,10 +107,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
-        // TODO: We should restore the old heap size once the activity reaches the idle state
-        VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
-
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
         // Get time from intent or icicle
@@ -143,12 +136,18 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mIsMultipane = (getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
 
+        // setContentView must be called before configureActionBar
+        setContentView(R.layout.all_in_one);
+        // configureActionBar auto-selects the first tab you add, so we need to
+        // call it before we set up our own fragments to make sure it doesn't
+        // overwrite us
+        configureActionBar();
+
         // Must be the first to register because this activity can modify the
         // list of event handlers in it's handle method. This affects who the
         // rest of the handlers the controller dispatches to are.
         mController.registerEventHandler(HANDLER_KEY, this);
 
-        setContentView(R.layout.all_in_one);
         mHomeTime = (TextView) findViewById(R.id.home_time);
 
         initFragments(timeMillis, viewType, icicle);
@@ -159,7 +158,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         mContentResolver = getContentResolver();
+    }
 
+    private void configureActionBar() {
         mActionBar = getActionBar();
         mActionBar.setTabNavigationMode();
         if (mActionBar == null) {
@@ -487,7 +488,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 // save if it needs to
                 EventHandler editHandler = (EventHandler) getFragmentManager().findFragmentById(
                         R.id.main_pane);
-                editHandler.handleEvent(event);
+                if (editHandler != null) {
+                    editHandler.handleEvent(event);
+                }
             }
 
             // Set title bar
