@@ -329,7 +329,9 @@ public class DayView extends View
     protected final Resources mResources;
     protected final Drawable mCurrentTimeLine;
     protected final Drawable mTodayHeaderDrawable;
-    protected final Drawable mBackgroundDrawable;
+    // TODO change back to using background image when we can make it fast enough
+    // protected final Drawable mBackgroundDrawable;
+    protected int mBackgroundColor;
     private String mAmString;
     private String mPmString;
     private DeleteEventHelper mDeleteEventHelper;
@@ -423,7 +425,7 @@ public class DayView extends View
         mResources = context.getResources();
         mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_week_holo_light);
         mTodayHeaderDrawable = mResources.getDrawable(R.drawable.today_blue_week_holo_light);
-        mBackgroundDrawable = mResources.getDrawable(R.drawable.calendar_background_holo_light);
+        // mBackgroundDrawable = mResources.getDrawable(R.drawable.calendar_background_holo_light);
         mEventLoader = eventLoader;
         mEventGeometry = new EventGeometry();
         mEventGeometry.setMinEventHeight(MIN_EVENT_HEIGHT);
@@ -478,6 +480,10 @@ public class DayView extends View
         mPressedColor = mResources.getColor(R.color.pressed);
         mSelectedEventTextColor = mResources.getColor(R.color.calendar_event_selected_text_color);
         mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
+
+        // TODO remove this
+        mBackgroundColor = mResources.getColor(R.color.month_bgcolor);
+
         mEventTextPaint.setColor(mEventTextColor);
         mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
         mEventTextPaint.setTextAlign(Paint.Align.LEFT);
@@ -1702,8 +1708,13 @@ public class DayView extends View
         r.right = mViewWidth;
         // p.setColor(mCalendarGridAreaBackground);
         // canvas.drawRect(r, p);
-        mBackgroundDrawable.setBounds(r);
-        mBackgroundDrawable.draw(canvas);
+        // TODO readd code for drawing bg image instead of color
+        // mBackgroundDrawable.setBounds(r);
+        // mBackgroundDrawable.draw(canvas);
+        p.setAntiAlias(false);
+        p.setColor(mBackgroundColor);
+        p.setStyle(Style.FILL);
+        canvas.drawRect(r, p);
 
         // Draw the outer horizontal grid lines
         p.setColor(mCalendarGridLineHorizontalColor);
@@ -2726,8 +2737,10 @@ public class DayView extends View
         int distanceY = Math.abs(deltaY);
 
         if ((distanceX >= HORIZONTAL_SCROLL_THRESHOLD) && (distanceX > distanceY)) {
-            initNextView(deltaX);
-            DayView view = (DayView) mViewSwitcher.getNextView();
+            // initNextView(deltaX);
+
+            switchViews(mViewStartX > 0, mViewStartX, mViewWidth);
+            DayView view = (DayView) mViewSwitcher.getCurrentView();
 
             Time end = new Time(view.mBaseDate);
             end.monthDay += mNumDays;
