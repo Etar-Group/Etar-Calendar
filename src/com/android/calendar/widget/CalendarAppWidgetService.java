@@ -46,10 +46,9 @@ import android.widget.RemoteViewsService;
 
 
 public class CalendarAppWidgetService extends RemoteViewsService {
-    private static final String TAG = "CalendarAppWidgetService";
+    private static final String TAG = "CalendarWidget";
 
     static final int EVENT_MIN_COUNT = 20;
-
     static final int EVENT_MAX_COUNT = 503;
 
     private static final String EVENT_SORT_ORDER = Instances.START_DAY + " ASC, "
@@ -86,9 +85,11 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
     private static final long SEARCH_DURATION = MAX_DAYS * DateUtils.DAY_IN_MILLIS;
 
-    // If no next-update calculated, or bad trigger time in past, schedule
-    // update about six hours from now.
-    private static final long UPDATE_NO_EVENTS = DateUtils.HOUR_IN_MILLIS * 6;
+    /**
+     * Update interval used when no next-update calculated, or bad trigger time in past.
+     * Unit: milliseconds.
+     */
+    private static final long UPDATE_TIME_NO_EVENTS = DateUtils.HOUR_IN_MILLIS * 6;
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
@@ -96,8 +97,14 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     }
 
     protected static class CalendarFactory implements RemoteViewsService.RemoteViewsFactory {
-        private static final String TAG = CalendarFactory.class.getSimpleName();
         private static final boolean LOGD = false;
+
+        // Suppress unnecessary logging about update time. Need to be static as this object is
+        // re-instanciated frequently.
+        // TODO: It seems loadData() is called via onCreate() four times, which should mean
+        // unnecessary CalendarFactory object is created and dropped. It is not efficient.
+        private static long sLastUpdateTime = UPDATE_TIME_NO_EVENTS;
+
         private Context mContext;
         private CalendarAppWidgetModel mModel;
         private Cursor mCursor;
@@ -204,24 +211,29 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             mCursor = getUpcomingInstancesCursor(resolver, SEARCH_DURATION, now);
             String tz = getTimeZoneFromDB(resolver);
             mModel = buildAppWidgetModel(mContext, mCursor, tz);
-            long triggerTime = calculateUpdateTime(mModel);
+
             // Schedule an alarm to wake ourselves up for the next update.  We also cancel
             // all existing wake-ups because PendingIntents don't match against extras.
+            long triggerTime = calculateUpdateTime(mModel, now);
 
             // If no next-update calculated, or bad trigger time in past, schedule
             // update about six hours from now.
-            if (triggerTime == -1 || triggerTime < now) {
-                if (LOGD) Log.w(TAG, "Encountered bad trigger time " +
-                        formatDebugTime(triggerTime, now));
-                triggerTime = now + UPDATE_NO_EVENTS;
+            if (triggerTime < now) {
+                Log.w(TAG, "Encountered bad trigger time " + formatDebugTime(triggerTime, now));
+                triggerTime = now + UPDATE_TIME_NO_EVENTS;
             }
 
-            AlarmManager am = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-            PendingIntent pendingUpdate = CalendarAppWidgetProvider.getUpdateIntent(mContext);
+            final AlarmManager alertManager =
+                    (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
+            final PendingIntent pendingUpdate =
+                    CalendarAppWidgetProvider.getUpdateIntent(mContext);
 
-            am.cancel(pendingUpdate);
-            am.set(AlarmManager.RTC, triggerTime, pendingUpdate);
-            if (LOGD) Log.d(TAG, "Scheduled next update at " + formatDebugTime(triggerTime, now));
+            alertManager.cancel(pendingUpdate);
+            alertManager.set(AlarmManager.RTC, triggerTime, pendingUpdate);
+            if (triggerTime != sLastUpdateTime) {
+                Log.d(TAG, "Scheduled next update at " + formatDebugTime(triggerTime, now));
+                sLastUpdateTime = triggerTime;
+            }
         }
 
         /**
@@ -298,34 +310,33 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         }
 
         /**
-         * Figure out the next time we should push widget updates, usually the time
-         * calculated by {@link #getEventFlip(Cursor, long, long, boolean)}.
-         *
-         * @param cursor Valid cursor on {@link Instances#CONTENT_URI}
-         * @param events {@link MarkedEvents} parsed from the cursor
+         * Calculates and returns the next time we should push widget updates.
          */
-        private long calculateUpdateTime(CalendarAppWidgetModel model) {
-            long result = -1;
-            if (!model.mEventInfos.isEmpty()) {
-                EventInfo firstEvent = model.mEventInfos.get(0);
-                long start = firstEvent.start;
-                long end = firstEvent.end;
-                boolean allDay = firstEvent.allDay;
-
-                // Adjust all-day times into local timezone
+        private long calculateUpdateTime(CalendarAppWidgetModel model, long now) {
+            // Make sure an update happens at midnight or earlier
+            long minUpdateTime = getNextMidnightTimeMillis();
+            for (EventInfo event : model.mEventInfos) {
+                final boolean allDay = event.allDay;
+                final long start;
+                final long end;
                 if (allDay) {
+                    // Adjust all-day times into local timezone
                     final Time recycle = new Time();
-                    start = Utils.convertUtcToLocal(recycle, start);
-                    end = Utils.convertUtcToLocal(recycle, end);
+                    start = Utils.convertUtcToLocal(recycle, event.start);
+                    end = Utils.convertUtcToLocal(recycle, event.end);
+                } else {
+                    start = event.start;
+                    end = event.end;
                 }
 
-                result = getEventFlip(start, end, allDay);
-
-                // Make sure an update happens at midnight or earlier
-                long midnight = getNextMidnightTimeMillis();
-                result = Math.min(midnight, result);
+                // We want to update widget when we enter/exit time range of an event.
+                if (now < start) {
+                    minUpdateTime = Math.min(minUpdateTime, start);
+                } else if (now < end) {
+                    minUpdateTime = Math.min(minUpdateTime, end);
+                }
             }
-            return result;
+            return minUpdateTime;
         }
 
         private static long getNextMidnightTimeMillis() {
@@ -368,18 +379,5 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             return String.format("[%d] %s (%+d secs)", unixTime,
                     time.format("%H:%M:%S"), delta);
         }
-    }
-
-    /**
-     * Calculate flipping point for the given event; when we should hide this
-     * event and show the next one. This is defined as the end time of the
-     * event.
-     *
-     * @param start Event start time in local timezone.
-     * @param end Event end time in local timezone.
-     * @param allDay whether or not the event is all-day
-     */
-    static long getEventFlip(long start, long end, boolean allDay) {
-        return end;
     }
 }

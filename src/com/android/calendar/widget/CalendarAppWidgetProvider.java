@@ -198,6 +198,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         return PendingIntent.getActivity(context, 0 /* no requestCode */,
                 launchIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
     }
+
     /**
      * Build an {@link Intent} available as FillInIntent to launch the Calendar app.
      * This should be used in combination with
