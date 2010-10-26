@@ -383,12 +383,21 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 frag = new AgendaFragment(timeMillis);
                 break;
             case ViewType.DAY:
+                if (mActionBar != null && (mActionBar.getSelectedTab() != mDayTab)) {
+                    mActionBar.selectTab(mDayTab);
+                }
                 frag = new DayFragment(timeMillis, 1);
                 break;
             case ViewType.WEEK:
+                if (mActionBar != null && (mActionBar.getSelectedTab() != mWeekTab)) {
+                    mActionBar.selectTab(mWeekTab);
+                }
                 frag = new DayFragment(timeMillis, 7);
                 break;
             case ViewType.MONTH:
+                if (mActionBar != null && (mActionBar.getSelectedTab() != mMonthTab)) {
+                    mActionBar.selectTab(mMonthTab);
+                }
                 frag = new MonthFragment(false, timeMillis, false);
                 break;
             case ViewType.EDIT:
@@ -553,11 +562,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
-        if (tab == mDayTab) {
+        if (tab == mDayTab && mCurrentView != ViewType.DAY) {
             mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
-        } else if (tab == mWeekTab) {
+        } else if (tab == mWeekTab && mCurrentView != ViewType.WEEK) {
             mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
-        } else if (tab == mMonthTab) {
+        } else if (tab == mMonthTab && mCurrentView != ViewType.MONTH) {
             mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.MONTH);
         } else {
             Log.w(TAG, "TabSelected event from unknown tab: " + tab);
