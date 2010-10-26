@@ -77,6 +77,9 @@
 
     <drawable name="agenda_item_declined">#88ffffff</drawable>
 
+    <color name="appwidget_row_default">#ffdadada</color>
+    <color name="appwidget_row_in_progress">#ffb5c6ee</color>
+
     <color name="appwidget_date">#ff99cc00</color>
     <color name="appwidget_week">#ffffffff</color>
     <color name="appwidget_month">#ff99cc00</color>

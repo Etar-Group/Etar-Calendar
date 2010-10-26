@@ -355,8 +355,6 @@ class CalendarAppWidgetModel {
             int startDay, int endDay, String title, String location, int color) {
         EventInfo eventInfo = new EventInfo();
 
-        boolean eventIsInProgress = start <= mNow && end > mNow;
-
         // Compute a human-readable string for the start time of the event
         StringBuilder whenString = new StringBuilder();
         int visibWhen;
@@ -378,11 +376,6 @@ class CalendarAppWidgetModel {
             String tz = Utils.getTimeZone(mContext, null);
             if (mShowTZ) {
                 whenString.append(" ").append(mHomeTZName);
-            }
-            // TODO better i18n formatting
-            if (eventIsInProgress) {
-                whenString.append(" (").append(mContext.getString(R.string.in_progress))
-                        .append(")");
             }
             visibWhen = View.VISIBLE;
         }

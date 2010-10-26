@@ -43,7 +43,7 @@
             android:paddingBottom="6dip"
             android:orientation="vertical"
             android:addStatesFromChildren="true"
-            android:background="#ffdadada">
+            android:background="@color/appwidget_row_default">
             <TextView
                 android:id="@+id/title"
                 style="@style/TextAppearance.WidgetTitle" />

@@ -16,19 +16,20 @@
 
 package com.android.calendar.widget;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
-import com.google.common.annotations.VisibleForTesting;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.appwidget.AppWidgetManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
@@ -106,11 +107,13 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         private static long sLastUpdateTime = UPDATE_TIME_NO_EVENTS;
 
         private Context mContext;
+        private Resources mResources;
         private CalendarAppWidgetModel mModel;
         private Cursor mCursor;
 
         protected CalendarFactory(Context context, Intent intent) {
             mContext = context;
+            mResources = context.getResources();
         }
 
         @Override
@@ -158,10 +161,15 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 updateTextView(views, R.id.date, View.VISIBLE, dayInfo.mDayLabel);
                 return views;
             } else {
-                RemoteViews views = new RemoteViews(mContext.getPackageName(),
+                final RemoteViews views = new RemoteViews(mContext.getPackageName(),
                         R.layout.appwidget_row);
-
                 final EventInfo eventInfo = mModel.mEventInfos.get(rowInfo.mIndex);
+
+                final long now = System.currentTimeMillis();
+                if (!eventInfo.allDay && eventInfo.start <= now && now <= eventInfo.end) {
+                    views.setInt(R.id.appwidget_row, "setBackgroundColor",
+                            mResources.getColor(R.color.appwidget_row_in_progress));
+                }
 
                 updateTextView(views, R.id.when, eventInfo.visibWhen, eventInfo.when);
                 updateTextView(views, R.id.where, eventInfo.visibWhere, eventInfo.where);
