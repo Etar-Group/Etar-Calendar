@@ -53,8 +53,6 @@ import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -62,7 +60,6 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.ScrollView;
@@ -596,6 +593,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     // This is called if the user cancels the "No calendars" dialog.
     // The "No calendars" dialog is shown if there are no syncable calendars.
+    @Override
     public void onCancel(DialogInterface dialog) {
         if (dialog == mLoadingCalendarsDialog) {
             mLoadingCalendarsDialog = null;
@@ -628,7 +626,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     // Goes through the UI elements and updates the model as necessary
-    public boolean fillModelFromUI() {
+    private boolean fillModelFromUI() {
         if (mModel == null) {
             return false;
         }
@@ -775,12 +773,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mAddAttendeesListener = new AddAttendeeClickListener();
         mAddAttendeesButton.setOnClickListener(mAddAttendeesListener);
 
+        mAttendeesView = (AttendeesView)view.findViewById(R.id.attendee_list);
+        mViewList.add(mAttendeesView);
+
         mStartTime = new Time();
         mEndTime = new Time();
         mTimezone = TimeZone.getDefault().getID();
         mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
-
-        mAttendeesView = (AttendeesView)view.findViewById(R.id.attendee_list);
 
         // Display loading screen
         setModel(null);
@@ -1006,6 +1005,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         populateTimezone();
         populateRepeats();
         updateAttendees(model.mAttendeesList);
+
+        // Mark read-only fields as disabled
         if (!canModifyEvent) {
             for (View v : mViewList) {
                 v.setEnabled(false);
@@ -1126,7 +1127,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return 0;
     }
 
-    public void updateAttendees(HashMap<String, Attendee> attendeesList) {
+    private void updateAttendees(HashMap<String, Attendee> attendeesList) {
         mAttendeesView.setRfc822Validator(mEmailValidator);
         mAttendeesView.addAttendees(attendeesList);
     }
@@ -1139,7 +1140,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
     }
 
-    public void addReminder() {
+    private void addReminder() {
         // TODO: when adding a new reminder, make it different from the
         // last one in the list (if any).
         if (mDefaultReminderMinutes == 0) {
@@ -1151,10 +1152,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         updateRemindersVisibility(mReminderItems.size());
         mScrollView.fling(REMINDER_FLING_VELOCITY);
-    }
-
-    public int getReminderCount() {
-        return mReminderItems.size();
     }
 
     // From com.google.android.gm.ComposeActivity

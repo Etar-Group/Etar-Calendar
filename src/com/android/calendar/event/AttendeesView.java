@@ -98,7 +98,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
     public AttendeesView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mPresenceQueryHandler = new PresenceQueryHandler(context.getContentResolver());
 
         final Resources resources = context.getResources();
@@ -109,6 +109,20 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         mDividerForNo = constructDividerView(entries[3]);
         mDividerForMaybe = constructDividerView(entries[2]);
         mDividerForNoResponse = constructDividerView(entries[0]);
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        int visibility = isEnabled() ? View.VISIBLE : View.GONE;
+        int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+            View child = getChildAt(i);
+            View minusButton = child.findViewById(R.id.contact_remove);
+            if (minusButton != null) {
+                minusButton.setVisibility(visibility);
+            }
+        }
     }
 
     public void setRfc822Validator(Rfc822Validator validator) {
@@ -128,7 +142,6 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
      * the constructed View object. The object is also stored in {@link AttendeeItem#mView}.
      */
     private View constructAttendeeView(AttendeeItem item) {
-        final Attendee attendee = item.mAttendee;
         item.mView = mInflater.inflate(R.layout.contact_item, null);
         return updateAttendeeView(item);
     }
@@ -140,7 +153,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
     private View updateAttendeeView(AttendeeItem item) {
         final Attendee attendee = item.mAttendee;
         final View view = item.mView;
-        final TextView nameView = (TextView)view.findViewById(R.id.name);
+        final TextView nameView = (TextView) view.findViewById(R.id.name);
         nameView.setText(TextUtils.isEmpty(attendee.mName) ? attendee.mEmail : attendee.mName);
         if (item.mRemoved) {
             nameView.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG | nameView.getPaintFlags());
@@ -148,8 +161,10 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
             nameView.setPaintFlags((~Paint.STRIKE_THRU_TEXT_FLAG) & nameView.getPaintFlags());
         }
 
-        final ImageButton button = (ImageButton)view.findViewById(R.id.contact_remove);
-        button.setVisibility(View.VISIBLE);
+        // Set up the Image button even if the view is disabled
+        // Everything will be ready when the view is enabled later
+        final ImageButton button = (ImageButton) view.findViewById(R.id.contact_remove);
+        button.setVisibility(isEnabled() ? View.VISIBLE : View.GONE);
         button.setTag(item);
         if (item.mRemoved) {
             button.setImageResource(R.drawable.ic_btn_round_plus);
@@ -158,7 +173,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         }
         button.setOnClickListener(this);
 
-        final QuickContactBadge badge = (QuickContactBadge)view.findViewById(R.id.badge);
+        final QuickContactBadge badge = (QuickContactBadge) view.findViewById(R.id.badge);
         badge.setImageDrawable(item.mBadge);
         badge.assignContactFromEmail(item.mAttendee.mEmail, true);
         badge.setMaxHeight(60);
@@ -166,7 +181,6 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
             final ImageView presence = (ImageView) view.findViewById(R.id.presence);
             presence.setImageResource(StatusUpdates.getPresenceIconResourceId(item.mPresence));
             presence.setVisibility(View.VISIBLE);
-
         }
 
         return view;
@@ -176,10 +190,10 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         final int size = getChildCount();
         for (int i = 0; i < size; i++) {
             final View view = getChildAt(i);
-            if (view instanceof TextView) {  // divider
+            if (view instanceof TextView) { // divider
                 continue;
             }
-            AttendeeItem attendeeItem = (AttendeeItem)view.getTag();
+            AttendeeItem attendeeItem = (AttendeeItem) view.getTag();
             if (TextUtils.equals(attendee.mEmail, attendeeItem.mAttendee.mEmail)) {
                 return true;
             }
@@ -196,41 +210,41 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         final String name = attendee.mName == null ? "" : attendee.mName;
         final int index;
         switch (status) {
-        case Attendees.ATTENDEE_STATUS_ACCEPTED: {
-            final int startIndex = 0;
-            if (mYes == 0) {
-                addView(mDividerForYes, startIndex);
+            case Attendees.ATTENDEE_STATUS_ACCEPTED: {
+                final int startIndex = 0;
+                if (mYes == 0) {
+                    addView(mDividerForYes, startIndex);
+                }
+                mYes++;
+                index = startIndex + mYes;
+                break;
             }
-            mYes++;
-            index = startIndex + mYes;
-            break;
-        }
-        case Attendees.ATTENDEE_STATUS_DECLINED: {
-            final int startIndex = (mYes == 0 ? 0 : 1 + mYes);
-            if (mNo == 0) {
-                addView(mDividerForNo, startIndex);
+            case Attendees.ATTENDEE_STATUS_DECLINED: {
+                final int startIndex = (mYes == 0 ? 0 : 1 + mYes);
+                if (mNo == 0) {
+                    addView(mDividerForNo, startIndex);
+                }
+                mNo++;
+                index = startIndex + mNo;
+                break;
             }
-            mNo++;
-            index = startIndex + mNo;
-            break;
-        }
-        case Attendees.ATTENDEE_STATUS_TENTATIVE: {
-            final int startIndex = (mYes == 0 ? 0 : 1 + mYes) + (mNo == 0 ? 0 : 1 + mNo);
-            if (mMaybe == 0) {
-                addView(mDividerForMaybe, startIndex);
+            case Attendees.ATTENDEE_STATUS_TENTATIVE: {
+                final int startIndex = (mYes == 0 ? 0 : 1 + mYes) + (mNo == 0 ? 0 : 1 + mNo);
+                if (mMaybe == 0) {
+                    addView(mDividerForMaybe, startIndex);
+                }
+                mMaybe++;
+                index = startIndex + mMaybe;
+                break;
             }
-            mMaybe++;
-            index = startIndex + mMaybe;
-            break;
-        }
-        default: {
-            final int startIndex = (mYes == 0 ? 0 : 1 + mYes) + (mNo == 0 ? 0 : 1 + mNo) +
-                    (mMaybe == 0 ? 0 : 1 + mMaybe);
-            // We delay adding the divider for "No response".
-            index = startIndex + mNoResponse;
-            mNoResponse++;
-            break;
-        }
+            default: {
+                final int startIndex = (mYes == 0 ? 0 : 1 + mYes) + (mNo == 0 ? 0 : 1 + mNo)
+                        + (mMaybe == 0 ? 0 : 1 + mMaybe);
+                // We delay adding the divider for "No response".
+                index = startIndex + mNoResponse;
+                mNoResponse++;
+                break;
+            }
         }
 
         final View view = constructAttendeeView(item);
@@ -289,10 +303,10 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
      */
     public boolean isMarkAsRemoved(int index) {
         final View view = getChildAt(index);
-        if (view instanceof TextView) {  // divider
+        if (view instanceof TextView) { // divider
             return false;
         }
-        return ((AttendeeItem)view.getTag()).mRemoved;
+        return ((AttendeeItem) view.getTag()).mRemoved;
     }
 
     // TODO put this into a Loader for auto-requeries
@@ -363,10 +377,10 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
 
     public Attendee getItem(int index) {
         final View view = getChildAt(index);
-        if (view instanceof TextView) {  // divider
+        if (view instanceof TextView) { // divider
             return null;
         }
-        return ((AttendeeItem)view.getTag()).mAttendee;
+        return ((AttendeeItem) view.getTag()).mAttendee;
     }
 
     @Override

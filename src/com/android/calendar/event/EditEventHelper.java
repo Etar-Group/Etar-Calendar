@@ -1057,7 +1057,7 @@ public class EditEventHelper {
 
         cursor.moveToPosition(-1);
         while (cursor.moveToNext()) {
-            if (model.mCalendarId != cursor.getInt(EVENT_INDEX_CALENDAR_ID)) {
+            if (model.mCalendarId != cursor.getInt(CALENDARS_INDEX_ID)) {
                 continue;
             }
 
