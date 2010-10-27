@@ -17,8 +17,6 @@
 package com.android.calendar.alerts;
 
 import com.android.calendar.AsyncQueryService;
-import com.android.calendar.CalendarController;
-import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
@@ -27,9 +25,12 @@ import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.Uri.Builder;
 import android.os.Bundle;
+import android.provider.Calendar;
 import android.provider.Calendar.CalendarAlerts;
 import android.provider.Calendar.CalendarAlertsColumns;
 import android.util.Log;
@@ -183,8 +184,11 @@ public class AlertActivity extends Activity implements OnClickListener {
             long id = cursor.getInt(AlertActivity.INDEX_EVENT_ID);
             long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
             long endMillis = cursor.getLong(AlertActivity.INDEX_END);
-            CalendarController.getInstance(alertActivity).sendEventRelatedEvent(alertActivity,
-                    EventType.VIEW_EVENT, id, startMillis, endMillis, 0, 0);
+            Intent eventIntent = new Intent(Intent.ACTION_VIEW);
+            Builder builder = Calendar.CONTENT_URI.buildUpon();
+            builder.appendEncodedPath("time/" + startMillis);
+            eventIntent.setData(builder.build());
+            alertActivity.startActivity(eventIntent);
 
             alertActivity.finish();
         }
