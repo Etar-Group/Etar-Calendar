@@ -369,10 +369,9 @@ class CalendarAppWidgetModel {
             }
             if (endDay > startDay) {
                 flags |= DateUtils.FORMAT_SHOW_DATE;
-                whenString.append(Utils.formatDateRange(mContext, start, end, flags));
-            } else {
-                whenString.append(Utils.formatDateRange(mContext, start, start, flags));
             }
+            whenString.append(Utils.formatDateRange(mContext, start, end, flags));
+
             String tz = Utils.getTimeZone(mContext, null);
             if (mShowTZ) {
                 whenString.append(" ").append(mHomeTZName);
