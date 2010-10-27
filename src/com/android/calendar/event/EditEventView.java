@@ -684,16 +684,20 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mStartTime.timezone = mTimezone;
             mModel.mStart = mStartTime.normalize(true);
 
-            // Round up to the next day
-            if (mEndTime.hour > 0 || mEndTime.minute > 0 || mEndTime.second > 0
-                    || mEndTime.monthDay == mStartTime.monthDay) {
-                mEndTime.monthDay++;
-            }
             mEndTime.hour = 0;
             mEndTime.minute = 0;
             mEndTime.second = 0;
             mEndTime.timezone = mTimezone;
-            mModel.mEnd = mEndTime.normalize(true);
+            // When a user see the event duration as "X - Y" (e.g. Oct. 28 - Oct. 29), end time
+            // should be Y + 1 (Oct.30).
+            final long normalizedEndTimeMillis =
+                    mEndTime.normalize(true) + DateUtils.DAY_IN_MILLIS;
+            if (normalizedEndTimeMillis < mModel.mStart) {
+                // mEnd should be midnight of the next day of mStart.
+                mModel.mEnd = mModel.mStart + DateUtils.DAY_IN_MILLIS;
+            } else {
+                mModel.mEnd = normalizedEndTimeMillis;
+            }
         } else {
             mStartTime.timezone = mTimezone;
             mEndTime.timezone = mTimezone;

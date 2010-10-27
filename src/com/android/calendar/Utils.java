@@ -31,6 +31,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.CalendarUtils.TimeZoneUtils;
 import android.util.Log;
@@ -148,8 +149,8 @@ public class Utils {
      * @param context the context is required only if the time is shown
      * @param startMillis the start time in UTC milliseconds
      * @param endMillis the end time in UTC milliseconds
-     * @param flags a bit mask of options See {@link #formatDateRange(Context,
-     *            Formatter, long, long, int, String) formatDateRange}
+     * @param flags a bit mask of options See {@link DateUtils#formatDateRange(Context, Formatter,
+     * long, long, int, String) formatDateRange}
      * @return a string containing the formatted date/time range.
      */
     public static String formatDateRange(
