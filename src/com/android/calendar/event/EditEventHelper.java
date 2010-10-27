@@ -1086,6 +1086,10 @@ public class EditEventHelper {
                 || model.mCalendarId == -1;
     }
 
+    public static boolean canAddReminders(CalendarEventModel model) {
+        return model.mCalendarAccessLevel >= Calendars.READ_ACCESS;
+    }
+
     public static boolean canRespond(CalendarEventModel model) {
         // For non-organizers, write permission to the calendar is sufficient.
         // For organizers, the user needs a) write permission to the calendar

@@ -16,7 +16,7 @@
 
 package com.android.calendar.event;
 
-import com.android.calendar.CalendarController;
+import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
@@ -30,8 +30,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.AsyncQueryHandler;
+import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -48,10 +50,15 @@ import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class EditEventFragment extends Fragment implements EventHandler {
     private static final String TAG = "EditEventActivity";
@@ -64,13 +71,14 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private static final int TOKEN_CALENDARS = 1 << 3;
     private static final int TOKEN_ALL = TOKEN_EVENT | TOKEN_ATTENDEES | TOKEN_REMINDERS
             | TOKEN_CALENDARS;
+    private static final int TOKEN_UNITIALIZED = 1 << 31;
 
     /**
      * A bitfield of TOKEN_* to keep track which query hasn't been completed
      * yet. Once all queries have returned, the model can be applied to the
      * view.
      */
-    private int mOutstandingQueries;
+    private int mOutstandingQueries = TOKEN_UNITIALIZED;
 
     EditEventHelper mHelper;
     CalendarEventModel mModel;
@@ -85,10 +93,11 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private Uri mUri;
     private long mBegin;
     private long mEnd;
-    private int mReturnView;
 
     private Activity mContext;
     private Done mOnDone = new Done();
+    private boolean mMenuUpdated = false;
+    private Menu mMenu;
 
     private boolean mSaveOnDetach = true;
 
@@ -270,17 +279,41 @@ public class EditEventFragment extends Fragment implements EventHandler {
             mOutstandingQueries &= ~queryType;
             if (mOutstandingQueries == 0) {
                 mView.setModel(mModel);
+                if (mMenu != null && !mMenuUpdated) {
+                    updateActionBar();
+                    mMenuUpdated = true;
+                }
             }
         }
     }
 
-    public EditEventFragment() {
-        mEvent = null;
+    private void updateActionBar() {
+        boolean canModifyCalendar = EditEventHelper.canModifyCalendar(mModel);
+        boolean canModifyEvent = EditEventHelper.canModifyEvent(mModel);
+        boolean canRespond = EditEventHelper.canRespond(mModel);
+
+        MenuItem cancelItem = mMenu.findItem(R.id.action_cancel);
+        MenuItem deleteItem = mMenu.findItem(R.id.action_delete);
+
+        if (canRespond || canModifyEvent) {
+            cancelItem.setVisible(true);
+        } else {
+            cancelItem.setVisible(false);
+        }
+        if (canModifyCalendar && mModel.mUri != null) {
+            deleteItem.setVisible(true);
+        } else {
+            deleteItem.setVisible(false);
+        }
     }
 
-    public EditEventFragment(EventInfo event, int returnView) {
+    public EditEventFragment() {
+        this(null);
+    }
+
+    public EditEventFragment(EventInfo event) {
         mEvent = event;
-        mReturnView = returnView;
+        setHasOptionsMenu(true);
     }
 
     private void startQuery() {
@@ -362,41 +395,79 @@ public class EditEventFragment extends Fragment implements EventHandler {
         super.onCreate(savedInstanceState);
 
     }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuItem item;
-//        item = menu.add(MENU_GROUP_ADD_REMINDER, MENU_ADD_REMINDER, 0, R.string.add_new_reminder);
-//        item.setIcon(R.drawable.ic_menu_reminder);
-//        item.setAlphabeticShortcut('r');
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        int numReminders = mView.getReminderCount();
-//        if (numReminders < EditEventHelper.MAX_REMINDERS) {
-//            menu.setGroupEnabled(MENU_GROUP_ADD_REMINDER, true);
-//            menu.setGroupVisible(MENU_GROUP_ADD_REMINDER, true);
-//        } else {
-//            menu.setGroupEnabled(MENU_GROUP_ADD_REMINDER, false);
-//            menu.setGroupVisible(MENU_GROUP_ADD_REMINDER, false);
-//        }
-//
-//        return super.onPrepareOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case MENU_ADD_REMINDER:
-//                mView.addReminder();
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-//
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.edit_event_title_bar, menu);
+        synchronized (this) {
+            mMenu = menu;
+            if (mOutstandingQueries == 0 && !mMenuUpdated) {
+                updateActionBar();
+                mMenuUpdated = true;
+            }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_done:
+                if (EditEventHelper.canModifyEvent(mModel) || EditEventHelper.canRespond(mModel)) {
+                    if (mView != null && mView.prepareForSave()) {
+                        mOnDone.setDoneCode(Utils.DONE_SAVE | Utils.DONE_EXIT);
+                        mOnDone.run();
+                    } else {
+                        mOnDone.setDoneCode(Utils.DONE_REVERT);
+                        mOnDone.run();
+                    }
+                } else if (EditEventHelper.canAddReminders(mModel) && mModel.mId != -1
+                        && mOriginalModel != null && mView.prepareForSave()) {
+                    saveReminders();
+                    mOnDone.setDoneCode(Utils.DONE_EXIT);
+                    mOnDone.run();
+                } else {
+                    mOnDone.setDoneCode(Utils.DONE_REVERT);
+                    mOnDone.run();
+                }
+                break;
+            case R.id.action_cancel:
+                mOnDone.setDoneCode(Utils.DONE_REVERT);
+                mOnDone.run();
+                break;
+            case R.id.action_delete:
+                mOnDone.setDoneCode(Utils.DONE_DELETE);
+                mOnDone.run();
+                break;
+        }
+        return true;
+    }
+
+    private void saveReminders() {
+        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>(3);
+        boolean changed = EditEventHelper.saveReminders(ops, mModel.mId, mModel.mReminderMinutes,
+                mOriginalModel.mReminderMinutes, false /* no force save */);
+
+        if (!changed) {
+            return;
+        }
+
+        AsyncQueryService service = new AsyncQueryService(getActivity());
+        service.startBatch(0, null, Calendars.CONTENT_URI.getAuthority(), ops, 0);
+        // Update the "hasAlarm" field for the event
+        Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mModel.mId);
+        int len = mModel.mReminderMinutes.size();
+        boolean hasAlarm = len > 0;
+        if (hasAlarm != mOriginalModel.mHasAlarm) {
+            ContentValues values = new ContentValues();
+            values.put(Events.HAS_ALARM, hasAlarm ? 1 : 0);
+            service.startUpdate(0, null, uri, values, null, null, 0);
+        }
+
+        Toast.makeText(mContext, R.string.saving_event, Toast.LENGTH_SHORT).show();
+    }
+
     protected void displayEditWhichDialogue() {
         if (!TextUtils.isEmpty(mModel.mRrule) && mModification == Utils.MODIFY_UNINITIALIZED) {
             // If this event has not been synced, then don't allow deleting
@@ -503,7 +574,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                         break;
                 }
                 DeleteEventHelper deleteHelper = new DeleteEventHelper(mContext, mContext,
-                        false /* exitWhenDone */);
+                        true /* exitWhenDone */);
                 // TODO update delete helper to use the model instead of the cursor
                 deleteHelper.delete(begin, end, mModel, which);
             }
@@ -511,13 +582,14 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if ((mCode & Utils.DONE_EXIT) != 0) {
                 // This will exit the edit event screen, should be called
                 // when we want to return to the main calendar views
-                if (mModel != null) {
-                    start = new Time();
-                    start.set(mModel.mStart);
-                }
-                CalendarController controller = CalendarController.getInstance(mContext);
-                controller.sendEvent(EditEventFragment.this, EventType.GO_TO, start, null, -1,
-                        mReturnView);
+//                if (mModel != null) {
+//                    start = new Time();
+//                    start.set(mModel.mStart);
+//                }
+//                CalendarController controller = CalendarController.getInstance(mContext);
+//                controller.sendEvent(EditEventFragment.this, EventType.GO_TO, start, null, -1,
+//                        mReturnView);
+                EditEventFragment.this.getActivity().finish();
             }
 
             // Hide a software keyboard so that user won't see it even after this Fragment's

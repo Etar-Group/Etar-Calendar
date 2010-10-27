@@ -61,10 +61,23 @@
                 <data android:host="com.android.calendar" />
                 <data android:scheme="content"/>
             </intent-filter>
+        </activity-alias>
+
+        <activity android:name=".event.EditEventActivity"
+            android:theme="@style/CalendarTheme.WithActionBar">
+        </activity>
+
+        <activity-alias android:name="EditEventActivity"
+            android:targetActivity=".event.EditEventActivity">
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/event" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/event" />
             </intent-filter>
         </activity-alias>
 

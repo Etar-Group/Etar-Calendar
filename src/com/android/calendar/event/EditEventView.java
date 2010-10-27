@@ -23,8 +23,8 @@ import com.android.calendar.EventInfoFragment;
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
 import com.android.calendar.TimezoneAdapter;
-import com.android.calendar.Utils;
 import com.android.calendar.TimezoneAdapter.TimezoneRow;
+import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
@@ -32,8 +32,8 @@ import com.android.common.Rfc822Validator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
@@ -93,9 +93,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Button mEndDateButton;
     Button mStartTimeButton;
     Button mEndTimeButton;
-    Button mSaveButton;
-    Button mDeleteButton;
-    Button mDiscardButton;
     Button mTimezoneButton;
     CheckBox mAllDayCheckBox;
     Spinner mCalendarsSpinner;
@@ -539,57 +536,25 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      * Does prep steps for saving a calendar event.
      *
      * This triggers a parse of the attendees list and checks if the event is
-     * ready to be saved. An event is ready to be saved so long as it has a
-     * calendar it can be associated with, either because it's an existing event
-     * or we've finished querying
+     * ready to be saved. An event is ready to be saved so long as a model
+     * exists and has a calendar it can be associated with, either because it's
+     * an existing event or we've finished querying.
      *
-     * @return false if no calendar had been loaded yet, true otherwise
+     * @return false if there is no model or no calendar had been loaded yet,
+     * true otherwise.
      */
     public boolean prepareForSave() {
-        if (mCalendarsCursor == null && mModel.mUri == null) {
+        if (mModel == null || (mCalendarsCursor == null && mModel.mUri == null)) {
             return false;
         }
         mAddAttendeesListener.onClick(null);
-        fillModelFromUI();
-        return true;
+        return fillModelFromUI();
     }
 
     // This is called if the user clicks on one of the buttons: "Save",
     // "Discard", or "Delete". This is also called if the user clicks
     // on the "remove reminder" button.
     public void onClick(View view) {
-        if (view == mSaveButton) {
-            // If we're creating a new event but haven't gotten any calendars
-            // yet let the user know we're waiting for calendars to finish
-            // loading. The save button isn't enabled until we have a non-null
-            // mModel.
-            mAddAttendeesListener.onClick(view);
-            if (mCalendarsCursor == null && mModel.mUri == null) {
-                if (mLoadingCalendarsDialog == null) {
-                    // Create the progress dialog
-                    mLoadingCalendarsDialog = ProgressDialog.show(mActivity,
-                            mActivity.getText(R.string.loading_calendars_title),
-                            mActivity.getText(R.string.loading_calendars_message), true, true,
-                            this);
-                    mSaveAfterQueryComplete = true;
-                }
-            } else if (fillModelFromUI()) {
-                mDone.setDoneCode(Utils.DONE_SAVE | Utils.DONE_EXIT);
-                mDone.run();
-            } else {
-                mDone.setDoneCode(Utils.DONE_REVERT);
-                mDone.run();
-            }
-            return;
-        } else if (view == mDeleteButton) {
-            mDone.setDoneCode(Utils.DONE_DELETE | Utils.DONE_EXIT);
-            mDone.run();
-            return;
-        } else if (view == mDiscardButton) {
-            mDone.setDoneCode(Utils.DONE_REVERT);
-            mDone.run();
-            return;
-        }
 
         // This must be a click on one of the "remove reminder" buttons
         LinearLayout reminderItem = (LinearLayout) view.getParent();
@@ -774,12 +739,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mResponseRadioGroup = (RadioGroup) view.findViewById(R.id.response_value);
         mRemindersContainer = (LinearLayout) view.findViewById(R.id.reminder_items_container);
 
-        mSaveButton = (Button) view.findViewById(R.id.save);
-        mDeleteButton = (Button) view.findViewById(R.id.delete);
-
-        mDiscardButton = (Button) view.findViewById(R.id.discard);
-        mDiscardButton.setOnClickListener(this);
-
         mAddAttendeesButton = (ImageButton) view.findViewById(R.id.add_attendee_button);
         mAddAttendeesListener = new AddAttendeeClickListener();
         mAddAttendeesButton.setEnabled(false);
@@ -818,8 +777,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             // Display loading screen
             mLoadingMessage.setVisibility(View.VISIBLE);
             mScrollView.setVisibility(View.GONE);
-            mSaveButton.setEnabled(false);
-            mDeleteButton.setEnabled(false);
             return;
         }
 
@@ -925,20 +882,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTimezoneDialog.getListView().setAdapter(mTimezoneAdapter);
         }
 
-        if (canRespond || canModifyEvent) {
-            mSaveButton.setOnClickListener(this);
-            mSaveButton.setEnabled(true);
-        } else {
-            mSaveButton.setEnabled(false);
-        }
-
-        if (canModifyCalendar) {
-            mDeleteButton.setOnClickListener(this);
-            mDeleteButton.setEnabled(true);
-        } else {
-            mDeleteButton.setEnabled(false);
-        }
-
         // Initialize the reminder values array.
         Resources r = mActivity.getResources();
         String[] strings = r.getStringArray(R.array.reminder_minutes_values);
@@ -1006,8 +949,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             // since we can't change the calendar.
             View calendarGroup = mView.findViewById(R.id.calendar_group);
             calendarGroup.setVisibility(View.GONE);
-        } else {
-            mDeleteButton.setVisibility(View.GONE);
         }
 
         populateWhen();

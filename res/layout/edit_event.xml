@@ -58,34 +58,4 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
-
-    <!-- BUTTONS -->
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@android:style/ButtonBar">
-
-        <Button
-            android:id="@+id/save"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/save_label" />
-
-        <Button
-            android:id="@+id/discard"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/discard_label" />
-
-        <Button
-            android:id="@+id/delete"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/delete_label" />
-
-    </LinearLayout>
 </LinearLayout>
