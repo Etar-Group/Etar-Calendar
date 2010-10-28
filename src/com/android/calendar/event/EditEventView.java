@@ -53,8 +53,6 @@ import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -62,7 +60,6 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.ScrollView;
@@ -78,13 +75,9 @@ import java.util.TimeZone;
 
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
         DialogInterface.OnClickListener {
-
     private static final String TAG = "EditEvent";
-
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
-
     private static final int REMINDER_FLING_VELOCITY = 2000;
-
     private LayoutInflater mLayoutInflater;
 
     ArrayList<View> mViewList = new ArrayList<View>();
@@ -112,8 +105,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     LinearLayout mRemindersContainer;
     MultiAutoCompleteTextView mAttendeesList;
     ImageButton mAddAttendeesButton;
-    ListView mGuestList;
-    AttendeesAdapter mAttendeesAdapter;
+    AttendeesView mAttendeesView;
     AddAttendeeClickListener mAddAttendeesListener;
 
     private ProgressDialog mLoadingCalendarsDialog;
@@ -202,9 +194,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             // add button wasn't clicked e.g. when the Save button is clicked.
             // The mAttendeesList may not be setup since the user doesn't have
             // permission to add attendees.
-            if (mAttendeesList != null && mAttendeesAdapter != null) {
+            if (mAttendeesList != null) {
                 mAttendeesList.performValidation();
-                mAttendeesAdapter.addAttendees(mAttendeesList.getText().toString());
+                mAttendeesView.addAttendees(mAttendeesList.getText().toString());
                 mAttendeesList.setText("");
             }
         }
@@ -557,13 +549,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     // This is called if the user clicks on one of the buttons: "Save",
     // "Discard", or "Delete". This is also called if the user clicks
     // on the "remove reminder" button.
-    public void onClick(View v) {
-        if (v == mSaveButton) {
+    public void onClick(View view) {
+        if (view == mSaveButton) {
             // If we're creating a new event but haven't gotten any calendars
             // yet let the user know we're waiting for calendars to finish
             // loading. The save button isn't enabled until we have a non-null
             // mModel.
-            mAddAttendeesListener.onClick(v);
+            mAddAttendeesListener.onClick(view);
             if (mCalendarsCursor == null && mModel.mUri == null) {
                 if (mLoadingCalendarsDialog == null) {
                     // Create the progress dialog
@@ -581,22 +573,18 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mDone.run();
             }
             return;
-        }
-
-        if (v == mDeleteButton) {
+        } else if (view == mDeleteButton) {
             mDone.setDoneCode(Utils.DONE_DELETE | Utils.DONE_EXIT);
             mDone.run();
             return;
-        }
-
-        if (v == mDiscardButton) {
+        } else if (view == mDiscardButton) {
             mDone.setDoneCode(Utils.DONE_REVERT);
             mDone.run();
             return;
         }
 
         // This must be a click on one of the "remove reminder" buttons
-        LinearLayout reminderItem = (LinearLayout) v.getParent();
+        LinearLayout reminderItem = (LinearLayout) view.getParent();
         LinearLayout parent = (LinearLayout) reminderItem.getParent();
         parent.removeView(reminderItem);
         mReminderItems.remove(reminderItem);
@@ -605,6 +593,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     // This is called if the user cancels the "No calendars" dialog.
     // The "No calendars" dialog is shown if there are no syncable calendars.
+    @Override
     public void onCancel(DialogInterface dialog) {
         if (dialog == mLoadingCalendarsDialog) {
             mLoadingCalendarsDialog = null;
@@ -617,6 +606,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     // This is called if the user clicks on a dialog button.
+    @Override
     public void onClick(DialogInterface dialog, int which) {
         if (dialog == mNoCalendarsDialog) {
             mDone.setDoneCode(Utils.DONE_REVERT);
@@ -636,7 +626,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     // Goes through the UI elements and updates the model as necessary
-    public boolean fillModelFromUI() {
+    private boolean fillModelFromUI() {
         if (mModel == null) {
             return false;
         }
@@ -652,18 +642,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mModel.mSelfAttendeeStatus = EditEventHelper.ATTENDEE_VALUES[position];
         }
 
-        if (mGuestList != null) {
-            AttendeesAdapter adapter = mAttendeesAdapter;
-            if (adapter != null && !adapter.isEmpty()) {
-                int size = adapter.getCount();
-                mModel.mAttendeesList.clear();
-                for (int i = 0; i < size; i++) {
-                    Attendee attendee = adapter.getItem(i);
-                    if (attendee == null || adapter.isRemoved(i)) {
-                        continue;
-                    }
-                    mModel.addAttendee(attendee);
+        if (mAttendeesView != null && mAttendeesView.getChildCount() > 0) {
+            final int size = mAttendeesView.getChildCount();
+            mModel.mAttendeesList.clear();
+            for (int i = 0; i < size; i++) {
+                final Attendee attendee = mAttendeesView.getItem(i);
+                if (attendee == null || mAttendeesView.isMarkAsRemoved(i)) {
+                    continue;
                 }
+                mModel.addAttendee(attendee);
             }
         }
 
@@ -786,12 +773,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mAddAttendeesListener = new AddAttendeeClickListener();
         mAddAttendeesButton.setOnClickListener(mAddAttendeesListener);
 
+        mAttendeesView = (AttendeesView)view.findViewById(R.id.attendee_list);
+        mViewList.add(mAttendeesView);
+
         mStartTime = new Time();
         mEndTime = new Time();
         mTimezone = TimeZone.getDefault().getID();
         mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
-
-        mGuestList = (ListView) view.findViewById(R.id.attendee_list);
 
         // Display loading screen
         setModel(null);
@@ -1017,6 +1005,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         populateTimezone();
         populateRepeats();
         updateAttendees(model.mAttendeesList);
+
+        // Mark read-only fields as disabled
         if (!canModifyEvent) {
             for (View v : mViewList) {
                 v.setEnabled(false);
@@ -1137,15 +1127,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return 0;
     }
 
-    // FRAG_TODO convert this from listview to linearlayout
-    public void updateAttendees(HashMap<String, Attendee> attendeesList) {
-        if (mAttendeesAdapter == null) {
-            mAttendeesAdapter = new AttendeesAdapter(mActivity, mEmailValidator);
-        }
-        if (attendeesList.size() > 0) {
-            mAttendeesAdapter.addAttendees(attendeesList);
-        }
-        mGuestList.setAdapter(mAttendeesAdapter);
+    private void updateAttendees(HashMap<String, Attendee> attendeesList) {
+        mAttendeesView.setRfc822Validator(mEmailValidator);
+        mAttendeesView.addAttendees(attendeesList);
     }
 
     private void updateRemindersVisibility(int numReminders) {
@@ -1156,7 +1140,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
     }
 
-    public void addReminder() {
+    private void addReminder() {
         // TODO: when adding a new reminder, make it different from the
         // last one in the list (if any).
         if (mDefaultReminderMinutes == 0) {
@@ -1168,10 +1152,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         updateRemindersVisibility(mReminderItems.size());
         mScrollView.fling(REMINDER_FLING_VELOCITY);
-    }
-
-    public int getReminderCount() {
-        return mReminderItems.size();
     }
 
     // From com.google.android.gm.ComposeActivity

@@ -61,14 +61,10 @@
     <string name="synced_visible" msgid="1406744353749335651">"synkroniseret, synlig"</string>
     <string name="synced_not_visible" msgid="54032655953110609">"synkroniseret, ikke synlig"</string>
     <string name="not_synced_not_visible" msgid="7178879061972059481">"ikke synkroniseret, ikke synlig"</string>
-    <!-- no translation found for synced (7913940305983383493) -->
-    <skip />
-    <!-- no translation found for not_synced (4275114941801829419) -->
-    <skip />
-    <!-- no translation found for acct_not_synced (4276198677633672868) -->
-    <skip />
-    <!-- no translation found for accounts (849401841083180306) -->
-    <skip />
+    <string name="synced" msgid="7913940305983383493">"synkroniseret"</string>
+    <string name="not_synced" msgid="4275114941801829419">"ikke synkroniseret"</string>
+    <string name="acct_not_synced" msgid="4276198677633672868">"Denne konto synkroniseres ikke, og dine kalendere opdateres muligvis ikke korrekt."</string>
+    <string name="accounts" msgid="849401841083180306">"Konti og synkronisering"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Detaljer om begivenhed"</string>
     <string name="hint_what" msgid="709155115005044531">"Begivenhedens navn"</string>
     <string name="hint_where" msgid="3116239630502213241">"Begivenhedens placering"</string>
@@ -96,21 +92,21 @@
     <string name="privacy_label" msgid="9215031965259597335">"Fortrolighed"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Påmindelser"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Der er ingen kalendere"</string>
-    <!-- no translation found for no_calendars_found (51300139477091968) -->
+    <string name="no_calendars_found" msgid="5354626435783289467">"Før en begivenhed kan tilføjes, skal minimum én Kalender-konto føjes til enheden. Tryk på \"Tilføj konto\", og tilføj en konto. Hvis en konto lige er tilføjet, skal du vente, til synkroniseringen er færdig og prøve igen."</string>
+    <string name="add_account" msgid="1669072099756774952">"Tilføj konto"</string>
+    <!-- no translation found for add_guests_label (7294569977062998743) -->
     <skip />
-    <!-- no translation found for add_account (1669072099756774952) -->
-    <skip />
-    <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
+    <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisator:"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Lokal tidszone:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Deltager?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"I dag <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Indlæser ..."</string>
-    <string name="show_older_events" msgid="6819097859184398737">"Viser begivenheder siden <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Tryk for at søge efter tidligere begivenheder."</string>
-    <string name="show_newer_events" msgid="3434093781980113106">"Viser begivenheder indtil <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Tryk for at søge efter senere begivenheder."</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Tryk for at få vist begivenheder før <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Tryk for at få vist begivenheder efter <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Søg i mine kalendere"</string>
     <string name="num_events" msgid="3351672964607162257">"Ant. beg."</string>
-    <string name="edit_event_label" msgid="2900418236819088363">"Rediger begivenhed"</string>
+    <!-- outdated translation 2900418236819088363 -->     <string name="edit_event_label" msgid="2060112143779720139">"Rediger begivenhed"</string>
     <string name="delete_label" msgid="874742811918030739">"Slet"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Slet begivenhed"</string>
     <string name="save_label" msgid="2133599104834432589">"Udfør"</string>
@@ -134,10 +130,8 @@
     <string name="delete_this_event_title" msgid="8738491083082780492">"Denne begivenhed slettes."</string>
     <string name="delete_title" msgid="5143743507524995383">"Slet"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Skift svar"</string>
-    <!-- no translation found for menu_general_preferences (4057784477122524106) -->
-    <skip />
-    <!-- no translation found for menu_about_preferences (160474554936812478) -->
-    <skip />
+    <string name="menu_general_preferences" msgid="4057784477122524106">"Generelle præferencer"</string>
+    <string name="menu_about_preferences" msgid="160474554936812478">"Om kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Indstillinger"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Indstillinger for kalendervisning"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Indstillinger for påmindelser"</string>
@@ -158,8 +152,10 @@
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Brug egen tidszone"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Viser kalenderbegivenheder i din tidszone, når du rejser"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Egen tidszone"</string>
+    <!-- no translation found for preferences_show_week_num_title (5280734329664503461) -->
+    <skip />
     <string name="preferences_about_title" msgid="2810624892412097879">"Om"</string>
-    <string name="preferences_build_version" msgid="8242471883413502068">"Version "</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"Version"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
     <item msgid="2539376794936035639">"Altid"</item>
     <item msgid="8091719131860840185">"Kun ved lydløs"</item>

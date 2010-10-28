@@ -302,10 +302,10 @@
                         style="@style/TextAppearance.EditEvent_Label" />
 
                     <!-- GUEST LIST -->
-                    <ListView
+                    <com.android.calendar.event.AttendeesView
                         android:id="@+id/attendee_list"
                         android:orientation="vertical">
-                    </ListView>
+                    </com.android.calendar.event.AttendeesView>
                 </TableRow>
             </TableLayout>
         </LinearLayout>

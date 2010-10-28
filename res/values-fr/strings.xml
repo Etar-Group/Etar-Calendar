@@ -61,14 +61,10 @@
     <string name="synced_visible" msgid="1406744353749335651">"synchronisé, visible"</string>
     <string name="synced_not_visible" msgid="54032655953110609">"synchronisé, non visible"</string>
     <string name="not_synced_not_visible" msgid="7178879061972059481">"non synchronisé, non visible"</string>
-    <!-- no translation found for synced (7913940305983383493) -->
-    <skip />
-    <!-- no translation found for not_synced (4275114941801829419) -->
-    <skip />
-    <!-- no translation found for acct_not_synced (4276198677633672868) -->
-    <skip />
-    <!-- no translation found for accounts (849401841083180306) -->
-    <skip />
+    <string name="synced" msgid="7913940305983383493">"synchronisé"</string>
+    <string name="not_synced" msgid="4275114941801829419">"non synchronisé"</string>
+    <string name="acct_not_synced" msgid="4276198677633672868">"Aucune synchronisation n\'est prévue pour ce compte. Vos agendas risquent de ne pas être mis à jour correctement."</string>
+    <string name="accounts" msgid="849401841083180306">"Comptes et synchro"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Détails sur l\'événement"</string>
     <string name="hint_what" msgid="709155115005044531">"Nom de l\'événement"</string>
     <string name="hint_where" msgid="3116239630502213241">"Lieu de l\'événement"</string>
@@ -96,21 +92,21 @@
     <string name="privacy_label" msgid="9215031965259597335">"Confidentialité"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Rappels"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Pas d\'agenda"</string>
-    <!-- no translation found for no_calendars_found (51300139477091968) -->
+    <string name="no_calendars_found" msgid="5354626435783289467">"Pour ajouter un événement, vous devez insérer au moins un compte Agenda au mobile en appuyant sur \"Ajouter un compte\". Si vous venez juste de le faire, attendez la fin de la synchronisation, puis réessayez."</string>
+    <string name="add_account" msgid="1669072099756774952">"Ajouter un compte"</string>
+    <!-- no translation found for add_guests_label (7294569977062998743) -->
     <skip />
-    <!-- no translation found for add_account (1669072099756774952) -->
-    <skip />
-    <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda :"</string>
+    <string name="view_event_calendar_label" msgid="8503354404461986250">"Agenda"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisateur :"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Fuseau horaire local :"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Participation ?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Aujourd\'hui, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Chargement…"</string>
-    <string name="show_older_events" msgid="6819097859184398737">"Événements de <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Appuyez sur l\'écran pour rechercher des événements antérieurs."</string>
-    <string name="show_newer_events" msgid="3434093781980113106">"Événements de <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Appuyez sur l\'écran pour rechercher des événements ultérieurs."</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Touchez l\'écran pour afficher les événements avant le <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Touchez l\'écran pour afficher les événements après le <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Rechercher dans mes agendas"</string>
     <string name="num_events" msgid="3351672964607162257">"Nbre d\'événements"</string>
-    <string name="edit_event_label" msgid="2900418236819088363">"Modifier l\'événement"</string>
+    <!-- outdated translation 2900418236819088363 -->     <string name="edit_event_label" msgid="2060112143779720139">"Modifier l\'événement"</string>
     <string name="delete_label" msgid="874742811918030739">"Supprimer"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Supprimer l\'événement"</string>
     <string name="save_label" msgid="2133599104834432589">"OK"</string>
@@ -134,10 +130,8 @@
     <string name="delete_this_event_title" msgid="8738491083082780492">"Cet événement va être supprimé."</string>
     <string name="delete_title" msgid="5143743507524995383">"Supprimer"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Modifier la réponse"</string>
-    <!-- no translation found for menu_general_preferences (4057784477122524106) -->
-    <skip />
-    <!-- no translation found for menu_about_preferences (160474554936812478) -->
-    <skip />
+    <string name="menu_general_preferences" msgid="4057784477122524106">"Préférences générales"</string>
+    <string name="menu_about_preferences" msgid="160474554936812478">"À propos de l\'agenda"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Paramètres"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Paramètres d\'affichage de l\'agenda"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Paramètres de rappel"</string>
@@ -158,6 +152,8 @@
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Mon fuseau horaire"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Affiche agendas et événements dans votre fuseau horaire, même en voyage"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Mon fuseau horaire"</string>
+    <!-- no translation found for preferences_show_week_num_title (5280734329664503461) -->
+    <skip />
     <string name="preferences_about_title" msgid="2810624892412097879">"À propos de"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Version"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
@@ -168,10 +164,10 @@
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Vibreur"</string>
     <string name="gadget_title" msgid="939918875331310945">"Agenda"</string>
   <plurals name="gadget_more_events">
-    <item quantity="one" msgid="1813062802420615657">"1 événement supplémentaire"</item>
+    <item quantity="one" msgid="1813062802420615657">"1 autre événement"</item>
     <item quantity="other" msgid="7993512762778431065">"<xliff:g id="NUMBER">%d</xliff:g> autres événements"</item>
   </plurals>
-    <string name="gadget_no_events" msgid="5209110911088302855">"Aucun événement d\'agenda à venir"</string>
+    <string name="gadget_no_events" msgid="5209110911088302855">"Aucun événement à venir"</string>
     <string name="tomorrow" msgid="614434811813859237">"Demain"</string>
     <string name="in_progress" msgid="3637799356103489011">"en cours"</string>
     <string name="today" msgid="8577375020252453006">"Aujourd\'hui"</string>

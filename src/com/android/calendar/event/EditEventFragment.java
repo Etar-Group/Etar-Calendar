@@ -265,7 +265,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
         }
     }
 
-    void setModelIfDone(int queryType) {
+    private void setModelIfDone(int queryType) {
         synchronized (this) {
             mOutstandingQueries &= ~queryType;
             if (mOutstandingQueries == 0) {
