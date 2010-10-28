@@ -19,11 +19,12 @@ package com.android.calendar.event;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.EmailAddressAdapter;
+import com.android.calendar.EventInfoFragment;
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
 import com.android.calendar.TimezoneAdapter;
-import com.android.calendar.TimezoneAdapter.TimezoneRow;
 import com.android.calendar.Utils;
+import com.android.calendar.TimezoneAdapter.TimezoneRow;
 import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
@@ -31,8 +32,8 @@ import com.android.common.Rfc822Validator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
@@ -42,6 +43,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.pim.EventRecurrence;
+import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Settings;
 import android.text.InputFilter;
@@ -61,6 +63,7 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.RadioGroup;
 import android.widget.ResourceCursorAdapter;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -96,7 +99,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Spinner mRepeatsSpinner;
     Spinner mTransparencySpinner;
     Spinner mVisibilitySpinner;
-    Spinner mResponseSpinner;
+    RadioGroup mResponseRadioGroup;
     TextView mTitleTextView;
     TextView mLocationTextView;
     TextView mDescriptionTextView;
@@ -637,9 +640,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mModel.mAllDay = mAllDayCheckBox.isChecked();
         mModel.mLocation = mLocationTextView.getText().toString().trim();
         mModel.mDescription = mDescriptionTextView.getText().toString().trim();
-        int position = mResponseSpinner.getSelectedItemPosition();
-        if (position > 0) {
-            mModel.mSelfAttendeeStatus = EditEventHelper.ATTENDEE_VALUES[position];
+
+        int status = EventInfoFragment.getResponseFromButtonId(mResponseRadioGroup
+                .getCheckedRadioButtonId());
+        if (status != Attendees.ATTENDEE_STATUS_NONE) {
+            mModel.mSelfAttendeeStatus = status;
         }
 
         if (mAttendeesView != null && mAttendeesView.getChildCount() > 0) {
@@ -705,7 +710,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (mModification == EditEventHelper.MODIFY_SELECTED) {
             selection = EditEventHelper.DOES_NOT_REPEAT;
         } else {
-            position = mRepeatsSpinner.getSelectedItemPosition();
+            int position = mRepeatsSpinner.getSelectedItemPosition();
             selection = mRecurrenceIndexes.get(position);
         }
 
@@ -760,7 +765,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mVisibilitySpinner = (Spinner) view.findViewById(R.id.visibility);
         mViewList.add(mVisibilitySpinner);
 
-        mResponseSpinner = (Spinner) view.findViewById(R.id.response_value);
+        mResponseRadioGroup = (RadioGroup) view.findViewById(R.id.response_value);
         mRemindersContainer = (LinearLayout) view.findViewById(R.id.reminder_items_container);
 
         mSaveButton = (Button) view.findViewById(R.id.save);
@@ -982,14 +987,17 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mDescriptionTextView.setText(model.mDescription);
         mTransparencySpinner.setSelection(model.mTransparency ? 1 : 0);
         mVisibilitySpinner.setSelection(model.mVisibility);
-        mResponseSpinner.setSelection(findResponseIndexFor(model.mSelfAttendeeStatus));
+
         View responseLabel = mView.findViewById(R.id.response_label);
         if (canRespond) {
+            int buttonToCheck = EventInfoFragment
+                    .findButtonIdForResponse(model.mSelfAttendeeStatus);
+            mResponseRadioGroup.check(buttonToCheck); // -1 clear all radio buttons
+            mResponseRadioGroup.setVisibility(View.VISIBLE);
             responseLabel.setVisibility(View.VISIBLE);
-            mResponseSpinner.setVisibility(View.VISIBLE);
         } else {
             responseLabel.setVisibility(View.GONE);
-            mResponseSpinner.setVisibility(View.GONE);
+            mResponseRadioGroup.setVisibility(View.GONE);
         }
 
         if (model.mUri != null) {
@@ -1014,16 +1022,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         mScrollView.setVisibility(View.VISIBLE);
         mLoadingMessage.setVisibility(View.GONE);
-    }
-
-    private int findResponseIndexFor(int response) {
-        int size = EditEventHelper.ATTENDEE_VALUES.length;
-        for (int index = 0; index < size; index++) {
-            if (EditEventHelper.ATTENDEE_VALUES[index] == response) {
-                return index;
-            }
-        }
-        return 0;
     }
 
     public void setCalendarsCursor(Cursor cursor, boolean userVisible) {
