@@ -249,12 +249,30 @@
                     <TextView
                         android:id="@+id/response_label"
                         android:text="@string/view_event_response_label"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
                         style="@style/TextAppearance.EditEvent_Label" />
-                    <Spinner
+                    <RadioGroup
                         android:id="@+id/response_value"
-                        style="?android:attr/textAppearanceMedium"
-                        android:prompt="@string/view_event_response_label"
-                        android:entries="@array/response_labels1" />
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/response_yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/response_yes" />
+                        <RadioButton
+                            android:id="@+id/response_maybe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/response_maybe" />
+                        <RadioButton
+                            android:id="@+id/response_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/response_no" />
+                    </RadioGroup>
                 </TableRow>
 
                 <TableRow>
@@ -265,7 +283,7 @@
                     <TextView
                         android:id="@+id/organizer" />
                 </TableRow>
-                
+
                 <TableRow>
                     <TextView
                         android:id="@+id/add_attendees_label"
