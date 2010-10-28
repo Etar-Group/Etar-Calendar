@@ -39,10 +39,10 @@ import android.os.Handler;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
-import android.text.TextUtils;
-import android.text.StaticLayout;
 import android.text.Layout.Alignment;
+import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -199,7 +199,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private Paint mSelectionPaint = new Paint();
     private Path mPath = new Path();
 
-    protected boolean mDrawTextInEventRect = true;
     private int mFirstDayOfWeek; // First day of the week
 
     private PopupWindow mPopup;
@@ -1910,19 +1909,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      */
     private StaticLayout getEventLayout(int i, Event event, Paint paint, RectF rf) {
         StaticLayout layout = mLayouts.get(i);
-
-        // Check if we have already initialized the StaticLayout
-        if (layout == null) {
+        // Check if we have already initialized the StaticLayout and that
+        // the width hasn't changed (due to vertical resizing which causes re-layout
+        // of events at min height)
+        if (layout == null || rf.width() != layout.getWidth()) {
             // No, we haven't...
-            String text = event.getTitleAndLocation();
-
-            // XXX Is this really needed when working with a StaticLayout?
-            text = drawTextSanitizer(text);
+            String text = drawTextSanitizer(event.getTitleAndLocation());
 
             // Leave a one pixel boundary on the left and right of the rectangle for the event
             layout = new StaticLayout(text, 0, text.length(), new TextPaint(paint),
-                    (int) rf.width() - 2, Alignment.ALIGN_NORMAL, 1.0f, 0.0f, true,
-                    TextUtils.TruncateAt.END, (int) rf.width() - 2);
+                    (int) rf.width(), Alignment.ALIGN_NORMAL, 1.0f, 0.0f, true,
+                    null, (int) rf.width());
 
             mLayouts.set(i, layout);
         }
@@ -2591,31 +2588,38 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         return string;
     }
 
-    private void drawEventText(StaticLayout eventLayout, RectF rf, Canvas canvas, Paint p, int topMargin) {
-        if (!mDrawTextInEventRect) {
+    private void drawEventText(StaticLayout eventLayout, RectF rf, Canvas canvas, Paint p,
+            int topMargin) {
+        float width = rf.right - rf.left;
+        float height = rf.bottom - rf.top;
+
+        // If the rectangle is too small for text, then return
+        if (width < MIN_CELL_WIDTH_FOR_TEXT) {
             return;
         }
 
-        float width = rf.right - rf.left;
-        float height = rf.bottom - rf.top;
-        p.setAntiAlias(true);
+        rf.bottom = 0;
+        int lineCount = eventLayout.getLineCount();
+        for (int i = 0; i < lineCount; i++) {
+            int lineBottom = eventLayout.getLineBottom(i);
+            if (lineBottom <= height) {
+                rf.bottom = lineBottom;
+            }
+        }
 
-        // Leave one pixel extra space between lines
-        int lineHeight = mEventTextHeight + 1;
-
-        // If the rectangle is too small for text, then return
-        if (width < MIN_CELL_WIDTH_FOR_TEXT || height <= lineHeight) {
+        if (rf.bottom == 0) {
             return;
         }
 
         // Use a StaticLayout to format the string.
+        p.setAntiAlias(true);
         canvas.save();
-        canvas.translate(rf.left + 1, rf.top ); // So the layout draw happens at the right place
-        // When creating the layout, we defined a width that was -2 from the rect to leave a border.
-        // We now draw at +1 so that border will be equal on the right and left.
-
+        canvas.translate(rf.left, rf.top);
+        rf.left = 0;
+        rf.right = width;
+        rf.top = 0;
+        canvas.clipRect(rf);
         eventLayout.draw(canvas);
-
         canvas.restore();
     }
 
