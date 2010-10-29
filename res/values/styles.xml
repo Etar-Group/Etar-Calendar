@@ -42,7 +42,7 @@
         <item name="android:paddingBottom">2dip</item>
         <item name="android:textAppearance">@style/TextAppearance.MonthView_DayLabel</item>
     </style>
-    
+
     <style name="MonthView_MiniMonthLabel">
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">2dip</item>
@@ -70,7 +70,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">top|left</item>
         <item name="android:minHeight">48dip</item>
-        <item name="android:maxWidth">200dip</item>
+        <item name="android:layout_width">144dip</item>
         <item name="android:paddingLeft">16dip</item>
         <item name="android:paddingRight">16dip</item>
     </style>
