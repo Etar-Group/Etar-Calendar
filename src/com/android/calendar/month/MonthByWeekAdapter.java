@@ -275,6 +275,11 @@ public class MonthByWeekAdapter extends BaseAdapter implements OnTouchListener {
                 Log.d(TAG, "Day returned " + day);
             }
             if (day != null) {
+                Time time = new Time();
+                time.set(mController.getTime());
+                day.hour = time.hour;
+                day.minute = time.minute;
+                day.second = time.second;
                 mController.sendEvent(
                         mContext, EventType.GO_TO, day, day, -1, ViewType.CURRENT);
             }
