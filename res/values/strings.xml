@@ -261,6 +261,12 @@
          a user is invited to a meeting or event.  The possible answers are
          'yes', 'no', and 'maybe' (and, initially, 'no response'). -->
     <string name="view_event_response_label">Attending?</string>
+    <!-- Response for whether attending an event - accepted [CHAR LIMIT=10]-->
+    <string name="response_yes">Yes</string>
+    <!-- Response for whether attending an event - tentative [CHAR LIMIT=10]-->
+    <string name="response_maybe">Maybe</string>
+    <!-- Response for whether attending an event - declined [CHAR LIMIT=10]-->
+    <string name="response_no">No</string>
 
     <!-- Agenda View strings -->
     <skip />

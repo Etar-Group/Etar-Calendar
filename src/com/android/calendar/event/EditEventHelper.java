@@ -1157,11 +1157,13 @@ public class EditEventHelper {
             endTime.hour = 0;
             endTime.minute = 0;
             endTime.second = 0;
-            if (endTime.monthDay == startTime.monthDay) {
-                endTime.monthDay++;
-            }
             endTime.timezone = timezone;
             endMillis = endTime.normalize(true);
+            if (endMillis < startMillis + DateUtils.DAY_IN_MILLIS) {
+                // EditEventView#fillModelFromUI() should treat this case, but we want to ensure
+                // the condition anyway.
+                endMillis = startMillis + DateUtils.DAY_IN_MILLIS;
+            }
         } else {
             startMillis = startTime.toMillis(true);
             endMillis = endTime.toMillis(true);

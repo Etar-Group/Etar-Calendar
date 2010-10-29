@@ -65,17 +65,17 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class EventInfoFragment extends DialogFragment implements
-        AdapterView.OnItemSelectedListener, CalendarController.EventHandler {
+public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
+        CalendarController.EventHandler {
     public static final boolean DEBUG = false;
 
     public static final String TAG = "EventInfoActivity";
@@ -185,7 +185,6 @@ public class EventInfoFragment extends DialogFragment implements
 
     private EditResponseHelper mEditResponseHelper;
 
-    private int mResponseOffset;
     private int mOriginalAttendeeResponse;
     private int mAttendeeResponseFromIntent = EditEventHelper.ATTENDEE_NO_RESPONSE;
     private boolean mIsRepeating;
@@ -357,13 +356,9 @@ public class EventInfoFragment extends DialogFragment implements
         mY = y;
     }
 
-    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-        // If they selected the "No response" option, then don't display the
-        // dialog asking which events to change.
-        if (id == 0 && mResponseOffset == 0) {
-            return;
-        }
-
+    // Implements OnCheckedChangeListener
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
         // If this is not a repeating event, then don't display the dialog
         // asking which events to change.
         if (!mIsRepeating) {
@@ -372,8 +367,7 @@ public class EventInfoFragment extends DialogFragment implements
 
         // If the selection is the same as the original, then don't display the
         // dialog asking which events to change.
-        int index = findResponseIndexFor(mOriginalAttendeeResponse);
-        if (position == index + mResponseOffset) {
+        if (checkedId == findButtonIdForResponse(mOriginalAttendeeResponse)) {
             return;
         }
 
@@ -554,13 +548,12 @@ public class EventInfoFragment extends DialogFragment implements
         if (mAttendeesCursor == null || mEventCursor == null) {
             return false;
         }
-        Spinner spinner = (Spinner) getView().findViewById(R.id.response_value);
-        int position = spinner.getSelectedItemPosition() - mResponseOffset;
-        if (position <= 0) {
+
+        RadioGroup radioGroup = (RadioGroup) getView().findViewById(R.id.response_value);
+        int status = getResponseFromButtonId(radioGroup.getCheckedRadioButtonId());
+        if (status == Attendees.ATTENDEE_STATUS_NONE) {
             return false;
         }
-
-        int status = EditEventHelper.ATTENDEE_VALUES[position];
 
         // If the status has not changed, then don't update the database
         if (status == mOriginalAttendeeResponse) {
@@ -644,14 +637,40 @@ public class EventInfoFragment extends DialogFragment implements
                 Events.CONTENT_URI, values, Utils.UNDO_DELAY);
     }
 
-    private int findResponseIndexFor(int response) {
-        int size = EditEventHelper.ATTENDEE_VALUES.length;
-        for (int index = 0; index < size; index++) {
-            if (EditEventHelper.ATTENDEE_VALUES[index] == response) {
-                return index;
-            }
+    public static int getResponseFromButtonId(int buttonId) {
+        int response;
+        switch (buttonId) {
+            case R.id.response_yes:
+                response = Attendees.ATTENDEE_STATUS_ACCEPTED;
+                break;
+            case R.id.response_maybe:
+                response = Attendees.ATTENDEE_STATUS_TENTATIVE;
+                break;
+            case R.id.response_no:
+                response = Attendees.ATTENDEE_STATUS_DECLINED;
+                break;
+            default:
+                response = Attendees.ATTENDEE_STATUS_NONE;
         }
-        return 0;
+        return response;
+    }
+
+    public static int findButtonIdForResponse(int response) {
+        int buttonId;
+        switch (response) {
+            case Attendees.ATTENDEE_STATUS_ACCEPTED:
+                buttonId = R.id.response_yes;
+                break;
+            case Attendees.ATTENDEE_STATUS_TENTATIVE:
+                buttonId = R.id.response_maybe;
+                break;
+            case Attendees.ATTENDEE_STATUS_DECLINED:
+                buttonId = R.id.response_no;
+                break;
+                default:
+                    buttonId = -1;
+        }
+        return buttonId;
     }
 
     private void doEdit() {
@@ -891,36 +910,18 @@ public class EventInfoFragment extends DialogFragment implements
 
         setVisibilityCommon(view, R.id.response_container, View.VISIBLE);
 
-        Spinner spinner = (Spinner) view.findViewById(R.id.response_value);
 
-        mResponseOffset = 0;
-
-        /* If the user has previously responded to this event
-         * we should not allow them to select no response again.
-         * Switch the entries to a set of entries without the
-         * no response option.
-         */
-        if ((mOriginalAttendeeResponse != Attendees.ATTENDEE_STATUS_INVITED)
-                && (mOriginalAttendeeResponse != EditEventHelper.ATTENDEE_NO_RESPONSE)
-                && (mOriginalAttendeeResponse != Attendees.ATTENDEE_STATUS_NONE)) {
-            CharSequence[] entries;
-            entries = getActivity().getResources().getTextArray(R.array.response_labels2);
-            mResponseOffset = -1;
-            ArrayAdapter<CharSequence> adapter =
-                new ArrayAdapter<CharSequence>(getActivity(),
-                        android.R.layout.simple_spinner_item, entries);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(adapter);
-        }
-
-        int index;
+        int response;
         if (mAttendeeResponseFromIntent != EditEventHelper.ATTENDEE_NO_RESPONSE) {
-            index = findResponseIndexFor(mAttendeeResponseFromIntent);
+            response = mAttendeeResponseFromIntent;
         } else {
-            index = findResponseIndexFor(mOriginalAttendeeResponse);
+            response = mOriginalAttendeeResponse;
         }
-        spinner.setSelection(index + mResponseOffset);
-        spinner.setOnItemSelectedListener(this);
+
+        int buttonToCheck = findButtonIdForResponse(response);
+        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.response_value);
+        radioGroup.check(buttonToCheck); // -1 clear all radio buttons
+        radioGroup.setOnCheckedChangeListener(this);
     }
 
     private void setTextCommon(View view, int id, CharSequence text) {
