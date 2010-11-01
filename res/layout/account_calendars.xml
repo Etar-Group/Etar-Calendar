@@ -22,14 +22,15 @@
     android:fillViewport="true">
 
     <TextView android:id="@+id/account_status"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         style="?android:attr/textAppearanceMedium" />
 
     <Button android:id="@+id/sync_settings"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left|center_vertical"
+        android:layout_gravity="center"
         android:text="@android:string/ok" />
 
     <include android:id="@+id/calendar_list" layout="@android:layout/list_content"/>
