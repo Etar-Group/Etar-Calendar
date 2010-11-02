@@ -42,7 +42,7 @@
             android:id="@+id/two_pane"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <!-- TOP HALF -->
             <include

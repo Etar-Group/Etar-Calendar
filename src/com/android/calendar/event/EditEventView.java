@@ -46,8 +46,10 @@ import android.pim.EventRecurrence;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Settings;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -77,7 +79,7 @@ import java.util.HashMap;
 import java.util.TimeZone;
 
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
-        DialogInterface.OnClickListener {
+        DialogInterface.OnClickListener, TextWatcher {
     private static final String TAG = "EditEvent";
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final int REMINDER_FLING_VELOCITY = 2000;
@@ -780,6 +782,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         mAddAttendeesButton = (ImageButton) view.findViewById(R.id.add_attendee_button);
         mAddAttendeesListener = new AddAttendeeClickListener();
+        mAddAttendeesButton.setEnabled(false);
         mAddAttendeesButton.setOnClickListener(mAddAttendeesListener);
 
         mAttendeesView = (AttendeesView)view.findViewById(R.id.attendee_list);
@@ -864,6 +867,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mAddressAdapter = new EmailAddressAdapter(mActivity);
             mEmailValidator = new Rfc822Validator(domain);
             mAttendeesList = initMultiAutoCompleteTextView(R.id.attendees);
+            mAttendeesList.addTextChangedListener(this);
             mViewList.add(mAttendeesList);
         }
 
@@ -1233,5 +1237,21 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEndTime.timezone = mTimezone;
         mEndTime.normalize(true);
         mTimezoneAdapter.setCurrentTimezone(mTimezone);
+    }
+
+    // TextWatcher interface
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    // TextWatcher interface
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
+    // TextWatcher interface
+    @Override
+    public void afterTextChanged(Editable s) {
+        mAddAttendeesButton.setEnabled(s.length() > 0);
     }
 }
