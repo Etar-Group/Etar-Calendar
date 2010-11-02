@@ -159,7 +159,7 @@
     <!-- Message displayed to user when an account with Calendars is not being auto-synced
         [CHAR LIMIT=120]-->
     <string name="acct_not_synced">This account is not being synced and your calendars may
-        not update correctly.</string>
+        not be up to date.</string>
     <!-- Label on button that takes user to the Accounts and Sync settings page [CHAR LIMIT=60] -->
     <string name="accounts">Accounts &amp; sync</string>
 
@@ -294,7 +294,7 @@
     <skip />
     <!-- This is the title of a popup window that is displayed when the user
          edits a repeating event. [CHAR LIMIT=20]-->
-    <string name="edit_event_label">"Open event"</string>
+    <string name="edit_event_label">"Details"</string>
     <!-- The button label for deleting an event -->
     <string name="delete_label">"Delete"</string>
     <!-- A menu item for deleting an event -->
