@@ -201,21 +201,17 @@ public class MonthWeekView extends View {
         if (mHasSelectedDay) {
             p.setColor(mSelectedWeekBGColor);
         } else {
-            p.setColor(mBGColor);
+            return;
         }
         p.setStyle(Style.FILL);
         r.top = 0;
         r.bottom = mHeight;
         r.left = mPadding;
+        r.right = mSelectedLeft - 2;
+        canvas.drawRect(r, p);
+        r.left = mSelectedRight + 3;
         r.right = mWidth - mPadding;
         canvas.drawRect(r, p);
-
-        if (mHasSelectedDay) {
-            p.setColor(mBGColor);
-            r.left = mSelectedLeft;
-            r.right = mSelectedRight;
-            canvas.drawRect(r, p);
-        }
     }
 
     private void drawWeekNums(Canvas canvas) {
@@ -267,8 +263,6 @@ public class MonthWeekView extends View {
         r.right = mWidth - mPadding;
         canvas.drawRect(r, p);
 
-        r.top = 3;
-        r.bottom = mHeight - 2;
         if (mDrawVLines) {
             for (; i < nDays; i++) {
                 int x = i * (mWidth - mPadding * 2) / nDays + mPadding;
@@ -281,20 +275,22 @@ public class MonthWeekView extends View {
 
             // Draw transparent highlight
             p.setColor(mSelectedDayOutlineColor);
-            p.setStyle(Style.STROKE);
-            p.setStrokeWidth(4);
+            p.setStyle(Style.FILL);
 
-            r.left = mSelectedLeft;
-            r.right = mSelectedLeft + 2;
+            r.top = 0;
+            r.bottom = mHeight;
+            r.left = mSelectedLeft - 2;
+            r.right = mSelectedLeft + 4;
             canvas.drawRect(r, p);
-            r.left = mSelectedRight -1;
-            r.right = mSelectedRight + 1;
+            r.left = mSelectedRight - 3;
+            r.right = mSelectedRight + 3;
             canvas.drawRect(r, p);
 
             // Draw the darker fill
             p.setColor(mSelectedDayBarColor);
-            p.setStyle(Style.FILL);
 
+            r.top = 3;
+            r.bottom = mHeight - 2;
             r.left = mSelectedLeft;
             r.right = mSelectedLeft + 2;
             canvas.drawRect(r, p);
