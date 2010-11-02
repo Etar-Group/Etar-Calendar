@@ -69,6 +69,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final int HANDLER_KEY = 0;
     private static CalendarController mController;
     private static boolean mIsMultipane;
+    private boolean mOnSaveInstanceStateCalled = false;
     private ContentResolver mContentResolver;
     private int mPreviousView;
     private int mCurrentView;
@@ -191,6 +192,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
         updateHomeClock();
         mPaused = false;
+        mOnSaveInstanceStateCalled = false;
     }
 
     @Override
@@ -218,6 +220,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        mOnSaveInstanceStateCalled = true;
         super.onSaveInstanceState(outState);
 
         outState.putLong(BUNDLE_KEY_RESTORE_TIME, mController.getTime());
@@ -367,6 +370,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     private void setMainPane(FragmentTransaction ft, int viewId, int viewType, long timeMillis,
             boolean force, EventInfo e) {
+        if (mOnSaveInstanceStateCalled) {
+            return;
+        }
         if (!force && mCurrentView == viewType) {
             return;
         }
