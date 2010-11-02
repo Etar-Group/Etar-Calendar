@@ -43,8 +43,24 @@
             android:capitalize="sentences" />
     </TableRow>
 
-    <!-- FROM -->
-    <TableRow>
+
+    <!-- WHEN - Read-only textview version of FROM/TO (below) -->
+    <TableRow
+        android:id="@+id/when_row"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/when_label"
+            android:text="@string/when_label"
+            style="@style/TextAppearance.EditEvent_Label" />
+        <TextView
+            android:id="@+id/when"
+            android:paddingLeft="4dip"
+            style="@style/TextAppearance.EditEvent_Value" />
+    </TableRow>
+
+    <!-- FROM - Read/write version which launches the date/time pickers -->
+    <TableRow
+        android:id="@+id/from_row">
         <TextView
             android:id="@+id/from_label"
             android:text="@string/edit_event_from_label"
@@ -68,8 +84,9 @@
         </LinearLayout>
     </TableRow>
 
-    <!-- TO -->
-    <TableRow>
+    <!-- TO - Read/write version which launches the date/time pickers -->
+    <TableRow
+        android:id="@+id/to_row">
         <TextView
             android:id="@+id/to_label"
             android:text="@string/edit_event_to_label"
@@ -93,14 +110,28 @@
         </LinearLayout>
     </TableRow>
 
-    <!-- TIME ZONE -->
-    <TableRow>
+    <!-- TIME ZONE - Read-only textview version -->
+    <TableRow
+        android:id="@+id/timezone_textview_row"
+        android:visibility="gone">
+        <TextView
+            android:text="@string/timezone_label"
+            style="@style/TextAppearance.EditEvent_Label" />
+        <TextView
+            android:id="@+id/timezone_textView"
+            android:paddingLeft="5dip"
+            style="@style/TextAppearance.EditEvent_Value" />
+    </TableRow>
+
+    <!-- TIME ZONE - Read/write version with button to launch picker -->
+    <TableRow
+        android:id="@+id/timezone_button_row">
         <TextView
             android:id="@+id/timezone_label"
             android:text="@string/timezone_label"
             style="@style/TextAppearance.EditEvent_Label" />
         <Button
-            android:id="@+id/timezone"
+            android:id="@+id/timezone_button"
             android:gravity="left|center_vertical"
             style="?android:attr/textAppearanceMedium" />
     </TableRow>

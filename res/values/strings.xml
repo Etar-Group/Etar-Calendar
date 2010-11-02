@@ -25,6 +25,8 @@
     <string name="what_label">What</string>
     <!-- This is the label for the location of an event -->
     <string name="where_label">Where</string>
+    <!-- This is the label for the time of an event [CHAR LIMIT=30] -->
+    <string name="when_label">When</string>
     <!-- This is the label for the timezone of an event [CHAR LIMIT=30] -->
     <string name="timezone_label">Timezone</string>
     <!-- This is the label for the Guests/Attendees of an event -->
