@@ -185,7 +185,6 @@ public class DayView extends View
     private Rect mSrcRect = new Rect();
     private Rect mDestRect = new Rect();
     private Paint mPaint = new Paint();
-    private Paint mPaintBorder = new Paint();
     private Paint mEventTextPaint = new Paint();
     private Paint mSelectionPaint = new Paint();
     private Path mPath = new Path();
@@ -210,10 +209,10 @@ public class DayView extends View
 
     private static final int DAY_GAP = 1;
     private static final int HOUR_GAP = 1;
-    private static int SINGLE_ALLDAY_HEIGHT = 20;
-    private static int MAX_ALLDAY_HEIGHT = 72;
+    private static int SINGLE_ALLDAY_HEIGHT = 34;
+    private static int MAX_ALLDAY_HEIGHT = 100;
     private static int ALLDAY_TOP_MARGIN = 3;
-    private static int MAX_ALLDAY_EVENT_HEIGHT = 18;
+    private static int MAX_ALLDAY_EVENT_HEIGHT = 34;
 
     /* The extra space to leave above the text in all-day events */
     private static final int ALL_DAY_TEXT_TOP_MARGIN = 0;
@@ -263,6 +262,10 @@ public class DayView extends View
     private static float EVENT_TEXT_BOTTOM_MARGIN = 5;
     private static float EVENT_TEXT_LEFT_MARGIN = 8;
     private static float EVENT_TEXT_RIGHT_MARGIN = 7;
+    private static float EVENT_ALL_DAY_TEXT_TOP_MARGIN = 4;
+    private static float EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN = 2;
+    private static float EVENT_ALL_DAY_TEXT_LEFT_MARGIN = EVENT_TEXT_LEFT_MARGIN;
+    private static float EVENT_ALL_DAY_TEXT_RIGHT_MARGIN = EVENT_TEXT_RIGHT_MARGIN;
 
     private static int mSelectionColor;
     private static int mPressedColor;
@@ -411,6 +414,10 @@ public class DayView extends View
                 EVENT_TEXT_BOTTOM_MARGIN *= mScale;
                 EVENT_TEXT_LEFT_MARGIN *= mScale;
                 EVENT_TEXT_RIGHT_MARGIN *= mScale;
+                EVENT_ALL_DAY_TEXT_TOP_MARGIN *= mScale;
+                EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN *= mScale;
+                EVENT_ALL_DAY_TEXT_LEFT_MARGIN *= mScale;
+                EVENT_ALL_DAY_TEXT_RIGHT_MARGIN *= mScale;
                 EVENT_RECT_TOP_MARGIN *= mScale;
                 EVENT_RECT_BOTTOM_MARGIN *= mScale;
                 EVENT_RECT_LEFT_MARGIN *= mScale;
@@ -494,11 +501,6 @@ public class DayView extends View
 
         p = mPaint;
         p.setAntiAlias(true);
-
-        mPaintBorder.setColor(0xffc8c8c8);
-        mPaintBorder.setStyle(Style.STROKE);
-        mPaintBorder.setAntiAlias(true);
-        mPaintBorder.setStrokeWidth(2.0f);
 
         // Allocate space for 2 weeks worth of weekday names so that we can
         // easily start the week display at any week day.
@@ -826,7 +828,7 @@ public class DayView extends View
         }
         mMaxAllDayEvents = maxAllDayEvents;
 
-        // Calcurates mAllDayHeight
+        // Calculate mAllDayHeight
 
         mFirstCell = DAY_HEADER_HEIGHT;
         int allDayHeight = 0;
@@ -1711,7 +1713,7 @@ public class DayView extends View
 
         // Draw the outer horizontal grid lines
         p.setColor(mCalendarGridLineHorizontalColor);
-        p.setStyle(Style.STROKE);
+        p.setStyle(Style.FILL);
         p.setStrokeWidth(GRID_LINE_WIDTH);
         p.setAntiAlias(false);
         final float startX = 0;
@@ -1819,6 +1821,20 @@ public class DayView extends View
         return box;
     }
 
+    private void setupTextRect(RectF rf) {
+        rf.top += EVENT_TEXT_TOP_MARGIN;
+        rf.bottom -= EVENT_TEXT_BOTTOM_MARGIN;
+        rf.left += EVENT_TEXT_LEFT_MARGIN;
+        rf.right -= EVENT_TEXT_RIGHT_MARGIN;
+    }
+
+    private void setupAllDayTextRect(RectF rf) {
+        rf.top += EVENT_ALL_DAY_TEXT_TOP_MARGIN;
+        rf.bottom -= EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN;
+        rf.left += EVENT_ALL_DAY_TEXT_LEFT_MARGIN;
+        rf.right -= EVENT_ALL_DAY_TEXT_RIGHT_MARGIN;
+    }
+
     private void drawAllDayEvents(int firstDay, int numDays,
             Rect r, Canvas canvas, Paint p) {
         p.setTextSize(NORMAL_FONT_SIZE);
@@ -1841,7 +1857,7 @@ public class DayView extends View
 
         // Draw the outer vertical grid lines
         p.setColor(mCalendarGridLineVerticalColor);
-        p.setStyle(Style.STROKE);
+        p.setStyle(Style.FILL);
         p.setStrokeWidth(GRID_LINE_WIDTH);
         p.setAntiAlias(false);
         final float startY = DAY_HEADER_HEIGHT;
@@ -1899,14 +1915,13 @@ public class DayView extends View
 
             // Leave a one-pixel space between the vertical day lines and the
             // event rectangle.
-            event.left = left + startIndex * (mCellWidth + DAY_GAP) + 2;
-            event.right = left + endIndex * (mCellWidth + DAY_GAP) + mCellWidth - 1;
+            event.left = left + startIndex * (mCellWidth + DAY_GAP);
+            event.right = left + endIndex * (mCellWidth + DAY_GAP) + mCellWidth;
             event.top = y + height * event.getColumn();
+            event.bottom = event.top + height;
 
-            // Multiply the height by 0.9 to leave a little gap between events
-            event.bottom = event.top + height * 0.9f;
-
-            RectF rf = drawAllDayEventRect(event, canvas, p, eventTextPaint);
+            RectF rf = drawEventRect(event, canvas, p, eventTextPaint);
+            setupAllDayTextRect(rf);
             drawEventText(event, rf, canvas, eventTextPaint, ALL_DAY_TEXT_TOP_MARGIN);
 
             // Check if this all-day event intersects the selected day
@@ -1923,7 +1938,8 @@ public class DayView extends View
             computeAllDayNeighbors();
             if (mSelectedEvent != null) {
                 Event event = mSelectedEvent;
-                RectF rf = drawAllDayEventRect(event, canvas, p, eventTextPaint);
+                RectF rf = drawEventRect(event, canvas, p, eventTextPaint);
+                setupAllDayTextRect(rf);
                 drawEventText(event, rf, canvas, eventTextPaint, ALL_DAY_TEXT_TOP_MARGIN);
             }
 
@@ -2059,6 +2075,7 @@ public class DayView extends View
             }
 
             RectF rf = drawEventRect(event, canvas, p, eventTextPaint);
+            setupTextRect(rf);
             drawEventText(event, rf, canvas, eventTextPaint, NORMAL_TEXT_TOP_MARGIN);
         }
 
@@ -2067,6 +2084,7 @@ public class DayView extends View
             computeNeighbors();
             if (mSelectedEvent != null) {
                 RectF rf = drawEventRect(mSelectedEvent, canvas, p, eventTextPaint);
+                setupTextRect(rf);
                 drawEventText(mSelectedEvent, rf, canvas, eventTextPaint, NORMAL_TEXT_TOP_MARGIN);
             }
         }
@@ -2410,15 +2428,17 @@ public class DayView extends View
         // TODO clean up once design is final
         rf.top = event.top - 2;
         rf.left = event.left - 3;
-        rf.bottom = rf.top + CALENDAR_COLOR_SQUARE_SIZE;
-        rf.right = rf.left + CALENDAR_COLOR_SQUARE_SIZE;
+        rf.bottom = rf.top + CALENDAR_COLOR_SQUARE_SIZE + 1;
+        rf.right = rf.left + CALENDAR_COLOR_SQUARE_SIZE + 1;
         p.setColor(0xFFFFFFFF);
-        p.setStyle(Style.STROKE);
+        p.setStyle(Style.FILL);
         canvas.drawRect(rf, p);
 
         // Draw cal color
         rf.top++;
         rf.left++;
+        rf.bottom--;
+        rf.right--;
         p.setColor(event.color);
         p.setStyle(Style.FILL);
         canvas.drawRect(rf, p);
@@ -2442,11 +2462,6 @@ public class DayView extends View
         rf.bottom = event.bottom - EVENT_RECT_BOTTOM_MARGIN;
         rf.left = event.left + EVENT_RECT_LEFT_MARGIN;
         rf.right = event.right - EVENT_RECT_RIGHT_MARGIN;
-
-        rf.top += EVENT_TEXT_TOP_MARGIN;
-        rf.bottom -= EVENT_TEXT_BOTTOM_MARGIN;
-        rf.left += EVENT_TEXT_LEFT_MARGIN;
-        rf.right -= EVENT_TEXT_RIGHT_MARGIN;
         return rf;
     }
 
