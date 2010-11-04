@@ -35,7 +35,7 @@
 
     <style name="MonthView_DayLabel">
         <item name="android:layout_width">29dip</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">2dip</item>
@@ -53,6 +53,12 @@
     </style>
 
     <style name="TextAppearance" parent="android:TextAppearance">
+    </style>
+
+    <style name="TextAppearance.MonthView_MiniDayLabel">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/month_other_month_day_number</item>
     </style>
 
     <style name="TextAppearance.MonthView_DayLabel">
