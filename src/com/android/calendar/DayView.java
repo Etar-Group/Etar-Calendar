@@ -495,8 +495,7 @@ public class DayView extends View
         int gridLineColor = mResources.getColor(R.color.calendar_grid_line_highlight_color);
         Paint p = mSelectionPaint;
         p.setColor(gridLineColor);
-        p.setStyle(Style.STROKE);
-        p.setStrokeWidth(2.0f);
+        p.setStyle(Style.FILL);
         p.setAntiAlias(false);
 
         p = mPaint;
@@ -1619,27 +1618,26 @@ public class DayView extends View
         // Draw a highlight on the selected hour (if needed)
         if (mSelectionMode != SELECTION_HIDDEN && !mSelectionAllDay) {
             // p.setColor(mCalendarHourSelected);
+            int daynum = mSelectionDay - mFirstJulianDay;
             r.top = mSelectionHour * (mCellHeight + HOUR_GAP);
             r.bottom = r.top + mCellHeight + 2 * HOUR_GAP;
-            // r.left = 0;
-            // r.right = mHoursWidth;
-            // canvas.drawRect(r, p);
-
-            // Also draw the highlight on the grid
-            p.setColor(mCalendarGridAreaSelected);
-            int daynum = mSelectionDay - mFirstJulianDay;
-            r.left = mHoursWidth + daynum * (mCellWidth + DAY_GAP);
-            r.right = r.left + mCellWidth;
-            canvas.drawRect(r, p);
+            r.left = mHoursWidth + daynum * (mCellWidth + DAY_GAP) - DAY_GAP;
+            r.right = r.left + mCellWidth + DAY_GAP;
 
             // Draw a border around the highlighted grid hour.
             Path path = mPath;
-            r.top += HOUR_GAP;
-            r.bottom -= HOUR_GAP;
             path.reset();
             path.addRect(r.left, r.top, r.right, r.bottom, Direction.CW);
             canvas.drawPath(path, mSelectionPaint);
             saveSelectionPosition(r.left, r.top, r.right, r.bottom);
+
+            // Also draw the highlight on the grid
+            p.setColor(mCalendarGridAreaSelected);
+            r.top += HOUR_GAP;
+            r.bottom -= HOUR_GAP;
+            r.left += DAY_GAP;
+            r.right -= DAY_GAP;
+            canvas.drawRect(r, p);
         }
 
         p.setColor(mCalendarHourLabel);
@@ -1697,10 +1695,10 @@ public class DayView extends View
     private void drawGridBackground(Rect r, Canvas canvas, Paint p) {
         Paint.Style savedStyle = p.getStyle();
 
-        r.top = 0;
-        r.bottom = mMaxViewStartY + mGridAreaHeight;
-        r.left = 0;
-        r.right = mViewWidth;
+//        r.top = 0;
+//        r.bottom = mMaxViewStartY + mGridAreaHeight;
+//        r.left = 0;
+//        r.right = mViewWidth;
         // p.setColor(mCalendarGridAreaBackground);
         // canvas.drawRect(r, p);
         // TODO readd code for drawing bg image instead of color
@@ -1714,14 +1712,21 @@ public class DayView extends View
         // Draw the outer horizontal grid lines
         p.setColor(mCalendarGridLineHorizontalColor);
         p.setStyle(Style.FILL);
-        p.setStrokeWidth(GRID_LINE_WIDTH);
+
         p.setAntiAlias(false);
         final float startX = 0;
         final float stopX = mHoursWidth + (mCellWidth + DAY_GAP) * mNumDays;
         float y = 0;
         final float deltaY = mCellHeight + HOUR_GAP;
+        r.left = (int) startX;
+        r.right = (int) stopX;
+        p.setStrokeWidth(GRID_LINE_WIDTH);
         for (int hour = 0; hour <= 24; hour++) {
-            canvas.drawLine(startX, y, stopX, y, p);
+            r.top = (int) (y - GRID_LINE_WIDTH / 2);
+            r.bottom = r.top + GRID_LINE_WIDTH;
+            // TODO use drawLine after Romain fixes drawing bug
+            canvas.drawRect(r, p);
+//            canvas.drawLine(startX, y, stopX, y, p);
             y += deltaY;
         }
 

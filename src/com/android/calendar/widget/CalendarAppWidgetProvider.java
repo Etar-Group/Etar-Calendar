@@ -28,6 +28,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.net.Uri.Builder;
+import android.provider.Calendar;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -222,7 +224,9 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
 
     private static PendingIntent getNewEventPendingIntent(Context context) {
         Intent newEventIntent = new Intent(Intent.ACTION_EDIT);
-        newEventIntent.setType("vnd.android.cursor.item/event");
+        Builder builder = Calendar.CONTENT_URI.buildUpon();
+        builder.appendPath("events");
+        newEventIntent.setData(builder.build());
         return PendingIntent.getActivity(context, 0, newEventIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }

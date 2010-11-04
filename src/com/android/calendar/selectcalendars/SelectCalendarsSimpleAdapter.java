@@ -21,7 +21,9 @@ import com.android.calendar.R;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.PathShape;
 import android.graphics.drawable.shapes.RectShape;
 import android.provider.Calendar.Calendars;
 import android.text.TextUtils;
@@ -35,7 +37,9 @@ import android.widget.TextView;
 public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAdapter {
     private static final int SELECTED_BOX_BORDER = 4;
     private static int COLOR_CHIP_SIZE = 30;
-    private RectShape r = new RectShape();
+    private RectShape mSelectedShape = new RectShape();
+    private Path mUnselectedPath = new Path();
+    private PathShape mUnselectedShape;
 
     private LayoutInflater mInflater;
     private int mLayout;
@@ -61,7 +65,17 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         initData(c);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         COLOR_CHIP_SIZE *= context.getResources().getDisplayMetrics().density;
-        r.resize(COLOR_CHIP_SIZE, COLOR_CHIP_SIZE);
+        mSelectedShape.resize(COLOR_CHIP_SIZE, COLOR_CHIP_SIZE);
+        // TODO replace this with the actual visuals for selected unselected
+        mUnselectedPath.moveTo(0, 0);
+        mUnselectedPath.lineTo(2, 0);
+        mUnselectedPath.lineTo(COLOR_CHIP_SIZE, COLOR_CHIP_SIZE - 2);
+        mUnselectedPath.lineTo(COLOR_CHIP_SIZE, COLOR_CHIP_SIZE);
+        mUnselectedPath.lineTo(COLOR_CHIP_SIZE - 2, COLOR_CHIP_SIZE);
+        mUnselectedPath.lineTo(0, 2);
+        mUnselectedPath.lineTo(0,0);
+
+        mUnselectedShape = new PathShape(mUnselectedPath, COLOR_CHIP_SIZE, COLOR_CHIP_SIZE);
     }
 
     private void initData(Cursor c) {
@@ -115,17 +129,18 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         }
 
         View colorView = view.findViewById(R.id.color);
-        ShapeDrawable box = new ShapeDrawable(r);
-        Paint p = box.getPaint();
-        p.setColor(color);
+        ShapeDrawable selectionShape;
         if (selected) {
-            p.setStyle(Paint.Style.FILL_AND_STROKE);
+            selectionShape = new ShapeDrawable(mSelectedShape);
         } else {
-            p.setStyle(Paint.Style.STROKE);
-            p.setStrokeWidth(SELECTED_BOX_BORDER);
+            selectionShape = new ShapeDrawable(mUnselectedShape);
         }
 
-        colorView.setBackgroundDrawable(box);
+        Paint p = selectionShape.getPaint();
+        p.setColor(color);
+        p.setStyle(Paint.Style.FILL);
+        colorView.setBackgroundDrawable(selectionShape);
+
         setText(view, R.id.calendar, name);
         return view;
     }

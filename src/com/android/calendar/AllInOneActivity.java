@@ -24,7 +24,6 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
-import com.android.calendar.event.EditEventFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
@@ -409,9 +408,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 }
                 frag = new MonthFragment(false, timeMillis, false);
                 break;
-            case ViewType.EDIT:
-                frag = new EditEventFragment(e, mPreviousView);
-                break;
+//            case ViewType.EDIT:
+//                frag = new EditEventFragment(e, mPreviousView);
+//                break;
             default:
                 throw new IllegalArgumentException(
                         "Must be Agenda, Day, Week, or Month ViewType, not " + viewType);
@@ -484,23 +483,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public long getSupportedEventTypes() {
-        return EventType.GO_TO | EventType.VIEW_EVENT | EventType.EDIT_EVENT
-                | EventType.CREATE_EVENT;
+        return EventType.GO_TO | EventType.VIEW_EVENT;
     }
 
     @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
-            if (mCurrentView == ViewType.EDIT) {
-                // If we are leaving the edit view ping it so it has a chance to
-                // save if it needs to
-                EventHandler editHandler = (EventHandler) getFragmentManager().findFragmentById(
-                        R.id.main_pane);
-                if (editHandler != null) {
-                    editHandler.handleEvent(event);
-                }
-            }
-
             // Set title bar
             // TODO: Currently we don't have an appropriate way to add title bar when
             //        ActionBar is in TabNavigation mode.
@@ -526,12 +514,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     event.id, event.startTime.toMillis(false), event.endTime.toMillis(false));
             fragment.setDialogParams(event.x, event.y);
             fragment.show(getFragmentManager(), "EventInfoFragment");
-        } else if (event.eventType == EventType.EDIT_EVENT
-                || event.eventType == EventType.CREATE_EVENT) {
-            setMainPane(null, R.id.main_pane, ViewType.EDIT, -1, true, event);
-            // hide minimonth and calendar frag
-            findViewById(R.id.mini_month).setVisibility(View.GONE);
-            findViewById(R.id.calendar_list).setVisibility(View.GONE);
         }
         updateHomeClock();
     }

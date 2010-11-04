@@ -19,6 +19,8 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
+import com.android.calendar.event.EditEventActivity;
+
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.SearchManager;
@@ -223,7 +225,7 @@ public class CalendarController {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         if (eventType == EventType.EDIT_EVENT) {
-            info.viewType = ViewType.EDIT;
+            info.viewType = ViewType.CURRENT;
         }
         info.id = eventId;
         info.startTime = new Time();
@@ -292,7 +294,7 @@ public class CalendarController {
             mViewType = mDetailViewType;
         } else if (event.viewType == ViewType.CURRENT) {
             event.viewType = mViewType;
-        } else {
+        } else if (event.viewType != ViewType.EDIT){
             mViewType = event.viewType;
 
             if (event.viewType == ViewType.AGENDA || event.viewType == ViewType.DAY) {
@@ -307,8 +309,7 @@ public class CalendarController {
         event.startTime = mTime;
 
         // Store the eventId if we're entering edit event
-        if ((event.eventType & (EventType.CREATE_EVENT | EventType.EDIT_EVENT)) != 0 ||
-                (event.eventType == EventType.GO_TO && event.viewType == ViewType.EDIT)) {
+        if ((event.eventType & (EventType.CREATE_EVENT | EventType.EDIT_EVENT)) != 0) {
             if (event.id > 0) {
                 mEventId = event.id;
             } else {
