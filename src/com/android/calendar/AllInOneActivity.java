@@ -244,7 +244,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
         FragmentTransaction ft = getFragmentManager().openTransaction();
 
         if (mIsMultipane) {
-            View miniMonth = findViewById(R.id.mini_month);
             Fragment miniMonthFrag = new MonthByWeekFragment(true);
             ft.replace(R.id.mini_month, miniMonthFrag);
             mController.registerEventHandler(R.id.mini_month, (EventHandler) miniMonthFrag);

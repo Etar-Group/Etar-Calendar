@@ -77,6 +77,8 @@ public class CalendarEventModel {
     public Uri mUri = null;
     public long mId = -1;
     public long mCalendarId = -1;
+    public String mCalendarDisplayName = ""; // Make sure this is in sync with the mCalendarId
+
     public String mSyncId = null;
     public String mSyncAccount = null;
     public String mSyncAccountType = null;
