@@ -176,7 +176,7 @@
     <!-- Default value of Description field (as a hint to the user) -->
     <string name="hint_description">"Event description"</string>
     <!-- Default value of Attendees/Guests field (as a hint to the user) -->
-    <string name="hint_attendees">"Email addresses"</string>
+    <string name="hint_attendees">"Enter email addresses"</string>
     <!-- Toast message displayed when a new event is created -->
     <string name="creating_event">"Event created"</string>
     <!-- Toast message displayed when an existing event is saved after being modified -->
