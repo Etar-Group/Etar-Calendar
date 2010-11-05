@@ -19,30 +19,35 @@
     android:stretchColumns="1"
     android:shrinkColumns="1">
 
+    <!-- WHAT -->
+    <TableRow>
+        <TextView
+            android:id="@+id/what_label"
+            style="@style/TextAppearance.EditEvent_Label" />
+        <EditText
+            android:id="@+id/title"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:hint="@string/hint_what"
+            android:capitalize="sentences" />
+    </TableRow>
+
     <!-- CALENDARS -->
     <TableRow
         android:id="@+id/calendar_group">
         <TextView
             android:id="@+id/calendars_label"
             android:text="@string/edit_event_calendar_label"
-            style="@style/TextAppearance.EditEvent_Label" />
+            style="@style/TextAppearance.EditEvent_Label"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical" />
         <Spinner
             android:id="@+id/calendars"
-            android:prompt="@string/edit_event_calendar_label" />
+            android:prompt="@string/edit_event_calendar_label"
+            style="@style/TextAppearance.EditEvent_Value"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical" />
     </TableRow>
-
-    <!-- WHAT -->
-    <TableRow>
-        <TextView
-            android:id="@+id/what_label"
-            android:text="@string/what_label"
-            style="@style/TextAppearance.EditEvent_Label" />
-        <EditText
-            android:id="@+id/title"
-            android:hint="@string/hint_what"
-            android:capitalize="sentences" />
-    </TableRow>
-
 
     <!-- WHEN - Read-only textview version of FROM/TO (below) -->
     <TableRow
@@ -73,14 +78,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
                 android:gravity="left|center_vertical"
-                style="?android:attr/textAppearanceMedium" />
+                style="@style/TextAppearance.EditEvent_Value" />
             <Button
                 android:id="@+id/start_time"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="left|center_vertical"
-                style="?android:attr/textAppearanceMedium" />
+                style="@style/TextAppearance.EditEvent_Value" />
         </LinearLayout>
     </TableRow>
 
@@ -99,14 +104,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
                 android:gravity="left|center_vertical"
-                style="?android:attr/textAppearanceMedium" />
+                style="@style/TextAppearance.EditEvent_Value" />
             <Button
                 android:id="@+id/end_time"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="left|center_vertical"
-                style="?android:attr/textAppearanceMedium" />
+                style="@style/TextAppearance.EditEvent_Value" />
         </LinearLayout>
     </TableRow>
 
@@ -133,7 +138,7 @@
         <Button
             android:id="@+id/timezone_button"
             android:gravity="left|center_vertical"
-            style="?android:attr/textAppearanceMedium" />
+            style="@style/TextAppearance.EditEvent_Value" />
     </TableRow>
 
     <!-- ALL DAY -->
@@ -158,6 +163,7 @@
         <EditText
             android:id="@+id/location"
             android:singleLine="true"
+            style="@style/TextAppearance.EditEvent_Value"
             android:hint="@string/hint_where" />
     </TableRow>
 
@@ -171,6 +177,7 @@
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:hint="@string/hint_description"
+            style="@style/TextAppearance.EditEvent_Value"
             android:capitalize="sentences" />
     </TableRow>
 
@@ -182,31 +189,8 @@
             style="@style/TextAppearance.EditEvent_Label" />
         <Spinner
             android:id="@+id/repeats"
+            style="@style/TextAppearance.EditEvent_Value"
             android:prompt="@string/repeats_label" />
-    </TableRow>
-
-    <!-- PRESENCE - Show me as [busy | available] -->
-    <TableRow>
-        <TextView
-            android:id="@+id/presence_label"
-            android:text="@string/presence_label"
-            style="@style/TextAppearance.EditEvent_Label" />
-        <Spinner
-            android:id="@+id/availability"
-            android:entries="@array/availability"
-            android:prompt="@string/presence_label" />
-    </TableRow>
-
-    <!-- PRIVACY -->
-    <TableRow>
-        <TextView
-            android:id="@+id/privacy_label"
-            android:text="@string/privacy_label"
-            style="@style/TextAppearance.EditEvent_Label" />
-        <Spinner
-            android:id="@+id/visibility"
-            android:entries="@array/visibility"
-            android:prompt="@string/privacy_label" />
     </TableRow>
 
     <!-- REMINDERS -->
@@ -222,6 +206,7 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                style="@style/TextAppearance.EditEvent_Value"
                 android:orientation="vertical" />
             <ImageButton
                 android:id="@+id/reminder_add"
@@ -230,5 +215,31 @@
                 style="@style/PlusButton"
                 android:gravity="center_vertical|right" />
         </LinearLayout>
+    </TableRow>
+    
+    <!-- PRESENCE - Show me as [busy | available] -->
+    <TableRow>
+        <TextView
+            android:id="@+id/presence_label"
+            android:text="@string/presence_label"
+            style="@style/TextAppearance.EditEvent_Label" />
+        <Spinner
+            android:id="@+id/availability"
+            android:entries="@array/availability"
+            style="@style/TextAppearance.EditEvent_Value"
+            android:prompt="@string/presence_label" />
+    </TableRow>
+
+    <!-- PRIVACY -->
+    <TableRow>
+        <TextView
+            android:id="@+id/privacy_label"
+            android:text="@string/privacy_label"
+            style="@style/TextAppearance.EditEvent_Label" />
+        <Spinner
+            android:id="@+id/visibility"
+            android:entries="@array/visibility"
+            style="@style/TextAppearance.EditEvent_Value"
+            android:prompt="@string/privacy_label" />
     </TableRow>
 </TableLayout>

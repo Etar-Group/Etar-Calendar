@@ -16,24 +16,28 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="#fafafa"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="4dip">
+    android:paddingTop="25dip"
+    android:paddingLeft="24dip">
+
+    <!-- CALENDAR COLOR -->
+    <View
+        android:id="@+id/color"
+        android:layout_width="12dip"
+        android:layout_height="12dip"
+        android:layout_gravity="top|left"
+        android:layout_marginTop="9dip"
+        android:layout_marginRight="8dip" />
 
     <LinearLayout
-        android:id="@+id/event"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <View
-            android:id="@+id/color"
-            android:layout_width="28dip"
-            android:layout_height="28dip"
-            android:layout_gravity="center|left"
-            android:layout_marginRight="10dip" />
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingRight="24dip">
 
         <!-- WHAT -->
         <TextView
@@ -44,139 +48,141 @@
             android:textStyle="bold"
             style="?android:attr/textAppearanceLarge" />
 
-    </LinearLayout>
-
-    <!-- WHEN -->
-    <TextView
-        android:id="@+id/when"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="4dip"
-        android:textStyle="bold"
-        style="?android:attr/textAppearanceMedium" />
-
-    <!-- REPEATS -->
-    <LinearLayout
-        android:id="@+id/repeat_container"
-        android:visibility="gone"
-        android:orientation="horizontal"
-        android:paddingTop="4dip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/repeat_icon"
+        <!-- WHEN -->
+        <TextView
+            android:id="@+id/when"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_repeat_dark"
-            android:focusable="false"
-            android:clickable="false" />
-
-        <TextView
-            android:id="@+id/repeat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dip"
+            android:paddingTop="4dip"
+            android:textStyle="bold"
             style="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
 
-    <!-- WHERE -->
-    <TextView
-        android:id="@+id/where"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="4dip"
-        android:autoLink="all"
-        style="?android:attr/textAppearanceMedium" />
+        <!-- REPEATS -->
+        <LinearLayout
+            android:id="@+id/repeat_container"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:paddingTop="4dip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/repeat_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_repeat_dark"
+                android:focusable="false"
+                android:clickable="false" />
+            <TextView
+                android:id="@+id/repeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dip"
+                style="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
 
-    <!-- DESCRIPTION -->
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:paddingTop="16dip"
-        android:paddingBottom="12dip"
-        android:autoLink="all"
-        style="?android:attr/textAppearanceMedium" />
-
-    <!-- CALENDAR -->
-    <TextView
-        android:id="@+id/calendar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true"
-        style="?android:attr/textAppearanceMedium" />
-
-    <!-- GUEST LIST -->
-    <TextView
-        android:id="@+id/attendee_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:paddingTop="4dip"
-        style="?android:attr/textAppearanceMedium" />
-
-    <!-- RESPONSE -->
-    <LinearLayout
-        android:id="@+id/response_container"
-        android:visibility="gone"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="4dip">
-
+        <!-- WHERE -->
         <TextView
-            android:id="@+id/response_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/view_event_response_label"
-            style="@style/TextAppearance.EventInfo_Label" />
-
-        <RadioGroup
-            android:id="@+id/response_value"
+            android:id="@+id/where"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/response_yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/response_yes" />
-            <RadioButton
-                android:id="@+id/response_maybe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/response_maybe" />
-            <RadioButton
-                android:id="@+id/response_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/response_no" />
-        </RadioGroup>
-    </LinearLayout>
+            android:paddingTop="4dip"
+            android:autoLink="all"
+            style="?android:attr/textAppearanceMedium" />
 
-    <!-- BUTTONS -->
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/edit"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
+        <!-- DESCRIPTION -->
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
             android:layout_weight="1"
-            android:enabled="false"
-            android:text="@string/edit_event_label" />
+            android:paddingTop="16dip"
+            android:paddingBottom="12dip"
+            android:autoLink="all"
+            style="?android:attr/textAppearanceMedium" />
 
-        <Button
-            android:id="@+id/done"
-            android:layout_width="0dip"
+        <!-- CALENDAR -->
+        <TextView
+            android:id="@+id/calendar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/save_label" />
+            android:singleLine="true"
+            style="?android:attr/textAppearanceMedium" />
+
+        <!-- GUEST LIST -->
+        <TextView
+            android:id="@+id/attendee_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:paddingTop="4dip"
+            style="?android:attr/textAppearanceMedium" />
+
+        <!-- RESPONSE -->
+        <LinearLayout
+            android:id="@+id/response_container"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/response_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/view_event_response_label"
+                style="@style/TextAppearance.EventInfo_Label" />
+            <RadioGroup
+                android:id="@+id/response_value"
+                android:layout_height="wrap_content"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="8dip"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/response_yes"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minWidth="96dip"
+                    android:text="@string/response_yes" />
+                <RadioButton
+                    android:id="@+id/response_maybe"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minWidth="96dip"
+                    android:text="@string/response_maybe" />
+                <RadioButton
+                    android:id="@+id/response_no"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minWidth="96dip"
+                    android:text="@string/response_no" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <!-- BUTTONS -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/edit"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:text="@string/edit_event_label" />
+            <Button
+                android:id="@+id/done"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/save_label" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
