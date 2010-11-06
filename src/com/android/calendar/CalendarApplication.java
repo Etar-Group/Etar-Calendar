@@ -17,8 +17,6 @@
 package com.android.calendar;
 
 import android.app.Application;
-import android.content.Context;
-import android.preference.PreferenceManager;
 
 public class CalendarApplication extends Application {
 

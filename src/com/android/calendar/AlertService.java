@@ -36,7 +36,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.preference.PreferenceManager;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.CalendarAlerts;
 import android.text.TextUtils;
@@ -89,7 +88,6 @@ public class AlertService extends Service {
 
     private static final String ACTIVE_ALERTS_SORT = "begin DESC, end DESC";
 
-    @SuppressWarnings("deprecation")
     void processMessage(Message msg) {
         Bundle bundle = (Bundle) msg.obj;
 
@@ -153,7 +151,6 @@ public class AlertService extends Service {
                 final int minutes = alertCursor.getInt(ALERT_INDEX_MINUTES);
                 final String eventName = alertCursor.getString(ALERT_INDEX_TITLE);
                 final String location = alertCursor.getString(ALERT_INDEX_EVENT_LOCATION);
-                final boolean allDay = alertCursor.getInt(ALERT_INDEX_ALL_DAY) != 0;
                 final int status = alertCursor.getInt(ALERT_INDEX_SELF_ATTENDEE_STATUS);
                 final boolean declined = status == Attendees.ATTENDEE_STATUS_DECLINED;
                 final long beginTime = alertCursor.getLong(ALERT_INDEX_BEGIN);

@@ -26,7 +26,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
@@ -34,12 +33,9 @@ import android.graphics.RectF;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.os.SystemClock;
-import android.provider.Calendar.Attendees;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.ContextMenu;
 import android.view.GestureDetector;
@@ -58,8 +54,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MonthView extends View implements View.OnCreateContextMenuListener {
-
-    private static final boolean PROFILE_LOAD_TIME = false;
 
     private static float mScale = 0; // Used for supporting different screen densities
     private static int WEEK_GAP = 0;
@@ -105,7 +99,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private Drawable mBoxSelected;
     private Drawable mBoxPressed;
     private Drawable mBoxLongPressed;
-    private Drawable mEventDot;
     private int mCellWidth;
 
     private Resources mResources;
@@ -153,9 +146,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private static final int SELECTION_PRESSED = 1;
     private static final int SELECTION_SELECTED = 2;
     private static final int SELECTION_LONGPRESS = 3;
-
-    // Modulo used to pack (width,height) into a unique integer
-    private static final int MODULO_SHIFT = 16;
 
     private int mSelectionMode = SELECTION_HIDDEN;
 
@@ -241,7 +231,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         mBoxPressed = mResources.getDrawable(R.drawable.month_view_pressed);
         mBoxLongPressed = mResources.getDrawable(R.drawable.month_view_longpress);
 
-        mEventDot = mResources.getDrawable(R.drawable.event_dot);
         mTodayBackground = mResources.getDrawable(R.drawable.month_view_today_background);
 
         // Cache color lookups
@@ -449,17 +438,9 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         monthStart.minute = 0;
         monthStart.second = 0;
         long millis = monthStart.normalize(true /* ignore isDst */);
-        int startDay = Time.getJulianDay(millis, monthStart.gmtoff);
 
         // Load the days with events in the background
         mParentActivity.startProgressSpinner();
-        final long startMillis;
-        if (PROFILE_LOAD_TIME) {
-            startMillis = SystemClock.uptimeMillis();
-        } else {
-            // To avoid a compiler error that this variable might not be initialized.
-            startMillis = 0;
-        }
 
         final ArrayList<Event> events = new ArrayList<Event>();
         mEventLoader.loadEventsInBackground(EVENT_NUM_DAYS, events, millis, new Runnable() {
@@ -618,25 +599,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         // method will adjust the month (and year) if necessary.
         time.monthDay = 7 * row + column - c.getOffset() + 1;
         return time.normalize(true);
-    }
-
-    /**
-     * Create a bitmap at the origin and draw the drawable to it using the bounds specified by rect.
-     *
-     * @param drawable the drawable we wish to render
-     * @param width the width of the resulting bitmap
-     * @param height the height of the resulting bitmap
-     * @return a new bitmap
-     */
-    private Bitmap createBitmap(Drawable drawable, int width, int height) {
-        // Create a bitmap with the same format as mBitmap (should be Bitmap.Config.ARGB_8888)
-        Bitmap bitmap = Bitmap.createBitmap(width, height, mBitmap.getConfig());
-
-        // Draw the drawable into the bitmap at the origin.
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, width, height);
-        drawable.draw(canvas);
-        return bitmap;
     }
 
     /**
@@ -844,9 +806,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         int top = rect.top + TEXT_TOP_MARGIN + BUSY_BITS_MARGIN;
         int left = rect.right - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH;
 
-        Style oldStyle = p.getStyle();
-        int oldColor = p.getColor();
-
         ArrayList<Event> events = mEvents;
         int numEvents = events.size();
         EventGeometry geometry = mEventGeometry;
@@ -891,16 +850,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         canvas.drawRect(rf, p);
 
         return rf;
-    }
-
-    private boolean isFirstDayOfNextMonth(int row, int column) {
-        if (column == 0) {
-            column = 6;
-            row--;
-        } else {
-            column--;
-        }
-        return mCursor.isWithinCurrentMonth(row, column);
     }
 
     private int getWeekOfYear(int row, int column, boolean isWithinCurrentMonth,

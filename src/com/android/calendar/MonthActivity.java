@@ -29,7 +29,6 @@ import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.provider.Calendar.Events;
 import android.text.format.DateUtils;
 import android.text.format.Time;
