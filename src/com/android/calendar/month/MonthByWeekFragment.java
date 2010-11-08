@@ -45,9 +45,11 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -85,9 +87,11 @@ public class MonthByWeekFragment extends ListFragment implements CalendarControl
     private CursorLoader mLoader;
     private Uri mEventUri;
 
-    private final boolean mIsMiniMonth;
-    private MonthByWeekAdapter mAdapter;
-    private ListView mListView;
+    protected final boolean mIsMiniMonth;
+    protected MonthByWeekAdapter mAdapter;
+    protected ListView mListView;
+    protected ViewGroup mDayNamesHeader;
+    protected String[] mDayLabels;
     private int mFirstDayOfWeek;
     private Time mSelectedDay = new Time();
     private Time mFirstDayOfMonth = new Time();
@@ -199,11 +203,19 @@ public class MonthByWeekFragment extends ListFragment implements CalendarControl
         mListView.setVelocityScale(mVelocityScale);
         mListView.setOnTouchListener(this);
 
+
+        mDayLabels = getActivity().getResources().getStringArray(
+                R.array.day_of_week_smallest_labels);
+
         if (mIsMiniMonth) {
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams listParams = new FrameLayout.LayoutParams(
                     MINI_MONTH_WIDTH, MINI_MONTH_HEIGHT);
-            layoutParams.gravity = Gravity.CENTER;
-            mListView.setLayoutParams(layoutParams);
+            listParams.gravity = Gravity.CENTER_HORIZONTAL;
+            mListView.setLayoutParams(listParams);
+            LinearLayout.LayoutParams headerParams = new LinearLayout.LayoutParams(
+                    MINI_MONTH_WIDTH, LayoutParams.WRAP_CONTENT);
+            headerParams.gravity = Gravity.CENTER_HORIZONTAL;
+            mDayNamesHeader.setLayoutParams(headerParams);
         }
 
         mMonthName = (TextView) getView().findViewById(R.id.month_name);
@@ -226,9 +238,26 @@ public class MonthByWeekFragment extends ListFragment implements CalendarControl
         params.weekHeight = 50; // This is a dummy value for now
         params.focusMonth = mCurrentMonthDisplayed;
         mAdapter.updateParams(params);
+        updateHeader();
         goTo(mSelectedDay, false);
         mAdapter.setSelectedDay(mSelectedDay);
         super.onResume();
+    }
+
+    private void updateHeader() {
+        boolean showWeekNumber = Utils.getShowWeekNumber(mContext);
+        TextView label = (TextView) mDayNamesHeader.findViewById(R.id.wk_label);
+        if (showWeekNumber) {
+            label.setVisibility(View.VISIBLE);
+        } else {
+            label.setVisibility(View.GONE);
+        }
+        int offset = mFirstDayOfWeek - 1;
+        for (int i = 1; i < 8; i++) {
+            label = (TextView) mDayNamesHeader.getChildAt(i);
+            label.setText(mDayLabels[(offset + i) % 7]);
+        }
+        mDayNamesHeader.invalidate();
     }
 
     // TODO
@@ -251,8 +280,10 @@ public class MonthByWeekFragment extends ListFragment implements CalendarControl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.month_by_week,
+        View v = inflater.inflate(R.layout.month_by_week,
                 container, false);
+        mDayNamesHeader = (ViewGroup) v.findViewById(R.id.day_names);
+        return v;
     }
 
     @Override

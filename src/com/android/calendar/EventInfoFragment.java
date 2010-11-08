@@ -698,7 +698,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         view.findViewById(R.id.color).setBackgroundColor(mColor);
 
         TextView title = (TextView) view.findViewById(R.id.title);
-        title.setTextColor(mColor);
 
 //        View divider = view.findViewById(R.id.divider);
 //        divider.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);

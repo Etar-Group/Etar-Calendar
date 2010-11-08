@@ -176,7 +176,7 @@
     <!-- Default value of Description field (as a hint to the user) -->
     <string name="hint_description">"Event description"</string>
     <!-- Default value of Attendees/Guests field (as a hint to the user) -->
-    <string name="hint_attendees">"Email addresses"</string>
+    <string name="hint_attendees">"Enter email addresses"</string>
     <!-- Toast message displayed when a new event is created -->
     <string name="creating_event">"Event created"</string>
     <!-- Toast message displayed when an existing event is saved after being modified -->
@@ -350,7 +350,12 @@
          custom (non-standard) way from the usual repeat rates (such as daily,
          weekly, etc.) and that the user cannot change this on the phone
          (but only on the web). -->
-    <string name="custom">"Custom\u2026 (cannot customize on phone)"</string>
+    <string name="custom" product="tablet">"Custom\u2026 (cannot customize on tablet)"</string>
+    <!-- This is a label for telling the user that this event repeats in
+         custom (non-standard) way from the usual repeat rates (such as daily,
+         weekly, etc.) and that the user cannot change this on the phone
+         (but only on the web). -->
+    <string name="custom" product="default">"Custom\u2026 (cannot customize on phone)"</string>
 
     <!-- This is a choice in a list that the user sees when he tries to modify
          a repeating event.  This choice says to change just this one instance

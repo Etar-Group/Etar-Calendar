@@ -36,7 +36,7 @@ public class MonthWeekView extends View {
 
     private final boolean mDrawVLines = false;
 
-    protected int mPadding = 2;
+    protected int mPadding = 0;
 
     protected Rect r = new Rect();
     protected Paint p = new Paint();
@@ -219,20 +219,18 @@ public class MonthWeekView extends View {
         int y;// = (int) ((mHeight + textHeight) / 2);
         int nDays = mParams.numDays;
 
+        p.setTextAlign(Align.CENTER);
         int i = 0;
         if (mParams.showWeekNum) {
             nDays++;
             p.setColor(mWeekNumColor);
-            p.setTextAlign(Align.LEFT);
-            int x = (int) ((mWidth - mPadding * 2) / nDays + mPadding
-                    - p.measureText(mDayNumbers[0]));
+            int x = (mWidth - mPadding * 2) / nDays / 2 + mPadding;
             y = (mHeight - 2);
             canvas.drawText(mDayNumbers[0], x, y, p);
             i++;
         }
         int divisor = 2 * nDays;
 
-        p.setTextAlign(Align.CENTER);
         y = (int) ((mHeight + textHeight) / 2);
 
         for (; i < nDays; i++) {
@@ -253,13 +251,11 @@ public class MonthWeekView extends View {
         r.top = 0;
         r.bottom = 1;
         int i = 1;
-        if (!mParams.showWeekNum) {
-            r.left = mPadding;
-        } else {
+        if (mParams.showWeekNum) {
             nDays++;
-            r.left = (mWidth - mPadding * 2) / nDays + mPadding;
             i = 2;
         }
+        r.left = mPadding;
         r.right = mWidth - mPadding;
         canvas.drawRect(r, p);
 

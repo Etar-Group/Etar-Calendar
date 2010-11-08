@@ -23,13 +23,15 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/month_bgcolor">
-        
+
     <TextView android:id="@+id/month_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dip"
         style="@style/MonthView_MiniMonthLabel" />
-    
+
+    <include android:id="@+id/day_names" layout="@layout/mini_month_header" />
+
     <include android:id="@+id/week_list" layout="@android:layout/list_content"/>
         
 </LinearLayout>

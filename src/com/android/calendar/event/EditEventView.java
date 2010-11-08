@@ -1041,6 +1041,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 }
             }
         }
+        mTitleTextView.setTextAppearance(mActivity, R.style.TextAppearance_EditEvent_What);
     }
 
     public void setCalendarsCursor(Cursor cursor, boolean userVisible) {
