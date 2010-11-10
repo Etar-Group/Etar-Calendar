@@ -57,6 +57,13 @@
     <item msgid="95029346069903091">"søndag"</item>
     <item msgid="5840983116375063739">"mandag"</item>
   </string-array>
+    <!-- no translation found for day_of_week_smallest_labels:0 (3370976190441148158) -->
+    <!-- no translation found for day_of_week_smallest_labels:1 (3318431939387884234) -->
+    <!-- no translation found for day_of_week_smallest_labels:2 (4593298527425529521) -->
+    <!-- no translation found for day_of_week_smallest_labels:3 (6820278502267663308) -->
+    <!-- no translation found for day_of_week_smallest_labels:4 (6666020568600166363) -->
+    <!-- no translation found for day_of_week_smallest_labels:5 (9137591427662835999) -->
+    <!-- no translation found for day_of_week_smallest_labels:6 (5237432516029187753) -->
   <string-array name="timezone_labels">
     <item msgid="6833649526258274889">"Marshalløerne"</item>
     <item msgid="7176569939440505575">"Midwayøen"</item>

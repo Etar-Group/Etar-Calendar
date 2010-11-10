@@ -20,6 +20,7 @@
     <string name="app_aio_label" msgid="3058561424021284581">"Calendario todo en uno"</string>
     <string name="what_label" msgid="1933578391985810049">"Qué"</string>
     <string name="where_label" msgid="3472482206065595118">"Dónde"</string>
+    <string name="when_label" msgid="894636567327261599">"Cuándo"</string>
     <string name="timezone_label" msgid="2030635806231207425">"Zona horaria"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Invitados"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -63,13 +64,13 @@
     <string name="not_synced_not_visible" msgid="7178879061972059481">"no sincronizada, no visible"</string>
     <string name="synced" msgid="7913940305983383493">"sincronizada"</string>
     <string name="not_synced" msgid="4275114941801829419">"no sincronizada"</string>
-    <string name="acct_not_synced" msgid="4276198677633672868">"Esta cuenta no se está sincronizando y es posible que tus calendarios no se actualicen correctamente."</string>
+    <!-- outdated translation 4276198677633672868 -->     <string name="acct_not_synced" msgid="2225937158458147648">"Esta cuenta no se está sincronizando y es posible que tus calendarios no se actualicen correctamente."</string>
     <string name="accounts" msgid="849401841083180306">"Cuentas y sincronización"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Detalles del evento"</string>
     <string name="hint_what" msgid="709155115005044531">"Nombre del evento"</string>
     <string name="hint_where" msgid="3116239630502213241">"Ubicación del evento"</string>
     <string name="hint_description" msgid="4198202812240544553">"Descripción del evento"</string>
-    <string name="hint_attendees" msgid="6036653711383143333">"Direcciones de correo electrónico"</string>
+    <!-- outdated translation 6036653711383143333 -->     <string name="hint_attendees" msgid="6367757073203911244">"Direcciones de correo electrónico"</string>
     <string name="creating_event" msgid="5252306542761552414">"Evento creado"</string>
     <string name="saving_event" msgid="7716081507367732169">"Evento guardado"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Cargando calendarios"</string>
@@ -94,18 +95,24 @@
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No hay calendarios"</string>
     <string name="no_calendars_found" msgid="5354626435783289467">"Antes de agr. un evento, agrega una cta Calendar al disp. Toca \"Agr. cta\". Al agr. una cta, espera a que se complete su sinc. y vuelve a int."</string>
     <string name="add_account" msgid="1669072099756774952">"Agregar cuenta"</string>
-    <string name="add_guests_label" msgid="7294569977062998743">"Agrega invitados"</string>
+    <string name="add_guests_label" msgid="7294569977062998743">"Agregar invitados"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Calendario"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizador:"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Zona horaria local:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"¿Asistirás?"</string>
+    <!-- no translation found for response_yes (2027484304899988350) -->
+    <skip />
+    <!-- no translation found for response_maybe (7791500973627841695) -->
+    <skip />
+    <!-- no translation found for response_no (561911691884148136) -->
+    <skip />
     <string name="agenda_today" msgid="6489447319363439068">"Hoy, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Cargando…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Tocar para ver los eventos antes del <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>."</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Tocar para ver los eventos después del <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>."</string>
     <string name="search_title" msgid="8898015280250716254">"Buscar en mis calendarios"</string>
     <string name="num_events" msgid="3351672964607162257">"Cant. de eventos"</string>
-    <string name="edit_event_label" msgid="2060112143779720139">"Evento abierto"</string>
+    <!-- outdated translation 2060112143779720139 -->     <string name="edit_event_label" msgid="7413222956349977161">"Evento abierto"</string>
     <string name="delete_label" msgid="874742811918030739">"Suprimir"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Suprimir evento"</string>
     <string name="save_label" msgid="2133599104834432589">"Finalizado"</string>
@@ -122,7 +129,8 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Anual"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mensual (el día <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Anual (en <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" msgid="3015205670911301856">"Personalizado (no se puede personalizar en el teléfono)"</string>
+    <!-- outdated translation 3015205670911301856 -->     <string name="custom" product="tablet" msgid="3784569535926286624">"Personalizado (no se puede personalizar en el teléfono)"</string>
+    <string name="custom" product="default" msgid="3015205670911301856">"Personalizado (no se puede personalizar en el teléfono)"</string>
     <string name="modify_event" msgid="4501745557655992422">"Cambiar sólo este evento."</string>
     <string name="modify_all" msgid="7506579040966638538">"Cambiar todos los eventos en la serie."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Cambiar este y todos los eventos futuros."</string>

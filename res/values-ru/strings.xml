@@ -20,6 +20,7 @@
     <string name="app_aio_label" msgid="3058561424021284581">"Календарь \"все в одном\""</string>
     <string name="what_label" msgid="1933578391985810049">"Что"</string>
     <string name="where_label" msgid="3472482206065595118">"Где"</string>
+    <string name="when_label" msgid="894636567327261599">"Когда"</string>
     <string name="timezone_label" msgid="2030635806231207425">"Часовой пояс"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Гости"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -63,13 +64,13 @@
     <string name="not_synced_not_visible" msgid="7178879061972059481">"не синхронизировано, невидимое"</string>
     <string name="synced" msgid="7913940305983383493">"синхронизирован"</string>
     <string name="not_synced" msgid="4275114941801829419">"не синхронизирован"</string>
-    <string name="acct_not_synced" msgid="4276198677633672868">"Этот аккаунт не синхронизирован. Ваши календари могут отражать неверные сведения."</string>
+    <!-- outdated translation 4276198677633672868 -->     <string name="acct_not_synced" msgid="2225937158458147648">"Этот аккаунт не синхронизирован. Ваши календари могут отражать неверные сведения."</string>
     <string name="accounts" msgid="849401841083180306">"Аккаунты и синхронизация"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Детали мероприятия"</string>
     <string name="hint_what" msgid="709155115005044531">"Название мероприятия"</string>
     <string name="hint_where" msgid="3116239630502213241">"Место мероприятия"</string>
     <string name="hint_description" msgid="4198202812240544553">"Описание мероприятия"</string>
-    <string name="hint_attendees" msgid="6036653711383143333">"Адреса электронной почты"</string>
+    <!-- outdated translation 6036653711383143333 -->     <string name="hint_attendees" msgid="6367757073203911244">"Адреса электронной почты"</string>
     <string name="creating_event" msgid="5252306542761552414">"Мероприятие создано"</string>
     <string name="saving_event" msgid="7716081507367732169">"Мероприятие сохранено"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Загрузка календарей"</string>
@@ -94,19 +95,24 @@
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Нет календарей"</string>
     <string name="no_calendars_found" msgid="5354626435783289467">"Добавить мероприятие можно только в календарь, связанный с аккаунтом Google. Нажмите \"Добавить аккаунт\" или, если вы уже это сделали, дождитесь окончания синхронизации и повторите попытку."</string>
     <string name="add_account" msgid="1669072099756774952">"Добавить аккаунт"</string>
-    <!-- no translation found for add_guests_label (7294569977062998743) -->
-    <skip />
+    <string name="add_guests_label" msgid="7294569977062998743">"Добавить гостей"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Календарь"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Организатор:"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Часовой пояс:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Принять приглашение?"</string>
+    <!-- no translation found for response_yes (2027484304899988350) -->
+    <skip />
+    <!-- no translation found for response_maybe (7791500973627841695) -->
+    <skip />
+    <!-- no translation found for response_no (561911691884148136) -->
+    <skip />
     <string name="agenda_today" msgid="6489447319363439068">"Сегодня, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Загрузка…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Нажмите, чтобы увидеть мероприятия до <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Нажмите, чтобы увидеть мероприятия после <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Поиск в моих календарях"</string>
     <string name="num_events" msgid="3351672964607162257">"Кол-во мероприятий"</string>
-    <!-- outdated translation 2900418236819088363 -->     <string name="edit_event_label" msgid="2060112143779720139">"Изменить мероприятие"</string>
+    <!-- outdated translation 2060112143779720139 -->     <string name="edit_event_label" msgid="7413222956349977161">"Открыть мероприятие"</string>
     <string name="delete_label" msgid="874742811918030739">"Удалить"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Удалить мероприятие"</string>
     <string name="save_label" msgid="2133599104834432589">"Готово"</string>
@@ -123,7 +129,8 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Ежегодно"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Ежемесячно (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> числа)"</string>
     <string name="yearly" msgid="8576208380302949002">"Ежегодно (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" msgid="3015205670911301856">"Особое… (нельзя настроить с телефона)"</string>
+    <!-- outdated translation 3015205670911301856 -->     <string name="custom" product="tablet" msgid="3784569535926286624">"Особое… (нельзя настроить с телефона)"</string>
+    <string name="custom" product="default" msgid="3015205670911301856">"Особое… (нельзя настроить с телефона)"</string>
     <string name="modify_event" msgid="4501745557655992422">"Изменить только это мероприятие"</string>
     <string name="modify_all" msgid="7506579040966638538">"Изменить все мероприятия в серии"</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Изменить это и будущие мероприятия"</string>
@@ -152,8 +159,7 @@
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Домашний пояс"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Для календаря и мероприятий всегда задается домашнее время"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Домашний часовой пояс"</string>
-    <!-- no translation found for preferences_show_week_num_title (5280734329664503461) -->
-    <skip />
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Показывать номер недели"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"О программе"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Версия сборки"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
