@@ -1908,17 +1908,37 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void setupTextRect(RectF rf) {
-        rf.top += EVENT_TEXT_TOP_MARGIN;
-        rf.bottom -= EVENT_TEXT_BOTTOM_MARGIN;
-        rf.left += EVENT_TEXT_LEFT_MARGIN;
-        rf.right -= EVENT_TEXT_RIGHT_MARGIN;
+        if (rf.bottom <= rf.top || rf.right <= rf.left) {
+            rf.bottom = rf.top;
+            rf.right = rf.left;
+            return;
+        }
+
+        if (rf.bottom - rf.top > EVENT_TEXT_TOP_MARGIN + EVENT_TEXT_BOTTOM_MARGIN) {
+            rf.top += EVENT_TEXT_TOP_MARGIN;
+            rf.bottom -= EVENT_TEXT_BOTTOM_MARGIN;
+        }
+        if (rf.right - rf.left > EVENT_TEXT_LEFT_MARGIN + EVENT_TEXT_RIGHT_MARGIN) {
+            rf.left += EVENT_TEXT_LEFT_MARGIN;
+            rf.right -= EVENT_TEXT_RIGHT_MARGIN;
+        }
     }
 
     private void setupAllDayTextRect(RectF rf) {
-        rf.top += EVENT_ALL_DAY_TEXT_TOP_MARGIN;
-        rf.bottom -= EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN;
-        rf.left += EVENT_ALL_DAY_TEXT_LEFT_MARGIN;
-        rf.right -= EVENT_ALL_DAY_TEXT_RIGHT_MARGIN;
+        if (rf.bottom <= rf.top || rf.right <= rf.left) {
+            rf.bottom = rf.top;
+            rf.right = rf.left;
+            return;
+        }
+
+        if (rf.bottom - rf.top > EVENT_ALL_DAY_TEXT_TOP_MARGIN + EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN) {
+            rf.top += EVENT_ALL_DAY_TEXT_TOP_MARGIN;
+            rf.bottom -= EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN;
+        }
+        if (rf.right - rf.left > EVENT_ALL_DAY_TEXT_LEFT_MARGIN + EVENT_ALL_DAY_TEXT_RIGHT_MARGIN) {
+            rf.left += EVENT_ALL_DAY_TEXT_LEFT_MARGIN;
+            rf.right -= EVENT_ALL_DAY_TEXT_RIGHT_MARGIN;
+        }
     }
 
     /**
