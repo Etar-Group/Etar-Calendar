@@ -198,6 +198,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private Paint mEventTextPaint = new Paint();
     private Paint mSelectionPaint = new Paint();
     private Path mPath = new Path();
+    private float[] mLines;
 
     private int mFirstDayOfWeek; // First day of the week
 
@@ -608,6 +609,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         mEarliestStartHour = new int[mNumDays];
         mHasAllDayEvent = new boolean[mNumDays];
+
+        // mLines is the array of points used with Canvas.drawLines() in
+        // drawGridBackground() and drawAllDayEvents().  Its size depends
+        // on the max number of lines that can ever be drawn by any single
+        // drawLines() call in either of those methods.
+        final int maxGridLines = (24 + 1)  // max horizontal lines we might draw
+                + (mNumDays + 1);  // max vertical lines we might draw
+        mLines = new float[maxGridLines * 4];
     }
 
     /**
@@ -1782,46 +1791,64 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         final float stopX = mHoursWidth + (mCellWidth + DAY_GAP) * mNumDays;
         float y = 0;
         final float deltaY = mCellHeight + HOUR_GAP;
-        r.left = (int) startX;
-        r.right = (int) stopX;
         p.setStrokeWidth(GRID_LINE_WIDTH);
+        int linesIndex = 0;
         for (int hour = 0; hour <= 24; hour++) {
-            r.top = (int) (y - GRID_LINE_WIDTH / 2);
-            r.bottom = r.top + GRID_LINE_WIDTH;
-            // TODO use drawLine after Romain fixes drawing bug
-            canvas.drawRect(r, p);
-//            canvas.drawLine(startX, y, stopX, y, p);
+            mLines[linesIndex++] = startX;
+            mLines[linesIndex++] = y;
+            mLines[linesIndex++] = stopX;
+            mLines[linesIndex++] = y;
             y += deltaY;
+        }
+        if (mCalendarGridLineVerticalColor != mCalendarGridLineHorizontalColor) {
+            canvas.drawLines(mLines, 0, linesIndex, p);
+            linesIndex = 0;
+            p.setColor(mCalendarGridLineVerticalColor);
         }
 
         // Draw the outer vertical grid lines
-        p.setColor(mCalendarGridLineVerticalColor);
         final float startY = 0;
         final float stopY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP);
         final float deltaX = mCellWidth + DAY_GAP;
         float x = mHoursWidth + mCellWidth;
         for (int day = 0; day < mNumDays; day++) {
-            canvas.drawLine(x, startY, x, stopY, p);
+            mLines[linesIndex++] = x;
+            mLines[linesIndex++] = startY;
+            mLines[linesIndex++] = x;
+            mLines[linesIndex++] = stopY;
             x += deltaX;
         }
+        canvas.drawLines(mLines, 0, linesIndex, p);
 
         // Draw the inner horizontal grid lines
         p.setColor(mCalendarGridLineInnerHorizontalColor);
         p.setStrokeWidth(GRID_LINE_INNER_WIDTH);
         y = 0;
         x = 0;
+        linesIndex = 0;
         for (int hour = 0; hour <= 24; hour++) {
-            canvas.drawLine(startX, y, stopX, y, p);
+            mLines[linesIndex++] = startX;
+            mLines[linesIndex++] = y;
+            mLines[linesIndex++] = stopX;
+            mLines[linesIndex++] = y;
             y += deltaY;
+        }
+        if (mCalendarGridLineInnerVerticalColor != mCalendarGridLineInnerHorizontalColor) {
+            canvas.drawLines(mLines, 0, linesIndex, p);
+            linesIndex = 0;
+            p.setColor(mCalendarGridLineInnerVerticalColor);
         }
 
         // Draw the inner vertical grid lines
-        p.setColor(mCalendarGridLineInnerVerticalColor);
         x = mHoursWidth + mCellWidth;
         for (int day = 0; day < mNumDays; day++) {
-            canvas.drawLine(x, startY, x, stopY, p);
+            mLines[linesIndex++] = x;
+            mLines[linesIndex++] = startY;
+            mLines[linesIndex++] = x;
+            mLines[linesIndex++] = stopY;
             x += deltaX;
         }
+        canvas.drawLines(mLines, 0, linesIndex, p);
 
         // Restore the saved style.
         p.setStyle(savedStyle);
@@ -1970,19 +1997,29 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         final float stopY = startY + mAllDayHeight + ALLDAY_TOP_MARGIN;
         final float deltaX = mCellWidth + DAY_GAP;
         float x = mHoursWidth + mCellWidth;
+        int linesIndex = 0;
         for (int day = 0; day < mNumDays; day++) {
-            canvas.drawLine(x, startY, x, stopY, p);
+            mLines[linesIndex++] = x;
+            mLines[linesIndex++] = startY;
+            mLines[linesIndex++] = x;
+            mLines[linesIndex++] = stopY;
             x += deltaX;
         }
+        canvas.drawLines(mLines, 0, linesIndex, p);
 
         // Draw the inner vertical grid lines
         p.setColor(mCalendarGridLineInnerVerticalColor);
         x = mHoursWidth + mCellWidth;
         p.setStrokeWidth(GRID_LINE_INNER_WIDTH);
+        linesIndex = 0;
         for (int day = 0; day < mNumDays; day++) {
-            canvas.drawLine(x, startY, x, stopY, p);
+            mLines[linesIndex++] = x;
+            mLines[linesIndex++] = startY;
+            mLines[linesIndex++] = x;
+            mLines[linesIndex++] = stopY;
             x += deltaX;
         }
+        canvas.drawLines(mLines, 0, linesIndex, p);
 
         p.setAntiAlias(true);
         p.setStyle(Style.FILL);
@@ -3545,4 +3582,3 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
     }
 }
-
