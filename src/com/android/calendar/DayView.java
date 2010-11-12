@@ -43,7 +43,6 @@ import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.TextUtils.TruncateAt;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -96,7 +95,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int DEFAULT_CELL_HEIGHT = 64;
     private static int MAX_CELL_HEIGHT = 150;
     private static int MIN_Y_SPAN = 100;
-
 
     private boolean mOnFlingCalled;
     /**
@@ -192,7 +190,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // Pre-allocate these objects and re-use them
     private Rect mRect = new Rect();
     private RectF mRectF = new RectF();
-    private Rect mSrcRect = new Rect();
     private Rect mDestRect = new Rect();
     private Paint mPaint = new Paint();
     private Paint mEventTextPaint = new Paint();
@@ -222,7 +219,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int SINGLE_ALLDAY_HEIGHT = 34;
     private static int MAX_ALLDAY_HEIGHT = 100;
     private static int ALLDAY_TOP_MARGIN = 3;
-    private static int MAX_ALLDAY_EVENT_HEIGHT = 34;
+    private static int MAX_HEIGHT_OF_ONE_ALLDAY_EVENT = 34;
 
     /* The extra space to leave above the text in all-day events */
     private static final int ALL_DAY_TEXT_TOP_MARGIN = 0;
@@ -326,10 +323,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private boolean mHandleActionUp = true;
 
     private int mHoursTextHeight;
-    private int mEventTextAscent;
-    private int mEventTextHeight;
     private int mAllDayHeight;
     private static int DAY_HEADER_HEIGHT = 45;
+    /**
+     * Max of all day events in a given day in this view.
+     */
     private int mMaxAllDayEvents;
 
     protected int mNumDays = 7;
@@ -346,7 +344,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private String[] mDayStrs2Letter;
     private boolean mIs24HourFormat;
 
-    private float[] mCharWidths = new float[MAX_EVENT_TEXT_LEN];
     private ArrayList<Event> mSelectedEvents = new ArrayList<Event>();
     private boolean mComputeSelectedEvents;
     private Event mSelectedEvent;
@@ -417,9 +414,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mScale = getContext().getResources().getDisplayMetrics().density;
             if (mScale != 1) {
                 SINGLE_ALLDAY_HEIGHT *= mScale;
-                MAX_ALLDAY_HEIGHT *= mScale;
                 ALLDAY_TOP_MARGIN *= mScale;
-                MAX_ALLDAY_EVENT_HEIGHT *= mScale;
+                MAX_HEIGHT_OF_ONE_ALLDAY_EVENT *= mScale;
 
                 NORMAL_FONT_SIZE *= mScale;
                 EVENT_TEXT_FONT_SIZE *= mScale;
@@ -786,13 +782,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         Paint p = new Paint();
         p.setTextSize(HOURS_FONT_SIZE);
         mHoursTextHeight = (int) Math.abs(p.ascent());
-
-        p.setTextSize(EVENT_TEXT_FONT_SIZE);
-        float ascent = -p.ascent();
-        mEventTextAscent = (int) Math.ceil(ascent);
-        float totalHeight = ascent + p.descent();
-        mEventTextHeight = (int) Math.ceil(totalHeight);
-
         remeasure(width, height);
     }
 
@@ -883,7 +872,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             } else {
                 // Allow the all-day area to grow in height depending on the
                 // number of all-day events we need to show, up to a limit.
-                allDayHeight = maxAllDayEvents * MAX_ALLDAY_EVENT_HEIGHT;
+                allDayHeight = maxAllDayEvents * MAX_HEIGHT_OF_ONE_ALLDAY_EVENT;
                 if (allDayHeight > MAX_ALLDAY_HEIGHT) {
                     allDayHeight = MAX_ALLDAY_HEIGHT;
                 }
@@ -897,7 +886,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mGridAreaHeight = height - mFirstCell;
 
         // The min is where 24 hours cover the entire visible area
-        mMinCellHeight = mGridAreaHeight / 24 - HOUR_GAP + 1;
+        mMinCellHeight = (height - DAY_HEADER_HEIGHT) / 24 - HOUR_GAP;
         if (mCellHeight < mMinCellHeight) {
             mCellHeight = mMinCellHeight;
         }
@@ -1633,7 +1622,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
     }
 
-    private void drawCurrentTimeLine(Rect r, final int left, final int top, Canvas canvas, Paint p) {
+    private void drawCurrentTimeLine(Rect r, final int left, final int top, Canvas canvas,
+            Paint p) {
         r.left = left - CURRENT_TIME_LINE_SIDE_BUFFER;
         r.right = left + mCellWidth + CURRENT_TIME_LINE_SIDE_BUFFER;
 
@@ -1918,17 +1908,37 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void setupTextRect(RectF rf) {
-        rf.top += EVENT_TEXT_TOP_MARGIN;
-        rf.bottom -= EVENT_TEXT_BOTTOM_MARGIN;
-        rf.left += EVENT_TEXT_LEFT_MARGIN;
-        rf.right -= EVENT_TEXT_RIGHT_MARGIN;
+        if (rf.bottom <= rf.top || rf.right <= rf.left) {
+            rf.bottom = rf.top;
+            rf.right = rf.left;
+            return;
+        }
+
+        if (rf.bottom - rf.top > EVENT_TEXT_TOP_MARGIN + EVENT_TEXT_BOTTOM_MARGIN) {
+            rf.top += EVENT_TEXT_TOP_MARGIN;
+            rf.bottom -= EVENT_TEXT_BOTTOM_MARGIN;
+        }
+        if (rf.right - rf.left > EVENT_TEXT_LEFT_MARGIN + EVENT_TEXT_RIGHT_MARGIN) {
+            rf.left += EVENT_TEXT_LEFT_MARGIN;
+            rf.right -= EVENT_TEXT_RIGHT_MARGIN;
+        }
     }
 
     private void setupAllDayTextRect(RectF rf) {
-        rf.top += EVENT_ALL_DAY_TEXT_TOP_MARGIN;
-        rf.bottom -= EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN;
-        rf.left += EVENT_ALL_DAY_TEXT_LEFT_MARGIN;
-        rf.right -= EVENT_ALL_DAY_TEXT_RIGHT_MARGIN;
+        if (rf.bottom <= rf.top || rf.right <= rf.left) {
+            rf.bottom = rf.top;
+            rf.right = rf.left;
+            return;
+        }
+
+        if (rf.bottom - rf.top > EVENT_ALL_DAY_TEXT_TOP_MARGIN + EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN) {
+            rf.top += EVENT_ALL_DAY_TEXT_TOP_MARGIN;
+            rf.bottom -= EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN;
+        }
+        if (rf.right - rf.left > EVENT_ALL_DAY_TEXT_LEFT_MARGIN + EVENT_ALL_DAY_TEXT_RIGHT_MARGIN) {
+            rf.left += EVENT_ALL_DAY_TEXT_LEFT_MARGIN;
+            rf.right -= EVENT_ALL_DAY_TEXT_RIGHT_MARGIN;
+        }
     }
 
     /**
@@ -1937,16 +1947,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private StaticLayout getEventLayout(int i, Event event, Paint paint, RectF rf) {
         StaticLayout layout = mLayouts.get(i);
         // Check if we have already initialized the StaticLayout and that
-        // the width hasn't changed (due to vertical resizing which causes re-layout
-        // of events at min height)
+        // the width hasn't changed (due to vertical resizing which causes
+        // re-layout of events at min height)
         if (layout == null || rf.width() != layout.getWidth()) {
-            // No, we haven't...
-            String text = drawTextSanitizer(event.getTitleAndLocation());
+            String text = drawTextSanitizer(event.getTitleAndLocation(), MAX_EVENT_TEXT_LEN);
 
             // Leave a one pixel boundary on the left and right of the rectangle for the event
             layout = new StaticLayout(text, 0, text.length(), new TextPaint(paint),
-                    (int) rf.width(), Alignment.ALIGN_NORMAL, 1.0f, 0.0f, true,
-                    null, (int) rf.width());
+                    (int) rf.width(), Alignment.ALIGN_NORMAL, 1.0f, 0.0f, true, null,
+                    (int) rf.width());
 
             mLayouts.set(i, layout);
         }
@@ -2052,8 +2061,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             float height = drawHeight / numRectangles;
 
             // Prevent a single event from getting too big
-            if (height > MAX_ALLDAY_EVENT_HEIGHT) {
-                height = MAX_ALLDAY_EVENT_HEIGHT;
+            if (height > MAX_HEIGHT_OF_ONE_ALLDAY_EVENT) {
+                height = MAX_HEIGHT_OF_ONE_ALLDAY_EVENT;
             }
 
             // Leave a one-pixel space between the vertical day lines and the
@@ -2619,10 +2628,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // Sanitize a string before passing it to drawText or else we get little
     // squares. For newlines and tabs before a comma, delete the character.
     // Otherwise, just replace them with a space.
-    private String drawTextSanitizer(String string) {
+    private String drawTextSanitizer(String string, int maxEventTextLen) {
         Matcher m = drawTextSanitizerFilter.matcher(string);
-        string = m.replaceAll(",").replace('\n', ' ').replace('\n', ' ');
-        return string;
+        string = m.replaceAll(",");
+
+        int len = string.length();
+        if (len > maxEventTextLen) {
+            string = string.substring(0, maxEventTextLen);
+            len = maxEventTextLen;
+        }
+
+        return string.replace('\n', ' ');
     }
 
     private void drawEventText(StaticLayout eventLayout, RectF rf, Canvas canvas, Paint p,
@@ -3315,8 +3331,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 if (event.startDay <= mSelectionDay && event.endDay >= mSelectionDay) {
                     float numRectangles = event.getMaxColumns();
                     float height = drawHeight / numRectangles;
-                    if (height > MAX_ALLDAY_EVENT_HEIGHT) {
-                        height = MAX_ALLDAY_EVENT_HEIGHT;
+                    if (height > MAX_HEIGHT_OF_ONE_ALLDAY_EVENT) {
+                        height = MAX_HEIGHT_OF_ONE_ALLDAY_EVENT;
                     }
                     float eventTop = yOffset + height * event.getColumn();
                     float eventBottom = eventTop + height;
