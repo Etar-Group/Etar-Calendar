@@ -37,7 +37,7 @@ import java.util.HashMap;
 
 public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchListener {
 
-    protected static final String TAG = "MonthByWeek";
+    private static final String TAG = "MonthByWeek";
 
     public static final String WEEK_PARAMS_NUM_WEEKS = "num_weeks";
     public static final String WEEK_PARAMS_FOCUS_MONTH = "focus_month";
@@ -58,8 +58,8 @@ public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchList
     protected int mFirstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
     protected boolean mShowWeekNumber = false;
     protected GestureDetector mGestureDetector;
-    private int mNumWeeks = DEFAULT_NUM_WEEKS;
-    private int mFocusMonth = DEFAULT_MONTH_FOCUS;
+    protected int mNumWeeks = DEFAULT_NUM_WEEKS;
+    protected int mFocusMonth = DEFAULT_MONTH_FOCUS;
 
     public MonthByWeekSimpleAdapter(Context context, HashMap<String, Integer> params) {
         mContext = context;

@@ -48,10 +48,17 @@
     <color name="selection">#ffffaa00</color>
     <color name="pressed">#fffab400</color>
 
-    <color name="month_day_number">#ff000000</color>
+    <color name="month_day_number">#4C000000</color>
+    <color name="month_day_number_other">#1A000000</color>
+    <color name="month_week_num_color">#33000000</color>
+    <color name="month_day_names_color">#80333333</color>
+    <color name="month_today_number">#99000000</color>
+    <color name="month_event_color">#FF000000</color>
+    <color name="month_event_extra_color">#FF999999</color>
+    <color name="month_event_other_color">#4C000000</color>
+    <color name="month_event_extra_other_color">#4C999999</color>
     <color name="month_saturday">#ff404040</color>
     <color name="month_sunday">#ff404040</color>
-    <color name="month_today_number">#ffffffff</color>
     <color name="month_grid_lines">#ffC8CAD0</color>
     <color name="month_other_month_day_number">#ff939497</color>
     <color name="month_other_month_banner">#80595959</color>
@@ -64,7 +71,6 @@
     <color name="month_title_color">#FFC8CAD0</color>
     <color name="month_selection_bar_color">#FF6699FF</color>
     <color name="month_selection_outline_color">#336699FF</color>
-    <color name="month_week_num_color">#19000000</color>
 
     <color name="event_center">#ff6bd697</color>
 
