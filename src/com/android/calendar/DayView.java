@@ -3066,7 +3066,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int flags = DateUtils.FORMAT_SHOW_TIME
                 | DateUtils.FORMAT_CAP_NOON_MIDNIGHT
                 | DateUtils.FORMAT_SHOW_WEEKDAY;
-        final String title = DateUtils.formatDateTime(mContext, startMillis, flags);
+        final String title = Utils.formatDateRange(mContext, startMillis, startMillis, flags);
         menu.setHeaderTitle(title);
 
         int numSelectedEvents = mSelectedEvents.size();
