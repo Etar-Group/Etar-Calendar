@@ -129,6 +129,7 @@
         <item name="android:windowActionBar">true</item>
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle</item>
         <item name="android:actionBarTabTextStyle">@style/ActionBarTabText</item>
+        <item name="android:windowBackground">@drawable/calendar_background_holo_light</item>
     </style>
 
     <style name="ActionBarTabStyle" parent="@android:style/Widget.ActionBarView_TabView">
