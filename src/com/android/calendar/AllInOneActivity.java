@@ -75,6 +75,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private boolean mPaused = true;
     private boolean mUpdateOnResume = false;
     private TextView mHomeTime;
+    private String mTimeZone;
 
     // Action bar and Navigation bar (left side of Action bar)
     private ActionBar mActionBar;
@@ -124,7 +125,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
         } else {
             viewType = Utils.getViewTypeFromIntentAndSharedPref(this);
         }
-        Time t = new Time();
+        mTimeZone = Utils.getTimeZone(this, mHomeTimeUpdater);
+        Time t = new Time(mTimeZone);
         t.set(timeMillis);
 
         if (icicle != null && getIntent() != null) {
@@ -243,7 +245,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         if (mIsMultipane) {
             View miniMonth = findViewById(R.id.mini_month);
-            Fragment miniMonthFrag = new MonthByWeekFragment(true); //new MonthFragment(false, timeMillis, true);
+            Fragment miniMonthFrag = new MonthByWeekFragment(true);
             ft.replace(R.id.mini_month, miniMonthFrag);
             mController.registerEventHandler(R.id.mini_month, (EventHandler) miniMonthFrag);
 
@@ -299,7 +301,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         ft.commit(); // this needs to be after setMainPane()
 
-        Time t = new Time();
+        Time t = new Time(mTimeZone);
         t.set(timeMillis);
         if (viewType != ViewType.EDIT) {
             mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
@@ -340,7 +342,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 return true;
             case R.id.action_today:
                 viewType = ViewType.CURRENT;
-                t = new Time();
+                t = new Time(mTimeZone);
                 t.setToNow();
                 break;
             case R.id.action_create_event:
@@ -453,10 +455,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
     }
 
     private void updateHomeClock() {
-        String tz = Utils.getTimeZone(this, mHomeTimeUpdater);
+        mTimeZone = Utils.getTimeZone(this, mHomeTimeUpdater);
         if (mIsMultipane && (mCurrentView == ViewType.DAY || mCurrentView == ViewType.WEEK)
-                && !TextUtils.equals(tz, Time.getCurrentTimezone())) {
-            Time time = new Time(tz);
+                && !TextUtils.equals(mTimeZone, Time.getCurrentTimezone())) {
+            Time time = new Time(mTimeZone);
             time.setToNow();
             long millis = time.toMillis(true);
             boolean isDST = time.isDst != 0;
@@ -465,11 +467,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 flags |= DateUtils.FORMAT_24HOUR;
             }
             // Formats the time as
-            String timeString =
-                    (new StringBuilder(Utils.formatDateRange(this, millis, millis, flags)))
-                    .append(" ").append(TimeZone.getTimeZone(tz).getDisplayName(
-                            isDST, TimeZone.SHORT, Locale.getDefault()))
-                    .toString();
+            String timeString = (new StringBuilder(
+                    Utils.formatDateRange(this, millis, millis, flags))).append(" ").append(
+                    TimeZone.getTimeZone(mTimeZone).getDisplayName(
+                            isDST, TimeZone.SHORT, Locale.getDefault())).toString();
             mHomeTime.setText(timeString);
             mHomeTime.setVisibility(View.VISIBLE);
             // Update when the minute changes

@@ -1945,6 +1945,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * Return the layout for a numbered event. Create it if not already existing
      */
     private StaticLayout getEventLayout(int i, Event event, Paint paint, RectF rf) {
+        if (i < 0 || i >= mLayouts.size()) {
+            return null;
+        }
+
         StaticLayout layout = mLayouts.get(i);
         // Check if we have already initialized the StaticLayout and that
         // the width hasn't changed (due to vertical resizing which causes
@@ -2647,7 +2651,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         float height = rf.bottom - rf.top;
 
         // If the rectangle is too small for text, then return
-        if (width < MIN_CELL_WIDTH_FOR_TEXT) {
+        if (eventLayout == null || width < MIN_CELL_WIDTH_FOR_TEXT) {
             return;
         }
 
@@ -3066,7 +3070,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int flags = DateUtils.FORMAT_SHOW_TIME
                 | DateUtils.FORMAT_CAP_NOON_MIDNIGHT
                 | DateUtils.FORMAT_SHOW_WEEKDAY;
-        final String title = DateUtils.formatDateTime(mContext, startMillis, flags);
+        final String title = Utils.formatDateRange(mContext, startMillis, startMillis, flags);
         menu.setHeaderTitle(title);
 
         int numSelectedEvents = mSelectedEvents.size();
