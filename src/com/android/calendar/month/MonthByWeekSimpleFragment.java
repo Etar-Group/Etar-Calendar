@@ -24,6 +24,7 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -46,8 +47,11 @@ import java.util.HashMap;
 public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollListener {
 
     private static final String TAG = "MonthFragment";
+    private static final String KEY_CURRENT_TIME = "current_time";
+
     protected static final int SCROLL_HYST_WEEKS = 2;
     protected static final int GOTO_SCROLL_DURATION = 1000;
+    protected static final int SCROLL_CHANGE_DELAY = 40;
     protected static final int DAYS_PER_WEEK = 7;
     protected static final int MINI_MONTH_NAME_TEXT_SIZE = 18;
     protected static int MINI_MONTH_WIDTH = 254;
@@ -65,6 +69,7 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
     protected float mVelocityScale = 0.333f;
 
     protected Context mContext;
+    protected Handler mHandler;
 
     protected float mMinimumFlingVelocity;
 
@@ -78,11 +83,11 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
 
     private static float mScale = 0;
     protected int mFirstDayOfWeek;
-    private Time mFirstDayOfMonth = new Time();
-    private Time mFirstVisibleDay = new Time();
-    private TextView mMonthName;
-    private int mCurrentMonthDisplayed;
-    private long mPreviousScrollPosition;
+    protected Time mFirstDayOfMonth = new Time();
+    protected Time mFirstVisibleDay = new Time();
+    protected TextView mMonthName;
+    protected int mCurrentMonthDisplayed;
+    protected long mPreviousScrollPosition;
     protected boolean mIsScrollingUp = false;
     protected int mPreviousScrollState = OnScrollListener.SCROLL_STATE_IDLE;
     protected int mCurrentScrollState = OnScrollListener.SCROLL_STATE_IDLE;
@@ -96,6 +101,11 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
             }
         }
     };
+
+    public MonthByWeekSimpleFragment(long initialTime) {
+        goTo(initialTime, false, true, true);
+        mHandler = new Handler();
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -137,6 +147,8 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_SHOW_WEEK, mShowWeekNumber ? 1 : 0);
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
+        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_JULIAN_DAY,
+                Time.getJulianDay(mSelectedDay.toMillis(false), mSelectedDay.gmtoff));
         if (mAdapter == null) {
             mAdapter = new MonthByWeekSimpleAdapter(getActivity(), weekParams);
             mAdapter.registerDataSetObserver(mObserver);
@@ -144,6 +156,14 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
             mAdapter.updateParams(weekParams);
         }
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_CURRENT_TIME)) {
+            goTo(savedInstanceState.getLong(KEY_CURRENT_TIME), false, true, true);
+        }
     }
 
     @Override
@@ -215,6 +235,11 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         super.onResume();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putLong(KEY_CURRENT_TIME, mSelectedDay.toMillis(true));
+    }
+
     /**
      * Override this method if you want to have a different resume setup
      */
@@ -269,7 +294,6 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
      *            visible
      */
     public void goTo(long time, boolean animate, boolean setSelected, boolean forceScroll) {
-
         if (time == -1) {
             Log.e(TAG, "time is invalid");
             return;
@@ -325,6 +349,9 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
             mAdapter.setSelectedDay(mSelectedDay);
         }
 
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "GoTo position " + position);
+        }
         // Check if the selected day is now outside of our visible range
         // and if so scroll to the month that contains it
         if (position < firstPosition || position > lastPosition || forceScroll) {
@@ -414,7 +441,7 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         mPreviousScrollState = mCurrentScrollState;
     }
 
-    private void setMonthDisplayed(Time time) {
+    protected void setMonthDisplayed(Time time) {
         mMonthName.setText(time.format("%B %Y"));
         mMonthName.invalidate();
         mCurrentMonthDisplayed = time.month;
@@ -424,31 +451,55 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        mCurrentScrollState = scrollState;
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
-            Log.d(TAG, "new scroll state: " + scrollState + " old state: " + mPreviousScrollState);
-        }
-        // For now we fix our position after a scroll or a fling ends
-        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE
-                && mPreviousScrollState != OnScrollListener.SCROLL_STATE_IDLE
-                /*&& mPreviousScrollState == OnScrollListener.SCROLL_STATE_TOUCH_SCROLL*/) {
-            View child = view.getChildAt(0);
-            if (child == null) {
-                // The view is no longer visible, just return
-                return;
-            }
-            int dist = child.getBottom() - LIST_TOP_OFFSET;
-            if (dist > LIST_TOP_OFFSET) {
-                mPreviousScrollState = scrollState;
-                if (Log.isLoggable(TAG, Log.DEBUG)) {
-                    Log.d(TAG, "scrolling by " + dist + " up? " + mIsScrollingUp);
-                }
-                if (mIsScrollingUp) {
-                    view.smoothScrollBy(dist - child.getHeight(), 500);
-                } else {
-                    view.smoothScrollBy(dist, 500);
-                }
-            }
-        }
+        mScrollStateChangedRunnable.doScrollStateChange(view, scrollState);
     }
+
+    protected ScrollStateRunnable mScrollStateChangedRunnable = new ScrollStateRunnable();
+
+    protected class ScrollStateRunnable implements Runnable {
+        private AbsListView mView;
+        private int mNewState;
+
+        public void doScrollStateChange(AbsListView view, int scrollState) {
+            mHandler.removeCallbacks(this);
+            mView = view;
+            mNewState = scrollState;
+            mHandler.postDelayed(this, SCROLL_CHANGE_DELAY);
+        }
+
+        public void run() {
+            mCurrentScrollState = mNewState;
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
+                Log.d(TAG,
+                        "new scroll state: " + mNewState + " old state: " + mPreviousScrollState);
+            }
+            // For now we fix our position after a scroll or a fling ends
+            if (mNewState == OnScrollListener.SCROLL_STATE_IDLE
+                    && mPreviousScrollState != OnScrollListener.SCROLL_STATE_IDLE
+            /*
+             * && mPreviousScrollState ==
+             * OnScrollListener.SCROLL_STATE_TOUCH_SCROLL
+             */) {
+                mPreviousScrollState = mNewState;
+                View child = mView.getChildAt(0);
+                if (child == null) {
+                    // The view is no longer visible, just return
+                    return;
+                }
+                int dist = child.getBottom() - LIST_TOP_OFFSET;
+                if (dist > LIST_TOP_OFFSET) {
+                    if (Log.isLoggable(TAG, Log.DEBUG)) {
+                        Log.d(TAG, "scrolling by " + dist + " up? " + mIsScrollingUp);
+                    }
+                    if (mIsScrollingUp) {
+                        mView.smoothScrollBy(dist - child.getHeight(), 500);
+                    } else {
+                        mView.smoothScrollBy(dist, 500);
+                    }
+                }
+            } else {
+                mPreviousScrollState = mNewState;
+            }
+        }
+    };
 }

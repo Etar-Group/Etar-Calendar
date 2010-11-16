@@ -19,6 +19,7 @@ package com.android.calendar.month;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.Event;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
@@ -31,7 +32,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Instances;
 import android.text.format.DateUtils;
@@ -58,13 +59,14 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     private static final String TAG = "MonthFragment";
 
     // Selection and selection args for adding event queries
-    private static final String WHERE_CALENDARS_SELECTED = Calendars.SELECTED + "=?";
+    private static final String WHERE_CALENDARS_SELECTED = Calendars.SELECTED + "=1";
     private static final String[] WHERE_CALENDARS_SELECTED_ARGS = {"1"};
     private static final String INSTANCES_SORT_ORDER = Instances.START_DAY + ","
             + Instances.START_MINUTE + "," + Instances.TITLE;
 
     protected float mMinimumTwoMonthFlingVelocity;
     protected boolean mIsMiniMonth;
+    protected boolean mHideDeclined;
 
     protected int mFirstLoadedJulianDay;
     protected int mLastLoadedJulianDay;
@@ -78,7 +80,6 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     private CursorLoader mLoader;
     private Uri mEventUri;
     private GestureDetector mGestureDetector;
-    private Handler mHandler;
 
     private volatile boolean mShouldLoad = true;
 
@@ -88,8 +89,14 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     private Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
-            mSelectedDay.timezone = Utils.getTimeZone(mContext, mTZUpdater);
+            String tz = Utils.getTimeZone(mContext, mTZUpdater);
+            mSelectedDay.timezone = tz;
             mSelectedDay.normalize(true);
+            mTempTime.timezone = tz;
+            mFirstDayOfMonth.timezone = tz;
+            mFirstDayOfMonth.normalize(true);
+            mFirstVisibleDay.timezone = tz;
+            mFirstVisibleDay.normalize(true);
             if (mAdapter != null) {
                 mAdapter.refresh();
             }
@@ -128,13 +135,12 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         MonthWeekSimpleView child = (MonthWeekSimpleView) mListView.getChildAt(0);
         if (child != null) {
             int julianDay = child.getFirstJulianDay();
-            mFirstLoadedJulianDay = julianDay - (WEEKS_BUFFER * 7);
+            mFirstLoadedJulianDay = julianDay;
         }
-
         // -1 to ensure we get all day events from any time zone
         mTempTime.setJulianDay(mFirstLoadedJulianDay - 1);
         long start = mTempTime.toMillis(true);
-        mLastLoadedJulianDay = mFirstLoadedJulianDay + (mNumWeeks + WEEKS_BUFFER) * 7;
+        mLastLoadedJulianDay = mFirstLoadedJulianDay + (mNumWeeks + 2 * WEEKS_BUFFER) * 7;
         // +1 to ensure we get all day events from any time zone
         mTempTime.setJulianDay(mLastLoadedJulianDay + 1);
         long end = mTempTime.toMillis(true);
@@ -144,6 +150,15 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         ContentUris.appendId(builder, start);
         ContentUris.appendId(builder, end);
         return builder.build();
+    }
+
+    protected String updateWhere() {
+        // TODO fix selection/selection args after b/3206641 is fixed
+        String where = WHERE_CALENDARS_SELECTED;
+        if (mHideDeclined) {
+            where += Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
+        }
+        return where;
     }
 
     private void stopLoader() {
@@ -198,9 +213,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        String tz = Utils.getTimeZone(activity, mTZUpdater);
-        mSelectedDay.timezone = tz;
-        mSelectedDay.normalize(true);
+        mTZUpdater.run();
 
         mGestureDetector = new GestureDetector(activity, new MonthGestureListener());
         ViewConfiguration viewConfig = ViewConfiguration.get(activity);
@@ -224,6 +237,8 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_SHOW_WEEK, mShowWeekNumber ? 1 : 0);
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
         weekParams.put(MonthByWeekAdapter.WEEK_PARAMS_IS_MINI, mIsMiniMonth ? 1 : 0);
+        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_JULIAN_DAY,
+                Time.getJulianDay(mSelectedDay.toMillis(true), mSelectedDay.gmtoff));
         if (mAdapter == null) {
             mAdapter = new MonthByWeekAdapter(getActivity(), weekParams);
             mAdapter.registerDataSetObserver(mObserver);
@@ -249,13 +264,12 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     }
 
     public MonthByWeekFragment() {
-        this(true);
+        this(System.currentTimeMillis(), true);
     }
 
-    public MonthByWeekFragment(boolean isMiniMonth) {
+    public MonthByWeekFragment(long initialTime, boolean isMiniMonth) {
+        super(initialTime);
         mIsMiniMonth = isMiniMonth;
-        mSelectedDay.setToNow();
-        mHandler = new Handler();
     }
 
     @Override
@@ -279,9 +293,15 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
             return null;
         }
         synchronized (mUpdateLoader) {
+            mFirstLoadedJulianDay =
+                    Time.getJulianDay(mSelectedDay.toMillis(true), mSelectedDay.gmtoff)
+                    - (mNumWeeks * 7 / 2);
             mEventUri = updateUri();
-            mLoader = new CursorLoader(getActivity(), mEventUri, Event.EVENT_PROJECTION,
-                    WHERE_CALENDARS_SELECTED, WHERE_CALENDARS_SELECTED_ARGS, INSTANCES_SORT_ORDER);
+            String where = updateWhere();
+
+            mLoader = new CursorLoader(
+                    getActivity(), mEventUri, Event.EVENT_PROJECTION, where,
+                    null /* WHERE_CALENDARS_SELECTED_ARGS */, INSTANCES_SORT_ORDER);
         }
         if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "Returning new loader with uri: " + mEventUri);
@@ -293,15 +313,23 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     public void doResumeUpdates() {
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
         mShowWeekNumber = Utils.getShowWeekNumber(mContext);
+        boolean prevHideDeclined = mHideDeclined;
+        mHideDeclined = Utils.getHideDeclinedEvents(mContext);
+        if (prevHideDeclined != mHideDeclined) {
+            mLoader.setSelection(updateWhere());
+        }
         updateHeader();
         mTZUpdater.run();
-        goTo(mSelectedDay.toMillis(true), false, false, false);
+        goTo(mSelectedDay.toMillis(true), false, true, false);
         mAdapter.setSelectedDay(mSelectedDay);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         synchronized (mUpdateLoader) {
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
+                Log.d(TAG, "Found " + data.getCount() + " cursor entries for uri " + mEventUri);
+            }
             CursorLoader cLoader = (CursorLoader) loader;
             if (cLoader.getUri().compareTo(mEventUri) != 0) {
                 // We've started a new query since this loader ran so ignore the
@@ -354,11 +382,20 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     }
 
     @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-        mCurrentScrollState = scrollState;
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
-            Log.d(TAG, "new scroll state: " + scrollState + " old state: " + mPreviousScrollState);
+    protected void setMonthDisplayed(Time time) {
+        super.setMonthDisplayed(time);
+        if (!mIsMiniMonth) {
+            mSelectedDay.set(time);
+            mAdapter.setSelectedDay(time);
+            CalendarController controller = CalendarController.getInstance(mContext);
+            if (time.toMillis(true) != controller.getTime()) {
+                controller.sendEvent(this, EventType.GO_TO, time, time, -1, ViewType.CURRENT);
+            }
         }
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
 
         synchronized (mUpdateLoader) {
             if (scrollState != OnScrollListener.SCROLL_STATE_IDLE) {
@@ -371,27 +408,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
             }
         }
 
-        // For now we fix our position after a scroll or a fling ends
-        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE
-                && mPreviousScrollState != OnScrollListener.SCROLL_STATE_IDLE
-                /*&& mPreviousScrollState == OnScrollListener.SCROLL_STATE_TOUCH_SCROLL*/) {
-            View child = view.getChildAt(0);
-            if (child == null) {
-                // we left the view, just return;
-                return;
-            }
-            int dist = child.getBottom() - LIST_TOP_OFFSET;
-            if (dist > LIST_TOP_OFFSET) {
-                mPreviousScrollState = scrollState;
-                if (Log.isLoggable(TAG, Log.DEBUG)) {
-                    Log.d(TAG, "scrolling by " + dist + " up? " + mIsScrollingUp);
-                }
-                if (mIsScrollingUp) {
-                    dist = (dist - child.getHeight());
-                }
-                view.smoothScrollBy(dist, 500);
-            }
-        }
+        mScrollStateChangedRunnable.doScrollStateChange(view, scrollState);
     }
 
     @Override

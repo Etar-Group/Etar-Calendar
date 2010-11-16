@@ -22,7 +22,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/month_bgcolor">
+    android:background="@null">
 
     <TextView android:id="@+id/month_name"
         android:layout_width="match_parent"
@@ -33,5 +33,5 @@
     <include android:id="@+id/day_names" layout="@layout/full_month_header" />
 
     <include android:id="@+id/week_list" layout="@android:layout/list_content"/>
-        
+
 </LinearLayout>

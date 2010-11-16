@@ -18,6 +18,7 @@ package com.android.calendar.month;
 
 import com.android.calendar.Event;
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -26,11 +27,20 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.text.TextPaint;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
 public class MonthWeekEventsView extends MonthWeekSimpleView {
     private static final String TAG = "MonthView";
@@ -46,20 +56,42 @@ public class MonthWeekEventsView extends MonthWeekSimpleView {
     private static final int DEFAULT_EDGE_SPACING = 4;
     private static int PADDING_MONTH_NUMBER = 4;
     private static int PADDING_WEEK_NUMBER = 16;
+    private static int DAY_SEPARATOR_OUTER_WIDTH = 5;
+    private static int DAY_SEPARATOR_INNER_WIDTH = 1;
+    private static int DAY_SEPARATOR_VERTICAL_LENGTH = 53;
+    private static int DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT = 64;
+
+    private static int EVENT_X_OFFSET_LANDSCAPE = 44;
+    private static int EVENT_Y_OFFSET_LANDSCAPE = 11;
+    private static int EVENT_Y_OFFSET_PORTRAIT = 18;
+    private static int EVENT_SQUARE_WIDTH = 10;
+    private static int EVENT_SQUARE_BORDER = 1;
+    private static int EVENT_LINE_PADDING = 4;
+    private static int EVENT_RIGHT_PADDING = 4;
+    private static int EVENT_BOTTOM_PADDING = 15;
 
     private static int SPACING_WEEK_NUMBER = 19;
+    private static boolean mScaled = false;
 
     protected Time mToday = new Time();
     protected boolean mHasToday = false;
     protected int mTodayIndex = -1;
     protected int mOrientation = Configuration.ORIENTATION_LANDSCAPE;
-    protected ArrayList<ArrayList<Event>> mEvents = null;
+    protected List<ArrayList<Event>> mEvents = null;
+    // This is for drawing the outlines around event chips and supports up to 5
+    // events being drawn on each day
+    protected float[] mEventOutlines = new float[5 * 4 * 4 * 7];
 
-    protected Paint mMonthNumPaint;
+    protected static StringBuilder mStringBuilder = new StringBuilder(50);
+    // TODO recreate formatter when locale changes
+    protected static Formatter mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
+
     protected Paint mMonthNamePaint;
-    protected Paint mEventPaint;
-    protected Paint mEventExtrasPaint;
+    protected TextPaint mEventPaint;
+    protected TextPaint mEventExtrasPaint;
     protected Paint mWeekNumPaint;
+
+    protected Drawable mTodayDrawable;
 
     protected int mMonthNumHeight;
     protected int mEventHeight;
@@ -77,6 +109,10 @@ public class MonthWeekEventsView extends MonthWeekSimpleView {
     protected int mMonthEventExtraOtherColor;
     protected int mMonthWeekNumColor;
 
+    protected int mEventChipOutlineColor = 0xFFFFFFFF;
+    protected int mDaySeparatorOuterColor = 0x33FFFFFF;
+    protected int mDaySeparatorInnerColor = 0x1A000000;
+
     /**
      * @param context
      */
@@ -84,7 +120,7 @@ public class MonthWeekEventsView extends MonthWeekSimpleView {
         super(context);
 
         mPadding = DEFAULT_EDGE_SPACING;
-        if (mScale != 1) {
+        if (mScale != 1 && !mScaled) {
             PADDING_MONTH_NUMBER *= mScale;
             PADDING_WEEK_NUMBER *= mScale;
             SPACING_WEEK_NUMBER *= mScale;
@@ -93,11 +129,23 @@ public class MonthWeekEventsView extends MonthWeekSimpleView {
             TEXT_SIZE_MORE_EVENTS *= mScale;
             TEXT_SIZE_MONTH_NAME *= mScale;
             TEXT_SIZE_WEEK_NUM *= mScale;
+            DAY_SEPARATOR_OUTER_WIDTH *= mScale;
+            DAY_SEPARATOR_INNER_WIDTH *= mScale;
+            DAY_SEPARATOR_VERTICAL_LENGTH *= mScale;
+            DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT *= mScale;
+            EVENT_X_OFFSET_LANDSCAPE *= mScale;
+            EVENT_Y_OFFSET_LANDSCAPE *= mScale;
+            EVENT_Y_OFFSET_PORTRAIT *= mScale;
+            EVENT_SQUARE_WIDTH *= mScale;
+            EVENT_LINE_PADDING *= mScale;
+            EVENT_BOTTOM_PADDING *= mScale;
+            EVENT_RIGHT_PADDING *= mScale;
             mPadding = (int) (DEFAULT_EDGE_SPACING * mScale);
+            mScaled = true;
         }
     }
 
-    public void setEvents(ArrayList<ArrayList<Event>> sortedEvents) {
+    public void setEvents(List<ArrayList<Event>> sortedEvents) {
         mEvents = sortedEvents;
         if (sortedEvents == null) {
             return;
@@ -124,6 +172,8 @@ public class MonthWeekEventsView extends MonthWeekSimpleView {
         mMonthEventExtraColor = res.getColor(R.color.month_event_extra_color);
         mMonthEventOtherColor = res.getColor(R.color.month_event_other_color);
         mMonthEventExtraOtherColor = res.getColor(R.color.month_event_extra_other_color);
+
+        mTodayDrawable = res.getDrawable(R.drawable.today_blue_week_holo_light);
     }
 
     /**
@@ -137,16 +187,17 @@ public class MonthWeekEventsView extends MonthWeekSimpleView {
         p.setStyle(Style.FILL);
 
         mMonthNumPaint = new Paint();
-        mMonthNumPaint.setFakeBoldText(true);
+        mMonthNumPaint.setFakeBoldText(false);
         mMonthNumPaint.setAntiAlias(true);
         mMonthNumPaint.setTextSize(TEXT_SIZE_MONTH_NUMBER);
         mMonthNumPaint.setColor(mMonthNumColor);
         mMonthNumPaint.setStyle(Style.FILL);
         mMonthNumPaint.setTextAlign(Align.LEFT);
+        mMonthNumPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
         mMonthNumHeight = (int) (-mMonthNumPaint.ascent());
 
-        mEventPaint = new Paint();
+        mEventPaint = new TextPaint();
         mEventPaint.setFakeBoldText(false);
         mEventPaint.setAntiAlias(true);
         mEventPaint.setTextSize(TEXT_SIZE_EVENT);
@@ -154,9 +205,10 @@ public class MonthWeekEventsView extends MonthWeekSimpleView {
 
         mEventHeight = (int) (-mEventPaint.ascent());
 
-        mEventExtrasPaint = new Paint();
+        mEventExtrasPaint = new TextPaint();
         mEventExtrasPaint.setFakeBoldText(false);
         mEventExtrasPaint.setAntiAlias(true);
+        mEventExtrasPaint.setStrokeWidth(EVENT_SQUARE_BORDER);
         mEventExtrasPaint.setTextSize(TEXT_SIZE_EVENT);
         mEventExtrasPaint.setColor(mMonthEventExtraColor);
         mEventExtrasPaint.setStyle(Style.FILL);
@@ -177,6 +229,10 @@ public class MonthWeekEventsView extends MonthWeekSimpleView {
     public void setWeekParams(HashMap<String, Integer> params, String tz) {
         super.setWeekParams(params, tz);
 
+        if (params.containsKey(VIEW_PARAMS_ORIENTATION)) {
+            mOrientation = params.get(VIEW_PARAMS_ORIENTATION);
+        }
+
         mToday.timezone = tz;
         mToday.setToNow();
         mToday.normalize(true);
@@ -191,17 +247,76 @@ public class MonthWeekEventsView extends MonthWeekSimpleView {
     }
 
     @Override
+    protected void onDraw(Canvas canvas) {
+        drawBackground(canvas);
+        drawWeekNums(canvas);
+        drawDaySeparators(canvas);
+        drawEvents(canvas);
+    }
+
+    @Override
+    protected void drawDaySeparators(Canvas canvas) {
+        // mDaySeparatorOuterColor
+        float lines[] = new float[8 * 4];
+        int count = 7 * 4;
+        int wkNumOffset = 0;
+        int effectiveWidth = mWidth - mPadding * 2;
+        if (mShowWeekNum) {
+            count += 4;
+            wkNumOffset = 1;
+            effectiveWidth -= SPACING_WEEK_NUMBER;
+        }
+        lines[0] = mPadding;
+        lines[1] = DAY_SEPARATOR_OUTER_WIDTH / 2 + 1;
+        lines[2] = mWidth - mPadding;
+        lines[3] = lines[1];
+        int y0 = DAY_SEPARATOR_OUTER_WIDTH / 2 + DAY_SEPARATOR_INNER_WIDTH;
+        int y1;
+        if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            y1 = y0 + DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT;
+        } else {
+            y1 = y0 + DAY_SEPARATOR_VERTICAL_LENGTH;
+        }
+
+        for (int i = 4; i < count;) {
+            int x = (i / 4 - wkNumOffset) * effectiveWidth / (mNumDays) + mPadding
+                    + (SPACING_WEEK_NUMBER * wkNumOffset);
+            lines[i++] = x;
+            lines[i++] = y0;
+            lines[i++] = x;
+            lines[i++] = y1;
+        }
+        p.setColor(mDaySeparatorOuterColor);
+        p.setStrokeWidth(DAY_SEPARATOR_OUTER_WIDTH);
+        canvas.drawLines(lines, 0, count, p);
+        p.setColor(mDaySeparatorInnerColor);
+        p.setStrokeWidth(DAY_SEPARATOR_INNER_WIDTH);
+        lines[1]--;
+        lines[3]--;
+        canvas.drawLines(lines, 0, count, p);
+    }
+
+    @Override
     protected void drawBackground(Canvas canvas) {
-        if (mHasSelectedDay) {
+        if (mHasToday) {
             p.setColor(mSelectedWeekBGColor);
         } else {
             return;
         }
-        r.top = 0;
+        int wkNumOffset = 0;
+        int effectiveWidth = mWidth - mPadding * 2;
+        if (mShowWeekNum) {
+            wkNumOffset = 1;
+            effectiveWidth -= SPACING_WEEK_NUMBER;
+        }
+        r.top = DAY_SEPARATOR_OUTER_WIDTH;
         r.bottom = mHeight;
-        r.left = mSelectedLeft;
-        r.right = mSelectedRight;
-        canvas.drawRect(r, p);
+        r.left = (mTodayIndex) * effectiveWidth / (mNumDays) + mPadding
+                + (SPACING_WEEK_NUMBER * wkNumOffset) + DAY_SEPARATOR_OUTER_WIDTH / 2;
+        r.right = (mTodayIndex + 1) * effectiveWidth / (mNumDays) + mPadding
+                + (SPACING_WEEK_NUMBER * wkNumOffset) - DAY_SEPARATOR_OUTER_WIDTH / 2 - 1;
+        mTodayDrawable.setBounds(r);
+        mTodayDrawable.draw(canvas);
     }
 
     @Override
@@ -243,6 +358,152 @@ public class MonthWeekEventsView extends MonthWeekSimpleView {
             canvas.drawText(mDayNumbers[i], x, y, mMonthNumPaint);
 
         }
+    }
+
+    protected void drawEvents(Canvas canvas) {
+        if (mEvents == null) {
+            return;
+        }
+        int wkNumOffset = 0;
+        int effectiveWidth = mWidth - mPadding * 2;
+        if (mShowWeekNum) {
+            wkNumOffset = 1;
+            effectiveWidth -= SPACING_WEEK_NUMBER;
+        }
+
+        int day = -1;
+        int outlineCount = 0;
+        for (ArrayList<Event> eventDay : mEvents) {
+            day++;
+            if (eventDay == null || eventDay.size() == 0) {
+                continue;
+            }
+            int ySquare;
+            int xSquare = day * effectiveWidth / (mNumDays) + mPadding
+                    + (SPACING_WEEK_NUMBER * wkNumOffset);
+            if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                ySquare = EVENT_Y_OFFSET_PORTRAIT + mMonthNumHeight + PADDING_MONTH_NUMBER;
+                xSquare += PADDING_MONTH_NUMBER + 1;
+            } else {
+                ySquare = EVENT_Y_OFFSET_LANDSCAPE;
+                xSquare += EVENT_X_OFFSET_LANDSCAPE;
+            }
+            int rightEdge = (day + 1) * effectiveWidth / (mNumDays) + mPadding
+                    + (SPACING_WEEK_NUMBER * wkNumOffset) - EVENT_RIGHT_PADDING;
+            int eventCount = 0;
+            Iterator<Event> iter = eventDay.iterator();
+            while (iter.hasNext()) {
+                Event event = iter.next();
+                int newY = drawEvent(canvas, event, xSquare, ySquare, rightEdge, iter.hasNext());
+                if (newY == ySquare) {
+                    break;
+                }
+                outlineCount = addChipOutline(mEventOutlines, outlineCount, xSquare, ySquare);
+                eventCount++;
+                ySquare = newY;
+            }
+
+            int remaining = eventDay.size() - eventCount;
+            if (remaining > 0) {
+                drawMoreEvents(canvas, remaining, xSquare);
+            }
+        }
+        if (outlineCount > 0) {
+            p.setColor(mEventChipOutlineColor);
+            p.setStrokeWidth(EVENT_SQUARE_BORDER);
+            canvas.drawLines(mEventOutlines, 0, outlineCount, p);
+        }
+    }
+
+    protected int addChipOutline(float[] lines, int count, int x, int y) {
+        // top of box
+        lines[count++] = x;
+        lines[count++] = y;
+        lines[count++] = x + EVENT_SQUARE_WIDTH;
+        lines[count++] = y;
+        // right side of box
+        lines[count++] = x + EVENT_SQUARE_WIDTH;
+        lines[count++] = y;
+        lines[count++] = x + EVENT_SQUARE_WIDTH;
+        lines[count++] = y + EVENT_SQUARE_WIDTH;
+        // left side of box
+        lines[count++] = x;
+        lines[count++] = y;
+        lines[count++] = x;
+        lines[count++] = y + EVENT_SQUARE_WIDTH + 1;
+        // bottom of box
+        lines[count++] = x;
+        lines[count++] = y + EVENT_SQUARE_WIDTH;
+        lines[count++] = x + EVENT_SQUARE_WIDTH;
+        lines[count++] = y + EVENT_SQUARE_WIDTH;
+
+        return count;
+    }
+
+    /**
+     * Attempts to draw the given event. Returns the y for the next event or the
+     * original y if the event will not fit. An event is considered to not fit
+     * if the event and its extras won't fit or if there are more events and the
+     * more events line would not fit after drawing this event.
+     *
+     * @param event the event to draw
+     * @param x the top left corner for this event's color chip
+     * @param y the top left corner for this event's color chip
+     * @return the y for the next event or the original y if it won't fit
+     */
+    protected int drawEvent(
+            Canvas canvas, Event event, int x, int y, int rightEdge, boolean moreEvents) {
+        int requiredSpace = EVENT_LINE_PADDING + mEventHeight;
+        int multiplier = 1;
+        if (moreEvents) {
+            multiplier++;
+        }
+        if (!event.allDay) {
+            multiplier++;
+        }
+        requiredSpace *= multiplier;
+        if (requiredSpace + y >= mHeight - EVENT_BOTTOM_PADDING) {
+            // Not enough space, return
+            return y;
+        }
+        r.left = x;
+        r.right = x + EVENT_SQUARE_WIDTH;
+        r.top = y;
+        r.bottom = y + EVENT_SQUARE_WIDTH;
+        p.setColor(event.color);
+        canvas.drawRect(r, p);
+
+        int textX = x + EVENT_SQUARE_WIDTH + EVENT_LINE_PADDING;
+        int textY = y + mEventHeight - EVENT_LINE_PADDING / 2;
+        float avail = rightEdge - textX;
+        CharSequence text = TextUtils.ellipsize(
+                event.title, mEventPaint, avail, TextUtils.TruncateAt.END);
+        canvas.drawText(text.toString(), textX, textY, mEventPaint);
+        if (!event.allDay) {
+            textY += mEventHeight + EVENT_LINE_PADDING;
+            mStringBuilder.setLength(0);
+            text = DateUtils.formatDateRange(mContext, mFormatter, event.startMillis,
+                    event.endMillis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
+                    Utils.getTimeZone(mContext, null)).toString();
+            text = TextUtils.ellipsize(text, mEventExtrasPaint, avail, TextUtils.TruncateAt.END);
+            canvas.drawText(text.toString(), textX, textY, mEventExtrasPaint);
+        }
+
+        return textY + EVENT_LINE_PADDING;
+    }
+
+    protected void drawMoreEvents(Canvas canvas, int remainingEvents, int x) {
+        float[] lines = new float[4 * 4];
+        int y = mHeight - EVENT_BOTTOM_PADDING + EVENT_LINE_PADDING / 2 - mEventHeight;
+        addChipOutline(lines, 0, x, y);
+        canvas.drawLines(lines, mEventExtrasPaint);
+        String text = mContext.getResources().getQuantityString(
+                R.plurals.month_more_events, remainingEvents);
+        y = mHeight - EVENT_BOTTOM_PADDING;
+        x += EVENT_SQUARE_WIDTH + EVENT_LINE_PADDING;
+        mEventExtrasPaint.setFakeBoldText(true);
+        canvas.drawText(String.format(text, remainingEvents), x, y, mEventExtrasPaint);
+        mEventExtrasPaint.setFakeBoldText(false);
     }
 
     @Override

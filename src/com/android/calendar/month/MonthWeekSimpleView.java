@@ -62,6 +62,8 @@ public class MonthWeekSimpleView extends View {
 
     protected Rect r = new Rect();
     protected Paint p = new Paint();
+    protected Paint mMonthNumPaint;
+
     protected String[] mDayNumbers;
     protected boolean[] mFocusDay;
     // The Julian day of the first day displayed by this item
@@ -100,7 +102,7 @@ public class MonthWeekSimpleView extends View {
 
         mBGColor = res.getColor(R.color.month_bgcolor);
         mSelectedWeekBGColor = res.getColor(R.color.month_selected_week_bgcolor);
-        mFocusMonthColor = res.getColor(R.color.month_day_number);
+        mFocusMonthColor = 0xFF000000;
         mOtherMonthColor = res.getColor(R.color.month_other_month_day_number);
         mSelectedDayBarColor = res.getColor(R.color.month_selection_bar_color);
         mSelectedDayOutlineColor = res.getColor(R.color.month_selection_outline_color);
@@ -143,10 +145,13 @@ public class MonthWeekSimpleView extends View {
         if (params.containsKey(VIEW_PARAMS_NUM_DAYS)) {
             mNumDays = params.get(VIEW_PARAMS_NUM_DAYS);
         }
-        if (params.containsKey(VIEW_PARAMS_SHOW_WK_NUM)
-                && params.get(VIEW_PARAMS_SHOW_WK_NUM) == 1) {
-            mNumCells = mNumDays + 1;
-            mShowWeekNum = true;
+        if (params.containsKey(VIEW_PARAMS_SHOW_WK_NUM)) {
+            if (params.get(VIEW_PARAMS_SHOW_WK_NUM) != 0) {
+                mNumCells = mNumDays + 1;
+                mShowWeekNum = true;
+            } else {
+                mShowWeekNum = false;
+            }
         } else {
             mNumCells = mShowWeekNum ? mNumDays + 1 : mNumDays;
         }
@@ -216,10 +221,18 @@ public class MonthWeekSimpleView extends View {
      */
     protected void setPaintProperties() {
         // TODO modify paint properties depending on isMini
-        p.setFakeBoldText(true);
+        p.setFakeBoldText(false);
         p.setAntiAlias(true);
         p.setTextSize(MINI_DAY_NUMBER_TEXT_SIZE);
         p.setStyle(Style.FILL);
+
+        mMonthNumPaint = new Paint();
+        mMonthNumPaint.setFakeBoldText(true);
+        mMonthNumPaint.setAntiAlias(true);
+        mMonthNumPaint.setTextSize(MINI_DAY_NUMBER_TEXT_SIZE);
+        mMonthNumPaint.setColor(mFocusMonthColor);
+        mMonthNumPaint.setStyle(Style.FILL);
+        mMonthNumPaint.setTextAlign(Align.CENTER);
     }
 
     /**
@@ -289,15 +302,17 @@ public class MonthWeekSimpleView extends View {
         }
 
         y = (int) ((mHeight + textHeight) / 2);
-
+        boolean isFocusMonth = mFocusDay[i];
+        mMonthNumPaint.setColor(isFocusMonth ? mFocusMonthColor : mOtherMonthColor);
+        mMonthNumPaint.setFakeBoldText(isFocusMonth);
         for (; i < nDays; i++) {
-            if (mFocusDay[i]) {
-                p.setColor(mFocusMonthColor);
-            } else {
-                p.setColor(mOtherMonthColor);
+            if (mFocusDay[i] != isFocusMonth) {
+                isFocusMonth = mFocusDay[i];
+                mMonthNumPaint.setColor(isFocusMonth ? mFocusMonthColor : mOtherMonthColor);
+                mMonthNumPaint.setFakeBoldText(isFocusMonth);
             }
             int x = (2 * i + 1) * (mWidth - mPadding * 2) / (divisor) + mPadding;
-            canvas.drawText(mDayNumbers[i], x, y, p);
+            canvas.drawText(mDayNumbers[i], x, y, mMonthNumPaint);
         }
     }
 

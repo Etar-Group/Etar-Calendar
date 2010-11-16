@@ -44,6 +44,7 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
     protected Time mTempTime;
     protected Time mToday;
     protected int mFirstJulianDay;
+    protected int mQueryDays;
     protected boolean mIsMiniMonth = true;
     protected int mOrientation = Configuration.ORIENTATION_LANDSCAPE;
 
@@ -75,6 +76,15 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
         mTempTime.switchTimezone(mHomeTimeZone);
     }
 
+    @Override
+    public void setSelectedDay(Time selectedTime) {
+        mSelectedDay.set(selectedTime);
+        long millis = mSelectedDay.normalize(true);
+        mSelectedWeek = Utils.getWeeksSinceEpochFromJulianDay(
+                Time.getJulianDay(millis, mSelectedDay.gmtoff), mFirstDayOfWeek);
+        notifyDataSetChanged();
+    }
+
     public void setEvents(int firstJulianDay, int numDays, ArrayList<Event> events) {
         if (mIsMiniMonth) {
             if (Log.isLoggable(TAG, Log.ERROR)) {
@@ -84,16 +94,12 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
             return;
         }
         mFirstJulianDay = firstJulianDay;
-        // Clear our our old list and make sure we're using the right size array
-        if (numDays != mEventDayList.size()) {
-            mEventDayList.clear();
-            for (int i = 0; i < numDays; i++) {
-                mEventDayList.add(new ArrayList<Event>());
-            }
-        } else {
-            for (ArrayList<Event> dayList : mEventDayList) {
-                dayList.clear();
-            }
+        mQueryDays = numDays;
+        // Create a new list, this is necessary since the weeks are referencing
+        // pieces of the old list
+        ArrayList<ArrayList<Event>> eventDayList = new ArrayList<ArrayList<Event>>();
+        for (int i = 0; i < numDays; i++) {
+            eventDayList.add(new ArrayList<Event>());
         }
 
         if (events == null || events.size() == 0) {
@@ -122,13 +128,14 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
                     endDay = numDays;
                 }
                 for (int j = startDay; j < endDay; j++) {
-                    mEventDayList.get(j).add(event);
+                    eventDayList.get(j).add(event);
                 }
             }
         }
         if(Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "Processed " + events.size() + " events.");
         }
+        mEventDayList = eventDayList;
         refresh();
     }
 
@@ -176,7 +183,31 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
         drawingParams.put(MonthWeekEventsView.VIEW_PARAMS_ORIENTATION, mOrientation);
         v.setWeekParams(drawingParams, mSelectedDay.timezone);
 
+        sendEventsToView(v);
+
         return v;
+    }
+
+    private void sendEventsToView(MonthWeekEventsView v) {
+        if (mEventDayList.size() == 0) {
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
+                Log.d(TAG, "No events loaded, did not pass any events to view.");
+            }
+            v.setEvents(null);
+            return;
+        }
+        int viewJulianDay = v.getFirstJulianDay();
+        int start = viewJulianDay - mFirstJulianDay;
+        int end = start + v.mNumDays;
+        if (start < 0 || end > mEventDayList.size()) {
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
+                Log.d(TAG, "Week is outside range of loaded events. viewStart: " + viewJulianDay
+                        + " eventsStart: " + mFirstJulianDay);
+            }
+            v.setEvents(null);
+            return;
+        }
+        v.setEvents(mEventDayList.subList(start, end));
     }
 
     @Override
@@ -191,8 +222,13 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
 
     @Override
     protected void onDayTapped(Time day) {
-        super.onDayTapped(day);
-        mController.sendEvent(mContext, EventType.GO_TO, day, day, -1, ViewType.CURRENT);
+        day.timezone = mHomeTimeZone;
+        Time currTime = new Time(mHomeTimeZone);
+        currTime.set(mController.getTime());
+        day.hour = currTime.hour;
+        day.minute = currTime.minute;
+        day.normalize(true);
+        mController.sendEvent(mContext, EventType.GO_TO, day, day, -1, ViewType.DETAIL);
     }
 
 }
