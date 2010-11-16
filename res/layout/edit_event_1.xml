@@ -32,21 +32,32 @@
             android:capitalize="sentences" />
     </TableRow>
 
-    <!-- CALENDARS -->
+    <!-- CALENDARS SELECTOR for new events -->
     <TableRow
-        android:id="@+id/calendar_group">
+        android:id="@+id/calendar_selector_group">
         <TextView
-            android:id="@+id/calendars_label"
             android:text="@string/edit_event_calendar_label"
             style="@style/TextAppearance.EditEvent_Label"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical" />
         <Spinner
-            android:id="@+id/calendars"
+            android:id="@+id/calendars_spinner"
             android:prompt="@string/edit_event_calendar_label"
             style="@style/TextAppearance.EditEvent_Value"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical" />
+    </TableRow>
+    
+    <!-- CALENDAR DISPLAY for existing events -->
+    <TableRow
+        android:id="@+id/calendar_group">
+        <TextView
+            android:text="@string/edit_event_calendar_label"
+            style="@style/TextAppearance.EditEvent_Label" />
+        <TextView
+            android:id="@+id/calendar_textview"
+            android:paddingLeft="4dip"
+            style="@style/TextAppearance.EditEvent_Value" />
     </TableRow>
 
     <!-- WHEN - Read-only textview version of FROM/TO (below) -->

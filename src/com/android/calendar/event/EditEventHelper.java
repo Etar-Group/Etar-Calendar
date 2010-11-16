@@ -1070,6 +1070,7 @@ public class EditEventHelper {
             model.mOrganizerCanRespond = cursor.getInt(CALENDARS_INDEX_ORGANIZER_CAN_RESPOND) != 0;
 
             model.mCalendarAccessLevel = cursor.getInt(CALENDARS_INDEX_ACCESS_LEVEL);
+            model.mCalendarDisplayName = cursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
 
             return true;
        }
