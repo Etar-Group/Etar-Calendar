@@ -711,8 +711,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mLayoutInflater = activity.getLayoutInflater();
 
         // cache all the widgets
-        mCalendarsSpinner = (Spinner) view.findViewById(R.id.calendars);
-        mViewList.add(mCalendarsSpinner);
+        mCalendarsSpinner = (Spinner) view.findViewById(R.id.calendars_spinner);
         mTitleTextView = (TextView) view.findViewById(R.id.title);
         mViewList.add(mTitleTextView);
         mLocationTextView = (TextView) view.findViewById(R.id.location);
@@ -947,6 +946,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (model.mUri != null) {
             // This is an existing event so hide the calendar spinner
             // since we can't change the calendar.
+            View calendarGroup = mView.findViewById(R.id.calendar_selector_group);
+            calendarGroup.setVisibility(View.GONE);
+            TextView tv = (TextView) mView.findViewById(R.id.calendar_textview);
+            tv.setText(model.mCalendarDisplayName);
+        } else {
             View calendarGroup = mView.findViewById(R.id.calendar_group);
             calendarGroup.setVisibility(View.GONE);
         }
