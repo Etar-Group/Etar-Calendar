@@ -100,12 +100,9 @@
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Организатор:"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Часовой пояс:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Принять приглашение?"</string>
-    <!-- no translation found for response_yes (2027484304899988350) -->
-    <skip />
-    <!-- no translation found for response_maybe (7791500973627841695) -->
-    <skip />
-    <!-- no translation found for response_no (561911691884148136) -->
-    <skip />
+    <string name="response_yes" msgid="2027484304899988350">"Да"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"Может быть"</string>
+    <string name="response_no" msgid="561911691884148136">"Нет"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Сегодня, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Загрузка…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Нажмите, чтобы увидеть мероприятия до <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -159,7 +156,7 @@
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Домашний пояс"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Для календаря и мероприятий всегда задается домашнее время"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Домашний часовой пояс"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Показывать номер недели"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Показать номер недели"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"О программе"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Версия сборки"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
