@@ -52,7 +52,7 @@ public class MonthWeekSimpleView extends View {
     protected static final int DEFAULT_SHOW_WK_NUM = 0;
     protected static final int DEFAULT_FOCUS_MONTH = -1;
 
-    private static final int MINI_DAY_NUMBER_TEXT_SIZE = 14;
+    protected static int MINI_DAY_NUMBER_TEXT_SIZE = 14;
 
     protected static float mScale = 0;
 
@@ -91,7 +91,7 @@ public class MonthWeekSimpleView extends View {
     protected int mDaySeparatorColor;
     protected int mWeekNumColor;
 
-    private boolean mShowWeekNum = false;
+    protected boolean mShowWeekNum = false;
 
     public MonthWeekSimpleView(Context context) {
         super(context);
@@ -111,6 +111,7 @@ public class MonthWeekSimpleView extends View {
             mScale = context.getResources().getDisplayMetrics().density;
             if (mScale != 1) {
                 DEFAULT_HEIGHT *= mScale;
+                MINI_DAY_NUMBER_TEXT_SIZE *= mScale;
             }
         }
 
@@ -261,7 +262,6 @@ public class MonthWeekSimpleView extends View {
         } else {
             return;
         }
-        p.setStyle(Style.FILL);
         r.top = 0;
         r.bottom = mHeight;
         r.left = mPadding;
@@ -313,6 +313,7 @@ public class MonthWeekSimpleView extends View {
         }
         r.left = mPadding;
         r.right = mWidth - mPadding;
+        // TODO use drawLines instead of resizing rectangles
         canvas.drawRect(r, p);
 
         // This is here in case we decide to add vertical lines back.
@@ -359,7 +360,7 @@ public class MonthWeekSimpleView extends View {
         updateSelectionPositions();
     }
 
-    private void updateSelectionPositions() {
+    protected void updateSelectionPositions() {
         if (mHasSelectedDay) {
             int selectedPosition = mSelectedDay - mWeekStart;
             if (selectedPosition < 0) {
