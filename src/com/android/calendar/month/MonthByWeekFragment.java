@@ -20,6 +20,7 @@ import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.Event;
+import com.android.calendar.R;
 import com.android.calendar.Utils;
 
 import android.app.Activity;
@@ -33,18 +34,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Instances;
+import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
@@ -66,6 +71,8 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
 
     private static final int WEEKS_BUFFER = 1;
     // How long to wait after scroll stops before starting the loader
+    // Using scroll duration because scroll state changes don't update
+    // correctly when a scroll is triggered programmatically.
     private static final int LOADER_DELAY = 200;
 
     private CursorLoader mLoader;
@@ -74,6 +81,9 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     private Handler mHandler;
 
     private volatile boolean mShouldLoad = true;
+
+    private static float mScale = 0;
+    private static int SPACING_WEEK_NUMBER = 19;
 
     private Runnable mTZUpdater = new Runnable() {
         @Override
@@ -101,6 +111,9 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
                 mEventUri = updateUri();
                 mLoader.setUri(mEventUri);
                 mLoader.startLoading();
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, "Started loader with uri: " + mEventUri);
+                }
             }
         }
     };
@@ -113,9 +126,11 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
      */
     private Uri updateUri() {
         MonthWeekSimpleView child = (MonthWeekSimpleView) mListView.getChildAt(0);
-        int julianDay = child.getFirstJulianDay();
+        if (child != null) {
+            int julianDay = child.getFirstJulianDay();
+            mFirstLoadedJulianDay = julianDay - (WEEKS_BUFFER * 7);
+        }
 
-        mFirstLoadedJulianDay = julianDay - (WEEKS_BUFFER * 7);
         // -1 to ensure we get all day events from any time zone
         mTempTime.setJulianDay(mFirstLoadedJulianDay - 1);
         long start = mTempTime.toMillis(true);
@@ -136,6 +151,9 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
             mHandler.removeCallbacks(mUpdateLoader);
             if (mLoader != null) {
                 mLoader.stopLoading();
+                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(TAG, "Stopped loader from loading");
+                }
             }
         }
     }
@@ -187,6 +205,13 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         mGestureDetector = new GestureDetector(activity, new MonthGestureListener());
         ViewConfiguration viewConfig = ViewConfiguration.get(activity);
         mMinimumTwoMonthFlingVelocity = viewConfig.getScaledMaximumFlingVelocity() / 2;
+
+        if (mScale == 0) {
+            mScale = activity.getResources().getDisplayMetrics().density;
+            if (mScale != 1) {
+                SPACING_WEEK_NUMBER *= mScale;
+            }
+        }
     }
 
     @Override
@@ -198,15 +223,29 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_SHOW_WEEK, mShowWeekNumber ? 1 : 0);
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
-        // TODO create full adapter if this is not a mini month view
-        mAdapter = new MonthByWeekAdapter(getActivity(), weekParams);
-        mAdapter.registerDataSetObserver(mObserver);
+        weekParams.put(MonthByWeekAdapter.WEEK_PARAMS_IS_MINI, mIsMiniMonth ? 1 : 0);
+        if (mAdapter == null) {
+            mAdapter = new MonthByWeekAdapter(getActivity(), weekParams);
+            mAdapter.registerDataSetObserver(mObserver);
+        } else {
+            mAdapter.updateParams(weekParams);
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.full_month_by_week, container, false);
+        mDayNamesHeader = (ViewGroup) v.findViewById(R.id.day_names);
+        return v;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mListView.setOnTouchListener(this);
+        getLoaderManager().initLoader(0, null, this);
     }
 
     public MonthByWeekFragment() {
@@ -219,13 +258,33 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         mHandler = new Handler();
     }
 
+    @Override
+    protected void setUpViewParams() {
+        if (mIsMiniMonth) {
+            super.setUpViewParams();
+            return;
+        }
+
+        mDayLabels = new String[7];
+        for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
+            mDayLabels[i - Calendar.SUNDAY] = DateUtils.getDayOfWeekString(
+                    i, DateUtils.LENGTH_MEDIUM);
+        }
+    }
+
     // TODO
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        if (mIsMiniMonth) {
+            return null;
+        }
         synchronized (mUpdateLoader) {
             mEventUri = updateUri();
             mLoader = new CursorLoader(getActivity(), mEventUri, Event.EVENT_PROJECTION,
                     WHERE_CALENDARS_SELECTED, WHERE_CALENDARS_SELECTED_ARGS, INSTANCES_SORT_ORDER);
+        }
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "Returning new loader with uri: " + mEventUri);
         }
         return mLoader;
     }
@@ -240,8 +299,6 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         mAdapter.setSelectedDay(mSelectedDay);
     }
 
-
-
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         synchronized (mUpdateLoader) {
@@ -254,7 +311,8 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
             ArrayList<Event> events = new ArrayList<Event>();
             Event.buildEventsFromCursor(
                     events, data, mContext, mFirstLoadedJulianDay, mLastLoadedJulianDay);
-            // TODO organize events, pass to adapter
+            ((MonthByWeekAdapter) mAdapter).setEvents(mFirstLoadedJulianDay,
+                    mLastLoadedJulianDay - mFirstLoadedJulianDay + 1, events);
         }
     }
 
@@ -306,6 +364,10 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
             if (scrollState != OnScrollListener.SCROLL_STATE_IDLE) {
                 mShouldLoad = false;
                 stopLoader();
+            } else {
+                mHandler.removeCallbacks(mUpdateLoader);
+                mShouldLoad = true;
+                mHandler.postDelayed(mUpdateLoader, LOADER_DELAY);
             }
         }
 
@@ -314,6 +376,10 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
                 && mPreviousScrollState != OnScrollListener.SCROLL_STATE_IDLE
                 /*&& mPreviousScrollState == OnScrollListener.SCROLL_STATE_TOUCH_SCROLL*/) {
             View child = view.getChildAt(0);
+            if (child == null) {
+                // we left the view, just return;
+                return;
+            }
             int dist = child.getBottom() - LIST_TOP_OFFSET;
             if (dist > LIST_TOP_OFFSET) {
                 mPreviousScrollState = scrollState;
@@ -321,15 +387,9 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
                     Log.d(TAG, "scrolling by " + dist + " up? " + mIsScrollingUp);
                 }
                 if (mIsScrollingUp) {
-                    view.smoothScrollBy(dist - child.getHeight(), 500);
-                } else {
-                    view.smoothScrollBy(dist, 500);
+                    dist = (dist - child.getHeight());
                 }
-            } else {
-                synchronized (mUpdateLoader) {
-                    mShouldLoad = true;
-                    mHandler.postDelayed(mUpdateLoader, LOADER_DELAY);
-                }
+                view.smoothScrollBy(dist, 500);
             }
         }
     }

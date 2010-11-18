@@ -99,18 +99,6 @@
         <item>Monday</item>
     </string-array>
 
-    <!-- Single character days of the week abbreviation to appear above a small
-        month view [CHAR LIMIT=2] -->
-    <string-array name="day_of_week_smallest_labels">
-        <item>"S"</item>
-        <item>"M"</item>
-        <item>"T"</item>
-        <item>"W"</item>
-        <item>"T"</item>
-        <item>"F"</item>
-        <item>"S"</item>
-    </string-array>
-
     <string-array name="preferences_week_start_day_values" translatable="false">
         <item>"-1"</item>
         <item>"7"</item>

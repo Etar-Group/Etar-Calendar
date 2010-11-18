@@ -64,7 +64,8 @@
     <style name="TextAppearance.MonthView_DayLabel">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/daynames_text_color</item>
+        <item name="android:paddingLeft">2dip</item>
+        <item name="android:textColor">@color/month_day_names_color</item>
     </style>
 
     <style name="TextAppearance.AgendaView_ValueLabel">

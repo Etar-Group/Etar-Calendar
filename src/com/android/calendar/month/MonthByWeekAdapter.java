@@ -23,13 +23,20 @@ import com.android.calendar.Event;
 import com.android.calendar.Utils;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView.LayoutParams;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
+    private static final String TAG = "MonthByWeek";
+
+    public static final String WEEK_PARAMS_IS_MINI = "mini_month";
     protected static int DEFAULT_QUERY_DAYS = 7 * 8; // 8 weeks
 
     protected CalendarController mController;
@@ -37,11 +44,16 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
     protected Time mTempTime;
     protected Time mToday;
     protected int mFirstJulianDay;
+    protected boolean mIsMiniMonth = true;
+    protected int mOrientation = Configuration.ORIENTATION_LANDSCAPE;
 
     protected ArrayList<ArrayList<Event>> mEventDayList = new ArrayList<ArrayList<Event>>();
 
     public MonthByWeekAdapter(Context context, HashMap<String, Integer> params) {
         super(context, params);
+        if (params.containsKey(WEEK_PARAMS_IS_MINI)) {
+            mIsMiniMonth = params.get(WEEK_PARAMS_IS_MINI) != 0;
+        }
     }
 
     @Override
@@ -64,6 +76,13 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
     }
 
     public void setEvents(int firstJulianDay, int numDays, ArrayList<Event> events) {
+        if (mIsMiniMonth) {
+            if (Log.isLoggable(TAG, Log.ERROR)) {
+                Log.e(TAG, "Attempted to set events for mini view. Events only supported in full"
+                        + " view.");
+            }
+            return;
+        }
         mFirstJulianDay = firstJulianDay;
         // Clear our our old list and make sure we're using the right size array
         if (numDays != mEventDayList.size()) {
@@ -113,11 +132,59 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
         refresh();
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (mIsMiniMonth) {
+            return super.getView(position, convertView, parent);
+        }
+        MonthWeekEventsView v;
+        LayoutParams params = new LayoutParams(
+                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        HashMap<String, Integer> drawingParams = null;
+        if (convertView != null) {
+            v = (MonthWeekEventsView) convertView;
+            // TODO Store drawing params in the view's Tag instead of having a
+            // new getter method
+            drawingParams = (HashMap<String, Integer>) v.getTag();
+        } else {
+            v = new MonthWeekEventsView(mContext);
+        }
+        if (drawingParams == null) {
+            drawingParams = new HashMap<String, Integer>();
+        }
+        drawingParams.clear();
+
+        v.setLayoutParams(params);
+        v.setClickable(true);
+        v.setOnTouchListener(this);
+
+        int selectedDay = -1;
+        if (mSelectedWeek == position) {
+            selectedDay = mSelectedDay.weekDay;
+        }
+
+        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_HEIGHT,
+                (parent.getHeight() - WEEK_7_OVERHANG_HEIGHT) / mNumWeeks);
+        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_SELECTED_DAY, selectedDay);
+        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_SHOW_WK_NUM, mShowWeekNumber ? 1 : 0);
+        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_WEEK_START, mFirstDayOfWeek);
+        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_NUM_DAYS, DEFAULT_DAYS_PER_WEEK);
+        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_NUM_WEEKS, mNumWeeks);
+        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_WEEK, position);
+        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_FOCUS_MONTH, mFocusMonth);
+        drawingParams.put(MonthWeekEventsView.VIEW_PARAMS_ORIENTATION, mOrientation);
+        v.setWeekParams(drawingParams, mSelectedDay.timezone);
+
+        return v;
+    }
+
     @Override
     protected void refresh() {
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
         mShowWeekNumber = Utils.getShowWeekNumber(mContext);
         mHomeTimeZone = Utils.getTimeZone(mContext, null);
+        mOrientation = mContext.getResources().getConfiguration().orientation;
         updateTimeZones();
         super.refresh();
     }

@@ -24,6 +24,7 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Gravity;
@@ -136,13 +137,60 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_SHOW_WEEK, mShowWeekNumber ? 1 : 0);
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
-        mAdapter = new MonthByWeekSimpleAdapter(getActivity(), weekParams);
-        mAdapter.registerDataSetObserver(mObserver);
+        if (mAdapter == null) {
+            mAdapter = new MonthByWeekSimpleAdapter(getActivity(), weekParams);
+            mAdapter.registerDataSetObserver(mObserver);
+        } else {
+            mAdapter.updateParams(weekParams);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        setUpListView();
+        setUpViewParams();
+
+        mMonthName = (TextView) getView().findViewById(R.id.month_name);
+        MonthWeekSimpleView child = (MonthWeekSimpleView) mListView.getChildAt(0);
+        if (child == null) {
+            return;
+        }
+        int julianDay = child.getFirstJulianDay();
+        mFirstVisibleDay.setJulianDay(julianDay);
+        mTempTime.setJulianDay(julianDay + DAYS_PER_WEEK);
+        setMonthDisplayed(mTempTime);
+    }
+
+    /**
+     * Sets up the size and gravity for the views and creates the header
+     * strings. You should override this method if you want different layout
+     * parameters to be set.
+     */
+    protected void setUpViewParams() {
+        mDayLabels = new String[7];
+        for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
+            mDayLabels[i - Calendar.SUNDAY] = DateUtils.getDayOfWeekString(
+                    i, DateUtils.LENGTH_SHORTEST);
+        }
+
+        FrameLayout.LayoutParams listParams = new FrameLayout.LayoutParams(
+                MINI_MONTH_WIDTH, MINI_MONTH_HEIGHT);
+        listParams.gravity = Gravity.CENTER_HORIZONTAL;
+        mListView.setLayoutParams(listParams);
+        LinearLayout.LayoutParams headerParams = new LinearLayout.LayoutParams(
+                MINI_MONTH_WIDTH, LayoutParams.WRAP_CONTENT);
+        headerParams.gravity = Gravity.CENTER_HORIZONTAL;
+        mDayNamesHeader.setLayoutParams(headerParams);
+    }
+
+    /**
+     * Sets all the required fields for the list view. You should override this
+     * method if you want different list view behavior.
+     */
+    protected void setUpListView() {
         // Configure the listview
         mListView = getListView();
         // Transparent background on scroll
@@ -158,41 +206,12 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         // Make the scrolling behavior nicer
         mListView.setFriction(mFriction);
         mListView.setVelocityScale(mVelocityScale);
-
-        mDayLabels = getActivity().getResources().getStringArray(
-                R.array.day_of_week_smallest_labels);
-
-        setLayoutParams();
-
-        mMonthName = (TextView) getView().findViewById(R.id.month_name);
-        MonthWeekSimpleView child = (MonthWeekSimpleView) mListView.getChildAt(0);
-        if (child == null) {
-            return;
-        }
-        int julianDay = child.getFirstJulianDay();
-        mFirstVisibleDay.setJulianDay(julianDay);
-        mTempTime.setJulianDay(julianDay + DAYS_PER_WEEK);
-        setMonthDisplayed(mTempTime);
-    }
-
-    /**
-     * Sets up the size and gravity for the view. You should override this
-     * method if you want different layout parameters to be set.
-     */
-    protected void setLayoutParams() {
-        FrameLayout.LayoutParams listParams = new FrameLayout.LayoutParams(
-                MINI_MONTH_WIDTH, MINI_MONTH_HEIGHT);
-        listParams.gravity = Gravity.CENTER_HORIZONTAL;
-        mListView.setLayoutParams(listParams);
-        LinearLayout.LayoutParams headerParams = new LinearLayout.LayoutParams(
-                MINI_MONTH_WIDTH, LayoutParams.WRAP_CONTENT);
-        headerParams.gravity = Gravity.CENTER_HORIZONTAL;
-        mDayNamesHeader.setLayoutParams(headerParams);
     }
 
     @Override
     public void onResume() {
         doResumeUpdates();
+        setUpAdapter();
         super.onResume();
     }
 
@@ -414,6 +433,10 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
                 && mPreviousScrollState != OnScrollListener.SCROLL_STATE_IDLE
                 /*&& mPreviousScrollState == OnScrollListener.SCROLL_STATE_TOUCH_SCROLL*/) {
             View child = view.getChildAt(0);
+            if (child == null) {
+                // The view is no longer visible, just return
+                return;
+            }
             int dist = child.getBottom() - LIST_TOP_OFFSET;
             if (dist > LIST_TOP_OFFSET) {
                 mPreviousScrollState = scrollState;

@@ -407,6 +407,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mMonthTab)) {
                     mActionBar.selectTab(mMonthTab);
                 }
+                // frag = new MonthByWeekFragment(false);
                 frag = new MonthFragment(false, timeMillis, false);
                 break;
 //            case ViewType.EDIT:
