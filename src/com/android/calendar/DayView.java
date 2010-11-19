@@ -1239,6 +1239,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         view = (DayView) mViewSwitcher.getCurrentView();
         view.requestFocus();
         view.reloadEvents();
+
+        // Update the mini-month (but defer it until the animation
+        // completes, to avoid stutter.)
+        final Time start = new Time(view.mBaseDate);
+        final Time end = new Time(view.mBaseDate);
+        end.monthDay += mNumDays;
+        end.normalize(true);
+        postDelayed(new Runnable() {
+                public void run() {
+                    mController.sendEvent(this, EventType.GO_TO,
+                                          start, end, -1, ViewType.CURRENT);
+                }
+            }, duration);
+
         return view;
     }
 
@@ -2831,14 +2845,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             // initNextView(deltaX);
 
             switchViews(mViewStartX > 0, mViewStartX, mViewWidth);
-            DayView view = (DayView) mViewSwitcher.getCurrentView();
-
-            Time end = new Time(view.mBaseDate);
-            end.monthDay += mNumDays;
-            end.normalize(true);
-            mController
-                    .sendEvent(this, EventType.GO_TO, view.mBaseDate, end, -1, ViewType.CURRENT);
-
             mViewStartX = 0;
             return;
         }
