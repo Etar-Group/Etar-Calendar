@@ -76,7 +76,7 @@
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
     </style>
-    
+
     <style name="TextAppearance.EditEvent_Label">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textStyle">bold</item>
@@ -131,6 +131,12 @@
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle</item>
         <item name="android:actionBarTabTextStyle">@style/ActionBarTabText</item>
         <item name="android:windowBackground">@drawable/calendar_background_holo_light</item>
+    </style>
+
+    <style name="CalendarTheme.WithActionBarWallpaper" parent="CalendarTheme.WithActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowShowWallpaper">true</item>
     </style>
 
     <style name="ActionBarTabStyle" parent="@android:style/Widget.ActionBarView_TabView">
