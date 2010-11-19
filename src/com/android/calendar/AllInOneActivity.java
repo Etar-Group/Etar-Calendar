@@ -106,6 +106,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     protected void onCreate(Bundle icicle) {
+//        setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
         super.onCreate(icicle);
 
         // This needs to be created before setContentView
