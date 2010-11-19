@@ -470,16 +470,14 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     protected void displayEditWhichDialogue() {
         if (!TextUtils.isEmpty(mModel.mRrule) && mModification == Utils.MODIFY_UNINITIALIZED) {
-            // If this event has not been synced, then don't allow deleting
-            // or changing a single instance.
-            String mSyncId = mModel.mSyncId;
+            final boolean notSynced = mModel.mSyncId == null;
             boolean isFirstEventInSeries = mModel.mIsFirstEventInSeries;
-
-            // If we haven't synced this repeating event yet, then don't
-            // allow the user to change just one instance.
             int itemIndex = 0;
             CharSequence[] items;
-            if (mSyncId == null) {
+
+            if (notSynced) {
+                // If this event has not been synced, then don't allow deleting
+                // or changing a single instance.
                 if (isFirstEventInSeries) {
                     // Still display the option so the user knows all events are
                     // changing
@@ -515,11 +513,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }).setTitle(R.string.edit_event_label).setItems(items, new OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     if (which == 0) {
-                        mModification = (mModel.mSyncId == null) ? Utils.MODIFY_ALL
-                                : Utils.MODIFY_SELECTED;
+                        mModification = notSynced ? Utils.MODIFY_ALL : Utils.MODIFY_SELECTED;
                     } else if (which == 1) {
-                        mModification = (mModel.mSyncId == null) ? Utils.MODIFY_ALL_FOLLOWING
-                                : Utils.MODIFY_ALL;
+                        mModification = notSynced ? Utils.MODIFY_ALL_FOLLOWING : Utils.MODIFY_ALL;
                     } else if (which == 2) {
                         mModification = Utils.MODIFY_ALL_FOLLOWING;
                     }
@@ -538,7 +534,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
         }
 
         public void run() {
-            Time start = null;
             // We only want this to get called once, either because the user
             // pressed back/home or one of the buttons on screen
             mSaveOnDetach = false;
