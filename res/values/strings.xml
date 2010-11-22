@@ -17,7 +17,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- This is the label underneath the icon for Calendar -->
     <string name="app_label">Calendar</string>
-    <string name="app_aio_label">Calendar AllInOne</string>
 
     <!-- Shared Labels. These labels are shared among the activities. -->
     <skip />
@@ -226,10 +225,6 @@
     <string name="edit_event_all_day_label">All day</string>
     <!-- Label for choosing one of the calendars -->
     <string name="edit_event_calendar_label">Calendar</string>
-    <!-- Menu item to show extra options that are used less often -->
-    <string name="edit_event_show_extra_options">Show extra options</string>
-    <!-- Menu item to hide extra options that are used less often -->
-    <string name="edit_event_hide_extra_options">Hide extra options</string>
     <!-- Menu item to show all choices [CHAR LIMIT=22]-->
     <string name="edit_event_show_all">Show all</string>
     <!-- Label for the event description -->
@@ -276,9 +271,9 @@
     <string name="agenda_today">Today, <xliff:g id="date">%1$s</xliff:g></string>
     <!-- This is shown while the calendar events are being loading to the screen. -->
     <string name="loading">Loading\u2026</string>
-    <!-- This is shown at the top of the agenda view showing the range of events shown. -->
+    <!-- This is shown at the top of the agenda view showing the beginning of the searched range. If the user taps on this string and Calendar will find events older than what is visible and display them to the user -->
     <string name="show_older_events">Touch to view events before <xliff:g id="oldest_search_range">%1$s</xliff:g></string>
-    <!-- This is shown at the bottom of the agenda view showing the range of events shown. -->
+    <!-- This is shown at the bottom of the agenda view showing the end of the searched range. If the user taps on this string and Calendar will find events later/newer than what is visible and display them to the user -->
     <string name="show_newer_events">Touch to view events after <xliff:g id="newest_search_range">%1$s</xliff:g></string>
 
     <!-- Search activity strings -->
