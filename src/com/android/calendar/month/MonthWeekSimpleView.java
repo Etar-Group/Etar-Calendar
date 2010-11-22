@@ -212,7 +212,7 @@ public class MonthWeekSimpleView extends View {
         } else {
             mNumCells = mShowWeekNum ? mNumDays + 1 : mNumDays;
         }
-        // Allocate space for cashing the day numbers and focus values
+        // Allocate space for caching the day numbers and focus values
         mDayNumbers = new String[mNumCells];
         mFocusDay = new boolean[mNumCells];
         mWeek = params.get(VIEW_PARAMS_WEEK);
@@ -317,6 +317,39 @@ public class MonthWeekSimpleView extends View {
      */
     public int getFirstJulianDay() {
         return mFirstJulianDay;
+    }
+
+    /**
+     * Calculates the day that the given x position is in, accounting for week
+     * number. Returns a Time referencing that day or null if
+     *
+     * @param x The x position of the touch event
+     * @return A time object for the tapped day or null if the position wasn't
+     *         in a day
+     */
+    public Time getDayFromLocation(float x) {
+        int dayStart = mShowWeekNum ? (mWidth - mPadding * 2) / mNumCells + mPadding : mPadding;
+        if (x < dayStart || x > mWidth - mPadding) {
+            return null;
+        }
+        // Selection is (x - start) / (pixels/day) == (x -s) * day / pixels
+        int dayPosition = (int) ((x - dayStart) * mNumDays / (mWidth - dayStart - mPadding));
+        int day = mFirstJulianDay + dayPosition;
+
+        Time time = new Time(mTimeZone);
+        if (mWeek == 0) {
+            // This week is weird...
+            if (day < Time.EPOCH_JULIAN_DAY) {
+                day++;
+            } else if (day == Time.EPOCH_JULIAN_DAY) {
+                time.set(1, 0, 1970);
+                time.normalize(true);
+                return time;
+            }
+        }
+
+        time.setJulianDay(day);
+        return time;
     }
 
     @Override
@@ -439,38 +472,5 @@ public class MonthWeekSimpleView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), mHeight);
-    }
-
-    /**
-     * Calculates the day that the given x position is in, accounting for week
-     * number. Returns a Time referencing that day or null if
-     *
-     * @param x The x position of the touch event
-     * @return A time object for the tapped day or null if the position wasn't
-     *         in a day
-     */
-    public Time getDayFromLocation(float x) {
-        int dayStart = mShowWeekNum ? (mWidth - mPadding * 2) / mNumCells + mPadding : mPadding;
-        if (x < dayStart || x > mWidth - mPadding) {
-            return null;
-        }
-        // Selection is (x - start) / (pixels/day) == (x -s) * day / pixels
-        int dayPosition = (int) ((x - dayStart) * mNumDays / (mWidth - dayStart - mPadding));
-        int day = mFirstJulianDay + dayPosition;
-
-        Time time = new Time(mTimeZone);
-        if (mWeek == 0) {
-            // This week is weird...
-            if (day < Time.EPOCH_JULIAN_DAY) {
-                day++;
-            } else if (day == Time.EPOCH_JULIAN_DAY) {
-                time.set(1, 0, 1970);
-                time.normalize(true);
-                return time;
-            }
-        }
-
-        time.setJulianDay(day);
-        return time;
     }
 }
