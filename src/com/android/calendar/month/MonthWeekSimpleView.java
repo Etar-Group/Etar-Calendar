@@ -26,45 +26,88 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.text.format.Time;
 import android.view.View;
 
 import java.security.InvalidParameterException;
 import java.util.HashMap;
 
+/**
+ * <p>
+ * This is a dynamic view for drawing a single week. It can be configured to
+ * display the week number, start the week on a given day, or show a reduced
+ * number of days. It is intended for use as a single view within a ListView.
+ * See {@link MonthByWeekSimpleAdapter} for usage.
+ * </p>
+ */
 public class MonthWeekSimpleView extends View {
     private static final String TAG = "MonthView";
 
+    /**
+     * These params can be passed into the view to control how it appears.
+     * {@link #VIEW_PARAMS_WEEK} is the only required field, though the default
+     * values are unlikely to fit most layouts correctly.
+     */
+    /**
+     * This sets the height of this week in pixels
+     */
     public static final String VIEW_PARAMS_HEIGHT = "height";
+    /**
+     * This specifies the position (or weeks since the epoch) of this week,
+     * calculated using {@link Utils#getWeeksSinceEpochFromJulianDay}
+     */
     public static final String VIEW_PARAMS_WEEK = "week";
+    /**
+     * This sets one of the days in this view as selected {@link Time#SUNDAY}
+     * through {@link Time#SATURDAY}.
+     */
     public static final String VIEW_PARAMS_SELECTED_DAY = "selected_day";
+    /**
+     * Which day the week should start on. {@link Time#SUNDAY} through
+     * {@link Time#SATURDAY}.
+     */
     public static final String VIEW_PARAMS_WEEK_START = "week_start";
+    /**
+     * How many days to display at a time. Days will be displayed starting with
+     * {@link #mWeekStart}.
+     */
     public static final String VIEW_PARAMS_NUM_DAYS = "num_days";
-    public static final String VIEW_PARAMS_NUM_WEEKS = "num_weeks";
+    /**
+     * Which month is currently in focus, as defined by {@link Time#month}
+     * [0-11].
+     */
     public static final String VIEW_PARAMS_FOCUS_MONTH = "focus_month";
+    /**
+     * If this month should display week numbers. false if 0, true otherwise.
+     */
     public static final String VIEW_PARAMS_SHOW_WK_NUM = "show_wk_num";
 
     protected static int DEFAULT_HEIGHT = 32;
     protected static final int DEFAULT_SELECTED_DAY = -1;
     protected static final int DEFAULT_WEEK_START = Time.SUNDAY;
     protected static final int DEFAULT_NUM_DAYS = 7;
-    protected static final int DEFAULT_NUM_WEEKS = 6;
     protected static final int DEFAULT_SHOW_WK_NUM = 0;
     protected static final int DEFAULT_FOCUS_MONTH = -1;
 
+    protected static int DAY_SEPARATOR_WIDTH = 1;
+
     protected static int MINI_DAY_NUMBER_TEXT_SIZE = 14;
 
+    // used for scaling to the device density
     protected static float mScale = 0;
 
-    private final boolean mDrawVLines = false;
-
+    // affects the padding on the sides of this view
     protected int mPadding = 0;
 
     protected Rect r = new Rect();
     protected Paint p = new Paint();
     protected Paint mMonthNumPaint;
+    protected Drawable mSelectedDayLine;
 
+    // Cache the number strings so we don't have to recompute them each time
     protected String[] mDayNumbers;
+    // Quick lookup for checking which days are in the focus month
     protected boolean[] mFocusDay;
     // The Julian day of the first day displayed by this item
     protected int mFirstJulianDay = -1;
@@ -72,28 +115,39 @@ public class MonthWeekSimpleView extends View {
     protected int mFirstMonth = -1;
     // The month of the last day in this week
     protected int mLastMonth = -1;
+    // The position of this week, equivalent to weeks since the week of Jan 1st,
+    // 1970
     protected int mWeek = -1;
+    // Quick reference to the width of this view, matches parent
     protected int mWidth;
+    // The height this view should draw at in pixels, set by height param
     protected int mHeight = DEFAULT_HEIGHT;
+    // Whether the week number should be shown
+    protected boolean mShowWeekNum = false;
+    // If this view contains the selected day
     protected boolean mHasSelectedDay = false;
+    // Which day is selected [0-6] or -1 if no day is selected
     protected int mSelectedDay = DEFAULT_SELECTED_DAY;
+    // Which day of the week to start on [0-6]
     protected int mWeekStart = DEFAULT_WEEK_START;
+    // How many days to display
     protected int mNumDays = DEFAULT_NUM_DAYS;
+    // The number of days + a spot for week number if it is displayed
     protected int mNumCells = mNumDays;
+    // The left edge of the selected day
     protected int mSelectedLeft = -1;
+    // The right edge of the selected day
     protected int mSelectedRight = -1;
+    // The timezone to display times/dates in (used for determining when Today
+    // is)
     protected String mTimeZone = Time.getCurrentTimezone();
 
     protected int mBGColor;
     protected int mSelectedWeekBGColor;
     protected int mFocusMonthColor;
     protected int mOtherMonthColor;
-    protected int mSelectedDayBarColor;
-    protected int mSelectedDayOutlineColor;
     protected int mDaySeparatorColor;
     protected int mWeekNumColor;
-
-    protected boolean mShowWeekNum = false;
 
     public MonthWeekSimpleView(Context context) {
         super(context);
@@ -104,10 +158,9 @@ public class MonthWeekSimpleView extends View {
         mSelectedWeekBGColor = res.getColor(R.color.month_selected_week_bgcolor);
         mFocusMonthColor = 0xFF000000;
         mOtherMonthColor = res.getColor(R.color.month_other_month_day_number);
-        mSelectedDayBarColor = res.getColor(R.color.month_selection_bar_color);
-        mSelectedDayOutlineColor = res.getColor(R.color.month_selection_outline_color);
         mDaySeparatorColor = res.getColor(R.color.month_grid_lines);
         mWeekNumColor = res.getColor(R.color.month_week_num_color);
+        mSelectedDayLine = res.getDrawable(R.drawable.dayline_minical_holo_light);
 
         if (mScale == 0) {
             mScale = context.getResources().getDisplayMetrics().density;
@@ -117,13 +170,16 @@ public class MonthWeekSimpleView extends View {
             }
         }
 
+        // Sets up any standard paints that will be used
         setPaintProperties();
     }
 
     /**
      * Sets all the parameters for displaying this week. The only required
      * parameter is the week number. Other parameters have a default value and
-     * will only update if a new value is included.
+     * will only update if a new value is included, except for focus month,
+     * which will always default to no focus month if no value is passed in. See
+     * {@link #VIEW_PARAMS_HEIGHT} for more info on parameters.
      *
      * @param params A map of the new parameters, see
      *            {@link #VIEW_PARAMS_HEIGHT}
@@ -135,6 +191,7 @@ public class MonthWeekSimpleView extends View {
         }
         setTag(params);
         mTimeZone = tz;
+        // We keep the current value for any params not present
         if (params.containsKey(VIEW_PARAMS_HEIGHT)) {
             mHeight = params.get(VIEW_PARAMS_HEIGHT);
         }
@@ -155,6 +212,7 @@ public class MonthWeekSimpleView extends View {
         } else {
             mNumCells = mShowWeekNum ? mNumDays + 1 : mNumDays;
         }
+        // Allocate space for cashing the day numbers and focus values
         mDayNumbers = new String[mNumCells];
         mFocusDay = new boolean[mNumCells];
         mWeek = params.get(VIEW_PARAMS_WEEK);
@@ -220,7 +278,6 @@ public class MonthWeekSimpleView extends View {
      * want to use a different paint.
      */
     protected void setPaintProperties() {
-        // TODO modify paint properties depending on isMini
         p.setFakeBoldText(false);
         p.setAntiAlias(true);
         p.setTextSize(MINI_DAY_NUMBER_TEXT_SIZE);
@@ -269,6 +326,12 @@ public class MonthWeekSimpleView extends View {
         drawDaySeparators(canvas);
     }
 
+    /**
+     * This draws the selection highlight if a day is selected in this week.
+     * Override this method if you wish to have a different background drawn.
+     *
+     * @param canvas The canvas to draw on
+     */
     protected void drawBackground(Canvas canvas) {
         if (mHasSelectedDay) {
             p.setColor(mSelectedWeekBGColor);
@@ -285,6 +348,12 @@ public class MonthWeekSimpleView extends View {
         canvas.drawRect(r, p);
     }
 
+    /**
+     * Draws the week and month day numbers for this week. Override this method
+     * if you need different placement.
+     *
+     * @param canvas The canvas to draw on
+     */
     protected void drawWeekNums(Canvas canvas) {
         float textHeight = p.getTextSize();
         int y;// = (int) ((mHeight + textHeight) / 2);
@@ -316,56 +385,29 @@ public class MonthWeekSimpleView extends View {
         }
     }
 
+    /**
+     * Draws a horizontal line for separating the weeks. Override this method if
+     * you want custom separators.
+     *
+     * @param canvas The canvas to draw on
+     */
     protected void drawDaySeparators(Canvas canvas) {
         int selectedPosition;
-        p.setColor(mDaySeparatorColor);
         int nDays = mNumCells;
-        r.top = 0;
-        r.bottom = 1;
         int i = 1;
         if (mShowWeekNum) {
             i = 2;
         }
-        r.left = mPadding;
-        r.right = mWidth - mPadding;
-        // TODO use drawLines instead of resizing rectangles
-        canvas.drawRect(r, p);
 
-        // This is here in case we decide to add vertical lines back.
-        if (mDrawVLines) {
-            for (; i < nDays; i++) {
-                int x = i * (mWidth - mPadding * 2) / nDays + mPadding;
-                r.left = x;
-                r.right = x + 1;
-                canvas.drawRect(r, p);
-            }
-        }
+        p.setColor(mDaySeparatorColor);
+        p.setStrokeWidth(DAY_SEPARATOR_WIDTH);
+        canvas.drawLine(mPadding, 0, mWidth - mPadding, 0, p);
+
         if (mHasSelectedDay) {
-
-            // Draw transparent highlight
-            p.setColor(mSelectedDayOutlineColor);
-            p.setStyle(Style.FILL);
-
-            r.top = 0;
-            r.bottom = mHeight;
-            r.left = mSelectedLeft - 2;
-            r.right = mSelectedLeft + 4;
-            canvas.drawRect(r, p);
-            r.left = mSelectedRight - 3;
-            r.right = mSelectedRight + 3;
-            canvas.drawRect(r, p);
-
-            // Draw the darker fill
-            p.setColor(mSelectedDayBarColor);
-
-            r.top = 3;
-            r.bottom = mHeight - 2;
-            r.left = mSelectedLeft;
-            r.right = mSelectedLeft + 2;
-            canvas.drawRect(r, p);
-            r.left = mSelectedRight - 1;
-            r.right = mSelectedRight + 1;
-            canvas.drawRect(r, p);
+            mSelectedDayLine.setBounds(mSelectedLeft - 2, 0, mSelectedLeft + 4, mHeight + 1);
+            mSelectedDayLine.draw(canvas);
+            mSelectedDayLine.setBounds(mSelectedRight - 3, 0, mSelectedRight + 3, mHeight + 1);
+            mSelectedDayLine.draw(canvas);
         }
     }
 
@@ -375,6 +417,9 @@ public class MonthWeekSimpleView extends View {
         updateSelectionPositions();
     }
 
+    /**
+     * This calculates the positions for the selected day lines.
+     */
     protected void updateSelectionPositions() {
         if (mHasSelectedDay) {
             int selectedPosition = mSelectedDay - mWeekStart;
@@ -396,6 +441,14 @@ public class MonthWeekSimpleView extends View {
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), mHeight);
     }
 
+    /**
+     * Calculates the day that the given x position is in, accounting for week
+     * number. Returns a Time referencing that day or null if
+     *
+     * @param x The x position of the touch event
+     * @return A time object for the tapped day or null if the position wasn't
+     *         in a day
+     */
     public Time getDayFromLocation(float x) {
         int dayStart = mShowWeekNum ? (mWidth - mPadding * 2) / mNumCells + mPadding : mPadding;
         if (x < dayStart || x > mWidth - mPadding) {
