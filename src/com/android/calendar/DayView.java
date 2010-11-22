@@ -706,8 +706,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mBaseDate.minute = 0;
         mBaseDate.second = 0;
 
-        Log.d(TAG, "Begin " + mBaseDate.toString());
-        Log.d(TAG, "Diff  " + time.toString());
+        if (DEBUG) {
+            Log.d(TAG, "Begin " + mBaseDate.toString());
+            Log.d(TAG, "Diff  " + time.toString());
+        }
 
         // Compare beginning of range
         int diff = Time.compare(time, mBaseDate);
@@ -717,7 +719,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mBaseDate.normalize(true);
             diff = Time.compare(time, mBaseDate);
 
-            Log.d(TAG, "End   " + mBaseDate.toString());
+            if (DEBUG) Log.d(TAG, "End   " + mBaseDate.toString());
 
             mBaseDate.monthDay -= mNumDays;
             mBaseDate.normalize(true);
@@ -730,7 +732,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
         }
 
-        Log.d(TAG, "Diff: " + diff);
+        if (DEBUG) Log.d(TAG, "Diff: " + diff);
 
         mBaseDate.hour = savedHour;
         mBaseDate.minute = savedMinute;
@@ -1193,6 +1195,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private View switchViews(boolean forward, float xOffSet, float width) {
+        if (DEBUG) Log.d(TAG, "switchViews(" + forward + ")...");
         float progress = Math.abs(xOffSet) / width;
         if (progress > 1.0f) {
             progress = 1.0f;
@@ -2840,14 +2843,19 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int distanceX = Math.abs(deltaX);
         int deltaY = (int) e2.getY() - (int) e1.getY();
         int distanceY = Math.abs(deltaY);
+        if (DEBUG) Log.d(TAG, "doFling: distanceX " + distanceX
+                         + ", HORIZONTAL_SCROLL_THRESHOLD " + HORIZONTAL_SCROLL_THRESHOLD);
 
         if ((distanceX >= HORIZONTAL_SCROLL_THRESHOLD) && (distanceX > distanceY)) {
+            // Horizontal fling.
             // initNextView(deltaX);
-
             switchViews(mViewStartX > 0, mViewStartX, mViewWidth);
             mViewStartX = 0;
             return;
         }
+
+        // Vertical fling.
+        mViewStartX = 0;
 
         // Continue scrolling vertically
         mContinueScroll.init((int) velocityY / 20);
@@ -2980,6 +2988,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 mTouchMode = TOUCH_MODE_INITIAL_STATE;
                 if (Math.abs(mViewStartX) > HORIZONTAL_SCROLL_THRESHOLD) {
                     // The user has gone beyond the threshold so switch views
+                    if (DEBUG) Log.d(TAG, "- horizontal scroll: switch views");
                     switchViews(mViewStartX > 0, mViewStartX, mViewWidth);
                     mViewStartX = 0;
                     return true;
@@ -2987,6 +2996,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     // Not beyond the threshold so invalidate which will cause
                     // the view to snap back.  Also call recalc() to ensure
                     // that we have the correct starting date and title.
+                    if (DEBUG) Log.d(TAG, "- horizontal scroll: snap back");
                     recalc();
                     invalidate();
                     mViewStartX = 0;
