@@ -491,6 +491,16 @@
         <item quantity="other"><xliff:g id="number">%d</xliff:g> more events</item>
     </plurals>
 
+    <!-- Shown in month view next to event icon when additional events exist for that day, but no
+        room remaining -->
+    <plurals name="month_more_events">
+        <!-- additional events message for 1 event, the quotes force a literal interpretation of the
+            string [CHAR LIMIT = 10] -->
+        <item quantity="one">"+1"</item>
+        <!-- additional events message for multiple events [CHAR LIMIT = 10] -->
+        <item quantity="other">+<xliff:g id="number">%d</xliff:g></item>
+    </plurals>
+
     <!-- Caption to show on gadget when there are no upcoming calendar events -->
     <string name="gadget_no_events">No upcoming calendar events</string>
 

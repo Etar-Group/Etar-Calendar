@@ -43,6 +43,7 @@ public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchList
     public static final String WEEK_PARAMS_FOCUS_MONTH = "focus_month";
     public static final String WEEK_PARAMS_SHOW_WEEK = "week_numbers";
     public static final String WEEK_PARAMS_WEEK_START = "week_start";
+    public static final String WEEK_PARAMS_JULIAN_DAY = "start_day";
 
     protected static final int WEEK_COUNT = CalendarController.MAX_CALENDAR_WEEK
             - CalendarController.MIN_CALENDAR_WEEK;
@@ -97,6 +98,9 @@ public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchList
         }
         if (params.containsKey(WEEK_PARAMS_WEEK_START)) {
             mFirstDayOfWeek = params.get(WEEK_PARAMS_WEEK_START);
+        }
+        if (params.containsKey(WEEK_PARAMS_JULIAN_DAY)) {
+            mSelectedDay.setJulianDay(params.get(WEEK_PARAMS_JULIAN_DAY));
         }
         refresh();
     }
@@ -187,10 +191,9 @@ public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchList
     public boolean onTouch(View v, MotionEvent event) {
         if (mGestureDetector.onTouchEvent(event)) {
             MonthWeekSimpleView view = (MonthWeekSimpleView) v;
-            Log.d(TAG, "Row=" + view.mWeek + " day=" + view.getDayFromLocation(event.getX()));
             Time day = ((MonthWeekSimpleView)v).getDayFromLocation(event.getX());
             if (Log.isLoggable(TAG, Log.DEBUG)) {
-                Log.d(TAG, "Day returned " + day);
+                Log.d(TAG, "Touched day at Row=" + view.mWeek + " day=" + day.toString());
             }
             if (day != null) {
                 onDayTapped(day);

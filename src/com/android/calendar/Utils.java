@@ -413,6 +413,14 @@ public class Utils {
     }
 
     /**
+     * @return true when declined events should be hidden.
+     */
+    public static boolean getHideDeclinedEvents(Context context) {
+        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        return prefs.getBoolean(GeneralPreferences.KEY_HIDE_DECLINED, false);
+    }
+
+    /**
      * Determine whether the column position is Saturday or not.
      *
      * @param column the column position

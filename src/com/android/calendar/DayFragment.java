@@ -27,7 +27,6 @@ import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +59,17 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
     EventLoader mEventLoader;
 
     Time mSelectedDay = new Time();
+
+    private Runnable mTZUpdater = new Runnable() {
+        @Override
+        public void run() {
+            if (!DayFragment.this.isAdded()) {
+                return;
+            }
+            String tz = Utils.getTimeZone(getActivity(), mTZUpdater);
+            mSelectedDay.switchTimezone(tz);
+        }
+    };
 
     /**
      * Listens for intent broadcasts
@@ -133,6 +143,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
     }
 
     public View makeView() {
+        mTZUpdater.run();
         DayView view = new DayView(getActivity(), CalendarController
                 .getInstance(getActivity()), mViewSwitcher, mEventLoader, mNumDays);
         view.setId(VIEW_ID);

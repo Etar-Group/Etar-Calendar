@@ -106,6 +106,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     protected void onCreate(Bundle icicle) {
+//        setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
         super.onCreate(icicle);
 
         // This needs to be created before setContentView
@@ -244,7 +245,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         FragmentTransaction ft = getFragmentManager().openTransaction();
 
         if (mIsMultipane) {
-            Fragment miniMonthFrag = new MonthByWeekFragment(true);
+            Fragment miniMonthFrag = new MonthByWeekFragment(timeMillis, true);
             ft.replace(R.id.mini_month, miniMonthFrag);
             mController.registerEventHandler(R.id.mini_month, (EventHandler) miniMonthFrag);
 
@@ -407,8 +408,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mMonthTab)) {
                     mActionBar.selectTab(mMonthTab);
                 }
-                // frag = new MonthByWeekFragment(false);
-                frag = new MonthFragment(false, timeMillis, false);
+                frag = new MonthByWeekFragment(timeMillis, false);
                 break;
 //            case ViewType.EDIT:
 //                frag = new EditEventFragment(e, mPreviousView);
