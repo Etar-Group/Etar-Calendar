@@ -216,7 +216,7 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
         mHomeTimeZone = Utils.getTimeZone(mContext, null);
         mOrientation = mContext.getResources().getConfiguration().orientation;
         updateTimeZones();
-        super.refresh();
+        notifyDataSetChanged();
     }
 
     @Override
