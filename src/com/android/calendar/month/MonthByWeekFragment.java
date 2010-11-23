@@ -155,7 +155,8 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         // TODO fix selection/selection args after b/3206641 is fixed
         String where = WHERE_CALENDARS_SELECTED;
         if (mHideDeclined) {
-            where += Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
+            where += " AND " + Instances.SELF_ATTENDEE_STATUS + "!="
+                    + Attendees.ATTENDEE_STATUS_DECLINED;
         }
         return where;
     }
@@ -319,7 +320,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         mShowWeekNumber = Utils.getShowWeekNumber(mContext);
         boolean prevHideDeclined = mHideDeclined;
         mHideDeclined = Utils.getHideDeclinedEvents(mContext);
-        if (prevHideDeclined != mHideDeclined) {
+        if (prevHideDeclined != mHideDeclined && mLoader != null) {
             mLoader.setSelection(updateWhere());
         }
         updateHeader();
