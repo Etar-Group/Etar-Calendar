@@ -19,7 +19,6 @@ package com.android.calendar.month;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.Event;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
@@ -156,7 +155,8 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         // TODO fix selection/selection args after b/3206641 is fixed
         String where = WHERE_CALENDARS_SELECTED;
         if (mHideDeclined) {
-            where += Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
+            where += " AND " + Instances.SELF_ATTENDEE_STATUS + "!="
+                    + Attendees.ATTENDEE_STATUS_DECLINED;
         }
         return where;
     }
@@ -251,7 +251,12 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.full_month_by_week, container, false);
+        View v;
+        if (mIsMiniMonth) {
+            v = inflater.inflate(R.layout.month_by_week, container, false);
+        } else {
+            v = inflater.inflate(R.layout.full_month_by_week, container, false);
+        }
         mDayNamesHeader = (ViewGroup) v.findViewById(R.id.day_names);
         return v;
     }
@@ -315,7 +320,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         mShowWeekNumber = Utils.getShowWeekNumber(mContext);
         boolean prevHideDeclined = mHideDeclined;
         mHideDeclined = Utils.getHideDeclinedEvents(mContext);
-        if (prevHideDeclined != mHideDeclined) {
+        if (prevHideDeclined != mHideDeclined && mLoader != null) {
             mLoader.setSelection(updateWhere());
         }
         updateHeader();
@@ -377,7 +382,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
-            goTo(event.selectedTime, true);
+            goTo(event.startTime, true);
         }
     }
 
@@ -389,7 +394,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
             mAdapter.setSelectedDay(time);
             CalendarController controller = CalendarController.getInstance(mContext);
             if (time.toMillis(true) != controller.getTime()) {
-                controller.sendEvent(this, EventType.GO_TO, time, time, -1, ViewType.CURRENT);
+                controller.setTime(time.toMillis(true) + DateUtils.WEEK_IN_MILLIS * mNumWeeks / 3);
             }
         }
     }

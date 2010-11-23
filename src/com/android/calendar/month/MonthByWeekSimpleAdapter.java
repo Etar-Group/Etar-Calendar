@@ -174,7 +174,6 @@ public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchList
         drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_SHOW_WK_NUM, mShowWeekNumber ? 1 : 0);
         drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_WEEK_START, mFirstDayOfWeek);
         drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_NUM_DAYS, DEFAULT_DAYS_PER_WEEK);
-        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_NUM_WEEKS, mNumWeeks);
         drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_WEEK, position);
         drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_FOCUS_MONTH, mFocusMonth);
         v.setWeekParams(drawingParams, mSelectedDay.timezone);

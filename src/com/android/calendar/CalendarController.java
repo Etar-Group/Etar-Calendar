@@ -426,6 +426,15 @@ public class CalendarController {
     }
 
     /**
+     * Set the time this controller is currently pointed at
+     *
+     * @param millisTime Time since epoch in millis
+     */
+    public void setTime(long millisTime) {
+        mTime.set(millisTime);
+    }
+
+    /**
      * @return the last event ID the edit view was launched with
      */
     public long getEventId() {
