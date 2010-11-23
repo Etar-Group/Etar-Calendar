@@ -60,9 +60,10 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
     protected int WEEK_MIN_VISIBLE_HEIGHT = 12;
     protected int BOTTOM_BUFFER = 20;
 
-    // TODO make this number adjustable
+    // You can override these numbers to get a different appearance
     protected int mNumWeeks = 6;
     protected boolean mShowWeekNumber = false;
+    protected int mDaysPerWeek = 7;
 
     // These affect the scroll speed and feel
     protected float mFriction = .05f;
@@ -262,7 +263,12 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         int offset = mFirstDayOfWeek - 1;
         for (int i = 1; i < 8; i++) {
             label = (TextView) mDayNamesHeader.getChildAt(i);
-            label.setText(mDayLabels[(offset + i) % 7]);
+            if (i < mDaysPerWeek + 1) {
+                label.setText(mDayLabels[(offset + i) % 7]);
+                label.setVisibility(View.VISIBLE);
+            } else {
+                label.setVisibility(View.GONE);
+            }
         }
         mDayNamesHeader.invalidate();
     }

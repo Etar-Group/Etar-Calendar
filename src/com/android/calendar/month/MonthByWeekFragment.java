@@ -239,6 +239,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         weekParams.put(MonthByWeekAdapter.WEEK_PARAMS_IS_MINI, mIsMiniMonth ? 1 : 0);
         weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_JULIAN_DAY,
                 Time.getJulianDay(mSelectedDay.toMillis(true), mSelectedDay.gmtoff));
+        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_DAYS_PER_WEEK, mDaysPerWeek);
         if (mAdapter == null) {
             mAdapter = new MonthByWeekAdapter(getActivity(), weekParams);
             mAdapter.registerDataSetObserver(mObserver);
@@ -323,6 +324,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         if (prevHideDeclined != mHideDeclined && mLoader != null) {
             mLoader.setSelection(updateWhere());
         }
+        mDaysPerWeek = Utils.getDaysPerWeek(mContext);
         updateHeader();
         mTZUpdater.run();
         goTo(mSelectedDay.toMillis(true), false, true, false);

@@ -44,6 +44,7 @@ public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchList
     public static final String WEEK_PARAMS_SHOW_WEEK = "week_numbers";
     public static final String WEEK_PARAMS_WEEK_START = "week_start";
     public static final String WEEK_PARAMS_JULIAN_DAY = "start_day";
+    public static final String WEEK_PARAMS_DAYS_PER_WEEK = "days_per_week";
 
     protected static final int WEEK_COUNT = CalendarController.MAX_CALENDAR_WEEK
             - CalendarController.MIN_CALENDAR_WEEK;
@@ -60,6 +61,7 @@ public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchList
     protected boolean mShowWeekNumber = false;
     protected GestureDetector mGestureDetector;
     protected int mNumWeeks = DEFAULT_NUM_WEEKS;
+    protected int mDaysPerWeek = DEFAULT_DAYS_PER_WEEK;
     protected int mFocusMonth = DEFAULT_MONTH_FOCUS;
 
     public MonthByWeekSimpleAdapter(Context context, HashMap<String, Integer> params) {
@@ -101,6 +103,9 @@ public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchList
         }
         if (params.containsKey(WEEK_PARAMS_JULIAN_DAY)) {
             mSelectedDay.setJulianDay(params.get(WEEK_PARAMS_JULIAN_DAY));
+        }
+        if (params.containsKey(WEEK_PARAMS_DAYS_PER_WEEK)) {
+            mDaysPerWeek = params.get(WEEK_PARAMS_DAYS_PER_WEEK);
         }
         refresh();
     }
@@ -173,7 +178,7 @@ public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchList
         drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_SELECTED_DAY, selectedDay);
         drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_SHOW_WK_NUM, mShowWeekNumber ? 1 : 0);
         drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_WEEK_START, mFirstDayOfWeek);
-        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_NUM_DAYS, DEFAULT_DAYS_PER_WEEK);
+        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_NUM_DAYS, mDaysPerWeek);
         drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_WEEK, position);
         drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_FOCUS_MONTH, mFocusMonth);
         v.setWeekParams(drawingParams, mSelectedDay.timezone);

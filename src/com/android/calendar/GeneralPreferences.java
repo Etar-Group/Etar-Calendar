@@ -43,6 +43,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     public static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
     public static final String KEY_WEEK_START_DAY = "preferences_week_start_day";
     public static final String KEY_SHOW_WEEK_NUM = "preferences_show_week_num";
+    public static final String KEY_DAYS_PER_WEEK = "preferences_days_per_week";
 
     public static final String KEY_CLEAR_SEARCH_HISTORY = "preferences_clear_search_history";
 
