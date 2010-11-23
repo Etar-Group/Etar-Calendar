@@ -616,26 +616,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
     }
 
     @Override
-    public boolean getAllDay() {
-        return false;
-    }
-
-    @Override
-    public long getSelectedTime() {
-        return mBegin;
-    }
-
-    @Override
     public long getSupportedEventTypes() {
         return EventType.USER_HOME;
-    }
-
-    @Override
-    public void goTo(Time time, boolean animate) {
-    }
-
-    @Override
-    public void goToToday() {
     }
 
     @Override

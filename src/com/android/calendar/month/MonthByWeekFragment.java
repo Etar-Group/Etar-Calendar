@@ -352,11 +352,6 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     }
 
     @Override
-    public boolean getAllDay() {
-        return false;
-    }
-
-    @Override
     public void eventsChanged() {
         // TODO Auto-generated method stub
         // request loader requery if we're not moving
@@ -368,23 +363,9 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     }
 
     @Override
-    public void goTo(Time time, boolean animate) {
-        if (time == null) {
-            return;
-        }
-        goTo(time.toMillis(true), animate, true, false);
-    }
-
-    @Override
-    public void goToToday() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
-            goTo(event.startTime, true);
+            goTo(event.startTime.toMillis(true), true, true, false);
         }
     }
 

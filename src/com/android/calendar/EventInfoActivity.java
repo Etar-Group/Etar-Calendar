@@ -73,32 +73,8 @@ public class EventInfoActivity extends AbstractCalendarActivity
     }
 
     @Override
-    public boolean getAllDay() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public long getSelectedTime() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
     public long getSupportedEventTypes() {
         return EventType.DELETE_EVENT;
-    }
-
-    @Override
-    public void goTo(Time time, boolean animate) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void goToToday() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

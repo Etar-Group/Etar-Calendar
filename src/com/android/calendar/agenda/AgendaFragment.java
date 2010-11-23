@@ -148,21 +148,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 //        Utils.setDefaultView(this, CalendarApplication.AGENDA_VIEW_ID);
     }
 
-    /* Navigator interface methods */
-    @Override
-    public void goToToday() {
-        if (mAgendaListView == null) {
-         // The view hasn't been set yet. Just save the time and use it later.
-            mTime.setToNow();
-            return;
-        }
-        Time now = new Time(mTimeZone);
-        now.setToNow();
-        mAgendaListView.goTo(now, mQuery, true); // Force refresh
-    }
-
-    @Override
-    public void goTo(Time time, boolean animate) {
+    private void goTo(Time time, boolean animate) {
         if (mAgendaListView == null) {
             // The view hasn't been set yet. Just save the time and use it
             // later.
@@ -182,16 +168,6 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             return;
         }
         mAgendaListView.goTo(time, mQuery, true);
-    }
-
-    @Override
-    public long getSelectedTime() {
-        return mAgendaListView.getSelectedTime();
-    }
-
-    @Override
-    public boolean getAllDay() {
-        return false;
     }
 
     @Override

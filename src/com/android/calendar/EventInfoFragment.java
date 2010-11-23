@@ -979,27 +979,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     @Override
-    public boolean getAllDay() {
-        return false;
-    }
-
-    @Override
-    public long getSelectedTime() {
-        return mStartMillis;
-    }
-
-    @Override
     public long getSupportedEventTypes() {
         return EventType.EVENTS_CHANGED;
-    }
-
-    @Override
-    public void goTo(Time time, boolean animate) {
-    }
-
-    @Override
-    public void goToToday() {
-
     }
 
     @Override
