@@ -33,7 +33,7 @@ import android.widget.AbsListView.LayoutParams;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
+public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     private static final String TAG = "MonthByWeek";
 
     public static final String WEEK_PARAMS_IS_MINI = "mini_month";
@@ -171,14 +171,14 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
             selectedDay = mSelectedDay.weekDay;
         }
 
-        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_HEIGHT,
+        drawingParams.put(SimpleWeekView.VIEW_PARAMS_HEIGHT,
                 (parent.getHeight() - WEEK_7_OVERHANG_HEIGHT) / mNumWeeks);
-        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_SELECTED_DAY, selectedDay);
-        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_SHOW_WK_NUM, mShowWeekNumber ? 1 : 0);
-        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_WEEK_START, mFirstDayOfWeek);
-        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_NUM_DAYS, mDaysPerWeek);
-        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_WEEK, position);
-        drawingParams.put(MonthWeekSimpleView.VIEW_PARAMS_FOCUS_MONTH, mFocusMonth);
+        drawingParams.put(SimpleWeekView.VIEW_PARAMS_SELECTED_DAY, selectedDay);
+        drawingParams.put(SimpleWeekView.VIEW_PARAMS_SHOW_WK_NUM, mShowWeekNumber ? 1 : 0);
+        drawingParams.put(SimpleWeekView.VIEW_PARAMS_WEEK_START, mFirstDayOfWeek);
+        drawingParams.put(SimpleWeekView.VIEW_PARAMS_NUM_DAYS, mDaysPerWeek);
+        drawingParams.put(SimpleWeekView.VIEW_PARAMS_WEEK, position);
+        drawingParams.put(SimpleWeekView.VIEW_PARAMS_FOCUS_MONTH, mFocusMonth);
         drawingParams.put(MonthWeekEventsView.VIEW_PARAMS_ORIENTATION, mOrientation);
         v.setWeekParams(drawingParams, mSelectedDay.timezone);
 

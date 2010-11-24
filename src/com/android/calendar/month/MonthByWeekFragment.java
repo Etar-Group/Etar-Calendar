@@ -52,7 +52,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
+public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         CalendarController.EventHandler, LoaderManager.LoaderCallbacks<Cursor>, OnScrollListener,
         OnTouchListener {
     private static final String TAG = "MonthFragment";
@@ -132,7 +132,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
      * @return The new Uri to use
      */
     private Uri updateUri() {
-        MonthWeekSimpleView child = (MonthWeekSimpleView) mListView.getChildAt(0);
+        SimpleWeekView child = (SimpleWeekView) mListView.getChildAt(0);
         if (child != null) {
             int julianDay = child.getFirstJulianDay();
             mFirstLoadedJulianDay = julianDay;
@@ -234,13 +234,13 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         mShowWeekNumber = Utils.getShowWeekNumber(mContext);
 
         HashMap<String, Integer> weekParams = new HashMap<String, Integer>();
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_SHOW_WEEK, mShowWeekNumber ? 1 : 0);
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_SHOW_WEEK, mShowWeekNumber ? 1 : 0);
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
         weekParams.put(MonthByWeekAdapter.WEEK_PARAMS_IS_MINI, mIsMiniMonth ? 1 : 0);
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_JULIAN_DAY,
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_JULIAN_DAY,
                 Time.getJulianDay(mSelectedDay.toMillis(true), mSelectedDay.gmtoff));
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_DAYS_PER_WEEK, mDaysPerWeek);
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_DAYS_PER_WEEK, mDaysPerWeek);
         if (mAdapter == null) {
             mAdapter = new MonthByWeekAdapter(getActivity(), weekParams);
             mAdapter.registerDataSetObserver(mObserver);

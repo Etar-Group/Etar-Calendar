@@ -52,7 +52,7 @@ import libcore.icu.LocaleData;
  * easily display a month selection component in a given style.
  * </p>
  */
-public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollListener {
+public class SimpleDayPickerFragment extends ListFragment implements OnScrollListener {
 
     private static final String TAG = "MonthFragment";
     private static final String KEY_CURRENT_TIME = "current_time";
@@ -88,7 +88,7 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
 
     // highlighted time
     protected Time mSelectedDay = new Time();
-    protected MonthByWeekSimpleAdapter mAdapter;
+    protected SimpleWeeksAdapter mAdapter;
     protected ListView mListView;
     protected ViewGroup mDayNamesHeader;
     protected String[] mDayLabels;
@@ -126,7 +126,7 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         }
     };
 
-    public MonthByWeekSimpleFragment(long initialTime) {
+    public SimpleDayPickerFragment(long initialTime) {
         goTo(initialTime, false, true, true);
         mHandler = new Handler();
     }
@@ -167,13 +167,13 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
      */
     protected void setUpAdapter() {
         HashMap<String, Integer> weekParams = new HashMap<String, Integer>();
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_SHOW_WEEK, mShowWeekNumber ? 1 : 0);
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_JULIAN_DAY,
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_SHOW_WEEK, mShowWeekNumber ? 1 : 0);
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_JULIAN_DAY,
                 Time.getJulianDay(mSelectedDay.toMillis(false), mSelectedDay.gmtoff));
         if (mAdapter == null) {
-            mAdapter = new MonthByWeekSimpleAdapter(getActivity(), weekParams);
+            mAdapter = new SimpleWeeksAdapter(getActivity(), weekParams);
             mAdapter.registerDataSetObserver(mObserver);
         } else {
             mAdapter.updateParams(weekParams);
@@ -198,7 +198,7 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         setUpHeader();
 
         mMonthName = (TextView) getView().findViewById(R.id.month_name);
-        MonthWeekSimpleView child = (MonthWeekSimpleView) mListView.getChildAt(0);
+        SimpleWeekView child = (SimpleWeekView) mListView.getChildAt(0);
         if (child == null) {
             return;
         }
@@ -418,7 +418,7 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
     @Override
     public void onScroll(
             AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        MonthWeekSimpleView child = (MonthWeekSimpleView)view.getChildAt(0);
+        SimpleWeekView child = (SimpleWeekView)view.getChildAt(0);
         if (child == null) {
             return;
         }
@@ -442,9 +442,9 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         // visible when scrolling up, and when the first day in a month reaches
         // the top of the screen when scrolling down.
         if (mIsScrollingUp) {
-            child = (MonthWeekSimpleView)view.getChildAt(SCROLL_HYST_WEEKS + offset);
+            child = (SimpleWeekView)view.getChildAt(SCROLL_HYST_WEEKS + offset);
         } else if (offset != 0) {
-            child = (MonthWeekSimpleView)view.getChildAt(offset);
+            child = (SimpleWeekView)view.getChildAt(offset);
         }
 
         // Find out which month we're moving into
