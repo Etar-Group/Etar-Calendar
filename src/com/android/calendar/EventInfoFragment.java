@@ -674,8 +674,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     private void doEdit() {
-        CalendarController.getInstance(getActivity()).sendEventRelatedEvent(
-                this, EventType.EDIT_EVENT, mEventId, mStartMillis, mEndMillis, 0, 0);
+        Context c = getActivity();
+        // This ensures that we aren't in the process of closing and have been
+        // unattached already
+        if (c != null) {
+            CalendarController.getInstance(c).sendEventRelatedEvent(
+                    this, EventType.EDIT_EVENT, mEventId, mStartMillis, mEndMillis, 0, 0);
+        }
     }
 
     private void updateEvent(View view) {
