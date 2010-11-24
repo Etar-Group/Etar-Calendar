@@ -81,6 +81,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     private GestureDetector mGestureDetector;
 
     private volatile boolean mShouldLoad = true;
+    private boolean mUserScrolled = false;
 
     private static float mScale = 0;
     private static int SPACING_WEEK_NUMBER = 19;
@@ -279,9 +280,9 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     }
 
     @Override
-    protected void setUpViewParams() {
+    protected void setUpHeader() {
         if (mIsMiniMonth) {
-            super.setUpViewParams();
+            super.setUpHeader();
             return;
         }
 
@@ -376,7 +377,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
             mSelectedDay.set(time);
             mAdapter.setSelectedDay(time);
             CalendarController controller = CalendarController.getInstance(mContext);
-            if (time.toMillis(true) != controller.getTime()) {
+            if (time.toMillis(true) != controller.getTime() && mUserScrolled) {
                 controller.setTime(time.toMillis(true) + DateUtils.WEEK_IN_MILLIS * mNumWeeks / 3);
             }
         }
@@ -394,6 +395,9 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
                 mShouldLoad = true;
                 mHandler.postDelayed(mUpdateLoader, LOADER_DELAY);
             }
+        }
+        if (scrollState == OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+            mUserScrolled = true;
         }
 
         mScrollStateChangedRunnable.doScrollStateChange(view, scrollState);

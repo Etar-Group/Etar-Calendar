@@ -227,7 +227,8 @@ public class MonthByWeekAdapter extends MonthByWeekSimpleAdapter {
         day.hour = currTime.hour;
         day.minute = currTime.minute;
         day.normalize(true);
-        mController.sendEvent(mContext, EventType.GO_TO, day, day, -1, ViewType.DETAIL);
+        mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
+                mIsMiniMonth ? ViewType.CURRENT : ViewType.DETAIL);
     }
 
 }

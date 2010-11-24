@@ -37,6 +37,14 @@ import java.util.Locale;
 
 import libcore.icu.LocaleData;
 
+/**
+ * <p>
+ * This is a specialized adapter for creating a list of weeks with selectable
+ * days. It can be configured to display the week number, start the week on a
+ * given day, show a reduced number of days, or display an arbitrary number of
+ * weeks at a time. See {@link MonthByWeekSimpleFragment} for usage.
+ * </p>
+ */
 public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchListener {
 
     private static final String TAG = "MonthByWeek";
@@ -81,7 +89,7 @@ public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchList
     protected Time mSelectedDay;
     // The week since 1970 that the selected day is in
     protected int mSelectedWeek;
-    protected int mFirstDayOfWeek = LocaleData.get(Locale.getDefault()).firstDayOfWeek;
+    protected int mFirstDayOfWeek = LocaleData.get(Locale.getDefault()).firstDayOfWeek - 1;
     protected boolean mShowWeekNumber = false;
     protected GestureDetector mGestureDetector;
     protected int mNumWeeks = DEFAULT_NUM_WEEKS;
@@ -171,7 +179,6 @@ public class MonthByWeekSimpleAdapter extends BaseAdapter implements OnTouchList
      * updates any config options that may have changed and refreshes the view
      */
     protected void refresh() {
-        mFirstDayOfWeek = LocaleData.get(Locale.getDefault()).firstDayOfWeek - 1;
         notifyDataSetChanged();
     }
 

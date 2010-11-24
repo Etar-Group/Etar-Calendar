@@ -28,34 +28,46 @@ import android.os.Handler;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
+import libcore.icu.LocaleData;
+
+/**
+ * <p>
+ * This displays a titled list of weeks with selectable days. It can be
+ * configured to display the week number, start the week on a given day, show a
+ * reduced number of days, or display an arbitrary number of weeks at a time. By
+ * overriding methods and changing variables this fragment can be customized to
+ * easily display a month selection component in a given style.
+ * </p>
+ */
 public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollListener {
 
     private static final String TAG = "MonthFragment";
     private static final String KEY_CURRENT_TIME = "current_time";
 
+    // Affects when the month selection will change while scrolling up
     protected static final int SCROLL_HYST_WEEKS = 2;
+    // How long the GoTo fling animation should last
     protected static final int GOTO_SCROLL_DURATION = 1000;
+    // How long to wait after receiving an onScrollStateChanged notification
+    // before acting on it
     protected static final int SCROLL_CHANGE_DELAY = 40;
+    // The number of days to display in each week
     protected static final int DAYS_PER_WEEK = 7;
+    // The size of the month name displayed above the week list
     protected static final int MINI_MONTH_NAME_TEXT_SIZE = 18;
-    protected static int MINI_MONTH_WIDTH = 254;
-    protected static int MINI_MONTH_HEIGHT = 212;
     protected static int LIST_TOP_OFFSET = 2;
     protected int WEEK_MIN_VISIBLE_HEIGHT = 12;
     protected int BOTTOM_BUFFER = 20;
@@ -74,25 +86,36 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
 
     protected float mMinimumFlingVelocity;
 
+    // highlighted time
     protected Time mSelectedDay = new Time();
     protected MonthByWeekSimpleAdapter mAdapter;
     protected ListView mListView;
     protected ViewGroup mDayNamesHeader;
     protected String[] mDayLabels;
 
+    // disposable variable used for time calculations
     protected Time mTempTime = new Time();
 
     private static float mScale = 0;
     protected int mFirstDayOfWeek;
+    // The first day of the focus month
     protected Time mFirstDayOfMonth = new Time();
+    // The first day that is visible in the view
     protected Time mFirstVisibleDay = new Time();
+    // The name of the month to display
     protected TextView mMonthName;
+    // which month should be displayed/highlighted [0-11]
     protected int mCurrentMonthDisplayed;
+    // used for tracking during a scroll
     protected long mPreviousScrollPosition;
+    // used for tracking which direction the view is scrolling
     protected boolean mIsScrollingUp = false;
+    // used for tracking what state listview is in
     protected int mPreviousScrollState = OnScrollListener.SCROLL_STATE_IDLE;
+    // used for tracking what state listview is in
     protected int mCurrentScrollState = OnScrollListener.SCROLL_STATE_IDLE;
 
+    // This allows us to update our position when a day is tapped
     protected DataSetObserver mObserver = new DataSetObserver() {
         @Override
         public void onChanged() {
@@ -129,8 +152,6 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         if (mScale == 0) {
             mScale = activity.getResources().getDisplayMetrics().density;
             if (mScale != 1) {
-                MINI_MONTH_WIDTH *= mScale;
-                MINI_MONTH_HEIGHT *= mScale;
                 WEEK_MIN_VISIBLE_HEIGHT *= mScale;
                 BOTTOM_BUFFER *= mScale;
                 LIST_TOP_OFFSET *= mScale;
@@ -141,7 +162,8 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
     }
 
     /**
-     * Override if a custom adapter is needed
+     * Creates a new adapter if necessary and sets up its parameters. Override
+     * this method to provide a custom adapter.
      */
     protected void setUpAdapter() {
         HashMap<String, Integer> weekParams = new HashMap<String, Integer>();
@@ -156,6 +178,7 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         } else {
             mAdapter.updateParams(weekParams);
         }
+        // refresh the view with the new parameters
         mAdapter.notifyDataSetChanged();
     }
 
@@ -172,7 +195,7 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         super.onActivityCreated(savedInstanceState);
 
         setUpListView();
-        setUpViewParams();
+        setUpHeader();
 
         mMonthName = (TextView) getView().findViewById(R.id.month_name);
         MonthWeekSimpleView child = (MonthWeekSimpleView) mListView.getChildAt(0);
@@ -181,35 +204,26 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         }
         int julianDay = child.getFirstJulianDay();
         mFirstVisibleDay.setJulianDay(julianDay);
+        // set the title to the month of the second week
         mTempTime.setJulianDay(julianDay + DAYS_PER_WEEK);
         setMonthDisplayed(mTempTime);
     }
 
     /**
-     * Sets up the size and gravity for the views and creates the header
-     * strings. You should override this method if you want different layout
-     * parameters to be set.
+     * Sets up the strings to be used by the header. Override this method to use
+     * different strings or modify the view params.
      */
-    protected void setUpViewParams() {
+    protected void setUpHeader() {
         mDayLabels = new String[7];
         for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
             mDayLabels[i - Calendar.SUNDAY] = DateUtils.getDayOfWeekString(
                     i, DateUtils.LENGTH_SHORTEST);
         }
-
-        FrameLayout.LayoutParams listParams = new FrameLayout.LayoutParams(
-                MINI_MONTH_WIDTH, MINI_MONTH_HEIGHT);
-        listParams.gravity = Gravity.CENTER_HORIZONTAL;
-        mListView.setLayoutParams(listParams);
-        LinearLayout.LayoutParams headerParams = new LinearLayout.LayoutParams(
-                MINI_MONTH_WIDTH, LayoutParams.WRAP_CONTENT);
-        headerParams.gravity = Gravity.CENTER_HORIZONTAL;
-        mDayNamesHeader.setLayoutParams(headerParams);
     }
 
     /**
-     * Sets all the required fields for the list view. You should override this
-     * method if you want different list view behavior.
+     * Sets all the required fields for the list view. Override this method to
+     * set a different list view behavior.
      */
     protected void setUpListView() {
         // Configure the listview
@@ -242,10 +256,11 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
     }
 
     /**
-     * Override this method if you want to have a different resume setup
+     * Updates the user preference fields. Override this to use a different
+     * preference space.
      */
     protected void doResumeUpdates() {
-        mFirstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
+        mFirstDayOfWeek = LocaleData.get(Locale.getDefault()).firstDayOfWeek - 1;
         mShowWeekNumber = false;
 
         updateHeader();
@@ -253,6 +268,10 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         mAdapter.setSelectedDay(mSelectedDay);
     }
 
+    /**
+     * Fixes the day names header to provide correct spacing and updates the
+     * label text. Override this to set up a custom header.
+     */
     protected void updateHeader() {
         TextView label = (TextView) mDayNamesHeader.findViewById(R.id.wk_label);
         if (mShowWeekNumber) {
@@ -281,16 +300,22 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         return v;
     }
 
+    /**
+     * Returns the UTC millis since epoch representation of the currently
+     * selected time.
+     *
+     * @return
+     */
     public long getSelectedTime() {
-        // TODO Auto-generated method stub
         return mSelectedDay.toMillis(true);
     }
 
     /**
-     * Moves the view to the specified time. This moves to the specified time in
-     * the view. If the time is not already in range it will move the list so
-     * that the first of the month containing the time is at the top of the
-     * view. This time may optionally be highlighted as selected as well.
+     * This moves to the specified time in the view. If the time is not already
+     * in range it will move the list so that the first of the month containing
+     * the time is at the top of the view. If the new time is already in view
+     * the list will not be scrolled unless forceScroll is true. This time may
+     * optionally be highlighted as selected as well.
      *
      * @param time The time to move to
      * @param animate Whether to scroll to the given time or just redraw at the
@@ -305,13 +330,14 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
             return;
         }
 
-        mTempTime.set(time);
-        long millis = mTempTime.normalize(true);
+        // Set the selected day
         if (setSelected) {
             mSelectedDay.set(time);
             mSelectedDay.normalize(true);
         }
 
+        // If this view isn't returned yet we won't be able to load the lists
+        // current position, so return after setting the selected day.
         if (!isResumed()) {
             if (Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "We're not visible yet");
@@ -319,6 +345,8 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
             return;
         }
 
+        mTempTime.set(time);
+        long millis = mTempTime.normalize(true);
         // Get the week we're going to
         // TODO push Util function into Calendar public api.
         int position = Utils.getWeeksSinceEpochFromJulianDay(
@@ -374,6 +402,8 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
                         position, LIST_TOP_OFFSET, GOTO_SCROLL_DURATION);
             } else {
                 mListView.setSelectionFromTop(position, LIST_TOP_OFFSET);
+                // Perform any after scroll operations that are needed
+                onScrollStateChanged(mListView, OnScrollListener.SCROLL_STATE_IDLE);
             }
         } else if (setSelected) {
             // Otherwise just set the selection
@@ -381,8 +411,13 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         }
     }
 
+     /**
+     * Updates the title and selected month if the view has moved to a new
+     * month.
+     */
     @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+    public void onScroll(
+            AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         MonthWeekSimpleView child = (MonthWeekSimpleView)view.getChildAt(0);
         if (child == null) {
             return;
@@ -447,6 +482,12 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         mPreviousScrollState = mCurrentScrollState;
     }
 
+    /**
+     * Sets the month displayed at the top of this view based on time. Override
+     * to add custom events when the title is changed.
+     *
+     * @param time A day in the new focus month.
+     */
     protected void setMonthDisplayed(Time time) {
         mMonthName.setText(time.format("%B %Y"));
         mMonthName.invalidate();
@@ -457,6 +498,8 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
+        // use a post to prevent re-entering onScrollStateChanged before it
+        // exits
         mScrollStateChangedRunnable.doScrollStateChange(view, scrollState);
     }
 
@@ -466,6 +509,13 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
         private AbsListView mView;
         private int mNewState;
 
+        /**
+         * Sets up the runnable with a short delay in case the scroll state
+         * immediately changes again.
+         *
+         * @param view The list view that changed state
+         * @param scrollState The new state it changed to
+         */
         public void doScrollStateChange(AbsListView view, int scrollState) {
             mHandler.removeCallbacks(this);
             mView = view;
@@ -479,13 +529,9 @@ public class MonthByWeekSimpleFragment extends ListFragment implements OnScrollL
                 Log.d(TAG,
                         "new scroll state: " + mNewState + " old state: " + mPreviousScrollState);
             }
-            // For now we fix our position after a scroll or a fling ends
+            // Fix the position after a scroll or a fling ends
             if (mNewState == OnScrollListener.SCROLL_STATE_IDLE
-                    && mPreviousScrollState != OnScrollListener.SCROLL_STATE_IDLE
-            /*
-             * && mPreviousScrollState ==
-             * OnScrollListener.SCROLL_STATE_TOUCH_SCROLL
-             */) {
+                    && mPreviousScrollState != OnScrollListener.SCROLL_STATE_IDLE) {
                 mPreviousScrollState = mNewState;
                 View child = mView.getChildAt(0);
                 if (child == null) {
