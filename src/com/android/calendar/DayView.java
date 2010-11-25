@@ -133,7 +133,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static final int ACCESS_LEVEL_DELETE = 1;
     private static final int ACCESS_LEVEL_EDIT = 2;
 
-    private static int HORIZONTAL_SCROLL_THRESHOLD = 50;
+    private static int mHorizontalSnapBackThreshold = 128;
+    private static int HORIZONTAL_FLING_THRESHOLD = 75;
 
     private ContinueScroll mContinueScroll = new ContinueScroll();
 
@@ -415,7 +416,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 MIN_CELL_WIDTH_FOR_TEXT *= mScale;
                 MIN_EVENT_HEIGHT *= mScale;
 
-                HORIZONTAL_SCROLL_THRESHOLD *= mScale;
+                HORIZONTAL_FLING_THRESHOLD *= mScale;
 
                 CURRENT_TIME_LINE_HEIGHT *= mScale;
                 CURRENT_TIME_LINE_BORDER_WIDTH *= mScale;
@@ -770,6 +771,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mViewHeight = height;
         int gridAreaWidth = width - mHoursWidth;
         mCellWidth = (gridAreaWidth - (mNumDays * DAY_GAP)) / mNumDays;
+
+        // This would be about 1 day worth in a 7 day view
+        mHorizontalSnapBackThreshold = width / 7;
 
         Paint p = new Paint();
         p.setTextSize(HOURS_FONT_SIZE);
@@ -2829,9 +2833,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         mScrolling = true;
 
-        if (mSelectionMode != SELECTION_HIDDEN) {
-            mSelectionMode = SELECTION_HIDDEN;
-        }
+        mSelectionMode = SELECTION_HIDDEN;
         invalidate();
     }
 
@@ -2844,12 +2846,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int deltaY = (int) e2.getY() - (int) e1.getY();
         int distanceY = Math.abs(deltaY);
         if (DEBUG) Log.d(TAG, "doFling: distanceX " + distanceX
-                         + ", HORIZONTAL_SCROLL_THRESHOLD " + HORIZONTAL_SCROLL_THRESHOLD);
+                         + ", HORIZONTAL_FLING_THRESHOLD " + HORIZONTAL_FLING_THRESHOLD);
 
-        if ((distanceX >= HORIZONTAL_SCROLL_THRESHOLD) && (distanceX > distanceY)) {
+        if ((distanceX >= HORIZONTAL_FLING_THRESHOLD) && (distanceX > distanceY)) {
             // Horizontal fling.
             // initNextView(deltaX);
-            switchViews(mViewStartX > 0, mViewStartX, mViewWidth);
+            switchViews(deltaX < 0, mViewStartX, mViewWidth);
             mViewStartX = 0;
             return;
         }
@@ -2986,7 +2988,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
             if ((mTouchMode & TOUCH_MODE_HSCROLL) != 0) {
                 mTouchMode = TOUCH_MODE_INITIAL_STATE;
-                if (Math.abs(mViewStartX) > HORIZONTAL_SCROLL_THRESHOLD) {
+                if (Math.abs(mViewStartX) > mHorizontalSnapBackThreshold) {
                     // The user has gone beyond the threshold so switch views
                     if (DEBUG) Log.d(TAG, "- horizontal scroll: switch views");
                     switchViews(mViewStartX > 0, mViewStartX, mViewWidth);
