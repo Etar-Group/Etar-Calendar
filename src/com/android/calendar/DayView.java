@@ -669,8 +669,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mSelectedEvents.clear();
         mComputeSelectedEvents = true;
 
-        // Force a recalculation of the first visible hour
-        mFirstHour = -1;
         recalc();
 
         // Force a redraw of the selection box.
