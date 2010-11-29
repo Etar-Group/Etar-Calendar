@@ -287,7 +287,7 @@ public class EditEventHelper {
         int eventIdIndex = -1;
 
         ContentValues values = getContentValuesFromModel(model);
-        Uri uri = model.mUri;
+        Uri uri = Uri.parse(model.mUri);
 
         if (uri != null && originalModel == null) {
             Log.e(TAG, "Existing event but no originalModel provided. Aborting save.");
@@ -701,7 +701,8 @@ public class EditEventHelper {
 
         oldValues.put(Events.RRULE, eventRecurrence.toString());
         oldValues.put(Events.DTSTART, dtstart.normalize(true));
-        ContentProviderOperation.Builder b = ContentProviderOperation.newUpdate(originalModel.mUri)
+        ContentProviderOperation.Builder b =
+                ContentProviderOperation.newUpdate(Uri.parse(originalModel.mUri))
                 .withValues(oldValues);
         ops.add(b.build());
     }

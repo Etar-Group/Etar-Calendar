@@ -19,12 +19,12 @@ package com.android.calendar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.text.TextUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.TimeZone;
@@ -34,8 +34,8 @@ import java.util.TimeZone;
  * This is a convenient way for storing information needed by the UI to write to
  * the events table. Only fields that are important to the UI are included.
  */
-public class CalendarEventModel {
-    public static class Attendee {
+public class CalendarEventModel implements Serializable {
+    public static class Attendee implements Serializable {
         @Override
         public int hashCode() {
             return (mEmail == null) ? 0 : mEmail.hashCode();
@@ -74,7 +74,7 @@ public class CalendarEventModel {
     /**
      * The uri of the event in the db. This should only be null for new events.
      */
-    public Uri mUri = null;
+    public String mUri = null;
     public long mId = -1;
     public long mCalendarId = -1;
     public String mCalendarDisplayName = ""; // Make sure this is in sync with the mCalendarId
