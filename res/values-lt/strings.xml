@@ -17,8 +17,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalendorius"</string>
-    <!-- no translation found for app_aio_label (3058561424021284581) -->
-    <skip />
     <string name="what_label" msgid="1933578391985810049">"Kas"</string>
     <string name="where_label" msgid="3472482206065595118">"Kur"</string>
     <!-- no translation found for when_label (894636567327261599) -->
@@ -94,8 +92,6 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"Nuo"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Visos dienos"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalendorius"</string>
-    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Rodyti papildomas parinktis"</string>
-    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Slėpti papildomas parinktis"</string>
     <!-- no translation found for edit_event_show_all (4558049350756058301) -->
     <skip />
     <string name="description_label" msgid="7193475046717505855">"Aprašas"</string>
@@ -120,8 +116,10 @@
     <skip />
     <string name="agenda_today" msgid="6489447319363439068">"Šiandien, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Įkeliama…"</string>
-    <!-- outdated translation 4031960000704544741 -->     <string name="show_older_events" msgid="5140647493681439926">"Rodomi įvykiai nuo <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Bakstelėkite, jei norite matyti daugiau įvykių."</string>
-    <!-- outdated translation 2647889653936094369 -->     <string name="show_newer_events" msgid="2604638815440163080">"Rodomi įvykiai iki <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Bakstelėkite ir žiūrėkite daugiau įvykių."</string>
+    <!-- no translation found for show_older_events (5140647493681439926) -->
+    <skip />
+    <!-- no translation found for show_newer_events (2604638815440163080) -->
+    <skip />
     <!-- no translation found for search_title (8898015280250716254) -->
     <skip />
     <string name="num_events" msgid="3351672964607162257">"Įvykių sk."</string>
@@ -198,6 +196,8 @@
     <skip />
     <!-- no translation found for gadget_more_events:one (1813062802420615657) -->
     <!-- no translation found for gadget_more_events:other (7993512762778431065) -->
+    <!-- no translation found for month_more_events:one (8971334808414201327) -->
+    <!-- no translation found for month_more_events:other (1997405398178470838) -->
     <!-- no translation found for gadget_no_events (5209110911088302855) -->
     <skip />
     <!-- no translation found for tomorrow (614434811813859237) -->
