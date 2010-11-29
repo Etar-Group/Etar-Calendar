@@ -52,7 +52,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
+public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         CalendarController.EventHandler, LoaderManager.LoaderCallbacks<Cursor>, OnScrollListener,
         OnTouchListener {
     private static final String TAG = "MonthFragment";
@@ -81,6 +81,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     private GestureDetector mGestureDetector;
 
     private volatile boolean mShouldLoad = true;
+    private boolean mUserScrolled = false;
 
     private static float mScale = 0;
     private static int SPACING_WEEK_NUMBER = 19;
@@ -131,7 +132,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
      * @return The new Uri to use
      */
     private Uri updateUri() {
-        MonthWeekSimpleView child = (MonthWeekSimpleView) mListView.getChildAt(0);
+        SimpleWeekView child = (SimpleWeekView) mListView.getChildAt(0);
         if (child != null) {
             int julianDay = child.getFirstJulianDay();
             mFirstLoadedJulianDay = julianDay;
@@ -233,12 +234,13 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         mShowWeekNumber = Utils.getShowWeekNumber(mContext);
 
         HashMap<String, Integer> weekParams = new HashMap<String, Integer>();
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_SHOW_WEEK, mShowWeekNumber ? 1 : 0);
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_SHOW_WEEK, mShowWeekNumber ? 1 : 0);
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_WEEK_START, mFirstDayOfWeek);
         weekParams.put(MonthByWeekAdapter.WEEK_PARAMS_IS_MINI, mIsMiniMonth ? 1 : 0);
-        weekParams.put(MonthByWeekSimpleAdapter.WEEK_PARAMS_JULIAN_DAY,
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_JULIAN_DAY,
                 Time.getJulianDay(mSelectedDay.toMillis(true), mSelectedDay.gmtoff));
+        weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_DAYS_PER_WEEK, mDaysPerWeek);
         if (mAdapter == null) {
             mAdapter = new MonthByWeekAdapter(getActivity(), weekParams);
             mAdapter.registerDataSetObserver(mObserver);
@@ -278,9 +280,9 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     }
 
     @Override
-    protected void setUpViewParams() {
+    protected void setUpHeader() {
         if (mIsMiniMonth) {
-            super.setUpViewParams();
+            super.setUpHeader();
             return;
         }
 
@@ -323,6 +325,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
         if (prevHideDeclined != mHideDeclined && mLoader != null) {
             mLoader.setSelection(updateWhere());
         }
+        mDaysPerWeek = Utils.getDaysPerWeek(mContext);
         updateHeader();
         mTZUpdater.run();
         goTo(mSelectedDay.toMillis(true), false, true, false);
@@ -350,11 +353,6 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     }
 
     @Override
-    public boolean getAllDay() {
-        return false;
-    }
-
-    @Override
     public void eventsChanged() {
         // TODO Auto-generated method stub
         // request loader requery if we're not moving
@@ -366,23 +364,9 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
     }
 
     @Override
-    public void goTo(Time time, boolean animate) {
-        if (time == null) {
-            return;
-        }
-        goTo(time.toMillis(true), animate, true, false);
-    }
-
-    @Override
-    public void goToToday() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
-            goTo(event.startTime, true);
+            goTo(event.startTime.toMillis(true), true, true, false);
         }
     }
 
@@ -393,7 +377,7 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
             mSelectedDay.set(time);
             mAdapter.setSelectedDay(time);
             CalendarController controller = CalendarController.getInstance(mContext);
-            if (time.toMillis(true) != controller.getTime()) {
+            if (time.toMillis(true) != controller.getTime() && mUserScrolled) {
                 controller.setTime(time.toMillis(true) + DateUtils.WEEK_IN_MILLIS * mNumWeeks / 3);
             }
         }
@@ -411,6 +395,9 @@ public class MonthByWeekFragment extends MonthByWeekSimpleFragment implements
                 mShouldLoad = true;
                 mHandler.postDelayed(mUpdateLoader, LOADER_DELAY);
             }
+        }
+        if (scrollState == OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+            mUserScrolled = true;
         }
 
         mScrollStateChangedRunnable.doScrollStateChange(view, scrollState);

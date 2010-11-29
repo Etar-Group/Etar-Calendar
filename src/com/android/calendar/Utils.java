@@ -420,6 +420,11 @@ public class Utils {
         return prefs.getBoolean(GeneralPreferences.KEY_HIDE_DECLINED, false);
     }
 
+    public static int getDaysPerWeek(Context context) {
+        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        return prefs.getInt(GeneralPreferences.KEY_DAYS_PER_WEEK, 7);
+    }
+
     /**
      * Determine whether the column position is Saturday or not.
      *

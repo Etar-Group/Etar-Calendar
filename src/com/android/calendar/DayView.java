@@ -386,7 +386,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * The selection modes are HIDDEN, PRESSED, SELECTED, and LONGPRESS.
      */
     private static final int SELECTION_HIDDEN = 0;
-    private static final int SELECTION_PRESSED = 1;
+    private static final int SELECTION_PRESSED = 1; // D-pad down but not up yet
     private static final int SELECTION_SELECTED = 2;
     private static final int SELECTION_LONGPRESS = 3;
 
@@ -669,12 +669,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mSelectedEvents.clear();
         mComputeSelectedEvents = true;
 
-        // Force a recalculation of the first visible hour
-        mFirstHour = -1;
         recalc();
 
-        // Force a redraw of the selection box.
-        mSelectionMode = SELECTION_SELECTED;
+        // Don't draw the selection box if we are going to the "current" time
+        long currMillis = System.currentTimeMillis();
+        boolean recent = (currMillis - 10000) < millis && millis < currMillis;
+        mSelectionMode = recent ? SELECTION_HIDDEN : SELECTION_SELECTED;
         mRemeasure = true;
         invalidate();
     }

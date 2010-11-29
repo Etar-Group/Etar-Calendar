@@ -42,7 +42,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-public class MonthWeekEventsView extends MonthWeekSimpleView {
+public class MonthWeekEventsView extends SimpleWeekView {
     private static final String TAG = "MonthView";
 
     public static final String VIEW_PARAMS_ORIENTATION = "orientation";

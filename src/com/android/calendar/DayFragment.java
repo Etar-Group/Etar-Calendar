@@ -207,8 +207,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         mProgressBar.setVisibility(View.GONE);
     }
 
-    /* Navigator interface methods */
-    public void goTo(Time goToTime, boolean animate) {
+    private void goTo(Time goToTime, boolean animate) {
         if (mViewSwitcher == null) {
             // The view hasn't been set yet. Just save the time and use it later.
             mSelectedDay.set(goToTime);
@@ -259,22 +258,6 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
     public long getSelectedTimeInMillis() {
         DayView view = (DayView) mViewSwitcher.getCurrentView();
         return view.getSelectedTimeInMillis();
-    }
-
-    public long getSelectedTime() {
-        return getSelectedTimeInMillis();
-    }
-
-    public void goToToday() {
-        mSelectedDay.set(System.currentTimeMillis());
-        DayView view = (DayView) mViewSwitcher.getCurrentView();
-        view.setSelectedDay(mSelectedDay);
-        view.reloadEvents();
-    }
-
-    public boolean getAllDay() {
-        DayView view = (DayView) mViewSwitcher.getCurrentView();
-        return view.mSelectionAllDay;
     }
 
     public void eventsChanged() {

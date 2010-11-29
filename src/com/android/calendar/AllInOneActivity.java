@@ -525,24 +525,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
     }
 
     @Override
-    public boolean getAllDay() {
-        return false;
-    }
-
-    @Override
-    public long getSelectedTime() {
-        return 0;
-    }
-
-    @Override
-    public void goTo(Time time, boolean animate) {
-    }
-
-    @Override
-    public void goToToday() {
-    }
-
-    @Override
     public boolean onQueryTextChanged(String newText) {
         return false;
     }

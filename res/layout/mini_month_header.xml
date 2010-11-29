@@ -20,7 +20,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="6dip"
     android:layout_marginRight="2dip"
-    android:layout_marginLeft="2dip">
+    android:layout_marginLeft="2dip"
+    android:gravity="center">
 
     <TextView android:id="@+id/wk_label"
         android:layout_width="0dip"

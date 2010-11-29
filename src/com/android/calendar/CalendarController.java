@@ -131,35 +131,9 @@ public class CalendarController {
         public ComponentName componentName;  // used in combination with query
     }
 
-    // FRAG_TODO remove unneeded api's
     public interface EventHandler {
         long getSupportedEventTypes();
         void handleEvent(EventInfo event);
-
-        /**
-         * Returns the time in millis of the selected event in this view.
-         * @return the selected time in UTC milliseconds.
-         */
-        long getSelectedTime();
-
-        /**
-         * Changes the view to include the given time.
-         * @param time the desired time to view.
-         * @animate enable animation
-         */
-        void goTo(Time time, boolean animate);
-
-        /**
-         * Changes the view to include today's date.
-         */
-        void goToToday();
-
-        /**
-         * This is called when the user wants to create a new event and returns
-         * true if the new event should default to an all-day event.
-         * @return true if the new event should be an all-day event.
-         */
-        boolean getAllDay();
 
         /**
          * This notifies the handler that the database has changed and it should

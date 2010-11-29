@@ -38,10 +38,10 @@ import java.util.HashMap;
  * This is a dynamic view for drawing a single week. It can be configured to
  * display the week number, start the week on a given day, or show a reduced
  * number of days. It is intended for use as a single view within a ListView.
- * See {@link MonthByWeekSimpleAdapter} for usage.
+ * See {@link SimpleWeeksAdapter} for usage.
  * </p>
  */
-public class MonthWeekSimpleView extends View {
+public class SimpleWeekView extends View {
     private static final String TAG = "MonthView";
 
     /**
@@ -149,7 +149,7 @@ public class MonthWeekSimpleView extends View {
     protected int mDaySeparatorColor;
     protected int mWeekNumColor;
 
-    public MonthWeekSimpleView(Context context) {
+    public SimpleWeekView(Context context) {
         super(context);
 
         Resources res = context.getResources();

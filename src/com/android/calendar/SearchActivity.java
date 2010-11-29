@@ -291,24 +291,6 @@ public class SearchActivity extends Activity
 //    }
 
     @Override
-    public void goToToday() {
-    }
-
-    @Override
-    public void goTo(Time time, boolean animate) {
-    }
-
-    @Override
-    public long getSelectedTime() {
-        return 0;
-    }
-
-    @Override
-    public boolean getAllDay() {
-        return false;
-    }
-
-    @Override
     public void eventsChanged() {
         mController.sendEvent(this, EventType.EVENTS_CHANGED, null, null, -1, ViewType.CURRENT);
     }
