@@ -287,11 +287,14 @@ public class EditEventHelper {
         int eventIdIndex = -1;
 
         ContentValues values = getContentValuesFromModel(model);
-        Uri uri = Uri.parse(model.mUri);
 
-        if (uri != null && originalModel == null) {
+        if (model.mUri != null && originalModel == null) {
             Log.e(TAG, "Existing event but no originalModel provided. Aborting save.");
             return false;
+        }
+        Uri uri = null;
+        if (model.mUri != null) {
+            uri = Uri.parse(model.mUri);
         }
 
         // Update the "hasAlarm" field for the event
