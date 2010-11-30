@@ -84,6 +84,7 @@ public class SimpleWeekView extends View {
     public static final String VIEW_PARAMS_SHOW_WK_NUM = "show_wk_num";
 
     protected static int DEFAULT_HEIGHT = 32;
+    protected static int MIN_HEIGHT = 10;
     protected static final int DEFAULT_SELECTED_DAY = -1;
     protected static final int DEFAULT_WEEK_START = Time.SUNDAY;
     protected static final int DEFAULT_NUM_DAYS = 7;
@@ -166,6 +167,7 @@ public class SimpleWeekView extends View {
             mScale = context.getResources().getDisplayMetrics().density;
             if (mScale != 1) {
                 DEFAULT_HEIGHT *= mScale;
+                MIN_HEIGHT *= mScale;
                 MINI_DAY_NUMBER_TEXT_SIZE *= mScale;
             }
         }
@@ -194,6 +196,9 @@ public class SimpleWeekView extends View {
         // We keep the current value for any params not present
         if (params.containsKey(VIEW_PARAMS_HEIGHT)) {
             mHeight = params.get(VIEW_PARAMS_HEIGHT);
+            if (mHeight < MIN_HEIGHT) {
+                mHeight = MIN_HEIGHT;
+            }
         }
         if (params.containsKey(VIEW_PARAMS_SELECTED_DAY)) {
             mSelectedDay = params.get(VIEW_PARAMS_SELECTED_DAY);
