@@ -248,5 +248,10 @@ public class GeneralPreferences extends PreferenceFragment implements
         return false;
     }
 
-
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mUseHomeTZ.setOnPreferenceChangeListener(null);
+        mHomeTZ.setOnPreferenceChangeListener(null);
+    }
 }
