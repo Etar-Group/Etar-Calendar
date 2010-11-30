@@ -272,8 +272,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             long begin = now - DateUtils.DAY_IN_MILLIS;
             long end = now + searchDuration + DateUtils.DAY_IN_MILLIS;
 
-            Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI,
-                    String.format("%d/%d", begin, end));
+            Uri uri = Uri.withAppendedPath(Instances.CONTENT_URI, Long.toString(begin) + "/" + end);
 
             Cursor cursor = resolver.query(uri, EVENT_PROJECTION,
                     EVENT_SELECTION, null, EVENT_SORT_ORDER);
