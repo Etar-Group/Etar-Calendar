@@ -348,8 +348,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel2.mId = 13;
         assertFalse(mHelper.saveEvent(mModel1, mModel2, 0));
         mModel2.mId = mModel1.mId;
-        mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
-        mModel2.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
+        mModel2.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         assertFalse(mHelper.saveEvent(mModel1, null, 0));
     }
 
@@ -402,7 +402,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 //        mModel1.mAttendees = TEST_ADDRESSES2;
 
         // Updating a recurring event with a new attendee list
-        mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
         mModel1.mOriginalStart = TEST_START;
 
@@ -423,11 +423,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mHelper.checkTimeDependentFields(mModel2, mModel1, mExpectedValues,
                 EditEventHelper.MODIFY_ALL);
 
-        expectedOps.add(
-                ContentProviderOperation
-                .newUpdate(mModel1.mUri)
-                .withValues(mExpectedValues)
-                .build());
+        expectedOps.add(ContentProviderOperation.newUpdate(Uri.parse(mModel1.mUri)).withValues(
+                mExpectedValues).build());
 
         // This call has a separate unit test so we'll use it to simplify making the expected vals
         mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminderMinutes,
@@ -451,7 +448,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 //        mModel1.mAttendees = TEST_ADDRESSES2;
 
         // Updating a recurring event with a new attendee list
-        mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
         mModel1.mOriginalStart = TEST_START;
 
@@ -477,7 +474,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mHelper.checkTimeDependentFields(mModel1, mModel1, mExpectedValues,
                 EditEventHelper.MODIFY_ALL);
 
-        expectedOps.add(ContentProviderOperation.newDelete(mModel1.mUri).build());
+        expectedOps.add(ContentProviderOperation.newDelete(Uri.parse(mModel1.mUri)).build());
         id = expectedOps.size();
         expectedOps.add(ContentProviderOperation
                         .newInsert(Events.CONTENT_URI)
@@ -507,7 +504,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 //        mModel1.mAttendees = TEST_ADDRESSES2;
 
         // Updating a recurring event with a new attendee list
-        mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
         mModel1.mOriginalStart = TEST_START;
 
@@ -541,7 +538,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 //        mModel1.mAttendees = TEST_ADDRESSES2;
 
         // Updating a recurring event with a new attendee list
-        mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
         mModel1.mOriginalStart = TEST_START;
 
@@ -566,11 +563,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         // This is tested elsewhere, used for convenience here
         mHelper.checkTimeDependentFields(mModel1, mModel1, mExpectedValues,
                 EditEventHelper.MODIFY_ALL);
-        expectedOps.add(
-                ContentProviderOperation
-                .newUpdate(mModel1.mUri)
-                .withValues(mExpectedValues)
-                .build());
+        expectedOps.add(ContentProviderOperation.newUpdate(Uri.parse(mModel1.mUri)).withValues(
+                mExpectedValues).build());
         // This call has a separate unit test so we'll use it to simplify making the expected vals
         mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminderMinutes,
                 mModel2.mReminderMinutes, false);
@@ -591,7 +585,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel2 = buildTestModel();
 //        mModel1.mAttendees = TEST_ADDRESSES2;
 
-        mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
         mModel1.mOriginalStart = TEST_START;
 
@@ -653,8 +647,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel2 = buildTestModel();
 //        mModel1.mAttendees = TEST_ADDRESSES2;
 
-        mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
-        mModel2.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
+        mModel2.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
 
         // The original model is assumed correct so drop the no good bit
 //        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
@@ -710,7 +704,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel2 = buildTestModel();
 //        mModel1.mAttendees = TEST_ADDRESSES2;
 
-        mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = mModel1.mUri;
         // And a new start time to ensure the time fields aren't removed
         mModel1.mOriginalStart = TEST_START;
@@ -739,7 +733,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mExpectedValues.put(Events.HAS_ALARM, 0);
         moveExpectedTimeValuesForwardOneDay();
 
-        expectedOps.add(ContentProviderOperation.newDelete(mModel1.mUri).build());
+        expectedOps.add(ContentProviderOperation.newDelete(Uri.parse(mModel1.mUri)).build());
         id = expectedOps.size();
         expectedOps.add(ContentProviderOperation
                         .newInsert(Events.CONTENT_URI)
@@ -769,7 +763,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel2 = buildTestModel();
 //        mModel1.mAttendees = TEST_ADDRESSES2;
 
-        mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = mModel1.mUri;
         // And a new start time to ensure the time fields aren't removed
         mModel1.mOriginalStart = TEST_START;
@@ -799,11 +793,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mHelper.checkTimeDependentFields(mModel2, mModel1, mExpectedValues,
                 EditEventHelper.MODIFY_ALL_FOLLOWING);
 
-        expectedOps.add(
-                ContentProviderOperation
-                .newUpdate(mModel1.mUri)
-                .withValues(mExpectedValues)
-                .build());
+        expectedOps.add(ContentProviderOperation.newUpdate(Uri.parse(mModel1.mUri)).withValues(
+                mExpectedValues).build());
 
         // This call has a separate unit test so we'll use it to simplify making the expected vals
         mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminderMinutes,
@@ -828,8 +819,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel2 = buildTestModel();
 //        mModel1.mAttendees = TEST_ADDRESSES2;
 
-        mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
-        mModel2.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
+        mModel2.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
 
         // The original model is assumed correct so drop the no good bit
 //        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
@@ -1017,15 +1008,15 @@ public class EditEventHelperTest extends AndroidTestCase {
         mValues = new ContentValues();
 
         mModel1 = buildTestModel();
-        mModel1.mUri = Uri.parse(AUTHORITY_URI + TEST_EVENT_ID);
+        mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         mActivity = buildTestContext();
         mHelper = new EditEventHelper(mActivity, null);
 
         mValues.put(Events.RRULE, "FREQ=DAILY;UNTIL=20160903;WKST=SU"); // yyyymmddThhmmssZ
         mValues.put(Events.DTSTART, TEST_START);
 
-        ContentProviderOperation.Builder b =
-                ContentProviderOperation.newUpdate(mModel1.mUri).withValues(mValues);
+        ContentProviderOperation.Builder b = ContentProviderOperation.newUpdate(
+                Uri.parse(mModel1.mUri)).withValues(mValues);
         expectedOps.add(b.build());
 
         mHelper.updatePastEvents(ops, mModel1, initialBeginTime);
@@ -1036,7 +1027,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mValues.put(Events.RRULE, "FREQ=DAILY;UNTIL=20160903T005959Z;WKST=SU"); // yyyymmddThhmmssZ
 
         expectedOps.clear();
-        b = ContentProviderOperation.newUpdate(mModel1.mUri).withValues(mValues);
+        b = ContentProviderOperation.newUpdate(Uri.parse(mModel1.mUri)).withValues(mValues);
         expectedOps.add(b.build());
 
         ops.clear();
