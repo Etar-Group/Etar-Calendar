@@ -17,7 +17,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalendarz"</string>
-    <string name="app_aio_label" msgid="3058561424021284581">"Kalendarz pełny"</string>
     <string name="what_label" msgid="1933578391985810049">"Co"</string>
     <string name="where_label" msgid="3472482206065595118">"Gdzie"</string>
     <string name="when_label" msgid="894636567327261599">"Kiedy"</string>
@@ -64,7 +63,7 @@
     <string name="not_synced_not_visible" msgid="7178879061972059481">"bez synchronizacji, niewidoczny"</string>
     <string name="synced" msgid="7913940305983383493">"zsynchronizowany"</string>
     <string name="not_synced" msgid="4275114941801829419">"niezsynchronizowany"</string>
-    <!-- outdated translation 4276198677633672868 -->     <string name="acct_not_synced" msgid="2225937158458147648">"To konto nie jest synchronizowane i kalendarze mogą nie być aktualizowane poprawnie."</string>
+    <string name="acct_not_synced" msgid="2225937158458147648">"To konto nie jest synchronizowane i kalendarze mogą być nieaktualne."</string>
     <string name="accounts" msgid="849401841083180306">"Konta i synchronizacja"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Szczegóły wydarzenia"</string>
     <string name="hint_what" msgid="709155115005044531">"Nazwa wydarzenia"</string>
@@ -85,8 +84,6 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"Od"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Cały dzień"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalendarz"</string>
-    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Pokaż dodatkowe opcje"</string>
-    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Ukryj dodatkowe opcje"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Pokaż wszystkie"</string>
     <string name="description_label" msgid="7193475046717505855">"Opis"</string>
     <string name="presence_label" msgid="6169724148441175862">"Pokaż mój stan jako"</string>
@@ -109,7 +106,7 @@
     <string name="show_newer_events" msgid="2604638815440163080">"Dotknij, aby wyświetlić wydarzenia po okresie <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Szukaj w moich kalendarzach"</string>
     <string name="num_events" msgid="3351672964607162257">"Liczba wydarzeń"</string>
-    <!-- outdated translation 2060112143779720139 -->     <string name="edit_event_label" msgid="7413222956349977161">"Otwórz wydarzenie"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"Szczegóły"</string>
     <string name="delete_label" msgid="874742811918030739">"Usuń"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Usuń wydarzenie"</string>
     <string name="save_label" msgid="2133599104834432589">"Gotowe"</string>
@@ -170,6 +167,8 @@
     <item quantity="one" msgid="1813062802420615657">"Więcej wydarzeń: 1"</item>
     <item quantity="other" msgid="7993512762778431065">"Więcej wydarzeń: <xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
+    <!-- no translation found for month_more_events:one (8971334808414201327) -->
+    <!-- no translation found for month_more_events:other (1997405398178470838) -->
     <string name="gadget_no_events" msgid="5209110911088302855">"Brak zbliżających się wydarzeń w kalendarzu"</string>
     <string name="tomorrow" msgid="614434811813859237">"Jutro"</string>
     <string name="in_progress" msgid="3637799356103489011">"w toku"</string>

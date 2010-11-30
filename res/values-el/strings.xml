@@ -17,7 +17,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Ημερολόγιο"</string>
-    <string name="app_aio_label" msgid="3058561424021284581">"Ημερολόγιο AllInOne"</string>
     <string name="what_label" msgid="1933578391985810049">"Τι"</string>
     <string name="where_label" msgid="3472482206065595118">"Που"</string>
     <string name="when_label" msgid="894636567327261599">"Πότε"</string>
@@ -64,7 +63,7 @@
     <string name="not_synced_not_visible" msgid="7178879061972059481">"δεν συγχρονίστηκε, δεν είναι ορατό"</string>
     <string name="synced" msgid="7913940305983383493">"συγχρονίστηκε"</string>
     <string name="not_synced" msgid="4275114941801829419">"δεν συγχρονίστηκε"</string>
-    <!-- outdated translation 4276198677633672868 -->     <string name="acct_not_synced" msgid="2225937158458147648">"Δεν γίνεται συγχρονισμός αυτού του λογαριασμού και ενδέχεται να μην γίνει ενημέρωση των ημερολογίων σας."</string>
+    <string name="acct_not_synced" msgid="2225937158458147648">"Δεν εκτελείται συγχρονισμός αυτού του λογαριασμού και ενδέχεται να μην είναι ενημερωμένα τα ημερολόγια."</string>
     <string name="accounts" msgid="849401841083180306">"Λογαριασμοί και συγχρονισμός"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Λεπτομέρειες συμβάντος"</string>
     <string name="hint_what" msgid="709155115005044531">"Όνομα συμβάντος"</string>
@@ -85,8 +84,6 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"Από"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Ολοήμερο"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Ημερολόγιο"</string>
-    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Εμφάνιση επιπρόσθετων επιλογών"</string>
-    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Απόκρυψη επιπρόσθετων επιλογών"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Εμφάνιση όλων"</string>
     <string name="description_label" msgid="7193475046717505855">"Περιγραφή"</string>
     <string name="presence_label" msgid="6169724148441175862">"Να εμφανίζομαι ως"</string>
@@ -109,7 +106,7 @@
     <string name="show_newer_events" msgid="2604638815440163080">"Αγγίξτε για την προβολή συμβάντων μετά από <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Αναζήτηση στα ημερολόγιά μου"</string>
     <string name="num_events" msgid="3351672964607162257">"Αριθμ. συμβάντων"</string>
-    <!-- outdated translation 2060112143779720139 -->     <string name="edit_event_label" msgid="7413222956349977161">"Άνοιγμα συμβάντος"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"Λεπτομέρειες"</string>
     <string name="delete_label" msgid="874742811918030739">"Διαγραφή"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Διαγραφή συμβάντος"</string>
     <string name="save_label" msgid="2133599104834432589">"Τέλος"</string>
@@ -170,6 +167,8 @@
     <item quantity="one" msgid="1813062802420615657">"1 ακόμα συμβάν"</item>
     <item quantity="other" msgid="7993512762778431065">"<xliff:g id="NUMBER">%d</xliff:g> ακόμα συμβάντα"</item>
   </plurals>
+    <!-- no translation found for month_more_events:one (8971334808414201327) -->
+    <!-- no translation found for month_more_events:other (1997405398178470838) -->
     <string name="gadget_no_events" msgid="5209110911088302855">"Δεν υπάρχουν προσεχή συμβάντα ημερολογίου"</string>
     <string name="tomorrow" msgid="614434811813859237">"Αύριο"</string>
     <string name="in_progress" msgid="3637799356103489011">"σε εξέλιξη"</string>
