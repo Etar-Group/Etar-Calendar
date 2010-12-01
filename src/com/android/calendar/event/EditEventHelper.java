@@ -287,11 +287,14 @@ public class EditEventHelper {
         int eventIdIndex = -1;
 
         ContentValues values = getContentValuesFromModel(model);
-        Uri uri = model.mUri;
 
-        if (uri != null && originalModel == null) {
+        if (model.mUri != null && originalModel == null) {
             Log.e(TAG, "Existing event but no originalModel provided. Aborting save.");
             return false;
+        }
+        Uri uri = null;
+        if (model.mUri != null) {
+            uri = Uri.parse(model.mUri);
         }
 
         // Update the "hasAlarm" field for the event
@@ -701,7 +704,8 @@ public class EditEventHelper {
 
         oldValues.put(Events.RRULE, eventRecurrence.toString());
         oldValues.put(Events.DTSTART, dtstart.normalize(true));
-        ContentProviderOperation.Builder b = ContentProviderOperation.newUpdate(originalModel.mUri)
+        ContentProviderOperation.Builder b =
+                ContentProviderOperation.newUpdate(Uri.parse(originalModel.mUri))
                 .withValues(oldValues);
         ops.add(b.build());
     }

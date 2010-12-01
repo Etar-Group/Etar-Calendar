@@ -47,7 +47,6 @@ import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
 import android.text.TextUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -62,6 +61,9 @@ import java.util.ArrayList;
 
 public class EditEventFragment extends Fragment implements EventHandler {
     private static final String TAG = "EditEventActivity";
+
+    private static final String BUNDLE_KEY_MODEL = "key_model";
+    private static final String BUNDLE_KEY_EDIT_STATE = "key_edit_state";
 
     private static final boolean DEBUG = false;
 
@@ -83,6 +85,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
     EditEventHelper mHelper;
     CalendarEventModel mModel;
     CalendarEventModel mOriginalModel;
+    CalendarEventModel mRestoreModel;
     EditEventView mView;
     QueryHandler mHandler;
 
@@ -138,9 +141,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     EditEventHelper.setModelFromCursor(mModel, cursor);
                     cursor.close();
 
-                    mOriginalModel.mUri = mUri;
+                    mOriginalModel.mUri = mUri.toString();
 
-                    mModel.mUri = mUri;
+                    mModel.mUri = mUri.toString();
                     mModel.mOriginalStart = mBegin;
                     mModel.mOriginalEnd = mEnd;
                     mModel.mIsFirstEventInSeries = mBegin == mOriginalModel.mStart;
@@ -278,6 +281,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
         synchronized (this) {
             mOutstandingQueries &= ~queryType;
             if (mOutstandingQueries == 0) {
+                if (mRestoreModel != null) {
+                    mModel = mRestoreModel;
+                }
                 mView.setModel(mModel);
                 if (mMenu != null && !mMenuUpdated) {
                     updateActionBar();
@@ -393,7 +399,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(BUNDLE_KEY_MODEL)) {
+                mRestoreModel = (CalendarEventModel) savedInstanceState.getSerializable(
+                        BUNDLE_KEY_MODEL);
+            }
+            if (savedInstanceState.containsKey(BUNDLE_KEY_EDIT_STATE)) {
+                mModification = savedInstanceState.getInt(BUNDLE_KEY_EDIT_STATE);
+            }
+        }
     }
 
 
@@ -613,6 +627,13 @@ public class EditEventFragment extends Fragment implements EventHandler {
     @Override
     public void eventsChanged() {
         // TODO Requery to see if event has changed
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        mView.prepareForSave();
+        outState.putSerializable(BUNDLE_KEY_MODEL, mModel);
+        outState.putInt(BUNDLE_KEY_EDIT_STATE, mModification);
     }
 
     @Override

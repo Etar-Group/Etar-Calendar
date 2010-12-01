@@ -51,12 +51,16 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
         mEventInfo = getEventInfoFromIntent(icicle);
 
-        mEditFragment = new EditEventFragment(mEventInfo);
+        mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.edit_event);
 
-        FragmentTransaction ft = getFragmentManager().openTransaction();
-        ft.replace(R.id.edit_event, mEditFragment);
-        ft.show(mEditFragment);
-        ft.commit();
+        if (mEditFragment == null) {
+            mEditFragment = new EditEventFragment(mEventInfo);
+
+            FragmentTransaction ft = getFragmentManager().openTransaction();
+            ft.replace(R.id.edit_event, mEditFragment);
+            ft.show(mEditFragment);
+            ft.commit();
+        }
     }
 
     private EventInfo getEventInfoFromIntent(Bundle icicle) {
