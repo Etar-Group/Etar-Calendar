@@ -120,14 +120,13 @@ public class GeneralPreferences extends PreferenceFragment implements
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.general_preferences);
 
-        PreferenceScreen preferenceScreen = getPreferenceScreen();
-        preferenceScreen.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        final PreferenceScreen preferenceScreen = getPreferenceScreen();
         mAlert = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS);
         mVibrateWhen = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE_WHEN);
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
-        mUseHomeTZ.setOnPreferenceChangeListener(this);
+
         mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
         String tz = mHomeTZ.getValue();
 
@@ -137,7 +136,6 @@ public class GeneralPreferences extends PreferenceFragment implements
         mHomeTZ.setEntryValues(mTimezones[0]);
         mHomeTZ.setEntries(mTimezones[1]);
         mHomeTZ.setSummary(mHomeTZ.getEntry());
-        mHomeTZ.setOnPreferenceChangeListener(this);
 //        mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
 //        mHomeTZ.setSummary(mHomeTZ.getEntry());
 //        mHomeTZ.setOnPreferenceChangeListener(this);
@@ -145,6 +143,24 @@ public class GeneralPreferences extends PreferenceFragment implements
         migrateOldPreferences(sharedPreferences);
 
         updateChildPreferences();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+        mUseHomeTZ.setOnPreferenceChangeListener(this);
+        mHomeTZ.setOnPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
+        mUseHomeTZ.setOnPreferenceChangeListener(null);
+        mHomeTZ.setOnPreferenceChangeListener(null);
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -248,10 +264,4 @@ public class GeneralPreferences extends PreferenceFragment implements
         return false;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mUseHomeTZ.setOnPreferenceChangeListener(null);
-        mHomeTZ.setOnPreferenceChangeListener(null);
-    }
 }
