@@ -1577,10 +1577,19 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
 
             int color = mCalendarDateBannerTextColor;
-            if (Utils.isSaturday(dayOfWeek, mFirstDayOfWeek)) {
-                color = mWeek_saturdayColor;
-            } else if (Utils.isSunday(dayOfWeek, mFirstDayOfWeek)) {
-                color = mWeek_sundayColor;
+            if (mNumDays == 1) {
+                if (dayOfWeek == Time.SATURDAY) {
+                    color = mWeek_saturdayColor;
+                } else if (dayOfWeek == Time.SUNDAY) {
+                    color = mWeek_sundayColor;
+                }
+            } else {
+                final int column = day % 7;
+                if (Utils.isSaturday(column, mFirstDayOfWeek)) {
+                    color = mWeek_saturdayColor;
+                } else if (Utils.isSunday(column, mFirstDayOfWeek)) {
+                    color = mWeek_sundayColor;
+                }
             }
 
             color &= 0x00FFFFFF;
