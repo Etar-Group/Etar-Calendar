@@ -17,7 +17,8 @@
 <TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:stretchColumns="1"
-    android:shrinkColumns="1">
+    android:shrinkColumns="1"
+    android:animateLayoutChanges="true">
 
     <!-- WHAT -->
     <TableRow>
@@ -82,7 +83,8 @@
             android:text="@string/edit_event_from_label"
             style="@style/TextAppearance.EditEvent_Label" />
         <LinearLayout
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:animateLayoutChanges="true">
             <Button
                 android:id="@+id/start_date"
                 android:layout_width="0px"
@@ -108,7 +110,8 @@
             android:text="@string/edit_event_to_label"
             style="@style/TextAppearance.EditEvent_Label" />
         <LinearLayout
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:animateLayoutChanges="true">
             <Button
                 android:id="@+id/end_date"
                 android:layout_width="0px"
@@ -153,7 +156,8 @@
     </TableRow>
 
     <!-- ALL DAY -->
-    <TableRow>
+    <TableRow
+        android:id="@+id/all_day_row">
         <TextView
             android:id="@+id/is_all_day_label"
             android:text="@string/edit_event_all_day_label"
@@ -205,7 +209,8 @@
     </TableRow>
 
     <!-- REMINDERS -->
-    <TableRow>
+    <TableRow
+        android:id="@+id/reminders_row">
         <TextView
             android:id="@+id/reminders_label"
             android:text="@string/reminders_label"
@@ -229,7 +234,8 @@
     </TableRow>
     
     <!-- PRESENCE - Show me as [busy | available] -->
-    <TableRow>
+    <TableRow
+        android:id="@+id/availability_row">
         <TextView
             android:id="@+id/presence_label"
             android:text="@string/presence_label"
@@ -242,7 +248,8 @@
     </TableRow>
 
     <!-- PRIVACY -->
-    <TableRow>
+    <TableRow
+        android:id="@+id/visibility_row">
         <TextView
             android:id="@+id/privacy_label"
             android:text="@string/privacy_label"

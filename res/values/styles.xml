@@ -93,6 +93,7 @@
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">top|left</item>
+        <item name="android:textColor">#FF000000</item>
     </style>
 
     <style name="TextAppearance.EventInfo_Label">
@@ -106,6 +107,7 @@
         <item name="android:paddingLeft">6dip</item>
         <item name="android:paddingRight">7dip</item>
         <item name="android:paddingTop">8dip</item>
+        <item name="android:animateLayoutChanges">true</item>
     </style>
 
     <style name="TextAppearance.Alert_Title">
