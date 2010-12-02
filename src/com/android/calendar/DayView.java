@@ -351,7 +351,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     protected final Drawable mCurrentTimeLine;
     protected final Drawable mTodayHeaderDrawable;
     protected final Drawable mEventBoxDrawable;
-    protected int mBackgroundColor;
     private String mAmString;
     private String mPmString;
     private DeleteEventHelper mDeleteEventHelper;
@@ -512,9 +511,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mPressedColor = mResources.getColor(R.color.pressed);
         mSelectedEventTextColor = mResources.getColor(R.color.calendar_event_selected_text_color);
         mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
-
-        // TODO remove this
-        mBackgroundColor = mResources.getColor(R.color.month_bgcolor);
 
         mEventTextPaint.setColor(mEventTextColor);
         mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
@@ -2526,19 +2522,19 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
                 // box = mBoxPressed;
-                color = mPressedColor; // FIXME:pressed
+                color = mPressedColor;
                 eventTextColor = mSelectedEventTextColor;
                 paintIt = true;
             } else if (mSelectionMode == SELECTION_SELECTED) {
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
                 // box = mBoxSelected;
-                color = mSelectionColor;
+                color = mPressedColor;
                 eventTextColor = mSelectedEventTextColor;
                 paintIt = true;
             } else if (mSelectionMode == SELECTION_LONGPRESS) {
                 // box = mBoxLongPressed;
-                color = mPressedColor; // FIXME: longpressed (maybe -- this doesn't seem to work)
+                color = mPressedColor;
                 eventTextColor = mSelectedEventTextColor;
                 paintIt = true;
             }

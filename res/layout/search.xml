@@ -17,14 +17,14 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffdddddd">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/search_results"
         android:layout_height="match_parent"
         android:layout_width="0px"
         android:layout_weight=".3"
+        android:layout_marginLeft="40dip"
         android:layout_marginTop="80dip" />
 
     <FrameLayout

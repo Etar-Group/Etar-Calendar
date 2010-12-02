@@ -19,20 +19,20 @@
     <item android:id="@+id/action_search"
         android:alphabeticShortcut="f"
         android:title="@string/search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/ic_menu_search_holo_light"
         android:showAsAction="ifRoom"
         android:actionViewClass="android.widget.SearchView" />
     <item
         android:id="@+id/action_today"
         android:alphabeticShortcut="t"
         android:title="@string/goto_today"
-        android:icon="@android:drawable/ic_menu_today"
+        android:icon="@drawable/ic_menu_today_holo_light"
         android:showAsAction="withText|always" />
     <item
         android:id="@+id/action_create_event"
         android:alphabeticShortcut="n"
         android:title="@string/event_create"
-        android:icon="@drawable/ic_widget_calendar_holo_light"
+        android:icon="@drawable/ic_menu_add_event_holo_light"
         android:showAsAction="always" />
     <item
         android:id="@+id/action_refresh"
