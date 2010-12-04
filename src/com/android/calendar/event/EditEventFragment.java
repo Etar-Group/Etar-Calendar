@@ -150,8 +150,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     mModel.mStart = mBegin;
                     mModel.mEnd = mEnd;
 
-                    displayEditWhichDialogue();
-
                     eventId = mModel.mId;
 
                     // TOKEN_ATTENDEES
@@ -285,21 +283,36 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     mModel = mRestoreModel;
                 }
                 mView.setModel(mModel);
-                if (mMenu != null && !mMenuUpdated) {
+                if (mMenu != null) {
                     updateActionBar();
-                    mMenuUpdated = true;
                 }
             }
         }
     }
 
     private void updateActionBar() {
-        boolean canModifyCalendar = EditEventHelper.canModifyCalendar(mModel);
-        boolean canModifyEvent = EditEventHelper.canModifyEvent(mModel);
-        boolean canRespond = EditEventHelper.canRespond(mModel);
-
+        if (mMenu == null) {
+            return;
+        }
         MenuItem cancelItem = mMenu.findItem(R.id.action_cancel);
         MenuItem deleteItem = mMenu.findItem(R.id.action_delete);
+        MenuItem editItem = mMenu.findItem(R.id.action_edit);
+        boolean canModifyEvent = EditEventHelper.canModifyEvent(mModel);
+
+        if (mModification == Utils.MODIFY_UNINITIALIZED) {
+            cancelItem.setVisible(false);
+            deleteItem.setVisible(false);
+            if (canModifyEvent) {
+                editItem.setVisible(true);
+            } else {
+                editItem.setVisible(false);
+            }
+            return;
+        } else {
+            mMenu.findItem(R.id.action_edit).setVisible(false);
+        }
+        boolean canModifyCalendar = EditEventHelper.canModifyCalendar(mModel);
+        boolean canRespond = EditEventHelper.canRespond(mModel);
 
         if (canRespond || canModifyEvent) {
             cancelItem.setVisible(true);
@@ -351,6 +364,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
         // Kick off the query for the event
         boolean newEvent = mUri == null;
         if (!newEvent) {
+            mModel.mCalendarAccessLevel = Calendars.NO_ACCESS;
             mOutstandingQueries = TOKEN_ALL;
             if (DEBUG) {
                 Log.d(TAG, "startQuery: uri for event is " + mUri.toString());
@@ -371,6 +385,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     EditEventHelper.CALENDARS_PROJECTION,
                     EditEventHelper.CALENDARS_WHERE_WRITEABLE_VISIBLE, null /* selection args */,
                     null /* sort order */);
+
+            mModification = Utils.MODIFY_ALL;
+            updateActionBar();
+            mView.setModification(mModification);
         }
     }
 
@@ -417,10 +435,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
         inflater.inflate(R.menu.edit_event_title_bar, menu);
         synchronized (this) {
             mMenu = menu;
-            if (mOutstandingQueries == 0 && !mMenuUpdated) {
-                updateActionBar();
-                mMenuUpdated = true;
-            }
+            updateActionBar();
         }
     }
 
@@ -453,6 +468,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
             case R.id.action_delete:
                 mOnDone.setDoneCode(Utils.DONE_DELETE);
                 mOnDone.run();
+                break;
+            case R.id.action_edit:
+                if (!TextUtils.isEmpty(mModel.mRrule)) {
+                    displayEditWhichDialogue();
+                } else {
+                    mModification = Utils.MODIFY_ALL;
+                    updateActionBar();
+                    mView.setModification(mModification);
+                }
                 break;
         }
         return true;
@@ -528,6 +552,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 public void onClick(DialogInterface dialog, int which) {
                     if (which == 0) {
                         mModification = notSynced ? Utils.MODIFY_ALL : Utils.MODIFY_SELECTED;
+                        mModel.mOriginalEvent = notSynced ? null : mModel.mSyncId;
                     } else if (which == 1) {
                         mModification = notSynced ? Utils.MODIFY_ALL_FOLLOWING : Utils.MODIFY_ALL;
                     } else if (which == 2) {
@@ -535,6 +560,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     }
 
                     mView.setModification(mModification);
+                    updateActionBar();
                 }
             }).show();
         }
@@ -591,13 +617,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if ((mCode & Utils.DONE_EXIT) != 0) {
                 // This will exit the edit event screen, should be called
                 // when we want to return to the main calendar views
-//                if (mModel != null) {
-//                    start = new Time();
-//                    start.set(mModel.mStart);
-//                }
-//                CalendarController controller = CalendarController.getInstance(mContext);
-//                controller.sendEvent(EditEventFragment.this, EventType.GO_TO, start, null, -1,
-//                        mReturnView);
                 EditEventFragment.this.getActivity().finish();
             }
 

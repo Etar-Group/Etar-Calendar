@@ -42,6 +42,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.pim.EventRecurrence;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
@@ -62,7 +63,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
@@ -86,7 +86,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private static final int REMINDER_FLING_VELOCITY = 2000;
     private LayoutInflater mLayoutInflater;
 
-    ArrayList<View> mViewList = new ArrayList<View>();
+    ArrayList<View> mEditOnlyList = new ArrayList<View>();
+    ArrayList<View> mEditViewList = new ArrayList<View>();
+    ArrayList<View> mViewOnlyList = new ArrayList<View>();
     TextView mLoadingMessage;
     ScrollView mScrollView;
     Button mStartDateButton;
@@ -112,6 +114,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     ImageButton mAddAttendeesButton;
     AttendeesView mAttendeesView;
     AddAttendeeClickListener mAddAttendeesListener;
+    View mCalendarSelectorGroup;
+    View mCalendarStaticGroup;
+    View mRemindersGroup;
+    View mResponseGroup;
+    View mOrganizerGroup;
+    View mAttendeesGroup;
+    View mAttendeesPane;
+
+    private Drawable mOriginalEditBG;
 
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
@@ -203,6 +214,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mAttendeesList.performValidation();
                 mAttendeesView.addAttendees(mAttendeesList.getText().toString());
                 mAttendeesList.setText("");
+                mAttendeesGroup.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -713,11 +725,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // cache all the widgets
         mCalendarsSpinner = (Spinner) view.findViewById(R.id.calendars_spinner);
         mTitleTextView = (TextView) view.findViewById(R.id.title);
-        mViewList.add(mTitleTextView);
         mLocationTextView = (TextView) view.findViewById(R.id.location);
-        mViewList.add(mLocationTextView);
         mDescriptionTextView = (TextView) view.findViewById(R.id.description);
-        mViewList.add(mDescriptionTextView);
         mTimezoneLabel = (TextView) view.findViewById(R.id.timezone_label);
         mTimezoneFooterView = (TextView) mLayoutInflater.inflate(R.layout.timezone_footer, null);
         mStartDateButton = (Button) view.findViewById(R.id.start_date);
@@ -729,11 +738,31 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mTimezoneButton = (Button) view.findViewById(R.id.timezone_button);
         mAllDayCheckBox = (CheckBox) view.findViewById(R.id.is_all_day);
         mRepeatsSpinner = (Spinner) view.findViewById(R.id.repeats);
-        mViewList.add(mRepeatsSpinner);
         mTransparencySpinner = (Spinner) view.findViewById(R.id.availability);
-        mViewList.add(mTransparencySpinner);
         mVisibilitySpinner = (Spinner) view.findViewById(R.id.visibility);
-        mViewList.add(mVisibilitySpinner);
+        mCalendarSelectorGroup = view.findViewById(R.id.calendar_selector_group);
+        mCalendarStaticGroup = view.findViewById(R.id.calendar_group);
+        mRemindersGroup = view.findViewById(R.id.reminders_row);
+        mResponseGroup = view.findViewById(R.id.response_row);
+        mOrganizerGroup = view.findViewById(R.id.organizer_row);
+        mAttendeesGroup = view.findViewById(R.id.attendees_row);
+        mAttendeesPane = view.findViewById(R.id.attendees_group);
+
+        mOriginalEditBG = mTitleTextView.getBackground();
+        mEditViewList.add(mTitleTextView);
+        mEditViewList.add(mLocationTextView);
+        mEditViewList.add(mDescriptionTextView);
+
+        mViewOnlyList.add(view.findViewById(R.id.when_row));
+        mViewOnlyList.add(view.findViewById(R.id.timezone_textview_row));
+
+        mEditOnlyList.add(view.findViewById(R.id.all_day_row));
+        mEditOnlyList.add(view.findViewById(R.id.availability_row));
+        mEditOnlyList.add(view.findViewById(R.id.visibility_row));
+        mEditOnlyList.add(view.findViewById(R.id.from_row));
+        mEditOnlyList.add(view.findViewById(R.id.to_row));
+        mEditOnlyList.add(view.findViewById(R.id.timezone_button_row));
+        mEditOnlyList.add(view.findViewById(R.id.add_attendees_row));
 
         mResponseRadioGroup = (RadioGroup) view.findViewById(R.id.response_value);
         mRemindersContainer = (LinearLayout) view.findViewById(R.id.reminder_items_container);
@@ -744,7 +773,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mAddAttendeesButton.setOnClickListener(mAddAttendeesListener);
 
         mAttendeesView = (AttendeesView)view.findViewById(R.id.attendee_list);
-        mViewList.add(mAttendeesView);
 
         mStartTime = new Time();
         mEndTime = new Time();
@@ -824,43 +852,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mEmailValidator = new Rfc822Validator(domain);
             mAttendeesList = initMultiAutoCompleteTextView(R.id.attendees);
             mAttendeesList.addTextChangedListener(this);
-            mViewList.add(mAttendeesList);
         }
 
         mAllDayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    if (mEndTime.hour == 0 && mEndTime.minute == 0) {
-                        mEndTime.monthDay--;
-                        long endMillis = mEndTime.normalize(true);
-
-                        // Do not allow an event to have an end time
-                        // before the
-                        // start time.
-                        if (mEndTime.before(mStartTime)) {
-                            mEndTime.set(mStartTime);
-                            endMillis = mEndTime.normalize(true);
-                        }
-                        setDate(mEndDateButton, endMillis);
-                        setTime(mEndTimeButton, endMillis);
-                    }
-
-                    mStartTimeButton.setVisibility(View.GONE);
-                    mEndTimeButton.setVisibility(View.GONE);
-                    mTimezoneButton.setVisibility(View.GONE);
-                    mTimezoneLabel.setVisibility(View.GONE);
-                } else {
-                    if (mEndTime.hour == 0 && mEndTime.minute == 0) {
-                        mEndTime.monthDay++;
-                        long endMillis = mEndTime.normalize(true);
-                        setDate(mEndDateButton, endMillis);
-                        setTime(mEndTimeButton, endMillis);
-                    }
-                    mStartTimeButton.setVisibility(View.VISIBLE);
-                    mEndTimeButton.setVisibility(View.VISIBLE);
-                    mTimezoneButton.setVisibility(View.VISIBLE);
-                    mTimezoneLabel.setVisibility(View.VISIBLE);
-                }
+                setAllDayViewsVisibility(isChecked);
             }
         });
 
@@ -960,92 +956,29 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         populateRepeats();
         updateAttendees(model.mAttendeesList);
 
-        // Mark read-only fields as disabled
-        if (!canModifyEvent) {
-            setReadOnlyMode();
-        }
+        updateView();
         mScrollView.setVisibility(View.VISIBLE);
         mLoadingMessage.setVisibility(View.GONE);
     }
 
     /**
-     * This method will be eventually be able to switch the view from read-only
-     * to read-write and back. In the meantime, it only supports read-write
-     * (from XML) -> read-only
+     * Creates a single line string for the time/duration
      */
-    private void setReadOnlyMode() {
-        boolean readWrite = false;
-        // When/From/To
-        View whenRow = mView.findViewById(R.id.when_row);
-        View fromRow = mView.findViewById(R.id.from_row);
-        View toRow = mView.findViewById(R.id.to_row);
-        View allDayLabel = mView.findViewById(R.id.is_all_day_label);
+    protected void setWhenString() {
+        String when;
+        int flags = DateUtils.FORMAT_SHOW_DATE;
+        if (mModel.mAllDay) {
+            flags |= DateUtils.FORMAT_UTC | DateUtils.FORMAT_SHOW_WEEKDAY;
+        } else {
+            flags |= DateUtils.FORMAT_SHOW_TIME;
+            if (DateFormat.is24HourFormat(mActivity)) {
+                flags |= DateUtils.FORMAT_24HOUR;
+            }
+        }
         long startMillis = mStartTime.normalize(true);
         long endMillis = mEndTime.normalize(true);
-        if (readWrite) {
-            // Show all day checkbox
-            allDayLabel.setVisibility(View.VISIBLE);
-            mAllDayCheckBox.setVisibility(View.VISIBLE);
-
-            // Hide the string version of when
-            whenRow.setVisibility(View.GONE);
-
-            // Set up the date/time pickers
-            fromRow.setVisibility(View.VISIBLE);
-            toRow.setVisibility(View.VISIBLE);
-            setDate(mStartDateButton, startMillis);
-            setTime(mStartTimeButton, startMillis);
-            setDate(mEndDateButton, endMillis);
-            setTime(mEndTimeButton, endMillis);
-        } else {
-            // Hide all day checkbox if read only
-            allDayLabel.setVisibility(View.GONE);
-            mAllDayCheckBox.setVisibility(View.GONE);
-
-            // Hide button which triggers the date/time picker
-            fromRow.setVisibility(View.GONE);
-            toRow.setVisibility(View.GONE);
-
-            // Show time string
-            whenRow.setVisibility(View.VISIBLE);
-            String when;
-            int flags = DateUtils.FORMAT_SHOW_DATE;
-            if (mModel.mAllDay) {
-                flags |= DateUtils.FORMAT_UTC | DateUtils.FORMAT_SHOW_WEEKDAY;
-            } else {
-                flags |= DateUtils.FORMAT_SHOW_TIME;
-                if (DateFormat.is24HourFormat(mActivity)) {
-                    flags |= DateUtils.FORMAT_24HOUR;
-                }
-            }
-            when = Utils.formatDateRange(mActivity, startMillis, endMillis, flags);
-            mWhenView.setText(when);
-        }
-
-        // Timezone
-        int tzButtonVisibility = View.GONE;
-        int tzTextViewVisibility = View.VISIBLE;
-        if (readWrite) {
-            tzButtonVisibility = View.VISIBLE;
-            tzTextViewVisibility = View.GONE;
-        }
-        mView.findViewById(R.id.timezone_button_row).setVisibility(tzButtonVisibility);
-        mView.findViewById(R.id.timezone_textview_row).setVisibility(tzTextViewVisibility);
-
-        // Other fields
-        for (View v : mViewList) {
-            v.setEnabled(readWrite);
-            if (readWrite) {
-                // TODO restore background and TextAppearance for editText
-            } else {
-                if (v instanceof EditText) {
-                    v.setBackgroundColor(0); // Transparent background
-                    ((EditText) v).setTextAppearance(mActivity,
-                            R.style.TextAppearance_EditEvent_Value);
-                }
-            }
-        }
-        mTitleTextView.setTextAppearance(mActivity, R.style.TextAppearance_EditEvent_What);
+        when = Utils.formatDateRange(mActivity, startMillis, endMillis, flags);
+        mWhenView.setText(when);
     }
 
     public void setCalendarsCursor(Cursor cursor, boolean userVisible) {
@@ -1112,16 +1045,111 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
     }
 
+    /**
+     * Updates the view based on {@link #mModification} and {@link #mModel}
+     */
+    public void updateView() {
+        if (mModel == null) {
+            return;
+        }
+        if (EditEventHelper.canModifyEvent(mModel)) {
+            setViewStates(mModification);
+        } else {
+            setViewStates(Utils.MODIFY_UNINITIALIZED);
+        }
+    }
+
+    private void setViewStates(int mode) {
+        // Extra canModify check just in case
+        if (mode == Utils.MODIFY_UNINITIALIZED || !EditEventHelper.canModifyEvent(mModel)) {
+            setWhenString();
+
+            for (View v : mViewOnlyList) {
+                v.setVisibility(View.VISIBLE);
+            }
+            for (View v : mEditOnlyList) {
+                v.setVisibility(View.GONE);
+            }
+            for (View v : mEditViewList) {
+                v.setEnabled(false);
+                v.setBackgroundColor(0);
+            }
+            mCalendarSelectorGroup.setVisibility(View.GONE);
+            mCalendarStaticGroup.setVisibility(View.VISIBLE);
+            mRepeatsSpinner.setEnabled(false);
+            if (EditEventHelper.canAddReminders(mModel)) {
+                mRemindersGroup.setVisibility(View.VISIBLE);
+            } else {
+                mRemindersGroup.setVisibility(View.GONE);
+            }
+            setAttendeesEditable(View.GONE);
+            if (mAttendeesView.getChildCount() == 0) {
+                mAttendeesPane.setVisibility(View.GONE);
+            } else {
+                mAttendeesPane.setVisibility(View.VISIBLE);
+            }
+            if (mAllDayCheckBox.isChecked()) {
+                mView.findViewById(R.id.timezone_textview_row).setVisibility(View.GONE);
+            }
+        } else {
+            for (View v : mViewOnlyList) {
+                v.setVisibility(View.GONE);
+            }
+            for (View v : mEditOnlyList) {
+                v.setVisibility(View.VISIBLE);
+            }
+            for (View v : mEditViewList) {
+                v.setEnabled(true);
+                v.setBackgroundDrawable(mOriginalEditBG);
+            }
+            if (mModel.mUri == null) {
+                mCalendarSelectorGroup.setVisibility(View.VISIBLE);
+                mCalendarStaticGroup.setVisibility(View.GONE);
+            } else {
+                mCalendarSelectorGroup.setVisibility(View.GONE);
+                mCalendarStaticGroup.setVisibility(View.VISIBLE);
+            }
+            if (mModel.mOriginalEvent == null) {
+                mRepeatsSpinner.setEnabled(true);
+            } else {
+                mRepeatsSpinner.setEnabled(false);
+            }
+            mRemindersGroup.setVisibility(View.VISIBLE);
+            setAttendeesEditable(View.VISIBLE);
+            mAttendeesPane.setVisibility(View.VISIBLE);
+
+            // force an update of allDay dependent fields
+            setAllDayViewsVisibility(mAllDayCheckBox.isChecked());
+        }
+    }
+
+    /**
+     * Shows or hides the Guests view and sets the buttons for removing
+     * attendees based on the value passed in.
+     *
+     * @param visibility View.GONE or View.VISIBLE
+     */
+    protected void setAttendeesEditable(int visibility) {
+        int attCount = mAttendeesView.getChildCount();
+        if (attCount > 0) {
+            mResponseGroup.setVisibility(View.VISIBLE);
+            mAttendeesGroup.setVisibility(View.VISIBLE);
+            for (int i = 0; i < attCount; i++) {
+                View v = mAttendeesView.getChildAt(i);
+                View button = v.findViewById(R.id.contact_remove);
+                if (button != null) {
+                    button.setVisibility(visibility);
+                }
+            }
+        } else {
+            mResponseGroup.setVisibility(View.GONE);
+            mAttendeesGroup.setVisibility(View.GONE);
+        }
+    }
+
     public void setModification(int modifyWhich) {
         mModification = modifyWhich;
-        // If we are modifying all the events in a
-        // series then disable and ignore the date.
-        if (modifyWhich == Utils.MODIFY_ALL) {
-            mStartDateButton.setEnabled(false);
-            mEndDateButton.setEnabled(false);
-        } else if (modifyWhich == Utils.MODIFY_SELECTED) {
-            mRepeatsSpinner.setEnabled(false);
-        }
+        updateView();
     }
 
     // Find the calendar position in the cursor that matches calendar in
@@ -1270,5 +1298,43 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     @Override
     public void afterTextChanged(Editable s) {
         mAddAttendeesButton.setEnabled(s.length() > 0);
+    }
+
+    /**
+     * @param isChecked
+     */
+    protected void setAllDayViewsVisibility(boolean isChecked) {
+        if (isChecked) {
+            if (mEndTime.hour == 0 && mEndTime.minute == 0) {
+                mEndTime.monthDay--;
+                long endMillis = mEndTime.normalize(true);
+
+                // Do not allow an event to have an end time
+                // before the
+                // start time.
+                if (mEndTime.before(mStartTime)) {
+                    mEndTime.set(mStartTime);
+                    endMillis = mEndTime.normalize(true);
+                }
+                setDate(mEndDateButton, endMillis);
+                setTime(mEndTimeButton, endMillis);
+            }
+
+            mStartTimeButton.setVisibility(View.GONE);
+            mEndTimeButton.setVisibility(View.GONE);
+            mTimezoneButton.setVisibility(View.GONE);
+            mTimezoneLabel.setVisibility(View.GONE);
+        } else {
+            if (mEndTime.hour == 0 && mEndTime.minute == 0) {
+                mEndTime.monthDay++;
+                long endMillis = mEndTime.normalize(true);
+                setDate(mEndDateButton, endMillis);
+                setTime(mEndTimeButton, endMillis);
+            }
+            mStartTimeButton.setVisibility(View.VISIBLE);
+            mEndTimeButton.setVisibility(View.VISIBLE);
+            mTimezoneButton.setVisibility(View.VISIBLE);
+            mTimezoneLabel.setVisibility(View.VISIBLE);
+        }
     }
 }
