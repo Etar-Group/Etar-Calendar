@@ -99,7 +99,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     private Activity mContext;
     private Done mOnDone = new Done();
-    private boolean mMenuUpdated = false;
     private Menu mMenu;
 
     private boolean mSaveOnDetach = true;
@@ -298,10 +297,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
         MenuItem deleteItem = mMenu.findItem(R.id.action_delete);
         MenuItem editItem = mMenu.findItem(R.id.action_edit);
         boolean canModifyEvent = EditEventHelper.canModifyEvent(mModel);
+        boolean canModifyCalendar = EditEventHelper.canModifyCalendar(mModel);
 
+        if (canModifyCalendar && mModel.mUri != null) {
+            deleteItem.setVisible(true);
+        } else {
+            deleteItem.setVisible(false);
+        }
         if (mModification == Utils.MODIFY_UNINITIALIZED) {
             cancelItem.setVisible(false);
-            deleteItem.setVisible(false);
             if (canModifyEvent) {
                 editItem.setVisible(true);
             } else {
@@ -309,20 +313,14 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
             return;
         } else {
-            mMenu.findItem(R.id.action_edit).setVisible(false);
+            editItem.setVisible(false);
         }
-        boolean canModifyCalendar = EditEventHelper.canModifyCalendar(mModel);
         boolean canRespond = EditEventHelper.canRespond(mModel);
 
         if (canRespond || canModifyEvent) {
             cancelItem.setVisible(true);
         } else {
             cancelItem.setVisible(false);
-        }
-        if (canModifyCalendar && mModel.mUri != null) {
-            deleteItem.setVisible(true);
-        } else {
-            deleteItem.setVisible(false);
         }
     }
 
@@ -445,6 +443,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
             case R.id.action_done:
                 if (EditEventHelper.canModifyEvent(mModel) || EditEventHelper.canRespond(mModel)) {
                     if (mView != null && mView.prepareForSave()) {
+                        if (mModification == Utils.MODIFY_UNINITIALIZED) {
+                            mModification = Utils.MODIFY_ALL;
+                        }
                         mOnDone.setDoneCode(Utils.DONE_SAVE | Utils.DONE_EXIT);
                         mOnDone.run();
                     } else {
@@ -471,7 +472,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 break;
             case R.id.action_edit:
                 if (!TextUtils.isEmpty(mModel.mRrule)) {
-                    displayEditWhichDialogue();
+                    displayEditWhichDialog();
                 } else {
                     mModification = Utils.MODIFY_ALL;
                     updateActionBar();
@@ -506,7 +507,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
         Toast.makeText(mContext, R.string.saving_event, Toast.LENGTH_SHORT).show();
     }
 
-    protected void displayEditWhichDialogue() {
+    protected void displayEditWhichDialog() {
         if (!TextUtils.isEmpty(mModel.mRrule) && mModification == Utils.MODIFY_UNINITIALIZED) {
             final boolean notSynced = mModel.mSyncId == null;
             boolean isFirstEventInSeries = mModel.mIsFirstEventInSeries;
