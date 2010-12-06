@@ -19,14 +19,14 @@
     <item android:id="@+id/action_search"
         android:alphabeticShortcut="f"
         android:title="@string/search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/ic_menu_search_holo_light"
         android:showAsAction="ifRoom"
         android:actionViewClass="android.widget.SearchView" />
     <item
         android:id="@+id/action_today"
         android:alphabeticShortcut="t"
         android:title="@string/goto_today"
-        android:icon="@android:drawable/ic_menu_today"
+        android:icon="@drawable/ic_menu_today_holo_light"
         android:showAsAction="always" />
     <item
         android:id="@+id/action_settings"

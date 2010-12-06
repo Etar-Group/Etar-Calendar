@@ -396,8 +396,6 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
         if (mSelectedPosition == position) {
             v.setBackgroundColor(mSelectedAgendaItemColor);
-        } else {
-            v.setBackgroundResource(0);
         }
 
         if (DEBUGLOG) {
