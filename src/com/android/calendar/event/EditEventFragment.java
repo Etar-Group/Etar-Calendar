@@ -57,6 +57,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class EditEventFragment extends Fragment implements EventHandler {
@@ -64,6 +65,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     private static final String BUNDLE_KEY_MODEL = "key_model";
     private static final String BUNDLE_KEY_EDIT_STATE = "key_edit_state";
+    private static final String BUNDLE_KEY_EVENT = "key_event";
 
     private static final boolean DEBUG = false;
 
@@ -93,6 +95,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
     int mModification = Utils.MODIFY_UNINITIALIZED;
 
     private EventInfo mEvent;
+    private EventBundle mEventBundle;
     private Uri mUri;
     private long mBegin;
     private long mEnd;
@@ -348,6 +351,11 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (mEvent.endTime != null) {
                 mEnd = mEvent.endTime.toMillis(true);
             }
+        } else if (mEventBundle != null) {
+            mModel.mId = mEventBundle.id;
+            mUri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventBundle.id);
+            mBegin = mEventBundle.start;
+            mEnd = mEventBundle.end;
         }
 
         if (mBegin <= 0) {
@@ -422,6 +430,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
             if (savedInstanceState.containsKey(BUNDLE_KEY_EDIT_STATE)) {
                 mModification = savedInstanceState.getInt(BUNDLE_KEY_EDIT_STATE);
+            }
+            if (savedInstanceState.containsKey(BUNDLE_KEY_EVENT)) {
+                mEventBundle = (EventBundle) savedInstanceState.getSerializable(BUNDLE_KEY_EVENT);
             }
         }
     }
@@ -654,6 +665,18 @@ public class EditEventFragment extends Fragment implements EventHandler {
         mView.prepareForSave();
         outState.putSerializable(BUNDLE_KEY_MODEL, mModel);
         outState.putInt(BUNDLE_KEY_EDIT_STATE, mModification);
+        if (mEventBundle == null && mEvent != null) {
+            mEventBundle = new EventBundle();
+            mEventBundle.id = mEvent.id;
+            if (mEvent.startTime != null) {
+                mEventBundle.start = mEvent.startTime.toMillis(true);
+            }
+            if (mEvent.endTime != null) {
+                mEventBundle.end = mEvent.startTime.toMillis(true);
+            }
+        }
+
+        outState.putSerializable(BUNDLE_KEY_EVENT, mEventBundle);
     }
 
     @Override
@@ -673,5 +696,11 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 mOnDone.run();
             }
         }
+    }
+
+    private class EventBundle implements Serializable {
+        long id = -1;
+        long start = -1;
+        long end = -1;
     }
 }
