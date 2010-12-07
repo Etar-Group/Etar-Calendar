@@ -58,6 +58,8 @@ import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -80,7 +82,7 @@ import java.util.HashMap;
 import java.util.TimeZone;
 
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
-        DialogInterface.OnClickListener, TextWatcher {
+        DialogInterface.OnClickListener, TextWatcher, OnItemSelectedListener {
     private static final String TAG = "EditEvent";
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final int REMINDER_FLING_VELOCITY = 2000;
@@ -121,6 +123,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     View mOrganizerGroup;
     View mAttendeesGroup;
     View mAttendeesPane;
+    View mColorChip;
 
     private Drawable mOriginalEditBG;
 
@@ -779,6 +782,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mTimezone = TimeZone.getDefault().getID();
         mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
 
+        mColorChip = view.findViewById(R.id.color_chip);
+
         // Display loading screen
         setModel(null);
     }
@@ -946,6 +951,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             calendarGroup.setVisibility(View.GONE);
             TextView tv = (TextView) mView.findViewById(R.id.calendar_textview);
             tv.setText(model.mCalendarDisplayName);
+            mColorChip.setBackgroundColor(model.mCalendarColor);
         } else {
             View calendarGroup = mView.findViewById(R.id.calendar_group);
             calendarGroup.setVisibility(View.GONE);
@@ -1012,6 +1018,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         CalendarsAdapter adapter = new CalendarsAdapter(mActivity, cursor);
         mCalendarsSpinner.setAdapter(adapter);
         mCalendarsSpinner.setSelection(defaultCalendarPosition);
+        mCalendarsSpinner.setOnItemSelectedListener(this);
+
+        int colorColumn = cursor.getColumnIndexOrThrow(Calendars.COLOR);
+        mColorChip.setBackgroundColor(cursor.getInt(colorColumn));
+
 
         // Find user domain and set it to the validator.
         // TODO: we may want to update this validator if the user actually picks
@@ -1336,5 +1347,20 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTimezoneButton.setVisibility(View.VISIBLE);
             mTimezoneLabel.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Cursor c = (Cursor) parent.getItemAtPosition(position);
+        if (c != null) {
+            int colorColumn = c.getColumnIndexOrThrow(Calendars.COLOR);
+            mColorChip.setBackgroundColor(c.getInt(colorColumn));
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        mColorChip.setBackgroundColor(0);
+
     }
 }

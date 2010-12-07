@@ -17,45 +17,76 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/edit_event"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/EditEvent_Layout">
-
     <TextView
         android:id="@+id/loading_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/loading" />
+        android:text="@string/loading" 
+        android:layout_marginLeft="50dip"
+        android:layout_marginRight="50dip"
+        android:layout_marginTop="12dip"
+        android:layout_marginBottom="12dip"
+        android:background="#FFFFFFFF"/>
 
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_height="match_parent"
         android:layout_weight="2"
         android:fillViewport="true"
         android:visibility="gone">
 
-        <LinearLayout
-            android:id="@+id/two_pane"
-            android:orientation="vertical"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <!-- TOP HALF -->
-            <include
-                layout="@layout/edit_event_1"
+            <View android:id="@+id/event_bg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dip"
+                android:layout_marginRight="50dip"
+                android:layout_marginTop="12dip"
+                android:layout_marginBottom="12dip"
+                android:layout_gravity="center_horizontal|top"
+                android:background="#FFFFFFFF"/>
 
-            <!-- BOTTOM HALF GUESTS/ATTENDEES -->
-            <include
-                layout="@layout/edit_event_2"
-                android:id="@+id/attendees_group"
+            <LinearLayout
+                android:id="@+id/two_pane"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dip"
+                android:layout_marginRight="100dip"
+                android:layout_marginTop="12dip"
+                android:layout_marginBottom="12dip"
+                android:layout_gravity="center_horizontal|top">
+
+                <!-- TOP HALF -->
+                <include
+                    layout="@layout/edit_event_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- BOTTOM HALF GUESTS/ATTENDEES -->
+                <include
+                    layout="@layout/edit_event_2"
+                    android:id="@+id/attendees_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View android:id="@+id/color_chip"
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:layout_marginLeft="45dip"
+                android:layout_marginTop="7dip"
+                android:layout_gravity="left|top"
+                android:background="#FFFF3333"/>
+        </FrameLayout>
     </ScrollView>
 </LinearLayout>

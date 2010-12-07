@@ -1075,6 +1075,7 @@ public class EditEventHelper {
 
             model.mCalendarAccessLevel = cursor.getInt(CALENDARS_INDEX_ACCESS_LEVEL);
             model.mCalendarDisplayName = cursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
+            model.mCalendarColor = cursor.getInt(CALENDARS_INDEX_COLOR);
 
             return true;
        }

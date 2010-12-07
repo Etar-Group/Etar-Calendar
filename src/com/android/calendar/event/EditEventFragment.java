@@ -285,6 +285,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     mModel = mRestoreModel;
                 }
                 mView.setModel(mModel);
+                mView.setModification(mModification);
                 if (mMenu != null) {
                     updateActionBar();
                 }
@@ -352,8 +353,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 mEnd = mEvent.endTime.toMillis(true);
             }
         } else if (mEventBundle != null) {
-            mModel.mId = mEventBundle.id;
-            mUri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventBundle.id);
+            if (mEventBundle.id != -1) {
+                mModel.mId = mEventBundle.id;
+                mUri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventBundle.id);
+            }
             mBegin = mEventBundle.start;
             mEnd = mEventBundle.end;
         }
