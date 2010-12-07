@@ -57,6 +57,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class EditEventFragment extends Fragment implements EventHandler {
@@ -64,6 +65,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     private static final String BUNDLE_KEY_MODEL = "key_model";
     private static final String BUNDLE_KEY_EDIT_STATE = "key_edit_state";
+    private static final String BUNDLE_KEY_EVENT = "key_event";
 
     private static final boolean DEBUG = false;
 
@@ -93,13 +95,13 @@ public class EditEventFragment extends Fragment implements EventHandler {
     int mModification = Utils.MODIFY_UNINITIALIZED;
 
     private EventInfo mEvent;
+    private EventBundle mEventBundle;
     private Uri mUri;
     private long mBegin;
     private long mEnd;
 
     private Activity mContext;
     private Done mOnDone = new Done();
-    private boolean mMenuUpdated = false;
     private Menu mMenu;
 
     private boolean mSaveOnDetach = true;
@@ -298,10 +300,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
         MenuItem deleteItem = mMenu.findItem(R.id.action_delete);
         MenuItem editItem = mMenu.findItem(R.id.action_edit);
         boolean canModifyEvent = EditEventHelper.canModifyEvent(mModel);
+        boolean canModifyCalendar = EditEventHelper.canModifyCalendar(mModel);
 
+        if (canModifyCalendar && mModel.mUri != null) {
+            deleteItem.setVisible(true);
+        } else {
+            deleteItem.setVisible(false);
+        }
         if (mModification == Utils.MODIFY_UNINITIALIZED) {
             cancelItem.setVisible(false);
-            deleteItem.setVisible(false);
             if (canModifyEvent) {
                 editItem.setVisible(true);
             } else {
@@ -309,20 +316,14 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
             return;
         } else {
-            mMenu.findItem(R.id.action_edit).setVisible(false);
+            editItem.setVisible(false);
         }
-        boolean canModifyCalendar = EditEventHelper.canModifyCalendar(mModel);
         boolean canRespond = EditEventHelper.canRespond(mModel);
 
         if (canRespond || canModifyEvent) {
             cancelItem.setVisible(true);
         } else {
             cancelItem.setVisible(false);
-        }
-        if (canModifyCalendar && mModel.mUri != null) {
-            deleteItem.setVisible(true);
-        } else {
-            deleteItem.setVisible(false);
         }
     }
 
@@ -350,6 +351,11 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (mEvent.endTime != null) {
                 mEnd = mEvent.endTime.toMillis(true);
             }
+        } else if (mEventBundle != null) {
+            mModel.mId = mEventBundle.id;
+            mUri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventBundle.id);
+            mBegin = mEventBundle.start;
+            mEnd = mEventBundle.end;
         }
 
         if (mBegin <= 0) {
@@ -425,6 +431,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (savedInstanceState.containsKey(BUNDLE_KEY_EDIT_STATE)) {
                 mModification = savedInstanceState.getInt(BUNDLE_KEY_EDIT_STATE);
             }
+            if (savedInstanceState.containsKey(BUNDLE_KEY_EVENT)) {
+                mEventBundle = (EventBundle) savedInstanceState.getSerializable(BUNDLE_KEY_EVENT);
+            }
         }
     }
 
@@ -445,6 +454,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
             case R.id.action_done:
                 if (EditEventHelper.canModifyEvent(mModel) || EditEventHelper.canRespond(mModel)) {
                     if (mView != null && mView.prepareForSave()) {
+                        if (mModification == Utils.MODIFY_UNINITIALIZED) {
+                            mModification = Utils.MODIFY_ALL;
+                        }
                         mOnDone.setDoneCode(Utils.DONE_SAVE | Utils.DONE_EXIT);
                         mOnDone.run();
                     } else {
@@ -471,7 +483,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 break;
             case R.id.action_edit:
                 if (!TextUtils.isEmpty(mModel.mRrule)) {
-                    displayEditWhichDialogue();
+                    displayEditWhichDialog();
                 } else {
                     mModification = Utils.MODIFY_ALL;
                     updateActionBar();
@@ -506,7 +518,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
         Toast.makeText(mContext, R.string.saving_event, Toast.LENGTH_SHORT).show();
     }
 
-    protected void displayEditWhichDialogue() {
+    protected void displayEditWhichDialog() {
         if (!TextUtils.isEmpty(mModel.mRrule) && mModification == Utils.MODIFY_UNINITIALIZED) {
             final boolean notSynced = mModel.mSyncId == null;
             boolean isFirstEventInSeries = mModel.mIsFirstEventInSeries;
@@ -653,6 +665,18 @@ public class EditEventFragment extends Fragment implements EventHandler {
         mView.prepareForSave();
         outState.putSerializable(BUNDLE_KEY_MODEL, mModel);
         outState.putInt(BUNDLE_KEY_EDIT_STATE, mModification);
+        if (mEventBundle == null && mEvent != null) {
+            mEventBundle = new EventBundle();
+            mEventBundle.id = mEvent.id;
+            if (mEvent.startTime != null) {
+                mEventBundle.start = mEvent.startTime.toMillis(true);
+            }
+            if (mEvent.endTime != null) {
+                mEventBundle.end = mEvent.startTime.toMillis(true);
+            }
+        }
+
+        outState.putSerializable(BUNDLE_KEY_EVENT, mEventBundle);
     }
 
     @Override
@@ -672,5 +696,11 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 mOnDone.run();
             }
         }
+    }
+
+    private class EventBundle implements Serializable {
+        long id = -1;
+        long start = -1;
+        long end = -1;
     }
 }
