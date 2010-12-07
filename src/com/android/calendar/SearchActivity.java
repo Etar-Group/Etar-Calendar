@@ -22,6 +22,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
+import com.android.calendar.event.EditEventFragment;
 
 import dalvik.system.VMRuntime;
 
@@ -66,7 +67,7 @@ public class SearchActivity extends Activity
 
     private CalendarController mController;
 
-    private EventInfoFragment mEventInfoFragment;
+    private EditEventFragment mEventInfoFragment;
 
     private long mCurrentEventId = -1;
 
@@ -156,26 +157,27 @@ public class SearchActivity extends Activity
         search(query, t);
     }
 
-    private void showEventInfo(long eventId, long startMillis, long endMillis) {
+    private void showEventInfo(EventInfo event) {
         if (mIsMultipane) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction ft = fragmentManager.openTransaction();
 
-            mEventInfoFragment =
-                new EventInfoFragment(eventId, startMillis, endMillis);
+            mEventInfoFragment = new EditEventFragment(event, true);
             ft.replace(R.id.event_info, mEventInfoFragment);
             ft.commit();
             mController.registerEventHandler(R.id.event_info, mEventInfoFragment);
         } else {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
+            Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
             intent.setData(eventUri);
             intent.setClassName(this, EventInfoActivity.class.getName());
-            intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-            intent.putExtra(EVENT_END_TIME, endMillis);
+            intent.putExtra(EVENT_BEGIN_TIME,
+                    event.startTime != null ? event.startTime.toMillis(true) : -1);
+            intent.putExtra(
+                    EVENT_END_TIME, event.endTime != null ? event.endTime.toMillis(true) : -1);
             startActivity(intent);
         }
-        mCurrentEventId = eventId;
+        mCurrentEventId = event.id;
     }
 
     private void search(String searchQuery, Time goToTime) {
@@ -304,7 +306,7 @@ public class SearchActivity extends Activity
     public void handleEvent(EventInfo event) {
         long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
         if (event.eventType == EventType.VIEW_EVENT) {
-            showEventInfo(event.id, event.startTime.toMillis(false), endTime);
+            showEventInfo(event);
         } else if (event.eventType == EventType.DELETE_EVENT) {
             deleteEvent(event.id, event.startTime.toMillis(false), endTime);
         }

@@ -17,6 +17,7 @@
 package com.android.calendar.event;
 
 import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
@@ -36,7 +37,6 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -66,6 +66,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private static final String BUNDLE_KEY_MODEL = "key_model";
     private static final String BUNDLE_KEY_EDIT_STATE = "key_edit_state";
     private static final String BUNDLE_KEY_EVENT = "key_event";
+    private static final String BUNDLE_KEY_READ_ONLY = "key_read_only";
 
     private static final boolean DEBUG = false;
 
@@ -105,6 +106,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private Menu mMenu;
 
     private boolean mSaveOnDetach = true;
+    private boolean mIsReadOnly = false;
+    public boolean mShowModifyDialogOnLaunch = false;
 
     private InputMethodManager mInputMethodManager;
 
@@ -207,12 +210,18 @@ public class EditEventFragment extends Fragment implements EventHandler {
                                     mModel.mOrganizer = email;
                                     mModel.mIsOrganizer = mModel.mOwnerAccount
                                             .equalsIgnoreCase(email);
+                                    mOriginalModel.mOrganizer = email;
+                                    mOriginalModel.mIsOrganizer = mOriginalModel.mOwnerAccount
+                                            .equalsIgnoreCase(email);
                                 }
 
                                 if (TextUtils.isEmpty(name)) {
                                     mModel.mOrganizerDisplayName = mModel.mOrganizer;
+                                    mOriginalModel.mOrganizerDisplayName =
+                                            mOriginalModel.mOrganizer;
                                 } else {
                                     mModel.mOrganizerDisplayName = name;
+                                    mOriginalModel.mOrganizerDisplayName = name;
                                 }
                             }
 
@@ -266,6 +275,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                         } else {
                             // Populate model for an existing event
                             EditEventHelper.setModelFromCalendarCursor(mModel, cursor);
+                            EditEventHelper.setModelFromCalendarCursor(mOriginalModel, cursor);
                         }
                     } finally {
                         cursor.close();
@@ -289,6 +299,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 if (mMenu != null) {
                     updateActionBar();
                 }
+                if (mShowModifyDialogOnLaunch && mModification == Utils.MODIFY_UNINITIALIZED) {
+                    displayEditWhichDialog();
+                }
             }
         }
     }
@@ -307,6 +320,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
             deleteItem.setVisible(true);
         } else {
             deleteItem.setVisible(false);
+        }
+        if (mIsReadOnly) {
+            mMenu.findItem(R.id.action_done).setVisible(false);
         }
         if (mModification == Utils.MODIFY_UNINITIALIZED) {
             cancelItem.setVisible(false);
@@ -333,7 +349,12 @@ public class EditEventFragment extends Fragment implements EventHandler {
     }
 
     public EditEventFragment(EventInfo event) {
+        this(event, false);
+    }
+
+    public EditEventFragment(EventInfo event, boolean readOnly) {
         mEvent = event;
+        mIsReadOnly = readOnly;
         setHasOptionsMenu(true);
     }
 
@@ -417,7 +438,12 @@ public class EditEventFragment extends Fragment implements EventHandler {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 //        mContext.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        View view = inflater.inflate(R.layout.edit_event, null);
+        View view;
+        if (mIsReadOnly) {
+            view = inflater.inflate(R.layout.edit_event_single_column, null);
+        } else {
+            view = inflater.inflate(R.layout.edit_event, null);
+        }
         mView = new EditEventView(mContext, view, mOnDone);
         startQuery();
         return view;
@@ -436,6 +462,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
             if (savedInstanceState.containsKey(BUNDLE_KEY_EVENT)) {
                 mEventBundle = (EventBundle) savedInstanceState.getSerializable(BUNDLE_KEY_EVENT);
+            }
+            if (savedInstanceState.containsKey(BUNDLE_KEY_READ_ONLY)) {
+                mIsReadOnly = savedInstanceState.getBoolean(BUNDLE_KEY_READ_ONLY);
             }
         }
     }
@@ -485,7 +514,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 mOnDone.run();
                 break;
             case R.id.action_edit:
-                if (!TextUtils.isEmpty(mModel.mRrule)) {
+                if (mIsReadOnly) {
+                    CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
+                            EventType.EDIT_EVENT, mModel.mId, mModel.mStart, mModel.mEnd, -1, -1);
+                } else if (!TextUtils.isEmpty(mModel.mRrule)) {
                     displayEditWhichDialog();
                 } else {
                     mModification = Utils.MODIFY_ALL;
@@ -558,12 +590,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 mModifyDialog.dismiss();
                 mModifyDialog = null;
             }
-            mModifyDialog = new AlertDialog.Builder(mContext).setOnCancelListener(
-                    new OnCancelListener() {
-                public void onCancel(DialogInterface dialog) {
-                    mContext.finish();
-                }
-            }).setTitle(R.string.edit_event_label).setItems(items, new OnClickListener() {
+            mModifyDialog = new AlertDialog.Builder(mContext)
+                    .setTitle(R.string.edit_event_label).setItems(items, new OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     if (which == 0) {
                         mModification = notSynced ? Utils.MODIFY_ALL : Utils.MODIFY_SELECTED;
@@ -593,10 +621,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
             // pressed back/home or one of the buttons on screen
             mSaveOnDetach = false;
 
-            if ((mCode & Utils.DONE_SAVE) != 0
-                    && mModel != null
-                    && (EditEventHelper.canRespond(mModel) || EditEventHelper
-                            .canModifyEvent(mModel)) && !mModel.equals(mOriginalModel)
+            if ((mCode & Utils.DONE_SAVE) != 0 && mModel != null
+                    && (EditEventHelper.canRespond(mModel)
+                            || EditEventHelper.canModifyEvent(mModel))
+                    && !mModel.isUnchanged(mOriginalModel)
                     && mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
                 int stringResource;
                 if (mModel.mUri != null) {
@@ -623,8 +651,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
                         which = DeleteEventHelper.DELETE_ALL;
                         break;
                 }
-                DeleteEventHelper deleteHelper = new DeleteEventHelper(mContext, mContext,
-                        true /* exitWhenDone */);
+                DeleteEventHelper deleteHelper = new DeleteEventHelper(
+                        mContext, mContext, !mIsReadOnly /* exitWhenDone */);
                 // TODO update delete helper to use the model instead of the cursor
                 deleteHelper.delete(begin, end, mModel, which);
             }
@@ -643,6 +671,17 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 focusedView.clearFocus();
             }
         }
+    }
+
+    @Override
+    public void onPause() {
+        Activity act = getActivity();
+        if (act != null && mIsReadOnly && !act.isChangingConfigurations()
+                && mView.fillModelFromReadOnlyUi()) {
+            mOnDone.setDoneCode(Utils.DONE_SAVE);
+            mOnDone.run();
+        }
+        super.onPause();
     }
 
     @Override
@@ -680,6 +719,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
         }
 
         outState.putSerializable(BUNDLE_KEY_EVENT, mEventBundle);
+        outState.putBoolean(BUNDLE_KEY_READ_ONLY, mIsReadOnly);
     }
 
     @Override
@@ -701,7 +741,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
         }
     }
 
-    private class EventBundle implements Serializable {
+    private static class EventBundle implements Serializable {
         long id = -1;
         long start = -1;
         long end = -1;

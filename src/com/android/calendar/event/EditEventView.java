@@ -118,6 +118,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     AddAttendeeClickListener mAddAttendeesListener;
     View mCalendarSelectorGroup;
     View mCalendarStaticGroup;
+    View mLocationGroup;
+    View mDescriptionGroup;
     View mRemindersGroup;
     View mResponseGroup;
     View mOrganizerGroup;
@@ -566,6 +568,20 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return fillModelFromUI();
     }
 
+    public boolean fillModelFromReadOnlyUi() {
+        if (mModel == null || (mCalendarsCursor == null && mModel.mUri == null)) {
+            return false;
+        }
+        mModel.mReminderMinutes = EventViewUtils.reminderItemsToMinutes(
+                mReminderItems, mReminderValues);
+        int status = EventInfoFragment.getResponseFromButtonId(
+                mResponseRadioGroup.getCheckedRadioButtonId());
+        if (status != Attendees.ATTENDEE_STATUS_NONE) {
+            mModel.mSelfAttendeeStatus = status;
+        }
+        return true;
+    }
+
     // This is called if the user clicks on one of the buttons: "Save",
     // "Discard", or "Delete". This is also called if the user clicks
     // on the "remove reminder" button.
@@ -750,6 +766,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mOrganizerGroup = view.findViewById(R.id.organizer_row);
         mAttendeesGroup = view.findViewById(R.id.attendees_row);
         mAttendeesPane = view.findViewById(R.id.attendees_group);
+        mLocationGroup = view.findViewById(R.id.where_row);
+        mDescriptionGroup = view.findViewById(R.id.description_row);
 
         mOriginalEditBG = mTitleTextView.getBackground();
         mEditViewList.add(mTitleTextView);
@@ -1084,10 +1102,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             for (View v : mEditViewList) {
                 v.setEnabled(false);
                 v.setBackgroundColor(0);
+                v.setPadding(0, 0, 0, 0);
             }
             mCalendarSelectorGroup.setVisibility(View.GONE);
             mCalendarStaticGroup.setVisibility(View.VISIBLE);
             mRepeatsSpinner.setEnabled(false);
+            mRepeatsSpinner.setPadding(0, 0, 0, 0);
             if (EditEventHelper.canAddReminders(mModel)) {
                 mRemindersGroup.setVisibility(View.VISIBLE);
             } else {
@@ -1101,6 +1121,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             }
             if (mAllDayCheckBox.isChecked()) {
                 mView.findViewById(R.id.timezone_textview_row).setVisibility(View.GONE);
+            }
+            if (TextUtils.isEmpty(mLocationTextView.getText())) {
+                mLocationGroup.setVisibility(View.GONE);
+            }
+            if (TextUtils.isEmpty(mDescriptionTextView.getText())) {
+                mDescriptionGroup.setVisibility(View.GONE);
             }
         } else {
             for (View v : mViewOnlyList) {
@@ -1124,10 +1150,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mRepeatsSpinner.setEnabled(true);
             } else {
                 mRepeatsSpinner.setEnabled(false);
+                mRepeatsSpinner.setPadding(0, 0, 0, 0);
             }
             mRemindersGroup.setVisibility(View.VISIBLE);
             setAttendeesEditable(View.VISIBLE);
             mAttendeesPane.setVisibility(View.VISIBLE);
+
+            mLocationGroup.setVisibility(View.VISIBLE);
+            mDescriptionGroup.setVisibility(View.VISIBLE);
 
             // force an update of allDay dependent fields
             setAllDayViewsVisibility(mAllDayCheckBox.isChecked());

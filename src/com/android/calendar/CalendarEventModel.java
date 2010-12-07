@@ -348,219 +348,261 @@ public class CalendarEventModel implements Serializable {
         }
 
         CalendarEventModel other = (CalendarEventModel) obj;
-        if (mAllDay != other.mAllDay) {
-            return false;
-        }
-        if (mAttendeesList == null) {
-            if (other.mAttendeesList != null) {
-                return false;
-            }
-        } else if (!TextUtils.equals(getAttendeesString(), other.getAttendeesString())) {
-            return false;
-        }
-
-        if (mCalendarId != other.mCalendarId) {
-            return false;
-        }
-
-        if (mDescription == null) {
-            if (other.mDescription != null) {
-                return false;
-            }
-        } else if (!mDescription.equals(other.mDescription)) {
-            return false;
-        }
-
-        if (mDuration == null) {
-            if (other.mDuration != null) {
-                return false;
-            }
-        } else if (!mDuration.equals(other.mDuration)) {
+        if (!checkOriginalModelFields(other)) {
             return false;
         }
 
         if (mEnd != other.mEnd) {
             return false;
         }
-        if (mGuestsCanInviteOthers != other.mGuestsCanInviteOthers) {
-            return false;
-        }
-        if (mGuestsCanModify != other.mGuestsCanModify) {
-            return false;
-        }
-        if (mGuestsCanSeeGuests != other.mGuestsCanSeeGuests) {
-            return false;
-        }
-        if (mOrganizerCanRespond != other.mOrganizerCanRespond) {
-            return false;
-        }
-        if (mCalendarAccessLevel != other.mCalendarAccessLevel) {
-            return false;
-        }
-        if (mModelUpdatedWithEventCursor != other.mModelUpdatedWithEventCursor) {
-            return false;
-        }
-        if (mHasAlarm != other.mHasAlarm) {
-            return false;
-        }
-        if (mHasAttendeeData != other.mHasAttendeeData) {
-            return false;
-        }
-        if (mId != other.mId) {
-            return false;
-        }
         if (mIsFirstEventInSeries != other.mIsFirstEventInSeries) {
             return false;
         }
-        if (mIsOrganizer != other.mIsOrganizer) {
-            return false;
-        }
-
-        if (mLocation == null) {
-            if (other.mLocation != null) {
-                return false;
-            }
-        } else if (!mLocation.equals(other.mLocation)) {
-            return false;
-        }
-
-        if (mOrganizer == null) {
-            if (other.mOrganizer != null) {
-                return false;
-            }
-        } else if (!mOrganizer.equals(other.mOrganizer)) {
-            return false;
-        }
-
-        if (mOriginalAllDay == null) {
-            if (other.mOriginalAllDay != null) {
-                return false;
-            }
-        } else if (!mOriginalAllDay.equals(other.mOriginalAllDay)) {
-            return false;
-        }
-
         if (mOriginalEnd != other.mOriginalEnd) {
-            return false;
-        }
-
-        if (mOriginalEvent == null) {
-            if (other.mOriginalEvent != null) {
-                return false;
-            }
-        } else if (!mOriginalEvent.equals(other.mOriginalEvent)) {
             return false;
         }
 
         if (mOriginalStart != other.mOriginalStart) {
             return false;
         }
+        if (mStart != other.mStart) {
+            return false;
+        }
+        return true;
+    }
 
-        if (mOriginalTime == null) {
-            if (other.mOriginalTime != null) {
+    /**
+     * Whether the event has been modified based on its original model.
+     *
+     * @param originalModel
+     * @return true if the model is unchanged, false otherwise
+     */
+    public boolean isUnchanged(CalendarEventModel originalModel) {
+        if (this == originalModel) {
+            return true;
+        }
+        if (originalModel == null) {
+            return false;
+        }
+
+        if (!checkOriginalModelFields(originalModel)) {
+            return false;
+        }
+        if (mEnd != mOriginalEnd) {
+            return false;
+        }
+        if (mStart != mOriginalStart) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks against an original model for changes to an event. This covers all
+     * the fields that should remain consistent between an original event model
+     * and the new one if nothing in the event was modified. This is also the
+     * portion that overlaps with equality between two event models.
+     *
+     * @param originalModel
+     * @return true if these fields are unchanged, false otherwise
+     */
+    protected boolean checkOriginalModelFields(CalendarEventModel originalModel) {
+        if (mAllDay != originalModel.mAllDay) {
+            return false;
+        }
+        if (mAttendeesList == null) {
+            if (originalModel.mAttendeesList != null) {
                 return false;
             }
-        } else if (!mOriginalTime.equals(other.mOriginalTime)) {
+        } else if (!TextUtils.equals(getAttendeesString(), originalModel.getAttendeesString())) {
+            return false;
+        }
+
+        if (mCalendarId != originalModel.mCalendarId) {
+            return false;
+        }
+
+        if (mDescription == null) {
+            if (originalModel.mDescription != null) {
+                return false;
+            }
+        } else if (!mDescription.equals(originalModel.mDescription)) {
+            return false;
+        }
+
+        if (mDuration == null) {
+            if (originalModel.mDuration != null) {
+                return false;
+            }
+        } else if (!mDuration.equals(originalModel.mDuration)) {
+            return false;
+        }
+
+        if (mGuestsCanInviteOthers != originalModel.mGuestsCanInviteOthers) {
+            return false;
+        }
+        if (mGuestsCanModify != originalModel.mGuestsCanModify) {
+            return false;
+        }
+        if (mGuestsCanSeeGuests != originalModel.mGuestsCanSeeGuests) {
+            return false;
+        }
+        if (mOrganizerCanRespond != originalModel.mOrganizerCanRespond) {
+            return false;
+        }
+        if (mCalendarAccessLevel != originalModel.mCalendarAccessLevel) {
+            return false;
+        }
+        if (mModelUpdatedWithEventCursor != originalModel.mModelUpdatedWithEventCursor) {
+            return false;
+        }
+        if (mHasAlarm != originalModel.mHasAlarm) {
+            return false;
+        }
+        if (mHasAttendeeData != originalModel.mHasAttendeeData) {
+            return false;
+        }
+        if (mId != originalModel.mId) {
+            return false;
+        }
+        if (mIsOrganizer != originalModel.mIsOrganizer) {
+            return false;
+        }
+
+        if (mLocation == null) {
+            if (originalModel.mLocation != null) {
+                return false;
+            }
+        } else if (!mLocation.equals(originalModel.mLocation)) {
+            return false;
+        }
+
+        if (mOrganizer == null) {
+            if (originalModel.mOrganizer != null) {
+                return false;
+            }
+        } else if (!mOrganizer.equals(originalModel.mOrganizer)) {
+            return false;
+        }
+
+        if (mOriginalAllDay == null) {
+            if (originalModel.mOriginalAllDay != null) {
+                return false;
+            }
+        } else if (!mOriginalAllDay.equals(originalModel.mOriginalAllDay)) {
+            return false;
+        }
+
+        if (mOriginalEvent == null) {
+            if (originalModel.mOriginalEvent != null) {
+                return false;
+            }
+        } else if (!mOriginalEvent.equals(originalModel.mOriginalEvent)) {
+            return false;
+        }
+
+        if (mOriginalTime == null) {
+            if (originalModel.mOriginalTime != null) {
+                return false;
+            }
+        } else if (!mOriginalTime.equals(originalModel.mOriginalTime)) {
             return false;
         }
 
         if (mOwnerAccount == null) {
-            if (other.mOwnerAccount != null) {
+            if (originalModel.mOwnerAccount != null) {
                 return false;
             }
-        } else if (!mOwnerAccount.equals(other.mOwnerAccount)) {
+        } else if (!mOwnerAccount.equals(originalModel.mOwnerAccount)) {
             return false;
         }
 
         if (mReminderMinutes == null) {
-            if (other.mReminderMinutes != null) {
+            if (originalModel.mReminderMinutes != null) {
                 return false;
             }
-        } else if (!mReminderMinutes.equals(other.mReminderMinutes)) {
+        } else if (!mReminderMinutes.equals(originalModel.mReminderMinutes)) {
             return false;
         }
 
         if (mRrule == null) {
-            if (other.mRrule != null) {
+            if (originalModel.mRrule != null) {
                 return false;
             }
-        } else if (!mRrule.equals(other.mRrule)) {
+        } else if (!mRrule.equals(originalModel.mRrule)) {
             return false;
         }
 
-        if (mSelfAttendeeStatus != other.mSelfAttendeeStatus) {
+        if (mSelfAttendeeStatus != originalModel.mSelfAttendeeStatus) {
             return false;
         }
-        if (mOwnerAttendeeId != other.mOwnerAttendeeId) {
-            return false;
-        }
-        if (mStart != other.mStart) {
+        if (mOwnerAttendeeId != originalModel.mOwnerAttendeeId) {
             return false;
         }
         if (mSyncAccount == null) {
-            if (other.mSyncAccount != null) {
+            if (originalModel.mSyncAccount != null) {
                 return false;
             }
-        } else if (!mSyncAccount.equals(other.mSyncAccount)) {
+        } else if (!mSyncAccount.equals(originalModel.mSyncAccount)) {
             return false;
         }
 
         if (mSyncAccountType == null) {
-            if (other.mSyncAccountType != null) {
+            if (originalModel.mSyncAccountType != null) {
                 return false;
             }
-        } else if (!mSyncAccountType.equals(other.mSyncAccountType)) {
+        } else if (!mSyncAccountType.equals(originalModel.mSyncAccountType)) {
             return false;
         }
 
         if (mSyncId == null) {
-            if (other.mSyncId != null) {
+            if (originalModel.mSyncId != null) {
                 return false;
             }
-        } else if (!mSyncId.equals(other.mSyncId)) {
+        } else if (!mSyncId.equals(originalModel.mSyncId)) {
             return false;
         }
 
         if (mTimezone == null) {
-            if (other.mTimezone != null) {
+            if (originalModel.mTimezone != null) {
                 return false;
             }
-        } else if (!mTimezone.equals(other.mTimezone)) {
+        } else if (!mTimezone.equals(originalModel.mTimezone)) {
             return false;
         }
 
         if (mTimezone2 == null) {
-            if (other.mTimezone2 != null) {
+            if (originalModel.mTimezone2 != null) {
                 return false;
             }
-        } else if (!mTimezone2.equals(other.mTimezone2)) {
+        } else if (!mTimezone2.equals(originalModel.mTimezone2)) {
             return false;
         }
 
         if (mTitle == null) {
-            if (other.mTitle != null) {
+            if (originalModel.mTitle != null) {
                 return false;
             }
-        } else if (!mTitle.equals(other.mTitle)) {
+        } else if (!mTitle.equals(originalModel.mTitle)) {
             return false;
         }
 
-        if (mTransparency != other.mTransparency) {
+        if (mTransparency != originalModel.mTransparency) {
             return false;
         }
 
         if (mUri == null) {
-            if (other.mUri != null) {
+            if (originalModel.mUri != null) {
                 return false;
             }
-        } else if (!mUri.equals(other.mUri)) {
+        } else if (!mUri.equals(originalModel.mUri)) {
             return false;
         }
 
-        if (mVisibility != other.mVisibility) {
+        if (mVisibility != originalModel.mVisibility) {
             return false;
         }
-
         return true;
     }
 }

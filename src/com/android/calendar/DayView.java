@@ -3125,11 +3125,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             item.setOnMenuItemClickListener(mContextMenuHandler);
             item.setIcon(android.R.drawable.ic_menu_day);
             item.setAlphabeticShortcut('d');
-
-            item = menu.add(0, MENU_AGENDA, 0, R.string.show_agenda_view);
-            item.setOnMenuItemClickListener(mContextMenuHandler);
-            item.setIcon(android.R.drawable.ic_menu_agenda);
-            item.setAlphabeticShortcut('a');
         }
 
         mPopup.dismiss();
@@ -3140,7 +3135,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             switch (item.getItemId()) {
                 case MENU_EVENT_VIEW: {
                     if (mSelectedEvent != null) {
-                        mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT,
+                        mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT_DETAILS,
                                 mSelectedEvent.id, mSelectedEvent.startMillis,
                                 mSelectedEvent.endMillis, 0, 0);
                     }

@@ -54,6 +54,8 @@ public class CalendarController {
     private static final String REFRESH_ORDER = Calendars._SYNC_ACCOUNT + ","
             + Calendars._SYNC_ACCOUNT_TYPE;
 
+    public static final String EVENT_EDIT_ON_LAUNCH = "editMode";
+
     public static final int MIN_CALENDAR_YEAR = 1970;
     public static final int MAX_CALENDAR_YEAR = 2036;
     public static final int MIN_CALENDAR_WEEK = 0;
@@ -89,7 +91,9 @@ public class CalendarController {
      */
     public interface EventType {
         final long CREATE_EVENT = 1L;
+        // simple view of an event
         final long VIEW_EVENT = 1L << 1;
+        // full detail view in edit mode
         final long EDIT_EVENT = 1L << 2;
         final long DELETE_EVENT = 1L << 3;
 
@@ -103,6 +107,8 @@ public class CalendarController {
 
         // User has pressed the home key
         final long USER_HOME = 1L << 8;
+        // Full detail view in read only mode
+        final long VIEW_EVENT_DETAILS = 1L << 9;
     }
 
     /**
@@ -198,7 +204,7 @@ public class CalendarController {
             long endMillis, int x, int y) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
-        if (eventType == EventType.EDIT_EVENT) {
+        if (eventType == EventType.EDIT_EVENT || eventType == EventType.VIEW_EVENT_DETAILS) {
             info.viewType = ViewType.CURRENT;
         }
         info.id = eventId;
@@ -283,7 +289,9 @@ public class CalendarController {
         event.startTime = mTime;
 
         // Store the eventId if we're entering edit event
-        if ((event.eventType & (EventType.CREATE_EVENT | EventType.EDIT_EVENT)) != 0) {
+        if ((event.eventType
+                & (EventType.CREATE_EVENT | EventType.EDIT_EVENT | EventType.VIEW_EVENT_DETAILS))
+                != 0) {
             if (event.id > 0) {
                 mEventId = event.id;
             } else {
@@ -347,7 +355,10 @@ public class CalendarController {
                 launchViewEvent(event.id, event.startTime.toMillis(false), endTime);
                 return;
             } else if (event.eventType == EventType.EDIT_EVENT) {
-                launchEditEvent(event.id, event.startTime.toMillis(false), endTime);
+                launchEditEvent(event.id, event.startTime.toMillis(false), endTime, true);
+                return;
+            } else if (event.eventType == EventType.VIEW_EVENT_DETAILS) {
+                launchEditEvent(event.id, event.startTime.toMillis(false), endTime, false);
                 return;
             } else if (event.eventType == EventType.DELETE_EVENT) {
                 launchDeleteEvent(event.id, event.startTime.toMillis(false), endTime);
@@ -449,12 +460,13 @@ public class CalendarController {
         mContext.startActivity(intent);
     }
 
-    private void launchEditEvent(long eventId, long startMillis, long endMillis) {
+    private void launchEditEvent(long eventId, long startMillis, long endMillis, boolean edit) {
         Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
         Intent intent = new Intent(Intent.ACTION_EDIT, uri);
         intent.putExtra(EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EVENT_END_TIME, endMillis);
         intent.setClass(mContext, EditEventActivity.class);
+        intent.putExtra(EVENT_EDIT_ON_LAUNCH, edit);
         mEventId = eventId;
         mContext.startActivity(intent);
     }
@@ -582,6 +594,8 @@ public class CalendarController {
             tmp = "Refresh events";
         } else if ((eventInfo.eventType & EventType.SEARCH) != 0) {
             tmp = "Search";
+        } else if ((eventInfo.eventType & EventType.VIEW_EVENT_DETAILS) != 0) {
+            tmp = "View details";
         }
         builder.append(tmp);
         builder.append(": id=");
