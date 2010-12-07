@@ -25,7 +25,6 @@ import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
 import com.android.calendar.agenda.AgendaWindowAdapter.EventInfo;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.text.format.Time;
 import android.util.Log;
@@ -52,7 +51,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
     };
 
-    public AgendaListView(Context context) {
+    public AgendaListView(Context context, long instanceId) {
         super(context, null);
         mContext = context;
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
@@ -60,6 +59,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         setVerticalScrollBarEnabled(false);
         mWindowAdapter = new AgendaWindowAdapter(context, this);
+        mWindowAdapter.setSelectedInstanceId(instanceId);
         setAdapter(mWindowAdapter);
         setCacheColorHint(context.getResources().getColor(R.color.agenda_item_not_selected));
         mDeleteEventHelper =
@@ -78,7 +78,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         if (id != -1) {
             // Switch to the EventInfo view
             EventInfo event = mWindowAdapter.getEventByPosition(position);
-            mWindowAdapter.setSelectedPosition(position);
+            mWindowAdapter.setSelectedView(v);
             if (event != null) {
                 CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
                         EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0);
@@ -166,9 +166,16 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
         EventInfo event = mWindowAdapter.getEventByPosition(position);
         if (event != null) {
-            return event.begin;
+            Time t = new Time(mTimeZone);
+            t.set(event.begin);
+            t.setJulianDay(event.startDay);
+            return t.normalize(false);
         }
         return 0;
+    }
+
+    public long getSelectedInstanceId() {
+        return mWindowAdapter.getSelectedInstanceId();
     }
 
     // Move the currently selected or visible focus down by offset amount.

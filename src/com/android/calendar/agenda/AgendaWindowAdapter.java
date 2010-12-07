@@ -16,8 +16,10 @@
 
 package com.android.calendar.agenda;
 
+import com.android.calendar.CalendarController;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendar.CalendarController.EventType;
 
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
@@ -25,7 +27,6 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.provider.Calendar;
 import android.provider.Calendar.Attendees;
@@ -76,6 +77,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
             Calendar.Instances.BEGIN + " ASC, " +
             Calendar.Events.TITLE + " ASC";
 
+    public static final int INDEX_INSTANCE_ID = 0;
     public static final int INDEX_TITLE = 1;
     public static final int INDEX_EVENT_LOCATION = 2;
     public static final int INDEX_ALL_DAY = 3;
@@ -179,7 +181,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
     /** The current search query, or null if none */
     private String mSearchQuery;
 
-    private int mSelectedPosition = -1;
+    private long mSelectedInstanceId = -1;
 
     private final int mSelectedAgendaItemColor;
 
@@ -245,6 +247,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
         long begin;
         long end;
         long id;
+        int startDay;
     }
 
     static class DayAdapterInfo {
@@ -281,7 +284,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
             AgendaListView agendaListView) {
         mContext = context;
         mResources = context.getResources();
-        mSelectedAgendaItemColor = mResources.getColor(R.color.agenda_item_selected);
+        mSelectedAgendaItemColor = mResources.getColor(R.color.activated);
 
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         mAgendaListView = agendaListView;
@@ -394,8 +397,16 @@ public class AgendaWindowAdapter extends BaseAdapter {
             v = tv;
         }
 
-        if (mSelectedPosition == position) {
-            v.setBackgroundColor(mSelectedAgendaItemColor);
+        // Show selected marker if this is item is selected
+        boolean selected = false;
+        Object yy = v.getTag();
+        if (yy instanceof AgendaAdapter.ViewHolder) {
+            AgendaAdapter.ViewHolder vh = (AgendaAdapter.ViewHolder) yy;
+            selected = mSelectedInstanceId == vh.instanceId;
+            vh.selectedMarker.setVisibility(selected ? View.VISIBLE : View.GONE);
+            if (selected) {
+                v.setBackgroundColor(mSelectedAgendaItemColor);
+            }
         }
 
         if (DEBUGLOG) {
@@ -451,7 +462,6 @@ public class AgendaWindowAdapter extends BaseAdapter {
     public EventInfo getEventByPosition(final int positionInListView) {
         if (DEBUGLOG) Log.e(TAG, "getEventByPosition " + positionInListView);
 
-        EventInfo event = new EventInfo();
         final int positionInAdapter = positionInListView - OFF_BY_ONE_BUG;
         DayAdapterInfo info = getAdapterInfoByPosition(positionInAdapter);
         if (info == null) {
@@ -471,29 +481,35 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
         if (cursorPosition < info.cursor.getCount()) {
             info.cursor.moveToPosition(cursorPosition);
-            event.begin = info.cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
-            boolean allDay = info.cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
-
-            if (allDay) { // UTC
-                Time time = new Time(mTimeZone);
-                time.setJulianDay(Time.getJulianDay(event.begin, 0));
-                event.begin = time.toMillis(false /* use isDst */);
-            } else if (isDayHeader) { // Trim to midnight.
-                Time time = new Time(mTimeZone);
-                time.set(event.begin);
-                time.hour = 0;
-                time.minute = 0;
-                time.second = 0;
-                event.begin = time.toMillis(false /* use isDst */);
-            }
-
-            if (!isDayHeader) {
-                event.end = info.cursor.getLong(AgendaWindowAdapter.INDEX_END);
-                event.id = info.cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
-            }
-            return event;
+            return buildEventInfoFromCursor(info.cursor, isDayHeader);
         }
         return null;
+    }
+
+    private EventInfo buildEventInfoFromCursor(final Cursor cursor, boolean isDayHeader) {
+        EventInfo event = new EventInfo();
+        event.begin = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
+        event.startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
+
+        boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
+        if (allDay) { // UTC
+            Time time = new Time(mTimeZone);
+            time.setJulianDay(Time.getJulianDay(event.begin, 0));
+            event.begin = time.toMillis(false /* use isDst */);
+        } else if (isDayHeader) { // Trim to midnight.
+            Time time = new Time(mTimeZone);
+            time.set(event.begin);
+            time.hour = 0;
+            time.minute = 0;
+            time.second = 0;
+            event.begin = time.toMillis(false /* use isDst */);
+        }
+
+        if (!isDayHeader) {
+            event.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
+            event.id = cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
+        }
+        return event;
     }
 
     public void refresh(Time goToTime, String searchQuery, boolean forced) {
@@ -740,6 +756,14 @@ public class AgendaWindowAdapter extends BaseAdapter {
                                 "findDayPositionNearestTime: " + (newPosition + OFF_BY_ONE_BUG));
                     }
                 }
+
+                if (mSelectedInstanceId == -1 && cursor.moveToFirst()) {
+                    mSelectedInstanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
+
+                    EventInfo event = buildEventInfoFromCursor(cursor, false);
+                    CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
+                            EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0);
+                }
             } else {
                 cursor.close();
             }
@@ -932,7 +956,20 @@ public class AgendaWindowAdapter extends BaseAdapter {
         mHideDeclined = hideDeclined;
     }
 
-    public void setSelectedPosition(int positionInListView) {
-        mSelectedPosition = positionInListView - OFF_BY_ONE_BUG;
+    public void setSelectedView(View v) {
+        if (v != null) {
+            Object vh = v.getTag();
+            if (vh instanceof AgendaAdapter.ViewHolder) {
+                mSelectedInstanceId = ((AgendaAdapter.ViewHolder) vh).instanceId;
+            }
+        }
+    }
+
+    public long getSelectedInstanceId() {
+        return mSelectedInstanceId;
+    }
+
+    public void setSelectedInstanceId(long selectedInstanceId) {
+        mSelectedInstanceId = selectedInstanceId;
     }
 }
