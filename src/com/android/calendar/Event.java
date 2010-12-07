@@ -21,7 +21,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Debug;
-import android.preference.PreferenceManager;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Instances;
@@ -101,7 +100,7 @@ public class Event implements Comparable<Event>, Cloneable {
 
     public boolean hasAlarm;
     public boolean isRepeating;
-    
+
     public int selfAttendeeStatus;
 
     // The coordinates of the event rectangle drawn on the screen.
@@ -334,8 +333,6 @@ public class Event implements Comparable<Event>, Cloneable {
                 e.organizer = c.getString(PROJECTION_ORGANIZER_INDEX);
                 e.guestsCanModify = c.getInt(PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX) != 0;
 
-                String timezone = c.getString(PROJECTION_TIMEZONE_INDEX);
-
                 if (e.title == null || e.title.length() == 0) {
                     e.title = res.getString(R.string.no_title_label);
                 }
@@ -372,7 +369,7 @@ public class Event implements Comparable<Event>, Cloneable {
                 } else {
                     e.isRepeating = false;
                 }
-                
+
                 e.selfAttendeeStatus = c.getInt(PROJECTION_SELF_ATTENDEE_STATUS_INDEX);
 
                 events.add(e);
@@ -489,63 +486,6 @@ public class Event implements Comparable<Event>, Cloneable {
                 return ii;
         }
         return 64;
-    }
-
-    /**
-     * Returns a darker version of the given color.  It does this by dividing
-     * each of the red, green, and blue components by 2.  The alpha value is
-     * preserved.
-     */
-    private static final int getDarkerColor(int color) {
-        int darker = (color >> 1) & 0x007f7f7f;
-        int alpha = color & 0xff000000;
-        return alpha | darker;
-    }
-
-    // For testing. This method can be removed at any time.
-    private static ArrayList<Event> createTestEventList() {
-        ArrayList<Event> evList = new ArrayList<Event>();
-        createTestEvent(evList, 1, 5, 10);
-        createTestEvent(evList, 2, 5, 10);
-        createTestEvent(evList, 3, 15, 20);
-        createTestEvent(evList, 4, 20, 25);
-        createTestEvent(evList, 5, 30, 70);
-        createTestEvent(evList, 6, 32, 40);
-        createTestEvent(evList, 7, 32, 40);
-        createTestEvent(evList, 8, 34, 38);
-        createTestEvent(evList, 9, 34, 38);
-        createTestEvent(evList, 10, 42, 50);
-        createTestEvent(evList, 11, 45, 60);
-        createTestEvent(evList, 12, 55, 90);
-        createTestEvent(evList, 13, 65, 75);
-
-        createTestEvent(evList, 21, 105, 130);
-        createTestEvent(evList, 22, 110, 120);
-        createTestEvent(evList, 23, 115, 130);
-        createTestEvent(evList, 24, 125, 140);
-        createTestEvent(evList, 25, 127, 135);
-
-        createTestEvent(evList, 31, 150, 160);
-        createTestEvent(evList, 32, 152, 162);
-        createTestEvent(evList, 33, 153, 163);
-        createTestEvent(evList, 34, 155, 170);
-        createTestEvent(evList, 35, 158, 175);
-        createTestEvent(evList, 36, 165, 180);
-
-        return evList;
-    }
-
-    // For testing. This method can be removed at any time.
-    private static Event createTestEvent(ArrayList<Event> evList, int id,
-            int startMinute, int endMinute) {
-        Event ev = new Event();
-        ev.title = "ev" + id;
-        ev.startDay = 1;
-        ev.endDay = 1;
-        ev.setStartMillis(startMinute);
-        ev.setEndMillis(endMinute);
-        evList.add(ev);
-        return ev;
     }
 
     public final void dump() {

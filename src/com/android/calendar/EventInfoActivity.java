@@ -846,7 +846,6 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         String location = mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION);
         String description = mEventCursor.getString(EVENT_INDEX_DESCRIPTION);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
-        boolean hasAlarm = mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) != 0;
         String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
         mColor = mEventCursor.getInt(EVENT_INDEX_COLOR) & 0xbbffffff;
 

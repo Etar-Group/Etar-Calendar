@@ -33,7 +33,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -57,8 +56,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MonthView extends View implements View.OnCreateContextMenuListener {
-
-    private static final boolean PROFILE_LOAD_TIME = false;
 
     private static float mScale = 0; // Used for supporting different screen densities
     private static int WEEK_GAP = 0;
@@ -467,17 +464,9 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         monthStart.minute = 0;
         monthStart.second = 0;
         long millis = monthStart.normalize(true /* ignore isDst */);
-        int startDay = Time.getJulianDay(millis, monthStart.gmtoff);
 
         // Load the days with events in the background
         mParentActivity.startProgressSpinner();
-        final long startMillis;
-        if (PROFILE_LOAD_TIME) {
-            startMillis = SystemClock.uptimeMillis();
-        } else {
-            // To avoid a compiler error that this variable might not be initialized.
-            startMillis = 0;
-        }
 
         final ArrayList<Event> events = new ArrayList<Event>();
         mEventLoader.loadEventsInBackground(EVENT_NUM_DAYS, events, millis, new Runnable() {
@@ -710,25 +699,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     }
 
     /**
-     * Create a bitmap at the origin and draw the drawable to it using the bounds specified by rect.
-     *
-     * @param drawable the drawable we wish to render
-     * @param width the width of the resulting bitmap
-     * @param height the height of the resulting bitmap
-     * @return a new bitmap
-     */
-    private Bitmap createBitmap(Drawable drawable, int width, int height) {
-        // Create a bitmap with the same format as mBitmap (should be Bitmap.Config.ARGB_8888)
-        Bitmap bitmap = Bitmap.createBitmap(width, height, mBitmap.getConfig());
-
-        // Draw the drawable into the bitmap at the origin.
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, width, height);
-        drawable.draw(canvas);
-        return bitmap;
-    }
-
-    /**
      * Clears the bitmap cache. Generally only needed when the screen size changed.
      */
     private void clearBitmapCache() {
@@ -924,9 +894,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         int top = rect.top + TEXT_TOP_MARGIN + BUSY_BITS_MARGIN;
         int left = rect.right - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH;
 
-        Style oldStyle = p.getStyle();
-        int oldColor = p.getColor();
-
         ArrayList<Event> events = mEvents;
         int numEvents = events.size();
         EventGeometry geometry = mEventGeometry;
@@ -971,16 +938,6 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
         canvas.drawRect(rf, p);
 
         return rf;
-    }
-
-    private boolean isFirstDayOfNextMonth(int row, int column) {
-        if (column == 0) {
-            column = 6;
-            row--;
-        } else {
-            column--;
-        }
-        return mCursor.isWithinCurrentMonth(row, column);
     }
 
     private int getWeekOfYear(int row, int column, boolean isWithinCurrentMonth,

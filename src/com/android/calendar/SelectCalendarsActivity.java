@@ -32,7 +32,6 @@ import android.widget.ExpandableListView;
 public class SelectCalendarsActivity extends ExpandableListActivity
     implements AdapterView.OnItemClickListener, View.OnClickListener {
 
-    private static final String TAG = "Calendar";
     private static final String EXPANDED_KEY = "is_expanded";
     private static final String ACCOUNT_UNIQUE_KEY = "ACCOUNT_KEY";
     private View mView = null;

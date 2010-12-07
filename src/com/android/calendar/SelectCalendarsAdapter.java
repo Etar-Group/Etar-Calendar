@@ -121,7 +121,6 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
     private static final int COLOR_COLUMN = 4;
     private static final int SELECTED_COLUMN = 5;
     private static final int SYNCED_COLUMN = 6;
-    private static final int PRIMARY_COLUMN = 7;
 
     private class AsyncCalendarsUpdater extends AsyncQueryHandler {
 
@@ -304,10 +303,8 @@ public class SelectCalendarsAdapter extends CursorTreeAdapter implements View.On
 
     @Override
     protected void bindChildView(View view, Context context, Cursor cursor, boolean isLastChild) {
-        String account = cursor.getString(ACCOUNT_COLUMN);
         String status = notSyncedNotVisible;
         int state = 2;
-        int position = cursor.getPosition();
         long id = cursor.getLong(ID_COLUMN);
 
         // First see if the user has already changed the state of this calendar

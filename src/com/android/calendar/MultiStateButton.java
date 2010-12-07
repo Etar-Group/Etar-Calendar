@@ -16,7 +16,6 @@
 package com.android.calendar;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -50,7 +49,6 @@ public class MultiStateButton extends Button {
     //A list of all drawable resources used by this button in the order it uses them.
     private int[] mButtonResources;
     private Drawable mButtonDrawable;
-    private String TAG = "MSB";
 
     public MultiStateButton(Context context) {
         this(context, null);
