@@ -20,13 +20,9 @@ import android.app.ExpandableListActivity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.ContentObserver;
 import android.database.MatrixCursor;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Calendar.Calendars;
-import android.provider.Calendar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -36,7 +32,6 @@ import android.widget.ExpandableListView;
 public class SelectCalendarsActivity extends ExpandableListActivity
     implements AdapterView.OnItemClickListener, View.OnClickListener {
 
-    private static final String TAG = "Calendar";
     private static final String EXPANDED_KEY = "is_expanded";
     private View mView = null;
     private Cursor mCursor = null;

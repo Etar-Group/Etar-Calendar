@@ -42,7 +42,6 @@ public class DismissAllAlarmsService extends IntentService {
         return null;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onHandleIntent(Intent intent) {
         // Mark all fired alarms as dismissed

@@ -57,11 +57,6 @@ public class ContactsAsyncHelper extends Handler {
 
     // static objects
     private static Handler sThreadHandler;
-    private static ContactsAsyncHelper sInstance;
-
-    static {
-        sInstance = new ContactsAsyncHelper();
-    }
 
     private static final class WorkerArgs {
         public Context context;
@@ -183,14 +178,12 @@ public class ContactsAsyncHelper extends Handler {
         WorkerArgs args = (WorkerArgs) msg.obj;
         switch (msg.arg1) {
             case EVENT_LOAD_IMAGE:
-                boolean imagePresent = false;
 
                 // if the image has been loaded then display it, otherwise set default.
                 // in either case, make sure the image is visible.
                 if (args.result != null) {
                     args.view.setVisibility(View.VISIBLE);
                     args.view.setImageDrawable((Drawable) args.result);
-                    imagePresent = true;
                 } else if (args.defaultResource != -1) {
                     args.view.setVisibility(View.VISIBLE);
                     args.view.setImageResource(args.defaultResource);

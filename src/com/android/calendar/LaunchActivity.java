@@ -27,7 +27,6 @@ import android.provider.Calendar;
 import android.provider.Settings;
 
 public class LaunchActivity extends Activity {
-    private static final String TAG = "LaunchActivity";
 
     static final String KEY_DETAIL_VIEW = "DETAIL_VIEW";
     static final String KEY_VIEW_TYPE = "VIEW";
