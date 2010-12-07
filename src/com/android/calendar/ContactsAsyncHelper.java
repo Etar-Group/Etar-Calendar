@@ -60,11 +60,6 @@ public class ContactsAsyncHelper extends Handler {
 
     // static objects
     private static Handler sThreadHandler;
-    private static ContactsAsyncHelper sInstance;
-
-    static {
-        sInstance = new ContactsAsyncHelper();
-    }
 
     private static final class WorkerArgs {
         public Context context;
