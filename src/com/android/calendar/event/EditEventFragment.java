@@ -294,13 +294,18 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 if (mRestoreModel != null) {
                     mModel = mRestoreModel;
                 }
+                if (mShowModifyDialogOnLaunch && mModification == Utils.MODIFY_UNINITIALIZED) {
+                    if (!TextUtils.isEmpty(mModel.mRrule)) {
+                        displayEditWhichDialog();
+                    } else {
+                        mModification = Utils.MODIFY_ALL;
+                    }
+
+                }
                 mView.setModel(mModel);
                 mView.setModification(mModification);
                 if (mMenu != null) {
                     updateActionBar();
-                }
-                if (mShowModifyDialogOnLaunch && mModification == Utils.MODIFY_UNINITIALIZED) {
-                    displayEditWhichDialog();
                 }
             }
         }
