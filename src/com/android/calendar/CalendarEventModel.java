@@ -368,6 +368,22 @@ public class CalendarEventModel implements Serializable {
         if (mStart != other.mStart) {
             return false;
         }
+
+        if (mOriginalEvent == null) {
+            if (other.mOriginalEvent != null) {
+                return false;
+            }
+        } else if (!mOriginalEvent.equals(other.mOriginalEvent)) {
+            return false;
+        }
+
+        if (mRrule == null) {
+            if (other.mRrule != null) {
+                return false;
+            }
+        } else if (!mRrule.equals(other.mRrule)) {
+            return false;
+        }
         return true;
     }
 
@@ -392,6 +408,16 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
         if (mStart != mOriginalStart) {
+            return false;
+        }
+
+        if (mRrule == null) {
+            if (originalModel.mRrule != null) {
+                if (mOriginalEvent == null || !mOriginalEvent.equals(originalModel.mSyncId)) {
+                    return false;
+                }
+            }
+        } else if (!mRrule.equals(originalModel.mRrule)) {
             return false;
         }
 
@@ -494,14 +520,6 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
-        if (mOriginalEvent == null) {
-            if (originalModel.mOriginalEvent != null) {
-                return false;
-            }
-        } else if (!mOriginalEvent.equals(originalModel.mOriginalEvent)) {
-            return false;
-        }
-
         if (mOriginalTime == null) {
             if (originalModel.mOriginalTime != null) {
                 return false;
@@ -523,14 +541,6 @@ public class CalendarEventModel implements Serializable {
                 return false;
             }
         } else if (!mReminderMinutes.equals(originalModel.mReminderMinutes)) {
-            return false;
-        }
-
-        if (mRrule == null) {
-            if (originalModel.mRrule != null) {
-                return false;
-            }
-        } else if (!mRrule.equals(originalModel.mRrule)) {
             return false;
         }
 
