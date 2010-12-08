@@ -78,6 +78,7 @@ public class CalendarEventModel implements Serializable {
     public long mId = -1;
     public long mCalendarId = -1;
     public String mCalendarDisplayName = ""; // Make sure this is in sync with the mCalendarId
+    public int mCalendarColor = 0;
 
     public String mSyncId = null;
     public String mSyncAccount = null;
