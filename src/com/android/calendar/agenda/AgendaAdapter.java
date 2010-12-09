@@ -55,7 +55,9 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         TextView title;
         TextView when;
         TextView where;
+        View selectedMarker;
         int calendarColor; // Used by AgendaItemView to color the vertical stripe
+        long instanceId;
     }
 
     public AgendaAdapter(Context context, int resource) {
@@ -85,6 +87,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             holder.title = (TextView) view.findViewById(R.id.title);
             holder.when = (TextView) view.findViewById(R.id.when);
             holder.where = (TextView) view.findViewById(R.id.where);
+            holder.selectedMarker = view.findViewById(R.id.selected_marker);
         }
 
         // Fade text if event was declined.
@@ -98,6 +101,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         TextView title = holder.title;
         TextView when = holder.when;
         TextView where = holder.where;
+
+        holder.instanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
 
         /* Calendar Color */
         int color = cursor.getInt(AgendaWindowAdapter.INDEX_COLOR);

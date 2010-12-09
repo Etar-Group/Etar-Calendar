@@ -41,6 +41,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private static boolean DEBUG = false;
 
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
+    protected static final String BUNDLE_KEY_RESTORE_INSTANCE_ID = "key_restore_instance_id";
     private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
 
     private AgendaListView mAgendaListView;
@@ -91,7 +92,13 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         Context context = getActivity();
-        mAgendaListView = new AgendaListView(context);
+
+        long instanceId = -1;
+        if (savedInstanceState != null) {
+            instanceId = savedInstanceState.getLong(BUNDLE_KEY_RESTORE_INSTANCE_ID);
+        }
+
+        mAgendaListView = new AgendaListView(context, instanceId);
         mAgendaListView.goTo(mTime, mQuery, false);
         return mAgendaListView;
     }
@@ -133,6 +140,11 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             if (DEBUG) {
                 Log.v(TAG, "onSaveInstanceState " + mTime.toString());
             }
+        }
+
+        long selectedInstance = mAgendaListView.getSelectedInstanceId();
+        if (selectedInstance >= 0) {
+            outState.putLong(BUNDLE_KEY_RESTORE_INSTANCE_ID, selectedInstance);
         }
     }
 
