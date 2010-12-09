@@ -164,6 +164,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         // Set up the Image button even if the view is disabled
         // Everything will be ready when the view is enabled later
         final ImageButton button = (ImageButton) view.findViewById(R.id.contact_remove);
+        button.setVisibility(isEnabled() ? View.VISIBLE : View.GONE);
         button.setTag(item);
         if (item.mRemoved) {
             button.setImageResource(R.drawable.ic_btn_round_plus);
