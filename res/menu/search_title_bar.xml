@@ -32,5 +32,5 @@
         android:id="@+id/action_settings"
         android:alphabeticShortcut="s"
         android:title="@string/menu_preferences"
-        android:icon="@android:drawable/ic_menu_preferences" />
+        android:icon="@drawable/ic_menu_settings_holo_light" />
 </menu>

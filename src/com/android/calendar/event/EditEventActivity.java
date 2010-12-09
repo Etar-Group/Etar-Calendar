@@ -20,6 +20,7 @@ import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
 import com.android.calendar.AbstractCalendarActivity;
+import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.R;
 
@@ -55,6 +56,9 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
         if (mEditFragment == null) {
             mEditFragment = new EditEventFragment(mEventInfo);
+
+            mEditFragment.mShowModifyDialogOnLaunch = getIntent().getBooleanExtra(
+                    CalendarController.EVENT_EDIT_ON_LAUNCH, false);
 
             FragmentTransaction ft = getFragmentManager().openTransaction();
             ft.replace(R.id.edit_event, mEditFragment);

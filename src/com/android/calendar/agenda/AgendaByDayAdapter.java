@@ -186,6 +186,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
             } else {
                 y.setText(y.getText());
             }
+            x.setBackgroundColor(0);
             return x;
         } else {
             // Error

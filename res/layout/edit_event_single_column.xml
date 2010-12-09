@@ -19,7 +19,8 @@
     android:id="@+id/edit_event"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/EditEvent_Layout">
+    style="@style/EditEvent_Layout"
+    android:paddingLeft="0dip">
     <TextView
         android:id="@+id/loading_message"
         android:layout_width="match_parent"
@@ -27,8 +28,8 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="@string/loading" 
-        android:layout_marginLeft="50dip"
-        android:layout_marginRight="50dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
         android:layout_marginTop="12dip"
         android:layout_marginBottom="12dip"
         android:background="#FFFFFFFF"/>
@@ -48,8 +49,8 @@
             <View android:id="@+id/event_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="50dip"
-                android:layout_marginRight="50dip"
+                android:layout_marginLeft="0dip"
+                android:layout_marginRight="0dip"
                 android:layout_marginTop="12dip"
                 android:layout_marginBottom="12dip"
                 android:layout_gravity="center_horizontal|top"
@@ -60,8 +61,8 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dip"
-                android:layout_marginRight="100dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
                 android:layout_marginTop="12dip"
                 android:layout_marginBottom="12dip"
                 android:layout_gravity="center_horizontal|top">
@@ -81,11 +82,11 @@
             </LinearLayout>
 
             <View android:id="@+id/color_chip"
-                android:layout_width="50dip"
-                android:layout_height="50dip"
-                android:layout_marginLeft="45dip"
-                android:layout_marginTop="7dip"
-                android:layout_gravity="left|top"/>
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginTop="17dip"
+                android:layout_gravity="left|top" />
         </FrameLayout>
     </ScrollView>
 </LinearLayout>

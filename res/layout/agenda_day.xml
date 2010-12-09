@@ -18,8 +18,10 @@
     android:id="@+id/date"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:background="@drawable/panel_bg_white02_holo_light"
-    android:padding="4dip"
+    android:gravity="center_vertical"
+    android:background="@drawable/list_title_holo"
+    android:layout_marginLeft="16dip"
+    android:paddingLeft="16dip"
     android:textStyle="bold"
-    android:textColor="?android:attr/textColorSecondary"
+    android:textColor="?android:attr/textColorPrimary"
 />
