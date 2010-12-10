@@ -78,8 +78,9 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         if (id != -1) {
             // Switch to the EventInfo view
             EventInfo event = mWindowAdapter.getEventByPosition(position);
+            long oldInstanceId = mWindowAdapter.getSelectedInstanceId();
             mWindowAdapter.setSelectedView(v);
-            if (event != null) {
+            if (event != null && oldInstanceId != mWindowAdapter.getSelectedInstanceId()) {
                 CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
                         EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0);
             }
