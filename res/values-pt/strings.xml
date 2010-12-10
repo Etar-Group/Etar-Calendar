@@ -107,6 +107,8 @@
     <string name="search_title" msgid="8898015280250716254">"Pesquisar minhas agendas"</string>
     <string name="num_events" msgid="3351672964607162257">"Núm. eventos"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Detalhes"</string>
+    <!-- no translation found for edit_label (8934331258435656534) -->
+    <skip />
     <string name="delete_label" msgid="874742811918030739">"Excluir"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Excluir evento"</string>
     <string name="save_label" msgid="2133599104834432589">"Concluído"</string>
@@ -123,7 +125,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Anualmente"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mensalmente (no dia <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Anualmente (em <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3015205670911301856 -->     <string name="custom" product="tablet" msgid="3784569535926286624">"Personalizado… (não é permitido personalizar no telefone)"</string>
+    <string name="custom" product="tablet" msgid="3784569535926286624">"Personalizado… (não é permitido personalizar no tablet)"</string>
     <string name="custom" product="default" msgid="3015205670911301856">"Personalizado… (não é permitido personalizar no telefone)"</string>
     <string name="modify_event" msgid="4501745557655992422">"Alterar somente este evento."</string>
     <string name="modify_all" msgid="7506579040966638538">"Alterar todos os eventos da série."</string>
@@ -167,8 +169,10 @@
     <item quantity="one" msgid="1813062802420615657">"Mais um evento"</item>
     <item quantity="other" msgid="7993512762778431065">"Mais <xliff:g id="NUMBER">%d</xliff:g> eventos"</item>
   </plurals>
-    <!-- no translation found for month_more_events:one (8971334808414201327) -->
-    <!-- no translation found for month_more_events:other (1997405398178470838) -->
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Não há eventos futuros na agenda"</string>
     <string name="tomorrow" msgid="614434811813859237">"Amanhã"</string>
     <string name="in_progress" msgid="3637799356103489011">"em andamento"</string>
