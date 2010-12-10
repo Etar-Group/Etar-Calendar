@@ -123,6 +123,8 @@
     <skip />
     <string name="num_events" msgid="3351672964607162257">"عدد الأحداث"</string>
     <!-- outdated translation 2900418236819088363 -->     <string name="edit_event_label" msgid="7413222956349977161">"تعديل الحدث"</string>
+    <!-- no translation found for edit_label (8934331258435656534) -->
+    <skip />
     <string name="delete_label" msgid="874742811918030739">"حذف"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"حذف حدث"</string>
     <string name="save_label" msgid="2133599104834432589">"تم"</string>
@@ -139,7 +141,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"سنويًا"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"شهريًا ( يوم <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"سنويًا (بتاريخ <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3015205670911301856 -->     <string name="custom" product="tablet" msgid="3784569535926286624">"مخصص… ( لا يمكن التخصيص على الهاتف)"</string>
+    <string name="custom" product="tablet" msgid="3784569535926286624">"مخصص… (لا يمكن التخصيص على الكمبيوتر اللوحي)"</string>
     <string name="custom" product="default" msgid="3015205670911301856">"مخصص… ( لا يمكن التخصيص على الهاتف)"</string>
     <string name="modify_event" msgid="4501745557655992422">"تغيير هذا الحدث فقط."</string>
     <string name="modify_all" msgid="7506579040966638538">"تغيير جميع الأحداث في سلسلة الأحداث."</string>
@@ -197,8 +199,10 @@
     <item quantity="one" msgid="1813062802420615657">"حدث واحد إضافي"</item>
     <item quantity="other" msgid="7993512762778431065">"عدد <xliff:g id="NUMBER">%d</xliff:g> من الأحداث الإضافية"</item>
   </plurals>
-    <!-- no translation found for month_more_events:one (8971334808414201327) -->
-    <!-- no translation found for month_more_events:other (1997405398178470838) -->
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"لا توجد أحداث تقويم قادمة"</string>
     <!-- no translation found for tomorrow (614434811813859237) -->
     <skip />

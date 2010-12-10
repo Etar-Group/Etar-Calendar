@@ -124,6 +124,8 @@
     <skip />
     <string name="num_events" msgid="3351672964607162257">"Numărul de evenimente"</string>
     <!-- outdated translation 2900418236819088363 -->     <string name="edit_event_label" msgid="7413222956349977161">"Modificaţi evenimentul"</string>
+    <!-- no translation found for edit_label (8934331258435656534) -->
+    <skip />
     <string name="delete_label" msgid="874742811918030739">"Ştergeţi"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Ştergeţi evenimentul"</string>
     <string name="save_label" msgid="2133599104834432589">"Terminat"</string>
@@ -140,7 +142,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Anual"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Lunar (în zile de <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Anual (pe <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3015205670911301856 -->     <string name="custom" product="tablet" msgid="3784569535926286624">"Personalizat... (nu se poate personaliza pe telefon)"</string>
+    <string name="custom" product="tablet" msgid="3784569535926286624">"Personalizat... (nu se poate personaliza pe tabletă)"</string>
     <string name="custom" product="default" msgid="3015205670911301856">"Personalizat... (nu se poate personaliza pe telefon)"</string>
     <string name="modify_event" msgid="4501745557655992422">"Modificaţi doar acest eveniment."</string>
     <string name="modify_all" msgid="7506579040966638538">"Modificaţi toate evenimentele din serie."</string>
@@ -196,8 +198,10 @@
     <skip />
     <!-- no translation found for gadget_more_events:one (1813062802420615657) -->
     <!-- no translation found for gadget_more_events:other (7993512762778431065) -->
-    <!-- no translation found for month_more_events:one (8971334808414201327) -->
-    <!-- no translation found for month_more_events:other (1997405398178470838) -->
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
     <!-- no translation found for gadget_no_events (5209110911088302855) -->
     <skip />
     <!-- no translation found for tomorrow (614434811813859237) -->
