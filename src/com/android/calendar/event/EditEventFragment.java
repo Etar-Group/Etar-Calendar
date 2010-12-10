@@ -350,11 +350,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
     }
 
     public EditEventFragment() {
-        this(null);
-    }
-
-    public EditEventFragment(EventInfo event) {
-        this(event, false);
+        this(null, false);
     }
 
     public EditEventFragment(EventInfo event, boolean readOnly) {

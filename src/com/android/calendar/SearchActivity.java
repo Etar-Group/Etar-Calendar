@@ -170,7 +170,7 @@ public class SearchActivity extends Activity
             Intent intent = new Intent(Intent.ACTION_VIEW);
             Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
             intent.setData(eventUri);
-            intent.setClassName(this, EventInfoActivity.class.getName());
+//            intent.setClassName(this, EventInfoActivity.class.getName());
             intent.putExtra(EVENT_BEGIN_TIME,
                     event.startTime != null ? event.startTime.toMillis(true) : -1);
             intent.putExtra(

@@ -55,7 +55,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
         mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.edit_event);
 
         if (mEditFragment == null) {
-            mEditFragment = new EditEventFragment(mEventInfo);
+            mEditFragment = new EditEventFragment(mEventInfo, false);
 
             mEditFragment.mShowModifyDialogOnLaunch = getIntent().getBooleanExtra(
                     CalendarController.EVENT_EDIT_ON_LAUNCH, false);
