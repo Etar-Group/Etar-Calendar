@@ -167,9 +167,9 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         button.setVisibility(isEnabled() ? View.VISIBLE : View.GONE);
         button.setTag(item);
         if (item.mRemoved) {
-            button.setImageResource(R.drawable.ic_btn_round_plus);
+            button.setImageResource(R.drawable.ic_menu_add_field_holo_light);
         } else {
-            button.setImageResource(R.drawable.ic_btn_round_minus);
+            button.setImageResource(R.drawable.ic_menu_remove_field_holo_light);
         }
         button.setOnClickListener(this);
 
