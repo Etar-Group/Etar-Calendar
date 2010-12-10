@@ -641,6 +641,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mModel.mAllDay = mAllDayCheckBox.isChecked();
         mModel.mLocation = mLocationTextView.getText().toString().trim();
         mModel.mDescription = mDescriptionTextView.getText().toString().trim();
+        if (TextUtils.isEmpty(mModel.mLocation)) {
+            mModel.mLocation = null;
+        }
+        if (TextUtils.isEmpty(mModel.mDescription)) {
+            mModel.mDescription = null;
+        }
 
         int status = EventInfoFragment.getResponseFromButtonId(mResponseRadioGroup
                 .getCheckedRadioButtonId());
