@@ -40,7 +40,11 @@
     <application android:name="CalendarApplication"
             android:label="@string/app_label" android:icon="@mipmap/app_icon"
             android:taskAffinity="android.task.calendar"
-            android:hardwareAccelerated="true" >
+            android:hardwareAccelerated="true"
+            android:backupAgent="com.android.calendar.CalendarBackupAgent" >
+
+        <meta-data android:name="com.google.android.backup.api_key"
+                android:value="AEdPqrEAAAAIM256oVOGnuSel5QKDpL8je_T65ZI8rFnDinssA" />
 
         <activity
             android:name="AllInOneActivity"
