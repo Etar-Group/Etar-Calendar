@@ -51,7 +51,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical" />
     </TableRow>
-    
+
     <!-- CALENDAR DISPLAY for existing events -->
     <TableRow
         android:id="@+id/calendar_group">
@@ -235,7 +235,7 @@
                 android:gravity="center_vertical|right" />
         </LinearLayout>
     </TableRow>
-    
+
     <!-- PRESENCE - Show me as [busy | available] -->
     <TableRow
         android:id="@+id/availability_row">
