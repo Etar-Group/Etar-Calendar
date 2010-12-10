@@ -25,7 +25,6 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
-import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
@@ -83,7 +82,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private long mViewEventId = -1;
     private long mIntentEventStartMillis = -1;
     private long mIntentEventEndMillis = -1;
-    private int mIntentAttendeeResponse = EditEventHelper.ATTENDEE_NO_RESPONSE;
+    private int mIntentAttendeeResponse = CalendarController.ATTENDEE_NO_RESPONSE;
 
     // Action bar and Navigation bar (left side of Action bar)
     private ActionBar mActionBar;
@@ -192,7 +191,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                         mIntentEventStartMillis = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
                         mIntentEventEndMillis = intent.getLongExtra(EVENT_END_TIME, 0);
                         mIntentAttendeeResponse = intent.getIntExtra(
-                                ATTENDEE_STATUS, EditEventHelper.ATTENDEE_NO_RESPONSE);
+                                ATTENDEE_STATUS, CalendarController.ATTENDEE_NO_RESPONSE);
                         timeMillis = mIntentEventStartMillis;
                     }
                 } catch (NumberFormatException e) {
@@ -205,7 +204,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     private void configureActionBar() {
         mActionBar = getActionBar();
-        mActionBar.setTabNavigationMode();
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         if (mActionBar == null) {
             Log.w(TAG, "ActionBar is null.");
         } else {
@@ -238,7 +237,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         if (mViewEventId != -1 && mIntentEventStartMillis != -1 && mIntentEventEndMillis != -1) {
             mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mViewEventId,
-                    mIntentEventStartMillis, mIntentEventEndMillis, -1, -1);
+                    mIntentEventStartMillis, mIntentEventEndMillis, -1, -1,
+                    mIntentAttendeeResponse);
             mViewEventId = -1;
             mIntentEventStartMillis = -1;
             mIntentEventEndMillis = -1;
@@ -560,7 +560,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
             }
         } else if (event.eventType == EventType.VIEW_EVENT) {
             EventInfoFragment fragment = new EventInfoFragment(
-                    event.id, event.startTime.toMillis(false), event.endTime.toMillis(false));
+                    event.id, event.startTime.toMillis(false), event.endTime.toMillis(false),
+                    (int) event.extraLong);
             fragment.setDialogParams(event.x, event.y);
             fragment.show(getFragmentManager(), "EventInfoFragment");
         }
