@@ -31,6 +31,7 @@ import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.provider.Calendar.CalendarCache;
 import android.provider.SearchRecentSuggestions;
+import android.text.TextUtils;
 import android.widget.Toast;
 import android.app.backup.BackupManager;
 
@@ -136,10 +137,11 @@ public class GeneralPreferences extends PreferenceFragment implements
         }
         mHomeTZ.setEntryValues(mTimezones[0]);
         mHomeTZ.setEntries(mTimezones[1]);
-        mHomeTZ.setSummary(mHomeTZ.getEntry());
-//        mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
-//        mHomeTZ.setSummary(mHomeTZ.getEntry());
-//        mHomeTZ.setOnPreferenceChangeListener(this);
+        CharSequence tzName = mHomeTZ.getEntry();
+        if (TextUtils.isEmpty(tzName)) {
+            tzName = Utils.getTimeZone(activity, null);
+        }
+        mHomeTZ.setSummary(tzName);
 
         migrateOldPreferences(sharedPreferences);
 
