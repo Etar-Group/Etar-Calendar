@@ -65,6 +65,11 @@
                 <data android:host="com.android.calendar" />
                 <data android:scheme="content"/>
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/event" />
+            </intent-filter>
         </activity-alias>
 
         <activity android:name=".event.EditEventActivity"
@@ -84,17 +89,6 @@
                 <data android:mimeType="vnd.android.cursor.dir/event" />
             </intent-filter>
         </activity-alias>
-
-        <activity android:name="EventInfoActivity" android:label="@string/event_info_title"
-            android:theme="@style/CalendarTheme.WithActionBar"
-            android:configChanges="orientation|keyboardHidden">
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.item/event" />
-            </intent-filter>
-        </activity>
 
         <activity android:name="GoogleCalendarUriIntentFilter" android:label="@string/app_label"
             android:theme="@android:style/Theme.Light"
