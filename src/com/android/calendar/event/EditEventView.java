@@ -1113,7 +1113,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             } else {
                 mRemindersGroup.setVisibility(View.GONE);
             }
-            setAttendeesEditable(View.GONE);
+            setAttendeesEditable(false);
             if (mAttendeesView.getChildCount() == 0) {
                 mAttendeesPane.setVisibility(View.GONE);
             } else {
@@ -1153,7 +1153,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mRepeatsSpinner.setPadding(0, 0, 0, 0);
             }
             mRemindersGroup.setVisibility(View.VISIBLE);
-            setAttendeesEditable(View.VISIBLE);
+            setAttendeesEditable(true);
             mAttendeesPane.setVisibility(View.VISIBLE);
 
             mLocationGroup.setVisibility(View.VISIBLE);
@@ -1170,22 +1170,16 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      *
      * @param visibility View.GONE or View.VISIBLE
      */
-    protected void setAttendeesEditable(int visibility) {
+    protected void setAttendeesEditable(boolean editable) {
         int attCount = mAttendeesView.getChildCount();
         if (attCount > 0) {
             mResponseGroup.setVisibility(View.VISIBLE);
             mAttendeesGroup.setVisibility(View.VISIBLE);
-            for (int i = 0; i < attCount; i++) {
-                View v = mAttendeesView.getChildAt(i);
-                View button = v.findViewById(R.id.contact_remove);
-                if (button != null) {
-                    button.setVisibility(visibility);
-                }
-            }
         } else {
             mResponseGroup.setVisibility(View.GONE);
             mAttendeesGroup.setVisibility(View.GONE);
         }
+        mAttendeesView.setEnabled(editable);
     }
 
     public void setModification(int modifyWhich) {
