@@ -61,6 +61,8 @@ public class CalendarController {
     public static final int MIN_CALENDAR_WEEK = 0;
     public static final int MAX_CALENDAR_WEEK = 3497; // weeks between 1/1/1970 and 1/1/2037
 
+    public static final int ATTENDEE_NO_RESPONSE = -1;
+
     private Context mContext;
 
     // This uses a LinkedHashMap so that we can replace fragments based on the
@@ -91,24 +93,28 @@ public class CalendarController {
      */
     public interface EventType {
         final long CREATE_EVENT = 1L;
-        // simple view of an event
+
+        // Simple view of an event
         final long VIEW_EVENT = 1L << 1;
+
+        // Full detail view in read only mode
+        final long VIEW_EVENT_DETAILS = 1L << 2;
+
         // full detail view in edit mode
-        final long EDIT_EVENT = 1L << 2;
-        final long DELETE_EVENT = 1L << 3;
+        final long EDIT_EVENT = 1L << 3;
 
-        final long GO_TO = 1L << 4;
+        final long DELETE_EVENT = 1L << 4;
 
-        final long LAUNCH_SETTINGS = 1L << 5;
+        final long GO_TO = 1L << 5;
 
-        final long EVENTS_CHANGED = 1L << 6;
+        final long LAUNCH_SETTINGS = 1L << 6;
 
-        final long SEARCH = 1L << 7;
+        final long EVENTS_CHANGED = 1L << 7;
+
+        final long SEARCH = 1L << 8;
 
         // User has pressed the home key
-        final long USER_HOME = 1L << 8;
-        // Full detail view in read only mode
-        final long VIEW_EVENT_DETAILS = 1L << 9;
+        final long USER_HOME = 1L << 9;
     }
 
     /**
@@ -135,6 +141,7 @@ public class CalendarController {
         public int y; // y coordinate in the activity space
         public String query; // query for a user search
         public ComponentName componentName;  // used in combination with query
+        public long extraLong; // pass through
     }
 
     public interface EventHandler {
@@ -189,6 +196,12 @@ public class CalendarController {
         };
     }
 
+    public void sendEventRelatedEvent(Object sender, long eventType, long eventId, long startMillis,
+            long endMillis, int x, int y) {
+        sendEventRelatedEvent( sender,  eventType,  eventId,  startMillis,
+                 endMillis,  x,  y, CalendarController.ATTENDEE_NO_RESPONSE);
+    }
+
     /**
      * Helper for sending New/View/Edit/Delete events
      *
@@ -199,9 +212,10 @@ public class CalendarController {
      * @param endMillis end time
      * @param x x coordinate in the activity space
      * @param y y coordinate in the activity space
+     * @param extraLong default response value // currently only works for the simple event view
      */
     public void sendEventRelatedEvent(Object sender, long eventType, long eventId, long startMillis,
-            long endMillis, int x, int y) {
+            long endMillis, int x, int y, long extraLong) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         if (eventType == EventType.EDIT_EVENT || eventType == EventType.VIEW_EVENT_DETAILS) {
@@ -215,6 +229,7 @@ public class CalendarController {
         info.endTime.set(endMillis);
         info.x = x;
         info.y = y;
+        info.extraLong = extraLong;
         this.sendEvent(sender, info);
     }
 

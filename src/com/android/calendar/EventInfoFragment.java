@@ -186,7 +186,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private EditResponseHelper mEditResponseHelper;
 
     private int mOriginalAttendeeResponse;
-    private int mAttendeeResponseFromIntent = EditEventHelper.ATTENDEE_NO_RESPONSE;
+    private int mAttendeeResponseFromIntent = CalendarController.ATTENDEE_NO_RESPONSE;
     private boolean mIsRepeating;
 
     private Pattern mWildcardPattern = Pattern.compile("^.*$");
@@ -309,9 +309,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mAttendeeResponseFromIntent = attendeeResponse;
     }
 
-    public EventInfoFragment(long eventId, long startMillis, long endMillis) {
+    public EventInfoFragment(long eventId, long startMillis, long endMillis, int attendeeResponse) {
         this(ContentUris.withAppendedId(Events.CONTENT_URI, eventId),
-                startMillis, endMillis, EditEventHelper.ATTENDEE_NO_RESPONSE);
+                startMillis, endMillis, attendeeResponse);
         mEventId = eventId;
     }
 
@@ -458,7 +458,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     @SuppressWarnings("fallthrough")
     private void initAttendeesCursor(View view) {
-        mOriginalAttendeeResponse = EditEventHelper.ATTENDEE_NO_RESPONSE;
+        mOriginalAttendeeResponse = CalendarController.ATTENDEE_NO_RESPONSE;
         mCalendarOwnerAttendeeId = EditEventHelper.ATTENDEE_ID_NONE;
         mNumOfAttendees = 0;
         if (mAttendeesCursor != null) {
@@ -916,7 +916,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
 
         int response;
-        if (mAttendeeResponseFromIntent != EditEventHelper.ATTENDEE_NO_RESPONSE) {
+        if (mAttendeeResponseFromIntent != CalendarController.ATTENDEE_NO_RESPONSE) {
             response = mAttendeeResponseFromIntent;
         } else {
             response = mOriginalAttendeeResponse;

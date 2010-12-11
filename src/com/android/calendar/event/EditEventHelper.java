@@ -17,6 +17,7 @@
 package com.android.calendar.event;
 
 import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.R;
@@ -143,10 +144,9 @@ public class EditEventHelper {
     // if an uri is provided for an event that doesn't exist in the db.
     protected boolean mEventOk = true;
 
-    public static final int ATTENDEE_NO_RESPONSE = -1;
     public static final int ATTENDEE_ID_NONE = -1;
     public static final int[] ATTENDEE_VALUES = {
-            ATTENDEE_NO_RESPONSE,
+            CalendarController.ATTENDEE_NO_RESPONSE,
             Attendees.ATTENDEE_STATUS_ACCEPTED,
             Attendees.ATTENDEE_STATUS_TENTATIVE,
             Attendees.ATTENDEE_STATUS_DECLINED,
