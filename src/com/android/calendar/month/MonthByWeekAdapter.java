@@ -226,6 +226,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         currTime.set(mController.getTime());
         day.hour = currTime.hour;
         day.minute = currTime.minute;
+        day.allDay = false;
         day.normalize(true);
         mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
                 mIsMiniMonth ? ViewType.CURRENT : ViewType.DETAIL);
