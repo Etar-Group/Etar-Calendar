@@ -19,76 +19,103 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/blue_bg_widget_calendar_holo_light"
+    android:background="@drawable/gradient_bg_cal_widget_holo"
     android:focusable="true"
     android:clickable="true">
 
     <!-- Header -->
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00000000">
-
+        android:orientation="horizontal"
+        android:paddingLeft="19dip"
+        android:paddingRight="8dip"
+        android:background="@drawable/header_bg_cal_widget_holo">
         <LinearLayout
             android:id="@+id/holder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dip"
             android:orientation="vertical">
             <TextView
-                 android:id="@+id/day_of_week"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="13dip"
-                 android:layout_marginBottom="-6dip"
-                 android:textColor="@color/appwidget_week"
-                 android:textSize="14sp"
-                 android:gravity="left"
-                 android:singleLine="true" />
-
+                android:id="@+id/day_of_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-6dip"
+                android:textColor="@color/appwidget_week"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:shadowColor="@color/text_shadow_color"
+                android:shadowRadius="1"
+                android:gravity="left"
+                android:singleLine="true" />
             <TextView
-                 android:id="@+id/month"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:textColor="@color/appwidget_month"
-                 android:textSize="14sp"
-                 android:gravity="left"
-                 android:singleLine="true" />
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appwidget_month"
+                android:textSize="14sp"
+                android:shadowColor="@color/text_shadow_color"
+                android:shadowRadius="1"
+                android:gravity="left"
+                android:singleLine="true" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/day_of_month"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dip"
-            android:layout_toRightOf="@id/holder"
-            android:layout_alignParentTop="true"
-            android:textColor="@color/appwidget_date"
-            android:textSize="40sp"
-            android:gravity="left"
-            android:singleLine="true" />
-
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical|left"
+            android:layout_toRightOf="@id/holder">
+            <TextView
+                android:id="@+id/day_of_month_shadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appwidget_date"
+                android:textSize="42sp"
+                android:textStyle="bold"
+                android:shadowColor="@color/text_shadow_color"
+                android:shadowRadius="3"
+                android:gravity="left"
+                android:singleLine="true" />
+            <TextView
+                android:id="@+id/day_of_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appwidget_date"
+                android:textSize="42sp"
+                android:textStyle="bold"
+                android:shadowColor="#FF000000"
+                android:shadowRadius="1"
+                android:gravity="left"
+                android:singleLine="true" />
+        </FrameLayout>
         <ImageButton
             android:id="@+id/new_event_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignBottom="@id/day_of_month"
-            android:layout_marginBottom="4dip"
-            android:gravity="center_vertical"
-            android:src="@drawable/ic_widget_calendar_holo_light"
-            android:background="#0000" />
-    </RelativeLayout>
+            android:layout_gravity="center_vertical|right"
+            android:src="@drawable/btn_ic_new_event_cal_widget_holo_dark"
+            android:background="@null" />
+    </LinearLayout>
+
+    <!-- Separator -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_div_top_btm_cal_widget_holo"
+        android:focusable="false"
+        android:clickable="false" />
 
     <!-- Events container -->
     <ListView
         android:id="@+id/events_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="27dip"
+        android:layout_marginLeft="0dip"
+        android:layout_marginRight="0dip"
         android:divider="#00000000"
         android:dividerHeight="0dip"
-        android:cacheColorHint="#00000000"/>
+        android:cacheColorHint="#00000000" />
 </LinearLayout>
