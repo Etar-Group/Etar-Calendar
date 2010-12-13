@@ -1142,8 +1142,6 @@ public class EditEventHelper {
     ContentValues getContentValuesFromModel(CalendarEventModel model) {
         String title = model.mTitle;
         boolean isAllDay = model.mAllDay;
-        String location = model.mLocation.trim();
-        String description = model.mDescription.trim();
         String rrule = model.mRrule;
         String timezone = model.mTimezone;
         if (timezone == null) {
@@ -1197,8 +1195,12 @@ public class EditEventHelper {
             values.put(Events.DURATION, (String) null);
             values.put(Events.DTEND, endMillis);
         }
-        values.put(Events.DESCRIPTION, description);
-        values.put(Events.EVENT_LOCATION, location);
+        if (model.mDescription != null) {
+            values.put(Events.DESCRIPTION, model.mDescription.trim());
+        }
+        if (model.mLocation != null) {
+            values.put(Events.EVENT_LOCATION, model.mLocation.trim());
+        }
         values.put(Events.TRANSPARENCY, model.mTransparency ? 1 : 0);
         values.put(Events.HAS_ATTENDEE_DATA, model.mHasAttendeeData ? 1 : 0);
 
