@@ -2978,9 +2978,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     public boolean onTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
 
-        mScaleGestureDetector.onTouchEvent(ev);
-        if (mScaleGestureDetector.isInProgress()) {
-            return true;
+        if ((mTouchMode & TOUCH_MODE_HSCROLL) == 0) {
+            mScaleGestureDetector.onTouchEvent(ev);
+            if (mScaleGestureDetector.isInProgress()) {
+                return true;
+            }
         }
 
         switch (action) {
