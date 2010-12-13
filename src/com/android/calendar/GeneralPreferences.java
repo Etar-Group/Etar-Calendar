@@ -31,13 +31,15 @@ import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.provider.Calendar.CalendarCache;
 import android.provider.SearchRecentSuggestions;
+import android.text.TextUtils;
 import android.widget.Toast;
+import android.app.backup.BackupManager;
 
 public class GeneralPreferences extends PreferenceFragment implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener {
     // The name of the shared preferences file. This name must be maintained for historical
     // reasons, as it's what PreferenceManager assigned the first time the file was created.
-    private static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
+    static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
 
     // Preference keys
     public static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
@@ -135,10 +137,11 @@ public class GeneralPreferences extends PreferenceFragment implements
         }
         mHomeTZ.setEntryValues(mTimezones[0]);
         mHomeTZ.setEntries(mTimezones[1]);
-        mHomeTZ.setSummary(mHomeTZ.getEntry());
-//        mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
-//        mHomeTZ.setSummary(mHomeTZ.getEntry());
-//        mHomeTZ.setOnPreferenceChangeListener(this);
+        CharSequence tzName = mHomeTZ.getEntry();
+        if (TextUtils.isEmpty(tzName)) {
+            tzName = Utils.getTimeZone(activity, null);
+        }
+        mHomeTZ.setSummary(tzName);
 
         migrateOldPreferences(sharedPreferences);
 
@@ -166,6 +169,10 @@ public class GeneralPreferences extends PreferenceFragment implements
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(KEY_ALERTS)) {
             updateChildPreferences();
+        }
+        Activity a = getActivity();
+        if (a != null) {
+            BackupManager.dataChanged(a.getPackageName());
         }
     }
 

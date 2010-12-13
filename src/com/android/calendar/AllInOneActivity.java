@@ -18,6 +18,7 @@ package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
+import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS;
 
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
@@ -53,6 +54,7 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -76,6 +78,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private boolean mUpdateOnResume = false;
     private TextView mHomeTime;
     private String mTimeZone;
+
+    private long mViewEventId = -1;
+    private long mIntentEventStartMillis = -1;
+    private long mIntentEventEndMillis = -1;
+    private int mIntentAttendeeResponse = CalendarController.ATTENDEE_NO_RESPONSE;
 
     // Action bar and Navigation bar (left side of Action bar)
     private ActionBar mActionBar;
@@ -112,28 +119,37 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
         // Get time from intent or icicle
-        long timeMillis;
+        long timeMillis = -1;
+        int viewType = -1;
+        boolean restoreEdit = false;
+        final Intent intent = getIntent();
         if (icicle != null) {
             timeMillis = icicle.getLong(BUNDLE_KEY_RESTORE_TIME);
-        } else {
-            timeMillis = Utils.timeFromIntentInMillis(getIntent());
-        }
-        boolean restoreEdit = icicle != null ? icicle.getBoolean(BUNDLE_KEY_RESTORE_EDIT, false)
-                : false;
-        int viewType;
-        if (restoreEdit) {
+            restoreEdit = icicle.getBoolean(BUNDLE_KEY_RESTORE_EDIT, false);
             viewType = ViewType.EDIT;
         } else {
+            String action = intent.getAction();
+            if (Intent.ACTION_VIEW.equals(action)) {
+                // Open EventInfo later
+                timeMillis = parseViewAction(intent);
+            }
+
+            if (timeMillis == -1) {
+                timeMillis = Utils.timeFromIntentInMillis(intent);
+            }
+        }
+
+        if (!restoreEdit) {
             viewType = Utils.getViewTypeFromIntentAndSharedPref(this);
         }
         mTimeZone = Utils.getTimeZone(this, mHomeTimeUpdater);
         Time t = new Time(mTimeZone);
         t.set(timeMillis);
 
-        if (icicle != null && getIntent() != null) {
-            Log.d(TAG, "both, icicle:" + icicle.toString() + "  intent:" + getIntent().toString());
+        if (icicle != null && intent != null) {
+            Log.d(TAG, "both, icicle:" + icicle.toString() + "  intent:" + intent.toString());
         } else {
-            Log.d(TAG, "not both, icicle:" + icicle + " intent:" + getIntent());
+            Log.d(TAG, "not both, icicle:" + icicle + " intent:" + intent);
         }
 
         mIsMultipane = (getResources().getConfiguration().screenLayout
@@ -163,9 +179,32 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mContentResolver = getContentResolver();
     }
 
+    private long parseViewAction(final Intent intent) {
+        long timeMillis = -1;
+        Uri data = intent.getData();
+        if (data != null && data.isHierarchical()) {
+            List<String> path = data.getPathSegments();
+            if (path.size() == 2 && path.get(0).equals("events")) {
+                try {
+                    mViewEventId = Long.valueOf(data.getLastPathSegment());
+                    if(mViewEventId != -1) {
+                        mIntentEventStartMillis = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
+                        mIntentEventEndMillis = intent.getLongExtra(EVENT_END_TIME, 0);
+                        mIntentAttendeeResponse = intent.getIntExtra(
+                                ATTENDEE_STATUS, CalendarController.ATTENDEE_NO_RESPONSE);
+                        timeMillis = mIntentEventStartMillis;
+                    }
+                } catch (NumberFormatException e) {
+                    // Ignore if mViewEventId can't be parsed
+                }
+            }
+        }
+        return timeMillis;
+    }
+
     private void configureActionBar() {
         mActionBar = getActionBar();
-        mActionBar.setTabNavigationMode();
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         if (mActionBar == null) {
             Log.w(TAG, "ActionBar is null.");
         } else {
@@ -195,6 +234,15 @@ public class AllInOneActivity extends Activity implements EventHandler,
         updateHomeClock();
         mPaused = false;
         mOnSaveInstanceStateCalled = false;
+
+        if (mViewEventId != -1 && mIntentEventStartMillis != -1 && mIntentEventEndMillis != -1) {
+            mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mViewEventId,
+                    mIntentEventStartMillis, mIntentEventEndMillis, -1, -1,
+                    mIntentAttendeeResponse);
+            mViewEventId = -1;
+            mIntentEventStartMillis = -1;
+            mIntentEventEndMillis = -1;
+        }
     }
 
     @Override
@@ -512,7 +560,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
             }
         } else if (event.eventType == EventType.VIEW_EVENT) {
             EventInfoFragment fragment = new EventInfoFragment(
-                    event.id, event.startTime.toMillis(false), event.endTime.toMillis(false));
+                    event.id, event.startTime.toMillis(false), event.endTime.toMillis(false),
+                    (int) event.extraLong);
             fragment.setDialogParams(event.x, event.y);
             fragment.show(getFragmentManager(), "EventInfoFragment");
         }

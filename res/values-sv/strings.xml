@@ -107,6 +107,8 @@
     <string name="search_title" msgid="8898015280250716254">"Sök i mina kalendrar"</string>
     <string name="num_events" msgid="3351672964607162257">"Antal händelser"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Information"</string>
+    <!-- no translation found for edit_label (8934331258435656534) -->
+    <skip />
     <string name="delete_label" msgid="874742811918030739">"Ta bort"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Ta bort händelse"</string>
     <string name="save_label" msgid="2133599104834432589">"Färdig"</string>
@@ -123,7 +125,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Varje år"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Varje månad (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Varje år (den <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3015205670911301856 -->     <string name="custom" product="tablet" msgid="3784569535926286624">"Anpassad… (går ej att anpassa i telefonen)"</string>
+    <string name="custom" product="tablet" msgid="3784569535926286624">"Anpassad… (går ej att anpassa på pekdatorn)"</string>
     <string name="custom" product="default" msgid="3015205670911301856">"Anpassad… (går ej att anpassa i telefonen)"</string>
     <string name="modify_event" msgid="4501745557655992422">"Ändra bara den här händelsen."</string>
     <string name="modify_all" msgid="7506579040966638538">"Ändra alla händelser i serien."</string>
@@ -167,8 +169,10 @@
     <item quantity="one" msgid="1813062802420615657">"Ytterligare 1 händelse"</item>
     <item quantity="other" msgid="7993512762778431065">"<xliff:g id="NUMBER">%d</xliff:g> ytterligare händelser"</item>
   </plurals>
-    <!-- no translation found for month_more_events:one (8971334808414201327) -->
-    <!-- no translation found for month_more_events:other (1997405398178470838) -->
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+ 1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+ <xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Inga kommande händelser i kalendern"</string>
     <string name="tomorrow" msgid="614434811813859237">"Imorgon"</string>
     <string name="in_progress" msgid="3637799356103489011">"bearbetas"</string>
