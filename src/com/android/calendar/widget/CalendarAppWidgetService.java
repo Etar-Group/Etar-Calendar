@@ -170,8 +170,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     views.setInt(R.id.appwidget_row, "setBackgroundColor",
                             mResources.getColor(R.color.appwidget_row_in_progress));
                 } else {
-                    views.setInt(R.id.appwidget_row, "setBackgroundColor",
-                            mResources.getColor(R.color.appwidget_row_default));
+                    views.setInt(R.id.appwidget_row, "setBackgroundResource",
+                            R.drawable.bg_event_cal_widget_holo);
                 }
 
                 updateTextView(views, R.id.when, eventInfo.visibWhen, eventInfo.when);

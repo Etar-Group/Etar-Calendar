@@ -35,9 +35,9 @@
         android:layout_marginLeft="2dip"
         android:layout_marginRight="3dip"
         android:layout_marginTop="1dip"
-        android:layout_marginBottom="1dip"
         android:paddingLeft="18dip"
-        android:background="@color/agenda_day_bar_bg_color"
+        android:shadowColor="@color/text_shadow_color"
+        android:shadowRadius="1"
         android:textColor="@color/agenda_day_bar_title_color" />
 
 </LinearLayout>
