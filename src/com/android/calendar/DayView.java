@@ -29,7 +29,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -190,7 +189,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     // Pre-allocate these objects and re-use them
     private Rect mRect = new Rect();
-    private RectF mRectF = new RectF();
     private Rect mDestRect = new Rect();
     private Paint mPaint = new Paint();
     private Paint mEventTextPaint = new Paint();
@@ -211,8 +209,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private final EventLoader mEventLoader;
     protected final EventGeometry mEventGeometry;
 
-    private static final int GRID_LINE_INNER_WIDTH = 1;
-    private static final int GRID_LINE_WIDTH = 5;
+    private static final float GRID_LINE_INNER_WIDTH = 1;
+    private static final float GRID_LINE_WIDTH = 5;
 
     private static final int DAY_GAP = 1;
     private static final int HOUR_GAP = 1;
@@ -1782,7 +1780,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         p.setAntiAlias(false);
         final float startX = 0;
         final float stopX = mHoursWidth + (mCellWidth + DAY_GAP) * mNumDays;
-        float y = 1;
+        float y = 0;
         final float deltaY = mCellHeight + HOUR_GAP;
         p.setStrokeWidth(GRID_LINE_WIDTH);
         int linesIndex = 0;
