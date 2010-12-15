@@ -155,6 +155,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mIsMultipane = (getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
 
+        Utils.allowWeekForDetailView(mIsMultipane);
+
         // setContentView must be called before configureActionBar
         setContentView(R.layout.all_in_one);
         // configureActionBar auto-selects the first tab you add, so we need to
