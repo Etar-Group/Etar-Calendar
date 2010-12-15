@@ -319,9 +319,8 @@ public class SearchActivity extends Activity
 
     @Override
     public boolean onSubmitQuery(String query) {
-        mController.sendEvent(
-                this, EventType.SEARCH, null, null, -1,
-                ViewType.CURRENT, query, getComponentName());
+        mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, -1, query,
+                getComponentName());
         return false;
     }
 }

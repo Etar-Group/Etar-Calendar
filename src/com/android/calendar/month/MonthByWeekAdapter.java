@@ -229,7 +229,8 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         day.allDay = false;
         day.normalize(true);
         mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
-                mIsMiniMonth ? ViewType.CURRENT : ViewType.DETAIL);
+                mIsMiniMonth ? ViewType.CURRENT : ViewType.DETAIL,
+                CalendarController.EXTRA_GOTO_DATE, null, null);
     }
 
 }

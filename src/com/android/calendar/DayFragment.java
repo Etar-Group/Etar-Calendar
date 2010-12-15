@@ -149,7 +149,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         view.setId(VIEW_ID);
         view.setLayoutParams(new ViewSwitcher.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        view.setSelectedDay(mSelectedDay);
+        view.setSelected(mSelectedDay, false);
         return view;
     }
 
@@ -207,7 +207,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         mProgressBar.setVisibility(View.GONE);
     }
 
-    private void goTo(Time goToTime, boolean animate) {
+    private void goTo(Time goToTime, boolean ignoreTime) {
         if (mViewSwitcher == null) {
             // The view hasn't been set yet. Just save the time and use it later.
             mSelectedDay.set(goToTime);
@@ -215,33 +215,29 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         }
 
         DayView currentView = (DayView) mViewSwitcher.getCurrentView();
-        Time selectedTime = currentView.getSelectedTime();
-
-        // Going to the same time
-        if (selectedTime.equals(goToTime)) {
-            return;
-        }
 
         // How does goTo time compared to what's already displaying?
         int diff = currentView.compareToVisibleTimeRange(goToTime);
 
         if (diff == 0) {
             // In visible range. No need to switch view
-            currentView.setSelectedDay(goToTime);
+            currentView.setSelected(goToTime, ignoreTime);
         } else {
             // Figure out which way to animate
-            if (animate) {
-                if (diff > 0) {
-                    mViewSwitcher.setInAnimation(mInAnimationForward);
-                    mViewSwitcher.setOutAnimation(mOutAnimationForward);
-                } else {
-                    mViewSwitcher.setInAnimation(mInAnimationBackward);
-                    mViewSwitcher.setOutAnimation(mOutAnimationBackward);
-                }
+            if (diff > 0) {
+                mViewSwitcher.setInAnimation(mInAnimationForward);
+                mViewSwitcher.setOutAnimation(mOutAnimationForward);
+            } else {
+                mViewSwitcher.setInAnimation(mInAnimationBackward);
+                mViewSwitcher.setOutAnimation(mOutAnimationBackward);
             }
 
             DayView next = (DayView) mViewSwitcher.getNextView();
-            next.setSelectedDay(goToTime);
+            if (ignoreTime) {
+                next.setFirstVisibleHour(currentView.getFirstVisibleHour());
+            }
+
+            next.setSelected(goToTime, ignoreTime);
             next.reloadEvents();
             mViewSwitcher.showNext();
             next.requestFocus();
@@ -296,9 +292,8 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         if (msg.eventType == EventType.GO_TO) {
 // TODO support a range of time
 // TODO support event_id
-// TODO figure out the animate bit
 // TODO support select message
-            goTo(msg.startTime, true);
+            goTo(msg.startTime, msg.extraLong == CalendarController.EXTRA_GOTO_DATE);
         } else if (msg.eventType == EventType.EVENTS_CHANGED) {
             eventsChanged();
         }
