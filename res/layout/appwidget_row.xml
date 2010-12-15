@@ -24,24 +24,48 @@
         android:id="@+id/appwidget_row"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minHeight="64dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="4dip"
-        android:layout_marginLeft="4dip"
+        android:layout_marginLeft="3dip"
         android:orientation="vertical"
         android:addStatesFromChildren="true"
         android:background="@drawable/bg_event_cal_widget_holo">
         <TextView
             android:id="@+id/title"
-            style="@style/TextAppearance.WidgetTitle" />
-
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="7dip"
+            android:layout_marginTop="6dip"
+            android:layout_marginBottom="-5dip"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/appwidget_title"
+            android:maxLines="2" />
         <TextView
             android:id="@+id/when"
-            style="@style/TextAppearance.WidgetWhen" />
-
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="7dip"
+            android:layout_marginBottom="-5dip"
+            android:textSize="14sp"
+            android:textColor="@color/appwidget_when"
+            android:singleLine="true" />
         <TextView
             android:id="@+id/where"
-            style="@style/TextAppearance.WidgetWhere" />
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="7dip"
+            android:textSize="14sp"
+            android:textColor="@color/appwidget_where"
+            android:singleLine="true" />
     </LinearLayout>
 
     <!-- Frame around the color square -->
