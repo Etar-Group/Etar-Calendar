@@ -124,8 +124,7 @@
     <skip />
     <string name="num_events" msgid="3351672964607162257">"К-сть подій"</string>
     <!-- outdated translation 2900418236819088363 -->     <string name="edit_event_label" msgid="7413222956349977161">"Редаг. подію"</string>
-    <!-- no translation found for edit_label (8934331258435656534) -->
-    <skip />
+    <string name="edit_label" msgid="8934331258435656534">"Редагувати"</string>
     <string name="delete_label" msgid="874742811918030739">"Видалити"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Видалити подію"</string>
     <string name="save_label" msgid="2133599104834432589">"Готово"</string>

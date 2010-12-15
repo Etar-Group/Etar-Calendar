@@ -107,8 +107,7 @@
     <string name="search_title" msgid="8898015280250716254">"Αναζήτηση στα ημερολόγιά μου"</string>
     <string name="num_events" msgid="3351672964607162257">"Αριθμ. συμβάντων"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Λεπτομέρειες"</string>
-    <!-- no translation found for edit_label (8934331258435656534) -->
-    <skip />
+    <string name="edit_label" msgid="8934331258435656534">"Επεξ/σία"</string>
     <string name="delete_label" msgid="874742811918030739">"Διαγραφή"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Διαγραφή συμβάντος"</string>
     <string name="save_label" msgid="2133599104834432589">"Τέλος"</string>
