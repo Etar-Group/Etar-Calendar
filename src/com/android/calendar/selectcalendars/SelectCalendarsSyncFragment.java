@@ -183,6 +183,10 @@ public class SelectCalendarsSyncFragment extends ListFragment
         setListAdapter(adapter);
     }
 
+    public void onLoaderReset(Loader<Cursor> loader) {
+        setListAdapter(null);
+    }
+
     // Called when the Accounts button is pressed. Takes the user to the
     // Accounts and Sync settings page.
     @Override

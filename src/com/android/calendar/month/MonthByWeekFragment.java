@@ -352,6 +352,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         }
     }
 
+    public void onLoaderReset(Loader<Cursor> loader) {
+    }
+
     @Override
     public void eventsChanged() {
         // TODO Auto-generated method stub
