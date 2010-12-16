@@ -24,7 +24,7 @@
         android:id="@+id/appwidget_row"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="64dip"
+        android:minHeight="48dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="4dip"
