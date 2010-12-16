@@ -18,6 +18,6 @@
     android:minWidth="146dip"
     android:minHeight="219dip"
     android:updatePeriodMillis="0"
-    android:previewImage="@drawable/preview"
+    android:previewImage="@drawable/calendar_widget_preview"
     android:initialLayout="@layout/appwidget" >
 </appwidget-provider>

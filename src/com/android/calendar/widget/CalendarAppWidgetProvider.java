@@ -148,10 +148,12 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             final String month =
                     DateUtils.getMonthString(time.month, DateUtils.LENGTH_MEDIUM).toUpperCase();
             views.setTextViewText(R.id.day_of_week, dayOfWeek);
+            views.setTextViewText(R.id.day_of_week_shadow, dayOfWeek);
             final String dayOfMonth = Integer.toString(time.monthDay);
             views.setTextViewText(R.id.day_of_month, dayOfMonth);
             views.setTextViewText(R.id.day_of_month_shadow, dayOfMonth);
             views.setTextViewText(R.id.month, month);
+            views.setTextViewText(R.id.month_shadow, month);
             // Attach to list of events
             views.setRemoteAdapter(R.id.events_list, updateIntent);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.events_list);

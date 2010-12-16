@@ -86,6 +86,7 @@ public class Utils {
     private static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
 
     private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
+    private static boolean mAllowWeekForDetailView = false;
 
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
         Intent intent = activity.getIntent();
@@ -204,9 +205,16 @@ public class Utils {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
 
-        if (viewId == CalendarController.ViewType.AGENDA
-                || viewId == CalendarController.ViewType.DAY) {
-            // Record the (new) detail start view only for Agenda and Day
+        boolean validDetailView = false;
+        if (mAllowWeekForDetailView && viewId == CalendarController.ViewType.WEEK) {
+            validDetailView = true;
+        } else {
+            validDetailView = viewId == CalendarController.ViewType.AGENDA
+                    || viewId == CalendarController.ViewType.DAY;
+        }
+
+        if (validDetailView) {
+            // Record the detail start view
             editor.putInt(GeneralPreferences.KEY_DETAILED_VIEW, viewId);
         }
 
@@ -498,5 +506,9 @@ public class Utils {
      */
     public static boolean equals(Object o1, Object o2) {
         return o1 == null ? o2 == null : o1.equals(o2);
+    }
+
+    public static void allowWeekForDetailView(boolean allowWeekView) {
+        mAllowWeekForDetailView  = allowWeekView;
     }
 }
