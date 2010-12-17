@@ -158,10 +158,13 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             views.setRemoteAdapter(R.id.events_list, updateIntent);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.events_list);
 
-            // Clicking on the widget launches Calendar
-            // TODO fix this exact behavior?
-            // long startTime = Math.max(currentTime, events.firstTime);
-            long startTime = System.currentTimeMillis();
+
+            // Launch calendar app when the user taps on the header
+            final Intent launchCalendarIntent = new Intent(Intent.ACTION_VIEW);
+            launchCalendarIntent.setData(Uri.parse("content://com.android.calendar/time"));
+            final PendingIntent launchCalendarPendingIntent = PendingIntent.getActivity(context,
+                    0 /* no requestCode */, launchCalendarIntent, 0 /* no flags */);
+            views.setOnClickPendingIntent(R.id.header, launchCalendarPendingIntent);
 
             // Each list item will call setOnClickExtra() to let the list know which item
             // is selected by a user.
