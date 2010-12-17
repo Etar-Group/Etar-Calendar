@@ -27,14 +27,6 @@
     android:focusable="true"
     android:clickable="true">
 
-    <!--  Spacer -->
-    <FrameLayout
-        android:layout_width="0dip"
-        android:layout_height="5dip"
-        android:focusable="false"
-        android:clickable="false"
-        android:background="#00000000" />
-
     <!-- Header -->
     <LinearLayout
         android:id="@+id/header"
@@ -44,9 +36,8 @@
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
         android:paddingLeft="16dip"
-        android:paddingRight="8dip"
         android:orientation="horizontal"
-        android:background="@drawable/header_bg_cal_widget_holo">
+        android:background="@drawable/appwidget_header_selector">
         <LinearLayout
             android:id="@+id/holder"
             android:layout_width="wrap_content"
@@ -111,10 +102,12 @@
         <ImageButton
             android:id="@+id/new_event_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dip"
+            android:paddingRight="8dip"
             android:layout_gravity="center_vertical|right"
             android:src="@drawable/btn_ic_new_event_cal_widget_holo_dark"
-            android:background="@null" />
+            android:background="?android:attr/selectableItemBackground" />
     </LinearLayout>
 
     <!-- Separator -->
@@ -133,6 +126,7 @@
         android:layout_weight="1"
         android:layout_marginLeft="1dip"
         android:layout_marginRight="4dip"
+        android:fadingEdge="none"
         android:divider="#00000000"
         android:dividerHeight="0dip"
         android:cacheColorHint="#00000000" />
@@ -141,7 +135,6 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-3dip"
         android:background="@drawable/list_div_top_btm_cal_widget_holo"
         android:focusable="false"
         android:clickable="false" />
