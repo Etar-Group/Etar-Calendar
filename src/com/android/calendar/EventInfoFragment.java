@@ -748,7 +748,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 //        }
 
         // Repeat
-        if (rRule != null) {
+        if (!TextUtils.isEmpty(rRule)) {
             EventRecurrence eventRecurrence = new EventRecurrence();
             eventRecurrence.parse(rRule);
             Time date = new Time(Utils.getTimeZone(getActivity(), mTZUpdater));
