@@ -434,7 +434,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mEventCursor.moveToFirst();
         mEventId = mEventCursor.getInt(EVENT_INDEX_ID);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
-        mIsRepeating = (rRule != null);
+        mIsRepeating = !TextUtils.isEmpty(rRule);
         return false;
     }
 

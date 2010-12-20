@@ -17,12 +17,11 @@
 package com.android.calendar.alerts;
 
 import com.android.calendar.R;
-import com.android.calendar.R.id;
-import com.android.calendar.R.string;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -34,7 +33,7 @@ public class AlertAdapter extends ResourceCursorAdapter {
     public AlertAdapter(Context context, int resource) {
         super(context, resource, null);
     }
-    
+
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView textView;
@@ -48,12 +47,12 @@ public class AlertAdapter extends ResourceCursorAdapter {
         // Repeating info
         View repeatContainer = view.findViewById(R.id.repeat_icon);
         String rrule = cursor.getString(AlertActivity.INDEX_RRULE);
-        if (rrule != null) {
+        if (!TextUtils.isEmpty(rrule)) {
             repeatContainer.setVisibility(View.VISIBLE);
         } else {
             repeatContainer.setVisibility(View.GONE);
         }
-        
+
         /*
         // Reminder
         boolean hasAlarm = cursor.getInt(AlertActivity.INDEX_HAS_ALARM) != 0;
@@ -62,29 +61,29 @@ public class AlertAdapter extends ResourceCursorAdapter {
                     cursor.getLong(AlertActivity.INDEX_EVENT_ID));
         }
         */
-        
+
         String eventName = cursor.getString(AlertActivity.INDEX_TITLE);
         String location = cursor.getString(AlertActivity.INDEX_EVENT_LOCATION);
         long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
         long endMillis = cursor.getLong(AlertActivity.INDEX_END);
         boolean allDay = cursor.getInt(AlertActivity.INDEX_ALL_DAY) != 0;
-        
+
         updateView(context, view, eventName, location, startMillis, endMillis, allDay);
     }
-    
+
     public static void updateView(Context context, View view, String eventName, String location,
             long startMillis, long endMillis, boolean allDay) {
-        
+
         Resources res = context.getResources();
         TextView textView;
-        
+
         // What
         if (eventName == null || eventName.length() == 0) {
             eventName = res.getString(R.string.no_title_label);
         }
         textView = (TextView) view.findViewById(R.id.event_title);
         textView.setText(eventName);
-        
+
         // When
         String when;
         int flags;
@@ -100,7 +99,7 @@ public class AlertAdapter extends ResourceCursorAdapter {
         when = DateUtils.formatDateRange(context, startMillis, endMillis, flags);
         textView = (TextView) view.findViewById(R.id.when);
         textView.setText(when);
-        
+
         // Where
         textView = (TextView) view.findViewById(R.id.where);
         if (location == null || location.length() == 0) {

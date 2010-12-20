@@ -311,12 +311,12 @@ public class EditEventHelper {
             ops.add(b.build());
             forceSaveReminders = true;
 
-        } else if (model.mRrule == null && originalModel.mRrule == null) {
+        } else if (TextUtils.isEmpty(model.mRrule) && TextUtils.isEmpty(originalModel.mRrule)) {
             // Simple update to a non-recurring event
             checkTimeDependentFields(originalModel, model, values, modifyWhich);
             ops.add(ContentProviderOperation.newUpdate(uri).withValues(values).build());
 
-        } else if (originalModel.mRrule == null) {
+        } else if (TextUtils.isEmpty(originalModel.mRrule)) {
             // This event was changed from a non-repeating event to a
             // repeating event.
             ops.add(ContentProviderOperation.newUpdate(uri).withValues(values).build());
@@ -338,7 +338,7 @@ public class EditEventHelper {
 
         } else if (modifyWhich == MODIFY_ALL_FOLLOWING) {
 
-            if (model.mRrule == null) {
+            if (TextUtils.isEmpty(model.mRrule)) {
                 // We've changed a recurring event to a non-recurring event.
                 // If the event we are editing is the first in the series,
                 // then delete the whole series. Otherwise, update the series
@@ -375,7 +375,7 @@ public class EditEventHelper {
         } else if (modifyWhich == MODIFY_ALL) {
 
             // Modify all instances of repeating event
-            if (model.mRrule == null) {
+            if (TextUtils.isEmpty(model.mRrule)) {
                 // We've changed a recurring event to a non-recurring event.
                 // Delete the whole series and replace it with a new
                 // non-recurring event.
@@ -622,7 +622,7 @@ public class EditEventHelper {
             return;
         }
 
-        if (oldRrule == null || newRrule == null) {
+        if (TextUtils.isEmpty(oldRrule) || TextUtils.isEmpty(newRrule)) {
             return;
         }
 
@@ -1189,7 +1189,7 @@ public class EditEventHelper {
         values.put(Events.ALL_DAY, isAllDay ? 1 : 0);
         values.put(Events.DTSTART, startMillis);
         values.put(Events.RRULE, rrule);
-        if (rrule != null) {
+        if (!TextUtils.isEmpty(rrule)) {
             addRecurrenceRule(values, model);
         } else {
             values.put(Events.DURATION, (String) null);

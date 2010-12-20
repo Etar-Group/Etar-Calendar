@@ -188,7 +188,7 @@ public class CalendarEventModel implements Serializable {
         }
 
         String rrule = intent.getStringExtra(Events.RRULE);
-        if (rrule != null) {
+        if (!TextUtils.isEmpty(rrule)) {
             mRrule = rrule;
         }
     }

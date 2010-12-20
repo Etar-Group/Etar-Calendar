@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.provider.Calendar.Attendees;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -139,7 +140,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         when.setText(whenString);
 
         String rrule = cursor.getString(AgendaWindowAdapter.INDEX_RRULE);
-        if (rrule != null) {
+        if (!TextUtils.isEmpty(rrule)) {
             when.setCompoundDrawablesWithIntrinsicBounds(null, null,
                     context.getResources().getDrawable(R.drawable.ic_repeat_dark), null);
             when.setCompoundDrawablePadding(5);
@@ -151,7 +152,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         // Repeating info
         View repeatContainer = view.findViewById(R.id.repeat_icon);
         String rrule = cursor.getString(AgendaWindowAdapter.INDEX_RRULE);
-        if (rrule != null) {
+        if (!TextUtils.isEmpty(rrule)) {
             repeatContainer.setVisibility(View.VISIBLE);
         } else {
             repeatContainer.setVisibility(View.GONE);
