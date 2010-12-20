@@ -29,6 +29,7 @@ import android.net.Uri;
 import android.pim.EventRecurrence;
 import android.provider.Calendar;
 import android.provider.Calendar.Events;
+import android.text.TextUtils;
 import android.text.format.Time;
 import android.widget.Button;
 
@@ -237,7 +238,7 @@ public class DeleteEventHelper {
         // just some of them.
         String rRule = model.mRrule;
         String originalEvent = model.mOriginalEvent;
-        if (rRule == null) {
+        if (TextUtils.isEmpty(rRule)) {
             AlertDialog dialog = new AlertDialog.Builder(mContext)
             .setTitle(R.string.delete_title)
             .setMessage(R.string.delete_this_event_title)

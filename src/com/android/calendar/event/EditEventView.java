@@ -418,7 +418,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mRecurrenceIndexes = recurrenceIndexes;
 
         int position = recurrenceIndexes.indexOf(EditEventHelper.DOES_NOT_REPEAT);
-        if (mModel.mRrule != null) {
+        if (!TextUtils.isEmpty(mModel.mRrule)) {
             if (isCustomRecurrence) {
                 position = recurrenceIndexes.indexOf(EditEventHelper.REPEATS_CUSTOM);
             } else {
@@ -856,7 +856,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mEndTime.normalize(true);
         }
         String rrule = model.mRrule;
-        if (rrule != null) {
+        if (!TextUtils.isEmpty(rrule)) {
             mEventRecurrence.parse(rrule);
         }
 
