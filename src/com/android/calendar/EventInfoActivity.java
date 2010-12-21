@@ -489,7 +489,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         mEventCursor.moveToFirst();
         mEventId = mEventCursor.getInt(EVENT_INDEX_ID);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
-        mIsRepeating = (rRule != null);
+        mIsRepeating = !TextUtils.isEmpty(rRule);
         return false;
     }
 
@@ -899,7 +899,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         }
 
         // Repeat
-        if (rRule != null) {
+        if (!TextUtils.isEmpty(rRule)) {
             EventRecurrence eventRecurrence = new EventRecurrence();
             eventRecurrence.parse(rRule);
             Time date = new Time(Utils.getTimeZone(this, mUpdateTZ));
