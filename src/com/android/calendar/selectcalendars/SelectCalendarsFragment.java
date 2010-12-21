@@ -98,6 +98,8 @@ public class SelectCalendarsFragment extends Fragment
         Activity activity = getActivity();
         mView = inflater.inflate(R.layout.select_calendars_fragment, null);
         mList = (ListView)mView.findViewById(R.id.list);
+        mList.setDivider(null);
+        mList.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
         return mView;
     }
 

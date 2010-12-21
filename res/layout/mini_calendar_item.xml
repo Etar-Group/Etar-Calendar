@@ -17,29 +17,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="48dip"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
-    android:layout_marginRight="6dip"
-    android:layout_marginTop="6dip"
-    android:layout_marginBottom="6dip"
+    android:layout_marginRight="0dip"
+    android:layout_marginTop="0dip"
+    android:layout_marginBottom="0dip"
     android:layout_weight="1">
 
     <ImageView android:id="@+id/color"
         android:layout_width="30dip"
         android:layout_height="30dip"
-        android:layout_marginLeft="6dip"
-        android:layout_marginRight="6dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="8dip"
+        android:gravity="center_vertical"
         android:cropToPadding="true"
     />
 
     <TextView android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/color"
+        android:layout_marginLeft="44dip"
         android:singleLine="true"
         android:ellipsize="marquee"
-        style="?android:attr/textAppearanceLarge"
+        style="?android:attr/textAppearanceMedium"
         android:duplicateParentState="true"
     />
 
