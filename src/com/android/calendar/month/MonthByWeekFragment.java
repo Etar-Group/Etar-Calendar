@@ -118,6 +118,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
                 mEventUri = updateUri();
                 mLoader.setUri(mEventUri);
                 mLoader.startLoading();
+                mLoader.onContentChanged();
                 if (Log.isLoggable(TAG, Log.DEBUG)) {
                     Log.d(TAG, "Started loader with uri: " + mEventUri);
                 }
