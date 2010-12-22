@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.pim.EventRecurrence;
 import android.provider.Calendar;
 import android.provider.Calendar.Events;
+import android.text.TextUtils;
 import android.text.format.Time;
 import android.widget.Button;
 
@@ -209,7 +210,7 @@ public class DeleteEventHelper {
         // user if they want to delete all of the repeating events or
         // just some of them.
         String rRule = mCursor.getString(mEventIndexRrule);
-        if (rRule == null) {
+        if (TextUtils.isEmpty(rRule)) {
             // This is a normal event. Pop up a confirmation dialog.
             new AlertDialog.Builder(mParent)
             .setTitle(R.string.delete_title)
