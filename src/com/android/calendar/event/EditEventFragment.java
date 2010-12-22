@@ -677,8 +677,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
     @Override
     public void onPause() {
         Activity act = getActivity();
-        if (act != null && mIsReadOnly && !act.isChangingConfigurations()
-                && mView.fillModelFromReadOnlyUi()) {
+        if (mSaveOnDetach && act != null && !mIsReadOnly && !act.isChangingConfigurations()
+                && mView.prepareForSave()) {
             mOnDone.setDoneCode(Utils.DONE_SAVE);
             mOnDone.run();
         }
