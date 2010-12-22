@@ -1164,9 +1164,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
             mLocationGroup.setVisibility(View.VISIBLE);
             mDescriptionGroup.setVisibility(View.VISIBLE);
-
-            // force an update of allDay dependent fields
-            setAllDayViewsVisibility(mAllDayCheckBox.isChecked());
         }
     }
 
