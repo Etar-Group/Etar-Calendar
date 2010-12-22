@@ -715,7 +715,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     // target hour + 1 (to give it room to see the event) -
                     // grid height (to get the y of the top of the visible
                     // region)
-                    gotoY = (int) ((mBaseDate.hour + 1 + (float) mBaseDate.minute / 60.0f)
+                    gotoY = (int) ((mBaseDate.hour + 1 + mBaseDate.minute / 60.0f)
                             * (mCellHeight + HOUR_GAP) - mGridAreaHeight);
                 }
             }
@@ -3369,7 +3369,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * @param y the y position of the touch
      * @return true if the touch position is valid
      */
-    private boolean setSelectionFromPosition(int x, int y) {
+    private boolean setSelectionFromPosition(final int x, final int y) {
         if (x < mHoursWidth) {
             return false;
         }
@@ -3386,12 +3386,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mSelectionAllDay = true;
         } else {
             // y is now offset from top of the scrollable region
-            y -= mFirstCell;
+            int adjustedY = y - mFirstCell;
 
-            if (y < mFirstHourOffset) {
+            if (adjustedY < mFirstHourOffset) {
                 --mSelectionHour; /* In the partially visible hour */
             } else {
-                mSelectionHour += (y - mFirstHourOffset) / (mCellHeight + HOUR_GAP);
+                mSelectionHour += (adjustedY - mFirstHourOffset) / (mCellHeight + HOUR_GAP);
             }
 
             mSelectionAllDay = false;
