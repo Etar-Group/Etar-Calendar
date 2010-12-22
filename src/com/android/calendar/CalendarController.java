@@ -141,8 +141,26 @@ public class CalendarController {
         public int y; // y coordinate in the activity space
         public String query; // query for a user search
         public ComponentName componentName;  // used in combination with query
-        public long extraLong; // pass through
+
+        /**
+         * For EventType.VIEW_EVENT:
+         * It is the default attendee response.
+         * Set to {@link #ATTENDEE_NO_RESPONSE}, Calendar.ATTENDEE_STATUS_ACCEPTED,
+         * Calendar.ATTENDEE_STATUS_DECLINED, or Calendar.ATTENDEE_STATUS_TENTATIVE.
+         * <p>
+         * For EventType.GO_TO:
+         * Set to {@link #EXTRA_GOTO_TIME} to go to the specified date/time.
+         * Set to {@link #EXTRA_GOTO_DATE} to consider the date but ignore the time.
+         */
+        public long extraLong;
     }
+
+    /**
+     * Pass to the ExtraLong parameter for EventType.GO_TO to signal the time
+     * can be ignored
+     */
+    public static final long EXTRA_GOTO_DATE = 1;
+    public static final long EXTRA_GOTO_TIME = -1;
 
     public interface EventHandler {
         long getSupportedEventTypes();
@@ -212,7 +230,8 @@ public class CalendarController {
      * @param endMillis end time
      * @param x x coordinate in the activity space
      * @param y y coordinate in the activity space
-     * @param extraLong default response value // currently only works for the simple event view
+     * @param extraLong default response value for the "simple event view". Use
+     *            CalendarController.ATTENDEE_NO_RESPONSE for no response.
      */
     public void sendEventRelatedEvent(Object sender, long eventType, long eventId, long startMillis,
             long endMillis, int x, int y, long extraLong) {
@@ -245,14 +264,14 @@ public class CalendarController {
      */
     public void sendEvent(Object sender, long eventType, Time start, Time end, long eventId,
             int viewType) {
-        sendEvent(sender, eventType, start, end, eventId, viewType, null, null);
+        sendEvent(sender, eventType, start, end, eventId, viewType, EXTRA_GOTO_TIME, null, null);
     }
 
     /**
-     * sendEvent() variant mainly used for search.
+     * sendEvent() variant with extraLong, search query, and search component name.
      */
     public void sendEvent(Object sender, long eventType, Time start, Time end, long eventId,
-            int viewType, String query, ComponentName componentName) {
+            int viewType, long extraLong, String query, ComponentName componentName) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         info.startTime = start;
@@ -262,6 +281,7 @@ public class CalendarController {
         info.viewType = viewType;
         info.query = query;
         info.componentName = componentName;
+        info.extraLong = extraLong;
         this.sendEvent(sender, info);
     }
 

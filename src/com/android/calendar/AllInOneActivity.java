@@ -582,7 +582,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public boolean onSubmitQuery(String query) {
-        mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, query,
+        mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, -1, query,
                 getComponentName());
         return false;
     }
