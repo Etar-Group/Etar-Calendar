@@ -184,6 +184,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
 
         sendEventsToView(v);
 
+        v.invalidate();
         return v;
     }
 

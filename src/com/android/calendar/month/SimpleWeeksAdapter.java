@@ -235,6 +235,7 @@ public class SimpleWeeksAdapter extends BaseAdapter implements OnTouchListener {
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_WEEK, position);
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_FOCUS_MONTH, mFocusMonth);
         v.setWeekParams(drawingParams, mSelectedDay.timezone);
+        v.invalidate();
 
         return v;
     }
