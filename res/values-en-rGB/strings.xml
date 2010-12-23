@@ -20,8 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"What"</string>
     <string name="where_label" msgid="3472482206065595118">"Where"</string>
     <string name="when_label" msgid="894636567327261599">"When"</string>
-    <!-- no translation found for timezone_label (2030635806231207425) -->
-    <skip />
+    <string name="timezone_label" msgid="2030635806231207425">"Time zone"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Guests"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Repetition"</string>
@@ -42,8 +41,7 @@
     <item quantity="one" msgid="5988137255732166573">"1 day"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> days"</item>
   </plurals>
-    <!-- no translation found for calendar_refresh (6172731193680500025) -->
-    <skip />
+    <string name="calendar_refresh" msgid="6172731193680500025">"Refresh"</string>
     <string name="show_agenda_view" msgid="7971854300981408347">"Show agenda"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Show day"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
@@ -57,26 +55,21 @@
     <string name="goto_today" msgid="9162136434410891230">"Today"</string>
     <string name="menu_select_calendars" msgid="6200145996783123958">"Calendars"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Settings"</string>
-    <!-- no translation found for search (550656004486017426) -->
-    <skip />
+    <string name="search" msgid="550656004486017426">"Search"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(plus <xliff:g id="MORE_COUNT">%d</xliff:g> more…)"</string>
     <string name="calendars_title" msgid="4046980972626276968">"Calendars"</string>
     <string name="synced_visible" msgid="1406744353749335651">"synced, visible"</string>
     <string name="synced_not_visible" msgid="54032655953110609">"synced, not visible"</string>
     <string name="not_synced_not_visible" msgid="7178879061972059481">"not synced, not visible"</string>
-    <!-- no translation found for synced (7913940305983383493) -->
-    <skip />
-    <!-- no translation found for not_synced (4275114941801829419) -->
-    <skip />
-    <!-- no translation found for acct_not_synced (2225937158458147648) -->
-    <skip />
-    <!-- no translation found for accounts (849401841083180306) -->
-    <skip />
+    <string name="synced" msgid="7913940305983383493">"synced"</string>
+    <string name="not_synced" msgid="4275114941801829419">"not synced"</string>
+    <string name="acct_not_synced" msgid="2225937158458147648">"This account is not being synced and your calendars may not be up to date."</string>
+    <string name="accounts" msgid="849401841083180306">"Accounts &amp; sync"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Event details"</string>
     <string name="hint_what" msgid="709155115005044531">"Event name"</string>
     <string name="hint_where" msgid="3116239630502213241">"Event location"</string>
     <string name="hint_description" msgid="4198202812240544553">"Event description"</string>
-    <!-- outdated translation 6036653711383143333 -->     <string name="hint_attendees" msgid="6367757073203911244">"Email addresses"</string>
+    <string name="hint_attendees" msgid="6367757073203911244">"Enter email addresses"</string>
     <string name="creating_event" msgid="5252306542761552414">"Event created"</string>
     <string name="saving_event" msgid="7716081507367732169">"Event saved"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Loading calendars"</string>
@@ -91,43 +84,34 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"From"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"All day"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Calendar"</string>
-    <!-- no translation found for edit_event_show_all (4558049350756058301) -->
-    <skip />
+    <string name="edit_event_show_all" msgid="4558049350756058301">"Show all"</string>
     <string name="description_label" msgid="7193475046717505855">"Description"</string>
     <string name="presence_label" msgid="6169724148441175862">"Show me as"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Reminders"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No calendars"</string>
-    <!-- outdated translation 755379468136462058 -->     <string name="no_calendars_found" msgid="5354626435783289467">"You have no calendars."</string>
-    <!-- no translation found for add_account (1669072099756774952) -->
-    <skip />
-    <!-- no translation found for add_guests_label (7294569977062998743) -->
-    <skip />
+    <string name="no_calendars_found" msgid="5354626435783289467">"Before you can add an event, you must add at least one Calendar account to the device. Touch \"Add account\" to add an account. Or if you\'ve just added an account, wait for it to finish syncing and try again."</string>
+    <string name="add_account" msgid="1669072099756774952">"Add account"</string>
+    <string name="add_guests_label" msgid="7294569977062998743">"Add guests"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Calendar"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organiser:"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Local time zone:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Attending?"</string>
-    <!-- no translation found for response_yes (2027484304899988350) -->
-    <skip />
-    <!-- no translation found for response_maybe (7791500973627841695) -->
-    <skip />
-    <!-- no translation found for response_no (561911691884148136) -->
-    <skip />
+    <string name="response_yes" msgid="2027484304899988350">"Yes"</string>
+    <string name="response_maybe" msgid="7791500973627841695">" Maybe"</string>
+    <string name="response_no" msgid="561911691884148136">"No"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Today, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Loading…"</string>
-    <!-- no translation found for show_older_events (5140647493681439926) -->
-    <skip />
-    <!-- no translation found for show_newer_events (2604638815440163080) -->
-    <skip />
-    <!-- no translation found for search_title (8898015280250716254) -->
-    <skip />
+    <string name="show_older_events" msgid="5140647493681439926">"Touch to view events before <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Touch to view events after <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="search_title" msgid="8898015280250716254">"Search my calendars"</string>
     <string name="num_events" msgid="3351672964607162257">"Num events"</string>
-    <!-- outdated translation 2900418236819088363 -->     <string name="edit_event_label" msgid="7413222956349977161">"Edit event"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"Details"</string>
     <string name="edit_label" msgid="8934331258435656534">"Edit"</string>
     <string name="delete_label" msgid="874742811918030739">"Delete"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"Delete event"</string>
     <string name="save_label" msgid="2133599104834432589">"Done"</string>
-    <!-- outdated translation 6121370942133492815 -->     <string name="discard_label" msgid="2394623883289782541">"Discard changes"</string>
+    <string name="discard_label" msgid="2394623883289782541">"Cancel"</string>
     <string name="import_label" msgid="6993796574741477222">"Import"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Snooze all"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Dismiss all"</string>
@@ -140,7 +124,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Yearly"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Monthly (on day <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Yearly (on <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3784569535926286624">"Customisation… (cannot customise on tablet)"</string>
+    <string name="custom" product="tablet" msgid="3784569535926286624">"Customised… (cannot customise on tablet)"</string>
     <string name="custom" product="default" msgid="3015205670911301856">"Custom… (cannot customise on phone)"</string>
     <string name="modify_event" msgid="4501745557655992422">"Change only this event."</string>
     <string name="modify_all" msgid="7506579040966638538">"Change all events in the series."</string>
@@ -148,22 +132,17 @@
     <string name="delete_this_event_title" msgid="8738491083082780492">"This event will be deleted."</string>
     <string name="delete_title" msgid="5143743507524995383">"Delete"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Change response"</string>
-    <!-- no translation found for menu_general_preferences (4057784477122524106) -->
-    <skip />
-    <!-- no translation found for menu_about_preferences (160474554936812478) -->
-    <skip />
+    <string name="menu_general_preferences" msgid="4057784477122524106">"General Preferences"</string>
+    <string name="menu_about_preferences" msgid="160474554936812478">"About calendar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Settings"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Calendar view setting"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Reminder settings"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Hide declined events"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Week starts on"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Week starts on"</string>
-    <!-- no translation found for preferences_clear_search_history_title (6619916370215282982) -->
-    <skip />
-    <!-- no translation found for preferences_clear_search_history_summary (5813077357221990) -->
-    <skip />
-    <!-- no translation found for search_history_cleared (7317062958300188595) -->
-    <skip />
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Clear search history"</string>
+    <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"Remove all the searches that you have performed"</string>
+    <string name="search_history_cleared" msgid="7317062958300188595">"Search history cleared"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notifications"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrate"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Also vibrate for reminders"</string>
@@ -172,14 +151,10 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Default reminder time"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Default reminder time"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <!-- no translation found for preferences_use_home_tz_title (5597546849968598210) -->
-    <skip />
-    <!-- no translation found for preferences_use_home_tz_descrip (4835375381297413746) -->
-    <skip />
-    <!-- no translation found for preferences_home_tz_title (6680000444088818578) -->
-    <skip />
-    <!-- no translation found for preferences_show_week_num_title (5280734329664503461) -->
-    <skip />
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Use home time zone"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Displays calendars and event times in your home time zone when travelling"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Home time zone"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Show week number"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"About"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Build version"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
@@ -201,6 +176,5 @@
     <string name="tomorrow" msgid="614434811813859237">"Tomorrow"</string>
     <string name="in_progress" msgid="3637799356103489011">"in progress"</string>
     <string name="today" msgid="8577375020252453006">"Today"</string>
-    <!-- no translation found for directory_searching_fmt (1232037509095606687) -->
-    <skip />
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"Searching <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
 </resources>

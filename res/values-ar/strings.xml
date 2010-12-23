@@ -20,8 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"الحدث"</string>
     <string name="where_label" msgid="3472482206065595118">"المكان"</string>
     <string name="when_label" msgid="894636567327261599">"الموعد"</string>
-    <!-- no translation found for timezone_label (2030635806231207425) -->
-    <skip />
+    <string name="timezone_label" msgid="2030635806231207425">"المنطقة الزمنية"</string>
     <string name="attendees_label" msgid="2971281641565729725">"المدعوون"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"التكرار"</string>
@@ -42,8 +41,7 @@
     <item quantity="one" msgid="5988137255732166573">"يوم واحد"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> يوم"</item>
   </plurals>
-    <!-- no translation found for calendar_refresh (6172731193680500025) -->
-    <skip />
+    <string name="calendar_refresh" msgid="6172731193680500025">"تحديث"</string>
     <string name="show_agenda_view" msgid="7971854300981408347">"عرض الأجندة"</string>
     <string name="show_day_view" msgid="5782512782605466016">"عرض اليوم"</string>
     <string name="agenda_view" msgid="5566084759423843245">"الأجندة"</string>
@@ -57,26 +55,21 @@
     <string name="goto_today" msgid="9162136434410891230">"اليوم"</string>
     <string name="menu_select_calendars" msgid="6200145996783123958">"التقاويم"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"الإعدادات"</string>
-    <!-- no translation found for search (550656004486017426) -->
-    <skip />
+    <string name="search" msgid="550656004486017426">"بحث"</string>
     <string name="plus_N_more" msgid="2527895721728080055">"(بالإضافة إلى <xliff:g id="MORE_COUNT">%d</xliff:g> من الأحداث الأخرى…)"</string>
     <string name="calendars_title" msgid="4046980972626276968">"التقاويم"</string>
     <string name="synced_visible" msgid="1406744353749335651">"تمت المزامنة، مرئي"</string>
     <string name="synced_not_visible" msgid="54032655953110609">"تمت المزامنة. غير مرئي"</string>
     <string name="not_synced_not_visible" msgid="7178879061972059481">"لم تتم المزامنة. غير مرئي"</string>
-    <!-- no translation found for synced (7913940305983383493) -->
-    <skip />
-    <!-- no translation found for not_synced (4275114941801829419) -->
-    <skip />
-    <!-- no translation found for acct_not_synced (2225937158458147648) -->
-    <skip />
-    <!-- no translation found for accounts (849401841083180306) -->
-    <skip />
+    <string name="synced" msgid="7913940305983383493">"تمت مزامنته"</string>
+    <string name="not_synced" msgid="4275114941801829419">"لم تتم مزامنته"</string>
+    <string name="acct_not_synced" msgid="2225937158458147648">"لم يتم مزامنة هذا الحساب وربما لا تكون تقويماتك محدثة."</string>
+    <string name="accounts" msgid="849401841083180306">"الحسابات والمزامنة"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"تفاصيل الحدث"</string>
     <string name="hint_what" msgid="709155115005044531">"اسم الحدث"</string>
     <string name="hint_where" msgid="3116239630502213241">"مكان الحدث"</string>
     <string name="hint_description" msgid="4198202812240544553">"وصف الحدث"</string>
-    <!-- outdated translation 6036653711383143333 -->     <string name="hint_attendees" msgid="6367757073203911244">"عناوين البريد الإلكتروني"</string>
+    <string name="hint_attendees" msgid="6367757073203911244">"أدخل عناوين البريد الإلكتروني"</string>
     <string name="creating_event" msgid="5252306542761552414">"تم إنشاء الحدث"</string>
     <string name="saving_event" msgid="7716081507367732169">"تم حفظ الحدث"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"تحميل التقاويم"</string>
@@ -91,43 +84,34 @@
     <string name="edit_event_from_label" msgid="174999102612666115">"من"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"اليوم كله"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"التقويم"</string>
-    <!-- no translation found for edit_event_show_all (4558049350756058301) -->
-    <skip />
+    <string name="edit_event_show_all" msgid="4558049350756058301">"عرض الكل"</string>
     <string name="description_label" msgid="7193475046717505855">"الوصف"</string>
     <string name="presence_label" msgid="6169724148441175862">"حالتي المعروضة هي"</string>
     <string name="privacy_label" msgid="9215031965259597335">"الخصوصية"</string>
     <string name="reminders_label" msgid="8345054160145333166">"التذكيرات"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"بلا تقاويم"</string>
-    <!-- outdated translation 755379468136462058 -->     <string name="no_calendars_found" msgid="5354626435783289467">"ليست لديك أية تقاويم."</string>
-    <!-- no translation found for add_account (1669072099756774952) -->
-    <skip />
-    <!-- no translation found for add_guests_label (7294569977062998743) -->
-    <skip />
+    <string name="no_calendars_found" msgid="5354626435783289467">"قبل التمكن من إضافة حدث ما، يجب إضافة حساب تقويم واحد على الأقل إلى الجهاز. المس \"إضافة حساب\" لإضافة حساب. أو إذا كنت قد أضفت لتوك حسابًا، فانتظر لحين إنهائه المزامنة ثم أعد المحاولة."</string>
+    <string name="add_account" msgid="1669072099756774952">"إضافة حساب"</string>
+    <string name="add_guests_label" msgid="7294569977062998743">"إضافة مدعوين"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"التقويم"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"المنظِّم:"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"المنطقة الزمنية المحلية:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"هل ستحضر؟"</string>
-    <!-- no translation found for response_yes (2027484304899988350) -->
-    <skip />
-    <!-- no translation found for response_maybe (7791500973627841695) -->
-    <skip />
-    <!-- no translation found for response_no (561911691884148136) -->
-    <skip />
+    <string name="response_yes" msgid="2027484304899988350">"نعم"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"ربما"</string>
+    <string name="response_no" msgid="561911691884148136">"لا"</string>
     <string name="agenda_today" msgid="6489447319363439068">"اليوم، <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"جارٍ التحميل…"</string>
-    <!-- no translation found for show_older_events (5140647493681439926) -->
-    <skip />
-    <!-- no translation found for show_newer_events (2604638815440163080) -->
-    <skip />
-    <!-- no translation found for search_title (8898015280250716254) -->
-    <skip />
+    <string name="show_older_events" msgid="5140647493681439926">"يمكنك اللمس لمشاهدة الأحداث قبل <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"يمكنك اللمس لمشاهدة الأحداث بعد <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="search_title" msgid="8898015280250716254">"البحث تقاويمي"</string>
     <string name="num_events" msgid="3351672964607162257">"عدد الأحداث"</string>
-    <!-- outdated translation 2900418236819088363 -->     <string name="edit_event_label" msgid="7413222956349977161">"تعديل الحدث"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"التفاصيل"</string>
     <string name="edit_label" msgid="8934331258435656534">"تعديل"</string>
     <string name="delete_label" msgid="874742811918030739">"حذف"</string>
     <string name="delete_event_label" msgid="3738436215987360463">"حذف حدث"</string>
     <string name="save_label" msgid="2133599104834432589">"تم"</string>
-    <!-- outdated translation 6121370942133492815 -->     <string name="discard_label" msgid="2394623883289782541">"تجاهل التغييرات"</string>
+    <string name="discard_label" msgid="2394623883289782541">"إلغاء"</string>
     <string name="import_label" msgid="6993796574741477222">"استيراد"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"غفوة مؤقتة للكل"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"استبعاد الكل"</string>
@@ -140,7 +124,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"سنويًا"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"شهريًا ( يوم <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"سنويًا (بتاريخ <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3784569535926286624">"مخصص… (لا يمكن التخصيص على الجهاز اللوحي)"</string>
+    <string name="custom" product="tablet" msgid="3784569535926286624">"مخصص… ( لا يمكن التخصيص على الجهاز اللوحي)"</string>
     <string name="custom" product="default" msgid="3015205670911301856">"مخصص… ( لا يمكن التخصيص على الهاتف)"</string>
     <string name="modify_event" msgid="4501745557655992422">"تغيير هذا الحدث فقط."</string>
     <string name="modify_all" msgid="7506579040966638538">"تغيير جميع الأحداث في سلسلة الأحداث."</string>
@@ -148,42 +132,29 @@
     <string name="delete_this_event_title" msgid="8738491083082780492">"سيتم حذف هذا الحدث."</string>
     <string name="delete_title" msgid="5143743507524995383">"حذف"</string>
     <string name="change_response_title" msgid="7704714776070974984">"تغيير الرد"</string>
-    <!-- no translation found for menu_general_preferences (4057784477122524106) -->
-    <skip />
-    <!-- no translation found for menu_about_preferences (160474554936812478) -->
-    <skip />
+    <string name="menu_general_preferences" msgid="4057784477122524106">"التفضيلات العامة"</string>
+    <string name="menu_about_preferences" msgid="160474554936812478">"حول التقويم"</string>
     <string name="preferences_title" msgid="8045855493262131773">"الإعدادات"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"إعداد عرض التقويم"</string>
-    <!-- no translation found for preferences_reminder_title (6940022527071973010) -->
-    <skip />
+    <string name="preferences_reminder_title" msgid="6940022527071973010">"إعدادات التذكير"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"إخفاء الأحداث التي تم رفضها"</string>
-    <!-- no translation found for preferences_week_start_day_title (4619489296444901622) -->
-    <skip />
-    <!-- no translation found for preferences_week_start_day_dialog (5181634128884089113) -->
-    <skip />
-    <!-- no translation found for preferences_clear_search_history_title (6619916370215282982) -->
-    <skip />
-    <!-- no translation found for preferences_clear_search_history_summary (5813077357221990) -->
-    <skip />
-    <!-- no translation found for search_history_cleared (7317062958300188595) -->
-    <skip />
-    <!-- outdated translation 6511227171114210908 -->     <string name="preferences_alerts_title" msgid="6636088008103904020">"إعدادات التذكير"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"يبدأ الأسبوع يوم"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"يبدأ الأسبوع يوم"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"محو سجل البحث"</string>
+    <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"إزالة جميع عمليات البحث التي أجريتها"</string>
+    <string name="search_history_cleared" msgid="7317062958300188595">"تم محو سجل البحث"</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"التنبيهات"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"اهتزاز"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"الاهتزاز للتذكيرات أيضًا"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"تحديد نغمة رنين"</string>
-    <!-- no translation found for preferences_alerts_popup_title (6643468203670475296) -->
-    <skip />
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"التنبيه المنبثق"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"وقت التذكير الافتراضي"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"وقت التذكير الافتراضي"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <!-- no translation found for preferences_use_home_tz_title (5597546849968598210) -->
-    <skip />
-    <!-- no translation found for preferences_use_home_tz_descrip (4835375381297413746) -->
-    <skip />
-    <!-- no translation found for preferences_home_tz_title (6680000444088818578) -->
-    <skip />
-    <!-- no translation found for preferences_show_week_num_title (5280734329664503461) -->
-    <skip />
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"استخدام المنطقة الزمنية الأساسية"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"لعرض التقويمات وأوقات الأحداث في المنطقة الزمنية الأساسية أثناء السفر"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"المنطقة الزمنية الأساسية"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"إظهار رقم الأسبوع"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"حول"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"نسخة الإصدار"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
@@ -192,8 +163,7 @@
     <item msgid="4552962311897985633">"مطلقًا"</item>
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"اهتزاز"</string>
-    <!-- no translation found for gadget_title (939918875331310945) -->
-    <skip />
+    <string name="gadget_title" msgid="939918875331310945">"التقويم"</string>
   <plurals name="gadget_more_events">
     <item quantity="one" msgid="1813062802420615657">"حدث واحد إضافي"</item>
     <item quantity="other" msgid="7993512762778431065">"عدد <xliff:g id="NUMBER">%d</xliff:g> من الأحداث الإضافية"</item>
@@ -203,12 +173,8 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"لا توجد أحداث تقويم قادمة"</string>
-    <!-- no translation found for tomorrow (614434811813859237) -->
-    <skip />
-    <!-- no translation found for in_progress (3637799356103489011) -->
-    <skip />
-    <!-- no translation found for today (8577375020252453006) -->
-    <skip />
-    <!-- no translation found for directory_searching_fmt (1232037509095606687) -->
-    <skip />
+    <string name="tomorrow" msgid="614434811813859237">"غدًا"</string>
+    <string name="in_progress" msgid="3637799356103489011">"قيد التقدم"</string>
+    <string name="today" msgid="8577375020252453006">"اليوم"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"جارِ البحث في <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
 </resources>
