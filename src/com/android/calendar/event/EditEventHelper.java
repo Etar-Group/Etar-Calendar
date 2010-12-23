@@ -280,9 +280,6 @@ public class EditEventHelper {
             return false;
         }
 
-        // TODO Check if anything has been changed and return false if it
-        // hasn't.
-
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
         int eventIdIndex = -1;
 
@@ -421,6 +418,9 @@ public class EditEventHelper {
                 values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
                 values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
                 int initialStatus = Attendees.ATTENDEE_STATUS_ACCEPTED;
+                if (originalModel != null) {
+                    initialStatus = model.mSelfAttendeeStatus;
+                }
 
                 // Don't accept for secondary calendars
                 if (ownerEmail.endsWith("calendar.google.com")) {

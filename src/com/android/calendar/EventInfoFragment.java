@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ActivityNotFoundException;
+import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -36,6 +37,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.pim.EventRecurrence;
+import android.provider.Calendar;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
@@ -611,6 +613,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (mEventCursor == null || !mEventCursor.moveToFirst()) {
             return;
         }
+        // TODO change this fragment to build a CalendarEventModel and save via
+        // EditEventHelper
 
         ContentValues values = new ContentValues();
 
@@ -632,9 +636,55 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         values.put(Events.STATUS, Events.STATUS_CONFIRMED);
         values.put(Events.SELF_ATTENDEE_STATUS, status);
 
+        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+        int eventIdIndex = ops.size();
+
+        ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(values).build());
+
+        if (mHasAttendeeData) {
+            ContentProviderOperation.Builder b;
+            // Insert the new attendees
+            for (Attendee attendee : mAcceptedAttendees) {
+                addAttendee(
+                        values, ops, eventIdIndex, attendee, Attendees.ATTENDEE_STATUS_ACCEPTED);
+            }
+            for (Attendee attendee : mDeclinedAttendees) {
+                addAttendee(
+                        values, ops, eventIdIndex, attendee, Attendees.ATTENDEE_STATUS_DECLINED);
+            }
+            for (Attendee attendee : mTentativeAttendees) {
+                addAttendee(
+                        values, ops, eventIdIndex, attendee, Attendees.ATTENDEE_STATUS_TENTATIVE);
+            }
+            for (Attendee attendee : mNoResponseAttendees) {
+                addAttendee(values, ops, eventIdIndex, attendee, Attendees.ATTENDEE_STATUS_NONE);
+            }
+        }
+
         // Create a recurrence exception
-        mHandler.startInsert(mHandler.getNextToken(), null,
-                Events.CONTENT_URI, values, Utils.UNDO_DELAY);
+        mHandler.startBatch(
+                mHandler.getNextToken(), null, Calendar.AUTHORITY, ops, Utils.UNDO_DELAY);
+    }
+
+    /**
+     * @param values
+     * @param ops
+     * @param eventIdIndex
+     * @param attendee
+     */
+    private void addAttendee(ContentValues values, ArrayList<ContentProviderOperation> ops,
+            int eventIdIndex, Attendee attendee, int attendeeStatus) {
+        ContentProviderOperation.Builder b;
+        values.clear();
+        values.put(Attendees.ATTENDEE_NAME, attendee.mName);
+        values.put(Attendees.ATTENDEE_EMAIL, attendee.mEmail);
+        values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ATTENDEE);
+        values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+        values.put(Attendees.ATTENDEE_STATUS, attendeeStatus);
+
+        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI).withValues(values);
+        b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
+        ops.add(b.build());
     }
 
     public static int getResponseFromButtonId(int buttonId) {
