@@ -80,7 +80,8 @@ import java.util.regex.Pattern;
  * View for multi-day view. So far only 1 and 7 day have been tested.
  */
 public class DayView extends View implements View.OnCreateContextMenuListener,
-        ScaleGestureDetector.OnScaleGestureListener, View.OnClickListener {
+        ScaleGestureDetector.OnScaleGestureListener, View.OnClickListener, View.OnLongClickListener
+        {
     private static String TAG = "DayView";
     private static boolean DEBUG = false;
 
@@ -608,6 +609,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         // Enable touching the popup window
         mPopupView.setOnClickListener(this);
+        // Catch long clicks for creating a new event
+        setOnLongClickListener(this);
 
         mBaseDate = new Time(Utils.getTimeZone(context, mTZUpdater));
         long millis = System.currentTimeMillis();
@@ -3706,5 +3709,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             DayView.this.doDown(ev);
             return true;
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
+                getSelectedTimeInMillis(), 0, -1, -1);
+        return true;
     }
 }
