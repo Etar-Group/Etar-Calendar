@@ -19,6 +19,7 @@ package com.android.calendar.month;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.Event;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
@@ -384,6 +385,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             if (time.toMillis(true) != controller.getTime() && mUserScrolled) {
                 controller.setTime(time.toMillis(true) + DateUtils.WEEK_IN_MILLIS * mNumWeeks / 3);
             }
+            controller.sendEvent(this, EventType.UPDATE_TITLE, time, null, -1, ViewType.CURRENT,
+                    DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_MONTH_DAY
+                            | DateUtils.FORMAT_SHOW_YEAR, null, null);
         }
     }
 

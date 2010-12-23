@@ -38,6 +38,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
@@ -63,11 +64,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
         ActionBar.TabListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
-    private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
     private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     private static final String BUNDLE_KEY_RESTORE_EDIT = "key_restore_edit";
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
     private static final int HANDLER_KEY = 0;
+
     private static CalendarController mController;
     private static boolean mIsMultipane;
     private boolean mOnSaveInstanceStateCalled = false;
@@ -77,6 +78,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private boolean mPaused = true;
     private boolean mUpdateOnResume = false;
     private TextView mHomeTime;
+    private TextView mDateRange;
     private String mTimeZone;
 
     private long mViewEventId = -1;
@@ -152,10 +154,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
             Log.d(TAG, "not both, icicle:" + icicle + " intent:" + intent);
         }
 
-        mIsMultipane = (getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
+        Resources res = getResources();
+        mIsMultipane =
+                (res.getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
 
         Utils.allowWeekForDetailView(mIsMultipane);
+
+        mDateRange = (TextView) getLayoutInflater().inflate(R.layout.date_range_title, null);
 
         // setContentView must be called before configureActionBar
         setContentView(R.layout.all_in_one);
@@ -222,6 +227,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mMonthTab.setText(getString(R.string.month_view));
             mMonthTab.setTabListener(this);
             mActionBar.addTab(mMonthTab);
+            mActionBar.setCustomView(mDateRange);
+            mActionBar.setDisplayOptions(
+                    ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
         }
     }
 
@@ -460,9 +468,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 }
                 frag = new MonthByWeekFragment(timeMillis, false);
                 break;
-//            case ViewType.EDIT:
-//                frag = new EditEventFragment(e, mPreviousView);
-//                break;
             default:
                 throw new IllegalArgumentException(
                         "Must be Agenda, Day, Week, or Month ViewType, not " + viewType);
@@ -488,7 +493,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     }
 
     private void setTitleInActionBar(EventInfo event) {
-        if (event.eventType != EventType.GO_TO || mActionBar == null) {
+        if (event.eventType != EventType.UPDATE_TITLE || mActionBar == null) {
             return;
         }
 
@@ -500,8 +505,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
             end = start;
         }
 
-        final String msg = Utils.formatDateRange(this, start, end, DateUtils.FORMAT_SHOW_DATE);
-        // TODO: add title here.
+        final String msg = Utils.formatDateRange(this, start, end, (int) event.extraLong);
+
+        mDateRange.setText(msg);
     }
 
     private void updateHomeClock() {
@@ -534,17 +540,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public long getSupportedEventTypes() {
-        return EventType.GO_TO | EventType.VIEW_EVENT;
+        return EventType.GO_TO | EventType.VIEW_EVENT | EventType.UPDATE_TITLE;
     }
 
     @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
-            // Set title bar
-            // TODO: Currently we don't have an appropriate way to add title bar when
-            //        ActionBar is in TabNavigation mode.
-            // setTitleInActionBar(event);
-
             setMainPane(null, R.id.main_pane, event.viewType, event.startTime.toMillis(false),
                     false, event);
 
@@ -566,6 +567,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     (int) event.extraLong);
             fragment.setDialogParams(event.x, event.y);
             fragment.show(getFragmentManager(), "EventInfoFragment");
+        } else if (event.eventType == EventType.UPDATE_TITLE) {
+            setTitleInActionBar(event);
         }
         updateHomeClock();
     }

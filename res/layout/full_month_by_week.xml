@@ -22,12 +22,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:paddingTop="20dip"
     android:background="@null">
 
     <TextView android:id="@+id/month_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dip"
+        android:visibility="gone"
         style="@style/MonthView_MiniMonthLabel" />
 
     <include android:id="@+id/day_names" layout="@layout/full_month_header" />

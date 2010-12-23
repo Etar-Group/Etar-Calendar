@@ -801,6 +801,19 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         return time;
     }
 
+    public void updateTitle() {
+        Time start = new Time(mBaseDate);
+        start.normalize(true);
+        Time end = new Time(start);
+        end.monthDay += mNumDays - 1;
+        // Move it forward one minute so the formatter doesn't lose a day
+        end.minute += 1;
+        end.normalize(true);
+
+        mController.sendEvent(this, EventType.UPDATE_TITLE, start, end, -1, ViewType.CURRENT,
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR, null, null);
+    }
+
     /**
      * return a negative number if "time" is comes before the visible time
      * range, a positive number if "time" is after the visible time range, and 0
@@ -1355,12 +1368,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         view = (DayView) mViewSwitcher.getCurrentView();
         view.requestFocus();
         view.reloadEvents();
+        view.updateTitle();
 
         // Update the mini-month (but defer it until the animation
         // completes, to avoid stutter.)
         final Time start = new Time(view.mBaseDate);
         final Time end = new Time(view.mBaseDate);
-        end.monthDay += mNumDays;
+        end.monthDay += mNumDays - 1;
         end.normalize(true);
         postDelayed(new Runnable() {
             public void run() {

@@ -115,6 +115,9 @@ public class CalendarController {
 
         // User has pressed the home key
         final long USER_HOME = 1L << 9;
+
+        // date range has changed, update the title
+        final long UPDATE_TITLE = 1L << 10;
     }
 
     /**

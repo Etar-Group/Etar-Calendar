@@ -138,6 +138,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         mViewSwitcher = (ViewSwitcher) v.findViewById(R.id.switcher);
         mViewSwitcher.setFactory(this);
         mViewSwitcher.getCurrentView().requestFocus();
+        ((DayView) mViewSwitcher.getCurrentView()).updateTitle();
 
         return v;
     }
@@ -241,6 +242,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
             next.reloadEvents();
             mViewSwitcher.showNext();
             next.requestFocus();
+            next.updateTitle();
         }
     }
 
