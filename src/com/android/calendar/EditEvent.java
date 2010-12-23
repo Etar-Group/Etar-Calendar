@@ -1676,7 +1676,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             checkTimeDependentFields(values);
             ops.add(ContentProviderOperation.newUpdate(uri).withValues(values).build());
 
-        } else if (mInitialValues.getAsString(Events.RRULE) == null) {
+        } else if (TextUtils.isEmpty(mInitialValues.getAsString(Events.RRULE))) {
             // This event was changed from a non-repeating event to a
             // repeating event.
             addRecurrenceRule(values);
