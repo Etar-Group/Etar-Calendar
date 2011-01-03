@@ -19,6 +19,13 @@
 -->
 <resources>
 
+    <style name="CalendarDefaultTheme" parent="@android:style/Theme" />
+    <style name="AgendaActivityTheme" parent="@android:style/Theme.Light" />
+    <style name="EditEventTheme" parent="@android:style/Theme" />
+    <style name="EventInfoActivityTheme" parent="@android:style/Theme.Light" />
+    <style name="GoogleCalendarUriIntentFilterTheme" parent="@android:style/Theme.Light" />
+    <style name="AlertActivityTheme" parent="@android:style/Theme.Light" />
+
     <style name="Alert" parent="android:Theme.Dialog">
         <item name="android:windowBackground">@null</item>
     </style>
