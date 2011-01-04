@@ -24,4 +24,4 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingLeft="10dip"
     android:paddingRight="10dip"
-    style="?android:attr/textAppearanceMediumInverse" />
+    style="?android:attr/textAppearanceMedium" />

@@ -86,7 +86,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private static final String TAG = "EditEvent";
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final int REMINDER_FLING_VELOCITY = 2000;
-    private LayoutInflater mLayoutInflater;
 
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
@@ -110,7 +109,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     TextView mWhenView;
     TextView mTimezoneTextView;
     TextView mTimezoneLabel;
-    TextView mTimezoneFooterView;
     LinearLayout mRemindersContainer;
     MultiAutoCompleteTextView mAttendeesList;
     ImageButton mAddAttendeesButton;
@@ -325,16 +323,23 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private void showTimezoneDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-        mTimezoneAdapter = new TimezoneAdapter(builder.getContext(), mTimezone);
+        final Context alertDialogContext = builder.getContext();
+        mTimezoneAdapter = new TimezoneAdapter(alertDialogContext, mTimezone);
         builder.setTitle(R.string.timezone_label);
         builder.setSingleChoiceItems(
                 mTimezoneAdapter, mTimezoneAdapter.getRowById(mTimezone), this);
         mTimezoneDialog = builder.create();
-        mTimezoneFooterView.setText(mActivity.getString(R.string.edit_event_show_all) + " >");
-        mTimezoneFooterView.setOnClickListener(new View.OnClickListener() {
+
+        LayoutInflater layoutInflater = (LayoutInflater) alertDialogContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final TextView timezoneFooterView = (TextView) layoutInflater.inflate(
+                R.layout.timezone_footer, null);
+
+        timezoneFooterView.setText(mActivity.getString(R.string.edit_event_show_all) + " >");
+        timezoneFooterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTimezoneDialog.getListView().removeFooterView(mTimezoneFooterView);
+                mTimezoneDialog.getListView().removeFooterView(timezoneFooterView);
                 mTimezoneAdapter.showAllTimezones();
                 final int row = mTimezoneAdapter.getRowById(mTimezone);
                 // we need to post the selection changes to have them have
@@ -348,7 +353,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 });
             }
         });
-        mTimezoneDialog.getListView().addFooterView(mTimezoneFooterView);
+        mTimezoneDialog.getListView().addFooterView(timezoneFooterView);
         mTimezoneDialog.show();
     }
 
@@ -745,15 +750,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mLoadingMessage = (TextView) view.findViewById(R.id.loading_message);
         mScrollView = (ScrollView) view.findViewById(R.id.scroll_view);
 
-        mLayoutInflater = activity.getLayoutInflater();
-
         // cache all the widgets
         mCalendarsSpinner = (Spinner) view.findViewById(R.id.calendars_spinner);
         mTitleTextView = (TextView) view.findViewById(R.id.title);
         mLocationTextView = (TextView) view.findViewById(R.id.location);
         mDescriptionTextView = (TextView) view.findViewById(R.id.description);
         mTimezoneLabel = (TextView) view.findViewById(R.id.timezone_label);
-        mTimezoneFooterView = (TextView) mLayoutInflater.inflate(R.layout.timezone_footer, null);
         mStartDateButton = (Button) view.findViewById(R.id.start_date);
         mEndDateButton = (Button) view.findViewById(R.id.end_date);
         mWhenView = (TextView) mView.findViewById(R.id.when);
