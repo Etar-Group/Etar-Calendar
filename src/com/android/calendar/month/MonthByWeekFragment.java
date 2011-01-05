@@ -335,6 +335,14 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     }
 
     @Override
+    protected void updateHeader() {
+        super.updateHeader();
+        if (!mIsMiniMonth) {
+            mDayNamesHeader.findViewById(R.id.wk_label).setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         synchronized (mUpdateLoader) {
             if (Log.isLoggable(TAG, Log.DEBUG)) {

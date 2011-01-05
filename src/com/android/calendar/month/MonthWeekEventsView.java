@@ -261,11 +261,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
         int count = 7 * 4;
         int wkNumOffset = 0;
         int effectiveWidth = mWidth - mPadding * 2;
-        if (mShowWeekNum) {
-            count += 4;
-            wkNumOffset = 1;
-            effectiveWidth -= SPACING_WEEK_NUMBER;
-        }
+        count += 4;
+        wkNumOffset = 1;
+        effectiveWidth -= SPACING_WEEK_NUMBER;
         lines[0] = mPadding;
         lines[1] = DAY_SEPARATOR_OUTER_WIDTH / 2 + 1;
         lines[2] = mWidth - mPadding;
@@ -291,8 +289,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
         canvas.drawLines(lines, 0, count, p);
         p.setColor(mDaySeparatorInnerColor);
         p.setStrokeWidth(DAY_SEPARATOR_INNER_WIDTH);
-        lines[1]--;
-        lines[3]--;
         canvas.drawLines(lines, 0, count, p);
     }
 
@@ -305,37 +301,35 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
         int wkNumOffset = 0;
         int effectiveWidth = mWidth - mPadding * 2;
-        if (mShowWeekNum) {
-            wkNumOffset = 1;
-            effectiveWidth -= SPACING_WEEK_NUMBER;
-        }
-        r.top = DAY_SEPARATOR_OUTER_WIDTH;
+        wkNumOffset = 1;
+        effectiveWidth -= SPACING_WEEK_NUMBER;
+        r.top = DAY_SEPARATOR_OUTER_WIDTH + 1;
         r.bottom = mHeight;
         r.left = (mTodayIndex) * effectiveWidth / (mNumDays) + mPadding
-                + (SPACING_WEEK_NUMBER * wkNumOffset) + DAY_SEPARATOR_OUTER_WIDTH / 2;
+                + (SPACING_WEEK_NUMBER * wkNumOffset) + DAY_SEPARATOR_OUTER_WIDTH / 2 + 1;
         r.right = (mTodayIndex + 1) * effectiveWidth / (mNumDays) + mPadding
-                + (SPACING_WEEK_NUMBER * wkNumOffset) - DAY_SEPARATOR_OUTER_WIDTH / 2 - 1;
+                + (SPACING_WEEK_NUMBER * wkNumOffset) - DAY_SEPARATOR_OUTER_WIDTH / 2;
         mTodayDrawable.setBounds(r);
         mTodayDrawable.draw(canvas);
     }
 
     @Override
     protected void drawWeekNums(Canvas canvas) {
-        int y;// = (int) ((mHeight + textHeight) / 2);
+        int y;
 
         int i = 0;
         int wkNumOffset = 0;
         int effectiveWidth = mWidth - mPadding * 2;
         int todayIndex = mTodayIndex;
+        int x = PADDING_WEEK_NUMBER + mPadding;
+        y = mWeekNumHeight + PADDING_MONTH_NUMBER;
         if (mShowWeekNum) {
-            int x = PADDING_WEEK_NUMBER + mPadding;
-            y = mWeekNumHeight + PADDING_MONTH_NUMBER;
             canvas.drawText(mDayNumbers[0], x, y, mWeekNumPaint);
-            i++;
-            wkNumOffset = 1;
-            effectiveWidth -= SPACING_WEEK_NUMBER;
-            todayIndex++;
         }
+        i++;
+        wkNumOffset = 1;
+        effectiveWidth -= SPACING_WEEK_NUMBER;
+        todayIndex++;
 
         y = (mMonthNumHeight + PADDING_MONTH_NUMBER);
 
@@ -353,8 +347,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 isFocusMonth = mFocusDay[i];
                 mMonthNumPaint.setColor(isFocusMonth ? mMonthNumColor : mMonthNumOtherColor);
             }
-            int x = (i - wkNumOffset) * effectiveWidth / (mNumDays) + mPadding
-                    + PADDING_MONTH_NUMBER + (SPACING_WEEK_NUMBER * wkNumOffset);
+            x = (i - wkNumOffset) * effectiveWidth / (mNumDays) + mPadding + PADDING_MONTH_NUMBER
+                    + (SPACING_WEEK_NUMBER * wkNumOffset);
             canvas.drawText(mDayNumbers[i], x, y, mMonthNumPaint);
 
         }
@@ -366,10 +360,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
         int wkNumOffset = 0;
         int effectiveWidth = mWidth - mPadding * 2;
-        if (mShowWeekNum) {
-            wkNumOffset = 1;
-            effectiveWidth -= SPACING_WEEK_NUMBER;
-        }
+        wkNumOffset = 1;
+        effectiveWidth -= SPACING_WEEK_NUMBER;
 
         int day = -1;
         int outlineCount = 0;
@@ -514,21 +506,17 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 selectedPosition += 7;
             }
             int effectiveWidth = mWidth - mPadding * 2;
-            if (mShowWeekNum) {
-                effectiveWidth -= SPACING_WEEK_NUMBER;
-            }
+            effectiveWidth -= SPACING_WEEK_NUMBER;
             mSelectedLeft = selectedPosition * effectiveWidth / mNumDays + mPadding;
             mSelectedRight = (selectedPosition + 1) * effectiveWidth / mNumDays + mPadding;
-            if (mShowWeekNum) {
-                mSelectedLeft += SPACING_WEEK_NUMBER;
-                mSelectedRight += SPACING_WEEK_NUMBER;
-            }
+            mSelectedLeft += SPACING_WEEK_NUMBER;
+            mSelectedRight += SPACING_WEEK_NUMBER;
         }
     }
 
     @Override
     public Time getDayFromLocation(float x) {
-        int dayStart = mShowWeekNum ? SPACING_WEEK_NUMBER + mPadding : mPadding;
+        int dayStart = SPACING_WEEK_NUMBER + mPadding;
         if (x < dayStart || x > mWidth - mPadding) {
             return null;
         }

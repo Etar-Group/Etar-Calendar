@@ -262,7 +262,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     /* package */ static final int MILLIS_PER_HOUR = (3600 * 1000);
     /* package */ static final int MILLIS_PER_DAY = MILLIS_PER_HOUR * 24;
 
-    private static final int DAY_HEADER_ALPHA = 0x26000000;
+    private static final int DAY_HEADER_ALPHA = 0x80000000;
     private static final int DAY_HEADER_TODAY_ALPHA = 0x99000000;
     private static float DAY_HEADER_ONE_DAY_LEFT_MARGIN = -12;
     private static float DAY_HEADER_ONE_DAY_RIGHT_MARGIN = 5;

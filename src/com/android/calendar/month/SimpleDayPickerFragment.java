@@ -22,6 +22,7 @@ import com.android.calendar.Utils;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,9 +69,12 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     protected static final int DAYS_PER_WEEK = 7;
     // The size of the month name displayed above the week list
     protected static final int MINI_MONTH_NAME_TEXT_SIZE = 18;
-    protected static int LIST_TOP_OFFSET = 2;
+    protected static int LIST_TOP_OFFSET = 0;
     protected int WEEK_MIN_VISIBLE_HEIGHT = 12;
     protected int BOTTOM_BUFFER = 20;
+    protected int mSaturdayColor = 0;
+    protected int mSundayColor = 0;
+    protected int mDayNameColor = 0;
 
     // You can override these numbers to get a different appearance
     protected int mNumWeeks = 6;
@@ -147,6 +151,11 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         mFirstVisibleDay.timezone = tz;
         mFirstVisibleDay.normalize(true);
         mTempTime.timezone = tz;
+
+        Resources res = activity.getResources();
+        mSaturdayColor = res.getColor(R.color.month_saturday);
+        mSundayColor = res.getColor(R.color.month_sunday);
+        mDayNameColor = res.getColor(R.color.month_day_names_color);
 
         // Adjust sizes for screen density
         if (mScale == 0) {
@@ -238,6 +247,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         mListView.setFastScrollEnabled(false);
         mListView.setVerticalScrollBarEnabled(false);
         mListView.setOnScrollListener(this);
+        mListView.setFadingEdgeLength(0);
         // Make the scrolling behavior nicer
         mListView.setFriction(mFriction);
         mListView.setVelocityScale(mVelocityScale);
@@ -283,8 +293,16 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         for (int i = 1; i < 8; i++) {
             label = (TextView) mDayNamesHeader.getChildAt(i);
             if (i < mDaysPerWeek + 1) {
-                label.setText(mDayLabels[(offset + i) % 7]);
+                int position = (offset + i) % 7;
+                label.setText(mDayLabels[position]);
                 label.setVisibility(View.VISIBLE);
+                if (position == Time.SATURDAY) {
+                    label.setTextColor(mSaturdayColor);
+                } else if (position == Time.SUNDAY) {
+                    label.setTextColor(mSundayColor);
+                } else {
+                    label.setTextColor(mDayNameColor);
+                }
             } else {
                 label.setVisibility(View.GONE);
             }
