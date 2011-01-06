@@ -106,7 +106,6 @@
         <item name="android:paddingLeft">6dip</item>
         <item name="android:paddingRight">7dip</item>
         <item name="android:paddingTop">8dip</item>
-        <item name="android:animateLayoutChanges">true</item>
     </style>
 
     <style name="TextAppearance.Alert_Title">

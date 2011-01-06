@@ -39,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2"
+        android:animateLayoutChanges="true"
         android:fillViewport="true"
         android:visibility="gone" >
 
@@ -59,6 +60,7 @@
             <LinearLayout
                 android:id="@+id/two_pane"
                 android:orientation="horizontal"
+                android:paddingTop="32dip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dip"

@@ -17,8 +17,7 @@
 <TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:stretchColumns="1"
-    android:shrinkColumns="1"
-    android:animateLayoutChanges="true">
+    android:shrinkColumns="1">
 
     <!-- WHAT -->
     <TableRow>
