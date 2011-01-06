@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item msgid="9134196715565887256">"1 хв."</item>
+    <item msgid="7350720278790900276">"5 хв."</item>
+    <item msgid="559329025736829220">"10 хв."</item>
+    <item msgid="4523534383318084162">"15 хв."</item>
+    <item msgid="7153990736543668084">"20 хв."</item>
+    <item msgid="2030352540011653596">"25 хв."</item>
+    <item msgid="7307245847296317340">"30 хв."</item>
+    <item msgid="5174730509775969611">"45 хв."</item>
+    <item msgid="1920425054049263702">"1 год."</item>
+    <item msgid="6972139375792068825">"2 год."</item>
+    <item msgid="5643568168685093982">"3 год."</item>
+    <item msgid="2179302053572039553">"12 год."</item>
+    <item msgid="314399712609472931">"24 год."</item>
+    <item msgid="6908283876728494719">"2 дн."</item>
+    <item msgid="3390146235648970198">"1 тжд."</item>
+  </string-array>
+  <string-array name="timezone_labels">
+    <item msgid="6833649526258274889">"Маршалові острови"</item>
+    <item msgid="7176569939440505575">"Острів Мідвей"</item>
+    <item msgid="5000628410717488070">"Гаваї"</item>
+    <item msgid="3809977082338992040">"Аляска"</item>
+    <item msgid="1206600898319778734">"Тихоокеанський час"</item>
+    <item msgid="4251553449779733536">"Тіхуана"</item>
+    <item msgid="4796372144693551811">"Аризона"</item>
+    <item msgid="4589419122570218444">"Чиуауа"</item>
+    <item msgid="1653398220457872326">"Гірський час"</item>
+    <item msgid="229005026661478023">"Центральна Америка"</item>
+    <item msgid="1545268116831476742">"Центральний час"</item>
+    <item msgid="9135129204936732090">"Мехіко"</item>
+    <item msgid="3703110560723049255">"Саскачеван"</item>
+    <item msgid="5458958644945369505">"Богота"</item>
+    <item msgid="355450740949670294">"Східний час"</item>
+    <item msgid="5786717434693228701">"Венесуела"</item>
+    <item msgid="165048018515834952">"Атлантичний час"</item>
+    <item msgid="5398045998666341917">"Манаус"</item>
+    <item msgid="8167627904199889197">"Сантьяго"</item>
+    <item msgid="2793058279461039833">"Ньюфаундленд"</item>
+    <item msgid="5247265991408608312">"Бразиліа"</item>
+    <item msgid="7862856378699038344">"Буенос-Айрес"</item>
+    <item msgid="7307349572838946177">"Гренландія"</item>
+    <item msgid="2287491943472924232">"Монтевідео"</item>
+    <item msgid="6337125611768317903">"Середня Атлантика"</item>
+    <item msgid="1083966762112959704">"Азорські острови"</item>
+    <item msgid="3208435599095023369">"Острови Кабо-Верде"</item>
+    <item msgid="8380333624463354109">"Касабланка"</item>
+    <item msgid="8737442113188999866">"Лондон, Дублін"</item>
+    <item msgid="72424340270348400">"Амстердам, Берлін"</item>
+    <item msgid="3665952257850630547">"Белград"</item>
+    <item msgid="3284290759549286849">"Брюссель"</item>
+    <item msgid="3112943938015033049">"Сараєво"</item>
+    <item msgid="2184425710639965762">"Париж"</item>
+    <item msgid="5997630882187580225">"Віндгук"</item>
+    <item msgid="3828800493609994208">"Західно-африк. час"</item>
+    <item msgid="7527935722014187591">"Амман, Йорданія"</item>
+    <item msgid="672509109295227133">"Афіни, Стамбул"</item>
+    <item msgid="1835470340349221646">"Бейрут, Ліван"</item>
+    <item msgid="9006223109403693650">"Каїр"</item>
+    <item msgid="2877875673636361825">"Гельсінкі"</item>
+    <item msgid="4528124308590807049">"Єрусалим"</item>
+    <item msgid="7823856457885290195">"Мінськ"</item>
+    <item msgid="8650995074282357197">"Хараре"</item>
+    <item msgid="209523815326871285">"Багдад"</item>
+    <item msgid="8077211460729251609">"Москва"</item>
+    <item msgid="6103383184232804522">"Кувейт"</item>
+    <item msgid="8581935265080466099">"Найробі"</item>
+    <item msgid="1531618843539764728">"Тегеран"</item>
+    <item msgid="141548505188106312">"Баку"</item>
+    <item msgid="5974315340250149692">"Тбілісі"</item>
+    <item msgid="3344801680659888795">"Єреван"</item>
+    <item msgid="2537944335416132075">"Дубай"</item>
+    <item msgid="5630432498109110949">"Кабул"</item>
+    <item msgid="2274762525650993846">"Ісламабад, Карачі"</item>
+    <item msgid="272153171103339242">"Уральськ"</item>
+    <item msgid="4757644551253886090">"Єкатеринбург"</item>
+    <item msgid="3036512479614493957">"Колката"</item>
+    <item msgid="4190271241277312277">"Шрі-Ланка"</item>
+    <item msgid="4489139826358657866">"Катманду"</item>
+    <item msgid="1195461607876034232">"Астана"</item>
+    <item msgid="8777509327730950228">"Янгон"</item>
+    <item msgid="3838899720161825998">"Красноярськ"</item>
+    <item msgid="6495532062164690437">"Бангкок"</item>
+    <item msgid="4910549870048384487">"Пекін"</item>
+    <item msgid="7174954011332328153">"Гонконг"</item>
+    <item msgid="415034182139280334">"Іркутськ"</item>
+    <item msgid="3407263784503834649">"Куала-Лумпур"</item>
+    <item msgid="6547945295249807755">"Перт"</item>
+    <item msgid="4571776847411430193">"Тайбей"</item>
+    <item msgid="3043691515163887690">"Сеул"</item>
+    <item msgid="6369124969606372122">"Токіо, Осака"</item>
+    <item msgid="8317842783685169193">"Якутськ"</item>
+    <item msgid="6993206457323990990">"Аделаїда"</item>
+    <item msgid="2431970257749452312">"Дарвін"</item>
+    <item msgid="2709489188606506801">"Брісбейн"</item>
+    <item msgid="6832511138206913044">"Гобарт"</item>
+    <item msgid="6933429790996727761">"Сідней, Канберра"</item>
+    <item msgid="4546625974877459074">"Владивосток"</item>
+    <item msgid="7421491250467489614">"Гуам"</item>
+    <item msgid="3450367738093440984">"Магадан"</item>
+    <item msgid="5046540868552082971">"Окленд"</item>
+    <item msgid="481903191189494072">"Фіджі"</item>
+    <item msgid="1926932394586102998">"Тонга"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"Немає"</item>
+    <item msgid="3377199512833209480">"1 хв."</item>
+    <item msgid="5023205715881387516">"5 хв."</item>
+    <item msgid="7720870540593319107">"10 хв."</item>
+    <item msgid="1653841700859180907">"15 хв."</item>
+    <item msgid="3741629746313107482">"20 хв."</item>
+    <item msgid="5357458446224446398">"25 хв."</item>
+    <item msgid="403143749684280703">"30 хв."</item>
+    <item msgid="5611574008997362948">"45 хв."</item>
+    <item msgid="30462793717552">"1 год."</item>
+    <item msgid="119808229352802480">"2 год."</item>
+    <item msgid="7456742278252094745">"3 год."</item>
+    <item msgid="5263928189935026559">"12 год."</item>
+    <item msgid="6451763179435252852">"24 год."</item>
+    <item msgid="966666856467721784">"2 дн."</item>
+    <item msgid="5840973497558794742">"1 тжд."</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item msgid="2724242028978664229">"Сигнал"</item>
+    <item msgid="8723674378160518790">"Сповіщення рядка стану"</item>
+    <item msgid="8433736231022186661">"Вимк."</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"Зайнятий"</item>
+    <item msgid="6228387173725732140">"На місці"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"За умовч."</item>
+    <item msgid="5200216103966973369">"Приватно"</item>
+    <item msgid="9182342638433672664">"Заг.-дост."</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"перший"</item>
+    <item msgid="5631923029483854900">"другий"</item>
+    <item msgid="148935502975250973">"третій"</item>
+    <item msgid="5124200797326669172">"четвертий"</item>
+    <item msgid="7564374178324652137">"останній"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="3654955385120106241">"(Без відповіді)"</item>
+    <item msgid="3724434080904437698">"Так"</item>
+    <item msgid="8854145743148992583">"Можливо"</item>
+    <item msgid="6174292185978948873">"Ні"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item msgid="5967437218994333578">"Так"</item>
+    <item msgid="1254269034445160199">"Можливо"</item>
+    <item msgid="1099407454885268744">"Ні"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"Лише ця подія"</item>
+    <item msgid="8626755531271570950">"Ця та майбутні події"</item>
+    <item msgid="7833229563617435430">"Усі події"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"Ця та майбутні події"</item>
+    <item msgid="6315440193748139854">"Усі події"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="2012815396992847028">"Лише в цьому випадку"</item>
+    <item msgid="140670561403965380">"Усі події в серіях"</item>
+  </string-array>
+</resources>
