@@ -157,7 +157,7 @@ public class SimpleWeekView extends View {
 
         mBGColor = res.getColor(R.color.month_bgcolor);
         mSelectedWeekBGColor = res.getColor(R.color.month_selected_week_bgcolor);
-        mFocusMonthColor = 0xFF000000;
+        mFocusMonthColor = res.getColor(R.color.month_mini_day_number);
         mOtherMonthColor = res.getColor(R.color.month_other_month_day_number);
         mDaySeparatorColor = res.getColor(R.color.month_grid_lines);
         mWeekNumColor = res.getColor(R.color.month_week_num_color);
