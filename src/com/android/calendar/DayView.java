@@ -263,7 +263,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     /* package */ static final int MILLIS_PER_DAY = MILLIS_PER_HOUR * 24;
 
     private static final int DAY_HEADER_ALPHA = 0x80000000;
-    private static final int DAY_HEADER_TODAY_ALPHA = 0x99000000;
+    private static final int DATE_HEADER_ALPHA = 0x26000000;
+    private static final int DATE_HEADER_TODAY_ALPHA = 0x99000000;
     private static float DAY_HEADER_ONE_DAY_LEFT_MARGIN = -12;
     private static float DAY_HEADER_ONE_DAY_RIGHT_MARGIN = 5;
     private static float DAY_HEADER_ONE_DAY_BOTTOM_MARGIN = 6;
@@ -1743,9 +1744,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             color &= 0x00FFFFFF;
             if (todayNum == day) {
-                color |= DAY_HEADER_TODAY_ALPHA;
+                color |= DATE_HEADER_TODAY_ALPHA;
             } else {
-                color |= DAY_HEADER_ALPHA;
+                color |= DATE_HEADER_ALPHA;
             }
 
             p.setColor(color);
@@ -1869,7 +1870,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private void setupHourTextPaint(Paint p) {
         p.setColor(mCalendarHourLabelColor);
         p.setTextSize(HOURS_FONT_SIZE);
-        p.setTypeface(mBold);
+        p.setTypeface(Typeface.DEFAULT);
         p.setTextAlign(Paint.Align.LEFT);
         p.setAntiAlias(true);
     }
@@ -1888,24 +1889,33 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             // Draw day of the month
             x += mCellWidth - DAY_HEADER_RIGHT_MARGIN;
             p.setTextSize(DATE_HEADER_FONT_SIZE);
+            p.setTypeface(mBold);
             canvas.drawText(dateNumStr, x, y, p);
 
             // Draw day of the week
             x -= p.measureText(dateNumStr) + DAY_HEADER_LEFT_MARGIN;
+            p.setColor((p.getColor() & 0x00FFFFFF) | DAY_HEADER_ALPHA);
             p.setTextSize(DAY_HEADER_FONT_SIZE);
+            p.setTypeface(Typeface.DEFAULT);
             canvas.drawText(dayStr, x, y, p);
         } else {
             float y = DAY_HEADER_HEIGHT - DAY_HEADER_ONE_DAY_BOTTOM_MARGIN;
             p.setTextAlign(Paint.Align.LEFT);
 
+            int dateColor = p.getColor();
+
             // Draw day of the week
             x += DAY_HEADER_ONE_DAY_LEFT_MARGIN;
+            p.setColor((dateColor & 0x00FFFFFF) | DAY_HEADER_ALPHA);
             p.setTextSize(DAY_HEADER_FONT_SIZE);
+            p.setTypeface(Typeface.DEFAULT);
             canvas.drawText(dayStr, x, y, p);
 
             // Draw day of the month
             x += p.measureText(dayStr) + DAY_HEADER_ONE_DAY_RIGHT_MARGIN;
+            p.setColor(dateColor);
             p.setTextSize(DATE_HEADER_FONT_SIZE);
+            p.setTypeface(mBold);
             canvas.drawText(dateNumStr, x, y, p);
         }
     }
