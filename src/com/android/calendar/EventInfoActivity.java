@@ -800,11 +800,65 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             values.put(Events.STATUS, Events.STATUS_CONFIRMED);
             values.put(Events.SELF_ATTENDEE_STATUS, status);
 
+            ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+            int eventIdIndex = ops.size();
+
+            ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(
+                                    values).build());
+
+            if (mHasAttendeeData) {
+                ContentProviderOperation.Builder b;
+                // Insert the new attendees
+                for (Attendee attendee : mAcceptedAttendees) {
+                    addAttendee(values, ops, eventIdIndex, attendee,
+                            Attendees.ATTENDEE_STATUS_ACCEPTED);
+                }
+                for (Attendee attendee : mDeclinedAttendees) {
+                    addAttendee(values, ops, eventIdIndex, attendee,
+                            Attendees.ATTENDEE_STATUS_DECLINED);
+                }
+                for (Attendee attendee : mTentativeAttendees) {
+                    addAttendee(values, ops, eventIdIndex, attendee,
+                            Attendees.ATTENDEE_STATUS_TENTATIVE);
+                }
+                for (Attendee attendee : mNoResponseAttendees) {
+                    addAttendee(
+                            values, ops, eventIdIndex, attendee, Attendees.ATTENDEE_STATUS_NONE);
+                }
+            }
             // Create a recurrence exception
-            cr.insert(Events.CONTENT_URI, values);
+            cr.applyBatch(Calendar.AUTHORITY, ops);
+        } catch (RemoteException e) {
+            Log.w(TAG, "Ignoring exception: ", e);
+        } catch (OperationApplicationException e) {
+            Log.w(TAG, "Ignoring exception: ", e);
         } finally {
             cursor.close();
         }
+    }
+
+    /**
+     * Adds an attendee to the list of operations
+     *
+     * @param values an initialized ContentValues
+     * @param ops the list of ops being added to
+     * @param eventIdIndex The back ref value
+     * @param attendee the attendee to add
+     * @param attendeeStatus their status
+     */
+    private void addAttendee(ContentValues values, ArrayList<ContentProviderOperation> ops,
+            int eventIdIndex, Attendee attendee, int attendeeStatus) {
+        ContentProviderOperation.Builder b;
+        values.clear();
+        values.put(Attendees.ATTENDEE_NAME, attendee.mName);
+        values.put(Attendees.ATTENDEE_EMAIL, attendee.mEmail);
+        values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ATTENDEE);
+        values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+        values.put(Attendees.ATTENDEE_STATUS, attendeeStatus);
+
+        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI).withValues(values);
+        b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
+        ops.add(b.build());
     }
 
     private int findResponseIndexFor(int response) {
