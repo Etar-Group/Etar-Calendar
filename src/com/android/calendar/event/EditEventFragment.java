@@ -627,6 +627,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if ((mCode & Utils.DONE_SAVE) != 0 && mModel != null
                     && (EditEventHelper.canRespond(mModel)
                             || EditEventHelper.canModifyEvent(mModel))
+                    && !isEmptyNewEvent()
                     && !mModel.isUnchanged(mOriginalModel)
                     && mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
                 int stringResource;
@@ -674,6 +675,40 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 focusedView.clearFocus();
             }
         }
+    }
+
+    boolean isEmptyNewEvent() {
+        if (mOriginalModel != null) {
+            // Not new
+            return false;
+        }
+
+        return isEmpty();
+    }
+
+    private boolean isEmpty() {
+        if (mModel.mTitle != null) {
+            String title = mModel.mTitle.trim();
+            if (title.length() > 0) {
+                return false;
+            }
+        }
+
+        if (mModel.mLocation != null) {
+            String location = mModel.mLocation.trim();
+            if (location.length() > 0) {
+                return false;
+            }
+        }
+
+        if (mModel.mDescription != null) {
+            String description = mModel.mDescription.trim();
+            if (description.length() > 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
