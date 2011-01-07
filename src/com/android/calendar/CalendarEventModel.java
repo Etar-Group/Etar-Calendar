@@ -204,15 +204,15 @@ public class CalendarEventModel implements Serializable {
     }
 
     private boolean isEmpty() {
-        if (mTitle.length() > 0) {
+        if (mTitle != null && mTitle.length() > 0) {
             return false;
         }
 
-        if (mLocation.length() > 0) {
+        if (mLocation != null && mLocation.length() > 0) {
             return false;
         }
 
-        if (mDescription.length() > 0) {
+        if (mDescription != null && mDescription.length() > 0) {
             return false;
         }
 
@@ -441,7 +441,7 @@ public class CalendarEventModel implements Serializable {
             if (originalModel.mAttendeesList != null) {
                 return false;
             }
-        } else if (!TextUtils.equals(getAttendeesString(), originalModel.getAttendeesString())) {
+        } else if (!mAttendeesList.equals(originalModel.mAttendeesList)) {
             return false;
         }
 
