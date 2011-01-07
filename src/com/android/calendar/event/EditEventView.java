@@ -85,7 +85,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         DialogInterface.OnClickListener, TextWatcher, OnItemSelectedListener {
     private static final String TAG = "EditEvent";
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
-    private static final int REMINDER_FLING_VELOCITY = 2000;
 
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
@@ -1241,7 +1240,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     mReminderValues, mReminderLabels, mDefaultReminderMinutes);
         }
         updateRemindersVisibility(mReminderItems.size());
-        mScrollView.fling(REMINDER_FLING_VELOCITY);
     }
 
     // From com.google.android.gm.ComposeActivity
