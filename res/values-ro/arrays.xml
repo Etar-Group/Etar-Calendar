@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item msgid="9134196715565887256">"1 minut"</item>
+    <item msgid="7350720278790900276">"5 minute"</item>
+    <item msgid="559329025736829220">"10 minute"</item>
+    <item msgid="4523534383318084162">"15 minute"</item>
+    <item msgid="7153990736543668084">"20 de minute"</item>
+    <item msgid="2030352540011653596">"25 de minute"</item>
+    <item msgid="7307245847296317340">"30 de minute"</item>
+    <item msgid="5174730509775969611">"45 de minute"</item>
+    <item msgid="1920425054049263702">"1 oră"</item>
+    <item msgid="6972139375792068825">"2 ore"</item>
+    <item msgid="5643568168685093982">"3 ore"</item>
+    <item msgid="2179302053572039553">"12 ore"</item>
+    <item msgid="314399712609472931">"24 de ore"</item>
+    <item msgid="6908283876728494719">"2 zile"</item>
+    <item msgid="3390146235648970198">"1 săptămână"</item>
+  </string-array>
+  <string-array name="timezone_labels">
+    <item msgid="6833649526258274889">"Insulele Marshall"</item>
+    <item msgid="7176569939440505575">"Insula Midway"</item>
+    <item msgid="5000628410717488070">"Hawaii"</item>
+    <item msgid="3809977082338992040">"Alaska"</item>
+    <item msgid="1206600898319778734">"Ora coastei Pacificului"</item>
+    <item msgid="4251553449779733536">"Tijuana"</item>
+    <item msgid="4796372144693551811">"Arizona"</item>
+    <item msgid="4589419122570218444">"Chihuahua"</item>
+    <item msgid="1653398220457872326">"Ora regiunii muntoase"</item>
+    <item msgid="229005026661478023">"America Centrală"</item>
+    <item msgid="1545268116831476742">"Ora Regiunii centrale"</item>
+    <item msgid="9135129204936732090">"Mexico City"</item>
+    <item msgid="3703110560723049255">"Saskatchewan"</item>
+    <item msgid="5458958644945369505">"Bogota"</item>
+    <item msgid="355450740949670294">"Ora regiunii estice"</item>
+    <item msgid="5786717434693228701">"Venezuela"</item>
+    <item msgid="165048018515834952">"Ora coastei Atlanticului"</item>
+    <item msgid="5398045998666341917">"Manaus"</item>
+    <item msgid="8167627904199889197">"Santiago"</item>
+    <item msgid="2793058279461039833">"Newfoundland"</item>
+    <item msgid="5247265991408608312">"Brasilia"</item>
+    <item msgid="7862856378699038344">"Buenos Aires"</item>
+    <item msgid="7307349572838946177">"Groenlanda"</item>
+    <item msgid="2287491943472924232">"Montevideo"</item>
+    <item msgid="6337125611768317903">"Atlanticul de Mijloc"</item>
+    <item msgid="1083966762112959704">"Insulele Azore"</item>
+    <item msgid="3208435599095023369">"Insulele Capului Verde"</item>
+    <item msgid="8380333624463354109">"Casablanca"</item>
+    <item msgid="8737442113188999866">"Londra, Dublin"</item>
+    <item msgid="72424340270348400">"Amsterdam, Berlin"</item>
+    <item msgid="3665952257850630547">"Belgrad"</item>
+    <item msgid="3284290759549286849">"Bruxelles"</item>
+    <item msgid="3112943938015033049">"Sarajevo"</item>
+    <item msgid="2184425710639965762">"Paris"</item>
+    <item msgid="5997630882187580225">"Windhoek"</item>
+    <item msgid="3828800493609994208">"Ora Africii de Vest"</item>
+    <item msgid="7527935722014187591">"Amman, Iordania"</item>
+    <item msgid="672509109295227133">"Atena, Istanbul"</item>
+    <item msgid="1835470340349221646">"Beirut, Liban"</item>
+    <item msgid="9006223109403693650">"Cairo"</item>
+    <item msgid="2877875673636361825">"Helsinki"</item>
+    <item msgid="4528124308590807049">"Ierusalim"</item>
+    <item msgid="7823856457885290195">"Minsk"</item>
+    <item msgid="8650995074282357197">"Harare"</item>
+    <item msgid="209523815326871285">"Bagdad"</item>
+    <item msgid="8077211460729251609">"Moscova"</item>
+    <item msgid="6103383184232804522">"Kuweit"</item>
+    <item msgid="8581935265080466099">"Nairobi"</item>
+    <item msgid="1531618843539764728">"Teheran"</item>
+    <item msgid="141548505188106312">"Baku"</item>
+    <item msgid="5974315340250149692">"Tbilisi"</item>
+    <item msgid="3344801680659888795">"Erevan"</item>
+    <item msgid="2537944335416132075">"Dubai"</item>
+    <item msgid="5630432498109110949">"Kabul"</item>
+    <item msgid="2274762525650993846">"Islamabad, Karachi"</item>
+    <item msgid="272153171103339242">"Ural\'sk"</item>
+    <item msgid="4757644551253886090">"Ekaterinburg"</item>
+    <item msgid="3036512479614493957">"Kolkata"</item>
+    <item msgid="4190271241277312277">"Sri Lanka"</item>
+    <item msgid="4489139826358657866">"Kathmandu"</item>
+    <item msgid="1195461607876034232">"Astana"</item>
+    <item msgid="8777509327730950228">"Yangon"</item>
+    <item msgid="3838899720161825998">"Krasnoyarsk"</item>
+    <item msgid="6495532062164690437">"Bangkok"</item>
+    <item msgid="4910549870048384487">"Beijing"</item>
+    <item msgid="7174954011332328153">"Hong Kong"</item>
+    <item msgid="415034182139280334">"Irkutsk"</item>
+    <item msgid="3407263784503834649">"Kuala Lumpur"</item>
+    <item msgid="6547945295249807755">"Perth"</item>
+    <item msgid="4571776847411430193">"Taipei"</item>
+    <item msgid="3043691515163887690">"Seul"</item>
+    <item msgid="6369124969606372122">"Tokyo, Osaka"</item>
+    <item msgid="8317842783685169193">"Yakutsk"</item>
+    <item msgid="6993206457323990990">"Adelaide"</item>
+    <item msgid="2431970257749452312">"Darwin"</item>
+    <item msgid="2709489188606506801">"Brisbane"</item>
+    <item msgid="6832511138206913044">"Hobart"</item>
+    <item msgid="6933429790996727761">"Sydney, Canberra"</item>
+    <item msgid="4546625974877459074">"Vladivostok"</item>
+    <item msgid="7421491250467489614">"Guam"</item>
+    <item msgid="3450367738093440984">"Magadan"</item>
+    <item msgid="5046540868552082971">"Auckland"</item>
+    <item msgid="481903191189494072">"Fiji"</item>
+    <item msgid="1926932394586102998">"Tonga"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"Niciunul"</item>
+    <item msgid="3377199512833209480">"1 minut"</item>
+    <item msgid="5023205715881387516">"5 minute"</item>
+    <item msgid="7720870540593319107">"10 minute"</item>
+    <item msgid="1653841700859180907">"15 minute"</item>
+    <item msgid="3741629746313107482">"20 de minute"</item>
+    <item msgid="5357458446224446398">"25 de minute"</item>
+    <item msgid="403143749684280703">"30 de minute"</item>
+    <item msgid="5611574008997362948">"45 de minute"</item>
+    <item msgid="30462793717552">"1 oră"</item>
+    <item msgid="119808229352802480">"2 ore"</item>
+    <item msgid="7456742278252094745">"3 ore"</item>
+    <item msgid="5263928189935026559">"12 ore"</item>
+    <item msgid="6451763179435252852">"24 de ore"</item>
+    <item msgid="966666856467721784">"2 zile"</item>
+    <item msgid="5840973497558794742">"1 săptămână"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item msgid="2724242028978664229">"Alarmă"</item>
+    <item msgid="8723674378160518790">"Notificare în bara de stare"</item>
+    <item msgid="8433736231022186661">"Dezactivată"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"Ocupat"</item>
+    <item msgid="6228387173725732140">"Disponibil"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"Prestabilit"</item>
+    <item msgid="5200216103966973369">"Privat"</item>
+    <item msgid="9182342638433672664">"Public"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"primul"</item>
+    <item msgid="5631923029483854900">"al doilea"</item>
+    <item msgid="148935502975250973">"al treilea"</item>
+    <item msgid="5124200797326669172">"al patrulea"</item>
+    <item msgid="7564374178324652137">"ultimul"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="3654955385120106241">"(Niciun răspuns)"</item>
+    <item msgid="3724434080904437698">"Da"</item>
+    <item msgid="8854145743148992583">"Poate"</item>
+    <item msgid="6174292185978948873">"Nu"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item msgid="5967437218994333578">"Da"</item>
+    <item msgid="1254269034445160199">"Poate"</item>
+    <item msgid="1099407454885268744">"Nu"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"Doar acest eveniment"</item>
+    <item msgid="8626755531271570950">"Acesta şi evenimentele viitoare"</item>
+    <item msgid="7833229563617435430">"Toate evenimentele"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"Acesta şi evenimentele viitoare"</item>
+    <item msgid="6315440193748139854">"Toate evenimentele"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="2012815396992847028">"Numai această apariţie"</item>
+    <item msgid="140670561403965380">"Toate evenimentele din serie"</item>
+  </string-array>
+</resources>

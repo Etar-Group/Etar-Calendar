@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"ปฏิทิน"</string>
+    <string name="what_label" msgid="1933578391985810049">"อะไร"</string>
+    <string name="where_label" msgid="3472482206065595118">"สถานที่"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"เขตเวลา"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"ผู้เข้าร่วม"</string>
+    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"การเกิดซ้ำ"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(ไม่มีชื่อ)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"1 นาที"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> นาที"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"1 นาที"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> นาที"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"1 ชั่วโมง"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ชั่วโมง"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"1 วัน"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> วัน"</item>
+  </plurals>
+    <string name="show_agenda_view" msgid="7971854300981408347">"แสดงกำหนดการ"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"แสดงวัน"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"กำหนดการ"</string>
+    <string name="day_view" msgid="4467754504843584437">"วัน"</string>
+    <string name="week_view" msgid="6775043022159508060">"สัปดาห์"</string>
+    <string name="month_view" msgid="7287101431749285412">"เดือน"</string>
+    <string name="event_view" msgid="7621353079385122317">"ดูกิจกรรม"</string>
+    <string name="event_create" msgid="6941040556709110617">"กิจกรรมใหม่"</string>
+    <string name="event_edit" msgid="4006961928830064662">"แก้ไขกิจกรรม"</string>
+    <string name="event_delete" msgid="2386667193277770442">"ลบกิจกรรม"</string>
+    <string name="goto_today" msgid="9162136434410891230">"วันนี้"</string>
+    <string name="menu_select_calendars" msgid="6200145996783123958">"ปฏิทิน"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"การตั้งค่า"</string>
+    <string name="plus_N_more" msgid="2527895721728080055">"(และกิจกรรมอีก <xliff:g id="MORE_COUNT">%d</xliff:g> รายการ…)"</string>
+    <string name="calendars_title" msgid="4046980972626276968">"ปฏิทิน"</string>
+    <string name="synced_visible" msgid="1406744353749335651">"ซิงค์แล้ว, แสดง"</string>
+    <string name="synced_not_visible" msgid="54032655953110609">"ซิงค์แล้ว, ไม่แสดง"</string>
+    <string name="not_synced_not_visible" msgid="7178879061972059481">"ยังไม่ซิงค์, ไม่แสดง"</string>
+    <string name="event_edit_title" msgid="8487120407086532444">"รายละเอียดกิจกรรม"</string>
+    <string name="hint_what" msgid="709155115005044531">"ชื่อกิจกรรม"</string>
+    <string name="hint_where" msgid="3116239630502213241">"สถานที่ของกิจกรรม"</string>
+    <string name="hint_description" msgid="4198202812240544553">"คำอธิบายกิจกรรม"</string>
+    <string name="hint_attendees" msgid="6036653711383143333">"ที่อยู่อีเมล"</string>
+    <string name="creating_event" msgid="5252306542761552414">"สร้างกิจกรรมแล้ว"</string>
+    <string name="saving_event" msgid="7716081507367732169">"บันทึกกิจกรรมแล้ว"</string>
+    <string name="loading_calendars_title" msgid="3819254313413902272">"กำลังโหลดปฏิทิน"</string>
+    <string name="loading_calendars_message" msgid="8266077515011438420">"กำลังโหลดปฏิทิน..."</string>
+    <string name="alert_title" msgid="7869592820853066853">"การแจ้งเตือนของปฏิทิน"</string>
+    <string name="alert_missed_events_single" msgid="8042891195314876684">"(การเตือนความจำอีก <xliff:g id="REMINDER_COUNT">%s</xliff:g> รายการ)"</string>
+    <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(การเตือนความจำอีก <xliff:g id="REMINDER_COUNT">%s</xliff:g> รายการ)"</string>
+    <string name="event_info_title" msgid="56024222340421620">"ดูกิจกรรม"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"คำเชิญเข้าประชุม"</string>
+    <string name="add_new_reminder" msgid="4171314793889890481">"เพิ่มการเตือนความจำ"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"ถึง"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"จาก"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"ตลอดทั้งวัน"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"ปฏิทิน"</string>
+    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"แสดงตัวเลือกเพิ่มเติม"</string>
+    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"ซ่อนตัวเลือกเพิ่มเติม"</string>
+    <string name="edit_event_show_all" msgid="6107214899021208078">"แสดงทั้งหมด &gt;"</string>
+    <string name="description_label" msgid="7193475046717505855">"คำอธิบาย"</string>
+    <string name="presence_label" msgid="6169724148441175862">"แสดงสถานะว่าฉัน"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"ข้อมูลส่วนบุคคล"</string>
+    <string name="reminders_label" msgid="8345054160145333166">"การเตือนความจำ"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"ไม่มีปฏิทิน"</string>
+    <string name="no_calendars_found" msgid="755379468136462058">"คุณไม่มีปฏิทิน"</string>
+    <string name="content_description_edit_event_from_date" msgid="4180292119507352306">"จากวันที่"</string>
+    <string name="content_description_edit_event_from_time" msgid="6740212065246258103">"จากเวลา"</string>
+    <string name="content_description_edit_event_to_date" msgid="2731432809487159262">"ถึงวันที่"</string>
+    <string name="content_description_edit_event_to_time" msgid="5266222191518214928">"ถึงเวลา"</string>
+    <string name="content_description_edit_event_reminders" msgid="62776037465727715">"การเตือนความจำ"</string>
+    <string name="content_description_edit_event_remove_reminder" msgid="877549621029991866">"นำการแจ้งเตือนออก"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"ปฏิทิน:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"ผู้จัด:"</string>
+    <string name="view_event_timezone_label" msgid="4757495486359041757">"เขตเวลาท้องถิ่น:"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"ต้องการเข้าร่วมหรือไม่"</string>
+    <string name="agenda_today" msgid="6489447319363439068">"วันนี้, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"กำลังโหลด…"</string>
+    <string name="show_older_events" msgid="4031960000704544741">"แสดงกิจกรรมตั้งแต่ <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> แตะเพื่อดูเพิ่มเติม"</string>
+    <string name="show_newer_events" msgid="2647889653936094369">"แสดงกิจกรรมจนถึง <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> แตะเพื่อดูเพิ่มเติม"</string>
+    <string name="num_events" msgid="3351672964607162257">"จำนวนกิจกรรม"</string>
+    <string name="edit_event_label" msgid="2900418236819088363">"แก้ไขกิจกรรม"</string>
+    <string name="delete_label" msgid="874742811918030739">"ลบ"</string>
+    <string name="delete_event_label" msgid="3738436215987360463">"ลบกิจกรรม"</string>
+    <string name="save_label" msgid="2133599104834432589">"เสร็จสิ้น"</string>
+    <string name="discard_label" msgid="4510607554910139220">"เปลี่ยนกลับ"</string>
+    <string name="import_label" msgid="6993796574741477222">"นำเข้า"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"ปิดเสียงเตือนชั่วคราวทั้งหมด"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"ปิดทั้งหมด"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"กิจกรรมที่เกิดขึ้นครั้งเดียว"</string>
+    <string name="daily" msgid="560350706808680448">"รายวัน"</string>
+    <string name="every_weekday" msgid="5896574838353902978">"ทุกวันทำการ (จันทร์-ศุกร์)"</string>
+    <string name="weekly" msgid="2006107373119027114">"รายสัปดาห์ (ทุก <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"รายเดือน (ทุก <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g><xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g>)"</string>
+    <string name="monthly" msgid="4587116285383048586">"รายเดือน"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"รายปี"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"รายเดือน (ในวันที่ <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"รายปี (วันที่ <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom" msgid="3015205670911301856">"กำหนดเอง... (ไม่สามารถปรับแต่งทางโทรศัพท์)"</string>
+    <string name="modify_event" msgid="4501745557655992422">"เปลี่ยนเฉพาะกิจกรรมนี้"</string>
+    <string name="modify_all" msgid="7506579040966638538">"เปลี่ยนกิจกรรมทั้งหมดในชุด"</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"เปลี่ยนกิจกรรมนี้และกิจกรรมในอนาคตทั้งหมด"</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"กิจกรรมนี้จะถูกลบ"</string>
+    <string name="delete_title" msgid="5143743507524995383">"ลบ"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"เปลี่ยนการตอบกลับ"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"การตั้งค่า"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"การตั้งค่ามุมมองปฏิทิน"</string>
+    <string name="preferences_alerts_title" msgid="6511227171114210908">"การตั้งค่าการเตือนความจำ"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"ซ่อนกิจกรรมที่ปฏิเสธ"</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"ตั้งค่าการแจ้งและการแจ้งเตือน"</string>
+    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"การแจ้งและการแจ้งเตือน"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"สั่น"</string>
+    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"สั่นสำหรับการเตือนความจำด้วย"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"เลือกเสียงเรียกเข้า"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"เวลาการเตือนความจำเริ่มต้น"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"เวลาการเตือนความจำเริ่มต้น"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"ใช้เขตเวลาท้องถิ่น"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"แสดงปฏิทินและเวลากิจกรรมตามเขตเวลาท้องถิ่นของคุณขณะเดินทาง"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"เขตเวลาท้องถิ่น"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"เกี่ยวกับ"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"รุ่น"</string>
+  <string-array name="prefEntries_alerts_vibrateWhen">
+    <item msgid="2539376794936035639">"ทุกครั้ง"</item>
+    <item msgid="8091719131860840185">"เฉพาะเมื่อปิดเสียง"</item>
+    <item msgid="4552962311897985633">"ไม่ใช้"</item>
+  </string-array>
+    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"สั่น"</string>
+</resources>

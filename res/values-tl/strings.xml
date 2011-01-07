@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"Kalendaryo"</string>
+    <string name="what_label" msgid="1933578391985810049">"Ano"</string>
+    <string name="where_label" msgid="3472482206065595118">"Saan"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"Time zone"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"Mga Bisita"</string>
+    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"Pag-uulit"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(Walang pamagat)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"1 minuto"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> (na) minuto"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"1 min"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> (na) min"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"1 oras"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> (na) oras"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"1 araw"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> (na) araw"</item>
+  </plurals>
+    <string name="show_agenda_view" msgid="7971854300981408347">"Ipakita ang agenda"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Ipakita ang araw"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
+    <string name="day_view" msgid="4467754504843584437">"Araw"</string>
+    <string name="week_view" msgid="6775043022159508060">"Linggo"</string>
+    <string name="month_view" msgid="7287101431749285412">"Buwan"</string>
+    <string name="event_view" msgid="7621353079385122317">"Tingnan ang kaganapan"</string>
+    <string name="event_create" msgid="6941040556709110617">"Bagong kaganapan"</string>
+    <string name="event_edit" msgid="4006961928830064662">"I-edit ang kaganapan"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Tanggalin ang kaganapan"</string>
+    <string name="goto_today" msgid="9162136434410891230">"Ngayong araw"</string>
+    <string name="menu_select_calendars" msgid="6200145996783123958">"Mga Kalendaryo"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Mga Setting"</string>
+    <string name="plus_N_more" msgid="2527895721728080055">"(dagdag na <xliff:g id="MORE_COUNT">%d</xliff:g> pa …)"</string>
+    <string name="calendars_title" msgid="4046980972626276968">"Mga Kalendaryo"</string>
+    <string name="synced_visible" msgid="1406744353749335651">"naka-sync, nakikita"</string>
+    <string name="synced_not_visible" msgid="54032655953110609">"naka-sync, hindi nakikita"</string>
+    <string name="not_synced_not_visible" msgid="7178879061972059481">"hindi naka-sync, hindi nakikita"</string>
+    <string name="event_edit_title" msgid="8487120407086532444">"Mga detalye ng kaganapan"</string>
+    <string name="hint_what" msgid="709155115005044531">"Pangalan ng kaganapan"</string>
+    <string name="hint_where" msgid="3116239630502213241">"Lokasyon ng kaganapan"</string>
+    <string name="hint_description" msgid="4198202812240544553">"Paglalarawan ng kaganapan"</string>
+    <string name="hint_attendees" msgid="6036653711383143333">"Mga email address"</string>
+    <string name="creating_event" msgid="5252306542761552414">"Nalikha ang kaganapan"</string>
+    <string name="saving_event" msgid="7716081507367732169">"Na-save ang kaganapan"</string>
+    <string name="loading_calendars_title" msgid="3819254313413902272">"Naglo-load ng mga kalendaryo"</string>
+    <string name="loading_calendars_message" msgid="8266077515011438420">"Naglo-load ng mga kalendaryo..."</string>
+    <string name="alert_title" msgid="7869592820853066853">"Mga notifcation sa kalendaryo"</string>
+    <string name="alert_missed_events_single" msgid="8042891195314876684">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> higit pang paalala)"</string>
+    <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> higit pang paalala)"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Tingnan ang kaganapan"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Imbitasyon sa meeting"</string>
+    <string name="add_new_reminder" msgid="4171314793889890481">"Magdagdag ng paalala"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Para kay"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Mula kay"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Buong araw"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalendaryo"</string>
+    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Ipakita ang mga sobrang pagpipilian"</string>
+    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Itago ang mga sobrang pagpipilian"</string>
+    <string name="edit_event_show_all" msgid="6107214899021208078">"Ipakita lahat &gt;"</string>
+    <string name="description_label" msgid="7193475046717505855">"Paglalarawan"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Ipakita ako bilang"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
+    <string name="reminders_label" msgid="8345054160145333166">"Mga Paalala"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"Walang mga kalendaryo"</string>
+    <string name="no_calendars_found" msgid="755379468136462058">"Wala kang mga kalendaryo."</string>
+    <string name="content_description_edit_event_from_date" msgid="4180292119507352306">"Mula sa petsang"</string>
+    <string name="content_description_edit_event_from_time" msgid="6740212065246258103">"Mula sa oras na"</string>
+    <string name="content_description_edit_event_to_date" msgid="2731432809487159262">"Hanggang sa petsang"</string>
+    <string name="content_description_edit_event_to_time" msgid="5266222191518214928">"Hanggang sa oras na"</string>
+    <string name="content_description_edit_event_reminders" msgid="62776037465727715">"Mga Paalala"</string>
+    <string name="content_description_edit_event_remove_reminder" msgid="877549621029991866">"Alisin ang paalala"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendaryo:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizer:"</string>
+    <string name="view_event_timezone_label" msgid="4757495486359041757">"Lokal na time zone:"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Dadalo?"</string>
+    <string name="agenda_today" msgid="6489447319363439068">"Ngayong araw, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"Naglo-load…"</string>
+    <string name="show_older_events" msgid="4031960000704544741">"Ipinapakita ang mga kaganapan mula <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Tapikin upang maghanap nang higit pa."</string>
+    <string name="show_newer_events" msgid="2647889653936094369">"Ipinapakita ang mga kaganapan hanggang <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Tapikin upang maghanap nang higit pa."</string>
+    <string name="num_events" msgid="3351672964607162257">"Num na mga kaganapan"</string>
+    <string name="edit_event_label" msgid="2900418236819088363">"I-edit ang kaganapan"</string>
+    <string name="delete_label" msgid="874742811918030739">"Tanggalin"</string>
+    <string name="delete_event_label" msgid="3738436215987360463">"Tanggalin ang kaganapan"</string>
+    <string name="save_label" msgid="2133599104834432589">"Tapos na"</string>
+    <string name="discard_label" msgid="4510607554910139220">"Ibalik"</string>
+    <string name="import_label" msgid="6993796574741477222">"I-import"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"I-snooze lahat"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Balewalain lahat"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Isang-beses na kaganapan"</string>
+    <string name="daily" msgid="560350706808680448">"Araw-araw"</string>
+    <string name="every_weekday" msgid="5896574838353902978">"Tuwing Lunes hanggang Biyernes"</string>
+    <string name="weekly" msgid="2006107373119027114">"Lingguhan (tuwing <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Buwan-buwan (tuwing <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly" msgid="4587116285383048586">"Buwan-buwan"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"Taun-taon"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"Buwan-buwan (sa araw na <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"Taun-taon (sa <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom" msgid="3015205670911301856">"Custom… (hindi mako-customize sa telepono)"</string>
+    <string name="modify_event" msgid="4501745557655992422">"Baguhin lang ang kaganapang ito."</string>
+    <string name="modify_all" msgid="7506579040966638538">"Palitan ang lahat ng mga kaganapan sa serye."</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"Baguhin ito at ang lahat ng mga kaganapan sa hinaharap."</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"Tatangalin ang kaganapang ito."</string>
+    <string name="delete_title" msgid="5143743507524995383">"Tanggalin"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Baguhin ang tugon"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Mga Setting"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Setting ng pagtingin sa kalendaryo"</string>
+    <string name="preferences_alerts_title" msgid="6511227171114210908">"Mga setting ng paalala"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Itago ang mga tinanggihang kaganapan"</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Itakda ang mga alerto &amp; mga notification"</string>
+    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Mga Alerto &amp; mga notification"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"I-vibrate"</string>
+    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Mag-vibrate din para sa mga paalala"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Pumili ng ringtone"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Default na oras ng paalala"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Default na oras ng paalala"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Gamit home tme zne"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Ipakita calendar at event time sa home time zone sa biyahe"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Home time zone"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"Tungkol sa"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"Bumuo ng bersyon"</string>
+  <string-array name="prefEntries_alerts_vibrateWhen">
+    <item msgid="2539376794936035639">"Palagi"</item>
+    <item msgid="8091719131860840185">"Kapag tahimik lang"</item>
+    <item msgid="4552962311897985633">"Hindi kailanman"</item>
+  </string-array>
+    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"I-vibrate"</string>
+</resources>
