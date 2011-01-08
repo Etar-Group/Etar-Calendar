@@ -757,6 +757,24 @@ public class AgendaWindowAdapter extends BaseAdapter {
                     }
                 }
 
+                // size == 1 means a fresh query. Possibly after the data changed.
+                // Let's check whether mSelectedInstanceId is still valid.
+                if (mAdapterInfos.size() == 1 && mSelectedInstanceId != -1) {
+                    boolean found = false;
+                    cursor.moveToPosition(-1);
+                    while (cursor.moveToNext()) {
+                        if (mSelectedInstanceId == cursor
+                                .getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID)) {
+                            found = true;
+                            break;
+                        }
+                    };
+
+                    if (!found) {
+                        mSelectedInstanceId = -1;
+                    }
+                }
+
                 if (mSelectedInstanceId == -1 && cursor.moveToFirst()) {
                     mSelectedInstanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
 
