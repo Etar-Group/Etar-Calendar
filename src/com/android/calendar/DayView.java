@@ -812,7 +812,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         end.normalize(true);
 
         mController.sendEvent(this, EventType.UPDATE_TITLE, start, end, -1, ViewType.CURRENT,
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR, null, null);
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
+                        | DateUtils.FORMAT_ABBREV_MONTH, null, null);
     }
 
     /**
