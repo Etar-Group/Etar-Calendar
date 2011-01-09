@@ -49,8 +49,9 @@
             android:title="@string/preferences_clear_search_history_title"
             android:summary="@string/preferences_clear_search_history_summary" />
     </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/preferences_reminder_title">
+    <PreferenceCategory
+        android:key="preferences_alerts_category"
+        android:title="@string/preferences_reminder_title">
         <CheckBoxPreference
             android:key="preferences_alerts"
             android:defaultValue="true"

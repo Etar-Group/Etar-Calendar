@@ -17,14 +17,17 @@
 package com.android.calendar;
 
 import android.app.Activity;
+import android.app.backup.BackupManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
@@ -33,7 +36,6 @@ import android.provider.Calendar.CalendarCache;
 import android.provider.SearchRecentSuggestions;
 import android.text.TextUtils;
 import android.widget.Toast;
-import android.app.backup.BackupManager;
 
 public class GeneralPreferences extends PreferenceFragment implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener {
@@ -49,6 +51,7 @@ public class GeneralPreferences extends PreferenceFragment implements
 
     public static final String KEY_CLEAR_SEARCH_HISTORY = "preferences_clear_search_history";
 
+    public static final String KEY_ALERTS_CATEGORY = "preferences_alerts_category";
     public static final String KEY_ALERTS = "preferences_alerts";
     public static final String KEY_ALERTS_VIBRATE = "preferences_alerts_vibrate";
     public static final String KEY_ALERTS_VIBRATE_WHEN = "preferences_alerts_vibrateWhen";
@@ -125,6 +128,13 @@ public class GeneralPreferences extends PreferenceFragment implements
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
         mAlert = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS);
         mVibrateWhen = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE_WHEN);
+        Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+        if (vibrator == null || !vibrator.hasVibrator()) {
+            PreferenceCategory mAlertGroup = (PreferenceCategory) preferenceScreen
+                    .findPreference(KEY_ALERTS_CATEGORY);
+            mAlertGroup.removePreference(mVibrateWhen);
+        }
+
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
