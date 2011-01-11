@@ -19,6 +19,7 @@ package com.android.calendar.selectcalendars;
 import com.android.calendar.R;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -58,6 +59,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
     private LayoutInflater mInflater;
     private int mLayout;
+    private int mOrientation;
     private CalendarRow[] mData;
     private Cursor mCursor;
     private int mRowCount = 0;
@@ -78,6 +80,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     public SelectCalendarsSimpleAdapter(Context context, int layout, Cursor c) {
         super();
         mLayout = layout;
+        mOrientation = context.getResources().getConfiguration().orientation;
         initData(c);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Resources res = context.getResources();
@@ -100,34 +103,38 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     private void initBackgrounds(Resources res) {
         mBackgrounds[0] =
                 res.getDrawable(R.drawable.calname_nomal_holo_light);
+        mBackgrounds[IS_TOP] = mBackgrounds[0];
+
         mBackgrounds[IS_SELECTED] =
                 res.getDrawable(R.drawable.calname_select_undernomal_holo_light);
+        mBackgrounds[IS_SELECTED | IS_TOP] = mBackgrounds[IS_SELECTED];
 
         mBackgrounds[IS_SELECTED | IS_BOTTOM] =
                 res.getDrawable(R.drawable.calname_bottom_select_undernomal_holo_light);
+        mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM] = mBackgrounds[IS_SELECTED | IS_BOTTOM];
 
         mBackgrounds[IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED] =
                 res.getDrawable(R.drawable.calname_bottom_select_underselect_holo_light);
-        mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] =
-                mBackgrounds[IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED];
+        mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] = mBackgrounds[
+                IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED];
 
         mBackgrounds[IS_SELECTED | IS_BELOW_SELECTED] =
                 res.getDrawable(R.drawable.calname_select_underselect_holo_light);
-        mBackgrounds[IS_SELECTED | IS_TOP | IS_BELOW_SELECTED] =
-                mBackgrounds[IS_SELECTED | IS_BELOW_SELECTED];
+        mBackgrounds[IS_SELECTED | IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_SELECTED
+                | IS_BELOW_SELECTED];
 
         mBackgrounds[IS_BOTTOM] =
                 res.getDrawable(R.drawable.calname_bottom_nomal_holo_light);
+        mBackgrounds[IS_TOP | IS_BOTTOM] = mBackgrounds[IS_BOTTOM];
 
         mBackgrounds[IS_BOTTOM | IS_BELOW_SELECTED] =
                 res.getDrawable(R.drawable.calname_bottom_nomal_underselect_holo_light);
-        mBackgrounds[IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] =
-                mBackgrounds[IS_BOTTOM | IS_BELOW_SELECTED];
+        mBackgrounds[IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] = mBackgrounds[IS_BOTTOM
+                | IS_BELOW_SELECTED];
 
         mBackgrounds[IS_BELOW_SELECTED] =
                 res.getDrawable(R.drawable.calname_nomal_underselect_holo_light);
-        mBackgrounds[IS_TOP | IS_BELOW_SELECTED] =
-                mBackgrounds[IS_BELOW_SELECTED];
+        mBackgrounds[IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_BELOW_SELECTED];
     }
 
     private void initData(Cursor c) {
@@ -216,7 +223,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         bg = selected ? IS_SELECTED : 0;
         bg |= position == 0 ? IS_TOP : 0;
         bg |= position == mData.length - 1 ? IS_BOTTOM : 0;
-        bg |= (position == 0 || mData[position - 1].selected) ? IS_BELOW_SELECTED : 0;
+        bg |= ((position == 0 && mOrientation != Configuration.ORIENTATION_LANDSCAPE && selected)
+                || (position > 0 && mData[position - 1].selected)) ? IS_BELOW_SELECTED : 0;
         return mBackgrounds[bg];
     }
 

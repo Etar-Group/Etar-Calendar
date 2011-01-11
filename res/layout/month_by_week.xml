@@ -23,7 +23,7 @@
     android:layout_height="match_parent"
     android:paddingBottom="15dip"
     android:fillViewport="true"
-    android:background="@color/month_bgcolor">
+    android:background="@drawable/minicalendar_bg_holo_light">
 
     <TextView android:id="@+id/month_name"
         android:layout_width="match_parent"
