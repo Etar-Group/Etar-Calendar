@@ -54,6 +54,10 @@
 
     <style name="TextAppearance" parent="android:TextAppearance">
     </style>
+    
+    <style name="TextAppearance.SelectCalendar_Name">
+        <item name="android:textSize">14sp</item>
+    </style>
 
     <style name="TextAppearance.MonthView_MiniDayLabel">
         <item name="android:textSize">12sp</item>

@@ -38,9 +38,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="44dip"
+        android:layout_marginTop="3dip"
         android:singleLine="true"
         android:ellipsize="marquee"
-        style="?android:attr/textAppearanceMedium"
+        style="@style/TextAppearance.SelectCalendar_Name"
         android:duplicateParentState="true"
     />
 
