@@ -149,6 +149,7 @@ public class CalendarEventModel implements Serializable {
     public CalendarEventModel(Context context) {
         this();
 
+        mTimezone = Utils.getTimeZone(context, null);
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         String defaultReminder = prefs.getString(GeneralPreferences.KEY_DEFAULT_REMINDER,
                 "0");
