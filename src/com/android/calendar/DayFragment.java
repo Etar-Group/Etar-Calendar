@@ -265,6 +265,9 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         DayView view = (DayView) mViewSwitcher.getCurrentView();
         view.clearCachedEvents();
         view.reloadEvents();
+
+        view = (DayView) mViewSwitcher.getNextView();
+        view.clearCachedEvents();
     }
 
     Event getSelectedEvent() {
