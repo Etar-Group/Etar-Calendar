@@ -86,7 +86,7 @@
             style="@style/TextAppearance.EditEvent_Label" />
         <LinearLayout
             android:orientation="horizontal"
-            android:animateLayoutChanges="true">
+            android:animateLayoutChanges="false">
             <Button
                 android:id="@+id/start_date"
                 android:layout_width="0px"
@@ -103,6 +103,27 @@
                 style="@style/TextAppearance.EditEvent_Value" />
         </LinearLayout>
     </TableRow>
+    <TableRow android:id="@+id/from_row_home"
+        android:visibility="gone">
+        <TextView/>
+        <LinearLayout android:orientation="horizontal"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:paddingBottom="8dip">
+            <TextView android:id="@+id/start_date_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:gravity="left|center_vertical"
+                style="@style/TextAppearance.EditEvent_homeTime" />
+            <TextView android:id="@+id/start_time_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="right|center_vertical"
+                style="@style/TextAppearance.EditEvent_homeTime" />
+        </LinearLayout>
+    </TableRow>
 
     <!-- TO - Read/write version which launches the date/time pickers -->
     <TableRow
@@ -113,7 +134,7 @@
             style="@style/TextAppearance.EditEvent_Label" />
         <LinearLayout
             android:orientation="horizontal"
-            android:animateLayoutChanges="true">
+            android:animateLayoutChanges="false">
             <Button
                 android:id="@+id/end_date"
                 android:layout_width="0px"
@@ -128,6 +149,27 @@
                 android:layout_weight="4"
                 android:gravity="left|center_vertical"
                 style="@style/TextAppearance.EditEvent_Value" />
+        </LinearLayout>
+    </TableRow>
+    <TableRow android:id="@+id/to_row_home"
+        android:visibility="gone">
+        <TextView/>
+        <LinearLayout android:orientation="horizontal"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:paddingBottom="8dip">
+            <TextView android:id="@+id/end_date_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:gravity="left|center_vertical"
+                style="@style/TextAppearance.EditEvent_homeTime" />
+            <TextView android:id="@+id/end_time_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="right|center_vertical"
+                style="@style/TextAppearance.EditEvent_homeTime" />
         </LinearLayout>
     </TableRow>
 

@@ -78,7 +78,9 @@ import android.widget.TimePicker;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Formatter;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
@@ -96,6 +98,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Button mStartTimeButton;
     Button mEndTimeButton;
     Button mTimezoneButton;
+    TextView mStartTimeHome;
+    TextView mStartDateHome;
+    TextView mEndTimeHome;
+    TextView mEndDateHome;
     CheckBox mAllDayCheckBox;
     Spinner mCalendarsSpinner;
     Spinner mRepeatsSpinner;
@@ -121,6 +127,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     View mResponseGroup;
     View mOrganizerGroup;
     View mAttendeesGroup;
+    View mStartHomeGroup;
+    View mEndHomeGroup;
     View mAttendeesPane;
     View mColorChip;
 
@@ -153,6 +161,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private EventRecurrence mEventRecurrence = new EventRecurrence();
 
     private ArrayList<LinearLayout> mReminderItems = new ArrayList<LinearLayout>(0);
+
+    private static StringBuilder mSB = new StringBuilder(50);
+    private static Formatter mF = new Formatter(mSB, Locale.getDefault());
 
     /* This class is used to update the time buttons. */
     private class TimeListener implements OnTimeSetListener {
@@ -202,6 +213,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             setDate(mEndDateButton, endMillis);
             setTime(mStartTimeButton, startMillis);
             setTime(mEndTimeButton, endMillis);
+            updateHomeTime();
         }
     }
 
@@ -290,6 +302,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             setDate(mEndDateButton, endMillis);
             setTime(mEndTimeButton, endMillis); // In case end time had to be
             // reset
+            updateHomeTime();
         }
     }
 
@@ -628,6 +641,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         } else if (dialog == mTimezoneDialog) {
             if (which >= 0 && which < mTimezoneAdapter.getCount()) {
                 setTimezone(which);
+                updateHomeTime();
                 dialog.dismiss();
             }
         }
@@ -762,6 +776,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mStartTimeButton = (Button) view.findViewById(R.id.start_time);
         mEndTimeButton = (Button) view.findViewById(R.id.end_time);
         mTimezoneButton = (Button) view.findViewById(R.id.timezone_button);
+        mStartTimeHome = (TextView) view.findViewById(R.id.start_time_home);
+        mStartDateHome = (TextView) view.findViewById(R.id.start_date_home);
+        mEndTimeHome = (TextView) view.findViewById(R.id.end_time_home);
+        mEndDateHome = (TextView) view.findViewById(R.id.end_date_home);
         mAllDayCheckBox = (CheckBox) view.findViewById(R.id.is_all_day);
         mRepeatsSpinner = (Spinner) view.findViewById(R.id.repeats);
         mTransparencySpinner = (Spinner) view.findViewById(R.id.availability);
@@ -775,6 +793,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mAttendeesPane = view.findViewById(R.id.attendees_group);
         mLocationGroup = view.findViewById(R.id.where_row);
         mDescriptionGroup = view.findViewById(R.id.description_row);
+        mStartHomeGroup = view.findViewById(R.id.from_row_home);
+        mEndHomeGroup = view.findViewById(R.id.to_row_home);
 
         mOriginalEditBG = mTitleTextView.getBackground();
         mEditViewList.add(mTitleTextView);
@@ -791,6 +811,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEditOnlyList.add(view.findViewById(R.id.to_row));
         mEditOnlyList.add(view.findViewById(R.id.timezone_button_row));
         mEditOnlyList.add(view.findViewById(R.id.add_attendees_row));
+        mEditOnlyList.add(mStartHomeGroup);
+        mEditOnlyList.add(mEndHomeGroup);
 
         mResponseRadioGroup = (RadioGroup) view.findViewById(R.id.response_value);
         mRemindersContainer = (LinearLayout) view.findViewById(R.id.reminder_items_container);
@@ -802,9 +824,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         mAttendeesView = (AttendeesView)view.findViewById(R.id.attendee_list);
 
-        mStartTime = new Time();
-        mEndTime = new Time();
-        mTimezone = TimeZone.getDefault().getID();
+        mTimezone = Utils.getTimeZone(activity, null);
+        mStartTime = new Time(mTimezone);
+        mEndTime = new Time(mTimezone);
         mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
 
         mColorChip = view.findViewById(R.id.color_chip);
@@ -982,8 +1004,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             calendarGroup.setVisibility(View.GONE);
         }
 
-        populateWhen();
         populateTimezone();
+        populateWhen();
         populateRepeats();
         updateAttendees(model.mAttendeesList);
 
@@ -1008,7 +1030,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         long startMillis = mStartTime.normalize(true);
         long endMillis = mEndTime.normalize(true);
-        when = Utils.formatDateRange(mActivity, startMillis, endMillis, flags);
+        mSB.setLength(0);
+        when = DateUtils.formatDateRange(mActivity, mF, startMillis, endMillis, flags, mTimezone)
+                .toString();
         mWhenView.setText(when);
     }
 
@@ -1189,6 +1213,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     public void setModification(int modifyWhich) {
         mModification = modifyWhich;
         updateView();
+        updateHomeTime();
     }
 
     // Find the calendar position in the cursor that matches calendar in
@@ -1374,6 +1399,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTimezoneButton.setVisibility(View.VISIBLE);
             mTimezoneLabel.setVisibility(View.VISIBLE);
         }
+        updateHomeTime();
     }
 
     @Override
@@ -1382,6 +1408,74 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (c != null) {
             int colorColumn = c.getColumnIndexOrThrow(Calendars.COLOR);
             mColorChip.setBackgroundColor(c.getInt(colorColumn));
+        }
+    }
+
+    /**
+     * Checks if the start and end times for this event should be displayed in
+     * the Calendar app's time zone as well and formats and displays them.
+     */
+    private void updateHomeTime() {
+        String tz = Utils.getTimeZone(mActivity, null);
+        if (!mAllDayCheckBox.isChecked() && !TextUtils.equals(tz, mTimezone)
+                && mModification != EditEventHelper.MODIFY_UNINITIALIZED) {
+            int flags = DateUtils.FORMAT_SHOW_TIME;
+            boolean is24Format = DateFormat.is24HourFormat(mActivity);
+            if (is24Format) {
+                flags |= DateUtils.FORMAT_24HOUR;
+            }
+            long millisStart = mStartTime.toMillis(false);
+            long millisEnd = mEndTime.toMillis(false);
+
+            boolean isDSTStart = mStartTime.isDst != 0;
+            boolean isDSTEnd = mEndTime.isDst != 0;
+
+            // First update the start date and times
+            String tzDisplay = TimeZone.getTimeZone(tz).getDisplayName(
+                    isDSTStart, TimeZone.SHORT, Locale.getDefault());
+            StringBuilder time = new StringBuilder();
+
+            mSB.setLength(0);
+            time.append(DateUtils
+                    .formatDateRange(mActivity, mF, millisStart, millisStart, flags, tz))
+                    .append(" ").append(tzDisplay);
+            mStartTimeHome.setText(time.toString());
+
+            flags = DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_SHOW_DATE
+                    | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_WEEKDAY;
+            mSB.setLength(0);
+            mStartDateHome
+                    .setText(DateUtils.formatDateRange(
+                            mActivity, mF, millisStart, millisStart, flags, tz).toString());
+
+            // Make any adjustments needed for the end times
+            if (isDSTEnd != isDSTStart) {
+                tzDisplay = TimeZone.getTimeZone(tz).getDisplayName(
+                        isDSTEnd, TimeZone.SHORT, Locale.getDefault());
+            }
+            flags = DateUtils.FORMAT_SHOW_TIME;
+            if (is24Format) {
+                flags |= DateUtils.FORMAT_24HOUR;
+            }
+
+            // Then update the end times
+            time.setLength(0);
+            mSB.setLength(0);
+            time.append(DateUtils.formatDateRange(
+                    mActivity, mF, millisEnd, millisEnd, flags, tz)).append(" ").append(tzDisplay);
+            mEndTimeHome.setText(time.toString());
+
+            flags = DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_SHOW_DATE
+                    | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_WEEKDAY;
+            mSB.setLength(0);
+            mEndDateHome.setText(DateUtils.formatDateRange(
+                            mActivity, mF, millisEnd, millisEnd, flags, tz).toString());
+
+            mStartHomeGroup.setVisibility(View.VISIBLE);
+            mEndHomeGroup.setVisibility(View.VISIBLE);
+        } else {
+            mStartHomeGroup.setVisibility(View.GONE);
+            mEndHomeGroup.setVisibility(View.GONE);
         }
     }
 
