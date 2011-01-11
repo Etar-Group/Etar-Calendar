@@ -26,6 +26,7 @@ import com.android.calendar.event.EditEventFragment;
 
 import dalvik.system.VMRuntime;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -105,6 +106,9 @@ public class SearchActivity extends Activity
         VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
 
         mContentResolver = getContentResolver();
+
+        getActionBar().setDisplayOptions(
+                ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
 
         // Must be the first to register because this activity can modify the
         // list of event handlers in it's handle method. This affects who the
@@ -236,6 +240,14 @@ public class SearchActivity extends Activity
                 return true;
             case R.id.action_settings:
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
+                return true;
+            case android.R.id.home:
+                Intent launchIntent = new Intent();
+                launchIntent.setAction(Intent.ACTION_VIEW);
+                launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
+                launchIntent.setFlags(
+                        Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(launchIntent);
                 return true;
             default:
                 return false;

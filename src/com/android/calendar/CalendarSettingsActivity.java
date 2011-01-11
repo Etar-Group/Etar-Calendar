@@ -18,11 +18,15 @@ package com.android.calendar;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.ActionBar;
 import android.content.ContentResolver;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.provider.Calendar;
 import android.provider.Calendar.Calendars;
+import android.view.MenuItem;
 
 import java.util.List;
 
@@ -30,6 +34,8 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     @Override
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.calendar_settings_headers, target);
+        getActionBar().setDisplayOptions(
+                ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
         Account[] accounts = AccountManager.get(this).getAccounts();
         if (accounts != null) {
             int length = accounts.length;
@@ -48,5 +54,19 @@ public class CalendarSettingsActivity extends PreferenceActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent launchIntent = new Intent();
+            launchIntent.setAction(Intent.ACTION_VIEW);
+            launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
+            launchIntent.setFlags(
+                    Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(launchIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

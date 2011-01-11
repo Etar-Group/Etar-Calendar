@@ -24,12 +24,14 @@ import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.R;
 
+import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 public class EditEventActivity extends AbstractCalendarActivity {
@@ -53,6 +55,9 @@ public class EditEventActivity extends AbstractCalendarActivity {
         mEventInfo = getEventInfoFromIntent(icicle);
 
         mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.edit_event);
+
+        getActionBar().setDisplayOptions(
+                ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
 
         if (mEditFragment == null) {
             mEditFragment = new EditEventFragment(mEventInfo, false);
@@ -97,5 +102,19 @@ public class EditEventActivity extends AbstractCalendarActivity {
         info.id = eventId;
 
         return info;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent launchIntent = new Intent();
+            launchIntent.setAction(Intent.ACTION_VIEW);
+            launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
+            launchIntent.setFlags(
+                    Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(launchIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
