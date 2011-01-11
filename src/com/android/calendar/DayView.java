@@ -381,6 +381,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private String mAmString;
     private String mPmString;
     private DeleteEventHelper mDeleteEventHelper;
+    private static int sCounter = 0;
 
     private ContextMenuHandler mContextMenuHandler = new ContextMenuHandler();
 
@@ -869,15 +870,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Set the base date to the beginning of the week if we are displaying
         // 7 days at a time.
         if (mNumDays == 7) {
-            int dayOfWeek = mBaseDate.weekDay;
-            int diff = dayOfWeek - mFirstDayOfWeek;
-            if (diff != 0) {
-                if (diff < 0) {
-                    diff += 7;
-                }
-                mBaseDate.monthDay -= diff;
-                mBaseDate.normalize(true /* ignore isDst */);
-            }
+            adjustToBeginningOfWeek(mBaseDate);
         }
 
         final long start = mBaseDate.toMillis(false /* use isDst */);
@@ -887,6 +880,18 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mMonthLength = mBaseDate.getActualMaximum(Time.MONTH_DAY);
         mFirstVisibleDate = mBaseDate.monthDay;
         mFirstVisibleDayOfWeek = mBaseDate.weekDay;
+    }
+
+    private void adjustToBeginningOfWeek(Time time) {
+        int dayOfWeek = time.weekDay;
+        int diff = dayOfWeek - mFirstDayOfWeek;
+        if (diff != 0) {
+            if (diff < 0) {
+                diff += 7;
+            }
+            time.monthDay -= diff;
+            time.normalize(true /* ignore isDst */);
+        }
     }
 
     @Override
@@ -1322,6 +1327,34 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         return super.onKeyDown(keyCode, event);
     }
 
+    private class GotoBroadcaster implements Animation.AnimationListener {
+        private final int mCounter;
+        private final Time mStart;
+        private final Time mEnd;
+
+        public GotoBroadcaster(Time start, Time end) {
+            mCounter = ++sCounter;
+            mStart = start;
+            mEnd = end;
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            if (mCounter == sCounter) {
+                mController.sendEvent(this, EventType.GO_TO, mStart, mEnd, -1, ViewType.CURRENT,
+                        CalendarController.EXTRA_GOTO_DATE, null, null);
+            }
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+        }
+    }
+
     private View switchViews(boolean forward, float xOffSet, float width) {
         if (DEBUG) Log.d(TAG, "switchViews(" + forward + ")...");
         float progress = Math.abs(xOffSet) / width;
@@ -1343,6 +1376,22 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             outToXValue = 1.0f;
         }
 
+        final Time start = new Time(mBaseDate.timezone);
+        start.set(mController.getTime());
+        if (forward) {
+            start.monthDay += mNumDays;
+        } else {
+            start.monthDay -= mNumDays;
+        }
+
+        if (mNumDays == 7) {
+            adjustToBeginningOfWeek(start);
+        }
+        mController.setTime(start.normalize(true));
+
+        final Time end = new Time(start);
+        end.monthDay += mNumDays - 1;
+
         // We have to allocate these animation objects each time we switch views
         // because that is the only way to set the animation parameters.
         TranslateAnimation inAnimation = new TranslateAnimation(
@@ -1361,6 +1410,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         long duration = (long) (ANIMATION_DURATION * (1.0f - progress));
         inAnimation.setDuration(duration);
         outAnimation.setDuration(duration);
+        outAnimation.setAnimationListener(new GotoBroadcaster(start, end));
         mViewSwitcher.setInAnimation(inAnimation);
         mViewSwitcher.setOutAnimation(outAnimation);
 
@@ -1371,19 +1421,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         view.requestFocus();
         view.reloadEvents();
         view.updateTitle();
-
-        // Update the mini-month (but defer it until the animation
-        // completes, to avoid stutter.)
-        final Time start = new Time(view.mBaseDate);
-        final Time end = new Time(view.mBaseDate);
-        end.monthDay += mNumDays - 1;
-        end.normalize(true);
-        postDelayed(new Runnable() {
-            public void run() {
-                mController.sendEvent(this, EventType.GO_TO, start, end, -1, ViewType.CURRENT,
-                        CalendarController.EXTRA_GOTO_DATE, null, null);
-            }
-        }, duration);
 
         return view;
     }
@@ -2950,6 +2987,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void doScroll(MotionEvent e1, MotionEvent e2, float deltaX, float deltaY) {
+        if (isAnimating()) {
+            return;
+        }
+
         // Use the distance from the current point to the initial touch instead
         // of deltaX and deltaY to avoid accumulating floating-point rounding
         // errors. Also, we don't need floats, we can use ints.
@@ -3005,7 +3046,23 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         invalidate();
     }
 
+    private boolean isAnimating() {
+        Animation in = mViewSwitcher.getInAnimation();
+        if (in != null && in.hasStarted() && !in.hasEnded()) {
+            return true;
+        }
+        Animation out = mViewSwitcher.getOutAnimation();
+        if (out != null && out.hasStarted() && !out.hasEnded()) {
+            return true;
+        }
+        return false;
+    }
+
     private void doFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        if (isAnimating()) {
+            return;
+        }
+
         mTouchMode = TOUCH_MODE_INITIAL_STATE;
         mSelectionMode = SELECTION_HIDDEN;
         mOnFlingCalled = true;
@@ -3013,7 +3070,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int distanceX = Math.abs(deltaX);
         int deltaY = (int) e2.getY() - (int) e1.getY();
         int distanceY = Math.abs(deltaY);
-        if (DEBUG) Log.d(TAG, "doFling: distanceX " + distanceX
+        if (DEBUG) Log.d(TAG, "doFling: deltaX " + deltaX
                          + ", HORIZONTAL_FLING_THRESHOLD " + HORIZONTAL_FLING_THRESHOLD);
 
         if ((distanceX >= HORIZONTAL_FLING_THRESHOLD) && (distanceX > distanceY)) {

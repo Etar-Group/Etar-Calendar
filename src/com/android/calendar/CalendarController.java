@@ -622,6 +622,8 @@ public class CalendarController {
             tmp = "New event";
         } else if ((eventInfo.eventType & EventType.VIEW_EVENT) != 0) {
             tmp = "View event";
+        } else if ((eventInfo.eventType & EventType.VIEW_EVENT_DETAILS) != 0) {
+            tmp = "View details";
         } else if ((eventInfo.eventType & EventType.EDIT_EVENT) != 0) {
             tmp = "Edit event";
         } else if ((eventInfo.eventType & EventType.DELETE_EVENT) != 0) {
@@ -632,8 +634,10 @@ public class CalendarController {
             tmp = "Refresh events";
         } else if ((eventInfo.eventType & EventType.SEARCH) != 0) {
             tmp = "Search";
-        } else if ((eventInfo.eventType & EventType.VIEW_EVENT_DETAILS) != 0) {
-            tmp = "View details";
+        } else if ((eventInfo.eventType & EventType.USER_HOME) != 0) {
+            tmp = "Gone home";
+        } else if ((eventInfo.eventType & EventType.UPDATE_TITLE) != 0) {
+            tmp = "Update title";
         }
         builder.append(tmp);
         builder.append(": id=");
