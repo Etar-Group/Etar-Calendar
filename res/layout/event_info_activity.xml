@@ -45,7 +45,6 @@
                 <TextView android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autoLink="all"
                     android:textStyle="bold"
                     android:paddingBottom="7dip"
                     style="?android:attr/textAppearanceMedium"

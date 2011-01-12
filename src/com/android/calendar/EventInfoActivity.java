@@ -977,7 +977,10 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
             if (textView != null) {
                     textView.setAutoLinkMask(0);
                     textView.setText(location);
-                    Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+                    if (!Linkify.addLinks(textView, Linkify.WEB_URLS |
+                            Linkify.EMAIL_ADDRESSES | Linkify.MAP_ADDRESSES)) {
+                        Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+                    }
                     textView.setOnTouchListener(new OnTouchListener() {
                         public boolean onTouch(View v, MotionEvent event) {
                             try {
