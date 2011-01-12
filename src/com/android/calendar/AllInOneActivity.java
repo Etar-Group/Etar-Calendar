@@ -246,7 +246,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mOnSaveInstanceStateCalled = false;
 
         if (mViewEventId != -1 && mIntentEventStartMillis != -1 && mIntentEventEndMillis != -1) {
-            mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mViewEventId,
+            mController.sendEventRelatedEventWithResponse(this, EventType.VIEW_EVENT, mViewEventId,
                     mIntentEventStartMillis, mIntentEventEndMillis, -1, -1,
                     mIntentAttendeeResponse);
             mViewEventId = -1;
