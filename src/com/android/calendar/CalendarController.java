@@ -47,7 +47,7 @@ import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
 public class CalendarController {
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private static final String TAG = "CalendarController";
     private static final String REFRESH_SELECTION = Calendars.SYNC_EVENTS + "=?";
     private static final String[] REFRESH_ARGS = new String[] { "1" };
@@ -219,8 +219,8 @@ public class CalendarController {
 
     public void sendEventRelatedEvent(Object sender, long eventType, long eventId, long startMillis,
             long endMillis, int x, int y) {
-        sendEventRelatedEvent( sender,  eventType,  eventId,  startMillis,
-                 endMillis,  x,  y, CalendarController.ATTENDEE_NO_RESPONSE);
+        sendEventRelatedEventWithResponse(sender, eventType, eventId, startMillis, endMillis, x, y,
+                CalendarController.ATTENDEE_NO_RESPONSE);
     }
 
     /**
@@ -236,8 +236,8 @@ public class CalendarController {
      * @param extraLong default response value for the "simple event view". Use
      *            CalendarController.ATTENDEE_NO_RESPONSE for no response.
      */
-    public void sendEventRelatedEvent(Object sender, long eventType, long eventId, long startMillis,
-            long endMillis, int x, int y, long extraLong) {
+    public void sendEventRelatedEventWithResponse(Object sender, long eventType, long eventId,
+            long startMillis, long endMillis, int x, int y, long extraLong) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         if (eventType == EventType.EDIT_EVENT || eventType == EventType.VIEW_EVENT_DETAILS) {
@@ -267,7 +267,8 @@ public class CalendarController {
      */
     public void sendEvent(Object sender, long eventType, Time start, Time end, long eventId,
             int viewType) {
-        sendEvent(sender, eventType, start, end, eventId, viewType, EXTRA_GOTO_TIME, null, null);
+        sendEvent(sender, eventType, start, end, start, eventId, viewType, EXTRA_GOTO_TIME, null,
+                null);
     }
 
     /**
@@ -275,10 +276,16 @@ public class CalendarController {
      */
     public void sendEvent(Object sender, long eventType, Time start, Time end, long eventId,
             int viewType, long extraLong, String query, ComponentName componentName) {
+        sendEvent(sender, eventType, start, end, start, eventId, viewType, extraLong, query,
+                componentName);
+    }
+
+    public void sendEvent(Object sender, long eventType, Time start, Time end, Time selected,
+            long eventId, int viewType, long extraLong, String query, ComponentName componentName) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         info.startTime = start;
-        info.selectedTime = start;
+        info.selectedTime = selected;
         info.endTime = end;
         info.id = eventId;
         info.viewType = viewType;
@@ -312,7 +319,7 @@ public class CalendarController {
             mViewType = mDetailViewType;
         } else if (event.viewType == ViewType.CURRENT) {
             event.viewType = mViewType;
-        } else if (event.viewType != ViewType.EDIT){
+        } else if (event.viewType != ViewType.EDIT) {
             mViewType = event.viewType;
 
             if (event.viewType == ViewType.AGENDA || event.viewType == ViewType.DAY) {
@@ -320,11 +327,46 @@ public class CalendarController {
             }
         }
 
-        // Fix up start time if not specified
-        if (event.startTime != null && event.startTime.toMillis(false) != 0) {
-            mTime.set(event.startTime);
+        if (DEBUG) {
+            Log.e(TAG, "vvvvvvvvvvvvvvv");
+            Log.e(TAG, "Start  " + (event.startTime == null ? "null" : event.startTime.toString()));
+            Log.e(TAG, "End    " + (event.endTime == null ? "null" : event.endTime.toString()));
+            Log.e(TAG, "Select " + (event.selectedTime == null ? "null" : event.selectedTime.toString()));
+            Log.e(TAG, "mTime  " + (mTime == null ? "null" : mTime.toString()));
         }
-        event.startTime = mTime;
+
+        long startMillis = 0;
+        if (event.startTime != null) {
+            startMillis = event.startTime.toMillis(false);
+        }
+
+        // Set mTime if selectedTime is set
+        if (event.selectedTime != null && event.selectedTime.toMillis(false) != 0) {
+            mTime.set(event.selectedTime);
+        } else {
+            if (startMillis != 0) {
+                // selectedTime is not set so set mTime to startTime iff it is not
+                // within start and end times
+                long mtimeMillis = mTime.toMillis(false);
+                if (mtimeMillis < startMillis
+                        || (event.endTime != null && mtimeMillis > event.endTime.toMillis(false))) {
+                    mTime.set(event.startTime);
+                }
+            }
+            event.selectedTime = mTime;
+        }
+
+        // Fix up start time if not specified
+        if (startMillis == 0) {
+            event.startTime = mTime;
+        }
+        if (DEBUG) {
+            Log.e(TAG, "Start  " + (event.startTime == null ? "null" : event.startTime.toString()));
+            Log.e(TAG, "End    " + (event.endTime == null ? "null" : event.endTime.toString()));
+            Log.e(TAG, "Select " + (event.selectedTime == null ? "null" : event.selectedTime.toString()));
+            Log.e(TAG, "mTime  " + (mTime == null ? "null" : mTime.toString()));
+            Log.e(TAG, "^^^^^^^^^^^^^^^");
+        }
 
         // Store the eventId if we're entering edit event
         if ((event.eventType

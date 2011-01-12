@@ -379,7 +379,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
-            goTo(event.startTime.toMillis(true), true, true, false);
+            goTo(event.selectedTime.toMillis(true), true, true, false);
         }
     }
 
@@ -393,8 +393,8 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             if (time.toMillis(true) != controller.getTime() && mUserScrolled) {
                 controller.setTime(time.toMillis(true) + DateUtils.WEEK_IN_MILLIS * mNumWeeks / 3);
             }
-            controller.sendEvent(this, EventType.UPDATE_TITLE, time, null, -1, ViewType.CURRENT,
-                    DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_MONTH_DAY
+            controller.sendEvent(this, EventType.UPDATE_TITLE, time, null, null, -1,
+                    ViewType.CURRENT, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_MONTH_DAY
                             | DateUtils.FORMAT_SHOW_YEAR, null, null);
         }
     }
