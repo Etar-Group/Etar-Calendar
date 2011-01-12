@@ -816,26 +816,27 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         // Where
-        if (location == null || location.length() == 0) {
+        if (location == null || location.trim().length() == 0) {
             setVisibilityCommon(view, R.id.where, View.GONE);
         } else {
             final TextView textView = (TextView) view.findViewById(R.id.where);
             if (textView != null) {
-                    textView.setAutoLinkMask(0);
-                    textView.setText(location);
-                    if (!Linkify.addLinks(textView, Linkify.ALL)) {
-                        Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
-                    }
-                    textView.setOnTouchListener(new OnTouchListener() {
-                        public boolean onTouch(View v, MotionEvent event) {
-                            try {
-                                return v.onTouchEvent(event);
-                            } catch (ActivityNotFoundException e) {
-                                // ignore
-                                return true;
-                            }
+                textView.setAutoLinkMask(0);
+                textView.setText(location.trim());
+                if (!Linkify.addLinks(textView, Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES
+                        | Linkify.MAP_ADDRESSES)) {
+                    Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+                }
+                textView.setOnTouchListener(new OnTouchListener() {
+                    public boolean onTouch(View v, MotionEvent event) {
+                        try {
+                            return v.onTouchEvent(event);
+                        } catch (ActivityNotFoundException e) {
+                            // ignore
+                            return true;
                         }
-                    });
+                    }
+                });
             }
         }
 
