@@ -812,7 +812,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         end.minute += 1;
         end.normalize(true);
 
-        mController.sendEvent(this, EventType.UPDATE_TITLE, start, end, -1, ViewType.CURRENT,
+        mController.sendEvent(this, EventType.UPDATE_TITLE, start, end, null, -1, ViewType.CURRENT,
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
                         | DateUtils.FORMAT_ABBREV_MONTH, null, null);
     }
@@ -1341,8 +1341,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         @Override
         public void onAnimationEnd(Animation animation) {
             if (mCounter == sCounter) {
-                mController.sendEvent(this, EventType.GO_TO, mStart, mEnd, -1, ViewType.CURRENT,
-                        CalendarController.EXTRA_GOTO_DATE, null, null);
+                mController.sendEvent(this, EventType.GO_TO, mStart, mEnd, null, -1,
+                        ViewType.CURRENT, CalendarController.EXTRA_GOTO_DATE, null, null);
             }
         }
 
@@ -1383,11 +1383,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         } else {
             start.monthDay -= mNumDays;
         }
+        mController.setTime(start.normalize(true));
+
+        Time newSelected = start;
 
         if (mNumDays == 7) {
+            newSelected = new Time(start);
             adjustToBeginningOfWeek(start);
         }
-        mController.setTime(start.normalize(true));
 
         final Time end = new Time(start);
         end.monthDay += mNumDays - 1;
@@ -1418,6 +1421,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         view.cleanup();
         mViewSwitcher.showNext();
         view = (DayView) mViewSwitcher.getCurrentView();
+        view.setSelected(newSelected, true);
         view.requestFocus();
         view.reloadEvents();
         view.updateTitle();

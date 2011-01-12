@@ -298,7 +298,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 // TODO support a range of time
 // TODO support event_id
 // TODO support select message
-            goTo(msg.startTime, msg.extraLong == CalendarController.EXTRA_GOTO_DATE);
+            goTo(msg.selectedTime, msg.extraLong == CalendarController.EXTRA_GOTO_DATE);
         } else if (msg.eventType == EventType.EVENTS_CHANGED) {
             eventsChanged();
         }
