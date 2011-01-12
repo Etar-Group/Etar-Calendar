@@ -823,7 +823,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             if (textView != null) {
                     textView.setAutoLinkMask(0);
                     textView.setText(location);
-                    Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+                    if (!Linkify.addLinks(textView, Linkify.ALL)) {
+                        Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+                    }
                     textView.setOnTouchListener(new OnTouchListener() {
                         public boolean onTouch(View v, MotionEvent event) {
                             try {
