@@ -21,7 +21,8 @@
 
     <!-- RESPONSE -->
     <TableRow
-        android:id="@+id/response_row">
+        android:id="@+id/response_row"
+        android:focusable="true">
         <TextView
             android:id="@+id/response_label"
             android:text="@string/view_event_response_label"
@@ -65,13 +66,15 @@
         </RadioGroup>
     </TableRow>
     <TableRow
-        android:id="@+id/organizer_row">
+        android:id="@+id/organizer_row"
+        android:focusable="true">
         <TextView
             android:id="@+id/organizer_label"
             android:text="@string/view_event_organizer_label"
             style="@style/TextAppearance.EditEvent_Label" />
         <TextView
-            android:id="@+id/organizer" />
+            android:id="@+id/organizer"
+            style="@style/TextAppearance.EditEvent_Value" />
     </TableRow>
     <TableRow
         android:id="@+id/add_attendees_row">
@@ -105,7 +108,8 @@
 
     <!-- ATTENDEES -->
     <TableRow
-        android:id="@+id/attendees_row">
+        android:id="@+id/attendees_row"
+        android:focusable="true">
         <TextView
             android:text="@string/attendees_label"
             style="@style/TextAppearance.EditEvent_Label" />
