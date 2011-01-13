@@ -2939,7 +2939,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         boolean validPosition = setSelectionFromPosition(x, y);
         if (!validPosition) {
-            // return if the touch wasn't on an area of concern
+            if (y < DAY_HEADER_HEIGHT) {
+                Time selectedTime = new Time(mBaseDate);
+                selectedTime.setJulianDay(mSelectionDay);
+                selectedTime.hour = mSelectionHour;
+                selectedTime.normalize(true /* ignore isDst */);
+                mController.sendEvent(this, EventType.GO_TO, null, null, selectedTime, -1,
+                        ViewType.DAY, CalendarController.EXTRA_GOTO_DATE, null, null);
+            }
             return;
         }
 
@@ -3473,9 +3480,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * @param y the y position of the touch
      * @return true if the touch position is valid
      */
-    private boolean setSelectionFromPosition(final int x, final int y) {
+    private boolean setSelectionFromPosition(int x, final int y) {
         if (x < mHoursWidth) {
-            return false;
+            x = mHoursWidth;
         }
 
         int day = (x - mHoursWidth) / (mCellWidth + DAY_GAP);
@@ -3483,6 +3490,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             day = mNumDays - 1;
         }
         day += mFirstJulianDay;
+        mSelectionDay = day;
+
+        if (y < DAY_HEADER_HEIGHT) {
+            return false;
+        }
 
         mSelectionHour = mFirstHour; /* First fully visible hour */
 
@@ -3500,7 +3512,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             mSelectionAllDay = false;
         }
-        mSelectionDay = day;
+
         findSelectedEvent(x, y);
 
 //        Log.i("Cal", "setSelectionFromPosition( " + x + ", " + y + " ) day: " + day + " hour: "
