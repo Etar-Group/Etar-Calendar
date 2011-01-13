@@ -33,6 +33,11 @@
         style="@style/TextAppearance.Date_Range_Title"
         android:visibility="gone" />
 
+    <!-- This is a dummy view to make hiding/unhiding easier -->
+    <View android:id="@+id/mini_month_container"
+        android:layout_width="0dip"
+        android:layout_height="0dip"/>
+
     <FrameLayout
         android:id="@+id/mini_month"
 
