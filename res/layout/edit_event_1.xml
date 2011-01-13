@@ -31,8 +31,7 @@
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:hint="@string/hint_what"
-            android:capitalize="sentences"
-            android:paddingLeft="4dip" />
+            android:capitalize="sentences" />
     </TableRow>
 
     <!-- CALENDARS SELECTOR for new events -->
@@ -59,7 +58,6 @@
             style="@style/TextAppearance.EditEvent_Label" />
         <TextView
             android:id="@+id/calendar_textview"
-            android:paddingLeft="4dip"
             style="@style/TextAppearance.EditEvent_Value" />
     </TableRow>
 
@@ -73,7 +71,6 @@
             style="@style/TextAppearance.EditEvent_Label" />
         <TextView
             android:id="@+id/when"
-            android:paddingLeft="4dip"
             style="@style/TextAppearance.EditEvent_Value" />
     </TableRow>
 
@@ -182,7 +179,6 @@
             style="@style/TextAppearance.EditEvent_Label" />
         <TextView
             android:id="@+id/timezone_textView"
-            android:paddingLeft="5dip"
             style="@style/TextAppearance.EditEvent_Value" />
     </TableRow>
 
