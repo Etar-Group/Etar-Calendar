@@ -23,14 +23,11 @@
 
     <QuickContactBadge
         android:id="@+id/badge"
-        android:paddingLeft="3dip"
-        android:paddingRight="3dip"
-        android:paddingTop="3dip"
-        android:paddingBottom="6dip"
-        android:layout_marginLeft="2dip"
-        android:layout_marginRight="14dip"
-        android:layout_marginTop="4dip"
-        android:layout_marginBottom="3dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_gravity="center_vertical"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
         android:src="@drawable/ic_contact_picture"
         style="?android:attr/quickContactBadgeStyleWindowMedium" />
 
