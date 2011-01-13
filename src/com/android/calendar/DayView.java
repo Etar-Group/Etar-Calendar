@@ -812,9 +812,19 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         end.minute += 1;
         end.normalize(true);
 
+        long formatFlags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR;
+        if (mNumDays != 1) {
+            // Don't show day of the month if for multi-day view
+            formatFlags |= DateUtils.FORMAT_NO_MONTH_DAY;
+
+            // Abbreviate the month if showing multiple months
+            if (start.month != end.month) {
+                formatFlags |= DateUtils.FORMAT_ABBREV_MONTH;
+            }
+        }
+
         mController.sendEvent(this, EventType.UPDATE_TITLE, start, end, null, -1, ViewType.CURRENT,
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
-                        | DateUtils.FORMAT_ABBREV_MONTH, null, null);
+                formatFlags, null, null);
     }
 
     /**
