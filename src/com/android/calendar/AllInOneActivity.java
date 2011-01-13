@@ -556,10 +556,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 // hide minimonth and calendar frag
                 findViewById(R.id.mini_month).setVisibility(View.GONE);
                 findViewById(R.id.calendar_list).setVisibility(View.GONE);
+                findViewById(R.id.mini_month_container).setVisibility(View.GONE);
             } else {
                 // show minimonth and calendar frag
                 findViewById(R.id.mini_month).setVisibility(View.VISIBLE);
                 findViewById(R.id.calendar_list).setVisibility(View.VISIBLE);
+                findViewById(R.id.mini_month_container).setVisibility(View.VISIBLE);
             }
         } else if (event.eventType == EventType.VIEW_EVENT) {
             EventInfoFragment fragment = new EventInfoFragment(
