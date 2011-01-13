@@ -101,16 +101,15 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
      * @param res The context's resources
      */
     private void initBackgrounds(Resources res) {
-        mBackgrounds[0] =
-                res.getDrawable(R.drawable.calname_nomal_holo_light);
+        mBackgrounds[0] = res.getDrawable(R.drawable.calname_unselected_holo_light);
         mBackgrounds[IS_TOP] = mBackgrounds[0];
 
-        mBackgrounds[IS_SELECTED] =
-                res.getDrawable(R.drawable.calname_select_undernomal_holo_light);
+        mBackgrounds[IS_SELECTED] = res.getDrawable(
+                R.drawable.calname_select_underunselected_holo_light);
         mBackgrounds[IS_SELECTED | IS_TOP] = mBackgrounds[IS_SELECTED];
 
-        mBackgrounds[IS_SELECTED | IS_BOTTOM] =
-                res.getDrawable(R.drawable.calname_bottom_select_undernomal_holo_light);
+        mBackgrounds[IS_SELECTED | IS_BOTTOM] = res.getDrawable(
+                R.drawable.calname_bottom_select_underunselected_holo_light);
         mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM] = mBackgrounds[IS_SELECTED | IS_BOTTOM];
 
         mBackgrounds[IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED] =
@@ -123,17 +122,16 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         mBackgrounds[IS_SELECTED | IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_SELECTED
                 | IS_BELOW_SELECTED];
 
-        mBackgrounds[IS_BOTTOM] =
-                res.getDrawable(R.drawable.calname_bottom_nomal_holo_light);
+        mBackgrounds[IS_BOTTOM] = res.getDrawable(R.drawable.calname_bottom_unselected_holo_light);
         mBackgrounds[IS_TOP | IS_BOTTOM] = mBackgrounds[IS_BOTTOM];
 
-        mBackgrounds[IS_BOTTOM | IS_BELOW_SELECTED] =
-                res.getDrawable(R.drawable.calname_bottom_nomal_underselect_holo_light);
+        mBackgrounds[IS_BOTTOM | IS_BELOW_SELECTED] = res.getDrawable(
+                R.drawable.calname_bottom_unselected_underselect_holo_light);
         mBackgrounds[IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] = mBackgrounds[IS_BOTTOM
                 | IS_BELOW_SELECTED];
 
-        mBackgrounds[IS_BELOW_SELECTED] =
-                res.getDrawable(R.drawable.calname_nomal_underselect_holo_light);
+        mBackgrounds[IS_BELOW_SELECTED] = res.getDrawable(
+                R.drawable.calname_unselected_underselect_holo_light);
         mBackgrounds[IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_BELOW_SELECTED];
     }
 
