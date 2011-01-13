@@ -265,7 +265,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static final int DAY_HEADER_ALPHA = 0x80000000;
     private static final int DATE_HEADER_ALPHA = 0x26000000;
     private static final int DATE_HEADER_TODAY_ALPHA = 0x99000000;
-    private static float DAY_HEADER_ONE_DAY_LEFT_MARGIN = -12;
+    private static float DAY_HEADER_ONE_DAY_LEFT_MARGIN = 0;
     private static float DAY_HEADER_ONE_DAY_RIGHT_MARGIN = 5;
     private static float DAY_HEADER_ONE_DAY_BOTTOM_MARGIN = 6;
     private static float DAY_HEADER_LEFT_MARGIN = 5;
@@ -1750,9 +1750,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         p.setTypeface(mBold);
         p.setTextAlign(Paint.Align.RIGHT);
-        float x = mHoursWidth;
         int deltaX = mCellWidth + DAY_GAP;
         int cell = mFirstJulianDay;
+        float x = mHoursWidth;
+        if (mNumDays == 1) {
+            x = HOURS_LEFT_MARGIN;
+        }
 
         String[] dayNames;
         if (mDateStrWidth < mCellWidth) {
