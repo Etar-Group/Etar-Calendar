@@ -18,8 +18,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="4dip"
-    android:layout_marginBottom="20dip"
+    android:layout_marginTop="7dip"
+    android:layout_marginBottom="18dip"
     android:layout_marginLeft="12dip"
     android:layout_marginRight="12dip"
     android:orientation="vertical"
@@ -45,38 +45,16 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="5dip"
             android:orientation="vertical">
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/day_of_week"
-                    android:textColor="@color/appwidget_week"
-                    android:shadowColor="#66ffffff"
-                    android:shadowRadius="2"
-                    style="@style/WidgetDayOfWeekStyle" />
-                <TextView
-                    android:id="@+id/day_of_week_shadow"
-                    android:textColor="@color/appwidget_week"
-                    android:shadowColor="#4d000000"
-                    android:shadowRadius="1"
-                    style="@style/WidgetDayOfWeekStyle" />
-            </FrameLayout>
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/month_shadow"
-                    android:textColor="@color/appwidget_month"
-                    android:shadowColor="#66ffffff"
-                    android:shadowRadius="2"
-                    style="@style/WidgetMonthStyle" />
-                <TextView
-                    android:id="@+id/month"
-                    android:textColor="@color/appwidget_month"
-                    android:shadowColor="#4d000000"
-                    android:shadowRadius="1"
-                    style="@style/WidgetMonthStyle" />
-            </FrameLayout>
+            <TextView
+                android:id="@+id/day_of_week"
+                android:textColor="@color/appwidget_week"
+                android:shadowColor="#0dffffff"
+                android:shadowRadius="3"
+                style="@style/WidgetDayOfWeekStyle" />
+            <TextView
+                android:id="@+id/month"
+                android:textColor="@color/appwidget_month"
+                style="@style/WidgetMonthStyle" />
         </LinearLayout>
 
         <FrameLayout
@@ -86,16 +64,8 @@
             android:layout_gravity="center_vertical|left"
             android:layout_toRightOf="@id/holder">
             <TextView
-                android:id="@+id/day_of_month_shadow"
-                android:textColor="#00000000"
-                android:shadowColor="#0DFFFFFF"
-                android:shadowRadius="3"
-                style="@style/WidgetDayStyle" />
-            <TextView
                 android:id="@+id/day_of_month"
-                android:textColor="#4DFFFFFF"
-                android:shadowColor="#80000000"
-                android:shadowRadius="1"
+                android:textColor="@color/appwidget_date"
                 style="@style/WidgetDayStyle" />
         </FrameLayout>
 

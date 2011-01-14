@@ -88,12 +88,12 @@
     <drawable name="agenda_item_declined">#88ffffff</drawable>
 
     <color name="text_shadow_color">#4D000000</color>
-    
+
     <color name="appwidget_row_in_progress">#ffb5c6ee</color>
 
-    <color name="appwidget_date">#4D000000</color>
-    <color name="appwidget_week">#ffffffff</color>
-    <color name="appwidget_month">#ffbbbbbb</color>
+    <color name="appwidget_date">#c0ffffff</color>
+    <color name="appwidget_week">@android:color/white</color>
+    <color name="appwidget_month">#c0ffffff</color>
 
     <color name="appwidget_title">#ff000000</color>
     <color name="appwidget_when">#ff000000</color>

@@ -54,7 +54,7 @@
 
     <style name="TextAppearance" parent="android:TextAppearance">
     </style>
-    
+
     <style name="TextAppearance.SelectCalendar_Name">
         <item name="android:textSize">14sp</item>
     </style>
@@ -93,7 +93,7 @@
         <item name="android:gravity">top|left</item>
         <item name="android:textColor">#FF000000</item>
     </style>
-    
+
     <style name="TextAppearance.EditEvent_homeTime">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textSize">12sp</item>
@@ -118,7 +118,7 @@
     <style name="TextAppearance.Alert_Title">
         <item name="android:textSize">18sp</item>
     </style>
-    
+
     <style name="TextAppearance.Date_Range_Title">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/calendar_date_range_color</item>
@@ -155,7 +155,7 @@
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:gravity">center_vertical|left</item>
     </style>
-    
+
     <style name="WidgetDayOfWeekStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -171,17 +171,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical|left</item>
         <item name="android:gravity">center_vertical|left</item>
-        <item name="android:layout_marginTop">-8dip</item>
-        <item name="android:textSize">44sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">-9dip</item>
+        <item name="android:textSize">46sp</item>
         <item name="android:singleLine">true</item>
     </style>
-    
+
     <style name="WidgetMonthStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
         <item name="android:gravity">left</item>
         <item name="android:singleLine">true</item>
-    </style>    
+    </style>
 </resources>
