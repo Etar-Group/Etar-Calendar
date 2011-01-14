@@ -45,7 +45,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class AsyncQueryService extends Handler {
     private static final String TAG = "AsyncQuery";
-    static final boolean localLOGV = true;
+    static final boolean localLOGV = false;
 
     // Used for generating unique tokens for calls to this service
     private static AtomicInteger mUniqueToken = new AtomicInteger(0);
