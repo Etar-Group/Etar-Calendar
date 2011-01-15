@@ -341,7 +341,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         for (; i < numCount; i++) {
             if (mHasToday && todayIndex == i) {
                 mMonthNumPaint.setColor(mMonthNumTodayColor);
-                if (i + 1 < mNumCells) {
+                if (i + 1 < numCount) {
                     // Make sure the color will be set back on the next
                     // iteration
                     isFocusMonth = !mFocusDay[i + 1];

@@ -31,12 +31,14 @@
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:hint="@string/hint_what"
-            android:capitalize="sentences" />
+            android:capitalize="sentences"
+            android:focusable="true" />
     </TableRow>
 
     <!-- CALENDARS SELECTOR for new events -->
     <TableRow
-        android:id="@+id/calendar_selector_group">
+        android:id="@+id/calendar_selector_group"
+        android:focusable="true" >
         <TextView
             android:text="@string/edit_event_calendar_label"
             style="@style/TextAppearance.EditEvent_Label"
@@ -52,7 +54,8 @@
 
     <!-- CALENDAR DISPLAY for existing events -->
     <TableRow
-        android:id="@+id/calendar_group">
+        android:id="@+id/calendar_group"
+        android:focusable="true">
         <TextView
             android:text="@string/edit_event_calendar_label"
             style="@style/TextAppearance.EditEvent_Label" />
@@ -64,7 +67,8 @@
     <!-- WHEN - Read-only textview version of FROM/TO (below) -->
     <TableRow
         android:id="@+id/when_row"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:focusable="true">
         <TextView
             android:id="@+id/when_label"
             android:text="@string/when_label"
@@ -101,7 +105,8 @@
         </LinearLayout>
     </TableRow>
     <TableRow android:id="@+id/from_row_home"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:focusable="true">
         <TextView/>
         <LinearLayout android:orientation="horizontal"
             android:paddingLeft="5dip"
@@ -149,7 +154,8 @@
         </LinearLayout>
     </TableRow>
     <TableRow android:id="@+id/to_row_home"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:focusable="true">
         <TextView/>
         <LinearLayout android:orientation="horizontal"
             android:paddingLeft="5dip"
@@ -173,7 +179,8 @@
     <!-- TIME ZONE - Read-only textview version -->
     <TableRow
         android:id="@+id/timezone_textview_row"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:focusable="true">
         <TextView
             android:text="@string/timezone_label"
             style="@style/TextAppearance.EditEvent_Label" />
@@ -211,7 +218,8 @@
     </TableRow>
 
     <!-- WHERE -->
-    <TableRow android:id="@+id/where_row">
+    <TableRow android:id="@+id/where_row"
+        android:focusable="true">
         <TextView
             android:text="@string/where_label"
             style="@style/TextAppearance.EditEvent_Label" />
@@ -223,7 +231,8 @@
     </TableRow>
 
     <!-- DESCRIPTION -->
-    <TableRow android:id="@+id/description_row">
+    <TableRow android:id="@+id/description_row"
+        android:focusable="true">
         <TextView
             android:id="@+id/description_label"
             android:text="@string/description_label"
@@ -237,7 +246,8 @@
     </TableRow>
 
     <!-- REPEATS -->
-    <TableRow>
+    <TableRow
+        android:focusable="true">
         <TextView
             android:id="@+id/repeats_label"
             android:text="@string/repeats_label"
@@ -250,7 +260,8 @@
 
     <!-- REMINDERS -->
     <TableRow
-        android:id="@+id/reminders_row">
+        android:id="@+id/reminders_row"
+        android:focusable="true">
         <TextView
             android:id="@+id/reminders_label"
             android:text="@string/reminders_label"

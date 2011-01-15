@@ -62,6 +62,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -73,6 +74,8 @@ import android.widget.ViewSwitcher;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Formatter;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,6 +87,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         {
     private static String TAG = "DayView";
     private static boolean DEBUG = false;
+    private static final String HOUR_FORMAT_12H = "%A %I%p";
+    private static final String HOUR_FORMAT_24H = "%A %H";
+    private static final String PERIOD_SPACE = ". ";
 
     private static float mScale = 0; // Used for supporting different screen densities
     private static final long INVALID_EVENT_ID = -1; //This is used for remembering a null event
@@ -162,6 +168,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private int[] mEarliestStartHour;    // indexed by the week day offset
     private boolean[] mHasAllDayEvent;   // indexed by the week day offset
     private String mAllDayString;
+    private String mEventCountTemplate;
+
+    protected static StringBuilder mStringBuilder = new StringBuilder(50);
+    // TODO recreate formatter when locale changes
+    protected static Formatter mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
 
     private Runnable mTZUpdater = new Runnable() {
         @Override
@@ -217,6 +228,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // Pre-allocate these objects and re-use them
     private Rect mRect = new Rect();
     private Rect mDestRect = new Rect();
+    private Rect mSelectionRect = new Rect();
     private Paint mPaint = new Paint();
     private Paint mEventTextPaint = new Paint();
     private Paint mSelectionPaint = new Paint();
@@ -1337,6 +1349,85 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         return super.onKeyDown(keyCode, event);
     }
 
+    private class AccessibilityRunnable implements Runnable {
+        int mEventType = AccessibilityEvent.TYPE_VIEW_SELECTED;
+        @Override
+        public void run() {
+            sendAccessibilityEvent(mEventType);
+        }
+    }
+
+    private AccessibilityRunnable mDispatchAccessibilityEventRunnable = new AccessibilityRunnable();
+
+    @Override
+    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+        if (event.getEventType() != AccessibilityEvent.TYPE_VIEW_SELECTED &&
+                event.getEventType() != AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED) {
+            return false;
+        }
+        StringBuilder b = new StringBuilder(getSelectedTime()
+                .format(mIs24HourFormat ? HOUR_FORMAT_24H : HOUR_FORMAT_12H));
+        b.append(PERIOD_SPACE);
+        int numEvents = mSelectedEvents.size();
+        if (mEventCountTemplate == null) {
+            mEventCountTemplate = mContext.getString(R.string.template_announce_item_index);
+        }
+        switch (event.getEventType()) {
+            // When a new hour is selected we sent this event
+            case AccessibilityEvent.TYPE_VIEW_SELECTED:
+                int i = 1;
+                for (Event calEvent : mSelectedEvents) {
+                    if (numEvents > 1) {
+                        mStringBuilder.setLength(0);
+                        b.append(mFormatter.format(mEventCountTemplate, i++, numEvents));
+                        b.append(" ");
+                    }
+                    appendEventAccessibilityString(b, calEvent);
+                }
+                break;
+            // When a different event is selected we send this event
+            case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
+                if (mSelectedEvent != null) {
+                    if (numEvents > 1) {
+                        mStringBuilder.setLength(0);
+                        b.append(mFormatter.format(mEventCountTemplate,
+                                mSelectedEvents.indexOf(mSelectedEvent) + 1, numEvents));
+                        b.append(" ");
+                    }
+                    appendEventAccessibilityString(b, mSelectedEvent);
+                }
+                break;
+            default:
+                break;
+        }
+        CharSequence msg = b.toString();
+        event.getText().add(msg);
+        event.setAddedCount(msg.length());
+        return true;
+    }
+
+    /**
+     * @param b
+     * @param calEvent
+     */
+    private void appendEventAccessibilityString(StringBuilder b, Event calEvent) {
+        b.append(calEvent.getTitleAndLocation());
+        b.append(PERIOD_SPACE);
+        String when;
+        int flags = DateUtils.FORMAT_SHOW_DATE;
+        if (calEvent.allDay) {
+            flags |= DateUtils.FORMAT_UTC | DateUtils.FORMAT_SHOW_WEEKDAY;
+        } else {
+            flags |= DateUtils.FORMAT_SHOW_TIME;
+            if (DateFormat.is24HourFormat(mContext)) {
+                flags |= DateUtils.FORMAT_24HOUR;
+            }
+        }
+        when = Utils.formatDateRange(mContext, calEvent.startMillis, calEvent.endMillis, flags);
+        b.append(when);
+        b.append(PERIOD_SPACE);
+    }
+
     private class GotoBroadcaster implements Animation.AnimationListener {
         private final int mCounter;
         private final Time mStart;
@@ -2373,7 +2464,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int cellHeight = mCellHeight;
 
         // Use the selected hour as the selection region
-        Rect selectionArea = mRect;
+        Rect selectionArea = mSelectionRect;
         selectionArea.top = top + mSelectionHour * (cellHeight + HOUR_GAP);
         selectionArea.bottom = selectionArea.top + cellHeight;
         selectionArea.left = left;
@@ -2411,6 +2502,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             // TODO: not sure why we are 4 pixels off
             drawEventText(layout, r, canvas, mViewStartY + 4, mViewStartY + mViewHeight
                     - DAY_HEADER_HEIGHT - mAllDayHeight);
+        }
+
+
+        if (mComputeSelectedEvents) {
+            mDispatchAccessibilityEventRunnable.mEventType = mSelectedEvent == null ?
+                    AccessibilityEvent.TYPE_VIEW_SELECTED :
+                    AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED;
+            post(mDispatchAccessibilityEventRunnable);
         }
 
         if (date == mSelectionDay && !mSelectionAllDay && isFocused()

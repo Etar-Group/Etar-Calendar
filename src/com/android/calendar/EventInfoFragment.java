@@ -66,14 +66,18 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
@@ -83,12 +87,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public static final String TAG = "EventInfoFragment";
 
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
-
     private static final String BUNDLE_KEY_START_MILLIS = "key_start_millis";
-
     private static final String BUNDLE_KEY_END_MILLIS = "key_end_millis";
-
     private static final String BUNDLE_KEY_IS_DIALOG = "key_fragment_is_dialog";
+
+    private static final String PERIOD_SPACE = ". ";
 
     /**
      * These are the corresponding indices into the array of strings
@@ -98,10 +101,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     static final int UPDATE_ALL = 1;
 
     // Query tokens for QueryHandler
-    private static final int TOKEN_QUERY_EVENT = 0;
-    private static final int TOKEN_QUERY_CALENDARS = 1;
-    private static final int TOKEN_QUERY_ATTENDEES = 2;
-    private static final int TOKEN_QUERY_DUPLICATE_CALENDARS = 3;
+    private static final int TOKEN_QUERY_EVENT = 1 << 0;
+    private static final int TOKEN_QUERY_CALENDARS = 1 << 1;
+    private static final int TOKEN_QUERY_ATTENDEES = 1 << 2;
+    private static final int TOKEN_QUERY_DUPLICATE_CALENDARS = 1 << 3;
+    private static final int TOKEN_QUERY_ALL = TOKEN_QUERY_DUPLICATE_CALENDARS
+            | TOKEN_QUERY_ATTENDEES | TOKEN_QUERY_CALENDARS | TOKEN_QUERY_EVENT;
+    private int mCurrentQuery = 0;
 
     private static final String[] EVENT_PROJECTION = new String[] {
         Events._ID,                  // 0  do not remove; used in DeleteEventHelper
@@ -191,6 +197,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private int mAttendeeResponseFromIntent = CalendarController.ATTENDEE_NO_RESPONSE;
     private boolean mIsRepeating;
 
+    private TextView mTitle;
+    private TextView mWhen;
+    private TextView mWhere;
+    private TextView mWhat;
+    private TextView mAttendees;
+    private TextView mCalendar;
+
     private Pattern mWildcardPattern = Pattern.compile("^.*$");
 
     ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
@@ -262,6 +275,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     uri = Attendees.CONTENT_URI;
                     startQuery(TOKEN_QUERY_ATTENDEES, null, uri, ATTENDEES_PROJECTION,
                             ATTENDEES_WHERE, args, ATTENDEES_SORT_ORDER);
+                } else {
+                    sendAccessibilityEventIfQueryDone(TOKEN_QUERY_ATTENDEES);
                 }
                 break;
             case TOKEN_QUERY_ATTENDEES:
@@ -290,13 +305,20 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     sb.append(" (").append(email).append(")");
                 }
 
-                TextView calendarTv = (TextView) mView.findViewById(R.id.calendar);
-                calendarTv.setText(sb);
+                mCalendar.setText(sb);
                 break;
             }
             cursor.close();
+            sendAccessibilityEventIfQueryDone(token);
         }
 
+    }
+
+    private void sendAccessibilityEventIfQueryDone(int token) {
+        mCurrentQuery |= token;
+        if (mCurrentQuery == TOKEN_QUERY_ALL) {
+            sendAccessibilityEvent();
+        }
     }
 
     public EventInfoFragment() {
@@ -392,6 +414,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.event_info, null);
+        mTitle = (TextView) mView.findViewById(R.id.title);
+        mWhen = (TextView) mView.findViewById(R.id.when);
+        mWhere = (TextView) mView.findViewById(R.id.where);
+        mWhat = (TextView) mView.findViewById(R.id.description);
+        mAttendees = (TextView) mView.findViewById(R.id.attendee_list);
+        mCalendar = (TextView) mView.findViewById(R.id.calendar);
 
         if (mUri == null) {
             // restore event ID from bundle
@@ -752,7 +780,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         view.findViewById(R.id.color).setBackgroundColor(mColor);
 
-        TextView title = (TextView) view.findViewById(R.id.title);
+        TextView title = mTitle;
 
 //        View divider = view.findViewById(R.id.divider);
 //        divider.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
@@ -819,7 +847,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (location == null || location.trim().length() == 0) {
             setVisibilityCommon(view, R.id.where, View.GONE);
         } else {
-            final TextView textView = (TextView) view.findViewById(R.id.where);
+            final TextView textView = mWhere;
             if (textView != null) {
                 textView.setAutoLinkMask(0);
                 textView.setText(location.trim());
@@ -843,6 +871,47 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // Description
         if (description != null && description.length() != 0) {
             setTextCommon(view, R.id.description, description);
+        }
+    }
+
+    private void sendAccessibilityEvent() {
+        AccessibilityManager am = AccessibilityManager.getInstance(getActivity());
+        if (!am.isEnabled()) {
+            return;
+        }
+
+        AccessibilityEvent event = AccessibilityEvent.obtain(AccessibilityEvent.TYPE_VIEW_FOCUSED);
+        event.setClassName(getClass().getName());
+        event.setPackageName(getActivity().getPackageName());
+        List<CharSequence> text = event.getText();
+
+        addFieldToAccessibilityEvent(text, mTitle);
+        addFieldToAccessibilityEvent(text, mCalendar);
+        addFieldToAccessibilityEvent(text, mWhen);
+        addFieldToAccessibilityEvent(text, mWhere);
+        addFieldToAccessibilityEvent(text, mWhat);
+        addFieldToAccessibilityEvent(text, mAttendees);
+
+        RadioGroup response = (RadioGroup) getView().findViewById(R.id.response_value);
+        if (response.getVisibility() == View.VISIBLE) {
+            int id = response.getCheckedRadioButtonId();
+            if (id != View.NO_ID) {
+                text.add(((TextView) getView().findViewById(R.id.response_label)).getText());
+                text.add((((RadioButton) (response.findViewById(id))).getText() + PERIOD_SPACE));
+            }
+        }
+
+        am.sendAccessibilityEvent(event);
+    }
+
+    /**
+     * @param text
+     */
+    private void addFieldToAccessibilityEvent(List<CharSequence> text, TextView view) {
+        String str = view.toString().trim();
+        if (!TextUtils.isEmpty(str)) {
+            text.add(mTitle.getText());
+            text.add(PERIOD_SPACE);
         }
     }
 
@@ -882,11 +951,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
         } else {
             setVisibilityCommon(view, R.id.calendar, View.GONE);
+            sendAccessibilityEventIfQueryDone(TOKEN_QUERY_DUPLICATE_CALENDARS);
         }
     }
 
     private void updateAttendees(View view) {
-        TextView tv = (TextView) view.findViewById(R.id.attendee_list);
+        TextView tv = mAttendees;
         SpannableStringBuilder sb = new SpannableStringBuilder();
         formatAttendees(mAcceptedAttendees, sb, Attendees.ATTENDEE_STATUS_ACCEPTED);
         formatAttendees(mDeclinedAttendees, sb, Attendees.ATTENDEE_STATUS_DECLINED);
