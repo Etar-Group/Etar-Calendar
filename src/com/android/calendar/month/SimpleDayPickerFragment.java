@@ -26,6 +26,7 @@ import android.content.res.Resources;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -33,6 +34,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
@@ -108,6 +110,8 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     protected Time mFirstVisibleDay = new Time();
     // The name of the month to display
     protected TextView mMonthName;
+    // The last name announced by accessibility
+    protected CharSequence mPrevMonthName;
     // which month should be displayed/highlighted [0-11]
     protected int mCurrentMonthDisplayed;
     // used for tracking during a scroll
@@ -507,8 +511,12 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
      * @param time A day in the new focus month.
      */
     protected void setMonthDisplayed(Time time) {
+        CharSequence oldMonth = mMonthName.getText();
         mMonthName.setText(time.format("%B %Y"));
         mMonthName.invalidate();
+        if (!TextUtils.equals(oldMonth, mMonthName.getText())) {
+            mMonthName.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
+        }
         mCurrentMonthDisplayed = time.month;
         mAdapter.updateFocusMonth(mCurrentMonthDisplayed);
         // TODO Send Accessibility Event
@@ -571,5 +579,5 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
                 mPreviousScrollState = mNewState;
             }
         }
-    };
+    }
 }

@@ -40,6 +40,7 @@
         android:gravity="center_vertical"
         android:paddingRight="3dip"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:focusable="true"
         style="@style/TextAppearance.EditEvent_Value" />
 
     <ImageView

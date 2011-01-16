@@ -52,6 +52,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -506,8 +507,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
 
         final String msg = Utils.formatDateRange(this, start, end, (int) event.extraLong);
-
+        CharSequence oldDate = mDateRange.getText();
         mDateRange.setText(msg);
+        if (!TextUtils.equals(oldDate, msg)) {
+            mDateRange.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
+        }
     }
 
     private void updateHomeClock() {

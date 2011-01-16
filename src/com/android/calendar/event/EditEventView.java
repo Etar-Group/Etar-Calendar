@@ -58,6 +58,9 @@ import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -68,6 +71,7 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ResourceCursorAdapter;
 import android.widget.ScrollView;
@@ -87,6 +91,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         DialogInterface.OnClickListener, TextWatcher, OnItemSelectedListener {
     private static final String TAG = "EditEvent";
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
+    private static final String PERIOD_SPACE = ". ";
 
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
@@ -1019,6 +1024,57 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         updateView();
         mScrollView.setVisibility(View.VISIBLE);
         mLoadingMessage.setVisibility(View.GONE);
+        sendAccessibilityEvent();
+    }
+
+    private void sendAccessibilityEvent() {
+        AccessibilityManager am = AccessibilityManager.getInstance(mActivity);
+        if (!am.isEnabled() || mModel == null) {
+            return;
+        }
+        StringBuilder b = new StringBuilder();
+        addFieldsRecursive(b, mView);
+        CharSequence msg = b.toString();
+
+        AccessibilityEvent event = AccessibilityEvent.obtain(AccessibilityEvent.TYPE_VIEW_FOCUSED);
+        event.setClassName(getClass().getName());
+        event.setPackageName(mActivity.getPackageName());
+        event.getText().add(msg);
+        event.setAddedCount(msg.length());
+
+        am.sendAccessibilityEvent(event);
+    }
+
+    private void addFieldsRecursive(StringBuilder b, View v) {
+        if (v == null || v.getVisibility() != View.VISIBLE) {
+            return;
+        }
+        if (v instanceof TextView) {
+            CharSequence tv = ((TextView) v).getText();
+            if (!TextUtils.isEmpty(tv.toString().trim())) {
+                b.append(tv + PERIOD_SPACE);
+            }
+        } else if (v instanceof RadioGroup) {
+            RadioGroup rg = (RadioGroup) v;
+            int id = rg.getCheckedRadioButtonId();
+            if (id != View.NO_ID) {
+                b.append(((RadioButton) (v.findViewById(id))).getText() + PERIOD_SPACE);
+            }
+        } else if (v instanceof Spinner) {
+            Spinner s = (Spinner) v;
+            if (s.getSelectedItem() instanceof String) {
+                String str = ((String) (s.getSelectedItem())).trim();
+                if (!TextUtils.isEmpty(str)) {
+                    b.append(str + PERIOD_SPACE);
+                }
+            }
+        } else if (v instanceof ViewGroup) {
+            ViewGroup vg = (ViewGroup) v;
+            int children = vg.getChildCount();
+            for (int i = 0; i < children; i++) {
+                addFieldsRecursive(b, vg.getChildAt(i));
+            }
+        }
     }
 
     /**
