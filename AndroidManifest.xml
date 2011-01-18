@@ -164,7 +164,9 @@
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/appwidget_info" />
         </receiver>
 
-        <service android:name=".widget.CalendarAppWidgetService" android:exported="true"/>
+        <service android:name=".widget.CalendarAppWidgetService" 
+                 android:permission="android.permission.BIND_REMOTEVIEWS"
+                 android:exported="false"/>
 
         <activity android:name="CalendarTests" android:label="Calendar Tests">
             <intent-filter>
