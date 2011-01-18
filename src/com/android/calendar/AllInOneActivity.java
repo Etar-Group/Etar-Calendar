@@ -301,7 +301,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     }
 
     private void initFragments(long timeMillis, int viewType, Bundle icicle) {
-        FragmentTransaction ft = getFragmentManager().openTransaction();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
 
         if (mIsMultipane) {
             Fragment miniMonthFrag = new MonthByWeekFragment(timeMillis, true);
@@ -477,7 +477,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         boolean doCommit = false;
         if (ft == null) {
             doCommit = true;
-            ft = getFragmentManager().openTransaction();
+            ft = getFragmentManager().beginTransaction();
         }
 
         ft.replace(viewId, frag);

@@ -146,7 +146,7 @@ public class SearchActivity extends Activity
 
     private void initFragments(long timeMillis, String query) {
         FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.openTransaction();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
 
         AgendaFragment searchResultsFragment = new AgendaFragment(timeMillis);
         ft.replace(R.id.search_results, searchResultsFragment);
@@ -164,7 +164,7 @@ public class SearchActivity extends Activity
     private void showEventInfo(EventInfo event) {
         if (mIsMultipane) {
             FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction ft = fragmentManager.openTransaction();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
 
             mEventInfoFragment = new EditEventFragment(event, true);
             ft.replace(R.id.event_info, mEventInfoFragment);
@@ -207,7 +207,7 @@ public class SearchActivity extends Activity
         if (mIsMultipane && mEventInfoFragment != null
                 && eventId == mCurrentEventId) {
             FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction ft = fragmentManager.openTransaction();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.remove(mEventInfoFragment);
             ft.commit();
             mEventInfoFragment = null;
