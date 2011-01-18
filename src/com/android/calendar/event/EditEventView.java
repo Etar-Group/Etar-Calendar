@@ -485,7 +485,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private boolean isCustomRecurrence() {
 
-        if (mEventRecurrence.until != null || mEventRecurrence.interval != 0) {
+        if (mEventRecurrence.until != null
+                || (mEventRecurrence.interval != 0 && mEventRecurrence.interval != 1)) {
             return true;
         }
 
