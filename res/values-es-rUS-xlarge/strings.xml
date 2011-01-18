@@ -2,6 +2,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- XL -->
+    <!-- outdated translation 6684870723846276393 -->     <string name="timezone_label" msgid="8642765910915500618">"Zona horaria"</string>
+    <!-- XL -->
   <plurals name="Nminutes">
     <item quantity="one" msgid="473582708745322661">"1 min"</item>
     <item quantity="other" msgid="2273927126110805953">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
