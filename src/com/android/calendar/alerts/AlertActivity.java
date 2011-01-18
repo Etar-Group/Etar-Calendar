@@ -126,6 +126,7 @@ public class AlertActivity extends Activity implements OnClickListener {
             if (!isFinishing()) {
                 mCursor = cursor;
                 mAdapter.changeCursor(cursor);
+                mListView.setSelection(cursor.getCount() - 1);
 
                 // The results are in, enable the buttons
                 mSnoozeAllButton.setEnabled(true);
