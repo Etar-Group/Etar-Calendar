@@ -66,6 +66,8 @@ public class DeleteEventHelper {
      * If true, then call finish() on the parent activity when done.
      */
     private boolean mExitWhenDone;
+    // the runnable to execute when the delete is confirmed
+    private Runnable mCallback;
 
     /**
      * These are the corresponding indices into the array of strings
@@ -123,6 +125,9 @@ public class DeleteEventHelper {
             long id = mModel.mId; // mCursor.getInt(mEventIndexId);
             Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
             mService.startDelete(mService.getNextToken(), null, uri, null, null, Utils.UNDO_DELAY);
+            if (mCallback != null) {
+                mCallback.run();
+            }
             if (mExitWhenDone) {
                 mParent.finish();
             }
@@ -136,6 +141,9 @@ public class DeleteEventHelper {
         new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int button) {
             deleteExceptionEvent();
+            if (mCallback != null) {
+                mCallback.run();
+            }
             if (mExitWhenDone) {
                 mParent.finish();
             }
@@ -190,6 +198,11 @@ public class DeleteEventHelper {
         mStartMillis = begin;
         mEndMillis = end;
         mWhichDelete = which;
+    }
+
+    public void delete(long begin, long end, long eventId, int which, Runnable callback) {
+        delete(begin, end, eventId, which);
+        mCallback = callback;
     }
 
     /**
@@ -385,6 +398,9 @@ public class DeleteEventHelper {
                         Utils.UNDO_DELAY);
                 break;
             }
+        }
+        if (mCallback != null) {
+            mCallback.run();
         }
         if (mExitWhenDone) {
             mParent.finish();

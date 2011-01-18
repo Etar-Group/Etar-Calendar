@@ -433,15 +433,26 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
                 null, null, null);
 
-        Button b = (Button) mView.findViewById(R.id.done);
+        Button b = (Button) mView.findViewById(R.id.delete);
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventInfoFragment.this.dismiss();
+                DeleteEventHelper deleteHelper = new DeleteEventHelper(
+                        getActivity(), getActivity(), false /* exitWhenDone */);
+                deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
             }});
 
         return mView;
     }
+
+    private Runnable onDeleteRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (EventInfoFragment.this.isVisible()) {
+                EventInfoFragment.this.dismiss();
+            }
+        }
+    };
 
     private void updateTitle() {
         Resources res = getActivity().getResources();
