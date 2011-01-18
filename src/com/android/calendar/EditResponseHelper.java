@@ -35,19 +35,19 @@ public class EditResponseHelper implements DialogInterface.OnClickListener {
      * and is invoked when the "Ok" button is selected.
      */
     private DialogInterface.OnClickListener mDialogListener;
-    
+
     public EditResponseHelper(Activity parent) {
         mParent = parent;
     }
-    
+
     public void setOnClickListener(DialogInterface.OnClickListener listener) {
         mDialogListener = listener;
     }
-    
+
     public int getWhichEvents() {
         return mWhichEvents;
     }
-    
+
     public void onClick(DialogInterface dialog, int which) {
     }
 
@@ -58,30 +58,27 @@ public class EditResponseHelper implements DialogInterface.OnClickListener {
             new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
             mWhichEvents = which;
-            
+
             // Enable the "ok" button now that the user has selected which
             // events in the series to delete.
             Button ok = mAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             ok.setEnabled(true);
         }
     };
-    
+
     public void showDialog(int whichEvents) {
         // We need to have a non-null listener, otherwise we get null when
         // we try to fetch the "Ok" button.
         if (mDialogListener == null) {
             mDialogListener = this;
         }
-        AlertDialog dialog = new AlertDialog.Builder(mParent)
-                .setTitle(R.string.change_response_title)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setSingleChoiceItems(R.array.change_response_labels, whichEvents,
-                        mListListener)
+        AlertDialog dialog = new AlertDialog.Builder(mParent).setTitle(
+                R.string.change_response_title).setIconAttribute(android.R.attr.alertDialogIcon)
+                .setSingleChoiceItems(R.array.change_response_labels, whichEvents, mListListener)
                 .setPositiveButton(android.R.string.ok, mDialogListener)
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
+                .setNegativeButton(android.R.string.cancel, null).show();
         mAlertDialog = dialog;
-        
+
         if (whichEvents == -1) {
             // Disable the "Ok" button until the user selects which events to
             // delete.
