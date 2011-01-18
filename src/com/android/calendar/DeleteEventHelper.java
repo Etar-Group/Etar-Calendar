@@ -239,12 +239,10 @@ public class DeleteEventHelper {
         String rRule = model.mRrule;
         String originalEvent = model.mOriginalEvent;
         if (TextUtils.isEmpty(rRule)) {
-            AlertDialog dialog = new AlertDialog.Builder(mContext)
-            .setTitle(R.string.delete_title)
-            .setMessage(R.string.delete_this_event_title)
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .setNegativeButton(android.R.string.cancel, null)
-            .create();
+            AlertDialog dialog = new AlertDialog.Builder(mContext).setTitle(R.string.delete_title)
+                    .setMessage(R.string.delete_this_event_title)
+                    .setIconAttribute(android.R.attr.alertDialogIcon)
+                    .setNegativeButton(android.R.string.cancel, null).create();
 
             if (originalEvent == null) {
                 // This is a normal event. Pop up a confirmation dialog.
@@ -269,13 +267,11 @@ public class DeleteEventHelper {
                     mWhichDelete--;
                 }
             }
-            AlertDialog dialog = new AlertDialog.Builder(mContext)
-            .setTitle(R.string.delete_title)
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .setSingleChoiceItems(labelsArrayId, which, mDeleteListListener)
-            .setPositiveButton(android.R.string.ok, mDeleteRepeatingDialogListener)
-            .setNegativeButton(android.R.string.cancel, null)
-            .show();
+            AlertDialog dialog = new AlertDialog.Builder(mContext).setTitle(R.string.delete_title)
+                    .setIconAttribute(android.R.attr.alertDialogIcon)
+                    .setSingleChoiceItems(labelsArrayId, which, mDeleteListListener)
+                    .setPositiveButton(android.R.string.ok, mDeleteRepeatingDialogListener)
+                    .setNegativeButton(android.R.string.cancel, null).show();
             mAlertDialog = dialog;
 
             if (which == -1) {

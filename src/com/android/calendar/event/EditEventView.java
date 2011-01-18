@@ -1114,12 +1114,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             // Create an error message for the user that, when clicked,
             // will exit this activity without saving the event.
             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-            builder.setTitle(R.string.no_syncable_calendars)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setMessage(R.string.no_calendars_found)
+            builder.setTitle(R.string.no_syncable_calendars).setIconAttribute(
+                    android.R.attr.alertDialogIcon).setMessage(R.string.no_calendars_found)
                     .setPositiveButton(R.string.add_account, this)
-                    .setNegativeButton(android.R.string.no, this)
-                    .setOnCancelListener(this);
+                    .setNegativeButton(android.R.string.no, this).setOnCancelListener(this);
             mNoCalendarsDialog = builder.show();
             return;
         }
