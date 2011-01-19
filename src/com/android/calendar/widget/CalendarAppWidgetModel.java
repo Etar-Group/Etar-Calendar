@@ -80,6 +80,7 @@ class CalendarAppWidgetModel {
         int visibTitle; // Visibility value for Title textview (View.GONE or View.VISIBLE)
         String title;
 
+        long id;
         long start;
         long end;
         boolean allDay;
@@ -100,6 +101,8 @@ class CalendarAppWidgetModel {
             builder.append(title);
             builder.append(", visibWhen=");
             builder.append(visibWhen);
+            builder.append(", id=");
+            builder.append(id);
             builder.append(", when=");
             builder.append(when);
             builder.append(", visibWhere=");
@@ -117,6 +120,7 @@ class CalendarAppWidgetModel {
             final int prime = 31;
             int result = 1;
             result = prime * result + (allDay ? 1231 : 1237);
+            result = prime * result + (int) (id ^ (id >>> 32));
             result = prime * result + (int) (end ^ (end >>> 32));
             result = prime * result + (int) (start ^ (start >>> 32));
             result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -138,6 +142,8 @@ class CalendarAppWidgetModel {
             if (getClass() != obj.getClass())
                 return false;
             EventInfo other = (EventInfo) obj;
+            if (id != other.id)
+                return false;
             if (allDay != other.allDay)
                 return false;
             if (end != other.end)
@@ -311,7 +317,7 @@ class CalendarAppWidgetModel {
             }
 
             int i = mEventInfos.size();
-            mEventInfos.add(populateEventInfo(
+            mEventInfos.add(populateEventInfo(eventId,
                     allDay, start, end, startDay, endDay, title, location, color));
             // populate the day buckets that this event falls into
             int from = Math.max(startDay, mTodayJulianDay);
@@ -335,7 +341,7 @@ class CalendarAppWidgetModel {
                 if (day != mTodayJulianDay) {
                     final DayInfo dayInfo = populateDayInfo(day, recycle);
                     // Add the day header
-                    final int dayIndex = mDayInfos.size();                    
+                    final int dayIndex = mDayInfos.size();
                     mDayInfos.add(dayInfo);
                     mRowInfos.add(new RowInfo(RowInfo.TYPE_DAY, dayIndex));
                 }
@@ -351,7 +357,7 @@ class CalendarAppWidgetModel {
         }
     }
 
-    private EventInfo populateEventInfo(boolean allDay, long start, long end,
+    private EventInfo populateEventInfo(long eventId, boolean allDay, long start, long end,
             int startDay, int endDay, String title, String location, int color) {
         EventInfo eventInfo = new EventInfo();
 
@@ -378,6 +384,7 @@ class CalendarAppWidgetModel {
             }
             visibWhen = View.VISIBLE;
         }
+        eventInfo.id = eventId;
         eventInfo.start = start;
         eventInfo.end = end;
         eventInfo.allDay = allDay;

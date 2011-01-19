@@ -16,6 +16,9 @@
 
 package com.android.calendar.widget;
 
+import static android.provider.Calendar.EVENT_BEGIN_TIME;
+import static android.provider.Calendar.EVENT_END_TIME;
+
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
@@ -214,15 +217,18 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      * @param goToTime time that calendar should take the user to, or 0 to
      *            indicate no specific start time.
      */
-    static Intent getLaunchFillInIntent(long goToTime) {
+    static Intent getLaunchFillInIntent(long id, long start, long end) {
         final Intent fillInIntent = new Intent();
-        String dataString = "content://com.android.calendar/time";
-        if (goToTime != 0) {
+        String dataString = "content://com.android.calendar/events";
+        if (id != 0) {
             fillInIntent.putExtra(Utils.INTENT_KEY_DETAIL_VIEW, true);
-            dataString += "/" + goToTime;
+            dataString += "/" + id;
         }
         Uri data = Uri.parse(dataString);
         fillInIntent.setData(data);
+        fillInIntent.putExtra(EVENT_BEGIN_TIME, start);
+        fillInIntent.putExtra(EVENT_END_TIME, end);
+
         return fillInIntent;
     }
 
