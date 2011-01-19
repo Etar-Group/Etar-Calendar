@@ -642,6 +642,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 Intent nextIntent = new Intent(Settings.ACTION_ADD_ACCOUNT);
                 final String[] array = {"com.android.calendar"};
                 nextIntent.putExtra(Settings.EXTRA_AUTHORITIES, array);
+                nextIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 mActivity.startActivity(nextIntent);
             }
         } else if (dialog == mTimezoneDialog) {

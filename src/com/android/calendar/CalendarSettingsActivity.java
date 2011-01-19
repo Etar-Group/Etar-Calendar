@@ -26,6 +26,9 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.provider.Calendar;
 import android.provider.Calendar.Calendars;
+import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.util.List;
@@ -58,15 +61,30 @@ public class CalendarSettingsActivity extends PreferenceActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            Intent launchIntent = new Intent();
-            launchIntent.setAction(Intent.ACTION_VIEW);
-            launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
-            launchIntent.setFlags(
-                    Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(launchIntent);
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent launchIntent = new Intent();
+                launchIntent.setAction(Intent.ACTION_VIEW);
+                launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
+                launchIntent.setFlags(
+                        Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(launchIntent);
+                return true;
+            case R.id.action_add_account:
+                Intent nextIntent = new Intent(Settings.ACTION_ADD_ACCOUNT);
+                final String[] array = { "com.android.calendar" };
+                nextIntent.putExtra(Settings.EXTRA_AUTHORITIES, array);
+                nextIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(nextIntent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_title_bar, menu);
+        return true;
     }
 }
