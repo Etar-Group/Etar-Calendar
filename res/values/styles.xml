@@ -77,7 +77,6 @@
 
     <style name="TextAppearance.EditEvent_Label">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:gravity">top|left</item>
         <item name="android:minHeight">48dip</item>
         <item name="android:layout_width">144dip</item>
