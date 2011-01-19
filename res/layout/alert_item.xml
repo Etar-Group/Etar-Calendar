@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,82 +14,71 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:paddingTop="16dip"
+    android:paddingBottom="16dip"
     android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeight">
-    
-    <View android:id="@+id/vertical_stripe"
-        android:layout_width="5dip"
-        android:layout_height="match_parent"
-        android:layout_marginRight="5dip" />
-        
+
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        
-        <TextView android:id="@+id/event_title"
-            android:layout_width="match_parent"
+
+        <View
+            android:id="@+id/color_square"
+            android:layout_width="12dip"
+            android:layout_height="12dip"
+            android:layout_gravity="top|left"
+            android:layout_marginTop="6dip"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip" />
+
+        <TextView
+            android:id="@+id/event_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            style="?android:attr/textAppearanceMediumInverse" />
-        
-        <LinearLayout android:id="@+id/event_details"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical">
-                    
-                    <TextView android:id="@+id/when"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:textStyle="bold"
-                        style="?android:attr/textAppearanceSmall" />
-
-                    <ImageView android:id="@+id/repeat_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dip"
-                        android:src="@drawable/ic_repeat_dark"
-                        android:focusable="false"
-                        android:clickable="false"
-                    />
-                
-                </LinearLayout>
-                <LinearLayout android:id="@+id/reminders_container"
-                    android:orientation="vertical"
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                />
-            </LinearLayout>
-            
-            <TextView android:id="@+id/where"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textColor="?android:attr/textColorSecondary"
-                style="?android:attr/textAppearanceSmall" />
-        </LinearLayout>
+            android:textSize="18sp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="44dip">
+
+        <TextView
+            android:id="@+id/when"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/repeat_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dip"
+            android:src="@drawable/ic_repeat_dark"
+            android:focusable="false"
+            android:clickable="false" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/where"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="44dip"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="14sp" />
 </LinearLayout>

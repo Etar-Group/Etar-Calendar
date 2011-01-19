@@ -30,19 +30,20 @@ import android.widget.TextView;
 
 public class AlertAdapter extends ResourceCursorAdapter {
 
+    private static boolean mFirstTime = true;
+    private static int mTitleColor;
+    private static int mOtherColor; // non-title fields
+    private static int mPastEventColor;
+
     public AlertAdapter(Context context, int resource) {
         super(context, resource, null);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView textView;
-
-        View stripe = view.findViewById(R.id.vertical_stripe);
+        View square = view.findViewById(R.id.color_square);
         int color = cursor.getInt(AlertActivity.INDEX_COLOR);
-        stripe.setBackgroundColor(color);
-        textView = (TextView) view.findViewById(R.id.event_title);
-        textView.setTextColor(color);
+        square.setBackgroundColor(color);
 
         // Repeating info
         View repeatContainer = view.findViewById(R.id.repeat_icon);
@@ -73,16 +74,33 @@ public class AlertAdapter extends ResourceCursorAdapter {
 
     public static void updateView(Context context, View view, String eventName, String location,
             long startMillis, long endMillis, boolean allDay) {
-
         Resources res = context.getResources();
-        TextView textView;
+
+        TextView titleView = (TextView) view.findViewById(R.id.event_title);
+        TextView whenView = (TextView) view.findViewById(R.id.when);
+        TextView whereView = (TextView) view.findViewById(R.id.where);
+        if (mFirstTime) {
+            mPastEventColor = res.getColor(R.color.alert_past_event);
+            mTitleColor = res.getColor(R.color.alert_event_title);
+            mOtherColor = res.getColor(R.color.alert_event_other);
+            mFirstTime = false;
+        }
+
+        if (endMillis < System.currentTimeMillis()) {
+            titleView.setTextColor(mPastEventColor);
+            whenView.setTextColor(mPastEventColor);
+            whereView.setTextColor(mPastEventColor);
+        } else {
+            titleView.setTextColor(mTitleColor);
+            whenView.setTextColor(mOtherColor);
+            whereView.setTextColor(mOtherColor);
+        }
 
         // What
         if (eventName == null || eventName.length() == 0) {
             eventName = res.getString(R.string.no_title_label);
         }
-        textView = (TextView) view.findViewById(R.id.event_title);
-        textView.setText(eventName);
+        titleView.setText(eventName);
 
         // When
         String when;
@@ -97,15 +115,14 @@ public class AlertAdapter extends ResourceCursorAdapter {
             flags |= DateUtils.FORMAT_24HOUR;
         }
         when = DateUtils.formatDateRange(context, startMillis, endMillis, flags);
-        textView = (TextView) view.findViewById(R.id.when);
-        textView.setText(when);
+        whenView.setText(when);
 
         // Where
-        textView = (TextView) view.findViewById(R.id.where);
         if (location == null || location.length() == 0) {
-            textView.setVisibility(View.GONE);
+            whereView.setVisibility(View.GONE);
         } else {
-            textView.setText(location);
+            whereView.setText(location);
+            whereView.setVisibility(View.VISIBLE);
         }
     }
 }
