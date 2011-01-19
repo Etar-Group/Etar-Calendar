@@ -310,8 +310,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int EVENT_ALL_DAY_TEXT_RIGHT_MARGIN = EVENT_TEXT_RIGHT_MARGIN;
 
     private static int mPressedColor;
-    private static int mSelectedEventTextColor;
     private static int mEventTextColor;
+    private static int mDeclinedEventTextColor;
+
     private static int mWeek_saturdayColor;
     private static int mWeek_sundayColor;
     private static int mCalendarDateBannerTextColor;
@@ -389,7 +390,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     protected final Resources mResources;
     protected final Drawable mCurrentTimeLine;
     protected final Drawable mTodayHeaderDrawable;
-    protected final Drawable mEventBoxDrawable;
+    protected Drawable mAcceptedOrTentativeEventBoxDrawable;
+    protected Drawable mUnconfirmedOrDeclinedEventBoxDrawable;
     private String mAmString;
     private String mPmString;
     private DeleteEventHelper mDeleteEventHelper;
@@ -497,7 +499,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mResources = context.getResources();
         mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_week_holo_light);
         mTodayHeaderDrawable = mResources.getDrawable(R.drawable.today_blue_week_holo_light);
-        mEventBoxDrawable = mResources.getDrawable(R.drawable.panel_month_event_holo_light);
+        mAcceptedOrTentativeEventBoxDrawable = mResources
+                .getDrawable(R.drawable.panel_month_event_holo_light);
+        mUnconfirmedOrDeclinedEventBoxDrawable = mResources
+                .getDrawable(R.drawable.week_event_bg_decline_holo_light);
         mEventLoader = eventLoader;
         mEventGeometry = new EventGeometry();
         mEventGeometry.setMinEventHeight(MIN_EVENT_HEIGHT);
@@ -555,10 +560,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mCalendarHourLabelColor = mResources.getColor(R.color.calendar_hour_label);
 //        mCalendarHourSelected = mResources.getColor(R.color.calendar_hour_selected);
         mPressedColor = mResources.getColor(R.color.pressed);
-        mSelectedEventTextColor = mResources.getColor(R.color.calendar_event_selected_text_color);
         mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
+        mDeclinedEventTextColor = mResources.getColor(R.color.calendar_declined_event_text_color);
 
-        mEventTextPaint.setColor(mEventTextColor);
         mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
         mEventTextPaint.setTextAlign(Paint.Align.LEFT);
         mEventTextPaint.setAntiAlias(true);
@@ -2252,6 +2256,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if (layout == null || r.width() != layout.getWidth()) {
             String text = drawTextSanitizer(event.getTitleAndLocation(), MAX_EVENT_TEXT_LEN);
 
+            if (event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
+                paint.setColor(mDeclinedEventTextColor);
+            } else {
+                paint.setColor(mEventTextColor);
+            }
+
             // Leave a one pixel boundary on the left and right of the rectangle for the event
             layout = new StaticLayout(text, 0, text.length(), new TextPaint(paint), r.width(),
                     Alignment.ALIGN_NORMAL, 1.0f, 0.0f, true, null, r.width());
@@ -2813,11 +2823,22 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         r.left = (int) event.left + EVENT_RECT_LEFT_MARGIN;
         r.right = (int) event.right - EVENT_RECT_RIGHT_MARGIN;
 
-        mEventBoxDrawable.setBounds(r);
-        mEventBoxDrawable.draw(canvas);
-//        drawEmptyRect(canvas, r, 0xFF00FF00); // for debugging
+        Drawable eventBoxDrawable;
+        switch (event.selfAttendeeStatus) {
+            case Attendees.ATTENDEE_STATUS_INVITED:
+            case Attendees.ATTENDEE_STATUS_DECLINED:
+                eventBoxDrawable = mUnconfirmedOrDeclinedEventBoxDrawable;
+                break;
+            case Attendees.ATTENDEE_STATUS_NONE: // Your own events
+            case Attendees.ATTENDEE_STATUS_ACCEPTED:
+            case Attendees.ATTENDEE_STATUS_TENTATIVE:
+            default:
+                eventBoxDrawable = mAcceptedOrTentativeEventBoxDrawable;
+                break;
+        }
+        eventBoxDrawable.setBounds(r);
+        eventBoxDrawable.draw(canvas);
 
-        int eventTextColor = mEventTextColor;
         p.setStyle(Style.FILL);
 
         // If this event is selected, then use the selection color
@@ -2829,19 +2850,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 mPrevSelectedEvent = event;
                 // box = mBoxPressed;
                 color = mPressedColor;
-                eventTextColor = mSelectedEventTextColor;
                 paintIt = true;
             } else if (mSelectionMode == SELECTION_SELECTED) {
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
                 // box = mBoxSelected;
                 color = mPressedColor;
-                eventTextColor = mSelectedEventTextColor;
                 paintIt = true;
             } else if (mSelectionMode == SELECTION_LONGPRESS) {
                 // box = mBoxLongPressed;
                 color = mPressedColor;
-                eventTextColor = mSelectedEventTextColor;
                 paintIt = true;
             }
 
@@ -2851,7 +2869,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
         }
 
-        eventTextPaint.setColor(eventTextColor);
         // Draw cal color square border
         r.top = (int) event.top + CALENDAR_COLOR_SQUARE_V_OFFSET;
         r.left = (int) event.left + CALENDAR_COLOR_SQUARE_H_OFFSET;
@@ -2867,20 +2884,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         r.right--;
         p.setColor(event.color);
         canvas.drawRect(r, p);
-
-        boolean declined = (event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED);
-        if (declined) {
-            boolean aa = p.isAntiAlias();
-            if (!aa) {
-                p.setAntiAlias(true);
-            }
-            // Temp behavior
-            p.setColor(0x88FFFFFF);
-            canvas.drawLine(r.right, r.top, r.left, r.bottom, p);
-            if (!aa) {
-                p.setAntiAlias(false);
-            }
-        }
 
         // Setup rect for drawEventText which follows
         r.top = (int) event.top + EVENT_RECT_TOP_MARGIN;

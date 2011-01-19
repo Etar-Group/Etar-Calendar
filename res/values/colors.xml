@@ -30,6 +30,7 @@
     <color name="daynames_text_color">#ff000000</color>
     <color name="calendar_event_selected_text_color">#ff000000</color>
     <color name="calendar_event_text_color">#ff000000</color>
+    <color name="calendar_declined_event_text_color">#ffaaaaaa</color>
     <color name="calendar_owner_text_color">#ffbebebe</color>
     <color name="calendar_date_range_color">#80000000</color>
 
