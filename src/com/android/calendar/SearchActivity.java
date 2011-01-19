@@ -49,7 +49,8 @@ import android.view.View;
 import android.widget.SearchView;
 
 public class SearchActivity extends Activity
-        implements CalendarController.EventHandler, SearchView.OnQueryChangeListener {
+        implements CalendarController.EventHandler, SearchView.OnQueryChangeListener,
+        SearchView.OnCloseListener {
 
     private static final String TAG = SearchActivity.class.getSimpleName();
 
@@ -71,6 +72,8 @@ public class SearchActivity extends Activity
     private EditEventFragment mEventInfoFragment;
 
     private long mCurrentEventId = -1;
+    
+    private String mQuery;
 
     private DeleteEventHelper mDeleteEventHelper;
 
@@ -133,7 +136,12 @@ public class SearchActivity extends Activity
 
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+            String query;
+            if (icicle != null && icicle.containsKey(BUNDLE_KEY_RESTORE_SEARCH_QUERY)) {
+                query = icicle.getString(BUNDLE_KEY_RESTORE_SEARCH_QUERY);
+            } else {
+                query = intent.getStringExtra(SearchManager.QUERY);
+            }
             initFragments(millis, query);
         }
     }
@@ -200,6 +208,7 @@ public class SearchActivity extends Activity
             searchEventInfo.startTime = goToTime;
         }
         mController.sendEvent(this, searchEventInfo);
+        mQuery = searchQuery;
     }
 
     private void deleteEvent(long eventId, long startMillis, long endMillis) {
@@ -221,8 +230,12 @@ public class SearchActivity extends Activity
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.search_title_bar, menu);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setIconifiedByDefault(true);
+        searchView.setIconifiedByDefault(false);
         searchView.setOnQueryChangeListener(this);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQuery(mQuery, false);
+        searchView.setOnCloseListener(this);
+        searchView.clearFocus();
         return true;
     }
 
@@ -242,12 +255,7 @@ public class SearchActivity extends Activity
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
                 return true;
             case android.R.id.home:
-                Intent launchIntent = new Intent();
-                launchIntent.setAction(Intent.ACTION_VIEW);
-                launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
-                launchIntent.setFlags(
-                        Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(launchIntent);
+                returnToCalendarHome();
                 return true;
             default:
                 return false;
@@ -277,6 +285,7 @@ public class SearchActivity extends Activity
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(BUNDLE_KEY_RESTORE_TIME, mController.getTime());
+        outState.putString(BUNDLE_KEY_RESTORE_SEARCH_QUERY, mQuery);
     }
 
     @Override
@@ -331,8 +340,24 @@ public class SearchActivity extends Activity
 
     @Override
     public boolean onSubmitQuery(String query) {
+        mQuery = query;
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, -1, query,
                 getComponentName());
         return false;
+    }
+
+    @Override
+    public boolean onClose() {
+        returnToCalendarHome();
+        return true;
+    }
+
+    private void returnToCalendarHome() {
+        Intent launchIntent = new Intent();
+        launchIntent.setAction(Intent.ACTION_VIEW);
+        launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
+        launchIntent.setFlags(
+                Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(launchIntent);
     }
 }
