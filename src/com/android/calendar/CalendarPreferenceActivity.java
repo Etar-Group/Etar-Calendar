@@ -51,6 +51,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
     static final String KEY_START_VIEW = "startView";
     static final String KEY_DETAILED_VIEW = "preferredDetailedView";
     static final String KEY_DEFAULT_CALENDAR = "preference_defaultCalendar";
+    static final String KEY_WEEK_START_DAY = "preferences_week_start_day";
     static final String KEY_HOME_TZ_ENABLED = "preferences_home_tz_enabled";
     static final String KEY_HOME_TZ = "preferences_home_tz";
 
@@ -58,6 +59,11 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
     static final String ALERT_TYPE_ALERTS = "0";
     static final String ALERT_TYPE_STATUS_BAR = "1";
     static final String ALERT_TYPE_OFF = "2";
+    // These must be in sync with the array preferences_week_start_day_values
+    static final String WEEK_START_DEFAULT = "0";
+    static final String WEEK_START_SATURDAY = "7";
+    static final String WEEK_START_SUNDAY = "1";
+    static final String WEEK_START_MONDAY = "2";
 
     // Default preference values
     static final String DEFAULT_START_VIEW =
@@ -66,6 +72,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
             CalendarApplication.ACTIVITY_NAMES[CalendarApplication.DAY_VIEW_ID];
 
 
+    ListPreference mWeekStartDay;
     ListPreference mAlertType;
     ListPreference mVibrateWhen;
     RingtonePreference mRingtone;
@@ -104,6 +111,7 @@ public class CalendarPreferenceActivity extends PreferenceActivity implements
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         mAlertType = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_TYPE);
+        mWeekStartDay = (ListPreference) preferenceScreen.findPreference(KEY_WEEK_START_DAY);
         mVibrateWhen = (ListPreference) preferenceScreen.findPreference(KEY_ALERTS_VIBRATE_WHEN);
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);

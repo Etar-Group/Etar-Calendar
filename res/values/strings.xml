@@ -366,6 +366,11 @@
     <string name="preferences_alerts_title">Reminder settings</string>
     <!-- Settings check box label to hide events that the user has declined to attend -->
     <string name="preferences_hide_declined_title">Hide declined events</string>
+
+    <string name="preferences_week_start_day_title">Set week start day</string>
+    <string name="preferences_week_start_day_dialog">Week starts on</string>
+    <string name="preferences_week_start_day_default">1</string>
+
     <!-- Settings option to bring up a dialog that lets the user choose how
          reminder notifications should occur. -->
     <string name="preferences_alerts_type_title">Set alerts &amp; notifications</string>

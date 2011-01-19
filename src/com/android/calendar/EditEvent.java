@@ -636,7 +636,11 @@ public class EditEvent extends Activity implements View.OnClickListener,
 
         boolean newEvent = false;
 
-        mFirstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
+        //mFirstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
+		//DEFAULT DAY
+		SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
+        String str = prefs.getString(CalendarPreferenceActivity.KEY_WEEK_START_DAY,"1");
+        mFirstDayOfWeek = Integer.parseInt(str);
 
         mStartTime = new Time();
         mEndTime = new Time();
@@ -833,7 +837,6 @@ public class EditEvent extends Activity implements View.OnClickListener,
         String[] labels = r.getStringArray(R.array.reminder_minutes_labels);
         mReminderLabels = new ArrayList<String>(Arrays.asList(labels));
 
-        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
         String durationString =
                 prefs.getString(CalendarPreferenceActivity.KEY_DEFAULT_REMINDER, "0");
         mDefaultReminderMinutes = Integer.parseInt(durationString);

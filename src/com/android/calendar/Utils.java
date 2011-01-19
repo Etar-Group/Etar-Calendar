@@ -315,8 +315,11 @@ public class Utils {
      * Get first day of week as android.text.format.Time constant.
      * @return the first day of week in android.text.format.Time
      */
-    public static int getFirstDayOfWeek() {
-        int startDay = Calendar.getInstance().getFirstDayOfWeek();
+    public static int getFirstDayOfWeek(Context context) {
+		SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(context);
+        String str = prefs.getString(CalendarPreferenceActivity.KEY_WEEK_START_DAY,"1");
+        int startDay = Integer.parseInt(str);
+        //int startDay = Calendar.getInstance().getFirstDayOfWeek();
         if (startDay == Calendar.SATURDAY) {
             return Time.SATURDAY;
         } else if (startDay == Calendar.MONDAY) {

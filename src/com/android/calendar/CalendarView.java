@@ -439,7 +439,7 @@ public class CalendarView extends View
         setClickable(true);
         setOnCreateContextMenuListener(this);
 
-        mStartDay = Utils.getFirstDayOfWeek();
+        mStartDay = Utils.getFirstDayOfWeek(context);
 
         mTimeZone = TimeZone.getTimeZone(Utils.getTimeZone(context, mUpdateTZ));
 

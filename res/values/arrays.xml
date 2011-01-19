@@ -269,6 +269,20 @@
         <item>"10080"</item>
     </string-array>
 
+    <string-array name="preferences_week_start_day_labels" translateable="false">
+        <item>Default</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+    </string-array>
+
+    <string-array name="preferences_week_start_day_values" translatable="false">
+        <item>"0"</item>
+        <item>"7"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+    </string-array>
+
     <string-array name="preferences_alert_type_labels">
         <item>Alert</item>
         <item>Status bar notification</item>
