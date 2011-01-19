@@ -148,7 +148,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             if (mModel.mEventInfos.isEmpty() || mModel.mRowInfos.isEmpty()) {
                 RemoteViews views = new RemoteViews(mContext.getPackageName(),
                         R.layout.appwidget_no_events);
-                final Intent intent =  CalendarAppWidgetProvider.getLaunchFillInIntent(0);
+                final Intent intent =  CalendarAppWidgetProvider.getLaunchFillInIntent(0, 0, 0);
                 views.setOnClickFillInIntent(R.id.appwidget_no_events, intent);
                 return views;
             }
@@ -182,8 +182,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 views.setInt(R.id.color, "setBackgroundColor", eventInfo.color);
 
                 // An element in ListView.
-                final Intent fillInIntent =
-                        CalendarAppWidgetProvider.getLaunchFillInIntent(eventInfo.start);
+                final Intent fillInIntent = CalendarAppWidgetProvider.getLaunchFillInIntent(
+                        eventInfo.id, eventInfo.start, eventInfo.end);
                 views.setOnClickFillInIntent(R.id.appwidget_row, fillInIntent);
                 return views;
             }
