@@ -92,6 +92,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private ActionBar.Tab mDayTab;
     private ActionBar.Tab mWeekTab;
     private ActionBar.Tab mMonthTab;
+    private SearchView mSearchView;
 
     private Runnable mHomeTimeUpdater = new Runnable() {
         @Override
@@ -382,10 +383,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
 
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        if (searchView != null) {
-            searchView.setIconifiedByDefault(true);
-            searchView.setOnQueryChangeListener(this);
+        mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        if (mSearchView != null) {
+            mSearchView.setIconifiedByDefault(true);
+            mSearchView.setOnQueryChangeListener(this);
+            mSearchView.setSubmitButtonEnabled(true);
         }
 
         return true;
@@ -591,6 +593,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public boolean onSubmitQuery(String query) {
+        mSearchView.clearFocus();
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, -1, query,
                 getComponentName());
         return false;
