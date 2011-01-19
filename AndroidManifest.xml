@@ -127,7 +127,7 @@
 
         <!-- Declarations for alerts/reminders -->
         <activity android:name=".alerts.AlertActivity" android:launchMode="singleInstance"
-             android:theme="@android:style/Theme.Light" android:excludeFromRecents="true" />
+             android:theme="@android:style/Theme.Holo.DialogWhenLarge" android:excludeFromRecents="true" />
 
         <receiver android:name=".alerts.AlertReceiver">
             <intent-filter>
