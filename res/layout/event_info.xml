@@ -177,11 +177,11 @@
                 android:enabled="false"
                 android:text="@string/edit_event_label" />
             <Button
-                android:id="@+id/done"
+                android:id="@+id/delete"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/save_label" />
+                android:text="@string/delete_label" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
