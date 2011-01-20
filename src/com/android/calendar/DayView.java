@@ -611,7 +611,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         p.setTextSize(HOURS_FONT_SIZE);
         p.setTypeface(null);
-        updateIs24HourFormat();
+        handleOnResume();
 
         mAmString = DateUtils.getAMPMString(Calendar.AM);
         mPmString = DateUtils.getAMPMString(Calendar.PM);
@@ -667,9 +667,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
     }
 
-    public void updateIs24HourFormat() {
+    public void handleOnResume() {
         mIs24HourFormat = DateFormat.is24HourFormat(mContext);
         mHourStrs = mIs24HourFormat ? CalendarData.s24Hours : CalendarData.s12HoursNoAmPm;
+        mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
     }
 
     /**
