@@ -552,7 +552,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             int nameColumn = cursor.getColumnIndexOrThrow(Calendars.DISPLAY_NAME);
             int ownerColumn = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
             if (colorBar != null) {
-                colorBar.setBackgroundDrawable(Utils.getColorChip(cursor.getInt(colorColumn)));
+                colorBar.setBackgroundColor(cursor.getInt(colorColumn));
             }
 
             TextView name = (TextView) view.findViewById(R.id.calendar_name);

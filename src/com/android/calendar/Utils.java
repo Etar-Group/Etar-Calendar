@@ -26,8 +26,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -308,25 +306,6 @@ public class Utils {
             millis = System.currentTimeMillis();
         }
         return millis;
-    }
-
-    public static Drawable getColorChip(int color) {
-        /*
-         * We want the color chip to have a nice gradient using the color of the
-         * calendar. To do this we use a GradientDrawable. The color supplied
-         * has an alpha of FF so we first do: color & 0x00FFFFFF to clear the
-         * alpha. Then we add our alpha to it. We use 3 colors to get a step
-         * effect where it starts off very light and quickly becomes dark and
-         * then a slow transition to be even darker.
-         */
-        color &= CLEAR_ALPHA_MASK;
-        int startColor = color | HIGH_ALPHA;
-        int middleColor = color | MED_ALPHA;
-        int endColor = color | LOW_ALPHA;
-        int[] colors = new int[] { startColor, middleColor, endColor };
-        GradientDrawable d = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colors);
-        d.setCornerRadii(CORNERS);
-        return d;
     }
 
     /**
