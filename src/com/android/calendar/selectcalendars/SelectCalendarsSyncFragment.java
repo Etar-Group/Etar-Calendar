@@ -41,6 +41,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -145,21 +146,24 @@ public class SelectCalendarsSyncFragment extends ListFragment
 
     @Override
     public void onPause() {
-        HashMap<Integer, CalendarRow> changes = ((SelectCalendarsSyncAdapter) getListAdapter())
-                .getChanges();
-        if (changes != null && changes.size() > 0) {
-            for (CalendarRow row : changes.values()) {
-                int id = (int) row.id;
-                mService.cancelOperation(id);
-                // Use the full long id in case it makes a difference
-                Uri uri = ContentUris.withAppendedId(Calendars.CONTENT_URI, row.id);
-                ContentValues values = new ContentValues();
-                // Toggle the current setting
-                int synced = row.synced ? 1 : 0;
-                values.put(Calendars.SYNC_EVENTS, synced);
-                mService.startUpdate(id, null, uri, values, null, null, 0);
+        final ListAdapter listAdapter = getListAdapter();
+        if (listAdapter != null) {
+            HashMap<Integer, CalendarRow> changes = ((SelectCalendarsSyncAdapter) listAdapter)
+                    .getChanges();
+            if (changes != null && changes.size() > 0) {
+                for (CalendarRow row : changes.values()) {
+                    int id = (int) row.id;
+                    mService.cancelOperation(id);
+                    // Use the full long id in case it makes a difference
+                    Uri uri = ContentUris.withAppendedId(Calendars.CONTENT_URI, row.id);
+                    ContentValues values = new ContentValues();
+                    // Toggle the current setting
+                    int synced = row.synced ? 1 : 0;
+                    values.put(Calendars.SYNC_EVENTS, synced);
+                    mService.startUpdate(id, null, uri, values, null, null, 0);
+                }
+                changes.clear();
             }
-            changes.clear();
         }
         super.onPause();
     }
