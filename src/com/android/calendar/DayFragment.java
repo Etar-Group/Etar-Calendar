@@ -162,11 +162,11 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         mTZUpdater.run();
         eventsChanged();
         DayView view = (DayView) mViewSwitcher.getCurrentView();
-        view.updateIs24HourFormat();
+        view.handleOnResume();
         view.restartCurrentTimeUpdates();
 
         view = (DayView) mViewSwitcher.getNextView();
-        view.updateIs24HourFormat();
+        view.handleOnResume();
 
         // Register for Intent broadcasts
 //        IntentFilter filter = new IntentFilter();
