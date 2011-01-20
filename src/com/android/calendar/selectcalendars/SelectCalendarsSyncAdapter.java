@@ -185,7 +185,7 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         mChanges.put((int) row.id, row);
     }
 
-    public HashMap getChanges() {
+    public HashMap<Integer, CalendarRow> getChanges() {
         return mChanges;
     }
 }
