@@ -384,6 +384,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private ArrayList<Event> mSelectedEvents = new ArrayList<Event>();
     private boolean mComputeSelectedEvents;
+    private boolean mUpdateToast;
     private Event mSelectedEvent;
     private Event mPrevSelectedEvent;
     private Rect mPrevBox = new Rect();
@@ -1350,6 +1351,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mSelectionDay = selectionDay;
         mSelectedEvents.clear();
         mComputeSelectedEvents = true;
+        mUpdateToast = true;
 
         if (redraw) {
             invalidate();
@@ -1762,6 +1764,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         // Draw the fixed areas (that don't scroll) directly to the canvas.
         drawAfterScroll(canvas);
+        if (mComputeSelectedEvents && mUpdateToast) {
+            updateEventDetails();
+            mUpdateToast = false;
+        }
         mComputeSelectedEvents = false;
         canvas.restore();
     }
@@ -1782,12 +1788,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Draw the AM and PM indicators if we're in 12 hour mode
         if (!mIs24HourFormat) {
             drawAmPm(canvas, p);
-        }
-
-        // Update the popup window showing the event details, but only if
-        // we are not scrolling and we have focus.
-        if (!mScrolling && isFocused()) {
-            updateEventDetails();
         }
     }
 
