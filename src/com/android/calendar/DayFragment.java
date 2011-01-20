@@ -67,7 +67,8 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
                 return;
             }
             String tz = Utils.getTimeZone(getActivity(), mTZUpdater);
-            mSelectedDay.switchTimezone(tz);
+            mSelectedDay.timezone = tz;
+            mSelectedDay.normalize(true);
         }
     };
 
@@ -158,6 +159,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
     public void onResume() {
         super.onResume();
         mEventLoader.startBackgroundThread();
+        mTZUpdater.run();
         eventsChanged();
         DayView view = (DayView) mViewSwitcher.getCurrentView();
         view.updateIs24HourFormat();
