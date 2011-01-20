@@ -117,7 +117,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     protected void onCreate(Bundle icicle) {
-//        setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
+        if (Utils.getSharedPreference(this, OtherPreferences.KEY_OTHER_1, false)) {
+            setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
+        }
         super.onCreate(icicle);
 
         // This needs to be created before setContentView
@@ -593,6 +595,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public boolean onSubmitQuery(String query) {
+        if (TextUtils.equals(query, "TARDIS")) {
+            Utils.tardis();
+        }
         mSearchView.clearFocus();
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, -1, query,
                 getComponentName());
