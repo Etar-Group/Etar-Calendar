@@ -608,7 +608,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
         } else if (tab == mMonthTab && mCurrentView != ViewType.MONTH) {
             mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.MONTH);
         } else {
-            Log.w(TAG, "TabSelected event from unknown tab: " + tab);
+            Log.w(TAG, "TabSelected event from unknown tab: "
+                    + (tab == null ? "null" : tab.getText()));
+            Log.w(TAG, "CurrentView:" + mCurrentView + " Tab:" + tab.toString() + " Day:" + mDayTab
+                    + " Week:" + mWeekTab + " Month:" + mMonthTab);
         }
     }
 
