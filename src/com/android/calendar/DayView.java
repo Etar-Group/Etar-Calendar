@@ -1341,6 +1341,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mController.sendEvent(this, EventType.GO_TO, date, end, -1, ViewType.CURRENT);
             return true;
         }
+        if (mSelectionDay != selectionDay) {
+            Time date = new Time(mBaseDate);
+            date.setJulianDay(selectionDay);
+            date.hour = mSelectionHour;
+            mController.sendEvent(this, EventType.GO_TO, date, date, -1, ViewType.CURRENT);
+        }
         mSelectionDay = selectionDay;
         mSelectedEvents.clear();
         mComputeSelectedEvents = true;
