@@ -17,7 +17,6 @@
 package com.android.calendar.selectcalendars;
 
 import com.android.calendar.R;
-import com.android.calendar.Utils;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -138,7 +137,7 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
 
         View colorView = view.findViewById(R.id.color);
 
-        colorView.setBackgroundDrawable(Utils.getColorChip(color));
+        colorView.setBackgroundColor(color);
 
         setText(view, R.id.calendar, name);
         return view;
