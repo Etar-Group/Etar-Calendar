@@ -217,6 +217,10 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mTZUpdater.run();
+        mSelectedDay.setToNow();
+        if (mAdapter != null) {
+            mAdapter.setSelectedDay(mSelectedDay);
+        }
 
         mGestureDetector = new GestureDetector(activity, new MonthGestureListener());
         ViewConfiguration viewConfig = ViewConfiguration.get(activity);
