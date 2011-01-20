@@ -231,38 +231,19 @@ class CalendarAppWidgetModel {
 
     }
 
-    String mDayOfWeek;
-    String mDayOfMonth;
     final List<RowInfo> mRowInfos;
     final List<EventInfo> mEventInfos;
     final List<DayInfo> mDayInfos;
     final Context mContext;
     final long mNow;
-    final long mStartOfNextDay;
     final int mTodayJulianDay;
     final int mMaxJulianDay;
 
-    public CalendarAppWidgetModel(Context context) {
+    public CalendarAppWidgetModel(Context context, String timeZone) {
         mNow = System.currentTimeMillis();
-        Time time = new Time();
-        time.set(mNow);
-        time.monthDay++;
-        time.hour = 0;
-        time.minute = 0;
-        time.second = 0;
-        mStartOfNextDay = time.normalize(true);
-
-        long localOffset = TimeZone.getDefault().getOffset(mNow) / 1000;
-        mTodayJulianDay = Time.getJulianDay(mNow, localOffset);
+        Time time = new Time(timeZone);
+        mTodayJulianDay = Time.getJulianDay(mNow, time.gmtoff);
         mMaxJulianDay = mTodayJulianDay + CalendarAppWidgetService.MAX_DAYS - 1;
-
-        // Calendar header
-        String dayOfWeek = DateUtils.getDayOfWeekString(
-                time.weekDay + 1, DateUtils.LENGTH_MEDIUM).toUpperCase();
-
-        mDayOfWeek = dayOfWeek;
-        mDayOfMonth = Integer.toString(time.monthDay);
-
         mEventInfos = new ArrayList<EventInfo>(50);
         mRowInfos = new ArrayList<RowInfo>(50);
         mDayInfos = new ArrayList<DayInfo>(8);
@@ -412,21 +393,19 @@ class CalendarAppWidgetModel {
 
     private DayInfo populateDayInfo(int julianDay, Time recycle) {
         long millis = recycle.setJulianDay(julianDay);
-        int flags = DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_UTC;
-        flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
+        int flags = DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_SHOW_WEEKDAY;
 
         String label;
         if (julianDay == mTodayJulianDay + 1) {
             label = mContext.getString(R.string.tomorrow);
         } else {
-            label = DateUtils.formatDateRange(mContext, millis, millis, flags);
+            label = Utils.formatDateRange(mContext, millis, millis, flags);
         }
 
-        flags = DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_UTC;
-        flags |= DateUtils.FORMAT_SHOW_DATE;
+        flags = DateUtils.FORMAT_ABBREV_ALL | DateUtils.FORMAT_SHOW_DATE;
 
         label += ", ";
-        label += DateUtils.formatDateRange(mContext, millis, millis, flags);
+        label += Utils.formatDateRange(mContext, millis, millis, flags);
 
         return new DayInfo(julianDay, label);
     }
@@ -436,10 +415,6 @@ class CalendarAppWidgetModel {
         StringBuilder builder = new StringBuilder();
         builder.append("\nCalendarAppWidgetModel [eventInfos=");
         builder.append(mEventInfos);
-        builder.append(", dayOfMonth=");
-        builder.append(mDayOfMonth);
-        builder.append(", dayOfWeek=");
-        builder.append(mDayOfWeek);
         builder.append("]");
         return builder.toString();
     }

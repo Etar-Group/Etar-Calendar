@@ -17,13 +17,13 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@null">
 
     <LinearLayout
         android:id="@+id/appwidget_row"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:minHeight="48dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -40,7 +40,7 @@
             android:layout_marginLeft="16dip"
             android:layout_marginRight="7dip"
             android:layout_marginTop="6dip"
-            android:layout_marginBottom="-5dip"
+            android:layout_marginBottom="4dip"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@color/appwidget_title"
@@ -52,7 +52,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dip"
             android:layout_marginRight="7dip"
-            android:layout_marginBottom="-5dip"
+            android:layout_marginTop="-7dip"
+            android:layout_marginBottom="4dip"
             android:textSize="14sp"
             android:textColor="@color/appwidget_when"
             android:singleLine="true" />
@@ -63,6 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dip"
             android:layout_marginRight="7dip"
+            android:layout_marginTop="-7dip"
+            android:layout_marginBottom="4dip"
             android:textSize="14sp"
             android:textColor="@color/appwidget_where"
             android:singleLine="true" />

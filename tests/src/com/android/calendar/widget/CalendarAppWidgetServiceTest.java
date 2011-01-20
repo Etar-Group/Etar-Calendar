@@ -85,7 +85,8 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
 
     @SmallTest
     public void testGetAppWidgetModel_1Event() throws Exception {
-        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext());
+        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext(), Time
+                .getCurrentTimezone());
         MatrixCursor cursor = new MatrixCursor(CalendarAppWidgetService.EVENT_PROJECTION, 0);
 
 
@@ -94,9 +95,6 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
         cursor.addRow(getRow(0, now + ONE_HOUR, now + TWO_HOURS, title, location, 0));
 
         // Expected Output
-        expected.mDayOfMonth = "1";
-        expected.mDayOfWeek = "FRI";
-
         EventInfo eventInfo = new EventInfo();
         eventInfo.visibWhen = View.VISIBLE;
         eventInfo.visibWhere = View.VISIBLE;
@@ -116,7 +114,8 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
  // TODO re-enable this test when our widget behavior is finalized
     @Suppress @SmallTest
     public void testGetAppWidgetModel_2StaggeredEvents() throws Exception {
-        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext());
+        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext(), Time
+                .getCurrentTimezone());
         MatrixCursor cursor = new MatrixCursor(CalendarAppWidgetService.EVENT_PROJECTION, 0);
 
         int i = 0;
@@ -124,9 +123,6 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
         long sunday = tomorrow + DateUtils.DAY_IN_MILLIS;
 
         // Expected Output
-        expected.mDayOfMonth = "1";
-        expected.mDayOfWeek = "FRI";
-
         EventInfo eventInfo = new EventInfo();
         eventInfo.visibWhen = View.VISIBLE;
         eventInfo.visibWhere = View.VISIBLE;
@@ -164,15 +160,13 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
     @SmallTest
     public void testGetAppWidgetModel_AllDayEventToday() throws Exception {
         final long now = 1262340000000L; // Fri Jan 01 2010 01:00:00 GMT-0700 (PDT)
-        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext());
+        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext(), Time
+                .getCurrentTimezone());
         MatrixCursor cursor = new MatrixCursor(CalendarAppWidgetService.EVENT_PROJECTION, 0);
 
         int i = 0;
 
         // Expected Output
-        expected.mDayOfMonth = "1";
-        expected.mDayOfWeek = "FRI";
-
         EventInfo eventInfo = new EventInfo();
         eventInfo.visibWhen = View.VISIBLE;
         eventInfo.visibWhere = View.VISIBLE;
@@ -207,15 +201,13 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
     @SmallTest
     public void testGetAppWidgetModel_AllDayEventTomorrow() throws Exception {
         final long now = 1262340000000L; // Fri Jan 01 2010 01:00:00 GMT-0700 (PDT)
-        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext());
+        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext(), Time
+                .getCurrentTimezone());
         MatrixCursor cursor = new MatrixCursor(CalendarAppWidgetService.EVENT_PROJECTION, 0);
 
         int i = 0;
 
         // Expected Output
-        expected.mDayOfMonth = "1";
-        expected.mDayOfWeek = "FRI";
-
         EventInfo eventInfo = new EventInfo();
         eventInfo.visibWhen = View.VISIBLE;
         eventInfo.visibWhere = View.VISIBLE;
@@ -250,15 +242,13 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
     @SmallTest
     public void testGetAppWidgetModel_AllDayEventLater() throws Exception {
         final long now = 1262340000000L; // Fri Jan 01 2010 01:00:00 GMT-0700 (PDT)
-        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext());
+        CalendarAppWidgetModel expected = new CalendarAppWidgetModel(getContext(), Time
+                .getCurrentTimezone());
         MatrixCursor cursor = new MatrixCursor(CalendarAppWidgetService.EVENT_PROJECTION, 0);
 
         int i = 0;
 
         // Expected Output
-        expected.mDayOfMonth = "1";
-        expected.mDayOfWeek = "FRI";
-
         EventInfo eventInfo = new EventInfo();
         eventInfo.visibWhen = View.VISIBLE;
         eventInfo.visibWhere = View.VISIBLE;

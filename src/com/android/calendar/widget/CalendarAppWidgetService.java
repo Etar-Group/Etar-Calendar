@@ -225,7 +225,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
             // Schedule an alarm to wake ourselves up for the next update.  We also cancel
             // all existing wake-ups because PendingIntents don't match against extras.
-            long triggerTime = calculateUpdateTime(mModel, now);
+            long triggerTime = calculateUpdateTime(mModel, now, tz);
 
             // If no next-update calculated, or bad trigger time in past, schedule
             // update about six hours from now.
@@ -314,7 +314,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         @VisibleForTesting
         protected static CalendarAppWidgetModel buildAppWidgetModel(
                 Context context, Cursor cursor, String timeZone) {
-            CalendarAppWidgetModel model = new CalendarAppWidgetModel(context);
+            CalendarAppWidgetModel model = new CalendarAppWidgetModel(context, timeZone);
             model.buildFromCursor(cursor, timeZone);
             return model;
         }
@@ -322,9 +322,9 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         /**
          * Calculates and returns the next time we should push widget updates.
          */
-        private long calculateUpdateTime(CalendarAppWidgetModel model, long now) {
+        private long calculateUpdateTime(CalendarAppWidgetModel model, long now, String timeZone) {
             // Make sure an update happens at midnight or earlier
-            long minUpdateTime = getNextMidnightTimeMillis();
+            long minUpdateTime = getNextMidnightTimeMillis(timeZone);
             for (EventInfo event : model.mEventInfos) {
                 final boolean allDay = event.allDay;
                 final long start;
@@ -349,15 +349,24 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             return minUpdateTime;
         }
 
-        private static long getNextMidnightTimeMillis() {
+        private static long getNextMidnightTimeMillis(String timezone) {
             Time time = new Time();
             time.setToNow();
             time.monthDay++;
             time.hour = 0;
             time.minute = 0;
             time.second = 0;
-            long midnight = time.normalize(true);
-            return midnight;
+            long midnightDeviceTz = time.normalize(true);
+
+            time.timezone = timezone;
+            time.setToNow();
+            time.monthDay++;
+            time.hour = 0;
+            time.minute = 0;
+            time.second = 0;
+            long midnightHomeTz = time.normalize(true);
+
+            return Math.min(midnightDeviceTz, midnightHomeTz);
         }
 
         static void updateTextView(RemoteViews views, int id, int visibility, String string) {
