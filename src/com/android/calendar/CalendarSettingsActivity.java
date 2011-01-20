@@ -27,6 +27,7 @@ import android.preference.PreferenceActivity;
 import android.provider.Calendar;
 import android.provider.Calendar.Calendars;
 import android.provider.Settings;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -56,6 +57,12 @@ public class CalendarSettingsActivity extends PreferenceActivity {
                     target.add(1, accountHeader);
                 }
             }
+        }
+        if (Utils.getTardis() + DateUtils.MINUTE_IN_MILLIS > System.currentTimeMillis()) {
+            Header tardisHeader = new Header();
+            tardisHeader.title = getString(R.string.tardis);
+            tardisHeader.fragment = "com.android.calendar.OtherPreferences";
+            target.add(tardisHeader);
         }
     }
 

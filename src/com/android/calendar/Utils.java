@@ -87,6 +87,7 @@ public class Utils {
 
     private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
     private static boolean mAllowWeekForDetailView = false;
+    private static long mTardis = 0;
 
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
         Intent intent = activity.getIntent();
@@ -169,6 +170,11 @@ public class Utils {
         return prefs.getInt(key, defaultValue);
     }
 
+    public static boolean getSharedPreference(Context context, String key, boolean defaultValue) {
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        return prefs.getBoolean(key, defaultValue);
+    }
+
     /**
      * Asynchronously sets the preference with the given key to the given value
      *
@@ -179,6 +185,14 @@ public class Utils {
     public static void setSharedPreference(Context context, String key, String value) {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         prefs.edit().putString(key, value).apply();
+    }
+
+    protected static void tardis() {
+        mTardis = System.currentTimeMillis();
+    }
+
+    protected static long getTardis() {
+        return mTardis;
     }
 
     static void setSharedPreference(Context context, String key, boolean value) {
