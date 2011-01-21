@@ -61,7 +61,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class AllInOneActivity extends Activity implements EventHandler,
-        OnSharedPreferenceChangeListener, SearchView.OnQueryChangeListener,
+        OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener,
         ActionBar.TabListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
@@ -388,7 +388,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         if (mSearchView != null) {
             mSearchView.setIconifiedByDefault(true);
-            mSearchView.setOnQueryChangeListener(this);
+            mSearchView.setOnQueryTextListener(this);
             mSearchView.setSubmitButtonEnabled(true);
         }
 
@@ -589,12 +589,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
     }
 
     @Override
-    public boolean onQueryTextChanged(String newText) {
+    public boolean onQueryTextChange(String newText) {
         return false;
     }
 
     @Override
-    public boolean onSubmitQuery(String query) {
+    public boolean onQueryTextSubmit(String query) {
         if (TextUtils.equals(query, "TARDIS")) {
             Utils.tardis();
         }
