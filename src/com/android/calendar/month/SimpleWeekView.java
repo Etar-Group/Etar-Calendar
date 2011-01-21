@@ -209,14 +209,13 @@ public class SimpleWeekView extends View {
         }
         if (params.containsKey(VIEW_PARAMS_SHOW_WK_NUM)) {
             if (params.get(VIEW_PARAMS_SHOW_WK_NUM) != 0) {
-                mNumCells = mNumDays + 1;
                 mShowWeekNum = true;
             } else {
                 mShowWeekNum = false;
             }
-        } else {
-            mNumCells = mShowWeekNum ? mNumDays + 1 : mNumDays;
         }
+        mNumCells = mShowWeekNum ? mNumDays + 1 : mNumDays;
+
         // Allocate space for caching the day numbers and focus values
         mDayNumbers = new String[mNumCells];
         mFocusDay = new boolean[mNumCells];
