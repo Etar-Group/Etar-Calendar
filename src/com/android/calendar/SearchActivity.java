@@ -49,7 +49,7 @@ import android.view.View;
 import android.widget.SearchView;
 
 public class SearchActivity extends Activity
-        implements CalendarController.EventHandler, SearchView.OnQueryChangeListener,
+        implements CalendarController.EventHandler, SearchView.OnQueryTextListener,
         SearchView.OnCloseListener {
 
     private static final String TAG = SearchActivity.class.getSimpleName();
@@ -231,7 +231,7 @@ public class SearchActivity extends Activity
         getMenuInflater().inflate(R.menu.search_title_bar, menu);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setIconifiedByDefault(false);
-        searchView.setOnQueryChangeListener(this);
+        searchView.setOnQueryTextListener(this);
         searchView.setSubmitButtonEnabled(true);
         searchView.setQuery(mQuery, false);
         searchView.setOnCloseListener(this);
@@ -334,12 +334,12 @@ public class SearchActivity extends Activity
     }
 
     @Override
-    public boolean onQueryTextChanged(String newText) {
+    public boolean onQueryTextChange(String newText) {
         return false;
     }
 
     @Override
-    public boolean onSubmitQuery(String query) {
+    public boolean onQueryTextSubmit(String query) {
         mQuery = query;
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, -1, query,
                 getComponentName());
