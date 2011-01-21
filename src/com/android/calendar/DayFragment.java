@@ -167,6 +167,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 
         view = (DayView) mViewSwitcher.getNextView();
         view.handleOnResume();
+        view.restartCurrentTimeUpdates();
 
         // Register for Intent broadcasts
 //        IntentFilter filter = new IntentFilter();
