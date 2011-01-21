@@ -17,10 +17,10 @@
 package com.android.calendar.alerts;
 
 import com.android.calendar.R;
-import com.android.calendar.R.drawable;
-import com.android.calendar.R.string;
+import com.android.calendar.Utils;
 
 import android.app.Notification;
+import android.app.Notification.Builder;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -29,6 +29,9 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.PowerManager;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 
 /**
@@ -40,6 +43,10 @@ import android.util.Log;
  * It also receives the TIME_CHANGED action so that it can fire off
  * snoozed alarms that have become ready.  The real work is done in
  * the AlertService class.
+ *
+ * To trigger this code after pushing the apk to device:
+ * adb shell am broadcast -a "android.intent.action.EVENT_REMINDER"
+ *    -n "com.android.calendar/.alerts.AlertReceiver"
  */
 public class AlertReceiver extends BroadcastReceiver {
     private static final String TAG = "AlertReceiver";
@@ -110,12 +117,6 @@ public class AlertReceiver extends BroadcastReceiver {
         }
     }
 
-    public static Notification makeNewAlertNotification(Context context, String title,
-            String location, int numReminders) {
-        return makeNewAlertNotification(context, title, location,
-                numReminders, false);
-    }
-
     /**
      * Creates an alert notification. If high priority, this will set
      * FLAG_HIGH_PRIORITY on the resulting notification and attach the a pending
@@ -123,7 +124,7 @@ public class AlertReceiver extends BroadcastReceiver {
      */
     public static Notification makeNewAlertNotification(Context context,
             String title, String location, int numReminders,
-            boolean highPriority) {
+            boolean highPriority, long startMillis, boolean allDay) {
         Resources res = context.getResources();
 
         // Create an intent triggered by clicking on the status icon.
@@ -140,38 +141,63 @@ public class AlertReceiver extends BroadcastReceiver {
             title = res.getString(R.string.no_title_label);
         }
 
-        String helperString;
-        if (numReminders > 1) {
-            String format;
-            if (numReminders == 2) {
-                format = res.getString(R.string.alert_missed_events_single);
-            } else {
-                format = res.getString(R.string.alert_missed_events_multiple);
-            }
-            helperString = String.format(format, numReminders - 1);
-        } else {
-            helperString = location;
-        }
+        Builder bob = new Notification.Builder(context);
+        bob.setContentTitle(title);
+        bob.setSmallIcon(R.drawable.stat_notify_calendar);
 
         PendingIntent pendingClickIntent = PendingIntent.getActivity(
                 context, 0, clickIntent, 0);
-        Notification notification = new Notification(
-                R.drawable.stat_notify_calendar,
-                null,
-                System.currentTimeMillis());
-        notification.setLatestEventInfo(context,
-                title,
-                helperString,
-                pendingClickIntent
-                );
-        notification.deleteIntent = PendingIntent.getBroadcast(context, 0,
-                deleteIntent, 0);
+        bob.setContentIntent(pendingClickIntent);
+        bob.setDeleteIntent(PendingIntent.getBroadcast(context, 0, deleteIntent, 0));
         if (highPriority) {
-            notification.flags |= Notification.FLAG_HIGH_PRIORITY;
-            notification.fullScreenIntent = pendingClickIntent;
+            bob.setFullScreenIntent(pendingClickIntent, true);
         }
 
-        return notification;
+        if (numReminders > 1) {
+            bob.setNumber(numReminders);
+        }
+
+        // Format the second line which shows time and location.
+        //
+        // 1) Show time only for non-all day events
+        // 2) No date for today
+        // 3) Show "tomorrow" for tomorrow
+        // 4) Show date for days beyond that
+
+        Time time = new Time(Utils.getTimeZone(context, null));
+        time.setToNow();
+        int today = Time.getJulianDay(time.toMillis(false), time.gmtoff);
+        time.set(startMillis);
+        int eventDay = Time.getJulianDay(time.toMillis(false), time.gmtoff);
+
+        int flags = DateUtils.FORMAT_ABBREV_ALL;
+        if (!allDay) {
+            flags |= DateUtils.FORMAT_SHOW_TIME;
+            if (DateFormat.is24HourFormat(context)) {
+                flags |= DateUtils.FORMAT_24HOUR;
+            }
+        }
+
+        if (eventDay > today + 1) {
+            flags |= DateUtils.FORMAT_SHOW_DATE;
+        }
+
+        StringBuilder sb = new StringBuilder(Utils.formatDateRange(context, startMillis,
+                startMillis, flags));
+
+        if (eventDay == today + 1) {
+            // Tomorrow
+            sb.append(", ");
+            sb.append(context.getString(R.string.tomorrow));
+        }
+
+        if (location != null) {
+            sb.append(", ");
+            sb.append(location);
+        }
+        bob.setContentText(sb.toString());
+
+        return bob.getNotification();
     }
 }
 
