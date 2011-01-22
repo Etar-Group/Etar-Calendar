@@ -878,7 +878,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
                 p.setColor(mMonthDayNumberColor);
             }
             //bolds the day if there's an event that day
-			p.setFakeBoldText(false);
+            p.setFakeBoldText(false);
             ArrayList<Event> events = mEvents;
             if (eventDay[day-mFirstJulianDay]) {
                 for(int e = 0;e < events.size();e++) {
@@ -928,10 +928,10 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
             }
             drawEventRect(rect, event, canvas, p);
         }
-		//Draw BusyBits backgrouind for 3D effect
-		Bitmap bmp=((BitmapDrawable) getResources().getDrawable(R.drawable.dna_empty) ).getBitmap();
-		bmp = bmp.createScaledBitmap(bmp,BUSY_BITS_WIDTH,(rect.bottom - BUSY_BITS_MARGIN - top),false);
-		canvas.drawBitmap( bmp, left, top, p);
+        //Draw BusyBits backgrouind for 3D effect
+        Bitmap bmp=((BitmapDrawable) getResources().getDrawable(R.drawable.dna_empty) ).getBitmap();
+        bmp = bmp.createScaledBitmap(bmp,BUSY_BITS_WIDTH,(rect.bottom - BUSY_BITS_MARGIN - top),false);
+        canvas.drawBitmap( bmp, left, top, p);
 
     }
 
@@ -939,7 +939,7 @@ public class MonthView extends View implements View.OnCreateContextMenuListener 
     private RectF drawEventRect(Rect rect, Event event, Canvas canvas, Paint p) {
 
         //p.setColor(mBusybitsColor);
-		//Set Calendar Color
+        //Set Calendar Color
         p.setColor(event.color);
 
         int left = rect.right - BUSY_BITS_MARGIN - BUSY_BITS_WIDTH;

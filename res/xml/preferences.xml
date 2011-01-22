@@ -25,6 +25,7 @@
             android:key="preferences_week_start_day"
             android:defaultValue="@string/preferences_week_start_day_default"
             android:title="@string/preferences_week_start_day_title"
+            android:summary="@string/preferences_week_start_day_descrip"
             android:entries="@array/preferences_week_start_day_labels"
             android:entryValues="@array/preferences_week_start_day_values"
             android:dialogTitle="@string/preferences_week_start_day_dialog" />

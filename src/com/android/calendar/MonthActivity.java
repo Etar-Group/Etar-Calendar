@@ -257,7 +257,7 @@ public class MonthActivity extends Activity implements ViewSwitcher.ViewFactory,
 
         // Get first day of week based on locale and populate the day headers
         //mStartDay = Calendar.getInstance().getFirstDayOfWeek();
-		SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
         String str = prefs.getString(CalendarPreferenceActivity.KEY_WEEK_START_DAY,"1");
         mStartDay = Integer.parseInt(str);
         int diff = mStartDay - Calendar.SUNDAY - 1;

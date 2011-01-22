@@ -637,8 +637,8 @@ public class EditEvent extends Activity implements View.OnClickListener,
         boolean newEvent = false;
 
         //mFirstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
-		//DEFAULT DAY
-		SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
+        //DEFAULT DAY
+        SharedPreferences prefs = CalendarPreferenceActivity.getSharedPreferences(this);
         String str = prefs.getString(CalendarPreferenceActivity.KEY_WEEK_START_DAY,"1");
         mFirstDayOfWeek = Integer.parseInt(str);
 

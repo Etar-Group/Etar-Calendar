@@ -368,6 +368,7 @@
     <string name="preferences_hide_declined_title">Hide declined events</string>
 
     <string name="preferences_week_start_day_title">Set week start day</string>
+    <string name="preferences_week_start_day_descrip">Restart Calendar to take effect.</string>
     <string name="preferences_week_start_day_dialog">Week starts on</string>
     <string name="preferences_week_start_day_default">1</string>
 
