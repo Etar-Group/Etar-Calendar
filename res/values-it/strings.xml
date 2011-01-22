@@ -129,6 +129,11 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Impostazione visualizzazione calendario"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Impostazioni promemoria"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Nascondi eventi rifiutati"</string>
+
+    <string name="preferences_week_start_day_title">Giorno inizio settimana</string>
+    <string name="preferences_week_start_day_descrip">Riavvia il calendario affinchè la modifica abbia effetto.</string>
+    <string name="preferences_week_start_day_dialog">La settimana inizia</string>
+
     <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Imposta avvisi e notif."</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Avvisi e notifiche"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrazione"</string>
