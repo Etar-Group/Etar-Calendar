@@ -114,22 +114,9 @@
         <item name="android:paddingTop">8dip</item>
     </style>
 
-    <style name="TextAppearance.Alert_Title">
-        <item name="android:textSize">18sp</item>
-    </style>
-
     <style name="TextAppearance.Date_Range_Title">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/calendar_date_range_color</item>
-    </style>
-
-    <style name="TextAppearance.Alert_Label">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="TextAppearance.Alert_Value">
-        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="CalendarTheme" parent="android:Theme.Holo.Light">
