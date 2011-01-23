@@ -145,6 +145,7 @@ public class AlertService extends Service {
         String notificationEventLocation = null;
         long notificationEventBegin = 0;
         int notificationEventStatus = 0;
+        boolean notificationEventAllDay = true;
         HashMap<Long, Long> eventIds = new HashMap<Long, Long>();
         int numReminders = 0;
         int numFired = 0;
@@ -163,6 +164,7 @@ public class AlertService extends Service {
                         .withAppendedId(CalendarAlerts.CONTENT_URI, alertId);
                 final long alarmTime = alertCursor.getLong(ALERT_INDEX_ALARM_TIME);
                 int state = alertCursor.getInt(ALERT_INDEX_STATE);
+                final boolean allDay = alertCursor.getInt(ALERT_INDEX_ALL_DAY) != 0;
 
                 if (DEBUG) {
                     Log.d(TAG, "alarmTime:" + alarmTime + " alertId:" + alertId
@@ -242,6 +244,7 @@ public class AlertService extends Service {
                     notificationEventLocation = location;
                     notificationEventBegin = beginTime;
                     notificationEventStatus = newStatus;
+                    notificationEventAllDay = allDay;
                 }
             }
         } finally {
@@ -266,14 +269,15 @@ public class AlertService extends Service {
         boolean quietUpdate = numFired == 0;
         boolean highPriority = numFired > 0 && doPopup;
         postNotification(context, prefs, notificationEventName, notificationEventLocation,
-                numReminders, quietUpdate, highPriority);
+                numReminders, quietUpdate, highPriority, notificationEventBegin,
+                notificationEventAllDay);
 
         return true;
     }
 
     private static void postNotification(Context context, SharedPreferences prefs,
             String eventName, String location, int numReminders,
-            boolean quietUpdate, boolean highPriority) {
+            boolean quietUpdate, boolean highPriority, long startMillis, boolean allDay) {
         if (DEBUG) {
             Log.d(TAG, "###### creating new alarm notification, numReminders: " + numReminders
                     + (quietUpdate ? " QUIET" : " loud")
@@ -289,7 +293,7 @@ public class AlertService extends Service {
         }
 
         Notification notification = AlertReceiver.makeNewAlertNotification(context, eventName,
-                location, numReminders, highPriority);
+                location, numReminders, highPriority, startMillis, allDay);
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
