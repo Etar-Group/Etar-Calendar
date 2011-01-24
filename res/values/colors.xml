@@ -26,9 +26,6 @@
 
     <color name="event_background">#ffc3d9ff</color>
     <color name="panel_text_foreground">#ffffffff</color>
-    <color name="daynames_background">#FFDDDDDD</color>
-    <color name="daynames_text_color">#ff000000</color>
-    <color name="calendar_event_selected_text_color">#ff000000</color>
     <color name="calendar_event_text_color">#ff000000</color>
     <color name="calendar_declined_event_text_color">#ffaaaaaa</color>
     <color name="calendar_owner_text_color">#ffbebebe</color>
@@ -79,11 +76,7 @@
 
     <color name="event_center">#ff6bd697</color>
 
-    <!-- TODO: this value will be not only for the bar but also the whole
-         background of agendas -->
-    <color name="agenda_day_bar_bg_color">#20000000</color>
     <color name="agenda_day_bar_title_color">#ffffffff</color>
-    <color name="agenda_item_selected">#ffffffff</color>
     <color name="agenda_item_not_selected">#00000000</color>
 
     <drawable name="agenda_item_declined">#88ffffff</drawable>
@@ -103,8 +96,6 @@
     <color name="appwidget_title">#ff000000</color>
     <color name="appwidget_when">#ff000000</color>
     <color name="appwidget_where">#ff000000</color>
-    <color name="appwidget_conflict">#ff000000</color>
     <color name="appwidget_no_events">#bb000000</color>
-    <color name="appwidget_page_count">#ff666666</color>
 </resources>
 

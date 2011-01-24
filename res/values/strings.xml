@@ -132,14 +132,6 @@
 
     <!-- Month view -->
     <skip />
-    <!-- This string is used in a popup window when there are more events than
-         can be displayed so it displays the events that it can and then displays
-         this line so that the user knows how many more events there are that
-         could not be displayed.  For example, if there are 6 events but we can
-         only display 4 events then we will display the first 4 events and then
-         show 'plus 2 more' to indicate that there are two more events that we
-         could not display because of lack of room. -->
-    <string name="plus_N_more">"(plus <xliff:g id="more_count">%d</xliff:g> more \u2026)"</string>
 
     <!-- Select Calendars activity -->
     <skip />
@@ -193,13 +185,6 @@
     <string name="alert_title">Calendar notifications</string>
     <!-- Notification window messages: -->
     <skip />
-    <!-- This shows the number of additional reminders that were missed. This
-         is the singular case so it displays '1 more reminder' -->
-    <string name="alert_missed_events_single">(<xliff:g id="reminder_count">%s</xliff:g> more reminder)</string>
-    <!-- This shows the number of additional reminders that were missed.  For example,
-         if there were two additional reminders then this would show
-         '2 more reminders' -->
-    <string name="alert_missed_events_multiple">(<xliff:g id="reminder_count">%s</xliff:g> more reminders)</string>
 
     <!-- Event info/edit screen labels:-->
     <skip />
@@ -208,8 +193,6 @@
     <!-- This is the title of the screen used to view the details of an invitation
          to a meeting or event -->
     <string name="event_info_title_invite">Meeting invitation</string>
-    <!-- Menu item to allow the user to add a reminder to an event -->
-    <string name="add_new_reminder">Add reminder</string>
 
     <!-- EditEventActivity specific strings: -->
     <skip />
@@ -480,14 +463,6 @@
     <skip />
     <!-- Title for calendar gadget when displayed in list of all other gadgets -->
     <string name="gadget_title">Calendar</string>
-
-    <!-- Shown in gadget when additional events are available for display, but no room remaining -->
-    <plurals name="gadget_more_events">
-        <!-- additional events message for 1 event -->
-        <item quantity="one">1 more event</item>
-        <!-- additional events message for multiple events -->
-        <item quantity="other"><xliff:g id="number">%d</xliff:g> more events</item>
-    </plurals>
 
     <!-- Shown in month view next to event icon when additional events exist for that day, but no
         room remaining -->
