@@ -259,6 +259,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         public void onDateSet(DatePicker view, int year, int month, int monthDay) {
+            Log.d(TAG, "onDateSet: " + year +  " " + month +  " " + monthDay);
             // Cache the member variables locally to avoid inner class overhead.
             Time startTime = mStartTime;
             Time endTime = mEndTime;
@@ -534,6 +535,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         public void onClick(View v) {
+            Log.d(TAG, "To Picker: " + mTime.year +  " " + mTime.month +  " " + mTime.monthDay);
             new DatePickerDialog(
                     mActivity, new DateListener(v), mTime.year, mTime.month, mTime.monthDay).show();
         }

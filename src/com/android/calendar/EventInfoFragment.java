@@ -178,6 +178,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private Cursor mEventCursor;
     private Cursor mAttendeesCursor;
     private Cursor mCalendarsCursor;
+    private static float mScale = 0; // Used for supporting different screen densities
 
     private long mStartMillis;
     private long mEndMillis;
@@ -221,8 +222,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     };
 
-    private static final int DIALOG_WIDTH = 500; // FRAG_TODO scale
-    private static final int DIALOG_HEIGHT = 600;
+    private static int DIALOG_WIDTH = 378;
+    private static int DIALOG_HEIGHT = 478;
     private boolean mIsDialog = false;
     private int mX = -1;
     private int mY = -1;
@@ -325,17 +326,27 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mUri = null;
     }
 
-    public EventInfoFragment(Uri uri, long startMillis, long endMillis, int attendeeResponse) {
-        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+    public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
+            int attendeeResponse) {
+        if (mScale == 0) {
+            mScale = context.getResources().getDisplayMetrics().density;
+            if (mScale != 1) {
+                DIALOG_WIDTH *= mScale;
+                DIALOG_HEIGHT *= mScale;
+            }
+        }
+
+        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo);
         mUri = uri;
         mStartMillis = startMillis;
         mEndMillis = endMillis;
         mAttendeeResponseFromIntent = attendeeResponse;
     }
 
-    public EventInfoFragment(long eventId, long startMillis, long endMillis, int attendeeResponse) {
-        this(ContentUris.withAppendedId(Events.CONTENT_URI, eventId),
-                startMillis, endMillis, attendeeResponse);
+    public EventInfoFragment(Context context, long eventId, long startMillis, long endMillis,
+            int attendeeResponse) {
+        this(context, ContentUris.withAppendedId(Events.CONTENT_URI, eventId), startMillis,
+                endMillis, attendeeResponse);
         mEventId = eventId;
     }
 
@@ -366,8 +377,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         a.height = DIALOG_HEIGHT;
 
         if (mX != -1 || mY != -1) {
-            a.x = mX - a.width - 64; // FRAG_TODO event sender should return the left edge or a rect
-            a.y = mY - 64; // FRAG_TODO should set height after layout is done
+            a.x = mX - a.width - 64;
+            if (a.x < 0) {
+                a.x = mX + 64;
+            }
+            a.y = mY - 64;
             a.gravity = Gravity.LEFT | Gravity.TOP;
         }
 
@@ -1021,7 +1035,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 // The last INCLUSIVE causes the foreground color to be applied
                 // to the rest of the span. If not, the comma at the end of the
                 // declined or tentative may be black.
-                sb.setSpan(new ForegroundColorSpan(0xFF888888), begin, sb.length(),
+                sb.setSpan(new ForegroundColorSpan(0xFF999999), begin, sb.length(),
                         Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
                 break;
         }
