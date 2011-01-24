@@ -108,7 +108,7 @@
         <item name="android:paddingLeft">2dip</item>
     </style>
 
-    <style name="EditEvent_Layout" parent="android:Theme.Light.Holo">
+    <style name="EditEvent_Layout" parent="android:Theme.Holo.Light">
         <item name="android:paddingLeft">6dip</item>
         <item name="android:paddingRight">7dip</item>
         <item name="android:paddingTop">8dip</item>
@@ -132,11 +132,11 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="CalendarTheme" parent="android:Theme.Light.Holo">
+    <style name="CalendarTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="CalendarTheme.WithActionBar" parent="android:Theme.Light.Holo">
+    <style name="CalendarTheme.WithActionBar" parent="android:Theme.Holo.Light">
         <item name="android:windowNoTitle">false</item>
         <item name="android:windowActionBar">true</item>
         <item name="android:windowBackground">@drawable/calendar_background_holo_light</item>
