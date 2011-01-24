@@ -23,6 +23,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceActivity;
 import android.provider.Calendar;
 import android.provider.Calendar.Calendars;
@@ -35,6 +36,10 @@ import android.view.MenuItem;
 import java.util.List;
 
 public class CalendarSettingsActivity extends PreferenceActivity {
+    private static final int CHECK_ACCOUNTS_DELAY = 3000;
+    private Account[] mAccounts;
+    private Handler mHandler = new Handler();
+
     @Override
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.calendar_settings_headers, target);
@@ -58,6 +63,7 @@ public class CalendarSettingsActivity extends PreferenceActivity {
                 }
             }
         }
+        mAccounts = accounts;
         if (Utils.getTardis() + DateUtils.MINUTE_IN_MILLIS > System.currentTimeMillis()) {
             Header tardisHeader = new Header();
             tardisHeader.title = getString(R.string.tardis);
@@ -94,4 +100,30 @@ public class CalendarSettingsActivity extends PreferenceActivity {
         inflater.inflate(R.menu.settings_title_bar, menu);
         return true;
     }
+
+    @Override
+    public void onResume() {
+        if (mHandler != null) {
+            mHandler.postDelayed(mCheckAccounts, CHECK_ACCOUNTS_DELAY);
+        }
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        if (mHandler != null) {
+            mHandler.removeCallbacks(mCheckAccounts);
+        }
+        super.onPause();
+    }
+
+    Runnable mCheckAccounts = new Runnable() {
+        @Override
+        public void run() {
+            Account[] accounts = AccountManager.get(CalendarSettingsActivity.this).getAccounts();
+            if (accounts != null && !accounts.equals(mAccounts)) {
+                invalidateHeaders();
+            }
+        }
+    };
 }
