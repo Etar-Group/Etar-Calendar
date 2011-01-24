@@ -359,7 +359,6 @@ class CalendarAppWidgetModel {
             }
             whenString.append(Utils.formatDateRange(mContext, start, end, flags));
 
-            String tz = Utils.getTimeZone(mContext, null);
             if (mShowTZ) {
                 whenString.append(" ").append(mHomeTZName);
             }
