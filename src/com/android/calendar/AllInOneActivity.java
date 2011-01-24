@@ -572,7 +572,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 findViewById(R.id.mini_month_container).setVisibility(View.VISIBLE);
             }
         } else if (event.eventType == EventType.VIEW_EVENT) {
-            EventInfoFragment fragment = new EventInfoFragment(
+            EventInfoFragment fragment = new EventInfoFragment(this,
                     event.id, event.startTime.toMillis(false), event.endTime.toMillis(false),
                     (int) event.extraLong);
             fragment.setDialogParams(event.x, event.y);
