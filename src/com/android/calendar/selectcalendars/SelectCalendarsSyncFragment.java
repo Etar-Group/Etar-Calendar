@@ -148,15 +148,15 @@ public class SelectCalendarsSyncFragment extends ListFragment
     public void onPause() {
         final ListAdapter listAdapter = getListAdapter();
         if (listAdapter != null) {
-            HashMap<Integer, CalendarRow> changes = ((SelectCalendarsSyncAdapter) listAdapter)
+            HashMap<Long, CalendarRow> changes = ((SelectCalendarsSyncAdapter) listAdapter)
                     .getChanges();
             if (changes != null && changes.size() > 0) {
                 for (CalendarRow row : changes.values()) {
                     if (row.synced == row.originalSynced) {
                         continue;
                     }
-                    int id = (int) row.id;
-                    mService.cancelOperation(id);
+                    long id = row.id;
+                    mService.cancelOperation((int) id);
                     // Use the full long id in case it makes a difference
                     Uri uri = ContentUris.withAppendedId(Calendars.CONTENT_URI, row.id);
                     ContentValues values = new ContentValues();
@@ -164,7 +164,7 @@ public class SelectCalendarsSyncFragment extends ListFragment
                     int synced = row.synced ? 1 : 0;
                     values.put(Calendars.SYNC_EVENTS, synced);
                     values.put(Calendars.SELECTED, synced);
-                    mService.startUpdate(id, null, uri, values, null, null, 0);
+                    mService.startUpdate((int) id, null, uri, values, null, null, 0);
                 }
                 changes.clear();
             }
