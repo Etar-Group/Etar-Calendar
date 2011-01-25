@@ -152,6 +152,9 @@ public class SelectCalendarsSyncFragment extends ListFragment
                     .getChanges();
             if (changes != null && changes.size() > 0) {
                 for (CalendarRow row : changes.values()) {
+                    if (row.synced == row.originalSynced) {
+                        continue;
+                    }
                     int id = (int) row.id;
                     mService.cancelOperation(id);
                     // Use the full long id in case it makes a difference
@@ -160,6 +163,7 @@ public class SelectCalendarsSyncFragment extends ListFragment
                     // Toggle the current setting
                     int synced = row.synced ? 1 : 0;
                     values.put(Calendars.SYNC_EVENTS, synced);
+                    values.put(Calendars.SELECTED, synced);
                     mService.startUpdate(id, null, uri, values, null, null, 0);
                 }
                 changes.clear();

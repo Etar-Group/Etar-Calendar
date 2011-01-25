@@ -106,6 +106,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             if(Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "No events. Returning early--go schedule something fun.");
             }
+            mEventDayList = eventDayList;
             refresh();
             return;
         }
