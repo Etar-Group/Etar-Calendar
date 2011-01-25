@@ -76,6 +76,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     // Using scroll duration because scroll state changes don't update
     // correctly when a scroll is triggered programmatically.
     private static final int LOADER_DELAY = 200;
+    // The minimum time between requeries of the data if the db is
+    // changing
+    private static final int LOADER_THROTTLE_DELAY = 500;
 
     private CursorLoader mLoader;
     private Uri mEventUri;
@@ -315,6 +318,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             mLoader = new CursorLoader(
                     getActivity(), mEventUri, Event.EVENT_PROJECTION, where,
                     null /* WHERE_CALENDARS_SELECTED_ARGS */, INSTANCES_SORT_ORDER);
+            mLoader.setUpdateThrottle(LOADER_THROTTLE_DELAY);
         }
         if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "Returning new loader with uri: " + mEventUri);
@@ -371,19 +375,23 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
     @Override
     public void eventsChanged() {
-        // TODO Auto-generated method stub
-        // request loader requery if we're not moving
+        // TODO remove this after b/3387924 is resolved
+        if (mLoader != null) {
+            mLoader.forceLoad();
+        }
     }
 
     @Override
     public long getSupportedEventTypes() {
-        return EventType.GO_TO;
+        return EventType.GO_TO | EventType.EVENTS_CHANGED;
     }
 
     @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
             goTo(event.selectedTime.toMillis(true), true, true, false);
+        } else if (event.eventType == EventType.EVENTS_CHANGED) {
+            eventsChanged();
         }
     }
 
