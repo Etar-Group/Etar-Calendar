@@ -91,6 +91,8 @@
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">top|left</item>
         <item name="android:textColor">#FF000000</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
     </style>
 
     <style name="TextAppearance.EditEvent_homeTime">

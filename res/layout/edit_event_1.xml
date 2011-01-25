@@ -93,6 +93,7 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
+                android:background="@drawable/edit_event_button_selector"
                 android:gravity="left|center_vertical"
                 style="@style/TextAppearance.EditEvent_Value" />
             <Button
@@ -100,6 +101,7 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/edit_event_button_selector"
                 android:gravity="left|center_vertical"
                 style="@style/TextAppearance.EditEvent_Value" />
         </LinearLayout>
@@ -142,6 +144,7 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
+                android:background="@drawable/edit_event_button_selector"
                 android:gravity="left|center_vertical"
                 style="@style/TextAppearance.EditEvent_Value" />
             <Button
@@ -149,6 +152,7 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/edit_event_button_selector"
                 android:gravity="left|center_vertical"
                 style="@style/TextAppearance.EditEvent_Value" />
         </LinearLayout>
@@ -199,6 +203,7 @@
         <Button
             android:id="@+id/timezone_button"
             android:gravity="left|center_vertical"
+            android:background="@drawable/edit_event_button_selector"
             style="@style/TextAppearance.EditEvent_Value" />
     </TableRow>
 
@@ -273,7 +278,6 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                style="@style/TextAppearance.EditEvent_Value"
                 android:orientation="vertical" />
             <ImageButton
                 android:id="@+id/reminder_add"
