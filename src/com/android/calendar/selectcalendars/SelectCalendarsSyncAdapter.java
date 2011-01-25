@@ -180,6 +180,11 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         CalendarRow row = (CalendarRow) buttonView.getTag();
         row.synced = isChecked;
+        if (isChecked) {
+            setText((View) buttonView.getParent(), R.id.status, mSyncedString);
+        } else {
+            setText((View) buttonView.getParent(), R.id.status, mNotSyncedString);
+        }
 
         // There is some data loss in long -> int, but we should never see it in
         // practice regarding calendar ids.
