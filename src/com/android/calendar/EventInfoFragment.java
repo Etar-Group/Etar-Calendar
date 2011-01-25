@@ -336,7 +336,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
         }
 
-        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo);
+        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
         mUri = uri;
         mStartMillis = startMillis;
         mEndMillis = endMillis;
