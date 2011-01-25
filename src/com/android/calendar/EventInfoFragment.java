@@ -427,7 +427,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.event_info, null);
+        mView = inflater.inflate(R.layout.event_info, container, false);
         mTitle = (TextView) mView.findViewById(R.id.title);
         mWhen = (TextView) mView.findViewById(R.id.when);
         mWhere = (TextView) mView.findViewById(R.id.where);
