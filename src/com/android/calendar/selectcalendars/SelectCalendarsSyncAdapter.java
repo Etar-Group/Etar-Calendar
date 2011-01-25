@@ -62,6 +62,7 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         String displayName;
         int color;
         boolean synced;
+        boolean originalSynced;
     }
 
     public SelectCalendarsSyncAdapter(Context context, Cursor c) {
@@ -99,6 +100,7 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
             mData[p].displayName = c.getString(mNameColumn);
             mData[p].color = c.getInt(mColorColumn);
             mData[p].synced = c.getInt(mSyncedColumn) != 0;
+            mData[p].originalSynced = mData[p].synced;
             p++;
         }
     }
