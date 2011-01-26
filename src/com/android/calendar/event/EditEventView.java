@@ -1197,14 +1197,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             }
             for (View v : mEditViewList) {
                 v.setEnabled(false);
-                v.setPadding(0, mOriginalPadding[1], mOriginalPadding[2], mOriginalPadding[3]);
                 v.setBackgroundDrawable(null);
             }
             mCalendarSelectorGroup.setVisibility(View.GONE);
             mCalendarStaticGroup.setVisibility(View.VISIBLE);
             mRepeatsSpinner.setEnabled(false);
-            mRepeatsSpinner.setPadding(
-                    0, mOriginalPadding[1], mOriginalPadding[2], mOriginalPadding[3]);
             mRepeatsSpinner.setBackgroundDrawable(null);
             if (EditEventHelper.canAddReminders(mModel)) {
                 mRemindersGroup.setVisibility(View.VISIBLE);
@@ -1237,8 +1234,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 v.setEnabled(true);
                 if (v.getTag() != null) {
                     v.setBackgroundDrawable((Drawable) v.getTag());
-                    v.setPadding(mOriginalPadding[0], mOriginalPadding[1], mOriginalPadding[2],
-                            mOriginalPadding[3]);
                 }
             }
             if (mModel.mUri == null) {
@@ -1249,8 +1244,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mCalendarStaticGroup.setVisibility(View.VISIBLE);
             }
             mRepeatsSpinner.setBackgroundDrawable((Drawable) mRepeatsSpinner.getTag());
-            mRepeatsSpinner.setPadding(mOriginalPadding[0], mOriginalPadding[1],
-                    mOriginalPadding[2], mOriginalPadding[3]);
             if (mModel.mOriginalEvent == null) {
                 mRepeatsSpinner.setEnabled(true);
             } else {

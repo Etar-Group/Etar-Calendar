@@ -26,22 +26,20 @@
         <TextView
             android:id="@+id/response_label"
             android:text="@string/view_event_response_label"
-            android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             style="@style/TextAppearance.EditEvent_Label" />
         <RadioGroup
             android:id="@+id/response_value"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="11dip">
             <RadioButton
                 android:id="@+id/response_yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxWidth="128dip"
                 android:layout_weight="1"
-                android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                style="@style/TextAppearance.EditEvent_Value"
+                style="@style/TextAppearance.EditEvent"
                 android:text="@string/response_yes" />
             <RadioButton
                 android:id="@+id/response_maybe"
@@ -49,9 +47,8 @@
                 android:layout_height="wrap_content"
                 android:maxWidth="128dip"
                 android:layout_weight="1"
-                android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                style="@style/TextAppearance.EditEvent_Value"
+                style="@style/TextAppearance.EditEvent"
                 android:text="@string/response_maybe" />
             <RadioButton
                 android:id="@+id/response_no"
@@ -59,9 +56,8 @@
                 android:layout_height="wrap_content"
                 android:maxWidth="128dip"
                 android:layout_weight="1"
-                android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                style="@style/TextAppearance.EditEvent_Value"
+                style="@style/TextAppearance.EditEvent"
                 android:text="@string/response_no" />
         </RadioGroup>
     </TableRow>
@@ -93,13 +89,14 @@
                 android:layout_weight="1"
                 android:inputType="textEmailAddress|textMultiLine"
                 android:hint="@string/hint_attendees"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                style="@style/TextAppearance.EditEvent_Value" />
 
             <!-- ATTENDEES ADD BUTTON -->
             <ImageButton
                 android:id="@+id/add_attendee_button"
                 style="@style/PlusButton"
-                android:layout_gravity="right"
+                android:layout_gravity="center_vertical|right"
                 android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

@@ -82,17 +82,31 @@
         <item name="android:layout_width">144dip</item>
         <item name="android:paddingLeft">16dip</item>
         <item name="android:paddingRight">16dip</item>
+        <item name="android:paddingTop">12dip</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#FF888888</item>
     </style>
 
-    <style name="TextAppearance.EditEvent_Value">
+    <style name="TextAppearance.EditEvent">
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:textColor">#FF000000</item>
+    </style>
+
+    <style name="TextAppearance.EditEvent_Value" parent="TextAppearance.EditEvent">
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+        <item name="android:paddingTop">12dip</item>
+    </style>
+
+    <style name="TextAppearance.EditEvent_Spinner" parent="android:style/Widget.Holo.Light.Spinner.DropDown">
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">top|left</item>
         <item name="android:textColor">#FF000000</item>
         <item name="android:paddingLeft">16dip</item>
         <item name="android:paddingRight">16dip</item>
+        <item name="android:paddingTop">12dip</item>
     </style>
 
     <style name="TextAppearance.EditEvent_homeTime">
