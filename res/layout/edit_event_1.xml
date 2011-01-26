@@ -93,17 +93,13 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
-                android:background="@drawable/edit_event_button_selector"
-                android:gravity="left|center_vertical"
-                style="@style/TextAppearance.EditEvent_Value" />
+                style="@style/TextAppearance.EditEvent_Spinner" />
             <Button
                 android:id="@+id/start_time"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:background="@drawable/edit_event_button_selector"
-                android:gravity="left|center_vertical"
-                style="@style/TextAppearance.EditEvent_Value" />
+                style="@style/TextAppearance.EditEvent_Spinner" />
         </LinearLayout>
     </TableRow>
     <TableRow android:id="@+id/from_row_home"
@@ -144,17 +140,13 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
-                android:background="@drawable/edit_event_button_selector"
-                android:gravity="left|center_vertical"
-                style="@style/TextAppearance.EditEvent_Value" />
+                style="@style/TextAppearance.EditEvent_Spinner" />
             <Button
                 android:id="@+id/end_time"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:background="@drawable/edit_event_button_selector"
-                android:gravity="left|center_vertical"
-                style="@style/TextAppearance.EditEvent_Value" />
+                style="@style/TextAppearance.EditEvent_Spinner" />
         </LinearLayout>
     </TableRow>
     <TableRow android:id="@+id/to_row_home"
@@ -203,8 +195,7 @@
         <Button
             android:id="@+id/timezone_button"
             android:gravity="left|center_vertical"
-            android:background="@drawable/edit_event_button_selector"
-            style="@style/TextAppearance.EditEvent_Value" />
+            style="@style/TextAppearance.EditEvent_Spinner" />
     </TableRow>
 
     <!-- ALL DAY -->
@@ -214,11 +205,11 @@
             android:id="@+id/is_all_day_label"
             android:text="@string/edit_event_all_day_label"
             style="@style/TextAppearance.EditEvent_Label"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical" />
+            android:layout_height="match_parent" />
         <CheckBox
             android:id="@+id/is_all_day"
             android:layout_height="match_parent"
+            android:layout_gravity="center_vertical" 
             android:gravity="center_vertical" />
     </TableRow>
 
