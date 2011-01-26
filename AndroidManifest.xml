@@ -48,7 +48,8 @@
 
         <activity
             android:name="AllInOneActivity"
-            android:theme="@style/CalendarTheme.WithActionBar">
+            android:theme="@style/CalendarTheme.WithActionBar"
+            android:launchMode="singleTop">
         </activity>
 
         <activity-alias android:name="LaunchActivity"
