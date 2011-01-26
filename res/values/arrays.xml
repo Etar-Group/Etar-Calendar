@@ -269,7 +269,7 @@
         <item>"10080"</item>
     </string-array>
 
-    <string-array name="preferences_week_start_day_labels" translateable="false">
+    <string-array name="preferences_week_start_day_labels">
         <item>Default</item>
         <item>Saturday</item>
         <item>Sunday</item>
