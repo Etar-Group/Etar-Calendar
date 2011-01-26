@@ -45,7 +45,7 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
     private LayoutInflater mInflater;
     private static final int LAYOUT = R.layout.calendar_sync_item;
     private CalendarRow[] mData;
-    private HashMap<Integer, CalendarRow> mChanges = new HashMap<Integer, CalendarRow>();
+    private HashMap<Long, CalendarRow> mChanges = new HashMap<Long, CalendarRow>();
     private Cursor mCursor;
     private int mRowCount = 0;
 
@@ -95,12 +95,17 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         c.moveToPosition(-1);
         int p = 0;
         while (c.moveToNext()) {
+            long id = c.getLong(mIdColumn);
             mData[p] = new CalendarRow();
-            mData[p].id = c.getLong(mIdColumn);
+            mData[p].id = id;
             mData[p].displayName = c.getString(mNameColumn);
             mData[p].color = c.getInt(mColorColumn);
-            mData[p].synced = c.getInt(mSyncedColumn) != 0;
-            mData[p].originalSynced = mData[p].synced;
+            mData[p].originalSynced = c.getInt(mSyncedColumn) != 0;
+            if (mChanges.containsKey(id)) {
+                mData[p].synced = mChanges.get(id).synced;
+            } else {
+                mData[p].synced = mData[p].originalSynced;
+            }
             p++;
         }
     }
@@ -188,10 +193,10 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
 
         // There is some data loss in long -> int, but we should never see it in
         // practice regarding calendar ids.
-        mChanges.put((int) row.id, row);
+        mChanges.put(row.id, row);
     }
 
-    public HashMap<Integer, CalendarRow> getChanges() {
+    public HashMap<Long, CalendarRow> getChanges() {
         return mChanges;
     }
 }
