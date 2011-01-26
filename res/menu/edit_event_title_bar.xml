@@ -36,6 +36,7 @@
     <item android:id="@+id/action_cancel"
         android:alphabeticShortcut="c"
         android:title="@string/discard_label"
+        android:icon="@drawable/ic_menu_cancel_holo_light"
         android:showAsAction="withText|always"
         android:visibility="gone" />
 </menu>
