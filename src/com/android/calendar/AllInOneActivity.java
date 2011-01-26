@@ -32,6 +32,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -65,6 +66,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         ActionBar.TabListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
+    private static final String EVENT_INFO_FRAGMENT_TAG = "EventInfoFragment";
     private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     private static final String BUNDLE_KEY_RESTORE_EDIT = "key_restore_edit";
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
@@ -116,6 +118,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
     };
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        String action = intent.getAction();
+        if (Intent.ACTION_VIEW.equals(action)) {
+            parseViewAction(intent);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle icicle) {
         if (Utils.getSharedPreference(this, OtherPreferences.KEY_OTHER_1, false)) {
             setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
@@ -162,7 +172,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mIsMultipane =
                 (res.getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
 
-        Utils.allowWeekForDetailView(mIsMultipane);
+        Utils.setAllowWeekForDetailView(mIsMultipane);
 
         mDateRange = (TextView) getLayoutInflater().inflate(R.layout.date_range_title, null);
 
@@ -359,7 +369,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         } else {
             mPreviousView = viewType;
         }
-        setMainPane(ft, R.id.main_pane, viewType, timeMillis, true, info);
+        setMainPane(ft, R.id.main_pane, viewType, timeMillis, true);
 
         ft.commit(); // this needs to be after setMainPane()
 
@@ -432,8 +442,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
     }
 
-    private void setMainPane(FragmentTransaction ft, int viewId, int viewType, long timeMillis,
-            boolean force, EventInfo e) {
+    private void setMainPane(
+            FragmentTransaction ft, int viewId, int viewType, long timeMillis, boolean force) {
         if (mOnSaveInstanceStateCalled) {
             return;
         }
@@ -554,8 +564,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
-            setMainPane(null, R.id.main_pane, event.viewType, event.startTime.toMillis(false),
-                    false, event);
+            setMainPane(
+                    null, R.id.main_pane, event.viewType, event.startTime.toMillis(false), false);
 
             if (!mIsMultipane) {
                 return;
@@ -575,8 +585,22 @@ public class AllInOneActivity extends Activity implements EventHandler,
             EventInfoFragment fragment = new EventInfoFragment(this,
                     event.id, event.startTime.toMillis(false), event.endTime.toMillis(false),
                     (int) event.extraLong);
+            if (event.startTime != null) {
+                Time time = new Time(mTimeZone);
+                time.set(mIntentEventStartMillis);
+                mController.sendEvent(this, EventType.GO_TO, event.startTime, event.startTime, -1,
+                        ViewType.DETAIL);
+            }
             fragment.setDialogParams(event.x, event.y);
-            fragment.show(getFragmentManager(), "EventInfoFragment");
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            // if we have an old popup close it
+            Fragment fOld = fm.findFragmentByTag(EVENT_INFO_FRAGMENT_TAG);
+            if (fOld != null) {
+                ft.remove(fOld);
+            }
+            ft.add(fragment, EVENT_INFO_FRAGMENT_TAG);
+            ft.commit();
         } else if (event.eventType == EventType.UPDATE_TITLE) {
             setTitleInActionBar(event);
         }

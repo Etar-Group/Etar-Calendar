@@ -501,7 +501,11 @@ public class Utils {
         return o1 == null ? o2 == null : o1.equals(o2);
     }
 
-    public static void allowWeekForDetailView(boolean allowWeekView) {
+    public static void setAllowWeekForDetailView(boolean allowWeekView) {
         mAllowWeekForDetailView  = allowWeekView;
+    }
+
+    public static boolean getAllowWeekForDetailView() {
+        return mAllowWeekForDetailView;
     }
 }

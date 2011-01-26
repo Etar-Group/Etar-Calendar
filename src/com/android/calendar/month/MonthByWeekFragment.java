@@ -220,7 +220,6 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mTZUpdater.run();
-        mSelectedDay.setToNow();
         if (mAdapter != null) {
             mAdapter.setSelectedDay(mSelectedDay);
         }
@@ -337,9 +336,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         }
         mDaysPerWeek = Utils.getDaysPerWeek(mContext);
         updateHeader();
+        mAdapter.setSelectedDay(mSelectedDay);
         mTZUpdater.run();
         goTo(mSelectedDay.toMillis(true), false, true, false);
-        mAdapter.setSelectedDay(mSelectedDay);
     }
 
     @Override
@@ -389,7 +388,14 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
-            goTo(event.selectedTime.toMillis(true), true, true, false);
+            boolean animate = true;
+            if (mDaysPerWeek * mNumWeeks * 2 < Math.abs(
+                    Time.getJulianDay(event.selectedTime.toMillis(true), event.selectedTime.gmtoff)
+                    - Time.getJulianDay(mFirstVisibleDay.toMillis(true), mFirstVisibleDay.gmtoff)
+                    - mDaysPerWeek * mNumWeeks / 2)) {
+                animate = false;
+            }
+            goTo(event.selectedTime.toMillis(true), animate, true, false);
         } else if (event.eventType == EventType.EVENTS_CHANGED) {
             eventsChanged();
         }
