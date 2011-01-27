@@ -222,8 +222,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     };
 
-    private static int DIALOG_WIDTH = 378;
-    private static int DIALOG_HEIGHT = 478;
+    private static int DIALOG_WIDTH = 500;
+    private static int DIALOG_HEIGHT = 600;
     private boolean mIsDialog = false;
     private int mX = -1;
     private int mY = -1;
@@ -336,7 +336,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
         }
 
-        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         mUri = uri;
         mStartMillis = startMillis;
         mEndMillis = endMillis;
