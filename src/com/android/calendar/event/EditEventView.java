@@ -664,10 +664,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mModel.mReminderMinutes = EventViewUtils.reminderItemsToMinutes(
                 mReminderItems, mReminderValues);
         mModel.mHasAlarm = mReminderItems.size() > 0;
-        mModel.mTitle = mTitleTextView.getText().toString().trim();
+        mModel.mTitle = mTitleTextView.getText().toString();
         mModel.mAllDay = mAllDayCheckBox.isChecked();
-        mModel.mLocation = mLocationTextView.getText().toString().trim();
-        mModel.mDescription = mDescriptionTextView.getText().toString().trim();
+        mModel.mLocation = mLocationTextView.getText().toString();
+        mModel.mDescription = mDescriptionTextView.getText().toString();
         if (TextUtils.isEmpty(mModel.mLocation)) {
             mModel.mLocation = null;
         }
