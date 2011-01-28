@@ -148,4 +148,10 @@
     <item msgid="4552962311897985633">"使用しない"</item>
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"バイブレーション"</string>
+
+    <!-- CM Extra -->
+    <string name="preferences_week_start_day_title">週の開始曜日</string>
+    <string name="preferences_week_start_day_descrip">反映にはカレンダーアプリの再起動が必要</string>
+    <string name="preferences_week_start_day_dialog">週の開始曜日</string>
+
 </resources>

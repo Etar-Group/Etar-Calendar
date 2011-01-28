@@ -182,4 +182,12 @@
     <item msgid="2012815396992847028">"今回のみ"</item>
     <item msgid="140670561403965380">"繰り返す予定すべて"</item>
   </string-array>
+
+  <string-array name="preferences_week_start_day_labels">
+    <item>デフォルト</item>
+    <item>土曜日</item>
+    <item>日曜日</item>
+    <item>月曜日</item>
+  </string-array>
+
 </resources>
