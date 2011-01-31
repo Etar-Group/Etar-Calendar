@@ -177,6 +177,11 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         return mData[position].id;
     }
 
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+
     public int getSynced(int position) {
         return mData[position].synced ? 1 : 0;
     }
