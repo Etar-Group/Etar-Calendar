@@ -68,7 +68,7 @@
     <string name="hint_what" msgid="709155115005044531">"일정 이름"</string>
     <string name="hint_where" msgid="3116239630502213241">"일정 장소"</string>
     <string name="hint_description" msgid="4198202812240544553">"일정 설명"</string>
-    <!-- outdated translation 1680444449904101789 -->     <string name="hint_attendees" msgid="6367757073203911244">"이메일 주소를 입력합니다."</string>
+    <string name="hint_attendees" msgid="6367757073203911244">"이메일 주소를 입력합니다."</string>
     <string name="creating_event" msgid="5252306542761552414">"일정을 만들었습니다."</string>
     <string name="saving_event" msgid="7716081507367732169">"일정을 저장했습니다."</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"캘린더 로드 중"</string>
@@ -169,6 +169,5 @@
     <string name="in_progress" msgid="3637799356103489011">"진행 중"</string>
     <string name="today" msgid="8577375020252453006">"오늘"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> 검색 중..."</string>
-    <!-- no translation found for template_announce_item_index (4067877800670753110) -->
-    <skip />
+    <string name="template_announce_item_index" msgid="4067877800670753110">"일정 <xliff:g id="ITEM_INDEX">%1$s</xliff:g>/<xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
 </resources>

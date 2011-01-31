@@ -169,6 +169,5 @@
     <string name="in_progress" msgid="3637799356103489011">"กำลังดำเนินการ"</string>
     <string name="today" msgid="8577375020252453006">"วันนี้"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"กำลังค้นหา <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <!-- no translation found for template_announce_item_index (4067877800670753110) -->
-    <skip />
+    <string name="template_announce_item_index" msgid="4067877800670753110">"กิจกรรม <xliff:g id="ITEM_INDEX">%1$s</xliff:g> จาก <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
 </resources>
