@@ -68,7 +68,7 @@
     <string name="hint_what" msgid="709155115005044531">"Название мероприятия"</string>
     <string name="hint_where" msgid="3116239630502213241">"Место мероприятия"</string>
     <string name="hint_description" msgid="4198202812240544553">"Описание мероприятия"</string>
-    <!-- outdated translation 1680444449904101789 -->     <string name="hint_attendees" msgid="6367757073203911244">"Укажите адреса электронной почты"</string>
+    <string name="hint_attendees" msgid="6367757073203911244">"Укажите адреса электронной почты"</string>
     <string name="creating_event" msgid="5252306542761552414">"Мероприятие создано"</string>
     <string name="saving_event" msgid="7716081507367732169">"Мероприятие сохранено"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Загрузка календарей"</string>
@@ -169,6 +169,5 @@
     <string name="in_progress" msgid="3637799356103489011">"в процессе"</string>
     <string name="today" msgid="8577375020252453006">"Сегодня"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Поиск в <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <!-- no translation found for template_announce_item_index (4067877800670753110) -->
-    <skip />
+    <string name="template_announce_item_index" msgid="4067877800670753110">"Мероприятие <xliff:g id="ITEM_INDEX">%1$s</xliff:g> из <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
 </resources>

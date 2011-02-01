@@ -68,7 +68,7 @@
     <string name="hint_what" msgid="709155115005044531">"Nombre del evento"</string>
     <string name="hint_where" msgid="3116239630502213241">"Ubicación del evento"</string>
     <string name="hint_description" msgid="4198202812240544553">"Descripción del evento"</string>
-    <!-- outdated translation 1680444449904101789 -->     <string name="hint_attendees" msgid="6367757073203911244">"Introduce las direcciones de correo electrónico."</string>
+    <string name="hint_attendees" msgid="6367757073203911244">"Introduce las direcciones de correo electrónico."</string>
     <string name="creating_event" msgid="5252306542761552414">"Se ha creado un evento."</string>
     <string name="saving_event" msgid="7716081507367732169">"Se ha guardado el evento."</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Cargando calendarios"</string>
@@ -169,6 +169,5 @@
     <string name="in_progress" msgid="3637799356103489011">"en curso"</string>
     <string name="today" msgid="8577375020252453006">"Hoy"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Buscando <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <!-- no translation found for template_announce_item_index (4067877800670753110) -->
-    <skip />
+    <string name="template_announce_item_index" msgid="4067877800670753110">"Evento <xliff:g id="ITEM_INDEX">%1$s</xliff:g> de <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
 </resources>
