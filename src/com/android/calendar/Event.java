@@ -201,8 +201,8 @@ public class Event implements Comparable<Event>, Cloneable {
         if (endTime > obj.endTime) return -1;
 
         // Sort all-day events before normal events.
-        if (allDay && !obj.allDay) return -1;
-        if (!allDay && obj.allDay) return 1;
+        if (allDay && !obj.drawAsAllDay()) return -1;
+        if (!allDay && obj.drawAsAllDay()) return 1;
 
         if (guestsCanModify && !obj.guestsCanModify) return -1;
         if (!guestsCanModify && obj.guestsCanModify) return 1;
@@ -433,7 +433,7 @@ public class Event implements Comparable<Event>, Cloneable {
         int maxCols = 0;
         for (Event event : eventsList) {
             // Process all-day events separately
-            if (event.allDay != doAllDayEvents)
+            if (event.drawAsAllDay() != doAllDayEvents)
                 continue;
 
             long start = event.getStartMillis();
@@ -587,5 +587,9 @@ public class Event implements Comparable<Event>, Cloneable {
 
     public long getEndMillis() {
         return endMillis;
+    }
+
+    public boolean drawAsAllDay() {
+        return allDay || endMillis - startMillis > DateUtils.DAY_IN_MILLIS;
     }
 }

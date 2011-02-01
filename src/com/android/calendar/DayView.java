@@ -974,7 +974,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             if (event.startDay > mLastJulianDay || event.endDay < mFirstJulianDay) {
                 continue;
             }
-            if (event.allDay) {
+            if (event.drawAsAllDay()) {
                 final int firstDay = Math.max(event.startDay, mFirstJulianDay);
                 final int lastDay = Math.min(event.endDay, mLastJulianDay);
                 for (int day = firstDay; day <= lastDay; day++) {
@@ -1686,7 +1686,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
                 // Create a shorter array for all day events
                 for (Event e : events) {
-                    if (e.allDay) {
+                    if (e.drawAsAllDay()) {
                         mAllDayEvents.add(e);
                     }
                 }
@@ -2440,7 +2440,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Find the event in the same row as the previously selected all-day
         // event, if any.
         int startPosition = -1;
-        if (mPrevSelectedEvent != null && mPrevSelectedEvent.allDay) {
+        if (mPrevSelectedEvent != null && mPrevSelectedEvent.drawAsAllDay()) {
             startPosition = mPrevSelectedEvent.getColumn();
         }
         int maxPosition = -1;
@@ -3672,7 +3672,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             int yOffset = DAY_HEADER_HEIGHT + ALLDAY_TOP_MARGIN;
             for (int i = 0; i < numEvents; i++) {
                 Event event = events.get(i);
-                if (!event.allDay) {
+                if (!event.drawAsAllDay()) {
                     continue;
                 }
 
