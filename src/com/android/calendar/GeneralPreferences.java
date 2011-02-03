@@ -96,6 +96,8 @@ public class GeneralPreferences extends PreferenceFragment implements
     CheckBoxPreference mPopup;
     CheckBoxPreference mUseHomeTZ;
     ListPreference mHomeTZ;
+    ListPreference mWeekStart;
+    ListPreference mDefaultReminder;
 
     private static CharSequence[][] mTimezones;
 
@@ -138,9 +140,13 @@ public class GeneralPreferences extends PreferenceFragment implements
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
-
+        mWeekStart = (ListPreference) preferenceScreen.findPreference(KEY_WEEK_START_DAY);
+        mDefaultReminder = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_REMINDER);
         mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
         String tz = mHomeTZ.getValue();
+
+        mWeekStart.setSummary(mWeekStart.getEntry());
+        mDefaultReminder.setSummary(mDefaultReminder.getEntry());
 
         if (mTimezones == null) {
             mTimezones = (new TimezoneAdapter(activity, tz)).getAllTimezones();
@@ -163,8 +169,19 @@ public class GeneralPreferences extends PreferenceFragment implements
         super.onResume();
         getPreferenceScreen().getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
-        mUseHomeTZ.setOnPreferenceChangeListener(this);
-        mHomeTZ.setOnPreferenceChangeListener(this);
+        setPreferenceListeners(this);
+    }
+
+    /**
+     * Sets up all the preference change listeners to use the specified
+     * listener.
+     */
+    private void setPreferenceListeners(OnPreferenceChangeListener listener) {
+        mUseHomeTZ.setOnPreferenceChangeListener(listener);
+        mHomeTZ.setOnPreferenceChangeListener(listener);
+        mWeekStart.setOnPreferenceChangeListener(listener);
+        mDefaultReminder.setOnPreferenceChangeListener(listener);
+        mRingtone.setOnPreferenceChangeListener(listener);
     }
 
     @Override
@@ -172,8 +189,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         super.onPause();
         getPreferenceScreen().getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
-        mUseHomeTZ.setOnPreferenceChangeListener(null);
-        mHomeTZ.setOnPreferenceChangeListener(null);
+        setPreferenceListeners(null);
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -198,16 +214,26 @@ public class GeneralPreferences extends PreferenceFragment implements
             } else {
                 tz = CalendarCache.TIMEZONE_TYPE_AUTO;
             }
+            Utils.setTimeZone(getActivity(), tz);
         } else if (preference == mHomeTZ) {
             tz = (String) newValue;
             // We set the value here so we can read back the entry
             mHomeTZ.setValue(tz);
             mHomeTZ.setSummary(mHomeTZ.getEntry());
+            Utils.setTimeZone(getActivity(), tz);
+        } else if (preference == mWeekStart) {
+            mWeekStart.setValue((String) newValue);
+            mWeekStart.setSummary(mWeekStart.getEntry());
+        } else if (preference == mDefaultReminder) {
+            mDefaultReminder.setValue((String) newValue);
+            mDefaultReminder.setSummary(mDefaultReminder.getEntry());
+        } else if (preference == mRingtone) {
+            // TODO update this after b/3417832 is fixed
+            return true;
         } else {
-            return false;
+            return true;
         }
-        Utils.setTimeZone(getActivity(), tz);
-        return true;
+        return false;
     }
 
     /**
