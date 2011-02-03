@@ -566,7 +566,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (event.eventType == EventType.GO_TO) {
             setMainPane(
                     null, R.id.main_pane, event.viewType, event.startTime.toMillis(false), false);
-
+            if (mSearchView != null) {
+                mSearchView.clearFocus();
+            }
             if (!mIsMultipane) {
                 return;
             }
