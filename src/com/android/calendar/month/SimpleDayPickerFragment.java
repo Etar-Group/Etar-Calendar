@@ -569,9 +569,12 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
                     if (Log.isLoggable(TAG, Log.DEBUG)) {
                         Log.d(TAG, "scrolling by " + dist + " up? " + mIsScrollingUp);
                     }
-                    if (mIsScrollingUp) {
+                    int firstPosition = mView.getFirstVisiblePosition();
+                    int lastPosition = mView.getLastVisiblePosition();
+                    boolean scroll = firstPosition != 0 && lastPosition != mView.getCount() - 1;
+                    if (mIsScrollingUp && scroll) {
                         mView.smoothScrollBy(dist - child.getHeight(), 500);
-                    } else {
+                    } else if (!mIsScrollingUp && scroll) {
                         mView.smoothScrollBy(dist, 500);
                     }
                 }
