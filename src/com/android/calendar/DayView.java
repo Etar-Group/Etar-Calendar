@@ -1139,11 +1139,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
-                            startMillis, endMillis, 0, 0);
+                            startMillis, endMillis, 0, 0, -1);
                 } else {
                     // Switch to the EventInfo view
                     mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, selectedEvent.id,
-                            selectedEvent.startMillis, selectedEvent.endMillis, 0, 0);
+                            selectedEvent.startMillis, selectedEvent.endMillis, 0, 0,
+                            getSelectedTimeInMillis());
                 }
             } else {
                 // This was a touch selection.  If the touch selected a single
@@ -1151,7 +1152,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 // Day/Agenda view.
                 if (mSelectedEvents.size() == 1) {
                     mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, selectedEvent.id,
-                            selectedEvent.startMillis, selectedEvent.endMillis, 0, 0);
+                            selectedEvent.startMillis, selectedEvent.endMillis, 0, 0,
+                            getSelectedTimeInMillis());
                 }
             }
         } else {
@@ -1164,10 +1166,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
 
                 mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1, startMillis,
-                        endMillis, 0, 0);
+                        endMillis, 0, 0, -1);
             } else {
                 mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, selectedEvent.id,
-                        selectedEvent.startMillis, selectedEvent.endMillis, 0, 0);
+                        selectedEvent.startMillis, selectedEvent.endMillis, 0, 0,
+                        getSelectedTimeInMillis());
             }
         }
     }
@@ -3079,12 +3082,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             // If the tap is on an event, launch the "View event" view
             mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mSelectedEvent.id,
                     mSelectedEvent.startMillis, mSelectedEvent.endMillis, (int) ev.getRawX(),
-                    (int) ev.getRawY());
+                    (int) ev.getRawY(), getSelectedTimeInMillis());
         } else if (selectedDay == mSelectionDay && selectedHour == mSelectionHour) {
             // If the tap is on an already selected hour slot, then create a new
             // event
             mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
-                    getSelectedTimeInMillis(), 0, (int) ev.getRawX(), (int) ev.getRawY());
+                    getSelectedTimeInMillis(), 0, (int) ev.getRawX(), (int) ev.getRawY(), -1);
         } else {
             Time startTime = new Time(mBaseDate);
             startTime.setJulianDay(mSelectionDay);
@@ -3492,7 +3495,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     if (mSelectedEvent != null) {
                         mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT_DETAILS,
                                 mSelectedEvent.id, mSelectedEvent.startMillis,
-                                mSelectedEvent.endMillis, 0, 0);
+                                mSelectedEvent.endMillis, 0, 0, -1);
                     }
                     break;
                 }
@@ -3500,7 +3503,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     if (mSelectedEvent != null) {
                         mController.sendEventRelatedEvent(this, EventType.EDIT_EVENT,
                                 mSelectedEvent.id, mSelectedEvent.startMillis,
-                                mSelectedEvent.endMillis, 0, 0);
+                                mSelectedEvent.endMillis, 0, 0, -1);
                     }
                     break;
                 }
@@ -3518,7 +3521,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
                     mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
-                            startMillis, endMillis, 0, 0);
+                            startMillis, endMillis, 0, 0, -1);
                     break;
                 }
                 case MENU_EVENT_DELETE: {
@@ -3528,7 +3531,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                         long end = selectedEvent.endMillis;
                         long id = selectedEvent.id;
                         mController.sendEventRelatedEvent(this, EventType.DELETE_EVENT, id, begin,
-                                end, 0, 0);
+                                end, 0, 0, -1);
                     }
                     break;
                 }
@@ -3949,7 +3952,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     @Override
     public boolean onLongClick(View v) {
         mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
-                getSelectedTimeInMillis(), 0, -1, -1);
+                getSelectedTimeInMillis(), 0, -1, -1, -1);
         return true;
     }
 }

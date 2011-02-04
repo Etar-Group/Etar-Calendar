@@ -519,7 +519,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
             case R.id.action_edit:
                 if (mIsReadOnly) {
                     CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
-                            EventType.EDIT_EVENT, mModel.mId, mModel.mStart, mModel.mEnd, -1, -1);
+                            EventType.EDIT_EVENT, mModel.mId, mModel.mStart, mModel.mEnd, -1, -1, -1);
                 } else if (!TextUtils.isEmpty(mModel.mRrule)) {
                     displayEditWhichDialog();
                 } else {

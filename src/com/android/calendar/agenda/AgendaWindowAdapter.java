@@ -780,7 +780,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
                     EventInfo event = buildEventInfoFromCursor(cursor, false);
                     CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
-                            EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0);
+                            EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0, -1);
                 }
             } else {
                 cursor.close();

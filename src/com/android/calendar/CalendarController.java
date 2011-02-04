@@ -218,9 +218,9 @@ public class CalendarController {
     }
 
     public void sendEventRelatedEvent(Object sender, long eventType, long eventId, long startMillis,
-            long endMillis, int x, int y) {
+            long endMillis, int x, int y, long selectedMillis) {
         sendEventRelatedEventWithResponse(sender, eventType, eventId, startMillis, endMillis, x, y,
-                CalendarController.ATTENDEE_NO_RESPONSE);
+                CalendarController.ATTENDEE_NO_RESPONSE, selectedMillis);
     }
 
     /**
@@ -235,9 +235,10 @@ public class CalendarController {
      * @param y y coordinate in the activity space
      * @param extraLong default response value for the "simple event view". Use
      *            CalendarController.ATTENDEE_NO_RESPONSE for no response.
+     * @param selectedMillis The time to specify as selected
      */
     public void sendEventRelatedEventWithResponse(Object sender, long eventType, long eventId,
-            long startMillis, long endMillis, int x, int y, long extraLong) {
+            long startMillis, long endMillis, int x, int y, long extraLong, long selectedMillis) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         if (eventType == EventType.EDIT_EVENT || eventType == EventType.VIEW_EVENT_DETAILS) {
@@ -246,7 +247,12 @@ public class CalendarController {
         info.id = eventId;
         info.startTime = new Time();
         info.startTime.set(startMillis);
-        info.selectedTime = info.startTime;
+        if (selectedMillis != -1) {
+            info.selectedTime = new Time();
+            info.selectedTime.set(selectedMillis);
+        } else {
+            info.selectedTime = info.startTime;
+        }
         info.endTime = new Time();
         info.endTime.set(endMillis);
         info.x = x;

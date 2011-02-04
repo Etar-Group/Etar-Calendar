@@ -262,7 +262,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (mViewEventId != -1 && mIntentEventStartMillis != -1 && mIntentEventEndMillis != -1) {
             mController.sendEventRelatedEventWithResponse(this, EventType.VIEW_EVENT, mViewEventId,
                     mIntentEventStartMillis, mIntentEventEndMillis, -1, -1,
-                    mIntentAttendeeResponse);
+                    mIntentAttendeeResponse, -1);
             mViewEventId = -1;
             mIntentEventStartMillis = -1;
             mIntentEventEndMillis = -1;
@@ -419,7 +419,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 t.setToNow();
                 break;
             case R.id.action_create_event:
-                mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1, 0, 0, 0, 0);
+                mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1, 0, 0, 0, 0, -1);
                 return true;
             case R.id.action_settings:
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
@@ -587,11 +587,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
             EventInfoFragment fragment = new EventInfoFragment(this,
                     event.id, event.startTime.toMillis(false), event.endTime.toMillis(false),
                     (int) event.extraLong);
-            if (event.startTime != null) {
-                Time time = new Time(mTimeZone);
-                time.set(mIntentEventStartMillis);
-                mController.sendEvent(this, EventType.GO_TO, event.startTime, event.startTime, -1,
-                        ViewType.DETAIL);
+            if (event.selectedTime != null) {
+                mController.sendEvent(this, EventType.GO_TO, event.selectedTime, event.selectedTime,
+                        -1, ViewType.DETAIL);
             }
             fragment.setDialogParams(event.x, event.y);
             FragmentManager fm = getFragmentManager();
