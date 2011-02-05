@@ -115,7 +115,7 @@
         <com.android.calendar.event.AttendeesView
             android:id="@+id/attendee_list"
             android:orientation="vertical"
-            android:animateLayoutChanges="false">
+            android:animateLayoutChanges="true">
         </com.android.calendar.event.AttendeesView>
     </TableRow>
 </TableLayout>
