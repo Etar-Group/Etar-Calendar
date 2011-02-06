@@ -148,4 +148,10 @@
     <item msgid="4552962311897985633">"Никогда"</item>
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Вибросигнал"</string>
+
+    <string name="preferences_week_start_day_title">Установка начала недели</string>
+    <string name="preferences_week_start_day_descrip">Перезапустите Календарь для применения</string>
+    <string name="preferences_week_start_day_dialog">Неделя начинается с</string>
+    <string name="preferences_week_start_day_default">1</string>
+
 </resources>

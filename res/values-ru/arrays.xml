@@ -182,4 +182,12 @@
     <item msgid="2012815396992847028">"Только в этот раз"</item>
     <item msgid="140670561403965380">"Все мероприятия в серии"</item>
   </string-array>
+
+    <string-array name="preferences_week_start_day_labels">
+        <item>По умолчанию</item>
+        <item>Суббота</item>
+        <item>Воскресенье</item>
+        <item>Понедельник</item>
+    </string-array>
+
 </resources>
