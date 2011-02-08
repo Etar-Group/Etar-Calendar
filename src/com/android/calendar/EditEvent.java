@@ -170,7 +170,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             Reminders.MINUTES,  // 1
     };
     private static final int REMINDERS_INDEX_MINUTES = 1;
-    private static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=%d AND (" +
+    private static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=? AND (" +
             Reminders.METHOD + "=" + Reminders.METHOD_ALERT + " OR " + Reminders.METHOD + "=" +
             Reminders.METHOD_DEFAULT + ")";
 
@@ -851,8 +851,9 @@ public class EditEvent extends Activity implements View.OnClickListener,
                 && (mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) != 0);
         if (hasAlarm) {
             Uri uri = Reminders.CONTENT_URI;
-            String where = String.format(REMINDERS_WHERE, eventId);
-            Cursor reminderCursor = cr.query(uri, REMINDERS_PROJECTION, where, null, null);
+            String[] whereArgs = new String[] { String.valueOf(eventId) };
+            Cursor reminderCursor = cr.query(uri, REMINDERS_PROJECTION,
+                    REMINDERS_WHERE, whereArgs, null);
             try {
                 // First pass: collect all the custom reminder minutes (e.g.,
                 // a reminder of 8 minutes) into a global list.

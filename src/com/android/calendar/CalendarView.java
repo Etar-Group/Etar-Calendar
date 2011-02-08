@@ -121,7 +121,7 @@ public class CalendarView extends View
     };
     private static final int CALENDARS_INDEX_ACCESS_LEVEL = 1;
     private static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
-    private static final String CALENDARS_WHERE = Calendars._ID + "=%d";
+    private static final String CALENDARS_WHERE = Calendars._ID + "=?";
 
     private static float SMALL_ROUND_RADIUS = 3.0F;
 
@@ -3085,8 +3085,8 @@ public class CalendarView extends View
         cursor.close();
 
         Uri uri = Calendars.CONTENT_URI;
-        String where = String.format(CALENDARS_WHERE, calId);
-        cursor = cr.query(uri, CALENDARS_PROJECTION, where, null, null);
+        String[] whereArgs = new String[] { String.valueOf(calId) };
+        cursor = cr.query(uri, CALENDARS_PROJECTION, CALENDARS_WHERE, whereArgs, null);
 
         String calendarOwnerAccount = null;
         if (cursor != null) {

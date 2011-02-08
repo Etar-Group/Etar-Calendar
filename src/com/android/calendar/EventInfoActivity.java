@@ -147,7 +147,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     private static final int ATTENDEES_INDEX_RELATIONSHIP = 3;
     private static final int ATTENDEES_INDEX_STATUS = 4;
 
-    private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=%d";
+    private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=?";
 
     private static final String ATTENDEES_SORT_ORDER = Attendees.ATTENDEE_NAME + " ASC, "
             + Attendees.ATTENDEE_EMAIL + " ASC";
@@ -162,7 +162,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
     static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
     static final int CALENDARS_INDEX_OWNER_CAN_RESPOND = 3;
 
-    static final String CALENDARS_WHERE = Calendars._ID + "=%d";
+    static final String CALENDARS_WHERE = Calendars._ID + "=?";
     static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.DISPLAY_NAME + "=?";
 
     private static final String[] REMINDERS_PROJECTION = new String[] {
@@ -170,7 +170,7 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         Reminders.MINUTES,  // 1
     };
     private static final int REMINDERS_INDEX_MINUTES = 1;
-    private static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=%d AND (" +
+    private static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=? AND (" +
             Reminders.METHOD + "=" + Reminders.METHOD_ALERT + " OR " + Reminders.METHOD + "=" +
             Reminders.METHOD_DEFAULT + ")";
     private static final String REMINDERS_SORT = Reminders.MINUTES;
@@ -347,8 +347,11 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
         // Calendars cursor
         Uri uri = Calendars.CONTENT_URI;
-        String where = String.format(CALENDARS_WHERE, mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID));
-        mCalendarsCursor = managedQuery(uri, CALENDARS_PROJECTION, where, null, null);
+        String[] whereArgs = new String[] {
+                String.valueOf(mEventCursor.getLong(EVENT_INDEX_CALENDAR_ID))
+        };
+        mCalendarsCursor = managedQuery(uri, CALENDARS_PROJECTION, CALENDARS_WHERE,
+                whereArgs, null);
         mCalendarOwnerAccount = "";
         if (mCalendarsCursor != null) {
             mCalendarsCursor.moveToFirst();
@@ -367,8 +370,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
 
         // Attendees cursor
         uri = Attendees.CONTENT_URI;
-        where = String.format(ATTENDEES_WHERE, mEventId);
-        mAttendeesCursor = managedQuery(uri, ATTENDEES_PROJECTION, where, null,
+        whereArgs[0] = String.valueOf(mEventId);
+        mAttendeesCursor = managedQuery(uri, ATTENDEES_PROJECTION, ATTENDEES_WHERE, whereArgs,
                 ATTENDEES_SORT_ORDER);
         initAttendeesCursor();
 
@@ -402,9 +405,8 @@ public class EventInfoActivity extends Activity implements View.OnClickListener,
         boolean hasAlarm = mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) != 0;
         if (hasAlarm) {
             uri = Reminders.CONTENT_URI;
-            where = String.format(REMINDERS_WHERE, mEventId);
-            Cursor reminderCursor = cr.query(uri, REMINDERS_PROJECTION, where, null,
-                    REMINDERS_SORT);
+            Cursor reminderCursor = cr.query(uri, REMINDERS_PROJECTION, REMINDERS_WHERE,
+                    whereArgs, REMINDERS_SORT);
             try {
                 // First pass: collect all the custom reminder minutes (e.g.,
                 // a reminder of 8 minutes) into a global list.
