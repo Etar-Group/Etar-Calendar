@@ -68,7 +68,7 @@
     <string name="hint_what" msgid="709155115005044531">"Назва події"</string>
     <string name="hint_where" msgid="3116239630502213241">"Місцезнах. події"</string>
     <string name="hint_description" msgid="4198202812240544553">"Опис події"</string>
-    <string name="hint_attendees" msgid="6367757073203911244">"Введіть електр. адреси"</string>
+    <string name="hint_attendees" msgid="6367757073203911244">"Введіть електронні адреси"</string>
     <string name="creating_event" msgid="5252306542761552414">"Подію створено"</string>
     <string name="saving_event" msgid="7716081507367732169">"Подію збереж."</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Завантаж. календарів"</string>

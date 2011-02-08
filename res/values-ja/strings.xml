@@ -134,8 +134,8 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"カレンダーの表示設定"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"通知設定"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"辞退した予定を非表示"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"週の開始"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"週の開始"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"週の開始日"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"週の開始日"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"検索履歴を消去"</string>
     <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"実行したすべての検索を削除"</string>
     <string name="search_history_cleared" msgid="7317062958300188595">"検索履歴が消去されました"</string>
