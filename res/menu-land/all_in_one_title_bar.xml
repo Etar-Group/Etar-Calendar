@@ -44,4 +44,8 @@
         android:alphabeticShortcut="s"
         android:title="@string/menu_preferences"
         android:icon="@drawable/ic_menu_settings_holo_light" />
+    <item
+        android:id="@+id/action_hide_controls"
+        android:alphabeticShortcut="h"
+        android:title="@string/hide_controls" />
 </menu>

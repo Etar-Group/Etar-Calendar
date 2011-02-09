@@ -129,6 +129,12 @@
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to search their events. [CHAR LIMIT=11]-->
     <string name="search">"Search"</string>
+    <!-- This is a label on a menu item. Pressing this menu item hides
+         the navigation controls on the right side. [CHAR LIMIT=20] -->
+    <string name="hide_controls">"Hide controls"</string>
+    <!-- This is a label on a menu item. Pressing this menu item shows the
+         navigation controls on the right side. [CHAR LIMIT=20] -->
+    <string name="show_controls">"Show controls"</string>
 
     <!-- Month view -->
     <skip />
