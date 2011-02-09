@@ -137,7 +137,7 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"週の開始日"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"週の開始日"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"検索履歴を消去"</string>
-    <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"実行したすべての検索を削除"</string>
+    <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"実行したすべての検索を削除する"</string>
     <string name="search_history_cleared" msgid="7317062958300188595">"検索履歴が消去されました"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"通知"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"バイブレーション"</string>
@@ -148,7 +148,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"リマインダー通知"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"自宅タイムゾーン"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行中も自宅のタイムゾーンでカレンダーと予定時間を表示します"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行中も自宅のタイムゾーンでカレンダーと予定時間を表示する"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"自宅タイムゾーン"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"第何週かを表示"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"概要"</string>
