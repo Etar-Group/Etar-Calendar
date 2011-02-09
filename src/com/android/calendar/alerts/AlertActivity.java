@@ -202,12 +202,6 @@ public class AlertActivity extends Activity implements OnClickListener {
         setContentView(R.layout.alert_activity);
         setTitle(R.string.alert_title);
 
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
-
-        getWindow().setAttributes(lp);
-
         mQueryHandler = new QueryHandler(this);
         mAdapter = new AlertAdapter(this, R.layout.alert_item);
 

@@ -558,6 +558,13 @@ public class CalendarController {
         mContext.startActivity(intent);
     }
 
+//    private void launchAlerts() {
+//        Intent intent = new Intent();
+//        intent.setClass(mContext, AlertActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        mContext.startActivity(intent);
+//    }
+
     private void launchDeleteEvent(long eventId, long startMillis, long endMillis) {
         launchDeleteEventAndFinish(null, eventId, startMillis, endMillis, -1);
     }
