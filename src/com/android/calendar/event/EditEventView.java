@@ -1087,8 +1087,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     protected void setWhenString() {
         String when;
         int flags = DateUtils.FORMAT_SHOW_DATE;
+        String tz = mTimezone;
         if (mModel.mAllDay) {
-            flags |= DateUtils.FORMAT_UTC | DateUtils.FORMAT_SHOW_WEEKDAY;
+            flags |= DateUtils.FORMAT_SHOW_WEEKDAY;
+            tz = Time.TIMEZONE_UTC;
         } else {
             flags |= DateUtils.FORMAT_SHOW_TIME;
             if (DateFormat.is24HourFormat(mActivity)) {
@@ -1098,8 +1100,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         long startMillis = mStartTime.normalize(true);
         long endMillis = mEndTime.normalize(true);
         mSB.setLength(0);
-        when = DateUtils.formatDateRange(mActivity, mF, startMillis, endMillis, flags, mTimezone)
-                .toString();
+        when = DateUtils
+                .formatDateRange(mActivity, mF, startMillis, endMillis, flags, tz).toString();
         mWhenView.setText(when);
     }
 

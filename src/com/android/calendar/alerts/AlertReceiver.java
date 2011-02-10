@@ -34,6 +34,9 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 
+import java.util.Locale;
+import java.util.TimeZone;
+
 /**
  * Receives android.intent.action.EVENT_REMINDER intents and handles
  * event reminders.  The intent URI specifies an alert id in the
@@ -164,7 +167,8 @@ public class AlertReceiver extends BroadcastReceiver {
         // 3) Show "tomorrow" for tomorrow
         // 4) Show date for days beyond that
 
-        Time time = new Time(Utils.getTimeZone(context, null));
+        String tz = Utils.getTimeZone(context, null);
+        Time time = new Time(tz);
         time.setToNow();
         int today = Time.getJulianDay(time.toMillis(false), time.gmtoff);
         time.set(startMillis);
@@ -176,6 +180,8 @@ public class AlertReceiver extends BroadcastReceiver {
             if (DateFormat.is24HourFormat(context)) {
                 flags |= DateUtils.FORMAT_24HOUR;
             }
+        } else {
+            tz = Time.TIMEZONE_UTC;
         }
 
         if (eventDay > today + 1) {
@@ -184,6 +190,14 @@ public class AlertReceiver extends BroadcastReceiver {
 
         StringBuilder sb = new StringBuilder(Utils.formatDateRange(context, startMillis,
                 startMillis, flags));
+
+        if (!allDay && tz != Time.getCurrentTimezone()) {
+            // Assumes time was set to the current tz
+            time.set(startMillis);
+            boolean isDST = time.isDst != 0;
+            sb.append(" ").append(TimeZone.getTimeZone(tz).getDisplayName(
+                    isDST, TimeZone.SHORT, Locale.getDefault()));
+        }
 
         if (eventDay == today + 1) {
             // Tomorrow

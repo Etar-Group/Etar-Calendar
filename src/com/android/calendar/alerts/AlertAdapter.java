@@ -17,6 +17,7 @@
 package com.android.calendar.alerts;
 
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -24,9 +25,13 @@ import android.database.Cursor;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.view.View;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
+
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class AlertAdapter extends ResourceCursorAdapter {
 
@@ -105,16 +110,29 @@ public class AlertAdapter extends ResourceCursorAdapter {
         // When
         String when;
         int flags;
+        String tz = Utils.getTimeZone(context, null);
         if (allDay) {
             flags = DateUtils.FORMAT_UTC | DateUtils.FORMAT_SHOW_WEEKDAY |
                     DateUtils.FORMAT_SHOW_DATE;
+            tz = Time.TIMEZONE_UTC;
         } else {
             flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE;
         }
         if (DateFormat.is24HourFormat(context)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
-        when = DateUtils.formatDateRange(context, startMillis, endMillis, flags);
+
+        Time time = new Time(tz);
+        time.set(startMillis);
+        boolean isDST = time.isDst != 0;
+        StringBuilder sb = new StringBuilder(
+                Utils.formatDateRange(context, startMillis, endMillis, flags));
+        if (!allDay && tz != Time.getCurrentTimezone()) {
+            sb.append(" ").append(TimeZone.getTimeZone(tz).getDisplayName(
+                    isDST, TimeZone.SHORT, Locale.getDefault()));
+        }
+
+        when = sb.toString();
         whenView.setText(when);
 
         // Where
