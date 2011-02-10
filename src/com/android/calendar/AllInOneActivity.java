@@ -53,7 +53,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -71,6 +74,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final String BUNDLE_KEY_RESTORE_EDIT = "key_restore_edit";
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
     private static final int HANDLER_KEY = 0;
+    private static final long CONTROLS_ANIMATE_DURATION = 400;
+    private static int CONTROLS_ANIMATE_WIDTH = 283;
+    private static int CONTROLS_MARGIN_RIGHT = 16;
+    private static float mScale = 0;
 
     private static CalendarController mController;
     private static boolean mIsMultipane;
@@ -80,8 +87,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private int mCurrentView;
     private boolean mPaused = true;
     private boolean mUpdateOnResume = false;
+    private boolean mHideControls = false;
     private TextView mHomeTime;
     private TextView mDateRange;
+    private View mMiniMonth;
+    private View mCalendarsList;
+    private View mMiniMonthContainer;
     private String mTimeZone;
 
     private long mViewEventId = -1;
@@ -95,6 +106,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private ActionBar.Tab mWeekTab;
     private ActionBar.Tab mMonthTab;
     private SearchView mSearchView;
+    private MenuItem mControlsMenu;
+
+    private String mHideString = "Hide controls";
+    private String mShowString = "Show controls";
+    private long mControlsAnimateEndTime = 0;
+
+    private Handler mHandler = new Handler();
 
     private Runnable mHomeTimeUpdater = new Runnable() {
         @Override
@@ -169,6 +187,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
 
         Resources res = getResources();
+        if (mScale == 0) {
+            mScale = res.getDisplayMetrics().density;
+            CONTROLS_ANIMATE_WIDTH *= mScale;
+            CONTROLS_MARGIN_RIGHT *= mScale;
+        }
+        mHideString = res.getString(R.string.hide_controls);
+        mShowString = res.getString(R.string.show_controls);
         mIsMultipane =
                 (res.getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
 
@@ -189,6 +214,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mController.registerEventHandler(HANDLER_KEY, this);
 
         mHomeTime = (TextView) findViewById(R.id.home_time);
+        mMiniMonth = findViewById(R.id.mini_month);
+        mCalendarsList = findViewById(R.id.calendar_list);
+        mMiniMonthContainer = findViewById(R.id.mini_month_container);
 
         initFragments(timeMillis, viewType, icicle);
 
@@ -325,8 +353,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
             ft.replace(R.id.calendar_list, selectCalendarsFrag);
         }
         if (!mIsMultipane || viewType == ViewType.EDIT) {
-            findViewById(R.id.mini_month).setVisibility(View.GONE);
-            findViewById(R.id.calendar_list).setVisibility(View.GONE);
+            mMiniMonth.setVisibility(View.GONE);
+            mCalendarsList.setVisibility(View.GONE);
         }
 
         EventInfo info = null;
@@ -401,6 +429,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mSearchView.setOnQueryTextListener(this);
             mSearchView.setSubmitButtonEnabled(true);
         }
+        mControlsMenu = menu.findItem(R.id.action_hide_controls);
+        if (mControlsMenu != null && mController != null
+                && mController.getViewType() == ViewType.MONTH) {
+            mControlsMenu.setVisible(false);
+            mControlsMenu.setEnabled(false);
+        }
 
         return true;
     }
@@ -424,12 +458,52 @@ public class AllInOneActivity extends Activity implements EventHandler,
             case R.id.action_settings:
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
                 return true;
+            case R.id.action_hide_controls:
+                mHideControls = !mHideControls;
+                item.setTitle(mHideControls ? mShowString : mHideString);
+                updateHomeClock();
+                mControlsAnimateEndTime = System.currentTimeMillis() + CONTROLS_ANIMATE_DURATION;
+                mHandler.post(mAnimateControls);
+                return true;
             default:
                 return false;
         }
         mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
         return true;
     }
+
+    private Runnable mAnimateControls = new Runnable() {
+        LayoutParams params = new LayoutParams(CONTROLS_ANIMATE_WIDTH, 0);
+        public void run() {
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            params.rightMargin = CONTROLS_MARGIN_RIGHT;
+            long millis = System.currentTimeMillis();
+            int x;
+            if (millis >= mControlsAnimateEndTime) {
+                if (mHideControls) {
+                    setControlsOffset(CONTROLS_ANIMATE_WIDTH);
+                } else {
+                    setControlsOffset(0);
+                }
+                return;
+            }
+            x = (int) (CONTROLS_ANIMATE_WIDTH * (mControlsAnimateEndTime - millis)
+                    / CONTROLS_ANIMATE_DURATION);
+            if (mHideControls) {
+                x = CONTROLS_ANIMATE_WIDTH - x;
+            }
+            setControlsOffset(x);
+            mHandler.post(this);
+        }
+
+        private void setControlsOffset(int offset) {
+            mMiniMonth.setTranslationX(offset);
+            mCalendarsList.setTranslationX(offset);
+            mHomeTime.setTranslationX(offset);
+            params.width = Math.max(0, CONTROLS_ANIMATE_WIDTH - offset - params.rightMargin);
+            mMiniMonthContainer.setLayoutParams(params);
+        }
+    };
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
@@ -574,14 +648,22 @@ public class AllInOneActivity extends Activity implements EventHandler,
             }
             if (event.viewType == ViewType.MONTH) {
                 // hide minimonth and calendar frag
-                findViewById(R.id.mini_month).setVisibility(View.GONE);
-                findViewById(R.id.calendar_list).setVisibility(View.GONE);
-                findViewById(R.id.mini_month_container).setVisibility(View.GONE);
+                mMiniMonth.setVisibility(View.GONE);
+                mCalendarsList.setVisibility(View.GONE);
+                mMiniMonthContainer.setVisibility(View.GONE);
+                if (mControlsMenu != null) {
+                    mControlsMenu.setVisible(false);
+                    mControlsMenu.setEnabled(false);
+                }
             } else {
                 // show minimonth and calendar frag
-                findViewById(R.id.mini_month).setVisibility(View.VISIBLE);
-                findViewById(R.id.calendar_list).setVisibility(View.VISIBLE);
-                findViewById(R.id.mini_month_container).setVisibility(View.VISIBLE);
+                mMiniMonth.setVisibility(View.VISIBLE);
+                mCalendarsList.setVisibility(View.VISIBLE);
+                mMiniMonthContainer.setVisibility(View.VISIBLE);
+                if (mControlsMenu != null) {
+                    mControlsMenu.setVisible(true);
+                    mControlsMenu.setEnabled(true);
+                }
             }
         } else if (event.eventType == EventType.VIEW_EVENT) {
             EventInfoFragment fragment = new EventInfoFragment(this,
