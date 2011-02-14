@@ -215,6 +215,7 @@ public class GeneralPreferences extends PreferenceFragment implements
                 tz = CalendarCache.TIMEZONE_TYPE_AUTO;
             }
             Utils.setTimeZone(getActivity(), tz);
+            return true;
         } else if (preference == mHomeTZ) {
             tz = (String) newValue;
             // We set the value here so we can read back the entry
