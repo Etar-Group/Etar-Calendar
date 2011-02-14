@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,174 +12,224 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
+-->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string-array name="reminder_minutes_labels">
-    <item msgid="9134196715565887256">"1 分鐘"</item>
-    <item msgid="7350720278790900276">"5 分鐘"</item>
-    <item msgid="559329025736829220">"10 分鐘"</item>
-    <item msgid="4523534383318084162">"15 分鐘"</item>
-    <item msgid="7153990736543668084">"20 分鐘"</item>
-    <item msgid="2030352540011653596">"25 分鐘"</item>
-    <item msgid="7307245847296317340">"30 分鐘"</item>
-    <item msgid="5174730509775969611">"45 分鐘"</item>
-    <item msgid="1920425054049263702">"1 小時"</item>
-    <item msgid="6972139375792068825">"2 小時"</item>
-    <item msgid="5643568168685093982">"3 小時"</item>
-    <item msgid="2179302053572039553">"12 小時"</item>
-    <item msgid="314399712609472931">"24 小時"</item>
-    <item msgid="6908283876728494719">"2 天"</item>
-    <item msgid="3390146235648970198">"1 週"</item>
-  </string-array>
-  <string-array name="timezone_labels">
-    <item msgid="6833649526258274889">"馬紹爾群島"</item>
-    <item msgid="7176569939440505575">"中途島"</item>
-    <item msgid="5000628410717488070">"夏威夷"</item>
-    <item msgid="3809977082338992040">"阿拉斯加"</item>
-    <item msgid="1206600898319778734">"太平洋時間"</item>
-    <item msgid="4251553449779733536">"提華納"</item>
-    <item msgid="4796372144693551811">"亞利桑那"</item>
-    <item msgid="4589419122570218444">"奇瓦瓦"</item>
-    <item msgid="1653398220457872326">"山區時間"</item>
-    <item msgid="229005026661478023">"中美洲"</item>
-    <item msgid="1545268116831476742">"中部時間"</item>
-    <item msgid="9135129204936732090">"墨西哥市"</item>
-    <item msgid="3703110560723049255">"薩克斯其萬省"</item>
-    <item msgid="5458958644945369505">"波哥大"</item>
-    <item msgid="355450740949670294">"東部時間"</item>
-    <item msgid="5786717434693228701">"委內瑞拉"</item>
-    <item msgid="165048018515834952">"大西洋時間"</item>
-    <item msgid="5398045998666341917">"瑪瑙斯"</item>
-    <item msgid="8167627904199889197">"聖地亞哥"</item>
-    <item msgid="2793058279461039833">"紐芬蘭"</item>
-    <item msgid="5247265991408608312">"巴西利亞"</item>
-    <item msgid="7862856378699038344">"布宜諾斯艾利斯"</item>
-    <item msgid="7307349572838946177">"格陵蘭"</item>
-    <item msgid="2287491943472924232">"蒙特維多"</item>
-    <item msgid="6337125611768317903">"大西洋中部"</item>
-    <item msgid="1083966762112959704">"亞速爾群島"</item>
-    <item msgid="3208435599095023369">"維德角群島"</item>
-    <item msgid="8380333624463354109">"卡薩布蘭卡"</item>
-    <item msgid="8737442113188999866">"倫敦、都柏林"</item>
-    <item msgid="72424340270348400">"阿姆斯特丹、柏林"</item>
-    <item msgid="3665952257850630547">"貝爾格勒"</item>
-    <item msgid="3284290759549286849">"布魯塞爾"</item>
-    <item msgid="3112943938015033049">"塞拉耶佛"</item>
-    <item msgid="2184425710639965762">"巴黎"</item>
-    <item msgid="5997630882187580225">"溫特和克"</item>
-    <item msgid="3828800493609994208">"非洲西部時間"</item>
-    <item msgid="7527935722014187591">"安曼、約旦"</item>
-    <item msgid="672509109295227133">"雅典、伊斯坦堡"</item>
-    <item msgid="1835470340349221646">"貝魯特、黎巴嫩"</item>
-    <item msgid="9006223109403693650">"開羅"</item>
-    <item msgid="2877875673636361825">"赫爾辛基"</item>
-    <item msgid="4528124308590807049">"耶路撒冷"</item>
-    <item msgid="7823856457885290195">"明斯克"</item>
-    <item msgid="8650995074282357197">"哈拉雷"</item>
-    <item msgid="209523815326871285">"巴格達"</item>
-    <item msgid="8077211460729251609">"莫斯科"</item>
-    <item msgid="6103383184232804522">"科威特"</item>
-    <item msgid="8581935265080466099">"奈洛比"</item>
-    <item msgid="1531618843539764728">"德黑蘭"</item>
-    <item msgid="141548505188106312">"巴庫"</item>
-    <item msgid="5974315340250149692">"第比利斯"</item>
-    <item msgid="3344801680659888795">"埃里溫"</item>
-    <item msgid="2537944335416132075">"杜拜"</item>
-    <item msgid="5630432498109110949">"喀布爾"</item>
-    <item msgid="2274762525650993846">"伊斯蘭馬巴德、喀拉蚩"</item>
-    <item msgid="272153171103339242">"烏拉爾"</item>
-    <item msgid="4757644551253886090">"凱薩琳堡"</item>
-    <item msgid="3036512479614493957">"加爾各答"</item>
-    <item msgid="4190271241277312277">"斯里蘭卡"</item>
-    <item msgid="4489139826358657866">"加德滿都"</item>
-    <item msgid="1195461607876034232">"阿斯塔納"</item>
-    <item msgid="8777509327730950228">"仰光"</item>
-    <item msgid="3838899720161825998">"克拉斯諾亞爾斯克"</item>
-    <item msgid="6495532062164690437">"曼谷"</item>
-    <item msgid="4910549870048384487">"北京"</item>
-    <item msgid="7174954011332328153">"香港"</item>
-    <item msgid="415034182139280334">"伊爾庫次克"</item>
-    <item msgid="3407263784503834649">"吉隆坡"</item>
-    <item msgid="6547945295249807755">"伯斯"</item>
-    <item msgid="4571776847411430193">"台北"</item>
-    <item msgid="3043691515163887690">"首爾"</item>
-    <item msgid="6369124969606372122">"東京、大阪"</item>
-    <item msgid="8317842783685169193">"亞庫次克"</item>
-    <item msgid="6993206457323990990">"阿得雷德"</item>
-    <item msgid="2431970257749452312">"達爾文"</item>
-    <item msgid="2709489188606506801">"布里斯本"</item>
-    <item msgid="6832511138206913044">"霍巴特"</item>
-    <item msgid="6933429790996727761">"雪梨、坎培拉"</item>
-    <item msgid="4546625974877459074">"海參威"</item>
-    <item msgid="7421491250467489614">"關島"</item>
-    <item msgid="3450367738093440984">"馬加丹"</item>
-    <item msgid="5046540868552082971">"奧克蘭"</item>
-    <item msgid="481903191189494072">"斐濟"</item>
-    <item msgid="1926932394586102998">"東加"</item>
-  </string-array>
-  <string-array name="preferences_default_reminder_labels">
-    <item msgid="7495163916242649023">"無"</item>
-    <item msgid="3377199512833209480">"1 分鐘"</item>
-    <item msgid="5023205715881387516">"5 分鐘"</item>
-    <item msgid="7720870540593319107">"10 分鐘"</item>
-    <item msgid="1653841700859180907">"15 分鐘"</item>
-    <item msgid="3741629746313107482">"20 分鐘"</item>
-    <item msgid="5357458446224446398">"25 分鐘"</item>
-    <item msgid="403143749684280703">"30 分鐘"</item>
-    <item msgid="5611574008997362948">"45 分鐘"</item>
-    <item msgid="30462793717552">"1 小時"</item>
-    <item msgid="119808229352802480">"2 小時"</item>
-    <item msgid="7456742278252094745">"3 小時"</item>
-    <item msgid="5263928189935026559">"12 小時"</item>
-    <item msgid="6451763179435252852">"24 小時"</item>
-    <item msgid="966666856467721784">"2 天"</item>
-    <item msgid="5840973497558794742">"1 週"</item>
-  </string-array>
-  <string-array name="preferences_alert_type_labels">
-    <item msgid="2724242028978664229">"警示"</item>
-    <item msgid="8723674378160518790">"狀態列通知"</item>
-    <item msgid="8433736231022186661">"關閉"</item>
-  </string-array>
-  <string-array name="availability">
-    <item msgid="454869065893453189">"忙碌"</item>
-    <item msgid="6228387173725732140">"有空"</item>
-  </string-array>
-  <string-array name="visibility">
-    <item msgid="3035788428581513163">"預設"</item>
-    <item msgid="5200216103966973369">"私人"</item>
-    <item msgid="9182342638433672664">"公開"</item>
-  </string-array>
-  <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"第一個"</item>
-    <item msgid="5631923029483854900">"第二個"</item>
-    <item msgid="148935502975250973">"第三個"</item>
-    <item msgid="5124200797326669172">"第四個"</item>
-    <item msgid="7564374178324652137">"最後一個"</item>
-  </string-array>
-  <string-array name="response_labels1">
-    <item msgid="3654955385120106241">"(無回應)"</item>
-    <item msgid="3724434080904437698">"是"</item>
-    <item msgid="8854145743148992583">"不確定"</item>
-    <item msgid="6174292185978948873">"否"</item>
-  </string-array>
-  <string-array name="response_labels2">
-    <item msgid="5967437218994333578">"是"</item>
-    <item msgid="1254269034445160199">"不確定"</item>
-    <item msgid="1099407454885268744">"否"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels">
-    <item msgid="4208432367651646938">"僅限此活動"</item>
-    <item msgid="8626755531271570950">"此活動及未來活動"</item>
-    <item msgid="7833229563617435430">"所有活動"</item>
-  </string-array>
-  <string-array name="delete_repeating_labels_no_selected">
-    <item msgid="1341910309321756150">"此活動及未來活動"</item>
-    <item msgid="6315440193748139854">"所有活動"</item>
-  </string-array>
-  <string-array name="change_response_labels">
-    <item msgid="2012815396992847028">"僅適用於這一次"</item>
-    <item msgid="140670561403965380">"所有後續活動"</item>
-  </string-array>
+    <!-- Choices for the "Reminder minutes" spinner.
+         These must be kept in sync with the reminder_minutes_values array.
+    -->
+    <string-array name="reminder_minutes_labels">
+        <item msgid="9134196715565887256">"1 分鐘"</item>
+        <item msgid="7350720278790900276">"5 分鐘"</item>
+        <item msgid="559329025736829220">"10 分鐘"</item>
+        <item msgid="4523534383318084162">"15 分鐘"</item>
+        <item msgid="7153990736543668084">"20 分鐘"</item>
+        <item msgid="2030352540011653596">"25 分鐘"</item>
+        <item msgid="7307245847296317340">"30 分鐘"</item>
+        <item msgid="5174730509775969611">"45 分鐘"</item>
+        <item msgid="1920425054049263702">"1 小時"</item>
+        <item msgid="6972139375792068825">"2 小時"</item>
+        <item msgid="5643568168685093982">"3 小時"</item>
+        <item msgid="2179302053572039553">"12 小時"</item>
+        <item msgid="314399712609472931">"24 小時"</item>
+        <item msgid="6908283876728494719">"2 天"</item>
+        <item msgid="3390146235648970198">"1 週"</item>
+    </string-array>
+
+    <!-- skipping untranslatable /resources:0/string-array:name=reminder_minutes_values -->
+
+    <!-- Choices for timezones, must be kept in sync with timezone_values. This
+         list was taken from package/apps/Settings/res/xml/timezones.xml -->
+    <string-array name="timezone_labels">
+        <item msgid="6833649526258274889">"馬紹爾群島"</item>
+        <item msgid="7176569939440505575">"中途島"</item>
+        <item msgid="5000628410717488070">"夏威夷"</item>
+        <item msgid="3809977082338992040">"阿拉斯加"</item>
+        <item msgid="1206600898319778734">"太平洋時間"</item>
+        <item msgid="4251553449779733536">"提華納"</item>
+        <item msgid="4796372144693551811">"亞利桑那"</item>
+        <item msgid="4589419122570218444">"奇瓦瓦"</item>
+        <item msgid="1653398220457872326">"山區時間"</item>
+        <item msgid="229005026661478023">"中美洲"</item>
+        <item msgid="1545268116831476742">"中部時間"</item>
+        <item msgid="9135129204936732090">"墨西哥市"</item>
+        <item msgid="3703110560723049255">"薩克斯其萬省"</item>
+        <item msgid="5458958644945369505">"波哥大"</item>
+        <item msgid="355450740949670294">"東部時間"</item>
+        <item msgid="5786717434693228701">"委內瑞拉"</item>
+        <item msgid="165048018515834952">"大西洋時間"</item>
+        <item msgid="5398045998666341917">"瑪瑙斯"</item>
+        <item msgid="8167627904199889197">"聖地亞哥"</item>
+        <item msgid="2793058279461039833">"紐芬蘭"</item>
+        <item msgid="5247265991408608312">"巴西利亞"</item>
+        <item msgid="7862856378699038344">"布宜諾斯艾利斯"</item>
+        <item msgid="7307349572838946177">"格陵蘭"</item>
+        <item msgid="2287491943472924232">"蒙特維多"</item>
+        <item msgid="6337125611768317903">"大西洋中部"</item>
+        <item msgid="1083966762112959704">"亞速爾群島"</item>
+        <item msgid="3208435599095023369">"維德角群島"</item>
+        <item msgid="8380333624463354109">"卡薩布蘭卡"</item>
+        <item msgid="8737442113188999866">"倫敦、都柏林"</item>
+        <item msgid="72424340270348400">"阿姆斯特丹、柏林"</item>
+        <item msgid="3665952257850630547">"貝爾格勒"</item>
+        <item msgid="3284290759549286849">"布魯塞爾"</item>
+        <item msgid="3112943938015033049">"塞拉耶佛"</item>
+        <item msgid="2184425710639965762">"巴黎"</item>
+        <item msgid="5997630882187580225">"溫特和克"</item>
+        <item msgid="3828800493609994208">"非洲西部時間"</item>
+        <item msgid="7527935722014187591">"安曼、約旦"</item>
+        <item msgid="672509109295227133">"雅典、伊斯坦堡"</item>
+        <item msgid="1835470340349221646">"貝魯特、黎巴嫩"</item>
+        <item msgid="9006223109403693650">"開羅"</item>
+        <item msgid="2877875673636361825">"赫爾辛基"</item>
+        <item msgid="4528124308590807049">"耶路撒冷"</item>
+        <item msgid="7823856457885290195">"明斯克"</item>
+        <item msgid="8650995074282357197">"哈拉雷"</item>
+        <item msgid="209523815326871285">"巴格達"</item>
+        <item msgid="8077211460729251609">"莫斯科"</item>
+        <item msgid="6103383184232804522">"科威特"</item>
+        <item msgid="8581935265080466099">"奈洛比"</item>
+        <item msgid="1531618843539764728">"德黑蘭"</item>
+        <item msgid="141548505188106312">"巴庫"</item>
+        <item msgid="5974315340250149692">"第比利斯"</item>
+        <item msgid="3344801680659888795">"埃里溫"</item>
+        <item msgid="2537944335416132075">"杜拜"</item>
+        <item msgid="5630432498109110949">"喀布爾"</item>
+        <item msgid="2274762525650993846">"伊斯蘭馬巴德、喀拉蚩"</item>
+        <item msgid="272153171103339242">"烏拉爾"</item>
+        <item msgid="4757644551253886090">"凱薩琳堡"</item>
+        <item msgid="3036512479614493957">"加爾各答"</item>
+        <item msgid="4190271241277312277">"斯里蘭卡"</item>
+        <item msgid="4489139826358657866">"加德滿都"</item>
+        <item msgid="1195461607876034232">"阿斯塔納"</item>
+        <item msgid="8777509327730950228">"仰光"</item>
+        <item msgid="3838899720161825998">"克拉斯諾亞爾斯克"</item>
+        <item msgid="6495532062164690437">"曼谷"</item>
+        <item msgid="4910549870048384487">"北京"</item>
+        <item msgid="7174954011332328153">"香港"</item>
+        <item msgid="415034182139280334">"伊爾庫次克"</item>
+        <item msgid="3407263784503834649">"吉隆坡"</item>
+        <item msgid="6547945295249807755">"伯斯"</item>
+        <item msgid="4571776847411430193">"台北"</item>
+        <item msgid="3043691515163887690">"首爾"</item>
+        <item msgid="6369124969606372122">"東京、大阪"</item>
+        <item msgid="8317842783685169193">"亞庫次克"</item>
+        <item msgid="6993206457323990990">"阿得雷德"</item>
+        <item msgid="2431970257749452312">"達爾文"</item>
+        <item msgid="2709489188606506801">"布里斯本"</item>
+        <item msgid="6832511138206913044">"霍巴特"</item>
+        <item msgid="6933429790996727761">"雪梨、坎培拉"</item>
+        <item msgid="4546625974877459074">"海參威"</item>
+        <item msgid="7421491250467489614">"關島"</item>
+        <item msgid="3450367738093440984">"馬加丹"</item>
+        <item msgid="5046540868552082971">"奧克蘭"</item>
+        <item msgid="481903191189494072">"斐濟"</item>
+        <item msgid="1926932394586102998">"東加"</item>
+    </string-array>
+
+    <!-- This list was taken from package/apps/Settings/res/xml/timezones.xml -->
+    <!-- skipping untranslatable /resources:0/string-array:name=timezone_values -->
+
+    <string-array name="preferences_default_reminder_labels">
+        <item msgid="7495163916242649023">"無"</item>
+        <item msgid="3377199512833209480">"1 分鐘"</item>
+        <item msgid="5023205715881387516">"5 分鐘"</item>
+        <item msgid="7720870540593319107">"10 分鐘"</item>
+        <item msgid="1653841700859180907">"15 分鐘"</item>
+        <item msgid="3741629746313107482">"20 分鐘"</item>
+        <item msgid="5357458446224446398">"25 分鐘"</item>
+        <item msgid="403143749684280703">"30 分鐘"</item>
+        <item msgid="5611574008997362948">"45 分鐘"</item>
+        <item msgid="30462793717552">"1 小時"</item>
+        <item msgid="119808229352802480">"2 小時"</item>
+        <item msgid="7456742278252094745">"3 小時"</item>
+        <item msgid="5263928189935026559">"12 小時"</item>
+        <item msgid="6451763179435252852">"24 小時"</item>
+        <item msgid="966666856467721784">"2 天"</item>
+        <item msgid="5840973497558794742">"1 週"</item>
+    </string-array>
+
+    <!-- skipping untranslatable /resources:0/string-array:name=preferences_default_reminder_values -->
+
+    <string-array name="preferences_week_start_day_labels">
+        <item>預設</item>
+        <item>星期六</item>
+        <item>星期日</item>
+        <item>星期一</item>
+    </string-array>
+
+    <!-- skipping untranslatable /resources:0/string-array:name=preferences_week_start_day_values -->
+
+    <string-array name="preferences_alert_type_labels">
+        <item msgid="2724242028978664229">"警示"</item>
+        <item msgid="8723674378160518790">"狀態列通知"</item>
+        <item msgid="8433736231022186661">"關閉"</item>
+    </string-array>
+
+    <!-- skipping untranslatable /resources:0/string-array:name=preferences_alert_type_values -->
+
+    <string-array name="availability">
+        <item msgid="454869065893453189">"忙碌"</item>
+        <item msgid="6228387173725732140">"有空"</item>
+    </string-array>
+
+    <string-array name="visibility">
+        <item msgid="3035788428581513163">"預設"</item>
+        <item msgid="5200216103966973369">"私人"</item>
+        <item msgid="9182342638433672664">"公開"</item>
+    </string-array>
+
+    <string-array name="ordinal_labels">
+        <item msgid="2693927956303125332">"第一個"</item>
+        <item msgid="5631923029483854900">"第二個"</item>
+        <item msgid="148935502975250973">"第三個"</item>
+        <item msgid="5124200797326669172">"第四個"</item>
+        <item msgid="7564374178324652137">"最後一個"</item>
+    </string-array>
+
+    <!-- Invitation responses -->
+    <string-array name="response_labels1">
+        <item msgid="3654955385120106241">"(無回應)"</item>
+        <item msgid="3724434080904437698">"是"</item>
+        <item msgid="8854145743148992583">"不確定"</item>
+        <item msgid="6174292185978948873">"否"</item>
+    </string-array>
+    <string-array name="response_labels2">
+        <item msgid="5967437218994333578">"是"</item>
+        <item msgid="1254269034445160199">"不確定"</item>
+        <item msgid="1099407454885268744">"否"</item>
+    </string-array>
+
+    <!-- The corresponding indices are defined in DeleteEventHelper.java -->
+    <skip />
+    <string-array name="delete_repeating_labels">
+        <item msgid="4208432367651646938">"僅限此活動"</item>
+        <item msgid="8626755531271570950">"此活動及未來活動"</item>
+        <item msgid="7833229563617435430">"所有活動"</item>
+    </string-array>
+
+    <!-- The corresponding indices are defined in DeleteEventHelper.java -->
+    <!-- This is the same array as above (the "delete_repeating_labels" array,
+         except that the first element "Only this event" is removed.  This
+         array exists to work-around a bug in the CalendarProvider and sync
+         code where you can't delete one instance of a repeating event that
+         was created on the phone until that event has been synced to the server.
+     -->
+    <skip />
+    <string-array name="delete_repeating_labels_no_selected">
+        <item msgid="1341910309321756150">"此活動及未來活動"</item>
+        <item msgid="6315440193748139854">"所有活動"</item>
+    </string-array>
+
+    <!-- The corresponding array indices are defined in EventInfoActivity.java -->
+    <skip />
+    <!-- The list of choices displayed in a dialog box when the user wants to
+    respond to an invitation that repeats. -->
+    <string-array name="change_response_labels">
+        <!-- The choice for responding to only one instance of a repeating event -->
+        <item msgid="2012815396992847028">"僅適用於這一次"</item>
+        <!-- The choice for responding to all instances of a repeating event -->
+        <item msgid="140670561403965380">"所有後續活動"</item>
+    </string-array>
 </resources>
