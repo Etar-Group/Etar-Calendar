@@ -3773,9 +3773,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 endHour = mSelectedEvent.endTime / 60;
             }
 
-            if (mSelectionHour < startHour) {
+            if (mSelectionHour < startHour && mSelectionDay == startDay) {
                 mSelectionHour = startHour;
-            } else if (mSelectionHour > endHour) {
+            } else if (mSelectionHour > endHour && mSelectionDay == endDay) {
                 mSelectionHour = endHour;
             }
         }
