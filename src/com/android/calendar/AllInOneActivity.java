@@ -28,6 +28,7 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
+import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -110,9 +111,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     private String mHideString = "Hide controls";
     private String mShowString = "Show controls";
-    private long mControlsAnimateEndTime = 0;
 
-    private Handler mHandler = new Handler();
+    // Params for animating the controls on the right
+    LayoutParams mControlsParams = new LayoutParams(CONTROLS_ANIMATE_WIDTH, 0);
 
     private Runnable mHomeTimeUpdater = new Runnable() {
         @Override
@@ -194,6 +195,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
         mHideString = res.getString(R.string.hide_controls);
         mShowString = res.getString(R.string.show_controls);
+        mControlsParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        mControlsParams.rightMargin = CONTROLS_MARGIN_RIGHT;
+
         mIsMultipane =
                 (res.getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
 
@@ -461,9 +465,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
             case R.id.action_hide_controls:
                 mHideControls = !mHideControls;
                 item.setTitle(mHideControls ? mShowString : mHideString);
-                updateHomeClock();
-                mControlsAnimateEndTime = System.currentTimeMillis() + CONTROLS_ANIMATE_DURATION;
-                mHandler.post(mAnimateControls);
+                final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this, "controlsOffset",
+                        mHideControls ? 0 : CONTROLS_ANIMATE_WIDTH,
+                        mHideControls ? CONTROLS_ANIMATE_WIDTH : 0);
+                slideAnimation.setDuration(CONTROLS_ANIMATE_DURATION);
+                ObjectAnimator.setFrameDelay(0);
+                slideAnimation.start();
                 return true;
             default:
                 return false;
@@ -472,38 +479,20 @@ public class AllInOneActivity extends Activity implements EventHandler,
         return true;
     }
 
-    private Runnable mAnimateControls = new Runnable() {
-        LayoutParams params = new LayoutParams(CONTROLS_ANIMATE_WIDTH, 0);
-        public void run() {
-            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            params.rightMargin = CONTROLS_MARGIN_RIGHT;
-            long millis = System.currentTimeMillis();
-            int x;
-            if (millis >= mControlsAnimateEndTime) {
-                if (mHideControls) {
-                    setControlsOffset(CONTROLS_ANIMATE_WIDTH);
-                } else {
-                    setControlsOffset(0);
-                }
-                return;
-            }
-            x = (int) (CONTROLS_ANIMATE_WIDTH * (mControlsAnimateEndTime - millis)
-                    / CONTROLS_ANIMATE_DURATION);
-            if (mHideControls) {
-                x = CONTROLS_ANIMATE_WIDTH - x;
-            }
-            setControlsOffset(x);
-            mHandler.post(this);
-        }
-
-        private void setControlsOffset(int offset) {
-            mMiniMonth.setTranslationX(offset);
-            mCalendarsList.setTranslationX(offset);
-            mHomeTime.setTranslationX(offset);
-            params.width = Math.max(0, CONTROLS_ANIMATE_WIDTH - offset - params.rightMargin);
-            mMiniMonthContainer.setLayoutParams(params);
-        }
-    };
+    /**
+     * Sets the offset of the controls on the right for animating them off/on
+     * screen. ProGuard strips this if it's not in proguard.flags
+     *
+     * @param controlsOffset The current offset in pixels
+     */
+    public void setControlsOffset(int controlsOffset) {
+        mMiniMonth.setTranslationX(controlsOffset);
+        mCalendarsList.setTranslationX(controlsOffset);
+        mHomeTime.setTranslationX(controlsOffset);
+        mControlsParams.width = Math.max(
+                0, CONTROLS_ANIMATE_WIDTH - controlsOffset - mControlsParams.rightMargin);
+        mMiniMonthContainer.setLayoutParams(mControlsParams);
+    }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
