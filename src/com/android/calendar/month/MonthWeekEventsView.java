@@ -36,6 +36,7 @@ import android.text.format.Time;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -78,9 +79,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mTodayIndex = -1;
     protected int mOrientation = Configuration.ORIENTATION_LANDSCAPE;
     protected List<ArrayList<Event>> mEvents = null;
-    // This is for drawing the outlines around event chips and supports up to 5
-    // events being drawn on each day
-    protected float[] mEventOutlines = new float[5 * 4 * 4 * 7];
+    // This is for drawing the outlines around event chips and supports up to 10
+    // events being drawn on each day. The code will expand this if necessary.
+    protected FloatRef mEventOutlines = new FloatRef(10 * 4 * 4 * 7);
 
     protected static StringBuilder mStringBuilder = new StringBuilder(50);
     // TODO recreate formatter when locale changes
@@ -112,6 +113,25 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mEventChipOutlineColor = 0xFFFFFFFF;
     protected int mDaySeparatorOuterColor = 0x33FFFFFF;
     protected int mDaySeparatorInnerColor = 0x1A000000;
+
+    /**
+     * This provides a reference to a float array which allows for easy size
+     * checking and reallocation. Used for drawing lines.
+     */
+    private class FloatRef {
+        float[] array;
+
+        public FloatRef(int size) {
+            array = new float[size];
+        }
+
+        public void ensureSize(int newSize) {
+            if (newSize >= array.length) {
+                // Add enough space for 7 more boxes to be drawn
+                array = Arrays.copyOf(array, newSize + 16 * 7);
+            }
+        }
+    }
 
     /**
      * @param context
@@ -406,31 +426,32 @@ public class MonthWeekEventsView extends SimpleWeekView {
         if (outlineCount > 0) {
             p.setColor(mEventChipOutlineColor);
             p.setStrokeWidth(EVENT_SQUARE_BORDER);
-            canvas.drawLines(mEventOutlines, 0, outlineCount, p);
+            canvas.drawLines(mEventOutlines.array, 0, outlineCount, p);
         }
     }
 
-    protected int addChipOutline(float[] lines, int count, int x, int y) {
+    protected int addChipOutline(FloatRef lines, int count, int x, int y) {
+        lines.ensureSize(count + 16);
         // top of box
-        lines[count++] = x;
-        lines[count++] = y;
-        lines[count++] = x + EVENT_SQUARE_WIDTH;
-        lines[count++] = y;
+        lines.array[count++] = x;
+        lines.array[count++] = y;
+        lines.array[count++] = x + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = y;
         // right side of box
-        lines[count++] = x + EVENT_SQUARE_WIDTH;
-        lines[count++] = y;
-        lines[count++] = x + EVENT_SQUARE_WIDTH;
-        lines[count++] = y + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = x + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = y;
+        lines.array[count++] = x + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = y + EVENT_SQUARE_WIDTH;
         // left side of box
-        lines[count++] = x;
-        lines[count++] = y;
-        lines[count++] = x;
-        lines[count++] = y + EVENT_SQUARE_WIDTH + 1;
+        lines.array[count++] = x;
+        lines.array[count++] = y;
+        lines.array[count++] = x;
+        lines.array[count++] = y + EVENT_SQUARE_WIDTH + 1;
         // bottom of box
-        lines[count++] = x;
-        lines[count++] = y + EVENT_SQUARE_WIDTH;
-        lines[count++] = x + EVENT_SQUARE_WIDTH;
-        lines[count++] = y + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = x;
+        lines.array[count++] = y + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = x + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = y + EVENT_SQUARE_WIDTH;
 
         return count;
     }
@@ -488,10 +509,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
     }
 
     protected void drawMoreEvents(Canvas canvas, int remainingEvents, int x) {
-        float[] lines = new float[4 * 4];
+        FloatRef lines = new FloatRef(4 * 4);
         int y = mHeight - EVENT_BOTTOM_PADDING + EVENT_LINE_PADDING / 2 - mEventHeight;
         addChipOutline(lines, 0, x, y);
-        canvas.drawLines(lines, mEventExtrasPaint);
+        canvas.drawLines(lines.array, mEventExtrasPaint);
         String text = mContext.getResources().getQuantityString(
                 R.plurals.month_more_events, remainingEvents);
         y = mHeight - EVENT_BOTTOM_PADDING;
