@@ -451,6 +451,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!mCanModifyCalendar) {
+                    return;
+                }
                 DeleteEventHelper deleteHelper = new DeleteEventHelper(
                         getActivity(), getActivity(), false /* exitWhenDone */);
                 deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
@@ -973,6 +976,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         EventInfoFragment.this.dismiss();
                     }
                 });
+            }
+            if (!mCanModifyCalendar) {
+                mView.findViewById(R.id.delete).setEnabled(false);
             }
         } else {
             setVisibilityCommon(view, R.id.calendar, View.GONE);
