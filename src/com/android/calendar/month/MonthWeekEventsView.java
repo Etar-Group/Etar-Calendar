@@ -450,7 +450,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         // bottom of box
         lines.array[count++] = x;
         lines.array[count++] = y + EVENT_SQUARE_WIDTH;
-        lines.array[count++] = x + EVENT_SQUARE_WIDTH;
+        lines.array[count++] = x + EVENT_SQUARE_WIDTH + 1;
         lines.array[count++] = y + EVENT_SQUARE_WIDTH;
 
         return count;

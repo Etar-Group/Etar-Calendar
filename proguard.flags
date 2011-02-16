@@ -4,3 +4,9 @@
 -keepclassmembers class com.android.calendar.AllInOneActivity {
   *** setControlsOffset(...);
 }
+-keepclassmembers class com.android.calendar.DayView {
+  *** setAnimateDayHeight(...);
+  *** setAnimateDayEventHeight(...);
+  *** setMoreAllDayEventsTextAlpha(...);
+  *** setExpandDayHeightIconRotation(...);
+}

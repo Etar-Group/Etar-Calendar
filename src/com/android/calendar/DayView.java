@@ -95,7 +95,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private static float mScale = 0; // Used for supporting different screen densities
     private static final long INVALID_EVENT_ID = -1; //This is used for remembering a null event
+    // Duration of the allday expansion
     private static final long ANIMATION_DURATION = 400;
+    // duration of the more allday event text fade
+    private static final long ANIMATION_SECONDARY_DURATION = 200;
 
     private static final int MENU_AGENDA = 2;
     private static final int MENU_DAY = 3;
@@ -222,7 +225,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private int mSelectionDay;        // Julian day
     private int mSelectionHour;
 
-    boolean mSelectionAllDay;
+    boolean mSelectionAllday;
 
     /** Width of a day or non-conflicting event */
     private int mCellWidth;
@@ -231,6 +234,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private Rect mRect = new Rect();
     private Rect mDestRect = new Rect();
     private Rect mSelectionRect = new Rect();
+    // This encloses the more allDay events icon
+    private Rect mExpandAllDayRect = new Rect();
     private Paint mPaint = new Paint();
     private Paint mEventTextPaint = new Paint();
     private Paint mSelectionPaint = new Paint();
@@ -256,9 +261,28 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private static final int DAY_GAP = 1;
     private static final int HOUR_GAP = 1;
+    // This is the standard height of an allday event with no restrictions
     private static int SINGLE_ALLDAY_HEIGHT = 34;
-    private static int MAX_ALLDAY_HEIGHT = 105;
+    /**
+    * This is the minimum desired height of a allday event.
+    * When unexpanded, allday events will use this height.
+    * When expanded allDay events will attempt to grow to fit all
+    * events at this height.
+    */
+    private static float MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT = 28.0F; // in pixels
+    /**
+     * This is how big the unexpanded allday height is allowed to be.
+     * It will get adjusted based on screen size
+     */
+    private static int MAX_UNEXPANDED_ALLDAY_HEIGHT =
+            (int) (MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT * 4);
+    /**
+     * This is the minimum size reserved for displaying regular events.
+     * The expanded allDay region can't expand into this.
+     */
+    private static int MIN_HOURS_HEIGHT = 180;
     private static int ALLDAY_TOP_MARGIN = 3;
+    // The largest a single allDay event will become.
     private static int MAX_HEIGHT_OF_ONE_ALLDAY_EVENT = 34;
 
     private static int HOURS_TOP_MARGIN = 2;
@@ -279,6 +303,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static final int DAY_HEADER_ALPHA = 0x80000000;
     private static final int DATE_HEADER_ALPHA = 0x26000000;
     private static final int DATE_HEADER_TODAY_ALPHA = 0x99000000;
+    // More events text will transition between invisible and this alpha
+    private static final int MORE_EVENTS_MAX_ALPHA = 0x4C;
     private static float DAY_HEADER_ONE_DAY_LEFT_MARGIN = 0;
     private static float DAY_HEADER_ONE_DAY_RIGHT_MARGIN = 5;
     private static float DAY_HEADER_ONE_DAY_BOTTOM_MARGIN = 6;
@@ -294,7 +320,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int MIN_HOURS_WIDTH = 96;
     private static int MIN_CELL_WIDTH_FOR_TEXT = 27;
     private static final int MAX_EVENT_TEXT_LEN = 500;
-    private static float MIN_EVENT_HEIGHT = 15.0F;  // in pixels
+    // smallest height to draw an event with
+    private static float MIN_EVENT_HEIGHT = 20.0F;  // in pixels
     private static int CALENDAR_COLOR_SQUARE_SIZE = 10;
     private static int CALENDAR_COLOR_SQUARE_V_OFFSET = -1;
     private static int CALENDAR_COLOR_SQUARE_H_OFFSET = -3;
@@ -310,10 +337,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN = EVENT_TEXT_BOTTOM_MARGIN;
     private static int EVENT_ALL_DAY_TEXT_LEFT_MARGIN = EVENT_TEXT_LEFT_MARGIN;
     private static int EVENT_ALL_DAY_TEXT_RIGHT_MARGIN = EVENT_TEXT_RIGHT_MARGIN;
+    // margins and sizing for the expand allday icon
+    private static int EXPAND_ALL_DAY_MARGIN = EVENT_TEXT_LEFT_MARGIN + 16;
+    private static int EXPAND_ALL_DAY_WIDTH = 48;
+    // sizing for "box +n" in allDay events
+    private static int EVENT_SQUARE_WIDTH = 10;
+    private static int EVENT_LINE_PADDING = 4;
 
     private static int mPressedColor;
     private static int mEventTextColor;
     private static int mDeclinedEventTextColor;
+    private static int mMoreEventsTextColor;
 
     private static int mWeek_saturdayColor;
     private static int mWeek_sundayColor;
@@ -331,6 +365,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 //    private static int mCalendarHourBackground;
     private static int mCalendarHourLabelColor;
 //    private static int mCalendarHourSelected;
+    private static int mMoreAlldayEventsTextAlpha = MORE_EVENTS_MAX_ALPHA;
 
     private int mViewStartX;
     private int mViewStartY;
@@ -360,12 +395,42 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private boolean mHandleActionUp = true;
 
     private int mHoursTextHeight;
-    private int mAllDayHeight;
+    /**
+     * The height of the area used for allday events
+     */
+    private int mAlldayHeight;
+    /**
+     * The height of the allday event area used during animation
+     */
+    private int mAnimateDayHeight = 0;
+    /**
+     * The height of an individual allday event during animation
+     */
+    private int mAnimateDayEventHeight = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
+    /**
+     * Controls the orientation of the allday expansion button
+     */
+    private static int mExpandDayHeightIconRotation = 180;
+    /**
+     * The height of the day names/numbers
+     */
     private static int DAY_HEADER_HEIGHT = 45;
     /**
      * Max of all day events in a given day in this view.
      */
-    private int mMaxAllDayEvents;
+    private int mMaxAlldayEvents;
+    /**
+     * A count of the number of allday events that were not drawn for each day
+     */
+    private int[] mSkippedAlldayEvents;
+    /**
+     * The number of allDay events at which point we start hiding allDay events.
+     */
+    private int mMaxUnexpandedAlldayEventCount = 4;
+    /**
+     * Whether or not to expand the allDay area to fill the screen
+     */
+    private static boolean mShowAllAllDayEvents = false;
 
     protected int mNumDays = 7;
     private int mNumHours = 10;
@@ -393,6 +458,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     protected final Resources mResources;
     protected final Drawable mCurrentTimeLine;
     protected final Drawable mTodayHeaderDrawable;
+    protected final Drawable mExpandAlldayDrawable;
     protected Drawable mAcceptedOrTentativeEventBoxDrawable;
     protected Drawable mUnconfirmedOrDeclinedEventBoxDrawable;
     private String mAmString;
@@ -439,6 +505,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private boolean mScrolling = false;
 
+
+    // Animates the height of the allday region
+    ObjectAnimator mAlldayAnimator;
+    // Animates the height of events in the allday region
+    ObjectAnimator mAlldayEventAnimator;
+    // Animates the transparency of the more events text
+    ObjectAnimator mMoreAlldayEventsAnimator;
+    // animates the expand allday button rotation
+    ObjectAnimator mExpandAlldayButtonAnimator;
+    // whether or not an event is stopping because it was cancelled
+    private boolean mCancellingAnimations = false;
+    // tracks whether a touch originated in the allday area
+    private boolean mTouchStartedInAlldayArea = false;
+
     private CalendarController mController;
     private ViewSwitcher mViewSwitcher;
     private GestureDetector mGestureDetector;
@@ -448,8 +528,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     public DayView(Context context, CalendarController controller,
             ViewSwitcher viewSwitcher, EventLoader eventLoader, int numDays) {
         super(context);
+        mResources = context.getResources();
         if (mScale == 0) {
-            mScale = getContext().getResources().getDisplayMetrics().density;
+            mScale = mResources.getDisplayMetrics().density;
             if (mScale != 1) {
                 SINGLE_ALLDAY_HEIGHT *= mScale;
                 ALLDAY_TOP_MARGIN *= mScale;
@@ -467,6 +548,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 MIN_HOURS_WIDTH *= mScale;
                 MIN_CELL_WIDTH_FOR_TEXT *= mScale;
                 MIN_EVENT_HEIGHT *= mScale;
+                MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT *= mScale;
+                MAX_UNEXPANDED_ALLDAY_HEIGHT *= mScale;
+                mAnimateDayEventHeight = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
 
                 HORIZONTAL_FLING_THRESHOLD *= mScale;
 
@@ -498,12 +582,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 EVENT_RECT_BOTTOM_MARGIN *= mScale;
                 EVENT_RECT_LEFT_MARGIN *= mScale;
                 EVENT_RECT_RIGHT_MARGIN *= mScale;
+                EXPAND_ALL_DAY_MARGIN *= mScale;
+                EXPAND_ALL_DAY_WIDTH *= mScale;
+                EVENT_SQUARE_WIDTH *= mScale;
+                EVENT_LINE_PADDING *= mScale;
             }
         }
 
-        mResources = context.getResources();
         mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_week_holo_light);
         mTodayHeaderDrawable = mResources.getDrawable(R.drawable.today_blue_week_holo_light);
+        mExpandAlldayDrawable = mResources.getDrawable(R.drawable.allday_expand_button);
         mAcceptedOrTentativeEventBoxDrawable = mResources
                 .getDrawable(R.drawable.panel_month_event_holo_light);
         mUnconfirmedOrDeclinedEventBoxDrawable = mResources
@@ -568,6 +656,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mPressedColor = mResources.getColor(R.color.pressed);
         mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
         mDeclinedEventTextColor = mResources.getColor(R.color.calendar_declined_event_text_color);
+        mMoreEventsTextColor = mResources.getColor(R.color.month_event_other_color) | 0xFF000000;
 
         mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
         mEventTextPaint.setTextAlign(Paint.Align.LEFT);
@@ -948,6 +1037,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * loading new events.  This can change if there are all-day events.
      */
     private void remeasure(int width, int height) {
+        // Shrink to fit available space but make sure we can display at least two events
+        MAX_UNEXPANDED_ALLDAY_HEIGHT = (int) (MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT * 4);
+        MAX_UNEXPANDED_ALLDAY_HEIGHT = Math.min(MAX_UNEXPANDED_ALLDAY_HEIGHT, height / 6);
+        MAX_UNEXPANDED_ALLDAY_HEIGHT = Math.max(MAX_UNEXPANDED_ALLDAY_HEIGHT,
+                (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT * 2);
+        mMaxUnexpandedAlldayEventCount =
+                (int) (MAX_UNEXPANDED_ALLDAY_HEIGHT / MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT);
 
         // First, clear the array of earliest start times, and the array
         // indicating presence of an all-day event.
@@ -956,92 +1052,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mHasAllDayEvent[day] = false;
         }
 
-        // Compute the layout relation between each event before measuring cell
-        // width, as the cell width should be adjusted along with the relation.
-        //
-        // Examples: A (1:00pm - 1:01pm), B (1:02pm - 2:00pm)
-        // We should mark them as "overwapped". Though they are not overwapped logically, but
-        // minimum cell height implicitly expands the cell height of A and it should look like
-        // (1:00pm - 1:15pm) after the cell height adjustment.
-
-        // Compute the space needed for the all-day events, if any.
-        // Make a pass over all the events, and keep track of the maximum
-        // number of all-day events in any one day.  Also, keep track of
-        // the earliest event in each day.
-        int maxAllDayEvents = 0;
-        final ArrayList<Event> events = mEvents;
-        final int len = events.size();
-        // Num of all-day-events on each day.
-        final int eventsCount[] = new int[mLastJulianDay - mFirstJulianDay + 1];
-        Arrays.fill(eventsCount, 0);
-        for (int ii = 0; ii < len; ii++) {
-            Event event = events.get(ii);
-            if (event.startDay > mLastJulianDay || event.endDay < mFirstJulianDay) {
-                continue;
-            }
-            if (event.drawAsAllday()) {
-                final int firstDay = Math.max(event.startDay, mFirstJulianDay);
-                final int lastDay = Math.min(event.endDay, mLastJulianDay);
-                for (int day = firstDay; day <= lastDay; day++) {
-                    final int count = ++eventsCount[day - mFirstJulianDay];
-                    if (maxAllDayEvents < count) {
-                        maxAllDayEvents = count;
-                    }
-                }
-
-                int daynum = event.startDay - mFirstJulianDay;
-                int durationDays = event.endDay - event.startDay + 1;
-                if (daynum < 0) {
-                    durationDays += daynum;
-                    daynum = 0;
-                }
-                if (daynum + durationDays > mNumDays) {
-                    durationDays = mNumDays - daynum;
-                }
-                for (int day = daynum; durationDays > 0; day++, durationDays--) {
-                    mHasAllDayEvent[day] = true;
-                }
-            } else {
-                int daynum = event.startDay - mFirstJulianDay;
-                int hour = event.startTime / 60;
-                if (daynum >= 0 && hour < mEarliestStartHour[daynum]) {
-                    mEarliestStartHour[daynum] = hour;
-                }
-
-                // Also check the end hour in case the event spans more than
-                // one day.
-                daynum = event.endDay - mFirstJulianDay;
-                hour = event.endTime / 60;
-                if (daynum < mNumDays && hour < mEarliestStartHour[daynum]) {
-                    mEarliestStartHour[daynum] = hour;
-                }
-            }
-        }
-        mMaxAllDayEvents = maxAllDayEvents;
-
-        // Calculate mAllDayHeight
-        mFirstCell = DAY_HEADER_HEIGHT;
-        int allDayHeight = 0;
-        if (maxAllDayEvents > 0) {
-            // If there is at most one all-day event per day, then use less
-            // space (but more than the space for a single event).
-            if (maxAllDayEvents == 1) {
-                allDayHeight = SINGLE_ALLDAY_HEIGHT;
-            } else {
-                // Allow the all-day area to grow in height depending on the
-                // number of all-day events we need to show, up to a limit.
-                allDayHeight = maxAllDayEvents * MAX_HEIGHT_OF_ONE_ALLDAY_EVENT;
-                if (allDayHeight > MAX_ALLDAY_HEIGHT) {
-                    allDayHeight = MAX_ALLDAY_HEIGHT;
-                }
-            }
-            mFirstCell = DAY_HEADER_HEIGHT + allDayHeight + ALLDAY_TOP_MARGIN;
-        } else {
-            mSelectionAllDay = false;
-        }
-        mAllDayHeight = allDayHeight;
-
-        mGridAreaHeight = height - mFirstCell;
+        int maxAllDayEvents = mMaxAlldayEvents;
 
         // The min is where 24 hours cover the entire visible area
         mMinCellHeight = (height - DAY_HEADER_HEIGHT) / 24;
@@ -1049,12 +1060,61 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mCellHeight = mMinCellHeight;
         }
 
+        // Calculate mAllDayHeight
+        mFirstCell = DAY_HEADER_HEIGHT;
+        int allDayHeight = 0;
+        if (maxAllDayEvents > 0) {
+            int maxAllAllDayHeight = height - DAY_HEADER_HEIGHT - MIN_HOURS_HEIGHT;
+            // If there is at most one all-day event per day, then use less
+            // space (but more than the space for a single event).
+            if (maxAllDayEvents == 1) {
+                allDayHeight = SINGLE_ALLDAY_HEIGHT;
+            } else if (maxAllDayEvents <= mMaxUnexpandedAlldayEventCount){
+                // Allow the all-day area to grow in height depending on the
+                // number of all-day events we need to show, up to a limit.
+                allDayHeight = maxAllDayEvents * MAX_HEIGHT_OF_ONE_ALLDAY_EVENT;
+                if (allDayHeight > MAX_UNEXPANDED_ALLDAY_HEIGHT) {
+                    allDayHeight = MAX_UNEXPANDED_ALLDAY_HEIGHT;
+                }
+            } else {
+                // if we have more than the magic number, check if we're animating
+                // and if not adjust the sizes appropriately
+                if (mAnimateDayHeight != 0) {
+                    // Don't shrink the space past the final allDay space. The animation
+                    // continues to hide the last event so the more events text can
+                    // fade in.
+                    allDayHeight = Math.max(mAnimateDayHeight, MAX_UNEXPANDED_ALLDAY_HEIGHT);
+                } else {
+                    // Try to fit all the events in
+                    allDayHeight = (int) (maxAllDayEvents * MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT);
+                    // But clip the area depending on which mode we're in
+                    if (!mShowAllAllDayEvents && allDayHeight > MAX_UNEXPANDED_ALLDAY_HEIGHT) {
+                        allDayHeight = MAX_UNEXPANDED_ALLDAY_HEIGHT;
+                    } else if (allDayHeight > maxAllAllDayHeight) {
+                        allDayHeight = maxAllAllDayHeight;
+                    }
+                }
+            }
+            mFirstCell = DAY_HEADER_HEIGHT + allDayHeight + ALLDAY_TOP_MARGIN;
+        } else {
+            mSelectionAllday = false;
+        }
+        mAlldayHeight = allDayHeight;
+
+        mGridAreaHeight = height - mFirstCell;
+
+        // Set up the expand icon position
+        mExpandAllDayRect.left = EXPAND_ALL_DAY_MARGIN;
+        mExpandAllDayRect.right = mExpandAllDayRect.left + EXPAND_ALL_DAY_WIDTH;
+        mExpandAllDayRect.bottom = mFirstCell - EXPAND_ALL_DAY_MARGIN;
+        mExpandAllDayRect.top = mExpandAllDayRect.bottom - EXPAND_ALL_DAY_WIDTH;
+
         mNumHours = mGridAreaHeight / (mCellHeight + HOUR_GAP);
         mEventGeometry.setHourHeight(mCellHeight);
 
         final long minimumDurationMillis = (long)
                 (MIN_EVENT_HEIGHT * DateUtils.MINUTE_IN_MILLIS / (mCellHeight / 60.0f));
-        Event.computePositions(events, minimumDurationMillis);
+        Event.computePositions(mEvents, minimumDurationMillis);
 
         // Compute the top of our reachable view
         mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
@@ -1105,14 +1165,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         view.mFirstHour = mFirstHour;
         view.mFirstHourOffset = mFirstHourOffset;
         view.remeasure(getWidth(), getHeight());
+        view.initAllDayHeights();
 
         view.mSelectedEvent = null;
         view.mPrevSelectedEvent = null;
         view.mFirstDayOfWeek = mFirstDayOfWeek;
         if (view.mEvents.size() > 0) {
-            view.mSelectionAllDay = mSelectionAllDay;
+            view.mSelectionAllday = mSelectionAllday;
         } else {
-            view.mSelectionAllDay = false;
+            view.mSelectionAllday = false;
         }
 
         // Redraw the screen so that the selection box will be redrawn.  We may
@@ -1299,7 +1360,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 }
                 if (mSelectedEvent == null) {
                     mLastPopupEventID = INVALID_EVENT_ID;
-                    if (!mSelectionAllDay) {
+                    if (!mSelectionAllday) {
                         mSelectionHour -= 1;
                         adjustHourSelection();
                         mSelectedEvents.clear();
@@ -1315,8 +1376,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 }
                 if (mSelectedEvent == null) {
                     mLastPopupEventID = INVALID_EVENT_ID;
-                    if (mSelectionAllDay) {
-                        mSelectionAllDay = false;
+                    if (mSelectionAllday) {
+                        mSelectionAllday = false;
                     } else {
                         mSelectionHour++;
                         adjustHourSelection();
@@ -1590,9 +1651,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private void adjustHourSelection() {
         if (mSelectionHour < 0) {
             mSelectionHour = 0;
-            if (mMaxAllDayEvents > 0) {
+            if (mMaxAlldayEvents > 0) {
                 mPrevSelectedEvent = null;
-                mSelectionAllDay = true;
+                mSelectionAllday = true;
             }
         }
 
@@ -1611,10 +1672,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             // Exception 2: if 12am is on screen, then allow the user to select
             // 12am before going up to the all-day event area.
             int daynum = mSelectionDay - mFirstJulianDay;
-            if (mMaxAllDayEvents > 0 && mEarliestStartHour[daynum] > mSelectionHour
+            if (mMaxAlldayEvents > 0 && mEarliestStartHour[daynum] > mSelectionHour
                     && mFirstHour > 0 && mFirstHour < 8) {
                 mPrevSelectedEvent = null;
-                mSelectionAllDay = true;
+                mSelectionAllday = true;
                 mSelectionHour = mFirstHour + 1;
                 return;
             }
@@ -1713,6 +1774,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     Arrays.fill(mAllDayLayouts, null);
                 }
 
+                computeEventRelations();
+
                 mRemeasure = true;
                 mComputeSelectedEvents = true;
                 recalc();
@@ -1720,6 +1783,73 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 invalidate();
             }
         }, mCancelCallback);
+    }
+
+    private void computeEventRelations() {
+        // Compute the layout relation between each event before measuring cell
+        // width, as the cell width should be adjusted along with the relation.
+        //
+        // Examples: A (1:00pm - 1:01pm), B (1:02pm - 2:00pm)
+        // We should mark them as "overwapped". Though they are not overwapped logically, but
+        // minimum cell height implicitly expands the cell height of A and it should look like
+        // (1:00pm - 1:15pm) after the cell height adjustment.
+
+        // Compute the space needed for the all-day events, if any.
+        // Make a pass over all the events, and keep track of the maximum
+        // number of all-day events in any one day.  Also, keep track of
+        // the earliest event in each day.
+        int maxAllDayEvents = 0;
+        final ArrayList<Event> events = mEvents;
+        final int len = events.size();
+        // Num of all-day-events on each day.
+        final int eventsCount[] = new int[mLastJulianDay - mFirstJulianDay + 1];
+        Arrays.fill(eventsCount, 0);
+        for (int ii = 0; ii < len; ii++) {
+            Event event = events.get(ii);
+            if (event.startDay > mLastJulianDay || event.endDay < mFirstJulianDay) {
+                continue;
+            }
+            if (event.drawAsAllday()) {
+                // Count all the events being drawn as allDay events
+                final int firstDay = Math.max(event.startDay, mFirstJulianDay);
+                final int lastDay = Math.min(event.endDay, mLastJulianDay);
+                for (int day = firstDay; day <= lastDay; day++) {
+                    final int count = ++eventsCount[day - mFirstJulianDay];
+                    if (maxAllDayEvents < count) {
+                        maxAllDayEvents = count;
+                    }
+                }
+
+                int daynum = event.startDay - mFirstJulianDay;
+                int durationDays = event.endDay - event.startDay + 1;
+                if (daynum < 0) {
+                    durationDays += daynum;
+                    daynum = 0;
+                }
+                if (daynum + durationDays > mNumDays) {
+                    durationDays = mNumDays - daynum;
+                }
+                for (int day = daynum; durationDays > 0; day++, durationDays--) {
+                    mHasAllDayEvent[day] = true;
+                }
+            } else {
+                int daynum = event.startDay - mFirstJulianDay;
+                int hour = event.startTime / 60;
+                if (daynum >= 0 && hour < mEarliestStartHour[daynum]) {
+                    mEarliestStartHour[daynum] = hour;
+                }
+
+                // Also check the end hour in case the event spans more than
+                // one day.
+                daynum = event.endDay - mFirstJulianDay;
+                hour = event.endTime / 60;
+                if (daynum < mNumDays && hour < mEarliestStartHour[daynum]) {
+                    mEarliestStartHour[daynum] = hour;
+                }
+            }
+        }
+        mMaxAlldayEvents = maxAllDayEvents;
+        initAllDayHeights();
     }
 
     @Override
@@ -1730,7 +1860,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
         canvas.save();
 
-        float yTranslate = -mViewStartY + DAY_HEADER_HEIGHT + mAllDayHeight;
+        float yTranslate = -mViewStartY + DAY_HEADER_HEIGHT + mAlldayHeight;
         // offset canvas by the current drag and header position
         canvas.translate(-mViewStartX, yTranslate);
         // clip to everything below the allDay area
@@ -1786,7 +1916,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         Paint p = mPaint;
         Rect r = mRect;
 
-        if (mMaxAllDayEvents != 0) {
+        if (mMaxAlldayEvents != 0) {
             drawAllDayEvents(mFirstJulianDay, mNumDays, canvas, p);
             drawUpperLeftCorner(r, canvas, p);
         }
@@ -1808,6 +1938,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         setupHourTextPaint(p);
         canvas.drawText(mAllDayString, HOURS_LEFT_MARGIN, DAY_HEADER_HEIGHT + HOURS_TOP_MARGIN
                 + HOUR_GAP + mHoursTextHeight, p);
+        if (mMaxAlldayEvents > mMaxUnexpandedAlldayEventCount) {
+            // Draw the allDay expand icon by rotating the canvas, drawing it,
+            // and rotating back. This does the animation as well.
+            mExpandAlldayDrawable.setBounds(mExpandAllDayRect);
+            canvas.rotate(mExpandDayHeightIconRotation, mExpandAllDayRect.exactCenterX(),
+                    mExpandAllDayRect.exactCenterY());
+            mExpandAlldayDrawable.draw(canvas);
+            canvas.rotate(-mExpandDayHeightIconRotation, mExpandAllDayRect.exactCenterX(),
+                    mExpandAllDayRect.exactCenterY());
+        }
     }
 
     private void drawScrollLine(Rect r, Canvas canvas, Paint p) {
@@ -2003,7 +2143,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // canvas.drawRect(r, p);
 
         // Draw a highlight on the selected hour (if needed)
-        if (mSelectionMode != SELECTION_HIDDEN && !mSelectionAllDay) {
+        if (mSelectionMode != SELECTION_HIDDEN && !mSelectionAllday) {
             // p.setColor(mCalendarHourSelected);
             int daynum = mSelectionDay - mFirstJulianDay;
             r.top = mSelectionHour * (mCellHeight + HOUR_GAP);
@@ -2289,10 +2429,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void drawAllDayEvents(int firstDay, int numDays, Canvas canvas, Paint p) {
-        if (mSelectionAllDay) {
+        if (mSelectionAllday) {
             // Draw the highlight on the selected all-day area
             mRect.top = DAY_HEADER_HEIGHT + 1;
-            mRect.bottom = mRect.top + mAllDayHeight + ALLDAY_TOP_MARGIN - 2;
+            mRect.bottom = mRect.top + mAlldayHeight + ALLDAY_TOP_MARGIN - 2;
             int daynum = mSelectionDay - mFirstJulianDay;
             mRect.left = mHoursWidth + daynum * (mCellWidth + DAY_GAP);
             mRect.right = mRect.left + mCellWidth + DAY_GAP - 1;
@@ -2324,7 +2464,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         p.setStrokeWidth(GRID_LINE_WIDTH);
         p.setAntiAlias(false);
         final float startY = DAY_HEADER_HEIGHT;
-        final float stopY = startY + mAllDayHeight + ALLDAY_TOP_MARGIN;
+        final float stopY = startY + mAlldayHeight + ALLDAY_TOP_MARGIN;
         final float deltaX = mCellWidth + DAY_GAP;
         float x = mHoursWidth;
         int linesIndex = 0;
@@ -2371,8 +2511,28 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int lastDay = firstDay + numDays - 1;
         final ArrayList<Event> events = mAllDayEvents;
         int numEvents = events.size();
-        float drawHeight = mAllDayHeight;
-        float numRectangles = mMaxAllDayEvents;
+        // Whether or not we should draw the more events text
+        boolean hasMoreEvents = false;
+        // size of the allDay area
+        float drawHeight = mAlldayHeight;
+        // max number of events being drawn in one day of the allday area
+        float numRectangles = mMaxAlldayEvents;
+        // Where to cut off drawn allday events
+        int allDayEventClip = DAY_HEADER_HEIGHT + mAlldayHeight + ALLDAY_TOP_MARGIN;
+        // The number of events that weren't drawn in each day
+        mSkippedAlldayEvents = new int[numDays];
+        if (mMaxAlldayEvents > mMaxUnexpandedAlldayEventCount && !mShowAllAllDayEvents &&
+                mAnimateDayHeight == 0) {
+            // We draw one fewer event than will fit so that more events text
+            // can be drawn
+            numRectangles = mMaxUnexpandedAlldayEventCount - 1;
+            // We also clip the events above the more events text
+            allDayEventClip -= MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
+            hasMoreEvents = true;
+        } else if (mAnimateDayHeight != 0) {
+            // clip at the end of the animating space
+            allDayEventClip = DAY_HEADER_HEIGHT + mAnimateDayHeight + ALLDAY_TOP_MARGIN;
+        }
         for (int i = 0; i < numEvents; i++) {
             Event event = events.get(i);
             int startDay = event.startDay;
@@ -2388,7 +2548,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
             int startIndex = startDay - firstDay;
             int endIndex = endDay - firstDay;
-            float height = drawHeight / numRectangles;
+            float height = mMaxAlldayEvents > mMaxUnexpandedAlldayEventCount ? mAnimateDayEventHeight :
+                    drawHeight / numRectangles;
 
             // Prevent a single event from getting too big
             if (height > MAX_HEIGHT_OF_ONE_ALLDAY_EVENT) {
@@ -2401,6 +2562,21 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             event.right = left + endIndex * (mCellWidth + DAY_GAP) + mCellWidth;
             event.top = y + height * event.getColumn();
             event.bottom = event.top + height;
+            if (mMaxAlldayEvents > mMaxUnexpandedAlldayEventCount) {
+                // check if we should skip this event. We skip if it starts
+                // after the clip bound or ends after the skip bound and we're
+                // not animating.
+                if (event.top >= allDayEventClip) {
+                    incrementSkipCount(mSkippedAlldayEvents, startIndex, endIndex);
+                    continue;
+                } else if (event.bottom > allDayEventClip) {
+                    if (hasMoreEvents) {
+                        incrementSkipCount(mSkippedAlldayEvents, startIndex, endIndex);
+                        continue;
+                    }
+                    event.bottom = allDayEventClip;
+                }
+            }
 
             Rect r = drawEventRect(event, canvas, p, eventTextPaint);
             setupAllDayTextRect(r);
@@ -2408,14 +2584,23 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             drawEventText(layout, r, canvas, r.top, r.bottom);
 
             // Check if this all-day event intersects the selected day
-            if (mSelectionAllDay && mComputeSelectedEvents) {
+            if (mSelectionAllday && mComputeSelectedEvents) {
                 if (startDay <= mSelectionDay && endDay >= mSelectionDay) {
                     mSelectedEvents.add(event);
                 }
             }
         }
+        if (mMoreAlldayEventsTextAlpha != 0 && mSkippedAlldayEvents != null) {
+            // If the more allday text should be visible, draw it.
+            p.setColor(mMoreAlldayEventsTextAlpha << 24 & mMoreEventsTextColor);
+            for (int i = 0; i < mSkippedAlldayEvents.length; i++) {
+                if (mSkippedAlldayEvents[i] > 0) {
+                    drawMoreAlldayEvents(canvas, mSkippedAlldayEvents[i], i, p);
+                }
+            }
+        }
 
-        if (mSelectionAllDay) {
+        if (mSelectionAllday) {
             // Compute the neighbors for the list of all-day events that
             // intersect the selected day.
             computeAllDayNeighbors();
@@ -2424,6 +2609,56 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             // to the normal event area, we will highlight the topmost event.
             saveSelectionPosition(0f, 0f, 0f, 0f);
         }
+    }
+
+    // Helper method for counting the number of allday events skipped on each day
+    private void incrementSkipCount(int[] counts, int startIndex, int endIndex) {
+        if (counts == null || startIndex < 0 || endIndex > counts.length) {
+            return;
+        }
+        for (int i = startIndex; i <= endIndex; i++) {
+            counts[i]++;
+        }
+    }
+
+    // Draws the "box +n" text for hidden allday events
+    protected void drawMoreAlldayEvents(Canvas canvas, int remainingEvents, int day, Paint p) {
+        int x = mHoursWidth + day * (mCellWidth + DAY_GAP) + EVENT_ALL_DAY_TEXT_LEFT_MARGIN;
+        int y = MAX_UNEXPANDED_ALLDAY_HEIGHT - (int) (.5f * MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT) -
+                (int) (.5f * EVENT_SQUARE_WIDTH) + DAY_HEADER_HEIGHT + ALLDAY_TOP_MARGIN;
+        float[] lines = new float[4 * 4];
+        addChipOutline(lines, 0, x, y);
+        canvas.drawLines(lines, p);
+        String text = mResources.getQuantityString(R.plurals.month_more_events, remainingEvents);
+        y += EVENT_SQUARE_WIDTH;
+        x += EVENT_SQUARE_WIDTH + EVENT_LINE_PADDING;
+        canvas.drawText(String.format(text, remainingEvents), x, y, p);
+    }
+
+    // helper method for drawing a box
+    protected int addChipOutline(float[] lines, int count, int x, int y) {
+        // top of box
+        lines[count++] = x;
+        lines[count++] = y;
+        lines[count++] = x + EVENT_SQUARE_WIDTH;
+        lines[count++] = y;
+        // right side of box
+        lines[count++] = x + EVENT_SQUARE_WIDTH;
+        lines[count++] = y;
+        lines[count++] = x + EVENT_SQUARE_WIDTH;
+        lines[count++] = y + EVENT_SQUARE_WIDTH;
+        // left side of box
+        lines[count++] = x;
+        lines[count++] = y;
+        lines[count++] = x;
+        lines[count++] = y + EVENT_SQUARE_WIDTH + 1;
+        // bottom of box
+        lines[count++] = x;
+        lines[count++] = y + EVENT_SQUARE_WIDTH;
+        lines[count++] = x + EVENT_SQUARE_WIDTH + 1;
+        lines[count++] = y + EVENT_SQUARE_WIDTH;
+
+        return count;
     }
 
     private void computeAllDayNeighbors() {
@@ -2500,7 +2735,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int numEvents = events.size();
         EventGeometry geometry = mEventGeometry;
 
-        final int viewEndY = mViewStartY + mViewHeight - DAY_HEADER_HEIGHT - mAllDayHeight;
+        final int viewEndY = mViewStartY + mViewHeight - DAY_HEADER_HEIGHT - mAlldayHeight;
         for (int i = 0; i < numEvents; i++) {
             Event event = events.get(i);
             if (!geometry.computeEventRect(date, left, top, cellWidth, event)) {
@@ -2512,7 +2747,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 continue;
             }
 
-            if (date == mSelectionDay && !mSelectionAllDay && mComputeSelectedEvents
+            if (date == mSelectionDay && !mSelectionAllday && mComputeSelectedEvents
                     && geometry.eventIntersectsSelection(event, selectionArea)) {
                 mSelectedEvents.add(event);
             }
@@ -2527,7 +2762,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             StaticLayout layout = getEventLayout(mLayouts, i, event, eventTextPaint, r);
             // TODO: not sure why we are 4 pixels off
             drawEventText(layout, r, canvas, mViewStartY + 4, mViewStartY + mViewHeight
-                    - DAY_HEADER_HEIGHT - mAllDayHeight);
+                    - DAY_HEADER_HEIGHT - mAlldayHeight);
         }
 
 
@@ -2538,7 +2773,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             post(mDispatchAccessibilityEventRunnable);
         }
 
-        if (date == mSelectionDay && !mSelectionAllDay && isFocused()
+        if (date == mSelectionDay && !mSelectionAllday && isFocused()
                 && mSelectionMode != SELECTION_HIDDEN) {
             computeNeighbors();
         }
@@ -3058,6 +3293,159 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         getHandler().removeCallbacks(mContinueScroll);
     }
 
+    // Kicks off all the animations when the expand allday area is tapped
+    private void doExpandAllDayClick() {
+        mShowAllAllDayEvents = !mShowAllAllDayEvents;
+
+        ObjectAnimator.setFrameDelay(0);
+
+        // Determine the starting height
+        if (mAnimateDayHeight == 0) {
+            mAnimateDayHeight = mShowAllAllDayEvents ?
+                    mAlldayHeight - (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT : mAlldayHeight;
+        }
+        // Cancel current animations
+        mCancellingAnimations = true;
+        if (mAlldayAnimator != null) {
+            mAlldayAnimator.cancel();
+        }
+        if (mAlldayEventAnimator != null) {
+            mAlldayEventAnimator.cancel();
+        }
+        if (mMoreAlldayEventsAnimator != null) {
+            mMoreAlldayEventsAnimator.cancel();
+        }
+        if (mExpandAlldayButtonAnimator != null) {
+            mExpandAlldayButtonAnimator.cancel();
+        }
+        mCancellingAnimations = false;
+        // get new animators
+        mAlldayAnimator = getAllDayAnimator();
+        mAlldayEventAnimator = getAllDayEventAnimator();
+        mMoreAlldayEventsAnimator = ObjectAnimator.ofInt(this,
+                    "moreAllDayEventsTextAlpha",
+                    mShowAllAllDayEvents ? MORE_EVENTS_MAX_ALPHA : 0,
+                    mShowAllAllDayEvents ? 0 : MORE_EVENTS_MAX_ALPHA);
+        mExpandAlldayButtonAnimator = ObjectAnimator.ofInt(this, "expandDayHeightIconRotation",
+                mExpandDayHeightIconRotation, mShowAllAllDayEvents ? 0: 180);
+
+        // Set up delays and start the animators
+        mAlldayAnimator.setStartDelay(mShowAllAllDayEvents ? ANIMATION_SECONDARY_DURATION : 0);
+        mAlldayAnimator.start();
+        mMoreAlldayEventsAnimator.setStartDelay(mShowAllAllDayEvents ? 0 : ANIMATION_DURATION);
+        mMoreAlldayEventsAnimator.setDuration(ANIMATION_SECONDARY_DURATION);
+        mMoreAlldayEventsAnimator.start();
+        mExpandAlldayButtonAnimator.setDuration(ANIMATION_DURATION);
+        mExpandAlldayButtonAnimator
+                .setStartDelay(mShowAllAllDayEvents ? ANIMATION_SECONDARY_DURATION : 0);
+        mExpandAlldayButtonAnimator.start();
+        if (mAlldayEventAnimator != null) {
+            // This is the only animator that can return null, so check it
+            mAlldayEventAnimator
+                    .setStartDelay(mShowAllAllDayEvents ? ANIMATION_SECONDARY_DURATION : 0);
+            mAlldayEventAnimator.start();
+        }
+    }
+
+    /**
+     * Figures out the initial heights for allDay events and space when
+     * a view is being set up.
+     */
+    public void initAllDayHeights() {
+        if (mMaxAlldayEvents <= mMaxUnexpandedAlldayEventCount) {
+            return;
+        }
+        if (mShowAllAllDayEvents) {
+            int maxADHeight = mViewHeight - DAY_HEADER_HEIGHT - MIN_HOURS_HEIGHT;
+            maxADHeight = Math.min(maxADHeight,
+                    (int)(mMaxAlldayEvents * MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT));
+            mAnimateDayEventHeight = maxADHeight / mMaxAlldayEvents;
+        } else {
+            mAnimateDayEventHeight = (int)MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
+        }
+    }
+
+    // Sets up an animator for changing the height of allday events
+    private ObjectAnimator getAllDayEventAnimator() {
+        // First calculate the absolute max height
+        int maxADHeight = mViewHeight - DAY_HEADER_HEIGHT - MIN_HOURS_HEIGHT;
+        // Now expand to fit but not beyond the absolute max
+        maxADHeight =
+                Math.min(maxADHeight, (int)(mMaxAlldayEvents * MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT));
+        // calculate the height of individual events in order to fit
+        int fitHeight = maxADHeight / mMaxAlldayEvents;
+        int currentHeight = mAnimateDayEventHeight;
+        int desiredHeight =
+                mShowAllAllDayEvents ? fitHeight : (int)MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
+        // if there's nothing to animate just return
+        if (currentHeight == desiredHeight) {
+            return null;
+        }
+
+        // Set up the animator with the calculated values
+        ObjectAnimator animator = ObjectAnimator.ofInt(this, "animateDayEventHeight",
+                currentHeight, desiredHeight);
+        animator.setDuration(ANIMATION_DURATION);
+        return animator;
+    }
+
+    // Sets up an animator for changing the height of the allday area
+    private ObjectAnimator getAllDayAnimator() {
+        // Calculate the absolute max height
+        int maxADHeight = mViewHeight - DAY_HEADER_HEIGHT - MIN_HOURS_HEIGHT;
+        // Find the desired height but don't exceed abs max
+        maxADHeight =
+                Math.min(maxADHeight, (int)(mMaxAlldayEvents * MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT));
+        // calculate the current and desired heights
+        int currentHeight = mAnimateDayHeight != 0 ? mAnimateDayHeight : mAlldayHeight;
+        int desiredHeight = mShowAllAllDayEvents ? maxADHeight :
+                (int) (MAX_UNEXPANDED_ALLDAY_HEIGHT - MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT - 1);
+
+        // Set up the animator with the calculated values
+        ObjectAnimator animator = ObjectAnimator.ofInt(this, "animateDayHeight",
+                currentHeight, desiredHeight);
+        animator.setDuration(ANIMATION_DURATION);
+
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (!mCancellingAnimations) {
+                    // when finished, set this to 0 to signify not animating
+                    mAnimateDayHeight = 0;
+                }
+                mRemeasure = true;
+                invalidate();
+            }
+        });
+        return animator;
+    }
+
+    // Setter for the expand allday icon used by the animator
+    public void setExpandDayHeightIconRotation(int rotation) {
+        mExpandDayHeightIconRotation = rotation;
+        invalidate();
+    }
+
+    // setter for the 'box +n' alpha text used by the animator
+    public void setMoreAllDayEventsTextAlpha(int alpha) {
+        mMoreAlldayEventsTextAlpha = alpha;
+        invalidate();
+    }
+
+    // setter for the height of the allday area used by the animator
+    public void setAnimateDayHeight(int height) {
+        mAnimateDayHeight = height;
+        mRemeasure = true;
+        invalidate();
+    }
+
+    // setter for the height of allday events used by the animator
+    public void setAnimateDayEventHeight(int height) {
+        mAnimateDayEventHeight = height;
+        mRemeasure = true;
+        invalidate();
+    }
+
     private void doSingleTapUp(MotionEvent ev) {
         if (!mHandleActionUp || mScrolling) {
             return;
@@ -3067,6 +3455,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int y = (int) ev.getY();
         int selectedDay = mSelectionDay;
         int selectedHour = mSelectionHour;
+
+        if (mMaxAlldayEvents > mMaxUnexpandedAlldayEventCount) {
+            // check if the tap was in the allday expansion area
+            int bottom = MAX_UNEXPANDED_ALLDAY_HEIGHT + DAY_HEADER_HEIGHT + ALLDAY_TOP_MARGIN;
+            if((x < mHoursWidth && y > DAY_HEADER_HEIGHT && y < DAY_HEADER_HEIGHT + mAlldayHeight)
+                    || (!mShowAllAllDayEvents && mAnimateDayHeight == 0 && y < bottom &&
+                            y >= bottom - MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT)) {
+                doExpandAllDayClick();
+                return;
+            }
+        }
 
         boolean validPosition = setSelectionFromPosition(x, y);
         if (!validPosition) {
@@ -3278,7 +3677,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // ScaleGestureDetector.OnScaleGestureListener
     public boolean onScaleBegin(ScaleGestureDetector detector) {
         mHandleActionUp = false;
-        float gestureCenterInPixels = detector.getFocusY() - DAY_HEADER_HEIGHT - mAllDayHeight;
+        float gestureCenterInPixels = detector.getFocusY() - DAY_HEADER_HEIGHT - mAlldayHeight;
         mGestureCenterHour = (mViewStartY + gestureCenterInPixels) / (mCellHeight + DAY_GAP);
 
         mStartingSpanY = Math.max(MIN_Y_SPAN, Math.abs(detector.getCurrentSpanY()));
@@ -3312,7 +3711,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mCellHeightBeforeScaleGesture = MAX_CELL_HEIGHT;
         }
 
-        int gestureCenterInPixels = (int) detector.getFocusY() - DAY_HEADER_HEIGHT - mAllDayHeight;
+        int gestureCenterInPixels = (int) detector.getFocusY() - DAY_HEADER_HEIGHT - mAlldayHeight;
         mViewStartY = (int) (mGestureCenterHour * (mCellHeight + DAY_GAP)) - gestureCenterInPixels;
         mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
 
@@ -3358,6 +3757,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 if (DEBUG) Log.e(TAG, "ACTION_DOWN");
+                int bottom = mAlldayHeight + DAY_HEADER_HEIGHT + ALLDAY_TOP_MARGIN;
+                if (ev.getY() < bottom) {
+                    mTouchStartedInAlldayArea = true;
+                } else {
+                    mTouchStartedInAlldayArea = false;
+                }
                 mHandleActionUp = true;
                 mGestureDetector.onTouchEvent(ev);
                 return true;
@@ -3652,7 +4057,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mSelectionHour = mFirstHour; /* First fully visible hour */
 
         if (y < mFirstCell) {
-            mSelectionAllDay = true;
+            mSelectionAllday = true;
         } else {
             // y is now offset from top of the scrollable region
             int adjustedY = y - mFirstCell;
@@ -3663,7 +4068,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 mSelectionHour += (adjustedY - mFirstHourOffset) / (mCellHeight + HOUR_GAP);
             }
 
-            mSelectionAllDay = false;
+            mSelectionAllday = false;
         }
 
         findSelectedEvent(x, y);
@@ -3695,20 +4100,28 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mSelectedEvent = null;
 
         mSelectedEvents.clear();
-        if (mSelectionAllDay) {
+        if (mSelectionAllday) {
             float yDistance;
             float minYdistance = 10000.0f; // any large number
             Event closestEvent = null;
-            float drawHeight = mAllDayHeight;
+            float drawHeight = mAlldayHeight;
             int yOffset = DAY_HEADER_HEIGHT + ALLDAY_TOP_MARGIN;
+            int maxUnexpandedColumn = mMaxUnexpandedAlldayEventCount;
+            if (mMaxAlldayEvents > mMaxUnexpandedAlldayEventCount) {
+                // Leave a gap for the 'box +n' text
+                maxUnexpandedColumn--;
+            }
             for (int i = 0; i < numEvents; i++) {
                 Event event = events.get(i);
-                if (!event.drawAsAllday()) {
+                if (!event.drawAsAllday() ||
+                        (!mShowAllAllDayEvents && event.getColumn() >= maxUnexpandedColumn)) {
+                    // Don't check non-allday events or events that aren't shown
                     continue;
                 }
 
                 if (event.startDay <= mSelectionDay && event.endDay >= mSelectionDay) {
-                    float numRectangles = event.getMaxColumns();
+                    float numRectangles = mShowAllAllDayEvents ?
+                            event.getMaxColumns() : mMaxUnexpandedAlldayEventCount;
                     float height = drawHeight / numRectangles;
                     if (height > MAX_HEIGHT_OF_ONE_ALLDAY_EVENT) {
                         height = MAX_HEIGHT_OF_ONE_ALLDAY_EVENT;
@@ -3905,12 +4318,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            if (mTouchStartedInAlldayArea) {
+                // don't scroll if this started in the allday area
+                return false;
+            }
             DayView.this.doScroll(e1, e2, distanceX, distanceY);
             return true;
         }
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (mTouchStartedInAlldayArea) {
+                // don't fling if this started in the allday area
+                return false;
+            }
             DayView.this.doFling(e1, e2, velocityX, velocityY);
             return true;
         }

@@ -639,8 +639,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 Toast.makeText(mContext, stringResource, Toast.LENGTH_SHORT).show();
             }
 
-            if ((mCode & Utils.DONE_DELETE) != 0 && mModel != null
-                    && EditEventHelper.canModifyCalendar(mModel)) {
+            if ((mCode & Utils.DONE_DELETE) != 0 && mOriginalModel != null
+                    && EditEventHelper.canModifyCalendar(mOriginalModel)) {
                 long begin = mModel.mStart;
                 long end = mModel.mEnd;
                 int which = -1;

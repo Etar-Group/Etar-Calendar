@@ -39,6 +39,21 @@ public class Event implements Cloneable {
     private static final String TAG = "CalEvent";
     private static final boolean PROFILE = false;
 
+    /**
+     * The sort order is:
+     * 1) events with an earlier start day
+     * 2) events with a later end day
+     * 3) events with an earlier start time
+     * 4) events with a later end time
+     * 5) the title (unnecessary, but nice)
+     *
+     * The start and end day is sorted first so that all day events are
+     * sorted correctly with respect to events that are >24 hours (and
+     * therefore show up in the allday area).
+     */
+    private static final String SORT_EVENTS_BY =
+            "startDay ASC, endDay DESC, begin ASC, end DESC, title ASC";
+
     // The projection to use when querying instances to build a list of events
     public static final String[] EVENT_PROJECTION = new String[] {
             Instances.TITLE,                 // 0
@@ -221,7 +236,7 @@ public class Event implements Cloneable {
             // the same then we sort alphabetically on the title.  This isn't
             // required for correctness, it just adds a nice touch.
 
-            String orderBy = Instances.SORT_CALENDAR_VIEW;
+            String orderBy = SORT_EVENTS_BY;
 
             // Respect the preference to show/hide declined events
             SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
