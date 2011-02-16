@@ -3055,7 +3055,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void doSingleTapUp(MotionEvent ev) {
-        if (!mHandleActionUp) {
+        if (!mHandleActionUp || mScrolling) {
             return;
         }
 
@@ -3105,6 +3105,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void doLongPress(MotionEvent ev) {
+        if (mScrolling) {
+            return;
+        }
+
         // Scale gesture in progress
         if (mStartingSpanY != 0) {
             return;
