@@ -67,6 +67,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.OverScroller;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -440,6 +441,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private CalendarController mController;
     private ViewSwitcher mViewSwitcher;
     private GestureDetector mGestureDetector;
+    private OverScroller mScroller;
 
     public DayView(Context context, CalendarController controller,
             ViewSwitcher viewSwitcher, EventLoader eventLoader, int numDays) {
@@ -521,7 +523,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mCellHeight = Utils.getSharedPreference(mContext,
                     GeneralPreferences.KEY_DEFAULT_CELL_HEIGHT, DEFAULT_CELL_HEIGHT);
         }
-
+        mScroller = new OverScroller(context);
         init(context);
     }
 
@@ -3220,8 +3222,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Vertical fling.
         mViewStartX = 0;
 
+        if (DEBUG) {
+            Log.d(TAG, "doFling: mViewStartY" + mViewStartY + " velocityY " + velocityY);
+        }
+
         // Continue scrolling vertically
-        mContinueScroll.init((int) velocityY / 20);
+        mScrolling = true;
+        mScroller.fling(0 /* startX */, mViewStartY /* startY */, 0 /* velocityX */,
+                (int) -velocityY, 0 /* minX */, 0 /* maxX */, 0 /* minY */, mMaxViewStartY);
         post(mContinueScroll);
     }
 
@@ -3785,79 +3793,24 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // finger is lifted. Instead of stopping the scroll immediately,
     // the scroll continues to "free spin" and gradually slows down.
     private class ContinueScroll implements Runnable {
-        int mSignDeltaY;
-        int mAbsDeltaY;
-        float mFloatDeltaY;
-        long mFreeSpinTime;
-        private static final float FRICTION_COEF = 0.7F;
-        private static final long FREE_SPIN_MILLIS = 180;
-        private static final int MAX_DELTA = 60;
-        private static final int SCROLL_REPEAT_INTERVAL = 30;
-
-        public void init(int deltaY) {
-            mSignDeltaY = 0;
-            if (deltaY > 0) {
-                mSignDeltaY = 1;
-            } else if (deltaY < 0) {
-                mSignDeltaY = -1;
-            }
-            mAbsDeltaY = Math.abs(deltaY);
-
-            // Limit the maximum speed
-            if (mAbsDeltaY > MAX_DELTA) {
-                mAbsDeltaY = MAX_DELTA;
-            }
-            mFloatDeltaY = mAbsDeltaY;
-            mFreeSpinTime = System.currentTimeMillis() + FREE_SPIN_MILLIS;
-//            Log.i("Cal", "init scroll: mAbsDeltaY: " + mAbsDeltaY
-//                    + " mViewStartY: " + mViewStartY);
-        }
-
         public void run() {
-            long time = System.currentTimeMillis();
-
-            // Start out with a frictionless "free spin"
-            if (time > mFreeSpinTime) {
-                // If the delta is small, then apply a fixed deceleration.
-                // Otherwise
-                if (mAbsDeltaY <= 10) {
-                    mAbsDeltaY -= 2;
-                } else {
-                    mFloatDeltaY *= FRICTION_COEF;
-                    mAbsDeltaY = (int) mFloatDeltaY;
-                }
-
-                if (mAbsDeltaY < 0) {
-                    mAbsDeltaY = 0;
-                }
+            mScrolling = mScrolling && mScroller.computeScrollOffset();
+            if (!mScrolling) {
+                resetSelectedHour();
+                invalidate();
+                return;
             }
 
-            if (mSignDeltaY == 1) {
-                mViewStartY -= mAbsDeltaY;
-            } else {
-                mViewStartY += mAbsDeltaY;
-            }
-//            Log.i("Cal", "  scroll: mAbsDeltaY: " + mAbsDeltaY
-//                    + " mViewStartY: " + mViewStartY);
+            mViewStartY = mScroller.getCurrY();
 
             if (mViewStartY < 0) {
                 mViewStartY = 0;
-                mAbsDeltaY = 0;
             } else if (mViewStartY > mMaxViewStartY) {
                 mViewStartY = mMaxViewStartY;
-                mAbsDeltaY = 0;
             }
 
             computeFirstHour();
-
-            if (mAbsDeltaY > 0) {
-                postDelayed(this, SCROLL_REPEAT_INTERVAL);
-            } else {
-                // Done scrolling.
-                mScrolling = false;
-                resetSelectedHour();
-            }
-
+            post(this);
             invalidate();
         }
     }
