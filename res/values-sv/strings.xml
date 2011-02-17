@@ -20,7 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"Vad"</string>
     <string name="where_label" msgid="3472482206065595118">"Var"</string>
     <string name="when_label" msgid="894636567327261599">"När"</string>
-    <string name="timezone_label" msgid="2030635806231207425">"Tidszon"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"Tidszon"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Gäster"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Upprepning"</string>
@@ -56,7 +56,10 @@
     <string name="menu_select_calendars" msgid="6200145996783123958">"Kalendrar"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Inställningar"</string>
     <string name="search" msgid="550656004486017426">"Sök"</string>
-    <string name="plus_N_more" msgid="2527895721728080055">"(och <xliff:g id="MORE_COUNT">%d</xliff:g> till …)"</string>
+    <!-- no translation found for hide_controls (830320505938520882) -->
+    <skip />
+    <!-- no translation found for show_controls (715520586028062621) -->
+    <skip />
     <string name="calendars_title" msgid="4046980972626276968">"Kalendrar"</string>
     <string name="synced_visible" msgid="1406744353749335651">"synkat, visas"</string>
     <string name="synced_not_visible" msgid="54032655953110609">"synkat, visas inte"</string>
@@ -69,17 +72,14 @@
     <string name="hint_what" msgid="709155115005044531">"Händelsens namn"</string>
     <string name="hint_where" msgid="3116239630502213241">"Plats för händelsen"</string>
     <string name="hint_description" msgid="4198202812240544553">"Beskrivning av händelse"</string>
-    <!-- outdated translation 6036653711383143333 -->     <string name="hint_attendees" msgid="6367757073203911244">"E-postadresser"</string>
+    <string name="hint_attendees" msgid="6367757073203911244">"Ange e-postadresser"</string>
     <string name="creating_event" msgid="5252306542761552414">"Händelsen har skapats"</string>
     <string name="saving_event" msgid="7716081507367732169">"Händelsen har sparats"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Läser in kalendrar"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Läser in kalendrar…"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalenderaviseringar"</string>
-    <string name="alert_missed_events_single" msgid="8042891195314876684">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> annan påminnelse)"</string>
-    <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> andra påminnelser)"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visa händelse"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Inbjudan till möte"</string>
-    <string name="add_new_reminder" msgid="4171314793889890481">"Lägg till påminnelse"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Till"</string>
     <string name="edit_event_from_label" msgid="174999102612666115">"Från"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Hela dagen"</string>
@@ -164,10 +164,6 @@
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Vibrera"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalender"</string>
-  <plurals name="gadget_more_events">
-    <item quantity="one" msgid="1813062802420615657">"Ytterligare 1 händelse"</item>
-    <item quantity="other" msgid="7993512762778431065">"<xliff:g id="NUMBER">%d</xliff:g> ytterligare händelser"</item>
-  </plurals>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+ 1"</item>
     <item quantity="other" msgid="1997405398178470838">"+ <xliff:g id="NUMBER">%d</xliff:g>"</item>
@@ -177,4 +173,5 @@
     <string name="in_progress" msgid="3637799356103489011">"bearbetas"</string>
     <string name="today" msgid="8577375020252453006">"Idag"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Söker <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"Händelse <xliff:g id="ITEM_INDEX">%1$s</xliff:g> av <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
 </resources>

@@ -20,7 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"タイトル"</string>
     <string name="where_label" msgid="3472482206065595118">"場所"</string>
     <string name="when_label" msgid="894636567327261599">"日時"</string>
-    <string name="timezone_label" msgid="2030635806231207425">"タイムゾーン"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"タイムゾーン"</string>
     <string name="attendees_label" msgid="2971281641565729725">"ゲスト"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g>（<xliff:g id="GUEST_COUNT">%d</xliff:g>名）"</string>
     <string name="repeats_label" msgid="7414023871434593196">"繰り返し"</string>
@@ -56,7 +56,10 @@
     <string name="menu_select_calendars" msgid="6200145996783123958">"カレンダー"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"設定"</string>
     <string name="search" msgid="550656004486017426">"検索"</string>
-    <string name="plus_N_more" msgid="2527895721728080055">"(あと <xliff:g id="MORE_COUNT">%d</xliff:g> 件...)"</string>
+    <!-- no translation found for hide_controls (830320505938520882) -->
+    <skip />
+    <!-- no translation found for show_controls (715520586028062621) -->
+    <skip />
     <string name="calendars_title" msgid="4046980972626276968">"カレンダー"</string>
     <string name="synced_visible" msgid="1406744353749335651">"同期、表示"</string>
     <string name="synced_not_visible" msgid="54032655953110609">"同期、非表示"</string>
@@ -69,17 +72,14 @@
     <string name="hint_what" msgid="709155115005044531">"タイトル"</string>
     <string name="hint_where" msgid="3116239630502213241">"場所"</string>
     <string name="hint_description" msgid="4198202812240544553">"内容"</string>
-    <!-- outdated translation 6036653711383143333 -->     <string name="hint_attendees" msgid="6367757073203911244">"メールアドレス"</string>
+    <string name="hint_attendees" msgid="6367757073203911244">"メールアドレスを入力"</string>
     <string name="creating_event" msgid="5252306542761552414">"予定を作成しました"</string>
     <string name="saving_event" msgid="7716081507367732169">"予定を保存しました"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"カレンダーを読み込み中"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"カレンダーを読み込み中..."</string>
     <string name="alert_title" msgid="7869592820853066853">"カレンダーの通知"</string>
-    <string name="alert_missed_events_single" msgid="8042891195314876684">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> 件の通知がありました)"</string>
-    <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> 件の通知がありました)"</string>
     <string name="event_info_title" msgid="56024222340421620">"予定を表示"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"会議への招待状"</string>
-    <string name="add_new_reminder" msgid="4171314793889890481">"通知を追加"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"終了"</string>
     <string name="edit_event_from_label" msgid="174999102612666115">"開始"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"終日"</string>
@@ -138,10 +138,10 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"カレンダーの表示設定"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"通知設定"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"辞退した予定を非表示"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"週の開始"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"週の開始"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"週の開始日"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"週の開始日"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"検索履歴を消去"</string>
-    <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"実行したすべての検索を削除"</string>
+    <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"実行したすべての検索を削除する"</string>
     <string name="search_history_cleared" msgid="7317062958300188595">"検索履歴が消去されました"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"通知"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"バイブレーション"</string>
@@ -152,7 +152,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"リマインダー通知"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"自宅タイムゾーン"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行中も自宅のタイムゾーンでカレンダーと予定時間を表示します"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行中も自宅のタイムゾーンでカレンダーと予定時間を表示する"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"自宅タイムゾーン"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"第何週かを表示"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"概要"</string>
@@ -164,10 +164,6 @@
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"バイブレーション"</string>
     <string name="gadget_title" msgid="939918875331310945">"カレンダー"</string>
-  <plurals name="gadget_more_events">
-    <item quantity="one" msgid="1813062802420615657">"他1件"</item>
-    <item quantity="other" msgid="7993512762778431065">"他<xliff:g id="NUMBER">%d</xliff:g>件"</item>
-  </plurals>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
@@ -177,4 +173,5 @@
     <string name="in_progress" msgid="3637799356103489011">"進行中"</string>
     <string name="today" msgid="8577375020252453006">"今日"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g>を検索中..."</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_COUNT">%2$s</xliff:g>件中<xliff:g id="ITEM_INDEX">%1$s</xliff:g>件目の予定"</string>
 </resources>
