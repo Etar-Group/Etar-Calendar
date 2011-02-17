@@ -65,6 +65,7 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.Interpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.OverScroller;
@@ -442,6 +443,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private ViewSwitcher mViewSwitcher;
     private GestureDetector mGestureDetector;
     private OverScroller mScroller;
+    private ScrollInterpolator mHScrollInterpolator;
 
     public DayView(Context context, CalendarController controller,
             ViewSwitcher viewSwitcher, EventLoader eventLoader, int numDays) {
@@ -524,6 +526,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     GeneralPreferences.KEY_DEFAULT_CELL_HEIGHT, DEFAULT_CELL_HEIGHT);
         }
         mScroller = new OverScroller(context);
+        mHScrollInterpolator = new ScrollInterpolator();
         init(context);
     }
 
@@ -1474,7 +1477,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
     }
 
-    private View switchViews(boolean forward, float xOffSet, float width) {
+    private View switchViews(boolean forward, float xOffSet, float width, float velocity) {
         if (DEBUG) Log.d(TAG, "switchViews(" + forward + ")...");
         float progress = Math.abs(xOffSet) / width;
         if (progress > 1.0f) {
@@ -1528,9 +1531,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 Animation.ABSOLUTE, 0.0f,
                 Animation.ABSOLUTE, 0.0f);
 
-        // Reduce the animation duration based on how far we have already swiped.
-        long duration = (long) (ANIMATION_DURATION * (1.0f - progress));
+        long duration = calculateDuration(width - Math.abs(xOffSet), width, velocity);
         inAnimation.setDuration(duration);
+        inAnimation.setInterpolator(mHScrollInterpolator);
+        outAnimation.setInterpolator(mHScrollInterpolator);
         outAnimation.setDuration(duration);
         outAnimation.setAnimationListener(new GotoBroadcaster(start, end));
         mViewSwitcher.setInAnimation(inAnimation);
@@ -3218,7 +3222,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if ((distanceX >= HORIZONTAL_FLING_THRESHOLD) && (distanceX > distanceY)) {
             // Horizontal fling.
             // initNextView(deltaX);
-            switchViews(deltaX < 0, mViewStartX, mViewWidth);
+            switchViews(deltaX < 0, mViewStartX, mViewWidth, velocityX);
             mViewStartX = 0;
             return;
         }
@@ -3366,7 +3370,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     if (Math.abs(mViewStartX) > mHorizontalSnapBackThreshold) {
                         // The user has gone beyond the threshold so switch views
                         if (DEBUG) Log.d(TAG, "- horizontal scroll: switch views");
-                        switchViews(mViewStartX > 0, mViewStartX, mViewWidth);
+                        switchViews(mViewStartX > 0, mViewStartX, mViewWidth, 0);
                         mViewStartX = 0;
                         return true;
                     } else {
@@ -3911,5 +3915,63 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
                 getSelectedTimeInMillis(), 0, -1, -1, -1);
         return true;
+    }
+
+    // The rest of this file was borrowed from Launcher2 - PagedView.java
+    private static final int MINIMUM_SNAP_VELOCITY = 2200;
+
+    private static class ScrollInterpolator implements Interpolator {
+        public ScrollInterpolator() {
+        }
+
+        public float getInterpolation(float t) {
+            t -= 1.0f;
+            return t * t * t * t * t + 1;
+        }
+    }
+
+    private long calculateDuration(float delta, float width, float velocity) {
+        /*
+         * Here we compute a "distance" that will be used in the computation of
+         * the overall snap duration. This is a function of the actual distance
+         * that needs to be traveled; we keep this value close to half screen
+         * size in order to reduce the variance in snap duration as a function
+         * of the distance the page needs to travel.
+         */
+        final float halfScreenSize = width / 2;
+        float distanceRatio = delta / width;
+        float distanceInfluenceForSnapDuration = distanceInfluenceForSnapDuration(distanceRatio);
+        float distance = halfScreenSize + halfScreenSize * distanceInfluenceForSnapDuration;
+
+        velocity = Math.abs(velocity);
+        velocity = Math.max(MINIMUM_SNAP_VELOCITY, velocity);
+
+        /*
+         * we want the page's snap velocity to approximately match the velocity
+         * at which the user flings, so we scale the duration by a value near to
+         * the derivative of the scroll interpolator at zero, ie. 5. We use 6 to
+         * make it a little slower.
+         */
+        long duration = 6 * Math.round(1000 * Math.abs(distance / velocity));
+        if (DEBUG) {
+            Log.e(TAG, "halfScreenSize:" + halfScreenSize + " delta:" + delta + " distanceRatio:"
+                    + distanceRatio + " distance:" + distance + " velocity:" + velocity
+                    + " duration:" + duration + " distanceInfluenceForSnapDuration:"
+                    + distanceInfluenceForSnapDuration);
+        }
+        return duration;
+    }
+
+    /*
+     * We want the duration of the page snap animation to be influenced by the
+     * distance that the screen has to travel, however, we don't want this
+     * duration to be effected in a purely linear fashion. Instead, we use this
+     * method to moderate the effect that the distance of travel has on the
+     * overall snap duration.
+     */
+    private float distanceInfluenceForSnapDuration(float f) {
+        f -= 0.5f; // center the values about 0.
+        f *= 0.3f * Math.PI / 2.0f;
+        return (float) Math.sin(f);
     }
 }
