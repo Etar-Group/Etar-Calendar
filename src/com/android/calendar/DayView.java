@@ -3134,6 +3134,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private void doScroll(MotionEvent e1, MotionEvent e2, float deltaX, float deltaY) {
         if (isAnimating()) {
+            cancelAnimation();
             return;
         }
 
@@ -3204,10 +3205,21 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         return false;
     }
 
-    private void doFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        if (isAnimating()) {
-            return;
+    private void cancelAnimation() {
+        Animation in = mViewSwitcher.getInAnimation();
+        if (in != null) {
+            in.cancel();
+            in.reset();
         }
+        Animation out = mViewSwitcher.getOutAnimation();
+        if (out != null) {
+            out.cancel();
+            out.reset();
+        }
+    }
+
+    private void doFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        cancelAnimation();
 
         mTouchMode = TOUCH_MODE_INITIAL_STATE;
         mSelectionMode = SELECTION_HIDDEN;
