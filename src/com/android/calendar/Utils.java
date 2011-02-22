@@ -316,7 +316,10 @@ public class Utils {
      * @return the string containing the weekday and the date
      */
     public static String formatMonthYear(Context context, Time time) {
-        return time.format(context.getResources().getString(R.string.month_year));
+        int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_MONTH_DAY
+                | DateUtils.FORMAT_SHOW_YEAR;
+        long millis = time.toMillis(true);
+        return formatDateRange(context, millis, millis, flags);
     }
 
     /**

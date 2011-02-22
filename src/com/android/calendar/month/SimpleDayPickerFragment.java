@@ -512,14 +512,13 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
      */
     protected void setMonthDisplayed(Time time) {
         CharSequence oldMonth = mMonthName.getText();
-        mMonthName.setText(time.format("%B %Y"));
+        mMonthName.setText(Utils.formatMonthYear(mContext, time));
         mMonthName.invalidate();
         if (!TextUtils.equals(oldMonth, mMonthName.getText())) {
             mMonthName.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
         }
         mCurrentMonthDisplayed = time.month;
         mAdapter.updateFocusMonth(mCurrentMonthDisplayed);
-        // TODO Send Accessibility Event
     }
 
     @Override
