@@ -34,7 +34,7 @@ import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 // TODO: should Event be Parcelable so it can be passed via Intents?
-public class Event implements Comparable<Event>, Cloneable {
+public class Event implements Cloneable {
 
     private static final String TAG = "CalEvent";
     private static final boolean PROFILE = false;
@@ -180,77 +180,6 @@ public class Event implements Comparable<Event>, Cloneable {
         e.selfAttendeeStatus = Attendees.ATTENDEE_STATUS_NONE;
 
         return e;
-    }
-
-    /**
-     * Compares this event to the given event.  This is just used for checking
-     * if two events differ.  It's not used for sorting anymore.
-     */
-    public final int compareTo(Event obj) {
-        // The earlier start day and time comes first
-        if (startDay < obj.startDay) return -1;
-        if (startDay > obj.startDay) return 1;
-        if (startTime < obj.startTime) return -1;
-        if (startTime > obj.startTime) return 1;
-
-        // The later end time comes first (in order to put long strips on
-        // the left).
-        if (endDay < obj.endDay) return 1;
-        if (endDay > obj.endDay) return -1;
-        if (endTime < obj.endTime) return 1;
-        if (endTime > obj.endTime) return -1;
-
-        // Sort all-day events before normal events.
-        if (allDay && !obj.drawAsAllDay()) return -1;
-        if (!allDay && obj.drawAsAllDay()) return 1;
-
-        if (guestsCanModify && !obj.guestsCanModify) return -1;
-        if (!guestsCanModify && obj.guestsCanModify) return 1;
-
-        // If two events have the same time range, then sort them in
-        // alphabetical order based on their titles.
-        int cmp = compareStrings(title, obj.title);
-        if (cmp != 0) {
-            return cmp;
-        }
-
-        // If the titles are the same then compare the other fields
-        // so that we can use this function to check for differences
-        // between events.
-        cmp = compareStrings(location, obj.location);
-        if (cmp != 0) {
-            return cmp;
-        }
-
-        cmp = compareStrings(organizer, obj.organizer);
-        if (cmp != 0) {
-            return cmp;
-        }
-        return 0;
-    }
-
-    /**
-     * Compare string a with string b, but if either string is null,
-     * then treat it (the null) as if it were the empty string ("").
-     *
-     * @param a the first string
-     * @param b the second string
-     * @return the result of comparing a with b after replacing null
-     *  strings with "".
-     */
-    private int compareStrings(CharSequence a, CharSequence b) {
-        String aStr, bStr;
-        if (a != null) {
-            aStr = a.toString();
-        } else {
-            aStr = "";
-        }
-        if (b != null) {
-            bStr = b.toString();
-        } else {
-            bStr = "";
-        }
-        return aStr.compareTo(bStr);
     }
 
     /**
@@ -590,6 +519,7 @@ public class Event implements Comparable<Event>, Cloneable {
     }
 
     public boolean drawAsAllDay() {
-        return allDay || endMillis - startMillis > DateUtils.DAY_IN_MILLIS;
+        // Use >= so we'll pick up Exchange allday events
+        return allDay || endMillis - startMillis >= DateUtils.DAY_IN_MILLIS;
     }
 }
