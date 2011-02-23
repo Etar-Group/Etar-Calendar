@@ -350,7 +350,7 @@ public class Event implements Cloneable {
     }
 
     private static void doComputePositions(ArrayList<Event> eventsList,
-            long minimumDurationMillis, boolean doAllDayEvents) {
+            long minimumDurationMillis, boolean doAlldayEvents) {
         final ArrayList<Event> activeList = new ArrayList<Event>();
         final ArrayList<Event> groupList = new ArrayList<Event>();
 
@@ -362,24 +362,14 @@ public class Event implements Cloneable {
         int maxCols = 0;
         for (Event event : eventsList) {
             // Process all-day events separately
-            if (event.drawAsAllDay() != doAllDayEvents)
+            if (event.drawAsAllday() != doAlldayEvents)
                 continue;
 
-            long start = event.getStartMillis();
-            // Remove the inactive events. An event on the active list
-            // becomes inactive when its end time is less than or equal to
-            // the current event's start time.
-            Iterator<Event> iter = activeList.iterator();
-            while (iter.hasNext()) {
-                final Event active = iter.next();
-
-                final long duration =
-                        Math.max(active.getEndMillis() - active.getStartMillis(),
-                                minimumDurationMillis);
-                if ((active.getStartMillis() + duration) <= start) {
-                    colMask &= ~(1L << active.getColumn());
-                    iter.remove();
-                }
+           if (!doAlldayEvents) {
+                colMask = removeNonAlldayActiveEvents(
+                        event, activeList.iterator(), minimumDurationMillis, colMask);
+            } else {
+                colMask = removeAlldayActiveEvents(event, activeList.iterator(), colMask);
             }
 
             // If the active list is empty, then reset the max columns, clear
@@ -409,6 +399,39 @@ public class Event implements Cloneable {
         for (Event ev : groupList) {
             ev.setMaxColumns(maxCols);
         }
+    }
+
+    private static long removeAlldayActiveEvents(Event event, Iterator<Event> iter, long colMask) {
+        // Remove the inactive allday events. An event on the active list
+        // becomes inactive when the end day is less than the current event's
+        // start day.
+        while (iter.hasNext()) {
+            final Event active = iter.next();
+            if (active.endDay < event.startDay) {
+                colMask &= ~(1L << active.getColumn());
+                iter.remove();
+            }
+        }
+        return colMask;
+    }
+
+    private static long removeNonAlldayActiveEvents(
+            Event event, Iterator<Event> iter, long minDurationMillis, long colMask) {
+        long start = event.getStartMillis();
+        // Remove the inactive events. An event on the active list
+        // becomes inactive when its end time is less than or equal to
+        // the current event's start time.
+        while (iter.hasNext()) {
+            final Event active = iter.next();
+
+            final long duration = Math.max(
+                    active.getEndMillis() - active.getStartMillis(), minDurationMillis);
+            if ((active.getStartMillis() + duration) <= start) {
+                colMask &= ~(1L << active.getColumn());
+                iter.remove();
+            }
+        }
+        return colMask;
     }
 
     public static int findFirstZeroBit(long val) {
@@ -518,7 +541,7 @@ public class Event implements Cloneable {
         return endMillis;
     }
 
-    public boolean drawAsAllDay() {
+    public boolean drawAsAllday() {
         // Use >= so we'll pick up Exchange allday events
         return allDay || endMillis - startMillis >= DateUtils.DAY_IN_MILLIS;
     }
