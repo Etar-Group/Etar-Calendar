@@ -1201,9 +1201,13 @@ public class EditEventHelper {
         }
         if (model.mDescription != null) {
             values.put(Events.DESCRIPTION, model.mDescription.trim());
+        } else {
+            values.put(Events.DESCRIPTION, (String) null);
         }
         if (model.mLocation != null) {
             values.put(Events.EVENT_LOCATION, model.mLocation.trim());
+        } else {
+            values.put(Events.EVENT_LOCATION, (String) null);
         }
         values.put(Events.TRANSPARENCY, model.mTransparency ? 1 : 0);
         values.put(Events.HAS_ATTENDEE_DATA, model.mHasAttendeeData ? 1 : 0);
