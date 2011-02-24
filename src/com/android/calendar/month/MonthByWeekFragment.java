@@ -32,6 +32,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Instances;
@@ -48,6 +49,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.Adapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -338,6 +340,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         updateHeader();
         mAdapter.setSelectedDay(mSelectedDay);
         mTZUpdater.run();
+        mTodayUpdater.run();
         goTo(mSelectedDay.toMillis(true), false, true, false);
     }
 

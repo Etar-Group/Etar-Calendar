@@ -94,6 +94,7 @@ public class SimpleWeekView extends View {
     protected static int DAY_SEPARATOR_WIDTH = 1;
 
     protected static int MINI_DAY_NUMBER_TEXT_SIZE = 14;
+    protected static int MINI_TODAY_NUMBER_TEXT_SIZE = 18;
 
     // used for scaling to the device density
     protected static float mScale = 0;
@@ -127,8 +128,12 @@ public class SimpleWeekView extends View {
     protected boolean mShowWeekNum = false;
     // If this view contains the selected day
     protected boolean mHasSelectedDay = false;
+    // If this view contains the today
+    protected boolean mHasToday = false;
     // Which day is selected [0-6] or -1 if no day is selected
     protected int mSelectedDay = DEFAULT_SELECTED_DAY;
+    // Which day is today [0-6] or -1 if no day is today
+    protected int mToday = DEFAULT_SELECTED_DAY;
     // Which day of the week to start on [0-6]
     protected int mWeekStart = DEFAULT_WEEK_START;
     // How many days to display
@@ -169,6 +174,7 @@ public class SimpleWeekView extends View {
                 DEFAULT_HEIGHT *= mScale;
                 MIN_HEIGHT *= mScale;
                 MINI_DAY_NUMBER_TEXT_SIZE *= mScale;
+                MINI_TODAY_NUMBER_TEXT_SIZE *= mScale;
             }
         }
 
@@ -250,6 +256,12 @@ public class SimpleWeekView extends View {
         mFirstJulianDay = Time.getJulianDay(time.toMillis(true), time.gmtoff);
         mFirstMonth = time.month;
 
+        // Figure out what day today is
+        Time today = new Time(tz);
+        today.setToNow();
+        mHasToday = false;
+        mToday = -1;
+
         int focusMonth = params.containsKey(VIEW_PARAMS_FOCUS_MONTH) ? params.get(
                 VIEW_PARAMS_FOCUS_MONTH)
                 : DEFAULT_FOCUS_MONTH;
@@ -262,6 +274,10 @@ public class SimpleWeekView extends View {
                 mFocusDay[i] = true;
             } else {
                 mFocusDay[i] = false;
+            }
+            if (time.year == today.year && time.yearDay == today.yearDay) {
+                mHasToday = true;
+                mToday = i;
             }
             mDayNumbers[i] = Integer.toString(time.monthDay++);
             time.normalize(true);
@@ -417,8 +433,16 @@ public class SimpleWeekView extends View {
                 mMonthNumPaint.setColor(isFocusMonth ? mFocusMonthColor : mOtherMonthColor);
                 mMonthNumPaint.setFakeBoldText(isFocusMonth);
             }
+            if (mHasToday && mToday == i) {
+                mMonthNumPaint.setTextSize(MINI_TODAY_NUMBER_TEXT_SIZE);
+                mMonthNumPaint.setFakeBoldText(true);
+            }
             int x = (2 * i + 1) * (mWidth - mPadding * 2) / (divisor) + mPadding;
             canvas.drawText(mDayNumbers[i], x, y, mMonthNumPaint);
+            if (mHasToday && mToday == i) {
+                mMonthNumPaint.setTextSize(MINI_DAY_NUMBER_TEXT_SIZE);
+                mMonthNumPaint.setFakeBoldText(isFocusMonth);
+            }
         }
     }
 
