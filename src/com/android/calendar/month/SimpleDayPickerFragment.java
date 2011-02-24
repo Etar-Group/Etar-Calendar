@@ -123,6 +123,27 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     // used for tracking what state listview is in
     protected int mCurrentScrollState = OnScrollListener.SCROLL_STATE_IDLE;
 
+    // This causes an update of the view at midnight
+    protected Runnable mTodayUpdater = new Runnable() {
+        @Override
+        public void run() {
+            Time midnight = new Time(mFirstVisibleDay.timezone);
+            midnight.setToNow();
+            long currentMillis = midnight.toMillis(true);
+
+            midnight.hour = 0;
+            midnight.minute = 0;
+            midnight.second = 0;
+            midnight.monthDay++;
+            long millisToMidnight = midnight.normalize(true) - currentMillis;
+            mHandler.postDelayed(this, millisToMidnight);
+
+            if (mAdapter != null) {
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    };
+
     // This allows us to update our position when a day is tapped
     protected DataSetObserver mObserver = new DataSetObserver() {
         @Override
@@ -265,6 +286,12 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        mHandler.removeCallbacks(mTodayUpdater);
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putLong(KEY_CURRENT_TIME, mSelectedDay.toMillis(true));
     }
@@ -280,6 +307,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         updateHeader();
         goTo(mSelectedDay.toMillis(true), false, false, false);
         mAdapter.setSelectedDay(mSelectedDay);
+        mTodayUpdater.run();
     }
 
     /**
