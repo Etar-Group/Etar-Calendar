@@ -228,8 +228,8 @@
     <string name="reminders_label">Reminders</string>
     <!-- Title of alert shown if the user tries to create an event and has no calendars -->
     <string name="no_syncable_calendars">No calendars</string>
-    <!-- Body of alert shown if the user tries to create an event and has no calendars. Users can start adding an account here. [CHAR LIMIT=120] -->
-    <string name="no_calendars_found">Before you can add an event, you must add at least one Calendar account to the device. Touch \u0022Add account\u0022 to add an account. Or if you just added an account, wait for it to finish syncing and try again.</string>
+    <!-- Body of alert shown if the user tries to create an event and has no calendars. Users can start adding an account here. [CHAR LIMIT=NONE] -->
+    <string name="no_calendars_found">Before you can add an event, you must add at least one Calendar account to the device and make a calendar visible. Touch \u0022Add account\u0022 to add an account (if you just added an account, wait for it to finish syncing and try again). Or touch Cancel and ensure that at least one calendar is visible.</string>
     <!-- Title of a button shown when there is no account available and the system prompt a user to add one. [CHAR LIMIT=none] -->
     <string name="add_account">Add account</string>
     <!-- Label for adding guests to an event [CHAR LIMIT=32]-->
