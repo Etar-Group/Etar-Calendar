@@ -187,8 +187,10 @@ public class AlertActivity extends Activity implements OnClickListener {
             long endMillis = cursor.getLong(AlertActivity.INDEX_END);
             Intent eventIntent = new Intent(Intent.ACTION_VIEW);
             Builder builder = Calendar.CONTENT_URI.buildUpon();
-            builder.appendEncodedPath("time/" + startMillis);
+            builder.appendEncodedPath("events/" + id);
             eventIntent.setData(builder.build());
+            eventIntent.putExtra(Calendar.EVENT_BEGIN_TIME, startMillis);
+            eventIntent.putExtra(Calendar.EVENT_END_TIME, endMillis);
             alertActivity.startActivity(eventIntent);
 
             alertActivity.finish();
