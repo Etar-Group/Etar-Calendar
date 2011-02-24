@@ -56,10 +56,8 @@
     <string name="menu_select_calendars" msgid="6200145996783123958">"Agendas"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Configurações"</string>
     <string name="search" msgid="550656004486017426">"Pesquisar"</string>
-    <!-- no translation found for hide_controls (830320505938520882) -->
-    <skip />
-    <!-- no translation found for show_controls (715520586028062621) -->
-    <skip />
+    <string name="hide_controls" msgid="830320505938520882">"Ocultar controles"</string>
+    <string name="show_controls" msgid="715520586028062621">"Mostrar controles"</string>
     <string name="calendars_title" msgid="4046980972626276968">"Agendas"</string>
     <string name="synced_visible" msgid="1406744353749335651">"sincronizadas, visíveis"</string>
     <string name="synced_not_visible" msgid="54032655953110609">"sincronizada, não visível"</string>
