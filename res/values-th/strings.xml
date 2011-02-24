@@ -56,10 +56,8 @@
     <string name="menu_select_calendars" msgid="6200145996783123958">"ปฏิทิน"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"การตั้งค่า"</string>
     <string name="search" msgid="550656004486017426">"ค้นหา"</string>
-    <!-- no translation found for hide_controls (830320505938520882) -->
-    <skip />
-    <!-- no translation found for show_controls (715520586028062621) -->
-    <skip />
+    <string name="hide_controls" msgid="830320505938520882">"ซ่อนปุ่มควบคุม"</string>
+    <string name="show_controls" msgid="715520586028062621">"แสดงปุ่มควบคุม"</string>
     <string name="calendars_title" msgid="4046980972626276968">"ปฏิทิน"</string>
     <string name="synced_visible" msgid="1406744353749335651">"ซิงค์แล้ว, แสดง"</string>
     <string name="synced_not_visible" msgid="54032655953110609">"ซิงค์แล้ว, ไม่แสดง"</string>
