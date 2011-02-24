@@ -295,9 +295,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mOnSaveInstanceStateCalled = false;
 
         if (mViewEventId != -1 && mIntentEventStartMillis != -1 && mIntentEventEndMillis != -1) {
+            long currentMillis = System.currentTimeMillis();
+            long selectedTime = -1;
+            if (currentMillis > mIntentEventStartMillis && currentMillis < mIntentEventEndMillis) {
+                selectedTime = currentMillis;
+            }
             mController.sendEventRelatedEventWithResponse(this, EventType.VIEW_EVENT, mViewEventId,
-                    mIntentEventStartMillis, mIntentEventEndMillis, -1, -1,
-                    mIntentAttendeeResponse, -1);
+                    mIntentEventStartMillis, mIntentEventEndMillis, -1, -1, mIntentAttendeeResponse,
+                    selectedTime);
             mViewEventId = -1;
             mIntentEventStartMillis = -1;
             mIntentEventEndMillis = -1;
