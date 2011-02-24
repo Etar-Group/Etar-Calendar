@@ -288,6 +288,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mUpdateOnResume = false;
         }
         updateHomeClock();
+        if (mControlsMenu != null) {
+            mControlsMenu.setTitle(mHideControls ? mShowString : mHideString);
+        }
         mPaused = false;
         mOnSaveInstanceStateCalled = false;
 
