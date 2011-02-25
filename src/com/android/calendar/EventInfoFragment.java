@@ -225,6 +225,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static int DIALOG_WIDTH = 500;
     private static int DIALOG_HEIGHT = 600;
     private boolean mIsDialog = false;
+    private boolean mIsPaused = true;
+    private boolean mDismissOnResume = false;
     private int mX = -1;
     private int mY = -1;
 
@@ -465,6 +467,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private Runnable onDeleteRunnable = new Runnable() {
         @Override
         public void run() {
+            if (EventInfoFragment.this.mIsPaused) {
+                mDismissOnResume = true;
+                return;
+            }
             if (EventInfoFragment.this.isVisible()) {
                 EventInfoFragment.this.dismiss();
             }
@@ -1130,6 +1136,22 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
 
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        mIsPaused = true;
+        mHandler.removeCallbacks(onDeleteRunnable);
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mIsPaused = false;
+        if (mDismissOnResume) {
+            mHandler.post(onDeleteRunnable);
         }
     }
 
