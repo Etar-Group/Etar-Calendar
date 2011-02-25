@@ -72,8 +72,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final boolean DEBUG = false;
     private static final String EVENT_INFO_FRAGMENT_TAG = "EventInfoFragment";
     private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
-    private static final String BUNDLE_KEY_RESTORE_EDIT = "key_restore_edit";
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
+    private static final String BUNDLE_KEY_RESTORE_VIEW = "key_restore_view";
     private static final int HANDLER_KEY = 0;
     private static final long CONTROLS_ANIMATE_DURATION = 400;
     private static int CONTROLS_ANIMATE_WIDTH = 283;
@@ -156,12 +156,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // Get time from intent or icicle
         long timeMillis = -1;
         int viewType = -1;
-        boolean restoreEdit = false;
         final Intent intent = getIntent();
         if (icicle != null) {
             timeMillis = icicle.getLong(BUNDLE_KEY_RESTORE_TIME);
-            restoreEdit = icicle.getBoolean(BUNDLE_KEY_RESTORE_EDIT, false);
-            viewType = ViewType.EDIT;
+            viewType = icicle.getInt(BUNDLE_KEY_RESTORE_VIEW, -1);
         } else {
             String action = intent.getAction();
             if (Intent.ACTION_VIEW.equals(action)) {
@@ -174,7 +172,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             }
         }
 
-        if (!restoreEdit) {
+        if (viewType == -1) {
             viewType = Utils.getViewTypeFromIntentAndSharedPref(this);
         }
         mTimeZone = Utils.getTimeZone(this, mHomeTimeUpdater);
@@ -339,7 +337,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         outState.putLong(BUNDLE_KEY_RESTORE_TIME, mController.getTime());
         if (mCurrentView == ViewType.EDIT) {
-            outState.putBoolean(BUNDLE_KEY_RESTORE_EDIT, true);
+            outState.putInt(BUNDLE_KEY_RESTORE_VIEW, mCurrentView);
             outState.putLong(BUNDLE_KEY_EVENT_ID, mController.getEventId());
         }
     }
