@@ -65,6 +65,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -535,9 +536,21 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         public void onClick(View v) {
-            Log.d(TAG, "To Picker: " + mTime.year +  " " + mTime.month +  " " + mTime.monthDay);
-            new DatePickerDialog(
-                    mActivity, new DateListener(v), mTime.year, mTime.month, mTime.monthDay).show();
+            DatePickerDialog dpd = new DatePickerDialog(
+                    mActivity, new DateListener(v), mTime.year, mTime.month, mTime.monthDay);
+            CalendarView cv = dpd.getDatePicker().getCalendarView();
+            cv.setShowWeekNumber(Utils.getShowWeekNumber(mActivity));
+            int startOfWeek = Utils.getFirstDayOfWeek(mActivity);
+            // Utils returns Time days while CalendarView wants Calendar days
+            if (startOfWeek == Time.SATURDAY) {
+                startOfWeek = Calendar.SATURDAY;
+            } else if (startOfWeek == Time.SUNDAY) {
+                startOfWeek = Calendar.SUNDAY;
+            } else {
+                startOfWeek = Calendar.MONDAY;
+            }
+            cv.setFirstDayOfWeek(startOfWeek);
+            dpd.show();
         }
     }
 
