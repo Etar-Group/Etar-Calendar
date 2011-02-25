@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Confidentialité"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Rappels"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Pas d\'agenda"</string>
-    <string name="no_calendars_found" msgid="5354626435783289467">"Pour ajouter un événement, vous devez insérer au moins un compte Agenda au mobile en appuyant sur \"Ajouter un compte\". Si vous venez juste de le faire, attendez la fin de la synchronisation, puis réessayez."</string>
+    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Pour ajouter un événement, vous devez enregistrer au moins un compte Agenda sur le mobile en appuyant sur \"Ajouter un compte\". Si vous venez juste de le faire, attendez la fin de la synchronisation, puis réessayez."</string>
     <string name="add_account" msgid="1669072099756774952">"Ajouter un compte"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Ajouter des invités"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Agenda"</string>

@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Reminders"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No calendars"</string>
-    <string name="no_calendars_found" msgid="5354626435783289467">"Before you can add an event, you must add at least one Calendar account to the device. Touch \"Add account\" to add an account. Or if you\'ve just added an account, wait for it to finish syncing and try again."</string>
+    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Before you can add an event, you must add at least one Calendar account to the device. Touch \"Add account\" to add an account. Or if you\'ve just added an account, wait for it to finish syncing and try again."</string>
     <string name="add_account" msgid="1669072099756774952">"Add account"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Add guests"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Calendar"</string>

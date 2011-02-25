@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"الخصوصية"</string>
     <string name="reminders_label" msgid="8345054160145333166">"التذكيرات"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"بلا تقاويم"</string>
-    <string name="no_calendars_found" msgid="5354626435783289467">"قبل التمكن من إضافة حدث ما، يجب إضافة حساب تقويم واحد على الأقل إلى الجهاز. المس \"إضافة حساب\" لإضافة حساب. أو إذا كنت قد أضفت لتوك حسابًا، فانتظر لحين إنهائه المزامنة ثم أعد المحاولة."</string>
+    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"قبل التمكن من إضافة حدث ما، يجب إضافة حساب تقويم واحد على الأقل إلى الجهاز. المس \"إضافة حساب\" لإضافة حساب. أو إذا كنت قد أضفت لتوك حسابًا، فانتظر لحين إنهائه المزامنة ثم أعد المحاولة."</string>
     <string name="add_account" msgid="1669072099756774952">"إضافة حساب"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"إضافة مدعوين"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"التقويم"</string>

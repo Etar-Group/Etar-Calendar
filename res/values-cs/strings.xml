@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Soukromá/Veřejná"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Připomenutí"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Žádné kalendáře"</string>
-    <string name="no_calendars_found" msgid="5354626435783289467">"Než bude možné přidávat události, je třeba do zařízení přidat alespoň jeden účet služby Kalendář. Chcete-li přidat účet, dotkněte se možnosti Přidat účet. Pokud jste účet právě přidali, počkejte na dokončení jeho synchronizace a zkuste to znovu."</string>
+    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Než bude možné přidávat události, je třeba do zařízení přidat alespoň jeden účet služby Kalendář. Chcete-li přidat účet, dotkněte se možnosti Přidat účet. Pokud jste účet právě přidali, počkejte na dokončení jeho synchronizace a zkuste to znovu."</string>
     <string name="add_account" msgid="1669072099756774952">"Přidat účet"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Přidat hosty"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalendář"</string>

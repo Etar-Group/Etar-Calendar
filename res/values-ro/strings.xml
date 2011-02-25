@@ -19,8 +19,7 @@
     <string name="app_label" msgid="5452708708398908131">"Calendar"</string>
     <string name="what_label" msgid="1933578391985810049">"Ce"</string>
     <string name="where_label" msgid="3472482206065595118">"Unde"</string>
-    <!-- no translation found for when_label (894636567327261599) -->
-    <skip />
+    <!-- outdated translation 2598804993393612953 -->     <string name="when_label" msgid="894636567327261599">"Când"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Fus orar"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Invitaţi"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -89,10 +88,10 @@
     <string name="privacy_label" msgid="9215031965259597335">"Confidenţialitate"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Mementouri"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Niciun calendar"</string>
-    <string name="no_calendars_found" msgid="5354626435783289467">"Pt. a adăuga un ev., ad. un cont Calendar. Atingeţi „Adăugaţi un cont” sau, dacă aveţi unul, aştept. sincr. şi reîncerc."</string>
+    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Înainte de a putea adăuga un eveniment, trebuie să adăugaţi pe dispozitiv cel puţin un cont Calendar. Atingeţi „Adăugaţi un cont” pentru a adăuga un cont sau, dacă tocmai aţi adăugat unul, aşteptaţi finalizarea sincronizării şi încercaţi din nou."</string>
     <string name="add_account" msgid="1669072099756774952">"Adăugaţi un cont"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Adăugaţi invitaţi"</string>
-    <!-- outdated translation 6126231656338241140 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Calendar:"</string>
+    <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Calendar"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Ora locală:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Participaţi?"</string>
@@ -167,8 +166,7 @@
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
-    <!-- no translation found for gadget_no_events (5209110911088302855) -->
-    <skip />
+    <!-- outdated translation 4535154920956560824 -->     <string name="gadget_no_events" msgid="5209110911088302855">"Niciun eveniment viitor în calendar"</string>
     <string name="tomorrow" msgid="614434811813859237">"Mâine"</string>
     <string name="in_progress" msgid="3637799356103489011">"în desfăşurare"</string>
     <string name="today" msgid="8577375020252453006">"Azi"</string>

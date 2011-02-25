@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"פרטיות"</string>
     <string name="reminders_label" msgid="8345054160145333166">"תזכורות"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"אין לוחות שנה"</string>
-    <string name="no_calendars_found" msgid="5354626435783289467">"לפני שתוסיף אירוע, הוסף חשבון אחד לפחות של \'יומן Google\' להתקן. גע ב\"הוסף חשבון\" להוספת חשבון. או אם הוספת חשבון, המתן לסיום הסנכרון ונסה שוב."</string>
+    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"לפני שתוכל להוסיף אירוע, עליך להוסיף חשבון אחד לפחות של \'יומן Google\' להתקן. גע ב\'הוסף חשבון\' להוספת חשבון. לחלופין, אם הוספת חשבון, המתן לסיום הסינכרון ונסה שוב."</string>
     <string name="add_account" msgid="1669072099756774952">"הוסף חשבון"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"הוסף אורחים"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"יומן"</string>
