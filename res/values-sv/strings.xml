@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Sekretess"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Påminnelser"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Inga kalendrar"</string>
-    <string name="no_calendars_found" msgid="5354626435783289467">"Kalender-konto krävs för att lägga till händelser. Välj Lägg till konto. Finns konto: försök igen efter synkronisering."</string>
+    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Kalender-konto krävs för att lägga till händelser. Välj Lägg till konto. Finns konto: försök igen efter synkronisering."</string>
     <string name="add_account" msgid="1669072099756774952">"Lägg till konto"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Lägg till gäster"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>
