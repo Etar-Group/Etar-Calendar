@@ -361,6 +361,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
             Fragment selectCalendarsFrag = new SelectCalendarsFragment();
             ft.replace(R.id.calendar_list, selectCalendarsFrag);
+            mController.registerEventHandler(
+                    R.id.calendar_list, (EventHandler) selectCalendarsFrag);
         }
         if (!mIsMultipane || viewType == ViewType.EDIT) {
             mMiniMonth.setVisibility(View.GONE);
