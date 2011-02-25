@@ -262,4 +262,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         return mData[position].selected ? 1 : 0;
     }
 
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
 }

@@ -17,7 +17,10 @@
 package com.android.calendar.selectcalendars;
 
 import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.R;
+import com.android.calendar.CalendarController;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -36,7 +39,7 @@ import android.widget.ListView;
 
 
 public class SelectCalendarsFragment extends Fragment
-    implements AdapterView.OnItemClickListener {
+        implements AdapterView.OnItemClickListener, CalendarController.EventHandler {
 
     private static final String TAG = "Calendar";
     private static final String EXPANDED_KEY = "is_expanded";
@@ -71,6 +74,7 @@ public class SelectCalendarsFragment extends Fragment
     private Activity mContext;
     private AsyncQueryService mService;
     private Object[] mTempRow = new Object[PROJECTION.length];
+    private boolean mIsPaused = true;
 
     @Override
     public void onAttach(Activity activity) {
@@ -80,7 +84,6 @@ public class SelectCalendarsFragment extends Fragment
             @Override
             protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
                 mCursor = cursor;
-                Log.d(TAG, "adding " + cursor.getCount() + " calendars.");
                 mAdapter.changeCursor(cursor);
             }
         };
@@ -124,6 +127,13 @@ public class SelectCalendarsFragment extends Fragment
         mQueryToken = mService.getNextToken();
         mService.startQuery(mQueryToken, null, Calendars.CONTENT_URI, PROJECTION, SELECTION,
                 SELECTION_ARGS, Calendars._SYNC_ACCOUNT);
+        mIsPaused = false;
+    }
+
+    @Override
+    public void onPause() {
+        mIsPaused = true;
+        super.onPause();
     }
 
     /*
@@ -139,5 +149,27 @@ public class SelectCalendarsFragment extends Fragment
         values.put(Calendars.SELECTED, visibility);
         mService.startUpdate(mUpdateToken, null, uri, values, null, null, 0);
         mAdapter.setVisible(position, visibility);
+    }
+
+    @Override
+    public void eventsChanged() {
+        if (mService != null) {
+            mService.cancelOperation(mQueryToken);
+            mQueryToken = mService.getNextToken();
+            mService.startQuery(mQueryToken, null, Calendars.CONTENT_URI, PROJECTION, SELECTION,
+                    SELECTION_ARGS, Calendars._SYNC_ACCOUNT);
+        }
+    }
+
+    @Override
+    public long getSupportedEventTypes() {
+        return EventType.EVENTS_CHANGED;
+    }
+
+    @Override
+    public void handleEvent(EventInfo event) {
+        if (event.eventType == EventType.EVENTS_CHANGED) {
+            eventsChanged();
+        }
     }
 }
