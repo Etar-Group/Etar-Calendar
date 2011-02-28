@@ -73,31 +73,11 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      * {@inheritDoc}
      */
     @Override
-    public void onEnabled(Context context) {
-        // Enable updates for timezone, date, and provider changes
-        PackageManager pm = context.getPackageManager();
-        pm.setComponentEnabledSetting(
-                new ComponentName(context, CalendarAppWidgetReceiver.class),
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void onDisabled(Context context) {
         // Unsubscribe from all AlarmManager updates
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingUpdate = getUpdateIntent(context);
         am.cancel(pendingUpdate);
-
-        // Disable updates for timezone, date, and provider changes
-        PackageManager pm = context.getPackageManager();
-        pm.setComponentEnabledSetting(
-                new ComponentName(context, CalendarAppWidgetReceiver.class),
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP);
     }
 
     /**
@@ -162,11 +142,12 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             // Launch calendar app when the user taps on the header
             final Intent launchCalendarIntent = new Intent(Intent.ACTION_VIEW);
             launchCalendarIntent.setData(Uri.parse("content://com.android.calendar/time"));
-            final PendingIntent launchCalendarPendingIntent = PendingIntent.getActivity(context,
-                    0 /* no requestCode */, launchCalendarIntent, 0 /* no flags */);
+            final PendingIntent launchCalendarPendingIntent = PendingIntent.getActivity(
+                    context, 0 /* no requestCode */, launchCalendarIntent, 0 /* no flags */);
             views.setOnClickPendingIntent(R.id.header, launchCalendarPendingIntent);
 
-            // Each list item will call setOnClickExtra() to let the list know which item
+            // Each list item will call setOnClickExtra() to let the list know
+            // which item
             // is selected by a user.
             final PendingIntent updateEventIntent = getLaunchPendingIntentTemplate(context);
             views.setPendingIntentTemplate(R.id.events_list, updateEventIntent);
