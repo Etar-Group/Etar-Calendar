@@ -367,6 +367,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 //    private static int mCalendarHourSelected;
     private static int mMoreAlldayEventsTextAlpha = MORE_EVENTS_MAX_ALPHA;
 
+    private float mAnimationDistance = 0;
     private int mViewStartX;
     private int mViewStartY;
     private int mMaxViewStartY;
@@ -1539,7 +1540,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private View switchViews(boolean forward, float xOffSet, float width, float velocity) {
-        if (DEBUG) Log.d(TAG, "switchViews(" + forward + ")...");
+        mAnimationDistance = width - xOffSet;
+        if (DEBUG) {
+            Log.d(TAG, "switchViews(" + forward + ") O:" + xOffSet + " Dist:" + mAnimationDistance);
+        }
+
         float progress = Math.abs(xOffSet) / width;
         if (progress > 1.0f) {
             progress = 1.0f;
@@ -3532,10 +3537,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void doScroll(MotionEvent e1, MotionEvent e2, float deltaX, float deltaY) {
-        if (isAnimating()) {
-            cancelAnimation();
-            return;
-        }
+        cancelAnimation();
 
         // Use the distance from the current point to the initial touch instead
         // of deltaX and deltaY to avoid accumulating floating-point rounding
@@ -3592,28 +3594,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         invalidate();
     }
 
-    private boolean isAnimating() {
-        Animation in = mViewSwitcher.getInAnimation();
-        if (in != null && in.hasStarted() && !in.hasEnded()) {
-            return true;
-        }
-        Animation out = mViewSwitcher.getOutAnimation();
-        if (out != null && out.hasStarted() && !out.hasEnded()) {
-            return true;
-        }
-        return false;
-    }
-
     private void cancelAnimation() {
         Animation in = mViewSwitcher.getInAnimation();
         if (in != null) {
-            in.cancel();
-            in.reset();
+            // cancel() doesn't terminate cleanly.
+            in.scaleCurrentDuration(0);
         }
         Animation out = mViewSwitcher.getOutAnimation();
         if (out != null) {
-            out.cancel();
-            out.reset();
+            // cancel() doesn't terminate cleanly.
+            out.scaleCurrentDuration(0);
         }
     }
 
@@ -4353,13 +4343,19 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // The rest of this file was borrowed from Launcher2 - PagedView.java
     private static final int MINIMUM_SNAP_VELOCITY = 2200;
 
-    private static class ScrollInterpolator implements Interpolator {
+    private class ScrollInterpolator implements Interpolator {
         public ScrollInterpolator() {
         }
 
         public float getInterpolation(float t) {
             t -= 1.0f;
-            return t * t * t * t * t + 1;
+            t = t * t * t * t * t + 1;
+
+            if ((1 - t) * mAnimationDistance < 1) {
+                cancelAnimation();
+            }
+
+            return t;
         }
     }
 
