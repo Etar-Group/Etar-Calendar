@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"Kalenteri"</string>
+    <string name="what_label" msgid="1933578391985810049">"Mitä"</string>
+    <string name="where_label" msgid="3472482206065595118">"Missä"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"Aikavyöhyke"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"Osallistujat"</string>
+    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"Toisto"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(Ei otsikkoa)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"1 minuutti"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minuuttia"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"1 min"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"1 tunti"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> tuntia"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"1 päivä"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> päivää"</item>
+  </plurals>
+    <string name="show_agenda_view" msgid="7971854300981408347">"Näytä tapahtumat"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Näytä päivä"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Tapahtumat"</string>
+    <string name="day_view" msgid="4467754504843584437">"Päivä"</string>
+    <string name="week_view" msgid="6775043022159508060">"Viikko"</string>
+    <string name="month_view" msgid="7287101431749285412">"Kuukausi"</string>
+    <string name="event_view" msgid="7621353079385122317">"Näytä tapahtuma"</string>
+    <string name="event_create" msgid="6941040556709110617">"Uusi tapahtuma"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Muokkaa tapahtumaa"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Poista tapahtuma"</string>
+    <string name="goto_today" msgid="9162136434410891230">"Tämä päivä"</string>
+    <string name="menu_select_calendars" msgid="6200145996783123958">"Kalenterit"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Asetukset"</string>
+    <string name="plus_N_more" msgid="2527895721728080055">"(ja <xliff:g id="MORE_COUNT">%d</xliff:g> muuta…)"</string>
+    <string name="calendars_title" msgid="4046980972626276968">"Kalenterit"</string>
+    <string name="synced_visible" msgid="1406744353749335651">"synkronoitu, näkyvissä"</string>
+    <string name="synced_not_visible" msgid="54032655953110609">"synkronoitu, ei näkyvissä"</string>
+    <string name="not_synced_not_visible" msgid="7178879061972059481">"ei synkronoitu, ei näkyvissä"</string>
+    <string name="event_edit_title" msgid="8487120407086532444">"Tapahtuman tiedot"</string>
+    <string name="hint_what" msgid="709155115005044531">"Tapahtuman nimi"</string>
+    <string name="hint_where" msgid="3116239630502213241">"Tapahtumapaikka"</string>
+    <string name="hint_description" msgid="4198202812240544553">"Tapahtuman kuvaus"</string>
+    <string name="hint_attendees" msgid="6036653711383143333">"Sähköpostiosoitteet"</string>
+    <string name="creating_event" msgid="5252306542761552414">"Tapahtuma luotu"</string>
+    <string name="saving_event" msgid="7716081507367732169">"Tapahtuma tallennettu"</string>
+    <string name="loading_calendars_title" msgid="3819254313413902272">"Ladataan kalentereita"</string>
+    <string name="loading_calendars_message" msgid="8266077515011438420">"Ladataan kalentereita…"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Kalenteri-ilmoitukset"</string>
+    <string name="alert_missed_events_single" msgid="8042891195314876684">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> muu muistutus)"</string>
+    <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> muuta muistutusta)"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Näytä tapahtuma"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Kokouskutsu"</string>
+    <string name="add_new_reminder" msgid="4171314793889890481">"Lisää muistutus"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Loppupvm"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Alkupvm"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Koko päivä"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalenteri"</string>
+    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Näytä ylimääräiset vaihtoehdot"</string>
+    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Piilota ylimääräiset vaihtoehdot"</string>
+    <string name="edit_event_show_all" msgid="6107214899021208078">"Näytä kaikki &gt;"</string>
+    <string name="description_label" msgid="7193475046717505855">"Kuvaus"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Näytä että olen"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Tietosuoja"</string>
+    <string name="reminders_label" msgid="8345054160145333166">"Muistutukset"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"Ei kalentereita"</string>
+    <string name="no_calendars_found" msgid="755379468136462058">"Sinulla ei ole kalentereita."</string>
+    <string name="content_description_edit_event_from_date" msgid="4180292119507352306">"Alkaen"</string>
+    <string name="content_description_edit_event_from_time" msgid="6740212065246258103">"Alkaen"</string>
+    <string name="content_description_edit_event_to_date" msgid="2731432809487159262">"Saakka"</string>
+    <string name="content_description_edit_event_to_time" msgid="5266222191518214928">"Saakka"</string>
+    <string name="content_description_edit_event_reminders" msgid="62776037465727715">"Muistutukset"</string>
+    <string name="content_description_edit_event_remove_reminder" msgid="877549621029991866">"Poista muistutus"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalenteri:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"Järjestäjä:"</string>
+    <string name="view_event_timezone_label" msgid="4757495486359041757">"Paikallinen aikavyöhyke:"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Osallistutko?"</string>
+    <string name="agenda_today" msgid="6489447319363439068">"Tänään, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"Ladataan…"</string>
+    <string name="show_older_events" msgid="4031960000704544741">"Näytetään tapahtumat <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> jälkeen. Etsi lisää napauttamalla."</string>
+    <string name="show_newer_events" msgid="2647889653936094369">"Näytetään tapahtumat <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> asti. Etsi lisää napauttamalla."</string>
+    <string name="num_events" msgid="3351672964607162257">"Tapaht. lkm"</string>
+    <string name="edit_event_label" msgid="2900418236819088363">"Muokkaa tapahtumaa"</string>
+    <string name="delete_label" msgid="874742811918030739">"Poista"</string>
+    <string name="delete_event_label" msgid="3738436215987360463">"Poista tapahtuma"</string>
+    <string name="save_label" msgid="2133599104834432589">"Valmis"</string>
+    <string name="discard_label" msgid="4510607554910139220">"Palauta"</string>
+    <string name="import_label" msgid="6993796574741477222">"Tuo"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Kaikki torkkutilaan"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Ohita kaikki"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Yksittäinen tapahtuma"</string>
+    <string name="daily" msgid="560350706808680448">"Päivittäin"</string>
+    <string name="every_weekday" msgid="5896574838353902978">"Joka arkipäivä (ma–pe)"</string>
+    <string name="weekly" msgid="2006107373119027114">"Viikoittain (joka <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Kuukausittain (joka <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly" msgid="4587116285383048586">"Kuukausittain"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"Vuosittain"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"Kuukausittain (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>. päivänä)"</string>
+    <string name="yearly" msgid="8576208380302949002">"Vuosittain (<xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom" msgid="3015205670911301856">"Muokattu… (ei voi muokata puhelimessa)"</string>
+    <string name="modify_event" msgid="4501745557655992422">"Muuta vain tämä tapahtuma."</string>
+    <string name="modify_all" msgid="7506579040966638538">"Muuta tapahtuman kaikki toistokerrat."</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"Muuta tämä ja kaikki tulevat tapahtumat."</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"Tämä tapahtuma poistetaan."</string>
+    <string name="delete_title" msgid="5143743507524995383">"Poista"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Muuta vastausta"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Asetukset"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Kalenterinäkymän asetus"</string>
+    <string name="preferences_alerts_title" msgid="6511227171114210908">"Muistutusten asetukset"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Piilota hylätyt tapahtumat"</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Aseta hälytykset ja ilmoitukset"</string>
+    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Hälytykset ja ilmoitukset"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Värinä"</string>
+    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Värinä myös muistutuksissa"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Valitse hälytysääni"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Muistutuksen oletusaika"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Muistutuksen oletusaika"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Käytä kotiaikavyöhykettä"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Näyttää kalenterit ja tapahtumien ajat oman aikavyöhykkeesi ajassa matkustaessasi"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Kotiaikavyöhyke"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"Tietoja"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"Ohjelmistoversio"</string>
+  <string-array name="prefEntries_alerts_vibrateWhen">
+    <item msgid="2539376794936035639">"Aina"</item>
+    <item msgid="8091719131860840185">"Vain äänettömässä tilassa"</item>
+    <item msgid="4552962311897985633">"Ei koskaan"</item>
+  </string-array>
+    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Värinä"</string>
+</resources>

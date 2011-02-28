@@ -989,7 +989,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         }
 
         String rrule = intent.getStringExtra(Events.RRULE);
-        if (rrule != null) {
+        if (!TextUtils.isEmpty(rrule)) {
             mRrule = rrule;
             mEventRecurrence.parse(rrule);
         }
@@ -1424,7 +1424,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         mRecurrenceIndexes = recurrenceIndexes;
 
         int position = recurrenceIndexes.indexOf(DOES_NOT_REPEAT);
-        if (mRrule != null) {
+        if (!TextUtils.isEmpty(mRrule)) {
             if (isCustomRecurrence) {
                 position = recurrenceIndexes.indexOf(REPEATS_CUSTOM);
             } else {
@@ -1665,7 +1665,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             values.put(Events.HAS_ATTENDEE_DATA, 1);
             // Create new event with new contents
             addRecurrenceRule(values);
-            if (mRrule != null) {
+            if (!TextUtils.isEmpty(mRrule)) {
                 values.remove(Events.DTEND);
             }
             eventIdIndex = ops.size();
@@ -1673,13 +1673,13 @@ public class EditEvent extends Activity implements View.OnClickListener,
             ops.add(b.build());
             forceSaveReminders = true;
 
-        } else if (mRrule == null) {
+        } else if (TextUtils.isEmpty(mRrule)) {
             // Modify contents of a non-repeating event
             addRecurrenceRule(values);
             checkTimeDependentFields(values);
             ops.add(ContentProviderOperation.newUpdate(uri).withValues(values).build());
 
-        } else if (mInitialValues.getAsString(Events.RRULE) == null) {
+        } else if (TextUtils.isEmpty(mInitialValues.getAsString(Events.RRULE))) {
             // This event was changed from a non-repeating event to a
             // repeating event.
             addRecurrenceRule(values);
@@ -1705,7 +1705,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             // Modify this instance and all future instances of repeating event
             addRecurrenceRule(values);
 
-            if (mRrule == null) {
+            if (TextUtils.isEmpty(mRrule)) {
                 // We've changed a recurring event to a non-recurring event.
                 // If the event we are editing is the first in the series,
                 // then delete the whole series.  Otherwise, update the series
@@ -1745,7 +1745,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             // Modify all instances of repeating event
             addRecurrenceRule(values);
 
-            if (mRrule == null) {
+            if (TextUtils.isEmpty(mRrule)) {
                 // We've changed a recurring event to a non-recurring event.
                 // Delete the whole series and replace it with a new
                 // non-recurring event.
@@ -1988,7 +1988,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
             return;
         }
 
-        if (oldRrule == null || newRrule == null) {
+        if (TextUtils.isEmpty(oldRrule) || TextUtils.isEmpty(newRrule)) {
             return;
         }
 
@@ -2101,7 +2101,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
     private void addRecurrenceRule(ContentValues values) {
         updateRecurrenceRule();
 
-        if (mRrule == null) {
+        if (TextUtils.isEmpty(mRrule)) {
             return;
         }
 

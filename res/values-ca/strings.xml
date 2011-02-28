@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"Calendari"</string>
+    <string name="what_label" msgid="1933578391985810049">"Què"</string>
+    <string name="where_label" msgid="3472482206065595118">"On"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"Zona horària"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"Convidats"</string>
+    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"Repetició"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(Sense títol)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"1 minut"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minuts"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"1 min"</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"1 hora"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> hores"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"1 dia"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dies"</item>
+  </plurals>
+    <string name="show_agenda_view" msgid="7971854300981408347">"Mostra l\'agenda"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Mostra el dia"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
+    <string name="day_view" msgid="4467754504843584437">"Dia"</string>
+    <string name="week_view" msgid="6775043022159508060">"Setmana"</string>
+    <string name="month_view" msgid="7287101431749285412">"Mes"</string>
+    <string name="event_view" msgid="7621353079385122317">"Visualitza l\'esdeveniment"</string>
+    <string name="event_create" msgid="6941040556709110617">"Esdeveniment nou"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Edita l\'esdeveniment"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Suprimeix l\'esdeveniment"</string>
+    <string name="goto_today" msgid="9162136434410891230">"Avui"</string>
+    <string name="menu_select_calendars" msgid="6200145996783123958">"Calendaris"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Configuració"</string>
+    <string name="plus_N_more" msgid="2527895721728080055">"(i <xliff:g id="MORE_COUNT">%d</xliff:g> més…)"</string>
+    <string name="calendars_title" msgid="4046980972626276968">"Calendaris"</string>
+    <string name="synced_visible" msgid="1406744353749335651">"sincronitzat, visible"</string>
+    <string name="synced_not_visible" msgid="54032655953110609">"sincronitzat, no visible"</string>
+    <string name="not_synced_not_visible" msgid="7178879061972059481">"no sincronitzat, no visible"</string>
+    <string name="event_edit_title" msgid="8487120407086532444">"Detalls de l\'esdeveniment"</string>
+    <string name="hint_what" msgid="709155115005044531">"Nom de l\'esdeveniment"</string>
+    <string name="hint_where" msgid="3116239630502213241">"Ubicació de l\'esdeveniment"</string>
+    <string name="hint_description" msgid="4198202812240544553">"Descripció de l\'esdeveniment"</string>
+    <string name="hint_attendees" msgid="6036653711383143333">"Adreces electròniques"</string>
+    <string name="creating_event" msgid="5252306542761552414">"Esdeveniment creat"</string>
+    <string name="saving_event" msgid="7716081507367732169">"Esdeveniment desat"</string>
+    <string name="loading_calendars_title" msgid="3819254313413902272">"S\'estan carregant els calendaris"</string>
+    <string name="loading_calendars_message" msgid="8266077515011438420">"S\'estan carregant els calendaris..."</string>
+    <string name="alert_title" msgid="7869592820853066853">"Notificacions de calendari"</string>
+    <string name="alert_missed_events_single" msgid="8042891195314876684">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> recordatori més)"</string>
+    <string name="alert_missed_events_multiple" msgid="8499734506511653919">"(<xliff:g id="REMINDER_COUNT">%s</xliff:g> recordatoris més)"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Visualitza l\'esdeveniment"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Invitació a una reunió"</string>
+    <string name="add_new_reminder" msgid="4171314793889890481">"Afegeix un recordatori"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Fins a"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"De"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Tot el dia"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Calendari"</string>
+    <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Mostra les opcions addicionals"</string>
+    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Oculta les opcions addicionals"</string>
+    <string name="edit_event_show_all" msgid="6107214899021208078">"Mostra-ho tot &gt;"</string>
+    <string name="description_label" msgid="7193475046717505855">"Descripció"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Mostra\'m com a"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Privadesa"</string>
+    <string name="reminders_label" msgid="8345054160145333166">"Recordatoris"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"No hi ha cap calendari"</string>
+    <string name="no_calendars_found" msgid="755379468136462058">"No teniu cap calendari."</string>
+    <string name="content_description_edit_event_from_date" msgid="4180292119507352306">"Des de la data"</string>
+    <string name="content_description_edit_event_from_time" msgid="6740212065246258103">"Des de l\'hora"</string>
+    <string name="content_description_edit_event_to_date" msgid="2731432809487159262">"Fins a la data"</string>
+    <string name="content_description_edit_event_to_time" msgid="5266222191518214928">"Fins a l\'hora"</string>
+    <string name="content_description_edit_event_reminders" msgid="62776037465727715">"Recordatoris"</string>
+    <string name="content_description_edit_event_remove_reminder" msgid="877549621029991866">"Elimina el recordatori"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendari:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"Organitzador:"</string>
+    <string name="view_event_timezone_label" msgid="4757495486359041757">"Fus horari local:"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Hi assistireu?"</string>
+    <string name="agenda_today" msgid="6489447319363439068">"Avui, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"S\'està carregant…"</string>
+    <string name="show_older_events" msgid="4031960000704544741">"Es mostren els esdeveniments des de <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Piqueu per cercar-ne més."</string>
+    <string name="show_newer_events" msgid="2647889653936094369">"Es mostren els esdeveniments fins <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>. Piqueu per cercar-ne més."</string>
+    <string name="num_events" msgid="3351672964607162257">"Nombre d\'esdeveniments"</string>
+    <string name="edit_event_label" msgid="2900418236819088363">"Edició de l\'esdeveniment"</string>
+    <string name="delete_label" msgid="874742811918030739">"Suprimeix"</string>
+    <string name="delete_event_label" msgid="3738436215987360463">"Suprimeix l\'esdeveniment"</string>
+    <string name="save_label" msgid="2133599104834432589">"Fet"</string>
+    <string name="discard_label" msgid="4510607554910139220">"Retrocedeix"</string>
+    <string name="import_label" msgid="6993796574741477222">"Importa"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Repeteix-les totes"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Omet-les totes"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Esdeveniment únic"</string>
+    <string name="daily" msgid="560350706808680448">"Diàriament"</string>
+    <string name="every_weekday" msgid="5896574838353902978">"Entre setmana (Dl.-Dv.)"</string>
+    <string name="weekly" msgid="2006107373119027114">"Setmanalment (cada <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Mensualment (cada <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly" msgid="4587116285383048586">"Mensualment"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"Anualment"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"Mensualment (el dia <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"Anualment (el <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom" msgid="3015205670911301856">"Personalitza... (no es pot personalitzar al telèfon)"</string>
+    <string name="modify_event" msgid="4501745557655992422">"Canvia només aquest esdeveniment."</string>
+    <string name="modify_all" msgid="7506579040966638538">"Canvia tots els esdeveniments de la sèrie."</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"Canvia aquest i tots els esdeveniments futurs."</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"Aquest esdeveniment se suprimirà."</string>
+    <string name="delete_title" msgid="5143743507524995383">"Suprimeix"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Canvia la resposta"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Configuració"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Configuració de la visualització del calendari"</string>
+    <string name="preferences_alerts_title" msgid="6511227171114210908">"Configuració de recordatoris"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Oculta els esdeveniments rebutjats"</string>
+    <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Defineix les alertes i les notificacions"</string>
+    <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Alertes i notificacions"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibra"</string>
+    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Vibra també per als recordatoris"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Selecció del so de trucada"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Temps de recordatori predeterminat"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Temps de recordatori predeterminat"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Ut. zona hor. or."</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"En viatjar, mostra calendaris i esdeveniments en hora local"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Zona horària local"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"Quant a"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"Versió de compilació"</string>
+  <string-array name="prefEntries_alerts_vibrateWhen">
+    <item msgid="2539376794936035639">"Sempre"</item>
+    <item msgid="8091719131860840185">"Només quan està en silenci"</item>
+    <item msgid="4552962311897985633">"Mai"</item>
+  </string-array>
+    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Vibra"</string>
+</resources>

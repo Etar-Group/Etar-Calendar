@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_minutes_labels">
+    <item msgid="9134196715565887256">"1 minūte"</item>
+    <item msgid="7350720278790900276">"5 minūtes"</item>
+    <item msgid="559329025736829220">"10 minūtes"</item>
+    <item msgid="4523534383318084162">"15 minūtes"</item>
+    <item msgid="7153990736543668084">"20 minūtes"</item>
+    <item msgid="2030352540011653596">"25 minūtes"</item>
+    <item msgid="7307245847296317340">"30 minūtes"</item>
+    <item msgid="5174730509775969611">"45 minūtes"</item>
+    <item msgid="1920425054049263702">"1 stunda"</item>
+    <item msgid="6972139375792068825">"2 stundas"</item>
+    <item msgid="5643568168685093982">"3 stundas"</item>
+    <item msgid="2179302053572039553">"12 stundas"</item>
+    <item msgid="314399712609472931">"24 stundas"</item>
+    <item msgid="6908283876728494719">"2 dienas"</item>
+    <item msgid="3390146235648970198">"1 nedēļa"</item>
+  </string-array>
+  <string-array name="timezone_labels">
+    <item msgid="6833649526258274889">"Māršala Salas"</item>
+    <item msgid="7176569939440505575">"Midveja salas"</item>
+    <item msgid="5000628410717488070">"Havajas"</item>
+    <item msgid="3809977082338992040">"Aļaska"</item>
+    <item msgid="1206600898319778734">"Kl. ok. piekr. laiks"</item>
+    <item msgid="4251553449779733536">"Tihuana"</item>
+    <item msgid="4796372144693551811">"Arizona"</item>
+    <item msgid="4589419122570218444">"Čivava"</item>
+    <item msgid="1653398220457872326">"Kalnu laika josla"</item>
+    <item msgid="229005026661478023">"Centrālamerika"</item>
+    <item msgid="1545268116831476742">"Centrālā laika josla"</item>
+    <item msgid="9135129204936732090">"Mehiko"</item>
+    <item msgid="3703110560723049255">"Saskačevana"</item>
+    <item msgid="5458958644945369505">"Bogota"</item>
+    <item msgid="355450740949670294">"Austrumu laika josla"</item>
+    <item msgid="5786717434693228701">"Venecuēla"</item>
+    <item msgid="165048018515834952">"Atlantijas laiks"</item>
+    <item msgid="5398045998666341917">"Manausa"</item>
+    <item msgid="8167627904199889197">"Santjago"</item>
+    <item msgid="2793058279461039833">"Ņūfaundlenda"</item>
+    <item msgid="5247265991408608312">"Brazilja"</item>
+    <item msgid="7862856378699038344">"Buenosairesa"</item>
+    <item msgid="7307349572838946177">"Grenlande"</item>
+    <item msgid="2287491943472924232">"Montevideo"</item>
+    <item msgid="6337125611768317903">"Vidusatlantija"</item>
+    <item msgid="1083966762112959704">"Azoru Salas"</item>
+    <item msgid="3208435599095023369">"Kaboverdes salas"</item>
+    <item msgid="8380333624463354109">"Kasablanka"</item>
+    <item msgid="8737442113188999866">"Londona, Dublina"</item>
+    <item msgid="72424340270348400">"Amsterdama, Berlīne"</item>
+    <item msgid="3665952257850630547">"Belgrada"</item>
+    <item msgid="3284290759549286849">"Brisele"</item>
+    <item msgid="3112943938015033049">"Sarajeva"</item>
+    <item msgid="2184425710639965762">"Parīze"</item>
+    <item msgid="5997630882187580225">"Vindhuka"</item>
+    <item msgid="3828800493609994208">"Rietumāfrikas laiks"</item>
+    <item msgid="7527935722014187591">"Ammāna, Jordānija"</item>
+    <item msgid="672509109295227133">"Atēnas, Stambula"</item>
+    <item msgid="1835470340349221646">"Beirūta, Libāna"</item>
+    <item msgid="9006223109403693650">"Kaira"</item>
+    <item msgid="2877875673636361825">"Helsinki"</item>
+    <item msgid="4528124308590807049">"Jeruzaleme"</item>
+    <item msgid="7823856457885290195">"Minska"</item>
+    <item msgid="8650995074282357197">"Harare"</item>
+    <item msgid="209523815326871285">"Bagdāde"</item>
+    <item msgid="8077211460729251609">"Maskava"</item>
+    <item msgid="6103383184232804522">"Kuveita"</item>
+    <item msgid="8581935265080466099">"Nairobi"</item>
+    <item msgid="1531618843539764728">"Teherāna"</item>
+    <item msgid="141548505188106312">"Baku"</item>
+    <item msgid="5974315340250149692">"Tbilisi"</item>
+    <item msgid="3344801680659888795">"Erevāna"</item>
+    <item msgid="2537944335416132075">"Dubaija"</item>
+    <item msgid="5630432498109110949">"Kabula"</item>
+    <item msgid="2274762525650993846">"Islāmābāda, Karāči"</item>
+    <item msgid="272153171103339242">"Uraļska"</item>
+    <item msgid="4757644551253886090">"Jekaterinburga"</item>
+    <item msgid="3036512479614493957">"Kalkāta"</item>
+    <item msgid="4190271241277312277">"Šrilanka"</item>
+    <item msgid="4489139826358657866">"Katmandu"</item>
+    <item msgid="1195461607876034232">"Astana"</item>
+    <item msgid="8777509327730950228">"Jangona"</item>
+    <item msgid="3838899720161825998">"Krasnojarska"</item>
+    <item msgid="6495532062164690437">"Bangkoka"</item>
+    <item msgid="4910549870048384487">"Pekina"</item>
+    <item msgid="7174954011332328153">"Honkonga"</item>
+    <item msgid="415034182139280334">"Irkutska"</item>
+    <item msgid="3407263784503834649">"Kualalumpura"</item>
+    <item msgid="6547945295249807755">"Pērta"</item>
+    <item msgid="4571776847411430193">"Taibei"</item>
+    <item msgid="3043691515163887690">"Seula"</item>
+    <item msgid="6369124969606372122">"Tokija, Osaka"</item>
+    <item msgid="8317842783685169193">"Jakutska"</item>
+    <item msgid="6993206457323990990">"Adelaida"</item>
+    <item msgid="2431970257749452312">"Dārvina"</item>
+    <item msgid="2709489188606506801">"Brisbena"</item>
+    <item msgid="6832511138206913044">"Hobārta"</item>
+    <item msgid="6933429790996727761">"Sidneja, Kanbera"</item>
+    <item msgid="4546625974877459074">"Vladivostoka"</item>
+    <item msgid="7421491250467489614">"Guama"</item>
+    <item msgid="3450367738093440984">"Magadana"</item>
+    <item msgid="5046540868552082971">"Oklenda"</item>
+    <item msgid="481903191189494072">"Fidži"</item>
+    <item msgid="1926932394586102998">"Tonga"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"Nav"</item>
+    <item msgid="3377199512833209480">"1 minūte"</item>
+    <item msgid="5023205715881387516">"5 minūtes"</item>
+    <item msgid="7720870540593319107">"10 minūtes"</item>
+    <item msgid="1653841700859180907">"15 minūtes"</item>
+    <item msgid="3741629746313107482">"20 minūtes"</item>
+    <item msgid="5357458446224446398">"25 minūtes"</item>
+    <item msgid="403143749684280703">"30 minūtes"</item>
+    <item msgid="5611574008997362948">"45 minūtes"</item>
+    <item msgid="30462793717552">"1 stunda"</item>
+    <item msgid="119808229352802480">"2 stundas"</item>
+    <item msgid="7456742278252094745">"3 stundas"</item>
+    <item msgid="5263928189935026559">"12 stundas"</item>
+    <item msgid="6451763179435252852">"24 stundas"</item>
+    <item msgid="966666856467721784">"2 dienas"</item>
+    <item msgid="5840973497558794742">"1 nedēļa"</item>
+  </string-array>
+  <string-array name="preferences_alert_type_labels">
+    <item msgid="2724242028978664229">"Brīdinājums"</item>
+    <item msgid="8723674378160518790">"Paziņojums statusa joslā"</item>
+    <item msgid="8433736231022186661">"Izslēgt"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"Aizņemts"</item>
+    <item msgid="6228387173725732140">"Pieejams"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"Noklusējums"</item>
+    <item msgid="5200216103966973369">"Privāts"</item>
+    <item msgid="9182342638433672664">"Publisks"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"pirmā"</item>
+    <item msgid="5631923029483854900">"otrā"</item>
+    <item msgid="148935502975250973">"trešā"</item>
+    <item msgid="5124200797326669172">"ceturtā"</item>
+    <item msgid="7564374178324652137">"pēdējā"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="3654955385120106241">"(Nav atbildes)"</item>
+    <item msgid="3724434080904437698">"Jā"</item>
+    <item msgid="8854145743148992583">"Varbūt"</item>
+    <item msgid="6174292185978948873">"Nē"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item msgid="5967437218994333578">"Jā"</item>
+    <item msgid="1254269034445160199">"Varbūt"</item>
+    <item msgid="1099407454885268744">"Nē"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"Tikai šo pasākumu"</item>
+    <item msgid="8626755531271570950">"Šo un nākamos pasākumus"</item>
+    <item msgid="7833229563617435430">"Visus pasākumus"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"Šo un nākamos pasākumus"</item>
+    <item msgid="6315440193748139854">"Visus pasākumus"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="2012815396992847028">"Tikai šo gadījumu"</item>
+    <item msgid="140670561403965380">"Visus virknes pasākumus"</item>
+  </string-array>
+</resources>
