@@ -19,5 +19,6 @@
     android:minHeight="219dip"
     android:updatePeriodMillis="0"
     android:previewImage="@drawable/calendar_widget_preview"
-    android:initialLayout="@layout/appwidget" >
+    android:initialLayout="@layout/appwidget"
+    android:resizeMode="horizontal|vertical" >
 </appwidget-provider>
