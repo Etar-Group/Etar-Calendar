@@ -338,8 +338,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int EVENT_ALL_DAY_TEXT_LEFT_MARGIN = EVENT_TEXT_LEFT_MARGIN;
     private static int EVENT_ALL_DAY_TEXT_RIGHT_MARGIN = EVENT_TEXT_RIGHT_MARGIN;
     // margins and sizing for the expand allday icon
-    private static int EXPAND_ALL_DAY_MARGIN = EVENT_TEXT_LEFT_MARGIN + 16;
-    private static int EXPAND_ALL_DAY_WIDTH = 48;
+    private static int EXPAND_ALL_DAY_LEFT_MARGIN = HOURS_LEFT_MARGIN;
+    private static int EXPAND_ALL_DAY_BOTTOM_MARGIN = 10;
     // sizing for "box +n" in allDay events
     private static int EVENT_SQUARE_WIDTH = 10;
     private static int EVENT_LINE_PADDING = 4;
@@ -409,9 +409,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      */
     private int mAnimateDayEventHeight = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
     /**
-     * Controls the orientation of the allday expansion button
+     * Whether to use the expand or collapse icon.
      */
-    private static int mExpandDayHeightIconRotation = 180;
+    private boolean mUseExpandIcon = true;
     /**
      * The height of the day names/numbers
      */
@@ -460,6 +460,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     protected final Drawable mCurrentTimeLine;
     protected final Drawable mTodayHeaderDrawable;
     protected final Drawable mExpandAlldayDrawable;
+    protected final Drawable mCollapseAlldayDrawable;
     protected Drawable mAcceptedOrTentativeEventBoxDrawable;
     protected Drawable mUnconfirmedOrDeclinedEventBoxDrawable;
     private String mAmString;
@@ -513,8 +514,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     ObjectAnimator mAlldayEventAnimator;
     // Animates the transparency of the more events text
     ObjectAnimator mMoreAlldayEventsAnimator;
-    // animates the expand allday button rotation
-    ObjectAnimator mExpandAlldayButtonAnimator;
     // whether or not an event is stopping because it was cancelled
     private boolean mCancellingAnimations = false;
     // tracks whether a touch originated in the allday area
@@ -583,8 +582,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 EVENT_RECT_BOTTOM_MARGIN *= mScale;
                 EVENT_RECT_LEFT_MARGIN *= mScale;
                 EVENT_RECT_RIGHT_MARGIN *= mScale;
-                EXPAND_ALL_DAY_MARGIN *= mScale;
-                EXPAND_ALL_DAY_WIDTH *= mScale;
+                EXPAND_ALL_DAY_LEFT_MARGIN *= mScale;
+                EXPAND_ALL_DAY_BOTTOM_MARGIN *= mScale;
                 EVENT_SQUARE_WIDTH *= mScale;
                 EVENT_LINE_PADDING *= mScale;
             }
@@ -592,7 +591,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_week_holo_light);
         mTodayHeaderDrawable = mResources.getDrawable(R.drawable.today_blue_week_holo_light);
-        mExpandAlldayDrawable = mResources.getDrawable(R.drawable.allday_expand_button);
+        mExpandAlldayDrawable = mResources.getDrawable(R.drawable.ic_allday_expand_holo_light);
+        mCollapseAlldayDrawable = mResources.getDrawable(R.drawable.ic_allday_collapse_holo_light);
         mAcceptedOrTentativeEventBoxDrawable = mResources
                 .getDrawable(R.drawable.panel_month_event_holo_light);
         mUnconfirmedOrDeclinedEventBoxDrawable = mResources
@@ -1105,10 +1105,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mGridAreaHeight = height - mFirstCell;
 
         // Set up the expand icon position
-        mExpandAllDayRect.left = EXPAND_ALL_DAY_MARGIN;
-        mExpandAllDayRect.right = mExpandAllDayRect.left + EXPAND_ALL_DAY_WIDTH;
-        mExpandAllDayRect.bottom = mFirstCell - EXPAND_ALL_DAY_MARGIN;
-        mExpandAllDayRect.top = mExpandAllDayRect.bottom - EXPAND_ALL_DAY_WIDTH;
+        mExpandAllDayRect.left = EXPAND_ALL_DAY_LEFT_MARGIN;
+        mExpandAllDayRect.right =
+                mExpandAllDayRect.left + mExpandAlldayDrawable.getIntrinsicWidth();
+        mExpandAllDayRect.bottom = mFirstCell - EXPAND_ALL_DAY_BOTTOM_MARGIN;
+        mExpandAllDayRect.top =
+                mExpandAllDayRect.bottom - mExpandAlldayDrawable.getIntrinsicHeight();
 
         mNumHours = mGridAreaHeight / (mCellHeight + HOUR_GAP);
         mEventGeometry.setHourHeight(mCellHeight);
@@ -1944,14 +1946,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         canvas.drawText(mAllDayString, HOURS_LEFT_MARGIN, DAY_HEADER_HEIGHT + HOURS_TOP_MARGIN
                 + HOUR_GAP + mHoursTextHeight, p);
         if (mMaxAlldayEvents > mMaxUnexpandedAlldayEventCount) {
-            // Draw the allDay expand icon by rotating the canvas, drawing it,
-            // and rotating back. This does the animation as well.
-            mExpandAlldayDrawable.setBounds(mExpandAllDayRect);
-            canvas.rotate(mExpandDayHeightIconRotation, mExpandAllDayRect.exactCenterX(),
-                    mExpandAllDayRect.exactCenterY());
-            mExpandAlldayDrawable.draw(canvas);
-            canvas.rotate(-mExpandDayHeightIconRotation, mExpandAllDayRect.exactCenterX(),
-                    mExpandAllDayRect.exactCenterY());
+            // Draw the allDay expand/collapse icon
+            if (mUseExpandIcon) {
+                mExpandAlldayDrawable.setBounds(mExpandAllDayRect);
+                mExpandAlldayDrawable.draw(canvas);
+            } else {
+                mCollapseAlldayDrawable.setBounds(mExpandAllDayRect);
+                mCollapseAlldayDrawable.draw(canvas);
+            }
         }
     }
 
@@ -3320,9 +3322,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if (mMoreAlldayEventsAnimator != null) {
             mMoreAlldayEventsAnimator.cancel();
         }
-        if (mExpandAlldayButtonAnimator != null) {
-            mExpandAlldayButtonAnimator.cancel();
-        }
         mCancellingAnimations = false;
         // get new animators
         mAlldayAnimator = getAllDayAnimator();
@@ -3331,8 +3330,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     "moreAllDayEventsTextAlpha",
                     mShowAllAllDayEvents ? MORE_EVENTS_MAX_ALPHA : 0,
                     mShowAllAllDayEvents ? 0 : MORE_EVENTS_MAX_ALPHA);
-        mExpandAlldayButtonAnimator = ObjectAnimator.ofInt(this, "expandDayHeightIconRotation",
-                mExpandDayHeightIconRotation, mShowAllAllDayEvents ? 0: 180);
 
         // Set up delays and start the animators
         mAlldayAnimator.setStartDelay(mShowAllAllDayEvents ? ANIMATION_SECONDARY_DURATION : 0);
@@ -3340,10 +3337,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mMoreAlldayEventsAnimator.setStartDelay(mShowAllAllDayEvents ? 0 : ANIMATION_DURATION);
         mMoreAlldayEventsAnimator.setDuration(ANIMATION_SECONDARY_DURATION);
         mMoreAlldayEventsAnimator.start();
-        mExpandAlldayButtonAnimator.setDuration(ANIMATION_DURATION);
-        mExpandAlldayButtonAnimator
-                .setStartDelay(mShowAllAllDayEvents ? ANIMATION_SECONDARY_DURATION : 0);
-        mExpandAlldayButtonAnimator.start();
         if (mAlldayEventAnimator != null) {
             // This is the only animator that can return null, so check it
             mAlldayEventAnimator
@@ -3417,18 +3410,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 if (!mCancellingAnimations) {
                     // when finished, set this to 0 to signify not animating
                     mAnimateDayHeight = 0;
+                    mUseExpandIcon = !mShowAllAllDayEvents;
                 }
                 mRemeasure = true;
                 invalidate();
             }
         });
         return animator;
-    }
-
-    // Setter for the expand allday icon used by the animator
-    public void setExpandDayHeightIconRotation(int rotation) {
-        mExpandDayHeightIconRotation = rotation;
-        invalidate();
     }
 
     // setter for the 'box +n' alpha text used by the animator
