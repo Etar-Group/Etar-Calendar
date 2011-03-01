@@ -54,7 +54,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -574,6 +573,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mController.registerEventHandler(viewId, (EventHandler) frag);
 
         if (doCommit) {
+            Log.d(TAG, "setMainPane AllInOne=" + this + " finishing:" + this.isFinishing());
             ft.commit();
         }
     }
@@ -634,6 +634,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public void handleEvent(EventInfo event) {
+        Log.d(TAG, "handleEvent AllInOne=" + this);
         if (event.eventType == EventType.GO_TO) {
             setMainPane(
                     null, R.id.main_pane, event.viewType, event.startTime.toMillis(false), false);
@@ -675,7 +676,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             FragmentTransaction ft = fm.beginTransaction();
             // if we have an old popup close it
             Fragment fOld = fm.findFragmentByTag(EVENT_INFO_FRAGMENT_TAG);
-            if (fOld != null) {
+            if (fOld != null && fOld.isAdded()) {
                 ft.remove(fOld);
             }
             ft.add(fragment, EVENT_INFO_FRAGMENT_TAG);
@@ -709,6 +710,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        Log.w(TAG, "TabSelected AllInOne=" + this + " finishing:" + this.isFinishing());
         if (tab == mDayTab && mCurrentView != ViewType.DAY) {
             mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
         } else if (tab == mWeekTab && mCurrentView != ViewType.WEEK) {
