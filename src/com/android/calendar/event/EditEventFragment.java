@@ -631,10 +631,18 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     && !mModel.isUnchanged(mOriginalModel)
                     && mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
                 int stringResource;
-                if (mModel.mUri != null) {
-                    stringResource = R.string.saving_event;
+                if (!mModel.mAttendeesList.isEmpty()) {
+                    if (mModel.mUri != null) {
+                        stringResource = R.string.saving_event_with_guest;
+                    } else {
+                        stringResource = R.string.creating_event_with_guest;
+                    }
                 } else {
-                    stringResource = R.string.creating_event;
+                    if (mModel.mUri != null) {
+                        stringResource = R.string.saving_event;
+                    } else {
+                        stringResource = R.string.creating_event;
+                    }
                 }
                 Toast.makeText(mContext, stringResource, Toast.LENGTH_SHORT).show();
             }
