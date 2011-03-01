@@ -41,18 +41,22 @@ public class Event implements Cloneable {
 
     /**
      * The sort order is:
-     * 1) events with an earlier start day
-     * 2) events with a later end day
-     * 3) events with an earlier start time
-     * 4) events with a later end time
-     * 5) the title (unnecessary, but nice)
+     * 1) events with an earlier start (begin for normal events, startday for allday)
+     * 2) events with a later end (end for normal events, endday for allday)
+     * 3) the title (unnecessary, but nice)
      *
      * The start and end day is sorted first so that all day events are
      * sorted correctly with respect to events that are >24 hours (and
      * therefore show up in the allday area).
      */
     private static final String SORT_EVENTS_BY =
-            "startDay ASC, endDay DESC, begin ASC, end DESC, title ASC";
+            "begin ASC, end DESC, title ASC";
+    private static final String SORT_ALLDAY_BY =
+            "startDay ASC, endDay DESC, title ASC";
+    private static final String DISPLAY_AS_ALLDAY = "dispAllday";
+
+    private static final String EVENTS_WHERE = DISPLAY_AS_ALLDAY + "=0";
+    private static final String ALLDAY_WHERE = DISPLAY_AS_ALLDAY + "=1";
 
     // The projection to use when querying instances to build a list of events
     public static final String[] EVENT_PROJECTION = new String[] {
@@ -75,6 +79,8 @@ public class Event implements Cloneable {
             Instances.SELF_ATTENDEE_STATUS,  // 16
             Events.ORGANIZER,                // 17
             Events.GUESTS_CAN_MODIFY,        // 18
+            Instances.ALL_DAY + "=1 OR (" + Instances.END + "-" + Instances.BEGIN + ")>="
+                    + DateUtils.DAY_IN_MILLIS + " AS " + DISPLAY_AS_ALLDAY, // 19
     };
 
     // The indices for the projection array above.
@@ -96,6 +102,10 @@ public class Event implements Cloneable {
     private static final int PROJECTION_SELF_ATTENDEE_STATUS_INDEX = 16;
     private static final int PROJECTION_ORGANIZER_INDEX = 17;
     private static final int PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX = 18;
+    private static final int PROJECTION_DISPLAY_AS_ALLDAY = 19;
+
+    private static String mNoTitleString;
+    private static int mNoColorColor;
 
     public long id;
     public int color;
@@ -207,7 +217,8 @@ public class Event implements Cloneable {
             Debug.startMethodTracing("loadEvents");
         }
 
-        Cursor c = null;
+        Cursor cEvents = null;
+        Cursor cAllday = null;
 
         events.clear();
         try {
@@ -236,20 +247,26 @@ public class Event implements Cloneable {
             // the same then we sort alphabetically on the title.  This isn't
             // required for correctness, it just adds a nice touch.
 
-            String orderBy = SORT_EVENTS_BY;
-
             // Respect the preference to show/hide declined events
             SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
             boolean hideDeclined = prefs.getBoolean(GeneralPreferences.KEY_HIDE_DECLINED,
                     false);
 
-            String where = null;
+            String where = EVENTS_WHERE;
+            String whereAllday = ALLDAY_WHERE;
             if (hideDeclined) {
-                where = Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
+                String hideString = " AND " + Instances.SELF_ATTENDEE_STATUS + "!="
+                        + Attendees.ATTENDEE_STATUS_DECLINED;
+                where += hideString;
+                whereAllday += hideString;
             }
 
-            c = Instances.query(context.getContentResolver(), EVENT_PROJECTION,
-                    start - DateUtils.DAY_IN_MILLIS, end + DateUtils.DAY_IN_MILLIS, where, orderBy);
+            cEvents = Instances.query(context.getContentResolver(), EVENT_PROJECTION,
+                    start - DateUtils.DAY_IN_MILLIS, end + DateUtils.DAY_IN_MILLIS, where,
+                    SORT_EVENTS_BY);
+            cAllday = Instances.query(context.getContentResolver(), EVENT_PROJECTION,
+                    start - DateUtils.DAY_IN_MILLIS, end + DateUtils.DAY_IN_MILLIS, whereAllday,
+                    SORT_ALLDAY_BY);
 
             // Check if we should return early because there are more recent
             // load requests waiting.
@@ -257,11 +274,15 @@ public class Event implements Cloneable {
                 return;
             }
 
-            buildEventsFromCursor(events, c, context, startDay, endDay);
+            buildEventsFromCursor(events, cEvents, context, startDay, endDay);
+            buildEventsFromCursor(events, cAllday, context, startDay, endDay);
 
         } finally {
-            if (c != null) {
-                c.close();
+            if (cEvents != null) {
+                cEvents.close();
+            }
+            if (cAllday != null) {
+                cAllday.close();
             }
             if (PROFILE) {
                 Debug.stopMethodTracing();
@@ -269,73 +290,94 @@ public class Event implements Cloneable {
         }
     }
 
-    public static void buildEventsFromCursor(ArrayList<Event> events, Cursor c, Context context,
-            int startDay, int endDay) {
-        if (c == null || events == null) {
+    /**
+     * Adds all the events from the cursors to the events list.
+     *
+     * @param events The list of events
+     * @param cEvents Events to add to the list
+     * @param context
+     * @param startDay
+     * @param endDay
+     */
+    public static void buildEventsFromCursor(
+            ArrayList<Event> events, Cursor cEvents, Context context, int startDay, int endDay) {
+        if (cEvents == null || events == null) {
             Log.e(TAG, "buildEventsFromCursor: null cursor or null events list!");
             return;
         }
 
-        int count = c.getCount();
+        int count = cEvents.getCount();
 
         if (count == 0) {
             return;
         }
 
         Resources res = context.getResources();
-        while (c.moveToNext()) {
-            Event e = new Event();
-
-            e.id = c.getLong(PROJECTION_EVENT_ID_INDEX);
-            e.title = c.getString(PROJECTION_TITLE_INDEX);
-            e.location = c.getString(PROJECTION_LOCATION_INDEX);
-            e.allDay = c.getInt(PROJECTION_ALL_DAY_INDEX) != 0;
-            e.organizer = c.getString(PROJECTION_ORGANIZER_INDEX);
-            e.guestsCanModify = c.getInt(PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX) != 0;
-
-            String timezone = c.getString(PROJECTION_TIMEZONE_INDEX);
-
-            if (e.title == null || e.title.length() == 0) {
-                e.title = res.getString(R.string.no_title_label);
-            }
-
-            if (!c.isNull(PROJECTION_COLOR_INDEX)) {
-                // Read the color from the database
-                e.color = c.getInt(PROJECTION_COLOR_INDEX);
-            } else {
-                e.color = res.getColor(R.color.event_center);
-            }
-
-            long eStart = c.getLong(PROJECTION_BEGIN_INDEX);
-            long eEnd = c.getLong(PROJECTION_END_INDEX);
-
-            e.startMillis = eStart;
-            e.startTime = c.getInt(PROJECTION_START_MINUTE_INDEX);
-            e.startDay = c.getInt(PROJECTION_START_DAY_INDEX);
-
-            e.endMillis = eEnd;
-            e.endTime = c.getInt(PROJECTION_END_MINUTE_INDEX);
-            e.endDay = c.getInt(PROJECTION_END_DAY_INDEX);
-
-            if (e.startDay > endDay || e.endDay < startDay) {
-                continue;
-            }
-
-            e.hasAlarm = c.getInt(PROJECTION_HAS_ALARM_INDEX) != 0;
-
-            // Check if this is a repeating event
-            String rrule = c.getString(PROJECTION_RRULE_INDEX);
-            String rdate = c.getString(PROJECTION_RDATE_INDEX);
-            if (!TextUtils.isEmpty(rrule) || !TextUtils.isEmpty(rdate)) {
-                e.isRepeating = true;
-            } else {
-                e.isRepeating = false;
-            }
-
-            e.selfAttendeeStatus = c.getInt(PROJECTION_SELF_ATTENDEE_STATUS_INDEX);
-
+        mNoTitleString = res.getString(R.string.no_title_label);
+        mNoColorColor = res.getColor(R.color.event_center);
+        // Sort events in two passes so we ensure the allday and standard events
+        // get sorted in the correct order
+        while (cEvents.moveToNext()) {
+            Event e = generateEventFromCursor(cEvents, startDay, endDay);
             events.add(e);
         }
+    }
+
+    /**
+     * @param cEvents Cursor pointing at event
+     * @param startDay First day of queried range
+     * @param endDay Last day of queried range
+     * @return An event created from the cursor
+     */
+    private static Event generateEventFromCursor(Cursor cEvents, int startDay, int endDay) {
+        Event e = new Event();
+
+        e.id = cEvents.getLong(PROJECTION_EVENT_ID_INDEX);
+        e.title = cEvents.getString(PROJECTION_TITLE_INDEX);
+        e.location = cEvents.getString(PROJECTION_LOCATION_INDEX);
+        e.allDay = cEvents.getInt(PROJECTION_ALL_DAY_INDEX) != 0;
+        e.organizer = cEvents.getString(PROJECTION_ORGANIZER_INDEX);
+        e.guestsCanModify = cEvents.getInt(PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX) != 0;
+
+        if (e.title == null || e.title.length() == 0) {
+            e.title = mNoTitleString;
+        }
+
+        if (!cEvents.isNull(PROJECTION_COLOR_INDEX)) {
+            // Read the color from the database
+            e.color = cEvents.getInt(PROJECTION_COLOR_INDEX);
+        } else {
+            e.color = mNoColorColor;
+        }
+
+        long eStart = cEvents.getLong(PROJECTION_BEGIN_INDEX);
+        long eEnd = cEvents.getLong(PROJECTION_END_INDEX);
+
+        e.startMillis = eStart;
+        e.startTime = cEvents.getInt(PROJECTION_START_MINUTE_INDEX);
+        e.startDay = cEvents.getInt(PROJECTION_START_DAY_INDEX);
+
+        e.endMillis = eEnd;
+        e.endTime = cEvents.getInt(PROJECTION_END_MINUTE_INDEX);
+        e.endDay = cEvents.getInt(PROJECTION_END_DAY_INDEX);
+
+        if (e.startDay > endDay || e.endDay < startDay) {
+            // continue;
+        }
+
+        e.hasAlarm = cEvents.getInt(PROJECTION_HAS_ALARM_INDEX) != 0;
+
+        // Check if this is a repeating event
+        String rrule = cEvents.getString(PROJECTION_RRULE_INDEX);
+        String rdate = cEvents.getString(PROJECTION_RDATE_INDEX);
+        if (!TextUtils.isEmpty(rrule) || !TextUtils.isEmpty(rdate)) {
+            e.isRepeating = true;
+        } else {
+            e.isRepeating = false;
+        }
+
+        e.selfAttendeeStatus = cEvents.getInt(PROJECTION_SELF_ATTENDEE_STATUS_INDEX);
+        return e;
     }
 
     /**

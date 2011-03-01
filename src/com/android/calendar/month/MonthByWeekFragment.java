@@ -62,7 +62,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
     // Selection and selection args for adding event queries
     private static final String WHERE_CALENDARS_SELECTED = Calendars.SELECTED + "=1";
-    private static final String[] WHERE_CALENDARS_SELECTED_ARGS = {"1"};
+    private static final String[] WHERE_CALENDARS_SELECTED_ARGS = { "1" };
     private static final String INSTANCES_SORT_ORDER = Instances.START_DAY + ","
             + Instances.START_MINUTE + "," + Instances.TITLE;
 
