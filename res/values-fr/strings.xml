@@ -113,7 +113,7 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Tout supprimer"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Événement ponctuel"</string>
     <string name="daily" msgid="560350706808680448">"Quotidien"</string>
-    <string name="every_weekday" msgid="5896574838353902978">"Les jours ouvrables (lun–ven)"</string>
+    <string name="every_weekday" msgid="5896574838353902978">"Jours ouvrés (lun–ven)"</string>
     <string name="weekly" msgid="2006107373119027114">"Hebdomadaire (chaque <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
     <string name="monthly_on_day_count" msgid="6847991854413461795">"Mensuel (chaque <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"Tous les mois"</string>
