@@ -62,7 +62,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
     // Selection and selection args for adding event queries
     private static final String WHERE_CALENDARS_SELECTED = Calendars.SELECTED + "=1";
-    private static final String[] WHERE_CALENDARS_SELECTED_ARGS = { "1" };
+    private static final String[] WHERE_CALENDARS_SELECTED_ARGS = {"1"};
     private static final String INSTANCES_SORT_ORDER = Instances.START_DAY + ","
             + Instances.START_MINUTE + "," + Instances.TITLE;
 
@@ -85,6 +85,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     private CursorLoader mLoader;
     private Uri mEventUri;
     private GestureDetector mGestureDetector;
+    private Time mDesiredDay = new Time();
 
     private volatile boolean mShouldLoad = true;
     private boolean mUserScrolled = false;
@@ -398,6 +399,8 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
                     - mDaysPerWeek * mNumWeeks / 2)) {
                 animate = false;
             }
+            mDesiredDay.set(event.selectedTime);
+            mDesiredDay.normalize(true);
             goTo(event.selectedTime.toMillis(true), animate, true, false);
         } else if (event.eventType == EventType.EVENTS_CHANGED) {
             eventsChanged();
@@ -408,11 +411,25 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     protected void setMonthDisplayed(Time time) {
         super.setMonthDisplayed(time);
         if (!mIsMiniMonth) {
-            mSelectedDay.set(time);
-            mAdapter.setSelectedDay(time);
+            boolean useSelected = false;
+            if (time.year == mDesiredDay.year && time.month == mDesiredDay.month) {
+                mSelectedDay.set(mDesiredDay);
+                mAdapter.setSelectedDay(mDesiredDay);
+                useSelected = true;
+            } else {
+                mSelectedDay.set(time);
+                mAdapter.setSelectedDay(time);
+            }
             CalendarController controller = CalendarController.getInstance(mContext);
-            if (time.toMillis(true) != controller.getTime() && mUserScrolled) {
-                controller.setTime(time.toMillis(true) + DateUtils.WEEK_IN_MILLIS * mNumWeeks / 3);
+            if (mSelectedDay.minute >= 30) {
+                mSelectedDay.minute = 30;
+            } else {
+                mSelectedDay.minute = 0;
+            }
+            long newTime = mSelectedDay.normalize(true);
+            if (newTime != controller.getTime() && mUserScrolled) {
+                long offset = useSelected ? 0 : DateUtils.WEEK_IN_MILLIS * mNumWeeks / 3;
+                controller.setTime(newTime + offset);
             }
             controller.sendEvent(this, EventType.UPDATE_TITLE, time, null, null, -1,
                     ViewType.CURRENT, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_MONTH_DAY
@@ -427,6 +444,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             if (scrollState != OnScrollListener.SCROLL_STATE_IDLE) {
                 mShouldLoad = false;
                 stopLoader();
+                mDesiredDay.setToNow();
             } else {
                 mHandler.removeCallbacks(mUpdateLoader);
                 mShouldLoad = true;
@@ -442,6 +460,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        mDesiredDay.setToNow();
         return mGestureDetector.onTouchEvent(event);
         // TODO post a cleanup to push us back onto the grid if something went
         // wrong in a scroll such as the user stopping the view but not

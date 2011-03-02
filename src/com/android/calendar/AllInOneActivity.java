@@ -464,7 +464,15 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 t.setToNow();
                 break;
             case R.id.action_create_event:
-                mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1, 0, 0, 0, 0, -1);
+                t = new Time();
+                t.set(mController.getTime());
+                if (t.minute >= 30) {
+                    t.minute = 30;
+                } else {
+                    t.minute = 0;
+                }
+                mController.sendEventRelatedEvent(
+                        this, EventType.CREATE_EVENT, -1, t.toMillis(true), 0, 0, 0, -1);
                 return true;
             case R.id.action_settings:
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
