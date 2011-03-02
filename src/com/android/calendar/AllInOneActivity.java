@@ -28,9 +28,9 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
-import android.animation.ObjectAnimator;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
+import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -490,9 +490,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 t = new Time();
                 t.set(mController.getTime());
                 if (t.minute >= 30) {
-                    t.minute = 30;
-                } else {
+                    t.hour++;
                     t.minute = 0;
+                } else {
+                    t.minute = 30;
                 }
                 mController.sendEventRelatedEvent(
                         this, EventType.CREATE_EVENT, -1, t.toMillis(true), 0, 0, 0, -1);
