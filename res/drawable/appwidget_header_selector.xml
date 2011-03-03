@@ -16,9 +16,12 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
         android:exitFadeDuration="@android:integer/config_mediumAnimTime">
-    <item
-        android:state_window_focused="false"
-        android:drawable="@drawable/header_bg_cal_widget_holo" />
+    <item>
+        <bitmap
+            android:state_window_focused="false"
+            android:src="@drawable/header_bg_cal_widget_holo"
+            android:tileMode="repeat" />
+    </item>
     <item
         android:state_focused="true"
         android:state_pressed="true"
