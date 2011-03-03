@@ -497,6 +497,10 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             child = (SimpleWeekView)view.getChildAt(offset);
         }
 
+        if (child == null) {
+            return;
+        }
+
         // Find out which month we're moving into
         int month;
         if (mIsScrollingUp) {

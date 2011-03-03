@@ -29,6 +29,8 @@ import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
 import android.animation.ObjectAnimator;
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -75,8 +77,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final String BUNDLE_KEY_RESTORE_VIEW = "key_restore_view";
     private static final int HANDLER_KEY = 0;
     private static final long CONTROLS_ANIMATE_DURATION = 400;
-    private static int CONTROLS_ANIMATE_WIDTH = 283;
-    private static int CONTROLS_MARGIN_RIGHT = 16;
+    private static int CONTROLS_ANIMATE_WIDTH = 267;
     private static float mScale = 0;
 
     private static CalendarController mController;
@@ -88,6 +89,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private boolean mPaused = true;
     private boolean mUpdateOnResume = false;
     private boolean mHideControls = false;
+    private boolean mShowSideViews = true;
     private TextView mHomeTime;
     private TextView mDateRange;
     private View mMiniMonth;
@@ -112,7 +114,30 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private String mShowString = "Show controls";
 
     // Params for animating the controls on the right
-    LayoutParams mControlsParams = new LayoutParams(CONTROLS_ANIMATE_WIDTH, 0);
+    private LayoutParams mControlsParams = new LayoutParams(CONTROLS_ANIMATE_WIDTH, 0);
+
+    private AnimatorListener mSlideAnimationDoneListener = new AnimatorListener() {
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+        }
+
+        @Override
+        public void onAnimationEnd(android.animation.Animator animation) {
+            int visibility = mShowSideViews ? View.VISIBLE : View.GONE;
+            mMiniMonth.setVisibility(visibility);
+            mCalendarsList.setVisibility(visibility);
+            mMiniMonthContainer.setVisibility(visibility);
+        }
+
+        @Override
+        public void onAnimationRepeat(android.animation.Animator animation) {
+        }
+
+        @Override
+        public void onAnimationStart(android.animation.Animator animation) {
+        }
+    };
 
     private Runnable mHomeTimeUpdater = new Runnable() {
         @Override
@@ -188,12 +213,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (mScale == 0) {
             mScale = res.getDisplayMetrics().density;
             CONTROLS_ANIMATE_WIDTH *= mScale;
-            CONTROLS_MARGIN_RIGHT *= mScale;
         }
         mHideString = res.getString(R.string.hide_controls);
         mShowString = res.getString(R.string.show_controls);
         mControlsParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        mControlsParams.rightMargin = CONTROLS_MARGIN_RIGHT;
 
         mIsMultipane =
                 (res.getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
@@ -504,8 +527,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mMiniMonth.setTranslationX(controlsOffset);
         mCalendarsList.setTranslationX(controlsOffset);
         mHomeTime.setTranslationX(controlsOffset);
-        mControlsParams.width = Math.max(
-                0, CONTROLS_ANIMATE_WIDTH - controlsOffset - mControlsParams.rightMargin);
+        mControlsParams.width = Math.max(0, CONTROLS_ANIMATE_WIDTH - controlsOffset);
         mMiniMonthContainer.setLayoutParams(mControlsParams);
     }
 
@@ -528,6 +550,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (!force && mCurrentView == viewType) {
             return;
         }
+
+        // Remove this when transition to and from month view looks fine.
+        boolean doTransition = viewType != ViewType.MONTH && mCurrentView != ViewType.MONTH;
 
         if (viewType != mCurrentView) {
             // The rules for this previous view are different than the
@@ -570,6 +595,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (ft == null) {
             doCommit = true;
             ft = getFragmentManager().beginTransaction();
+        }
+
+        if (doTransition) {
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         }
 
         ft.replace(viewId, frag);
@@ -654,21 +683,39 @@ public class AllInOneActivity extends Activity implements EventHandler,
             }
             if (event.viewType == ViewType.MONTH) {
                 // hide minimonth and calendar frag
-                mMiniMonth.setVisibility(View.GONE);
-                mCalendarsList.setVisibility(View.GONE);
-                mMiniMonthContainer.setVisibility(View.GONE);
+                mShowSideViews = false;
                 if (mControlsMenu != null) {
                     mControlsMenu.setVisible(false);
                     mControlsMenu.setEnabled(false);
+
+                    final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
+                            "controlsOffset", 0, CONTROLS_ANIMATE_WIDTH);
+                    slideAnimation.addListener(mSlideAnimationDoneListener);
+                    slideAnimation.setDuration(220);
+                    ObjectAnimator.setFrameDelay(0);
+                    slideAnimation.start();
+                } else {
+                    mMiniMonth.setVisibility(View.GONE);
+                    mCalendarsList.setVisibility(View.GONE);
+                    mMiniMonthContainer.setVisibility(View.GONE);
                 }
             } else {
                 // show minimonth and calendar frag
+                mShowSideViews = true;
                 mMiniMonth.setVisibility(View.VISIBLE);
                 mCalendarsList.setVisibility(View.VISIBLE);
                 mMiniMonthContainer.setVisibility(View.VISIBLE);
                 if (mControlsMenu != null) {
                     mControlsMenu.setVisible(true);
                     mControlsMenu.setEnabled(true);
+
+                    if (mController.getPreviousViewType() == ViewType.MONTH) {
+                        final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
+                                "controlsOffset", CONTROLS_ANIMATE_WIDTH, 0);
+                        slideAnimation.setDuration(220);
+                        ObjectAnimator.setFrameDelay(0);
+                        slideAnimation.start();
+                    }
                 }
             }
         } else if (event.eventType == EventType.VIEW_EVENT) {
