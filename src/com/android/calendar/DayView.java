@@ -3598,25 +3598,27 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private void doFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         cancelAnimation();
 
-        mTouchMode = TOUCH_MODE_INITIAL_STATE;
         mSelectionMode = SELECTION_HIDDEN;
         mOnFlingCalled = true;
-        int deltaX = (int) e2.getX() - (int) e1.getX();
-        int distanceX = Math.abs(deltaX);
-        int deltaY = (int) e2.getY() - (int) e1.getY();
-        int distanceY = Math.abs(deltaY);
-        if (DEBUG) Log.d(TAG, "doFling: deltaX " + deltaX
-                         + ", HORIZONTAL_FLING_THRESHOLD " + HORIZONTAL_FLING_THRESHOLD);
 
-        if ((distanceX >= HORIZONTAL_FLING_THRESHOLD) && (distanceX > distanceY)) {
+        if ((mTouchMode & TOUCH_MODE_HSCROLL) != 0) {
             // Horizontal fling.
             // initNextView(deltaX);
+            mTouchMode = TOUCH_MODE_INITIAL_STATE;
+            if (DEBUG) Log.d(TAG, "doFling: velocityX " + velocityX);
+            int deltaX = (int) e2.getX() - (int) e1.getX();
             switchViews(deltaX < 0, mViewStartX, mViewWidth, velocityX);
             mViewStartX = 0;
             return;
         }
 
+        if ((mTouchMode & TOUCH_MODE_VSCROLL) == 0) {
+            if (DEBUG) Log.d(TAG, "doFling: no fling");
+            return;
+        }
+
         // Vertical fling.
+        mTouchMode = TOUCH_MODE_INITIAL_STATE;
         mViewStartX = 0;
 
         if (DEBUG) {
