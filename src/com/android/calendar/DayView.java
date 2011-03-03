@@ -112,6 +112,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int MIN_Y_SPAN = 100;
 
     private boolean mOnFlingCalled;
+    private boolean mStartingScroll = false;
     /**
      * ID of the last event which was displayed with the toast popup.
      *
@@ -506,6 +507,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private boolean mScrolling = false;
 
+    private float mInitialScrollX;
+    private float mInitialScrollY;
 
     // Animates the height of the allday region
     ObjectAnimator mAlldayAnimator;
@@ -1408,7 +1411,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             Time end = new Time(date);
             end.monthDay += mNumDays - 1;
-            Log.d(TAG, "onKeyDown");
             mController.sendEvent(this, EventType.GO_TO, date, end, -1, ViewType.CURRENT);
             return true;
         }
@@ -3528,12 +3530,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private void doScroll(MotionEvent e1, MotionEvent e2, float deltaX, float deltaY) {
         cancelAnimation();
+        if (mStartingScroll) {
+            mInitialScrollX = 0;
+            mInitialScrollY = 0;
+            mStartingScroll = false;
+        }
 
-        // Use the distance from the current point to the initial touch instead
-        // of deltaX and deltaY to avoid accumulating floating-point rounding
-        // errors. Also, we don't need floats, we can use ints.
-        int distanceX = (int) e1.getX() - (int) e2.getX();
-        int distanceY = (int) e1.getY() - (int) e2.getY();
+        mInitialScrollX += deltaX;
+        mInitialScrollY += deltaY;
+        int distanceX = (int) mInitialScrollX;
+        int distanceY = (int) mInitialScrollY;
 
         // If we haven't figured out the predominant scroll direction yet,
         // then do it now.
@@ -3720,6 +3726,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     // ScaleGestureDetector.OnScaleGestureListener
     public void onScaleEnd(ScaleGestureDetector detector) {
+        mScrollStartY = mViewStartY;
+        mInitialScrollY = 0;
+        mInitialScrollX = 0;
         mStartingSpanY = 0;
     }
 
@@ -3736,6 +3745,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+                mStartingScroll = true;
                 if (DEBUG) Log.e(TAG, "ACTION_DOWN");
                 int bottom = mAlldayHeight + DAY_HEADER_HEIGHT + ALLDAY_TOP_MARGIN;
                 if (ev.getY() < bottom) {
@@ -3754,6 +3764,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             case MotionEvent.ACTION_UP:
                 if (DEBUG) Log.e(TAG, "ACTION_UP " + mHandleActionUp);
+                mStartingScroll = false;
                 mGestureDetector.onTouchEvent(ev);
                 if (!mHandleActionUp) {
                     mHandleActionUp = true;
@@ -3799,7 +3810,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 return true;
 
             default:
-                if (DEBUG) Log.e(TAG, "Not MotionEvent");
+                if (DEBUG) Log.e(TAG, "Not MotionEvent " + action);
                 if (mGestureDetector.onTouchEvent(ev)) {
                     return true;
                 }
