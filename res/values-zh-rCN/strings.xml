@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"输入电子邮件地址"</string>
     <string name="creating_event" msgid="5252306542761552414">"已创建活动"</string>
     <string name="saving_event" msgid="7716081507367732169">"已保存活动"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"正在载入日历"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"正在载入日历..."</string>
     <string name="alert_title" msgid="7869592820853066853">"日历通知"</string>
