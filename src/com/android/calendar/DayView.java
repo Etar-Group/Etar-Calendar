@@ -151,7 +151,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static final int ACCESS_LEVEL_EDIT = 2;
 
     private static int mHorizontalSnapBackThreshold = 128;
-    private static int HORIZONTAL_FLING_THRESHOLD = 75;
 
     private ContinueScroll mContinueScroll = new ContinueScroll();
 
@@ -551,8 +550,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT *= mScale;
                 MAX_UNEXPANDED_ALLDAY_HEIGHT *= mScale;
                 mAnimateDayEventHeight = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
-
-                HORIZONTAL_FLING_THRESHOLD *= mScale;
 
                 CURRENT_TIME_LINE_HEIGHT *= mScale;
                 CURRENT_TIME_LINE_BORDER_WIDTH *= mScale;
@@ -1526,6 +1523,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         @Override
         public void onAnimationEnd(Animation animation) {
+            DayView view = (DayView) mViewSwitcher.getCurrentView();
+            view.mViewStartX = 0;
+            view = (DayView) mViewSwitcher.getNextView();
+            view.mViewStartX = 0;
+
             if (mCounter == sCounter) {
                 mController.sendEvent(this, EventType.GO_TO, mStart, mEnd, null, -1,
                         ViewType.CURRENT, CalendarController.EXTRA_GOTO_DATE, null, null);
@@ -3541,9 +3543,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mScrollStartY = mViewStartY;
             mPreviousDirection = 0;
 
-            // If the x distance is at least twice the y distance, then lock
-            // the scroll horizontally. Otherwise scroll vertically.
-            if (absDistanceX >= 2 * absDistanceY) {
+            if (absDistanceX > absDistanceY) {
                 mTouchMode = TOUCH_MODE_HSCROLL;
                 mViewStartX = distanceX;
                 initNextView(-mViewStartX);
