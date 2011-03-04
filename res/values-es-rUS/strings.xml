@@ -82,7 +82,7 @@
     <string name="alert_title" msgid="7869592820853066853">"Notificaciones de calendario"</string>
     <string name="event_info_title" msgid="56024222340421620">"Ver evento"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invitación a la reunión"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"Para"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Hasta"</string>
     <string name="edit_event_from_label" msgid="174999102612666115">"De"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Todo el día"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Calendario"</string>
@@ -125,7 +125,7 @@
     <string name="monthly" msgid="4587116285383048586">"Mensual"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Anual"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mensual (el día <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly" msgid="8576208380302949002">"Anual (en <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"Anual (el <xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom" product="tablet" msgid="3784569535926286624">"Personalizado... (no se puede personalizar en el tablet)"</string>
     <string name="custom" product="default" msgid="3015205670911301856">"Personalizado (no se puede personalizar en el teléfono)"</string>
     <string name="modify_event" msgid="4501745557655992422">"Cambiar sólo este evento."</string>
