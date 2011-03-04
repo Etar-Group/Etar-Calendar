@@ -129,6 +129,10 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Inställning för kalendervy"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Inställningar för påminnelse"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Dölj avböjda händelser"</string>
+    <string name="preferences_week_start_day_title">Ställ in första dagen i veckan</string>
+    <string name="preferences_week_start_day_descrip">Starta om kalendern för att börja gälla.</string>
+    <string name="preferences_week_start_day_dialog">Veckan startar på</string>
+    <string name="preferences_week_start_day_default">2</string>
     <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Ställ in varningar och aviseringar"</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Varningar och aviseringar"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrera"</string>
