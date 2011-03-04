@@ -38,7 +38,6 @@ import java.util.HashMap;
 public class SelectCalendarsSyncAdapter extends BaseAdapter
         implements ListAdapter, CompoundButton.OnCheckedChangeListener {
     private static final String TAG = "SelCalsAdapter";
-    private static final int SELECTED_BOX_BORDER = 4;
     private static int COLOR_CHIP_SIZE = 30;
     private RectShape r = new RectShape();
 
@@ -46,7 +45,6 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
     private static final int LAYOUT = R.layout.calendar_sync_item;
     private CalendarRow[] mData;
     private HashMap<Long, CalendarRow> mChanges = new HashMap<Long, CalendarRow>();
-    private Cursor mCursor;
     private int mRowCount = 0;
 
     private int mIdColumn;
@@ -78,13 +76,11 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
 
     private void initData(Cursor c) {
         if (c == null) {
-            mCursor = c;
             mRowCount = 0;
             mData = null;
             return;
         }
 
-        mCursor = c;
         mIdColumn = c.getColumnIndexOrThrow(Calendars._ID);
         mNameColumn = c.getColumnIndexOrThrow(Calendars.DISPLAY_NAME);
         mColorColumn = c.getColumnIndexOrThrow(Calendars.COLOR);

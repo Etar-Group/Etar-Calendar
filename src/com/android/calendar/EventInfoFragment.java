@@ -704,7 +704,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(values).build());
 
         if (mHasAttendeeData) {
-            ContentProviderOperation.Builder b;
             // Insert the new attendees
             for (Attendee attendee : mAcceptedAttendees) {
                 addAttendee(
@@ -809,15 +808,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String location = mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION);
         String description = mEventCursor.getString(EVENT_INDEX_DESCRIPTION);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
-        String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
         mColor = mEventCursor.getInt(EVENT_INDEX_COLOR) & 0xbbffffff;
 
         view.findViewById(R.id.color).setBackgroundColor(mColor);
-
-        TextView title = mTitle;
-
-//        View divider = view.findViewById(R.id.divider);
-//        divider.getBackground().setColorFilter(mColor, PorterDuff.Mode.SRC_IN);
 
         // What
         if (eventName != null) {

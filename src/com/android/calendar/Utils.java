@@ -61,15 +61,8 @@ public class Utils {
     // exiting is identical to reverting
     public static final int DONE_EXIT = 1 << 0;
 
-    private static final int CLEAR_ALPHA_MASK = 0x00FFFFFF;
-    private static final int HIGH_ALPHA = 255 << 24;
-    private static final int MED_ALPHA = 180 << 24;
-    private static final int LOW_ALPHA = 150 << 24;
-
     protected static final String OPEN_EMAIL_MARKER = " <";
     protected static final String CLOSE_EMAIL_MARKER = ">";
-    /* The corner should be rounded on the top right and bottom right */
-    private static final float[] CORNERS = new float[] { 0, 0, 5, 5, 5, 5, 0, 0 };
 
     public static final String INTENT_KEY_DETAIL_VIEW = "DETAIL_VIEW";
     public static final String INTENT_KEY_VIEW_TYPE = "VIEW";

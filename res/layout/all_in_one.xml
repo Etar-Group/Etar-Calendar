@@ -49,7 +49,7 @@
             android:visibility="gone" />
 
     </LinearLayout>
-    
+
     <FrameLayout
         android:id="@+id/calendar_list"
         android:layout_alignParentBottom="true"

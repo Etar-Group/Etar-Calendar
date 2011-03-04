@@ -20,13 +20,11 @@ import android.app.Activity;
 import android.test.LaunchPerformanceBase;
 import android.os.Bundle;
 
-import java.util.Map;
-
 /**
  * Instrumentation class for Browser launch performance testing.
  */
 public class CalendarLaunchPerformance extends LaunchPerformanceBase {
- 
+
     public static final String LOG_TAG = "CalendarLaunchPerformance";
 
     public CalendarLaunchPerformance() {

@@ -71,9 +71,6 @@ public class SelectCalendarsSyncFragment extends ListFragment
     private static final int COLUMN_SELECTED = 5;
     private static final int COLUMN_SYNC_EVENTS = 6;
 
-    private static int mUpdateToken;
-    private static int mQueryToken;
-
     private TextView mSyncStatus;
     private Button mAccountsButton;
     private Account mAccount;

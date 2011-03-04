@@ -223,7 +223,6 @@ public class Event implements Cloneable {
         events.clear();
         try {
             Time local = new Time();
-            int count;
 
             local.set(start);
             int startDay = Time.getJulianDay(start, local.gmtoff);

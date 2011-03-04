@@ -72,7 +72,7 @@ public class SearchActivity extends Activity
     private EditEventFragment mEventInfoFragment;
 
     private long mCurrentEventId = -1;
-    
+
     private String mQuery;
 
     private DeleteEventHelper mDeleteEventHelper;
