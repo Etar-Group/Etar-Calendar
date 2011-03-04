@@ -20,12 +20,8 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 
 import android.app.Fragment;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.database.ContentObserver;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,36 +65,6 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
             String tz = Utils.getTimeZone(getActivity(), mTZUpdater);
             mSelectedDay.timezone = tz;
             mSelectedDay.normalize(true);
-        }
-    };
-
-    /**
-     * Listens for intent broadcasts
-     */
-    private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals(Intent.ACTION_TIME_CHANGED)
-                    || action.equals(Intent.ACTION_DATE_CHANGED)
-                    || action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                eventsChanged();
-            }
-        }
-    };
-
-    // Create an observer so that we can update the views whenever a
-    // Calendar event changes.
-    private ContentObserver mObserver = new ContentObserver(new Handler())
-    {
-        @Override
-        public boolean deliverSelfNotifications() {
-            return true;
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            eventsChanged();
         }
     };
 

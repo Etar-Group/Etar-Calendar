@@ -42,7 +42,6 @@ public class SelectCalendarsFragment extends Fragment
         implements AdapterView.OnItemClickListener, CalendarController.EventHandler {
 
     private static final String TAG = "Calendar";
-    private static final String EXPANDED_KEY = "is_expanded";
     private static final String IS_PRIMARY = "\"primary\"";
     private static final String SELECTION = Calendars.SYNC_EVENTS + "=?";
     private static final String[] SELECTION_ARGS = new String[] {"1"};
@@ -68,13 +67,10 @@ public class SelectCalendarsFragment extends Fragment
     private static int mQueryToken;
 
     private View mView = null;
-    private Cursor mCursor = null;
     private ListView mList;
     private SelectCalendarsSimpleAdapter mAdapter;
     private Activity mContext;
     private AsyncQueryService mService;
-    private Object[] mTempRow = new Object[PROJECTION.length];
-    private boolean mIsPaused = true;
 
     @Override
     public void onAttach(Activity activity) {
@@ -83,7 +79,6 @@ public class SelectCalendarsFragment extends Fragment
         mService = new AsyncQueryService(activity) {
             @Override
             protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
-                mCursor = cursor;
                 mAdapter.changeCursor(cursor);
             }
         };
@@ -98,7 +93,6 @@ public class SelectCalendarsFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        Activity activity = getActivity();
         mView = inflater.inflate(R.layout.select_calendars_fragment, null);
         mList = (ListView)mView.findViewById(R.id.list);
         mList.setDivider(null);
@@ -127,13 +121,6 @@ public class SelectCalendarsFragment extends Fragment
         mQueryToken = mService.getNextToken();
         mService.startQuery(mQueryToken, null, Calendars.CONTENT_URI, PROJECTION, SELECTION,
                 SELECTION_ARGS, Calendars._SYNC_ACCOUNT);
-        mIsPaused = false;
-    }
-
-    @Override
-    public void onPause() {
-        mIsPaused = true;
-        super.onPause();
     }
 
     /*

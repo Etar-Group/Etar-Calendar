@@ -639,7 +639,6 @@ public class EditEventHelper {
         // then we leave the DTSTART field alone.
         if (modifyWhich == MODIFY_ALL) {
             long oldStartMillis = originalModel.mStart;
-            long oldStartMillis2 = oldStartMillis;
             if (oldBegin != newBegin) {
                 // The user changed the start time of this event
                 long offset = newBegin - oldBegin;

@@ -19,7 +19,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@null">
-    
 
     <!-- This is a dummy view to make hiding/unhiding easier -->
     <View android:id="@+id/mini_month_container"
@@ -46,7 +45,7 @@
         android:gravity="right|bottom"
         style="@style/TextAppearance.Date_Range_Title"
         android:visibility="gone" />
-        
+
     <FrameLayout
         android:id="@+id/mini_month"
 
