@@ -148,4 +148,7 @@
     <item msgid="4552962311897985633">"Nunca"</item>
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Vibrar"</string>
+    <string name="preferences_week_start_day_title">Definir dia de início da semana</string>
+    <string name="preferences_week_start_day_descrip">Reiniciar Calendar para ter efeito.</string>
+    <string name="preferences_week_start_day_dialog">Semana começa em</string>
 </resources>
