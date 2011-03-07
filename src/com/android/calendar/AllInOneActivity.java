@@ -689,12 +689,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     mControlsMenu.setVisible(false);
                     mControlsMenu.setEnabled(false);
 
-                    final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
-                            "controlsOffset", 0, CONTROLS_ANIMATE_WIDTH);
-                    slideAnimation.addListener(mSlideAnimationDoneListener);
-                    slideAnimation.setDuration(220);
-                    ObjectAnimator.setFrameDelay(0);
-                    slideAnimation.start();
+                    if (!mHideControls) {
+                        final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
+                                "controlsOffset", 0, CONTROLS_ANIMATE_WIDTH);
+                        slideAnimation.addListener(mSlideAnimationDoneListener);
+                        slideAnimation.setDuration(220);
+                        ObjectAnimator.setFrameDelay(0);
+                        slideAnimation.start();
+                    }
                 } else {
                     mMiniMonth.setVisibility(View.GONE);
                     mCalendarsList.setVisibility(View.GONE);
@@ -709,8 +711,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 if (mControlsMenu != null) {
                     mControlsMenu.setVisible(true);
                     mControlsMenu.setEnabled(true);
-
-                    if (mController.getPreviousViewType() == ViewType.MONTH) {
+                    if (!mHideControls && mController.getPreviousViewType() == ViewType.MONTH) {
                         final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
                                 "controlsOffset", CONTROLS_ANIMATE_WIDTH, 0);
                         slideAnimation.setDuration(220);
