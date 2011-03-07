@@ -51,7 +51,7 @@
     <string name="event_view" msgid="7621353079385122317">"Ver evento"</string>
     <string name="event_create" msgid="6941040556709110617">"Nuevo evento"</string>
     <string name="event_edit" msgid="4006961928830064662">"Editar evento"</string>
-    <string name="event_delete" msgid="2386667193277770442">"Suprimir evento"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Eliminar evento"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hoy"</string>
     <string name="menu_select_calendars" msgid="6200145996783123958">"Calendarios"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Configuración"</string>
@@ -110,8 +110,8 @@
     <string name="num_events" msgid="3351672964607162257">"Cant. de eventos"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Detalles"</string>
     <string name="edit_label" msgid="8934331258435656534">"Editar"</string>
-    <string name="delete_label" msgid="874742811918030739">"Suprimir"</string>
-    <string name="delete_event_label" msgid="3738436215987360463">"Suprimir evento"</string>
+    <string name="delete_label" msgid="874742811918030739">"Eliminar"</string>
+    <string name="delete_event_label" msgid="3738436215987360463">"Eliminar evento"</string>
     <string name="save_label" msgid="2133599104834432589">"Finalizado"</string>
     <string name="discard_label" msgid="2394623883289782541">"Cancelar"</string>
     <string name="import_label" msgid="6993796574741477222">"Importar"</string>
@@ -132,7 +132,7 @@
     <string name="modify_all" msgid="7506579040966638538">"Cambiar todos los eventos en la serie."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Cambiar este y todos los eventos futuros."</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"Este evento se suprimirá."</string>
-    <string name="delete_title" msgid="5143743507524995383">"Suprimir"</string>
+    <string name="delete_title" msgid="5143743507524995383">"Eliminar"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Cambiar respuesta"</string>
     <string name="menu_general_preferences" msgid="4057784477122524106">"Preferencias generales"</string>
     <string name="menu_about_preferences" msgid="160474554936812478">"Acerca del calendario"</string>
