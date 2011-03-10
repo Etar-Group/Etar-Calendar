@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"공개여부"</string>
     <string name="reminders_label" msgid="8345054160145333166">"알림"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"캘린더 없음"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"일정을 추가하려면 먼저 기기에 하나 이상의 캘린더 계정을 추가해야 합니다. 계정을 추가하려면 \'계정 추가\'를 터치하세요. 계정을 방금 추가했다면 계정 동기화가 완료될 때까지 기다린 후 다시 시도하세요."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"일정을 추가하려면 기기에 하나 이상의 캘린더 계정을 추가하고 캘린더를 표시해야 합니다. 계정을 추가하려면 \'계정 추가\'를 터치합니다(계정을 추가한 지 얼마 되지 않은 경우 동기화가 완료될 때까지 기다렸다가 다시 시도하세요). 또는 취소를 터치하여 캘린더가 하나 이상 표시되는지 확인합니다."</string>
     <string name="add_account" msgid="1669072099756774952">"계정 추가"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"참석자 추가"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"캘린더"</string>

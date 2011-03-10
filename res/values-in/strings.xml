@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privasi"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Pengingat"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Tak ada kalender"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Sebelum dapat menambah acara, Anda harus menambah setidaknya satu akun Kalender ke perangkat. Sentuh \"Tambahkan akun\" untuk menambah akun. Atau, jika Anda baru menambahkan akun, tunggu sampai sinkronisasi selesai dan coba sekali lagi."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Sebelum dapat menambahkan acara, Anda harus menambahkan sedikitnya satu akun Kalender ke perangkat dan menjadikannya terlihat. Sentuh \"Tambahkan akun\" untuk menambahkan akun (jika Anda baru saja melakukannya, tunggu sampai program selesai menyinkronkan dan coba lagi). Atau sentuh Batal dan pastikan bahwa setidaknya satu kalender terlihat."</string>
     <string name="add_account" msgid="1669072099756774952">"Tambahkan akun"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Tambahkan tamu"</string>
     <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>

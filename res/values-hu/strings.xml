@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Adatvédelem"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Emlékeztetők"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nincs naptár"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Új esemény beírása előtt legalább egy Naptárfiókot meg kell adnia az eszközön. Ehhez érintse meg a \"Fiók hozzáadása\" lehetőséget. Ha most adott hozzá fiókot, várja meg a szinkronizálás végét és próbálja újra."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Esemény hozzáadása előtt legalább egy Google Naptár-bejegyzést kell hozzáadnia a készülékhez, és láthatóvá kell tennie a naptárat. Érintse meg a \"Fiók hozzáadása\" lehetőséget fiók hozzáadásához (ha épp most adott hozzá egy fiókot, akkor várja meg a szinkronizálás végét, majd próbálkozzon újra). Vagy érintse meg a Mégse lehetőséget, és bizonyosodjon meg, hogy legalább egy naptár látható."</string>
     <string name="add_account" msgid="1669072099756774952">"Fiók hozzáadása"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Résztvevők hozzáadása"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Naptár"</string>

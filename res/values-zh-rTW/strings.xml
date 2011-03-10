@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"隱私權"</string>
     <string name="reminders_label" msgid="8345054160145333166">"提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"無日曆"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"您的裝置至少要新增一個「日曆」帳戶，才能新增活動。輕觸 [新增帳戶] 即可新增帳戶；或者，如果您剛剛才新增帳戶，請等候同步處理完成，然後再試一次。"</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"您必須在裝置上至少新增一個「日曆」帳戶，並顯示一個日曆，才能新增活動。輕觸 [新增帳戶] 即可新增帳戶 (如果您剛剛新增帳戶，請稍候帳戶同步處理完成，然後再試一次)；或是輕觸 [取消]，並確認至少顯示一個日曆。"</string>
     <string name="add_account" msgid="1669072099756774952">"新增帳戶"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"新增邀請對象"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"日曆"</string>

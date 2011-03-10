@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"隐私"</string>
     <string name="reminders_label" msgid="8345054160145333166">"提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"无日历"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"必须在设备上至少添加一个 Google 日历帐户，才能添加活动。触摸“添加帐户”可以添加帐户。如果刚添加完帐户不久，请等待帐户完成同步，然后再重试。"</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"您必须在设备上至少添加一个“Google 日历”帐户并显示一个日历，然后才能添加活动。触摸“添加帐户”即可添加帐户（如果刚刚添加了帐户，请等待帐户完成同步，然后再重试）。或者触摸“取消”，并确保至少显示一个日历。"</string>
     <string name="add_account" msgid="1669072099756774952">"添加帐户"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"添加邀请对象"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"日历帐户"</string>

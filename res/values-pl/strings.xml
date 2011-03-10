@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Prywatność"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Przypomnienia"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Brak kalendarzy"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Przed dodaniem wydarzenia musisz dodać co najmniej jedno konto Kalendarza. Aby dodać konto, dotknij opcji „Dodaj konto”. Jeśli konto zostało dodane, poczekaj na zakończenie synchronizacji i spróbuj ponownie."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Zanim możliwe będzie dodawanie wydarzeń, należy dodać do urządzenia co najmniej jedno konto Kalendarza i ustawić kalendarz jako widoczny. Dotknij przycisku „Dodaj konto”, aby dodać konto (jeśli dodano konto przed chwilą, poczekaj na zakończenie synchronizacji i spróbuj ponownie). Możesz też dotknąć przycisku Anuluj i upewnić się, że co najmniej jeden kalendarz jest widoczny."</string>
     <string name="add_account" msgid="1669072099756774952">"Dodaj konto"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Dodaj gości"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalendarz"</string>

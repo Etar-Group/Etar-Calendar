@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Fortrolighed"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Påmindelser"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Der er ingen kalendere"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Før en begivenhed kan tilføjes, skal minimum én Kalender-konto føjes til enheden. Tryk på \"Tilføj konto\", og tilføj en konto. Hvis en konto lige er tilføjet, skal du vente, til synkroniseringen er færdig og prøve igen."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Før du kan tilføje en begivenhed, skal du føje mindst én Kalender-konto til enheden og gøre en kalender synlig. Tryk på \"Tilføj konto\" for at tilføje en konto (hvis du lige har tilføjet en konto, skal du vente, indtil den er synkroniseret, og prøve igen). Du kan også trykke på Annuller og kontrollere, at mindst én kalender vises."</string>
     <string name="add_account" msgid="1669072099756774952">"Tilføj konto"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Tilføj gæster"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>

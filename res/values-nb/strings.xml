@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Personvern"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Påminnelser"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Ingen kalendre"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Du må legge til minst én kalenderkonto ved å trykke på Legg til konto eller vente til eksisterende konto synkroniseres."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Før du kan legge til en aktivitet, må du legge til minst én kalenderkonto på enheten og gjøre en kalender synlig. Trykk på Legg til konto (hvis du allerede har lagt til en konto, venter du til eksisterende konto synkroniseres og prøver på nytt). Du kan også trykke på Avbryt og kontrollere at minst én kalender er synlig."</string>
     <string name="add_account" msgid="1669072099756774952">"Legg til konto"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Legg til gjester"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>

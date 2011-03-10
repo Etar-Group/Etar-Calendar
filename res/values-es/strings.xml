@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacidad"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Recordatorios"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No hay calendarios."</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Para añadir eventos, añade una cuenta de Calendar al dispositivo. Toca \"Añadir cuenta\" o espera a que termine la sincronización y vuelve a intentarlo."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Para añadir eventos, añade una cuenta de Calendar al dispositivo y haz visible un calendario. Toca Añadir cuenta (si acabas de añadir una cuenta, espera a que termine la sincronización y vuelve a intentarlo). También puedes tocar Cancelar y comprobar que al menos un calendario sea visible."</string>
     <string name="add_account" msgid="1669072099756774952">"Añadir cuenta"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Añadir invitados"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Calendario"</string>

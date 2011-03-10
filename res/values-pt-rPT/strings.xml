@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacidade"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Lembretes"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Sem calendários"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Antes de adicionar um evento, tem de adicionar, pelo menos, uma conta da Agenda ao dispositivo. Toque em “Adicionar conta” para adicionar uma conta. Ou, se tiver adicionado uma conta, aguarde que a respectiva sincronização esteja concluída e tente novamente."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Antes de poder adicionar um evento, precisa de adicionar pelo menos uma conta de calendário ao aparelho e tornar visível um calendário. Toque em \"Adicionar conta\" para adicionar uma conta (se acabou de adicionar uma conta, espere que acabe de sincronizar e tente novamente). Em alternativa, toque em Cancelar e certifique-se de que está visível pelo menos um calendário."</string>
     <string name="add_account" msgid="1669072099756774952">"Adicionar conta"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Adicionar convidados"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Calendário"</string>

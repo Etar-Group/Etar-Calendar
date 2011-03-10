@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacidad"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Recordatorios"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No hay calendarios"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Antes de agr. evento, agrega cta Calendar al disp. Toca \"Agr. cta\". Al agr. una cta, espera que se complete su sinc. y vuelve a int."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Antes de que puedas agregar un evento, debes agregar al menos una cuenta de Calendario al dispositivo y hacer visible un calendario. Toca \"Agregar cuenta\" para agregar una cuenta (si ya agregaste una cuenta, espera a que finalice la sincronización e intenta nuevamente). O toca Cancelar y asegúrate de que al menos se visualice un calendario."</string>
     <string name="add_account" msgid="1669072099756774952">"Agregar cuenta"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Agregar invitados"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Calendario"</string>

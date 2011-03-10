@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Bảo mật"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Lời nhắc"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Không có lịch"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Trước khi thêm s.kiện, bạn phải thêm ít nhất 1 t.k Lịch vào ĐT. Chạm \"Thêm t.k\" để thêm. Hoặc nếu bạn vừa thêm t.k, đợi h.tất đ.bộ hóa và thử lại."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Trước khi bạn có thể thêm sự kiện, bạn phải thêm ít nhất một tài khoản Lịch vào thiết bị và đặt lịch ở chế độ hiển thị. Chạm \"Thêm tài khoản\" để thêm tài khoản (nếu bạn chỉ thêm tài khoản, hãy đợi thiết bị hoàn tất việc đồng bộ hóa và thử lại). Hoặc chạm Hủy và đảm bảo rằng có ít nhất một lịch hiển thị."</string>
     <string name="add_account" msgid="1669072099756774952">"Thêm tài khoản"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Thêm khách"</string>
     <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Lịch"</string>

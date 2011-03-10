@@ -92,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privatnost"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Podsjetnici"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nema kalendara"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Prije dodavanja događaja, na uređaj morate dodati barem jedan račun Kalendara. Dodirnite \"Dodaj račun\" da biste ga dodali. Ili ako ste upravo dodali račun, pričekajte do završetka sinkronizacije i pokušajte ponovo."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Prije dodavanja događaja, na uređaj morate dodati barem jedan račun usluge Kalendar i prikazati kalendar. Dodirnite \"Dodaj račun\" za dodavanje računa (ako ste upravo dodali račun, pričekajte da završi sinkronizacija i pokušajte ponovo). Ili dodirnite Odustani i pazite da je prikazan barem jedan kalendar."</string>
     <string name="add_account" msgid="1669072099756774952">"Dodavanje računa"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Dodaj goste"</string>
     <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalendar"</string>
