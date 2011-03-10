@@ -16,14 +16,15 @@
 
 package com.android.calendar.widget;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
+import com.google.common.annotations.VisibleForTesting;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -31,6 +32,7 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentFilter.MalformedMimeTypeException;
 import android.content.Loader;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -271,6 +273,17 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             if (LOGD)
                 Log.d(TAG, "Querying for widget events...");
             IntentFilter filter = new IntentFilter();
+            filter.addAction(CalendarAppWidgetProvider.ACTION_CALENDAR_APPWIDGET_SCHEDULED_UPDATE);
+            filter.addDataScheme(ContentResolver.SCHEME_CONTENT);
+            filter.addDataAuthority(Calendar.AUTHORITY, null);
+            try {
+                filter.addDataType(CalendarAppWidgetProvider.APPWIDGET_DATA_TYPE);
+            } catch (MalformedMimeTypeException e) {
+                Log.e(TAG, e.getMessage());
+            }
+            mContext.registerReceiver(this, filter);
+
+            filter = new IntentFilter();
             filter.addAction(Intent.ACTION_PROVIDER_CHANGED);
             filter.addDataScheme(ContentResolver.SCHEME_CONTENT);
             filter.addDataAuthority(Calendar.AUTHORITY, null);
@@ -405,7 +418,29 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 triggerTime = now + UPDATE_TIME_NO_EVENTS;
             }
 
-            mHandler.postDelayed(mUpdateLoader, triggerTime - now);
+
+            final AlarmManager alertManager = (AlarmManager) mContext.getSystemService(
+                    Context.ALARM_SERVICE);
+            final PendingIntent pendingUpdate = CalendarAppWidgetProvider.getUpdateIntent(mContext);
+
+            alertManager.cancel(pendingUpdate);
+            alertManager.set(AlarmManager.RTC, triggerTime, pendingUpdate);
+            Log.d(TAG, "Scheduled next update at " + formatDebugTime(triggerTime, now));
+            Time time = new Time(Utils.getTimeZone(mContext, null));
+            time.setToNow();
+
+            if (time.normalize(true) != sLastUpdateTime) {
+                Time time2 = new Time(Utils.getTimeZone(mContext, null));
+                time2.set(sLastUpdateTime);
+                time2.normalize(true);
+                if (time.year != time2.year || time.yearDay != time2.yearDay) {
+                    final Intent updateIntent = new Intent(
+                            CalendarAppWidgetProvider.ACTION_CALENDAR_APPWIDGET_UPDATE);
+                    mContext.sendBroadcast(updateIntent);
+                }
+
+                sLastUpdateTime = time.toMillis(true);
+            }
 
             AppWidgetManager.getInstance(mContext).notifyAppWidgetViewDataChanged(
                     mAppWidgetId, R.id.events_list);
