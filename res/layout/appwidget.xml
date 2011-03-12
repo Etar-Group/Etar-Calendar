@@ -18,10 +18,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="7dip"
-    android:layout_marginBottom="18dip"
-    android:layout_marginLeft="12dip"
-    android:layout_marginRight="12dip"
+    android:layout_marginTop="3dip"
+    android:layout_marginBottom="14dip"
+    android:layout_marginLeft="8dip"
+    android:layout_marginRight="8dip"
+    android:paddingLeft="6dip"
+    android:paddingRight="6dip"
     android:orientation="vertical"
     android:background="@drawable/gradient_bg_cal_widget_holo"
     android:focusable="true"
@@ -32,9 +34,8 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="42dip"
-        android:layout_marginTop="5dip"
-        android:layout_marginLeft="5dip"
-        android:layout_marginRight="5dip"
+        android:layout_marginLeft="3dip"
+        android:layout_marginRight="3dip"
         android:paddingLeft="16dip"
         android:orientation="horizontal"
         android:background="@drawable/appwidget_header_selector">
@@ -94,8 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:layout_marginLeft="1dip"
-        android:layout_marginRight="4dip"
+        android:layout_marginRight="3dip"
         android:fadingEdge="none"
         android:divider="#00000000"
         android:dividerHeight="0dip"
@@ -108,10 +108,4 @@
         android:background="@drawable/list_div_top_btm_cal_widget_holo"
         android:focusable="false"
         android:clickable="false" />
-
-    <!--  Spacer -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="2dip"
-        android:background="#00000000"/>
 </LinearLayout>
