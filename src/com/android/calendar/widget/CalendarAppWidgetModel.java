@@ -266,6 +266,7 @@ class CalendarAppWidgetModel {
         }
 
         cursor.moveToPosition(-1);
+        String tz = Utils.getTimeZone(mContext, null);
         while (cursor.moveToNext()) {
             final int rowId = cursor.getPosition();
             final long eventId = cursor.getLong(CalendarAppWidgetService.INDEX_EVENT_ID);
@@ -283,8 +284,8 @@ class CalendarAppWidgetModel {
 
             // Adjust all-day times into local timezone
             if (allDay) {
-                start = Utils.convertUtcToLocal(recycle, start);
-                end = Utils.convertUtcToLocal(recycle, end);
+                start = Utils.convertAlldayUtcToLocal(recycle, start, tz);
+                end = Utils.convertAlldayUtcToLocal(recycle, end, tz);
             }
 
             if (LOGD) {

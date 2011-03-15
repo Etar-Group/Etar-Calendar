@@ -215,9 +215,17 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 views.setViewVisibility(R.id.color, View.VISIBLE);
                 views.setInt(R.id.color, "setBackgroundColor", eventInfo.color);
 
+                long start = eventInfo.start;
+                long end = eventInfo.end;
                 // An element in ListView.
+                if (eventInfo.allDay) {
+                    String tz = Utils.getTimeZone(mContext, null);
+                    Time recycle = new Time();
+                    start = Utils.convertAlldayLocalToUTC(recycle, start, tz);
+                    end = Utils.convertAlldayLocalToUTC(recycle, end, tz);
+                }
                 final Intent fillInIntent = CalendarAppWidgetProvider.getLaunchFillInIntent(
-                        eventInfo.id, eventInfo.start, eventInfo.end);
+                        eventInfo.id, start, end);
                 views.setOnClickFillInIntent(R.id.appwidget_row, fillInIntent);
                 return views;
             }
@@ -337,15 +345,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 final boolean allDay = event.allDay;
                 final long start;
                 final long end;
-                if (allDay) {
-                    // Adjust all-day times into local timezone
-                    final Time recycle = new Time();
-                    start = Utils.convertUtcToLocal(recycle, event.start);
-                    end = Utils.convertUtcToLocal(recycle, event.end);
-                } else {
-                    start = event.start;
-                    end = event.end;
-                }
+                start = event.start;
+                end = event.end;
 
                 // We want to update widget when we enter/exit time range of an event.
                 if (now < start) {

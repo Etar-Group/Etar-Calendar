@@ -38,7 +38,6 @@ import java.util.Calendar;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 public class Utils {
     private static final boolean DEBUG = true;
@@ -449,18 +448,30 @@ public class Utils {
     }
 
     /**
-     * Convert given UTC time into current local time.
+     * Convert given UTC time into current local time. This assumes it is for an
+     * allday event and will adjust the time to be on a midnight boundary.
      *
      * @param recycle Time object to recycle, otherwise null.
      * @param utcTime Time to convert, in UTC.
+     * @param tz The time zone to convert this time to.
      */
-    public static long convertUtcToLocal(Time recycle, long utcTime) {
+    public static long convertAlldayUtcToLocal(Time recycle, long utcTime, String tz) {
         if (recycle == null) {
             recycle = new Time();
         }
         recycle.timezone = Time.TIMEZONE_UTC;
         recycle.set(utcTime);
-        recycle.timezone = TimeZone.getDefault().getID();
+        recycle.timezone = tz;
+        return recycle.normalize(true);
+    }
+
+    public static long convertAlldayLocalToUTC(Time recycle, long localTime, String tz) {
+        if (recycle == null) {
+            recycle = new Time();
+        }
+        recycle.timezone = tz;
+        recycle.set(localTime);
+        recycle.timezone = Time.TIMEZONE_UTC;
         return recycle.normalize(true);
     }
 
