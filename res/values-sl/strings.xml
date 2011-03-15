@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"Vnesite e-poštne naslove"</string>
     <string name="creating_event" msgid="5252306542761552414">"Dogodek je ustvarjen"</string>
     <string name="saving_event" msgid="7716081507367732169">"Dogodek je shranjen"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"Nalaganje koledarjev"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Nalaganje koledarjev ..."</string>
     <string name="alert_title" msgid="7869592820853066853">"Obvestila koledarja"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Zasebnost"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Opomniki"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Ni koledarjev"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Preden dodate dogodek, morate napravi dodati vsaj en račun Google Koledarja. Dotaknite se izbire »Dodaj račun«. Če ste ga ravno dodali, počakajte na sinhronizacijo in poskusite znova."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Dogodka ne morete dodati, dokler v napravo ne dodate vsaj enega računa za Google Koledar in koledar nastavite, da je viden. Dotaknite se »Dodaj račun«, da dodate račun (če ste pravkar dodali račun, počakajte, da se konča sinhronizacija, in poskusite znova). Lahko se tudi dotaknete »Prekliči« in poskrbite, da je viden vsaj en koledar."</string>
     <string name="add_account" msgid="1669072099756774952">"Dodaj račun"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Dodaj goste"</string>
     <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Koledar"</string>

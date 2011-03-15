@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"Унесите адресе е-поште"</string>
     <string name="creating_event" msgid="5252306542761552414">"Догађај је направљен"</string>
     <string name="saving_event" msgid="7716081507367732169">"Догађај је сачуван"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"Учитавање календара"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Учитавање календара..."</string>
     <string name="alert_title" msgid="7869592820853066853">"Обавештења календара"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Приватност"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Подсетници"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Нема календара"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Пре додавања догађаја, потребно је да додате најмање један налог Календара у уређај. Додирните „Додај налог“ да бисте додали налог. Ако сте управо додали налог, сачекајте да заврши са синхронизацијом и покушајте поново."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Да бисте могли да додате догађај, морате да додате бар један налог за Календар на уређај и да учините календар видљивим. Додирните „Додај налог“ да бисте додали налог (уколико сте управо додали налог, сачекајте да заврши са синхронизацијом и покушајте поново) или додирните Откажи и уверите се да је бар један календар видљив."</string>
     <string name="add_account" msgid="1669072099756774952">"Додај налог"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Додај госте"</string>
     <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Календар"</string>

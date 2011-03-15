@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"メールアドレスを入力"</string>
     <string name="creating_event" msgid="5252306542761552414">"予定を作成しました"</string>
     <string name="saving_event" msgid="7716081507367732169">"予定を保存しました"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"カレンダーを読み込み中"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"カレンダーを読み込み中..."</string>
     <string name="alert_title" msgid="7869592820853066853">"カレンダーの通知"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"公開設定"</string>
     <string name="reminders_label" msgid="8345054160145333166">"通知"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"カレンダーがありません"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"予定を追加するには端末に最低1つのカレンダーアカウントが必要です。アカウントを追加するには[アカウントを追加]をタップします。アカウントを追加したばかりの場合は同期の完了を待って再試行してください。"</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"予定を追加するには、端末にカレンダーアカウントを追加してカレンダーを表示できるようにする必要があります。アカウントを追加するには[アカウントを追加]をタップします（アカウントを追加したばかりの場合は同期の完了を待って再試行してください）。または[キャンセル]をタップして、カレンダーが表示できるかどうかを確認してください。"</string>
     <string name="add_account" msgid="1669072099756774952">"アカウントを追加"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"ゲストを追加"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"カレンダー"</string>

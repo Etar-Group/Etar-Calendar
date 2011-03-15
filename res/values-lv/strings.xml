@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"Ievadiet e-pasta adreses"</string>
     <string name="creating_event" msgid="5252306542761552414">"Pasākums ir izveidots."</string>
     <string name="saving_event" msgid="7716081507367732169">"Pasākums ir saglabāts."</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"Notiek kalendāru ielāde"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Notiek kalendāru ielāde..."</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalendāra paziņojumi"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Konfidencialitāte"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Atgādinājumi"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nav kalendāru"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Lai pievienotu pasākumu, vispirms pievienojiet vismaz vienu kalendāra kontu — pieskarieties Pievienot kontu. Ja tikko pievienojāt kontu, pēc sinhronizācijas pabeigšanas mēģiniet vēlreiz."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Lai pievienotu pasākumu, vispirms pievienojiet ierīcei vismaz vienu kalendāra kontu un padariet kalendāru redzamu. Lai pievienotu kontu, pieskarieties Pievienot kontu (ja tikko pievienojāt kontu, pēc sinhronizācijas pabeigšanas mēģiniet vēlreiz). Vai pieskarieties Atcelt un nodrošiniet, ka ir redzams vismaz viens kalendārs."</string>
     <string name="add_account" msgid="1669072099756774952">"Pievienot kontu"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Pievienot viesus"</string>
     <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalendārs"</string>

@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"Skriv inn e-postadresser"</string>
     <string name="creating_event" msgid="5252306542761552414">"Aktiviteten er opprettet"</string>
     <string name="saving_event" msgid="7716081507367732169">"Aktiviteten er lagret"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"Laster kalendre"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Laster kalendre…"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalendervarslinger"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Personvern"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Påminnelser"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Ingen kalendre"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Du må legge til minst én kalenderkonto ved å trykke på Legg til konto eller vente til eksisterende konto synkroniseres."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Før du kan legge til en aktivitet, må du legge til minst én kalenderkonto på enheten og gjøre en kalender synlig. Trykk på Legg til konto (hvis du allerede har lagt til en konto, venter du til eksisterende konto synkroniseres og prøver på nytt). Du kan også trykke på Avbryt og kontrollere at minst én kalender er synlig."</string>
     <string name="add_account" msgid="1669072099756774952">"Legg til konto"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Legg til gjester"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>

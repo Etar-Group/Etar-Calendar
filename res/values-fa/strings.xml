@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"آدرس ایمیل را وارد کنید"</string>
     <string name="creating_event" msgid="5252306542761552414">"رویداد ایجاد شد"</string>
     <string name="saving_event" msgid="7716081507367732169">"رویداد ذخیره شده"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"بارگیری تقویم ها"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"در حال بارگیری تقویم ها..."</string>
     <string name="alert_title" msgid="7869592820853066853">"اعلان های تقویم"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"رازداری"</string>
     <string name="reminders_label" msgid="8345054160145333166">"یادآورها"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"تقویمی موجود نیست"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"قبل از اینکه بتوانید رویدادی را اضافه کنید، باید حداقل یک حساب تقویم به دستگاه اضافه کنید. برای افرودن حساب، \"افزودن حساب\" را لمس کنید. یا اگر به تازگی حسابی اضافه کرده اید، صبر کنید تا همگام سازی تمام شود و دوباره امتحان کنید."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"قبل از اینکه بتوانید رویدادی را اضافه کنید، باید حداقل یک حساب تقویم را به دستگاه خود اضافه کنید و یک تقویم را قابل رؤیت کنید. برای افزودن یک حساب، \"افزودن حساب\" را لمس کنید (اگر اکنون یک حساب را اضافه کردید، تا پایان همگام سازی آن منتظر بمانید و دوباره سعی کنید). یا لغو را لمس کنید و مطمئن شوید که حداقل یک تقویم قابل رؤیت است."</string>
     <string name="add_account" msgid="1669072099756774952">"افزودن حساب"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"افزودن میهمان"</string>
     <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"تقویم"</string>

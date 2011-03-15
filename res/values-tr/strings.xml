@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"E-posta adreslerini girin"</string>
     <string name="creating_event" msgid="5252306542761552414">"Etkinlik oluşturuldu"</string>
     <string name="saving_event" msgid="7716081507367732169">"Etkinlik kaydedildi"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"Takvimler yükleniyor"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Takvimler yükleniyor..."</string>
     <string name="alert_title" msgid="7869592820853066853">"Takvim bildirimleri"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Gizlilik"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Hatırlatıcılar"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Takvim yok"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Bir etkinlik eklemeden önce, cihaza en az bir Takvim hesabı eklemelisiniz. Hesap eklemek için \"Hesap ekle\"ye dokunun. Hesabı yeni eklediyseniz, senkronizasyonu tamamlanmasını bekleyin ve tekrar deneyin."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Bir etkinlik ekleyebilmeniz için öncelikle cihaza en az bir tane Takvim hesabı eklemeli ve bir takvimi görünür duruma getirmelisiniz. Hesap eklemek için \"Hesap ekle\" düğmesine dokunun (hesabı yeni eklediyseniz, senkronizasyonun bitmesini bekleyin ve tekrar deneyin). Veya İptal\'e dokunun ve en az bir takvimin görünür durumda olduğundan emin olun."</string>
     <string name="add_account" msgid="1669072099756774952">"Hesap ekle"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Davetli ekle"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Takvim"</string>

@@ -159,7 +159,7 @@
     <item msgid="7564374178324652137">"último"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item msgid="3654955385120106241">"(No responde)"</item>
+    <item msgid="3654955385120106241">"(Sin respuesta)"</item>
     <item msgid="3724434080904437698">"Sí"</item>
     <item msgid="8854145743148992583">"Quizás"</item>
     <item msgid="6174292185978948873">"No"</item>

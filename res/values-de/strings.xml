@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"E-Mail-Adressen hier eingeben"</string>
     <string name="creating_event" msgid="5252306542761552414">"Termin erstellt"</string>
     <string name="saving_event" msgid="7716081507367732169">"Termin gespeichert"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"Kalender werden geladen."</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Kalender werden geladen..."</string>
     <string name="alert_title" msgid="7869592820853066853">"Benachrichtigungen"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Datenschutz"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Erinnerungen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Keine Kalender"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Bevor Sie einen Termin hinzufügen, müssen Sie mindestens ein Google Kalender-Konto auf dem Gerät hinzufügen. Berühren Sie hierzu \"Konto hinzufügen\" oder, wenn Sie gerade ein Konto hinzugefügt haben, warten Sie, bis die Synchronisierung abgeschlossen ist, und versuchen Sie es erneut."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Bevor Sie einen Termin hinzufügen können, müssen Sie zunächst ein Google Kalender-Konto auf dem Gerät hinzufügen und einen Kalender anzeigen. Tippen Sie auf \"Konto hinzufügen\", um ein Konto hinzuzufügen. Wenn Sie gerade ein Konto hinzugefügt haben, warten Sie, bis die Synchronisierung abgeschlossen ist und wiederholen Sie dann den Vorgang. Sie können auch auf \"Abbrechen\" tippen und sicherstellen, dass mindestens ein Kalender sichtbar ist."</string>
     <string name="add_account" msgid="1669072099756774952">"Konto hinzufügen"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Gäste hinzufügen"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>

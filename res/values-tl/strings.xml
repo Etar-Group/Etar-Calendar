@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"Magpasok ng mga email address"</string>
     <string name="creating_event" msgid="5252306542761552414">"Nalikha ang kaganapan"</string>
     <string name="saving_event" msgid="7716081507367732169">"Na-save ang kaganapan"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"Naglo-load ng mga kalendaryo"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Naglo-load ng mga kalendaryo..."</string>
     <string name="alert_title" msgid="7869592820853066853">"Mga notifcation sa kalendaryo"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Mga Paalala"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Walang mga kalendaryo"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Bago idagdag kaganapan,dapat ka dagdag account ng Kalendaryo sa device. Pindutin \"Magdagdag ng account\" para dagdag account. O kung nadagdag ka ng account, hintay matapos sync at ulitin."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Bago ka makapagdagdag ng kaganapan, dapat ka munang magdagdag ng hindi bababa sa isang Calendar account sa device at gawing nakikita ang isang kalendaryo. Pindutin ang \"Magdagdag ng account\" upang magdagdag ng account (kung nagdagdag ka lang ng account, hintayin itong matapos ang pag-sync at subukang muli). O pindutin ang Kanselahin at tiyakin na nakikita ang hindi bababa sa isang kalendaryo."</string>
     <string name="add_account" msgid="1669072099756774952">"Magdagdag ng account"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Magdagdag ng mga bisita"</string>
     <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalendaryo"</string>

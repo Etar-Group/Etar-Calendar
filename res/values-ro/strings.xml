@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"Introduceţi adresele de e-mail"</string>
     <string name="creating_event" msgid="5252306542761552414">"Eveniment creat"</string>
     <string name="saving_event" msgid="7716081507367732169">"Eveniment salvat"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"Calendarele se încarcă"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Calendarele se încarcă..."</string>
     <string name="alert_title" msgid="7869592820853066853">"Notificările calendarului"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Confidenţialitate"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Mementouri"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Niciun calendar"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Înainte de a putea adăuga un eveniment, trebuie să adăugaţi pe dispozitiv cel puţin un cont Calendar. Atingeţi „Adăugaţi un cont” pentru a adăuga un cont sau, dacă tocmai aţi adăugat unul, aşteptaţi finalizarea sincronizării şi încercaţi din nou."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Înainte de a adăuga un eveniment, trebuie să adăugaţi cel puţin un cont Google Calendar pe acest dispozitiv şi să faceţi calendarul vizibil. Atingeţi „Adăugaţi un cont”, pentru a adăuga un cont (dacă aţi adăugat deja unul, aşteptaţi finalizarea sincronizării şi încercaţi din nou) sau atingeţi Anulaţi şi asiguraţi-vă că este vizibil cel puţin un calendar."</string>
     <string name="add_account" msgid="1669072099756774952">"Adăugaţi un cont"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Adăugaţi invitaţi"</string>
     <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Calendar"</string>

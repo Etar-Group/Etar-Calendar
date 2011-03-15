@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"Angiv e-mail-adresser"</string>
     <string name="creating_event" msgid="5252306542761552414">"Begivenheden er oprettet"</string>
     <string name="saving_event" msgid="7716081507367732169">"Begivenheden er gemt"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"Indlæser kalendere"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Indlæser kalendere ..."</string>
     <string name="alert_title" msgid="7869592820853066853">"Meddelelser fra Kalender"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Fortrolighed"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Påmindelser"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Der er ingen kalendere"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Før en begivenhed kan tilføjes, skal minimum én Kalender-konto føjes til enheden. Tryk på \"Tilføj konto\", og tilføj en konto. Hvis en konto lige er tilføjet, skal du vente, til synkroniseringen er færdig og prøve igen."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Før du kan tilføje en begivenhed, skal du føje mindst én Kalender-konto til enheden og gøre en kalender synlig. Tryk på \"Tilføj konto\" for at tilføje en konto (hvis du lige har tilføjet en konto, skal du vente, indtil den er synkroniseret, og prøve igen). Du kan også trykke på Annuller og kontrollere, at mindst én kalender vises."</string>
     <string name="add_account" msgid="1669072099756774952">"Tilføj konto"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Tilføj gæster"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>

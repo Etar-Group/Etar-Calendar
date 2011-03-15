@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"Zadajte e-mailové adresy"</string>
     <string name="creating_event" msgid="5252306542761552414">"Udalosť bola vytvorená"</string>
     <string name="saving_event" msgid="7716081507367732169">"Udalosť bola uložená"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"Prebieha načítavanie kalendárov"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Prebieha načítavanie kalendárov..."</string>
     <string name="alert_title" msgid="7869592820853066853">"Upozornenia v kalendári"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Ochrana osobných údajov"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Pripomienky"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Žiadne kalendáre"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Skôr ako bude možné pridať udalosti, musíte do zariadenia pridať aspoň jeden účet služby Kalendár. Ak chcete pridať účet, dotknite sa možnosti „Pridať účet“. Ak ste účet práve pridali, počkajte na jeho synchronizáciu a skúste to znova."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Skôr ako bude možné pridať udalosti, musíte do zariadenia pridať aspoň jeden účet služby Kalendár a nastaviť ho ako viditeľný. Ak chcete pridať účet, dotknite sa možnosti „Pridať účet“ (ak ste účet práve pridali, počkajte na dokončenie jeho synchronizácie a skúste to znova). Alebo sa môžete dotknúť možnosti Zrušiť a zaistiť tak, aby bol viditeľný aspoň jeden kalendár."</string>
     <string name="add_account" msgid="1669072099756774952">"Pridať účet"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Pridať hostí"</string>
     <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalendár"</string>

@@ -73,6 +73,10 @@
     <string name="hint_attendees" msgid="6367757073203911244">"Kirjoita sähköpostiosoitteet"</string>
     <string name="creating_event" msgid="5252306542761552414">"Tapahtuma luotu"</string>
     <string name="saving_event" msgid="7716081507367732169">"Tapahtuma tallennettu"</string>
+    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
+    <skip />
     <string name="loading_calendars_title" msgid="3819254313413902272">"Ladataan kalentereita"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Ladataan kalentereita…"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalenteri-ilmoitukset"</string>
@@ -88,7 +92,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Tietosuoja"</string>
     <string name="reminders_label" msgid="8345054160145333166">"Muistutukset"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Ei kalentereita"</string>
-    <!-- outdated translation 5042711454063991636 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Ennen kuin voit lisätä tapahtuman, sinun täytyy lisätä laitteeseen vähintään yksi Kalenteritili. Lisää tili koskettamalla Lisää tili. Jos olet juuri lisännyt tilin, odota, että sen synkronointi on valmis ja yritä uudelleen."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Ennen tapahtuman lisäämistä sinun tulee lisätä laitteeseen vähintään yksi kalenteritili ja asettaa kalenteri näkyville. Lisää tili koskettamalla Lisää tili (jos lisäsit tilin äskettäin, odota, että se synkronoidaan, ja yritä uudelleen), tai kosketa Peruuta ja varmista, että vähintään yksi kalenteri on näkyvillä."</string>
     <string name="add_account" msgid="1669072099756774952">"Lisää tili"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Lisää osallistujia"</string>
     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalenteri"</string>
