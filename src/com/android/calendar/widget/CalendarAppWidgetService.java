@@ -245,6 +245,9 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         @Override
         public long getItemId(int position) {
+            if (mModel.mRowInfos.isEmpty()) {
+                return 0;
+            }
             RowInfo rowInfo = mModel.mRowInfos.get(position);
             if (rowInfo.mType == RowInfo.TYPE_DAY) {
                 return rowInfo.mIndex;
