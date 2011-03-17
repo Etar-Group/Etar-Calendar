@@ -73,10 +73,8 @@
     <string name="hint_attendees" msgid="6367757073203911244">"Saisir les adresses e-mail"</string>
     <string name="creating_event" msgid="5252306542761552414">"Événement créé"</string>
     <string name="saving_event" msgid="7716081507367732169">"Événement enregistré"</string>
-    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
-    <skip />
-    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
-    <skip />
+    <string name="creating_event_with_guest" msgid="608830786504021732">"Les invitations ont été envoyées."</string>
+    <string name="saving_event_with_guest" msgid="6177245412801310483">"Les mises à jour ont été envoyées."</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"Chargement des agendas"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"Chargement des agendas..."</string>
     <string name="alert_title" msgid="7869592820853066853">"Notifications de l\'agenda"</string>

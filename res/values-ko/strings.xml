@@ -73,10 +73,8 @@
     <string name="hint_attendees" msgid="6367757073203911244">"이메일 주소 입력"</string>
     <string name="creating_event" msgid="5252306542761552414">"일정을 만들었습니다."</string>
     <string name="saving_event" msgid="7716081507367732169">"일정을 저장했습니다."</string>
-    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
-    <skip />
-    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
-    <skip />
+    <string name="creating_event_with_guest" msgid="608830786504021732">"초대장을 보냈습니다."</string>
+    <string name="saving_event_with_guest" msgid="6177245412801310483">"업데이트를 보냈습니다."</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"캘린더 로드 중"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"캘린더 로드 중..."</string>
     <string name="alert_title" msgid="7869592820853066853">"캘린더 알림"</string>

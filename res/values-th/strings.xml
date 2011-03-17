@@ -73,10 +73,8 @@
     <string name="hint_attendees" msgid="6367757073203911244">"ป้อนที่อยู่อีเมล"</string>
     <string name="creating_event" msgid="5252306542761552414">"สร้างกิจกรรมแล้ว"</string>
     <string name="saving_event" msgid="7716081507367732169">"บันทึกกิจกรรมแล้ว"</string>
-    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
-    <skip />
-    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
-    <skip />
+    <string name="creating_event_with_guest" msgid="608830786504021732">"ส่งคำเชิญแล้ว"</string>
+    <string name="saving_event_with_guest" msgid="6177245412801310483">"ส่งการอัปเดตแล้ว"</string>
     <string name="loading_calendars_title" msgid="3819254313413902272">"กำลังโหลดปฏิทิน"</string>
     <string name="loading_calendars_message" msgid="8266077515011438420">"กำลังโหลดปฏิทิน..."</string>
     <string name="alert_title" msgid="7869592820853066853">"การแจ้งเตือนของปฏิทิน"</string>
