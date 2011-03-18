@@ -78,7 +78,7 @@
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Tot el dia"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Calendari"</string>
     <string name="edit_event_show_extra_options" msgid="2325854287823989650">"Mostra les opcions addicionals"</string>
-    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Oculta les opcions addicionals"</string>
+    <string name="edit_event_hide_extra_options" msgid="4019082307326855513">"Amaga les opcions addicionals"</string>
     <string name="edit_event_show_all" msgid="6107214899021208078">"Mostra-ho tot &gt;"</string>
     <string name="description_label" msgid="7193475046717505855">"Descripció"</string>
     <string name="presence_label" msgid="6169724148441175862">"Mostra\'m com a"</string>
@@ -128,12 +128,12 @@
     <string name="preferences_title" msgid="8045855493262131773">"Configuració"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Configuració de la visualització del calendari"</string>
     <string name="preferences_alerts_title" msgid="6511227171114210908">"Configuració de recordatoris"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Oculta els esdeveniments rebutjats"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Amaga els esdeveniments rebutjats"</string>
     <string name="preferences_alerts_type_title" msgid="6934441966757833908">"Defineix les alertes i les notificacions"</string>
     <string name="preferences_alerts_type_dialog" msgid="2195667763429994271">"Alertes i notificacions"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibra"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Vibra també per als recordatoris"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Selecció del so de trucada"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Selecció del to"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Temps de recordatori predeterminat"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Temps de recordatori predeterminat"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
