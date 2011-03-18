@@ -137,9 +137,9 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Imposta promem. pred."</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Imposta promem. pred."</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usa fuso orario casa"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Mostra calendari e orari di eventi nel fuso orario casa in viaggio"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Fuso orario casa"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usa fuso orario di casa"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Mostra calendari e orari nel fuso orario di casa quando sono in viaggio"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Fuso orario di casa"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Informazioni"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versione build"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">

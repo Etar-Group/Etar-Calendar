@@ -50,7 +50,7 @@
     <item msgid="5458958644945369505">"Bogotá"</item>
     <item msgid="355450740949670294">"Hora del este"</item>
     <item msgid="5786717434693228701">"Venezuela"</item>
-    <item msgid="165048018515834952">"Hora atlántica"</item>
+    <item msgid="165048018515834952">"Hora del Atlántico"</item>
     <item msgid="5398045998666341917">"Manaus"</item>
     <item msgid="8167627904199889197">"Santiago"</item>
     <item msgid="2793058279461039833">"Terranova"</item>
@@ -58,7 +58,7 @@
     <item msgid="7862856378699038344">"Buenos Aires"</item>
     <item msgid="7307349572838946177">"Groenlandia"</item>
     <item msgid="2287491943472924232">"Montevideo"</item>
-    <item msgid="6337125611768317903">"Medio Atlántico"</item>
+    <item msgid="6337125611768317903">"Atlántico Central"</item>
     <item msgid="1083966762112959704">"Azores"</item>
     <item msgid="3208435599095023369">"Islas de Cabo Verde"</item>
     <item msgid="8380333624463354109">"Casablanca"</item>
@@ -171,7 +171,7 @@
   </string-array>
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"Sólo este evento"</item>
-    <item msgid="8626755531271570950">"Este y eventos futuros"</item>
+    <item msgid="8626755531271570950">"Este evento y eventos futuros"</item>
     <item msgid="7833229563617435430">"Todos los eventos"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
