@@ -100,8 +100,21 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             if (event != null) {
                 Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                intent.putExtra(Calendar.EVENT_BEGIN_TIME, event.begin);
-                intent.putExtra(Calendar.EVENT_END_TIME, event.end);
+                long begin = event.begin;
+                long end = event.end;
+                if (event.allday) {
+                    String tz = Utils.getTimeZone(mContext, null);
+                    Time time = new Time(tz);
+                    time.set(begin);
+                    time.timezone = Time.TIMEZONE_UTC;
+                    begin = time.toMillis(true /* use isDst */);
+                    time.timezone = tz;
+                    time.set(end);
+                    time.timezone = Time.TIMEZONE_UTC;
+                    end = time.toMillis(true);
+                }
+                intent.putExtra(Calendar.EVENT_BEGIN_TIME, begin);
+                intent.putExtra(Calendar.EVENT_END_TIME, end);
                 mAgendaActivity.startActivity(intent);
             }
         }
