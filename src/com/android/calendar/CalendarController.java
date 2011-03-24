@@ -88,6 +88,13 @@ public class CalendarController {
 
     private AsyncQueryService mService;
 
+    private Runnable mUpdateTimezone = new Runnable() {
+        @Override
+        public void run() {
+            mTime.switchTimezone(Utils.getTimeZone(mContext, this));
+        }
+    };
+
     /**
      * One of the event types that are sent to or from the controller
      */
@@ -205,6 +212,7 @@ public class CalendarController {
 
     private CalendarController(Context context) {
         mContext = context;
+        mUpdateTimezone.run();
         mTime.setToNow();
         mDetailViewType = Utils.getSharedPreference(mContext,
                 GeneralPreferences.KEY_DETAILED_VIEW,
@@ -245,15 +253,15 @@ public class CalendarController {
             info.viewType = ViewType.CURRENT;
         }
         info.id = eventId;
-        info.startTime = new Time();
+        info.startTime = new Time(Utils.getTimeZone(mContext, mUpdateTimezone));
         info.startTime.set(startMillis);
         if (selectedMillis != -1) {
-            info.selectedTime = new Time();
+            info.selectedTime = new Time(Utils.getTimeZone(mContext, mUpdateTimezone));
             info.selectedTime.set(selectedMillis);
         } else {
             info.selectedTime = info.startTime;
         }
-        info.endTime = new Time();
+        info.endTime = new Time(Utils.getTimeZone(mContext, mUpdateTimezone));
         info.endTime.set(endMillis);
         info.x = x;
         info.y = y;
