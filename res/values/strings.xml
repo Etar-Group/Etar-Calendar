@@ -370,7 +370,7 @@
     <string name="preferences_week_start_day_title">Set week start day</string>
     <string name="preferences_week_start_day_descrip">Restart Calendar to take effect.</string>
     <string name="preferences_week_start_day_dialog">Week starts on</string>
-    <string name="preferences_week_start_day_default">1</string>
+    <string name="preferences_week_start_day_default" translatable="false">1</string>
 
     <!-- Settings option to bring up a dialog that lets the user choose how
          reminder notifications should occur. -->
@@ -379,7 +379,7 @@
          reminder notifications should occur. -->
     <string name="preferences_alerts_type_dialog">Alerts &amp; notifications</string>
     <!-- DO NOT TRANSLATE -->
-    <string name="preferences_alerts_type_default">1</string>
+    <string name="preferences_alerts_type_default" translatable="false">1</string>
     <!-- Settings dialog label that specifies when the phone should vibrate -->
     <string name="preferences_alerts_vibrateWhen_title">Vibrate</string>
     <!-- Settings screen, setting summary text -->
@@ -400,7 +400,7 @@
     <!-- Settings title for selecting a 'home' time zone to display Calendar in [CHAR LIMIT = 18] -->
     <string name="preferences_home_tz_title">Home time zone</string>
     <!-- DO NOT TRANSLATE -->
-    <string name="preferences_home_tz_default">America/Los_Angeles</string>
+    <string name="preferences_home_tz_default" translatable="false">America/Los_Angeles</string>
 
     <!-- This is the title of a section in the Settings screen for "About" this application -->
     <string name="preferences_about_title">About</string>
