@@ -151,10 +151,11 @@ public class CalendarEventModel implements Serializable {
 
         mTimezone = Utils.getTimeZone(context, null);
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
-        String defaultReminder = prefs.getString(GeneralPreferences.KEY_DEFAULT_REMINDER,
-                "0");
+
+        String defaultReminder = prefs.getString(
+                GeneralPreferences.KEY_DEFAULT_REMINDER, GeneralPreferences.NO_REMINDER_STRING);
         int defaultReminderMins = Integer.parseInt(defaultReminder);
-        if (defaultReminderMins != 0) {
+        if (defaultReminderMins != GeneralPreferences.NO_REMINDER) {
             mHasAlarm = true;
             mReminderMinutes.add(defaultReminderMins);
         }

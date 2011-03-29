@@ -960,19 +960,24 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         // Initialize the reminder values array.
         Resources r = mActivity.getResources();
-        String[] strings = r.getStringArray(R.array.reminder_minutes_values);
-        int size = strings.length;
-        ArrayList<Integer> list = new ArrayList<Integer>(size);
-        for (int i = 0; i < size; i++) {
-            list.add(Integer.parseInt(strings[i]));
+
+        if (mReminderValues == null) {
+          int[] vals = r.getIntArray(R.array.reminder_minutes_values);
+          int size = vals.length;
+          ArrayList<Integer> list = new ArrayList<Integer>(size);
+          for (int i = 0; i < size; i++) {
+            list.add(vals [i]);
+          }
+          mReminderValues = list;
         }
-        mReminderValues = list;
         String[] labels = r.getStringArray(R.array.reminder_minutes_labels);
         mReminderLabels = new ArrayList<String>(Arrays.asList(labels));
 
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(mActivity);
-        String durationString = prefs.getString(GeneralPreferences.KEY_DEFAULT_REMINDER, "0");
-        mDefaultReminderMinutes = Integer.parseInt(durationString);
+
+        String defaultReminderString = prefs.getString(
+                GeneralPreferences.KEY_DEFAULT_REMINDER, GeneralPreferences.NO_REMINDER_STRING);
+        mDefaultReminderMinutes = Integer.parseInt(defaultReminderString);
 
         int numReminders = 0;
         if (model.mHasAlarm) {
@@ -1338,9 +1343,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private void addReminder() {
         // TODO: when adding a new reminder, make it different from the
         // last one in the list (if any).
-        if (mDefaultReminderMinutes == 0) {
+        if (mDefaultReminderMinutes == GeneralPreferences.NO_REMINDER) {
             EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
-                    mReminderValues, mReminderLabels, 10 /* minutes */);
+                    mReminderValues, mReminderLabels, GeneralPreferences.REMINDER_DEFAULT_TIME);
         } else {
             EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
                     mReminderValues, mReminderLabels, mDefaultReminderMinutes);

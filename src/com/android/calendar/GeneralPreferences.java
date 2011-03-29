@@ -59,6 +59,9 @@ public class GeneralPreferences extends PreferenceFragment implements
     public static final String KEY_ALERTS_POPUP = "preferences_alerts_popup";
 
     public static final String KEY_DEFAULT_REMINDER = "preferences_default_reminder";
+    public static final int NO_REMINDER = -1;
+    public static final String NO_REMINDER_STRING = "-1";
+    public static final int REMINDER_DEFAULT_TIME = 10; // in minutes
 
     public static final String KEY_DEFAULT_CELL_HEIGHT = "preferences_default_cell_height";
 
