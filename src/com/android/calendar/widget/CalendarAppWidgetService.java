@@ -240,6 +240,9 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         public int getCount() {
             // if there are no events, we still return 1 to represent the "no
             // events" view
+            if (mModel == null) {
+                return 1;
+            }
             return Math.max(1, mModel.mRowInfos.size());
         }
 
