@@ -139,6 +139,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
     public MonthWeekEventsView(Context context) {
         super(context);
 
+        Resources resources = context.getResources();
+        TEXT_SIZE_MONTH_NUMBER = resources.getInteger(R.integer.text_size_month_number);
+
         mPadding = DEFAULT_EDGE_SPACING;
         if (mScale != 1 && !mScaled) {
             PADDING_MONTH_NUMBER *= mScale;

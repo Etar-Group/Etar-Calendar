@@ -24,6 +24,7 @@
     <View android:id="@+id/mini_month_container"
         android:layout_width="267dip"
         android:layout_height="0dip"
+        android:visibility="gone"
         android:layout_alignParentRight="true"/>
 
     <FrameLayout
@@ -48,7 +49,6 @@
 
     <FrameLayout
         android:id="@+id/mini_month"
-
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="25dip"

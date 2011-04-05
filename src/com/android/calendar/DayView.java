@@ -531,6 +531,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             ViewSwitcher viewSwitcher, EventLoader eventLoader, int numDays) {
         super(context);
         mResources = context.getResources();
+
+        MIN_HOURS_WIDTH = mResources.getInteger(R.integer.min_hours_width);
+        HOURS_LEFT_MARGIN = mResources.getInteger(R.integer.hours_left_margin);
+        HOURS_RIGHT_MARGIN = mResources.getInteger(R.integer.hours_right_margin);
+        HOURS_MARGIN = HOURS_LEFT_MARGIN + HOURS_RIGHT_MARGIN;
+        DATE_HEADER_FONT_SIZE = mResources.getInteger(R.integer.date_header_font_size);
+
         if (mScale == 0) {
             mScale = mResources.getDisplayMetrics().density;
             if (mScale != 1) {

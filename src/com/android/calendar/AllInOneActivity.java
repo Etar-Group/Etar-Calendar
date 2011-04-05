@@ -462,6 +462,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mSearchView.setIconifiedByDefault(true);
             mSearchView.setOnQueryTextListener(this);
             mSearchView.setSubmitButtonEnabled(true);
+            if (!mIsMultipane)
+                mSearchView.setVisibility(View.GONE);
         }
         mControlsMenu = menu.findItem(R.id.action_hide_controls);
         if (mControlsMenu != null && mController != null
