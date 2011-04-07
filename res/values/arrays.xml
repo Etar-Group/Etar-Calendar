@@ -17,6 +17,7 @@
 <resources>
     <!-- Choices for the "Reminder minutes" spinner.
          These must be kept in sync with the reminder_minutes_values array.
+         [CHAR LIMIT=15]
     -->
     <string-array name="reminder_minutes_labels">
         <item>0 minutes</item>
@@ -34,7 +35,7 @@
         <item>12 hours</item>
         <item>24 hours</item>
         <item>2 days</item>
-        <item>1 week</item>
+        <item>1 week</item>  
     </string-array>
 
     <integer-array name="reminder_minutes_values" translatable="false">
@@ -56,7 +57,11 @@
         <item>10080</item>
     </integer-array>
 
-    <string-array name="preferences_default_reminder_labels">
+  <!-- Choices for the "Reminder minutes" spinner in the settings.
+         These must be kept in sync with the preferences_default_reminder_values array.
+         [CHAR LIMIT=12]
+    -->
+       <string-array name="preferences_default_reminder_labels">
         <item>None</item>
         <item>0 minutes</item>
         <item>1 minute</item>
@@ -73,7 +78,7 @@
         <item>12 hours</item>
         <item>24 hours</item>
         <item>2 days</item>
-        <item>1 week</item>
+        <item>1 week</item> 
     </string-array>
 
     <string-array name="preferences_default_reminder_values" translatable="false">
