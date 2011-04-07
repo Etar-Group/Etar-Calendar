@@ -798,10 +798,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mStartTimeButton = (Button) view.findViewById(R.id.start_time);
         mEndTimeButton = (Button) view.findViewById(R.id.end_time);
         mTimezoneButton = (Button) view.findViewById(R.id.timezone_button);
-        mStartTimeHome = (TextView) view.findViewById(R.id.start_time_home);
-        mStartDateHome = (TextView) view.findViewById(R.id.start_date_home);
-        mEndTimeHome = (TextView) view.findViewById(R.id.end_time_home);
-        mEndDateHome = (TextView) view.findViewById(R.id.end_date_home);
+        mStartTimeHome = (TextView) view.findViewById(R.id.start_time_home_tz);
+        mStartDateHome = (TextView) view.findViewById(R.id.start_date_home_tz);
+        mEndTimeHome = (TextView) view.findViewById(R.id.end_time_home_tz);
+        mEndDateHome = (TextView) view.findViewById(R.id.end_date_home_tz);
         mAllDayCheckBox = (CheckBox) view.findViewById(R.id.is_all_day);
         mRepeatsSpinner = (Spinner) view.findViewById(R.id.repeats);
         mTransparencySpinner = (Spinner) view.findViewById(R.id.availability);
@@ -815,8 +815,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mAttendeesPane = view.findViewById(R.id.attendees_group);
         mLocationGroup = view.findViewById(R.id.where_row);
         mDescriptionGroup = view.findViewById(R.id.description_row);
-        mStartHomeGroup = view.findViewById(R.id.from_row_home);
-        mEndHomeGroup = view.findViewById(R.id.to_row_home);
+        mStartHomeGroup = view.findViewById(R.id.from_row_home_tz);
+        mEndHomeGroup = view.findViewById(R.id.to_row_home_tz);
 
         mTitleTextView.setTag(mTitleTextView.getBackground());
         mLocationTextView.setTag(mLocationTextView.getBackground());

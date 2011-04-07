@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 The Android Open Source Project
+<!-- Copyright (C) 2011 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,31 +14,23 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:stretchColumns="1"
+    android:shrinkColumns="1">
 
     <!-- RESPONSE -->
-    <LinearLayout
+    <TableRow
         android:id="@+id/response_row"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:focusable="true">
         <TextView
             android:id="@+id/response_label"
             android:text="@string/view_event_response_label"
             android:gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             style="@style/TextAppearance.EditEvent_Label" />
         <RadioGroup
             android:id="@+id/response_value"
             android:orientation="horizontal"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
             android:paddingTop="11dip">
             <RadioButton
                 android:id="@+id/response_yes"
@@ -68,40 +60,26 @@
                 style="@style/TextAppearance.EditEvent"
                 android:text="@string/response_no" />
         </RadioGroup>
-    </LinearLayout>
-    <LinearLayout
+    </TableRow>
+    <TableRow
         android:id="@+id/organizer_row"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:focusable="true">
         <TextView
             android:id="@+id/organizer_label"
             android:text="@string/view_event_organizer_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             style="@style/TextAppearance.EditEvent_Label" />
         <TextView
             android:id="@+id/organizer"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             style="@style/TextAppearance.EditEvent_Value" />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/add_attendees_row"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    </TableRow>
+    <TableRow
+        android:id="@+id/add_attendees_row">
         <TextView
             android:id="@+id/add_attendees_label"
             android:text="@string/add_guests_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             style="@style/TextAppearance.EditEvent_Label" />
         <LinearLayout
             android:id="@+id/add_attendees_group"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
             android:orientation="horizontal">
             <!-- ATTENDEES INPUT -->
             <MultiAutoCompleteTextView
@@ -123,28 +101,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-    </LinearLayout>
+    </TableRow>
 
     <!-- ATTENDEES -->
-    <LinearLayout
+    <TableRow
         android:id="@+id/attendees_row"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:focusable="true">
         <TextView
             android:text="@string/attendees_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             style="@style/TextAppearance.EditEvent_Label" />
 
         <!-- GUEST LIST -->
         <com.android.calendar.event.AttendeesView
             android:id="@+id/attendee_list"
             android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
             android:animateLayoutChanges="true">
         </com.android.calendar.event.AttendeesView>
-    </LinearLayout>
-</LinearLayout>
+    </TableRow>
+</TableLayout>
