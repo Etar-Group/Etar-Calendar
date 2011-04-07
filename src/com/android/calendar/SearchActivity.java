@@ -110,8 +110,13 @@ public class SearchActivity extends Activity
 
         mContentResolver = getContentResolver();
 
-        getActionBar().setDisplayOptions(
-                ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        if (mIsMultipane) {
+            getActionBar().setDisplayOptions(
+                    ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        } else {
+            getActionBar().setDisplayOptions(0,
+                    ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
+        }
 
         // Must be the first to register because this activity can modify the
         // list of event handlers in it's handle method. This affects who the

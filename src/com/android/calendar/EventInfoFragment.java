@@ -229,6 +229,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private boolean mDismissOnResume = false;
     private int mX = -1;
     private int mY = -1;
+    private static boolean mIsFullScreen = true;
 
     private class QueryHandler extends AsyncQueryService {
         public QueryHandler(Context context) {
@@ -330,6 +331,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
             int attendeeResponse) {
+
         if (mScale == 0) {
             mScale = context.getResources().getDisplayMetrics().density;
             if (mScale != 1) {
@@ -378,22 +380,31 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         a.width = DIALOG_WIDTH;
         a.height = DIALOG_HEIGHT;
 
-        if (mX != -1 || mY != -1) {
-            a.x = mX - a.width - 64;
-            if (a.x < 0) {
-                a.x = mX + 64;
-            }
-            a.y = mY - 64;
-            a.gravity = Gravity.LEFT | Gravity.TOP;
-        }
 
+        // On tablets , do smart positioning of dialog
+        // On phones , use the whole screen
+
+        if (!mIsFullScreen) {
+            if (mX != -1 || mY != -1) {
+                a.x = mX - a.width - 64;
+                if (a.x < 0) {
+                    a.x = mX + 64;
+                }
+                a.y = mY - 64;
+                a.gravity = Gravity.LEFT | Gravity.TOP;
+            }
+        } else {
+            a.width = WindowManager.LayoutParams.MATCH_PARENT;
+            a.height = WindowManager.LayoutParams.MATCH_PARENT;
+        }
         window.setAttributes(a);
     }
 
-    public void setDialogParams(int x, int y) {
+    public void setDialogParams(int x, int y, boolean isFullScreen) {
         mIsDialog = true;
         mX = x;
         mY = y;
+        mIsFullScreen = isFullScreen;
     }
 
     // Implements OnCheckedChangeListener

@@ -294,8 +294,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mMonthTab.setTabListener(this);
             mActionBar.addTab(mMonthTab);
             mActionBar.setCustomView(mDateRange);
-            mActionBar.setDisplayOptions(
-                    ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+            if (mIsMultipane) {
+                mActionBar.setDisplayOptions(
+                        ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+            } else mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         }
     }
 
@@ -730,7 +732,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 mController.sendEvent(this, EventType.GO_TO, event.selectedTime, event.selectedTime,
                         -1, ViewType.DETAIL);
             }
-            fragment.setDialogParams(event.x, event.y);
+            fragment.setDialogParams(event.x, event.y, !mIsMultipane);
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             // if we have an old popup close it
