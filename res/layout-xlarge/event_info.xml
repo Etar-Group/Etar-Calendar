@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2011 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#fafafa"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="12dip"
+    android:paddingLeft="16dip"
+    android:paddingRight="16dip"
+    android:divider="?android:attr/dividerHorizontal"
+    android:showDividers="middle">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:paddingRight="16dip"
+        android:orientation="horizontal">
+
+        <!-- CALENDAR COLOR -->
+        <View
+            android:id="@+id/color"
+            android:layout_width="10dip"
+            android:layout_height="10dip"
+            android:layout_gravity="top|left"
+            android:layout_marginTop="9dip"
+            android:layout_marginRight="6dip" />
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- WHAT -->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:textStyle="bold"
+                style="?android:attr/textAppearanceLarge" />
+
+            <!-- WHEN -->
+            <TextView
+                android:id="@+id/when"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dip"
+                style="?android:attr/textAppearanceMedium" />
+
+            <!-- REPEATS -->
+            <LinearLayout
+                android:id="@+id/repeat_container"
+                android:visibility="gone"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/repeat_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_repeat_dark"
+                    android:focusable="false"
+                    android:clickable="false" />
+                <TextView
+                    android:id="@+id/repeat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dip"
+                    style="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <!-- WHERE -->
+            <TextView
+                android:id="@+id/where"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                style="?android:attr/textAppearanceMedium" />
+
+            <!-- DESCRIPTION -->
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:layout_marginTop="13dip"
+                android:autoLink="all"
+                android:ellipsize="end"
+                style="?android:attr/textAppearanceMedium" />
+
+            <!-- CALENDAR -->
+            <TextView
+                android:id="@+id/calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dip"
+                android:singleLine="true"
+                style="?android:attr/textAppearanceMedium" />
+
+            <!-- GUEST LIST -->
+            <TextView
+                android:id="@+id/attendee_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dip"
+                android:maxLines="2"
+                android:ellipsize="end"
+                style="?android:attr/textAppearanceMedium" />
+
+            <!-- RESPONSE -->
+            <LinearLayout
+                android:id="@+id/response_container"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/response_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="4dip"
+                    android:textStyle="bold"
+                    style="?android:attr/textAppearanceMedium"
+                    android:text="@string/view_event_response_label" />
+                <RadioGroup
+                    android:id="@+id/response_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="-2dip"
+                    android:layout_marginBottom="13dip"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/response_yes"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minWidth="96dip"
+                        style="?android:attr/textAppearanceMedium"
+                        android:text="@string/response_yes" />
+                    <RadioButton
+                        android:id="@+id/response_maybe"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minWidth="96dip"
+                        style="?android:attr/textAppearanceMedium"
+                        android:text="@string/response_maybe" />
+                    <RadioButton
+                        android:id="@+id/response_no"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minWidth="96dip"
+                        style="?android:attr/textAppearanceMedium"
+                        android:text="@string/response_no" />
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- BUTTONS -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:gravity="center"
+        android:layout_marginBottom="4dip"
+        style="?android:attr/buttonBarStyle">
+        <Button
+            android:id="@+id/edit"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/edit_event_label" />
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/delete_label" />
+    </LinearLayout>
+</LinearLayout>
