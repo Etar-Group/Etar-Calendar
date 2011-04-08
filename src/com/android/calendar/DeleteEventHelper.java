@@ -347,6 +347,7 @@ public class DeleteEventHelper {
                 long calendarId = mModel.mCalendarId;
                 values.put(Events.EVENT_TIMEZONE, timezone);
                 values.put(Events.ALL_DAY, allDay ? 1 : 0);
+                values.put(Events.ORIGINAL_ALL_DAY, allDay ? 1 : 0);
                 values.put(Events.CALENDAR_ID, calendarId);
                 values.put(Events.DTSTART, mStartMillis);
                 values.put(Events.DTEND, mEndMillis);
