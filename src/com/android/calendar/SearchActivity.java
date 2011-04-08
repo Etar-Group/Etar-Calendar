@@ -97,9 +97,7 @@ public class SearchActivity extends Activity
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
 
-        mIsMultipane = (getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
-
+        mIsMultipane = Utils.isMultiPaneConfiguration (this);
         setContentView(R.layout.search);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);

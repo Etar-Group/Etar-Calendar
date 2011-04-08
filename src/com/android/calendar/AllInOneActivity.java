@@ -28,6 +28,7 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
+
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
@@ -110,8 +111,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private SearchView mSearchView;
     private MenuItem mControlsMenu;
 
-    private String mHideString = "Hide controls";
-    private String mShowString = "Show controls";
+    private String mHideString;
+    private String mShowString;
 
     // Params for animating the controls on the right
     private LayoutParams mControlsParams = new LayoutParams(CONTROLS_ANIMATE_WIDTH, 0);
@@ -218,8 +219,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mShowString = res.getString(R.string.show_controls);
         mControlsParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-        mIsMultipane =
-                (res.getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
+        mIsMultipane = Utils.isMultiPaneConfiguration (this);
 
         Utils.setAllowWeekForDetailView(mIsMultipane);
 
@@ -297,7 +297,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
             if (mIsMultipane) {
                 mActionBar.setDisplayOptions(
                         ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
-            } else mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            } else {
+                mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            }
         }
     }
 
@@ -467,13 +469,21 @@ public class AllInOneActivity extends Activity implements EventHandler,
             if (!mIsMultipane)
                 mSearchView.setVisibility(View.GONE);
         }
+
+        // Hide the "show/hide controls" button if this is a phone
+        // or the view type is "Month".
+
         mControlsMenu = menu.findItem(R.id.action_hide_controls);
-        if (mControlsMenu != null && mController != null
-                && mController.getViewType() == ViewType.MONTH) {
+        if (!mIsMultipane) {
+            if (mControlsMenu != null) {
+                mControlsMenu.setVisible(false);
+                mControlsMenu.setEnabled(false);
+            }
+        } else if (mControlsMenu != null && mController != null
+                    && mController.getViewType() == ViewType.MONTH) {
             mControlsMenu.setVisible(false);
             mControlsMenu.setEnabled(false);
         }
-
         return true;
     }
 

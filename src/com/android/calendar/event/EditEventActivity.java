@@ -23,6 +23,7 @@ import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -41,6 +42,8 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
 
+    private static boolean mIsMultipane;
+
     private FrameLayout mView;
     private EditEventFragment mEditFragment;
 
@@ -56,8 +59,17 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
         mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.edit_event);
 
-        getActionBar().setDisplayOptions(
+        mIsMultipane = Utils.isMultiPaneConfiguration (this);
+
+        if (mIsMultipane) {
+            getActionBar().setDisplayOptions(
                 ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        }
+        else {
+            getActionBar().setDisplayOptions(0,
+                    ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
+        }
+
 
         if (mEditFragment == null) {
             mEditFragment = new EditEventFragment(mEventInfo, false);
