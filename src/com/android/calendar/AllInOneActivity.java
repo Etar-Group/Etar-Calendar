@@ -108,6 +108,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private ActionBar.Tab mDayTab;
     private ActionBar.Tab mWeekTab;
     private ActionBar.Tab mMonthTab;
+    private ActionBar.Tab mAgendaTab;
     private SearchView mSearchView;
     private MenuItem mControlsMenu;
 
@@ -293,6 +294,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mMonthTab.setText(getString(R.string.month_view));
             mMonthTab.setTabListener(this);
             mActionBar.addTab(mMonthTab);
+            mAgendaTab = mActionBar.newTab();
+            mAgendaTab.setText(getString(R.string.agenda_view));
+            mAgendaTab.setTabListener(this);
+            mActionBar.addTab(mAgendaTab);
             mActionBar.setCustomView(mDateRange);
             if (mIsMultipane) {
                 mActionBar.setDisplayOptions(
@@ -581,6 +586,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         Fragment frag;
         switch (viewType) {
             case ViewType.AGENDA:
+                if (mActionBar != null && (mActionBar.getSelectedTab() != mAgendaTab)) {
+                    mActionBar.selectTab(mAgendaTab);
+                }
                 frag = new AgendaFragment(timeMillis);
                 break;
             case ViewType.DAY:
@@ -788,11 +796,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
         } else if (tab == mMonthTab && mCurrentView != ViewType.MONTH) {
             mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.MONTH);
+        } else if (tab == mAgendaTab && mCurrentView != ViewType.AGENDA) {
+            mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
         } else {
             Log.w(TAG, "TabSelected event from unknown tab: "
                     + (tab == null ? "null" : tab.getText()));
             Log.w(TAG, "CurrentView:" + mCurrentView + " Tab:" + tab.toString() + " Day:" + mDayTab
-                    + " Week:" + mWeekTab + " Month:" + mMonthTab);
+                    + " Week:" + mWeekTab + " Month:" + mMonthTab + " Agenda:" + mAgendaTab);
         }
     }
 
