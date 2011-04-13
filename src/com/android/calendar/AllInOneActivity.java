@@ -28,7 +28,6 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectCalendarsFragment;
 
-
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
@@ -96,6 +95,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private View mMiniMonth;
     private View mCalendarsList;
     private View mMiniMonthContainer;
+    private View mSecondaryPane;
     private String mTimeZone;
 
     private long mViewEventId = -1;
@@ -220,7 +220,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mShowString = res.getString(R.string.show_controls);
         mControlsParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-        mIsMultipane = Utils.isMultiPaneConfiguration (this);
+        mIsMultipane = Utils.isMultiPaneConfiguration(this);
 
         Utils.setAllowWeekForDetailView(mIsMultipane);
 
@@ -242,9 +242,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mMiniMonth = findViewById(R.id.mini_month);
         mCalendarsList = findViewById(R.id.calendar_list);
         mMiniMonthContainer = findViewById(R.id.mini_month_container);
+        mSecondaryPane = findViewById(R.id.secondary_pane);
 
         initFragments(timeMillis, viewType, icicle);
-
 
         // Listen for changes that would require this to be refreshed
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
@@ -261,7 +261,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             if (path.size() == 2 && path.get(0).equals("events")) {
                 try {
                     mViewEventId = Long.valueOf(data.getLastPathSegment());
-                    if(mViewEventId != -1) {
+                    if (mViewEventId != -1) {
                         mIntentEventStartMillis = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
                         mIntentEventEndMillis = intent.getLongExtra(EVENT_END_TIME, 0);
                         mIntentAttendeeResponse = intent.getIntExtra(
@@ -330,8 +330,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 selectedTime = currentMillis;
             }
             mController.sendEventRelatedEventWithResponse(this, EventType.VIEW_EVENT, mViewEventId,
-                    mIntentEventStartMillis, mIntentEventEndMillis, -1, -1, mIntentAttendeeResponse,
-                    selectedTime);
+                    mIntentEventStartMillis, mIntentEventEndMillis, -1, -1,
+                    mIntentAttendeeResponse, selectedTime);
             mViewEventId = -1;
             mIntentEventStartMillis = -1;
             mIntentEventEndMillis = -1;
@@ -440,7 +440,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
         } else {
             mPreviousView = viewType;
         }
+
         setMainPane(ft, R.id.main_pane, viewType, timeMillis, true);
+        if (!mIsMultipane && viewType == ViewType.MONTH) {
+            setAgendaPane(ft, R.id.secondary_pane, timeMillis);
+            mSecondaryPane.setVisibility(View.VISIBLE);
+        } else if (mSecondaryPane != null) {
+            mSecondaryPane.setVisibility(View.GONE);
+        }
 
         ft.commit(); // this needs to be after setMainPane()
 
@@ -559,6 +566,19 @@ public class AllInOneActivity extends Activity implements EventHandler,
             } else {
                 initFragments(mController.getTime(), mController.getViewType(), null);
             }
+        }
+    }
+
+    private void setAgendaPane(FragmentTransaction ft, int viewId, long timeMillis) {
+        boolean doCommit = false;
+        Fragment frag = new AgendaFragment(timeMillis);
+        if (ft == null) {
+            doCommit = true;
+            ft = getFragmentManager().beginTransaction();
+        }
+        ft.replace(viewId, frag);
+        if (doCommit) {
+            ft.commit();
         }
     }
 
@@ -702,6 +722,15 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 mSearchView.clearFocus();
             }
             if (!mIsMultipane) {
+
+                // show agenda view below main pane
+
+                if (event.viewType == ViewType.MONTH) {
+                    setAgendaPane(null, R.id.secondary_pane, event.startTime.toMillis(false));
+                    mSecondaryPane.setVisibility(View.VISIBLE);
+                } else {
+                    mSecondaryPane.setVisibility(View.GONE);
+                }
                 return;
             }
             if (event.viewType == ViewType.MONTH) {
