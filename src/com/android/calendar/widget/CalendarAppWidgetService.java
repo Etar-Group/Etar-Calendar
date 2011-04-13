@@ -160,8 +160,12 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         @Override
         public void onDestroy() {
-            mCursor.close();
-            mLoader.reset();
+            if (mCursor != null) {
+                mCursor.close();
+            }
+            if (mLoader != null) {
+                mLoader.reset();
+            }
             mContext.unregisterReceiver(this);
         }
 
@@ -248,7 +252,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         @Override
         public long getItemId(int position) {
-            if (mModel.mRowInfos.isEmpty()) {
+            if (mModel == null ||  mModel.mRowInfos.isEmpty()) {
                 return 0;
             }
             RowInfo rowInfo = mModel.mRowInfos.get(position);
