@@ -27,23 +27,12 @@
         android:visibility="gone"
         android:layout_alignParentRight="true"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <FrameLayout
+        android:id="@+id/main_pane"
+        android:layout_toLeftOf="@id/mini_month_container"
+        android:layout_alignParentLeft="true"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
-        <FrameLayout
-            android:id="@+id/main_pane"
-            android:layout_weight="6"
-            android:layout_height="match_parent"
-            android:layout_width="0dip" />
-
-        <FrameLayout
-            android:id="@+id/secondary_pane"
-            android:layout_weight="4"
-            android:visibility="gone"
-            android:layout_height="match_parent"
-            android:layout_width="0dip" />
-    </LinearLayout>
+        android:layout_width="match_parent" />
 
     <TextView
         android:id="@+id/home_time"

@@ -51,14 +51,14 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
     };
 
-    public AgendaListView(Context context, long instanceId) {
+    public AgendaListView(Context context, long instanceId, boolean showEventOnStart) {
         super(context, null);
         mContext = context;
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         setOnItemClickListener(this);
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         setVerticalScrollBarEnabled(false);
-        mWindowAdapter = new AgendaWindowAdapter(context, this);
+        mWindowAdapter = new AgendaWindowAdapter(context, this, showEventOnStart);
         mWindowAdapter.setSelectedInstanceId(instanceId);
         setAdapter(mWindowAdapter);
         setCacheColorHint(context.getResources().getColor(R.color.agenda_item_not_selected));
@@ -219,7 +219,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             }
         } else if (getSelectedItemPosition() >= 0) {
             if (DEBUG) {
-                Log.v(TAG, "Shifting selection from " + getSelectedItemPosition() + " by " + offset);
+                Log.v(TAG, "Shifting selection from " + getSelectedItemPosition() +
+                        " by " + offset);
             }
             setSelection(getSelectedItemPosition() + offset);
         }

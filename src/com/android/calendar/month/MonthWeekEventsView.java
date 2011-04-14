@@ -73,6 +73,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     private static int SPACING_WEEK_NUMBER = 19;
     private static boolean mScaled = false;
+    private boolean mIsMultipane;
 
     protected Time mToday = new Time();
     protected boolean mHasToday = false;
@@ -166,6 +167,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mPadding = (int) (DEFAULT_EDGE_SPACING * mScale);
             mScaled = true;
         }
+        mIsMultipane = Utils.isMultiPaneConfiguration (context);
     }
 
     public void setEvents(List<ArrayList<Event>> sortedEvents) {
@@ -275,7 +277,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
         drawBackground(canvas);
         drawWeekNums(canvas);
         drawDaySeparators(canvas);
-        drawEvents(canvas);
+        if (mIsMultipane) {
+            drawEvents(canvas);
+        }
     }
 
     @Override

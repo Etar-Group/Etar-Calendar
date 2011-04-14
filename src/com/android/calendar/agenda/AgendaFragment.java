@@ -98,7 +98,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             instanceId = savedInstanceState.getLong(BUNDLE_KEY_RESTORE_INSTANCE_ID);
         }
 
-        mAgendaListView = new AgendaListView(context, instanceId);
+        mAgendaListView = new AgendaListView(context, instanceId,
+                Utils.isMultiPaneConfiguration (context));
         mAgendaListView.goTo(mTime, mQuery, false);
         return mAgendaListView;
     }

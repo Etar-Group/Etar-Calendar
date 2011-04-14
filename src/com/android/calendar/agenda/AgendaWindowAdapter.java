@@ -167,6 +167,10 @@ public class AgendaWindowAdapter extends BaseAdapter {
     private StringBuilder mStringBuilder;
     private String mTimeZone;
 
+
+    // defines if to pop-up the current event when the agenda is first shown
+    private boolean mShowEventOnStart;
+
     private Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
@@ -281,7 +285,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
     }
 
     public AgendaWindowAdapter(Context context,
-            AgendaListView agendaListView) {
+            AgendaListView agendaListView, boolean showEventOnStart) {
         mContext = context;
         mResources = context.getResources();
         mSelectedAgendaItemColor = mResources.getColor(R.color.activated);
@@ -292,6 +296,8 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
+
+        mShowEventOnStart = showEventOnStart;
 
         mSearchQuery = null;
 
@@ -403,7 +409,8 @@ public class AgendaWindowAdapter extends BaseAdapter {
         if (yy instanceof AgendaAdapter.ViewHolder) {
             AgendaAdapter.ViewHolder vh = (AgendaAdapter.ViewHolder) yy;
             selected = mSelectedInstanceId == vh.instanceId;
-            vh.selectedMarker.setVisibility(selected ? View.VISIBLE : View.GONE);
+            vh.selectedMarker.setVisibility((selected && mShowEventOnStart) ?
+                    View.VISIBLE : View.GONE);
             if (selected) {
                 v.setBackgroundColor(mSelectedAgendaItemColor);
             }
@@ -779,8 +786,10 @@ public class AgendaWindowAdapter extends BaseAdapter {
                     mSelectedInstanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
 
                     EventInfo event = buildEventInfoFromCursor(cursor, false);
-                    CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
-                            EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0, -1);
+                    if (mShowEventOnStart) {
+                        CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
+                                EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0, -1);
+                    }
                 }
             } else {
                 cursor.close();
