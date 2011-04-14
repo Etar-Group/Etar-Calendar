@@ -537,6 +537,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         HOURS_RIGHT_MARGIN = mResources.getInteger(R.integer.hours_right_margin);
         HOURS_MARGIN = HOURS_LEFT_MARGIN + HOURS_RIGHT_MARGIN;
         DATE_HEADER_FONT_SIZE = mResources.getInteger(R.integer.date_header_font_size);
+        DAY_HEADER_HEIGHT = mResources.getInteger(R.integer.day_header_height);
 
         if (mScale == 0) {
             mScale = mResources.getDisplayMetrics().density;

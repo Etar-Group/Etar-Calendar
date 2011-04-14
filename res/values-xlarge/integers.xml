@@ -21,4 +21,6 @@
     <integer name="date_header_font_size">32</integer>
     <!-- size of day date font in month view  -->
     <integer name="text_size_month_number">32</integer>
+    <!-- size of day header in day and week views  -->
+    <integer name="day_header_height">45</integer>
 </resources>
