@@ -20,6 +20,7 @@ import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.R;
+import com.android.calendar.event.EventViewUtils;
 
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
@@ -1039,18 +1040,17 @@ public class EditEventHelperTest extends AndroidTestCase {
     @SmallTest
     public void testConstructReminderLabel() {
         mActivity = buildTestContext();
-        mHelper = new EditEventHelper(mActivity, null);
 
-        String label = mHelper.constructReminderLabel(35, true);
+        String label = EventViewUtils.constructReminderLabel(mActivity, 35, true);
         assertEquals(label, "35 mins");
 
-        label = mHelper.constructReminderLabel(72, false);
+        label = EventViewUtils.constructReminderLabel(mActivity, 72, false);
         assertEquals(label, "72 minutes");
 
-        label = mHelper.constructReminderLabel(60, true);
+        label = EventViewUtils.constructReminderLabel(mActivity, 60, true);
         assertEquals(label, "1 hours");
 
-        label = mHelper.constructReminderLabel(60 * 48, true);
+        label = EventViewUtils.constructReminderLabel(mActivity, 60 * 48, true);
         assertEquals(label, "2 days");
     }
 

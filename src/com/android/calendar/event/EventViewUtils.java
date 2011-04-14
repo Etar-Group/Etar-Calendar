@@ -92,9 +92,10 @@ public class EventViewUtils {
         return reminderMinutes;
     }
 
-    // Checks our list of minute value-label pairs and adds any custom times
-    // this event
-    // might contain.
+    /**
+     * Checks our list of minute value-label pairs and adds any custom times
+     * this event might contain.
+     */
     public static void addMinutesToList(Context context, ArrayList<Integer> values,
             ArrayList<String> labels, int minutes) {
         int index = values.indexOf(minutes);
@@ -119,9 +120,11 @@ public class EventViewUtils {
         labels.add(len, label);
     }
 
-    // Adds a reminder to the displayed list of reminders.
-    // Returns true if successfully added reminder, false if no reminders can
-    // be added.
+    /**
+     * Adds a reminder to the displayed list of reminders.
+     * Returns true if successfully added reminder, false if no reminders can
+     * be added.
+     */
     public static boolean addReminder(Activity activity, View view, View.OnClickListener listener,
             ArrayList<LinearLayout> items, ArrayList<Integer> values, ArrayList<String> labels,
             int minutes) {
