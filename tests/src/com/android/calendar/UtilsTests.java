@@ -16,11 +16,14 @@
 
 package com.android.calendar;
 
+import com.android.calendar.Utils.BusyBitsSegment;
+
 import android.database.MatrixCursor;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Smoke;
 import android.text.format.Time;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import junit.framework.TestCase;
@@ -123,5 +126,90 @@ public class UtilsTests extends TestCase {
         Integer int1 = new Integer(1);
         Integer int2 = new Integer(1);
         assertTrue(Utils.equals(int1, int2));
+    }
+
+    @Smoke
+    @SmallTest
+    public void testCreateBusyBitSegments() {
+
+        ArrayList<Event> events = new ArrayList<Event>();
+
+        // Test cases that should return null
+        assertEquals(null, Utils.createBusyBitSegments(10, 30, 100, 200, events));
+        assertEquals(null, Utils.createBusyBitSegments(10, 30, 100, 200, null));
+
+        Event e1 = new Event();
+        e1.startTime = 100;
+        e1.endTime = 130;
+        e1.allDay = false;
+        Event e2 = new Event();
+        e1.startTime = 1000;
+        e1.endTime = 1030;
+        e2.allDay = false;
+        events.add(e1);
+        events.add(e2);
+        assertEquals(null, Utils.createBusyBitSegments(30, 10, 100, 200, events));
+        assertEquals(null, Utils.createBusyBitSegments(10, 30, 200, 100, events));
+        assertEquals(0, Utils.createBusyBitSegments(10, 30, 500, 900, events).size());
+
+        // Test special cases (events that are only partially in the processed
+        // time span,
+        // zero time events and all day events).
+
+        events.clear();
+        e1.startTime = 100;
+        e1.endTime = 300;
+        e1.allDay = false;
+        e2.startTime = 1100;
+        e2.endTime = 1300;
+        e2.allDay = false;
+        Event e3 = new Event();
+        e3.startTime = 500;
+        e3.endTime = 600;
+        e3.allDay = true;
+        Event e4 = new Event();
+        e4.startTime = 700;
+        e4.endTime = 700;
+        e4.allDay = false;
+        events.add(e1);
+        events.add(e2);
+        events.add(e3);
+        events.add(e4);
+        ArrayList<BusyBitsSegment> segments = new ArrayList<BusyBitsSegment>();
+        BusyBitsSegment s1 = new BusyBitsSegment(0, 10);
+        BusyBitsSegment s2 = new BusyBitsSegment(90, 100);
+        segments.add(s1);
+        segments.add(s2);
+        assertEquals(segments, Utils.createBusyBitSegments(0, 100, 200, 1200, events));
+
+        // Test interleaved events
+
+        events.clear();
+        e1.startTime = 100;
+        e1.endTime = 130;
+        e1.allDay = false;
+        e2.startTime = 110;
+        e2.endTime = 200;
+        e2.allDay = false;
+        e3.startTime = 200;
+        e3.endTime = 300;
+        e3.allDay = false;
+        e4.startTime = 500;
+        e4.endTime = 700;
+        e4.allDay = false;
+        events.add(e1);
+        events.add(e2);
+        events.add(e3);
+        events.add(e4);
+
+        segments.clear();
+        s1.start = 100;
+        s1.end = 120;
+        s2.start = 140;
+        s2.end = 160;
+        segments.add(s1);
+        segments.add(s2);
+        ArrayList<BusyBitsSegment> results = Utils.createBusyBitSegments(100, 180, 100, 900, events);
+        assertEquals(segments, results);
     }
 }

@@ -35,8 +35,10 @@ import android.text.format.Time;
 import android.util.CalendarUtils.TimeZoneUtils;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Formatter;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -524,5 +526,116 @@ public class Utils {
 
     public static boolean getConfigBool(Context c, int key) {
         return c.getResources().getBoolean(key);
+    }
+
+
+    // Helper class for createBusyBitSegments function
+
+    public static class BusyBitsSegment {
+        public int start, end;
+
+        BusyBitsSegment(int s, int e) {
+            start = s;
+            end = e;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + end;
+            result = prime * result + start;
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            BusyBitsSegment other = (BusyBitsSegment) obj;
+            if (end != other.end) {
+                return false;
+            }
+            if (start != other.start) {
+                return false;
+            }
+            return true;
+        }
+    }
+
+    // Converts a list of events to a list of busy segments to draw
+    // Assumes list is ordered according to start date
+
+    public static ArrayList<BusyBitsSegment> createBusyBitSegments(int pStart, int pEnd,
+            int startTime, int endTime,
+            ArrayList<Event> events) {
+
+        if (events == null || events.size() == 0 || pStart >= pEnd || startTime >= endTime)
+            return null;
+
+        ArrayList<BusyBitsSegment> segments = new ArrayList<BusyBitsSegment>();
+        int start = -1;
+        int end = -1;
+        int timeFrame = endTime - startTime;
+        int pSize = pEnd - pStart;
+
+        // Iterate on events and create segments
+        Iterator<Event> iter = events.iterator();
+        while (iter.hasNext()) {
+            Event event = iter.next();
+
+            int eStart = event.startTime;
+            int eEnd = event.endTime;
+
+            // skip all day events, events that are not in the time frame and
+            // events that are zero length
+            if (event.allDay || eStart >= endTime || eEnd <= startTime || eStart == eEnd) {
+                continue;
+            }
+
+            if (eStart < startTime) {
+                eStart = startTime;
+            }
+            if (eEnd > endTime) {
+                eEnd = endTime;
+            }
+
+            // first event , just take the values as the initial segment size
+            if (start == -1 && end == -1) {
+                start = eStart;
+                end = eEnd;
+                continue;
+            }
+
+            // combine event with current segment
+            if (eStart <= end) {
+                if (eEnd > end) {
+                    end = eEnd;
+                }
+            } else {
+                // Push current segment to segment list and create a new segment
+                BusyBitsSegment s = new BusyBitsSegment(
+                        (start - startTime) * pSize / timeFrame + pStart,
+                        (end - startTime) * pSize / timeFrame + pStart);
+                segments.add(s);
+                start = eStart;
+                end = eEnd;
+            }
+        }
+
+        if (start != end) {
+            BusyBitsSegment s = new BusyBitsSegment(
+                    (start - startTime) * pSize / timeFrame + pStart,
+                    (end - startTime) * pSize / timeFrame + pStart);
+            segments.add(s);
+        }
+        return segments;
     }
 }
