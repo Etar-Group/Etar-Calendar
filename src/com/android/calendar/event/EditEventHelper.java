@@ -713,33 +713,6 @@ public class EditEventHelper {
         ops.add(b.build());
     }
 
-    // Constructs a label given an arbitrary number of minutes. For example,
-    // if the given minutes is 63, then this returns the string "63 minutes".
-    // As another example, if the given minutes is 120, then this returns
-    // "2 hours".
-    public String constructReminderLabel(int minutes, boolean abbrev) {
-        Resources resources = mContext.getResources();
-        int value, resId;
-
-        if (minutes % 60 != 0) {
-            value = minutes;
-            if (abbrev) {
-                resId = R.plurals.Nmins;
-            } else {
-                resId = R.plurals.Nminutes;
-            }
-        } else if (minutes % (24 * 60) != 0) {
-            value = minutes / 60;
-            resId = R.plurals.Nhours;
-        } else {
-            value = minutes / (24 * 60);
-            resId = R.plurals.Ndays;
-        }
-
-        String format = resources.getQuantityString(resId, value);
-        return String.format(format, value);
-    }
-
     /**
      * Compares two models to ensure that they refer to the same event. This is
      * a safety check to make sure an updated event model refers to the same

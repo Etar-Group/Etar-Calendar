@@ -184,7 +184,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
                                 .startQuery(TOKEN_REMINDERS, null, rUri,
                                         EditEventHelper.REMINDERS_PROJECTION,
                                         EditEventHelper.REMINDERS_WHERE /* selection */,
-                                        remArgs /* selection args */, null /* sort order */);
+                                        remArgs /* selection args */,
+                                        Reminders.MINUTES + " DESC" /* sort order */);
                     } else {
                         setModelIfDone(TOKEN_REMINDERS);
                     }
@@ -628,6 +629,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     && (EditEventHelper.canRespond(mModel)
                             || EditEventHelper.canModifyEvent(mModel))
                     && !isEmptyNewEvent()
+                    && mModel.normalizeReminders()
                     && !mModel.isUnchanged(mOriginalModel)
                     && mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
                 int stringResource;

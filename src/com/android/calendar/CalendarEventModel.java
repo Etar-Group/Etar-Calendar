@@ -23,9 +23,11 @@ import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.TimeZone;
 
@@ -35,6 +37,8 @@ import java.util.TimeZone;
  * the events table. Only fields that are important to the UI are included.
  */
 public class CalendarEventModel implements Serializable {
+    private static final String TAG = "CalendarEventModel";
+
     public static class Attendee implements Serializable {
         @Override
         public int hashCode() {
@@ -614,6 +618,29 @@ public class CalendarEventModel implements Serializable {
 
         if (mVisibility != originalModel.mVisibility) {
             return false;
+        }
+        return true;
+    }
+
+    /**
+     * Sort and uniquify mReminderMinutes.
+     *
+     * @return true
+     */
+    public boolean normalizeReminders() {
+        if (mReminderMinutes.size() == 0) return true;  // empty
+
+        Integer[] sorted = mReminderMinutes.toArray(new Integer[0]);
+        Arrays.sort(sorted);                            // sort ascending
+
+        // clear the list, then repopulate in descending order with duplicates removed
+        mReminderMinutes.clear();
+        int prev = sorted[sorted.length - 1] + 1;       // guarantee mismatch on first iteration
+        for (int i = sorted.length - 1; i >= 0; --i) {
+            if (sorted[i] != prev) {
+                mReminderMinutes.add(sorted[i]);
+            }
+            prev = sorted[i];
         }
         return true;
     }
