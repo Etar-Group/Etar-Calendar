@@ -33,8 +33,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Calendar.Events;
+import android.util.Base64;
+import android.util.Log;
 
 public class GoogleCalendarUriIntentFilter extends Activity {
+    private static final String TAG = "GoogleCalendarUriIntentFilter";
+
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_START = 1;
     private static final int EVENT_INDEX_END = 2;
@@ -45,6 +49,36 @@ public class GoogleCalendarUriIntentFilter extends Activity {
         Events.DTEND,    // 2
     };
 
+    /**
+     * Extracts the ID from the eid parameter of a URI.
+     *
+     * The URI contains an "eid" parameter, which is comprised of an ID, followed by a space,
+     * followed by some other stuff.  This is Base64-encoded before being added to the URI.
+     *
+     * @param uri incoming request
+     * @return the decoded ID
+     */
+    private String extractEid(Uri uri) {
+        try {
+            String eid = uri.getQueryParameter("eid");
+            if (eid == null) {
+                return null;
+            }
+
+            byte[] decodedBytes = Base64.decode(eid, Base64.DEFAULT);
+            int spacePosn;
+            for (spacePosn = 0; spacePosn < decodedBytes.length; spacePosn++) {
+                if (decodedBytes[spacePosn] == ' ') {
+                    break;
+                }
+            }
+            return new String(decodedBytes, 0, spacePosn);
+        } catch (RuntimeException e) {
+            Log.w(TAG, "Punting malformed URI " + uri);
+            return null;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -53,15 +87,18 @@ public class GoogleCalendarUriIntentFilter extends Activity {
         if (intent != null) {
             Uri uri = intent.getData();
             if (uri != null) {
-                String eid = uri.getQueryParameter("eid");
+                String eid = extractEid(uri);
                 if (eid != null) {
-                    String selection = Events.HTML_URI + " LIKE \"%eid=" + eid + "%\"";
-
+                    String selection = Events._SYNC_ID + " LIKE \"%/" + eid + "\"";
                     Cursor eventCursor = managedQuery(Events.CONTENT_URI, EVENT_PROJECTION,
                             selection, null, null);
 
-                    // TODO what to do when there's more than one match
                     if (eventCursor != null && eventCursor.getCount() > 0) {
+                        if (eventCursor.getCount() > 1) {
+                            // TODO what to do when there's more than one match
+                            Log.i(TAG, "NOTE: found " + eventCursor.getCount()
+                                    + " matches on event with id='" + eid + "'");
+                        }
                         // Get info from Cursor
                         eventCursor.moveToFirst();
                         int eventId = eventCursor.getInt(EVENT_INDEX_ID);
