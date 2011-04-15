@@ -521,4 +521,8 @@ public class Utils {
         return (c.getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
     }
+
+    public static boolean getConfigBool(Context c, int key) {
+        return c.getResources().getBoolean(key);
+    }
 }
