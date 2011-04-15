@@ -20,6 +20,7 @@ import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.GeneralPreferences;
+import com.android.calendar.R;
 import com.android.calendar.Utils;
 
 import dalvik.system.VMRuntime;
@@ -99,11 +100,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         }
 
         mAgendaListView = new AgendaListView(context, instanceId,
-<<<<<<< HEAD
-                Utils.isMultiPaneConfiguration (context));
-=======
                 Utils.getConfigBool(context, R.bool.show_event_details_with_agenda));
->>>>>>> 9e62aa8... Config file support for "show details in month"
         mAgendaListView.goTo(mTime, mQuery, false);
         return mAgendaListView;
     }

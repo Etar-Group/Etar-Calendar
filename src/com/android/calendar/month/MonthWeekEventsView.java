@@ -168,7 +168,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mPadding = (int) (DEFAULT_EDGE_SPACING * mScale);
             mScaled = true;
         }
-        mShowDetailsInMonth = Utils.getConfigBool (context, R.bool.show_details_in_month);
+        mShowDetailsInMonth = Utils.getConfigBool(context, R.bool.show_details_in_month);
     }
 
     public void setEvents(List<ArrayList<Event>> sortedEvents) {
