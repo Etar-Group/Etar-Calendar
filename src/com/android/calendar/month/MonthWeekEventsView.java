@@ -19,6 +19,7 @@ package com.android.calendar.month;
 import com.android.calendar.Event;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendar.Utils.BusyBitsSegment;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -71,6 +72,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int EVENT_RIGHT_PADDING = 4;
     private static int EVENT_BOTTOM_PADDING = 15;
 
+    private static int BUSY_BITS_MARGIN = 2;
+    private static int BUSY_BITS_WIDTH = 8;
+
+
     private static int SPACING_WEEK_NUMBER = 19;
     private static boolean mScaled = false;
     private boolean mShowDetailsInMonth;
@@ -110,10 +115,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mMonthEventOtherColor;
     protected int mMonthEventExtraOtherColor;
     protected int mMonthWeekNumColor;
+    protected int mMonthBusyBitsBgColor;
+    protected int mMonthBusyBitsFgColor;
 
     protected int mEventChipOutlineColor = 0xFFFFFFFF;
     protected int mDaySeparatorOuterColor = 0x33FFFFFF;
     protected int mDaySeparatorInnerColor = 0x1A000000;
+
 
     /**
      * This provides a reference to a float array which allows for easy size
@@ -133,6 +141,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             }
         }
     }
+
 
     /**
      * @param context
@@ -165,6 +174,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
             EVENT_LINE_PADDING *= mScale;
             EVENT_BOTTOM_PADDING *= mScale;
             EVENT_RIGHT_PADDING *= mScale;
+            BUSY_BITS_MARGIN *= mScale;
+            BUSY_BITS_WIDTH *= mScale;
+
             mPadding = (int) (DEFAULT_EDGE_SPACING * mScale);
             mScaled = true;
         }
@@ -198,6 +210,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mMonthEventExtraColor = res.getColor(R.color.month_event_extra_color);
         mMonthEventOtherColor = res.getColor(R.color.month_event_other_color);
         mMonthEventExtraOtherColor = res.getColor(R.color.month_event_extra_other_color);
+        mMonthBusyBitsBgColor = res.getColor(R.color.month_busybits_backgound_color);
+        mMonthBusyBitsFgColor = res.getColor(R.color.month_busybits_foregound_color);
 
         mTodayDrawable = res.getDrawable(R.drawable.today_blue_week_holo_light);
     }
@@ -280,6 +294,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         drawDaySeparators(canvas);
         if (mShowDetailsInMonth) {
             drawEvents(canvas);
+        } else {
+            drawBusyBits(canvas);
         }
     }
 
@@ -528,6 +544,57 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mEventExtrasPaint.setFakeBoldText(true);
         canvas.drawText(String.format(text, remainingEvents), x, y, mEventExtrasPaint);
         mEventExtrasPaint.setFakeBoldText(false);
+    }
+
+    // Draws the DNA view of events
+
+    protected void drawBusyBits(Canvas canvas) {
+
+        int wkNumOffset = 1;
+        int effectiveWidth = mWidth - mPadding * 2 - SPACING_WEEK_NUMBER;
+        int top = DAY_SEPARATOR_OUTER_WIDTH + BUSY_BITS_MARGIN;
+        int bottom = mHeight - BUSY_BITS_MARGIN;
+
+        // Draw background for all days first since even if there are not
+        // events, we still need to show the background bar
+
+        for (int i = 1; i <= mNumDays; i++) {
+            r.top = top;
+            r.bottom = bottom;
+            r.right = i * effectiveWidth / (mNumDays) + mPadding
+                    + (SPACING_WEEK_NUMBER * wkNumOffset) - DAY_SEPARATOR_OUTER_WIDTH / 2;
+            r.left = r.right - BUSY_BITS_WIDTH;
+            p.setColor(mMonthBusyBitsBgColor);
+            p.setStyle(Style.FILL);
+            canvas.drawRect(r, p);
+        }
+
+        if (mEvents != null) {
+            p.setColor(mMonthBusyBitsFgColor);
+            p.setStyle(Style.FILL);
+            int day = 0;
+
+            // For each day draw events
+
+            for (ArrayList<Event> eventDay : mEvents) {
+                day++;
+                // Create a list of segments that correspond to busy times
+                ArrayList<BusyBitsSegment> segments = Utils.createBusyBitSegments(top, bottom, 0,
+                        24 * 60, eventDay);
+                if (segments == null) {
+                    continue;
+                }
+                // iterate and draw each segment
+                for (BusyBitsSegment s : segments) {
+                    r.right = day * effectiveWidth / (mNumDays) + mPadding
+                            + (SPACING_WEEK_NUMBER * wkNumOffset) - DAY_SEPARATOR_OUTER_WIDTH / 2;
+                    r.left = r.right - BUSY_BITS_WIDTH;
+                    r.top = s.start;
+                    r.bottom = s.end;
+                    canvas.drawRect(r, p);
+                }
+            }
+        }
     }
 
     @Override
