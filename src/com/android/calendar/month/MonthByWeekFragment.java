@@ -59,8 +59,8 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     private static final String TAG = "MonthFragment";
 
     // Selection and selection args for adding event queries
-    private static final String WHERE_CALENDARS_SELECTED = Calendars.SELECTED + "=1";
-    private static final String[] WHERE_CALENDARS_SELECTED_ARGS = {"1"};
+    private static final String WHERE_CALENDARS_VISIBLE = Calendars.VISIBLE + "=1";
+    private static final String[] WHERE_CALENDARS_VISIBLE_ARGS = {"1"};
     private static final String INSTANCES_SORT_ORDER = Instances.START_DAY + ","
             + Instances.START_MINUTE + "," + Instances.TITLE;
 
@@ -160,7 +160,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
     protected String updateWhere() {
         // TODO fix selection/selection args after b/3206641 is fixed
-        String where = WHERE_CALENDARS_SELECTED;
+        String where = WHERE_CALENDARS_VISIBLE;
         if (mHideDeclined) {
             where += " AND " + Instances.SELF_ATTENDEE_STATUS + "!="
                     + Attendees.ATTENDEE_STATUS_DECLINED;

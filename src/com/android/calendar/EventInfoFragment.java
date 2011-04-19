@@ -162,7 +162,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Calendars._ID,           // 0
         Calendars.DISPLAY_NAME,  // 1
         Calendars.OWNER_ACCOUNT, // 2
-        Calendars.ORGANIZER_CAN_RESPOND // 3
+        Calendars.CAN_ORGANIZER_RESPOND // 3
     };
     static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
     static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;

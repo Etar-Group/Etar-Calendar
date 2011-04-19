@@ -64,7 +64,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             + Instances.END_MINUTE + " ASC LIMIT " + EVENT_MAX_COUNT;
 
     // TODO can't use parameter here because provider is dropping them
-    private static final String EVENT_SELECTION = Calendars.SELECTED + "=1 AND "
+    private static final String EVENT_SELECTION = Calendars.VISIBLE + "=1 AND "
             + Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
 
     static final String[] EVENT_PROJECTION = new String[] {

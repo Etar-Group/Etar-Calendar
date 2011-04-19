@@ -61,14 +61,14 @@ public class SelectCalendarsSyncFragment extends ListFragment
 
     private static final String[] PROJECTION = new String[] { Calendars._ID,
             Calendars._SYNC_ACCOUNT, Calendars.OWNER_ACCOUNT, Calendars.DISPLAY_NAME,
-            Calendars.COLOR, Calendars.SELECTED, Calendars.SYNC_EVENTS,
+            Calendars.COLOR, Calendars.VISIBLE, Calendars.SYNC_EVENTS,
             "(" + Calendars._SYNC_ACCOUNT + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY, };
     private static final int COLUMN_ID = 0;
     private static final int COLUMN_SYNC_ACCOUNT = 1;
     private static final int COLUMN_OWNER_ACCOUNT = 2;
     private static final int COLUMN_DISPLAY_NAME = 3;
     private static final int COLUMN_COLOR = 4;
-    private static final int COLUMN_SELECTED = 5;
+    private static final int COLUMN_VISIBLE = 5;
     private static final int COLUMN_SYNC_EVENTS = 6;
 
     private TextView mSyncStatus;
@@ -160,7 +160,7 @@ public class SelectCalendarsSyncFragment extends ListFragment
                     // Toggle the current setting
                     int synced = row.synced ? 1 : 0;
                     values.put(Calendars.SYNC_EVENTS, synced);
-                    values.put(Calendars.SELECTED, synced);
+                    values.put(Calendars.VISIBLE, synced);
                     mService.startUpdate((int) id, null, uri, values, null, null, 0);
                 }
                 changes.clear();

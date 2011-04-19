@@ -67,7 +67,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     private int mIdColumn;
     private int mNameColumn;
     private int mColorColumn;
-    private int mSelectedColumn;
+    private int mVisibleColumn;
     private float mScale = 0;
 
     private class CalendarRow {
@@ -150,7 +150,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         mIdColumn = c.getColumnIndexOrThrow(Calendars._ID);
         mNameColumn = c.getColumnIndexOrThrow(Calendars.DISPLAY_NAME);
         mColorColumn = c.getColumnIndexOrThrow(Calendars.COLOR);
-        mSelectedColumn = c.getColumnIndexOrThrow(Calendars.SELECTED);
+        mVisibleColumn = c.getColumnIndexOrThrow(Calendars.VISIBLE);
 
         mRowCount = c.getCount();
         mData = new CalendarRow[(c.getCount() + 2)];
@@ -161,7 +161,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
             mData[p].id = c.getLong(mIdColumn);
             mData[p].displayName = c.getString(mNameColumn);
             mData[p].color = c.getInt(mColorColumn);
-            mData[p].selected = c.getInt(mSelectedColumn) != 0;
+            mData[p].selected = c.getInt(mVisibleColumn) != 0;
             p++;
         }
     }

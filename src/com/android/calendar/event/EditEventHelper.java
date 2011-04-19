@@ -165,20 +165,20 @@ public class EditEventHelper {
             Calendars.DISPLAY_NAME, // 1
             Calendars.OWNER_ACCOUNT, // 2
             Calendars.COLOR, // 3
-            Calendars.ORGANIZER_CAN_RESPOND, // 4
+            Calendars.CAN_ORGANIZER_RESPOND, // 4
             Calendars.ACCESS_LEVEL, // 5
-            Calendars.SELECTED, // 6
+            Calendars.VISIBLE, // 6
     };
     static final int CALENDARS_INDEX_ID = 0;
     static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
     static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
     static final int CALENDARS_INDEX_COLOR = 3;
-    static final int CALENDARS_INDEX_ORGANIZER_CAN_RESPOND = 4;
+    static final int CALENDARS_INDEX_CAN_ORGANIZER_RESPOND = 4;
     static final int CALENDARS_INDEX_ACCESS_LEVEL = 5;
-    static final int CALENDARS_INDEX_SELECTED = 6;
+    static final int CALENDARS_INDEX_VISIBLE = 6;
 
     static final String CALENDARS_WHERE_WRITEABLE_VISIBLE = Calendars.ACCESS_LEVEL + ">="
-            + Calendars.CONTRIBUTOR_ACCESS + " AND " + Calendars.SELECTED + "=1";
+            + Calendars.CONTRIBUTOR_ACCESS + " AND " + Calendars.VISIBLE + "=1";
 
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
 
@@ -1047,7 +1047,7 @@ public class EditEventHelper {
                 continue;
             }
 
-            model.mOrganizerCanRespond = cursor.getInt(CALENDARS_INDEX_ORGANIZER_CAN_RESPOND) != 0;
+            model.mOrganizerCanRespond = cursor.getInt(CALENDARS_INDEX_CAN_ORGANIZER_RESPOND) != 0;
 
             model.mCalendarAccessLevel = cursor.getInt(CALENDARS_INDEX_ACCESS_LEVEL);
             model.mCalendarDisplayName = cursor.getString(CALENDARS_INDEX_DISPLAY_NAME);

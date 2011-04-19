@@ -598,11 +598,11 @@ public class AgendaWindowAdapter extends BaseAdapter {
         // Respect the preference to show/hide declined events
 
         if (mHideDeclined) {
-            return Calendars.SELECTED + "=1 AND "
+            return Calendars.VISIBLE + "=1 AND "
                     + Instances.SELF_ATTENDEE_STATUS + "!="
                     + Attendees.ATTENDEE_STATUS_DECLINED;
         } else {
-            return Calendars.SELECTED + "=1";
+            return Calendars.VISIBLE + "=1";
         }
     }
 

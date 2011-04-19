@@ -52,7 +52,7 @@ public class SelectCalendarsFragment extends Fragment
         Calendars.OWNER_ACCOUNT,
         Calendars.DISPLAY_NAME,
         Calendars.COLOR,
-        Calendars.SELECTED,
+        Calendars.VISIBLE,
         Calendars.SYNC_EVENTS,
         "(" + Calendars._SYNC_ACCOUNT + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY,
       };
@@ -61,7 +61,7 @@ public class SelectCalendarsFragment extends Fragment
     private static final int COLUMN_OWNER_ACCOUNT = 2;
     private static final int COLUMN_DISPLAY_NAME = 3;
     private static final int COLUMN_COLOR = 4;
-    private static final int COLUMN_SELECTED = 5;
+    private static final int COLUMN_VISIBLE = 5;
     private static final int COLUMN_SYNC_EVENTS = 6;
     private static int mUpdateToken;
     private static int mQueryToken;
@@ -133,7 +133,7 @@ public class SelectCalendarsFragment extends Fragment
         ContentValues values = new ContentValues();
         // Toggle the current setting
         int visibility = mAdapter.getVisible(position)^1;
-        values.put(Calendars.SELECTED, visibility);
+        values.put(Calendars.VISIBLE, visibility);
         mService.startUpdate(mUpdateToken, null, uri, values, null, null, 0);
         mAdapter.setVisible(position, visibility);
     }
