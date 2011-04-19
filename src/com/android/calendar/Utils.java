@@ -574,11 +574,20 @@ public class Utils {
     // Assumes list is ordered according to start date
 
     public static ArrayList<BusyBitsSegment> createBusyBitSegments(int pStart, int pEnd,
-            int startTime, int endTime,
+            int startTime, int endTime, int julianDay,
             ArrayList<Event> events) {
 
         if (events == null || events.size() == 0 || pStart >= pEnd || startTime >= endTime)
             return null;
+
+        // Times must be between 00:00 to 24:00
+
+        if (startTime < 0) {
+            startTime = 0;
+        }
+        if (endTime > 24 * 60) {
+            endTime = 24*60;
+        }
 
         ArrayList<BusyBitsSegment> segments = new ArrayList<BusyBitsSegment>();
         int start = -1;
@@ -600,10 +609,11 @@ public class Utils {
                 continue;
             }
 
-            if (eStart < startTime) {
+            // If event spans before or after start or end time , truncate it
+            if (eStart < startTime || event.startDay < julianDay) {
                 eStart = startTime;
             }
-            if (eEnd > endTime) {
+            if (eEnd > endTime || event.endDay > julianDay) {
                 eEnd = endTime;
             }
 

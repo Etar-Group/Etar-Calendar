@@ -577,10 +577,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
             // For each day draw events
 
             for (ArrayList<Event> eventDay : mEvents) {
-                day++;
                 // Create a list of segments that correspond to busy times
                 ArrayList<BusyBitsSegment> segments = Utils.createBusyBitSegments(top, bottom, 0,
-                        24 * 60, eventDay);
+                        24 * 60, mFirstJulianDay + day, eventDay);
+                day++;
                 if (segments == null) {
                     continue;
                 }

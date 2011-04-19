@@ -135,52 +135,75 @@ public class UtilsTests extends TestCase {
         ArrayList<Event> events = new ArrayList<Event>();
 
         // Test cases that should return null
-        assertEquals(null, Utils.createBusyBitSegments(10, 30, 100, 200, events));
-        assertEquals(null, Utils.createBusyBitSegments(10, 30, 100, 200, null));
+        assertEquals(null, Utils.createBusyBitSegments(10, 30, 100, 200, 0, events));
+        assertEquals(null, Utils.createBusyBitSegments(10, 30, 100, 200, 0, null));
 
         Event e1 = new Event();
         e1.startTime = 100;
         e1.endTime = 130;
         e1.allDay = false;
+        e1.startDay = 1;
+        e1.endDay = 1;
         Event e2 = new Event();
         e1.startTime = 1000;
         e1.endTime = 1030;
         e2.allDay = false;
+        e2.startDay = 1;
+        e2.endDay = 1;
         events.add(e1);
         events.add(e2);
-        assertEquals(null, Utils.createBusyBitSegments(30, 10, 100, 200, events));
-        assertEquals(null, Utils.createBusyBitSegments(10, 30, 200, 100, events));
-        assertEquals(0, Utils.createBusyBitSegments(10, 30, 500, 900, events).size());
+        assertEquals(null, Utils.createBusyBitSegments(30, 10, 100, 200, 1, events));
+        assertEquals(null, Utils.createBusyBitSegments(10, 30, 200, 100, 1, events));
+        assertEquals(0, Utils.createBusyBitSegments(10, 30, 500, 900, 1, events).size());
 
-        // Test special cases (events that are only partially in the processed
-        // time span,
-        // zero time events and all day events).
-
+        // test event that spans over the day
         events.clear();
         e1.startTime = 100;
         e1.endTime = 300;
         e1.allDay = false;
+        e1.startDay = 1;
+        e1.endDay = 5;
+        events.add(e1);
+        ArrayList<BusyBitsSegment> segments = new ArrayList<BusyBitsSegment>();
+        BusyBitsSegment s1 = new BusyBitsSegment(0, 250);
+        segments.add(s1);
+        assertEquals(segments, Utils.createBusyBitSegments(0, 250, 200, 1200, 3, events));
+
+        // test zero times events, events that are partially in the time span and all day events
+        events.clear();
+        e1.startTime = 100;
+        e1.endTime = 300;
+        e1.allDay = false;
+        e1.startDay = 1;
+        e1.endDay = 1;
         e2.startTime = 1100;
         e2.endTime = 1300;
         e2.allDay = false;
+        e2.startDay = 1;
+        e2.endDay = 1;
         Event e3 = new Event();
         e3.startTime = 500;
         e3.endTime = 600;
         e3.allDay = true;
+        e3.startDay = 1;
+        e3.endDay = 1;
         Event e4 = new Event();
         e4.startTime = 700;
         e4.endTime = 700;
         e4.allDay = false;
+        e4.startDay = 1;
+        e4.endDay = 1;
         events.add(e1);
         events.add(e2);
         events.add(e3);
         events.add(e4);
-        ArrayList<BusyBitsSegment> segments = new ArrayList<BusyBitsSegment>();
-        BusyBitsSegment s1 = new BusyBitsSegment(0, 10);
+        segments.clear();
+        s1.start = 0;
+        s1.end = 10;
         BusyBitsSegment s2 = new BusyBitsSegment(90, 100);
         segments.add(s1);
         segments.add(s2);
-        assertEquals(segments, Utils.createBusyBitSegments(0, 100, 200, 1200, events));
+        assertEquals(segments, Utils.createBusyBitSegments(0, 100, 200, 1200, 1, events));
 
         // Test interleaved events
 
@@ -197,6 +220,8 @@ public class UtilsTests extends TestCase {
         e4.startTime = 500;
         e4.endTime = 700;
         e4.allDay = false;
+        e4.startDay = 1;
+        e4.endDay = 1;
         events.add(e1);
         events.add(e2);
         events.add(e3);
@@ -209,7 +234,7 @@ public class UtilsTests extends TestCase {
         s2.end = 160;
         segments.add(s1);
         segments.add(s2);
-        ArrayList<BusyBitsSegment> results = Utils.createBusyBitSegments(100, 180, 100, 900, events);
+        ArrayList<BusyBitsSegment> results = Utils.createBusyBitSegments(100, 180, 100, 900, 1, events);
         assertEquals(segments, results);
     }
 }
