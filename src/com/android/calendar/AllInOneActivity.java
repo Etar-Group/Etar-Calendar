@@ -38,6 +38,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -82,6 +83,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     private static CalendarController mController;
     private static boolean mIsMultipane;
+    private static boolean mShowAgendaWithMonth;
     private boolean mOnSaveInstanceStateCalled = false;
     private ContentResolver mContentResolver;
     private int mPreviousView;
@@ -221,6 +223,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mControlsParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
         mIsMultipane = Utils.isMultiPaneConfiguration(this);
+        mShowAgendaWithMonth = Utils.getConfigBool(this, R.bool.show_agenda_with_month);
 
         Utils.setAllowWeekForDetailView(mIsMultipane);
 
@@ -442,13 +445,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
 
         setMainPane(ft, R.id.main_pane, viewType, timeMillis, true);
-        if (!mIsMultipane && viewType == ViewType.MONTH) {
-            setAgendaPane(ft, R.id.secondary_pane, timeMillis);
-            mSecondaryPane.setVisibility(View.VISIBLE);
-        } else if (mSecondaryPane != null) {
-            mSecondaryPane.setVisibility(View.GONE);
-        }
-
         ft.commit(); // this needs to be after setMainPane()
 
         Time t = new Time(mTimeZone);
@@ -569,19 +565,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
     }
 
-    private void setAgendaPane(FragmentTransaction ft, int viewId, long timeMillis) {
-        boolean doCommit = false;
-        Fragment frag = new AgendaFragment(timeMillis);
-        if (ft == null) {
-            doCommit = true;
-            ft = getFragmentManager().beginTransaction();
-        }
-        ft.replace(viewId, frag);
-        if (doCommit) {
-            ft.commit();
-        }
-    }
-
     private void setMainPane(
             FragmentTransaction ft, int viewId, int viewType, long timeMillis, boolean force) {
         if (mOnSaveInstanceStateCalled) {
@@ -603,7 +586,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mCurrentView = viewType;
         }
         // Create new fragment
-        Fragment frag;
+        Fragment frag = null;
+        Fragment secFrag = null;
         switch (viewType) {
             case ViewType.AGENDA:
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mAgendaTab)) {
@@ -628,6 +612,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     mActionBar.selectTab(mMonthTab);
                 }
                 frag = new MonthByWeekFragment(timeMillis, false);
+                if (mShowAgendaWithMonth) {
+                    secFrag = new AgendaFragment(timeMillis);
+                }
                 break;
             default:
                 throw new IllegalArgumentException(
@@ -645,12 +632,29 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
 
         ft.replace(viewId, frag);
+        if (mShowAgendaWithMonth) {
 
+            // Show/hide secondary fragment
+
+            if (secFrag != null) {
+                ft.replace(R.id.secondary_pane, secFrag);
+                mSecondaryPane.setVisibility(View.VISIBLE);
+            } else {
+                mSecondaryPane.setVisibility(View.GONE);
+                Fragment f = getFragmentManager().findFragmentById(R.id.secondary_pane);
+                if (f != null)
+                    ft.remove(f);
+                mController.deregisterEventHandler(R.id.secondary_pane);
+            }
+        }
         if (DEBUG) {
             Log.d(TAG, "Adding handler with viewId " + viewId + " and type " + viewType);
         }
         // If the key is already registered this will replace it
         mController.registerEventHandler(viewId, (EventHandler) frag);
+        if (secFrag != null) {
+            mController.registerEventHandler(viewId, (EventHandler) secFrag);
+        }
 
         if (doCommit) {
             Log.d(TAG, "setMainPane AllInOne=" + this + " finishing:" + this.isFinishing());
@@ -722,15 +726,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 mSearchView.clearFocus();
             }
             if (!mIsMultipane) {
-
-                // show agenda view below main pane
-
-                if (event.viewType == ViewType.MONTH) {
-                    setAgendaPane(null, R.id.secondary_pane, event.startTime.toMillis(false));
-                    mSecondaryPane.setVisibility(View.VISIBLE);
-                } else {
-                    mSecondaryPane.setVisibility(View.GONE);
-                }
                 return;
             }
             if (event.viewType == ViewType.MONTH) {

@@ -20,6 +20,7 @@ import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.Event;
+import com.android.calendar.R;
 import com.android.calendar.Utils;
 
 import android.content.Context;
@@ -47,6 +48,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     protected int mQueryDays;
     protected boolean mIsMiniMonth = true;
     protected int mOrientation = Configuration.ORIENTATION_LANDSCAPE;
+    private boolean mShowAgendaWithMonth;
 
     protected ArrayList<ArrayList<Event>> mEventDayList = new ArrayList<ArrayList<Event>>();
 
@@ -55,6 +57,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         if (params.containsKey(WEEK_PARAMS_IS_MINI)) {
             mIsMiniMonth = params.get(WEEK_PARAMS_IS_MINI) != 0;
         }
+        mShowAgendaWithMonth = Utils.getConfigBool(context, R.bool.show_agenda_with_month);
     }
 
     @Override
@@ -230,9 +233,17 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         day.minute = currTime.minute;
         day.allDay = false;
         day.normalize(true);
-        mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
-                mIsMiniMonth ? ViewType.CURRENT : ViewType.DETAIL,
-                CalendarController.EXTRA_GOTO_DATE, null, null);
+         if (mShowAgendaWithMonth && !mIsMiniMonth) {
+            // If agenda view is visible with month view , refresh the views
+            // with the selected day's info
+            mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
+                    ViewType.CURRENT, CalendarController.EXTRA_GOTO_DATE, null, null);
+        } else {
+            // Else , switch to the detailed view
+            mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
+                    mIsMiniMonth ? ViewType.CURRENT : ViewType.DETAIL,
+                            CalendarController.EXTRA_GOTO_DATE, null, null);
+        }
     }
 
 }
