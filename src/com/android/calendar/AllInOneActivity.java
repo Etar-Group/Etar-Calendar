@@ -758,7 +758,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if (TextUtils.equals(query, "TARDIS")) {
+        if ("TARDIS".equalsIgnoreCase(query)) {
             Utils.tardis();
         }
         mSearchView.clearFocus();
