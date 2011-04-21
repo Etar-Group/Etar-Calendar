@@ -18,9 +18,11 @@
     <PreferenceCategory
         android:key="preferences_tardis_category"
         android:title="@string/tardis">
+        <Preference
+            android:key="preferences_copy_db"
+            android:title="@string/copy_db" />
         <CheckBoxPreference
             android:key="preferences_tardis_1"
-            android:defaultValue="false"/>
+            android:defaultValue="false" />
     </PreferenceCategory>
-
 </PreferenceScreen>

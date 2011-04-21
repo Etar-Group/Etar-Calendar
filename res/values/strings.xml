@@ -499,6 +499,9 @@
     <!-- DO NOT TRANSLATE -->
     <string name="tardis">TARDIS</string>
 
+    <!-- Send a copy of the database to developers for debugging [CHAR LIMIT="NONE"] -->
+    <string name="copy_db">Send database</string>
+
     <!-- Displayed in email address autocomplete list when searching for contacts
          in corporate directories. Example:  "Searching bigcompany.com..." [CHAR LIMIT=64] -->
     <string name="directory_searching_fmt">Searching <xliff:g id="domain">%s</xliff:g>\u2026</string>
