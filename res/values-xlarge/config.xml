@@ -13,7 +13,7 @@
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- turn on/off the mini-calendar and calendar picker -->
-    <bool name="show_calendar_control">true</bool>
+    <bool name="show_calendar_controls">true</bool>
     <!-- turn on/off month with agenda view -->
     <bool name="show_agenda_with_month">false</bool>
     <!-- when on, shows details of event in month view, when off, shows busy bits -->

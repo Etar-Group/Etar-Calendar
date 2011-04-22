@@ -99,6 +99,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private View mMiniMonthContainer;
     private View mSecondaryPane;
     private String mTimeZone;
+    private boolean mShowCalendarControls;
 
     private long mViewEventId = -1;
     private long mIntentEventStartMillis = -1;
@@ -224,6 +225,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         mIsMultipane = Utils.isMultiPaneConfiguration(this);
         mShowAgendaWithMonth = Utils.getConfigBool(this, R.bool.show_agenda_with_month);
+        mShowCalendarControls = Utils.getConfigBool(this, R.bool.show_calendar_controls);
 
         Utils.setAllowWeekForDetailView(mIsMultipane);
 
@@ -388,7 +390,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private void initFragments(long timeMillis, int viewType, Bundle icicle) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
-        if (mIsMultipane) {
+        if (mShowCalendarControls) {
             Fragment miniMonthFrag = new MonthByWeekFragment(timeMillis, true);
             ft.replace(R.id.mini_month, miniMonthFrag);
             mController.registerEventHandler(R.id.mini_month, (EventHandler) miniMonthFrag);
@@ -398,7 +400,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mController.registerEventHandler(
                     R.id.calendar_list, (EventHandler) selectCalendarsFrag);
         }
-        if (!mIsMultipane || viewType == ViewType.EDIT) {
+        if (!mShowCalendarControls || viewType == ViewType.EDIT) {
             mMiniMonth.setVisibility(View.GONE);
             mCalendarsList.setVisibility(View.GONE);
         }
@@ -482,7 +484,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // or the view type is "Month".
 
         mControlsMenu = menu.findItem(R.id.action_hide_controls);
-        if (!mIsMultipane) {
+        if (!mShowCalendarControls) {
             if (mControlsMenu != null) {
                 mControlsMenu.setVisible(false);
                 mControlsMenu.setEnabled(false);
@@ -642,8 +644,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
             } else {
                 mSecondaryPane.setVisibility(View.GONE);
                 Fragment f = getFragmentManager().findFragmentById(R.id.secondary_pane);
-                if (f != null)
+                if (f != null) {
                     ft.remove(f);
+                }
                 mController.deregisterEventHandler(R.id.secondary_pane);
             }
         }
@@ -728,41 +731,43 @@ public class AllInOneActivity extends Activity implements EventHandler,
             if (!mIsMultipane) {
                 return;
             }
-            if (event.viewType == ViewType.MONTH) {
-                // hide minimonth and calendar frag
-                mShowSideViews = false;
-                if (mControlsMenu != null) {
-                    mControlsMenu.setVisible(false);
-                    mControlsMenu.setEnabled(false);
+            if (mShowCalendarControls) {
+                if (event.viewType == ViewType.MONTH) {
+                    // hide minimonth and calendar frag
+                    mShowSideViews = false;
+                    if (mControlsMenu != null) {
+                        mControlsMenu.setVisible(false);
+                        mControlsMenu.setEnabled(false);
 
-                    if (!mHideControls) {
-                        final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
-                                "controlsOffset", 0, CONTROLS_ANIMATE_WIDTH);
-                        slideAnimation.addListener(mSlideAnimationDoneListener);
-                        slideAnimation.setDuration(220);
-                        ObjectAnimator.setFrameDelay(0);
-                        slideAnimation.start();
+                        if (!mHideControls) {
+                            final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
+                                    "controlsOffset", 0, CONTROLS_ANIMATE_WIDTH);
+                            slideAnimation.addListener(mSlideAnimationDoneListener);
+                            slideAnimation.setDuration(220);
+                            ObjectAnimator.setFrameDelay(0);
+                            slideAnimation.start();
+                        }
+                    } else {
+                        mMiniMonth.setVisibility(View.GONE);
+                        mCalendarsList.setVisibility(View.GONE);
+                        mMiniMonthContainer.setVisibility(View.GONE);
                     }
                 } else {
-                    mMiniMonth.setVisibility(View.GONE);
-                    mCalendarsList.setVisibility(View.GONE);
-                    mMiniMonthContainer.setVisibility(View.GONE);
-                }
-            } else {
-                // show minimonth and calendar frag
-                mShowSideViews = true;
-                mMiniMonth.setVisibility(View.VISIBLE);
-                mCalendarsList.setVisibility(View.VISIBLE);
-                mMiniMonthContainer.setVisibility(View.VISIBLE);
-                if (mControlsMenu != null) {
-                    mControlsMenu.setVisible(true);
-                    mControlsMenu.setEnabled(true);
-                    if (!mHideControls && mController.getPreviousViewType() == ViewType.MONTH) {
-                        final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
-                                "controlsOffset", CONTROLS_ANIMATE_WIDTH, 0);
-                        slideAnimation.setDuration(220);
-                        ObjectAnimator.setFrameDelay(0);
-                        slideAnimation.start();
+                    // show minimonth and calendar frag
+                    mShowSideViews = true;
+                    mMiniMonth.setVisibility(View.VISIBLE);
+                    mCalendarsList.setVisibility(View.VISIBLE);
+                    mMiniMonthContainer.setVisibility(View.VISIBLE);
+                    if (mControlsMenu != null) {
+                        mControlsMenu.setVisible(true);
+                        mControlsMenu.setEnabled(true);
+                        if (!mHideControls && mController.getPreviousViewType() == ViewType.MONTH) {
+                            final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
+                                    "controlsOffset", CONTROLS_ANIMATE_WIDTH, 0);
+                            slideAnimation.setDuration(220);
+                            ObjectAnimator.setFrameDelay(0);
+                            slideAnimation.start();
+                        }
                     }
                 }
             }
