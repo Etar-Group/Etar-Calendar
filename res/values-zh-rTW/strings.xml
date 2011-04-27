@@ -143,7 +143,7 @@
     <string name="preferences_about_title" msgid="2810624892412097879">"相關資訊"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"版本"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"永遠要"</item>
+    <item msgid="2539376794936035639">"一律"</item>
     <item msgid="8091719131860840185">"靜音時才啟用"</item>
     <item msgid="4552962311897985633">"永遠不要"</item>
   </string-array>
