@@ -513,13 +513,20 @@ public class AgendaWindowAdapter extends BaseAdapter {
         }
 
         if (!isDayHeader) {
-            event.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
+            if (allDay) {
+                Time time = new Time(mTimeZone);
+                time.setJulianDay(Time.getJulianDay(event.end, 0));
+                event.end = time.toMillis(false /* use isDst */);
+            } else {
+                event.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
+            }
+
             event.id = cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
         }
         return event;
     }
 
-    public void refresh(Time goToTime, String searchQuery, boolean forced) {
+    public void refresh(Time goToTime, long id, String searchQuery, boolean forced) {
         if (searchQuery != null) {
             mSearchQuery = searchQuery;
         }
@@ -531,8 +538,10 @@ public class AgendaWindowAdapter extends BaseAdapter {
         int startDay = Time.getJulianDay(goToTime.toMillis(false), goToTime.gmtoff);
 
         if (!forced && isInRange(startDay, startDay)) {
-            // No need to requery
-            mAgendaListView.setSelection(findDayPositionNearestTime(goToTime) + OFF_BY_ONE_BUG);
+            // No need to re-query
+            if (!mAgendaListView.isEventVisible(goToTime, id)) {
+                mAgendaListView.setSelection(findDayPositionNearestTime(goToTime) + OFF_BY_ONE_BUG);
+            }
             return;
         }
 

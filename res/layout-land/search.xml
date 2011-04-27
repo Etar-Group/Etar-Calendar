@@ -14,34 +14,8 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:id="@+id/search_results"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <!-- spacer -->
-    <View
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight=".10"
-        android:visibility="invisible" />
-    <FrameLayout
-        android:id="@+id/search_results"
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight=".35"
-        android:layout_marginTop="80dip"/>
-    <FrameLayout
-        android:id="@+id/event_info"
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight=".5"
-        android:background="#FFFFFFFF"
-        android:layout_marginTop="20dip" />
-    <!-- spacer -->
-    <View
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight=".15"
-        android:visibility="invisible" />
-</LinearLayout>
+    android:layout_height="match_parent"/>

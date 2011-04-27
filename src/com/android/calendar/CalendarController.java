@@ -73,7 +73,7 @@ public class CalendarController {
     private LinkedList<Integer> mToBeRemovedEventHandlers = new LinkedList<Integer>();
     private LinkedHashMap<Integer, EventHandler> mToBeAddedEventHandlers = new LinkedHashMap<
             Integer, EventHandler>();
-    private boolean mDispatchInProgress;
+    private volatile int mDispatchInProgressCounter = 0;
 
     private static WeakHashMap<Context, CalendarController> instances =
         new WeakHashMap<Context, CalendarController>();
@@ -396,7 +396,7 @@ public class CalendarController {
 
         boolean handled = false;
         synchronized (this) {
-            mDispatchInProgress = true;
+            mDispatchInProgressCounter ++;
 
             if (DEBUG) {
                 Log.d(TAG, "sendEvent: Dispatching to " + eventHandlers.size() + " handlers");
@@ -417,19 +417,22 @@ public class CalendarController {
                 }
             }
 
-            mDispatchInProgress = false;
+            mDispatchInProgressCounter --;
 
-            // Deregister removed handlers
-            if (mToBeRemovedEventHandlers.size() > 0) {
-                for (Integer zombie : mToBeRemovedEventHandlers) {
-                    eventHandlers.remove(zombie);
+            if (mDispatchInProgressCounter == 0) {
+
+                // Deregister removed handlers
+                if (mToBeRemovedEventHandlers.size() > 0) {
+                    for (Integer zombie : mToBeRemovedEventHandlers) {
+                        eventHandlers.remove(zombie);
+                    }
+                    mToBeRemovedEventHandlers.clear();
                 }
-                mToBeRemovedEventHandlers.clear();
-            }
-            // Add new handlers
-            if (mToBeAddedEventHandlers.size() > 0) {
-                for (Entry<Integer, EventHandler> food : mToBeAddedEventHandlers.entrySet()) {
-                    eventHandlers.put(food.getKey(), food.getValue());
+                // Add new handlers
+                if (mToBeAddedEventHandlers.size() > 0) {
+                    for (Entry<Integer, EventHandler> food : mToBeAddedEventHandlers.entrySet()) {
+                        eventHandlers.put(food.getKey(), food.getValue());
+                    }
                 }
             }
         }
@@ -474,7 +477,7 @@ public class CalendarController {
      */
     public void registerEventHandler(int key, EventHandler eventHandler) {
         synchronized (this) {
-            if (mDispatchInProgress) {
+            if (mDispatchInProgressCounter > 0) {
                 mToBeAddedEventHandlers.put(key, eventHandler);
             } else {
                 eventHandlers.put(key, eventHandler);
@@ -484,7 +487,7 @@ public class CalendarController {
 
     public void deregisterEventHandler(Integer key) {
         synchronized (this) {
-            if (mDispatchInProgress) {
+            if (mDispatchInProgressCounter > 0) {
                 // To avoid ConcurrencyException, stash away the event handler for now.
                 mToBeRemovedEventHandlers.add(key);
             } else {

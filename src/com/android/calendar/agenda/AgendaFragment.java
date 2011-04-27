@@ -16,9 +16,12 @@
 
 package com.android.calendar.agenda;
 
+
 import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.event.EditEventFragment;
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
@@ -27,6 +30,8 @@ import dalvik.system.VMRuntime;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -46,11 +51,16 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
 
     private AgendaListView mAgendaListView;
+    private Activity mActivity;
     private Time mTime;
     private String mTimeZone;
     private long mInitialTimeMillis;
-
+    private boolean mShowEventDetailsWithAgenda;
+    private CalendarController mController;
+    private EditEventFragment mEventFragment;
     private String mQuery;
+    private boolean mUsedForSearch = false;
+
 
     private Runnable mTZUpdater = new Runnable() {
         @Override
@@ -61,12 +71,16 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     };
 
     public AgendaFragment() {
-        this(0);
+        this(0, false);
     }
 
-    public AgendaFragment(long timeMillis) {
+
+    // timeMillis - time of first event to show
+    // usedForSearch - indicates if this fragment is used in the search fragment
+    public AgendaFragment(long timeMillis, boolean usedForSearch) {
         mInitialTimeMillis = timeMillis;
         mTime = new Time();
+        mUsedForSearch = usedForSearch;
     }
 
     @Override
@@ -79,6 +93,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         } else {
             mTime.set(mInitialTimeMillis);
         }
+        mActivity = activity;
     }
 
     @Override
@@ -87,6 +102,10 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
         // TODO: We should restore the old heap size once the activity reaches the idle state
         VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
+        mController = CalendarController.getInstance(mActivity);
+        mShowEventDetailsWithAgenda =
+            Utils.getConfigBool(mActivity, R.bool.show_event_details_with_agenda);
+
     }
 
     @Override
@@ -99,10 +118,14 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             instanceId = savedInstanceState.getLong(BUNDLE_KEY_RESTORE_INSTANCE_ID);
         }
 
-        mAgendaListView = new AgendaListView(context, instanceId,
-                Utils.getConfigBool(context, R.bool.show_event_details_with_agenda));
-        mAgendaListView.goTo(mTime, mQuery, false);
-        return mAgendaListView;
+        View v = inflater.inflate(R.layout.agenda_fragment, null);
+
+        mAgendaListView = (AgendaListView)v.findViewById(R.id.agenda_events_list);
+        mAgendaListView.goTo(mTime, -1, mQuery, false);
+        if (!mShowEventDetailsWithAgenda) {
+            v.findViewById(R.id.agenda_event_info).setVisibility(View.GONE);
+        }
+        return v;
     }
 
     @Override
@@ -118,7 +141,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 GeneralPreferences.KEY_HIDE_DECLINED, false);
 
         mAgendaListView.setHideDeclinedEvents(hideDeclined);
-        mAgendaListView.goTo(mTime, mQuery, true);
+        mAgendaListView.goTo(mTime, -1, mQuery, true);
         mAgendaListView.onResume();
 
 //        // Register for Intent broadcasts
@@ -162,14 +185,15 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 //        Utils.setDefaultView(this, CalendarApplication.AGENDA_VIEW_ID);
     }
 
-    private void goTo(Time time, boolean animate) {
+    private void goTo(EventInfo event, boolean animate) {
         if (mAgendaListView == null) {
             // The view hasn't been set yet. Just save the time and use it
             // later.
-            mTime.set(time);
+            mTime.set(event.startTime);
             return;
         }
-        mAgendaListView.goTo(time, mQuery, false);
+        mAgendaListView.goTo(event.startTime, event.id, mQuery, false);
+        showEventInfo(event);
     }
 
     private void search(String query, Time time) {
@@ -181,7 +205,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             // The view hasn't been set yet. Just return.
             return;
         }
-        mAgendaListView.goTo(time, mQuery, true);
+        mAgendaListView.goTo(time, -1, mQuery, true);
     }
 
     @Override
@@ -191,7 +215,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
     @Override
     public long getSupportedEventTypes() {
-        return EventType.GO_TO | EventType.EVENTS_CHANGED | EventType.SEARCH;
+        return EventType.GO_TO | EventType.EVENTS_CHANGED | ((mUsedForSearch)?EventType.SEARCH:0);
     }
 
     @Override
@@ -200,12 +224,44 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             // TODO support a range of time
             // TODO support event_id
             // TODO figure out the animate bit
-            goTo(event.startTime, true);
+            goTo(event, true);
         } else if (event.eventType == EventType.SEARCH) {
             search(event.query, event.startTime);
         } else if (event.eventType == EventType.EVENTS_CHANGED) {
             eventsChanged();
         }
+    }
+
+
+    // Shows the selected event in the Agenda view
+    private void showEventInfo(EventInfo event) {
+
+        // Ignore unknown events
+        if (event.id == -1) {
+            Log.e(TAG, "showEventInfo, event ID = " + event.id);
+            return;
+        }
+
+        // Create a fragment to show the event to the side of the agenda list
+        if (mShowEventDetailsWithAgenda) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            mEventFragment = new EditEventFragment(event, true);
+            ft.replace(R.id.agenda_event_info, mEventFragment);
+            mController.registerEventHandler(R.id.agenda_event_info,
+                    mEventFragment);
+            ft.commit();
+        }
+        /*
+          * else { Intent intent = new Intent(Intent.ACTION_VIEW); Uri eventUri
+          * = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
+          * intent.setData(eventUri); // intent.setClassName(this,
+          * EventInfoActivity.class.getName());
+          * intent.putExtra(EVENT_BEGIN_TIME, event.startTime != null ?
+          * event.startTime.toMillis(true) : -1); intent.putExtra(
+          * EVENT_END_TIME, event.endTime != null ? event.endTime.toMillis(true)
+          * : -1); startActivity(intent); }
+          */
     }
 }
 
