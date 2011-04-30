@@ -95,7 +95,7 @@
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda :"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisateur :"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Fuseau horaire local :"</string>
-    <string name="view_event_response_label" msgid="8382281658458798329">"Participation ?"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Participer ?"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Aujourd\'hui, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Chargement…"</string>
     <string name="show_older_events" msgid="4031960000704544741">"Affichage des événements depuis le <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>. Appuyez pour en consulter d\'autres."</string>
@@ -111,7 +111,7 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Tout supprimer"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Événement ponctuel"</string>
     <string name="daily" msgid="560350706808680448">"Quotidien"</string>
-    <string name="every_weekday" msgid="5896574838353902978">"Les jours ouvrables (lun–ven)"</string>
+    <string name="every_weekday" msgid="5896574838353902978">"Jours ouvrés (lun–ven)"</string>
     <string name="weekly" msgid="2006107373119027114">"Hebdomadaire (chaque <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
     <string name="monthly_on_day_count" msgid="6847991854413461795">"Mensuel (chaque <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"Tous les mois"</string>

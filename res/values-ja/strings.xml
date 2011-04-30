@@ -138,7 +138,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"リマインダー通知"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"自宅タイムゾーン"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行中も自宅のタイムゾーンでカレンダーと予定時間を表示します"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行中も自宅のタイムゾーンでカレンダーと予定時間を表示する"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"自宅タイムゾーン"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"概要"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"ビルドバージョン"</string>

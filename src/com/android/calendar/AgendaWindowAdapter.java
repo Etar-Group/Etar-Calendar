@@ -221,6 +221,8 @@ public class AgendaWindowAdapter extends BaseAdapter {
         long end;
 
         long id;
+
+        boolean allday;
     }
 
     static class DayAdapterInfo {
@@ -440,10 +442,19 @@ public class AgendaWindowAdapter extends BaseAdapter {
             event.begin = info.cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
             boolean allDay = info.cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
 
+            event.allday = allDay;
+            if (!isDayHeader) {
+                event.end = info.cursor.getLong(AgendaWindowAdapter.INDEX_END);
+                event.id = info.cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
+            }
             if (allDay) { // UTC
                 Time time = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
                 time.setJulianDay(Time.getJulianDay(event.begin, 0));
-                event.begin = time.toMillis(false /* use isDst */);
+                event.begin = time.toMillis(true /* use isDst */);
+                if (!isDayHeader) {
+                    time.setJulianDay(Time.getJulianDay(event.end, 0));
+                    event.end = time.toMillis(true);
+                }
             } else if (isDayHeader) { // Trim to midnight.
                 Time time = new Time(Utils.getTimeZone(mContext, mUpdateTZ));
                 time.set(event.begin);
@@ -453,10 +464,6 @@ public class AgendaWindowAdapter extends BaseAdapter {
                 event.begin = time.toMillis(false /* use isDst */);
             }
 
-            if (!isDayHeader) {
-                event.end = info.cursor.getLong(AgendaWindowAdapter.INDEX_END);
-                event.id = info.cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
-            }
             return event;
         }
         return null;
