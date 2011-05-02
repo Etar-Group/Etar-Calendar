@@ -38,6 +38,8 @@ public class ContactsAsyncHelper extends Handler {
     private static final boolean DBG = false;
     private static final String LOG_TAG = "ContactsAsyncHelper";
 
+    private static ContactsAsyncHelper mInstance = null;
+
     /**
      * Interface for a WorkerHandler result return.
      */
@@ -149,6 +151,9 @@ public class ContactsAsyncHelper extends Handler {
         args.uri = person;
         args.defaultResource = placeholderImageResource;
 
+        if (mInstance == null) {
+            mInstance = new ContactsAsyncHelper();
+        }
         // setup message arguments
         Message msg = sThreadHandler.obtainMessage(DEFAULT_TOKEN);
         msg.arg1 = EVENT_LOAD_IMAGE;
