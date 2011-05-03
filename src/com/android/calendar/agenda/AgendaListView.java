@@ -43,6 +43,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     private DeleteEventHelper mDeleteEventHelper;
     private Context mContext;
     private String mTimeZone;
+    private boolean mShowEventDetailsWithAgenda;
 
     private Runnable mTZUpdater = new Runnable() {
         @Override
@@ -64,6 +65,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         setCacheColorHint(context.getResources().getColor(R.color.agenda_item_not_selected));
         mDeleteEventHelper =
             new DeleteEventHelper(context, null, false /* don't exit when done */);
+        mShowEventDetailsWithAgenda = Utils.getConfigBool(mContext,
+                R.bool.show_event_details_with_agenda);
     }
 
     @Override
@@ -80,7 +83,12 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             EventInfo event = mWindowAdapter.getEventByPosition(position);
             long oldInstanceId = mWindowAdapter.getSelectedInstanceId();
             mWindowAdapter.setSelectedView(v);
-            if (event != null && oldInstanceId != mWindowAdapter.getSelectedInstanceId()) {
+
+            // If events are shown to the side of the agenda list , do nothing when the same
+            // event is selected , otherwise show the selected event.
+
+            if (event != null && (oldInstanceId != mWindowAdapter.getSelectedInstanceId() ||
+                    !mShowEventDetailsWithAgenda)) {
                 CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
                         EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0, -1);
             }
