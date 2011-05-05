@@ -22,6 +22,7 @@ import android.database.MatrixCursor;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Smoke;
 import android.text.format.Time;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,6 +129,20 @@ public class UtilsTests extends TestCase {
         assertTrue(Utils.equals(int1, int2));
     }
 
+
+    // Helper function to create test events for BusyBits testing
+    Event buildTestEvent(int startTime, int endTime, boolean allDay, int startDay, int endDay) {
+        Event e = new Event();
+        e.startTime = startTime;
+        e.endTime = endTime;
+        e.allDay = allDay;
+        e.startDay = startDay;
+        e.endDay = endDay;
+        e.startMillis = e.startDay * 1000L * 3600L * 24L + e.startTime * 60L * 1000L;
+        e.endMillis = e.endDay * 1000L * 3600L * 24L + e.endTime * 60L * 1000L;
+        return e;
+    }
+
     @Smoke
     @SmallTest
     public void testCreateBusyBitSegments() {
@@ -135,106 +150,88 @@ public class UtilsTests extends TestCase {
         ArrayList<Event> events = new ArrayList<Event>();
 
         // Test cases that should return null
+        // Empty events list
         assertEquals(null, Utils.createBusyBitSegments(10, 30, 100, 200, 0, events));
+        // No events list
         assertEquals(null, Utils.createBusyBitSegments(10, 30, 100, 200, 0, null));
 
-        Event e1 = new Event();
-        e1.startTime = 100;
-        e1.endTime = 130;
-        e1.allDay = false;
-        e1.startDay = 1;
-        e1.endDay = 1;
-        Event e2 = new Event();
-        e1.startTime = 1000;
-        e1.endTime = 1030;
-        e2.allDay = false;
-        e2.startDay = 1;
-        e2.endDay = 1;
-        events.add(e1);
-        events.add(e2);
+        events.add(buildTestEvent(100, 130, false, 1, 1));
+        events.add(buildTestEvent(1000, 1030, false, 1, 1));
+        // Illegal pixel positions
         assertEquals(null, Utils.createBusyBitSegments(30, 10, 100, 200, 1, events));
+        // Illegal start and end times
         assertEquals(null, Utils.createBusyBitSegments(10, 30, 200, 100, 1, events));
-        assertEquals(0, Utils.createBusyBitSegments(10, 30, 500, 900, 1, events).size());
+        assertEquals(null, Utils.createBusyBitSegments(10, 30, -10, 100, 1, events));
+        assertEquals(null, Utils.createBusyBitSegments(10, 30, 24 * 60 + 100, 24 * 60 + 200, 1,
+                events));
+        assertEquals(null, Utils.createBusyBitSegments(10, 30, 200, 24 * 60 + 100, 1, events));
+        assertEquals(null, Utils.createBusyBitSegments(10, 30, 200, -100, 1, events));
+        // No Events in time frame
+        assertEquals(null, Utils.createBusyBitSegments(10, 30, 500, 900, 1, events));
 
-        // test event that spans over the day
+        // Test event that spans over the day
         events.clear();
-        e1.startTime = 100;
-        e1.endTime = 300;
-        e1.allDay = false;
-        e1.startDay = 1;
-        e1.endDay = 5;
-        events.add(e1);
+        events.add(buildTestEvent(100, 300, false, 1, 5));
         ArrayList<BusyBitsSegment> segments = new ArrayList<BusyBitsSegment>();
-        BusyBitsSegment s1 = new BusyBitsSegment(0, 250);
-        segments.add(s1);
-        assertEquals(segments, Utils.createBusyBitSegments(0, 250, 200, 1200, 3, events));
+        assertEquals(null, Utils.createBusyBitSegments(0, 250, 200, 1200, 3, events));
 
-        // test zero times events, events that are partially in the time span and all day events
+        // test zero times events, events that are partially in the time span
+        // and all day events
         events.clear();
-        e1.startTime = 100;
-        e1.endTime = 300;
-        e1.allDay = false;
-        e1.startDay = 1;
-        e1.endDay = 1;
-        e2.startTime = 1100;
-        e2.endTime = 1300;
-        e2.allDay = false;
-        e2.startDay = 1;
-        e2.endDay = 1;
-        Event e3 = new Event();
-        e3.startTime = 500;
-        e3.endTime = 600;
-        e3.allDay = true;
-        e3.startDay = 1;
-        e3.endDay = 1;
-        Event e4 = new Event();
-        e4.startTime = 700;
-        e4.endTime = 700;
-        e4.allDay = false;
-        e4.startDay = 1;
-        e4.endDay = 1;
-        events.add(e1);
-        events.add(e2);
-        events.add(e3);
-        events.add(e4);
+        events.add(buildTestEvent(100, 300, false, 1, 1));
+        events.add(buildTestEvent(1100, 1300, false, 1, 1));
+        events.add(buildTestEvent(500, 600, true, 1, 1));
+        events.add(buildTestEvent(700, 700, false, 1, 1));
         segments.clear();
-        s1.start = 0;
-        s1.end = 10;
-        BusyBitsSegment s2 = new BusyBitsSegment(90, 100);
-        segments.add(s1);
-        segments.add(s2);
+        segments.add(new BusyBitsSegment(0, 10, false));
+        segments.add(new BusyBitsSegment(90, 100, false));
         assertEquals(segments, Utils.createBusyBitSegments(0, 100, 200, 1200, 1, events));
 
-        // Test interleaved events
+        // Test event that spans over 2 days but start and end time do not
+        // overlap fully with tested time span
 
         events.clear();
-        e1.startTime = 100;
-        e1.endTime = 130;
-        e1.allDay = false;
-        e2.startTime = 110;
-        e2.endTime = 200;
-        e2.allDay = false;
-        e3.startTime = 200;
-        e3.endTime = 300;
-        e3.allDay = false;
-        e4.startTime = 500;
-        e4.endTime = 700;
-        e4.allDay = false;
-        e4.startDay = 1;
-        e4.endDay = 1;
-        events.add(e1);
-        events.add(e2);
-        events.add(e3);
-        events.add(e4);
-
+        events.add(buildTestEvent(23 * 60, 120, false, 1, 2));
         segments.clear();
-        s1.start = 100;
-        s1.end = 120;
-        s2.start = 140;
-        s2.end = 160;
-        segments.add(s1);
-        segments.add(s2);
-        ArrayList<BusyBitsSegment> results = Utils.createBusyBitSegments(100, 180, 100, 900, 1, events);
-        assertEquals(segments, results);
+        segments.add(new BusyBitsSegment(0, 120, false));
+        assertEquals(segments, Utils.createBusyBitSegments(0, 240, 60, 180, 2, events));
+
+        // Test overlapped events (two draw sizes)
+        events.clear();
+        events.add(buildTestEvent(10, 200, false, 1, 1));
+        events.add(buildTestEvent(150, 250, false, 1, 1));
+        events.add(buildTestEvent(150, 250, false, 1, 1));
+        events.add(buildTestEvent(200, 400, false, 1, 1));
+        events.add(buildTestEvent(500, 700, false, 1, 1));
+        events.add(buildTestEvent(550, 600, false, 1, 1));
+        events.add(buildTestEvent(550, 580, false, 1, 1));
+        events.add(buildTestEvent(560, 570, false, 1, 1));
+        events.add(buildTestEvent(600, 700, false, 1, 1));
+        events.add(buildTestEvent(620, 700, false, 1, 1));
+        events.add(buildTestEvent(650, 700, false, 1, 1));
+        events.add(buildTestEvent(800, 900, false, 1, 1));
+        events.add(buildTestEvent(800, 900, false, 1, 1));
+        events.add(buildTestEvent(800, 850, false, 1, 1));
+        events.add(buildTestEvent(1000, 1200, false, 1, 1));
+        events.add(buildTestEvent(1000, 1200, false, 1, 1));
+        segments.clear();
+        segments.add(new BusyBitsSegment(100, 149, false));
+        segments.add(new BusyBitsSegment(150, 250, true));
+        segments.add(new BusyBitsSegment(251, 400, false));
+        segments.add(new BusyBitsSegment(500, 549, false));
+        segments.add(new BusyBitsSegment(550, 700, true));
+        segments.add(new BusyBitsSegment(800, 900, true));
+        segments.add(new BusyBitsSegment(1000, 1100, true));
+        assertEquals(segments, Utils.createBusyBitSegments(100, 1100, 100, 1100, 1, events));
+        segments.clear();
+        segments.add(new BusyBitsSegment(100, 111, false));
+        segments.add(new BusyBitsSegment(112, 137, true));
+        segments.add(new BusyBitsSegment(138, 175, false));
+        segments.add(new BusyBitsSegment(200, 211, false));
+        segments.add(new BusyBitsSegment(212, 250, true));
+        segments.add(new BusyBitsSegment(275, 300, true));
+        segments.add(new BusyBitsSegment(325, 350, true));
+        assertEquals(segments, Utils.createBusyBitSegments(100, 350, 100, 1100, 1, events));
+
     }
 }

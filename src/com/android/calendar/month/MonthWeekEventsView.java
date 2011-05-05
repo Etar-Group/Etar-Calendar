@@ -589,8 +589,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
                     r.right = day * effectiveWidth / (mNumDays) + mPadding
                             + (SPACING_WEEK_NUMBER * wkNumOffset) - DAY_SEPARATOR_OUTER_WIDTH / 2;
                     r.left = r.right - BUSY_BITS_WIDTH;
-                    r.top = s.start;
-                    r.bottom = s.end;
+                    r.top = s.getStart();
+                    r.bottom = s.getEnd();
                     canvas.drawRect(r, p);
                 }
             }

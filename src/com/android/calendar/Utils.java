@@ -36,6 +36,7 @@ import android.util.CalendarUtils.TimeZoneUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Formatter;
 import java.util.Iterator;
@@ -529,22 +530,55 @@ public class Utils {
     }
 
 
-    // Helper class for createBusyBitSegments function
+    /**
+     * Helper class for createBusyBitSegments method.
+     * Contains information about a segment of time (in pixels):
+     * 1. start and end of area to draw.
+     * 2. an indication if the segment represent a period of time with overlapping events (so that
+     *    the drawing function can draw it in a different way)
+     */
 
     public static class BusyBitsSegment {
-        public int start, end;
+        private int mStartPixel, mEndPixel;
+        private boolean mIsOverlapping;
 
-        BusyBitsSegment(int s, int e) {
-            start = s;
-            end = e;
+        public int getStart() {
+            return mStartPixel;
+        }
+
+        public void setStart(int start) {
+            this.mStartPixel = start;
+        }
+
+        public int getEnd() {
+            return mEndPixel;
+        }
+
+        public void setEnd(int end) {
+            this.mEndPixel = end;
+        }
+
+        public boolean isOverlapping() {
+            return mIsOverlapping;
+        }
+
+        public void setIsOverlapping(boolean isOverlapping) {
+            this.mIsOverlapping = isOverlapping;
+        }
+
+        public BusyBitsSegment(int s, int e, boolean isOverlapping) {
+            mStartPixel = s;
+            mEndPixel = e;
+            mIsOverlapping = isOverlapping;
         }
 
         @Override
         public int hashCode() {
             final int prime = 31;
             int result = 1;
-            result = prime * result + end;
-            result = prime * result + start;
+            result = prime * result + mEndPixel;
+            result = prime * result + (mIsOverlapping ? 1231 : 1237);
+            result = prime * result + mStartPixel;
             return result;
         }
 
@@ -560,91 +594,356 @@ public class Utils {
                 return false;
             }
             BusyBitsSegment other = (BusyBitsSegment) obj;
-            if (end != other.end) {
+            if (mEndPixel != other.mEndPixel) {
                 return false;
             }
-            if (start != other.start) {
+            if (mIsOverlapping != other.mIsOverlapping) {
+                return false;
+            }
+            if (mStartPixel != other.mStartPixel) {
                 return false;
             }
             return true;
         }
     }
 
-    // Converts a list of events to a list of busy segments to draw
-    // Assumes list is ordered according to start date
 
-    public static ArrayList<BusyBitsSegment> createBusyBitSegments(int pStart, int pEnd,
-            int startTime, int endTime, int julianDay,
-            ArrayList<Event> events) {
+    /**
+     * This is a helper class for the createBusyBitSegments method
+     * The class contains information about a specific time that corresponds to either a start
+     * of an event or an end of an event (or both):
+     * 1. The time itself
+     * 2 .The number of event starts and ends (number of starts - number of ends)
+     */
 
-        if (events == null || events.size() == 0 || pStart >= pEnd || startTime >= endTime)
+    private static class BusyBitsEventTime {
+
+        public static final int EVENT_START = 1;
+        public static final int EVENT_END = -1;
+
+        public int mTime; // in minutes
+        // Number of events that start and end in this time (+1 for each start,
+        // -1 for each end)
+        public int mStartEndChanges;
+
+        public BusyBitsEventTime(int t, int c) {
+            mTime = t;
+            mStartEndChanges = c;
+        }
+
+        public void addStart() {
+            mStartEndChanges++;
+        }
+
+        public void addEnd() {
+            mStartEndChanges--;
+        }
+    }
+
+    /**
+     * Corrects segments that are overlapping.
+     * The function makes sure the last two segments do not overlap (meaning:
+     * the start pixel of the last segment is bigger than the end pixel of the
+     * "one before last" segment.
+     * The function assumes an overlap could be only 1 pixel.
+     * The function removes segments if necessary
+     * Segment size is from start to end (inclusive)
+     *
+     * @param segments a list of BusyBitsSegment
+     */
+
+    public static void correctOverlappingSegment(ArrayList<BusyBitsSegment> segments) {
+
+        if (segments.size() <= 1)
+            return;
+
+        BusyBitsSegment seg1 = segments.get(segments.size() - 2);
+        BusyBitsSegment seg2 = segments.get(segments.size() - 1);
+
+        // If segments do not touch, no need to change
+        if (seg1.getEnd() < seg2.getStart()) {
+            return;
+        }
+        // If segments are identical , remove the last one
+        // This can only happen if both segments are the size of 1 pixel
+        if (seg1.equals(seg2)) {
+            segments.remove(segments.size() - 1);
+            return;
+        }
+
+        // Always prefer an overlapping segment to non-overlapping one
+        // If by cropping a segment it disappears (start > end), remove it (OK if start == end,
+        // because it is a 1 pixel segment)
+        if (seg1.isOverlapping()) {
+            seg2.setStart(seg2.getStart() + 1);
+            if (seg2.getStart() > seg2.getEnd()) {
+                segments.remove(segments.size() - 1);
+            }
+            return;
+        } else if (seg2.isOverlapping()) {
+            seg1.setEnd(seg1.getEnd() - 1);
+            if (seg1.getStart() > seg1.getEnd()) {
+                segments.remove(segments.size() - 2);
+            }
+            return;
+        } else {
+            // same kind of segments , just shorten the last one
+            seg2.setStart(seg2.getStart() + 1);
+            if (seg2.getStart() > seg2.getEnd()) {
+                segments.remove(segments.size() - 1);
+            }
+        }
+    }
+
+
+    /**
+     * Converts a list of events to a list of busy segments to draw.
+     * Assumes list is ordered according to start time of events
+     * The function processes events of a specific day only or part of that day
+     *
+     * The algorithm goes over all the events and creates an ordered list of times.
+     * Each item on the list corresponds to a time where an event started,ended or both.
+     * The item has a count of how many events started and how many events ended at that time.
+     * In the second stage, the algorithm go over the list of times and finds what change happened
+     * at each time. A change can be a switch between either of the free time/busy time/overlapping
+     * time. Every time a change happens, the algorithm creates a segment (in pixels) to be
+     * displayed with the relevant status (free/busy/overlapped).
+     * The algorithm also checks if segments overlap and truncates one of them if needed.
+     *
+     * @param startPixel defines the start of the draw area
+     * @param endPixel defines the end of the draw area
+     * @param startTimeMinute start time (in minutes) of the time frame to be displayed as busy bits
+     * @param endTimeMinute end time (in minutes) of the time frame to be displayed as busy bits
+     * @param julianDay the day of the time frame
+     * @param daysEvents - a list of events that took place in the specified day (including
+     *                     recurring events, events that start before the day and/or end after
+     *                     the day
+
+     * @return A list of segments to draw. Each segment includes the start and end
+     *         pixels (inclusive).
+     */
+
+    public static ArrayList<BusyBitsSegment> createBusyBitSegments(int startPixel, int endPixel,
+            int startTimeMinute, int endTimeMinute, int julianDay,
+            ArrayList<Event> daysEvents) {
+
+        // No events or illegal parameters , do nothing
+
+        if (daysEvents == null || daysEvents.size() == 0 || startPixel >= endPixel ||
+                startTimeMinute < 0 || startTimeMinute > 24 * 60 || endTimeMinute < 0 ||
+                endTimeMinute > 24 * 60 || startTimeMinute >= endTimeMinute) {
+            Log.wtf(TAG, "Illegal parameter in createBusyBitSegments,  " +
+                    "daysEvents = " + daysEvents + " , " +
+                    "startPixel = " + startPixel + " , " +
+                    "endPixel = " + endPixel + " , " +
+                    "startTimeMinute = " + startTimeMinute + " , " +
+                    "endTimeMinute = " + endTimeMinute + " , ");
             return null;
-
-        // Times must be between 00:00 to 24:00
-
-        if (startTime < 0) {
-            startTime = 0;
-        }
-        if (endTime > 24 * 60) {
-            endTime = 24*60;
         }
 
-        ArrayList<BusyBitsSegment> segments = new ArrayList<BusyBitsSegment>();
-        int start = -1;
-        int end = -1;
-        int timeFrame = endTime - startTime;
-        int pSize = pEnd - pStart;
+        // Go over all events and create a sorted list of times that include all
+        // the start and end times of all events.
 
-        // Iterate on events and create segments
-        Iterator<Event> iter = events.iterator();
+        ArrayList<BusyBitsEventTime> times = new ArrayList<BusyBitsEventTime>();
+
+        Iterator<Event> iter = daysEvents.iterator();
+        // Pointer to the search start in the "times" list. It prevents searching from the beginning
+        // of the list for each event. It is updated every time a new start time is inserted into
+        // the times list, since the events are time ordered, there is no point on searching before
+        // the last start time that was inserted
+        int initialSearchIndex = 0;
         while (iter.hasNext()) {
             Event event = iter.next();
 
-            int eStart = event.startTime;
-            int eEnd = event.endTime;
+            // Take into account the start and end day. This is important for events that span
+            // multiple days.
+            int eStart = event.startTime - (julianDay - event.startDay) * 24 * 60;
+            int eEnd = event.endTime + (event.endDay - julianDay) * 24 * 60;
 
-            // skip all day events, events that are not in the time frame and
-            // events that are zero length
-            if (event.allDay || eStart >= endTime || eEnd <= startTime || eStart == eEnd) {
+            // Skip all day events, and events that are not in the time frame
+            if (event.drawAsAllday() || eStart >= endTimeMinute || eEnd <= startTimeMinute) {
                 continue;
             }
 
             // If event spans before or after start or end time , truncate it
-            if (eStart < startTime || event.startDay < julianDay) {
-                eStart = startTime;
+            // because we care only about the time span that is passed to the function
+            if (eStart < startTimeMinute) {
+                eStart = startTimeMinute;
             }
-            if (eEnd > endTime || event.endDay > julianDay) {
-                eEnd = endTime;
+            if (eEnd > endTimeMinute) {
+                eEnd = endTimeMinute;
             }
-
-            // first event , just take the values as the initial segment size
-            if (start == -1 && end == -1) {
-                start = eStart;
-                end = eEnd;
+            // Skip events that are zero length
+            if (eStart == eEnd) {
                 continue;
             }
 
-            // combine event with current segment
-            if (eStart <= end) {
-                if (eEnd > end) {
-                    end = eEnd;
+            // First event , just put it in the "times" list
+            if (times.size() == 0) {
+                BusyBitsEventTime es = new BusyBitsEventTime(eStart, BusyBitsEventTime.EVENT_START);
+                BusyBitsEventTime ee = new BusyBitsEventTime(eEnd, BusyBitsEventTime.EVENT_END);
+                times.add(es);
+                times.add(ee);
+                continue;
+            }
+
+            // Insert start and end times of event in "times" list.
+            // Loop through the "times" list and put the event start and ends times in the correct
+            // place.
+            boolean startInserted = false;
+            boolean endInserted = false;
+            int i = initialSearchIndex; // Skip times that are before the event time
+            // Two pointers for looping through the "times" list. Current item and next item.
+            int t1, t2;
+            do {
+                t1 = times.get(i).mTime;
+                t2 = times.get(i + 1).mTime;
+                if (!startInserted) {
+                    // Start time equals an existing item in the "times" list, just update the
+                    // starts count of the specific item
+                    if (eStart == t1) {
+                        times.get(i).addStart();
+                        initialSearchIndex = i;
+                        startInserted = true;
+                    } else if (eStart == t2) {
+                        times.get(i + 1).addStart();
+                        initialSearchIndex = i + 1;
+                        startInserted = true;
+                    } else if (eStart > t1 && eStart < t2) {
+                        // The start time is between the times of the current item and next item:
+                        // insert a new start time in between the items.
+                        BusyBitsEventTime e = new BusyBitsEventTime(eStart,
+                                BusyBitsEventTime.EVENT_START);
+                        times.add(i + 1, e);
+                        initialSearchIndex = i + 1;
+                        t2 = eStart;
+                        startInserted = true;
+                    }
                 }
-            } else {
-                // Push current segment to segment list and create a new segment
-                BusyBitsSegment s = new BusyBitsSegment(
-                        (start - startTime) * pSize / timeFrame + pStart,
-                        (end - startTime) * pSize / timeFrame + pStart);
-                segments.add(s);
-                start = eStart;
-                end = eEnd;
+                if (!endInserted) {
+                    // End time equals an existing item in the "times" list, just update the
+                    // ends count of the specific item
+                    if (eEnd == t1) {
+                        times.get(i).addEnd();
+                        endInserted = true;
+                    } else if (eEnd == t2) {
+                        times.get(i + 1).addEnd();
+                        endInserted = true;
+                    } else if (eEnd > t1 && eEnd < t2) {
+                        // The end time is between the times of the current item and next item:
+                        // insert a new end time in between the items.
+                        BusyBitsEventTime e = new BusyBitsEventTime(eEnd,
+                                BusyBitsEventTime.EVENT_END);
+                        times.add(i + 1, e);
+                        t2 = eEnd;
+                        endInserted = true;
+                    }
+                }
+                i++;
+            } while (!endInserted && i + 1 < times.size());
+
+            // Deal with the last event if not inserted in the list
+            if (!startInserted) {
+                BusyBitsEventTime e = new BusyBitsEventTime(eStart, BusyBitsEventTime.EVENT_START);
+                times.add(e);
+                initialSearchIndex = times.size() - 1;
+            }
+            if (!endInserted) {
+                BusyBitsEventTime e = new BusyBitsEventTime(eEnd, BusyBitsEventTime.EVENT_END);
+                times.add(e);
             }
         }
 
-        if (start != end) {
-            BusyBitsSegment s = new BusyBitsSegment(
-                    (start - startTime) * pSize / timeFrame + pStart,
-                    (end - startTime) * pSize / timeFrame + pStart);
-            segments.add(s);
+        // No events , return
+        if (times.size() == 0) {
+            return null;
+        }
+
+        // Loop through the created "times" list and find busy time segments and overlapping
+        // segments. In the loop, keep the status of time (free/busy/overlapping) and the time
+        // of when last status started. When there is a change in the status, create a segment with
+        // the previous status from the time of the last status started until the time of the
+        // current change.
+        // The loop keeps a count of how many events are overlapping. Zero means free time, one
+        // means a busy time and more than one means overlapping time. The count is updated by
+        // the number of starts and ends from the items in the "times" list. A change is a switch
+        // from free/busy/overlap status to a different one.
+
+        ArrayList<BusyBitsSegment> segments = new ArrayList<BusyBitsSegment>();
+
+        int segmentStartTime = 0;  // default start time
+        int overlappedCount = 0;   // assume starting with free time
+        int pixelSize = endPixel - startPixel;
+        int timeFrame = endTimeMinute - startTimeMinute;
+
+        Iterator<BusyBitsEventTime> tIter = times.iterator();
+        while (tIter.hasNext()) {
+            BusyBitsEventTime t = tIter.next();
+            // Get the new count of overlapping events
+            int newCount = overlappedCount + t.mStartEndChanges;
+
+            // No need for a new segment because the free/busy/overlapping status didn't change
+            if (overlappedCount == newCount || (overlappedCount >= 2 && newCount >= 2)) {
+                overlappedCount = newCount;
+                continue;
+            }
+            if (overlappedCount == 0 && newCount == 1) {
+                // A busy time started - start a new segment
+                if (segmentStartTime != 0) {
+                    // Unknown status, blow up
+                    Log.wtf(TAG, "Unknown state in createBusyBitSegments, segmentStartTime = " +
+                            segmentStartTime + ", nolc = " + newCount);
+                }
+                segmentStartTime = t.mTime;
+            } else if (overlappedCount == 0 && newCount >= 2) {
+                // An overlapping time started - start a new segment
+                if (segmentStartTime != 0) {
+                    // Unknown status, blow up
+                    Log.wtf(TAG, "Unknown state in createBusyBitSegments, segmentStartTime = " +
+                            segmentStartTime + ", nolc = " + newCount);
+                }
+                segmentStartTime = t.mTime;
+            } else if (overlappedCount == 1 && newCount >= 2) {
+                // A busy time ended and overlapping segment started,
+                // Save busy segment and start overlapping segment
+                BusyBitsSegment s = new BusyBitsSegment(
+                        (segmentStartTime - startTimeMinute) * pixelSize / timeFrame + startPixel,
+                        (t.mTime - startTimeMinute) * pixelSize / timeFrame + startPixel, false);
+                segments.add(s);
+                correctOverlappingSegment(segments);
+                segmentStartTime = t.mTime;
+            } else if (overlappedCount >= 2 && newCount == 1) {
+                // An overlapping time ended and busy segment started.
+                // Save overlapping segment and start busy segment
+                BusyBitsSegment s = new BusyBitsSegment(
+                        (segmentStartTime - startTimeMinute) * pixelSize / timeFrame + startPixel,
+                        (t.mTime - startTimeMinute) * pixelSize / timeFrame + startPixel, true);
+                segments.add(s);
+                correctOverlappingSegment(segments);
+                segmentStartTime = t.mTime;
+            } else if (overlappedCount >= 2 && newCount == 0) {
+                // An overlapping segment ended, and a free time segment started
+                // Save overlapping segment
+                BusyBitsSegment s = new BusyBitsSegment(
+                        (segmentStartTime - startTimeMinute) * pixelSize / timeFrame + startPixel,
+                        (t.mTime - startTimeMinute) * pixelSize / timeFrame + startPixel, true);
+                segments.add(s);
+                correctOverlappingSegment(segments);
+                segmentStartTime = 0;
+            } else if (overlappedCount == 1 && newCount == 0) {
+                // A busy segment ended, and a free time segment started, save busy segment
+                BusyBitsSegment s = new BusyBitsSegment(
+                        (segmentStartTime - startTimeMinute) * pixelSize / timeFrame + startPixel,
+                        (t.mTime - startTimeMinute) * pixelSize / timeFrame + startPixel, false);
+                segments.add(s);
+                correctOverlappingSegment(segments);
+                segmentStartTime = 0;
+            } else {
+                // Unknown status, blow up
+                Log.wtf(TAG, "Unknown state in createBusyBitSegments: time = " + t.mTime +
+                        " , olc = " + overlappedCount + " nolc = " + newCount);
+            }
+            overlappedCount = newCount; // Update count
         }
         return segments;
     }
