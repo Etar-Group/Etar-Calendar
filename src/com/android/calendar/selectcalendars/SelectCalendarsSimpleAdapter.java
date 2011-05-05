@@ -149,7 +149,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         mCursor = c;
         mIdColumn = c.getColumnIndexOrThrow(Calendars._ID);
         mNameColumn = c.getColumnIndexOrThrow(Calendars.DISPLAY_NAME);
-        mColorColumn = c.getColumnIndexOrThrow(Calendars.COLOR);
+        mColorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         mVisibleColumn = c.getColumnIndexOrThrow(Calendars.VISIBLE);
 
         mRowCount = c.getCount();

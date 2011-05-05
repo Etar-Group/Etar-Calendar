@@ -51,8 +51,8 @@ public class CalendarController {
     private static final String TAG = "CalendarController";
     private static final String REFRESH_SELECTION = Calendars.SYNC_EVENTS + "=?";
     private static final String[] REFRESH_ARGS = new String[] { "1" };
-    private static final String REFRESH_ORDER = Calendars._SYNC_ACCOUNT + ","
-            + Calendars._SYNC_ACCOUNT_TYPE;
+    private static final String REFRESH_ORDER = Calendars.ACCOUNT_NAME + ","
+            + Calendars.ACCOUNT_TYPE;
 
     public static final String EVENT_EDIT_ON_LAUNCH = "editMode";
 
@@ -599,8 +599,8 @@ public class CalendarController {
         // get the account, url, and current sync state
         mService.startQuery(mService.getNextToken(), null, Calendars.CONTENT_URI,
                 new String[] {Calendars._ID, // 0
-                        Calendars._SYNC_ACCOUNT, // 1
-                        Calendars._SYNC_ACCOUNT_TYPE, // 2
+                        Calendars.ACCOUNT_NAME, // 1
+                        Calendars.ACCOUNT_TYPE, // 2
                         },
                 REFRESH_SELECTION, REFRESH_ARGS, REFRESH_ORDER);
     }

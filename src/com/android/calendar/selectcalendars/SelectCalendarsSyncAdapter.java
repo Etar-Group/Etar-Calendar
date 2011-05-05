@@ -83,7 +83,7 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
 
         mIdColumn = c.getColumnIndexOrThrow(Calendars._ID);
         mNameColumn = c.getColumnIndexOrThrow(Calendars.DISPLAY_NAME);
-        mColorColumn = c.getColumnIndexOrThrow(Calendars.COLOR);
+        mColorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         mSyncedColumn = c.getColumnIndexOrThrow(Calendars.SYNC_EVENTS);
 
         mRowCount = c.getCount();

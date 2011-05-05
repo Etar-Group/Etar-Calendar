@@ -563,7 +563,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             View colorBar = view.findViewById(R.id.color);
-            int colorColumn = cursor.getColumnIndexOrThrow(Calendars.COLOR);
+            int colorColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
             int nameColumn = cursor.getColumnIndexOrThrow(Calendars.DISPLAY_NAME);
             int ownerColumn = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
             if (colorBar != null) {
@@ -1154,7 +1154,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mCalendarsSpinner.setSelection(defaultCalendarPosition);
         mCalendarsSpinner.setOnItemSelectedListener(this);
 
-        int colorColumn = cursor.getColumnIndexOrThrow(Calendars.COLOR);
+        int colorColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         mColorChip.setBackgroundColor(cursor.getInt(colorColumn));
 
 
@@ -1492,7 +1492,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Cursor c = (Cursor) parent.getItemAtPosition(position);
         if (c != null) {
-            int colorColumn = c.getColumnIndexOrThrow(Calendars.COLOR);
+            int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
             mColorChip.setBackgroundColor(c.getInt(colorColumn));
         }
     }

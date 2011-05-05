@@ -616,7 +616,7 @@ public class EditEventHelperTest extends AndroidTestCase {
                 EditEventHelper.MODIFY_ALL);
 
         moveExpectedTimeValuesForwardOneDay();
-        mExpectedValues.put(Events.ORIGINAL_EVENT, mModel2.mSyncId);
+        mExpectedValues.put(Events.ORIGINAL_SYNC_ID, mModel2.mSyncId);
         mExpectedValues.put(Events.ORIGINAL_INSTANCE_TIME, mModel1.mOriginalStart);
         mExpectedValues.put(Events.ORIGINAL_ALL_DAY, 1);
 
@@ -1505,8 +1505,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         values.put(Events.DTEND, (Long) null);
         values.put(Events.DESCRIPTION, "Evaluating Life, the Universe, and Everything");
         values.put(Events.EVENT_LOCATION, "Earth Mk2");
-        values.put(Events.TRANSPARENCY, 0);
-        values.put(Events.VISIBILITY, 3); // This is one more than the model if
+        values.put(Events.AVAILABILITY, 0);
+        values.put(Events.ACCESS_LEVEL, 3); // This is one more than the model if
                                           // >0
 
         return values;
