@@ -172,8 +172,7 @@
     <string name="tomorrow" msgid="614434811813859237">"Mañana"</string>
     <string name="in_progress" msgid="3637799356103489011">"en curso"</string>
     <string name="today" msgid="8577375020252453006">"Hoy"</string>
-    <!-- no translation found for copy_db (437691290566699292) -->
-    <skip />
+    <string name="copy_db" msgid="437691290566699292">"Enviar base de datos"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Buscando <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Evento <xliff:g id="ITEM_INDEX">%1$s</xliff:g> de <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
 </resources>
