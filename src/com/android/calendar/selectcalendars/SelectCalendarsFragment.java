@@ -48,13 +48,13 @@ public class SelectCalendarsFragment extends Fragment
 
     private static final String[] PROJECTION = new String[] {
         Calendars._ID,
-        Calendars._SYNC_ACCOUNT,
+        Calendars.ACCOUNT_NAME,
         Calendars.OWNER_ACCOUNT,
         Calendars.DISPLAY_NAME,
-        Calendars.COLOR,
+        Calendars.CALENDAR_COLOR,
         Calendars.VISIBLE,
         Calendars.SYNC_EVENTS,
-        "(" + Calendars._SYNC_ACCOUNT + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY,
+        "(" + Calendars.ACCOUNT_NAME + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY,
       };
     private static final int COLUMN_ID = 0;
     private static final int COLUMN_SYNC_ACCOUNT = 1;
@@ -120,7 +120,7 @@ public class SelectCalendarsFragment extends Fragment
         super.onResume();
         mQueryToken = mService.getNextToken();
         mService.startQuery(mQueryToken, null, Calendars.CONTENT_URI, PROJECTION, SELECTION,
-                SELECTION_ARGS, Calendars._SYNC_ACCOUNT);
+                SELECTION_ARGS, Calendars.ACCOUNT_NAME);
     }
 
     /*
@@ -144,7 +144,7 @@ public class SelectCalendarsFragment extends Fragment
             mService.cancelOperation(mQueryToken);
             mQueryToken = mService.getNextToken();
             mService.startQuery(mQueryToken, null, Calendars.CONTENT_URI, PROJECTION, SELECTION,
-                    SELECTION_ARGS, Calendars._SYNC_ACCOUNT);
+                    SELECTION_ARGS, Calendars.ACCOUNT_NAME);
         }
     }
 

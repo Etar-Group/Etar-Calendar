@@ -121,10 +121,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Events.DESCRIPTION,          // 8
         Events.EVENT_LOCATION,       // 9
         Calendars.ACCESS_LEVEL,      // 10
-        Calendars.COLOR,             // 11
+        Calendars.CALENDAR_COLOR,             // 11
         Events.HAS_ATTENDEE_DATA,    // 12
         Events.ORGANIZER,            // 13
-        Events.ORIGINAL_EVENT        // 14 do not remove; used in DeleteEventHelper
+        Events.ORIGINAL_SYNC_ID        // 14 do not remove; used in DeleteEventHelper
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -703,7 +703,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         values.put(Events.CALENDAR_ID, calendarId);
         values.put(Events.DTSTART, mStartMillis);
         values.put(Events.DTEND, mEndMillis);
-        values.put(Events.ORIGINAL_EVENT, syncId);
+        values.put(Events.ORIGINAL_SYNC_ID, syncId);
         values.put(Events.ORIGINAL_INSTANCE_TIME, mStartMillis);
         values.put(Events.ORIGINAL_ALL_DAY, allDay ? 1 : 0);
         values.put(Events.STATUS, Events.STATUS_CONFIRMED);

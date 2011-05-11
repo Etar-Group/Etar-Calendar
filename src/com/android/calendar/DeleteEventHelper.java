@@ -351,7 +351,7 @@ public class DeleteEventHelper {
                 values.put(Events.CALENDAR_ID, calendarId);
                 values.put(Events.DTSTART, mStartMillis);
                 values.put(Events.DTEND, mEndMillis);
-                values.put(Events.ORIGINAL_EVENT, mSyncId);
+                values.put(Events.ORIGINAL_SYNC_ID, mSyncId);
                 values.put(Events.ORIGINAL_INSTANCE_TIME, mStartMillis);
                 values.put(Events.STATUS, Events.STATUS_CANCELED);
 

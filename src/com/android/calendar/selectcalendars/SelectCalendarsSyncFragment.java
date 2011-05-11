@@ -52,17 +52,17 @@ public class SelectCalendarsSyncFragment extends ListFragment
     private static final boolean DEBUG = false;
 
     private static final String COLLATE_NOCASE = " COLLATE NOCASE";
-    private static final String SELECTION = Calendars._SYNC_ACCOUNT + "=? AND "
-            + Calendars._SYNC_ACCOUNT_TYPE + "=?";
+    private static final String SELECTION = Calendars.ACCOUNT_NAME + "=? AND "
+            + Calendars.ACCOUNT_TYPE + "=?";
     // is primary lets us sort the user's main calendar to the top of the list
     private static final String IS_PRIMARY = "\"primary\"";
     private static final String SORT_ORDER = IS_PRIMARY + " DESC," + Calendars.DISPLAY_NAME
             + COLLATE_NOCASE;
 
     private static final String[] PROJECTION = new String[] { Calendars._ID,
-            Calendars._SYNC_ACCOUNT, Calendars.OWNER_ACCOUNT, Calendars.DISPLAY_NAME,
-            Calendars.COLOR, Calendars.VISIBLE, Calendars.SYNC_EVENTS,
-            "(" + Calendars._SYNC_ACCOUNT + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY, };
+            Calendars.ACCOUNT_NAME, Calendars.OWNER_ACCOUNT, Calendars.DISPLAY_NAME,
+            Calendars.CALENDAR_COLOR, Calendars.VISIBLE, Calendars.SYNC_EVENTS,
+            "(" + Calendars.ACCOUNT_NAME + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY, };
     private static final int COLUMN_ID = 0;
     private static final int COLUMN_SYNC_ACCOUNT = 1;
     private static final int COLUMN_OWNER_ACCOUNT = 2;
@@ -83,8 +83,8 @@ public class SelectCalendarsSyncFragment extends ListFragment
 
     public SelectCalendarsSyncFragment(Bundle bundle) {
         Log.d(TAG, "With bundle was created");
-        mAccount = new Account(
-                bundle.getString(Calendars.ACCOUNT_NAME), bundle.getString(Calendars.ACCOUNT_TYPE));
+        mAccount = new Account(bundle.getString(Calendars.ACCOUNT_NAME),
+                bundle.getString(Calendars.ACCOUNT_TYPE));
     }
 
     @Override

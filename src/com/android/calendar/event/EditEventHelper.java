@@ -75,11 +75,11 @@ public class EditEventHelper {
             Events.EVENT_TIMEZONE, // 10
             Events.RRULE, // 11
             Events._SYNC_ID, // 12
-            Events.TRANSPARENCY, // 13
-            Events.VISIBILITY, // 14
+            Events.AVAILABILITY, // 13
+            Events.ACCESS_LEVEL, // 14
             Events.OWNER_ACCOUNT, // 15
             Events.HAS_ATTENDEE_DATA, // 16
-            Events.ORIGINAL_EVENT, // 17
+            Events.ORIGINAL_SYNC_ID, // 17
             Events.ORGANIZER, // 18
             Events.GUESTS_CAN_MODIFY, // 19
     };
@@ -164,7 +164,7 @@ public class EditEventHelper {
             Calendars._ID, // 0
             Calendars.DISPLAY_NAME, // 1
             Calendars.OWNER_ACCOUNT, // 2
-            Calendars.COLOR, // 3
+            Calendars.CALENDAR_COLOR, // 3
             Calendars.CAN_ORGANIZER_RESPOND, // 4
             Calendars.ACCESS_LEVEL, // 5
             Calendars.VISIBLE, // 6
@@ -323,7 +323,7 @@ public class EditEventHelper {
             // Modify contents of the current instance of repeating event
             // Create a recurrence exception
             long begin = model.mOriginalStart;
-            values.put(Events.ORIGINAL_EVENT, originalModel.mSyncId);
+            values.put(Events.ORIGINAL_SYNC_ID, originalModel.mSyncId);
             values.put(Events.ORIGINAL_INSTANCE_TIME, begin);
             boolean allDay = originalModel.mAllDay;
             values.put(Events.ORIGINAL_ALL_DAY, allDay ? 1 : 0);
@@ -1181,7 +1181,7 @@ public class EditEventHelper {
         } else {
             values.put(Events.EVENT_LOCATION, (String) null);
         }
-        values.put(Events.TRANSPARENCY, model.mTransparency ? 1 : 0);
+        values.put(Events.AVAILABILITY, model.mTransparency ? 1 : 0);
         values.put(Events.HAS_ATTENDEE_DATA, model.mHasAttendeeData ? 1 : 0);
 
         int visibility = model.mVisibility;
@@ -1190,7 +1190,7 @@ public class EditEventHelper {
             // Default (0), Private (2), Public (3)
             visibility++;
         }
-        values.put(Events.VISIBILITY, visibility);
+        values.put(Events.ACCESS_LEVEL, visibility);
 
         return values;
     }

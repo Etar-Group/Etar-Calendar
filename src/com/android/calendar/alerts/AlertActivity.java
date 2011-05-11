@@ -61,7 +61,7 @@ public class AlertActivity extends Activity implements OnClickListener {
         CalendarAlerts.BEGIN,            // 4
         CalendarAlerts.END,              // 5
         CalendarAlerts.EVENT_ID,         // 6
-        CalendarAlerts.COLOR,            // 7
+        CalendarAlerts.CALENDAR_COLOR,            // 7
         CalendarAlerts.RRULE,            // 8
         CalendarAlerts.HAS_ALARM,        // 9
         CalendarAlerts.STATE,            // 10

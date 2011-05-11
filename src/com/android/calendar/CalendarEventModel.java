@@ -183,12 +183,12 @@ public class CalendarEventModel implements Serializable {
             mDescription = description;
         }
 
-        int transparency = intent.getIntExtra(Events.TRANSPARENCY, -1);
+        int transparency = intent.getIntExtra(Events.AVAILABILITY, -1);
         if (transparency != -1) {
             mTransparency = transparency != 0;
         }
 
-        int visibility = intent.getIntExtra(Events.VISIBILITY, -1);
+        int visibility = intent.getIntExtra(Events.ACCESS_LEVEL, -1);
         if (visibility != -1) {
             mVisibility = visibility;
         }
