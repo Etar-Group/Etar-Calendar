@@ -74,7 +74,8 @@
     <color name="month_selection_bar_color">#FF6699FF</color>
     <color name="month_selection_outline_color">#336699FF</color>
     <color name="month_busybits_backgound_color">#FFFFFFFF</color>
-    <color name="month_busybits_foregound_color">#AAFFAA00</color>
+    <color name="month_busybits_busy_time_color">#AAFFAA00</color>
+    <color name="month_busybits_conflict_time_color">#AAFF0000</color>
 
     <color name="event_center">#ff6bd697</color>
 

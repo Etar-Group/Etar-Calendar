@@ -530,85 +530,7 @@ public class Utils {
     }
 
 
-    /**
-     * Helper class for createBusyBitSegments method.
-     * Contains information about a segment of time (in pixels):
-     * 1. start and end of area to draw.
-     * 2. an indication if the segment represent a period of time with overlapping events (so that
-     *    the drawing function can draw it in a different way)
-     */
-
-    public static class BusyBitsSegment {
-        private int mStartPixel, mEndPixel;
-        private boolean mIsOverlapping;
-
-        public int getStart() {
-            return mStartPixel;
-        }
-
-        public void setStart(int start) {
-            this.mStartPixel = start;
-        }
-
-        public int getEnd() {
-            return mEndPixel;
-        }
-
-        public void setEnd(int end) {
-            this.mEndPixel = end;
-        }
-
-        public boolean isOverlapping() {
-            return mIsOverlapping;
-        }
-
-        public void setIsOverlapping(boolean isOverlapping) {
-            this.mIsOverlapping = isOverlapping;
-        }
-
-        public BusyBitsSegment(int s, int e, boolean isOverlapping) {
-            mStartPixel = s;
-            mEndPixel = e;
-            mIsOverlapping = isOverlapping;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + mEndPixel;
-            result = prime * result + (mIsOverlapping ? 1231 : 1237);
-            result = prime * result + mStartPixel;
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            BusyBitsSegment other = (BusyBitsSegment) obj;
-            if (mEndPixel != other.mEndPixel) {
-                return false;
-            }
-            if (mIsOverlapping != other.mIsOverlapping) {
-                return false;
-            }
-            if (mStartPixel != other.mStartPixel) {
-                return false;
-            }
-            return true;
-        }
-    }
-
-
-    /**
+     /**
      * This is a helper class for the createBusyBitSegments method
      * The class contains information about a specific time that corresponds to either a start
      * of an event or an end of an event (or both):
@@ -642,59 +564,132 @@ public class Utils {
 
     /**
      * Corrects segments that are overlapping.
-     * The function makes sure the last two segments do not overlap (meaning:
-     * the start pixel of the last segment is bigger than the end pixel of the
-     * "one before last" segment.
+     * The function makes sure the last segment inserted do not overlap with segments in the
+     * segments arrays. It will compare the last inserted segment to last segment in both the
+     * busy array and conflicting array and make corrections to segments if necessary.
      * The function assumes an overlap could be only 1 pixel.
      * The function removes segments if necessary
      * Segment size is from start to end (inclusive)
      *
-     * @param segments a list of BusyBitsSegment
+     * @param segments segments an array of 2 float arrays. The first array will contain the
+     *        coordinates for drawing busy segments, the second will contain the coordinates for
+     *        drawing conflicting segments. The first cell in each array contains the number of
+     *        used cell so this method can be called again without overriding data,
+     * @param arrayIndex - index of the segments array that got the last segment
+     * @param prevSegmentInserted - an indicator of the type of the previous segment inserted. This
+     *
+     * @return boolean telling the calling functions whether to add the last segment or not.
+     *         The calling function should first insert a new segment to the array, call this
+     *         function and when getting a "true" value in the return value, update the counter of
+     *         the array to indicate a new segment (Add 4 to the counter in cell 0).
      */
 
-    public static void correctOverlappingSegment(ArrayList<BusyBitsSegment> segments) {
+    static final int START_PIXEL_Y = 1;        // index of pixel locations in a coordinates set
+    static final int END_PIXEL_Y = 3;
+    static final int BUSY_ARRAY_INDEX = 0;
+    static final int CONFLICT_ARRAY_INDEX = 1;
+    static final int COUNTER_INDEX = 0;
 
-        if (segments.size() <= 1)
-            return;
+    static final int NO_PREV_INSERTED = 0;    // possible status of previous segment insertion
+    static final int BUSY_PREV_INSERTED = 1;
+    static final int CONFLICT_PREV_INSERTED = 2;
 
-        BusyBitsSegment seg1 = segments.get(segments.size() - 2);
-        BusyBitsSegment seg2 = segments.get(segments.size() - 1);
 
-        // If segments do not touch, no need to change
-        if (seg1.getEnd() < seg2.getStart()) {
-            return;
+    public static boolean correctOverlappingSegment(float[][] segments,
+            int arrayIndex, int prevSegmentInserted) {
+
+        if (prevSegmentInserted == NO_PREV_INSERTED) {
+            // First segment - add it
+            return true;
         }
-        // If segments are identical , remove the last one
-        // This can only happen if both segments are the size of 1 pixel
-        if (seg1.equals(seg2)) {
-            segments.remove(segments.size() - 1);
-            return;
+
+        // Previous insert and this one are to the busy array
+        if (prevSegmentInserted == BUSY_PREV_INSERTED && arrayIndex == BUSY_ARRAY_INDEX) {
+
+            // Index of last and previously inserted segment
+            int iLast = 1 + (int) segments[BUSY_ARRAY_INDEX][COUNTER_INDEX];
+            int iPrev = 1 + (int) segments[BUSY_ARRAY_INDEX][COUNTER_INDEX] - 4;
+
+            // Segments do not overlap - add the new one
+            if (segments[BUSY_ARRAY_INDEX][iPrev + END_PIXEL_Y] <
+                    segments[BUSY_ARRAY_INDEX][iLast + START_PIXEL_Y]) {
+                return true;
+            }
+
+            // Segments overlap - merge them
+            segments[BUSY_ARRAY_INDEX][iPrev + END_PIXEL_Y] =
+                    segments[BUSY_ARRAY_INDEX][iLast + END_PIXEL_Y];
+            return false;
         }
 
-        // Always prefer an overlapping segment to non-overlapping one
-        // If by cropping a segment it disappears (start > end), remove it (OK if start == end,
-        // because it is a 1 pixel segment)
-        if (seg1.isOverlapping()) {
-            seg2.setStart(seg2.getStart() + 1);
-            if (seg2.getStart() > seg2.getEnd()) {
-                segments.remove(segments.size() - 1);
+        // Previous insert was to the busy array and this one is to the conflict array
+        if (prevSegmentInserted == BUSY_PREV_INSERTED && arrayIndex == CONFLICT_ARRAY_INDEX) {
+
+            // Index of last and previously inserted segment
+            int iLast = 1 + (int) segments[CONFLICT_ARRAY_INDEX][COUNTER_INDEX];
+            int iPrev = 1 + (int) segments[BUSY_ARRAY_INDEX][COUNTER_INDEX] - 4;
+
+            // Segments do not overlap - add the new one
+            if (segments[BUSY_ARRAY_INDEX][iPrev + END_PIXEL_Y] <
+                    segments[CONFLICT_ARRAY_INDEX][iLast + START_PIXEL_Y]) {
+                return true;
             }
-            return;
-        } else if (seg2.isOverlapping()) {
-            seg1.setEnd(seg1.getEnd() - 1);
-            if (seg1.getStart() > seg1.getEnd()) {
-                segments.remove(segments.size() - 2);
+
+            // Segments overlap - truncate the end of the last busy segment
+            // if it disappears , remove it
+            segments[BUSY_ARRAY_INDEX][iPrev + END_PIXEL_Y]--;
+            if (segments[BUSY_ARRAY_INDEX][iPrev + END_PIXEL_Y] <
+                    segments[BUSY_ARRAY_INDEX][iPrev + START_PIXEL_Y]) {
+                segments[BUSY_ARRAY_INDEX] [COUNTER_INDEX] -= 4;
             }
-            return;
-        } else {
-            // same kind of segments , just shorten the last one
-            seg2.setStart(seg2.getStart() + 1);
-            if (seg2.getStart() > seg2.getEnd()) {
-                segments.remove(segments.size() - 1);
-            }
+            return true;
         }
+        // Previous insert was to the conflict array and this one is to the busy array
+        if (prevSegmentInserted == CONFLICT_PREV_INSERTED && arrayIndex == BUSY_ARRAY_INDEX) {
+
+            // Index of last and previously inserted segment
+            int iLast = 1 + (int) segments[BUSY_ARRAY_INDEX][COUNTER_INDEX];
+            int iPrev = 1 + (int) segments[CONFLICT_ARRAY_INDEX][COUNTER_INDEX] - 4;
+
+            // Segments do not overlap - add the new one
+            if (segments[CONFLICT_ARRAY_INDEX][iPrev + END_PIXEL_Y] <
+                    segments[BUSY_ARRAY_INDEX][iLast + START_PIXEL_Y]) {
+                return true;
+            }
+
+            // Segments overlap - truncate the new busy segment , if it disappears , do not
+            // insert it
+            segments[BUSY_ARRAY_INDEX][iLast + START_PIXEL_Y]++;
+            if (segments[BUSY_ARRAY_INDEX][iLast + START_PIXEL_Y] >
+                segments[BUSY_ARRAY_INDEX][iLast + END_PIXEL_Y]) {
+                return false;
+            }
+            return true;
+
+        }
+        // Previous insert and this one are to the conflict array
+        if (prevSegmentInserted == CONFLICT_PREV_INSERTED && arrayIndex == CONFLICT_ARRAY_INDEX) {
+
+            // Index of last and previously inserted segment
+            int iLast = 1 + (int) segments[CONFLICT_ARRAY_INDEX][COUNTER_INDEX];
+            int iPrev = 1 + (int) segments[CONFLICT_ARRAY_INDEX][COUNTER_INDEX] - 4;
+
+            // Segments do not overlap - add the new one
+            if (segments[CONFLICT_ARRAY_INDEX][iPrev + END_PIXEL_Y] <
+                    segments[CONFLICT_ARRAY_INDEX][iLast + START_PIXEL_Y]) {
+                return true;
+            }
+
+            // Segments overlap - merge them
+            segments[CONFLICT_ARRAY_INDEX][iPrev + END_PIXEL_Y] =
+                    segments[CONFLICT_ARRAY_INDEX][iLast + END_PIXEL_Y];
+            return false;
+        }
+        // Unknown state , complain
+        Log.wtf(TAG, "Unkown state in correctOverlappingSegment: prevSegmentInserted = " +
+                prevSegmentInserted + " arrayIndex = " + arrayIndex);
+        return false;
     }
-
 
     /**
      * Converts a list of events to a list of busy segments to draw.
@@ -705,40 +700,45 @@ public class Utils {
      * Each item on the list corresponds to a time where an event started,ended or both.
      * The item has a count of how many events started and how many events ended at that time.
      * In the second stage, the algorithm go over the list of times and finds what change happened
-     * at each time. A change can be a switch between either of the free time/busy time/overlapping
+     * at each time. A change can be a switch between either of the free time/busy time/conflicting
      * time. Every time a change happens, the algorithm creates a segment (in pixels) to be
-     * displayed with the relevant status (free/busy/overlapped).
+     * displayed with the relevant status (free/busy/conflicting).
      * The algorithm also checks if segments overlap and truncates one of them if needed.
      *
      * @param startPixel defines the start of the draw area
      * @param endPixel defines the end of the draw area
+     * @param xPixel the middle X position of the draw area
      * @param startTimeMinute start time (in minutes) of the time frame to be displayed as busy bits
      * @param endTimeMinute end time (in minutes) of the time frame to be displayed as busy bits
      * @param julianDay the day of the time frame
      * @param daysEvents - a list of events that took place in the specified day (including
      *                     recurring events, events that start before the day and/or end after
      *                     the day
-
-     * @return A list of segments to draw. Each segment includes the start and end
-     *         pixels (inclusive).
+     * @param segments an array of 2 float arrays. The first array will contain the coordinates
+     *        for drawing busy segments, the second will contain the coordinates for drawing
+     *        conflicting segments. The first cell in each array contains the number of used cell
+     *        so this method can be called again without overriding data,
+     *
      */
 
-    public static ArrayList<BusyBitsSegment> createBusyBitSegments(int startPixel, int endPixel,
-            int startTimeMinute, int endTimeMinute, int julianDay,
-            ArrayList<Event> daysEvents) {
+    public static void createBusyBitSegments(int startPixel, int endPixel,
+            int xPixel, int startTimeMinute, int endTimeMinute, int julianDay,
+            ArrayList<Event> daysEvents, float [] [] segments) {
 
         // No events or illegal parameters , do nothing
 
         if (daysEvents == null || daysEvents.size() == 0 || startPixel >= endPixel ||
                 startTimeMinute < 0 || startTimeMinute > 24 * 60 || endTimeMinute < 0 ||
-                endTimeMinute > 24 * 60 || startTimeMinute >= endTimeMinute) {
+                endTimeMinute > 24 * 60 || startTimeMinute >= endTimeMinute ||
+                segments == null || segments [0] == null || segments [1] == null) {
             Log.wtf(TAG, "Illegal parameter in createBusyBitSegments,  " +
                     "daysEvents = " + daysEvents + " , " +
                     "startPixel = " + startPixel + " , " +
                     "endPixel = " + endPixel + " , " +
                     "startTimeMinute = " + startTimeMinute + " , " +
-                    "endTimeMinute = " + endTimeMinute + " , ");
-            return null;
+                    "endTimeMinute = " + endTimeMinute + " , " +
+                    "segments" + segments);
+            return;
         }
 
         // Go over all events and create a sorted list of times that include all
@@ -856,38 +856,46 @@ public class Utils {
 
         // No events , return
         if (times.size() == 0) {
-            return null;
+            return;
         }
 
-        // Loop through the created "times" list and find busy time segments and overlapping
-        // segments. In the loop, keep the status of time (free/busy/overlapping) and the time
+        // Loop through the created "times" list and find busy time segments and conflicting
+        // segments. In the loop, keep the status of time (free/busy/conflicting) and the time
         // of when last status started. When there is a change in the status, create a segment with
         // the previous status from the time of the last status started until the time of the
         // current change.
-        // The loop keeps a count of how many events are overlapping. Zero means free time, one
-        // means a busy time and more than one means overlapping time. The count is updated by
+        // The loop keeps a count of how many events are conflicting. Zero means free time, one
+        // means a busy time and more than one means conflicting time. The count is updated by
         // the number of starts and ends from the items in the "times" list. A change is a switch
-        // from free/busy/overlap status to a different one.
+        // from free/busy/conflicting status to a different one.
 
-        ArrayList<BusyBitsSegment> segments = new ArrayList<BusyBitsSegment>();
 
         int segmentStartTime = 0;  // default start time
-        int overlappedCount = 0;   // assume starting with free time
+        int conflictingCount = 0;   // assume starting with free time
         int pixelSize = endPixel - startPixel;
         int timeFrame = endTimeMinute - startTimeMinute;
+        int prevSegmentInserted = NO_PREV_INSERTED;
+
+
+        // Arrays are preallocated by the calling code, the first cell in the
+        // array is the number
+        // of already occupied cells.
+        float[] busySegments = segments[BUSY_ARRAY_INDEX];
+        float[] conflictSegments = segments[CONFLICT_ARRAY_INDEX];
 
         Iterator<BusyBitsEventTime> tIter = times.iterator();
         while (tIter.hasNext()) {
             BusyBitsEventTime t = tIter.next();
-            // Get the new count of overlapping events
-            int newCount = overlappedCount + t.mStartEndChanges;
+            // Get the new count of conflicting events
+            int newCount = conflictingCount + t.mStartEndChanges;
 
-            // No need for a new segment because the free/busy/overlapping status didn't change
-            if (overlappedCount == newCount || (overlappedCount >= 2 && newCount >= 2)) {
-                overlappedCount = newCount;
+            // No need for a new segment because the free/busy/conflicting
+            // status didn't change
+            if (conflictingCount == newCount || (conflictingCount >= 2 && newCount >= 2)) {
+                conflictingCount = newCount;
                 continue;
             }
-            if (overlappedCount == 0 && newCount == 1) {
+            if (conflictingCount == 0 && newCount == 1) {
                 // A busy time started - start a new segment
                 if (segmentStartTime != 0) {
                     // Unknown status, blow up
@@ -895,56 +903,87 @@ public class Utils {
                             segmentStartTime + ", nolc = " + newCount);
                 }
                 segmentStartTime = t.mTime;
-            } else if (overlappedCount == 0 && newCount >= 2) {
-                // An overlapping time started - start a new segment
+            } else if (conflictingCount == 0 && newCount >= 2) {
+                // An conflicting time started - start a new segment
                 if (segmentStartTime != 0) {
                     // Unknown status, blow up
                     Log.wtf(TAG, "Unknown state in createBusyBitSegments, segmentStartTime = " +
                             segmentStartTime + ", nolc = " + newCount);
                 }
                 segmentStartTime = t.mTime;
-            } else if (overlappedCount == 1 && newCount >= 2) {
-                // A busy time ended and overlapping segment started,
-                // Save busy segment and start overlapping segment
-                BusyBitsSegment s = new BusyBitsSegment(
-                        (segmentStartTime - startTimeMinute) * pixelSize / timeFrame + startPixel,
-                        (t.mTime - startTimeMinute) * pixelSize / timeFrame + startPixel, false);
-                segments.add(s);
-                correctOverlappingSegment(segments);
+            } else if (conflictingCount == 1 && newCount >= 2) {
+                // A busy time ended and conflicting segment started,
+                // Save busy segment and start conflicting segment
+                int iBusy = 1 + (int) busySegments[COUNTER_INDEX];
+                busySegments[iBusy++] = xPixel;
+                busySegments[iBusy++] = (segmentStartTime - startTimeMinute) *
+                        pixelSize / timeFrame + startPixel;
+                busySegments[iBusy++] = xPixel;
+                busySegments[iBusy++] = (t.mTime - startTimeMinute) *
+                        pixelSize / timeFrame + startPixel;
+                // Update the segments counter only after overlap correction
+                if (correctOverlappingSegment(segments, BUSY_ARRAY_INDEX, prevSegmentInserted)) {
+                    busySegments[COUNTER_INDEX] += 4;
+                }
                 segmentStartTime = t.mTime;
-            } else if (overlappedCount >= 2 && newCount == 1) {
-                // An overlapping time ended and busy segment started.
-                // Save overlapping segment and start busy segment
-                BusyBitsSegment s = new BusyBitsSegment(
-                        (segmentStartTime - startTimeMinute) * pixelSize / timeFrame + startPixel,
-                        (t.mTime - startTimeMinute) * pixelSize / timeFrame + startPixel, true);
-                segments.add(s);
-                correctOverlappingSegment(segments);
+                prevSegmentInserted = BUSY_PREV_INSERTED;
+            } else if (conflictingCount >= 2 && newCount == 1) {
+                // A conflicting time ended and busy segment started.
+                // Save conflicting segment and start busy segment
+                int iConflicting = 1 + (int) conflictSegments[COUNTER_INDEX];
+                conflictSegments[iConflicting++] = xPixel;
+                conflictSegments[iConflicting++] = (segmentStartTime - startTimeMinute) *
+                        pixelSize / timeFrame + startPixel;
+                conflictSegments[iConflicting++] = xPixel;
+                conflictSegments[iConflicting++] = (t.mTime - startTimeMinute) *
+                        pixelSize / timeFrame + startPixel;
+                // Update the segments counter only after overlap correction
+                if (correctOverlappingSegment(segments, CONFLICT_ARRAY_INDEX,
+                        prevSegmentInserted)) {
+                    conflictSegments[COUNTER_INDEX] += 4;
+                }
                 segmentStartTime = t.mTime;
-            } else if (overlappedCount >= 2 && newCount == 0) {
-                // An overlapping segment ended, and a free time segment started
-                // Save overlapping segment
-                BusyBitsSegment s = new BusyBitsSegment(
-                        (segmentStartTime - startTimeMinute) * pixelSize / timeFrame + startPixel,
-                        (t.mTime - startTimeMinute) * pixelSize / timeFrame + startPixel, true);
-                segments.add(s);
-                correctOverlappingSegment(segments);
+                prevSegmentInserted = CONFLICT_PREV_INSERTED;
+            } else if (conflictingCount >= 2 && newCount == 0) {
+                // An conflicting segment ended, and a free time segment started
+                // Save conflicting segment
+                int iConflicting = 1 + (int) conflictSegments[COUNTER_INDEX];
+                conflictSegments[iConflicting++] = xPixel;
+                conflictSegments[iConflicting++] = (segmentStartTime - startTimeMinute) *
+                        pixelSize / timeFrame + startPixel;
+                conflictSegments[iConflicting++] = xPixel;
+                conflictSegments[iConflicting++] = (t.mTime - startTimeMinute) *
+                        pixelSize / timeFrame + startPixel;
+                // Update the segments counter only after overlap correction
+                if (correctOverlappingSegment(segments, CONFLICT_ARRAY_INDEX,
+                        prevSegmentInserted)) {
+                    conflictSegments[COUNTER_INDEX] += 4;
+                }
                 segmentStartTime = 0;
-            } else if (overlappedCount == 1 && newCount == 0) {
-                // A busy segment ended, and a free time segment started, save busy segment
-                BusyBitsSegment s = new BusyBitsSegment(
-                        (segmentStartTime - startTimeMinute) * pixelSize / timeFrame + startPixel,
-                        (t.mTime - startTimeMinute) * pixelSize / timeFrame + startPixel, false);
-                segments.add(s);
-                correctOverlappingSegment(segments);
+                prevSegmentInserted = CONFLICT_PREV_INSERTED;
+            } else if (conflictingCount == 1 && newCount == 0) {
+                // A busy segment ended, and a free time segment started, save
+                // busy segment
+                int iBusy = 1 + (int) busySegments[COUNTER_INDEX];
+                busySegments[iBusy++] = xPixel;
+                busySegments[iBusy++] = (segmentStartTime - startTimeMinute) *
+                        pixelSize / timeFrame + startPixel;
+                busySegments[iBusy++] = xPixel;
+                busySegments[iBusy++] = (t.mTime - startTimeMinute) *
+                        pixelSize / timeFrame + startPixel;
+                // Update the segments counter only after overlap correction
+                if (correctOverlappingSegment(segments, BUSY_ARRAY_INDEX, prevSegmentInserted)) {
+                    busySegments[COUNTER_INDEX] += 4;
+                }
                 segmentStartTime = 0;
+                prevSegmentInserted = BUSY_PREV_INSERTED;
             } else {
                 // Unknown status, blow up
                 Log.wtf(TAG, "Unknown state in createBusyBitSegments: time = " + t.mTime +
-                        " , olc = " + overlappedCount + " nolc = " + newCount);
+                        " , olc = " + conflictingCount + " nolc = " + newCount);
             }
-            overlappedCount = newCount; // Update count
+            conflictingCount = newCount; // Update count
         }
-        return segments;
+        return;
     }
 }
