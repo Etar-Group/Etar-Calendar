@@ -740,7 +740,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
             mModifyDialog.dismiss();
             mModifyDialog = null;
         }
-
         super.onDestroy();
     }
 

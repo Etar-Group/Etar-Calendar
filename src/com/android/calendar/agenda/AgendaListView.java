@@ -27,6 +27,7 @@ import com.android.calendar.agenda.AgendaWindowAdapter.EventInfo;
 import android.content.Context;
 import android.graphics.Rect;
 import android.text.format.Time;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,19 +53,24 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
     };
 
-    public AgendaListView(Context context, long instanceId, boolean showEventOnStart) {
-        super(context, null);
+    public AgendaListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initView(context);
+    }
+
+    private void initView(Context context) {
         mContext = context;
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         setOnItemClickListener(this);
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         setVerticalScrollBarEnabled(false);
-        mWindowAdapter = new AgendaWindowAdapter(context, this, showEventOnStart);
-        mWindowAdapter.setSelectedInstanceId(instanceId);
+        mWindowAdapter = new AgendaWindowAdapter(context, this,
+                Utils.getConfigBool(context, R.bool.show_event_details_with_agenda));
+        mWindowAdapter.setSelectedInstanceId(-1/* TODO:instanceId */);
         setAdapter(mWindowAdapter);
         setCacheColorHint(context.getResources().getColor(R.color.agenda_item_not_selected));
         mDeleteEventHelper =
-            new DeleteEventHelper(context, null, false /* don't exit when done */);
+                new DeleteEventHelper(context, null, false /* don't exit when done */);
         mShowEventDetailsWithAgenda = Utils.getConfigBool(mContext,
                 R.bool.show_event_details_with_agenda);
     }
@@ -84,7 +90,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             long oldInstanceId = mWindowAdapter.getSelectedInstanceId();
             mWindowAdapter.setSelectedView(v);
 
-            // If events are shown to the side of the agenda list , do nothing when the same
+            // If events are shown to the side of the agenda list , do nothing
+            // when the same
             // event is selected , otherwise show the selected event.
 
             if (event != null && (oldInstanceId != mWindowAdapter.getSelectedInstanceId() ||
@@ -95,7 +102,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
     }
 
-    public void goTo(Time time, String searchQuery, boolean forced) {
+    public void goTo(Time time, long id, String searchQuery, boolean forced) {
         if (time == null) {
             time = new Time(mTimeZone);
             long goToTime = getFirstVisibleTime();
@@ -104,7 +111,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             }
             time.set(goToTime);
         }
-        mWindowAdapter.refresh(time, searchQuery, forced);
+        mWindowAdapter.refresh(time, id, searchQuery, forced);
     }
 
     public void refresh(boolean forced) {
@@ -114,7 +121,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             goToTime = System.currentTimeMillis();
         }
         time.set(goToTime);
-        mWindowAdapter.refresh(time, null, forced);
+        mWindowAdapter.refresh(time, -1, null, forced);
     }
 
     public void deleteSelectedEvent() {
@@ -133,14 +140,14 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         // instead. I loop through the viewgroup children and find the first
         // visible one. BTW, getFirstVisiblePosition() == getChildAt(0). I
         // am not looping through the entire list.
-       View v = getFirstVisibleView();
-       if (v != null) {
-           if (DEBUG) {
-               Log.v(TAG, "getFirstVisiblePosition: " + AgendaWindowAdapter.getViewTitle(v));
-           }
-           return getPositionForView(v);
-       }
-       return -1;
+        View v = getFirstVisibleView();
+        if (v != null) {
+            if (DEBUG) {
+                Log.v(TAG, "getFirstVisiblePosition: " + AgendaWindowAdapter.getViewTitle(v));
+            }
+            return getPositionForView(v);
+        }
+        return -1;
     }
 
     public View getFirstVisibleView() {
@@ -183,6 +190,42 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         return 0;
     }
 
+    // Finds is a specific event (defined by start time and id) is visible
+    public boolean isEventVisible(Time startTime, long id) {
+
+        if (id == -1 || startTime == null) {
+            return false;
+        }
+
+        View child = getChildAt(0);
+        // View not set yet, so not child - return
+        if (child == null) {
+            return false;
+        }
+        int start = getPositionForView(child);
+        long milliTime = startTime.toMillis(true);
+        int childCount = getChildCount();
+        int eventsInAdapter = mWindowAdapter.getCount();
+
+        for (int i = 0; i < childCount; i++) {
+            if (i + start >= eventsInAdapter) {
+                break;
+            }
+            EventInfo event = mWindowAdapter.getEventByPosition(i + start);
+            if (event == null) {
+                continue;
+            }
+            if (event.id == id && event.begin == milliTime) {
+                View listItem = getChildAt(i);
+                if (listItem.getBottom() <= getHeight() &&
+                        listItem.getTop() >= 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public long getSelectedInstanceId() {
         return mWindowAdapter.getSelectedInstanceId();
     }
@@ -199,7 +242,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     private void shiftPosition(int offset) {
         if (DEBUG) {
-            Log.v(TAG, "Shifting position "+ offset);
+            Log.v(TAG, "Shifting position " + offset);
         }
 
         View firstVisibleItem = getFirstVisibleView();
@@ -213,12 +256,12 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             setSelectionFromTop(position + offset, r.top > 0 ? -r.top : r.top);
             if (DEBUG) {
                 if (firstVisibleItem.getTag() instanceof AgendaAdapter.ViewHolder) {
-                    ViewHolder viewHolder = (AgendaAdapter.ViewHolder)firstVisibleItem.getTag();
+                    ViewHolder viewHolder = (AgendaAdapter.ViewHolder) firstVisibleItem.getTag();
                     Log.v(TAG, "Shifting from " + position + " by " + offset + ". Title "
                             + viewHolder.title.getText());
                 } else if (firstVisibleItem.getTag() instanceof AgendaByDayAdapter.ViewHolder) {
                     AgendaByDayAdapter.ViewHolder viewHolder =
-                        (AgendaByDayAdapter.ViewHolder)firstVisibleItem.getTag();
+                            (AgendaByDayAdapter.ViewHolder) firstVisibleItem.getTag();
                     Log.v(TAG, "Shifting from " + position + " by " + offset + ". Date  "
                             + viewHolder.dateView.getText());
                 } else if (firstVisibleItem instanceof TextView) {
@@ -242,6 +285,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         mTZUpdater.run();
         mWindowAdapter.onResume();
     }
+
     public void onPause() {
         mWindowAdapter.notifyDataSetInvalidated();
     }

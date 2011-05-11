@@ -65,7 +65,9 @@ public class SearchActivity extends Activity
     protected static final String BUNDLE_KEY_RESTORE_SEARCH_QUERY =
         "key_restore_search_query";
 
-    private static boolean mIsMultipane;
+    // display event details to the side of the event list
+   private boolean mShowEventDetailsWithAgenda;
+   private static boolean mIsMultipane;
 
     private CalendarController mController;
 
@@ -98,6 +100,9 @@ public class SearchActivity extends Activity
         mController = CalendarController.getInstance(this);
 
         mIsMultipane = Utils.isMultiPaneConfiguration (this);
+        mShowEventDetailsWithAgenda =
+            Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
+
         setContentView(R.layout.search);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
@@ -159,12 +164,9 @@ public class SearchActivity extends Activity
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
-        AgendaFragment searchResultsFragment = new AgendaFragment(timeMillis);
+        AgendaFragment searchResultsFragment = new AgendaFragment(timeMillis, true);
         ft.replace(R.id.search_results, searchResultsFragment);
         mController.registerEventHandler(R.id.search_results, searchResultsFragment);
-        if (!mIsMultipane) {
-            findViewById(R.id.event_info).setVisibility(View.GONE);
-        }
 
         ft.commit();
         Time t = new Time();
@@ -173,16 +175,16 @@ public class SearchActivity extends Activity
     }
 
     private void showEventInfo(EventInfo event) {
-        if (mIsMultipane) {
+        if (mShowEventDetailsWithAgenda) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
 
             mEventInfoFragment = new EditEventFragment(event, true);
-            ft.replace(R.id.event_info, mEventInfoFragment);
+            ft.replace(R.id.agenda_event_info, mEventInfoFragment);
             ft.commit();
-            mController.registerEventHandler(R.id.event_info, mEventInfoFragment);
+            mController.registerEventHandler(R.id.agenda_event_info, mEventInfoFragment);
         } else {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Intent intent = new Intent(Intent.ACTION_EDIT);
             Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
             intent.setData(eventUri);
 //            intent.setClassName(this, EventInfoActivity.class.getName());
@@ -223,7 +225,7 @@ public class SearchActivity extends Activity
             ft.remove(mEventInfoFragment);
             ft.commit();
             mEventInfoFragment = null;
-            mController.deregisterEventHandler(R.id.event_info);
+            mController.deregisterEventHandler(R.id.agenda_event_info);
             mCurrentEventId = -1;
         }
     }
