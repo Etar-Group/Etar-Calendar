@@ -18,6 +18,7 @@ package com.android.calendar.event;
 
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.EmailAddressAdapter;
 import com.android.calendar.EventInfoFragment;
 import com.android.calendar.GeneralPreferences;
@@ -153,8 +154,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private TimezoneAdapter mTimezoneAdapter;
 
     private ArrayList<Integer> mRecurrenceIndexes = new ArrayList<Integer>(0);
-    private ArrayList<Integer> mReminderValues;
-    private ArrayList<String> mReminderLabels;
+
+    /**
+     * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
+     * with any additional values that were already associated with the event.
+     */
+    private ArrayList<Integer> mReminderMinuteValues;
+    private ArrayList<String> mReminderMinuteLabels;
+
     private int mDefaultReminderMinutes;
 
     private boolean mSaveAfterQueryComplete = false;
@@ -606,12 +613,25 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return fillModelFromUI();
     }
 
+    /**
+     * Converts a list of minutes into a list of reminders with method=DEFAULT.
+     * TODO: replace with something that handles reminder methods as well
+     */
+    private static ArrayList<ReminderEntry> minutesToReminders(ArrayList<Integer> minutes) {
+        ArrayList<ReminderEntry> reminders = new ArrayList<ReminderEntry>();
+        for (Integer ii : minutes) {
+            reminders.add(ReminderEntry.valueOf(ii));
+        }
+        return reminders;
+    }
+
     public boolean fillModelFromReadOnlyUi() {
         if (mModel == null || (mCalendarsCursor == null && mModel.mUri == null)) {
             return false;
         }
-        mModel.mReminderMinutes = EventViewUtils.reminderItemsToMinutes(
-                mReminderItems, mReminderValues);
+        ArrayList<Integer> minutes = EventViewUtils.reminderItemsToMinutes(
+                    mReminderItems, mReminderMinuteValues);
+        mModel.mReminders = minutesToReminders(minutes);
         int status = EventInfoFragment.getResponseFromButtonId(
                 mResponseRadioGroup.getCheckedRadioButtonId());
         if (status != Attendees.ATTENDEE_STATUS_NONE) {
@@ -674,8 +694,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (mModel == null) {
             return false;
         }
-        mModel.mReminderMinutes = EventViewUtils.reminderItemsToMinutes(
-                mReminderItems, mReminderValues);
+        ArrayList<Integer> minutes = EventViewUtils.reminderItemsToMinutes(
+                mReminderItems, mReminderMinuteValues);
+        mModel.mReminders = minutesToReminders(minutes);
         mModel.mHasAlarm = mReminderItems.size() > 0;
         mModel.mTitle = mTitleTextView.getText().toString();
         mModel.mAllDay = mAllDayCheckBox.isChecked();
@@ -958,20 +979,20 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTimezoneDialog.getListView().setAdapter(mTimezoneAdapter);
         }
 
-        // Initialize the reminder values array.
+        // Initialize the "minutes" spinner values to the set defined in the XML.
         Resources r = mActivity.getResources();
 
-        if (mReminderValues == null) {
-          int[] vals = r.getIntArray(R.array.reminder_minutes_values);
-          int size = vals.length;
-          ArrayList<Integer> list = new ArrayList<Integer>(size);
-          for (int i = 0; i < size; i++) {
-            list.add(vals [i]);
-          }
-          mReminderValues = list;
+        if (mReminderMinuteValues == null) {
+            int[] vals = r.getIntArray(R.array.reminder_minutes_values);
+            int size = vals.length;
+            ArrayList<Integer> list = new ArrayList<Integer>(size);
+            for (int i = 0; i < size; i++) {
+                list.add(vals[i]);
+            }
+            mReminderMinuteValues = list;
         }
         String[] labels = r.getStringArray(R.array.reminder_minutes_labels);
-        mReminderLabels = new ArrayList<String>(Arrays.asList(labels));
+        mReminderMinuteLabels = new ArrayList<String>(Arrays.asList(labels));
 
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(mActivity);
 
@@ -981,13 +1002,18 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         int numReminders = 0;
         if (model.mHasAlarm) {
-            ArrayList<Integer> minutes = model.mReminderMinutes;
-            numReminders = minutes.size();
-            for (Integer minute : minutes) {
+            ArrayList<ReminderEntry> reminders = model.mReminders;
+            numReminders = reminders.size();
+            for (ReminderEntry re : reminders) {
+                // If the minutes value isn't represented in values/labels, insert it.
                 EventViewUtils.addMinutesToList(
-                        mActivity, mReminderValues, mReminderLabels, minute);
+                        mActivity, mReminderMinuteValues, mReminderMinuteLabels, re.getMinutes());
+            }
+
+            for (ReminderEntry re : reminders) {
+                // Add a UI element for this reminder.
                 EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
-                        mReminderValues, mReminderLabels, minute);
+                        mReminderMinuteValues, mReminderMinuteLabels, re);
             }
         }
 
@@ -1345,10 +1371,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // last one in the list (if any).
         if (mDefaultReminderMinutes == GeneralPreferences.NO_REMINDER) {
             EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
-                    mReminderValues, mReminderLabels, GeneralPreferences.REMINDER_DEFAULT_TIME);
+                    mReminderMinuteValues, mReminderMinuteLabels,
+                    ReminderEntry.valueOf(GeneralPreferences.REMINDER_DEFAULT_TIME));
         } else {
             EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
-                    mReminderValues, mReminderLabels, mDefaultReminderMinutes);
+                    mReminderMinuteValues, mReminderMinuteLabels,
+                    ReminderEntry.valueOf(mDefaultReminderMinutes));
         }
         updateRemindersVisibility(mReminderItems.size());
     }

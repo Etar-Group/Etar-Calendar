@@ -22,12 +22,14 @@ import android.content.SharedPreferences;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
+import android.provider.Calendar.Reminders;
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.TimeZone;
 
@@ -50,9 +52,6 @@ public class CalendarEventModel implements Serializable {
             if (this == obj) {
                 return true;
             }
-            if (obj == null) {
-                return false;
-            }
             if (!(obj instanceof Attendee)) {
                 return false;
             }
@@ -71,6 +70,97 @@ public class CalendarEventModel implements Serializable {
             mName = name;
             mEmail = email;
             mStatus = Attendees.ATTENDEE_STATUS_NONE;
+        }
+    }
+
+    /**
+     * A single reminder entry.
+     *
+     * Instances of the class are immutable.
+     */
+    public static class ReminderEntry implements Comparable<ReminderEntry> {
+        private final int mMinutes;
+        private final int mMethod;
+
+        /**
+         * Returns a new ReminderEntry, with the specified minutes and method.
+         *
+         * @param minutes Number of minutes before the start of the event that the alert will fire.
+         * @param method Type of alert ({@link Reminders#METHOD_ALERT}, etc).
+         */
+        public static ReminderEntry valueOf(int minutes, int method) {
+            // TODO: cache common instances
+            return new ReminderEntry(minutes, method);
+        }
+
+        /**
+         * Returns a ReminderEntry, with the specified number of minutes and a default alert method.
+         *
+         * @param minutes Number of minutes before the start of the event that the alert will fire.
+         */
+       public static ReminderEntry valueOf(int minutes) {
+            return valueOf(minutes, Reminders.METHOD_DEFAULT);
+        }
+
+        /**
+         * Constructs a new ReminderEntry.
+         *
+         * @param minutes Number of minutes before the start of the event that the alert will fire.
+         * @param method Type of alert ({@link Reminders#METHOD_ALERT}, etc).
+         */
+        private ReminderEntry(int minutes, int method) {
+            // TODO: error-check args
+            mMinutes = minutes;
+            mMethod = method;
+        }
+
+        @Override
+        public int hashCode() {
+            return mMinutes * 10 + mMethod;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (!(obj instanceof ReminderEntry)) {
+                return false;
+            }
+
+            ReminderEntry re = (ReminderEntry) obj;
+
+            if (re.mMinutes != mMinutes)
+                return false;
+
+            // treat ALERT and DEFAULT as equivalent (TODO: is this necessary?)
+            return re.mMethod == mMethod ||
+                (re.mMethod == Reminders.METHOD_DEFAULT && mMethod == Reminders.METHOD_ALERT) ||
+                (re.mMethod == Reminders.METHOD_ALERT && mMethod == Reminders.METHOD_DEFAULT);
+        }
+
+        @Override
+        public String toString() {
+            return "ReminderEntry min=" + mMinutes + " meth=" + mMethod;
+        }
+
+        public int compareTo(ReminderEntry re) {
+            if (re.mMinutes != mMinutes) {
+                return re.mMinutes - mMinutes;
+            }
+            if (re.mMethod != mMethod) {
+                return re.mMethod - mMethod;
+            }
+            return 0;
+        }
+
+        /** Returns the minutes. */
+        public int getMinutes() {
+            return mMinutes;
+        }
+
+        /** Returns the alert method. */
+        public int getMethod() {
+            return mMethod;
         }
     }
 
@@ -138,14 +228,14 @@ public class CalendarEventModel implements Serializable {
     public boolean mModelUpdatedWithEventCursor;
 
     public int mVisibility = 0;
-    public ArrayList<Integer> mReminderMinutes;
+    public ArrayList<ReminderEntry> mReminders;
 
     // PROVIDER_NOTES Using EditEventHelper the owner should not be included in this
     // list and will instead be added by saveEvent. Is this what we want?
     public LinkedHashMap<String, Attendee> mAttendeesList;
 
     public CalendarEventModel() {
-        mReminderMinutes = new ArrayList<Integer>();
+        mReminders = new ArrayList<ReminderEntry>();
         mAttendeesList = new LinkedHashMap<String, Attendee>();
         mTimezone = TimeZone.getDefault().getID();
     }
@@ -161,7 +251,7 @@ public class CalendarEventModel implements Serializable {
         int defaultReminderMins = Integer.parseInt(defaultReminder);
         if (defaultReminderMins != GeneralPreferences.NO_REMINDER) {
             mHasAlarm = true;
-            mReminderMinutes.add(defaultReminderMins);
+            mReminders.add(ReminderEntry.valueOf(defaultReminderMins));
         }
     }
 
@@ -269,7 +359,7 @@ public class CalendarEventModel implements Serializable {
         mCalendarAccessLevel = Calendars.CONTRIBUTOR_ACCESS;
         mModelUpdatedWithEventCursor = false;
 
-        mReminderMinutes = new ArrayList<Integer>();
+        mReminders = new ArrayList<ReminderEntry>();
         mAttendeesList.clear();
     }
 
@@ -323,7 +413,7 @@ public class CalendarEventModel implements Serializable {
         result = prime * result + (int) (mOriginalStart ^ (mOriginalStart >>> 32));
         result = prime * result + ((mOriginalTime == null) ? 0 : mOriginalTime.hashCode());
         result = prime * result + ((mOwnerAccount == null) ? 0 : mOwnerAccount.hashCode());
-        result = prime * result + ((mReminderMinutes == null) ? 0 : mReminderMinutes.hashCode());
+        result = prime * result + ((mReminders == null) ? 0 : mReminders.hashCode());
         result = prime * result + ((mRrule == null) ? 0 : mRrule.hashCode());
         result = prime * result + mSelfAttendeeStatus;
         result = prime * result + mOwnerAttendeeId;
@@ -542,11 +632,11 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
-        if (mReminderMinutes == null) {
-            if (originalModel.mReminderMinutes != null) {
+        if (mReminders == null) {
+            if (originalModel.mReminders != null) {
                 return false;
             }
-        } else if (!mReminderMinutes.equals(originalModel.mReminderMinutes)) {
+        } else if (!mReminders.equals(originalModel.mReminders)) {
             return false;
         }
 
@@ -625,23 +715,27 @@ public class CalendarEventModel implements Serializable {
     /**
      * Sort and uniquify mReminderMinutes.
      *
-     * @return true
+     * @return true (for convenience of caller)
      */
     public boolean normalizeReminders() {
-        if (mReminderMinutes.size() == 0) return true;  // empty
-
-        Integer[] sorted = mReminderMinutes.toArray(new Integer[0]);
-        Arrays.sort(sorted);                            // sort ascending
-
-        // clear the list, then repopulate in descending order with duplicates removed
-        mReminderMinutes.clear();
-        int prev = sorted[sorted.length - 1] + 1;       // guarantee mismatch on first iteration
-        for (int i = sorted.length - 1; i >= 0; --i) {
-            if (sorted[i] != prev) {
-                mReminderMinutes.add(sorted[i]);
-            }
-            prev = sorted[i];
+        if (mReminders.size() <= 1) {
+            return true;
         }
+
+        // sort
+        Collections.sort(mReminders);
+
+        // remove duplicates
+        ReminderEntry prev = mReminders.get(mReminders.size()-1);
+        for (int i = mReminders.size()-2; i >= 0; --i) {
+            ReminderEntry cur = mReminders.get(i);
+            if (prev.equals(cur)) {
+                // match, remove later entry
+                mReminders.remove(i+1);
+            }
+            prev = cur;
+        }
+
         return true;
     }
 }

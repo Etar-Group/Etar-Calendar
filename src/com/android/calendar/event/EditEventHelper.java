@@ -20,7 +20,7 @@ import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
-import com.android.calendar.R;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.Utils;
 import com.android.common.Rfc822Validator;
 
@@ -28,7 +28,6 @@ import android.content.ContentProviderOperation;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -134,7 +133,7 @@ public class EditEventHelper {
 
     protected static final int DAY_IN_SECONDS = 24 * 60 * 60;
 
-    private Context mContext;
+    //private Context mContext;
     private AsyncQueryService mService;
 
     // public int mModification;
@@ -220,7 +219,7 @@ public class EditEventHelper {
     }
 
     public EditEventHelper(Context context, CalendarEventModel model) {
-        mContext = context;
+        //mContext = context;
         mService = new AsyncQueryService(context);
         setDomainFromModel(model);
     }
@@ -295,8 +294,8 @@ public class EditEventHelper {
         }
 
         // Update the "hasAlarm" field for the event
-        ArrayList<Integer> reminderMinutes = model.mReminderMinutes;
-        int len = reminderMinutes.size();
+        ArrayList<ReminderEntry> reminders = model.mReminders;
+        int len = reminders.size();
         values.put(Events.HAS_ALARM, (len > 0) ? 1 : 0);
 
         if (uri == null) {
@@ -394,19 +393,19 @@ public class EditEventHelper {
 
         // New Event or New Exception to an existing event
         boolean newEvent = (eventIdIndex != -1);
-        ArrayList<Integer> originalMinutes;
+        ArrayList<ReminderEntry> originalReminders;
         if (originalModel != null) {
-            originalMinutes = originalModel.mReminderMinutes;
+            originalReminders = originalModel.mReminders;
         } else {
-            originalMinutes = new ArrayList<Integer>();
+            originalReminders = new ArrayList<ReminderEntry>();
         }
 
         if (newEvent) {
-            saveRemindersWithBackRef(ops, eventIdIndex, reminderMinutes, originalMinutes,
+            saveRemindersWithBackRef(ops, eventIdIndex, reminders, originalReminders,
                     forceSaveReminders);
         } else if (uri != null) {
             long eventId = ContentUris.parseId(uri);
-            saveReminders(ops, eventId, reminderMinutes, originalMinutes, forceSaveReminders);
+            saveReminders(ops, eventId, reminders, originalReminders, forceSaveReminders);
         }
 
         ContentProviderOperation.Builder b;
@@ -743,16 +742,16 @@ public class EditEventHelper {
      *
      * @param ops the array of ContentProviderOperations
      * @param eventId the id of the event whose reminders are being updated
-     * @param reminderMinutes the array of reminders set by the user
-     * @param originalMinutes the original array of reminders
+     * @param reminders the array of reminders set by the user
+     * @param originalReminders the original array of reminders
      * @param forceSave if true, then save the reminders even if they didn't change
      * @return true if operations to update the database were added
      */
     public static boolean saveReminders(ArrayList<ContentProviderOperation> ops, long eventId,
-            ArrayList<Integer> reminderMinutes, ArrayList<Integer> originalMinutes,
+            ArrayList<ReminderEntry> reminders, ArrayList<ReminderEntry> originalReminders,
             boolean forceSave) {
         // If the reminders have not changed, then don't update the database
-        if (reminderMinutes.equals(originalMinutes) && !forceSave) {
+        if (reminders.equals(originalReminders) && !forceSave) {
             return false;
         }
 
@@ -765,15 +764,15 @@ public class EditEventHelper {
         ops.add(b.build());
 
         ContentValues values = new ContentValues();
-        int len = reminderMinutes.size();
+        int len = reminders.size();
 
         // Insert the new reminders, if any
         for (int i = 0; i < len; i++) {
-            int minutes = reminderMinutes.get(i);
+            ReminderEntry re = reminders.get(i);
 
             values.clear();
-            values.put(Reminders.MINUTES, minutes);
-            values.put(Reminders.METHOD, Reminders.METHOD_ALERT);
+            values.put(Reminders.MINUTES, re.getMinutes());
+            values.put(Reminders.METHOD, re.getMethod());
             values.put(Reminders.EVENT_ID, eventId);
             b = ContentProviderOperation.newInsert(Reminders.CONTENT_URI).withValues(values);
             ops.add(b.build());
@@ -793,11 +792,11 @@ public class EditEventHelper {
      * @param forceSave if true, then save the reminders even if they didn't change
      * @return true if operations to update the database were added
      */
-    public boolean saveRemindersWithBackRef(ArrayList<ContentProviderOperation> ops,
-            int eventIdIndex, ArrayList<Integer> reminderMinutes,
-            ArrayList<Integer> originalMinutes, boolean forceSave) {
+    public static boolean saveRemindersWithBackRef(ArrayList<ContentProviderOperation> ops,
+            int eventIdIndex, ArrayList<ReminderEntry> reminders,
+            ArrayList<ReminderEntry> originalReminders, boolean forceSave) {
         // If the reminders have not changed, then don't update the database
-        if (reminderMinutes.equals(originalMinutes) && !forceSave) {
+        if (reminders.equals(originalReminders) && !forceSave) {
             return false;
         }
 
@@ -809,15 +808,15 @@ public class EditEventHelper {
         ops.add(b.build());
 
         ContentValues values = new ContentValues();
-        int len = reminderMinutes.size();
+        int len = reminders.size();
 
         // Insert the new reminders, if any
         for (int i = 0; i < len; i++) {
-            int minutes = reminderMinutes.get(i);
+            ReminderEntry re = reminders.get(i);
 
             values.clear();
-            values.put(Reminders.MINUTES, minutes);
-            values.put(Reminders.METHOD, Reminders.METHOD_ALERT);
+            values.put(Reminders.MINUTES, re.getMinutes());
+            values.put(Reminders.METHOD, re.getMethod());
             b = ContentProviderOperation.newInsert(Reminders.CONTENT_URI).withValues(values);
             b.withValueBackReference(Reminders.EVENT_ID, eventIdIndex);
             ops.add(b.build());

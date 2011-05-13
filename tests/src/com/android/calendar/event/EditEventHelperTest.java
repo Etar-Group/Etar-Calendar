@@ -19,6 +19,7 @@ package com.android.calendar.event;
 import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.R;
 import com.android.calendar.event.EventViewUtils;
 
@@ -380,8 +381,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         expectedOps.add(b.build());
 
         // This call has a separate unit test so we'll use it to simplify making the expected vals
-        mHelper.saveRemindersWithBackRef(expectedOps, br_id, mModel1.mReminderMinutes,
-                new ArrayList<Integer>(), true);
+        mHelper.saveRemindersWithBackRef(expectedOps, br_id, mModel1.mReminders,
+                new ArrayList<ReminderEntry>(), true);
 
         addOwnerAttendeeToOps(expectedOps, br_id);
 
@@ -428,8 +429,8 @@ public class EditEventHelperTest extends AndroidTestCase {
                 mExpectedValues).build());
 
         // This call has a separate unit test so we'll use it to simplify making the expected vals
-        mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminderMinutes,
-                mModel2.mReminderMinutes, false);
+        mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminders,
+                mModel2.mReminders, false);
 
         addAttendeeChangesOps(expectedOps);
 
@@ -482,8 +483,8 @@ public class EditEventHelperTest extends AndroidTestCase {
                         .withValues(mExpectedValues)
                         .build());
 
-        mHelper.saveRemindersWithBackRef(expectedOps, id, mModel1.mReminderMinutes,
-                mModel2.mReminderMinutes, true);
+        mHelper.saveRemindersWithBackRef(expectedOps, id, mModel1.mReminders,
+                mModel2.mReminders, true);
 
         addOwnerAttendeeToOps(expectedOps, id);
 
@@ -567,8 +568,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         expectedOps.add(ContentProviderOperation.newUpdate(Uri.parse(mModel1.mUri)).withValues(
                 mExpectedValues).build());
         // This call has a separate unit test so we'll use it to simplify making the expected vals
-        mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminderMinutes,
-                mModel2.mReminderMinutes, false);
+        mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminders,
+                mModel2.mReminders, false);
         addAttendeeChangesOps(expectedOps);
 
         assertEquals(ops, expectedOps);
@@ -625,8 +626,8 @@ public class EditEventHelperTest extends AndroidTestCase {
                 .withValues(mExpectedValues);
         expectedOps.add(b.build());
 
-        mHelper.saveRemindersWithBackRef(expectedOps, id, mModel1.mReminderMinutes,
-                mModel2.mReminderMinutes, true);
+        mHelper.saveRemindersWithBackRef(expectedOps, id, mModel1.mReminders,
+                mModel2.mReminders, true);
 
         addOwnerAttendeeToOps(expectedOps, id);
 
@@ -682,8 +683,8 @@ public class EditEventHelperTest extends AndroidTestCase {
                 .withValues(mExpectedValues)
                 .build());
 
-        mHelper.saveRemindersWithBackRef(expectedOps, id, mModel1.mReminderMinutes,
-                mModel2.mReminderMinutes, true);
+        mHelper.saveRemindersWithBackRef(expectedOps, id, mModel1.mReminders,
+                mModel2.mReminders, true);
 
         addOwnerAttendeeToOps(expectedOps, id);
 
@@ -741,8 +742,8 @@ public class EditEventHelperTest extends AndroidTestCase {
                         .withValues(mExpectedValues)
                         .build());
 
-        mHelper.saveRemindersWithBackRef(expectedOps, id, mModel1.mReminderMinutes,
-                mModel2.mReminderMinutes, true);
+        mHelper.saveRemindersWithBackRef(expectedOps, id, mModel1.mReminders,
+                mModel2.mReminders, true);
 
         addOwnerAttendeeToOps(expectedOps, id);
 
@@ -798,8 +799,8 @@ public class EditEventHelperTest extends AndroidTestCase {
                 mExpectedValues).build());
 
         // This call has a separate unit test so we'll use it to simplify making the expected vals
-        mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminderMinutes,
-                mModel2.mReminderMinutes, true);
+        mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminders,
+                mModel2.mReminders, true);
 
         addAttendeeChangesOps(expectedOps);
 
@@ -855,8 +856,8 @@ public class EditEventHelperTest extends AndroidTestCase {
                 .build());
 
         // This call has a separate unit test so we'll use it to simplify making the expected vals
-        mHelper.saveRemindersWithBackRef(expectedOps, br_id, mModel1.mReminderMinutes,
-                mModel2.mReminderMinutes, true);
+        mHelper.saveRemindersWithBackRef(expectedOps, br_id, mModel1.mReminders,
+                mModel2.mReminders, true);
 
         addOwnerAttendeeToOps(expectedOps, br_id);
 
@@ -1082,8 +1083,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
         ArrayList<ContentProviderOperation> expectedOps = new ArrayList<ContentProviderOperation>();
         long eventId = TEST_EVENT_ID;
-        ArrayList<Integer> reminderMinutes = new ArrayList<Integer>();
-        ArrayList<Integer> originalMinutes = new ArrayList<Integer>();
+        ArrayList<ReminderEntry> reminders = new ArrayList<ReminderEntry>();
+        ArrayList<ReminderEntry> originalReminders = new ArrayList<ReminderEntry>();
         boolean forceSave = true;
         boolean result;
         mActivity = buildTestContext();
@@ -1098,34 +1099,34 @@ public class EditEventHelperTest extends AndroidTestCase {
         b.withSelection(where, args);
         expectedOps.add(b.build());
 
-        result = mHelper.saveReminders(ops, eventId, reminderMinutes, originalMinutes, forceSave);
+        result = mHelper.saveReminders(ops, eventId, reminders, originalReminders, forceSave);
         assertTrue(result);
         assertEquals(ops, expectedOps);
 
         // Now test calling save with identical reminders and no forcing
-        reminderMinutes.add(5);
-        reminderMinutes.add(10);
-        reminderMinutes.add(15);
+        reminders.add(ReminderEntry.valueOf(5));
+        reminders.add(ReminderEntry.valueOf(10));
+        reminders.add(ReminderEntry.valueOf(15));
 
-        originalMinutes.add(5);
-        originalMinutes.add(10);
-        originalMinutes.add(15);
+        originalReminders.add(ReminderEntry.valueOf(5));
+        originalReminders.add(ReminderEntry.valueOf(10));
+        originalReminders.add(ReminderEntry.valueOf(15));
 
         forceSave = false;
 
         ops.clear();
 
         // Should fail to create any ops since nothing changed
-        result = mHelper.saveReminders(ops, eventId, reminderMinutes, originalMinutes, forceSave);
+        result = mHelper.saveReminders(ops, eventId, reminders, originalReminders, forceSave);
         assertFalse(result);
         assertEquals(ops.size(), 0);
 
         //Now test adding a single reminder
-        originalMinutes.remove(2);
+        originalReminders.remove(2);
 
         addExpectedMinutes(expectedOps);
 
-        result = mHelper.saveReminders(ops, eventId, reminderMinutes, originalMinutes, forceSave);
+        result = mHelper.saveReminders(ops, eventId, reminders, originalReminders, forceSave);
         assertTrue(result);
         assertEquals(ops, expectedOps);
     }
@@ -1136,8 +1137,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
         ArrayList<ContentProviderOperation> expectedOps = new ArrayList<ContentProviderOperation>();
         long eventId = TEST_EVENT_ID;
-        ArrayList<Integer> reminderMinutes = new ArrayList<Integer>();
-        ArrayList<Integer> originalMinutes = new ArrayList<Integer>();
+        ArrayList<ReminderEntry> reminders = new ArrayList<ReminderEntry>();
+        ArrayList<ReminderEntry> originalReminders = new ArrayList<ReminderEntry>();
         boolean forceSave = true;
         boolean result;
         mActivity = buildTestContext();
@@ -1152,35 +1153,35 @@ public class EditEventHelperTest extends AndroidTestCase {
         expectedOps.add(b.build());
 
         result =
-                mHelper.saveRemindersWithBackRef(ops, TEST_EVENT_INDEX_ID, reminderMinutes,
-                        originalMinutes, forceSave);
+                mHelper.saveRemindersWithBackRef(ops, TEST_EVENT_INDEX_ID, reminders,
+                        originalReminders, forceSave);
         assertTrue(result);
         assertEquals(ops, expectedOps);
 
         // Now test calling save with identical reminders and no forcing
-        reminderMinutes.add(5);
-        reminderMinutes.add(10);
-        reminderMinutes.add(15);
+        reminders.add(ReminderEntry.valueOf(5));
+        reminders.add(ReminderEntry.valueOf(10));
+        reminders.add(ReminderEntry.valueOf(15));
 
-        originalMinutes.add(5);
-        originalMinutes.add(10);
-        originalMinutes.add(15);
+        originalReminders.add(ReminderEntry.valueOf(5));
+        originalReminders.add(ReminderEntry.valueOf(10));
+        originalReminders.add(ReminderEntry.valueOf(15));
 
         forceSave = false;
 
         ops.clear();
 
-        result = mHelper.saveRemindersWithBackRef(ops, ops.size(), reminderMinutes, originalMinutes,
+        result = mHelper.saveRemindersWithBackRef(ops, ops.size(), reminders, originalReminders,
                         forceSave);
         assertFalse(result);
         assertEquals(ops.size(), 0);
 
         //Now test adding a single reminder
-        originalMinutes.remove(2);
+        originalReminders.remove(2);
 
         addExpectedMinutesWithBackRef(expectedOps);
 
-        result = mHelper.saveRemindersWithBackRef(ops, ops.size(), reminderMinutes, originalMinutes,
+        result = mHelper.saveRemindersWithBackRef(ops, ops.size(), reminders, originalReminders,
                         forceSave);
         assertTrue(result);
         assertEquals(ops, expectedOps);

@@ -23,6 +23,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DeleteEventHelper;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
@@ -256,8 +257,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
                         // Add all reminders to the models
                         while (cursor.moveToNext()) {
                             int minutes = cursor.getInt(EditEventHelper.REMINDERS_INDEX_MINUTES);
-                            mModel.mReminderMinutes.add(minutes);
-                            mOriginalModel.mReminderMinutes.add(minutes);
+                            int method = cursor.getInt(EditEventHelper.REMINDERS_INDEX_METHOD);
+                            ReminderEntry re = ReminderEntry.valueOf(minutes, method);
+                            mModel.mReminders.add(re);
+                            mOriginalModel.mReminders.add(re);
                         }
                     } finally {
                         cursor.close();
@@ -535,8 +538,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     private void saveReminders() {
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>(3);
-        boolean changed = EditEventHelper.saveReminders(ops, mModel.mId, mModel.mReminderMinutes,
-                mOriginalModel.mReminderMinutes, false /* no force save */);
+        boolean changed = EditEventHelper.saveReminders(ops, mModel.mId, mModel.mReminders,
+                mOriginalModel.mReminders, false /* no force save */);
 
         if (!changed) {
             return;
@@ -546,7 +549,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
         service.startBatch(0, null, Calendars.CONTENT_URI.getAuthority(), ops, 0);
         // Update the "hasAlarm" field for the event
         Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mModel.mId);
-        int len = mModel.mReminderMinutes.size();
+        int len = mModel.mReminders.size();
         boolean hasAlarm = len > 0;
         if (hasAlarm != mOriginalModel.mHasAlarm) {
             ContentValues values = new ContentValues();

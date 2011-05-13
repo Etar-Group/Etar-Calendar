@@ -15,6 +15,7 @@
  */
 package com.android.calendar.event;
 
+import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.R;
 
 import android.app.Activity;
@@ -79,6 +80,13 @@ public class EventViewUtils {
         return index;
     }
 
+    /**
+     * Extracts reminder minutes info from UI elements.
+     *
+     * @param reminderItems UI elements (spinners) that hold array indices.
+     * @param reminderValues Maps array index to reminder data.
+     * @return Array with reminder data.
+     */
     public static ArrayList<Integer> reminderItemsToMinutes(ArrayList<LinearLayout> reminderItems,
             ArrayList<Integer> reminderValues) {
         int len = reminderItems.size();
@@ -93,8 +101,8 @@ public class EventViewUtils {
     }
 
     /**
-     * Checks our list of minute value-label pairs and adds any custom times
-     * this event might contain.
+     * If "minutes" is not currently present in "values", we add an appropriate new entry
+     * to values and labels.
      */
     public static void addMinutesToList(Context context, ArrayList<Integer> values,
             ArrayList<String> labels, int minutes) {
@@ -122,12 +130,16 @@ public class EventViewUtils {
 
     /**
      * Adds a reminder to the displayed list of reminders.
+     *
+     * The values/labels arrays must not change after calling here, or the spinners we
+     * created might index into the wrong entry.
+     *
      * Returns true if successfully added reminder, false if no reminders can
      * be added.
      */
     public static boolean addReminder(Activity activity, View view, View.OnClickListener listener,
-            ArrayList<LinearLayout> items, ArrayList<Integer> values, ArrayList<String> labels,
-            int minutes) {
+            ArrayList<LinearLayout> items, ArrayList<Integer> minuteValues,
+            ArrayList<String> minuteLabels, ReminderEntry newReminder) {
 
         if (items.size() >= EditEventHelper.MAX_REMINDERS) {
             return false;
@@ -143,7 +155,7 @@ public class EventViewUtils {
         Resources res = activity.getResources();
         spinner.setPrompt(res.getString(R.string.reminders_label));
         int resource = android.R.layout.simple_spinner_item;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, resource, labels);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, resource, minuteLabels);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -151,7 +163,7 @@ public class EventViewUtils {
         reminderRemoveButton = (ImageButton) reminderItem.findViewById(R.id.reminder_remove);
         reminderRemoveButton.setOnClickListener(listener);
 
-        int index = findMinutesInReminderList(values, minutes);
+        int index = findMinutesInReminderList(minuteValues, newReminder.getMinutes());
         spinner.setSelection(index);
 
         items.add(reminderItem);
