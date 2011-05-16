@@ -28,7 +28,6 @@ import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.TimeZone;
@@ -98,7 +97,7 @@ public class CalendarEventModel implements Serializable {
          *
          * @param minutes Number of minutes before the start of the event that the alert will fire.
          */
-       public static ReminderEntry valueOf(int minutes) {
+        public static ReminderEntry valueOf(int minutes) {
             return valueOf(minutes, Reminders.METHOD_DEFAULT);
         }
 
@@ -121,18 +120,22 @@ public class CalendarEventModel implements Serializable {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
+            }
             if (!(obj instanceof ReminderEntry)) {
                 return false;
             }
 
             ReminderEntry re = (ReminderEntry) obj;
 
-            if (re.mMinutes != mMinutes)
+            if (re.mMinutes != mMinutes) {
                 return false;
+            }
 
-            // treat ALERT and DEFAULT as equivalent (TODO: is this necessary?)
+            // Treat ALERT and DEFAULT as equivalent.  This is useful during the "has anything
+            // "changed" test, so that if DEFAULT is present, but we don't change anything,
+            // the internal conversion of DEFAULT to ALERT doesn't force a database update.
             return re.mMethod == mMethod ||
                 (re.mMethod == Reminders.METHOD_DEFAULT && mMethod == Reminders.METHOD_ALERT) ||
                 (re.mMethod == Reminders.METHOD_ALERT && mMethod == Reminders.METHOD_DEFAULT);
@@ -144,14 +147,15 @@ public class CalendarEventModel implements Serializable {
         }
 
         /**
-         * Comparison function for a sort ordered descending by minutes.
+         * Comparison function for a sort ordered primarily descending by minutes,
+         * secondarily ascending by method type.
          */
         public int compareTo(ReminderEntry re) {
             if (re.mMinutes != mMinutes) {
                 return re.mMinutes - mMinutes;
             }
             if (re.mMethod != mMethod) {
-                return re.mMethod - mMethod;
+                return mMethod - re.mMethod;
             }
             return 0;
         }
@@ -176,6 +180,8 @@ public class CalendarEventModel implements Serializable {
     public long mCalendarId = -1;
     public String mCalendarDisplayName = ""; // Make sure this is in sync with the mCalendarId
     public int mCalendarColor = 0;
+    public int mCalendarMaxReminders;
+    public String mCalendarAllowedReminders;
 
     public String mSyncId = null;
     public String mSyncAccount = null;
@@ -232,6 +238,7 @@ public class CalendarEventModel implements Serializable {
 
     public int mVisibility = 0;
     public ArrayList<ReminderEntry> mReminders;
+    public ArrayList<ReminderEntry> mDefaultReminders;
 
     // PROVIDER_NOTES Using EditEventHelper the owner should not be included in this
     // list and will instead be added by saveEvent. Is this what we want?
@@ -239,6 +246,7 @@ public class CalendarEventModel implements Serializable {
 
     public CalendarEventModel() {
         mReminders = new ArrayList<ReminderEntry>();
+        mDefaultReminders = new ArrayList<ReminderEntry>();
         mAttendeesList = new LinkedHashMap<String, Attendee>();
         mTimezone = TimeZone.getDefault().getID();
     }
@@ -253,8 +261,10 @@ public class CalendarEventModel implements Serializable {
                 GeneralPreferences.KEY_DEFAULT_REMINDER, GeneralPreferences.NO_REMINDER_STRING);
         int defaultReminderMins = Integer.parseInt(defaultReminder);
         if (defaultReminderMins != GeneralPreferences.NO_REMINDER) {
+            // Assume all calendars allow at least one reminder.
             mHasAlarm = true;
             mReminders.add(ReminderEntry.valueOf(defaultReminderMins));
+            mDefaultReminders.add(ReminderEntry.valueOf(defaultReminderMins));
         }
     }
 

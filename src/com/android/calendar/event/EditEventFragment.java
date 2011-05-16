@@ -60,6 +60,7 @@ import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class EditEventFragment extends Fragment implements EventHandler {
     private static final String TAG = "EditEventActivity";
@@ -178,15 +179,12 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     if (mModel.mHasAlarm) {
                         Uri rUri = Reminders.CONTENT_URI;
                         String[] remArgs = {
-                                Long.toString(eventId), Integer.toString(Reminders.METHOD_ALERT),
-                                Integer.toString(Reminders.METHOD_DEFAULT)
+                                Long.toString(eventId)
                         };
-                        mHandler
-                                .startQuery(TOKEN_REMINDERS, null, rUri,
-                                        EditEventHelper.REMINDERS_PROJECTION,
-                                        EditEventHelper.REMINDERS_WHERE /* selection */,
-                                        remArgs /* selection args */,
-                                        Reminders.MINUTES + " DESC" /* sort order */);
+                        mHandler.startQuery(TOKEN_REMINDERS, null, rUri,
+                                EditEventHelper.REMINDERS_PROJECTION,
+                                EditEventHelper.REMINDERS_WHERE /* selection */,
+                                remArgs /* selection args */, null /* sort order */);
                     } else {
                         setModelIfDone(TOKEN_REMINDERS);
                     }
@@ -262,6 +260,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
                             mModel.mReminders.add(re);
                             mOriginalModel.mReminders.add(re);
                         }
+
+                        // Sort appropriately for display
+                        Collections.sort(mModel.mReminders);
+                        Collections.sort(mOriginalModel.mReminders);
                     } finally {
                         cursor.close();
                     }
