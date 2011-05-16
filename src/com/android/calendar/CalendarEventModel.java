@@ -78,7 +78,7 @@ public class CalendarEventModel implements Serializable {
      *
      * Instances of the class are immutable.
      */
-    public static class ReminderEntry implements Comparable<ReminderEntry> {
+    public static class ReminderEntry implements Comparable<ReminderEntry>, Serializable {
         private final int mMinutes;
         private final int mMethod;
 
@@ -143,6 +143,9 @@ public class CalendarEventModel implements Serializable {
             return "ReminderEntry min=" + mMinutes + " meth=" + mMethod;
         }
 
+        /**
+         * Comparison function for a sort ordered descending by minutes.
+         */
         public int compareTo(ReminderEntry re) {
             if (re.mMinutes != mMinutes) {
                 return re.mMinutes - mMinutes;
