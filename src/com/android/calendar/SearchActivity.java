@@ -97,9 +97,13 @@ public class SearchActivity extends Activity
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
 
-        mIsMultipane = (getResources().getConfiguration().screenLayout &
-                (Configuration.SCREENLAYOUT_SIZE_XLARGE |
-                        Configuration.SCREENLAYOUT_SIZE_LARGE)) != 0;
+        int layout = getResources().getConfiguration().screenLayout;
+        int orientation = getResources().getConfiguration().orientation;
+        boolean isXlarge = (layout & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
+        boolean isLargeLand = (layout & Configuration.SCREENLAYOUT_SIZE_LARGE) != 0 &&
+                (orientation == Configuration.ORIENTATION_LANDSCAPE);
+
+        mIsMultipane = isXlarge || isLargeLand;
 
         setContentView(R.layout.search);
 
@@ -157,7 +161,7 @@ public class SearchActivity extends Activity
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
-        AgendaFragment searchResultsFragment = new AgendaFragment(timeMillis);
+        AgendaFragment searchResultsFragment = new AgendaFragment(timeMillis, mIsMultipane);
         ft.replace(R.id.search_results, searchResultsFragment);
         mController.registerEventHandler(R.id.search_results, searchResultsFragment);
         if (!mIsMultipane) {

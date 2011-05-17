@@ -48,6 +48,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private Time mTime;
     private String mTimeZone;
     private long mInitialTimeMillis;
+    private boolean mIsMultipane;
 
     private String mQuery;
 
@@ -64,8 +65,13 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     }
 
     public AgendaFragment(long timeMillis) {
+        this(timeMillis, false);
+    }
+
+    public AgendaFragment(long timeMillis, boolean isMultipane) {
         mInitialTimeMillis = timeMillis;
         mTime = new Time();
+        mIsMultipane = isMultipane;
     }
 
     @Override
@@ -98,7 +104,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             instanceId = savedInstanceState.getLong(BUNDLE_KEY_RESTORE_INSTANCE_ID);
         }
 
-        mAgendaListView = new AgendaListView(context, instanceId);
+        mAgendaListView = new AgendaListView(context, instanceId, mIsMultipane);
         mAgendaListView.goTo(mTime, mQuery, false);
         return mAgendaListView;
     }

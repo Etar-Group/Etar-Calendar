@@ -177,6 +177,7 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
     private boolean mShuttingDown;
     private boolean mHideDeclined;
+    private boolean mIsMultipane;
 
     /** The current search query, or null if none */
     private String mSearchQuery;
@@ -280,9 +281,13 @@ public class AgendaWindowAdapter extends BaseAdapter {
         }
     }
 
-    public AgendaWindowAdapter(Context context,
-            AgendaListView agendaListView) {
+    public AgendaWindowAdapter(Context context, AgendaListView agendaListView) {
+        this(context, agendaListView, false);
+    }
+
+    public AgendaWindowAdapter(Context context, AgendaListView agendaListView, boolean isMultipane) {
         mContext = context;
+        mIsMultipane = isMultipane;
         mResources = context.getResources();
         mSelectedAgendaItemColor = mResources.getColor(R.color.activated);
 
@@ -757,9 +762,12 @@ public class AgendaWindowAdapter extends BaseAdapter {
                     }
                 }
 
+
                 // size == 1 means a fresh query. Possibly after the data changed.
                 // Let's check whether mSelectedInstanceId is still valid.
-                if (mAdapterInfos.size() == 1 && mSelectedInstanceId != -1) {
+                if (!mIsMultipane) {
+                    mSelectedInstanceId = -1;
+                } else if (mAdapterInfos.size() == 1 && mSelectedInstanceId != -1) {
                     boolean found = false;
                     cursor.moveToPosition(-1);
                     while (cursor.moveToNext()) {
@@ -768,14 +776,14 @@ public class AgendaWindowAdapter extends BaseAdapter {
                             found = true;
                             break;
                         }
-                    };
+                    }
 
                     if (!found) {
                         mSelectedInstanceId = -1;
                     }
                 }
 
-                if (mSelectedInstanceId == -1 && cursor.moveToFirst()) {
+                if (mIsMultipane && mSelectedInstanceId == -1 && cursor.moveToFirst()) {
                     mSelectedInstanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
 
                     EventInfo event = buildEventInfoFromCursor(cursor, false);
