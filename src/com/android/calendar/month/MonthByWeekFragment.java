@@ -29,6 +29,7 @@ import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -241,6 +242,8 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     protected void setUpAdapter() {
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
         mShowWeekNumber = Utils.getShowWeekNumber(mContext);
+        boolean singleLine = (mContext.getResources().getConfiguration()
+                .screenLayout & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 1;
 
         HashMap<String, Integer> weekParams = new HashMap<String, Integer>();
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
@@ -250,6 +253,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_JULIAN_DAY,
                 Time.getJulianDay(mSelectedDay.toMillis(true), mSelectedDay.gmtoff));
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_DAYS_PER_WEEK, mDaysPerWeek);
+        weekParams.put(MonthByWeekAdapter.WEEK_PARAMS_SINGLE_LINE, singleLine ? 1 : 0);
         if (mAdapter == null) {
             mAdapter = new MonthByWeekAdapter(getActivity(), weekParams);
             mAdapter.registerDataSetObserver(mObserver);

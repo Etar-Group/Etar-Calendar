@@ -48,7 +48,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     public static final String VIEW_PARAMS_ORIENTATION = "orientation";
 
-    private static int TEXT_SIZE_MONTH_NUMBER = 32;
+    private static int TEXT_SIZE_MONTH_NUMBER;
     private static int TEXT_SIZE_EVENT = 14;
     private static int TEXT_SIZE_MORE_EVENTS = 12;
     private static int TEXT_SIZE_MONTH_NAME = 14;
@@ -62,14 +62,14 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int DAY_SEPARATOR_VERTICAL_LENGTH = 53;
     private static int DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT = 64;
 
-    private static int EVENT_X_OFFSET_LANDSCAPE = 44;
+    private static int EVENT_X_OFFSET_LANDSCAPE;
     private static int EVENT_Y_OFFSET_LANDSCAPE = 11;
-    private static int EVENT_Y_OFFSET_PORTRAIT = 18;
+    private static int EVENT_Y_OFFSET_PORTRAIT;
     private static int EVENT_SQUARE_WIDTH = 10;
     private static int EVENT_SQUARE_BORDER = 1;
     private static int EVENT_LINE_PADDING = 4;
     private static int EVENT_RIGHT_PADDING = 4;
-    private static int EVENT_BOTTOM_PADDING = 15;
+    private static int EVENT_BOTTOM_PADDING;
 
     private static int SPACING_WEEK_NUMBER = 19;
     private static boolean mScaled = false;
@@ -114,6 +114,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mDaySeparatorOuterColor = 0x33FFFFFF;
     protected int mDaySeparatorInnerColor = 0x1A000000;
 
+    private boolean mIsSingleLine = false;
+
     /**
      * This provides a reference to a float array which allows for easy size
      * checking and reallocation. Used for drawing lines.
@@ -136,15 +138,23 @@ public class MonthWeekEventsView extends SimpleWeekView {
     /**
      * @param context
      */
-    public MonthWeekEventsView(Context context) {
+    public MonthWeekEventsView(Context context, boolean isSingleLine) {
         super(context);
+        mIsSingleLine = isSingleLine;
+
+        Resources res = context.getResources();
+        if (!mScaled) {
+            TEXT_SIZE_MONTH_NUMBER = (int) res.getDimension(R.dimen.month_events_day_number_size);
+            EVENT_BOTTOM_PADDING = (int) res.getDimension(R.dimen.month_events_bottom_padding);
+            EVENT_X_OFFSET_LANDSCAPE = (int) res.getDimension(R.dimen.month_event_x_offset_land);
+            EVENT_Y_OFFSET_PORTRAIT = (int) res.getDimension(R.dimen.month_event_y_offset_port);
+        }
 
         mPadding = DEFAULT_EDGE_SPACING;
         if (mScale != 1 && !mScaled) {
             PADDING_MONTH_NUMBER *= mScale;
             PADDING_WEEK_NUMBER *= mScale;
             SPACING_WEEK_NUMBER *= mScale;
-            TEXT_SIZE_MONTH_NUMBER *= mScale;
             TEXT_SIZE_EVENT *= mScale;
             TEXT_SIZE_MORE_EVENTS *= mScale;
             TEXT_SIZE_MONTH_NAME *= mScale;
@@ -153,16 +163,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
             DAY_SEPARATOR_INNER_WIDTH *= mScale;
             DAY_SEPARATOR_VERTICAL_LENGTH *= mScale;
             DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT *= mScale;
-            EVENT_X_OFFSET_LANDSCAPE *= mScale;
             EVENT_Y_OFFSET_LANDSCAPE *= mScale;
-            EVENT_Y_OFFSET_PORTRAIT *= mScale;
             EVENT_SQUARE_WIDTH *= mScale;
             EVENT_LINE_PADDING *= mScale;
-            EVENT_BOTTOM_PADDING *= mScale;
             EVENT_RIGHT_PADDING *= mScale;
             mPadding = (int) (DEFAULT_EDGE_SPACING * mScale);
-            mScaled = true;
         }
+        mScaled = true;
     }
 
     public void setEvents(List<ArrayList<Event>> sortedEvents) {
@@ -474,11 +481,11 @@ public class MonthWeekEventsView extends SimpleWeekView {
         if (moreEvents) {
             multiplier++;
         }
-        if (!event.allDay) {
+        if (!event.allDay && !mIsSingleLine) {
             multiplier++;
         }
         requiredSpace *= multiplier;
-        if (requiredSpace + y >= mHeight - EVENT_BOTTOM_PADDING) {
+        if (requiredSpace + y > mHeight - EVENT_BOTTOM_PADDING) {
             // Not enough space, return
             return y;
         }
@@ -495,7 +502,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         CharSequence text = TextUtils.ellipsize(
                 event.title, mEventPaint, avail, TextUtils.TruncateAt.END);
         canvas.drawText(text.toString(), textX, textY, mEventPaint);
-        if (!event.allDay) {
+        if (!event.allDay && !mIsSingleLine) {
             textY += mEventHeight + EVENT_LINE_PADDING;
             mStringBuilder.setLength(0);
             text = DateUtils.formatDateRange(mContext, mFormatter, event.startMillis,

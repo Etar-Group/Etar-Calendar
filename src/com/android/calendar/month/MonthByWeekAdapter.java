@@ -37,6 +37,8 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     private static final String TAG = "MonthByWeek";
 
     public static final String WEEK_PARAMS_IS_MINI = "mini_month";
+    // Param for keeping all events as single line only
+    public static final String WEEK_PARAMS_SINGLE_LINE = "single_line";
     protected static int DEFAULT_QUERY_DAYS = 7 * 8; // 8 weeks
 
     protected CalendarController mController;
@@ -46,6 +48,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     protected int mFirstJulianDay;
     protected int mQueryDays;
     protected boolean mIsMiniMonth = true;
+    protected boolean mIsSingleLine = false;
     protected int mOrientation = Configuration.ORIENTATION_LANDSCAPE;
 
     protected ArrayList<ArrayList<Event>> mEventDayList = new ArrayList<ArrayList<Event>>();
@@ -54,6 +57,9 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         super(context, params);
         if (params.containsKey(WEEK_PARAMS_IS_MINI)) {
             mIsMiniMonth = params.get(WEEK_PARAMS_IS_MINI) != 0;
+        }
+        if (params.containsKey(WEEK_PARAMS_SINGLE_LINE)) {
+            mIsSingleLine = params.get(WEEK_PARAMS_SINGLE_LINE) != 0;
         }
     }
 
@@ -156,7 +162,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             // new getter method
             drawingParams = (HashMap<String, Integer>) v.getTag();
         } else {
-            v = new MonthWeekEventsView(mContext);
+            v = new MonthWeekEventsView(mContext, mIsSingleLine);
         }
         if (drawingParams == null) {
             drawingParams = new HashMap<String, Integer>();
