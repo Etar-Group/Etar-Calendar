@@ -218,8 +218,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mShowString = res.getString(R.string.show_controls);
         mControlsParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-        mIsMultipane =
-                (res.getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
+        mIsMultipane = (res.getConfiguration().screenLayout &
+                (Configuration.SCREENLAYOUT_SIZE_XLARGE |
+                        Configuration.SCREENLAYOUT_SIZE_LARGE)) != 0;
 
         Utils.setAllowWeekForDetailView(mIsMultipane);
 
@@ -389,6 +390,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (!mIsMultipane || viewType == ViewType.EDIT) {
             mMiniMonth.setVisibility(View.GONE);
             mCalendarsList.setVisibility(View.GONE);
+            mMiniMonthContainer.setVisibility(View.GONE);
         }
 
         EventInfo info = null;

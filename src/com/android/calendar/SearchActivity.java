@@ -98,7 +98,8 @@ public class SearchActivity extends Activity
         mController = CalendarController.getInstance(this);
 
         mIsMultipane = (getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
+                (Configuration.SCREENLAYOUT_SIZE_XLARGE |
+                        Configuration.SCREENLAYOUT_SIZE_LARGE)) != 0;
 
         setContentView(R.layout.search);
 
