@@ -330,6 +330,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
             int attendeeResponse) {
+
+        DIALOG_WIDTH = (int)context.getResources().getDimension(R.dimen.event_info_width);
+        DIALOG_HEIGHT = (int)context.getResources().getDimension(R.dimen.event_info_height);
+
         if (mScale == 0) {
             mScale = context.getResources().getDisplayMetrics().density;
             if (mScale != 1) {

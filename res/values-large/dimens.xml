@@ -17,4 +17,24 @@
 <resources>
     <dimen name="search_margin_left">0dip</dimen>
     <dimen name="search_margin_top">10dip</dimen>
+    <dimen name="edit_event_left_margin">17dip</dimen>
+    <dimen name="edit_event_right_margin">17dip</dimen>
+    <dimen name="edit_event_top_margin">17dip</dimen>
+    <dimen name="edit_event_bottom_margin">17dip</dimen>
+    <dimen name="edit_event_top_padding">32dip</dimen>
+    <dimen name="edit_event_bottom_padding">32dip</dimen>
+    <dimen name="edit_event_bg_left_margin">12dip</dimen>
+    <dimen name="edit_event_bg_right_margin">12dip</dimen>
+    <dimen name="edit_event_bg_top_margin">12dip</dimen>
+    <dimen name="edit_event_bg_bottom_margin">12dip</dimen>
+    <dimen name="edit_event_text_left_margin">12dip</dimen>
+    <dimen name="edit_event_text_right_margin">12dip</dimen>
+    <dimen name="edit_event_text_top_margin">12dip</dimen>
+    <dimen name="edit_event_text_bottom_margin">12dip</dimen>
+    <dimen name="edit_event_chip_top_margin">7dip</dimen>
+    <dimen name="edit_event_chip_left_margin">7dip</dimen>
+    <dimen name="edit_event_chip_width">50dip</dimen>
+    <dimen name="edit_event_chip_height">50dip</dimen>
+    <dimen name="event_info_width">500dip</dimen>
+    <dimen name="event_info_height">500dip</dimen>
 </resources>
