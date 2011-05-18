@@ -43,4 +43,8 @@
     <dimen name="month_events_bottom_padding">1dip</dimen>
     <dimen name="month_event_x_offset_land">32dip</dimen>
     <dimen name="month_event_y_offset_port">11dip</dimen>
+    <dimen name="day_activity_right_margin">1dip</dimen>
+    <dimen name="day_view_min_hours_width">64dip</dimen>
+    <dimen name="day_view_min_cell_width_for_text">24dip</dimen>
+    <dimen name="day_view_hours_left_margin">10dip</dimen>
 </resources>

@@ -214,7 +214,7 @@
          the start and end times like 'From start date To end date'. This is the
          label before the 'start date'. -->
     <string name="edit_event_from_label">From</string>
-    <!-- Check box label that specifies if this is an all-day event -->
+    <!-- Check box label that specifies if this is an all-day event [CHAR LIMIT=9]  -->
     <string name="edit_event_all_day_label">All day</string>
     <!-- Label for choosing one of the calendars -->
     <string name="edit_event_calendar_label">Calendar</string>

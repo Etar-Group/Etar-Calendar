@@ -178,7 +178,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private Cursor mEventCursor;
     private Cursor mAttendeesCursor;
     private Cursor mCalendarsCursor;
-    private static float mScale = 0; // Used for supporting different screen densities
 
     private long mStartMillis;
     private long mEndMillis;
@@ -333,14 +332,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         DIALOG_WIDTH = (int)context.getResources().getDimension(R.dimen.event_info_width);
         DIALOG_HEIGHT = (int)context.getResources().getDimension(R.dimen.event_info_height);
-
-        if (mScale == 0) {
-            mScale = context.getResources().getDisplayMetrics().density;
-            if (mScale != 1) {
-                DIALOG_WIDTH *= mScale;
-                DIALOG_HEIGHT *= mScale;
-            }
-        }
 
         setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         mUri = uri;
