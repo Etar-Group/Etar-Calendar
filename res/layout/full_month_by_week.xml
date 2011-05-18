@@ -23,8 +23,8 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:paddingTop="33dip"
-    android:paddingLeft="12dip"
-    android:paddingRight="12dip"
+    android:paddingLeft="@dimen/month_full_padding_left"
+    android:paddingRight="@dimen/month_full_padding_right"
     android:background="@null">
 
     <TextView android:id="@+id/month_name"

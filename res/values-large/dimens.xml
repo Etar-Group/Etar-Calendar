@@ -37,4 +37,10 @@
     <dimen name="edit_event_chip_height">50dip</dimen>
     <dimen name="event_info_width">500dip</dimen>
     <dimen name="event_info_height">500dip</dimen>
+    <dimen name="month_full_padding_left">0dip</dimen>
+    <dimen name="month_full_padding_right">0dip</dimen>
+    <dimen name="month_events_day_number_size">20dip</dimen>
+    <dimen name="month_events_bottom_padding">1dip</dimen>
+    <dimen name="month_event_x_offset_land">32dip</dimen>
+    <dimen name="month_event_y_offset_port">11dip</dimen>
 </resources>
