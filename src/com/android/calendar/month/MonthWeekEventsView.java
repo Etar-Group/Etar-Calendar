@@ -141,35 +141,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
     public MonthWeekEventsView(Context context, boolean isSingleLine) {
         super(context);
         mIsSingleLine = isSingleLine;
-
-        Resources res = context.getResources();
-        if (!mScaled) {
-            TEXT_SIZE_MONTH_NUMBER = (int) res.getDimension(R.dimen.month_events_day_number_size);
-            EVENT_BOTTOM_PADDING = (int) res.getDimension(R.dimen.month_events_bottom_padding);
-            EVENT_X_OFFSET_LANDSCAPE = (int) res.getDimension(R.dimen.month_event_x_offset_land);
-            EVENT_Y_OFFSET_PORTRAIT = (int) res.getDimension(R.dimen.month_event_y_offset_port);
-        }
-
-        mPadding = DEFAULT_EDGE_SPACING;
-        if (mScale != 1 && !mScaled) {
-            PADDING_MONTH_NUMBER *= mScale;
-            PADDING_WEEK_NUMBER *= mScale;
-            SPACING_WEEK_NUMBER *= mScale;
-            TEXT_SIZE_EVENT *= mScale;
-            TEXT_SIZE_MORE_EVENTS *= mScale;
-            TEXT_SIZE_MONTH_NAME *= mScale;
-            TEXT_SIZE_WEEK_NUM *= mScale;
-            DAY_SEPARATOR_OUTER_WIDTH *= mScale;
-            DAY_SEPARATOR_INNER_WIDTH *= mScale;
-            DAY_SEPARATOR_VERTICAL_LENGTH *= mScale;
-            DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT *= mScale;
-            EVENT_Y_OFFSET_LANDSCAPE *= mScale;
-            EVENT_SQUARE_WIDTH *= mScale;
-            EVENT_LINE_PADDING *= mScale;
-            EVENT_RIGHT_PADDING *= mScale;
-            mPadding = (int) (DEFAULT_EDGE_SPACING * mScale);
-        }
-        mScaled = true;
     }
 
     public void setEvents(List<ArrayList<Event>> sortedEvents) {
@@ -208,7 +179,37 @@ public class MonthWeekEventsView extends SimpleWeekView {
      * want to use a different paint.
      */
     @Override
-    protected void setPaintProperties() {
+    protected void initView() {
+
+        Resources res = mContext.getResources();
+        if (!mScaled) {
+            TEXT_SIZE_MONTH_NUMBER = (int) res.getDimension(R.dimen.month_events_day_number_size);
+            EVENT_BOTTOM_PADDING = (int) res.getDimension(R.dimen.month_events_bottom_padding);
+            EVENT_X_OFFSET_LANDSCAPE = (int) res.getDimension(R.dimen.month_event_x_offset_land);
+            EVENT_Y_OFFSET_PORTRAIT = (int) res.getDimension(R.dimen.month_event_y_offset_port);
+        }
+
+        mPadding = DEFAULT_EDGE_SPACING;
+        if (mScale != 1 && !mScaled) {
+            PADDING_MONTH_NUMBER *= mScale;
+            PADDING_WEEK_NUMBER *= mScale;
+            SPACING_WEEK_NUMBER *= mScale;
+            TEXT_SIZE_EVENT *= mScale;
+            TEXT_SIZE_MORE_EVENTS *= mScale;
+            TEXT_SIZE_MONTH_NAME *= mScale;
+            TEXT_SIZE_WEEK_NUM *= mScale;
+            DAY_SEPARATOR_OUTER_WIDTH *= mScale;
+            DAY_SEPARATOR_INNER_WIDTH *= mScale;
+            DAY_SEPARATOR_VERTICAL_LENGTH *= mScale;
+            DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT *= mScale;
+            EVENT_Y_OFFSET_LANDSCAPE *= mScale;
+            EVENT_SQUARE_WIDTH *= mScale;
+            EVENT_LINE_PADDING *= mScale;
+            EVENT_RIGHT_PADDING *= mScale;
+            mPadding = (int) (DEFAULT_EDGE_SPACING * mScale);
+        }
+        mScaled = true;
+
         loadColors(mContext);
         // TODO modify paint properties depending on isMini
         p.setStyle(Style.FILL);
