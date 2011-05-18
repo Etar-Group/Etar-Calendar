@@ -531,6 +531,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             ViewSwitcher viewSwitcher, EventLoader eventLoader, int numDays) {
         super(context);
         mResources = context.getResources();
+
+        MIN_HOURS_WIDTH = (int)mResources.getDimension(R.dimen.day_view_min_hours_width);
+        MIN_CELL_WIDTH_FOR_TEXT =
+            (int)mResources.getDimension(R.dimen.day_view_min_cell_width_for_text);
+        HOURS_LEFT_MARGIN = (int)mResources.getDimension(R.dimen.day_view_hours_left_margin);
+
         if (mScale == 0) {
             mScale = mResources.getDisplayMetrics().density;
             if (mScale != 1) {
@@ -543,12 +549,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 GRID_LINE_LEFT_MARGIN *= mScale;
                 HOURS_FONT_SIZE *= mScale;
                 HOURS_TOP_MARGIN *= mScale;
-                HOURS_LEFT_MARGIN *= mScale;
                 HOURS_RIGHT_MARGIN *= mScale;
                 HOURS_MARGIN = HOURS_LEFT_MARGIN + HOURS_RIGHT_MARGIN;
                 AMPM_FONT_SIZE *= mScale;
-                MIN_HOURS_WIDTH *= mScale;
-                MIN_CELL_WIDTH_FOR_TEXT *= mScale;
                 MIN_EVENT_HEIGHT *= mScale;
                 MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT *= mScale;
                 MAX_UNEXPANDED_ALLDAY_HEIGHT *= mScale;
