@@ -43,6 +43,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     private DeleteEventHelper mDeleteEventHelper;
     private Context mContext;
     private String mTimeZone;
+    private boolean mIsMultipane;
 
     private Runnable mTZUpdater = new Runnable() {
         @Override
@@ -52,13 +53,18 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     };
 
     public AgendaListView(Context context, long instanceId) {
+        this(context, instanceId, false);
+    }
+
+    public AgendaListView(Context context, long instanceId, boolean isMultipane) {
         super(context, null);
         mContext = context;
+        mIsMultipane = isMultipane;
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         setOnItemClickListener(this);
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         setVerticalScrollBarEnabled(false);
-        mWindowAdapter = new AgendaWindowAdapter(context, this);
+        mWindowAdapter = new AgendaWindowAdapter(context, this, isMultipane);
         mWindowAdapter.setSelectedInstanceId(instanceId);
         setAdapter(mWindowAdapter);
         setCacheColorHint(context.getResources().getColor(R.color.agenda_item_not_selected));
@@ -79,10 +85,14 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             // Switch to the EventInfo view
             EventInfo event = mWindowAdapter.getEventByPosition(position);
             long oldInstanceId = mWindowAdapter.getSelectedInstanceId();
-            mWindowAdapter.setSelectedView(v);
-            if (event != null && oldInstanceId != mWindowAdapter.getSelectedInstanceId()) {
+            if (mIsMultipane) {
+                mWindowAdapter.setSelectedView(v);
+            }
+            if (event != null
+                    && (!mIsMultipane || oldInstanceId != mWindowAdapter.getSelectedInstanceId())) {
                 CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
-                        EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0, -1);
+                        mIsMultipane ? EventType.VIEW_EVENT : EventType.VIEW_EVENT_DETAILS,
+                        event.id, event.begin, event.end, 0, 0, -1);
             }
         }
     }

@@ -24,8 +24,8 @@
         android:layout_height="match_parent"
         android:layout_width="0px"
         android:layout_weight=".3"
-        android:layout_marginLeft="40dip"
-        android:layout_marginTop="80dip" />
+        android:layout_marginLeft="@dimen/search_margin_left"
+        android:layout_marginTop="@dimen/search_margin_top" />
 
     <FrameLayout
         android:id="@+id/event_info"
