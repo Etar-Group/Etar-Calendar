@@ -155,38 +155,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
      */
     public MonthWeekEventsView(Context context) {
         super(context);
-
-        Resources resources = context.getResources();
-        TEXT_SIZE_MONTH_NUMBER = resources.getInteger(R.integer.text_size_month_number);
-
-
-        mPadding = DEFAULT_EDGE_SPACING;
-        if (mScale != 1 && !mScaled) {
-            PADDING_MONTH_NUMBER *= mScale;
-            PADDING_WEEK_NUMBER *= mScale;
-            SPACING_WEEK_NUMBER *= mScale;
-            TEXT_SIZE_MONTH_NUMBER *= mScale;
-            TEXT_SIZE_EVENT *= mScale;
-            TEXT_SIZE_MORE_EVENTS *= mScale;
-            TEXT_SIZE_MONTH_NAME *= mScale;
-            TEXT_SIZE_WEEK_NUM *= mScale;
-            DAY_SEPARATOR_OUTER_WIDTH *= mScale;
-            DAY_SEPARATOR_INNER_WIDTH *= mScale;
-            DAY_SEPARATOR_VERTICAL_LENGTH *= mScale;
-            DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT *= mScale;
-            EVENT_X_OFFSET_LANDSCAPE *= mScale;
-            EVENT_Y_OFFSET_LANDSCAPE *= mScale;
-            EVENT_Y_OFFSET_PORTRAIT *= mScale;
-            EVENT_SQUARE_WIDTH *= mScale;
-            EVENT_LINE_PADDING *= mScale;
-            EVENT_BOTTOM_PADDING *= mScale;
-            EVENT_RIGHT_PADDING *= mScale;
-            BUSY_BITS_MARGIN *= mScale;
-            BUSY_BITS_WIDTH *= mScale;
-
-            mPadding = (int) (DEFAULT_EDGE_SPACING * mScale);
-            mScaled = true;
-        }
         mShowDetailsInMonth = Utils.getConfigBool(context, R.bool.show_details_in_month);
         mBusyBitsBackgroundSegments = new float[4 * mNumDays];
     }
@@ -262,7 +230,39 @@ public class MonthWeekEventsView extends SimpleWeekView {
      * want to use a different paint.
      */
     @Override
-    protected void setPaintProperties() {
+    protected void initView() {
+        super.initView();
+        Resources resources = mContext.getResources();
+        TEXT_SIZE_MONTH_NUMBER = resources.getInteger(R.integer.text_size_month_number);
+
+        mPadding = DEFAULT_EDGE_SPACING;
+        if (mScale != 1 && !mScaled) {
+            PADDING_MONTH_NUMBER *= mScale;
+            PADDING_WEEK_NUMBER *= mScale;
+            SPACING_WEEK_NUMBER *= mScale;
+            TEXT_SIZE_MONTH_NUMBER *= mScale;
+            TEXT_SIZE_EVENT *= mScale;
+            TEXT_SIZE_MORE_EVENTS *= mScale;
+            TEXT_SIZE_MONTH_NAME *= mScale;
+            TEXT_SIZE_WEEK_NUM *= mScale;
+            DAY_SEPARATOR_OUTER_WIDTH *= mScale;
+            DAY_SEPARATOR_INNER_WIDTH *= mScale;
+            DAY_SEPARATOR_VERTICAL_LENGTH *= mScale;
+            DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT *= mScale;
+            EVENT_X_OFFSET_LANDSCAPE *= mScale;
+            EVENT_Y_OFFSET_LANDSCAPE *= mScale;
+            EVENT_Y_OFFSET_PORTRAIT *= mScale;
+            EVENT_SQUARE_WIDTH *= mScale;
+            EVENT_LINE_PADDING *= mScale;
+            EVENT_BOTTOM_PADDING *= mScale;
+            EVENT_RIGHT_PADDING *= mScale;
+            BUSY_BITS_MARGIN *= mScale;
+            BUSY_BITS_WIDTH *= mScale;
+
+            mPadding = (int) (DEFAULT_EDGE_SPACING * mScale);
+            mScaled = true;
+        }
+
         loadColors(mContext);
         // TODO modify paint properties depending on isMini
         p.setStyle(Style.FILL);

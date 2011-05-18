@@ -179,7 +179,7 @@ public class SimpleWeekView extends View {
         }
 
         // Sets up any standard paints that will be used
-        setPaintProperties();
+        initView();
     }
 
     /**
@@ -297,7 +297,7 @@ public class SimpleWeekView extends View {
      * Sets up the text and style properties for painting. Override this if you
      * want to use a different paint.
      */
-    protected void setPaintProperties() {
+    protected void initView() {
         p.setFakeBoldText(false);
         p.setAntiAlias(true);
         p.setTextSize(MINI_DAY_NUMBER_TEXT_SIZE);
