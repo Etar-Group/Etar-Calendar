@@ -47,4 +47,5 @@
     <dimen name="day_view_min_hours_width">96dip</dimen>
     <dimen name="day_view_min_cell_width_for_text">27dip</dimen>
     <dimen name="day_view_hours_left_margin">30dip</dimen>
+    <dimen name="date_range_padding">26dip</dimen>
 </resources>
