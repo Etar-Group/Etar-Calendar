@@ -243,7 +243,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
         mShowWeekNumber = Utils.getShowWeekNumber(mContext);
         boolean singleLine = (mContext.getResources().getConfiguration()
-                .screenLayout & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 1;
+                .screenLayout & Configuration.SCREENLAYOUT_SIZE_XLARGE) == 0;
 
         HashMap<String, Integer> weekParams = new HashMap<String, Integer>();
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_NUM_WEEKS, mNumWeeks);
