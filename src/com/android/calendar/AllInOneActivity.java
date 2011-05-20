@@ -68,7 +68,7 @@ import java.util.TimeZone;
 
 public class AllInOneActivity extends Activity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener,
-        ActionBar.TabListener {
+        SearchView.OnCloseListener, ActionBar.TabListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
     private static final String EVENT_INFO_FRAGMENT_TAG = "EventInfoFragment";
@@ -107,6 +107,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private ActionBar.Tab mDayTab;
     private ActionBar.Tab mWeekTab;
     private ActionBar.Tab mMonthTab;
+    private boolean mSearchOnOverflowMenu;
+    private MenuItem mSearchMenuItem;
     private SearchView mSearchView;
     private MenuItem mControlsMenu;
 
@@ -218,7 +220,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mShowString = res.getString(R.string.show_controls);
         mControlsParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-        mIsMultipane = (res.getConfiguration().screenLayout &
+        Configuration configuration = res.getConfiguration();
+        boolean isPortrait = (configuration.orientation == Configuration.ORIENTATION_PORTRAIT);
+        mSearchOnOverflowMenu = isPortrait && (configuration.screenLayout &
+                (Configuration.SCREENLAYOUT_SIZE_LARGE)) != 0;
+
+        mIsMultipane = (configuration.screenLayout &
                 (Configuration.SCREENLAYOUT_SIZE_XLARGE |
                         Configuration.SCREENLAYOUT_SIZE_LARGE)) != 0;
 
@@ -459,10 +466,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
 
-        mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        mSearchMenuItem = menu.findItem(R.id.action_search);
+        mSearchView = (SearchView) mSearchMenuItem.getActionView();
         if (mSearchView != null) {
             mSearchView.setIconifiedByDefault(true);
             mSearchView.setOnQueryTextListener(this);
+            mSearchView.setOnCloseListener(this);
             mSearchView.setSubmitButtonEnabled(true);
         }
         mControlsMenu = menu.findItem(R.id.action_hide_controls);
@@ -513,6 +522,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 ObjectAnimator.setFrameDelay(0);
                 slideAnimation.start();
                 return true;
+            case R.id.action_search:
+                if (mSearchOnOverflowMenu && mSearchMenuItem != null) {
+                    mSearchView.setIconified(false);
+                    mSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                    return true;
+                } else {
+                    return false;
+                }
             default:
                 return false;
         }
@@ -751,12 +768,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mController.sendEvent(this, EventType.EVENTS_CHANGED, null, null, -1, ViewType.CURRENT);
     }
 
-    @Override
+    @Override // implementation of SearchView.OnQueryTextListener
     public boolean onQueryTextChange(String newText) {
         return false;
     }
 
-    @Override
+    @Override // implementation of SearchView.OnQueryTextListener
     public boolean onQueryTextSubmit(String query) {
         if (TextUtils.equals(query, "TARDIS")) {
             Utils.tardis();
@@ -764,6 +781,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mSearchView.clearFocus();
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, -1, query,
                 getComponentName());
+        return false;
+    }
+
+    @Override // implementation of SearchView.OnCloseListener
+    public boolean onClose() {
+        if (mSearchOnOverflowMenu && mSearchMenuItem != null) {
+            mSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
         return false;
     }
 
