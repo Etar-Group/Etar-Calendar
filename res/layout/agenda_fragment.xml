@@ -26,11 +26,17 @@
         android:layout_weight=".05"
         android:visibility="invisible"/>
     <view
-        class="com.android.calendar.agenda.AgendaListView"
-        android:id="@+id/agenda_events_list"
+        class="com.android.calendar.StickyHeaderListView"
+        android:id="@+id/agenda_sticky_header_list"
         android:layout_height="match_parent"
         android:layout_weight=".40"
-        android:layout_width="0px"/>
+        android:layout_width="0px">
+        <view
+            class="com.android.calendar.agenda.AgendaListView"
+            android:id="@+id/agenda_events_list"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+    </view>
     <FrameLayout
         android:id="@+id/agenda_event_info"
         android:layout_height="match_parent"

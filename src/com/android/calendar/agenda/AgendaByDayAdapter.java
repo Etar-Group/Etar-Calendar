@@ -76,6 +76,36 @@ public class AgendaByDayAdapter extends BaseAdapter {
         mTmpTime = new Time(mTimeZone);
     }
 
+
+    // Returns the position of a header of a specific item
+    public int getHeaderPosition(int position) {
+        if (mRowInfo == null || position >= mRowInfo.size()) {
+            return -1;
+        }
+
+        for (int i = position; i >=0; i --) {
+            RowInfo row = mRowInfo.get(i);
+            if (row != null && row.mType == TYPE_DAY)
+                return i;
+        }
+        return -1;
+    }
+
+    // Returns the number of items in a section defined by a specific header location
+    public int getHeaderItemsCount(int position) {
+        if (mRowInfo == null) {
+            return -1;
+        }
+        int count = 0;
+        for (int i = position +1; i < mRowInfo.size(); i++) {
+            if (mRowInfo.get(i).mType != TYPE_MEETING) {
+                return count;
+            }
+            count ++;
+        }
+        return count;
+    }
+
     public int getCount() {
         if (mRowInfo != null) {
             return mRowInfo.size();

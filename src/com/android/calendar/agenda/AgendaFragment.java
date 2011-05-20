@@ -21,8 +21,10 @@ import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.StickyHeaderListView.HeaderIndexer;
 import com.android.calendar.event.EditEventFragment;
 import com.android.calendar.GeneralPreferences;
+import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
@@ -40,6 +42,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.HeaderViewListAdapter;
 
 public class AgendaFragment extends Fragment implements CalendarController.EventHandler {
 
@@ -124,6 +128,21 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         mAgendaListView.goTo(mTime, -1, mQuery, false);
         if (!mShowEventDetailsWithAgenda) {
             v.findViewById(R.id.agenda_event_info).setVisibility(View.GONE);
+        }
+
+        // Set adapter & HeaderIndexer for StickyHeaderListView
+        StickyHeaderListView lv =
+            (StickyHeaderListView)v.findViewById(R.id.agenda_sticky_header_list);
+        if (lv != null) {
+            Adapter a = mAgendaListView.getAdapter();
+            lv.setAdapter(a);
+            if (a instanceof HeaderViewListAdapter) {
+                lv.setIndexer((HeaderIndexer) ((HeaderViewListAdapter)a).getWrappedAdapter());
+            } else if (a instanceof AgendaWindowAdapter) {
+                lv.setIndexer((HeaderIndexer) a);
+            } else {
+                Log.wtf(TAG, "Cannot find HeaderIndexer for StickyHeaderListView");
+            }
         }
         return v;
     }

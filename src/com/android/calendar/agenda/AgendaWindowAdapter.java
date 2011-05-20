@@ -20,6 +20,7 @@ import com.android.calendar.CalendarController;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.StickyHeaderListView;
 
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
@@ -66,7 +67,8 @@ Loading speed
 Check for leaks and excessive allocations
  */
 
-public class AgendaWindowAdapter extends BaseAdapter {
+public class AgendaWindowAdapter extends BaseAdapter
+    implements StickyHeaderListView.HeaderIndexer{
 
     static final boolean BASICLOG = false;
     static final boolean DEBUGLOG = false;
@@ -1007,5 +1009,31 @@ public class AgendaWindowAdapter extends BaseAdapter {
 
     public void setSelectedInstanceId(long selectedInstanceId) {
         mSelectedInstanceId = selectedInstanceId;
+    }
+
+
+    // Implementation of HeaderIndexer interface for StickyHeeaderListView
+
+    // Returns the location of the day header of a specific event specified in the position
+    // in the adapter
+    public int getHeaderPositionFromItemPosition(int position) {
+        DayAdapterInfo info = getAdapterInfoByPosition(position);
+        if (info != null) {
+            int pos = info.dayAdapter.getHeaderPosition(position - info.offset);
+            return (pos != -1)?(pos + info.offset):-1;
+        }
+        return -1;
+    }
+
+    // Returns the number of events for a specific day header
+    public int getHeaderItemsNumber(int headerPosition) {
+        if (headerPosition < 0) {
+            return -1;
+        }
+        DayAdapterInfo info = getAdapterInfoByPosition(headerPosition);
+        if (info != null) {
+            return info.dayAdapter.getHeaderItemsCount(headerPosition - info.offset);
+        }
+        return -1;
     }
 }
