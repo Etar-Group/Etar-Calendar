@@ -15,8 +15,28 @@
 -->
 
 <resources>
+    <!-- Choices for the "Reminder method" spinner.
+         These must be kept in sync with the reminder_methods_values array.
+         [CHAR LIMIT=15]
+    -->
+    <string-array name="reminder_methods_labels">
+        <item>Pop-up</item>
+        <item>Email</item>
+        <item>SMS</item>
+    </string-array>
+
+    <!-- This maps reminder_methods_labels to internal constants. -->
+    <integer-array name="reminder_methods_values" translatable="false">
+        <item>1</item>  <!-- METHOD_ALERT -->
+        <item>2</item>  <!-- METHOD_EMAIL -->
+        <item>3</item>  <!-- METHOD_SMS -->
+    </integer-array>
+
     <!-- Choices for the "Reminder minutes" spinner.
          These must be kept in sync with the reminder_minutes_values array.
+         For consistency, the format should match what
+         EventViewUtils.constructReminderLabel() generates.  (TODO: eliminate
+         this and just generate the list from reminder_minutes_values?)
          [CHAR LIMIT=15]
     -->
     <string-array name="reminder_minutes_labels">

@@ -32,6 +32,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 
 public class EventViewUtils {
+    private static final String TAG = "EventViewUtils";
 
     private EventViewUtils() {
     }
@@ -74,8 +75,30 @@ public class EventViewUtils {
         int index = values.indexOf(minutes);
         if (index == -1) {
             // This should never happen.
-            Log.e("Cal", "Cannot find minutes (" + minutes + ") in list");
+            Log.e(TAG, "Cannot find minutes (" + minutes + ") in list");
             return 0;
+        }
+        return index;
+    }
+
+    /**
+     * Finds the index of the given method in the "methods" list.  If the method isn't present
+     * (perhaps because we don't think it's allowed for this calendar), we return zero (the
+     * first item in the list).
+     * <p>
+     * With the current definitions, this effectively converts DEFAULT and unsupported method
+     * types to ALERT.
+     *
+     * @param values the list of minutes corresponding to the spinner choices
+     * @param method the method to search for in the values list
+     * @return the index of the method in the "values" list
+     */
+    public static int findMethodInReminderList(ArrayList<Integer> values, int method) {
+        int index = values.indexOf(method);
+        if (index == -1) {
+            // If not allowed, or undefined, just use the first entry in the list.
+            //Log.d(TAG, "Cannot find method (" + method + ") in allowed list");
+            index = 0;
         }
         return index;
     }
@@ -83,21 +106,25 @@ public class EventViewUtils {
     /**
      * Extracts reminder minutes info from UI elements.
      *
-     * @param reminderItems UI elements (spinners) that hold array indices.
-     * @param reminderValues Maps array index to reminder data.
+     * @param reminderItems UI elements (layouts with spinners) that hold array indices.
+     * @param reminderMinuteValues Maps array index to time in minutes.
+     * @param reminderMethodValues Maps array index to alert method constant.
      * @return Array with reminder data.
      */
-    public static ArrayList<Integer> reminderItemsToMinutes(ArrayList<LinearLayout> reminderItems,
-            ArrayList<Integer> reminderValues) {
+    public static ArrayList<ReminderEntry> reminderItemsToReminders(
+            ArrayList<LinearLayout> reminderItems, ArrayList<Integer> reminderMinuteValues,
+            ArrayList<Integer> reminderMethodValues) {
         int len = reminderItems.size();
-        ArrayList<Integer> reminderMinutes = new ArrayList<Integer>(len);
+        ArrayList<ReminderEntry> reminders = new ArrayList<ReminderEntry>(len);
         for (int index = 0; index < len; index++) {
             LinearLayout layout = reminderItems.get(index);
-            Spinner spinner = (Spinner) layout.findViewById(R.id.reminder_value);
-            int minutes = reminderValues.get(spinner.getSelectedItemPosition());
-            reminderMinutes.add(minutes);
+            Spinner minuteSpinner = (Spinner) layout.findViewById(R.id.reminder_minutes_value);
+            Spinner methodSpinner = (Spinner) layout.findViewById(R.id.reminder_method_value);
+            int minutes = reminderMinuteValues.get(minuteSpinner.getSelectedItemPosition());
+            int method = reminderMethodValues.get(methodSpinner.getSelectedItemPosition());
+            reminders.add(ReminderEntry.valueOf(minutes, method));
         }
-        return reminderMinutes;
+        return reminders;
     }
 
     /**
@@ -129,6 +156,60 @@ public class EventViewUtils {
     }
 
     /**
+     * Remove entries from the method list that aren't allowed for this calendar.
+     *
+     * @param values List of known method values.
+     * @param labels List of known method labels.
+     * @param allowedMethods Has the form "0,1,3", indicating method constants from Reminders.
+     */
+    public static void reduceMethodList(ArrayList<Integer> values, ArrayList<String> labels,
+            String allowedMethods)
+    {
+        // Parse "allowedMethods".
+        String[] allowedStrings = allowedMethods.split(",");
+        int[] allowedValues = new int[allowedStrings.length];
+
+        for (int i = 0; i < allowedValues.length; i++) {
+            try {
+                allowedValues[i] = Integer.parseInt(allowedStrings[i], 10);
+            } catch (NumberFormatException nfe) {
+                Log.w(TAG, "Bad allowed-strings list: '" + allowedStrings[i] +
+                        "' in '" + allowedMethods + "'");
+                return;
+            }
+        }
+
+        // Walk through the method list, removing entries that aren't in the allowed list.
+        for (int i = values.size() - 1; i >= 0; i--) {
+            int val = values.get(i);
+            int j;
+
+            for (j = allowedValues.length - 1; j >= 0; j--) {
+                if (val == allowedValues[j]) {
+                    break;
+                }
+            }
+            if (j < 0) {
+                values.remove(i);
+                labels.remove(i);
+            }
+        }
+    }
+
+    /**
+     * Set the list of labels on a reminder spinner.
+     */
+    private static void setReminderSpinnerLabels(Activity activity, Spinner spinner,
+            ArrayList<String> labels) {
+        Resources res = activity.getResources();
+        spinner.setPrompt(res.getString(R.string.reminders_label));
+        int resource = android.R.layout.simple_spinner_item;
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, resource, labels);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+    /**
      * Adds a reminder to the displayed list of reminders.
      *
      * The values/labels arrays must not change after calling here, or the spinners we
@@ -137,11 +218,13 @@ public class EventViewUtils {
      * Returns true if successfully added reminder, false if no reminders can
      * be added.
      */
-    public static boolean addReminder(Activity activity, View view, View.OnClickListener listener,
-            ArrayList<LinearLayout> items, ArrayList<Integer> minuteValues,
-            ArrayList<String> minuteLabels, ReminderEntry newReminder) {
+    public static boolean addReminder(Activity activity, View view,
+            View.OnClickListener listener, ArrayList<LinearLayout> items,
+            ArrayList<Integer> minuteValues, ArrayList<String> minuteLabels,
+            ArrayList<Integer> methodValues, ArrayList<String> methodLabels,
+            ReminderEntry newReminder, int maxReminders) {
 
-        if (items.size() >= EditEventHelper.MAX_REMINDERS) {
+        if (items.size() >= maxReminders) {
             return false;
         }
 
@@ -151,24 +234,32 @@ public class EventViewUtils {
                 null);
         parent.addView(reminderItem);
 
-        Spinner spinner = (Spinner) reminderItem.findViewById(R.id.reminder_value);
-        Resources res = activity.getResources();
-        spinner.setPrompt(res.getString(R.string.reminders_label));
-        int resource = android.R.layout.simple_spinner_item;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, resource, minuteLabels);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
         ImageButton reminderRemoveButton;
         reminderRemoveButton = (ImageButton) reminderItem.findViewById(R.id.reminder_remove);
         reminderRemoveButton.setOnClickListener(listener);
 
+        /*
+         * The spinner has the default set of labels from the string resource file, but we
+         * want to drop in our custom set of labels because it may have additional entries.
+         */
+        Spinner spinner = (Spinner) reminderItem.findViewById(R.id.reminder_minutes_value);
+        setReminderSpinnerLabels(activity, spinner, minuteLabels);
+
         int index = findMinutesInReminderList(minuteValues, newReminder.getMinutes());
+        spinner.setSelection(index);
+
+        /*
+         * Configure the alert-method spinner.  Methods not supported by the current Calendar
+         * will not be shown.
+         */
+        spinner = (Spinner) reminderItem.findViewById(R.id.reminder_method_value);
+        setReminderSpinnerLabels(activity, spinner, methodLabels);
+
+        index = findMethodInReminderList(methodValues, newReminder.getMethod());
         spinner.setSelection(index);
 
         items.add(reminderItem);
 
         return true;
     }
-
 }

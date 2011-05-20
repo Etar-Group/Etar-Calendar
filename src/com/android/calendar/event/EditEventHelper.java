@@ -58,8 +58,6 @@ public class EditEventHelper {
 
     private static final boolean DEBUG = false;
 
-    public static final int MAX_REMINDERS = 5;
-
     public static final String[] EVENT_PROJECTION = new String[] {
             Events._ID, // 0
             Events.TITLE, // 1
@@ -110,8 +108,7 @@ public class EditEventHelper {
     };
     public static final int REMINDERS_INDEX_MINUTES = 1;
     public static final int REMINDERS_INDEX_METHOD = 2;
-    public static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=? AND (" + Reminders.METHOD
-            + "=?" + " OR " + Reminders.METHOD + "=?" + ")";
+    public static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=?";
 
     // Visible for testing
     static final String ATTENDEES_DELETE_PREFIX = Attendees.EVENT_ID + "=? AND "
@@ -167,6 +164,8 @@ public class EditEventHelper {
             Calendars.CAN_ORGANIZER_RESPOND, // 4
             Calendars.ACCESS_LEVEL, // 5
             Calendars.VISIBLE, // 6
+            Calendars.MAX_REMINDERS, // 7
+            Calendars.ALLOWED_REMINDERS, // 8
     };
     static final int CALENDARS_INDEX_ID = 0;
     static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
@@ -175,6 +174,8 @@ public class EditEventHelper {
     static final int CALENDARS_INDEX_CAN_ORGANIZER_RESPOND = 4;
     static final int CALENDARS_INDEX_ACCESS_LEVEL = 5;
     static final int CALENDARS_INDEX_VISIBLE = 6;
+    static final int CALENDARS_INDEX_MAX_REMINDERS = 7;
+    static final int CALENDARS_INDEX_ALLOWED_REMINDERS = 8;
 
     static final String CALENDARS_WHERE_WRITEABLE_VISIBLE = Calendars.ACCESS_LEVEL + ">="
             + Calendars.CONTRIBUTOR_ACCESS + " AND " + Calendars.VISIBLE + "=1";
@@ -1051,6 +1052,9 @@ public class EditEventHelper {
             model.mCalendarAccessLevel = cursor.getInt(CALENDARS_INDEX_ACCESS_LEVEL);
             model.mCalendarDisplayName = cursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
             model.mCalendarColor = cursor.getInt(CALENDARS_INDEX_COLOR);
+
+            model.mCalendarMaxReminders = cursor.getInt(CALENDARS_INDEX_MAX_REMINDERS);
+            model.mCalendarAllowedReminders = cursor.getString(CALENDARS_INDEX_ALLOWED_REMINDERS);
 
             return true;
        }

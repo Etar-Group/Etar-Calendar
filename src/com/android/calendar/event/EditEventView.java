@@ -47,6 +47,7 @@ import android.graphics.drawable.Drawable;
 import android.pim.EventRecurrence;
 import android.provider.Calendar.Attendees;
 import android.provider.Calendar.Calendars;
+import android.provider.Calendar.Reminders;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -162,6 +163,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private ArrayList<Integer> mReminderMinuteValues;
     private ArrayList<String> mReminderMinuteLabels;
 
+    /**
+     * Contents of the "methods" spinner.  The "values" list specifies the method constant
+     * (e.g. {@link Reminders#METHOD_ALERT}) associated with the labels.  Any methods that
+     * aren't allowed by the Calendar will be removed.
+     */
+    private ArrayList<Integer> mReminderMethodValues;
+    private ArrayList<String> mReminderMethodLabels;
+
     private int mDefaultReminderMinutes;
 
     private boolean mSaveAfterQueryComplete = false;
@@ -186,6 +195,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mView = view;
         }
 
+        @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Cache the member variables locally to avoid inner class overhead.
             Time startTime = mStartTime;
@@ -253,6 +263,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTime = time;
         }
 
+        @Override
         public void onClick(View v) {
             new TimePickerDialog(mActivity, new TimeListener(v), mTime.hour, mTime.minute,
                     DateFormat.is24HourFormat(mActivity)).show();
@@ -266,6 +277,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mView = view;
         }
 
+        @Override
         public void onDateSet(DatePicker view, int year, int month, int monthDay) {
             Log.d(TAG, "onDateSet: " + year +  " " + month +  " " + monthDay);
             // Cache the member variables locally to avoid inner class overhead.
@@ -613,25 +625,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return fillModelFromUI();
     }
 
-    /**
-     * Converts a list of minutes into a list of reminders with method=DEFAULT.
-     * TODO: replace with something that handles reminder methods as well
-     */
-    private static ArrayList<ReminderEntry> minutesToReminders(ArrayList<Integer> minutes) {
-        ArrayList<ReminderEntry> reminders = new ArrayList<ReminderEntry>();
-        for (Integer ii : minutes) {
-            reminders.add(ReminderEntry.valueOf(ii));
-        }
-        return reminders;
-    }
-
     public boolean fillModelFromReadOnlyUi() {
         if (mModel == null || (mCalendarsCursor == null && mModel.mUri == null)) {
             return false;
         }
-        ArrayList<Integer> minutes = EventViewUtils.reminderItemsToMinutes(
-                    mReminderItems, mReminderMinuteValues);
-        mModel.mReminders = minutesToReminders(minutes);
+        mModel.mReminders = EventViewUtils.reminderItemsToReminders(
+                    mReminderItems, mReminderMinuteValues, mReminderMethodValues);
         int status = EventInfoFragment.getResponseFromButtonId(
                 mResponseRadioGroup.getCheckedRadioButtonId());
         if (status != Attendees.ATTENDEE_STATUS_NONE) {
@@ -643,6 +642,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     // This is called if the user clicks on one of the buttons: "Save",
     // "Discard", or "Delete". This is also called if the user clicks
     // on the "remove reminder" button.
+    @Override
     public void onClick(View view) {
 
         // This must be a click on one of the "remove reminder" buttons
@@ -694,9 +694,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (mModel == null) {
             return false;
         }
-        ArrayList<Integer> minutes = EventViewUtils.reminderItemsToMinutes(
-                mReminderItems, mReminderMinuteValues);
-        mModel.mReminders = minutesToReminders(minutes);
+        mModel.mReminders = EventViewUtils.reminderItemsToReminders(mReminderItems,
+                mReminderMinuteValues, mReminderMethodValues);
         mModel.mHasAlarm = mReminderItems.size() > 0;
         mModel.mTitle = mTitleTextView.getText().toString();
         mModel.mAllDay = mAllDayCheckBox.isChecked();
@@ -885,6 +884,83 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         setModel(null);
     }
 
+
+    /**
+     * Loads an integer array asset into a list.
+     */
+    private static ArrayList<Integer> loadIntegerArray(Resources r, int resNum) {
+        int[] vals = r.getIntArray(resNum);
+        int size = vals.length;
+        ArrayList<Integer> list = new ArrayList<Integer>(size);
+
+        for (int i = 0; i < size; i++) {
+            list.add(vals[i]);
+        }
+
+        return list;
+    }
+
+    /**
+     * Loads a String array asset into a list.
+     */
+    private static ArrayList<String> loadStringArray(Resources r, int resNum) {
+        String[] labels = r.getStringArray(resNum);
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(labels));
+        return list;
+    }
+
+    /**
+     * Prepares the reminder UI elements.
+     * <p>
+     * (Re-)loads the minutes / methods lists from the XML assets, adds/removes items as
+     * needed for the current set of reminders and calendar properties, and then creates UI
+     * elements.
+     */
+    private void prepareReminders() {
+        CalendarEventModel model = mModel;
+        Resources r = mActivity.getResources();
+
+        // Load the labels and corresponding numeric values for the minutes and methods lists
+        // from the assets.  If we're switching calendars, we need to clear and re-populate the
+        // lists (which may have elements added and removed based on calendar properties).  This
+        // is mostly relevant for "methods", since we shouldn't have any "minutes" values in a
+        // new event that aren't in the default set.
+        mReminderMinuteValues = loadIntegerArray(r, R.array.reminder_minutes_values);
+        mReminderMinuteLabels = loadStringArray(r, R.array.reminder_minutes_labels);
+        mReminderMethodValues = loadIntegerArray(r, R.array.reminder_methods_values);
+        mReminderMethodLabels = loadStringArray(r, R.array.reminder_methods_labels);
+
+        // Remove any reminder methods that aren't allowed for this calendar.  If this is
+        // a new event, mCalendarAllowedReminders may not be set the first time we're called.
+        if (mModel.mCalendarAllowedReminders != null) {
+            EventViewUtils.reduceMethodList(mReminderMethodValues, mReminderMethodLabels,
+                    mModel.mCalendarAllowedReminders);
+        }
+
+        int numReminders = 0;
+        if (model.mHasAlarm) {
+            ArrayList<ReminderEntry> reminders = model.mReminders;
+            numReminders = reminders.size();
+            // Insert any minute values that aren't represented in the minutes list.
+            for (ReminderEntry re : reminders) {
+                EventViewUtils.addMinutesToList(
+                        mActivity, mReminderMinuteValues, mReminderMinuteLabels, re.getMinutes());
+            }
+
+            // Create a UI element for each reminder.  We display all of the reminders we get
+            // from the provider, even if the count exceeds the calendar maximum.  (Also, for
+            // a new event, we won't have a maxReminders value available.)
+            for (ReminderEntry re : reminders) {
+                EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
+                        mReminderMinuteValues, mReminderMinuteLabels,
+                        mReminderMethodValues, mReminderMethodLabels,
+                        re, Integer.MAX_VALUE);
+            }
+        }
+
+        updateRemindersVisibility(numReminders);
+    }
+
     /**
      * Fill in the view with the contents of the given event model. This allows
      * an edit view to be initialized before the event has been loaded. Passing
@@ -957,6 +1033,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         mAllDayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 setAllDayViewsVisibility(isChecked);
             }
@@ -979,52 +1056,21 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTimezoneDialog.getListView().setAdapter(mTimezoneAdapter);
         }
 
-        // Initialize the "minutes" spinner values to the set defined in the XML.
-        Resources r = mActivity.getResources();
-
-        if (mReminderMinuteValues == null) {
-            int[] vals = r.getIntArray(R.array.reminder_minutes_values);
-            int size = vals.length;
-            ArrayList<Integer> list = new ArrayList<Integer>(size);
-            for (int i = 0; i < size; i++) {
-                list.add(vals[i]);
-            }
-            mReminderMinuteValues = list;
-        }
-        String[] labels = r.getStringArray(R.array.reminder_minutes_labels);
-        mReminderMinuteLabels = new ArrayList<String>(Arrays.asList(labels));
-
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(mActivity);
-
         String defaultReminderString = prefs.getString(
                 GeneralPreferences.KEY_DEFAULT_REMINDER, GeneralPreferences.NO_REMINDER_STRING);
         mDefaultReminderMinutes = Integer.parseInt(defaultReminderString);
 
-        int numReminders = 0;
-        if (model.mHasAlarm) {
-            ArrayList<ReminderEntry> reminders = model.mReminders;
-            numReminders = reminders.size();
-            for (ReminderEntry re : reminders) {
-                // If the minutes value isn't represented in values/labels, insert it.
-                EventViewUtils.addMinutesToList(
-                        mActivity, mReminderMinuteValues, mReminderMinuteLabels, re.getMinutes());
-            }
-
-            for (ReminderEntry re : reminders) {
-                // Add a UI element for this reminder.
-                EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
-                        mReminderMinuteValues, mReminderMinuteLabels, re);
-            }
-        }
+        prepareReminders();
 
         ImageButton reminderAddButton = (ImageButton) mView.findViewById(R.id.reminder_add);
         View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 addReminder();
             }
         };
         reminderAddButton.setOnClickListener(addReminderOnClickListener);
-        updateRemindersVisibility(numReminders);
 
         mTitleTextView.setText(model.mTitle);
         if (model.mIsOrganizer || TextUtils.isEmpty(model.mOrganizer)
@@ -1149,6 +1195,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mWhenView.setText(when);
     }
 
+    /**
+     * Configures the Calendars spinner.  This is only done for new events, because only new
+     * events allow you to select a calendar while editing an event.
+     * <p>
+     * We tuck a reference to a Cursor with calendar database data into the spinner, so that
+     * we can easily extract calendar-specific values when the value changes (the spinner's
+     * onItemSelected callback is configured).
+     */
     public void setCalendarsCursor(Cursor cursor, boolean userVisible) {
         // If there are no syncable calendars, then we cannot allow
         // creating a new event.
@@ -1308,7 +1362,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      * Shows or hides the Guests view and sets the buttons for removing
      * attendees based on the value passed in.
      *
-     * @param visibility View.GONE or View.VISIBLE
+     * @param editable View.GONE or View.VISIBLE
      */
     protected void setAttendeesEditable(boolean editable) {
         int attCount = mAttendeesView.getChildCount();
@@ -1366,17 +1420,25 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
     }
 
+    /**
+     * Add a new reminder when the user hits the "add reminder" button.  We use the default
+     * reminder time and method.
+     */
     private void addReminder() {
         // TODO: when adding a new reminder, make it different from the
         // last one in the list (if any).
         if (mDefaultReminderMinutes == GeneralPreferences.NO_REMINDER) {
             EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
                     mReminderMinuteValues, mReminderMinuteLabels,
-                    ReminderEntry.valueOf(GeneralPreferences.REMINDER_DEFAULT_TIME));
+                    mReminderMethodValues, mReminderMethodLabels,
+                    ReminderEntry.valueOf(GeneralPreferences.REMINDER_DEFAULT_TIME),
+                    mModel.mCalendarMaxReminders);
         } else {
             EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
                     mReminderMinuteValues, mReminderMinuteLabels,
-                    ReminderEntry.valueOf(mDefaultReminderMinutes));
+                    mReminderMethodValues, mReminderMethodLabels,
+                    ReminderEntry.valueOf(mDefaultReminderMinutes),
+                    mModel.mCalendarMaxReminders);
         }
         updateRemindersVisibility(mReminderItems.size());
     }
@@ -1518,11 +1580,37 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // This is only used for the Calendar spinner in new events, and only fires when the
+        // calendar selection changes.
         Cursor c = (Cursor) parent.getItemAtPosition(position);
-        if (c != null) {
-            int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
-            mColorChip.setBackgroundColor(c.getInt(colorColumn));
+        if (c == null) {
+            // TODO: can this happen? should we drop this check?
+            Log.w(TAG, "Cursor not set on calendar item");
+            return;
         }
+
+        int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
+        mColorChip.setBackgroundColor(c.getInt(colorColumn));
+
+        // Update the max/allowed reminders with the new calendar properties.
+        int maxRemindersColumn = c.getColumnIndexOrThrow(Calendars.MAX_REMINDERS);
+        mModel.mCalendarMaxReminders = c.getInt(maxRemindersColumn);
+        int allowedRemindersColumn = c.getColumnIndexOrThrow(Calendars.ALLOWED_REMINDERS);
+        mModel.mCalendarAllowedReminders = c.getString(allowedRemindersColumn);
+
+        // Discard the current reminders and replace them with the model's default reminder set.
+        // We could attempt to save & restore the reminders that have been added, but that's
+        // probably more trouble than it's worth.
+        mModel.mReminders.clear();
+        mModel.mReminders.addAll(mModel.mDefaultReminders);
+        mModel.mHasAlarm = mModel.mReminders.size() != 0;
+
+        // Update the UI elements.
+        mReminderItems.clear();
+        LinearLayout reminderLayout =
+            (LinearLayout) mScrollView.findViewById(R.id.reminder_items_container);
+        reminderLayout.removeAllViews();
+        prepareReminders();
     }
 
     /**
