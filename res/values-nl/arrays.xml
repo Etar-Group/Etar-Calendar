@@ -137,6 +137,14 @@
     <item msgid="966666856467721784">"2 dagen"</item>
     <item msgid="5840973497558794742">"1 week"</item>
   </string-array>
+  
+    <string-array name="preferences_week_start_day_labels">
+    <item>Standaard</item>
+    <item>Zaterdag</item>
+    <item>Zondag</item>
+    <item>Maandag</item>
+  </string-array>
+  
   <string-array name="preferences_alert_type_labels">
     <item msgid="2724242028978664229">"Melding"</item>
     <item msgid="8723674378160518790">"Statusbalkmelding"</item>
