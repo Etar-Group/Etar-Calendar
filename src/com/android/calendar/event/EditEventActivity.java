@@ -65,7 +65,8 @@ public class EditEventActivity extends AbstractCalendarActivity {
         }
         else {
             getActionBar().setDisplayOptions(0,
-                    ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
+                    ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME|
+                    ActionBar.DISPLAY_SHOW_TITLE);
         }
 
         if (mEditFragment == null) {

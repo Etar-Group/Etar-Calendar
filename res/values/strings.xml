@@ -164,16 +164,16 @@
 
     <!-- Event edit activity -->
     <skip />
-    <!-- The title of the screen where the user edits an event -->
+    <!-- The title of the screen where the user edits an event [CHAR LIMIT=17] -->
     <string name="event_edit_title">"Event details"</string>
-    <!-- Default value of What field (as a hint to the user) -->
+    <!-- Default value of What field (as a hint to the user) [CHAR LIMIT=15] -->
     <string name="hint_what">"Event name"</string>
-    <!-- Default value of Where field (as a hint to the user) -->
-    <string name="hint_where">"Event location"</string>
-    <!-- Default value of Description field (as a hint to the user) -->
-    <string name="hint_description">"Event description"</string>
-    <!-- Default value of Attendees/Guests field (as a hint to the user) -->
-    <string name="hint_attendees">"Enter email addresses"</string>
+    <!-- Default value of Where field (as a hint to the user)[CHAR LIMIT=15] -->
+    <string name="hint_where">"Location"</string>
+    <!-- Default value of Description field (as a hint to the user) [CHAR LIMIT=15]-->
+    <string name="hint_description">"Description"</string>
+    <!-- Default value of Attendees/Guests field (as a hint to the user) [CHAR LIMIT=10] -->
+    <string name="hint_attendees">"Guests"</string>
     <!-- Toast message displayed when a new event is created -->
     <string name="creating_event">"Event created"</string>
     <!-- Toast message displayed when an existing event is saved after being modified -->
@@ -229,7 +229,7 @@
          or 'public' -->
     <string name="privacy_label">Privacy</string>
     <!-- Label for the list of reminders for an event -->
-    <string name="reminders_label">Reminders</string>
+    <string name="reminders_label">Add reminder</string>
     <!-- Title of alert shown if the user tries to create an event and has no calendars -->
     <string name="no_syncable_calendars">No calendars</string>
     <!-- Body of alert shown if the user tries to create an event and has no calendars. Users can start adding an account here. [CHAR LIMIT=NONE] -->

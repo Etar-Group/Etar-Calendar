@@ -78,11 +78,11 @@
     <style name="TextAppearance.EditEvent_Label">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:gravity">top|left</item>
-        <item name="android:minHeight">48dip</item>
+        <item name="android:minHeight">30dip</item>
         <item name="android:layout_width">144dip</item>
         <item name="android:paddingLeft">16dip</item>
         <item name="android:paddingRight">16dip</item>
-        <item name="android:paddingTop">12dip</item>
+        <item name="android:paddingTop">5dip</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#FF888888</item>
     </style>
@@ -95,6 +95,19 @@
     </style>
 
     <style name="TextAppearance.EditEvent_Value" parent="TextAppearance.EditEvent">
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+        <item name="android:paddingTop">5dip</item>
+    </style>
+
+    <style name="TextAppearance.EditEventCalSpinner">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+
+    <style name="TextAppearance.EditEvent_CalSpinnerValue" parent="TextAppearance.EditEventCalSpinner">
         <item name="android:paddingLeft">16dip</item>
         <item name="android:paddingRight">16dip</item>
         <item name="android:paddingTop">12dip</item>
@@ -125,8 +138,8 @@
     </style>
 
     <style name="EditEvent_Layout" parent="android:Theme.Holo.Light">
-        <item name="android:paddingLeft">6dip</item>
-        <item name="android:paddingRight">7dip</item>
+        <item name="android:paddingLeft">0dip</item>
+        <item name="android:paddingRight">0dip</item>
         <item name="android:paddingTop">8dip</item>
     </style>
 
@@ -159,6 +172,16 @@
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:gravity">center_vertical|left</item>
     </style>
+
+
+    <style name="EditEventSeparator">
+        <item name="android:layout_height">15dip</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">10dip</item>
+        <item name="android:layout_marginBottom">5dip</item>
+        <item name="android:background">@com.android.calendar:color/edit_event_separator</item>
+    </style>
+
 
     <style name="WidgetDayOfWeekStyle">
         <item name="android:layout_width">wrap_content</item>

@@ -60,6 +60,14 @@ public class CalendarEventModel implements Serializable {
             return true;
         }
 
+        String getDisplayName() {
+            if (TextUtils.isEmpty(mName)) {
+                return mEmail;
+            } else {
+                return mName;
+            }
+        }
+
         public String mName;
         public String mEmail;
         public int mStatus;
@@ -69,19 +77,10 @@ public class CalendarEventModel implements Serializable {
             mEmail = email;
             mStatus = Attendees.ATTENDEE_STATUS_NONE;
         }
-
         public Attendee(String name, String email, int status) {
             mName = name;
             mEmail = email;
             mStatus = status;
-        }
-
-        public String getDisplayName() {
-            if (TextUtils.isEmpty(mName)) {
-                return mEmail;
-            } else {
-                return mName;
-            }
         }
     }
 

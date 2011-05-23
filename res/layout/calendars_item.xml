@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:ellipsize="end"
-            />
+        android:textColor="#FFFFFFFF"
+        android:textSize="18sp"/>
 
 </LinearLayout>

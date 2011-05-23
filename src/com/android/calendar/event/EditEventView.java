@@ -595,7 +595,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             if (name != null) {
                 String displayName = cursor.getString(nameColumn);
                 name.setText(displayName);
-                name.setTextColor(0xFF000000);
 
                 TextView accountName = (TextView) view.findViewById(R.id.account_name);
                 if (accountName != null) {
@@ -1019,7 +1018,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mView.findViewById(R.id.attendees_group).setVisibility(View.GONE);
         } else if (!canModifyEvent) {
             // Hide views used for adding attendees
-            mView.findViewById(R.id.add_attendees_label).setVisibility(View.GONE);
+            View v =  mView.findViewById(R.id.add_attendees_label);
+            if (v != null) {
+                v.setVisibility(View.GONE);
+            }
             mView.findViewById(R.id.add_attendees_group).setVisibility(View.GONE);
             mAddAttendeesButton.setVisibility(View.GONE);
         } else {
@@ -1112,6 +1114,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         } else {
             View calendarGroup = mView.findViewById(R.id.calendar_group);
             calendarGroup.setVisibility(View.GONE);
+            mCalendarsSpinner.setBackgroundColor(model.mCalendarColor);
+            mCalendarSelectorGroup.setBackgroundColor(model.mCalendarColor);
         }
 
         populateTimezone();
@@ -1595,6 +1599,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         mColorChip.setBackgroundColor(c.getInt(colorColumn));
+        mModel.mCalendarColor = c.getInt(colorColumn);
+        mCalendarsSpinner.setBackgroundColor(mModel.mCalendarColor);
+        mCalendarSelectorGroup.setBackgroundColor(mModel.mCalendarColor);
+
 
         // Update the max/allowed reminders with the new calendar properties.
         int maxRemindersColumn = c.getColumnIndexOrThrow(Calendars.MAX_REMINDERS);

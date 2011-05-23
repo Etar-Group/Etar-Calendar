@@ -13,24 +13,11 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-    <!-- WHAT -->
-    <EditText
-        android:id="@+id/title"
-        style="@style/TextAppearance.EditEvent_Value"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_what"
-        android:capitalize="sentences"
-        android:focusable="true" />
 
     <!-- CALENDARS SELECTOR for new events -->
     <LinearLayout
@@ -39,20 +26,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true" >
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/edit_event_calendar_label"
-            style="@style/TextAppearance.EditEvent_Label"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical" />
         <Spinner
             android:id="@+id/calendars_spinner"
             android:prompt="@string/edit_event_calendar_label"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            style="@style/TextAppearance.EditEvent_Value"
             android:layout_gravity="center_vertical"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
             android:gravity="center_vertical" />
     </LinearLayout>
 
@@ -73,6 +54,37 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             style="@style/TextAppearance.EditEvent_Value" />
+    </LinearLayout>
+
+    <!-- WHAT -->
+    <EditText
+        android:id="@+id/title"
+        style="@style/TextAppearance.EditEvent_Value"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_what"
+        android:capitalize="sentences"
+        android:focusable="true" />
+
+    <!-- WHERE -->
+    <LinearLayout android:id="@+id/where_row"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true">
+        <EditText
+            android:id="@+id/location"
+            android:singleLine="true"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:imeOptions="actionDone"
+            style="@style/TextAppearance.EditEvent_Value"
+            android:hint="@string/hint_where" />
+    <View
+        style="@style/EditEventSeparator"/>
     </LinearLayout>
 
     <!-- WHEN - Read-only textview version of FROM/TO (below) -->
@@ -102,12 +114,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/from_label"
-            android:text="@string/edit_event_from_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -160,12 +166,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/to_label"
-            android:text="@string/edit_event_to_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_height="wrap_content"
@@ -213,6 +213,27 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- ALL DAY -->
+    <LinearLayout
+        android:id="@+id/all_day_row"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/is_all_day_label"
+            android:text="@string/edit_event_all_day_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="@style/TextAppearance.EditEvent_Label" />
+        <CheckBox
+            android:id="@+id/is_all_day"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
     <!-- TIME ZONE - Read-only textview version -->
     <LinearLayout
         android:id="@+id/timezone_textview_row"
@@ -253,158 +274,7 @@
             style="@style/TextAppearance.EditEvent_Spinner" />
     </LinearLayout>
 
-    <!-- ALL DAY -->
-    <LinearLayout
-        android:id="@+id/all_day_row"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/is_all_day_label"
-            android:text="@string/edit_event_all_day_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
-        <CheckBox
-            android:id="@+id/is_all_day"
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical" />
-    </LinearLayout>
 
-    <!-- WHERE -->
-    <LinearLayout android:id="@+id/where_row"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true">
-        <TextView
-            android:text="@string/where_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
-        <EditText
-            android:id="@+id/location"
-            android:singleLine="true"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            style="@style/TextAppearance.EditEvent_Value"
-            android:hint="@string/hint_where" />
-    </LinearLayout>
-
-    <!-- DESCRIPTION -->
-    <LinearLayout android:id="@+id/description_row"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true">
-        <TextView
-            android:id="@+id/description_label"
-            android:text="@string/description_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
-        <EditText
-            android:id="@+id/description"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:hint="@string/hint_description"
-            style="@style/TextAppearance.EditEvent_Value"
-            android:capitalize="sentences" />
-    </LinearLayout>
-
-    <!-- REPEATS -->
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true">
-        <TextView
-            android:id="@+id/repeats_label"
-            android:text="@string/repeats_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
-        <Spinner
-            android:id="@+id/repeats"
-            style="@style/TextAppearance.EditEvent_Value"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:prompt="@string/repeats_label" />
-    </LinearLayout>
-
-    <!-- REMINDERS -->
-    <LinearLayout
-        android:id="@+id/reminders_row"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true">
-        <TextView
-            android:id="@+id/reminders_label"
-            android:text="@string/reminders_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:id="@+id/reminder_items_container"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical" />
-            <ImageButton
-                android:id="@+id/reminder_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/PlusButton"
-                android:gravity="center_vertical|right" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- PRESENCE - Show me as [busy | available] -->
-    <LinearLayout
-        android:id="@+id/availability_row"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/presence_label"
-            android:text="@string/presence_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
-        <Spinner
-            android:id="@+id/availability"
-            android:entries="@array/availability"
-            style="@style/TextAppearance.EditEvent_Value"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:prompt="@string/presence_label" />
-    </LinearLayout>
-
-    <!-- PRIVACY -->
-    <LinearLayout
-        android:id="@+id/visibility_row"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/privacy_label"
-            android:text="@string/privacy_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
-        <Spinner
-            android:id="@+id/visibility"
-            android:entries="@array/visibility"
-            style="@style/TextAppearance.EditEvent_Value"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:prompt="@string/privacy_label" />
-    </LinearLayout>
+    <View
+        style="@style/EditEventSeparator"/>
 </LinearLayout>
