@@ -18,14 +18,6 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarController.ViewType;
-import com.android.calendar.agenda.AgendaFragment;
-import com.android.calendar.event.EditEventFragment;
-
-import dalvik.system.VMRuntime;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -34,7 +26,6 @@ import android.app.SearchManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,8 +36,15 @@ import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.SearchView;
+
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.agenda.AgendaFragment;
+import com.android.calendar.event.EditEventFragment;
+
+import dalvik.system.VMRuntime;
 
 public class SearchActivity extends Activity
         implements CalendarController.EventHandler, SearchView.OnQueryTextListener,
@@ -179,7 +177,7 @@ public class SearchActivity extends Activity
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
 
-            mEventInfoFragment = new EditEventFragment(event, true);
+            mEventInfoFragment = new EditEventFragment(event, true, null);
             ft.replace(R.id.agenda_event_info, mEventInfoFragment);
             ft.commit();
             mController.registerEventHandler(R.id.agenda_event_info, mEventInfoFragment);

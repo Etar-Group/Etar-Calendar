@@ -19,21 +19,21 @@ package com.android.calendar.event;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 
-import com.android.calendar.AbstractCalendarActivity;
-import com.android.calendar.CalendarController;
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Calendar;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
+
+import com.android.calendar.AbstractCalendarActivity;
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 public class EditEventActivity extends AbstractCalendarActivity {
     private static final String TAG = "EditEventActivity";
@@ -44,7 +44,6 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
     private static boolean mIsMultipane;
 
-    private FrameLayout mView;
     private EditEventFragment mEditFragment;
 
     private EventInfo mEventInfo;
@@ -53,7 +52,6 @@ public class EditEventActivity extends AbstractCalendarActivity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.edit_event_fragment);
-        mView = (FrameLayout) findViewById(R.id.edit_event);
 
         mEventInfo = getEventInfoFromIntent(icicle);
 
@@ -70,9 +68,13 @@ public class EditEventActivity extends AbstractCalendarActivity {
                     ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
         }
 
-
         if (mEditFragment == null) {
-            mEditFragment = new EditEventFragment(mEventInfo, false);
+            Intent intent = null;
+            if (mEventInfo.id == -1) {
+                intent = getIntent();
+            }
+
+            mEditFragment = new EditEventFragment(mEventInfo, false, intent);
 
             mEditFragment.mShowModifyDialogOnLaunch = getIntent().getBooleanExtra(
                     CalendarController.EVENT_EDIT_ON_LAUNCH, false);
@@ -121,7 +123,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
         if (item.getItemId() == android.R.id.home) {
             Intent launchIntent = new Intent();
             launchIntent.setAction(Intent.ACTION_VIEW);
-            launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
+            launchIntent.setData(Uri.parse(Calendar.CONTENT_URI + "/time"));
             launchIntent.setFlags(
                     Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(launchIntent);

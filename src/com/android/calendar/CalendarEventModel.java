@@ -24,7 +24,6 @@ import android.provider.Calendar.Calendars;
 import android.provider.Calendar.Events;
 import android.provider.Calendar.Reminders;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -271,6 +270,10 @@ public class CalendarEventModel implements Serializable {
     public CalendarEventModel(Context context, Intent intent) {
         this(context);
 
+        if (intent == null) {
+            return;
+        }
+
         String title = intent.getStringExtra(Events.TITLE);
         if (title != null) {
             mTitle = title;
@@ -299,6 +302,19 @@ public class CalendarEventModel implements Serializable {
         String rrule = intent.getStringExtra(Events.RRULE);
         if (!TextUtils.isEmpty(rrule)) {
             mRrule = rrule;
+        }
+
+        String emails = intent.getStringExtra(Intent.EXTRA_EMAIL);
+        if (!TextUtils.isEmpty(emails)) {
+            String[] emailArray = emails.split("[ ,;]");
+            for (String email : emailArray) {
+                if (!TextUtils.isEmpty(email) && email.contains("@")) {
+                    email = email.trim();
+                    if (!mAttendeesList.containsKey(email)) {
+                        mAttendeesList.put(email, new Attendee("", email));
+                    }
+                }
+            }
         }
     }
 
