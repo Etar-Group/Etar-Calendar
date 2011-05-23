@@ -177,9 +177,13 @@ public class AlertService extends Service {
                 //     newState = CalendarAlerts.DISMISSED;
                 // } else
 
-                // Remove declined events and duplicate alerts for the same event
-                if (!declined && eventIds.put(eventId, beginTime) == null) {
-                    numReminders++;
+                // Remove declined events
+                if (!declined) {
+                    // Don't count duplicate alerts for the same event
+                    if (eventIds.put(eventId, beginTime) == null) {
+                        numReminders++;
+                    }
+
                     if (state == CalendarAlerts.SCHEDULED) {
                         newState = CalendarAlerts.FIRED;
                         numFired++;
@@ -191,9 +195,6 @@ public class AlertService extends Service {
                     }
                 } else {
                     newState = CalendarAlerts.DISMISSED;
-                    if (DEBUG) {
-                        if (!declined) Log.d(TAG, "dropping dup alert for event " + eventId);
-                    }
                 }
 
                 // Update row if state changed
