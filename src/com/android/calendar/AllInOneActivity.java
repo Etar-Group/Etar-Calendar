@@ -647,8 +647,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
         } else {
             end = start;
         }
+        int flags = (int) event.extraLong;
+        if (mSearchOnOverflowMenu) {
+            flags |= DateUtils.FORMAT_ABBREV_MONTH;
+        }
 
-        final String msg = Utils.formatDateRange(this, start, end, (int) event.extraLong);
+        final String msg = Utils.formatDateRange(this, start, end, flags);
         CharSequence oldDate = mDateRange.getText();
         mDateRange.setText(msg);
         if (!TextUtils.equals(oldDate, msg)) {

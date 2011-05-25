@@ -66,6 +66,7 @@ public class SearchActivity extends Activity
         "key_restore_search_query";
 
     private static boolean mIsMultipane;
+    private boolean mIsLargePort;
 
     private CalendarController mController;
 
@@ -102,6 +103,8 @@ public class SearchActivity extends Activity
         boolean isXlarge = (layout & Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
         boolean isLargeLand = (layout & Configuration.SCREENLAYOUT_SIZE_LARGE) != 0 &&
                 (orientation == Configuration.ORIENTATION_LANDSCAPE);
+        mIsLargePort = (layout & Configuration.SCREENLAYOUT_SIZE_LARGE) != 0
+                && (orientation == Configuration.ORIENTATION_PORTRAIT);
 
         mIsMultipane = isXlarge || isLargeLand;
 
@@ -166,6 +169,13 @@ public class SearchActivity extends Activity
         mController.registerEventHandler(R.id.search_results, searchResultsFragment);
         if (!mIsMultipane) {
             findViewById(R.id.event_info).setVisibility(View.GONE);
+            mEventInfoFragment = (EditEventFragment) fragmentManager
+                    .findFragmentById(R.id.event_info);
+            if (mEventInfoFragment != null) {
+                ft.remove(mEventInfoFragment);
+                mController.deregisterEventHandler(R.id.event_info);
+                mEventInfoFragment = null;
+            }
         }
 
         ft.commit();
@@ -241,6 +251,7 @@ public class SearchActivity extends Activity
         searchView.setQuery(mQuery, false);
         searchView.setOnCloseListener(this);
         searchView.clearFocus();
+        getActionBar().setDisplayShowTitleEnabled(!mIsLargePort);
         return true;
     }
 
