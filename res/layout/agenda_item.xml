@@ -19,14 +19,12 @@
     android:id="@android:id/content"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeight">
 
     <View
         android:id="@+id/alignment_bar"
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_alignTop="@+id/title"
         android:layout_alignParentTop="true" />
 
     <!-- TODO: should be aligned with @id/title correctly without using
@@ -38,7 +36,7 @@
         android:layout_below="@id/alignment_bar"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/title"
-        android:layout_marginTop="5dip"
+        android:layout_marginTop="8dip"
         android:layout_marginLeft="16dip"
         android:layout_marginRight="8dip" />
 
@@ -47,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/agenda_item_color"
+        android:layout_marginTop="0dip"
         android:ellipsize="end"
         android:maxLines="2"
         android:textStyle="bold"
@@ -80,8 +79,8 @@
         android:id="@+id/selected_marker"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@id/alignment_bar"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:visibility="gone"
         android:background="@drawable/list_activated_holo" />
 
