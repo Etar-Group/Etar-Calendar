@@ -56,6 +56,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -258,6 +259,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         mContentResolver = getContentResolver();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
     }
 
     private long parseViewAction(final Intent intent) {
@@ -493,6 +495,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 mController.refreshCalendars();
                 return true;
             case R.id.action_today:
+                if (mSearchOnOverflowMenu) {
+                    moveSearchToOverflowMenu();
+                }
                 viewType = ViewType.CURRENT;
                 t = new Time(mTimeZone);
                 t.setToNow();
@@ -535,6 +540,15 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
         mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
         return true;
+    }
+
+    private void moveSearchToOverflowMenu() {
+        if (mSearchView != null) {
+            mSearchView.clearFocus();
+        }
+        if (mSearchMenuItem != null) {
+            mSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
     }
 
     /**
@@ -783,6 +797,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
             Utils.tardis();
         }
         mSearchView.clearFocus();
+        if (mSearchOnOverflowMenu) {
+            moveSearchToOverflowMenu();
+        }
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, -1, query,
                 getComponentName());
         return false;
@@ -790,8 +807,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override // implementation of SearchView.OnCloseListener
     public boolean onClose() {
-        if (mSearchOnOverflowMenu && mSearchMenuItem != null) {
-            mSearchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        if (mSearchOnOverflowMenu) {
+            moveSearchToOverflowMenu();
         }
         return false;
     }
