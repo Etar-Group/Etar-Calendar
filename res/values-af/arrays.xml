@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for reminder_methods_labels:0 (37518307108263308) -->
+    <!-- no translation found for reminder_methods_labels:1 (1751151680520784746) -->
+    <!-- no translation found for reminder_methods_labels:2 (2658001219380695677) -->
+    <!-- no translation found for reminder_minutes_labels:14 (3107009344872997366) -->
+    <!-- no translation found for reminder_minutes_labels:15 (6135563708172153696) -->
+    <!-- no translation found for preferences_default_reminder_labels:15 (5557836606782821910) -->
+    <!-- no translation found for preferences_default_reminder_labels:16 (8336577387266744930) -->
+    <!-- no translation found for preferences_week_start_day_labels:0 (986150274035512339) -->
+    <!-- no translation found for preferences_week_start_day_labels:1 (134027225275475280) -->
+    <!-- no translation found for preferences_week_start_day_labels:2 (95029346069903091) -->
+    <!-- no translation found for preferences_week_start_day_labels:3 (5840983116375063739) -->
+    <!-- no translation found for timezone_labels:0 (6833649526258274889) -->
+    <!-- no translation found for timezone_labels:1 (7176569939440505575) -->
+    <!-- no translation found for timezone_labels:2 (5000628410717488070) -->
+    <!-- no translation found for timezone_labels:3 (3809977082338992040) -->
+    <!-- no translation found for timezone_labels:4 (1206600898319778734) -->
+    <!-- no translation found for timezone_labels:5 (4251553449779733536) -->
+    <!-- no translation found for timezone_labels:6 (4796372144693551811) -->
+    <!-- no translation found for timezone_labels:7 (4589419122570218444) -->
+    <!-- no translation found for timezone_labels:8 (1653398220457872326) -->
+    <!-- no translation found for timezone_labels:9 (229005026661478023) -->
+    <!-- no translation found for timezone_labels:10 (1545268116831476742) -->
+    <!-- no translation found for timezone_labels:11 (9135129204936732090) -->
+    <!-- no translation found for timezone_labels:12 (3703110560723049255) -->
+    <!-- no translation found for timezone_labels:13 (5458958644945369505) -->
+    <!-- no translation found for timezone_labels:14 (355450740949670294) -->
+    <!-- no translation found for timezone_labels:15 (5786717434693228701) -->
+    <!-- no translation found for timezone_labels:16 (165048018515834952) -->
+    <!-- no translation found for timezone_labels:17 (5398045998666341917) -->
+    <!-- no translation found for timezone_labels:18 (8167627904199889197) -->
+    <!-- no translation found for timezone_labels:19 (2793058279461039833) -->
+    <!-- no translation found for timezone_labels:20 (5247265991408608312) -->
+    <!-- no translation found for timezone_labels:21 (7862856378699038344) -->
+    <!-- no translation found for timezone_labels:22 (7307349572838946177) -->
+    <!-- no translation found for timezone_labels:23 (2287491943472924232) -->
+    <!-- no translation found for timezone_labels:24 (6337125611768317903) -->
+    <!-- no translation found for timezone_labels:25 (1083966762112959704) -->
+    <!-- no translation found for timezone_labels:26 (3208435599095023369) -->
+    <!-- no translation found for timezone_labels:27 (8380333624463354109) -->
+    <!-- no translation found for timezone_labels:28 (8737442113188999866) -->
+    <!-- no translation found for timezone_labels:29 (72424340270348400) -->
+    <!-- no translation found for timezone_labels:30 (3665952257850630547) -->
+    <!-- no translation found for timezone_labels:31 (3284290759549286849) -->
+    <!-- no translation found for timezone_labels:32 (3112943938015033049) -->
+    <!-- no translation found for timezone_labels:33 (1746966478800108111) -->
+    <!-- no translation found for timezone_labels:34 (7008598576103662879) -->
+    <!-- no translation found for timezone_labels:35 (1358916275855835758) -->
+    <!-- no translation found for timezone_labels:36 (5900185968201011015) -->
+    <!-- no translation found for timezone_labels:37 (4975304496845689895) -->
+    <!-- no translation found for timezone_labels:38 (4099790960681254059) -->
+    <!-- no translation found for timezone_labels:39 (4174072690298729061) -->
+    <!-- no translation found for timezone_labels:40 (5233437715028921599) -->
+    <!-- no translation found for timezone_labels:41 (612137838544847325) -->
+    <!-- no translation found for timezone_labels:42 (385832033162858704) -->
+    <!-- no translation found for timezone_labels:43 (1439592855284837653) -->
+    <!-- no translation found for timezone_labels:44 (3703352987270492256) -->
+    <!-- no translation found for timezone_labels:45 (1657996636394546903) -->
+    <!-- no translation found for timezone_labels:46 (3719675800096223903) -->
+    <!-- no translation found for timezone_labels:47 (4216389209911081345) -->
+    <!-- no translation found for timezone_labels:48 (4949871918709805735) -->
+    <!-- no translation found for timezone_labels:49 (2863183321532922311) -->
+    <!-- no translation found for timezone_labels:50 (1943529325618264999) -->
+    <!-- no translation found for timezone_labels:51 (5094507376721687886) -->
+    <!-- no translation found for timezone_labels:52 (2849654571454095226) -->
+    <!-- no translation found for timezone_labels:53 (3641915655045056824) -->
+    <!-- no translation found for timezone_labels:54 (5795351343828254400) -->
+    <!-- no translation found for timezone_labels:55 (8779467771115356898) -->
+    <!-- no translation found for timezone_labels:56 (297412491658718331) -->
+    <!-- no translation found for timezone_labels:57 (2290076787008042202) -->
+    <!-- no translation found for timezone_labels:58 (4119703758417825749) -->
+    <!-- no translation found for timezone_labels:59 (9161760299912900568) -->
+    <!-- no translation found for timezone_labels:60 (5753596907402377327) -->
+    <!-- no translation found for timezone_labels:61 (6275146302340764856) -->
+    <!-- no translation found for timezone_labels:62 (2385588555356900033) -->
+    <!-- no translation found for timezone_labels:63 (7651147941145227340) -->
+    <!-- no translation found for timezone_labels:64 (7831696303531874014) -->
+    <!-- no translation found for timezone_labels:65 (7943498021949728203) -->
+    <!-- no translation found for timezone_labels:66 (707009198021550118) -->
+    <!-- no translation found for timezone_labels:67 (4268864549735629220) -->
+    <!-- no translation found for timezone_labels:68 (4584239166170514795) -->
+    <!-- no translation found for timezone_labels:69 (4972387553080120086) -->
+    <!-- no translation found for timezone_labels:70 (5749349714875345358) -->
+    <!-- no translation found for timezone_labels:71 (4435870687083770252) -->
+    <!-- no translation found for timezone_labels:72 (4857952326324510625) -->
+    <!-- no translation found for timezone_labels:73 (7802545626741434274) -->
+    <!-- no translation found for timezone_labels:74 (7184691104734480971) -->
+    <!-- no translation found for timezone_labels:75 (7795651165061255022) -->
+    <!-- no translation found for timezone_labels:76 (1858052331367859514) -->
+    <!-- no translation found for timezone_labels:77 (4396794682654884440) -->
+    <!-- no translation found for timezone_labels:78 (4152655496917506653) -->
+    <!-- no translation found for timezone_labels:79 (3608508135351982746) -->
+    <!-- no translation found for timezone_labels:80 (722180563708274099) -->
+    <!-- no translation found for timezone_labels:81 (1736037231626139044) -->
+    <!-- no translation found for timezone_labels:82 (8187746821081424875) -->
+  <string-array name="availability">
+    <item msgid="454869065893453189">"Besig"</item>
+    <item msgid="6228387173725732140">"Beskikbaar"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"Verstek"</item>
+    <item msgid="5200216103966973369">"Privaat"</item>
+    <item msgid="9182342638433672664">"Publiek"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"eerste"</item>
+    <item msgid="5631923029483854900">"sekonde"</item>
+    <item msgid="148935502975250973">"derde"</item>
+    <item msgid="5124200797326669172">"vierde"</item>
+    <item msgid="7564374178324652137">"laaste"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="3654955385120106241">"(Geen reaksie nie)"</item>
+    <item msgid="3724434080904437698">"Ja"</item>
+    <item msgid="8854145743148992583">"Miskien"</item>
+    <item msgid="6174292185978948873">"Nee"</item>
+  </string-array>
+  <string-array name="response_labels2">
+    <item msgid="5967437218994333578">"Ja"</item>
+    <item msgid="1254269034445160199">"Miskien"</item>
+    <item msgid="1099407454885268744">"Nee"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"Slegs hierdie gebeurtenis"</item>
+    <item msgid="8626755531271570950">"Hierdie en toekomstige gebeurtenisse"</item>
+    <item msgid="7833229563617435430">"Alle gebeurtenisse"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"Hierdie en toekomstige gebeurtenisse"</item>
+    <item msgid="6315440193748139854">"Alle gebeurtenisse"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="2012815396992847028">"Slegs hierdie keer"</item>
+    <item msgid="140670561403965380">"Alle gebeurtenisse in die reeks"</item>
+  </string-array>
+</resources>

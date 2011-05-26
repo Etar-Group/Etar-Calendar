@@ -16,6 +16,9 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- no translation found for reminder_methods_labels:0 (37518307108263308) -->
+    <!-- no translation found for reminder_methods_labels:1 (1751151680520784746) -->
+    <!-- no translation found for reminder_methods_labels:2 (2658001219380695677) -->
   <string-array name="reminder_minutes_labels">
     <item msgid="2416970002377237011">"0 minuuttia"</item>
     <item msgid="6681865010714743948">"1 minuutti"</item>
