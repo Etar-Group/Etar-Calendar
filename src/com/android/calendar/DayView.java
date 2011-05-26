@@ -1041,11 +1041,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * loading new events.  This can change if there are all-day events.
      */
     private void remeasure(int width, int height) {
-        // Shrink to fit available space but make sure we can display at least two events
-        MAX_UNEXPANDED_ALLDAY_HEIGHT = (int) (MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT * 4);
-        MAX_UNEXPANDED_ALLDAY_HEIGHT = Math.min(MAX_UNEXPANDED_ALLDAY_HEIGHT, height / 6);
-        MAX_UNEXPANDED_ALLDAY_HEIGHT = Math.max(MAX_UNEXPANDED_ALLDAY_HEIGHT,
-                (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT * 2);
+        // Target for the all day area to take up 1/6 of the screen but make
+        // sure we can display at least two events but no more than 4.
+        final int MIN_SINGLE_EVENT_HEIGHT = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
+        int rowsInAllDayArea = (height / 6) / MIN_SINGLE_EVENT_HEIGHT;
+        if (rowsInAllDayArea > 4) {
+            rowsInAllDayArea = 4;
+        } else if (rowsInAllDayArea < 2) {
+            rowsInAllDayArea = 2;
+        }
+        MAX_UNEXPANDED_ALLDAY_HEIGHT = rowsInAllDayArea * MIN_SINGLE_EVENT_HEIGHT;
+
         mMaxUnexpandedAlldayEventCount =
                 (int) (MAX_UNEXPANDED_ALLDAY_HEIGHT / MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT);
 
