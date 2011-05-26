@@ -4313,8 +4313,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             if (mTouchStartedInAlldayArea) {
-                // don't scroll if this started in the allday area
-                return false;
+                if (Math.abs(distanceX) < Math.abs(distanceY)) {
+                    return false;
+                }
+                // don't scroll vertically if this started in the allday area
+                distanceY = 0;
             }
             DayView.this.doScroll(e1, e2, distanceX, distanceY);
             return true;
@@ -4323,8 +4326,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (mTouchStartedInAlldayArea) {
-                // don't fling if this started in the allday area
-                return false;
+                if (Math.abs(velocityX) < Math.abs(velocityY)) {
+                    return false;
+                }
+                // don't fling vertically if this started in the allday area
+                velocityY = 0;
             }
             DayView.this.doFling(e1, e2, velocityX, velocityY);
             return true;
