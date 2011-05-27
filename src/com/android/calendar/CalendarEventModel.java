@@ -426,40 +426,6 @@ public class CalendarEventModel implements Serializable {
     }
 
     /**
-     * Checks against an original model if reminders are the same (meaning same number of reminders,
-     * same same time for each reminder and in the same order.
-     *
-     * @param originalModel
-     * @return true if reminders are the same.
-     */
-
-    public boolean remindersEqual(CalendarEventModel other) {
-
-        if (other == null) {
-            return false;
-        }
-
-        if (mReminderMinutes == null && other.mReminderMinutes == null) {
-            return true;
-        }
-        if (mReminderMinutes == null && other.mReminderMinutes != null  ||
-                mReminderMinutes != null && other.mReminderMinutes == null) {
-            return false;
-        }
-        int size = mReminderMinutes.size();
-        if (size != other.mReminderMinutes.size()) {
-            return false;
-        }
-
-        for (int i = 0; i < size; i ++) {
-            if ((Integer)mReminderMinutes.get(i) != (Integer)other.mReminderMinutes.get(i)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Checks against an original model for changes to an event. This covers all
      * the fields that should remain consistent between an original event model
      * and the new one if nothing in the event was modified. This is also the
