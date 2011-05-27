@@ -626,8 +626,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
             if ((mCode & Utils.DONE_SAVE) != 0 && mModel != null
                     && (EditEventHelper.canRespond(mModel)
-                            || EditEventHelper.canModifyEvent(mModel)
-                            || !mModel.remindersEqual(mOriginalModel))
+                            || EditEventHelper.canModifyEvent(mModel))
                     && !isEmptyNewEvent()
                     && !mModel.isUnchanged(mOriginalModel)
                     && mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
@@ -722,7 +721,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
     @Override
     public void onPause() {
         Activity act = getActivity();
-        if (mSaveOnDetach && act != null && !act.isChangingConfigurations()
+        if (mSaveOnDetach && act != null && !mIsReadOnly && !act.isChangingConfigurations()
                 && mView.prepareForSave()) {
             mOnDone.setDoneCode(Utils.DONE_SAVE);
             mOnDone.run();
@@ -739,6 +738,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
             mModifyDialog.dismiss();
             mModifyDialog = null;
         }
+
         super.onDestroy();
     }
 
