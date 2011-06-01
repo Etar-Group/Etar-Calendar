@@ -215,7 +215,7 @@ public class CalendarEventModel implements Serializable {
     public String mTimezone2 = null;
     public boolean mAllDay = false;
     public boolean mHasAlarm = false;
-    public boolean mTransparency = false;
+    public boolean mAvailability = false;
 
     // PROVIDER_NOTES How does an event not have attendee data? The owner is added
     // as an attendee by default.
@@ -236,7 +236,7 @@ public class CalendarEventModel implements Serializable {
     // updated with an event cursor.
     public boolean mModelUpdatedWithEventCursor;
 
-    public int mVisibility = 0;
+    public int mAccessLevel = 0;
     public ArrayList<ReminderEntry> mReminders;
     public ArrayList<ReminderEntry> mDefaultReminders;
 
@@ -286,14 +286,14 @@ public class CalendarEventModel implements Serializable {
             mDescription = description;
         }
 
-        int transparency = intent.getIntExtra(Events.AVAILABILITY, -1);
-        if (transparency != -1) {
-            mTransparency = transparency != 0;
+        int availability = intent.getIntExtra(Events.AVAILABILITY, -1);
+        if (availability != -1) {
+            mAvailability = availability != 0;
         }
 
-        int visibility = intent.getIntExtra(Events.ACCESS_LEVEL, -1);
-        if (visibility != -1) {
-            mVisibility = visibility;
+        int accessLevel = intent.getIntExtra(Events.ACCESS_LEVEL, -1);
+        if (accessLevel != -1) {
+            mAccessLevel = accessLevel;
         }
 
         String rrule = intent.getStringExtra(Events.RRULE);
@@ -367,7 +367,7 @@ public class CalendarEventModel implements Serializable {
         mGuestsCanModify = false;
         mGuestsCanInviteOthers = false;
         mGuestsCanSeeGuests = false;
-        mVisibility = 0;
+        mAccessLevel = 0;
         mOrganizerCanRespond = false;
         mCalendarAccessLevel = Calendars.CONTRIBUTOR_ACCESS;
         mModelUpdatedWithEventCursor = false;
@@ -437,9 +437,9 @@ public class CalendarEventModel implements Serializable {
         result = prime * result + ((mTimezone == null) ? 0 : mTimezone.hashCode());
         result = prime * result + ((mTimezone2 == null) ? 0 : mTimezone2.hashCode());
         result = prime * result + ((mTitle == null) ? 0 : mTitle.hashCode());
-        result = prime * result + (mTransparency ? 1231 : 1237);
+        result = prime * result + (mAvailability ? 1231 : 1237);
         result = prime * result + ((mUri == null) ? 0 : mUri.hashCode());
-        result = prime * result + mVisibility;
+        result = prime * result + mAccessLevel;
         return result;
     }
 
@@ -707,7 +707,7 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
-        if (mTransparency != originalModel.mTransparency) {
+        if (mAvailability != originalModel.mAvailability) {
             return false;
         }
 
@@ -719,7 +719,7 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
-        if (mVisibility != originalModel.mVisibility) {
+        if (mAccessLevel != originalModel.mAccessLevel) {
             return false;
         }
         return true;
