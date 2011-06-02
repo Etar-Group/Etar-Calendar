@@ -18,6 +18,7 @@ package com.android.calendar;
 
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.event.EditEventHelper;
 
 import android.app.Activity;
@@ -511,24 +512,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
         mIsRepeating = !TextUtils.isEmpty(rRule);
         return false;
-    }
-
-    private static class Attendee {
-        String mName;
-        String mEmail;
-
-        Attendee(String name, String email) {
-            mName = name;
-            mEmail = email;
-        }
-
-        String getDisplayName() {
-            if (TextUtils.isEmpty(mName)) {
-                return mEmail;
-            } else {
-                return mName;
-            }
-        }
     }
 
     @SuppressWarnings("fallthrough")
