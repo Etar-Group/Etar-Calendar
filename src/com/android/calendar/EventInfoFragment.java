@@ -544,16 +544,20 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         //  2) there's a spinner for that for events with guests.
                         switch(status) {
                             case Attendees.ATTENDEE_STATUS_ACCEPTED:
-                                mAcceptedAttendees.add(new Attendee(name, email));
+                                mAcceptedAttendees.add(new Attendee(name, email,
+                                        Attendees.ATTENDEE_STATUS_ACCEPTED));
                                 break;
                             case Attendees.ATTENDEE_STATUS_DECLINED:
-                                mDeclinedAttendees.add(new Attendee(name, email));
+                                mDeclinedAttendees.add(new Attendee(name, email,
+                                        Attendees.ATTENDEE_STATUS_DECLINED));
                                 break;
                             case Attendees.ATTENDEE_STATUS_TENTATIVE:
-                                mTentativeAttendees.add(new Attendee(name, email));
+                                mTentativeAttendees.add(new Attendee(name, email,
+                                        Attendees.ATTENDEE_STATUS_TENTATIVE));
                                 break;
                             default:
-                                mNoResponseAttendees.add(new Attendee(name, email));
+                                mNoResponseAttendees.add(new Attendee(name, email,
+                                        Attendees.ATTENDEE_STATUS_NONE));
                         }
                     }
                 } while (mAttendeesCursor.moveToNext());
