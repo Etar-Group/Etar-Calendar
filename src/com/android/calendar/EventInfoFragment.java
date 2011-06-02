@@ -82,6 +82,8 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
+import java.util.TimeZone;
+
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
         CalendarController.EventHandler {
@@ -808,8 +810,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String location = mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION);
         String description = mEventCursor.getString(EVENT_INDEX_DESCRIPTION);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
-        mColor = mEventCursor.getInt(EVENT_INDEX_COLOR) & 0xbbffffff;
+        String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
+        String organizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
 
+        mColor = mEventCursor.getInt(EVENT_INDEX_COLOR) & 0xbbffffff;
         view.findViewById(R.id.color).setBackgroundColor(mColor);
 
         // What
@@ -841,26 +845,30 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             setTextCommon(view, R.id.when_time, whenTime);
         }
 
-//CLEANUP        // Show the event timezone if it is different from the local timezone
-//        Time time = new Time();
-//        String localTimezone = time.timezone;
-//        if (allDay) {
-//            localTimezone = Time.TIMEZONE_UTC;
-//        }
-//        if (eventTimezone != null && !localTimezone.equals(eventTimezone) && !allDay) {
-//            String displayName;
-//            TimeZone tz = TimeZone.getTimeZone(localTimezone);
-//            if (tz == null || tz.getID().equals("GMT")) {
-//                displayName = localTimezone;
-//            } else {
-//                displayName = tz.getDisplayName();
-//            }
-//
-//            setTextCommon(view, R.id.timezone, displayName);
-//            setVisibilityCommon(view, R.id.timezone_container, View.VISIBLE);
-//        } else {
-//            setVisibilityCommon(view, R.id.timezone_container, View.GONE);
-//        }
+        // Show the event timezone if it is different from the local timezone
+        // TODO: Fix comparison of Timezone
+        Time time = new Time();
+        String localTimezone = time.timezone;
+        if (eventTimezone != null && !localTimezone.equals(eventTimezone) && !allDay) {
+            String displayName;
+            TimeZone tz = TimeZone.getTimeZone(localTimezone);
+            if (tz == null || tz.getID().equals("GMT")) {
+                displayName = localTimezone;
+            } else {
+                displayName = tz.getDisplayName();
+            }
+
+            setTextCommon(view, R.id.timezone, displayName);
+            setVisibilityCommon(view, R.id.timezone_container, View.VISIBLE);
+        } else {
+            setVisibilityCommon(view, R.id.timezone_container, View.GONE);
+        }
+
+
+        // Organizer
+        // TODO: Hide if organizer is the user
+        setTextCommon(view, R.id.organizer, organizer);
+        setVisibilityCommon(view, R.id.organizer_container, View.VISIBLE);
 
         // Repeat
         if (!TextUtils.isEmpty(rRule)) {
