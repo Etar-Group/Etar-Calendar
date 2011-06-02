@@ -20,32 +20,26 @@
     android:background="#fafafa"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="12dip"
-    android:paddingLeft="16dip"
-    android:paddingRight="16dip"
     android:divider="?android:attr/dividerHorizontal"
     android:showDividers="middle">
 
-   <ScrollView
-        android:orientation="vertical"
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_height="0dip">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingRight="16dip"
-            android:orientation="horizontal">
-
-            <!-- CALENDAR COLOR -->
-            <View
-                android:id="@+id/color"
-                android:layout_width="10dip"
-                android:layout_height="10dip"
-                android:layout_gravity="top|left"
-                android:layout_marginTop="9dip"
-                android:layout_marginRight="6dip" />
+        <!-- CALENDAR COLOR -->
+        <View
+            android:id="@+id/color"
+            android:layout_width="5dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="top|left" />
+        <ScrollView
+            android:orientation="vertical"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,22 +47,62 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <!-- WHAT -->
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
+                <!--  Container for the event's headline
+                      Name, Date, Time & Location
+                -->
+                <LinearLayout
+                    android:id="@+id/event_info_headline"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autoLink="all"
-                    android:textStyle="bold"
-                    style="?android:attr/textAppearanceLarge" />
+                    android:layout_weight="1"
+                    android:background="@android:color/black"
+                    android:orientation="vertical">
 
-                <!-- WHEN -->
-                <TextView
-                    android:id="@+id/when"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dip"
-                    style="?android:attr/textAppearanceMedium" />
+                    <!-- WHAT -->
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autoLink="all"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:paddingLeft="10dip"
+                        style="?android:attr/textAppearanceLarge"
+                        android:textSize="26sp" />
+
+                    <!-- WHEN -->
+                    <TextView
+                        android:id="@+id/when_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dip"
+                        android:paddingLeft="10dip"
+                        android:textColor="@android:color/white"
+                        style="?android:attr/textAppearanceLarge" />
+
+                    <TextView
+                        android:id="@+id/when_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dip"
+                        android:paddingLeft="10dip"
+                        android:textColor="@android:color/white"
+                        style="?android:attr/textAppearanceLarge" />
+
+                    <!-- WHERE -->
+                    <TextView
+                        android:id="@+id/where"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:layout_marginTop="3dip"
+                        android:paddingLeft="10dip"
+                        android:textColor="@android:color/white"
+                        android:textColorLink="@android:color/white"
+                        android:layout_marginBottom="5dip"
+                        style="?android:attr/textAppearanceLarge" />
+                </LinearLayout>
 
                 <!-- REPEATS -->
                 <LinearLayout
@@ -93,14 +127,6 @@
                         android:layout_marginLeft="3dip"
                         style="?android:attr/textAppearanceMedium" />
                 </LinearLayout>
-
-                <!-- WHERE -->
-                <TextView
-                    android:id="@+id/where"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dip"
-                    style="?android:attr/textAppearanceMedium" />
 
                 <!-- DESCRIPTION -->
                 <TextView
@@ -183,8 +209,8 @@
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 
         <!-- BUTTONS -->
     <LinearLayout

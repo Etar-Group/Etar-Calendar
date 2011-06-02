@@ -78,7 +78,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
@@ -812,18 +814,28 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         // When
-        String when;
-        int flags = DateUtils.FORMAT_SHOW_DATE;
-        if (allDay) {
-            flags |= DateUtils.FORMAT_UTC | DateUtils.FORMAT_SHOW_WEEKDAY;
-        } else {
-            flags |= DateUtils.FORMAT_SHOW_TIME;
-            if (DateFormat.is24HourFormat(getActivity())) {
-                flags |= DateUtils.FORMAT_24HOUR;
-            }
+        String whenDate;
+        int flagsTime = DateUtils.FORMAT_SHOW_TIME;
+        int flagsDate = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_WEEKDAY |
+                DateUtils.FORMAT_SHOW_YEAR;
+
+        if (DateFormat.is24HourFormat(getActivity())) {
+            flagsTime |= DateUtils.FORMAT_24HOUR;
         }
-        when = Utils.formatDateRange(getActivity(), mStartMillis, mEndMillis, flags);
-        setTextCommon(view, R.id.when, when);
+        if (allDay) {
+            Formatter f = new Formatter(new StringBuilder(50), Locale.getDefault());
+            whenDate = DateUtils.formatDateRange(getActivity(), f, mStartMillis, mStartMillis,
+                    flagsDate, Time.TIMEZONE_UTC).toString();
+            setTextCommon(view, R.id.when_date, whenDate);
+            view.findViewById(R.id.when_time).setVisibility(View.GONE);
+
+        } else {
+            whenDate = Utils.formatDateRange(getActivity(), mStartMillis, mEndMillis, flagsDate);
+            String whenTime = Utils.formatDateRange(getActivity(), mStartMillis, mEndMillis,
+                    flagsTime);
+            setTextCommon(view, R.id.when_date, whenDate);
+            setTextCommon(view, R.id.when_time, whenTime);
+        }
 
 //CLEANUP        // Show the event timezone if it is different from the local timezone
 //        Time time = new Time();
