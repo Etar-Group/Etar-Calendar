@@ -1479,8 +1479,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         model.mTimezone = "UTC";
         model.mRrule = "FREQ=DAILY;WKST=SU";
         model.mSyncId = "unique per calendar stuff";
-        model.mTransparency = false;
-        model.mVisibility = 2; // This is one less than the values written if >0
+        model.mAvailability = false;
+        model.mAccessLevel = 2; // This is one less than the values written if >0
         model.mOwnerAccount = "steve@gmail.com";
         model.mHasAttendeeData = true;
 

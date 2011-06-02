@@ -113,8 +113,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     CheckBox mAllDayCheckBox;
     Spinner mCalendarsSpinner;
     Spinner mRepeatsSpinner;
-    Spinner mTransparencySpinner;
-    Spinner mVisibilitySpinner;
+    Spinner mAvailabilitySpinner;
+    Spinner mAccessLevelSpinner;
     RadioGroup mResponseRadioGroup;
     TextView mTitleTextView;
     TextView mLocationTextView;
@@ -772,8 +772,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mModel.mEnd = mEndTime.toMillis(true);
         }
         mModel.mTimezone = mTimezone;
-        mModel.mVisibility = mVisibilitySpinner.getSelectedItemPosition();
-        mModel.mTransparency = mTransparencySpinner.getSelectedItemPosition() != 0;
+        mModel.mAccessLevel = mAccessLevelSpinner.getSelectedItemPosition();
+        mModel.mAvailability = mAvailabilitySpinner.getSelectedItemPosition() != 0;
 
         int selection;
         // If we're making an exception we don't want it to be a repeating
@@ -824,8 +824,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEndDateHome = (TextView) view.findViewById(R.id.end_date_home_tz);
         mAllDayCheckBox = (CheckBox) view.findViewById(R.id.is_all_day);
         mRepeatsSpinner = (Spinner) view.findViewById(R.id.repeats);
-        mTransparencySpinner = (Spinner) view.findViewById(R.id.availability);
-        mVisibilitySpinner = (Spinner) view.findViewById(R.id.visibility);
+        mAvailabilitySpinner = (Spinner) view.findViewById(R.id.availability);
+        mAccessLevelSpinner = (Spinner) view.findViewById(R.id.visibility);
         mCalendarSelectorGroup = view.findViewById(R.id.calendar_selector_group);
         mCalendarStaticGroup = view.findViewById(R.id.calendar_group);
         mRemindersGroup = view.findViewById(R.id.reminders_row);
@@ -1082,8 +1082,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         mLocationTextView.setText(model.mLocation);
         mDescriptionTextView.setText(model.mDescription);
-        mTransparencySpinner.setSelection(model.mTransparency ? 1 : 0);
-        mVisibilitySpinner.setSelection(model.mVisibility);
+        mAvailabilitySpinner.setSelection(model.mAvailability ? 1 : 0);
+        mAccessLevelSpinner.setSelection(model.mAccessLevel);
 
         View responseLabel = mView.findViewById(R.id.response_label);
         if (canRespond) {

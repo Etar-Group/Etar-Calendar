@@ -93,8 +93,8 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_TIMEZONE = 10;
     protected static final int EVENT_INDEX_RRULE = 11;
     protected static final int EVENT_INDEX_SYNC_ID = 12;
-    protected static final int EVENT_INDEX_TRANSPARENCY = 13;
-    protected static final int EVENT_INDEX_VISIBILITY = 14;
+    protected static final int EVENT_INDEX_AVAILABILITY = 13;
+    protected static final int EVENT_INDEX_ACCESS_LEVEL = 14;
     protected static final int EVENT_INDEX_OWNER_ACCOUNT = 15;
     protected static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 16;
     protected static final int EVENT_INDEX_ORIGINAL_EVENT = 17;
@@ -987,8 +987,8 @@ public class EditEventHelper {
         String rRule = cursor.getString(EVENT_INDEX_RRULE);
         model.mRrule = rRule;
         model.mSyncId = cursor.getString(EVENT_INDEX_SYNC_ID);
-        model.mTransparency = cursor.getInt(EVENT_INDEX_TRANSPARENCY) != 0;
-        int visibility = cursor.getInt(EVENT_INDEX_VISIBILITY);
+        model.mAvailability = cursor.getInt(EVENT_INDEX_AVAILABILITY) != 0;
+        int accessLevel = cursor.getInt(EVENT_INDEX_ACCESS_LEVEL);
         model.mOwnerAccount = cursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
         model.mHasAttendeeData = cursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
         model.mOriginalEvent = cursor.getString(EVENT_INDEX_ORIGINAL_EVENT);
@@ -996,13 +996,13 @@ public class EditEventHelper {
         model.mIsOrganizer = model.mOwnerAccount.equalsIgnoreCase(model.mOrganizer);
         model.mGuestsCanModify = cursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0;
 
-        if (visibility > 0) {
+        if (accessLevel > 0) {
             // For now the array contains the values 0, 2, and 3. We subtract
             // one to make it easier to handle in code as 0,1,2.
             // Default (0), Private (1), Public (2)
-            visibility--;
+            accessLevel--;
         }
-        model.mVisibility = visibility;
+        model.mAccessLevel = accessLevel;
 
         boolean hasRRule = !TextUtils.isEmpty(rRule);
 
@@ -1184,16 +1184,16 @@ public class EditEventHelper {
         } else {
             values.put(Events.EVENT_LOCATION, (String) null);
         }
-        values.put(Events.AVAILABILITY, model.mTransparency ? 1 : 0);
+        values.put(Events.AVAILABILITY, model.mAvailability ? 1 : 0);
         values.put(Events.HAS_ATTENDEE_DATA, model.mHasAttendeeData ? 1 : 0);
 
-        int visibility = model.mVisibility;
-        if (visibility > 0) {
+        int accessLevel = model.mAccessLevel;
+        if (accessLevel > 0) {
             // For now the array contains the values 0, 2, and 3. We add one to match.
             // Default (0), Private (2), Public (3)
-            visibility++;
+            accessLevel++;
         }
-        values.put(Events.ACCESS_LEVEL, visibility);
+        values.put(Events.ACCESS_LEVEL, accessLevel);
 
         return values;
     }
