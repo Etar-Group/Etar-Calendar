@@ -16,18 +16,6 @@
 
 package com.android.calendar.event;
 
-import com.android.calendar.AsyncQueryService;
-import com.android.calendar.CalendarController;
-import com.android.calendar.CalendarController.EventHandler;
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarEventModel;
-import com.android.calendar.CalendarEventModel.Attendee;
-import com.android.calendar.CalendarEventModel.ReminderEntry;
-import com.android.calendar.DeleteEventHelper;
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -39,6 +27,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
@@ -57,6 +46,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventHandler;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarEventModel;
+import com.android.calendar.CalendarEventModel.Attendee;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
+import com.android.calendar.DeleteEventHelper;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -112,6 +113,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
     public boolean mShowModifyDialogOnLaunch = false;
 
     private InputMethodManager mInputMethodManager;
+
+    private Intent mIntent;
 
     // TODO turn this into a helper function in EditEventHelper for building the
     // model
@@ -358,12 +361,13 @@ public class EditEventFragment extends Fragment implements EventHandler {
     }
 
     public EditEventFragment() {
-        this(null, false);
+        this(null, false, null);
     }
 
-    public EditEventFragment(EventInfo event, boolean readOnly) {
+    public EditEventFragment(EventInfo event, boolean readOnly, Intent intent) {
         mEvent = event;
         mIsReadOnly = readOnly;
+        mIntent = intent;
         setHasOptionsMenu(true);
     }
 
@@ -438,7 +442,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
         mHelper = new EditEventHelper(activity, null);
         mHandler = new QueryHandler(activity.getContentResolver());
-        mModel = new CalendarEventModel(activity);
+        mModel = new CalendarEventModel(activity, mIntent);
         mInputMethodManager = (InputMethodManager)
                 activity.getSystemService(Context.INPUT_METHOD_SERVICE);
     }

@@ -17,19 +17,6 @@
 package com.android.calendar.agenda;
 
 
-import com.android.calendar.CalendarController;
-import com.android.calendar.CalendarController.EventHandler;
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.StickyHeaderListView.HeaderIndexer;
-import com.android.calendar.event.EditEventFragment;
-import com.android.calendar.GeneralPreferences;
-import com.android.calendar.StickyHeaderListView;
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
-import dalvik.system.VMRuntime;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -44,6 +31,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.HeaderViewListAdapter;
+
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.GeneralPreferences;
+import com.android.calendar.R;
+import com.android.calendar.StickyHeaderListView;
+import com.android.calendar.StickyHeaderListView.HeaderIndexer;
+import com.android.calendar.Utils;
+import com.android.calendar.event.EditEventFragment;
+
+import dalvik.system.VMRuntime;
 
 public class AgendaFragment extends Fragment implements CalendarController.EventHandler {
 
@@ -265,7 +264,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         if (mShowEventDetailsWithAgenda) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            mEventFragment = new EditEventFragment(event, true);
+            mEventFragment = new EditEventFragment(event, true, null);
             ft.replace(R.id.agenda_event_info, mEventFragment);
             mController.registerEventHandler(R.id.agenda_event_info,
                     mEventFragment);
@@ -283,4 +282,3 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
           */
     }
 }
-
