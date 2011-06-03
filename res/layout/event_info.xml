@@ -221,7 +221,6 @@
                     android:maxLines="8"
                     android:textColor="@android:color/black"
                     style="?android:attr/textAppearanceSmall" />
-
                 <Button
                     android:id="@+id/desc_expand"
                     android:layout_width="match_parent"
@@ -232,22 +231,12 @@
                     android:textColor="@android:color/black"
                     style="?android:attr/textAppearanceSmall" />
 
-
-                <!-- GUEST LIST -->
-                <TextView
-                    android:id="@+id/attendee_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dip"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    style="?android:attr/textAppearanceMedium" />
-
                 <!-- RESPONSE -->
                 <LinearLayout
                     android:id="@+id/response_container"
                     android:visibility="gone"
                     android:orientation="vertical"
+                    android:background="#FFEEEEEE"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -255,9 +244,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginTop="4dip"
+                        android:paddingLeft="10dip"
+                        android:layout_marginTop="5dip"
                         android:textStyle="bold"
                         style="?android:attr/textAppearanceMedium"
+                        android:textColor="@android:color/black"
                         android:text="@string/view_event_response_label" />
                     <RadioGroup
                         android:id="@+id/response_value"
@@ -274,6 +265,7 @@
                             android:layout_weight="1"
                             android:minWidth="96dip"
                             style="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black"
                             android:text="@string/response_yes" />
                         <RadioButton
                             android:id="@+id/response_maybe"
@@ -282,6 +274,7 @@
                             android:layout_weight="1"
                             android:minWidth="96dip"
                             style="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black"
                             android:text="@string/response_maybe" />
                         <RadioButton
                             android:id="@+id/response_no"
@@ -290,9 +283,29 @@
                             android:layout_weight="1"
                             android:minWidth="96dip"
                             style="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black"
                             android:text="@string/response_no" />
                     </RadioGroup>
                 </LinearLayout>
+                <!-- GUEST LIST -->
+                <TextView
+                    android:id="@+id/attendee_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="5dip"
+                    android:paddingLeft="10dip"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    style="?android:attr/textAppearanceMedium" />
+                <com.android.calendar.event.AttendeesView
+                    android:id="@+id/long_attendee_list"
+                    android:textColor="@android:color/black"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:animateLayoutChanges="true"
+                    android:layout_marginTop="5dip"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

@@ -23,4 +23,6 @@
     <integer name="text_size_month_number">24</integer>
     <!-- size of day header in day and week views  -->
     <integer name="day_header_height">35</integer>
+    <!-- max number of lines in the description without showing More/Less button  -->
+    <integer name="event_info_desc_line_num">8</integer>
 </resources>

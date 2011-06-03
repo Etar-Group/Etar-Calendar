@@ -265,6 +265,10 @@
     <string name="event_info_repetition">Repetition:</string>
     <!-- Organizer Label [CHAR LIMIT=12]-->
     <string name="event_info_organizer">Organizer:</string>
+    <!-- More label in description button [CHAR LIMIT=6]-->
+    <string name="event_info_desc_more">More</string>
+    <!-- Less label in description button [CHAR LIMIT=6]-->
+    <string name="event_info_desc_less">Less</string>
 
     <!-- Agenda View strings -->
     <skip />

@@ -19,6 +19,7 @@ package com.android.calendar;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
+import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventHelper;
 
 import android.app.Activity;
@@ -208,6 +209,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private TextView mWhere;
     private TextView mWhat;
     private TextView mAttendees;
+    private AttendeesView mLongAttendees;
     private TextView mCalendar;
 
     private Pattern mWildcardPattern = Pattern.compile("^.*$");
@@ -235,6 +237,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private int mX = -1;
     private int mY = -1;
     private static boolean mIsFullScreen = true;
+    private Button mDescButton;  // Button to expand/collapse the description
+    private String mMoreLabel;   // Labels for the button
+    private String mLessLabel;
+    private boolean mShowMaxDescription;  // Current status of button
+    private int mDescLineNum;             // The default number of lines in the description
 
     private class QueryHandler extends AsyncQueryService {
         public QueryHandler(Context context) {
@@ -345,6 +352,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
         }
 
+
+        mDescLineNum = context.getResources().getInteger((R.integer.event_info_desc_line_num));
+        mMoreLabel = context.getResources().getString((R.string.event_info_desc_more));
+        mLessLabel = context.getResources().getString((R.string.event_info_desc_less));
+
         setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         mUri = uri;
         mStartMillis = startMillis;
@@ -451,7 +463,16 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mWhere = (TextView) mView.findViewById(R.id.where);
         mWhat = (TextView) mView.findViewById(R.id.description);
         mAttendees = (TextView) mView.findViewById(R.id.attendee_list);
+        mLongAttendees = (AttendeesView)mView.findViewById(R.id.long_attendee_list);
         mCalendar = (TextView) mView.findViewById(R.id.calendar);
+        mDescButton = (Button)mView.findViewById(R.id.desc_expand);
+        mDescButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mShowMaxDescription = !mShowMaxDescription;
+                updateDescription();
+            }
+        });
+        mShowMaxDescription = false; // Show short version of description as default.
 
         if (mUri == null) {
             // restore event ID from bundle
@@ -492,6 +513,27 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
         }
     };
+
+    // Sets the description:
+    // Set the expand/collapse button
+    // Expand/collapse the description according the the current status
+    private void updateDescription() {
+
+        // Description is short, hide button
+        if (mWhat.getLineCount() <= mDescLineNum) {
+            mDescButton.setVisibility(View.GONE);
+            return;
+        }
+        // Show button and set label according to the expand/collapse status
+        mDescButton.setVisibility(View.VISIBLE);
+        if (mShowMaxDescription) {
+            mDescButton.setText(mLessLabel);
+            mWhat.setLines(mWhat.getLineCount());
+        } else {
+            mDescButton.setText(mMoreLabel);
+            mWhat.setLines(mDescLineNum);
+        }
+    }
 
     private void updateTitle() {
         Resources res = getActivity().getResources();
@@ -864,7 +906,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             setVisibilityCommon(view, R.id.timezone_container, View.GONE);
         }
 
-
         // Organizer
         // TODO: Hide if organizer is the user
         setTextCommon(view, R.id.organizer, organizer);
@@ -917,6 +958,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (description != null && description.length() != 0) {
             setTextCommon(view, R.id.description, description);
         }
+        updateDescription ();  // Expand or collapse full description
     }
 
     private void sendAccessibilityEvent() {
@@ -1004,6 +1046,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     private void updateAttendees(View view) {
+
+
+        // TODO: Add code to show only one list creating two versions (dialog/full screen)
         TextView tv = mAttendees;
         SpannableStringBuilder sb = new SpannableStringBuilder();
         formatAttendees(mAcceptedAttendees, sb, Attendees.ATTENDEE_STATUS_ACCEPTED);
@@ -1022,6 +1067,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
             tv.setText(sb);
         }
+        ((AttendeesView)mLongAttendees).addAttendees(mAcceptedAttendees);
+        ((AttendeesView)mLongAttendees).addAttendees(mDeclinedAttendees);
+        ((AttendeesView)mLongAttendees).addAttendees(mTentativeAttendees);
+        ((AttendeesView)mLongAttendees).addAttendees(mNoResponseAttendees);
+        mLongAttendees.setEnabled(false);
+
     }
 
     private void formatAttendees(ArrayList<Attendee> attendees, SpannableStringBuilder sb, int type) {
