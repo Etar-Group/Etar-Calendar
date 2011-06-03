@@ -25,4 +25,8 @@
     <integer name="day_header_height">35</integer>
     <!-- max number of lines in the description without showing More/Less button  -->
     <integer name="event_info_desc_line_num">8</integer>
+    <!-- The alpha level of photos of attendees that didn't respond -->
+    <integer name="noresponse_attendee_photo_alpha_level">64</integer>
+    <!-- The default alpha level of photos of attendees -->
+    <integer name="default_attendee_photo_alpha_level">255</integer>
 </resources>

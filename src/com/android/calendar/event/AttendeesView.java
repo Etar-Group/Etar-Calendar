@@ -1,4 +1,4 @@
-/*
+ /*
  * Copyright (C) 2010 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,6 +28,9 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -75,6 +78,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
     private final LayoutInflater mInflater;
     private final PresenceQueryHandler mPresenceQueryHandler;
     private final Drawable mDefaultBadge;
+    private final ColorMatrixColorFilter mGrayscaleFilter;
 
     // TextView shown at the top of each type of attendees
     // e.g.
@@ -82,11 +86,13 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
     // example_for_yes <exampleyes@example.com>
     // No <-- divider
     // example_for_no <exampleno@example.com>
+    private final CharSequence[] mEntries;
     private final View mDividerForYes;
     private final View mDividerForNo;
     private final View mDividerForMaybe;
     private final View mDividerForNoResponse;
-
+    private final int mNoResponsePhotoAlpha;
+    private final int mDefaultPhotoAlpha;
     private Rfc822Validator mValidator;
 
     // Number of attendees responding or not responding.
@@ -103,14 +109,25 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
 
         final Resources resources = context.getResources();
         mDefaultBadge = resources.getDrawable(R.drawable.ic_contact_picture);
+        mNoResponsePhotoAlpha =
+            resources.getInteger(R.integer.noresponse_attendee_photo_alpha_level);
+        mDefaultPhotoAlpha = resources.getInteger(R.integer.default_attendee_photo_alpha_level);
 
-        final CharSequence[] entries = resources.getTextArray(R.array.response_labels1);
-        mDividerForYes = constructDividerView(entries[1]);
-        mDividerForNo = constructDividerView(entries[3]);
-        mDividerForMaybe = constructDividerView(entries[2]);
-        mDividerForNoResponse = constructDividerView(entries[0]);
+        // Create dividers between groups of attendees (accepted, declined, etc...)
+        mEntries = resources.getTextArray(R.array.response_labels1);
+        mDividerForYes = constructDividerView(mEntries[1]);
+        mDividerForNo = constructDividerView(mEntries[3]);
+        mDividerForMaybe = constructDividerView(mEntries[2]);
+        mDividerForNoResponse = constructDividerView(mEntries[0]);
+
+        // Create a filter to convert photos of declined attendees to grayscale.
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0);
+        mGrayscaleFilter = new ColorMatrixColorFilter(matrix);
+
     }
 
+    // Disable/enable removal of attendings
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
@@ -133,9 +150,22 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         final TextView textView = new TextView(mContext);
         textView.setText(label);
         textView.setTextAppearance(mContext, R.style.TextAppearance_EventInfo_Label);
+        textView.setTextColor(Color.BLACK);
         textView.setClickable(false);
         return textView;
     }
+
+    // Add the number of attendees in the specific status (corresponding to the divider) in
+    // parenthesis next to the label
+    private void updateDividerViewLabel(View divider, CharSequence label, int count) {
+        if (count <= 0) {
+            ((TextView)divider).setText(label);
+        }
+        else {
+            ((TextView)divider).setText(label + " (" + count + ")");
+        }
+    }
+
 
     /**
      * Inflates a layout for a given attendee view and set up each element in it, and returns
@@ -174,6 +204,16 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         button.setOnClickListener(this);
 
         final QuickContactBadge badge = (QuickContactBadge) view.findViewById(R.id.badge);
+        if (item.mAttendee.mStatus == Attendees.ATTENDEE_STATUS_NONE) {
+            item.mBadge.setAlpha(mNoResponsePhotoAlpha);
+        } else {
+            item.mBadge.setAlpha(mDefaultPhotoAlpha);
+        }
+        if (item.mAttendee.mStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
+            item.mBadge.setColorFilter(mGrayscaleFilter);
+        } else {
+            item.mBadge.setColorFilter(null);
+        }
         badge.setImageDrawable(item.mBadge);
         badge.assignContactFromEmail(item.mAttendee.mEmail, true);
         badge.setMaxHeight(60);
@@ -201,6 +241,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         return false;
     }
 
+
     private void addOneAttendee(Attendee attendee) {
         if (contains(attendee)) {
             return;
@@ -212,6 +253,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         switch (status) {
             case Attendees.ATTENDEE_STATUS_ACCEPTED: {
                 final int startIndex = 0;
+                updateDividerViewLabel(mDividerForYes, mEntries[1], mYes + 1);
                 if (mYes == 0) {
                     addView(mDividerForYes, startIndex);
                 }
@@ -221,6 +263,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
             }
             case Attendees.ATTENDEE_STATUS_DECLINED: {
                 final int startIndex = (mYes == 0 ? 0 : 1 + mYes);
+                updateDividerViewLabel(mDividerForNo, mEntries[3], mNo + 1);
                 if (mNo == 0) {
                     addView(mDividerForNo, startIndex);
                 }
@@ -230,6 +273,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
             }
             case Attendees.ATTENDEE_STATUS_TENTATIVE: {
                 final int startIndex = (mYes == 0 ? 0 : 1 + mYes) + (mNo == 0 ? 0 : 1 + mNo);
+                updateDividerViewLabel(mDividerForMaybe, mEntries[2], mMaybe + 1);
                 if (mMaybe == 0) {
                     addView(mDividerForMaybe, startIndex);
                 }
@@ -243,6 +287,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
                 // We delay adding the divider for "No response".
                 index = startIndex + mNoResponse;
                 mNoResponse++;
+                updateDividerViewLabel(mDividerForNoResponse, mEntries[0], mNoResponse);
                 break;
             }
         }
