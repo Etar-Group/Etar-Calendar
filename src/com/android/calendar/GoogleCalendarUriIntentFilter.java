@@ -19,11 +19,11 @@ package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
-import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS;
-import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS_ACCEPTED;
-import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS_DECLINED;
-import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS_NONE;
-import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS_TENTATIVE;
+import static android.provider.Calendar.Attendees.ATTENDEE_STATUS;
+import static android.provider.Calendar.Attendees.ATTENDEE_STATUS_ACCEPTED;
+import static android.provider.Calendar.Attendees.ATTENDEE_STATUS_DECLINED;
+import static android.provider.Calendar.Attendees.ATTENDEE_STATUS_NONE;
+import static android.provider.Calendar.Attendees.ATTENDEE_STATUS_TENTATIVE;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;

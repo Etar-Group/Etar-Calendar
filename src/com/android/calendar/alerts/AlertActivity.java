@@ -32,7 +32,6 @@ import android.net.Uri.Builder;
 import android.os.Bundle;
 import android.provider.Calendar;
 import android.provider.Calendar.CalendarAlerts;
-import android.provider.Calendar.CalendarAlertsColumns;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -167,7 +166,7 @@ public class AlertActivity extends Activity implements OnClickListener {
         values.put(CalendarAlerts.CREATION_TIME, currentTime);
         values.put(CalendarAlerts.RECEIVED_TIME, 0);
         values.put(CalendarAlerts.NOTIFY_TIME, 0);
-        values.put(CalendarAlerts.STATE, CalendarAlertsColumns.SCHEDULED);
+        values.put(CalendarAlerts.STATE, CalendarAlerts.SCHEDULED);
         values.put(CalendarAlerts.MINUTES, minutes);
         return values;
     }
