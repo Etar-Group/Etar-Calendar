@@ -104,28 +104,108 @@
                         style="?android:attr/textAppearanceLarge" />
                 </LinearLayout>
 
+                <!-- CALENDAR -->
+                <TextView
+                    android:id="@+id/calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dip"
+                    android:layout_marginTop="10dip"
+                    android:singleLine="true"
+                    android:textColor="@android:color/black"
+                    style="?android:attr/textAppearanceSmall"
+                    android:textSize="12sp"/>
+
+                <!-- Time Zone -->
+                 <LinearLayout
+                    android:id="@+id/timezone_container"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/timezone_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dip"
+                        android:singleLine="true"
+                        android:textStyle="bold"
+                        android:text="@string/event_info_timezone"
+                        android:textColor="@android:color/black"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/timezone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="3dip"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="12sp"/>
+                    </LinearLayout>
+
+                <!-- Organizer -->
+                <LinearLayout
+                    android:id="@+id/organizer_container"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/organizer_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dip"
+                        android:textStyle="bold"
+                        android:singleLine="true"
+                        android:text="@string/event_info_organizer"
+                        android:textColor="@android:color/black"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/organizer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:layout_marginLeft="3dip"
+                        android:textColor="@android:color/black"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
                 <!-- REPEATS -->
                 <LinearLayout
                     android:id="@+id/repeat_container"
                     android:visibility="gone"
-                    android:layout_marginTop="5dip"
+                    android:layout_marginTop="10dip"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/repeat_icon"
+                    <TextView
+                        android:id="@+id/repeat_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_repeat_dark"
-                        android:focusable="false"
-                        android:clickable="false" />
+                        android:text="@string/event_info_repetition"
+                        android:paddingLeft="10dip"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="12sp"/>
                     <TextView
                         android:id="@+id/repeat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginLeft="3dip"
-                        style="?android:attr/textAppearanceMedium" />
+                        android:textColor="@android:color/black"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="12sp"/>
                 </LinearLayout>
 
                 <!-- DESCRIPTION -->
@@ -134,19 +214,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dip"
                     android:layout_weight="1"
-                    android:layout_marginTop="13dip"
+                    android:paddingLeft="10dip"
+                    android:layout_marginTop="10dip"
                     android:autoLink="all"
                     android:ellipsize="end"
-                    style="?android:attr/textAppearanceMedium" />
+                    android:maxLines="8"
+                    android:textColor="@android:color/black"
+                    style="?android:attr/textAppearanceSmall" />
 
-                <!-- CALENDAR -->
-                <TextView
-                    android:id="@+id/calendar"
+                <Button
+                    android:id="@+id/desc_expand"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="13dip"
-                    android:singleLine="true"
-                    style="?android:attr/textAppearanceMedium" />
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:layout_marginTop="5dip"
+                    android:textColor="@android:color/black"
+                    style="?android:attr/textAppearanceSmall" />
+
 
                 <!-- GUEST LIST -->
                 <TextView
