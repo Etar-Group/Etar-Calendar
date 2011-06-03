@@ -312,6 +312,7 @@
 
         <!-- BUTTONS -->
     <LinearLayout
+        android:id="@+id/event_info_buttons_container"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="48dip"

@@ -19,6 +19,7 @@ package com.android.calendar;
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
 import static android.provider.Calendar.Attendees.ATTENDEE_STATUS;
+import static com.android.calendar.CalendarController.EVENT_ATTENDEE_RESPONSE;
 
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
@@ -38,6 +39,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -49,6 +51,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Calendar;
+import android.provider.Calendar.Events;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -101,6 +104,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private View mSecondaryPane;
     private String mTimeZone;
     private boolean mShowCalendarControls;
+    private boolean mShowEventInfoFullScreen;
 
     private long mViewEventId = -1;
     private long mIntentEventStartMillis = -1;
@@ -230,6 +234,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mShowCalendarControls = Utils.getConfigBool(this, R.bool.show_calendar_controls);
         mShowEventDetailsWithAgenda =
             Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
+        mShowEventInfoFullScreen =
+            Utils.getConfigBool(this, R.bool.show_event_info_full_screen);
 
         Utils.setAllowWeekForDetailView(mIsMultipane);
 
@@ -811,25 +817,40 @@ public class AllInOneActivity extends Activity implements EventHandler,
                         event.selectedTime, event.id, ViewType.AGENDA);
                 }
             } else {
-                EventInfoFragment fragment = new EventInfoFragment(this,
-                        event.id, event.startTime.toMillis(false), event.endTime.toMillis(false),
-                        (int) event.extraLong);
-                // TODO Fix the temp hack below: && mCurrentView !=
-                // ViewType.AGENDA
-                if (event.selectedTime != null && mCurrentView != ViewType.AGENDA) {
-                    mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
-                            event.selectedTime, -1, ViewType.DETAIL);
+                if (mShowEventInfoFullScreen) {
+                    // start event info as activity
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
+                    intent.setData(eventUri);
+                    intent.setClassName(this, EventInfoActivity.class.getName());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT |
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.putExtra(EVENT_BEGIN_TIME, event.startTime.toMillis(false));
+                    intent.putExtra(EVENT_END_TIME, event.endTime.toMillis(false));
+                    intent.putExtra(EVENT_ATTENDEE_RESPONSE, (int)event.extraLong);
+                    startActivity(intent);
+                } else {
+                    // start event info as a dialog
+                    EventInfoFragment fragment = new EventInfoFragment(this,
+                            event.id, event.startTime.toMillis(false),
+                            event.endTime.toMillis(false), (int) event.extraLong, true);
+                    // TODO Fix the temp hack below: && mCurrentView !=
+                    // ViewType.AGENDA
+                    if (event.selectedTime != null && mCurrentView != ViewType.AGENDA) {
+                        mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
+                                event.selectedTime, -1, ViewType.DETAIL);
+                    }
+                    fragment.setDialogParams(event.x, event.y);
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    // if we have an old popup close it
+                    Fragment fOld = fm.findFragmentByTag(EVENT_INFO_FRAGMENT_TAG);
+                    if (fOld != null && fOld.isAdded()) {
+                        ft.remove(fOld);
+                    }
+                    ft.add(fragment, EVENT_INFO_FRAGMENT_TAG);
+                    ft.commit();
                 }
-                fragment.setDialogParams(event.x, event.y, !mIsMultipane);
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                // if we have an old popup close it
-                Fragment fOld = fm.findFragmentByTag(EVENT_INFO_FRAGMENT_TAG);
-                if (fOld != null && fOld.isAdded()) {
-                    ft.remove(fOld);
-                }
-                ft.add(fragment, EVENT_INFO_FRAGMENT_TAG);
-                ft.commit();
             }
         } else if (event.eventType == EventType.UPDATE_TITLE) {
             setTitleInActionBar(event);

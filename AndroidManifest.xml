@@ -73,6 +73,14 @@
             </intent-filter>
         </activity-alias>
 
+        <activity android:name="EventInfoActivity"
+            android:theme="@style/CalendarTheme.WithActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".event.EditEventActivity"
             android:theme="@style/CalendarTheme.WithActionBar">
         </activity>

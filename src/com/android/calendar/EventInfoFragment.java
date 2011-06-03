@@ -61,6 +61,9 @@ import android.text.util.Rfc822Token;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -92,10 +95,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     public static final String TAG = "EventInfoFragment";
 
-    private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
-    private static final String BUNDLE_KEY_START_MILLIS = "key_start_millis";
-    private static final String BUNDLE_KEY_END_MILLIS = "key_end_millis";
-    private static final String BUNDLE_KEY_IS_DIALOG = "key_fragment_is_dialog";
+    protected static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
+    protected static final String BUNDLE_KEY_START_MILLIS = "key_start_millis";
+    protected static final String BUNDLE_KEY_END_MILLIS = "key_end_millis";
+    protected static final String BUNDLE_KEY_IS_DIALOG = "key_fragment_is_dialog";
+    protected static final String BUNDLE_KEY_ATTENDEE_RESPONSE = "key_attendee_response";
 
     private static final String PERIOD_SPACE = ". ";
 
@@ -211,6 +215,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private TextView mAttendees;
     private AttendeesView mLongAttendees;
     private TextView mCalendar;
+    private Menu mMenu;
 
     private Pattern mWildcardPattern = Pattern.compile("^.*$");
 
@@ -337,12 +342,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     }
 
-    public EventInfoFragment() {
-        mUri = null;
-    }
 
     public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
-            int attendeeResponse) {
+            int attendeeResponse, boolean isDialog) {
 
         if (mScale == 0) {
             mScale = context.getResources().getDisplayMetrics().density;
@@ -351,11 +353,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 DIALOG_HEIGHT *= mScale;
             }
         }
-
-
-        mDescLineNum = context.getResources().getInteger((R.integer.event_info_desc_line_num));
-        mMoreLabel = context.getResources().getString((R.string.event_info_desc_more));
-        mLessLabel = context.getResources().getString((R.string.event_info_desc_less));
+        mIsDialog = isDialog;
 
         setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         mUri = uri;
@@ -364,10 +362,15 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mAttendeeResponseFromIntent = attendeeResponse;
     }
 
+    public EventInfoFragment() {
+    }
+
+
+
     public EventInfoFragment(Context context, long eventId, long startMillis, long endMillis,
-            int attendeeResponse) {
+            int attendeeResponse, boolean isDialog) {
         this(context, ContentUris.withAppendedId(Events.CONTENT_URI, eventId), startMillis,
-                endMillis, attendeeResponse);
+                endMillis, attendeeResponse, isDialog);
         mEventId = eventId;
     }
 
@@ -401,27 +404,20 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // On tablets , do smart positioning of dialog
         // On phones , use the whole screen
 
-        if (!mIsFullScreen) {
-            if (mX != -1 || mY != -1) {
-                a.x = mX - a.width - 64;
-                if (a.x < 0) {
-                    a.x = mX + 64;
-                }
-                a.y = mY - 64;
-                a.gravity = Gravity.LEFT | Gravity.TOP;
+        if (mX != -1 || mY != -1) {
+            a.x = mX - a.width - 64;
+            if (a.x < 0) {
+                a.x = mX + 64;
             }
-        } else {
-            a.width = WindowManager.LayoutParams.MATCH_PARENT;
-            a.height = WindowManager.LayoutParams.MATCH_PARENT;
+            a.y = mY - 64;
+            a.gravity = Gravity.LEFT | Gravity.TOP;
         }
         window.setAttributes(a);
     }
 
-    public void setDialogParams(int x, int y, boolean isFullScreen) {
-        mIsDialog = true;
+    public void setDialogParams(int x, int y) {
         mX = x;
         mY = y;
-        mIsFullScreen = isFullScreen;
     }
 
     // Implements OnCheckedChangeListener
@@ -452,6 +448,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         super.onAttach(activity);
         mEditResponseHelper = new EditResponseHelper(activity);
         mHandler = new QueryHandler(activity);
+        mDescLineNum = activity.getResources().getInteger((R.integer.event_info_desc_line_num));
+        mMoreLabel = activity.getResources().getString((R.string.event_info_desc_more));
+        mLessLabel = activity.getResources().getString((R.string.event_info_desc_less));
+        if (!mIsDialog) {
+            setHasOptionsMenu(true);
+        }
     }
 
     @Override
@@ -494,9 +496,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     return;
                 }
                 DeleteEventHelper deleteHelper = new DeleteEventHelper(
-                        getActivity(), getActivity(), false /* exitWhenDone */);
+                        getActivity(), getActivity(), !mIsDialog /* exitWhenDone */);
                 deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
             }});
+
+        // Hide Edit/Delete buttons if in full screen mode
+        if (!mIsDialog) {
+            mView.findViewById(R.id.event_info_buttons_container).setVisibility(View.GONE);
+        }
 
         return mView;
     }
@@ -518,7 +525,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     // Set the expand/collapse button
     // Expand/collapse the description according the the current status
     private void updateDescription() {
-
         // Description is short, hide button
         if (mWhat.getLineCount() <= mDescLineNum) {
             mDescButton.setVisibility(View.GONE);
@@ -618,8 +624,18 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         outState.putLong(BUNDLE_KEY_EVENT_ID, mEventId);
         outState.putLong(BUNDLE_KEY_START_MILLIS, mStartMillis);
         outState.putLong(BUNDLE_KEY_END_MILLIS, mEndMillis);
-
         outState.putBoolean(BUNDLE_KEY_IS_DIALOG, mIsDialog);
+        outState.putInt(BUNDLE_KEY_ATTENDEE_RESPONSE, mAttendeeResponseFromIntent);
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        if (!mIsDialog) {
+            inflater.inflate(R.menu.event_info_title_bar, menu);
+                mMenu = menu;
+        }
     }
 
 
@@ -834,7 +850,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // unattached already
         if (c != null) {
             CalendarController.getInstance(c).sendEventRelatedEvent(
-                    this, EventType.VIEW_EVENT_DETAILS, mEventId, mStartMillis, mEndMillis, 0, 0, -1);
+                    this, EventType.VIEW_EVENT_DETAILS, mEventId, mStartMillis, mEndMillis, 0
+                    , 0, -1);
         }
     }
 
@@ -1032,12 +1049,25 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     @Override
                     public void onClick(View v) {
                         doEdit();
-                        EventInfoFragment.this.dismiss();
+                        if (mIsDialog) {
+                            EventInfoFragment.this.dismiss();
+                        }
+                        else {
+                            getActivity().finish();
+                        }
                     }
                 });
             }
             if (!mCanModifyCalendar) {
-                mView.findViewById(R.id.delete).setEnabled(false);
+                if (mIsDialog) {
+                    mView.findViewById(R.id.delete).setEnabled(false);
+                }
+                else {
+                    MenuItem item = mMenu.findItem(R.id.info_action_delete);
+                    if (item != null) {
+                        item.setVisible(false);
+                    }
+                }
             }
         } else {
             setVisibilityCommon(view, R.id.calendar, View.GONE);
@@ -1047,31 +1077,45 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     private void updateAttendees(View view) {
 
+        // Create a list of attendees:
+        // In Dialog mode: a short list of names only
+        // In full screen: a full list with photos
+        if (mIsDialog) {
+            TextView tv = mAttendees;
+            SpannableStringBuilder sb = new SpannableStringBuilder();
+            formatAttendees(mAcceptedAttendees, sb, Attendees.ATTENDEE_STATUS_ACCEPTED);
+            formatAttendees(mDeclinedAttendees, sb, Attendees.ATTENDEE_STATUS_DECLINED);
+            formatAttendees(mTentativeAttendees, sb, Attendees.ATTENDEE_STATUS_TENTATIVE);
+            formatAttendees(mNoResponseAttendees, sb, Attendees.ATTENDEE_STATUS_NONE);
 
-        // TODO: Add code to show only one list creating two versions (dialog/full screen)
-        TextView tv = mAttendees;
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        formatAttendees(mAcceptedAttendees, sb, Attendees.ATTENDEE_STATUS_ACCEPTED);
-        formatAttendees(mDeclinedAttendees, sb, Attendees.ATTENDEE_STATUS_DECLINED);
-        formatAttendees(mTentativeAttendees, sb, Attendees.ATTENDEE_STATUS_TENTATIVE);
-        formatAttendees(mNoResponseAttendees, sb, Attendees.ATTENDEE_STATUS_NONE);
+            if (sb.length() > 0) {
+                // Add the label after the attendees are formatted because
+                // formatAttendees would prepend ", " if sb.length != 0
+                String label = getActivity().getResources().getString(R.string.attendees_label);
+                sb.insert(0, label);
+                sb.insert(label.length(), " ");
+                sb.setSpan(new StyleSpan(Typeface.BOLD), 0, label.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        if (sb.length() > 0) {
-            // Add the label after the attendees are formatted because
-            // formatAttendees would prepend ", " if sb.length != 0
-            String label = getActivity().getResources().getString(R.string.attendees_label);
-            sb.insert(0, label);
-            sb.insert(label.length(), " ");
-            sb.setSpan(new StyleSpan(Typeface.BOLD), 0, label.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-            tv.setText(sb);
+                tv.setText(sb);
+                tv.setVisibility(View.VISIBLE);
+            }
+            else {
+                tv.setVisibility(View.GONE);
+            }
+        } else {
+            if (mAcceptedAttendees.size() + mDeclinedAttendees.size() +
+                    mTentativeAttendees.size()  + mNoResponseAttendees.size() > 0) {
+                ((AttendeesView)mLongAttendees).addAttendees(mAcceptedAttendees);
+                ((AttendeesView)mLongAttendees).addAttendees(mDeclinedAttendees);
+                ((AttendeesView)mLongAttendees).addAttendees(mTentativeAttendees);
+                ((AttendeesView)mLongAttendees).addAttendees(mNoResponseAttendees);
+                mLongAttendees.setEnabled(false);
+                mLongAttendees.setVisibility(View.VISIBLE);
+            } else {
+                mLongAttendees.setVisibility(View.GONE);
+            }
         }
-        ((AttendeesView)mLongAttendees).addAttendees(mAcceptedAttendees);
-        ((AttendeesView)mLongAttendees).addAttendees(mDeclinedAttendees);
-        ((AttendeesView)mLongAttendees).addAttendees(mTentativeAttendees);
-        ((AttendeesView)mLongAttendees).addAttendees(mNoResponseAttendees);
-        mLongAttendees.setEnabled(false);
 
     }
 

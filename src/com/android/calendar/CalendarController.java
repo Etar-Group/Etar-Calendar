@@ -61,6 +61,7 @@ public class CalendarController {
     public static final int MIN_CALENDAR_WEEK = 0;
     public static final int MAX_CALENDAR_WEEK = 3497; // weeks between 1/1/1970 and 1/1/2037
 
+    public static final String EVENT_ATTENDEE_RESPONSE = "attendeeResponse";
     public static final int ATTENDEE_NO_RESPONSE = -1;
 
     private Context mContext;
