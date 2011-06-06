@@ -262,10 +262,10 @@ public class Event implements Cloneable {
 
             cEvents = Instances.query(context.getContentResolver(), EVENT_PROJECTION,
                     start - DateUtils.DAY_IN_MILLIS, end + DateUtils.DAY_IN_MILLIS, where,
-                    SORT_EVENTS_BY);
+                    null, SORT_EVENTS_BY);
             cAllday = Instances.query(context.getContentResolver(), EVENT_PROJECTION,
                     start - DateUtils.DAY_IN_MILLIS, end + DateUtils.DAY_IN_MILLIS, whereAllday,
-                    SORT_ALLDAY_BY);
+                    null, SORT_ALLDAY_BY);
 
             // Check if we should return early because there are more recent
             // load requests waiting.

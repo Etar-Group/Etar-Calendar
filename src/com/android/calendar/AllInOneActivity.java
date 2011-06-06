@@ -18,7 +18,7 @@ package com.android.calendar;
 
 import static android.provider.Calendar.EVENT_BEGIN_TIME;
 import static android.provider.Calendar.EVENT_END_TIME;
-import static android.provider.Calendar.AttendeesColumns.ATTENDEE_STATUS;
+import static android.provider.Calendar.Attendees.ATTENDEE_STATUS;
 
 import com.android.calendar.CalendarController.EventHandler;
 import com.android.calendar.CalendarController.EventInfo;
