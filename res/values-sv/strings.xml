@@ -93,13 +93,23 @@
     <string name="no_calendars_found" msgid="4265845606733761102">"Innan du kan skapa händelser måste du lägga till minst ett Kalender-konto på enheten så att en kalender kan visas. Tryck på Lägg till konto så att ett nytt konto läggs till. Om du precis har lagt till ett konto väntar du tills synkroniseringen har slutförts innan du försöker igen. Du kan också trycka på Avbryt och kontrollera att minst en kalender visas."</string>
     <string name="add_account" msgid="1669072099756774952">"Lägg till konto"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Lägg till gäster"</string>
-    <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalender"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisatör:"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Lokal tidszon:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Delta?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Ja"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Kanske"</string>
     <string name="response_no" msgid="561911691884148136">"Nej"</string>
+    <!-- no translation found for event_info_timezone (6884490917897502454) -->
+    <skip />
+    <!-- no translation found for event_info_repetition (1556101382780225893) -->
+    <skip />
+    <!-- no translation found for event_info_organizer (9138683335394832629) -->
+    <skip />
+    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
+    <skip />
+    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
+    <skip />
     <string name="agenda_today" msgid="6489447319363439068">"Idag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Hämtar…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Tryck om du vill visa händelser före <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>

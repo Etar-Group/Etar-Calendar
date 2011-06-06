@@ -124,7 +124,7 @@
     <skip />
     <!-- no translation found for add_guests_label (7294569977062998743) -->
     <skip />
-    <!-- no translation found for view_event_calendar_label (8503354404461986250) -->
+    <!-- no translation found for view_event_calendar_label (6126231656338241140) -->
     <skip />
     <!-- outdated translation 2168441329713325834 -->     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organiseerder"</string>
     <!-- no translation found for view_event_timezone_label (4757495486359041757) -->
@@ -136,6 +136,16 @@
     <!-- no translation found for response_maybe (7791500973627841695) -->
     <skip />
     <!-- no translation found for response_no (561911691884148136) -->
+    <skip />
+    <!-- no translation found for event_info_timezone (6884490917897502454) -->
+    <skip />
+    <!-- no translation found for event_info_repetition (1556101382780225893) -->
+    <skip />
+    <!-- no translation found for event_info_organizer (9138683335394832629) -->
+    <skip />
+    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
+    <skip />
+    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
     <skip />
     <string name="agenda_today" msgid="6489447319363439068">"Vandag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Laai tans…"</string>

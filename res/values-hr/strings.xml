@@ -93,13 +93,23 @@
     <string name="no_calendars_found" msgid="4265845606733761102">"Prije dodavanja događaja, na uređaj morate dodati barem jedan račun usluge Kalendar i prikazati kalendar. Dodirnite \"Dodaj račun\" za dodavanje računa (ako ste upravo dodali račun, pričekajte da završi sinkronizacija i pokušajte ponovo). Ili dodirnite Odustani i pazite da je prikazan barem jedan kalendar."</string>
     <string name="add_account" msgid="1669072099756774952">"Dodavanje računa"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Dodaj goste"</string>
-    <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalendar"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendar:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Lokalna vremenska zona:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Sudionici?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Da"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Možda"</string>
     <string name="response_no" msgid="561911691884148136">"Ne"</string>
+    <!-- no translation found for event_info_timezone (6884490917897502454) -->
+    <skip />
+    <!-- no translation found for event_info_repetition (1556101382780225893) -->
+    <skip />
+    <!-- no translation found for event_info_organizer (9138683335394832629) -->
+    <skip />
+    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
+    <skip />
+    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
+    <skip />
     <string name="agenda_today" msgid="6489447319363439068">"Danas, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Učitavanje…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Dodirnite da biste vidjeli događaje prije <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>

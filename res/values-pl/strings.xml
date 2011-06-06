@@ -93,13 +93,23 @@
     <string name="no_calendars_found" msgid="4265845606733761102">"Zanim możliwe będzie dodawanie wydarzeń, należy dodać do urządzenia co najmniej jedno konto Kalendarza i ustawić kalendarz jako widoczny. Dotknij przycisku „Dodaj konto”, aby dodać konto (jeśli dodano konto przed chwilą, poczekaj na zakończenie synchronizacji i spróbuj ponownie). Możesz też dotknąć przycisku Anuluj i upewnić się, że co najmniej jeden kalendarz jest widoczny."</string>
     <string name="add_account" msgid="1669072099756774952">"Dodaj konto"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Dodaj gości"</string>
-    <string name="view_event_calendar_label" msgid="8503354404461986250">"Kalendarz"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendarz:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"Lokalna strefa czasowa:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Uczestnictwo"</string>
     <string name="response_yes" msgid="2027484304899988350">"Tak"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Być może"</string>
     <string name="response_no" msgid="561911691884148136">"Nie"</string>
+    <!-- no translation found for event_info_timezone (6884490917897502454) -->
+    <skip />
+    <!-- no translation found for event_info_repetition (1556101382780225893) -->
+    <skip />
+    <!-- no translation found for event_info_organizer (9138683335394832629) -->
+    <skip />
+    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
+    <skip />
+    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
+    <skip />
     <string name="agenda_today" msgid="6489447319363439068">"Dzisiaj, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Trwa wczytywanie..."</string>
     <string name="show_older_events" msgid="5140647493681439926">"Dotknij, aby wyświetlić wydarzenia przed okresem <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>

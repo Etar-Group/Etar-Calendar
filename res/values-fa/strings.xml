@@ -93,13 +93,23 @@
     <string name="no_calendars_found" msgid="4265845606733761102">"قبل از اینکه بتوانید رویدادی را اضافه کنید، باید حداقل یک حساب تقویم را به دستگاه خود اضافه کنید و یک تقویم را قابل رؤیت کنید. برای افزودن یک حساب، \"افزودن حساب\" را لمس کنید (اگر اکنون یک حساب را اضافه کردید، تا پایان همگام سازی آن منتظر بمانید و دوباره سعی کنید). یا لغو را لمس کنید و مطمئن شوید که حداقل یک تقویم قابل رؤیت است."</string>
     <string name="add_account" msgid="1669072099756774952">"افزودن حساب"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"افزودن میهمان"</string>
-    <!-- outdated translation 2439139392730298559 -->     <string name="view_event_calendar_label" msgid="8503354404461986250">"تقویم"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"تقویم:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"سازمان دهنده:"</string>
     <string name="view_event_timezone_label" msgid="4757495486359041757">"منطقه زمانی محلی:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"حاضر می شوید؟"</string>
     <string name="response_yes" msgid="2027484304899988350">"بله"</string>
     <string name="response_maybe" msgid="7791500973627841695">"شاید"</string>
     <string name="response_no" msgid="561911691884148136">"خیر"</string>
+    <!-- no translation found for event_info_timezone (6884490917897502454) -->
+    <skip />
+    <!-- no translation found for event_info_repetition (1556101382780225893) -->
+    <skip />
+    <!-- no translation found for event_info_organizer (9138683335394832629) -->
+    <skip />
+    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
+    <skip />
+    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
+    <skip />
     <string name="agenda_today" msgid="6489447319363439068">"امروز، <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"در حال بارگیری…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"برای مشاهده رویدادهای قبل از <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> لمس کنید"</string>
