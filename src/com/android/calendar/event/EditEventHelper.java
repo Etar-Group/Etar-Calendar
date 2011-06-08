@@ -134,6 +134,8 @@ public class EditEventHelper {
 
     protected static final int DAY_IN_SECONDS = 24 * 60 * 60;
 
+    protected static String DEFAULT_DOMAIN;
+
     private Context mContext;
     private AsyncQueryService mService;
 
@@ -222,12 +224,13 @@ public class EditEventHelper {
     public EditEventHelper(Context context, CalendarEventModel model) {
         mContext = context;
         mService = new AsyncQueryService(context);
+        DEFAULT_DOMAIN = context.getResources().getString(R.string.google_email_domain);
         setDomainFromModel(model);
     }
 
     // Sets up the email validator for the given model
     public void setDomainFromModel(CalendarEventModel model) {
-        String domain = "gmail.com";
+        String domain = DEFAULT_DOMAIN;
         if (model != null) {
             String ownerAccount = model.mOwnerAccount;
             if (!TextUtils.isEmpty(ownerAccount)) {
