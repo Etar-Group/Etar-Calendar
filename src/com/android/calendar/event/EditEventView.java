@@ -96,6 +96,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final String PERIOD_SPACE = ". ";
 
+    private static String DEFAULT_DOMAIN;
+
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
     ArrayList<View> mViewOnlyList = new ArrayList<View>();
@@ -801,6 +803,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mView = view;
         mDone = done;
 
+        DEFAULT_DOMAIN = activity.getResources().getString(R.string.google_email_domain);
+
         // cache top level view elements
         mLoadingMessage = (TextView) view.findViewById(R.id.loading_message);
         mScrollView = (ScrollView) view.findViewById(R.id.scroll_view);
@@ -1019,7 +1023,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mView.findViewById(R.id.add_attendees_group).setVisibility(View.GONE);
             mAddAttendeesButton.setVisibility(View.GONE);
         } else {
-            String domain = "gmail.com";
+            String domain = DEFAULT_DOMAIN;
             if (!TextUtils.isEmpty(model.mOwnerAccount)) {
                 String ownerDomain = EditEventHelper.extractDomain(model.mOwnerAccount);
                 if (!TextUtils.isEmpty(ownerDomain)) {
