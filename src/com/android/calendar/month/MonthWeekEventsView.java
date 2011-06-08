@@ -232,7 +232,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     @Override
     protected void initView() {
         super.initView();
-        Resources resources = mContext.getResources();
+        Resources resources = getContext().getResources();
         TEXT_SIZE_MONTH_NUMBER = resources.getInteger(R.integer.text_size_month_number);
 
         mPadding = DEFAULT_EDGE_SPACING;
@@ -263,7 +263,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mScaled = true;
         }
 
-        loadColors(mContext);
+        loadColors(getContext());
         // TODO modify paint properties depending on isMini
         p.setStyle(Style.FILL);
 
@@ -574,9 +574,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
         if (!event.allDay) {
             textY += mEventHeight + EVENT_LINE_PADDING;
             mStringBuilder.setLength(0);
-            text = DateUtils.formatDateRange(mContext, mFormatter, event.startMillis,
+            text = DateUtils.formatDateRange(getContext(), mFormatter, event.startMillis,
                     event.endMillis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
-                    Utils.getTimeZone(mContext, null)).toString();
+                    Utils.getTimeZone(getContext(), null)).toString();
             text = TextUtils.ellipsize(text, mEventExtrasPaint, avail, TextUtils.TruncateAt.END);
             canvas.drawText(text.toString(), textX, textY, mEventExtrasPaint);
         }
@@ -589,7 +589,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         int y = mHeight - EVENT_BOTTOM_PADDING + EVENT_LINE_PADDING / 2 - mEventHeight;
         addChipOutline(lines, 0, x, y);
         canvas.drawLines(lines.array, mEventExtrasPaint);
-        String text = mContext.getResources().getQuantityString(
+        String text = getContext().getResources().getQuantityString(
                 R.plurals.month_more_events, remainingEvents);
         y = mHeight - EVENT_BOTTOM_PADDING;
         x += EVENT_SQUARE_WIDTH + EVENT_LINE_PADDING;

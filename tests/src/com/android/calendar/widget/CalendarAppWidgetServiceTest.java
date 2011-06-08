@@ -30,8 +30,9 @@ import android.view.View;
 
 import java.util.TimeZone;
 
-// adb shell am instrument -w -e class com.android.providers.calendar.CalendarAppWidgetServiceTest
-//   com.android.providers.calendar.tests/android.test.InstrumentationTestRunner
+// adb shell am instrument -w -e class com.android.calendar.widget.CalendarAppWidgetServiceTest
+//   com.google.android.calendar.tests/android.test.InstrumentationTestRunner
+
 
 public class CalendarAppWidgetServiceTest extends AndroidTestCase {
     private static final String TAG = "CalendarAppWidgetService";
