@@ -44,8 +44,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-import libcore.icu.LocaleData;
-
 /**
  * <p>
  * This displays a titled list of weeks with selectable days. It can be
