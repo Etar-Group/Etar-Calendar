@@ -1018,6 +1018,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
      * @param text
      */
     private void addFieldToAccessibilityEvent(List<CharSequence> text, TextView view) {
+        if (view == null) {
+            return;
+        }
         String str = view.toString().trim();
         if (!TextUtils.isEmpty(str)) {
             text.add(mTitle.getText());

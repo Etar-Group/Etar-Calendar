@@ -28,6 +28,7 @@
         android:layout_marginLeft="4dip"
         android:layout_marginRight="14dip"
         android:layout_alignParentRight="true"
+        android:contentDescription="@string/accessibility_sync_cal"
         android:gravity="center_vertical"
     />
 

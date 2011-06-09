@@ -124,12 +124,14 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
+                android:contentDescription="@string/accessibility_pick_start_date"
                 style="@style/TextAppearance.EditEvent_Spinner" />
             <Button
                 android:id="@+id/start_time"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:contentDescription="@string/accessibility_pick_start_time"
                 style="@style/TextAppearance.EditEvent_Spinner" />
         </LinearLayout>
     </LinearLayout>
@@ -176,12 +178,14 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
+                android:contentDescription="@string/accessibility_pick_end_date"
                 style="@style/TextAppearance.EditEvent_Spinner" />
             <Button
                 android:id="@+id/end_time"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:contentDescription="@string/accessibility_pick_end_time"
                 style="@style/TextAppearance.EditEvent_Spinner" />
         </LinearLayout>
     </LinearLayout>
@@ -231,6 +235,7 @@
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
+            android:contentDescription="@string/accessibility_all_day"
             android:gravity="center_vertical" />
     </LinearLayout>
 
@@ -271,6 +276,7 @@
             android:gravity="left|center_vertical"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:contentDescription="@string/accessibility_pick_time_zone"
             style="@style/TextAppearance.EditEvent_Spinner" />
     </LinearLayout>
 
