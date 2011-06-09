@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -89,7 +90,8 @@ public class SimpleWeeksAdapter extends BaseAdapter implements OnTouchListener {
     protected Time mSelectedDay;
     // The week since 1970 that the selected day is in
     protected int mSelectedWeek;
-    protected int mFirstDayOfWeek = LocaleData.get(Locale.getDefault()).firstDayOfWeek - 1;
+    // When the week starts; numbered like Time.<WEEKDAY> (e.g. SUNDAY=0).
+    protected int mFirstDayOfWeek;
     protected boolean mShowWeekNumber = false;
     protected GestureDetector mGestureDetector;
     protected int mNumWeeks = DEFAULT_NUM_WEEKS;
@@ -99,6 +101,9 @@ public class SimpleWeeksAdapter extends BaseAdapter implements OnTouchListener {
     public SimpleWeeksAdapter(Context context, HashMap<String, Integer> params) {
         mContext = context;
 
+        // Get default week start based on locale, subtracting one for use with android Time.
+        Calendar cal = Calendar.getInstance(Locale.getDefault());
+        mFirstDayOfWeek = cal.getFirstDayOfWeek() - 1;
 
         if (mScale == 0) {
             mScale = context.getResources().getDisplayMetrics().density;

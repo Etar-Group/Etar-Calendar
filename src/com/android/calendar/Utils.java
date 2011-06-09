@@ -32,11 +32,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.util.CalendarUtils.TimeZoneUtils;
 import android.util.Log;
+import com.android.calendar.CalendarUtils.TimeZoneUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Formatter;
 import java.util.Iterator;

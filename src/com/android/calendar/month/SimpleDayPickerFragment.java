@@ -103,6 +103,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     protected Time mTempTime = new Time();
 
     private static float mScale = 0;
+    // When the week starts; numbered like Time.<WEEKDAY> (e.g. SUNDAY=0).
     protected int mFirstDayOfWeek;
     // The first day of the focus month
     protected Time mFirstDayOfMonth = new Time();
@@ -301,7 +302,10 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
      * preference space.
      */
     protected void doResumeUpdates() {
-        mFirstDayOfWeek = LocaleData.get(Locale.getDefault()).firstDayOfWeek - 1;
+        // Get default week start based on locale, subtracting one for use with android Time.
+        Calendar cal = Calendar.getInstance(Locale.getDefault());
+        mFirstDayOfWeek = cal.getFirstDayOfWeek() - 1;
+
         mShowWeekNumber = false;
 
         updateHeader();
