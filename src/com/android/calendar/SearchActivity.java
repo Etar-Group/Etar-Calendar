@@ -44,7 +44,6 @@ import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.event.EditEventFragment;
 
-import dalvik.system.VMRuntime;
 
 public class SearchActivity extends Activity
         implements CalendarController.EventHandler, SearchView.OnQueryTextListener,
@@ -104,10 +103,6 @@ public class SearchActivity extends Activity
         setContentView(R.layout.search);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
-
-        // Eliminate extra GCs during startup by setting the initial heap size to 4MB.
-        // TODO: We should restore the old heap size once the activity reaches the idle state
-        VMRuntime.getRuntime().setMinimumHeapSize(INITIAL_HEAP_SIZE);
 
         mContentResolver = getContentResolver();
 

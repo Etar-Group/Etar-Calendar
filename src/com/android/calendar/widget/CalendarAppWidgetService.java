@@ -21,7 +21,6 @@ import com.android.calendar.Utils;
 import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
-import com.google.common.annotations.VisibleForTesting;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -337,7 +336,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             return uri;
         }
 
-        @VisibleForTesting
+        /* @VisibleForTesting */
         protected static CalendarAppWidgetModel buildAppWidgetModel(
                 Context context, Cursor cursor, String timeZone) {
             CalendarAppWidgetModel model = new CalendarAppWidgetModel(context, timeZone);
