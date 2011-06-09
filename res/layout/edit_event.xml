@@ -29,10 +29,6 @@
         android:gravity="center"
         android:text="@string/loading"
         style="?android:attr/textAppearanceLarge"
-        android:layout_marginLeft="50dip"
-        android:layout_marginRight="50dip"
-        android:layout_marginTop="12dip"
-        android:layout_marginBottom="12dip"
         android:background="#FFFFFFFF"/>
 
     <ScrollView
@@ -51,24 +47,24 @@
             <View android:id="@+id/event_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dip"
-                android:layout_marginRight="5dip"
-                android:layout_marginTop="12dip"
-                android:layout_marginBottom="12dip"
+                android:layout_marginLeft="1dip"
+                android:layout_marginRight="1dip"
+                android:layout_marginTop="1dip"
+                android:layout_marginBottom="1dip"
                 android:layout_gravity="center_horizontal|top"
                 android:background="#FFFFFFFF"/>
 
             <LinearLayout
                 android:id="@+id/two_pane"
                 android:orientation="vertical"
-                android:paddingTop="32dip"
-                android:paddingBottom="32dip"
+                android:paddingTop="1dip"
+                android:paddingBottom="1dip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:layout_marginTop="12dip"
-                android:layout_marginBottom="12dip"
+                android:layout_marginLeft="1dip"
+                android:layout_marginRight="1dip"
+                android:layout_marginTop="1dip"
+                android:layout_marginBottom="1dip"
                 android:layout_gravity="center_horizontal|top">
 
                 <!-- TOP HALF -->
@@ -88,6 +84,7 @@
             <View android:id="@+id/color_chip"
                 android:layout_width="25dip"
                 android:layout_height="25dip"
+                android:visibility="gone"
                 android:layout_marginLeft="0dip"
                 android:layout_marginTop="0dip"
                 android:layout_gravity="left|top"/>

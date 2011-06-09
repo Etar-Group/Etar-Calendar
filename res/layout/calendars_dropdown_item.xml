@@ -35,6 +35,7 @@
         android:ellipsize="marquee"
         android:layout_toRightOf="@id/color"
         android:layout_height="wrap_content"
+        android:textColor="#FF000000"
     />
 
     <TextView

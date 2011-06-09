@@ -92,12 +92,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/add_attendees_label"
-            android:text="@string/add_guests_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
         <LinearLayout
             android:id="@+id/add_attendees_group"
             android:layout_height="wrap_content"
@@ -132,12 +126,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true">
-        <TextView
-            android:text="@string/attendees_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
-
         <!-- GUEST LIST -->
         <com.android.calendar.event.AttendeesView
             android:id="@+id/attendee_list"
@@ -147,4 +135,144 @@
             android:animateLayoutChanges="true">
         </com.android.calendar.event.AttendeesView>
     </LinearLayout>
+
+    <View
+        style="@style/EditEventSeparator"/>
+
+    <!-- DESCRIPTION -->
+    <LinearLayout android:id="@+id/description_row"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true">
+        <EditText
+            android:id="@+id/description"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:hint="@string/hint_description"
+            style="@style/TextAppearance.EditEvent_Value"
+            android:capitalize="sentences" />
+    </LinearLayout>
+
+    <View
+        style="@style/EditEventSeparator"/>
+
+    <!-- REPEATS -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true">
+        <TextView
+            android:id="@+id/repeats_label"
+            android:text="@string/repeats_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="@style/TextAppearance.EditEvent_Label" />
+        <Spinner
+            android:id="@+id/repeats"
+            style="@style/TextAppearance.EditEvent_Value"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:prompt="@string/repeats_label" />
+    </LinearLayout>
+
+    <View
+        style="@style/EditEventSeparator"/>
+
+        <!-- REMINDERS -->
+    <LinearLayout
+        android:id="@+id/reminders_row"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true">
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/reminder_items_container"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/reminders_label"
+                android:text="@string/reminders_label"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                style="TextAppearance.EditEvent_Value"
+                android:textColor="#FF888888"
+                android:layout_marginLeft="16dp"  />
+            <ImageButton
+                android:id="@+id/reminder_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/PlusButton"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <View
+        style="@style/EditEventSeparator"/>
+
+       <!-- PRESENCE - Show me as [busy | available] -->
+    <LinearLayout
+        android:id="@+id/availability_row"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/presence_label"
+            android:text="@string/presence_label"
+            android:layout_weight="0"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="@style/TextAppearance.EditEvent_Label" 
+            android:paddingRight="4dip" />
+        <Spinner
+            android:id="@+id/availability"
+            android:entries="@array/availability"
+            style="@style/TextAppearance.EditEvent_Value"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:prompt="@string/presence_label" />
+    </LinearLayout>
+
+    <View
+        style="@style/EditEventSeparator"/>
+
+        <!-- PRIVACY -->
+    <LinearLayout
+        android:id="@+id/visibility_row"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/privacy_label"
+            android:text="@string/privacy_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="0"
+            style="@style/TextAppearance.EditEvent_Label" />
+        <Spinner
+            android:id="@+id/visibility"
+            android:entries="@array/visibility"
+            android:layout_weight="1"
+            style="@style/TextAppearance.EditEvent_Value"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:prompt="@string/privacy_label" />
+    </LinearLayout>
+
 </LinearLayout>
