@@ -35,6 +35,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
+import android.app.Service;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
@@ -1126,7 +1127,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     private void sendAccessibilityEvent() {
-        AccessibilityManager am = AccessibilityManager.getInstance(mActivity);
+        AccessibilityManager am =
+            (AccessibilityManager) mActivity.getSystemService(Service.ACCESSIBILITY_SERVICE);
         if (!am.isEnabled() || mModel == null) {
             return;
         }
