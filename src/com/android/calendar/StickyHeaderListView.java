@@ -106,23 +106,42 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
         int getHeaderItemsNumber(int headerPosition);
     }
 
-    public void setAdapter(Adapter a) {
+    /**
+     * Sets the adapter to be used by the class to get views of headers
+     *
+     * @param adapter - The adapter.
+     */
 
-        // This code is needed only if dataset changes do not force a call to OnScroll
+    public void setAdapter(Adapter adapter) {
+
+        // This code is needed only if dataset changes do not force a call to
+        // OnScroll
         // if (mAdapter != null && mListDataObserver != null) {
-        //     mAdapter.unregisterDataSetObserver(mListDataObserver);
+        // mAdapter.unregisterDataSetObserver(mListDataObserver);
         // }
 
-        if (a != null) {
-            mAdapter = a;
-            // This code is needed only if dataset changes do not force a call to OnScroll
-            //mAdapter.registerDataSetObserver(mListDataObserver);
+        if (adapter != null) {
+            mAdapter = adapter;
+            // This code is needed only if dataset changes do not force a call
+            // to OnScroll
+            // mAdapter.registerDataSetObserver(mListDataObserver);
         }
     }
 
-    public void setIndexer(HeaderIndexer i) {
-        mIndexer = i;
+    /**
+     * Sets the indexer object (that implements the HeaderIndexer interface).
+     *
+     * @param indexer - The indexer.
+     */
+
+    public void setIndexer(HeaderIndexer indexer) {
+        mIndexer = indexer;
     }
+
+    /**
+     * Sets the list view that is displayed
+     * @param lv - The list view.
+     */
 
     public void setListView(ListView lv) {
         mListView = lv;
@@ -130,8 +149,16 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
         mListViewHeadersCount = mListView.getHeaderViewsCount();
     }
 
-    public void setOnScrollListener(ListView.OnScrollListener l) {
-        mListener = l;
+    /**
+     * Sets an external OnScroll listener. Since the StickyHeaderListView sets
+     * itself as the scroll events listener of the listview, this method allows
+     * the user to register another listener that will be called after this
+     * class listener is called.
+     *
+     * @param listener - The external listener.
+     */
+    public void setOnScrollListener(ListView.OnScrollListener listener) {
+        mListener = listener;
     }
 
     // This code is needed only if dataset changes do not force a call to OnScroll
@@ -144,6 +171,12 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
     //    };
     // }
 
+    /**
+     * Constructor
+     *
+     * @param context - application context.
+     * @param attrs - layout attributes.
+     */
     public StickyHeaderListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
@@ -151,12 +184,29 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
         // createDataListener();
      }
 
+    /**
+     * Scroll status changes listener
+     *
+     * @param view - the scrolled view
+     * @param scrollState - new scroll state.
+     */
+    @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         if (mListener != null) {
             mListener.onScrollStateChanged(view, scrollState);
         }
     }
 
+    /**
+     * Scroll events listener
+     *
+     * @param view - the scrolled view
+     * @param firstVisibleItem - the index (in the list's adapter) of the top
+     *            visible item.
+     * @param visibleItemCount - the number of visible items in the list
+     * @param totalItemCount - the total number items in the list
+     */
+    @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
             int totalItemCount) {
 
