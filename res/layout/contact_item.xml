@@ -59,6 +59,7 @@
         android:layout_gravity="center_vertical"
         android:paddingRight="3dip"
         android:visibility="gone"
+        android:contentDescription="@string/accessibility_remove_attendee"
         style="@style/MinusButton" />
 
 </LinearLayout>

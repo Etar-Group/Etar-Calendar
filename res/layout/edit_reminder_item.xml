@@ -27,6 +27,7 @@
         android:layout_weight="1"
         android:gravity="top|left"
         android:layout_marginRight="2dip"
+        android:contentDescription="@string/accessibility_reminder_time"
         android:entries="@array/reminder_minutes_labels"/>
 
     <Spinner android:id="@+id/reminder_method_value"
@@ -36,6 +37,7 @@
         android:layout_weight="1"
         android:gravity="top|left"
         android:layout_marginRight="2dip"
+        android:contentDescription="@string/accessibility_reminder_type"
         android:entries="@array/reminder_methods_labels"/>
 
     <ImageButton android:id="@+id/reminder_remove"
@@ -43,5 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:contentDescription="@string/accessibility_remove_reminder"
+
     />
 </LinearLayout>

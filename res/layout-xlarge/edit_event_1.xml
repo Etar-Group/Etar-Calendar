@@ -93,12 +93,14 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
+                android:contentDescription="@string/accessibility_pick_start_date"
                 style="@style/TextAppearance.EditEvent_Spinner" />
             <Button
                 android:id="@+id/start_time"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:contentDescription="@string/accessibility_pick_start_time"
                 style="@style/TextAppearance.EditEvent_Spinner" />
         </LinearLayout>
     </TableRow>
@@ -140,12 +142,14 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
+                android:contentDescription="@string/accessibility_pick_end_date"
                 style="@style/TextAppearance.EditEvent_Spinner" />
             <Button
                 android:id="@+id/end_time"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:contentDescription="@string/accessibility_pick_end_time"
                 style="@style/TextAppearance.EditEvent_Spinner" />
         </LinearLayout>
     </TableRow>
@@ -195,6 +199,7 @@
         <Button
             android:id="@+id/timezone_button"
             android:gravity="left|center_vertical"
+            android:contentDescription="@string/accessibility_pick_time_zone"
             style="@style/TextAppearance.EditEvent_Spinner" />
     </TableRow>
 
@@ -210,6 +215,7 @@
             android:id="@+id/is_all_day"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:contentDescription="@string/accessibility_all_day"
             android:gravity="center_vertical" />
     </TableRow>
 
@@ -275,6 +281,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/PlusButton"
+                android:contentDescription="@string/accessibility_add_reminder"
                 android:gravity="center_vertical|right" />
         </LinearLayout>
     </TableRow>

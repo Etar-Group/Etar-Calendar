@@ -521,6 +521,26 @@
     <string name="directory_searching_fmt">Searching <xliff:g id="domain">%s</xliff:g>\u2026</string>
 
     <!-- Accessibility Events -->
+    <!-- Strings that describes actions for buttons without text [CHAR LIMIT = NONE]-->
+    <string name="accessibility_new_event">New event</string>
+    <string name="accessibility_remove_attendee">Remove attendee</string>
+    <string name="accessibility_pick_start_date">Start date</string>
+    <string name="accessibility_pick_start_time">Start time</string>
+    <string name="accessibility_pick_end_date">End date</string>
+    <string name="accessibility_pick_end_time">End time</string>
+    <string name="accessibility_pick_time_zone">Time zone</string>
+    <string name="accessibility_add_reminder">Add reminder</string>
+    <string name="accessibility_remove_reminder">Remove reminder</string>
+    <string name="accessibility_add_attendee">Add attendee</string>
+    <string name="accessibility_sync_cal">Sync calendar</string>
+    <string name="accessibility_all_day">All day event</string>
+    <string name="accessibility_create_event">New event</string>
+    <string name="accessibility_refresh">Refresh</string>
+    <string name="accessibility_repeats">Repetition</string>
+    <string name="accessibility_reminder_time">Reminder time</string>
+    <string name="accessibility_reminder_type">Reminder type</string>
+    <string name="accessibility_reminder_showmeas">Show me as</string>
+    <string name="accessibility_reminder_privacy">Privacy</string>
 
     <!--
       Source: A value for announcing the current event index (example: "Event 2 of 6").

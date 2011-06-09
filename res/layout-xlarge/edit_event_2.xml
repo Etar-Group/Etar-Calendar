@@ -98,6 +98,7 @@
                 style="@style/PlusButton"
                 android:layout_gravity="center_vertical|right"
                 android:enabled="false"
+                android:contentDescription="@string/accessibility_add_attendee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

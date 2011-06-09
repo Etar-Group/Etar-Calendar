@@ -114,6 +114,7 @@
                 style="@style/PlusButton"
                 android:layout_gravity="center_vertical|right"
                 android:enabled="false"
+                android:contentDescription="@string/accessibility_add_attendee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -174,6 +175,7 @@
             style="@style/TextAppearance.EditEvent_Value"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:contentDescription="@string/accessibility_repeats"
             android:prompt="@string/repeats_label" />
     </LinearLayout>
 
@@ -217,6 +219,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/PlusButton"
+                android:contentDescription="@string/accessibility_add_reminder"
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
     </LinearLayout>
@@ -246,6 +249,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:contentDescription="@string/accessibility_reminder_showmeas"
             android:prompt="@string/presence_label" />
     </LinearLayout>
 
@@ -272,6 +276,7 @@
             style="@style/TextAppearance.EditEvent_Value"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:contentDescription="@string/accessibility_reminder_privacy"
             android:prompt="@string/privacy_label" />
     </LinearLayout>
 
