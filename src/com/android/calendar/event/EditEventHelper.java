@@ -160,11 +160,11 @@ public class EditEventHelper {
 
     static final String[] CALENDARS_PROJECTION = new String[] {
             Calendars._ID, // 0
-            Calendars.DISPLAY_NAME, // 1
+            Calendars.CALENDAR_DISPLAY_NAME, // 1
             Calendars.OWNER_ACCOUNT, // 2
             Calendars.CALENDAR_COLOR, // 3
             Calendars.CAN_ORGANIZER_RESPOND, // 4
-            Calendars.ACCESS_LEVEL, // 5
+            Calendars.CALENDAR_ACCESS_LEVEL, // 5
             Calendars.VISIBLE, // 6
             Calendars.MAX_REMINDERS, // 7
             Calendars.ALLOWED_REMINDERS, // 8
@@ -179,8 +179,8 @@ public class EditEventHelper {
     static final int CALENDARS_INDEX_MAX_REMINDERS = 7;
     static final int CALENDARS_INDEX_ALLOWED_REMINDERS = 8;
 
-    static final String CALENDARS_WHERE_WRITEABLE_VISIBLE = Calendars.ACCESS_LEVEL + ">="
-            + Calendars.CONTRIBUTOR_ACCESS + " AND " + Calendars.VISIBLE + "=1";
+    static final String CALENDARS_WHERE_WRITEABLE_VISIBLE = Calendars.CALENDAR_ACCESS_LEVEL + ">="
+            + Calendars.CAL_ACCESS_CONTRIBUTOR + " AND " + Calendars.VISIBLE + "=1";
 
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
 
@@ -1069,12 +1069,12 @@ public class EditEventHelper {
     }
 
     public static boolean canModifyCalendar(CalendarEventModel model) {
-        return model.mCalendarAccessLevel >= Calendars.CONTRIBUTOR_ACCESS
+        return model.mCalendarAccessLevel >= Calendars.CAL_ACCESS_CONTRIBUTOR
                 || model.mCalendarId == -1;
     }
 
     public static boolean canAddReminders(CalendarEventModel model) {
-        return model.mCalendarAccessLevel >= Calendars.READ_ACCESS;
+        return model.mCalendarAccessLevel >= Calendars.CAL_ACCESS_READ;
     }
 
     public static boolean canRespond(CalendarEventModel model) {

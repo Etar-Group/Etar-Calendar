@@ -50,7 +50,7 @@ public class SelectCalendarsFragment extends Fragment
         Calendars._ID,
         Calendars.ACCOUNT_NAME,
         Calendars.OWNER_ACCOUNT,
-        Calendars.DISPLAY_NAME,
+        Calendars.CALENDAR_DISPLAY_NAME,
         Calendars.CALENDAR_COLOR,
         Calendars.VISIBLE,
         Calendars.SYNC_EVENTS,

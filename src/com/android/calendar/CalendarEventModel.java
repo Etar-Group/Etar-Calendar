@@ -242,7 +242,7 @@ public class CalendarEventModel implements Serializable {
     public boolean mGuestsCanSeeGuests = false;
 
     public boolean mOrganizerCanRespond = false;
-    public int mCalendarAccessLevel = Calendars.CONTRIBUTOR_ACCESS;
+    public int mCalendarAccessLevel = Calendars.CAL_ACCESS_CONTRIBUTOR;
 
     // The model can't be updated with a calendar cursor until it has been
     // updated with an event cursor.
@@ -398,7 +398,7 @@ public class CalendarEventModel implements Serializable {
         mGuestsCanSeeGuests = false;
         mAccessLevel = 0;
         mOrganizerCanRespond = false;
-        mCalendarAccessLevel = Calendars.CONTRIBUTOR_ACCESS;
+        mCalendarAccessLevel = Calendars.CAL_ACCESS_CONTRIBUTOR;
         mModelUpdatedWithEventCursor = false;
 
         mReminders = new ArrayList<ReminderEntry>();

@@ -127,7 +127,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private static final String[] CALENDARS_PROJECTION = new String[] {
         Calendars._ID,          // 0
-        Calendars.ACCESS_LEVEL, // 1
+        Calendars.CALENDAR_ACCESS_LEVEL, // 1
         Calendars.OWNER_ACCOUNT, // 2
     };
     private static final int CALENDARS_INDEX_ACCESS_LEVEL = 1;
@@ -3978,7 +3978,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int getEventAccessLevel(Context context, Event e) {
         ContentResolver cr = context.getContentResolver();
 
-        int accessLevel = Calendars.NO_ACCESS;
+        int accessLevel = Calendars.CAL_ACCESS_NONE;
 
         // Get the calendar id for this event
         Cursor cursor = cr.query(ContentUris.withAppendedId(Events.CONTENT_URI, e.id),
@@ -4012,7 +4012,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             cursor.close();
         }
 
-        if (accessLevel < Calendars.CONTRIBUTOR_ACCESS) {
+        if (accessLevel < Calendars.CAL_ACCESS_CONTRIBUTOR) {
             return ACCESS_LEVEL_NONE;
         }
 

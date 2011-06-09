@@ -407,7 +407,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
         // Kick off the query for the event
         boolean newEvent = mUri == null;
         if (!newEvent) {
-            mModel.mCalendarAccessLevel = Calendars.NO_ACCESS;
+            mModel.mCalendarAccessLevel = Calendars.CAL_ACCESS_NONE;
             mOutstandingQueries = TOKEN_ALL;
             if (DEBUG) {
                 Log.d(TAG, "startQuery: uri for event is " + mUri.toString());
