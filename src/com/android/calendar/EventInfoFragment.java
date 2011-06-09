@@ -858,7 +858,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     private void updateEvent(View view) {
-        if (mEventCursor == null) {
+        if (mEventCursor == null || view == null) {
             return;
         }
 
@@ -926,10 +926,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         // Organizer
-        // TODO: Hide if organizer is the user
+        // Do not show if the user is the organizer
         setTextCommon(view, R.id.organizer, organizer);
-        setVisibilityCommon(view, R.id.organizer_container, View.VISIBLE);
-
+        if (!mIsOrganizer) {
+            setVisibilityCommon(view, R.id.organizer_container, View.VISIBLE);
+        } else {
+            setVisibilityCommon(view, R.id.organizer_container, View.GONE);
+        }
         // Repeat
         if (!TextUtils.isEmpty(rRule)) {
             EventRecurrence eventRecurrence = new EventRecurrence();
@@ -1039,6 +1042,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
             String eventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
             mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(eventOrganizer);
+            if (!mIsOrganizer) {
+                setVisibilityCommon(view, R.id.organizer_container, View.VISIBLE);
+            } else {
+                setVisibilityCommon(view, R.id.organizer_container, View.GONE);
+            }
             mHasAttendeeData = mEventCursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
             mCanModifyCalendar =
                     mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) >= Calendars.CONTRIBUTOR_ACCESS;
