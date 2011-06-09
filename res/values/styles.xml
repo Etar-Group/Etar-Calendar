@@ -100,7 +100,7 @@
         <item name="android:paddingTop">12dip</item>
     </style>
 
-    <style name="TextAppearance.EditEvent_Spinner" parent="android:style/Widget.Holo.Light.Spinner.DropDown">
+    <style name="TextAppearance.EditEvent_Spinner" parent="android:style/Widget.Holo.Light.Spinner">
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">top|left</item>
         <item name="android:textColor">#FF000000</item>
