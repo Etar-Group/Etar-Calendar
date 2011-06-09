@@ -25,6 +25,7 @@ import com.android.calendar.event.EditEventHelper;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Service;
 import android.content.ActivityNotFoundException;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
@@ -342,7 +343,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     }
 
-
     public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
             int attendeeResponse, boolean isDialog) {
 
@@ -362,6 +362,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mAttendeeResponseFromIntent = attendeeResponse;
     }
 
+    // This is currently required by the fragment manager.
     public EventInfoFragment() {
     }
 
@@ -469,6 +470,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mCalendar = (TextView) mView.findViewById(R.id.calendar);
         mDescButton = (Button)mView.findViewById(R.id.desc_expand);
         mDescButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 mShowMaxDescription = !mShowMaxDescription;
                 updateDescription();
@@ -979,7 +981,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     private void sendAccessibilityEvent() {
-        AccessibilityManager am = AccessibilityManager.getInstance(getActivity());
+        AccessibilityManager am =
+            (AccessibilityManager) getActivity().getSystemService(Service.ACCESSIBILITY_SERVICE);
         if (!am.isEnabled()) {
             return;
         }
