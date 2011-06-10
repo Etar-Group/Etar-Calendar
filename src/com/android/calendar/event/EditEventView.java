@@ -1084,6 +1084,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 || model.mOrganizer.endsWith(GOOGLE_SECONDARY_CALENDAR)) {
             mView.findViewById(R.id.organizer_label).setVisibility(View.GONE);
             mView.findViewById(R.id.organizer).setVisibility(View.GONE);
+            mOrganizerGroup.setVisibility(View.GONE);
         } else {
             ((TextView) mView.findViewById(R.id.organizer)).setText(model.mOrganizerDisplayName);
         }
@@ -1111,7 +1112,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             calendarGroup.setVisibility(View.GONE);
             TextView tv = (TextView) mView.findViewById(R.id.calendar_textview);
             tv.setText(model.mCalendarDisplayName);
-            mColorChip.setBackgroundColor(model.mCalendarColor);
+            tv.setBackgroundColor(model.mCalendarColor);
         } else {
             View calendarGroup = mView.findViewById(R.id.calendar_group);
             calendarGroup.setVisibility(View.GONE);
