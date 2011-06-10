@@ -148,7 +148,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         // TODO create a broadcast listener for ACTION_PROVIDER_CHANGED to update the cursor
         mCursor = c;
         mIdColumn = c.getColumnIndexOrThrow(Calendars._ID);
-        mNameColumn = c.getColumnIndexOrThrow(Calendars.DISPLAY_NAME);
+        mNameColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_DISPLAY_NAME);
         mColorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         mVisibleColumn = c.getColumnIndexOrThrow(Calendars.VISIBLE);
 

@@ -131,7 +131,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Events.EVENT_TIMEZONE,       // 7  do not remove; used in DeleteEventHelper
         Events.DESCRIPTION,          // 8
         Events.EVENT_LOCATION,       // 9
-        Calendars.ACCESS_LEVEL,      // 10
+        Calendars.CALENDAR_ACCESS_LEVEL,      // 10
         Calendars.CALENDAR_COLOR,             // 11
         Events.HAS_ATTENDEE_DATA,    // 12
         Events.ORGANIZER,            // 13
@@ -171,7 +171,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     static final String[] CALENDARS_PROJECTION = new String[] {
         Calendars._ID,           // 0
-        Calendars.DISPLAY_NAME,  // 1
+        Calendars.CALENDAR_DISPLAY_NAME,  // 1
         Calendars.OWNER_ACCOUNT, // 2
         Calendars.CAN_ORGANIZER_RESPOND // 3
     };
@@ -180,7 +180,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     static final int CALENDARS_INDEX_OWNER_CAN_RESPOND = 3;
 
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
-    static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.DISPLAY_NAME + "=?";
+    static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.CALENDAR_DISPLAY_NAME + "=?";
 
     private View mView;
 
@@ -1047,9 +1047,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
             mHasAttendeeData = mEventCursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
             mCanModifyCalendar =
-                    mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) >= Calendars.CONTRIBUTOR_ACCESS;
+                    mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) >= Calendars.CAL_ACCESS_CONTRIBUTOR;
             mIsBusyFreeCalendar =
-                    mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) == Calendars.FREEBUSY_ACCESS;
+                    mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) == Calendars.CAL_ACCESS_FREEBUSY;
 
             if (!mIsBusyFreeCalendar) {
                 Button b = (Button) mView.findViewById(R.id.edit);

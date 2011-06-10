@@ -56,11 +56,11 @@ public class SelectCalendarsSyncFragment extends ListFragment
             + Calendars.ACCOUNT_TYPE + "=?";
     // is primary lets us sort the user's main calendar to the top of the list
     private static final String IS_PRIMARY = "\"primary\"";
-    private static final String SORT_ORDER = IS_PRIMARY + " DESC," + Calendars.DISPLAY_NAME
+    private static final String SORT_ORDER = IS_PRIMARY + " DESC," + Calendars.CALENDAR_DISPLAY_NAME
             + COLLATE_NOCASE;
 
     private static final String[] PROJECTION = new String[] { Calendars._ID,
-            Calendars.ACCOUNT_NAME, Calendars.OWNER_ACCOUNT, Calendars.DISPLAY_NAME,
+            Calendars.ACCOUNT_NAME, Calendars.OWNER_ACCOUNT, Calendars.CALENDAR_DISPLAY_NAME,
             Calendars.CALENDAR_COLOR, Calendars.VISIBLE, Calendars.SYNC_EVENTS,
             "(" + Calendars.ACCOUNT_NAME + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY, };
     private static final int COLUMN_ID = 0;
