@@ -82,7 +82,7 @@
             android:id="@+id/add_attendees_group"
             android:orientation="horizontal">
             <!-- ATTENDEES INPUT -->
-            <MultiAutoCompleteTextView
+            <com.android.ex.chips.RecipientEditTextView
                 android:id="@+id/attendees"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"

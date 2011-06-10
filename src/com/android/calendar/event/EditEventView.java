@@ -23,12 +23,17 @@ import com.android.calendar.EmailAddressAdapter;
 import com.android.calendar.EventInfoFragment;
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
+import com.android.calendar.RecipientAdapter;
 import com.android.calendar.TimezoneAdapter;
 import com.android.calendar.TimezoneAdapter.TimezoneRow;
 import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
+import com.android.ex.chips.AccountSpecifier;
+import com.android.ex.chips.BaseRecipientAdapter;
+import com.android.ex.chips.ChipsUtil;
+import com.android.ex.chips.RecipientEditTextView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -44,6 +49,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.pim.EventRecurrence;
 import android.provider.CalendarContract.Attendees;
@@ -153,7 +160,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private View mView;
     private CalendarEventModel mModel;
     private Cursor mCalendarsCursor;
-    private EmailAddressAdapter mAddressAdapter;
+    private AccountSpecifier mAddressAdapter;
     private Rfc822Validator mEmailValidator;
     private TimezoneAdapter mTimezoneAdapter;
 
@@ -977,8 +984,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mModel = model;
 
         // Need to close the autocomplete adapter to prevent leaking cursors.
-        if (mAddressAdapter != null) {
-            mAddressAdapter.close();
+        if (mAddressAdapter != null && mAddressAdapter instanceof EmailAddressAdapter) {
+            ((EmailAddressAdapter)mAddressAdapter).close();
             mAddressAdapter = null;
         }
 
@@ -1033,7 +1040,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     domain = ownerDomain;
                 }
             }
-            mAddressAdapter = new EmailAddressAdapter(mActivity);
             mEmailValidator = new Rfc822Validator(domain);
             mAttendeesList = initMultiAutoCompleteTextView(R.id.attendees);
             mAttendeesList.addTextChangedListener(this);
@@ -1456,8 +1462,27 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     // From com.google.android.gm.ComposeActivity
     private MultiAutoCompleteTextView initMultiAutoCompleteTextView(int res) {
-        MultiAutoCompleteTextView list = (MultiAutoCompleteTextView) mView.findViewById(res);
-        list.setAdapter(mAddressAdapter);
+        RecipientEditTextView list = (RecipientEditTextView) mView.findViewById(res);
+        if (ChipsUtil.supportsChipsUi()) {
+            mAddressAdapter = new RecipientAdapter(mActivity);
+            list.setAdapter((BaseRecipientAdapter) mAddressAdapter);
+            Resources r = mActivity.getResources();
+            Bitmap def = BitmapFactory.decodeResource(r, R.drawable.ic_contact_picture);
+            list.setChipDimensions(
+                    r.getDrawable(R.drawable.chip_background),
+                    r.getDrawable(R.drawable.chip_background_selected),
+                    r.getDrawable(R.drawable.chip_background_invalid),
+                    r.getDrawable(R.drawable.chip_delete),
+                    def,
+                    R.string.more_string,
+                    R.layout.chips_alternate_item,
+                    r.getDimension(R.dimen.chip_height),
+                    r.getDimension(R.dimen.chip_padding),
+                    r.getDimension(R.dimen.chip_text_size));
+        } else {
+            mAddressAdapter = new EmailAddressAdapter(mActivity);
+            list.setAdapter((EmailAddressAdapter)mAddressAdapter);
+        }
         list.setTokenizer(new Rfc822Tokenizer());
         list.setValidator(mEmailValidator);
 
