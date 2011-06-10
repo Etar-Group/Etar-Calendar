@@ -633,6 +633,11 @@ public class EditEventFragment extends Fragment implements EventHandler {
             // We only want this to get called once, either because the user
             // pressed back/home or one of the buttons on screen
             mSaveOnDetach = false;
+            if (mModification == Utils.MODIFY_UNINITIALIZED) {
+                // If this is uninitialized the user hit back, the only
+                // changeable item is response to default to all events.
+                mModification = Utils.MODIFY_ALL;
+            }
 
             if ((mCode & Utils.DONE_SAVE) != 0 && mModel != null
                     && (EditEventHelper.canRespond(mModel)
