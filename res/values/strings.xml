@@ -223,12 +223,12 @@
     <!-- Label for the event description -->
     <string name="description_label">Description</string>
     <!-- Label for the 'Presence' of an event, which can be either 'busy' (the default)
-         or 'available' -->
+         or 'available'  [CHAR LIMIT=15] -->
     <string name="presence_label">Show me as</string>
     <!-- Label for the 'Privacy' of an event, which can be either 'private'
-         or 'public' -->
+         or 'public' [CHAR LIMIT=15] -->
     <string name="privacy_label">Privacy</string>
-    <!-- Label for the list of reminders for an event -->
+    <!-- Label for the list of reminders for an event [CHAR LIMIT=20] -->
     <string name="reminders_label">Add reminder</string>
     <!-- Title of alert shown if the user tries to create an event and has no calendars -->
     <string name="no_syncable_calendars">No calendars</string>
@@ -271,6 +271,8 @@
     <string name="event_info_desc_more">More</string>
     <!-- Less label in description button [CHAR LIMIT=6]-->
     <string name="event_info_desc_less">Less</string>
+    <!-- Reminders label [CHAR LIMIT=15]-->
+    <string name="event_info_reminders_label">Reminders</string>
 
     <!-- Agenda View strings -->
     <skip />
@@ -521,25 +523,42 @@
     <string name="directory_searching_fmt">Searching <xliff:g id="domain">%s</xliff:g>\u2026</string>
 
     <!-- Accessibility Events -->
-    <!-- Strings that describes actions for buttons without text [CHAR LIMIT = NONE]-->
+    <!-- Strings that describes actions for buttons without text -->
+    <!-- Create a new calendar event [CHAR LIMIT = NONE]-->
     <string name="accessibility_new_event">New event</string>
+    <!-- Remove a name of an attendee from a calendar event [CHAR LIMIT = NONE]-->
     <string name="accessibility_remove_attendee">Remove attendee</string>
+    <!-- Pick a starting date for a new event [CHAR LIMIT = NONE]-->
     <string name="accessibility_pick_start_date">Start date</string>
+    <!-- Pick a starting time for a new event [CHAR LIMIT = NONE]-->
     <string name="accessibility_pick_start_time">Start time</string>
+    <!-- Pick the ending date for a new event [CHAR LIMIT = NONE]-->
     <string name="accessibility_pick_end_date">End date</string>
+    <!-- Pick the ending time for a new event[CHAR LIMIT = NONE]-->
     <string name="accessibility_pick_end_time">End time</string>
+    <!-- Select a time zone for a new event [CHAR LIMIT = NONE]-->
     <string name="accessibility_pick_time_zone">Time zone</string>
+    <!-- Add a reminder to an event [CHAR LIMIT = NONE]-->
     <string name="accessibility_add_reminder">Add reminder</string>
+    <!-- Remove a reminder from an event [CHAR LIMIT = NONE]-->
     <string name="accessibility_remove_reminder">Remove reminder</string>
+    <!-- Add a new attendee to an event [CHAR LIMIT = NONE]-->
     <string name="accessibility_add_attendee">Add attendee</string>
+    <!-- Choose if to sync/unsync this calendar with its server [CHAR LIMIT = NONE]-->
     <string name="accessibility_sync_cal">Sync calendar</string>
+    <!-- Mark this event as an "all day event" [CHAR LIMIT = NONE]-->
     <string name="accessibility_all_day">All day event</string>
-    <string name="accessibility_create_event">New event</string>
+    <!-- Refresh the data in the calendar [CHAR LIMIT = NONE]-->
     <string name="accessibility_refresh">Refresh</string>
+    <!-- Choose the type of repetition for the event (daily, weekly, etc.[CHAR LIMIT = NONE]-->
     <string name="accessibility_repeats">Repetition</string>
+    <!-- Set the time for the reminder[CHAR LIMIT = NONE]-->
     <string name="accessibility_reminder_time">Reminder time</string>
+    <!-- Set the type of the reminder (popup/email/sms)[CHAR LIMIT = NONE]-->
     <string name="accessibility_reminder_type">Reminder type</string>
+    <!-- Select the way you are visible for the event (busy/free) [CHAR LIMIT = NONE]-->
     <string name="accessibility_reminder_showmeas">Show me as</string>
+    <!-- Set the event as private/public/default [CHAR LIMIT = NONE]-->
     <string name="accessibility_reminder_privacy">Privacy</string>
 
     <!--
