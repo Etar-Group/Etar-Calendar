@@ -15,4 +15,8 @@ LOCAL_PACKAGE_NAME := CalendarTests
 
 LOCAL_INSTRUMENTATION_FOR := Calendar
 
+# unbundled
+#LOCAL_STATIC_JAVA_LIBRARIES := android-common
+#LOCAL_SDK_VERSION := current
+
 include $(BUILD_PACKAGE)

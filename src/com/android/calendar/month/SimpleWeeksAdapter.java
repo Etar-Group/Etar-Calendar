@@ -36,8 +36,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-import libcore.icu.LocaleData;
-
 /**
  * <p>
  * This is a specialized adapter for creating a list of weeks with selectable
