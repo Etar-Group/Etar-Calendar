@@ -95,7 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:singleLine="true"
+                        android:singleLine="false"
                         android:layout_marginTop="3dip"
                         android:paddingLeft="10dip"
                         android:textColor="@android:color/white"
