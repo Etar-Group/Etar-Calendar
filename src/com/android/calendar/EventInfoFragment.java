@@ -925,14 +925,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             setVisibilityCommon(view, R.id.timezone_container, View.GONE);
         }
 
-        // Organizer
-        // Do not show if the user is the organizer
-        setTextCommon(view, R.id.organizer, organizer);
-        if (!mIsOrganizer) {
-            setVisibilityCommon(view, R.id.organizer_container, View.VISIBLE);
-        } else {
-            setVisibilityCommon(view, R.id.organizer_container, View.GONE);
-        }
+        // Organizer view is setup in the updateCalendar method
+
         // Repeat
         if (!TextUtils.isEmpty(rRule)) {
             EventRecurrence eventRecurrence = new EventRecurrence();
@@ -1045,6 +1039,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
             String eventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
             mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(eventOrganizer);
+            setTextCommon(view, R.id.organizer, eventOrganizer);
             if (!mIsOrganizer) {
                 setVisibilityCommon(view, R.id.organizer_container, View.VISIBLE);
             } else {

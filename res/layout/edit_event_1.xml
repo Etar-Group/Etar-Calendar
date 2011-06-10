@@ -45,14 +45,10 @@
         android:layout_height="wrap_content"
         android:focusable="true">
         <TextView
-            android:text="@string/edit_event_calendar_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
-        <TextView
             android:id="@+id/calendar_textview"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:textColor="#FFFFFFFF"
             style="@style/TextAppearance.EditEvent_Value" />
     </LinearLayout>
 

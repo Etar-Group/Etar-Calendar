@@ -68,7 +68,10 @@
                 style="@style/TextAppearance.EditEvent"
                 android:text="@string/response_no" />
         </RadioGroup>
+        <View
+            style="@style/EditEventSeparator"/>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/organizer_row"
         android:orientation="vertical"
@@ -86,6 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             style="@style/TextAppearance.EditEvent_Value" />
+        <View
+            style="@style/EditEventSeparator"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/add_attendees_row"
@@ -225,36 +230,41 @@
     </LinearLayout>
 
 
-    <View
-        style="@style/EditEventSeparator"/>
 
        <!-- PRESENCE - Show me as [busy | available] -->
     <LinearLayout
         android:id="@+id/availability_row"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/presence_label"
-            android:text="@string/presence_label"
-            android:layout_weight="0"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" 
-            android:paddingRight="4dip" />
-        <Spinner
-            android:id="@+id/availability"
-            android:entries="@array/availability"
-            style="@style/TextAppearance.EditEvent_Value"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:contentDescription="@string/accessibility_reminder_showmeas"
-            android:prompt="@string/presence_label" />
+        <View
+            style="@style/EditEventSeparator"/>
+        <LinearLayout
+            android:id="@+id/availability_row"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/presence_label"
+                android:text="@string/presence_label"
+                android:layout_weight="0"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/TextAppearance.EditEvent_Label"
+                android:paddingRight="4dip" />
+            <Spinner
+                android:id="@+id/availability"
+                android:entries="@array/availability"
+                style="@style/TextAppearance.EditEvent_Value"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:contentDescription="@string/accessibility_reminder_showmeas"
+                android:prompt="@string/presence_label" />
+        </LinearLayout>
+        <View
+            style="@style/EditEventSeparator"/>
     </LinearLayout>
-
-    <View
-        style="@style/EditEventSeparator"/>
 
         <!-- PRIVACY -->
     <LinearLayout
