@@ -73,7 +73,7 @@
         android:focusable="true">
         <EditText
             android:id="@+id/location"
-            android:singleLine="true"
+            android:singleLine="false"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:imeOptions="actionDone"

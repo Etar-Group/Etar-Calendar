@@ -227,7 +227,7 @@
             style="@style/TextAppearance.EditEvent_Label" />
         <EditText
             android:id="@+id/location"
-            android:singleLine="true"
+            android:singleLine="false"
             style="@style/TextAppearance.EditEvent_Value"
             android:hint="@string/hint_where" />
     </TableRow>
