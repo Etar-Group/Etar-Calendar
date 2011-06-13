@@ -135,7 +135,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Calendars.CALENDAR_COLOR,             // 11
         Events.HAS_ATTENDEE_DATA,    // 12
         Events.ORGANIZER,            // 13
-        Events.ORIGINAL_SYNC_ID        // 14 do not remove; used in DeleteEventHelper
+        Events.ORIGINAL_SYNC_ID      // 14 do not remove; used in DeleteEventHelper
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -242,7 +242,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private boolean mDismissOnResume = false;
     private int mX = -1;
     private int mY = -1;
-    private static boolean mIsFullScreen = true;
     private Button mDescButton;  // Button to expand/collapse the description
     private String mMoreLabel;   // Labels for the button
     private String mLessLabel;
@@ -669,7 +668,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
      * Asynchronously saves the response to an invitation if the user changed
      * the response. Returns true if the database will be updated.
      *
-     * @param cr the ContentResolver
      * @return true if the database will be changed
      */
     private boolean saveResponse() {
@@ -705,7 +703,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             case -1:
                 return false;
             case UPDATE_SINGLE:
-                createExceptionResponse(mEventId, mCalendarOwnerAttendeeId, status);
+                createExceptionResponse(mEventId, status);
                 return true;
             case UPDATE_ALL:
                 updateResponse(mEventId, mCalendarOwnerAttendeeId, status);
@@ -734,83 +732,28 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 null, null, Utils.UNDO_DELAY);
     }
 
-    private void createExceptionResponse(long eventId, long attendeeId,
-            int status) {
-        if (mEventCursor == null || !mEventCursor.moveToFirst()) {
-            return;
-        }
-        // TODO change this fragment to build a CalendarEventModel and save via
-        // EditEventHelper
-
+    /**
+     * Creates an exception to a recurring event.  The only change we're making is to the
+     * "self attendee status" value.  The provider will take care of updating the corresponding
+     * Attendees.attendeeStatus entry.
+     *
+     * @param eventId The recurring event.
+     * @param status The new value for selfAttendeeStatus.
+     */
+    private void createExceptionResponse(long eventId, int status) {
         ContentValues values = new ContentValues();
-
-        String title = mEventCursor.getString(EVENT_INDEX_TITLE);
-        String timezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
-        int calendarId = mEventCursor.getInt(EVENT_INDEX_CALENDAR_ID);
-        boolean allDay = mEventCursor.getInt(EVENT_INDEX_ALL_DAY) != 0;
-        String syncId = mEventCursor.getString(EVENT_INDEX_SYNC_ID);
-
-        values.put(Events.TITLE, title);
-        values.put(Events.EVENT_TIMEZONE, timezone);
-        values.put(Events.ALL_DAY, allDay ? 1 : 0);
-        values.put(Events.CALENDAR_ID, calendarId);
-        values.put(Events.DTSTART, mStartMillis);
-        values.put(Events.DTEND, mEndMillis);
-        values.put(Events.ORIGINAL_SYNC_ID, syncId);
         values.put(Events.ORIGINAL_INSTANCE_TIME, mStartMillis);
-        values.put(Events.ORIGINAL_ALL_DAY, allDay ? 1 : 0);
-        values.put(Events.STATUS, Events.STATUS_CONFIRMED);
         values.put(Events.SELF_ATTENDEE_STATUS, status);
+        values.put(Events.STATUS, Events.STATUS_CONFIRMED);
 
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-        int eventIdIndex = ops.size();
+        Uri exceptionUri = Uri.withAppendedPath(Events.EXCEPTION_CONTENT_URI,
+                String.valueOf(eventId));
+        ops.add(ContentProviderOperation.newInsert(exceptionUri).withValues(values).build());
 
-        ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(values).build());
-
-        if (mHasAttendeeData) {
-            // Insert the new attendees
-            for (Attendee attendee : mAcceptedAttendees) {
-                addAttendee(
-                        values, ops, eventIdIndex, attendee, Attendees.ATTENDEE_STATUS_ACCEPTED);
-            }
-            for (Attendee attendee : mDeclinedAttendees) {
-                addAttendee(
-                        values, ops, eventIdIndex, attendee, Attendees.ATTENDEE_STATUS_DECLINED);
-            }
-            for (Attendee attendee : mTentativeAttendees) {
-                addAttendee(
-                        values, ops, eventIdIndex, attendee, Attendees.ATTENDEE_STATUS_TENTATIVE);
-            }
-            for (Attendee attendee : mNoResponseAttendees) {
-                addAttendee(values, ops, eventIdIndex, attendee, Attendees.ATTENDEE_STATUS_NONE);
-            }
-        }
-
-        // Create a recurrence exception
-        mHandler.startBatch(
-                mHandler.getNextToken(), null, CalendarContract.AUTHORITY, ops, Utils.UNDO_DELAY);
-    }
-
-    /**
-     * @param values
-     * @param ops
-     * @param eventIdIndex
-     * @param attendee
-     */
-    private void addAttendee(ContentValues values, ArrayList<ContentProviderOperation> ops,
-            int eventIdIndex, Attendee attendee, int attendeeStatus) {
-        ContentProviderOperation.Builder b;
-        values.clear();
-        values.put(Attendees.ATTENDEE_NAME, attendee.mName);
-        values.put(Attendees.ATTENDEE_EMAIL, attendee.mEmail);
-        values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ATTENDEE);
-        values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
-        values.put(Attendees.ATTENDEE_STATUS, attendeeStatus);
-
-        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI).withValues(values);
-        b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
-        ops.add(b.build());
-    }
+        mHandler.startBatch(mHandler.getNextToken(), null, CalendarContract.AUTHORITY, ops,
+                Utils.UNDO_DELAY);
+   }
 
     public static int getResponseFromButtonId(int buttonId) {
         int response;
@@ -968,6 +911,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
                 }
                 textView.setOnTouchListener(new OnTouchListener() {
+                    @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         try {
                             return v.onTouchEvent(event);

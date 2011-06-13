@@ -42,8 +42,6 @@ import com.android.calendar.EventInfoFragment;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.event.EditEventActivity;
 
-import dalvik.system.VMRuntime;
-
 public class EventInfoActivity extends Activity {
 //        implements CalendarController.EventHandler, SearchView.OnQueryTextListener,
 //        SearchView.OnCloseListener {
