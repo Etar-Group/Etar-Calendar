@@ -16,8 +16,8 @@
 
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
+import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EVENT_END_TIME;
 
 import com.android.calendar.event.EditEventActivity;
 
@@ -34,8 +34,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Calendar.Calendars;
-import android.provider.Calendar.Events;
+import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;

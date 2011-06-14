@@ -27,8 +27,8 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 import android.pim.EventRecurrence;
-import android.provider.Calendar;
-import android.provider.Calendar.Events;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.widget.Button;
@@ -123,7 +123,7 @@ public class DeleteEventHelper {
             new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int button) {
             long id = mModel.mId; // mCursor.getInt(mEventIndexId);
-            Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
+            Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
             mService.startDelete(mService.getNextToken(), null, uri, null, null, Utils.UNDO_DELAY);
             if (mCallback != null) {
                 mCallback.run();
@@ -192,7 +192,7 @@ public class DeleteEventHelper {
      *  {@link DELETE_ALL_FOLLOWING}, {@link DELETE_ALL}, or -1
      */
     public void delete(long begin, long end, long eventId, int which) {
-        Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, eventId);
+        Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId);
         mService.startQuery(mService.getNextToken(), null, uri, EditEventHelper.EVENT_PROJECTION,
                 null, null, null);
         mStartMillis = begin;
@@ -303,7 +303,7 @@ public class DeleteEventHelper {
         ContentValues values = new ContentValues();
         values.put(Events.STATUS, Events.STATUS_CANCELED);
 
-        Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
+        Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
         mService.startUpdate(mService.getNextToken(), null, uri, values, null, null,
                 Utils.UNDO_DELAY);
     }
@@ -360,7 +360,7 @@ public class DeleteEventHelper {
                 break;
             }
             case DELETE_ALL: {
-                Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
+                Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
                 mService.startDelete(mService.getNextToken(), null, uri, null, null,
                         Utils.UNDO_DELAY);
                 break;
@@ -369,7 +369,7 @@ public class DeleteEventHelper {
                 // If we are deleting the first event in the series and all
                 // following events, then delete them all.
                 if (dtstart == mStartMillis) {
-                    Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
+                    Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
                     mService.startDelete(mService.getNextToken(), null, uri, null, null,
                             Utils.UNDO_DELAY);
                     break;
@@ -394,7 +394,7 @@ public class DeleteEventHelper {
                 ContentValues values = new ContentValues();
                 values.put(Events.DTSTART, dtstart);
                 values.put(Events.RRULE, eventRecurrence.toString());
-                Uri uri = ContentUris.withAppendedId(Calendar.Events.CONTENT_URI, id);
+                Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
                 mService.startUpdate(mService.getNextToken(), null, uri, values, null, null,
                         Utils.UNDO_DELAY);
                 break;

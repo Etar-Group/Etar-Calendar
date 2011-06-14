@@ -22,7 +22,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.provider.Calendar.CalendarCache;
+import android.provider.CalendarContract.CalendarCache;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;

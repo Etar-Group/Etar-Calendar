@@ -30,8 +30,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.net.Uri.Builder;
 import android.os.Bundle;
-import android.provider.Calendar;
-import android.provider.Calendar.CalendarAlerts;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.CalendarAlerts;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -185,11 +185,11 @@ public class AlertActivity extends Activity implements OnClickListener {
             long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
             long endMillis = cursor.getLong(AlertActivity.INDEX_END);
             Intent eventIntent = new Intent(Intent.ACTION_VIEW);
-            Builder builder = Calendar.CONTENT_URI.buildUpon();
+            Builder builder = CalendarContract.CONTENT_URI.buildUpon();
             builder.appendEncodedPath("events/" + id);
             eventIntent.setData(builder.build());
-            eventIntent.putExtra(Calendar.EVENT_BEGIN_TIME, startMillis);
-            eventIntent.putExtra(Calendar.EVENT_END_TIME, endMillis);
+            eventIntent.putExtra(CalendarContract.EVENT_BEGIN_TIME, startMillis);
+            eventIntent.putExtra(CalendarContract.EVENT_END_TIME, endMillis);
             alertActivity.startActivity(eventIntent);
 
             alertActivity.finish();

@@ -17,13 +17,13 @@
 
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
-import static android.provider.Calendar.Attendees.ATTENDEE_STATUS;
-import static android.provider.Calendar.Attendees.ATTENDEE_STATUS_ACCEPTED;
-import static android.provider.Calendar.Attendees.ATTENDEE_STATUS_DECLINED;
-import static android.provider.Calendar.Attendees.ATTENDEE_STATUS_NONE;
-import static android.provider.Calendar.Attendees.ATTENDEE_STATUS_TENTATIVE;
+import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EVENT_END_TIME;
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED;
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED;
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_NONE;
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_TENTATIVE;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -32,7 +32,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Calendar.Events;
+import android.provider.CalendarContract.Events;
 import android.util.Base64;
 import android.util.Log;
 

@@ -29,7 +29,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Calendar.Calendars;
+import android.provider.CalendarContract.Calendars;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

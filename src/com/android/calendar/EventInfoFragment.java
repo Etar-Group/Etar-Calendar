@@ -40,10 +40,10 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.pim.EventRecurrence;
-import android.provider.Calendar;
-import android.provider.Calendar.Attendees;
-import android.provider.Calendar.Calendars;
-import android.provider.Calendar.Events;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Attendees;
+import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Events;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Intents;
@@ -786,7 +786,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         // Create a recurrence exception
         mHandler.startBatch(
-                mHandler.getNextToken(), null, Calendar.AUTHORITY, ops, Utils.UNDO_DELAY);
+                mHandler.getNextToken(), null, CalendarContract.AUTHORITY, ops, Utils.UNDO_DELAY);
     }
 
     /**

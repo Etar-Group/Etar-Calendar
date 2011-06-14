@@ -16,8 +16,8 @@
 
 package com.android.calendar.widget;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
+import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EVENT_END_TIME;
 
 import com.android.calendar.R;
 import com.android.calendar.Utils;
@@ -31,7 +31,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.Uri.Builder;
-import android.provider.Calendar;
+import android.provider.CalendarContract;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -176,7 +176,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      */
     static PendingIntent getUpdateIntent(Context context) {
         Intent intent = new Intent(ACTION_CALENDAR_APPWIDGET_SCHEDULED_UPDATE);
-        intent.setDataAndType(Calendar.CONTENT_URI, APPWIDGET_DATA_TYPE);
+        intent.setDataAndType(CalendarContract.CONTENT_URI, APPWIDGET_DATA_TYPE);
         return PendingIntent.getBroadcast(context, 0 /* no requestCode */, intent,
                 0 /* no flags */);
     }
@@ -221,7 +221,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
 
     private static PendingIntent getNewEventPendingIntent(Context context) {
         Intent newEventIntent = new Intent(Intent.ACTION_EDIT);
-        Builder builder = Calendar.CONTENT_URI.buildUpon();
+        Builder builder = CalendarContract.CONTENT_URI.buildUpon();
         builder.appendPath("events");
         newEventIntent.setData(builder.build());
         return PendingIntent.getActivity(context, 0, newEventIntent,

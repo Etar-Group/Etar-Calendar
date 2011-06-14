@@ -16,9 +16,9 @@
 
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
-import static android.provider.Calendar.Attendees.ATTENDEE_STATUS;
+import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EVENT_END_TIME;
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
 import static com.android.calendar.CalendarController.EVENT_ATTENDEE_RESPONSE;
 
 import com.android.calendar.CalendarController.EventHandler;
@@ -50,8 +50,8 @@ import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Calendar;
-import android.provider.Calendar.Events;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -345,7 +345,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     @Override
     protected void onResume() {
         super.onResume();
-        mContentResolver.registerContentObserver(Calendar.Events.CONTENT_URI, true, mObserver);
+        mContentResolver.registerContentObserver(CalendarContract.Events.CONTENT_URI, true, mObserver);
         if (mUpdateOnResume) {
             initFragments(mController.getTime(), mController.getViewType(), null);
             mUpdateOnResume = false;

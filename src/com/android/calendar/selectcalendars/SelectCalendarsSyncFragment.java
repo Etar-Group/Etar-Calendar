@@ -34,8 +34,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Calendar;
-import android.provider.Calendar.Calendars;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Calendars;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,7 +116,7 @@ public class SelectCalendarsSyncFragment extends ListFragment
     public void onResume() {
         super.onResume();
         if (!ContentResolver.getMasterSyncAutomatically()
-                || !ContentResolver.getSyncAutomatically(mAccount, Calendar.AUTHORITY)) {
+                || !ContentResolver.getSyncAutomatically(mAccount, CalendarContract.AUTHORITY)) {
             Resources res = getActivity().getResources();
             mSyncStatus.setText(res.getString(R.string.acct_not_synced));
             mSyncStatus.setVisibility(View.VISIBLE);

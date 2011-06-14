@@ -22,7 +22,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.shapes.RectShape;
-import android.provider.Calendar.Calendars;
+import android.provider.CalendarContract.Calendars;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;

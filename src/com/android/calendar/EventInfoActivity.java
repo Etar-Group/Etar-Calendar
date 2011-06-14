@@ -15,8 +15,8 @@
  */
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
-import static android.provider.Calendar.EVENT_END_TIME;
+import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EVENT_END_TIME;
 import static com.android.calendar.CalendarController.ATTENDEE_NO_RESPONSE;
 import static com.android.calendar.CalendarController.EVENT_ATTENDEE_RESPONSE;
 import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
@@ -31,8 +31,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Calendar;
-import android.provider.Calendar.Events;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
@@ -117,7 +117,7 @@ public class EventInfoActivity extends Activity {
             case android.R.id.home:
                 Intent launchIntent = new Intent();
                 launchIntent.setAction(Intent.ACTION_VIEW);
-                launchIntent.setData(Uri.parse(Calendar.CONTENT_URI + "/time"));
+                launchIntent.setData(Uri.parse(CalendarContract.CONTENT_URI + "/time"));
                 launchIntent.setFlags(
                         Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(launchIntent);

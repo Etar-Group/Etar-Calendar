@@ -25,8 +25,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceActivity;
-import android.provider.Calendar;
-import android.provider.Calendar.Calendars;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Calendars;
 import android.provider.Settings;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -60,7 +60,7 @@ public class CalendarSettingsActivity extends PreferenceActivity {
             int length = accounts.length;
             for (int i = 0; i < length; i++) {
                 Account acct = accounts[i];
-                if (ContentResolver.getIsSyncable(acct, Calendar.AUTHORITY) > 0) {
+                if (ContentResolver.getIsSyncable(acct, CalendarContract.AUTHORITY) > 0) {
                     Header accountHeader = new Header();
                     accountHeader.title = acct.name;
                     accountHeader.fragment =

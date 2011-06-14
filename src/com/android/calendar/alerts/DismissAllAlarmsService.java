@@ -22,7 +22,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
-import android.provider.Calendar.CalendarAlerts;
+import android.provider.CalendarContract.CalendarAlerts;
 
 /**
  * Service for asynchronously marking all fired alarms as dismissed.

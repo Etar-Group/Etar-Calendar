@@ -38,10 +38,10 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.os.Handler;
-import android.provider.Calendar;
-import android.provider.Calendar.Attendees;
-import android.provider.Calendar.Calendars;
-import android.provider.Calendar.Instances;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Attendees;
+import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Instances;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -292,7 +292,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             IntentFilter filter = new IntentFilter();
             filter.addAction(CalendarAppWidgetProvider.ACTION_CALENDAR_APPWIDGET_SCHEDULED_UPDATE);
             filter.addDataScheme(ContentResolver.SCHEME_CONTENT);
-            filter.addDataAuthority(Calendar.AUTHORITY, null);
+            filter.addDataAuthority(CalendarContract.AUTHORITY, null);
             try {
                 filter.addDataType(CalendarAppWidgetProvider.APPWIDGET_DATA_TYPE);
             } catch (MalformedMimeTypeException e) {
@@ -303,7 +303,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             filter = new IntentFilter();
             filter.addAction(Intent.ACTION_PROVIDER_CHANGED);
             filter.addDataScheme(ContentResolver.SCHEME_CONTENT);
-            filter.addDataAuthority(Calendar.AUTHORITY, null);
+            filter.addDataAuthority(CalendarContract.AUTHORITY, null);
             mContext.registerReceiver(this, filter);
 
             filter = new IntentFilter();

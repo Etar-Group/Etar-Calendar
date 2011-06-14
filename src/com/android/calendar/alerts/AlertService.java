@@ -39,8 +39,8 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.provider.Calendar.Attendees;
-import android.provider.Calendar.CalendarAlerts;
+import android.provider.CalendarContract.Attendees;
+import android.provider.CalendarContract.CalendarAlerts;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -98,7 +98,7 @@ public class AlertService extends Service {
         // CalendarAlerts table.
         String action = bundle.getString("action");
         if (DEBUG) {
-            Log.d(TAG, "" + bundle.getLong(android.provider.Calendar.CalendarAlerts.ALARM_TIME)
+            Log.d(TAG, "" + bundle.getLong(android.provider.CalendarContract.CalendarAlerts.ALARM_TIME)
                     + " Action = " + action);
         }
 
@@ -108,7 +108,7 @@ public class AlertService extends Service {
             return;
         }
 
-        if (!action.equals(android.provider.Calendar.EVENT_REMINDER_ACTION)
+        if (!action.equals(android.provider.CalendarContract.EVENT_REMINDER_ACTION)
                 && !action.equals(Intent.ACTION_LOCALE_CHANGED)) {
             Log.w(TAG, "Invalid action: " + action);
             return;

@@ -29,10 +29,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.Calendar;
-import android.provider.Calendar.Attendees;
-import android.provider.Calendar.Calendars;
-import android.provider.Calendar.Instances;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Attendees;
+import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Instances;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -75,9 +75,9 @@ public class AgendaWindowAdapter extends BaseAdapter
     private static final String TAG = "AgendaWindowAdapter";
 
     private static final String AGENDA_SORT_ORDER =
-            Calendar.Instances.START_DAY + " ASC, " +
-            Calendar.Instances.BEGIN + " ASC, " +
-            Calendar.Events.TITLE + " ASC";
+            CalendarContract.Instances.START_DAY + " ASC, " +
+            CalendarContract.Instances.BEGIN + " ASC, " +
+            CalendarContract.Events.TITLE + " ASC";
 
     public static final int INDEX_INSTANCE_ID = 0;
     public static final int INDEX_TITLE = 1;

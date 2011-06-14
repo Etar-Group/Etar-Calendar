@@ -16,7 +16,7 @@
 
 package com.android.calendar;
 
-import static android.provider.Calendar.EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
 
 import com.android.calendar.CalendarController.ViewType;
 
