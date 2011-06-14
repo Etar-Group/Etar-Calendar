@@ -110,7 +110,6 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        Context context = getActivity();
 
         long instanceId = -1;
         if (savedInstanceState != null) {

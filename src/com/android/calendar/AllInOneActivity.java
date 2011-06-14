@@ -86,6 +86,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     private static CalendarController mController;
     private static boolean mIsMultipane;
+    private static boolean mIsTabletConfig;
     private static boolean mShowAgendaWithMonth;
     private static boolean mShowEventDetailsWithAgenda;
     private boolean mOnSaveInstanceStateCalled = false;
@@ -230,6 +231,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mControlsParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
         mIsMultipane = Utils.isMultiPaneConfiguration(this);
+        mIsTabletConfig = Utils.getConfigBool(this, R.bool.tablet_config);
         mShowAgendaWithMonth = Utils.getConfigBool(this, R.bool.show_agenda_with_month);
         mShowCalendarControls = Utils.getConfigBool(this, R.bool.show_calendar_controls);
         mShowEventDetailsWithAgenda =
@@ -239,10 +241,15 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         Utils.setAllowWeekForDetailView(mIsMultipane);
 
-        mDateRange = (TextView) getLayoutInflater().inflate(R.layout.date_range_title, null);
-
         // setContentView must be called before configureActionBar
         setContentView(R.layout.all_in_one);
+
+        if (mIsTabletConfig) {
+            mDateRange = (TextView) findViewById(R.id.date_bar);
+        } else {
+            mDateRange = (TextView) getLayoutInflater().inflate(R.layout.date_range_title, null);
+        }
+
         // configureActionBar auto-selects the first tab you add, so we need to
         // call it before we set up our own fragments to make sure it doesn't
         // overwrite us
@@ -313,7 +320,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mAgendaTab.setText(getString(R.string.agenda_view));
             mAgendaTab.setTabListener(this);
             mActionBar.addTab(mAgendaTab);
-            mActionBar.setCustomView(mDateRange);
+            if (!mIsTabletConfig) {
+                mActionBar.setCustomView(mDateRange);
+            }
             if (mIsMultipane) {
                 mActionBar.setDisplayOptions(
                         ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
@@ -655,6 +664,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // Clear unnecessary buttons from the option menu when switching from the agenda view
         if (viewType != ViewType.AGENDA) {
             clearOptionsMenu();
+            if (mIsTabletConfig) {
+                mDateRange.setVisibility(View.VISIBLE);
+            }
+        } else {
+            if (mIsTabletConfig) {
+                mDateRange.setVisibility(View.GONE);
+            }
         }
 
         boolean doCommit = false;

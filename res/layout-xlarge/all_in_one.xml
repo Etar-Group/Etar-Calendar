@@ -14,11 +14,21 @@
      limitations under the License.
 -->
 
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@null">
+
+    <TextView
+        android:id="@+id/date_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dip"
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:background="#FFFFFFFF"/>
 
     <LinearLayout
         android:id="@+id/mini_month_container"
@@ -47,7 +57,6 @@
             android:gravity="center"
             style="@style/TextAppearance.Date_Range_Title"
             android:visibility="gone" />
-
     </LinearLayout>
 
     <FrameLayout
@@ -65,7 +74,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_above="@id/mini_month_container"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/date_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <FrameLayout

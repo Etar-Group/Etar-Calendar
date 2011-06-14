@@ -17,7 +17,7 @@
     <bool name="show_calendar_controls">false</bool>
     <!-- turn on/off month with agenda view -->
     <!-- not supported for X-large devices -->
-    <bool name="show_agenda_with_month">true</bool>
+    <bool name="show_agenda_with_month">false</bool>
     <!-- when on, shows details of event in month view, when off, shows busy bits -->
     <!-- the "show details" mode is recommended for devices with large screens -->
     <bool name="show_details_in_month">false</bool>
@@ -26,4 +26,6 @@
     <bool name="show_event_details_with_agenda">false</bool>
     <!-- when on, event info is shown in full screen, when off, shown as a popup. -->
     <bool name="show_event_info_full_screen">true</bool>
+    <!--  A global var used to tablet vs phone settings -->
+    <bool name="tablet_config">false</bool>
 </resources>
