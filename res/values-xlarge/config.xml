@@ -26,4 +26,6 @@
     <bool name="show_event_details_with_agenda">true</bool>
     <!-- when on, event info is shown in full screen, when off, shown as a popup.  -->
     <bool name="show_event_info_full_screen">false</bool>
+    <!--  A global var used to tablet vs phone settings -->
+    <bool name="tablet_config">true</bool>
 </resources>
