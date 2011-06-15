@@ -50,6 +50,11 @@ public class AgendaAdapter extends ResourceCursorAdapter {
     };
 
     static class ViewHolder {
+
+        public static final int DECLINED_RESPONSE = 0;
+        public static final int TENTATIVE_RESPONSE = 1;
+        public static final int ACCEPTED_RESPONSE = 2;
+
         int overLayColor; // Used by AgendaItemView to gray out the entire item if so desired
 
         /* Event */
@@ -59,6 +64,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         View selectedMarker;
         int calendarColor; // Used by AgendaItemView to color the vertical stripe
         long instanceId;
+        int colorChipMode;
     }
 
     public AgendaAdapter(Context context, int resource) {
@@ -91,12 +97,28 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             holder.selectedMarker = view.findViewById(R.id.selected_marker);
         }
 
-        // Fade text if event was declined.
+        // Fade text if event was declined and set the color chip mode (response
         int selfAttendeeStatus = cursor.getInt(AgendaWindowAdapter.INDEX_SELF_ATTENDEE_STATUS);
         if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
             holder.overLayColor = mDeclinedColor;
+            holder.colorChipMode = ViewHolder.DECLINED_RESPONSE;
         } else {
             holder.overLayColor = 0;
+            if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_TENTATIVE) {
+                holder.colorChipMode = ViewHolder.TENTATIVE_RESPONSE;
+            } else {
+                holder.colorChipMode = ViewHolder.ACCEPTED_RESPONSE;
+            }
+        }
+
+        // Deal with exchange events that the owner cannot respond to
+        int canRespond = cursor.getInt(AgendaWindowAdapter.INDEX_CAN_ORGANIZER_RESPOND);
+        if (canRespond == 0) {
+            String owner = cursor.getString(AgendaWindowAdapter.INDEX_OWNER_ACCOUNT);
+            String organizer = cursor.getString(AgendaWindowAdapter.INDEX_ORGANIZER);
+            if (owner.equals(organizer)) {
+                holder.colorChipMode = ViewHolder.ACCEPTED_RESPONSE;
+            }
         }
 
         TextView title = holder.title;

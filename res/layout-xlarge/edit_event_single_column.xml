@@ -46,15 +46,16 @@
         android:visibility="gone">
 
         <FrameLayout
+            android:background="#FFEEEEEE"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <View android:id="@+id/event_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="0dip"
-                android:layout_marginRight="0dip"
-                android:layout_marginTop="12dip"
+                android:layout_marginLeft="3dip"
+                android:layout_marginRight="3dip"
+                android:layout_marginTop="3dip"
                 android:layout_marginBottom="12dip"
                 android:layout_gravity="center_horizontal|top"
                 android:background="#FFFFFFFF"/>

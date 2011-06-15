@@ -17,12 +17,14 @@
 package com.android.calendar.agenda;
 
 import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
+import com.android.calendar.ColorChipView;
 import com.android.calendar.R;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -30,6 +32,7 @@ import android.widget.RelativeLayout;
  * A custom layout for each item in the Agenda list view.
  */
 public class AgendaItemView extends RelativeLayout {
+    private static final String TAG = "AgendaItemView";
     Paint mPaint = new Paint();
 
     public AgendaItemView(Context context) {
@@ -42,19 +45,37 @@ public class AgendaItemView extends RelativeLayout {
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-        super.dispatchDraw(canvas);
+
         ViewHolder holder = (ViewHolder) getTag();
+
+        // Set the color chip color and style
         if (holder != null) {
-            final View color = findViewById(R.id.agenda_item_color);
+            final ColorChipView color = (ColorChipView)findViewById(R.id.agenda_item_color);
             if (color != null) {
-                color.setBackgroundColor(holder.calendarColor);
+                color.setColor(holder.calendarColor);
+                switch(holder.colorChipMode) {
+                    case ViewHolder.DECLINED_RESPONSE:
+                        color.setDrawStyle(ColorChipView.DRAW_CROSS_HATCHED);
+                        break;
+                    case ViewHolder.TENTATIVE_RESPONSE:
+                        color.setDrawStyle(ColorChipView.DRAW_BORDER);
+                        break;
+                    case ViewHolder.ACCEPTED_RESPONSE:
+                        color.setDrawStyle(ColorChipView.DRAW_FULL);
+                        break;
+                    default:
+                        color.setDrawStyle(ColorChipView.DRAW_FULL);
+                        break;
+                }
             } else {
                 // Draw vertical color stripe
                 mPaint.setColor(holder.calendarColor);
                 canvas.drawRect(0, 0, 5, getHeight(), mPaint);
             }
-
+        }
+        super.dispatchDraw(canvas);
             // Gray out item if the event was declined
+        if (holder != null) {
             if (holder.overLayColor != 0) {
                 mPaint.setColor(holder.overLayColor);
                 canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);

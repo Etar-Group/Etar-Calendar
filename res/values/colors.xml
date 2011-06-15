@@ -83,6 +83,7 @@
 
     <color name="agenda_day_bar_title_color">#FFFFFFFF</color>
     <color name="agenda_item_not_selected">#00000000</color>
+    <color name="agenda_day_bar_background_color">#FFFFFFFF</color>
 
     <drawable name="agenda_item_declined">#88ffffff</drawable>
 

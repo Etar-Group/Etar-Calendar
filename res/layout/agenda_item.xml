@@ -29,10 +29,10 @@
 
     <!-- TODO: should be aligned with @id/title correctly without using
          android:layout_marginTop -->
-    <View
+    <com.android.calendar.ColorChipView
         android:id="@+id/agenda_item_color"
-        android:layout_width="12dip"
-        android:layout_height="12dip"
+        android:layout_width="25dip"
+        android:layout_height="25dip"
         android:layout_below="@id/alignment_bar"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/title"

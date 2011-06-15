@@ -92,6 +92,9 @@ public class AgendaWindowAdapter extends BaseAdapter
     public static final int INDEX_START_DAY = 10;
     public static final int INDEX_END_DAY = 11;
     public static final int INDEX_SELF_ATTENDEE_STATUS = 12;
+    public static final int INDEX_ORGANIZER = 13;
+    public static final int INDEX_OWNER_ACCOUNT = 14;
+    public static final int INDEX_CAN_ORGANIZER_RESPOND= 15;
 
     private static final String[] PROJECTION = new String[] {
             Instances._ID, // 0
@@ -107,6 +110,9 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.START_DAY, // 10 Julian start day
             Instances.END_DAY, // 11 Julian end day
             Instances.SELF_ATTENDEE_STATUS, // 12
+            Instances.ORGANIZER, // 13
+            Instances.OWNER_ACCOUNT, // 14
+            Instances.CAN_ORGANIZER_RESPOND, // 15
     };
 
     // Listview may have a bug where the index/position is not consistent when there's a header.
