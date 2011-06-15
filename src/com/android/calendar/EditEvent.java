@@ -657,7 +657,7 @@ public class EditEvent extends Activity implements View.OnClickListener,
         long begin = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
         long end = intent.getLongExtra(EVENT_END_TIME, 0);
 
-        String domain = "gmail.com";
+        String domain = getResources().getString(R.string.google_email_domain);
 
         boolean allDay = false;
         if (mEventCursor != null) {
