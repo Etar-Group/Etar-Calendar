@@ -45,8 +45,8 @@ public class ColorChipView extends View {
     public static final int  DRAW_BORDER = 1;
     public static final int  DRAW_CROSS_HATCHED = 2;
 
-    public static final float  DECLINED_ALPHA = (float)0.5;
-    public static final float  DEFAULT_ALPHA = (float)1;
+    private static final float  DECLINED_ALPHA = (float)0.5;
+    private static final float  DEFAULT_ALPHA = (float)1;
 
 
     int mDrawStyle = DRAW_FULL;
@@ -70,16 +70,19 @@ public class ColorChipView extends View {
             return;
         }
         mDrawStyle = style;
+        invalidate();
     }
 
     public void setBorderWidth(int width) {
         if (width >= 0) {
             mBorderWidth = width;
+            invalidate();
         }
     }
 
     public void setColor(int color) {
         mColor = color;
+        invalidate();
     }
 
     @Override

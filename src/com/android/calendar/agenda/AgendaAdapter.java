@@ -16,6 +16,7 @@
 
 package com.android.calendar.agenda;
 
+import com.android.calendar.ColorChipView;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
@@ -62,9 +63,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         TextView when;
         TextView where;
         View selectedMarker;
-        int calendarColor; // Used by AgendaItemView to color the vertical stripe
         long instanceId;
-        int colorChipMode;
+        ColorChipView colorChip;
     }
 
     public AgendaAdapter(Context context, int resource) {
@@ -95,19 +95,20 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             holder.when = (TextView) view.findViewById(R.id.when);
             holder.where = (TextView) view.findViewById(R.id.where);
             holder.selectedMarker = view.findViewById(R.id.selected_marker);
+            holder.colorChip = (ColorChipView)view.findViewById(R.id.agenda_item_color);
         }
 
         // Fade text if event was declined and set the color chip mode (response
         int selfAttendeeStatus = cursor.getInt(AgendaWindowAdapter.INDEX_SELF_ATTENDEE_STATUS);
         if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
             holder.overLayColor = mDeclinedColor;
-            holder.colorChipMode = ViewHolder.DECLINED_RESPONSE;
+            holder.colorChip.setDrawStyle(ColorChipView.DRAW_CROSS_HATCHED);
         } else {
             holder.overLayColor = 0;
             if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_TENTATIVE) {
-                holder.colorChipMode = ViewHolder.TENTATIVE_RESPONSE;
+                holder.colorChip.setDrawStyle(ColorChipView.DRAW_BORDER);
             } else {
-                holder.colorChipMode = ViewHolder.ACCEPTED_RESPONSE;
+                holder.colorChip.setDrawStyle(ColorChipView.DRAW_FULL);
             }
         }
 
@@ -117,7 +118,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             String owner = cursor.getString(AgendaWindowAdapter.INDEX_OWNER_ACCOUNT);
             String organizer = cursor.getString(AgendaWindowAdapter.INDEX_ORGANIZER);
             if (owner.equals(organizer)) {
-                holder.colorChipMode = ViewHolder.ACCEPTED_RESPONSE;
+                holder.colorChip.setDrawStyle(ColorChipView.DRAW_FULL);
             }
         }
 
@@ -129,7 +130,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
 
         /* Calendar Color */
         int color = cursor.getInt(AgendaWindowAdapter.INDEX_COLOR);
-        holder.calendarColor = color;
+        holder.colorChip.setColor(color);
 
         // What
         String titleString = cursor.getString(AgendaWindowAdapter.INDEX_TITLE);

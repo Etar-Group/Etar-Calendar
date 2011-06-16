@@ -46,40 +46,13 @@ public class AgendaItemView extends RelativeLayout {
     @Override
     protected void dispatchDraw(Canvas canvas) {
 
-        ViewHolder holder = (ViewHolder) getTag();
-
-        // Set the color chip color and style
-        if (holder != null) {
-            final ColorChipView color = (ColorChipView)findViewById(R.id.agenda_item_color);
-            if (color != null) {
-                color.setColor(holder.calendarColor);
-                switch(holder.colorChipMode) {
-                    case ViewHolder.DECLINED_RESPONSE:
-                        color.setDrawStyle(ColorChipView.DRAW_CROSS_HATCHED);
-                        break;
-                    case ViewHolder.TENTATIVE_RESPONSE:
-                        color.setDrawStyle(ColorChipView.DRAW_BORDER);
-                        break;
-                    case ViewHolder.ACCEPTED_RESPONSE:
-                        color.setDrawStyle(ColorChipView.DRAW_FULL);
-                        break;
-                    default:
-                        color.setDrawStyle(ColorChipView.DRAW_FULL);
-                        break;
-                }
-            } else {
-                // Draw vertical color stripe
-                mPaint.setColor(holder.calendarColor);
-                canvas.drawRect(0, 0, 5, getHeight(), mPaint);
-            }
-        }
         super.dispatchDraw(canvas);
-            // Gray out item if the event was declined
-        if (holder != null) {
-            if (holder.overLayColor != 0) {
-                mPaint.setColor(holder.overLayColor);
-                canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
-            }
+        // Gray out item if the event was declined
+
+        ViewHolder holder = (ViewHolder) getTag();
+        if (holder != null && holder.overLayColor != 0) {
+            mPaint.setColor(holder.overLayColor);
+            canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
         }
     }
 }
