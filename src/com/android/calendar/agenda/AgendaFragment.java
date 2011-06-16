@@ -186,21 +186,22 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         }
     }
 
-  /*  @Override
+    @Override
     public void onDetach() {
         super.onDetach();
-        Log.d(TAG,"removing edit event");
         mController.deregisterEventHandler(R.id.agenda_event_info);
+        if (getActivity().isFinishing()) {
+            return;
+        }
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         Fragment f = fragmentManager.findFragmentById(R.id.agenda_event_info);
         if (f != null) {
-            ft.remove(mEventFragment);
-            Log.d(TAG,"fragment found and removed");
+            ft.remove(f);
         }
         ft.commit();
     }
-*/
+
 
     @Override
     public void onPause() {
