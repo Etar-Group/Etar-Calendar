@@ -294,6 +294,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
                     setModelIfDone(TOKEN_CALENDARS);
                     break;
+                default:
+                    cursor.close();
+                    break;
             }
         }
     }

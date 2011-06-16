@@ -215,8 +215,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private TextView mWhat;
     private TextView mAttendees;
     private AttendeesView mLongAttendees;
-    private TextView mCalendar;
     private Menu mMenu;
+    private View mHeadlines;
 
     private Pattern mWildcardPattern = Pattern.compile("^.*$");
 
@@ -327,7 +327,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     sb.append(" (").append(email).append(")");
                 }
 
-                mCalendar.setText(sb);
                 break;
             }
             cursor.close();
@@ -466,8 +465,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mWhere = (TextView) mView.findViewById(R.id.where);
         mWhat = (TextView) mView.findViewById(R.id.description);
         mAttendees = (TextView) mView.findViewById(R.id.attendee_list);
+        mHeadlines = mView.findViewById(R.id.event_info_headline);
         mLongAttendees = (AttendeesView)mView.findViewById(R.id.long_attendee_list);
-        mCalendar = (TextView) mView.findViewById(R.id.calendar);
         mDescButton = (Button)mView.findViewById(R.id.desc_expand);
         mDescButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -503,6 +502,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }});
 
         // Hide Edit/Delete buttons if in full screen mode
+        if (savedInstanceState != null) {
+            mIsDialog = savedInstanceState.getBoolean(BUNDLE_KEY_IS_DIALOG, false);
+        }
         if (!mIsDialog) {
             mView.findViewById(R.id.event_info_buttons_container).setVisibility(View.GONE);
         }
@@ -875,7 +877,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String organizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
 
         mColor = mEventCursor.getInt(EVENT_INDEX_COLOR) & 0xbbffffff;
-        view.findViewById(R.id.color).setBackgroundColor(mColor);
+        mHeadlines.setBackgroundColor(mColor);
 
         // What
         if (eventName != null) {
@@ -883,6 +885,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         // When
+        // Set the date and repeats (if any)
         String whenDate;
         int flagsTime = DateUtils.FORMAT_SHOW_TIME;
         int flagsDate = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_WEEKDAY |
@@ -891,43 +894,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (DateFormat.is24HourFormat(getActivity())) {
             flagsTime |= DateUtils.FORMAT_24HOUR;
         }
-        if (allDay) {
-            Formatter f = new Formatter(new StringBuilder(50), Locale.getDefault());
-            whenDate = DateUtils.formatDateRange(getActivity(), f, mStartMillis, mStartMillis,
-                    flagsDate, Time.TIMEZONE_UTC).toString();
-            setTextCommon(view, R.id.when_date, whenDate);
-            view.findViewById(R.id.when_time).setVisibility(View.GONE);
 
-        } else {
-            whenDate = Utils.formatDateRange(getActivity(), mStartMillis, mEndMillis, flagsDate);
-            String whenTime = Utils.formatDateRange(getActivity(), mStartMillis, mEndMillis,
-                    flagsTime);
-            setTextCommon(view, R.id.when_date, whenDate);
-            setTextCommon(view, R.id.when_time, whenTime);
-        }
-
-        // Show the event timezone if it is different from the local timezone
-        // TODO: Fix comparison of Timezone
-        Time time = new Time();
-        String localTimezone = time.timezone;
-        if (eventTimezone != null && !localTimezone.equals(eventTimezone) && !allDay) {
-            String displayName;
-            TimeZone tz = TimeZone.getTimeZone(localTimezone);
-            if (tz == null || tz.getID().equals("GMT")) {
-                displayName = localTimezone;
-            } else {
-                displayName = tz.getDisplayName();
-            }
-
-            setTextCommon(view, R.id.timezone, displayName);
-            setVisibilityCommon(view, R.id.timezone_container, View.VISIBLE);
-        } else {
-            setVisibilityCommon(view, R.id.timezone_container, View.GONE);
-        }
-
-        // Organizer view is setup in the updateCalendar method
-
-        // Repeat
+        // Put repeat after the date (if any)
+        String repeatString = null;
         if (!TextUtils.isEmpty(rRule)) {
             EventRecurrence eventRecurrence = new EventRecurrence();
             eventRecurrence.parse(rRule);
@@ -937,13 +906,54 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
             date.set(mStartMillis);
             eventRecurrence.setStartDate(date);
-            String repeatString = EventRecurrenceFormatter.getRepeatString(
+            repeatString = EventRecurrenceFormatter.getRepeatString(
                     getActivity().getResources(), eventRecurrence);
-            setTextCommon(view, R.id.repeat, repeatString);
-            setVisibilityCommon(view, R.id.repeat_container, View.VISIBLE);
-        } else {
-            setVisibilityCommon(view, R.id.repeat_container, View.GONE);
         }
+        // If an all day event , show the date without the time
+        if (allDay) {
+            Formatter f = new Formatter(new StringBuilder(50), Locale.getDefault());
+            whenDate = DateUtils.formatDateRange(getActivity(), f, mStartMillis, mStartMillis,
+                    flagsDate, Time.TIMEZONE_UTC).toString();
+            if (repeatString != null) {
+                setTextCommon(view, R.id.when_date, whenDate + " (" + repeatString + ")");
+            } else {
+                setTextCommon(view, R.id.when_date, whenDate);
+            }
+            view.findViewById(R.id.when_time).setVisibility(View.GONE);
+
+        } else {
+            // Show date for none all-day events
+            whenDate = Utils.formatDateRange(getActivity(), mStartMillis, mEndMillis, flagsDate);
+            String whenTime = Utils.formatDateRange(getActivity(), mStartMillis, mEndMillis,
+                    flagsTime);
+            if (repeatString != null) {
+                setTextCommon(view, R.id.when_date, whenDate + " (" + repeatString + ")");
+            } else {
+                setTextCommon(view, R.id.when_date, whenDate);
+            }
+
+            // Show the event timezone if it is different from the local timezone after the time
+            // TODO: Fix comparison of Timezone
+            Time time = new Time();
+            String localTimezone = time.timezone;
+            if (eventTimezone != null && !localTimezone.equals(eventTimezone)) {
+                String displayName;
+                TimeZone tz = TimeZone.getTimeZone(eventTimezone);
+                if (tz == null || tz.getID().equals("GMT")) {
+                    displayName = localTimezone;
+                } else {
+                    displayName = tz.getDisplayName();
+                }
+                setTextCommon(view, R.id.when_time, whenTime + " (" + displayName + ")");
+            }
+            else {
+                setTextCommon(view, R.id.when_time, whenTime);
+            }
+        }
+
+
+        // Organizer view is setup in the updateCalendar method
+
 
         // Where
         if (location == null || location.trim().length() == 0) {
@@ -990,7 +1000,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         List<CharSequence> text = event.getText();
 
         addFieldToAccessibilityEvent(text, mTitle);
-        addFieldToAccessibilityEvent(text, mCalendar);
         addFieldToAccessibilityEvent(text, mWhen);
         addFieldToAccessibilityEvent(text, mWhere);
         addFieldToAccessibilityEvent(text, mWhat);
@@ -1086,46 +1095,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     private void updateAttendees(View view) {
 
-        // Create a list of attendees:
-        // In Dialog mode: a short list of names only
-        // In full screen: a full list with photos
-        if (mIsDialog) {
-            TextView tv = mAttendees;
-            SpannableStringBuilder sb = new SpannableStringBuilder();
-            formatAttendees(mAcceptedAttendees, sb, Attendees.ATTENDEE_STATUS_ACCEPTED);
-            formatAttendees(mDeclinedAttendees, sb, Attendees.ATTENDEE_STATUS_DECLINED);
-            formatAttendees(mTentativeAttendees, sb, Attendees.ATTENDEE_STATUS_TENTATIVE);
-            formatAttendees(mNoResponseAttendees, sb, Attendees.ATTENDEE_STATUS_NONE);
-
-            if (sb.length() > 0) {
-                // Add the label after the attendees are formatted because
-                // formatAttendees would prepend ", " if sb.length != 0
-                String label = getActivity().getResources().getString(R.string.attendees_label);
-                sb.insert(0, label);
-                sb.insert(label.length(), " ");
-                sb.setSpan(new StyleSpan(Typeface.BOLD), 0, label.length(),
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                tv.setText(sb);
-                tv.setVisibility(View.VISIBLE);
-            }
-            else {
-                tv.setVisibility(View.GONE);
-            }
+        if (mAcceptedAttendees.size() + mDeclinedAttendees.size() +
+                mTentativeAttendees.size() + mNoResponseAttendees.size() > 0) {
+            ((AttendeesView) mLongAttendees).addAttendees(mAcceptedAttendees);
+            ((AttendeesView) mLongAttendees).addAttendees(mDeclinedAttendees);
+            ((AttendeesView) mLongAttendees).addAttendees(mTentativeAttendees);
+            ((AttendeesView) mLongAttendees).addAttendees(mNoResponseAttendees);
+            mLongAttendees.setEnabled(false);
+            mLongAttendees.setVisibility(View.VISIBLE);
         } else {
-            if (mAcceptedAttendees.size() + mDeclinedAttendees.size() +
-                    mTentativeAttendees.size()  + mNoResponseAttendees.size() > 0) {
-                ((AttendeesView)mLongAttendees).addAttendees(mAcceptedAttendees);
-                ((AttendeesView)mLongAttendees).addAttendees(mDeclinedAttendees);
-                ((AttendeesView)mLongAttendees).addAttendees(mTentativeAttendees);
-                ((AttendeesView)mLongAttendees).addAttendees(mNoResponseAttendees);
-                mLongAttendees.setEnabled(false);
-                mLongAttendees.setVisibility(View.VISIBLE);
-            } else {
-                mLongAttendees.setVisibility(View.GONE);
-            }
+            mLongAttendees.setVisibility(View.GONE);
         }
-
     }
 
     private void formatAttendees(ArrayList<Attendee> attendees, SpannableStringBuilder sb, int type) {
