@@ -61,9 +61,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SearchView;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.util.List;
@@ -72,7 +74,7 @@ import java.util.TimeZone;
 
 public class AllInOneActivity extends Activity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener,
-        ActionBar.TabListener {
+        ActionBar.TabListener, ActionBar.OnNavigationListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
     private static final String EVENT_INFO_FRAGMENT_TAG = "EventInfoFragment";
@@ -83,6 +85,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final long CONTROLS_ANIMATE_DURATION = 400;
     private static int CONTROLS_ANIMATE_WIDTH = 267;
     private static float mScale = 0;
+
+    // Indices of buttons for the drop down menu (tabs replacement)
+    // Must match the strings in the array buttons_list in arrays.xml and the
+    // OnNavigationListener
+    private static final int BUTTON_DAY_INDEX = 0;
+    private static final int BUTTON_WEEK_INDEX = 1;
+    private static final int BUTTON_MONTH_INDEX = 2;
+    private static final int BUTTON_AGENDA_INDEX = 3;
 
     private static CalendarController mController;
     private static boolean mIsMultipane;
@@ -299,11 +309,20 @@ public class AllInOneActivity extends Activity implements EventHandler,
     }
 
     private void configureActionBar() {
+        if (mIsTabletConfig) {
+            createTabs();
+        } else {
+            createButtonsSpinner();
+            mActionBar.setCustomView(mDateRange);
+        }
+    }
+
+    private void createTabs() {
         mActionBar = getActionBar();
-        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         if (mActionBar == null) {
             Log.w(TAG, "ActionBar is null.");
         } else {
+            mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
             mDayTab = mActionBar.newTab();
             mDayTab.setText(getString(R.string.day_view));
             mDayTab.setTabListener(this);
@@ -320,9 +339,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mAgendaTab.setText(getString(R.string.agenda_view));
             mAgendaTab.setTabListener(this);
             mActionBar.addTab(mAgendaTab);
-            if (!mIsTabletConfig) {
-                mActionBar.setCustomView(mDateRange);
-            }
             if (mIsMultipane) {
                 mActionBar.setDisplayOptions(
                         ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
@@ -332,6 +348,15 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
     }
 
+    private void createButtonsSpinner() {
+        SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.buttons_list,
+                android.R.layout.simple_spinner_dropdown_item);
+        mActionBar = getActionBar();
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        mActionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_USE_LOGO|
+                ActionBar.DISPLAY_SHOW_TITLE);
+        mActionBar.setListNavigationCallbacks(mSpinnerAdapter, this);
+    }
     // Clear buttons used in the agenda view
     private void clearOptionsMenu() {
         if (mOptionsMenu == null) {
@@ -920,5 +945,39 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        switch (itemPosition) {
+            case BUTTON_DAY_INDEX:
+                if (mCurrentView != ViewType.DAY) {
+                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
+                }
+                break;
+            case BUTTON_WEEK_INDEX:
+                if (mCurrentView != ViewType.WEEK) {
+                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
+                }
+                break;
+            case BUTTON_MONTH_INDEX:
+                if (mCurrentView != ViewType.MONTH) {
+                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.MONTH);
+                }
+                break;
+            case BUTTON_AGENDA_INDEX:
+                if (mCurrentView != ViewType.AGENDA) {
+                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
+                }
+                break;
+            default:
+                Log.w(TAG, "ItemSelected event from unknown button: " + itemPosition);
+                Log.w(TAG, "CurrentView:" + mCurrentView + " Button:" + itemPosition +
+                        " Day:" + mDayTab + " Week:" + mWeekTab + " Month:" + mMonthTab +
+                        " Agenda:" + mAgendaTab);
+                break;
+        }
+        return false;
     }
 }
