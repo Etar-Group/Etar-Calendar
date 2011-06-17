@@ -186,7 +186,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         }
     }
 
-    @Override
+/*    @Override
     public void onDetach() {
         super.onDetach();
         mController.deregisterEventHandler(R.id.agenda_event_info);
@@ -202,7 +202,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         ft.commit();
     }
 
-
+*/
     @Override
     public void onPause() {
         super.onPause();
