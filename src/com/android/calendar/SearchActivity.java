@@ -193,7 +193,7 @@ public class SearchActivity extends Activity
     private void search(String searchQuery, Time goToTime) {
         // save query in recent queries
         SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
-                CalendarRecentSuggestionsProvider.AUTHORITY,
+                Utils.getSearchAuthority(this),
                 CalendarRecentSuggestionsProvider.MODE);
         suggestions.saveRecentQuery(searchQuery, null);
 

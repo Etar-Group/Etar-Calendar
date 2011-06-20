@@ -44,13 +44,6 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
     static final String TAG = "CalendarAppWidgetProvider";
     static final boolean LOGD = false;
 
-    // Used when telling the widget framework to refresh the entire widget
-    static final String ACTION_CALENDAR_APPWIDGET_UPDATE =
-            "com.android.calendar.APPWIDGET_UPDATE";
-
-    // Used when sending messages to update the widget due to time elapsed
-    static final String ACTION_CALENDAR_APPWIDGET_SCHEDULED_UPDATE =
-            "com.android.calendar.APPWIDGET_SCHEDULED_UPDATE";
     static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
 
     // TODO Move these to Calendar.java
@@ -64,7 +57,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         // Handle calendar-specific updates ourselves because they might be
         // coming in without extras, which AppWidgetProvider then blocks.
         final String action = intent.getAction();
-        if (ACTION_CALENDAR_APPWIDGET_UPDATE.equals(action)) {
+        if (Utils.getWidgetUpdateAction(context).equals(action)) {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             performUpdate(context, appWidgetManager,
                     appWidgetManager.getAppWidgetIds(getComponentName(context)),
@@ -168,14 +161,14 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
 
     /**
      * Build the {@link PendingIntent} used to trigger an update of all calendar
-     * widgets. Uses {@link #ACTION_CALENDAR_APPWIDGET_SCHEDULED_UPDATE} to
+     * widgets. Uses {@link Utils#getWidgetScheduledUpdateAction(Context)} to
      * directly target all widgets instead of using
      * {@link AppWidgetManager#EXTRA_APPWIDGET_IDS}.
      *
      * @param context Context to use when building broadcast.
      */
     static PendingIntent getUpdateIntent(Context context) {
-        Intent intent = new Intent(ACTION_CALENDAR_APPWIDGET_SCHEDULED_UPDATE);
+        Intent intent = new Intent(Utils.getWidgetScheduledUpdateAction(context));
         intent.setDataAndType(CalendarContract.CONTENT_URI, APPWIDGET_DATA_TYPE);
         return PendingIntent.getBroadcast(context, 0 /* no requestCode */, intent,
                 0 /* no flags */);

@@ -301,7 +301,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         final String key = preference.getKey();
         if (key.equals(KEY_CLEAR_SEARCH_HISTORY)) {
             SearchRecentSuggestions suggestions = new SearchRecentSuggestions(getActivity(),
-                    CalendarRecentSuggestionsProvider.AUTHORITY,
+                    Utils.getSearchAuthority(getActivity()),
                     CalendarRecentSuggestionsProvider.MODE);
             suggestions.clearHistory();
             Toast.makeText(getActivity(), R.string.search_history_cleared,

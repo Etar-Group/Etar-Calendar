@@ -290,7 +290,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             if (LOGD)
                 Log.d(TAG, "Querying for widget events...");
             IntentFilter filter = new IntentFilter();
-            filter.addAction(CalendarAppWidgetProvider.ACTION_CALENDAR_APPWIDGET_SCHEDULED_UPDATE);
+            filter.addAction(Utils.getWidgetScheduledUpdateAction(mContext));
             filter.addDataScheme(ContentResolver.SCHEME_CONTENT);
             filter.addDataAuthority(CalendarContract.AUTHORITY, null);
             try {
@@ -444,8 +444,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 time2.set(sLastUpdateTime);
                 time2.normalize(true);
                 if (time.year != time2.year || time.yearDay != time2.yearDay) {
-                    final Intent updateIntent = new Intent(
-                            CalendarAppWidgetProvider.ACTION_CALENDAR_APPWIDGET_UPDATE);
+                    final Intent updateIntent = new Intent(Utils.getWidgetUpdateAction(mContext));
                     mContext.sendBroadcast(updateIntent);
                 }
 

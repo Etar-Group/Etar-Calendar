@@ -15,16 +15,22 @@
  */
 package com.android.calendar;
 
+import android.content.Context;
 import android.content.SearchRecentSuggestionsProvider;
+import android.util.Log;
 
 public class CalendarRecentSuggestionsProvider extends SearchRecentSuggestionsProvider {
 
-    public final static String AUTHORITY = "com.android.calendar.CalendarRecentSuggestionsProvider";
-
     public final static int MODE = DATABASE_MODE_QUERIES;
 
+    // TODO Figure out why search suggestions are currently not working
     public CalendarRecentSuggestionsProvider() {
-        setupSuggestions(AUTHORITY, MODE);
+    }
+
+    @Override
+    public boolean onCreate() {
+        setupSuggestions(Utils.getSearchAuthority(getContext()), MODE);
+        return super.onCreate();
     }
 
 }
