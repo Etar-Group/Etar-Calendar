@@ -78,7 +78,7 @@
     <item msgid="1545268116831476742">"Central Time"</item>
     <item msgid="9135129204936732090">"Mexiko-Stadt"</item>
     <item msgid="3703110560723049255">"Saskatchewan"</item>
-    <item msgid="5458958644945369505">"Bogota"</item>
+    <item msgid="5458958644945369505">"Bogotá"</item>
     <item msgid="355450740949670294">"Eastern Time"</item>
     <item msgid="5786717434693228701">"Venezuela"</item>
     <item msgid="165048018515834952">"Atlantic Time"</item>
@@ -189,4 +189,8 @@
     <item msgid="2012815396992847028">"Nur diesen Termin"</item>
     <item msgid="140670561403965380">"Alle Termine in der Reihe"</item>
   </string-array>
+    <!-- no translation found for buttons_list:0 (5917946202321434335) -->
+    <!-- no translation found for buttons_list:1 (6248480754959562740) -->
+    <!-- no translation found for buttons_list:2 (4298472806133153766) -->
+    <!-- no translation found for buttons_list:3 (5033084974413793845) -->
 </resources>
