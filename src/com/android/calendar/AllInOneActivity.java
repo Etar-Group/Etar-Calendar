@@ -641,6 +641,17 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         // Remove this when transition to and from month view looks fine.
         boolean doTransition = viewType != ViewType.MONTH && mCurrentView != ViewType.MONTH;
+        FragmentManager fragmentManager = getFragmentManager();
+        // Check if our previous view was an Agenda view
+        // TODO remove this if framework ever supports nested fragments
+        if (mCurrentView == ViewType.AGENDA) {
+            // If it was, we need to do some cleanup on it to prevent the
+            // edit/delete buttons from coming back on a rotation.
+            Fragment oldFrag = fragmentManager.findFragmentById(viewId);
+            if (oldFrag instanceof AgendaFragment) {
+                ((AgendaFragment) oldFrag).removeFragments(fragmentManager);
+            }
+        }
 
         if (viewType != mCurrentView) {
             // The rules for this previous view are different than the
@@ -701,7 +712,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         boolean doCommit = false;
         if (ft == null) {
             doCommit = true;
-            ft = getFragmentManager().beginTransaction();
+            ft = fragmentManager.beginTransaction();
         }
 
         if (doTransition) {
@@ -718,7 +729,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 mSecondaryPane.setVisibility(View.VISIBLE);
             } else {
                 mSecondaryPane.setVisibility(View.GONE);
-                Fragment f = getFragmentManager().findFragmentById(R.id.secondary_pane);
+                Fragment f = fragmentManager.findFragmentById(R.id.secondary_pane);
                 if (f != null) {
                     ft.remove(f);
                 }

@@ -186,14 +186,18 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         }
     }
 
-/*    @Override
-    public void onDetach() {
-        super.onDetach();
+    /**
+     * This cleans up the event info fragment since the FragmentManager doesn't
+     * handle nested fragments. Without this, the action bar buttons added by
+     * the info fragment can come back on a rotation.
+     *
+     * @param fragmentManager
+     */
+    public void removeFragments(FragmentManager fragmentManager) {
         mController.deregisterEventHandler(R.id.agenda_event_info);
         if (getActivity().isFinishing()) {
             return;
         }
-        FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         Fragment f = fragmentManager.findFragmentById(R.id.agenda_event_info);
         if (f != null) {
@@ -202,7 +206,6 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         ft.commit();
     }
 
-*/
     @Override
     public void onPause() {
         super.onPause();
