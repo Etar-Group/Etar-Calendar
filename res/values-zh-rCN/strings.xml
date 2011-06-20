@@ -68,9 +68,9 @@
     <string name="accounts" msgid="849401841083180306">"帐户与同步"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"活动详情"</string>
     <string name="hint_what" msgid="709155115005044531">"活动名称"</string>
-    <string name="hint_where" msgid="3116239630502213241">"活动地点"</string>
-    <string name="hint_description" msgid="4198202812240544553">"活动说明"</string>
-    <string name="hint_attendees" msgid="6367757073203911244">"输入电子邮件地址"</string>
+    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"活动地点"</string>
+    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"活动说明"</string>
+    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"输入电子邮件地址"</string>
     <string name="creating_event" msgid="5252306542761552414">"已创建活动"</string>
     <string name="saving_event" msgid="7716081507367732169">"已保存活动"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"邀请已发送"</string>
@@ -88,7 +88,7 @@
     <string name="description_label" msgid="7193475046717505855">"说明"</string>
     <string name="presence_label" msgid="6169724148441175862">"将我的状态显示为"</string>
     <string name="privacy_label" msgid="9215031965259597335">"隐私"</string>
-    <string name="reminders_label" msgid="8345054160145333166">"提醒"</string>
+    <!-- outdated translation 8345054160145333166 -->     <string name="reminders_label" msgid="7292389181815525676">"提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"无日历"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"您必须在设备上至少添加一个“Google 日历”帐户并显示一个日历，然后才能添加活动。触摸“添加帐户”即可添加帐户（如果刚刚添加了帐户，请等待帐户完成同步，然后再重试）。或者触摸“取消”，并确保至少显示一个日历。"</string>
     <string name="add_account" msgid="1669072099756774952">"添加帐户"</string>
@@ -109,6 +109,8 @@
     <!-- no translation found for event_info_desc_more (2961880675118098743) -->
     <skip />
     <!-- no translation found for event_info_desc_less (8295683160345195225) -->
+    <skip />
+    <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
     <skip />
     <string name="agenda_today" msgid="6489447319363439068">"今天（<xliff:g id="DATE">%1$s</xliff:g>）"</string>
     <string name="loading" msgid="3772533493214331230">"正在载入..."</string>
@@ -184,5 +186,41 @@
     <string name="today" msgid="8577375020252453006">"今天"</string>
     <string name="copy_db" msgid="437691290566699292">"发送数据库"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"正在搜索 <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <!-- no translation found for accessibility_new_event (6063141474224122288) -->
+    <skip />
+    <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_start_date (3926641487042699037) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_start_time (4913428100936555149) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_end_date (5624250196618643922) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_end_time (7120310166355224941) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_time_zone (7155465783500323811) -->
+    <skip />
+    <!-- no translation found for accessibility_add_reminder (2267950744060950152) -->
+    <skip />
+    <!-- no translation found for accessibility_remove_reminder (5261609343259665139) -->
+    <skip />
+    <!-- no translation found for accessibility_add_attendee (5654014177472600916) -->
+    <skip />
+    <!-- no translation found for accessibility_sync_cal (6506181885764723383) -->
+    <skip />
+    <!-- no translation found for accessibility_all_day (4146955438811915282) -->
+    <skip />
+    <!-- no translation found for accessibility_refresh (3458716385448853522) -->
+    <skip />
+    <!-- no translation found for accessibility_repeats (1629279916830919582) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_time (3594100545814579575) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_type (5339120699701437227) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_showmeas (6669129015980006570) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_privacy (8669288484484022771) -->
+    <skip />
     <string name="template_announce_item_index" msgid="4067877800670753110">"第 <xliff:g id="ITEM_INDEX">%1$s</xliff:g> 个活动，共 <xliff:g id="ITEM_COUNT">%2$s</xliff:g> 个。"</string>
 </resources>

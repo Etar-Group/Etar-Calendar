@@ -68,9 +68,9 @@
     <string name="accounts" msgid="849401841083180306">"Accounts &amp; sync"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Event details"</string>
     <string name="hint_what" msgid="709155115005044531">"Event name"</string>
-    <string name="hint_where" msgid="3116239630502213241">"Event location"</string>
-    <string name="hint_description" msgid="4198202812240544553">"Event description"</string>
-    <string name="hint_attendees" msgid="6367757073203911244">"Enter email addresses"</string>
+    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"Event location"</string>
+    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"Event description"</string>
+    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"Enter email addresses"</string>
     <string name="creating_event" msgid="5252306542761552414">"Event created"</string>
     <string name="saving_event" msgid="7716081507367732169">"Event saved"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Invitations sent"</string>
@@ -88,7 +88,7 @@
     <string name="description_label" msgid="7193475046717505855">"Description"</string>
     <string name="presence_label" msgid="6169724148441175862">"Show me as"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
-    <string name="reminders_label" msgid="8345054160145333166">"Reminders"</string>
+    <!-- outdated translation 8345054160145333166 -->     <string name="reminders_label" msgid="7292389181815525676">"Reminders"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No calendars"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Before you can add an event, you must add at least one Calendar account to the device and make a calendar visible. Touch \"Add account\" to add an account (if you\'ve just added an account, wait for it to finish syncing and try again). Or touch Cancel and ensure that at least one calendar is visible."</string>
     <string name="add_account" msgid="1669072099756774952">"Add account"</string>
@@ -110,6 +110,7 @@
     <skip />
     <!-- no translation found for event_info_desc_less (8295683160345195225) -->
     <skip />
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Reminders"</string>
     <string name="agenda_today" msgid="6489447319363439068">"Today, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Loading…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Touch to view events before <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -184,5 +185,23 @@
     <string name="today" msgid="8577375020252453006">"Today"</string>
     <string name="copy_db" msgid="437691290566699292">"Send database"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Searching <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="accessibility_new_event" msgid="6063141474224122288">"New event"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Remove attendee"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Start date"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Start time"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"End date"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"End time"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Time zone"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Add reminder"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Remove reminder"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Add attendee"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Sync calendar"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"All-day event"</string>
+    <string name="accessibility_refresh" msgid="3458716385448853522">"Refresh"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Repetition"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Reminder time"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Reminder type"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Show me as"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privacy"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Event <xliff:g id="ITEM_INDEX">%1$s</xliff:g> of <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
 </resources>

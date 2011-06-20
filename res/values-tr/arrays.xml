@@ -151,7 +151,7 @@
   </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"Meşgul"</item>
-    <item msgid="6228387173725732140">"Müsait"</item>
+    <item msgid="6228387173725732140">"Uygun"</item>
   </string-array>
   <string-array name="visibility">
     <item msgid="3035788428581513163">"Varsayılan"</item>
@@ -189,4 +189,8 @@
     <item msgid="2012815396992847028">"Yalnızca bu örnek"</item>
     <item msgid="140670561403965380">"Serideki tüm etkinlikler"</item>
   </string-array>
+    <!-- no translation found for buttons_list:0 (5917946202321434335) -->
+    <!-- no translation found for buttons_list:1 (6248480754959562740) -->
+    <!-- no translation found for buttons_list:2 (4298472806133153766) -->
+    <!-- no translation found for buttons_list:3 (5033084974413793845) -->
 </resources>

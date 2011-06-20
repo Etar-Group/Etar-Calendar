@@ -68,9 +68,9 @@
     <string name="accounts" msgid="849401841083180306">"บัญชีและการซิงค์"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"รายละเอียดกิจกรรม"</string>
     <string name="hint_what" msgid="709155115005044531">"ชื่อกิจกรรม"</string>
-    <string name="hint_where" msgid="3116239630502213241">"สถานที่ของกิจกรรม"</string>
-    <string name="hint_description" msgid="4198202812240544553">"คำอธิบายกิจกรรม"</string>
-    <string name="hint_attendees" msgid="6367757073203911244">"ป้อนที่อยู่อีเมล"</string>
+    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"สถานที่ของกิจกรรม"</string>
+    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"คำอธิบายกิจกรรม"</string>
+    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"ป้อนที่อยู่อีเมล"</string>
     <string name="creating_event" msgid="5252306542761552414">"สร้างกิจกรรมแล้ว"</string>
     <string name="saving_event" msgid="7716081507367732169">"บันทึกกิจกรรมแล้ว"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"ส่งคำเชิญแล้ว"</string>
@@ -88,7 +88,7 @@
     <string name="description_label" msgid="7193475046717505855">"คำอธิบาย"</string>
     <string name="presence_label" msgid="6169724148441175862">"แสดงสถานะว่าฉัน"</string>
     <string name="privacy_label" msgid="9215031965259597335">"ข้อมูลส่วนบุคคล"</string>
-    <string name="reminders_label" msgid="8345054160145333166">"การเตือนความจำ"</string>
+    <!-- outdated translation 8345054160145333166 -->     <string name="reminders_label" msgid="7292389181815525676">"การเตือนความจำ"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"ไม่มีปฏิทิน"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"ก่อนที่คุณจะเพิ่มกิจกรรม คุณต้องเพิ่มบัญชีปฏิทินอย่างน้อยหนึ่งบัญชีลงในอุปกรณ์ และทำให้ปฏิทินสามารถดูได้ แตะ \"เพิ่มบัญชี\" เพื่อเพิ่มบัญชี (หากคุณเพิ่งเพิ่มบัญชี โปรดรอให้บัญชีทำการซิงค์ให้เสร็จสมบูรณ์ แล้วลองอีกครั้ง) หรือแตะ ยกเลิก และตรวจดูว่าสามารถดูปฏิทินได้อย่างน้อยหนึ่งรายการ"</string>
     <string name="add_account" msgid="1669072099756774952">"เพิ่มบัญชี"</string>
@@ -109,6 +109,8 @@
     <!-- no translation found for event_info_desc_more (2961880675118098743) -->
     <skip />
     <!-- no translation found for event_info_desc_less (8295683160345195225) -->
+    <skip />
+    <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
     <skip />
     <string name="agenda_today" msgid="6489447319363439068">"วันนี้, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"กำลังโหลด…"</string>
@@ -184,5 +186,41 @@
     <string name="today" msgid="8577375020252453006">"วันนี้"</string>
     <string name="copy_db" msgid="437691290566699292">"ส่งฐานข้อมูล"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"กำลังค้นหา <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <!-- no translation found for accessibility_new_event (6063141474224122288) -->
+    <skip />
+    <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_start_date (3926641487042699037) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_start_time (4913428100936555149) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_end_date (5624250196618643922) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_end_time (7120310166355224941) -->
+    <skip />
+    <!-- no translation found for accessibility_pick_time_zone (7155465783500323811) -->
+    <skip />
+    <!-- no translation found for accessibility_add_reminder (2267950744060950152) -->
+    <skip />
+    <!-- no translation found for accessibility_remove_reminder (5261609343259665139) -->
+    <skip />
+    <!-- no translation found for accessibility_add_attendee (5654014177472600916) -->
+    <skip />
+    <!-- no translation found for accessibility_sync_cal (6506181885764723383) -->
+    <skip />
+    <!-- no translation found for accessibility_all_day (4146955438811915282) -->
+    <skip />
+    <!-- no translation found for accessibility_refresh (3458716385448853522) -->
+    <skip />
+    <!-- no translation found for accessibility_repeats (1629279916830919582) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_time (3594100545814579575) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_type (5339120699701437227) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_showmeas (6669129015980006570) -->
+    <skip />
+    <!-- no translation found for accessibility_reminder_privacy (8669288484484022771) -->
+    <skip />
     <string name="template_announce_item_index" msgid="4067877800670753110">"กิจกรรม <xliff:g id="ITEM_INDEX">%1$s</xliff:g> จาก <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
 </resources>
