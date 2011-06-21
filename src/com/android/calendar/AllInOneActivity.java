@@ -263,7 +263,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // configureActionBar auto-selects the first tab you add, so we need to
         // call it before we set up our own fragments to make sure it doesn't
         // overwrite us
-        configureActionBar();
+        configureActionBar(viewType);
 
         // Must be the first to register because this activity can modify the
         // list of event handlers in it's handle method. This affects who the
@@ -308,11 +308,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
         return timeMillis;
     }
 
-    private void configureActionBar() {
+    private void configureActionBar(int viewType) {
         if (mIsTabletConfig) {
             createTabs();
         } else {
-            createButtonsSpinner();
+            createButtonsSpinner(viewType);
             mActionBar.setCustomView(mDateRange);
         }
     }
@@ -348,7 +348,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
     }
 
-    private void createButtonsSpinner() {
+    private void createButtonsSpinner(int viewType) {
         SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.buttons_list,
                 android.R.layout.simple_spinner_dropdown_item);
         mActionBar = getActionBar();
@@ -356,6 +356,23 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mActionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_USE_LOGO|
                 ActionBar.DISPLAY_SHOW_TITLE);
         mActionBar.setListNavigationCallbacks(mSpinnerAdapter, this);
+        switch (viewType) {
+            case ViewType.AGENDA:
+                mActionBar.setSelectedNavigationItem(BUTTON_AGENDA_INDEX);
+                break;
+            case ViewType.DAY:
+                mActionBar.setSelectedNavigationItem(BUTTON_DAY_INDEX);
+                break;
+            case ViewType.WEEK:
+                mActionBar.setSelectedNavigationItem(BUTTON_WEEK_INDEX);
+                break;
+            case ViewType.MONTH:
+                mActionBar.setSelectedNavigationItem(BUTTON_MONTH_INDEX);
+                break;
+            default:
+                mActionBar.setSelectedNavigationItem(BUTTON_DAY_INDEX);
+                break;
+       }
     }
     // Clear buttons used in the agenda view
     private void clearOptionsMenu() {
