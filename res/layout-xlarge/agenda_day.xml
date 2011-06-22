@@ -22,26 +22,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <View
+        android:id="@+id/top_divider"
         android:background="?android:attr/listDivider"
         android:layout_height="1px"
         android:layout_width="match_parent" />
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:layout_marginLeft="8dip"
+        android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="48dip">
-        <TextView
-            android:id="@+id/day"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="20dip"
-            android:textSize="12sp"
-            android:textColor="?android:attr/textColorPrimary" />
+        android:layout_height="42dip">
         <TextView
             android:id="@+id/date"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="20dip"
+            android:layout_width="wrap_content"
             android:textSize="24sp"
+            android:textColor="?android:attr/textColorPrimary" />
+        <TextView
+            android:id="@+id/day"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:textSize="14sp"
             android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
     <View

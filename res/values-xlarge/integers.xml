@@ -25,4 +25,8 @@
     <integer name="day_header_height">45</integer>
     <!-- margin between the day number and the edge of the day in month view -->
     <integer name="month_day_number_margin">4</integer>
+    <!-- The size of the color chip in the agenda view for all day events -->
+    <integer name="color_chip_all_day_height">64</integer>
+    <!-- The size of the color chip in the agenda view -->
+    <integer name="color_chip_height">32</integer>
 </resources>

@@ -17,10 +17,14 @@
 package com.android.calendar;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.Shader.TileMode;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -41,28 +45,30 @@ public class ColorChipView extends View {
     // Border for tentative events
     // Cross-hatched with 50% transparency for declined events
 
-    public static final int  DRAW_FULL = 0;
-    public static final int  DRAW_BORDER = 1;
-    public static final int  DRAW_CROSS_HATCHED = 2;
+    public static final int DRAW_FULL = 0;
+    public static final int DRAW_BORDER = 1;
+    public static final int DRAW_CROSS_HATCHED = 2;
 
-    private static final float  DECLINED_ALPHA = (float)0.5;
-    private static final float  DEFAULT_ALPHA = (float)1;
-
+    private static final float DECLINED_ALPHA = (float) 0.4;
+    private static final float DEFAULT_ALPHA = 1;
 
     int mDrawStyle = DRAW_FULL;
 
-    private static final int DEF_BORDER_WIDTH = 3;
+    private static final int DEF_BORDER_WIDTH = 4;
 
     int mBorderWidth = DEF_BORDER_WIDTH;
 
     int mColor;
+    BitmapDrawable mCrosshatchedPattern;
 
     public ColorChipView(Context context) {
         super(context);
+        init(context);
     }
 
     public ColorChipView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
     public void setDrawStyle(int style) {
@@ -70,6 +76,14 @@ public class ColorChipView extends View {
             return;
         }
         mDrawStyle = style;
+        if (style == DRAW_CROSS_HATCHED) {
+            mCrosshatchedPattern.setColorFilter(mColor, PorterDuff.Mode.OVERLAY);
+            setBackgroundDrawable(mCrosshatchedPattern);
+            setAlpha(DECLINED_ALPHA);
+        } else {
+            setBackgroundDrawable(null);
+            setAlpha(DEFAULT_ALPHA);
+        }
         invalidate();
     }
 
@@ -82,7 +96,14 @@ public class ColorChipView extends View {
 
     public void setColor(int color) {
         mColor = color;
+        mCrosshatchedPattern.setColorFilter(mColor, PorterDuff.Mode.OVERLAY);
         invalidate();
+    }
+
+    private void init(Context c) {
+        mCrosshatchedPattern = new BitmapDrawable(BitmapFactory.decodeResource(getResources(),
+                R.drawable.event_bg_declined));
+        mCrosshatchedPattern.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
     }
 
     @Override
@@ -97,18 +118,17 @@ public class ColorChipView extends View {
         switch (mDrawStyle) {
             case DRAW_FULL:
                 c.drawRect(0, 0, right, bottom, p);
-                setAlpha(DEFAULT_ALPHA);
                 break;
             case DRAW_BORDER:
                 if (mBorderWidth <= 0) {
                     return;
                 }
-                int halfBorderWidth =  mBorderWidth / 2;
+                int halfBorderWidth = mBorderWidth / 2;
                 int top = halfBorderWidth;
                 int left = halfBorderWidth;
                 p.setStrokeWidth(mBorderWidth);
 
-                float [] lines = new float [16];
+                float[] lines = new float[16];
                 int ptr = 0;
                 lines [ptr++] = 0;
                 lines [ptr++] = top;
@@ -127,15 +147,10 @@ public class ColorChipView extends View {
                 lines [ptr++] = right - halfBorderWidth;
                 lines [ptr++] = bottom;
                 c.drawLines(lines, p);
-                setAlpha(DEFAULT_ALPHA);
-                break;
-            case DRAW_CROSS_HATCHED:
-                // TODO: replace this with  an asset
-                c.drawLine(0, 0, right, bottom, p);
-                c.drawLine(0, bottom, right, 0, p);
-                setAlpha(DECLINED_ALPHA);
                 break;
             default:
+                // Don't need to do anything for DRAW_CROSS_HATCHED since the
+                // pattern is already set in the background drawable in "setStyle"
                 break;
         }
     }
