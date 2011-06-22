@@ -176,7 +176,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         }
 
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_HEIGHT,
-                (parent.getHeight() - WEEK_7_OVERHANG_HEIGHT) / mNumWeeks);
+                (parent.getHeight() + parent.getTop()) / mNumWeeks);
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_SELECTED_DAY, selectedDay);
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_SHOW_WK_NUM, mShowWeekNumber ? 1 : 0);
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_WEEK_START, mFirstDayOfWeek);
