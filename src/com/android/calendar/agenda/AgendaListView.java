@@ -22,6 +22,7 @@ import com.android.calendar.DeleteEventHelper;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
+import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
 import com.android.calendar.agenda.AgendaWindowAdapter.EventInfo;
 
 import android.content.Context;
@@ -186,6 +187,14 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             t.set(event.begin);
             t.setJulianDay(event.startDay);
             return t.normalize(false);
+        }
+        return 0;
+    }
+
+    public int getJulianDayFromPosition(int position) {
+        DayAdapterInfo info = mWindowAdapter.getAdapterInfoByPosition(position);
+        if (info != null) {
+            return info.dayAdapter.findJulianDayFromPosition(position - info.offset);
         }
         return 0;
     }

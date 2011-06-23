@@ -29,12 +29,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.Adapter;
 import android.widget.HeaderViewListAdapter;
+import android.widget.ListView;
 
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
 import com.android.calendar.StickyHeaderListView;
@@ -43,7 +47,8 @@ import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventFragment;
 
 
-public class AgendaFragment extends Fragment implements CalendarController.EventHandler {
+public class AgendaFragment extends Fragment implements CalendarController.EventHandler,
+        OnScrollListener {
 
     private static final String TAG = AgendaFragment.class.getSimpleName();
     private static boolean DEBUG = false;
@@ -62,7 +67,11 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private EditEventFragment mEventFragment;
     private String mQuery;
     private boolean mUsedForSearch = false;
+    private boolean mIsTabletConfig;
 
+    // Tracks the time of the top visible view in order to send UPDATE_TITLE messages to the action
+    // bar.
+    int  mJulianDayOnTop = -1;
 
     private Runnable mTZUpdater = new Runnable() {
         @Override
@@ -104,7 +113,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         mController = CalendarController.getInstance(mActivity);
         mShowEventDetailsWithAgenda =
             Utils.getConfigBool(mActivity, R.bool.show_event_details_with_agenda);
-
+        mIsTabletConfig =
+            Utils.getConfigBool(mActivity, R.bool.tablet_config);
     }
 
     @Override
@@ -136,6 +146,12 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 lv.setIndexer((HeaderIndexer) a);
             } else {
                 Log.wtf(TAG, "Cannot find HeaderIndexer for StickyHeaderListView");
+            }
+
+            // Set scroll listener so that the date on the ActionBar can be set while
+            // the user scrolls the view
+            if (!mIsTabletConfig) {
+                lv.setOnScrollListener(this);
             }
         }
         return v;
@@ -295,5 +311,31 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
           * EVENT_END_TIME, event.endTime != null ? event.endTime.toMillis(true)
           * : -1); startActivity(intent); }
           */
+    }
+
+    // OnScrollListener implementation to update the date on the pull-down menu of the app
+
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        // Do nothing
+    }
+
+    // Gets the time of the first visible view. If it is a new time, send a message to update
+    // the time on the ActionBar
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+            int totalItemCount) {
+        int julianDay = mAgendaListView.getJulianDayFromPosition(firstVisibleItem -
+                mAgendaListView.getHeaderViewsCount());
+        // On error - leave the old view
+        if (julianDay == 0) {
+            return;
+        }
+        // If the day changed, update the ActionBar
+        if (mJulianDayOnTop != julianDay) {
+            mJulianDayOnTop = julianDay;
+            Time t = new Time(mTimeZone);
+            t.setJulianDay(mJulianDayOnTop);
+            mController.sendEvent(this, EventType.UPDATE_TITLE, t, t, null, -1,
+                    ViewType.CURRENT, 0, null, null);
+        }
     }
 }

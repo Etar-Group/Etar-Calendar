@@ -20,7 +20,7 @@
         android:alphabeticShortcut="f"
         android:title="@string/search"
         android:icon="@drawable/ic_menu_search_holo_light"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:actionViewClass="android.widget.SearchView" />
     <item
         android:id="@+id/action_today"
@@ -33,7 +33,7 @@
         android:alphabeticShortcut="n"
         android:title="@string/event_create"
         android:icon="@drawable/ic_menu_add_event_holo_light"
-        android:showAsAction="never" />
+        android:showAsAction="always" />
     <item
         android:id="@+id/action_refresh"
         android:alphabeticShortcut="r"

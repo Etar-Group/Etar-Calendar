@@ -194,6 +194,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
                 .toString();
         when.setText(whenString);
 
+   /* Recurring event icon is removed
         String rrule = cursor.getString(AgendaWindowAdapter.INDEX_RRULE);
         if (!TextUtils.isEmpty(rrule)) {
             when.setCompoundDrawablesWithIntrinsicBounds(null, null,
@@ -201,7 +202,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             when.setCompoundDrawablePadding(5);
         } else {
             when.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-        }
+        } */
 
         /*
         // Repeating info

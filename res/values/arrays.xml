@@ -377,9 +377,9 @@
 
     <!-- Strings for buttons in drop down menu -->
     <string-array name="buttons_list">
-        <item>    Day     </item>
-        <item>    Week    </item>
-        <item>    Month   </item>
-        <item>    Agenda  </item>
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+        <item>Agenda</item>
     </string-array>
 </resources>

@@ -18,6 +18,8 @@
 */
 -->
 <resources>
+
+    <color name="drop_down_menu_text_color">#FF666666</color>
     <color name="pressed">#330066ff</color>
     <color name="long_pressed">#660066ff</color>
     <color name="activated">#4d0066ff</color>

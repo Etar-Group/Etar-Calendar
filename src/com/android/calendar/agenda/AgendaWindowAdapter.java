@@ -444,7 +444,7 @@ public class AgendaWindowAdapter extends BaseAdapter
         }
     }
 
-    private DayAdapterInfo getAdapterInfoByPosition(int position) {
+    protected DayAdapterInfo getAdapterInfoByPosition(int position) {
         synchronized (mAdapterInfos) {
             if (mLastUsedInfo != null && mLastUsedInfo.offset <= position
                     && position < (mLastUsedInfo.offset + mLastUsedInfo.size)) {

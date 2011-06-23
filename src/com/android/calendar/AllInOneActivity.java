@@ -131,6 +131,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private SearchView mSearchView;
     private MenuItem mControlsMenu;
     private Menu mOptionsMenu;
+    private CalendarViewAdapter mActionBarMenuSpinnerAdapter;
 
     private String mHideString;
     private String mShowString;
@@ -349,13 +350,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
     }
 
     private void createButtonsSpinner(int viewType) {
-        SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.buttons_list,
-                android.R.layout.simple_spinner_dropdown_item);
+        mActionBarMenuSpinnerAdapter = new CalendarViewAdapter (this, viewType);
         mActionBar = getActionBar();
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         mActionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_USE_LOGO|
                 ActionBar.DISPLAY_SHOW_TITLE);
-        mActionBar.setListNavigationCallbacks(mSpinnerAdapter, this);
+        mActionBar.setListNavigationCallbacks(mActionBarMenuSpinnerAdapter, this);
         switch (viewType) {
             case ViewType.AGENDA:
                 mActionBar.setSelectedNavigationItem(BUTTON_AGENDA_INDEX);
@@ -396,12 +396,18 @@ public class AllInOneActivity extends Activity implements EventHandler,
     @Override
     protected void onResume() {
         super.onResume();
-        mContentResolver.registerContentObserver(CalendarContract.Events.CONTENT_URI, true, mObserver);
+        mContentResolver.registerContentObserver(CalendarContract.Events.CONTENT_URI,
+                true, mObserver);
         if (mUpdateOnResume) {
             initFragments(mController.getTime(), mController.getViewType(), null);
             mUpdateOnResume = false;
         }
         updateHomeClock();
+        // Make sure the drop-down menu will get its date updated at midnight
+        if (mActionBarMenuSpinnerAdapter != null) {
+            mActionBarMenuSpinnerAdapter.setMidnightHandler();
+        }
+
         if (mControlsMenu != null) {
             mControlsMenu.setTitle(mHideControls ? mShowString : mHideString);
         }
@@ -428,6 +434,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         super.onPause();
         mPaused = true;
         mHomeTime.removeCallbacks(mHomeTimeUpdater);
+        if (mActionBarMenuSpinnerAdapter != null) {
+            mActionBarMenuSpinnerAdapter.resetMidnightHandler();
+        }
         mContentResolver.unregisterContentObserver(mObserver);
         if (isFinishing()) {
             // Stop listening for changes that would require this to be refreshed
@@ -714,6 +723,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
                         "Must be Agenda, Day, Week, or Month ViewType, not " + viewType);
         }
 
+        // Update the current view so that the menu can update its look according to the
+        // current view.
+        if (!mIsTabletConfig && mActionBarMenuSpinnerAdapter != null) {
+            mActionBarMenuSpinnerAdapter.setMainView(viewType);
+        }
+
         // Clear unnecessary buttons from the option menu when switching from the agenda view
         if (viewType != ViewType.AGENDA) {
             clearOptionsMenu();
@@ -923,6 +938,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
             }
         } else if (event.eventType == EventType.UPDATE_TITLE) {
             setTitleInActionBar(event);
+            if (!mIsTabletConfig) {
+                mActionBarMenuSpinnerAdapter.setTime(event.startTime.toMillis(false));
+            }
         }
         updateHomeClock();
     }
@@ -979,22 +997,22 @@ public class AllInOneActivity extends Activity implements EventHandler,
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
         switch (itemPosition) {
-            case BUTTON_DAY_INDEX:
+            case CalendarViewAdapter.DAY_BUTTON_INDEX:
                 if (mCurrentView != ViewType.DAY) {
                     mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.DAY);
                 }
                 break;
-            case BUTTON_WEEK_INDEX:
+            case CalendarViewAdapter.WEEK_BUTTON_INDEX:
                 if (mCurrentView != ViewType.WEEK) {
                     mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.WEEK);
                 }
                 break;
-            case BUTTON_MONTH_INDEX:
+            case CalendarViewAdapter.MONTH_BUTTON_INDEX:
                 if (mCurrentView != ViewType.MONTH) {
                     mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.MONTH);
                 }
                 break;
-            case BUTTON_AGENDA_INDEX:
+            case CalendarViewAdapter.AGENDA_BUTTON_INDEX:
                 if (mCurrentView != ViewType.AGENDA) {
                     mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
                 }
