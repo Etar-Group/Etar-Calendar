@@ -77,9 +77,7 @@
     <color name="month_title_color">#FFC8CAD0</color>
     <color name="month_selection_bar_color">#FF6699FF</color>
     <color name="month_selection_outline_color">#336699FF</color>
-    <color name="month_busybits_backgound_color">#FFFFFFFF</color>
-    <color name="month_busybits_busy_time_color">#FF999999</color>
-    <color name="month_busybits_conflict_time_color">#FF000000</color>
+    <color name="month_dna_conflict_time_color">#FF000000</color>
 
     <color name="event_center">#ff6bd697</color>
     <color name="edit_event_separator">#FFDDDDDD</color>

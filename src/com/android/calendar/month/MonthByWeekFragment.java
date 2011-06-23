@@ -29,6 +29,7 @@ import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -63,6 +64,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     private static final String[] WHERE_CALENDARS_VISIBLE_ARGS = {"1"};
     private static final String INSTANCES_SORT_ORDER = Instances.START_DAY + ","
             + Instances.START_MINUTE + "," + Instances.TITLE;
+    protected static boolean mShowDetailsInMonth = false;
 
     protected float mMinimumTwoMonthFlingVelocity;
     protected boolean mIsMiniMonth;
@@ -230,7 +232,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         mMinimumTwoMonthFlingVelocity = viewConfig.getScaledMaximumFlingVelocity() / 2;
 
         if (mScale == 0) {
-            mScale = activity.getResources().getDisplayMetrics().density;
+            Resources res = activity.getResources();
+            mScale = res.getDisplayMetrics().density;
+            mShowDetailsInMonth = res.getBoolean(R.bool.show_details_in_month);
             if (mScale != 1) {
                 SPACING_WEEK_NUMBER *= mScale;
             }
@@ -346,7 +350,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     @Override
     protected void updateHeader() {
         super.updateHeader();
-        if (!mIsMiniMonth) {
+        if (!mIsMiniMonth && mShowDetailsInMonth) {
             mDayNamesHeader.findViewById(R.id.wk_label).setVisibility(View.VISIBLE);
         }
     }

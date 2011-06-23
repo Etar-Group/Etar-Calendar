@@ -51,6 +51,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     private boolean mShowAgendaWithMonth;
 
     protected ArrayList<ArrayList<Event>> mEventDayList = new ArrayList<ArrayList<Event>>();
+    protected ArrayList<Event> mEvents = null;
 
     public MonthByWeekAdapter(Context context, HashMap<String, Integer> params) {
         super(context, params);
@@ -96,6 +97,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             }
             return;
         }
+        mEvents = events;
         mFirstJulianDay = firstJulianDay;
         mQueryDays = numDays;
         // Create a new list, this is necessary since the weeks are referencing
@@ -197,7 +199,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             if (Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "No events loaded, did not pass any events to view.");
             }
-            v.setEvents(null);
+            v.setEvents(null, null);
             return;
         }
         int viewJulianDay = v.getFirstJulianDay();
@@ -208,10 +210,10 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                 Log.d(TAG, "Week is outside range of loaded events. viewStart: " + viewJulianDay
                         + " eventsStart: " + mFirstJulianDay);
             }
-            v.setEvents(null);
+            v.setEvents(null, null);
             return;
         }
-        v.setEvents(mEventDayList.subList(start, end));
+        v.setEvents(mEventDayList.subList(start, end), mEvents);
     }
 
     @Override

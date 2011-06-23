@@ -35,4 +35,8 @@
     <integer name="color_chip_all_day_height">48</integer>
     <!-- The size of the color chip in the agenda view -->
     <integer name="color_chip_height">24</integer>
+    <!-- The time of day in minutes usually considered the start of the work day, eg. 6am in the US -->
+    <integer name="work_start_minutes">360</integer>
+    <!-- The time of day in minutes usually considered the end of the work day, eg. 8pm in the US -->
+    <integer name="work_end_minutes">1200</integer>
 </resources>

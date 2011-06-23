@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 The Android Open Source Project
+<!-- Copyright (C) 2011 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
     <TextView android:id="@+id/wk_label"
         android:layout_width="24dip"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:gravity="left"
         android:visibility="gone" />
 
     <TextView android:id="@+id/d0_label"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="right"
+        android:gravity="left"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d1_label"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="right"
+        android:gravity="left"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d2_label"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="right"
+        android:gravity="left"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d3_label"
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="right"
+        android:gravity="left"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d4_label"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="right"
+        android:gravity="left"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d5_label"
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="right"
+        android:gravity="left"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d6_label"
@@ -78,6 +78,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="right"
+        android:gravity="left"
         style="@style/TextAppearance.MonthView_DayLabel" />
 </LinearLayout>
