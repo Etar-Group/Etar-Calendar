@@ -16,8 +16,8 @@
 
 package com.android.calendar;
 
-import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EVENT_END_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 import com.android.calendar.event.EditEventActivity;
 
@@ -543,8 +543,8 @@ public class CalendarController {
     private void launchCreateEvent(long startMillis, long endMillis) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setClassName(mContext, EditEventActivity.class.getName());
-        intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-        intent.putExtra(EVENT_END_TIME, endMillis);
+        intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
+        intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
         mEventId = -1;
         mContext.startActivity(intent);
     }
@@ -554,16 +554,16 @@ public class CalendarController {
         Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
         intent.setData(eventUri);
 //        intent.setClassName(mContext, EventInfoActivity.class.getName());
-        intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-        intent.putExtra(EVENT_END_TIME, endMillis);
+        intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
+        intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
         mContext.startActivity(intent);
     }
 
     private void launchEditEvent(long eventId, long startMillis, long endMillis, boolean edit) {
         Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
         Intent intent = new Intent(Intent.ACTION_EDIT, uri);
-        intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-        intent.putExtra(EVENT_END_TIME, endMillis);
+        intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
+        intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
         intent.setClass(mContext, EditEventActivity.class);
         intent.putExtra(EVENT_EDIT_ON_LAUNCH, edit);
         mEventId = eventId;

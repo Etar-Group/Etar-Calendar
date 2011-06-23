@@ -16,8 +16,8 @@
 
 package com.android.calendar;
 
-import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EVENT_END_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
 import static com.android.calendar.CalendarController.EVENT_ATTENDEE_RESPONSE;
 
@@ -294,8 +294,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 try {
                     mViewEventId = Long.valueOf(data.getLastPathSegment());
                     if (mViewEventId != -1) {
-                        mIntentEventStartMillis = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
-                        mIntentEventEndMillis = intent.getLongExtra(EVENT_END_TIME, 0);
+                        mIntentEventStartMillis = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, 0);
+                        mIntentEventEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
                         mIntentAttendeeResponse = intent.getIntExtra(
                                 ATTENDEE_STATUS, CalendarController.ATTENDEE_NO_RESPONSE);
                         timeMillis = mIntentEventStartMillis;
@@ -505,8 +505,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 eventId = icicle.getLong(BUNDLE_KEY_EVENT_ID);
             }
 
-            long begin = intent.getLongExtra(EVENT_BEGIN_TIME, -1);
-            long end = intent.getLongExtra(EVENT_END_TIME, -1);
+            long begin = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, -1);
+            long end = intent.getLongExtra(EXTRA_EVENT_END_TIME, -1);
             info = new EventInfo();
             if (end != -1) {
                 info.endTime = new Time();
@@ -894,8 +894,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     intent.setClassName(this, EventInfoActivity.class.getName());
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT |
                             Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent.putExtra(EVENT_BEGIN_TIME, event.startTime.toMillis(false));
-                    intent.putExtra(EVENT_END_TIME, event.endTime.toMillis(false));
+                    intent.putExtra(EXTRA_EVENT_BEGIN_TIME, event.startTime.toMillis(false));
+                    intent.putExtra(EXTRA_EVENT_END_TIME, event.endTime.toMillis(false));
                     intent.putExtra(EVENT_ATTENDEE_RESPONSE, (int)event.extraLong);
                     startActivity(intent);
                 } else {

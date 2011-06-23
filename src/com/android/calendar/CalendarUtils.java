@@ -49,6 +49,9 @@ public class CalendarUtils {
         private static final String[] TIMEZONE_TYPE_ARGS = { CalendarCache.TIMEZONE_KEY_TYPE };
         private static final String[] TIMEZONE_INSTANCES_ARGS =
                 { CalendarCache.TIMEZONE_KEY_INSTANCES };
+        public static final String[] CALENDAR_CACHE_POJECTION = {
+                CalendarCache.KEY, CalendarCache.VALUE
+        };
 
         private static StringBuilder mSB = new StringBuilder(50);
         private static Formatter mF = new Formatter(mSB, Locale.getDefault());
@@ -280,7 +283,7 @@ public class CalendarUtils {
                     if (mHandler == null) {
                         mHandler = new AsyncTZHandler(context.getContentResolver());
                     }
-                    mHandler.startQuery(0, context, CalendarCache.URI, CalendarCache.POJECTION,
+                    mHandler.startQuery(0, context, CalendarCache.URI, CALENDAR_CACHE_POJECTION,
                             null, null, null);
                 }
                 if (mTZQueryInProgress) {

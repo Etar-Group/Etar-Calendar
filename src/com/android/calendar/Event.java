@@ -16,12 +16,17 @@
 
 package com.android.calendar;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Debug;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
+import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Instances;
 import android.text.TextUtils;
@@ -30,6 +35,7 @@ import android.text.format.Time;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -260,10 +266,10 @@ public class Event implements Cloneable {
                 whereAllday += hideString;
             }
 
-            cEvents = Instances.query(context.getContentResolver(), EVENT_PROJECTION,
+            cEvents = instancesQuery(context.getContentResolver(), EVENT_PROJECTION,
                     start - DateUtils.DAY_IN_MILLIS, end + DateUtils.DAY_IN_MILLIS, where,
                     null, SORT_EVENTS_BY);
-            cAllday = Instances.query(context.getContentResolver(), EVENT_PROJECTION,
+            cAllday = instancesQuery(context.getContentResolver(), EVENT_PROJECTION,
                     start - DateUtils.DAY_IN_MILLIS, end + DateUtils.DAY_IN_MILLIS, whereAllday,
                     null, SORT_ALLDAY_BY);
 
@@ -287,6 +293,50 @@ public class Event implements Cloneable {
                 Debug.stopMethodTracing();
             }
         }
+    }
+
+    /**
+     * Performs a query to return all visible instances in the given range
+     * that match the given selection. This is a blocking function and
+     * should not be done on the UI thread. This will cause an expansion of
+     * recurring events to fill this time range if they are not already
+     * expanded and will slow down for larger time ranges with many
+     * recurring events.
+     *
+     * @param cr The ContentResolver to use for the query
+     * @param projection The columns to return
+     * @param begin The start of the time range to query in UTC millis since
+     *            epoch
+     * @param end The end of the time range to query in UTC millis since
+     *            epoch
+     * @param selection Filter on the query as an SQL WHERE statement
+     * @param selectionArgs Args to replace any '?'s in the selection
+     * @param orderBy How to order the rows as an SQL ORDER BY statement
+     * @return A Cursor of instances matching the selection
+     */
+    private static final Cursor instancesQuery(ContentResolver cr, String[] projection, long begin,
+            long end, String selection, String[] selectionArgs, String orderBy) {
+        String WHERE_CALENDARS_SELECTED = Calendars.VISIBLE + "=?";
+        String[] WHERE_CALENDARS_ARGS = {"1"};
+        String DEFAULT_SORT_ORDER = "begin ASC";
+
+        Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
+        ContentUris.appendId(builder, begin);
+        ContentUris.appendId(builder, end);
+        if (TextUtils.isEmpty(selection)) {
+            selection = WHERE_CALENDARS_SELECTED;
+            selectionArgs = WHERE_CALENDARS_ARGS;
+        } else {
+            selection = "(" + selection + ") AND " + WHERE_CALENDARS_SELECTED;
+            if (selectionArgs != null && selectionArgs.length > 0) {
+                selectionArgs = Arrays.copyOf(selectionArgs, selectionArgs.length + 1);
+                selectionArgs[selectionArgs.length - 1] = WHERE_CALENDARS_ARGS[0];
+            } else {
+                selectionArgs = WHERE_CALENDARS_ARGS;
+            }
+        }
+        return cr.query(builder.build(), projection, selection, selectionArgs,
+                orderBy == null ? DEFAULT_SORT_ORDER : orderBy);
     }
 
     /**

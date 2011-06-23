@@ -108,7 +108,7 @@ public class AlertService extends Service {
             return;
         }
 
-        if (!action.equals(android.provider.CalendarContract.EVENT_REMINDER_ACTION)
+        if (!action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER)
                 && !action.equals(Intent.ACTION_LOCALE_CHANGED)) {
             Log.w(TAG, "Invalid action: " + action);
             return;

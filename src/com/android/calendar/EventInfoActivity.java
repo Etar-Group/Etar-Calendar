@@ -15,8 +15,8 @@
  */
 package com.android.calendar;
 
-import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EVENT_END_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 import static com.android.calendar.CalendarController.ATTENDEE_NO_RESPONSE;
 import static com.android.calendar.CalendarController.EVENT_ATTENDEE_RESPONSE;
 import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
@@ -81,8 +81,8 @@ public class EventInfoActivity extends Activity {
             attendeeResponse = icicle.getInt(EventInfoFragment.BUNDLE_KEY_ATTENDEE_RESPONSE);
             isDialog = icicle.getBoolean(EventInfoFragment.BUNDLE_KEY_IS_DIALOG);
         } else if (intent != null && Intent.ACTION_VIEW.equals(intent.getAction())) {
-            mStartMillis = intent.getLongExtra(EVENT_BEGIN_TIME, 0);
-            mEndMillis = intent.getLongExtra(EVENT_END_TIME, 0);
+            mStartMillis = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, 0);
+            mEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
             attendeeResponse = intent.getIntExtra(EVENT_ATTENDEE_RESPONSE, ATTENDEE_NO_RESPONSE);
             Uri data = intent.getData();
             if (data != null) {
@@ -126,8 +126,8 @@ public class EventInfoActivity extends Activity {
             case R.id.info_action_edit:
                 Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
                 Intent intent = new Intent(Intent.ACTION_EDIT, uri);
-                intent.putExtra(EVENT_BEGIN_TIME, mStartMillis);
-                intent.putExtra(EVENT_END_TIME, mEndMillis);
+                intent.putExtra(EXTRA_EVENT_BEGIN_TIME, mStartMillis);
+                intent.putExtra(EXTRA_EVENT_END_TIME, mEndMillis);
                 intent.setClass(this, EditEventActivity.class);
                 intent.putExtra(EVENT_EDIT_ON_LAUNCH, true);
                 startActivity(intent);

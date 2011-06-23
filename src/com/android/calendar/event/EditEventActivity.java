@@ -16,8 +16,8 @@
 
 package com.android.calendar.event;
 
-import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EVENT_END_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -104,8 +104,8 @@ public class EditEventActivity extends AbstractCalendarActivity {
             eventId = icicle.getLong(BUNDLE_KEY_EVENT_ID);
         }
 
-        long begin = intent.getLongExtra(EVENT_BEGIN_TIME, -1);
-        long end = intent.getLongExtra(EVENT_END_TIME, -1);
+        long begin = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, -1);
+        long end = intent.getLongExtra(EXTRA_EVENT_END_TIME, -1);
         if (end != -1) {
             info.endTime = new Time();
             info.endTime.set(end);

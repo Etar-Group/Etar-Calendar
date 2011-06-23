@@ -15,8 +15,8 @@
  */
 package com.android.calendar;
 
-import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EVENT_END_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -181,10 +181,10 @@ public class SearchActivity extends Activity
             Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
             intent.setData(eventUri);
 //            intent.setClassName(this, EventInfoActivity.class.getName());
-            intent.putExtra(EVENT_BEGIN_TIME,
+            intent.putExtra(EXTRA_EVENT_BEGIN_TIME,
                     event.startTime != null ? event.startTime.toMillis(true) : -1);
             intent.putExtra(
-                    EVENT_END_TIME, event.endTime != null ? event.endTime.toMillis(true) : -1);
+                    EXTRA_EVENT_END_TIME, event.endTime != null ? event.endTime.toMillis(true) : -1);
             startActivity(intent);
         }
         mCurrentEventId = event.id;

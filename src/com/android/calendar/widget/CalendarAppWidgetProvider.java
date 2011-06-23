@@ -16,8 +16,8 @@
 
 package com.android.calendar.widget;
 
-import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EVENT_END_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 import com.android.calendar.R;
 import com.android.calendar.Utils;
@@ -206,8 +206,8 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         }
         Uri data = Uri.parse(dataString);
         fillInIntent.setData(data);
-        fillInIntent.putExtra(EVENT_BEGIN_TIME, start);
-        fillInIntent.putExtra(EVENT_END_TIME, end);
+        fillInIntent.putExtra(EXTRA_EVENT_BEGIN_TIME, start);
+        fillInIntent.putExtra(EXTRA_EVENT_END_TIME, end);
 
         return fillInIntent;
     }

@@ -17,8 +17,8 @@
 
 package com.android.calendar;
 
-import static android.provider.CalendarContract.EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EVENT_END_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED;
@@ -129,8 +129,8 @@ public class GoogleCalendarUriIntentFilter extends Activity {
                         // Send intent to calendar app
                         Uri calendarUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
                         intent = new Intent(Intent.ACTION_VIEW, calendarUri);
-                        intent.putExtra(EVENT_BEGIN_TIME, startMillis);
-                        intent.putExtra(EVENT_END_TIME, endMillis);
+                        intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
+                        intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
                         if (attendeeStatus != ATTENDEE_STATUS_NONE) {
                             intent.putExtra(ATTENDEE_STATUS, attendeeStatus);
                         }

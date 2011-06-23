@@ -188,8 +188,8 @@ public class AlertActivity extends Activity implements OnClickListener {
             Builder builder = CalendarContract.CONTENT_URI.buildUpon();
             builder.appendEncodedPath("events/" + id);
             eventIntent.setData(builder.build());
-            eventIntent.putExtra(CalendarContract.EVENT_BEGIN_TIME, startMillis);
-            eventIntent.putExtra(CalendarContract.EVENT_END_TIME, endMillis);
+            eventIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startMillis);
+            eventIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endMillis);
             alertActivity.startActivity(eventIntent);
 
             alertActivity.finish();
