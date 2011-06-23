@@ -95,7 +95,7 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
         int getHeaderPositionFromItemPosition(int position);
 
         /**
-         * Calculates he number of items in the section defined by the header (not including
+         * Calculates the number of items in the section defined by the header (not including
          * the header).
          * For example: A list with albums and songs, the method should return
          * the number of songs names (without the album name).

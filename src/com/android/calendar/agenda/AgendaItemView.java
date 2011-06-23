@@ -17,23 +17,17 @@
 package com.android.calendar.agenda;
 
 import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
-import com.android.calendar.ColorChipView;
-import com.android.calendar.R;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
 /**
  * A custom layout for each item in the Agenda list view.
  */
-public class AgendaItemView extends RelativeLayout {
+public class AgendaItemView extends LinearLayout {
     private static final String TAG = "AgendaItemView";
-    Paint mPaint = new Paint();
 
     public AgendaItemView(Context context) {
         super(context);
@@ -45,14 +39,6 @@ public class AgendaItemView extends RelativeLayout {
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-
         super.dispatchDraw(canvas);
-        // Gray out item if the event was declined
-
-        ViewHolder holder = (ViewHolder) getTag();
-        if (holder != null && holder.overLayColor != 0) {
-            mPaint.setColor(holder.overLayColor);
-            canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
-        }
     }
 }

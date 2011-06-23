@@ -150,6 +150,8 @@ public class AgendaWindowAdapter extends BaseAdapter
     private TextView mFooterView;
     private boolean mDoneSettingUpHeaderFooter = false;
 
+    private final boolean mIsTabletConfig;
+
     /**
      * When the user scrolled to the top, a query will be made for older events
      * and this will be incremented. Don't make more requests if
@@ -297,6 +299,7 @@ public class AgendaWindowAdapter extends BaseAdapter
         mContext = context;
         mResources = context.getResources();
         mSelectedAgendaItemColor = mResources.getColor(R.color.activated);
+        mIsTabletConfig = Utils.getConfigBool(mContext, R.bool.tablet_config);
 
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         mAgendaListView = agendaListView;
@@ -1023,6 +1026,12 @@ public class AgendaWindowAdapter extends BaseAdapter
     // Returns the location of the day header of a specific event specified in the position
     // in the adapter
     public int getHeaderPositionFromItemPosition(int position) {
+
+        // For phone configuration, return -1 so there will be no sticky header
+        if (!mIsTabletConfig) {
+            return -1;
+        }
+
         DayAdapterInfo info = getAdapterInfoByPosition(position);
         if (info != null) {
             int pos = info.dayAdapter.getHeaderPosition(position - info.offset);
@@ -1033,7 +1042,7 @@ public class AgendaWindowAdapter extends BaseAdapter
 
     // Returns the number of events for a specific day header
     public int getHeaderItemsNumber(int headerPosition) {
-        if (headerPosition < 0) {
+        if (headerPosition < 0 || !mIsTabletConfig) {
             return -1;
         }
         DayAdapterInfo info = getAdapterInfoByPosition(headerPosition);

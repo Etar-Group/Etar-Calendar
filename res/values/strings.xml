@@ -277,7 +277,11 @@
     <!-- Agenda View strings -->
     <skip />
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
-    <string name="agenda_today">Today, <xliff:g id="date">%1$s</xliff:g></string>
+    <string name="agenda_today">TODAY, <xliff:g id="date">%1$s</xliff:g></string>
+    <!-- This is shown as part of the heading at the top of a list of today's events. -->
+    <string name="agenda_yesterday">YESTERDAY, <xliff:g id="date">%1$s</xliff:g></string>
+    <!-- This is shown as part of the heading at the top of a list of today's events. -->
+    <string name="agenda_tomorrow">TOMMOROW, <xliff:g id="date">%1$s</xliff:g></string>
     <!-- This is shown while the calendar events are being loading to the screen. -->
     <string name="loading">Loading\u2026</string>
     <!-- This is shown at the top of the agenda view showing the beginning of the searched range. If the user taps on this string and Calendar will find events older than what is visible and display them to the user -->

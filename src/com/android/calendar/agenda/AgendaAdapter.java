@@ -29,6 +29,7 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
@@ -39,9 +40,14 @@ public class AgendaAdapter extends ResourceCursorAdapter {
     private String mNoTitleLabel;
     private Resources mResources;
     private int mDeclinedColor;
+    private int mStandardColor;
     // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
     private Formatter mFormatter;
     private StringBuilder mStringBuilder;
+    private float mScale;
+
+    private int COLOR_CHIP_ALL_DAY_HEIGHT;
+    private int COLOR_CHIP_HEIGHT;
 
     private Runnable mTZUpdater = new Runnable() {
         @Override
@@ -55,8 +61,6 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         public static final int DECLINED_RESPONSE = 0;
         public static final int TENTATIVE_RESPONSE = 1;
         public static final int ACCEPTED_RESPONSE = 2;
-
-        int overLayColor; // Used by AgendaItemView to gray out the entire item if so desired
 
         /* Event */
         TextView title;
@@ -72,9 +76,21 @@ public class AgendaAdapter extends ResourceCursorAdapter {
 
         mResources = context.getResources();
         mNoTitleLabel = mResources.getString(R.string.no_title_label);
-        mDeclinedColor = mResources.getColor(R.drawable.agenda_item_declined);
+        mDeclinedColor = mResources.getColor(R.color.agenda_item_declined_color);
+        mStandardColor = mResources.getColor(R.color.agenda_item_standard_color);
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
+
+        COLOR_CHIP_ALL_DAY_HEIGHT = mResources.getInteger(R.integer.color_chip_all_day_height);
+        COLOR_CHIP_HEIGHT = mResources.getInteger(R.integer.color_chip_height);
+        if (mScale == 0) {
+            mScale = mResources.getDisplayMetrics().density;
+            if (mScale != 1) {
+                COLOR_CHIP_ALL_DAY_HEIGHT *= mScale;
+                COLOR_CHIP_HEIGHT *= mScale;
+            }
+        }
+
     }
 
     @Override
@@ -99,18 +115,33 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         }
 
         // Fade text if event was declined and set the color chip mode (response
+        boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
         int selfAttendeeStatus = cursor.getInt(AgendaWindowAdapter.INDEX_SELF_ATTENDEE_STATUS);
         if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
-            holder.overLayColor = mDeclinedColor;
+            holder.title.setTextColor(mDeclinedColor);
+            holder.when.setTextColor(mDeclinedColor);
+            holder.where.setTextColor(mDeclinedColor);
             holder.colorChip.setDrawStyle(ColorChipView.DRAW_CROSS_HATCHED);
         } else {
-            holder.overLayColor = 0;
+            holder.title.setTextColor(mStandardColor);
+            holder.when.setTextColor(mStandardColor);
+            holder.where.setTextColor(mStandardColor);
             if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_TENTATIVE) {
                 holder.colorChip.setDrawStyle(ColorChipView.DRAW_BORDER);
             } else {
                 holder.colorChip.setDrawStyle(ColorChipView.DRAW_FULL);
             }
         }
+
+        // Set the size of the color chip
+        ViewGroup.LayoutParams params = holder.colorChip.getLayoutParams();
+        if (allDay) {
+            params.height = COLOR_CHIP_ALL_DAY_HEIGHT;
+        } else {
+            params.height = COLOR_CHIP_HEIGHT;
+
+        }
+        holder.colorChip.setLayoutParams(params);
 
         // Deal with exchange events that the owner cannot respond to
         int canRespond = cursor.getInt(AgendaWindowAdapter.INDEX_CAN_ORGANIZER_RESPOND);
@@ -119,6 +150,9 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             String organizer = cursor.getString(AgendaWindowAdapter.INDEX_ORGANIZER);
             if (owner.equals(organizer)) {
                 holder.colorChip.setDrawStyle(ColorChipView.DRAW_FULL);
+                holder.title.setTextColor(mStandardColor);
+                holder.when.setTextColor(mStandardColor);
+                holder.where.setTextColor(mStandardColor);
             }
         }
 
@@ -138,12 +172,10 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             titleString = mNoTitleLabel;
         }
         title.setText(titleString);
-        title.setTextColor(color);
 
         // When
         long begin = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
         long end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
-        boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
         int flags = 0;
         String whenString;
         // It's difficult to update all the adapters so just query this each

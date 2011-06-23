@@ -80,12 +80,19 @@
     <color name="event_center">#ff6bd697</color>
     <color name="edit_event_separator">#FFDDDDDD</color>
 
-
+    <!-- Text color of the date in the Calendar widget -->
     <color name="agenda_day_bar_title_color">#FFFFFFFF</color>
     <color name="agenda_item_not_selected">#00000000</color>
+    <!-- Text color of declined events in agenda view -->
+    <color name="agenda_item_declined_color">#66000000</color>
+    <!-- Text color of non-declined events in agenda view -->
+    <color name="agenda_item_standard_color">#FF000000</color>
+    <!-- Background Color of present/future events in agenda view  -->
     <color name="agenda_day_bar_background_color">#FFFFFFFF</color>
-
-    <drawable name="agenda_item_declined">#88ffffff</drawable>
+    <!-- Background Color of past events in agenda view  -->
+    <color name="agenda_past_days_bar_background_color">#FFEEEEEE</color>
+    <!-- Color of the separator between the past and the present/future in agenda view  -->
+    <color name="agenda_past_present_separator_color">#FF000000</color>
 
     <color name="text_shadow_color">#4D000000</color>
 
