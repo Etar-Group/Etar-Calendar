@@ -537,9 +537,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 break;
             case EventRecurrence.MONTHLY:
                 if (mEventRecurrence.repeatsMonthlyOnDayCount()) {
+                    /* this is a "3rd Tuesday of every month" sort of rule */
                     return false;
                 } else if (mEventRecurrence.bydayCount == 0
-                        && mEventRecurrence.bymonthdayCount == 1) {
+                        && mEventRecurrence.bymonthdayCount == 1
+                        && mEventRecurrence.bymonthday[0] > 0) {
+                    /* this is a "22nd day of every month" sort of rule */
                     return false;
                 }
                 break;
