@@ -177,7 +177,6 @@ public class AgendaWindowAdapter extends BaseAdapter
     private StringBuilder mStringBuilder;
     private String mTimeZone;
 
-
     // defines if to pop-up the current event when the agenda is first shown
     private boolean mShowEventOnStart;
 
@@ -404,10 +403,27 @@ public class AgendaWindowAdapter extends BaseAdapter
         final View v;
         DayAdapterInfo info = getAdapterInfoByPosition(position);
         if (info != null) {
-            v = info.dayAdapter.getView(position - info.offset, convertView,
+            int offset = position - info.offset;
+            v = info.dayAdapter.getView(offset, convertView,
                     parent);
+
+            // Turn on the past/present separator if the view is a day header
+            // and it is the first day with events after yesterday.
+            if (info.dayAdapter.isDayHeaderView(offset)) {
+                View simpleDivider = v.findViewById(R.id.top_divider_simple);
+                View pastPresentDivider = v.findViewById(R.id.top_divider_past_present);
+                if (info.dayAdapter.isFirstDayAfterYesterday(offset)) {
+                    if (simpleDivider != null && pastPresentDivider != null) {
+                        simpleDivider.setVisibility(View.GONE);
+                        pastPresentDivider.setVisibility(View.VISIBLE);
+                    }
+                } else if (simpleDivider != null && pastPresentDivider != null) {
+                    simpleDivider.setVisibility(View.VISIBLE);
+                    pastPresentDivider.setVisibility(View.GONE);
+                }
+            }
         } else {
-            //TODO
+            // TODO
             Log.e(TAG, "BUG: getAdapterInfoByPosition returned null!!! " + position);
             TextView tv = new TextView(mContext);
             tv.setText("Bug! " + position);
@@ -898,6 +914,30 @@ public class AgendaWindowAdapter extends BaseAdapter
                 }
 
                 updateHeaderFooter(totalAgendaRangeStart, totalAgendaRangeEnd);
+
+                // Go over the events and mark the first day after yesterday
+                // that has events in it
+                synchronized (mAdapterInfos) {
+                    DayAdapterInfo info = mAdapterInfos.getFirst();
+                    if (info != null) {
+                        Time time = new Time(mTimeZone);
+                        long now = System.currentTimeMillis();
+                        time.set(now);
+                        int JulianToday = Time.getJulianDay(now, time.gmtoff);
+                        Iterator<DayAdapterInfo> iter = mAdapterInfos.iterator();
+                        boolean foundDay = false;
+                        while (iter.hasNext() && !foundDay) {
+                            info = iter.next();
+                            for (int i = 0; i < info.size; i++) {
+                                if (info.dayAdapter.findJulianDayFromPosition(i) >= JulianToday) {
+                                    info.dayAdapter.setAsFirstDayAfterYesterday(i);
+                                    foundDay = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
 
                 // Fire off the next query if any
                 Iterator<QuerySpec> it = mQueryQueue.iterator();

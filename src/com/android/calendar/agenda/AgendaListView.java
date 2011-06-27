@@ -26,6 +26,7 @@ import com.android.calendar.agenda.AgendaWindowAdapter.EventInfo;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Handler;
 import android.text.format.Time;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -45,6 +46,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     private Context mContext;
     private String mTimeZone;
     private boolean mShowEventDetailsWithAgenda;
+    // Used to update the past/present separator at midnight
+    private Handler mMidnightUpdate = null;;
 
     private Runnable mTZUpdater = new Runnable() {
         @Override
@@ -52,6 +55,15 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             mTimeZone = Utils.getTimeZone(mContext, this);
         }
     };
+
+    private Runnable mMidnightUpdater = new Runnable() {
+        @Override
+        public void run() {
+            refresh(true);
+            setMidnightUpdater();
+        }
+    };
+
 
     public AgendaListView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -73,6 +85,38 @@ public class AgendaListView extends ListView implements OnItemClickListener {
                 new DeleteEventHelper(context, null, false /* don't exit when done */);
         mShowEventDetailsWithAgenda = Utils.getConfigBool(mContext,
                 R.bool.show_event_details_with_agenda);
+        setMidnightUpdater();
+    }
+
+
+    // Sets a thread to run one second after midnight and refresh the list view
+    // causing the separator between past/present to be updated.
+    private void setMidnightUpdater() {
+
+        // Create the handler or clear the existing one.
+        if (mMidnightUpdate == null) {
+            mMidnightUpdate = new Handler();
+        } else {
+            mMidnightUpdate.removeCallbacks(mMidnightUpdater);
+        }
+
+        // Calculate the time until midnight + 1 second and set the handler to
+        // do a refresh
+        // at that time.
+
+        long now = System.currentTimeMillis();
+        Time time = new Time(mTimeZone);
+        time.set(now);
+        long runInMillis = (24 * 3600 - time.hour * 3600 - time.minute * 60 -
+                time.second + 1) * 1000;
+        mMidnightUpdate.postDelayed(mMidnightUpdater, runInMillis);
+    }
+
+    // Stop the midnight update thread
+    private void resetMidnightUpdater() {
+        if (mMidnightUpdate != null) {
+            mMidnightUpdate.removeCallbacks(mMidnightUpdater);
+        }
     }
 
     @Override
@@ -283,10 +327,12 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     public void onResume() {
         mTZUpdater.run();
+        setMidnightUpdater();
         mWindowAdapter.onResume();
     }
 
     public void onPause() {
+        resetMidnightUpdater();
         mWindowAdapter.notifyDataSetInvalidated();
     }
 }

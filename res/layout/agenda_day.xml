@@ -22,8 +22,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <View
+        android:id="@+id/top_divider_simple"
         android:background="?android:attr/listDivider"
         android:layout_height="1px"
+        android:layout_width="match_parent" />
+    <View
+        android:id="@+id/top_divider_past_present"
+        android:background="@color/agenda_past_present_separator_color"
+        android:visibility="gone"
+        android:layout_height="2dip"
         android:layout_width="match_parent" />
     <LinearLayout
         android:orientation="vertical"
