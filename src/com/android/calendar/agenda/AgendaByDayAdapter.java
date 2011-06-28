@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -161,6 +162,10 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 mRowInfo.get(position).mType : TYPE_DAY;
     }
 
+    public boolean isDayHeaderView(int position) {
+        return (getItemViewType(position) == TYPE_DAY);
+    }
+
     public View getView(int position, View convertView, ViewGroup parent) {
         if ((mRowInfo == null) || (position > mRowInfo.size())) {
             // If we have no row info, mAgendaAdapter returns the view.
@@ -251,16 +256,20 @@ public class AgendaByDayAdapter extends BaseAdapter {
             return agendaDayView;
         } else if (row.mType == TYPE_MEETING) {
             View itemView = mAgendaAdapter.getView(row.mPosition, convertView, parent);
-            TextView y = ((AgendaAdapter.ViewHolder) itemView.getTag()).title;
+            TextView title = ((AgendaAdapter.ViewHolder) itemView.getTag()).title;
             if (AgendaWindowAdapter.BASICLOG) {
-                y.setText(y.getText() + " P:" + position);
+                title.setText(title.getText() + " P:" + position);
             } else {
-                y.setText(y.getText());
+                title.setText(title.getText());
             }
+
+            // if event in the past , un-bold the title and set the background
             if (row.mDay >= mTodayJulianDay) {
                 itemView.setBackgroundColor(mBackgroundColor);
+                title.setTypeface(Typeface.DEFAULT_BOLD);
             } else {
                 itemView.setBackgroundColor(mPastBackgroundColor);
+                title.setTypeface(Typeface.DEFAULT);
             }
             return itemView;
         } else {
@@ -382,11 +391,16 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
         final int mDay;          // Julian day
         final int mPosition;     // cursor position (not used for TYPE_DAY)
+        // This is used to mark a day header as the first day with events that is "today"
+        // or later. This flag is used by the adapter to create a view with a visual separator
+        // between the past and the present/future
+        boolean mFirstDayAfterYesterday;
 
         RowInfo(int type, int julianDay, int position) {
             mType = type;
             mDay = julianDay;
             mPosition = position;
+            mFirstDayAfterYesterday = false;
         }
     }
 
@@ -439,6 +453,21 @@ public class AgendaByDayAdapter extends BaseAdapter {
     }
 
     /**
+     * Returns a flag indicating if this position is the first day after "yesterday" that has
+     * events in it.
+     *
+     * @return a flag indicating if this is the "first day after yesterday"
+     */
+    public boolean isFirstDayAfterYesterday(int position) {
+        int headerPos = getHeaderPosition(position);
+        RowInfo row = mRowInfo.get(headerPos);
+        if (row != null) {
+            return row.mFirstDayAfterYesterday;
+        }
+        return false;
+    }
+
+    /**
      * Finds the Julian day containing the event at the given position.
      *
      * @param position the list position of an event
@@ -459,6 +488,20 @@ public class AgendaByDayAdapter extends BaseAdapter {
             }
         }
         return 0;
+    }
+
+    /**
+     * Marks the current row as the first day that has events after "yesterday".
+     * Used to mark the separation between the past and the present/future
+     *
+     * @param position in the adapter
+     */
+    public void setAsFirstDayAfterYesterday(int position) {
+        if (mRowInfo == null || position < 0 || position > mRowInfo.size()) {
+            return;
+        }
+        RowInfo row = mRowInfo.get(position);
+        row.mFirstDayAfterYesterday = true;
     }
 
     /**
