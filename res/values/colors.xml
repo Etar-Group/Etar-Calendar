@@ -24,6 +24,8 @@
     <color name="focused">#1499cc00</color>
     <color name="selection">#4d99cc00</color>
 
+    <!-- The app wide background color -->
+    <color name="background_color">#ffeeeeee</color>
     <color name="event_background">#ffc3d9ff</color>
     <color name="panel_text_foreground">#ffffffff</color>
     <color name="calendar_event_text_color">#ff000000</color>
