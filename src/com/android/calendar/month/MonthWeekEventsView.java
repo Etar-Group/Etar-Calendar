@@ -294,7 +294,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mMonthNumPaint.setColor(mMonthNumColor);
         mMonthNumPaint.setStyle(Style.FILL);
         mMonthNumPaint.setTextAlign(mShowDetailsInMonth ? Align.LEFT : Align.RIGHT);
-        mMonthNumPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        mMonthNumPaint.setTypeface(Typeface.DEFAULT);
 
         mMonthNumHeight = (int) (-mMonthNumPaint.ascent());
 

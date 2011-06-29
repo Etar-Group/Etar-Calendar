@@ -58,7 +58,7 @@
     <color name="month_day_number_other">#FFCCCCCC</color>
     <color name="month_week_num_color">#FF999999</color>
     <color name="month_day_names_color">#FF999999</color>
-    <color name="month_today_number">#FF666666</color>
+    <color name="month_today_number">#FF000000</color>
     <color name="month_event_color">#FF000000</color>
     <color name="month_event_extra_color">#FF999999</color>
     <color name="month_event_other_color">#4C000000</color>
