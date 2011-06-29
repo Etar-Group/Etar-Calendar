@@ -571,7 +571,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     protected void displayEditWhichDialog() {
         if (!TextUtils.isEmpty(mModel.mRrule) && mModification == Utils.MODIFY_UNINITIALIZED) {
-            final boolean notSynced = mModel.mSyncId == null;
+            final boolean notSynced = TextUtils.isEmpty(mModel.mSyncId);
             boolean isFirstEventInSeries = mModel.mIsFirstEventInSeries;
             int itemIndex = 0;
             CharSequence[] items;
