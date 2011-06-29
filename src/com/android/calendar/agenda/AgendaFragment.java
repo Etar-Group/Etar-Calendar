@@ -332,10 +332,17 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         // If the day changed, update the ActionBar
         if (mJulianDayOnTop != julianDay) {
             mJulianDayOnTop = julianDay;
-            Time t = new Time(mTimeZone);
-            t.setJulianDay(mJulianDayOnTop);
-            mController.sendEvent(this, EventType.UPDATE_TITLE, t, t, null, -1,
-                    ViewType.CURRENT, 0, null, null);
+            // Cannot sent a message that eventually may change the layout of the views
+            // so instead post a runnable that will run when the layout is done
+            view.post(new Runnable() {
+                @Override
+                public void run() {
+                    Time t = new Time(mTimeZone);
+                    t.setJulianDay(mJulianDayOnTop);
+                    mController.sendEvent(this, EventType.UPDATE_TITLE, t, t, null, -1,
+                            ViewType.CURRENT, 0, null, null);
+                }
+            });
         }
     }
 }
