@@ -195,8 +195,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="-2dip"
-                android:layout_marginBottom="13dip"
+                android:layout_marginTop="8dip"
+                android:layout_marginBottom="8dip"
                 android:orientation="horizontal">
                 <RadioButton
                     android:id="@+id/response_yes"
@@ -237,6 +237,7 @@
             android:paddingLeft="10dip"
             android:maxLines="2"
             android:ellipsize="end"
+            android.visibility="gone"
             style="?android:attr/textAppearanceMedium" />
         <com.android.calendar.event.AttendeesView
             android:id="@+id/long_attendee_list"

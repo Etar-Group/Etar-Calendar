@@ -248,6 +248,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private String mLessLabel;
     private boolean mShowMaxDescription;  // Current status of button
     private int mDescLineNum;             // The default number of lines in the description
+    private boolean mIsTabletConfig;
+    private Activity mActivity;
 
     private class QueryHandler extends AsyncQueryService {
         public QueryHandler(Context context) {
@@ -446,6 +448,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        mActivity = activity;
         mEditResponseHelper = new EditResponseHelper(activity);
         mHandler = new QueryHandler(activity);
         mDescLineNum = activity.getResources().getInteger((R.integer.event_info_desc_line_num));
@@ -476,6 +479,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
         });
         mShowMaxDescription = false; // Show short version of description as default.
+        mIsTabletConfig = Utils.getConfigBool(mActivity, R.bool.tablet_config);
 
         if (mUri == null) {
             // restore event ID from bundle
@@ -501,11 +505,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
             }});
 
-        // Hide Edit/Delete buttons if in full screen mode
+        // Hide Edit/Delete buttons if in full screen mode on a phone
         if (savedInstanceState != null) {
             mIsDialog = savedInstanceState.getBoolean(BUNDLE_KEY_IS_DIALOG, false);
         }
-        if (!mIsDialog) {
+        if (!mIsDialog && !mIsTabletConfig) {
             mView.findViewById(R.id.event_info_buttons_container).setVisibility(View.GONE);
         }
 
@@ -636,7 +640,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (!mIsDialog) {
+        // Show edit/delete buttons only in non-dialog configuration on a phone
+        if (!mIsDialog && !mIsTabletConfig) {
             inflater.inflate(R.menu.event_info_title_bar, menu);
                 mMenu = menu;
         }
@@ -1067,10 +1072,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     @Override
                     public void onClick(View v) {
                         doEdit();
+                        // For dialogs, just close the fragment
+                        // For full screen, close activity on phone, leave it for tablet
                         if (mIsDialog) {
                             EventInfoFragment.this.dismiss();
                         }
-                        else {
+                        else if (!mIsTabletConfig){
                             getActivity().finish();
                         }
                     }

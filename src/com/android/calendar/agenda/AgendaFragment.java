@@ -39,6 +39,7 @@ import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.EventInfoFragment;
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
 import com.android.calendar.StickyHeaderListView;
@@ -64,7 +65,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private long mInitialTimeMillis;
     private boolean mShowEventDetailsWithAgenda;
     private CalendarController mController;
-    private EditEventFragment mEventFragment;
+    private EventInfoFragment mEventFragment;
     private String mQuery;
     private boolean mUsedForSearch = false;
     private boolean mIsTabletConfig;
@@ -295,7 +296,9 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         if (mShowEventDetailsWithAgenda) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            mEventFragment = new EditEventFragment(event, true, null);
+            mEventFragment = new EventInfoFragment(mActivity, event.id,
+                    event.startTime.toMillis(false), event.endTime.toMillis(false),
+                    (int) event.extraLong, false);
             ft.replace(R.id.agenda_event_info, mEventFragment);
             mController.registerEventHandler(R.id.agenda_event_info,
                     mEventFragment);

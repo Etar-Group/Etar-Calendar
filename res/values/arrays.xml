@@ -332,7 +332,7 @@
 
     <!-- Invitation responses -->
     <string-array name="response_labels1">
-        <item>(No response)</item>
+        <item>No response</item>
         <item>Yes</item>
         <item>Maybe</item>
         <item>No</item>
