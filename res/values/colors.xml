@@ -53,12 +53,12 @@
     <color name="calendar_grid_line_inner_vertical_color">#1a000000</color>
     <color name="calendar_grid_line_highlight_color">#ff707070</color>
 
-    <color name="month_day_number">#4C000000</color>
+    <color name="month_day_number">#FF666666</color>
     <color name="month_mini_day_number">#FF000000</color>
-    <color name="month_day_number_other">#1A000000</color>
+    <color name="month_day_number_other">#FFCCCCCC</color>
     <color name="month_week_num_color">#33000000</color>
     <color name="month_day_names_color">#80333333</color>
-    <color name="month_today_number">#99000000</color>
+    <color name="month_today_number">#FF666666</color>
     <color name="month_event_color">#FF000000</color>
     <color name="month_event_extra_color">#FF999999</color>
     <color name="month_event_other_color">#4C000000</color>
@@ -70,10 +70,10 @@
     <color name="month_other_month_banner">#80595959</color>
     <color name="month_week_banner">#FFDDDDDD</color>
     <color name="month_busybits">#FF6090F0</color>
-    <color name="month_other_bgcolor">#FFDDDDDD</color>
+    <color name="month_other_bgcolor">#FFEEEEEE</color>
     <color name="month_selected_week_bgcolor">#FFD4DFFD</color>
-    <color name="month_today_bgcolor">#FF888888</color>
-    <color name="month_bgcolor">#FFFFFFFF</color>
+    <color name="month_today_bgcolor">#FFFFFFFF</color>
+    <color name="month_bgcolor">#FFDDDDDD</color>
     <color name="month_title_color">#FFC8CAD0</color>
     <color name="month_selection_bar_color">#FF6699FF</color>
     <color name="month_selection_outline_color">#336699FF</color>
