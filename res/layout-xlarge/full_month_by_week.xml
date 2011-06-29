@@ -22,9 +22,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:paddingTop="33dip"
-    android:paddingLeft="12dip"
-    android:paddingRight="12dip"
     android:background="@null">
 
     <TextView android:id="@+id/month_name"

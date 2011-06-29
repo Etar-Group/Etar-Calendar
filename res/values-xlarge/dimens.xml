@@ -16,5 +16,5 @@
 
 <resources>
     <dimen name="edit_event_separator_height">15dip</dimen>
-    <dimen name="day_label_text_size">12sp</dimen>
+    <dimen name="day_label_text_size">16sp</dimen>
 </resources>
