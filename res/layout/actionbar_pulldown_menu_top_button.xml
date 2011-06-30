@@ -18,7 +18,7 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="48dip"
-    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
     android:layout_marginLeft="16dip">
 
     <TextView android:id="@+id/top_button_weekday"

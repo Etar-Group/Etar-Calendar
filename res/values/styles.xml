@@ -133,8 +133,7 @@
     <style name="TextAppearance.EventInfo_Label">
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:paddingLeft">2dip</item>
+        <item name="android:paddingLeft">16dip</item>
     </style>
 
     <style name="EditEvent_Layout" parent="android:Theme.Holo.Light">

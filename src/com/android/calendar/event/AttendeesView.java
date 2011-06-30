@@ -147,10 +147,9 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
     }
 
     private View constructDividerView(CharSequence label) {
-        final TextView textView = new TextView(mContext);
+        final TextView textView =
+            (TextView)mInflater.inflate(R.layout.event_info_label, this, false);
         textView.setText(label);
-        textView.setTextAppearance(mContext, R.style.TextAppearance_EventInfo_Label);
-        textView.setTextColor(Color.BLACK);
         textView.setClickable(false);
         return textView;
     }
@@ -253,12 +252,14 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         final int status = attendee.mStatus;
         final String name = attendee.mName == null ? "" : attendee.mName;
         final int index;
+        boolean firstAttendeeInCategory = false;
         switch (status) {
             case Attendees.ATTENDEE_STATUS_ACCEPTED: {
                 final int startIndex = 0;
                 updateDividerViewLabel(mDividerForYes, mEntries[1], mYes + 1);
                 if (mYes == 0) {
                     addView(mDividerForYes, startIndex);
+                    firstAttendeeInCategory = true;
                 }
                 mYes++;
                 index = startIndex + mYes;
@@ -269,6 +270,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
                 updateDividerViewLabel(mDividerForNo, mEntries[3], mNo + 1);
                 if (mNo == 0) {
                     addView(mDividerForNo, startIndex);
+                    firstAttendeeInCategory = true;
                 }
                 mNo++;
                 index = startIndex + mNo;
@@ -279,6 +281,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
                 updateDividerViewLabel(mDividerForMaybe, mEntries[2], mMaybe + 1);
                 if (mMaybe == 0) {
                     addView(mDividerForMaybe, startIndex);
+                    firstAttendeeInCategory = true;
                 }
                 mMaybe++;
                 index = startIndex + mMaybe;
@@ -287,10 +290,13 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
             default: {
                 final int startIndex = (mYes == 0 ? 0 : 1 + mYes) + (mNo == 0 ? 0 : 1 + mNo)
                         + (mMaybe == 0 ? 0 : 1 + mMaybe);
-                // We delay adding the divider for "No response".
-                index = startIndex + mNoResponse;
+                updateDividerViewLabel(mDividerForNoResponse, mEntries[0], mNoResponse + 1);
+                if (mNoResponse == 0) {
+                    addView(mDividerForNoResponse, startIndex);
+                    firstAttendeeInCategory = true;
+                }
                 mNoResponse++;
-                updateDividerViewLabel(mDividerForNoResponse, mEntries[0], mNoResponse);
+                index = startIndex + mNoResponse;
                 break;
             }
         }
@@ -298,16 +304,15 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         final View view = constructAttendeeView(item);
         view.setTag(item);
         addView(view, index);
-
-        // We want "No Response" divider only when
-        // - someone already answered in some way,
-        // - there is attendees not responding yet, and
-        // - divider isn't in the list yet
-        if (mYes + mNo + mMaybe > 0 && mNoResponse > 0 &&
-                mDividerForNoResponse.getParent() == null) {
-            final int dividerIndex = (mYes == 0 ? 0 : 1 + mYes) + (mNo == 0 ? 0 : 1 + mNo) +
-                    (mMaybe == 0 ? 0 : 1 + mMaybe);
-            addView(mDividerForNoResponse, dividerIndex);
+        // Show separator between Attendees
+        if (!firstAttendeeInCategory) {
+            View prevItem = getChildAt(index - 1);
+            if (prevItem != null) {
+                View Separator = prevItem.findViewById(R.id.contact_separator);
+                if (Separator != null) {
+                    Separator.setVisibility(View.VISIBLE);
+                }
+            }
         }
 
         mPresenceQueryHandler.startQuery(item.mUpdateCounts + 1, item,
