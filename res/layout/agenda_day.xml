@@ -23,8 +23,8 @@
     android:layout_height="wrap_content">
     <View
         android:id="@+id/top_divider_simple"
-        android:background="?android:attr/listDivider"
         android:layout_height="1px"
+        android:background="@color/agenda_list_separator_color"
         android:layout_width="match_parent" />
     <View
         android:id="@+id/top_divider_past_present"
@@ -44,17 +44,13 @@
             android:layout_marginBottom="-8dip"
             android:layout_marginLeft="20dip"
             android:textSize="12sp"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:textColor="@color/agenda_day_item_text_color" />
         <TextView
             android:id="@+id/date"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginLeft="20dip"
             android:textSize="24sp"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:textColor="@color/agenda_day_item_text_color" />
     </LinearLayout>
-    <View
-        android:background="?android:attr/listDivider"
-        android:layout_height="1px"
-        android:layout_width="match_parent" />
 </LinearLayout>
