@@ -695,11 +695,17 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mAgendaTab)) {
                     mActionBar.selectTab(mAgendaTab);
                 }
+                if (mActionBarMenuSpinnerAdapter != null) {
+                    mActionBar.setSelectedNavigationItem(CalendarViewAdapter.AGENDA_BUTTON_INDEX);
+                }
                 frag = new AgendaFragment(timeMillis, false);
                 break;
             case ViewType.DAY:
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mDayTab)) {
                     mActionBar.selectTab(mDayTab);
+                }
+                if (mActionBarMenuSpinnerAdapter != null) {
+                    mActionBar.setSelectedNavigationItem(CalendarViewAdapter.DAY_BUTTON_INDEX);
                 }
                 frag = new DayFragment(timeMillis, 1);
                 break;
@@ -707,11 +713,17 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mWeekTab)) {
                     mActionBar.selectTab(mWeekTab);
                 }
+                if (mActionBarMenuSpinnerAdapter != null) {
+                    mActionBar.setSelectedNavigationItem(CalendarViewAdapter.WEEK_BUTTON_INDEX);
+                }
                 frag = new DayFragment(timeMillis, 7);
                 break;
             case ViewType.MONTH:
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mMonthTab)) {
                     mActionBar.selectTab(mMonthTab);
+                }
+                if (mActionBarMenuSpinnerAdapter != null) {
+                    mActionBar.setSelectedNavigationItem(CalendarViewAdapter.MONTH_BUTTON_INDEX);
                 }
                 frag = new MonthByWeekFragment(timeMillis, false);
                 if (mShowAgendaWithMonth) {
