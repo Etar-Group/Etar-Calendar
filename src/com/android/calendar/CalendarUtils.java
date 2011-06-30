@@ -46,9 +46,9 @@ public class CalendarUtils {
      * values.
      */
     public static class TimeZoneUtils {
-        private static final String[] TIMEZONE_TYPE_ARGS = { CalendarCache.TIMEZONE_KEY_TYPE };
+        private static final String[] TIMEZONE_TYPE_ARGS = { CalendarCache.KEY_TIMEZONE_TYPE };
         private static final String[] TIMEZONE_INSTANCES_ARGS =
-                { CalendarCache.TIMEZONE_KEY_INSTANCES };
+                { CalendarCache.KEY_TIMEZONE_INSTANCES };
         public static final String[] CALENDAR_CACHE_POJECTION = {
                 CalendarCache.KEY, CalendarCache.VALUE
         };
@@ -105,7 +105,7 @@ public class CalendarUtils {
                     while(cursor.moveToNext()) {
                         String key = cursor.getString(keyColumn);
                         String value = cursor.getString(valueColumn);
-                        if (TextUtils.equals(key, CalendarCache.TIMEZONE_KEY_TYPE)) {
+                        if (TextUtils.equals(key, CalendarCache.KEY_TIMEZONE_TYPE)) {
                             boolean useHomeTZ = !TextUtils.equals(
                                     value, CalendarCache.TIMEZONE_TYPE_AUTO);
                             if (useHomeTZ != mUseHomeTZ) {
@@ -113,7 +113,7 @@ public class CalendarUtils {
                                 mUseHomeTZ = useHomeTZ;
                             }
                         } else if (TextUtils.equals(
-                                key, CalendarCache.TIMEZONE_KEY_INSTANCES_PREVIOUS)) {
+                                key, CalendarCache.KEY_TIMEZONE_INSTANCES_PREVIOUS)) {
                             if (!TextUtils.isEmpty(value) && !TextUtils.equals(mHomeTZ, value)) {
                                 writePrefs = true;
                                 mHomeTZ = value;
@@ -239,7 +239,7 @@ public class CalendarUtils {
                 // Write the use home tz setting
                 values.put(CalendarCache.VALUE, mUseHomeTZ ? CalendarCache.TIMEZONE_TYPE_HOME
                         : CalendarCache.TIMEZONE_TYPE_AUTO);
-                mHandler.startUpdate(mToken, null, CalendarCache.URI, values, CalendarCache.WHERE,
+                mHandler.startUpdate(mToken, null, CalendarCache.URI, values, "key=?",
                         TIMEZONE_TYPE_ARGS);
 
                 // If using a home tz write it to the db
@@ -247,7 +247,7 @@ public class CalendarUtils {
                     ContentValues values2 = new ContentValues();
                     values2.put(CalendarCache.VALUE, mHomeTZ);
                     mHandler.startUpdate(mToken, null, CalendarCache.URI, values2,
-                            CalendarCache.WHERE, TIMEZONE_INSTANCES_ARGS);
+                            "key=?", TIMEZONE_INSTANCES_ARGS);
                 }
             }
         }

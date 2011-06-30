@@ -23,6 +23,8 @@ import com.android.calendar.Utils;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +34,7 @@ import android.net.Uri.Builder;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -82,7 +85,7 @@ public class AlertActivity extends Activity implements OnClickListener {
 
     private static final String SELECTION = CalendarAlerts.STATE + "=?";
     private static final String[] SELECTIONARG = new String[] {
-        Integer.toString(CalendarAlerts.FIRED)
+        Integer.toString(CalendarAlerts.STATE_FIRED)
     };
 
     // We use one notification id for all events so that we don't clutter
@@ -100,15 +103,15 @@ public class AlertActivity extends Activity implements OnClickListener {
 
     private void dismissFiredAlarms() {
         ContentValues values = new ContentValues(1 /* size */);
-        values.put(PROJECTION[INDEX_STATE], CalendarAlerts.DISMISSED);
-        String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.FIRED;
+        values.put(PROJECTION[INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
+        String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED;
         mQueryHandler.startUpdate(0, null, CalendarAlerts.CONTENT_URI, values,
                 selection, null /* selectionArgs */, Utils.UNDO_DELAY);
     }
 
     private void dismissAlarm(long id) {
         ContentValues values = new ContentValues(1 /* size */);
-        values.put(PROJECTION[INDEX_STATE], CalendarAlerts.DISMISSED);
+        values.put(PROJECTION[INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
         String selection = CalendarAlerts._ID + "=" + id;
         mQueryHandler.startUpdate(0, null, CalendarAlerts.CONTENT_URI, values,
                 selection, null /* selectionArgs */, Utils.UNDO_DELAY);
@@ -142,9 +145,11 @@ public class AlertActivity extends Activity implements OnClickListener {
 
                 if (alarmTime != 0) {
                     // Set a new alarm to go off after the snooze delay.
+                    // TODO make provider schedule this automatically when
+                    // inserting an alarm
                     AlarmManager alarmManager =
                             (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                    CalendarAlerts.scheduleAlarm(AlertActivity.this, alarmManager, alarmTime);
+                    scheduleAlarm(AlertActivity.this, alarmManager, alarmTime);
                 }
             }
         }
@@ -153,6 +158,30 @@ public class AlertActivity extends Activity implements OnClickListener {
         protected void onUpdateComplete(int token, Object cookie, int result) {
             // Ignore
         }
+    }
+
+    /**
+     * Schedules an alarm intent with the system AlarmManager that will notify
+     * listeners when a reminder should be fired. The provider will keep
+     * scheduled reminders up to date but apps may use this to implement snooze
+     * functionality without modifying the reminders table. Scheduled alarms
+     * will generate an intent using {@link #ACTION_EVENT_REMINDER}.
+     *
+     * @param context A context for referencing system resources
+     * @param manager The AlarmManager to use or null
+     * @param alarmTime The time to fire the intent in UTC millis since epoch
+     */
+    public static void scheduleAlarm(Context context, AlarmManager manager, long alarmTime) {
+
+        if (manager == null) {
+            manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        }
+
+        Intent intent = new Intent(CalendarContract.ACTION_EVENT_REMINDER);
+        intent.setData(ContentUris.withAppendedId(CalendarContract.CONTENT_URI, alarmTime));
+        intent.putExtra(CalendarContract.CalendarAlerts.ALARM_TIME, alarmTime);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+        manager.set(AlarmManager.RTC_WAKEUP, alarmTime, pi);
     }
 
     private static ContentValues makeContentValues(long eventId, long begin, long end,
@@ -166,7 +195,7 @@ public class AlertActivity extends Activity implements OnClickListener {
         values.put(CalendarAlerts.CREATION_TIME, currentTime);
         values.put(CalendarAlerts.RECEIVED_TIME, 0);
         values.put(CalendarAlerts.NOTIFY_TIME, 0);
-        values.put(CalendarAlerts.STATE, CalendarAlerts.SCHEDULED);
+        values.put(CalendarAlerts.STATE, CalendarAlerts.STATE_SCHEDULED);
         values.put(CalendarAlerts.MINUTES, minutes);
         return values;
     }

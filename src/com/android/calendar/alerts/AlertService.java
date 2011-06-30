@@ -39,9 +39,11 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -50,7 +52,7 @@ import java.util.HashMap;
  * This service is used to handle calendar event reminders.
  */
 public class AlertService extends Service {
-    static final boolean DEBUG = true;
+    static final boolean DEBUG = false;
     private static final String TAG = "AlertService";
 
     private volatile Looper mServiceLooper;
@@ -86,7 +88,7 @@ public class AlertService extends Service {
             + CalendarAlerts.STATE + "=?) AND " + CalendarAlerts.ALARM_TIME + "<=";
 
     private static final String[] ACTIVE_ALERTS_SELECTION_ARGS = new String[] {
-            Integer.toString(CalendarAlerts.FIRED), Integer.toString(CalendarAlerts.SCHEDULED)
+            Integer.toString(CalendarAlerts.STATE_FIRED), Integer.toString(CalendarAlerts.STATE_SCHEDULED)
     };
 
     private static final String ACTIVE_ALERTS_SORT = "begin DESC, end DESC";
@@ -98,7 +100,7 @@ public class AlertService extends Service {
         // CalendarAlerts table.
         String action = bundle.getString("action");
         if (DEBUG) {
-            Log.d(TAG, "" + bundle.getLong(android.provider.CalendarContract.CalendarAlerts.ALARM_TIME)
+            Log.d(TAG, bundle.getLong(android.provider.CalendarContract.CalendarAlerts.ALARM_TIME)
                     + " Action = " + action);
         }
 
@@ -121,8 +123,9 @@ public class AlertService extends Service {
         ContentResolver cr = context.getContentResolver();
         final long currentTime = System.currentTimeMillis();
 
-        Cursor alertCursor = CalendarAlerts.query(cr, ALERT_PROJECTION, ACTIVE_ALERTS_SELECTION
-                + currentTime, ACTIVE_ALERTS_SELECTION_ARGS, ACTIVE_ALERTS_SORT);
+        Cursor alertCursor = cr.query(CalendarAlerts.CONTENT_URI, ALERT_PROJECTION,
+                (ACTIVE_ALERTS_SELECTION + currentTime), ACTIVE_ALERTS_SELECTION_ARGS,
+                ACTIVE_ALERTS_SORT);
 
         if (alertCursor == null || alertCursor.getCount() == 0) {
             if (alertCursor != null) {
@@ -189,8 +192,8 @@ public class AlertService extends Service {
                         numReminders++;
                     }
 
-                    if (state == CalendarAlerts.SCHEDULED) {
-                        newState = CalendarAlerts.FIRED;
+                    if (state == CalendarAlerts.STATE_SCHEDULED) {
+                        newState = CalendarAlerts.STATE_FIRED;
                         numFired++;
 
                         // Record the received time in the CalendarAlerts table.
@@ -199,7 +202,7 @@ public class AlertService extends Service {
                         values.put(CalendarAlerts.RECEIVED_TIME, currentTime);
                     }
                 } else {
-                    newState = CalendarAlerts.DISMISSED;
+                    newState = CalendarAlerts.STATE_DISMISSED;
                 }
 
                 // Update row if state changed
@@ -208,7 +211,7 @@ public class AlertService extends Service {
                     state = newState;
                 }
 
-                if (state == CalendarAlerts.FIRED) {
+                if (state == CalendarAlerts.STATE_FIRED) {
                     // Record the time posting to notification manager.
                     // This is used for debugging missed alarms.
                     values.put(CalendarAlerts.NOTIFY_TIME, currentTime);
@@ -217,7 +220,7 @@ public class AlertService extends Service {
                 // Write row to if anything changed
                 if (values.size() > 0) cr.update(alertUri, values, null, null);
 
-                if (state != CalendarAlerts.FIRED) {
+                if (state != CalendarAlerts.STATE_FIRED) {
                     continue;
                 }
 
@@ -355,8 +358,76 @@ public class AlertService extends Service {
         ContentResolver cr = getContentResolver();
         Object service = getSystemService(Context.ALARM_SERVICE);
         AlarmManager manager = (AlarmManager) service;
-        CalendarAlerts.rescheduleMissedAlarms(cr, this, manager);
+        // TODO Move this into Provider
+        rescheduleMissedAlarms(cr, this, manager);
         updateAlertNotification(this);
+    }
+
+    private static final String SORT_ORDER_ALARMTIME_ASC =
+            CalendarContract.CalendarAlerts.ALARM_TIME + " ASC";
+
+    private static final String WHERE_RESCHEDULE_MISSED_ALARMS =
+            CalendarContract.CalendarAlerts.STATE
+            + "="
+            + CalendarContract.CalendarAlerts.STATE_SCHEDULED
+            + " AND "
+            + CalendarContract.CalendarAlerts.ALARM_TIME
+            + "<?"
+            + " AND "
+            + CalendarContract.CalendarAlerts.ALARM_TIME
+            + ">?"
+            + " AND "
+            + CalendarContract.CalendarAlerts.END + ">=?";
+
+    /**
+     * Searches the CalendarAlerts table for alarms that should have fired but
+     * have not and then reschedules them. This method can be called at boot
+     * time to restore alarms that may have been lost due to a phone reboot.
+     *
+     * @param cr the ContentResolver
+     * @param context the Context
+     * @param manager the AlarmManager
+     */
+    public static final void rescheduleMissedAlarms(ContentResolver cr, Context context,
+            AlarmManager manager) {
+        // Get all the alerts that have been scheduled but have not fired
+        // and should have fired by now and are not too old.
+        long now = System.currentTimeMillis();
+        long ancient = now - DateUtils.DAY_IN_MILLIS;
+        String[] projection = new String[] {
+            CalendarContract.CalendarAlerts.ALARM_TIME,
+        };
+
+        // TODO: construct an explicit SQL query so that we can add
+        // "GROUPBY" instead of doing a sort and de-dup
+        Cursor cursor = cr.query(CalendarAlerts.CONTENT_URI, projection,
+                WHERE_RESCHEDULE_MISSED_ALARMS, (new String[] {
+                        Long.toString(now), Long.toString(ancient), Long.toString(now)
+                }), SORT_ORDER_ALARMTIME_ASC);
+        if (cursor == null) {
+            return;
+        }
+
+        if (DEBUG) {
+            Log.d(TAG, "missed alarms found: " + cursor.getCount());
+        }
+
+        try {
+            long alarmTime = -1;
+
+            while (cursor.moveToNext()) {
+                long newAlarmTime = cursor.getLong(0);
+                if (alarmTime != newAlarmTime) {
+                    if (DEBUG) {
+                        Log.w(TAG, "rescheduling missed alarm. alarmTime: " + newAlarmTime);
+                    }
+                    AlertActivity.scheduleAlarm(context, manager, newAlarmTime);
+                    alarmTime = newAlarmTime;
+                }
+            }
+        } finally {
+            cursor.close();
+        }
     }
 
     private final class ServiceHandler extends Handler {

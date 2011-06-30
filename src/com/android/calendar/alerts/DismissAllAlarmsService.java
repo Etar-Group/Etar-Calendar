@@ -46,11 +46,11 @@ public class DismissAllAlarmsService extends IntentService {
     public void onHandleIntent(Intent intent) {
         // Mark all fired alarms as dismissed
         Uri uri = CalendarAlerts.CONTENT_URI;
-        String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.FIRED;
+        String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED;
         ContentResolver resolver = getContentResolver();
 
         ContentValues values = new ContentValues();
-        values.put(PROJECTION[COLUMN_INDEX_STATE], CalendarAlerts.DISMISSED);
+        values.put(PROJECTION[COLUMN_INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
         resolver.update(uri, values, selection, null);
 
         // Stop this service
