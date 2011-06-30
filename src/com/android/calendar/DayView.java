@@ -411,7 +411,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     /**
      * Whether to use the expand or collapse icon.
      */
-    private boolean mUseExpandIcon = true;
+    private static boolean mUseExpandIcon = true;
     /**
      * The height of the day names/numbers
      */
