@@ -316,6 +316,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
             createButtonsSpinner(viewType);
             mActionBar.setCustomView(mDateRange);
         }
+        if (mIsMultipane) {
+            mActionBar.setDisplayOptions(
+                    ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+        } else {
+            mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        }
     }
 
     private void createTabs() {
@@ -340,12 +346,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mAgendaTab.setText(getString(R.string.agenda_view));
             mAgendaTab.setTabListener(this);
             mActionBar.addTab(mAgendaTab);
-            if (mIsMultipane) {
-                mActionBar.setDisplayOptions(
-                        ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
-            } else {
-                mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-            }
         }
     }
 

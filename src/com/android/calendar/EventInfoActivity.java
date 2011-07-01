@@ -92,6 +92,12 @@ public class EventInfoActivity extends Activity {
             }
         }
 
+        // Remove the application title
+        ActionBar bar = getActionBar();
+        if (bar != null) {
+            bar.setDisplayOptions (0, ActionBar.DISPLAY_SHOW_TITLE);
+        }
+
         // Create a new fragment if none exists
         if (mInfoFragment == null) {
             FragmentManager fragmentManager = getFragmentManager();
