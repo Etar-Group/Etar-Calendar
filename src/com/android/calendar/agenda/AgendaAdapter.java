@@ -69,6 +69,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         View selectedMarker;
         long instanceId;
         ColorChipView colorChip;
+        long endTimeMilli;
+        boolean allDay;
     }
 
     public AgendaAdapter(Context context, int resource) {
@@ -114,8 +116,10 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             holder.colorChip = (ColorChipView)view.findViewById(R.id.agenda_item_color);
         }
 
+        holder.endTimeMilli = cursor.getLong(AgendaWindowAdapter.INDEX_END);
         // Fade text if event was declined and set the color chip mode (response
         boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
+        holder.allDay = allDay;
         int selfAttendeeStatus = cursor.getInt(AgendaWindowAdapter.INDEX_SELF_ATTENDEE_STATUS);
         if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
             holder.title.setTextColor(mDeclinedColor);

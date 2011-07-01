@@ -256,7 +256,10 @@ public class AgendaByDayAdapter extends BaseAdapter {
             return agendaDayView;
         } else if (row.mType == TYPE_MEETING) {
             View itemView = mAgendaAdapter.getView(row.mPosition, convertView, parent);
-            TextView title = ((AgendaAdapter.ViewHolder) itemView.getTag()).title;
+            AgendaAdapter.ViewHolder holder = ((AgendaAdapter.ViewHolder) itemView.getTag());
+            TextView title = holder.title;
+            long eventEndTime = holder.endTimeMilli;
+            boolean allDay = holder.allDay;
             if (AgendaWindowAdapter.BASICLOG) {
                 title.setText(title.getText() + " P:" + position);
             } else {
@@ -264,12 +267,16 @@ public class AgendaByDayAdapter extends BaseAdapter {
             }
 
             // if event in the past , un-bold the title and set the background
-            if (row.mDay >= mTodayJulianDay) {
-                itemView.setBackgroundColor(mBackgroundColor);
-                title.setTypeface(Typeface.DEFAULT_BOLD);
-            } else {
+            if (row.mDay < mTodayJulianDay) {
                 itemView.setBackgroundColor(mPastBackgroundColor);
                 title.setTypeface(Typeface.DEFAULT);
+            } else if (row.mDay == mTodayJulianDay && !allDay &&
+                    eventEndTime < System.currentTimeMillis()){
+                itemView.setBackgroundColor(mPastBackgroundColor);
+                title.setTypeface(Typeface.DEFAULT);
+            } else {
+                itemView.setBackgroundColor(mBackgroundColor);
+                title.setTypeface(Typeface.DEFAULT_BOLD);
             }
             return itemView;
         } else {
