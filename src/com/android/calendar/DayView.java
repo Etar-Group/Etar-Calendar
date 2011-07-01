@@ -30,11 +30,16 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Paint.Style;
+import android.graphics.Shader.TileMode;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -281,7 +286,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * The expanded allDay region can't expand into this.
      */
     private static int MIN_HOURS_HEIGHT = 180;
-    private static int ALLDAY_TOP_MARGIN = 3;
+    private static int ALLDAY_TOP_MARGIN = 1;
     // The largest a single allDay event will become.
     private static int MAX_HEIGHT_OF_ONE_ALLDAY_EVENT = 34;
 
@@ -300,7 +305,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     /* package */ static final int MILLIS_PER_HOUR = (3600 * 1000);
     /* package */ static final int MILLIS_PER_DAY = MILLIS_PER_HOUR * 24;
 
-    private static final int DAY_HEADER_ALPHA = 0x80000000;
+    private static final int DECLINED_ALPHA = 0x66000000;
     private static final int DATE_HEADER_ALPHA = 0x26000000;
     private static final int DATE_HEADER_TODAY_ALPHA = 0x99000000;
     // More events text will transition between invisible and this alpha
@@ -321,18 +326,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int MIN_CELL_WIDTH_FOR_TEXT = 27;
     private static final int MAX_EVENT_TEXT_LEN = 500;
     // smallest height to draw an event with
-    private static float MIN_EVENT_HEIGHT = 20.0F;  // in pixels
+    private static float MIN_EVENT_HEIGHT = 24.0F; // in pixels
     private static int CALENDAR_COLOR_SQUARE_SIZE = 10;
     private static int CALENDAR_COLOR_SQUARE_V_OFFSET = -1;
     private static int CALENDAR_COLOR_SQUARE_H_OFFSET = -3;
-    private static int EVENT_RECT_TOP_MARGIN = -1;
-    private static int EVENT_RECT_BOTTOM_MARGIN = -1;
-    private static int EVENT_RECT_LEFT_MARGIN = -1;
-    private static int EVENT_RECT_RIGHT_MARGIN = -1;
+    private static int EVENT_RECT_TOP_MARGIN = 1;
+    private static int EVENT_RECT_BOTTOM_MARGIN = 1;
+    private static int EVENT_RECT_LEFT_MARGIN = 2;
+    private static int EVENT_RECT_RIGHT_MARGIN = 1;
+    private static int EVENT_RECT_STROKE_WIDTH = 2;
     private static int EVENT_TEXT_TOP_MARGIN = 2;
-    private static int EVENT_TEXT_BOTTOM_MARGIN = 3;
-    private static int EVENT_TEXT_LEFT_MARGIN = 11;
-    private static int EVENT_TEXT_RIGHT_MARGIN = 4;
+    private static int EVENT_TEXT_BOTTOM_MARGIN = 2;
+    private static int EVENT_TEXT_LEFT_MARGIN = 2;
+    private static int EVENT_TEXT_RIGHT_MARGIN = 2;
+    private static int ALL_DAY_EVENT_RECT_BOTTOM_MARGIN = 2;
     private static int EVENT_ALL_DAY_TEXT_TOP_MARGIN = EVENT_TEXT_TOP_MARGIN;
     private static int EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN = EVENT_TEXT_BOTTOM_MARGIN;
     private static int EVENT_ALL_DAY_TEXT_LEFT_MARGIN = EVENT_TEXT_LEFT_MARGIN;
@@ -346,7 +353,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private static int mPressedColor;
     private static int mEventTextColor;
-    private static int mDeclinedEventTextColor;
     private static int mMoreEventsTextColor;
 
     private static int mWeek_saturdayColor;
@@ -462,7 +468,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     protected final Drawable mExpandAlldayDrawable;
     protected final Drawable mCollapseAlldayDrawable;
     protected Drawable mAcceptedOrTentativeEventBoxDrawable;
-    protected Drawable mUnconfirmedOrDeclinedEventBoxDrawable;
+    protected BitmapDrawable mDeclinedBgDrawable;
     private String mAmString;
     private String mPmString;
     private DeleteEventHelper mDeleteEventHelper;
@@ -588,8 +594,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 EVENT_ALL_DAY_TEXT_RIGHT_MARGIN *= mScale;
                 EVENT_RECT_TOP_MARGIN *= mScale;
                 EVENT_RECT_BOTTOM_MARGIN *= mScale;
+                ALL_DAY_EVENT_RECT_BOTTOM_MARGIN *= mScale;
                 EVENT_RECT_LEFT_MARGIN *= mScale;
                 EVENT_RECT_RIGHT_MARGIN *= mScale;
+                EVENT_RECT_STROKE_WIDTH *= mScale;
                 EXPAND_ALL_DAY_LEFT_MARGIN *= mScale;
                 EXPAND_ALL_DAY_BOTTOM_MARGIN *= mScale;
                 EVENT_SQUARE_WIDTH *= mScale;
@@ -603,8 +611,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mCollapseAlldayDrawable = mResources.getDrawable(R.drawable.ic_allday_collapse_holo_light);
         mAcceptedOrTentativeEventBoxDrawable = mResources
                 .getDrawable(R.drawable.panel_month_event_holo_light);
-        mUnconfirmedOrDeclinedEventBoxDrawable = mResources
-                .getDrawable(R.drawable.week_event_bg_decline_holo_light);
+
+        mDeclinedBgDrawable = new BitmapDrawable(mResources, BitmapFactory.decodeResource(
+                mResources, R.drawable.event_bg_declined));
+        mDeclinedBgDrawable.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
+
         mEventLoader = eventLoader;
         mEventGeometry = new EventGeometry();
         mEventGeometry.setMinEventHeight(MIN_EVENT_HEIGHT);
@@ -664,7 +675,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 //        mCalendarHourSelected = mResources.getColor(R.color.calendar_hour_selected);
         mPressedColor = mResources.getColor(R.color.pressed);
         mEventTextColor = mResources.getColor(R.color.calendar_event_text_color);
-        mDeclinedEventTextColor = mResources.getColor(R.color.calendar_declined_event_text_color);
         mMoreEventsTextColor = mResources.getColor(R.color.month_event_other_color) | 0xFF000000;
 
         mEventTextPaint.setTextSize(EVENT_TEXT_FONT_SIZE);
@@ -2219,7 +2229,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             // Draw day of the week
             x -= p.measureText(dateNumStr) + DAY_HEADER_LEFT_MARGIN;
-            p.setColor((p.getColor() & 0x00FFFFFF) | DAY_HEADER_ALPHA);
             p.setTextSize(DAY_HEADER_FONT_SIZE);
             p.setTypeface(Typeface.DEFAULT);
             canvas.drawText(dayStr, x, y, p);
@@ -2227,18 +2236,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             float y = DAY_HEADER_HEIGHT - DAY_HEADER_ONE_DAY_BOTTOM_MARGIN;
             p.setTextAlign(Paint.Align.LEFT);
 
-            int dateColor = p.getColor();
 
             // Draw day of the week
             x += DAY_HEADER_ONE_DAY_LEFT_MARGIN;
-            p.setColor((dateColor & 0x00FFFFFF) | DAY_HEADER_ALPHA);
             p.setTextSize(DAY_HEADER_FONT_SIZE);
             p.setTypeface(Typeface.DEFAULT);
             canvas.drawText(dayStr, x, y, p);
 
             // Draw day of the month
             x += p.measureText(dayStr) + DAY_HEADER_ONE_DAY_RIGHT_MARGIN;
-            p.setColor(dateColor);
             p.setTextSize(DATE_HEADER_FONT_SIZE);
             p.setTypeface(mBold);
             canvas.drawText(dateNumStr, x, y, p);
@@ -2431,10 +2437,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if (layout == null || r.width() != layout.getWidth()) {
             String text = drawTextSanitizer(event.getTitleAndLocation(), MAX_EVENT_TEXT_LEN);
 
-            if (event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
-                paint.setColor(mDeclinedEventTextColor);
-            } else {
-                paint.setColor(mEventTextColor);
+            switch (event.selfAttendeeStatus) {
+                case Attendees.ATTENDEE_STATUS_INVITED:
+                    paint.setColor(event.color);
+                    break;
+                case Attendees.ATTENDEE_STATUS_DECLINED:
+                case Attendees.ATTENDEE_STATUS_NONE: // Your own events
+                case Attendees.ATTENDEE_STATUS_ACCEPTED:
+                case Attendees.ATTENDEE_STATUS_TENTATIVE:
+                default:
+                    paint.setColor(mEventTextColor);
+                    break;
             }
 
             // Leave a one pixel boundary on the left and right of the rectangle for the event
@@ -2462,20 +2475,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         p.setTextSize(NORMAL_FONT_SIZE);
         p.setTextAlign(Paint.Align.LEFT);
         Paint eventTextPaint = mEventTextPaint;
-
-        // Draw the background for the all-day events area
-        // r.top = DAY_HEADER_HEIGHT;
-        // r.bottom = r.top + mAllDayHeight + ALLDAY_TOP_MARGIN;
-        // r.left = mHoursWidth;
-        // r.right = r.left + mNumDays * (mCellWidth + DAY_GAP);
-        // p.setColor(mCalendarAllDayBackground);
-        // canvas.drawRect(r, p);
-
-        // Fill the extra space on the right side with the default background
-        // r.left = r.right;
-        // r.right = mViewWidth;
-        // p.setColor(mCalendarGridAreaBackground);
-        // canvas.drawRect(r, p);
 
         // Draw the outer vertical grid lines
         p.setColor(mCalendarGridLineVerticalColor);
@@ -2580,7 +2579,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             event.left = left + startIndex * (mCellWidth + DAY_GAP);
             event.right = left + endIndex * (mCellWidth + DAY_GAP) + mCellWidth;
             event.top = y + height * event.getColumn();
-            event.bottom = event.top + height;
+            event.bottom = event.top + height - ALL_DAY_EVENT_RECT_BOTTOM_MARGIN;
             if (mMaxAlldayEvents > mMaxUnexpandedAlldayEventCount) {
                 // check if we should skip this event. We skip if it starts
                 // after the clip bound or ends after the skip bound and we're
@@ -2597,7 +2596,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 }
             }
 
-            Rect r = drawEventRect(event, canvas, p, eventTextPaint);
+            Rect r = drawEventRect(event, canvas, p, eventTextPaint, (int) event.top,
+                    (int) event.bottom);
             setupAllDayTextRect(r);
             StaticLayout layout = getEventLayout(mAllDayLayouts, i, event, eventTextPaint, r);
             drawEventText(layout, r, canvas, r.top, r.bottom);
@@ -2758,11 +2758,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         for (int i = 0; i < numEvents; i++) {
             Event event = events.get(i);
             if (!geometry.computeEventRect(date, left, top, cellWidth, event)) {
+                if (event.title.length() > 4 && event.title.subSequence(0, 4).equals("long"))
+                    Log.d(TAG, "geometry returned false, not drawing: " + event);
                 continue;
             }
 
             // Don't draw it if it is not visible
             if (event.bottom < mViewStartY || event.top > viewEndY) {
+                if (event.title.length() > 4 && event.title.subSequence(0, 4).equals("long"))
+                    Log.d(TAG, "bottom or top out of range, not drawing: " + event);
                 continue;
             }
 
@@ -2771,7 +2775,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 mSelectedEvents.add(event);
             }
 
-            Rect r = drawEventRect(event, canvas, p, eventTextPaint);
+            Rect r = drawEventRect(event, canvas, p, eventTextPaint, mViewStartY, viewEndY);
             setupTextRect(r);
 
             // Don't draw text if it is not visible
@@ -3085,29 +3089,50 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mSelectedEvent = startEvent;
     }
 
-    private Rect drawEventRect(Event event, Canvas canvas, Paint p, Paint eventTextPaint) {
+    private Rect drawEventRect(Event event, Canvas canvas, Paint p, Paint eventTextPaint,
+            int visibleTop, int visibleBot) {
         // Draw the Event Rect
         Rect r = mRect;
-        r.top = (int) event.top + EVENT_RECT_TOP_MARGIN;
-        r.bottom = (int) event.bottom - EVENT_RECT_BOTTOM_MARGIN;
+        r.top = Math.max((int) event.top + EVENT_RECT_TOP_MARGIN, visibleTop);
+        r.bottom = Math.min((int) event.bottom - EVENT_RECT_BOTTOM_MARGIN, visibleBot);
         r.left = (int) event.left + EVENT_RECT_LEFT_MARGIN;
-        r.right = (int) event.right - EVENT_RECT_RIGHT_MARGIN;
+        r.right = (int) event.right;
 
         Drawable eventBoxDrawable;
         switch (event.selfAttendeeStatus) {
             case Attendees.ATTENDEE_STATUS_INVITED:
+                p.setStyle(Style.STROKE);
+                break;
             case Attendees.ATTENDEE_STATUS_DECLINED:
-                eventBoxDrawable = mUnconfirmedOrDeclinedEventBoxDrawable;
+                mDeclinedBgDrawable.setColorFilter((event.color & 0x00FFFFFF) | DECLINED_ALPHA,
+                        PorterDuff.Mode.OVERLAY);
                 break;
             case Attendees.ATTENDEE_STATUS_NONE: // Your own events
             case Attendees.ATTENDEE_STATUS_ACCEPTED:
             case Attendees.ATTENDEE_STATUS_TENTATIVE:
             default:
-                eventBoxDrawable = mAcceptedOrTentativeEventBoxDrawable;
+                p.setStyle(Style.FILL_AND_STROKE);
+                // eventBoxDrawable = mAcceptedOrTentativeEventBoxDrawable;
                 break;
         }
-        eventBoxDrawable.setBounds(r);
-        eventBoxDrawable.draw(canvas);
+        if (event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
+            // Magic
+            int oldTop = r.top;
+            r.top = r.bottom;
+            r.bottom = oldTop;
+            mDeclinedBgDrawable.setBounds(r);
+            mDeclinedBgDrawable.draw(canvas);
+        } else {
+            int halfStroke = EVENT_RECT_STROKE_WIDTH / 2;
+            r.top = Math.max((int) event.top + EVENT_RECT_TOP_MARGIN + halfStroke, visibleTop);
+            r.bottom = Math.min((int) event.bottom - EVENT_RECT_BOTTOM_MARGIN - halfStroke,
+                    visibleBot);
+            r.left += EVENT_RECT_STROKE_WIDTH / 2;
+            r.right -= EVENT_RECT_STROKE_WIDTH / 2;
+            p.setStrokeWidth(EVENT_RECT_STROKE_WIDTH);
+            p.setColor(event.color);
+            canvas.drawRect(r, p);
+        }
 
         p.setStyle(Style.FILL);
 
@@ -3140,20 +3165,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
 
         // Draw cal color square border
-        r.top = (int) event.top + CALENDAR_COLOR_SQUARE_V_OFFSET;
-        r.left = (int) event.left + CALENDAR_COLOR_SQUARE_H_OFFSET;
-        r.bottom = r.top + CALENDAR_COLOR_SQUARE_SIZE + 1;
-        r.right = r.left + CALENDAR_COLOR_SQUARE_SIZE + 1;
-        p.setColor(0xFFFFFFFF);
-        canvas.drawRect(r, p);
+        // r.top = (int) event.top + CALENDAR_COLOR_SQUARE_V_OFFSET;
+        // r.left = (int) event.left + CALENDAR_COLOR_SQUARE_H_OFFSET;
+        // r.bottom = r.top + CALENDAR_COLOR_SQUARE_SIZE + 1;
+        // r.right = r.left + CALENDAR_COLOR_SQUARE_SIZE + 1;
+        // p.setColor(0xFFFFFFFF);
+        // canvas.drawRect(r, p);
 
         // Draw cal color
-        r.top++;
-        r.left++;
-        r.bottom--;
-        r.right--;
-        p.setColor(event.color);
-        canvas.drawRect(r, p);
+        // r.top++;
+        // r.left++;
+        // r.bottom--;
+        // r.right--;
+        // p.setColor(event.color);
+        // canvas.drawRect(r, p);
 
         // Setup rect for drawEventText which follows
         r.top = (int) event.top + EVENT_RECT_TOP_MARGIN;

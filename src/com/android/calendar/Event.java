@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Debug;
 import android.provider.CalendarContract;
@@ -110,6 +111,7 @@ public class Event implements Cloneable {
     private static final int PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX = 18;
     private static final int PROJECTION_DISPLAY_AS_ALLDAY = 19;
 
+    private static final float SATURATION_ADJUST = 0.3f;
     private static String mNoTitleString;
     private static int mNoColorColor;
 
@@ -395,6 +397,10 @@ public class Event implements Cloneable {
         if (!cEvents.isNull(PROJECTION_COLOR_INDEX)) {
             // Read the color from the database
             e.color = cEvents.getInt(PROJECTION_COLOR_INDEX);
+            float[] hsv = new float[3];
+            Color.colorToHSV(e.color, hsv);
+            hsv[1] = Math.max(hsv[1] - SATURATION_ADJUST, 0.0f);
+            e.color = Color.HSVToColor(hsv);
         } else {
             e.color = mNoColorColor;
         }
