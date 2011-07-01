@@ -24,7 +24,7 @@
         class="com.android.calendar.StickyHeaderListView"
         android:id="@+id/agenda_sticky_header_list"
         android:layout_height="match_parent"
-        android:layout_marginLeft="32dip"
+        android:layout_marginLeft="0dip"
         android:layout_weight=".40"
         android:layout_width="0px">
         <view
@@ -40,5 +40,5 @@
         android:layout_weight=".60"
         android:layout_marginRight="32dip"
         android:background="@color/agenda_general_background_color"
-        android:layout_marginTop="5dip"/>
+        android:layout_marginTop="0dip"/>
 </LinearLayout>

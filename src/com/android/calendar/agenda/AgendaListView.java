@@ -86,6 +86,10 @@ public class AgendaListView extends ListView implements OnItemClickListener {
                 new DeleteEventHelper(context, null, false /* don't exit when done */);
         mShowEventDetailsWithAgenda = Utils.getConfigBool(mContext,
                 R.bool.show_event_details_with_agenda);
+        // Hide ListView dividers, they are done in the item views themselves
+        setDivider(null);
+        setDividerHeight(0);
+
         setMidnightUpdater();
     }
 

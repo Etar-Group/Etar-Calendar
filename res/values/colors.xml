@@ -19,7 +19,6 @@
 -->
 <resources>
 
-    <color name="drop_down_menu_text_color">#FF666666</color>
     <color name="pressed">#330066ff</color>
     <color name="long_pressed">#660066ff</color>
     <color name="activated">#4d0066ff</color>
@@ -97,6 +96,14 @@
     <color name="agenda_past_present_separator_color">#FF000000</color>
     <!-- General background color in agenda view  -->
     <color name="agenda_general_background_color">#FFEEEEEE</color>
+    <!-- Agenda day item text color  -->
+    <color name="agenda_day_item_text_color">#FF666666</color>
+    <!-- Color of the event location's text in an agenda item  -->
+    <color name="agenda_item_where_text_color">#FF666666</color>
+    <!-- Color of text in the calendar view selection menu -->
+    <color name="calendar_view_switch_menu_text_color">#FF666666</color>
+    <!-- Color of the separator between items in the agenda list -->
+    <color name="agenda_list_separator_color">#FFDDDDDD</color>
 
     <color name="text_shadow_color">#4D000000</color>
 
