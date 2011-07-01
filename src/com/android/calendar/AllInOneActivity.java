@@ -741,16 +741,19 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mActionBarMenuSpinnerAdapter.setMainView(viewType);
         }
 
+
+        // Show date only on tablet configurations in views different than Agenda
+        if (!mIsTabletConfig) {
+            mDateRange.setVisibility(View.GONE);
+        } else if (viewType != ViewType.AGENDA) {
+            mDateRange.setVisibility(View.VISIBLE);
+        } else {
+            mDateRange.setVisibility(View.GONE);
+        }
+
         // Clear unnecessary buttons from the option menu when switching from the agenda view
         if (viewType != ViewType.AGENDA) {
             clearOptionsMenu();
-            if (mIsTabletConfig) {
-                mDateRange.setVisibility(View.VISIBLE);
-            }
-        } else {
-            if (mIsTabletConfig) {
-                mDateRange.setVisibility(View.GONE);
-            }
         }
 
         boolean doCommit = false;
