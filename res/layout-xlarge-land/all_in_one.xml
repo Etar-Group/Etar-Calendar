@@ -29,13 +29,14 @@
         android:paddingLeft="20dip"
         android:textSize="24sp"
         android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@id/mini_month_container"
         android:background="#FFFFFFFF"/>
 
     <!-- This is a dummy view to make hiding/unhiding easier -->
     <View
         android:id="@+id/mini_month_container"
         android:layout_below="@id/date_bar"
-        android:layout_width="267dip"
+        android:layout_width="280dip"
         android:layout_height="0dip"
         android:visibility="gone"
         android:layout_alignParentRight="true"/>
@@ -65,33 +66,33 @@
         android:id="@+id/home_time"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_height="wrap_content"
+        android:layout_height="32dip"
         android:layout_width="244dip"
         android:layout_marginRight="36dip"
         android:layout_marginLeft="9dip"
-        android:layout_marginTop="23dip"
+        android:layout_marginTop="10dip"
         android:gravity="right|bottom"
         style="@style/TextAppearance.Date_Range_Title"
-        android:visibility="gone" />
+        android:visibility="invisible" />
 
     <FrameLayout
         android:id="@+id/mini_month"
-        android:layout_below="@id/date_bar"
+        android:layout_below="@id/home_time"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="25dip"
-        android:layout_marginLeft="9dip"
-        android:layout_marginTop="45dip"
+        android:layout_marginRight="15dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginTop="0dip"
         android:layout_marginBottom="0dip"
         android:layout_height="263dip"
-        android:layout_width="249dip" />
+        android:layout_width="250dip" />
 
     <FrameLayout
         android:id="@+id/calendar_list"
         android:layout_below="@id/mini_month"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="25dip"
+        android:layout_marginRight="15dip"
         android:layout_marginBottom="20dip"
         android:layout_height="match_parent"
-        android:layout_width="248dip" />
+        android:layout_width="250dip" />
 </RelativeLayout>

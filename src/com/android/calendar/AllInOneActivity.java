@@ -83,7 +83,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final String BUNDLE_KEY_RESTORE_VIEW = "key_restore_view";
     private static final int HANDLER_KEY = 0;
     private static final long CONTROLS_ANIMATE_DURATION = 400;
-    private static int CONTROLS_ANIMATE_WIDTH = 267;
+    private static int CONTROLS_ANIMATE_WIDTH = 280;
     private static float mScale = 0;
 
     // Indices of buttons for the drop down menu (tabs replacement)
@@ -846,7 +846,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     mHomeTimeUpdater,
                     DateUtils.MINUTE_IN_MILLIS - (millis % DateUtils.MINUTE_IN_MILLIS));
         } else {
-            mHomeTime.setVisibility(View.GONE);
+            mHomeTime.setVisibility(View.INVISIBLE);
         }
     }
 

@@ -97,8 +97,8 @@ public class EventGeometry {
             event.bottom = event.top + mMinEventHeight;
         }
 
-        float colWidth = (float) (cellWidth - 2 * mCellMargin) / (float) maxCols;
-        event.left = left + mCellMargin + col * colWidth;
+        float colWidth = (float) (cellWidth - (maxCols + 1) * mCellMargin) / (float) maxCols;
+        event.left = left + col * (colWidth + mCellMargin);
         event.right = event.left + colWidth;
         return true;
     }

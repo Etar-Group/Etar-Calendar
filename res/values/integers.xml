@@ -12,17 +12,8 @@
 -->
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- minimum size of hours column in day/week view -->
-    <integer name="min_hours_width">30</integer>
-    <!-- margins size of hours column in day/week view -->
-    <integer name="hours_left_margin">10</integer>
-    <integer name="hours_right_margin">4</integer>
-    <!-- size of day date font in day/week view header -->
-    <integer name="date_header_font_size">20</integer>
     <!-- size of day date font in month view  -->
     <integer name="text_size_month_number">14</integer>
-    <!-- size of day header in day and week views  -->
-    <integer name="day_header_height">35</integer>
     <!-- max number of lines in the description without showing More/Less button  -->
     <integer name="event_info_desc_line_num">8</integer>
     <!-- The alpha level of photos of attendees that didn't respond -->

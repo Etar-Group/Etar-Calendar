@@ -22,7 +22,6 @@
     android:foregroundGravity="fill_horizontal|top">
     <ViewSwitcher
         android:id="@+id/switcher"
-        android:layout_marginRight="16dip"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

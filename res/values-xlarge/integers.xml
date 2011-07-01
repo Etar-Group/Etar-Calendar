@@ -12,17 +12,8 @@
 -->
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- minimum size of hours column in day/week view -->
-    <integer name="min_hours_width">96</integer>
-    <!-- margins size of hours column in day/week view -->
-    <integer name="hours_left_margin">30</integer>
-    <integer name="hours_right_margin">4</integer>
-    <!-- size of day date font in day/week view header -->
-    <integer name="date_header_font_size">32</integer>
     <!-- size of day date font in month view  -->
     <integer name="text_size_month_number">32</integer>
-    <!-- size of day header in day and week views  -->
-    <integer name="day_header_height">45</integer>
     <!-- margin between the day number and the edge of the day in month view -->
     <integer name="month_day_number_margin">4</integer>
     <!-- The size of the color chip in the agenda view for all day events -->

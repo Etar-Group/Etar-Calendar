@@ -432,22 +432,22 @@ public class MonthWeekEventsView extends SimpleWeekView {
             i++;
             offset++;
         }
-        if (mFocusDay[i]) {
-            while (++i < mFocusDay.length && mFocusDay[i])
+        if (!mFocusDay[i]) {
+            while (++i < mFocusDay.length && !mFocusDay[i])
                 ;
             r.right = computeDayLeftPosition(i - offset);
             r.left = 0;
-            p.setColor(mMonthBGColor);
+            p.setColor(mMonthBGOtherColor);
             canvas.drawRect(r, p);
             // compute left edge for i, set up r, draw
-        } else if (mFocusDay[(i = mFocusDay.length - 1)]) {
-            while (--i >= offset && mFocusDay[i])
+        } else if (!mFocusDay[(i = mFocusDay.length - 1)]) {
+            while (--i >= offset && !mFocusDay[i])
                 ;
             i++;
             // compute left edge for i, set up r, draw
             r.right = mWidth;
             r.left = computeDayLeftPosition(i - offset);
-            p.setColor(mMonthBGColor);
+            p.setColor(mMonthBGOtherColor);
             canvas.drawRect(r, p);
         }
         if (mHasToday) {
@@ -552,6 +552,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         if (outlineCount > 0) {
             p.setColor(mEventChipOutlineColor);
             p.setStrokeWidth(EVENT_SQUARE_BORDER);
+            p.setAntiAlias(false);
             canvas.drawLines(mEventOutlines.array, 0, outlineCount, p);
         }
     }
@@ -638,7 +639,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
         FloatRef lines = new FloatRef(4 * 4);
         int y = mHeight - EVENT_BOTTOM_PADDING + EVENT_LINE_PADDING / 2 - mEventHeight;
         addChipOutline(lines, 0, x, y);
+        mEventExtrasPaint.setAntiAlias(false);
         canvas.drawLines(lines.array, mEventExtrasPaint);
+        mEventExtrasPaint.setAntiAlias(true);
         String text = getContext().getResources().getQuantityString(
                 R.plurals.month_more_events, remainingEvents);
         y = mHeight - EVENT_BOTTOM_PADDING;
