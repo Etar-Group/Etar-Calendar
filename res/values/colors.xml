@@ -102,6 +102,8 @@
     <color name="agenda_item_where_text_color">#FF666666</color>
     <!-- Color of text in the calendar view selection menu -->
     <color name="calendar_view_switch_menu_text_color">#FF666666</color>
+    <!-- Light color of text in the calendar view selection menu -->
+    <color name="calendar_view_switch_menu_text_color_light">#FF888888</color>
     <!-- Color of the separator between items in the agenda list -->
     <color name="agenda_list_separator_color">#FFDDDDDD</color>
 

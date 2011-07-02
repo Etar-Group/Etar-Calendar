@@ -20,9 +20,6 @@
     android:layout_width="match_parent"
     android:background="#fafafa"
     android:layout_weight="1"
-    android:paddingTop="10dip"
-    android:paddingRight="10dip"
-    android:paddingLeft="10dip"
     android:layout_height="match_parent">
 
     <LinearLayout

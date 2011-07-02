@@ -75,8 +75,7 @@
                         android:layout_marginTop="16dip"
                         android:layout_marginRight="16dip"
                         style="?android:attr/buttonBarButtonStyle"
-                        android:textColor="@android:color/white"
-                        android:text="@string/edit_event_label" />
+                        android:background="@drawable/ic_menu_compose_holo_light" />
                     <Button
                         android:id="@+id/delete"
                         android:layout_width="32dip"
@@ -85,8 +84,7 @@
                         android:layout_marginLeft="16dip"
                         android:layout_weight="1"
                         style="?android:attr/buttonBarButtonStyle"
-                        android:textColor="@android:color/white"
-                        android:text="@string/delete_label" />
+                        android:background="@drawable/ic_menu_trash_holo_light" />
                 </LinearLayout>
             </LinearLayout>
 
