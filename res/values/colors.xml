@@ -111,6 +111,15 @@
     <!-- Color of the separator between items in the agenda list -->
     <color name="agenda_list_separator_color">#FFBBBBBB</color>
 
+
+    <!-- Event info colors -->
+    <color name="event_info_headline_color">#FFFFFFFF</color>
+    <color name="event_info_headline_link_color">#FFFFFFFF</color>
+    <color name="event_info_organizer_color">#FF666666</color>
+    <color name="event_info_description_color">#FF666666</color>
+    <color name="event_info_label_background_color">#FFDDDDDD</color>
+
+
     <color name="text_shadow_color">#4D000000</color>
 
     <color name="alert_event_title">#FFFFFFFF</color>

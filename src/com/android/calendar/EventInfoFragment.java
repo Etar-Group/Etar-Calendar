@@ -19,9 +19,11 @@ package com.android.calendar;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendarcommon.EventRecurrence;
+import com.android.calendar.event.EventViewUtils;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -34,6 +36,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Rect;
@@ -44,6 +47,7 @@ import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
+import android.provider.CalendarContract.Reminders;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Intents;
@@ -76,13 +80,18 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
@@ -91,7 +100,7 @@ import java.util.TimeZone;
 
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
-        CalendarController.EventHandler {
+        CalendarController.EventHandler, OnClickListener {
     public static final boolean DEBUG = false;
 
     public static final String TAG = "EventInfoFragment";
@@ -116,8 +125,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int TOKEN_QUERY_CALENDARS = 1 << 1;
     private static final int TOKEN_QUERY_ATTENDEES = 1 << 2;
     private static final int TOKEN_QUERY_DUPLICATE_CALENDARS = 1 << 3;
+    private static final int TOKEN_QUERY_REMINDERS = 1 << 4;
     private static final int TOKEN_QUERY_ALL = TOKEN_QUERY_DUPLICATE_CALENDARS
-            | TOKEN_QUERY_ATTENDEES | TOKEN_QUERY_CALENDARS | TOKEN_QUERY_EVENT;
+            | TOKEN_QUERY_ATTENDEES | TOKEN_QUERY_CALENDARS | TOKEN_QUERY_EVENT
+            | TOKEN_QUERY_REMINDERS;
     private int mCurrentQuery = 0;
 
     private static final String[] EVENT_PROJECTION = new String[] {
@@ -135,7 +146,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Calendars.CALENDAR_COLOR,             // 11
         Events.HAS_ATTENDEE_DATA,    // 12
         Events.ORGANIZER,            // 13
-        Events.ORIGINAL_SYNC_ID      // 14 do not remove; used in DeleteEventHelper
+        Events.HAS_ALARM,            // 14
+        Calendars.MAX_REMINDERS,     //15
+        Calendars.ALLOWED_REMINDERS, // 16
+        Events.ORIGINAL_SYNC_ID      // 17 do not remove; used in DeleteEventHelper
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -150,6 +164,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int EVENT_INDEX_COLOR = 11;
     private static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 12;
     private static final int EVENT_INDEX_ORGANIZER = 13;
+    private static final int EVENT_INDEX_HAS_ALARM = 14;
+    private static final int EVENT_INDEX_MAX_REMINDERS = 15;
+    private static final int EVENT_INDEX_ALLOWED_REMINDERS = 16;
+
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
@@ -168,6 +186,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     private static final String ATTENDEES_SORT_ORDER = Attendees.ATTENDEE_NAME + " ASC, "
             + Attendees.ATTENDEE_EMAIL + " ASC";
+
+    private static final String[] REMINDERS_PROJECTION = new String[] {
+        Reminders._ID,                      // 0
+        Reminders.MINUTES,            // 1
+        Reminders.METHOD           // 2
+    };
+    private static final int REMINDERS_INDEX_ID = 0;
+    private static final int REMINDERS_MINUTES_ID = 1;
+    private static final int REMINDERS_METHOD_ID = 2;
+
+    private static final String REMINDERS_WHERE = Reminders.EVENT_ID + "=?";
 
     static final String[] CALENDARS_PROJECTION = new String[] {
         Calendars._ID,           // 0
@@ -189,6 +218,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private Cursor mEventCursor;
     private Cursor mAttendeesCursor;
     private Cursor mCalendarsCursor;
+    private Cursor mRemindersCursor;
+
     private static float mScale = 0; // Used for supporting different screen densities
 
     private long mStartMillis;
@@ -208,6 +239,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private int mOriginalAttendeeResponse;
     private int mAttendeeResponseFromIntent = CalendarController.ATTENDEE_NO_RESPONSE;
     private boolean mIsRepeating;
+    private boolean mHasAlarm;
+    private int mMaxReminders;
+    private String mCalendarAllowedReminders;
 
     private TextView mTitle;
     private TextView mWhen;
@@ -217,6 +251,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private AttendeesView mLongAttendees;
     private Menu mMenu;
     private View mHeadlines;
+    private ScrollView mScrollView;
 
     private Pattern mWildcardPattern = Pattern.compile("^.*$");
 
@@ -225,6 +260,29 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     ArrayList<Attendee> mTentativeAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mNoResponseAttendees = new ArrayList<Attendee>();
     private int mColor;
+
+
+    private int mDefaultReminderMinutes;
+    private ArrayList<LinearLayout> mReminderViews = new ArrayList<LinearLayout>(0);
+    public ArrayList<ReminderEntry> mReminders;
+    public ArrayList<ReminderEntry> mOriginalReminders;
+
+    /**
+     * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
+     * with any additional values that were already associated with the event.
+     */
+    private ArrayList<Integer> mReminderMinuteValues;
+    private ArrayList<String> mReminderMinuteLabels;
+
+    /**
+     * Contents of the "methods" spinner.  The "values" list specifies the method constant
+     * (e.g. {@link Reminders#METHOD_ALERT}) associated with the labels.  Any methods that
+     * aren't allowed by the Calendar will be removed.
+     */
+    private ArrayList<Integer> mReminderMethodValues;
+    private ArrayList<String> mReminderMethodLabels;
+
+
 
     private QueryHandler mHandler;
 
@@ -301,11 +359,25 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 } else {
                     sendAccessibilityEventIfQueryDone(TOKEN_QUERY_ATTENDEES);
                 }
+                mOriginalReminders = new ArrayList<ReminderEntry> ();
+                if (mHasAlarm) {
+                    // start reminders query
+                    args = new String[] { Long.toString(mEventId) };
+                    uri = Reminders.CONTENT_URI;
+                    startQuery(TOKEN_QUERY_REMINDERS, null, uri,
+                            REMINDERS_PROJECTION, REMINDERS_WHERE, args, null);
+                } else {
+                    sendAccessibilityEventIfQueryDone(TOKEN_QUERY_REMINDERS);
+                }
                 break;
             case TOKEN_QUERY_ATTENDEES:
                 mAttendeesCursor = Utils.matrixCursorFromCursor(cursor);
                 initAttendeesCursor(mView);
                 updateResponse(mView);
+                break;
+            case TOKEN_QUERY_REMINDERS:
+                mRemindersCursor = Utils.matrixCursorFromCursor(cursor);
+                initReminders(mView, mRemindersCursor);
                 break;
             case TOKEN_QUERY_DUPLICATE_CALENDARS:
                 Resources res = activity.getResources();
@@ -462,6 +534,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.event_info, container, false);
+        mScrollView = (ScrollView) mView.findViewById(R.id.event_info_scroll_view);
         mTitle = (TextView) mView.findViewById(R.id.title);
         mWhen = (TextView) mView.findViewById(R.id.when);
         mWhere = (TextView) mView.findViewById(R.id.where);
@@ -500,7 +573,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     return;
                 }
                 DeleteEventHelper deleteHelper = new DeleteEventHelper(
-                        getActivity(), getActivity(), !mIsDialog /* exitWhenDone */);
+                        getActivity(), getActivity(),
+                        !mIsDialog && !mIsTabletConfig /* exitWhenDone */);
                 deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
             }});
 
@@ -511,6 +585,25 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (!mIsDialog && !mIsTabletConfig) {
             mView.findViewById(R.id.event_info_buttons_container).setVisibility(View.GONE);
         }
+
+        // Create a listener for the add reminder button
+
+        ImageButton reminderAddButton = (ImageButton) mView.findViewById(R.id.reminder_add);
+        View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addReminder();
+            }
+        };
+        reminderAddButton.setOnClickListener(addReminderOnClickListener);
+
+        // Set reminders variables
+
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(mActivity);
+        String defaultReminderString = prefs.getString(
+                GeneralPreferences.KEY_DEFAULT_REMINDER, GeneralPreferences.NO_REMINDER_STRING);
+        mDefaultReminderMinutes = Integer.parseInt(defaultReminderString);
+        prepareReminders();
 
         return mView;
     }
@@ -570,6 +663,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mEventId = mEventCursor.getInt(EVENT_INDEX_ID);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
         mIsRepeating = !TextUtils.isEmpty(rRule);
+        mHasAlarm = (mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) == 1)?true:false;
+        mMaxReminders = mEventCursor.getInt(EVENT_INDEX_MAX_REMINDERS);
+        mCalendarAllowedReminders =  mEventCursor.getString(EVENT_INDEX_ALLOWED_REMINDERS);
         return false;
     }
 
@@ -649,7 +745,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     @Override
     public void onDestroyView() {
-        if (saveResponse()) {
+        if (saveResponse() || saveReminders()) {
             Toast.makeText(getActivity(), R.string.saving_event, Toast.LENGTH_SHORT).show();
         }
         super.onDestroyView();
@@ -1059,6 +1155,56 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     }
 
+    public void initReminders(View view, Cursor cursor) {
+
+        // Add reminders
+        while (cursor.moveToNext()) {
+            int minutes = cursor.getInt(EditEventHelper.REMINDERS_INDEX_MINUTES);
+            int method = cursor.getInt(EditEventHelper.REMINDERS_INDEX_METHOD);
+            mOriginalReminders.add(ReminderEntry.valueOf(minutes, method));
+        }
+        // Sort appropriately for display (by time, then type)
+        Collections.sort(mOriginalReminders);
+
+        // Load the labels and corresponding numeric values for the minutes and methods lists
+        // from the assets.  If we're switching calendars, we need to clear and re-populate the
+        // lists (which may have elements added and removed based on calendar properties).  This
+        // is mostly relevant for "methods", since we shouldn't have any "minutes" values in a
+        // new event that aren't in the default set.
+        Resources r = mActivity.getResources();
+        mReminderMinuteValues = loadIntegerArray(r, R.array.reminder_minutes_values);
+        mReminderMinuteLabels = loadStringArray(r, R.array.reminder_minutes_labels);
+        mReminderMethodValues = loadIntegerArray(r, R.array.reminder_methods_values);
+        mReminderMethodLabels = loadStringArray(r, R.array.reminder_methods_labels);
+
+        // Remove any reminder methods that aren't allowed for this calendar.  If this is
+        // a new event, mCalendarAllowedReminders may not be set the first time we're called.
+        if (mCalendarAllowedReminders != null) {
+            EventViewUtils.reduceMethodList(mReminderMethodValues, mReminderMethodLabels,
+                    mCalendarAllowedReminders);
+        }
+
+        int numReminders = 0;
+        if (mHasAlarm) {
+            ArrayList<ReminderEntry> reminders = mOriginalReminders;
+            numReminders = reminders.size();
+            // Insert any minute values that aren't represented in the minutes list.
+            for (ReminderEntry re : reminders) {
+                EventViewUtils.addMinutesToList(
+                        mActivity, mReminderMinuteValues, mReminderMinuteLabels, re.getMinutes());
+            }
+            // Create a UI element for each reminder.  We display all of the reminders we get
+            // from the provider, even if the count exceeds the calendar maximum.  (Also, for
+            // a new event, we won't have a maxReminders value available.)
+            for (ReminderEntry re : reminders) {
+                      EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderViews,
+                              mReminderMinuteValues, mReminderMinuteLabels,
+                              mReminderMethodValues, mReminderMethodLabels,
+                              re, Integer.MAX_VALUE);
+            }
+        }
+    }
+
     private void formatAttendees(ArrayList<Attendee> attendees, SpannableStringBuilder sb, int type) {
         if (attendees.size() <= 0) {
             return;
@@ -1219,4 +1365,102 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
     }
+
+
+    @Override
+    public void onClick(View view) {
+
+        // This must be a click on one of the "remove reminder" buttons
+        LinearLayout reminderItem = (LinearLayout) view.getParent();
+        LinearLayout parent = (LinearLayout) reminderItem.getParent();
+        parent.removeView(reminderItem);
+        mReminderViews.remove(reminderItem);
+    }
+
+
+    /**
+     * Add a new reminder when the user hits the "add reminder" button.  We use the default
+     * reminder time and method.
+     */
+    private void addReminder() {
+        // TODO: when adding a new reminder, make it different from the
+        // last one in the list (if any).
+        if (mDefaultReminderMinutes == GeneralPreferences.NO_REMINDER) {
+            EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderViews,
+                    mReminderMinuteValues, mReminderMinuteLabels,
+                    mReminderMethodValues, mReminderMethodLabels,
+                    ReminderEntry.valueOf(GeneralPreferences.REMINDER_DEFAULT_TIME),
+                    mMaxReminders);
+        } else {
+            EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderViews,
+                    mReminderMinuteValues, mReminderMinuteLabels,
+                    mReminderMethodValues, mReminderMethodLabels,
+                    ReminderEntry.valueOf(mDefaultReminderMinutes),
+                    mMaxReminders);
+        }
+    }
+
+
+    private void prepareReminders() {
+        Resources r = mActivity.getResources();
+        mReminderMinuteValues = loadIntegerArray(r, R.array.reminder_minutes_values);
+        mReminderMinuteLabels = loadStringArray(r, R.array.reminder_minutes_labels);
+        mReminderMethodValues = loadIntegerArray(r, R.array.reminder_methods_values);
+        mReminderMethodLabels = loadStringArray(r, R.array.reminder_methods_labels);
+    }
+
+
+    private boolean saveReminders() {
+        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>(3);
+
+        // Read reminders from UI
+        mReminders = EventViewUtils.reminderItemsToReminders(mReminderViews,
+                mReminderMinuteValues, mReminderMethodValues);
+
+        // Check if there are any changes in the reminder
+        boolean changed = EditEventHelper.saveReminders(ops, mEventId, mReminders,
+                mOriginalReminders, false /* no force save */);
+
+        if (!changed) {
+            return false;
+        }
+
+        // save new reminders
+        AsyncQueryService service = new AsyncQueryService(getActivity());
+        service.startBatch(0, null, Calendars.CONTENT_URI.getAuthority(), ops, 0);
+        // Update the "hasAlarm" field for the event
+        Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
+        int len = mReminders.size();
+        boolean hasAlarm = len > 0;
+        if (hasAlarm != mHasAlarm) {
+            ContentValues values = new ContentValues();
+            values.put(Events.HAS_ALARM, hasAlarm ? 1 : 0);
+            service.startUpdate(0, null, uri, values, null, null, 0);
+        }
+        return true;
+    }
+
+    /**
+     * Loads an integer array asset into a list.
+     */
+    private static ArrayList<Integer> loadIntegerArray(Resources r, int resNum) {
+        int[] vals = r.getIntArray(resNum);
+        int size = vals.length;
+        ArrayList<Integer> list = new ArrayList<Integer>(size);
+
+        for (int i = 0; i < size; i++) {
+            list.add(vals[i]);
+        }
+
+        return list;
+    }
+    /**
+     * Loads a String array asset into a list.
+     */
+    private static ArrayList<String> loadStringArray(Resources r, int resNum) {
+        String[] labels = r.getStringArray(resNum);
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(labels));
+        return list;
+    }
+
 }
