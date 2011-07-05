@@ -64,6 +64,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView dayView;
         TextView dateView;
+        int julianDay;
+        boolean grayed;
     }
 
     private Runnable mTZUpdater = new Runnable() {
@@ -183,6 +185,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 if (tag instanceof ViewHolder) {
                     agendaDayView = convertView;
                     holder = (ViewHolder) tag;
+                    holder.julianDay = row.mDay;
                 }
             }
 
@@ -193,6 +196,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 agendaDayView = mInflater.inflate(R.layout.agenda_day, parent, false);
                 holder.dayView = (TextView) agendaDayView.findViewById(R.id.day);
                 holder.dateView = (TextView) agendaDayView.findViewById(R.id.date);
+                holder.julianDay = row.mDay;
+                holder.grayed = false;
                 agendaDayView.setTag(holder);
             }
 
@@ -250,8 +255,10 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // Set the background of the view, it is different if it is before today or not
             if (row.mDay >= mTodayJulianDay) {
                 agendaDayView.setBackgroundColor(mBackgroundColor);
+                holder.grayed = false;
             } else {
                 agendaDayView.setBackgroundColor(mPastBackgroundColor);
+                holder.grayed = true;
             }
             return agendaDayView;
         } else if (row.mType == TYPE_MEETING) {
@@ -270,13 +277,16 @@ public class AgendaByDayAdapter extends BaseAdapter {
             if (row.mDay < mTodayJulianDay) {
                 itemView.setBackgroundColor(mPastBackgroundColor);
                 title.setTypeface(Typeface.DEFAULT);
+                holder.grayed = true;
             } else if (row.mDay == mTodayJulianDay && !allDay &&
                     eventEndTime < System.currentTimeMillis()){
                 itemView.setBackgroundColor(mPastBackgroundColor);
                 title.setTypeface(Typeface.DEFAULT);
+                holder.grayed = true;
             } else {
                 itemView.setBackgroundColor(mBackgroundColor);
                 title.setTypeface(Typeface.DEFAULT_BOLD);
+                holder.grayed = false;
             }
             return itemView;
         } else {

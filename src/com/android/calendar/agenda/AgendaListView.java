@@ -41,6 +41,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     private static final String TAG = "AgendaListView";
     private static final boolean DEBUG = false;
+    private static final int EVENT_UPDATE_TIME = 300000;  // 5 minutes
 
     private AgendaWindowAdapter mWindowAdapter;
     private DeleteEventHelper mDeleteEventHelper;
@@ -48,7 +49,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     private String mTimeZone;
     private boolean mShowEventDetailsWithAgenda;
     // Used to update the past/present separator at midnight
-    private Handler mMidnightUpdate = null;;
+    private Handler mMidnightUpdate = null;
+    private Handler mPastEventUpdate = null;
 
     private Runnable mTZUpdater = new Runnable() {
         @Override
@@ -57,6 +59,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
     };
 
+    // runs every midnight and refreshes the view in order to update the past/present
+    // separator
     private Runnable mMidnightUpdater = new Runnable() {
         @Override
         public void run() {
@@ -65,6 +69,16 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
     };
 
+    // Runs every EVENT_UPDATE_TIME to gray out past events
+    private Runnable mPastEventUpdater = new Runnable() {
+        @Override
+        public void run() {
+            if (updatePastEvents() == true) {
+                refresh(true);
+            }
+            setPastEventsUpdater();
+        }
+    };
 
     public AgendaListView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -91,6 +105,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         setDividerHeight(0);
 
         setMidnightUpdater();
+        setPastEventsUpdater();
     }
 
 
@@ -106,9 +121,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
 
         // Calculate the time until midnight + 1 second and set the handler to
-        // do a refresh
-        // at that time.
-
+        // do a refresh at that time.
         long now = System.currentTimeMillis();
         Time time = new Time(mTimeZone);
         time.set(now);
@@ -122,6 +135,66 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         if (mMidnightUpdate != null) {
             mMidnightUpdate.removeCallbacks(mMidnightUpdater);
         }
+    }
+
+    // Sets a thread to run every EVENT_UPDATE_TIME in order to update the list
+    // with grayed out past events
+    private void setPastEventsUpdater() {
+
+        // Create the handler or clear the existing one.
+        if (mPastEventUpdate == null) {
+            mPastEventUpdate = new Handler();
+        } else {
+            mPastEventUpdate.removeCallbacks(mPastEventUpdater);
+        }
+        // Run the thread in the nearest rounded EVENT_UPDATE_TIME
+        long now = System.currentTimeMillis();
+        long roundedTime = (now / EVENT_UPDATE_TIME) * EVENT_UPDATE_TIME;
+        mPastEventUpdate.postDelayed(mPastEventUpdater, EVENT_UPDATE_TIME - (now - roundedTime));
+    }
+
+    // Stop the past events thread
+    private void resetPastEventsUpdater() {
+        if (mPastEventUpdate != null) {
+            mPastEventUpdate.removeCallbacks(mPastEventUpdater);
+        }
+    }
+
+    // Go over all visible views and checks if all past events are grayed out.
+    // Returns true is there is at least one event that ended and it is not
+    // grayed out.
+    private boolean updatePastEvents() {
+
+        int childCount = getChildCount();
+        boolean needUpdate = false;
+        long now = System.currentTimeMillis();
+        Time time = new Time(mTimeZone);
+        time.set(now);
+        int todayJulianDay = Time.getJulianDay(now, time.gmtoff);
+
+        // Go over views in list
+        for (int i = 0; i < childCount; ++i) {
+            View listItem = getChildAt(i);
+            Object o = listItem.getTag();
+            if (o instanceof AgendaByDayAdapter.ViewHolder) {
+                // day view - check if day in the past and not grayed yet
+                AgendaByDayAdapter.ViewHolder holder = (AgendaByDayAdapter.ViewHolder) o;
+                if (holder.julianDay < todayJulianDay && !holder.grayed) {
+                    needUpdate = true;
+                    break;
+                }
+            } else if (o instanceof AgendaAdapter.ViewHolder) {
+                // meeting view - check if event in the past and not grayed yet
+                // ignore all day events since they are not to be grayed out
+                // until the end of the day.
+                AgendaAdapter.ViewHolder holder = (AgendaAdapter.ViewHolder) o;
+                if (holder.endTimeMilli < now && !holder.grayed && !holder.allDay) {
+                    needUpdate = true;
+                    break;
+                }
+            }
+        }
+        return needUpdate;
     }
 
     @Override
@@ -341,11 +414,13 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     public void onResume() {
         mTZUpdater.run();
         setMidnightUpdater();
+        setPastEventsUpdater();
         mWindowAdapter.onResume();
     }
 
     public void onPause() {
         resetMidnightUpdater();
+        resetPastEventsUpdater();
         mWindowAdapter.notifyDataSetInvalidated();
     }
 }
