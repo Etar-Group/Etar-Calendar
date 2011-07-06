@@ -12,11 +12,17 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := $(call all-java-files-under,src)
 
 # bundled
-LOCAL_STATIC_JAVA_LIBRARIES += android-common android-common-chips
+#LOCAL_STATIC_JAVA_LIBRARIES += \
+#		android-common \
+#		android-common-chips \
+#		calendar-common
 
 # unbundled
-#LOCAL_STATIC_JAVA_LIBRARIES := android-common android-common-chips
-#LOCAL_SDK_VERSION := current
+LOCAL_STATIC_JAVA_LIBRARIES := \
+		android-common \
+		android-common-chips \
+		calendar-common
+LOCAL_SDK_VERSION := current
 
 LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dirs))
 
