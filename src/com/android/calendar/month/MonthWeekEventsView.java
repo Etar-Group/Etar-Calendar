@@ -176,7 +176,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         setEvents(sortedEvents);
         // The MIN_WEEK_WIDTH is a hack to prevent the view from trying to
         // generate dna bits before its width has been fixed.
-        if (unsortedEvents == null || mWidth <= MIN_WEEK_WIDTH || mContext == null) {
+        if (unsortedEvents == null || mWidth <= MIN_WEEK_WIDTH || getContext() == null) {
             mDna = null;
             return;
         }
@@ -196,7 +196,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             int top = DAY_SEPARATOR_INNER_WIDTH + DNA_MARGIN + DNA_ALL_DAY_HEIGHT + 1;
             int bottom = mHeight - DNA_MARGIN;
             mDna = Utils.createDNAStrands(mFirstJulianDay, unsortedEvents, top, bottom,
-                    DNA_MIN_SEGMENT_HEIGHT, mDayXs, mContext);
+                    DNA_MIN_SEGMENT_HEIGHT, mDayXs, getContext());
         }
     }
 
@@ -244,7 +244,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
         if (!mScaled) {
             Resources resources = getContext().getResources();
-            mShowDetailsInMonth = Utils.getConfigBool(mContext, R.bool.show_details_in_month);
+            mShowDetailsInMonth = Utils.getConfigBool(getContext(), R.bool.show_details_in_month);
             TEXT_SIZE_MONTH_NUMBER = resources.getInteger(R.integer.text_size_month_number);
             SIDE_PADDING_MONTH_NUMBER = resources.getInteger(R.integer.month_day_number_margin);
             CONFLICT_COLOR = resources.getColor(R.color.month_dna_conflict_time_color);
