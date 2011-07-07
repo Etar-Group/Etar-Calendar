@@ -71,6 +71,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         ColorChipView colorChip;
         long endTimeMilli;
         boolean allDay;
+        boolean grayed;
     }
 
     public AgendaAdapter(Context context, int resource) {
