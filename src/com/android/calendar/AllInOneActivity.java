@@ -570,7 +570,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
 
         // Hide the "show/hide controls" button if this is a phone
-        // or the view type is "Month".
+        // or the view type is "Month" or "Agenda".
 
         mControlsMenu = menu.findItem(R.id.action_hide_controls);
         if (!mShowCalendarControls) {
@@ -579,9 +579,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 mControlsMenu.setEnabled(false);
             }
         } else if (mControlsMenu != null && mController != null
-                    && mController.getViewType() == ViewType.MONTH) {
+                    && (mController.getViewType() == ViewType.MONTH ||
+                        mController.getViewType() == ViewType.AGENDA)) {
             mControlsMenu.setVisible(false);
             mControlsMenu.setEnabled(false);
+        } else if (mControlsMenu != null){
+            mControlsMenu.setTitle(mHideControls ? mShowString : mHideString);
         }
         return true;
     }
