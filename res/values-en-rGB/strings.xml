@@ -68,9 +68,9 @@
     <string name="accounts" msgid="849401841083180306">"Accounts &amp; sync"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Event details"</string>
     <string name="hint_what" msgid="709155115005044531">"Event name"</string>
-    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"Event location"</string>
-    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"Event description"</string>
-    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"Enter email addresses"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Location"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Description"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Guests"</string>
     <string name="creating_event" msgid="5252306542761552414">"Event created"</string>
     <string name="saving_event" msgid="7716081507367732169">"Event saved"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Invitations sent"</string>
@@ -88,7 +88,7 @@
     <string name="description_label" msgid="7193475046717505855">"Description"</string>
     <string name="presence_label" msgid="6169724148441175862">"Show me as"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
-    <!-- outdated translation 8345054160145333166 -->     <string name="reminders_label" msgid="7292389181815525676">"Reminders"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Add reminder"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No calendars"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Before you can add an event, you must add at least one Calendar account to the device and make a calendar visible. Touch \"Add account\" to add an account (if you\'ve just added an account, wait for it to finish syncing and try again). Or touch Cancel and ensure that at least one calendar is visible."</string>
     <string name="add_account" msgid="1669072099756774952">"Add account"</string>
@@ -100,18 +100,16 @@
     <string name="response_yes" msgid="2027484304899988350">"Yes"</string>
     <string name="response_maybe" msgid="7791500973627841695">" Maybe"</string>
     <string name="response_no" msgid="561911691884148136">"No"</string>
-    <!-- no translation found for event_info_timezone (6884490917897502454) -->
-    <skip />
-    <!-- no translation found for event_info_repetition (1556101382780225893) -->
-    <skip />
-    <!-- no translation found for event_info_organizer (9138683335394832629) -->
-    <skip />
-    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
-    <skip />
-    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
-    <skip />
+    <string name="event_info_timezone" msgid="6884490917897502454">"Time Zone:"</string>
+    <string name="event_info_repetition" msgid="1556101382780225893">"Repetition:"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Organiser:"</string>
+    <string name="event_info_desc_more" msgid="2961880675118098743">"More"</string>
+    <string name="event_info_desc_less" msgid="8295683160345195225">"Less"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Reminders"</string>
-    <string name="agenda_today" msgid="6489447319363439068">"Today, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"TODAY, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"YESTERDAY, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
+    <skip />
     <string name="loading" msgid="3772533493214331230">"Loading…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Touch to view events before <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Touch to view events after <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>

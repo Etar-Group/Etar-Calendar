@@ -68,9 +68,9 @@
     <string name="accounts" msgid="849401841083180306">"Kontoer og synkronisering"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Hendelsesdetaljer"</string>
     <string name="hint_what" msgid="709155115005044531">"Navn på aktivitet"</string>
-    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"Sted"</string>
-    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"Beskrivelse av aktivitet"</string>
-    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"Skriv inn e-postadresser"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Plassering"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Beskrivelse"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Deltakere"</string>
     <string name="creating_event" msgid="5252306542761552414">"Aktiviteten er opprettet"</string>
     <string name="saving_event" msgid="7716081507367732169">"Aktiviteten er lagret"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Invitasjonene er sendt"</string>
@@ -88,7 +88,7 @@
     <string name="description_label" msgid="7193475046717505855">"Beskrivelse"</string>
     <string name="presence_label" msgid="6169724148441175862">"Vis meg som"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Personvern"</string>
-    <!-- outdated translation 8345054160145333166 -->     <string name="reminders_label" msgid="7292389181815525676">"Påminnelser"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Legg til påminnelse"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Ingen kalendre"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Før du kan legge til en aktivitet, må du legge til minst én kalenderkonto på enheten og gjøre en kalender synlig. Trykk på Legg til konto (hvis du allerede har lagt til en konto, venter du til eksisterende konto synkroniseres og prøver på nytt). Du kan også trykke på Avbryt og kontrollere at minst én kalender er synlig."</string>
     <string name="add_account" msgid="1669072099756774952">"Legg til konto"</string>
@@ -100,19 +100,16 @@
     <string name="response_yes" msgid="2027484304899988350">"Ja"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Kanskje"</string>
     <string name="response_no" msgid="561911691884148136">"Nei"</string>
-    <!-- no translation found for event_info_timezone (6884490917897502454) -->
+    <string name="event_info_timezone" msgid="6884490917897502454">"Tidssone:"</string>
+    <string name="event_info_repetition" msgid="1556101382780225893">"Repetisjon:"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Arrangør:"</string>
+    <string name="event_info_desc_more" msgid="2961880675118098743">"Mer"</string>
+    <string name="event_info_desc_less" msgid="8295683160345195225">"Mindre"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Påminnelser"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"I DAG, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"I GÅR, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
     <skip />
-    <!-- no translation found for event_info_repetition (1556101382780225893) -->
-    <skip />
-    <!-- no translation found for event_info_organizer (9138683335394832629) -->
-    <skip />
-    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
-    <skip />
-    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
-    <skip />
-    <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
-    <skip />
-    <string name="agenda_today" msgid="6489447319363439068">"I dag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Laster inn ..."</string>
     <string name="show_older_events" msgid="5140647493681439926">"Trykk for å vise aktiviteter før <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Trykk for å vise aktiviteter etter <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -186,41 +183,23 @@
     <string name="today" msgid="8577375020252453006">"I dag"</string>
     <string name="copy_db" msgid="437691290566699292">"Send database"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Søker på <xliff:g id="DOMAIN">%s</xliff:g> …"</string>
-    <!-- no translation found for accessibility_new_event (6063141474224122288) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_date (3926641487042699037) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_time (4913428100936555149) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_date (5624250196618643922) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_time (7120310166355224941) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_time_zone (7155465783500323811) -->
-    <skip />
-    <!-- no translation found for accessibility_add_reminder (2267950744060950152) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_reminder (5261609343259665139) -->
-    <skip />
-    <!-- no translation found for accessibility_add_attendee (5654014177472600916) -->
-    <skip />
-    <!-- no translation found for accessibility_sync_cal (6506181885764723383) -->
-    <skip />
-    <!-- no translation found for accessibility_all_day (4146955438811915282) -->
-    <skip />
-    <!-- no translation found for accessibility_refresh (3458716385448853522) -->
-    <skip />
-    <!-- no translation found for accessibility_repeats (1629279916830919582) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_time (3594100545814579575) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_type (5339120699701437227) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_showmeas (6669129015980006570) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_privacy (8669288484484022771) -->
-    <skip />
+    <string name="accessibility_new_event" msgid="6063141474224122288">"Ny aktivitet"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Fjern deltaker"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Startdato"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Starttidspunkt"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Sluttdato"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Sluttidspunkt"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Tidssone"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Legg til påminnelse"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Fjern påminnelse"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Legg til deltaker"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Synkroniser kalender"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Heldagshendelse"</string>
+    <string name="accessibility_refresh" msgid="3458716385448853522">"Oppdater"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Repetisjon"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Påminnelsestid"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Påminnelsestype"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Vis meg som"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Personvern"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Aktivitet <xliff:g id="ITEM_INDEX">%1$s</xliff:g> av <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
 </resources>

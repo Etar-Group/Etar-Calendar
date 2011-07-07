@@ -69,9 +69,9 @@
     <string name="accounts" msgid="849401841083180306">"Tài khoản &amp; đồng bộ hóa"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Chi tiết sự kiện"</string>
     <string name="hint_what" msgid="709155115005044531">"Tên sự kiện"</string>
-    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"Vị trí sự kiện"</string>
-    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"Mô tả sự kiện"</string>
-    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"Nhập địa chỉ email"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Vị trí"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Mô tả"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Khách"</string>
     <string name="creating_event" msgid="5252306542761552414">"Sự kiện đã được tạo"</string>
     <string name="saving_event" msgid="7716081507367732169">"Đã lưu sự kiện"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Đã gửi thư mời"</string>
@@ -89,7 +89,7 @@
     <string name="description_label" msgid="7193475046717505855">"Mô tả"</string>
     <string name="presence_label" msgid="6169724148441175862">"Hiển thị tôi ở trạng thái"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Bảo mật"</string>
-    <!-- outdated translation 8345054160145333166 -->     <string name="reminders_label" msgid="7292389181815525676">"Lời nhắc"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Thêm lời nhắc"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Không có lịch"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Trước khi bạn có thể thêm sự kiện, bạn phải thêm ít nhất một tài khoản Lịch vào thiết bị và đặt lịch ở chế độ hiển thị. Chạm \"Thêm tài khoản\" để thêm tài khoản (nếu bạn chỉ thêm tài khoản, hãy đợi thiết bị hoàn tất việc đồng bộ hóa và thử lại). Hoặc chạm Hủy và đảm bảo rằng có ít nhất một lịch hiển thị."</string>
     <string name="add_account" msgid="1669072099756774952">"Thêm tài khoản"</string>
@@ -101,19 +101,16 @@
     <string name="response_yes" msgid="2027484304899988350">"Có"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Có thể"</string>
     <string name="response_no" msgid="561911691884148136">"Không"</string>
-    <!-- no translation found for event_info_timezone (6884490917897502454) -->
+    <string name="event_info_timezone" msgid="6884490917897502454">"Múi giờ:"</string>
+    <string name="event_info_repetition" msgid="1556101382780225893">"Lặp lại:"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Nhà t.chức:"</string>
+    <string name="event_info_desc_more" msgid="2961880675118098743">"Khác"</string>
+    <string name="event_info_desc_less" msgid="8295683160345195225">"Ít hơn"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Lời nhắc"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"HÔM NAY, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"HÔM QUA, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
     <skip />
-    <!-- no translation found for event_info_repetition (1556101382780225893) -->
-    <skip />
-    <!-- no translation found for event_info_organizer (9138683335394832629) -->
-    <skip />
-    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
-    <skip />
-    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
-    <skip />
-    <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
-    <skip />
-    <string name="agenda_today" msgid="6489447319363439068">"Hôm nay, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Đang tải…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Chạm để xem sự kiện trước <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Chạm để xem sự kiện sau <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -138,7 +135,7 @@
     <string name="monthly_on_day" msgid="5370155265278821156">"Hàng tháng (vào ngày <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Hàng năm (vào <xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom" product="tablet" msgid="3784569535926286624">"Tùy chỉnh… (không thể tùy chỉnh trên máy tính bảng)"</string>
-    <string name="custom" product="default" msgid="3015205670911301856">"Tuỳ chỉnh… (không thể tuỳ chỉnh trên điện thoại)"</string>
+    <string name="custom" product="default" msgid="3015205670911301856">"Tùy chỉnh… (không thể tùy chỉnh trên điện thoại)"</string>
     <string name="modify_event" msgid="4501745557655992422">"Chỉ thay đổi sự kiện này."</string>
     <string name="modify_all" msgid="7506579040966638538">"Thay đổi tất cả sự kiện trong hàng loạt sự kiện."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Thay đổi trường hợp này và tất cả các sự kiện trong tương lai."</string>
@@ -188,41 +185,23 @@
     <string name="today" msgid="8577375020252453006">"Hôm nay"</string>
     <string name="copy_db" msgid="437691290566699292">"Gửi cơ sở dữ liệu"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Đang tìm kiếm <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <!-- no translation found for accessibility_new_event (6063141474224122288) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_date (3926641487042699037) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_time (4913428100936555149) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_date (5624250196618643922) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_time (7120310166355224941) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_time_zone (7155465783500323811) -->
-    <skip />
-    <!-- no translation found for accessibility_add_reminder (2267950744060950152) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_reminder (5261609343259665139) -->
-    <skip />
-    <!-- no translation found for accessibility_add_attendee (5654014177472600916) -->
-    <skip />
-    <!-- no translation found for accessibility_sync_cal (6506181885764723383) -->
-    <skip />
-    <!-- no translation found for accessibility_all_day (4146955438811915282) -->
-    <skip />
-    <!-- no translation found for accessibility_refresh (3458716385448853522) -->
-    <skip />
-    <!-- no translation found for accessibility_repeats (1629279916830919582) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_time (3594100545814579575) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_type (5339120699701437227) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_showmeas (6669129015980006570) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_privacy (8669288484484022771) -->
-    <skip />
+    <string name="accessibility_new_event" msgid="6063141474224122288">"Sự kiện mới"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Xóa người tham dự"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Ngày bắt đầu"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Thời gian bắt đầu"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Ngày kết thúc"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Thời gian kết thúc"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Múi giờ"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Thêm lời nhắc"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Xóa lời nhắc"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Thêm người tham dự"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Đồng bộ hóa lịch"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Sự kiện cả ngày"</string>
+    <string name="accessibility_refresh" msgid="3458716385448853522">"Làm mới"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Lặp lại"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Thời gian nhắc"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Loại lời nhắc"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Hiển thị tôi ở trạng thái"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Riêng tư"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Sự kiện <xliff:g id="ITEM_INDEX">%1$s</xliff:g> trong tổng số <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
 </resources>

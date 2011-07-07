@@ -129,7 +129,7 @@
     <item msgid="7564374178324652137">"መጨረሻ"</item>
   </string-array>
   <string-array name="response_labels1">
-    <item msgid="3654955385120106241">"(ምንም ምላሽ)"</item>
+    <!-- outdated translation 3654955385120106241 -->     <item msgid="5605392595848194997">"(ምንም ምላሽ)"</item>
     <item msgid="3724434080904437698">"አዎ"</item>
     <item msgid="8854145743148992583">"ምናልባት"</item>
     <item msgid="6174292185978948873">"አይ"</item>

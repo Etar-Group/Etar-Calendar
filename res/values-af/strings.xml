@@ -130,7 +130,12 @@
     <skip />
     <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
     <skip />
-    <string name="agenda_today" msgid="6489447319363439068">"Vandag, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <!-- no translation found for agenda_today (5965841338467422191) -->
+    <skip />
+    <!-- no translation found for agenda_yesterday (4170964206728599693) -->
+    <skip />
+    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
+    <skip />
     <string name="loading" msgid="3772533493214331230">"Laai tans…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Raak om gebeurtenisse te sien vóór <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Raak om gebeurtenisse te sien ná <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>

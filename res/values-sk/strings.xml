@@ -69,9 +69,9 @@
     <string name="accounts" msgid="849401841083180306">"Účty a synchronizácia"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Podrobnosti udalosti"</string>
     <string name="hint_what" msgid="709155115005044531">"Názov udalosti"</string>
-    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"Miesto udalosti"</string>
-    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"Popis udalosti"</string>
-    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"Zadajte e-mailové adresy"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Umiestnenie"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Popis"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Hostia"</string>
     <string name="creating_event" msgid="5252306542761552414">"Udalosť bola vytvorená"</string>
     <string name="saving_event" msgid="7716081507367732169">"Udalosť bola uložená"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Pozvánky boli odoslané"</string>
@@ -89,7 +89,7 @@
     <string name="description_label" msgid="7193475046717505855">"Popis"</string>
     <string name="presence_label" msgid="6169724148441175862">"Zobraziť ma ako"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Ochrana osobných údajov"</string>
-    <!-- outdated translation 8345054160145333166 -->     <string name="reminders_label" msgid="7292389181815525676">"Pripomienky"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Pridať pripomienku"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Žiadne kalendáre"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Skôr ako bude možné pridať udalosti, musíte do zariadenia pridať aspoň jeden účet služby Kalendár a nastaviť ho ako viditeľný. Ak chcete pridať účet, dotknite sa možnosti „Pridať účet“ (ak ste účet práve pridali, počkajte na dokončenie jeho synchronizácie a skúste to znova). Alebo sa môžete dotknúť možnosti Zrušiť a zaistiť tak, aby bol viditeľný aspoň jeden kalendár."</string>
     <string name="add_account" msgid="1669072099756774952">"Pridať účet"</string>
@@ -101,19 +101,16 @@
     <string name="response_yes" msgid="2027484304899988350">"Áno"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Možno"</string>
     <string name="response_no" msgid="561911691884148136">"Nie"</string>
-    <!-- no translation found for event_info_timezone (6884490917897502454) -->
+    <string name="event_info_timezone" msgid="6884490917897502454">"Časové pásmo"</string>
+    <string name="event_info_repetition" msgid="1556101382780225893">"Opakovanie:"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Organizátor:"</string>
+    <string name="event_info_desc_more" msgid="2961880675118098743">"Viac"</string>
+    <string name="event_info_desc_less" msgid="8295683160345195225">"Menej"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Pripomienky"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"DNES, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"VČERA, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
     <skip />
-    <!-- no translation found for event_info_repetition (1556101382780225893) -->
-    <skip />
-    <!-- no translation found for event_info_organizer (9138683335394832629) -->
-    <skip />
-    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
-    <skip />
-    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
-    <skip />
-    <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
-    <skip />
-    <string name="agenda_today" msgid="6489447319363439068">"Dnes, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Prebieha načítavanie…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Dotykom zobrazíte udalosti za obdobie pred <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Dotykom zobrazíte udalosti za obdobie po <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -188,41 +185,23 @@
     <string name="today" msgid="8577375020252453006">"Dnes"</string>
     <string name="copy_db" msgid="437691290566699292">"Odoslať databázu"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Prebieha vyhľadávanie <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <!-- no translation found for accessibility_new_event (6063141474224122288) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_date (3926641487042699037) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_time (4913428100936555149) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_date (5624250196618643922) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_time (7120310166355224941) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_time_zone (7155465783500323811) -->
-    <skip />
-    <!-- no translation found for accessibility_add_reminder (2267950744060950152) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_reminder (5261609343259665139) -->
-    <skip />
-    <!-- no translation found for accessibility_add_attendee (5654014177472600916) -->
-    <skip />
-    <!-- no translation found for accessibility_sync_cal (6506181885764723383) -->
-    <skip />
-    <!-- no translation found for accessibility_all_day (4146955438811915282) -->
-    <skip />
-    <!-- no translation found for accessibility_refresh (3458716385448853522) -->
-    <skip />
-    <!-- no translation found for accessibility_repeats (1629279916830919582) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_time (3594100545814579575) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_type (5339120699701437227) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_showmeas (6669129015980006570) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_privacy (8669288484484022771) -->
-    <skip />
+    <string name="accessibility_new_event" msgid="6063141474224122288">"Nová udalosť"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Odstrániť účastníka"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Dátum začiatku"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Čas začiatku"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Dátum ukončenia"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Čas ukončenia"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Časové pásmo"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Pridať pripomienku"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Odstránenie pripomienky"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Pridať účastníka"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Synchronizovať kalendár"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Celodenná udalosť"</string>
+    <string name="accessibility_refresh" msgid="3458716385448853522">"Obnoviť"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Opakovanie"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Čas pripomienky"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Typ pripomienky"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Zobraziť ma ako"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Ochrana osobných údajov"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Udalosť <xliff:g id="ITEM_INDEX">%1$s</xliff:g> z <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
 </resources>

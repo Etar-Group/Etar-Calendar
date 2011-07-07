@@ -69,9 +69,9 @@
     <string name="accounts" msgid="849401841083180306">"Comptes i sincronització"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Detalls de l\'esdeveniment"</string>
     <string name="hint_what" msgid="709155115005044531">"Nom de l\'esdeveniment"</string>
-    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"Ubicació de l\'esdeveniment"</string>
-    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"Descripció de l\'esdeveniment"</string>
-    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"Introdueix les adreces electròniques"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Ubicació"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Descripció"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Convidats"</string>
     <string name="creating_event" msgid="5252306542761552414">"Esdeveniment creat"</string>
     <string name="saving_event" msgid="7716081507367732169">"Esdeveniment desat"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"S\'han enviat les invitacions"</string>
@@ -89,7 +89,7 @@
     <string name="description_label" msgid="7193475046717505855">"Descripció"</string>
     <string name="presence_label" msgid="6169724148441175862">"Mostra\'m com a"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privadesa"</string>
-    <!-- outdated translation 8345054160145333166 -->     <string name="reminders_label" msgid="7292389181815525676">"Recordatoris"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Afegeix recordatori"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No hi ha cap calendari"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Per tal de poder afegir un esdeveniment, primer has d\'afegir com a mínim un compte de Calendar al dispositiu i fer que un calendari sigui visible. Prem \"Afegeix un compte\" per afegir-ne un (si n\'acabes d\'afegir un, espera\'t que s\'acabi de sincronitzar i torna-ho a provar). O bé, prem \"Cancel·la\" i assegura\'t que hi ha com a mínim un calendari visible."</string>
     <string name="add_account" msgid="1669072099756774952">"Afegeix un compte"</string>
@@ -101,19 +101,16 @@
     <string name="response_yes" msgid="2027484304899988350">"Sí"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Potser"</string>
     <string name="response_no" msgid="561911691884148136">"No"</string>
-    <!-- no translation found for event_info_timezone (6884490917897502454) -->
+    <string name="event_info_timezone" msgid="6884490917897502454">"Zona horàr.:"</string>
+    <string name="event_info_repetition" msgid="1556101382780225893">"Repetició:"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Organitz.:"</string>
+    <string name="event_info_desc_more" msgid="2961880675118098743">"Més"</string>
+    <string name="event_info_desc_less" msgid="8295683160345195225">"Menys"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Recordatoris"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"AVUI, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"AHIR, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
     <skip />
-    <!-- no translation found for event_info_repetition (1556101382780225893) -->
-    <skip />
-    <!-- no translation found for event_info_organizer (9138683335394832629) -->
-    <skip />
-    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
-    <skip />
-    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
-    <skip />
-    <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
-    <skip />
-    <string name="agenda_today" msgid="6489447319363439068">"Avui, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"S\'està carregant…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Toca per mostrar esdeveniments anteriors a <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Toca per mostrar esdeveniments posteriors a <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -188,41 +185,23 @@
     <string name="today" msgid="8577375020252453006">"Avui"</string>
     <string name="copy_db" msgid="437691290566699292">"Envia la base de dades"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"S\'està cercant <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <!-- no translation found for accessibility_new_event (6063141474224122288) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_date (3926641487042699037) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_time (4913428100936555149) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_date (5624250196618643922) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_time (7120310166355224941) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_time_zone (7155465783500323811) -->
-    <skip />
-    <!-- no translation found for accessibility_add_reminder (2267950744060950152) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_reminder (5261609343259665139) -->
-    <skip />
-    <!-- no translation found for accessibility_add_attendee (5654014177472600916) -->
-    <skip />
-    <!-- no translation found for accessibility_sync_cal (6506181885764723383) -->
-    <skip />
-    <!-- no translation found for accessibility_all_day (4146955438811915282) -->
-    <skip />
-    <!-- no translation found for accessibility_refresh (3458716385448853522) -->
-    <skip />
-    <!-- no translation found for accessibility_repeats (1629279916830919582) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_time (3594100545814579575) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_type (5339120699701437227) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_showmeas (6669129015980006570) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_privacy (8669288484484022771) -->
-    <skip />
+    <string name="accessibility_new_event" msgid="6063141474224122288">"Esdeveniment nou"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Elimina un assistent"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Data d\'inici"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Hora d\'inici"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Data de finalització"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Hora de finalització"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Zona horària"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Afegeix un recordatori"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Elimina el recordatori"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Afegeix un assistent"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Sincronitza el calendari"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Esdeveniment de tot el dia"</string>
+    <string name="accessibility_refresh" msgid="3458716385448853522">"Actualitza"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Repetició"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Temps de recordatori"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Tipus de recordatori"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Mostra\'m com a"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privadesa"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Esdeveniment <xliff:g id="ITEM_INDEX">%1$s</xliff:g> de <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
 </resources>

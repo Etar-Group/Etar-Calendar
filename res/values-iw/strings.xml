@@ -68,9 +68,9 @@
     <string name="accounts" msgid="849401841083180306">"חשבונות וסנכרון"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"פרטי האירוע"</string>
     <string name="hint_what" msgid="709155115005044531">"שם האירוע"</string>
-    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"מיקום האירוע"</string>
-    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"תיאור אירוע"</string>
-    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"הזן כתובות דוא\"ל"</string>
+    <string name="hint_where" msgid="4972598001033801974">"מקום"</string>
+    <string name="hint_description" msgid="1910143586169033232">"תיאור"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"אורחים"</string>
     <string name="creating_event" msgid="5252306542761552414">"האירוע נוצר"</string>
     <string name="saving_event" msgid="7716081507367732169">"האירוע נשמר"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"ההזמנות נשלחו"</string>
@@ -88,7 +88,7 @@
     <string name="description_label" msgid="7193475046717505855">"תיאור"</string>
     <string name="presence_label" msgid="6169724148441175862">"הצג אותי במצב"</string>
     <string name="privacy_label" msgid="9215031965259597335">"פרטיות"</string>
-    <!-- outdated translation 8345054160145333166 -->     <string name="reminders_label" msgid="7292389181815525676">"תזכורות"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"הוסף תזכורת"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"אין לוחות שנה"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"לפני שתוכל להוסיף אירוע, עליך להוסיף לפחות חשבון אחד של \'יומן Google\' להתקן ולהפוך את היומן לנראה. גע ב\"הוסף חשבון\" כדי להוסיף חשבון (אם בדיוק הוספת חשבון, המתן עד שהוא יסיים להסתנכרן ונסה שוב). לחלופין, גע ב\'ביטול\' וודא שניתן לראות לפחות יומן אחד."</string>
     <string name="add_account" msgid="1669072099756774952">"הוסף חשבון"</string>
@@ -100,19 +100,16 @@
     <string name="response_yes" msgid="2027484304899988350">"כן"</string>
     <string name="response_maybe" msgid="7791500973627841695">"אולי"</string>
     <string name="response_no" msgid="561911691884148136">"לא"</string>
-    <!-- no translation found for event_info_timezone (6884490917897502454) -->
+    <string name="event_info_timezone" msgid="6884490917897502454">"אזור זמן:"</string>
+    <string name="event_info_repetition" msgid="1556101382780225893">"חזרה:"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"מארגן:"</string>
+    <string name="event_info_desc_more" msgid="2961880675118098743">"עוד"</string>
+    <string name="event_info_desc_less" msgid="8295683160345195225">"פחות"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"תזכורות"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"היום, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"אתמול, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
     <skip />
-    <!-- no translation found for event_info_repetition (1556101382780225893) -->
-    <skip />
-    <!-- no translation found for event_info_organizer (9138683335394832629) -->
-    <skip />
-    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
-    <skip />
-    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
-    <skip />
-    <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
-    <skip />
-    <string name="agenda_today" msgid="6489447319363439068">"היום, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"טוען…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"גע כדי להציג אירועים לפני <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"גע כדי להציג אירועים אחרי <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -186,41 +183,23 @@
     <string name="today" msgid="8577375020252453006">"היום"</string>
     <string name="copy_db" msgid="437691290566699292">"שלח מסד נתונים"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"מחפש <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <!-- no translation found for accessibility_new_event (6063141474224122288) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_date (3926641487042699037) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_time (4913428100936555149) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_date (5624250196618643922) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_time (7120310166355224941) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_time_zone (7155465783500323811) -->
-    <skip />
-    <!-- no translation found for accessibility_add_reminder (2267950744060950152) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_reminder (5261609343259665139) -->
-    <skip />
-    <!-- no translation found for accessibility_add_attendee (5654014177472600916) -->
-    <skip />
-    <!-- no translation found for accessibility_sync_cal (6506181885764723383) -->
-    <skip />
-    <!-- no translation found for accessibility_all_day (4146955438811915282) -->
-    <skip />
-    <!-- no translation found for accessibility_refresh (3458716385448853522) -->
-    <skip />
-    <!-- no translation found for accessibility_repeats (1629279916830919582) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_time (3594100545814579575) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_type (5339120699701437227) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_showmeas (6669129015980006570) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_privacy (8669288484484022771) -->
-    <skip />
+    <string name="accessibility_new_event" msgid="6063141474224122288">"אירוע חדש"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"הסר משתתף"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"תאריך התחלה"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"שעת התחלה"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"תאריך סיום"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"שעת סיום"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"אזור זמן"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"הוסף תזכורת"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"הסר תזכורת"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"הוסף משתתף"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"סנכרן לוח שנה"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"אירוע הנמשך יום שלם"</string>
+    <string name="accessibility_refresh" msgid="3458716385448853522">"רענן"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"חזרה"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"שעת תזכורת"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"סוג תזכורת"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"הצג אותי במצב"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"פרטיות"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"אירוע <xliff:g id="ITEM_INDEX">%1$s</xliff:g> מתוך <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
 </resources>
