@@ -69,9 +69,9 @@
     <string name="accounts" msgid="849401841083180306">"Профили и синхронизиране"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Подробности за събитието"</string>
     <string name="hint_what" msgid="709155115005044531">"Име на събитието"</string>
-    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"Местоположение на събитието"</string>
-    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"Описание на събитието"</string>
-    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"Въведете имейл адреси"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Местоположение"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Описание"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Гости"</string>
     <string name="creating_event" msgid="5252306542761552414">"Събитието е създадено"</string>
     <string name="saving_event" msgid="7716081507367732169">"Събитието е запазено"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Поканите са изпратени"</string>
@@ -89,7 +89,7 @@
     <string name="description_label" msgid="7193475046717505855">"Описание"</string>
     <string name="presence_label" msgid="6169724148441175862">"Показване като"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Поверителност"</string>
-    <!-- outdated translation 8345054160145333166 -->     <string name="reminders_label" msgid="7292389181815525676">"Напомняния"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Добавяне: Напомняне"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Няма календари"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Преди да можете да добавите събитие, в устройството трябва да има поне един профил в Google Календар и да направите видим календар. За целта докоснете „Добавяне на профил“ (ако току-що сте направили това, изчакайте синхронизирането да завърши и опитайте отново). Или докоснете „Отказ“ и се уверете, че поне един календар е видим."</string>
     <string name="add_account" msgid="1669072099756774952">"Добавяне на профил"</string>
@@ -101,19 +101,16 @@
     <string name="response_yes" msgid="2027484304899988350">"Да"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Може би"</string>
     <string name="response_no" msgid="561911691884148136">"Не"</string>
-    <!-- no translation found for event_info_timezone (6884490917897502454) -->
+    <string name="event_info_timezone" msgid="6884490917897502454">"Часова зона:"</string>
+    <string name="event_info_repetition" msgid="1556101382780225893">"Повторение:"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Организатор:"</string>
+    <string name="event_info_desc_more" msgid="2961880675118098743">"Още"</string>
+    <string name="event_info_desc_less" msgid="8295683160345195225">"По-малко"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Напомняния"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"ДНЕС, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"ВЧЕРА, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
     <skip />
-    <!-- no translation found for event_info_repetition (1556101382780225893) -->
-    <skip />
-    <!-- no translation found for event_info_organizer (9138683335394832629) -->
-    <skip />
-    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
-    <skip />
-    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
-    <skip />
-    <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
-    <skip />
-    <string name="agenda_today" msgid="6489447319363439068">"Днес, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Зарежда се…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Докоснете, за да видите събитията преди <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Докоснете, за да видите събитията след <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -188,41 +185,23 @@
     <string name="today" msgid="8577375020252453006">"Днес"</string>
     <string name="copy_db" msgid="437691290566699292">"Изпращане на базата от данни"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Търси се <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <!-- no translation found for accessibility_new_event (6063141474224122288) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_date (3926641487042699037) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_time (4913428100936555149) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_date (5624250196618643922) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_time (7120310166355224941) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_time_zone (7155465783500323811) -->
-    <skip />
-    <!-- no translation found for accessibility_add_reminder (2267950744060950152) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_reminder (5261609343259665139) -->
-    <skip />
-    <!-- no translation found for accessibility_add_attendee (5654014177472600916) -->
-    <skip />
-    <!-- no translation found for accessibility_sync_cal (6506181885764723383) -->
-    <skip />
-    <!-- no translation found for accessibility_all_day (4146955438811915282) -->
-    <skip />
-    <!-- no translation found for accessibility_refresh (3458716385448853522) -->
-    <skip />
-    <!-- no translation found for accessibility_repeats (1629279916830919582) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_time (3594100545814579575) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_type (5339120699701437227) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_showmeas (6669129015980006570) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_privacy (8669288484484022771) -->
-    <skip />
+    <string name="accessibility_new_event" msgid="6063141474224122288">"Ново събитие"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Премахване на участник"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Начална дата"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Начален час"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Крайна дата"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Краен час"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Часова зона"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Добавяне на напомняне"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Премахване на напомнянето"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Добавяне на участник"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Синхронизиране на календара"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Целодневно събитие"</string>
+    <string name="accessibility_refresh" msgid="3458716385448853522">"Опресняване"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Повторение"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Час за напомняне"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Тип напомняне"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Показване като"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Поверителност"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Събитие <xliff:g id="ITEM_INDEX">%1$s</xliff:g> от <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
 </resources>

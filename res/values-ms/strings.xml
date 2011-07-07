@@ -68,9 +68,9 @@
     <string name="accounts" msgid="849401841083180306">"Akaun &amp; penyegerakan"</string>
     <string name="event_edit_title" msgid="8487120407086532444">"Butiran acara"</string>
     <string name="hint_what" msgid="709155115005044531">"Nama acara"</string>
-    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"Lokasi acara"</string>
-    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"Keterangan acara"</string>
-    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"Masukkan alamat e-mel"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Lokasi"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Huraian"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Tetamu"</string>
     <string name="creating_event" msgid="5252306542761552414">"Acara sudah dibuat"</string>
     <string name="saving_event" msgid="7716081507367732169">"Acara sudah disimpan"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Jemputan telah dihantar"</string>
@@ -88,7 +88,7 @@
     <string name="description_label" msgid="7193475046717505855">"Keterangan"</string>
     <string name="presence_label" msgid="6169724148441175862">"Tunjukkan saya sebagai"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privasi"</string>
-    <!-- outdated translation 8345054160145333166 -->     <string name="reminders_label" msgid="7292389181815525676">"Peringatan"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Tambah peringatan"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Tiada kalendar"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Sebelum anda boleh menambah acara, anda mesti menambah sekurang-kurangnya satu akaun Kalendar pada peranti dan menjadikan kalendar itu boleh dilihat. Sentuh \"Tambah akaun\" untuk menambah akaun (jika anda baru sahaja menambah akaun, tunggu sehingga ia selesai menyegerak dan cuba lagi). Atau sentuh Batal dan pastikan sekurang-kurangnya satu kalendar boleh dilihat."</string>
     <string name="add_account" msgid="1669072099756774952">"Tambah akaun"</string>
@@ -100,19 +100,17 @@
     <string name="response_yes" msgid="2027484304899988350">"Ya"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Mungkin"</string>
     <string name="response_no" msgid="561911691884148136">"Tidak"</string>
-    <!-- no translation found for event_info_timezone (6884490917897502454) -->
-    <skip />
-    <!-- no translation found for event_info_repetition (1556101382780225893) -->
-    <skip />
-    <!-- no translation found for event_info_organizer (9138683335394832629) -->
-    <skip />
-    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
-    <skip />
-    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
-    <skip />
+    <string name="event_info_timezone" msgid="6884490917897502454">"Zon Waktu:"</string>
+    <string name="event_info_repetition" msgid="1556101382780225893">"Ulangan:"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Penganjur:"</string>
+    <string name="event_info_desc_more" msgid="2961880675118098743">"Lagi"</string>
+    <string name="event_info_desc_less" msgid="8295683160345195225">"Kurang"</string>
     <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
     <skip />
-    <string name="agenda_today" msgid="6489447319363439068">"Hari ini, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"HARI INI, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"SEMALAM, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
+    <skip />
     <string name="loading" msgid="3772533493214331230">"Memuatkan..."</string>
     <string name="show_older_events" msgid="5140647493681439926">"Sentuh untuk melihat acara sebelum <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Sentuh untuk melihat acara selepas <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -136,7 +134,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Tahunan"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Bulanan (pada hari ke-<xliff:g id="DAY_OF_MONTH">%s</xliff:g> )"</string>
     <string name="yearly" msgid="8576208380302949002">"Tahunan (pada <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3784569535926286624">"Peribadi… (tidak boleh diperibadikan pada tablet)"</string>
+    <string name="custom" product="tablet" msgid="3784569535926286624">"Peribadi... (tidak boleh diperibadikan pada tablet)"</string>
     <string name="custom" product="default" msgid="3015205670911301856">"Peribadi... (tidak boleh diperibadikan pada telefon)"</string>
     <string name="modify_event" msgid="4501745557655992422">"Tukar acara ini sahaja."</string>
     <string name="modify_all" msgid="7506579040966638538">"Tukar semua acara dalam siri."</string>
@@ -185,7 +183,7 @@
     <string name="in_progress" msgid="3637799356103489011">"sedang berlangsung"</string>
     <string name="today" msgid="8577375020252453006">"Hari ini"</string>
     <string name="copy_db" msgid="437691290566699292">"Hantar pangkalan data"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"Mencari <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"Mencari <xliff:g id="DOMAIN">%s</xliff:g>..."</string>
     <!-- no translation found for accessibility_new_event (6063141474224122288) -->
     <skip />
     <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
