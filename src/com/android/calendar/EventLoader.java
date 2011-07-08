@@ -21,6 +21,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Handler;
 import android.os.Process;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.EventDays;
 import android.util.Log;
 
@@ -64,6 +65,13 @@ public class EventLoader {
         public boolean[] eventDays;
         public Runnable uiCallback;
 
+        /**
+         * The projection used by the EventDays query.
+         */
+        private static final String[] PROJECTION = {
+                CalendarContract.EventDays.STARTDAY, CalendarContract.EventDays.ENDDAY
+        };
+
         public LoadEventDaysRequest(int startDay, int numDays, boolean[] eventDays,
                 final Runnable uiCallback)
         {
@@ -73,6 +81,7 @@ public class EventLoader {
             this.uiCallback = uiCallback;
         }
 
+        @Override
         public void processRequest(EventLoader eventLoader)
         {
             final Handler handler = eventLoader.mHandler;
@@ -82,7 +91,7 @@ public class EventLoader {
             Arrays.fill(eventDays, false);
 
             //query which days have events
-            Cursor cursor = EventDays.query(cr, startDay, numDays);
+            Cursor cursor = EventDays.query(cr, startDay, numDays, PROJECTION);
             try {
                 int startDayColumnIndex = cursor.getColumnIndexOrThrow(EventDays.STARTDAY);
                 int endDayColumnIndex = cursor.getColumnIndexOrThrow(EventDays.ENDDAY);
@@ -107,6 +116,7 @@ public class EventLoader {
             handler.post(uiCallback);
         }
 
+        @Override
         public void skipRequest(EventLoader eventLoader) {
         }
     }
