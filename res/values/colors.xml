@@ -85,6 +85,11 @@
     <color name="event_center">#ff6bd697</color>
     <color name="edit_event_separator">#FFDDDDDD</color>
 
+    <color name="calendar_visible">#ff000000</color>
+    <color name="calendar_hidden">#ff808080</color>
+    <color name="calendar_secondary_visible">#ff323232</color>
+    <color name="calendar_secondary_hidden">#ff808080</color>
+
     <!-- Text color of the date in the Calendar widget -->
     <color name="agenda_day_bar_title_color">#FF999999</color>
     <color name="agenda_item_not_selected">#00000000</color>

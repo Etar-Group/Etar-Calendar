@@ -25,10 +25,13 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.provider.CalendarContract.Calendars;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,16 +44,6 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     private static int COLOR_CHIP_RIGHT_MARGIN = 8;
     private static int COLOR_CHIP_TOP_OFFSET = 5;
 
-    private Drawable[] mBackgrounds = new Drawable[16];
-
-    private static final int SELECTED_UNDER_NORMAL = 0;
-    private static final int BOTTOM_SELECTED_UNDER_NORMAL = 1;
-    private static final int BOTTOM_SELECTED_UNDER_SELECTED = 2;
-    private static final int SELECTED_UNDER_SELECTED = 3;
-    private static final int NORMAL_UNDER_NORMAL = 4;
-    private static final int BOTTOM_NORMAL_UNDER_NORMAL = 5;
-    private static final int BOTTOM_NORMAL_UNDER_SELECTED = 6;
-    private static final int NORMAL_UNDER_SELECTED = 7;
     private static final int IS_SELECTED = 1 << 0;
     private static final int IS_TOP = 1 << 1;
     private static final int IS_BOTTOM = 1 << 2;
@@ -58,6 +51,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
 
     private LayoutInflater mInflater;
+    Resources mRes;
     private int mLayout;
     private int mOrientation;
     private CalendarRow[] mData;
@@ -68,11 +62,17 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     private int mNameColumn;
     private int mColorColumn;
     private int mVisibleColumn;
+    private int mOwnerAccountColumn;
     private float mScale = 0;
+    private int mColorCalendarVisible;
+    private int mColorCalendarHidden;
+    private int mColorCalendarSecondaryVisible;
+    private int mColorCalendarSecondaryHidden;
 
     private class CalendarRow {
         long id;
         String displayName;
+        String ownerAccount;
         int color;
         boolean selected;
     }
@@ -83,56 +83,73 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         mOrientation = context.getResources().getConfiguration().orientation;
         initData(c);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        Resources res = context.getResources();
+        mRes = context.getResources();
+        mColorCalendarVisible = mRes.getColor(R.color.calendar_visible);
+        mColorCalendarHidden = mRes.getColor(R.color.calendar_hidden);
+        mColorCalendarSecondaryVisible = mRes.getColor(R.color.calendar_secondary_visible);
+        mColorCalendarSecondaryHidden = mRes.getColor(R.color.calendar_secondary_hidden);
+
         if (mScale == 0) {
-            mScale = res.getDisplayMetrics().density;
+            mScale = mRes.getDisplayMetrics().density;
             SELECTED_COLOR_CHIP_SIZE *= mScale;
             UNSELECTED_COLOR_CHIP_SIZE *= mScale;
             COLOR_CHIP_LEFT_MARGIN *= mScale;
             COLOR_CHIP_RIGHT_MARGIN *= mScale;
             COLOR_CHIP_TOP_OFFSET *= mScale;
         }
-        initBackgrounds(res);
     }
 
-    /**
-     * Sets up the background drawables for the calendars list
-     *
-     * @param res The context's resources
-     */
-    private void initBackgrounds(Resources res) {
-        mBackgrounds[0] = res.getDrawable(R.drawable.calname_unselected_holo_light);
-        mBackgrounds[IS_TOP] = mBackgrounds[0];
+    private static class TabletCalendarItemBackgrounds {
+        static private Drawable[] mBackgrounds = null;
 
-        mBackgrounds[IS_SELECTED] = res.getDrawable(
-                R.drawable.calname_select_underunselected_holo_light);
-        mBackgrounds[IS_SELECTED | IS_TOP] = mBackgrounds[IS_SELECTED];
+        /**
+         * Sets up the background drawables for the calendars list
+         *
+         * @param res The context's resources
+         */
+        static Drawable[] getBackgrounds(Resources res) {
+            // Not thread safe. Ok if called only from main thread
+            if (mBackgrounds != null) {
+                return mBackgrounds;
+            }
 
-        mBackgrounds[IS_SELECTED | IS_BOTTOM] = res.getDrawable(
-                R.drawable.calname_bottom_select_underunselected_holo_light);
-        mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM] = mBackgrounds[IS_SELECTED | IS_BOTTOM];
+            mBackgrounds = new Drawable[16];
 
-        mBackgrounds[IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED] =
-                res.getDrawable(R.drawable.calname_bottom_select_underselect_holo_light);
-        mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] = mBackgrounds[
-                IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED];
+            mBackgrounds[0] = res.getDrawable(R.drawable.calname_unselected_holo_light);
+            mBackgrounds[IS_TOP] = mBackgrounds[0];
 
-        mBackgrounds[IS_SELECTED | IS_BELOW_SELECTED] =
-                res.getDrawable(R.drawable.calname_select_underselect_holo_light);
-        mBackgrounds[IS_SELECTED | IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_SELECTED
-                | IS_BELOW_SELECTED];
+            mBackgrounds[IS_SELECTED] = res.getDrawable(
+                    R.drawable.calname_select_underunselected_holo_light);
+            mBackgrounds[IS_SELECTED | IS_TOP] = mBackgrounds[IS_SELECTED];
 
-        mBackgrounds[IS_BOTTOM] = res.getDrawable(R.drawable.calname_bottom_unselected_holo_light);
-        mBackgrounds[IS_TOP | IS_BOTTOM] = mBackgrounds[IS_BOTTOM];
+            mBackgrounds[IS_SELECTED | IS_BOTTOM] = res.getDrawable(
+                    R.drawable.calname_bottom_select_underunselected_holo_light);
+            mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM] = mBackgrounds[IS_SELECTED | IS_BOTTOM];
 
-        mBackgrounds[IS_BOTTOM | IS_BELOW_SELECTED] = res.getDrawable(
-                R.drawable.calname_bottom_unselected_underselect_holo_light);
-        mBackgrounds[IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] = mBackgrounds[IS_BOTTOM
-                | IS_BELOW_SELECTED];
+            mBackgrounds[IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED] =
+                    res.getDrawable(R.drawable.calname_bottom_select_underselect_holo_light);
+            mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] = mBackgrounds[
+                    IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED];
 
-        mBackgrounds[IS_BELOW_SELECTED] = res.getDrawable(
-                R.drawable.calname_unselected_underselect_holo_light);
-        mBackgrounds[IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_BELOW_SELECTED];
+            mBackgrounds[IS_SELECTED | IS_BELOW_SELECTED] =
+                    res.getDrawable(R.drawable.calname_select_underselect_holo_light);
+            mBackgrounds[IS_SELECTED | IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_SELECTED
+                    | IS_BELOW_SELECTED];
+
+            mBackgrounds[IS_BOTTOM] = res.getDrawable(
+                    R.drawable.calname_bottom_unselected_holo_light);
+            mBackgrounds[IS_TOP | IS_BOTTOM] = mBackgrounds[IS_BOTTOM];
+
+            mBackgrounds[IS_BOTTOM | IS_BELOW_SELECTED] = res.getDrawable(
+                    R.drawable.calname_bottom_unselected_underselect_holo_light);
+            mBackgrounds[IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] = mBackgrounds[IS_BOTTOM
+                    | IS_BELOW_SELECTED];
+
+            mBackgrounds[IS_BELOW_SELECTED] = res.getDrawable(
+                    R.drawable.calname_unselected_underselect_holo_light);
+            mBackgrounds[IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_BELOW_SELECTED];
+            return mBackgrounds;
+        }
     }
 
     private void initData(Cursor c) {
@@ -151,6 +168,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         mNameColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_DISPLAY_NAME);
         mColorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         mVisibleColumn = c.getColumnIndexOrThrow(Calendars.VISIBLE);
+        mOwnerAccountColumn = c.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
 
         mRowCount = c.getCount();
         mData = new CalendarRow[(c.getCount() + 2)];
@@ -162,6 +180,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
             mData[p].displayName = c.getString(mNameColumn);
             mData[p].color = c.getInt(mColorColumn);
             mData[p].selected = c.getInt(mVisibleColumn) != 0;
+            mData[p].ownerAccount = c.getString(mOwnerAccountColumn);
             p++;
         }
     }
@@ -177,8 +196,6 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         }
         String name = mData[position].displayName;
         boolean selected = mData[position].selected;
-        Drawable bg = getBackground(position, selected);
-
 
         int color = mData[position].color;
         View view;
@@ -188,25 +205,67 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
             view = convertView;
         }
 
+        TextView calendarName = (TextView) view.findViewById(R.id.calendar);
+        calendarName.setText(name);
+
         View colorView = view.findViewById(R.id.color);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                SELECTED_COLOR_CHIP_SIZE, SELECTED_COLOR_CHIP_SIZE);
-        params.leftMargin = COLOR_CHIP_LEFT_MARGIN;
-        params.rightMargin = COLOR_CHIP_RIGHT_MARGIN;
-        // This offset is needed because the assets include the bottom of the
-        // previous item
-        params.topMargin = COLOR_CHIP_TOP_OFFSET;
-        if (!selected) {
-            params.height = UNSELECTED_COLOR_CHIP_SIZE;
-            params.width = UNSELECTED_COLOR_CHIP_SIZE;
-            params.leftMargin += (SELECTED_COLOR_CHIP_SIZE - UNSELECTED_COLOR_CHIP_SIZE) / 2;
-            params.topMargin += (SELECTED_COLOR_CHIP_SIZE - UNSELECTED_COLOR_CHIP_SIZE) / 2;
-        }
-        colorView.setLayoutParams(params);
         colorView.setBackgroundColor(color);
 
-        setText(view, R.id.calendar, name);
-        view.setBackgroundDrawable(bg);
+        CheckBox syncCheckBox = (CheckBox) view.findViewById(R.id.sync);
+        if (syncCheckBox != null) {
+            // Full screen layout
+            syncCheckBox.setChecked(selected);
+
+            int textColor;
+            if (selected) {
+                textColor = mColorCalendarVisible;
+            } else {
+                textColor = mColorCalendarHidden;
+            }
+            calendarName.setTextColor(textColor);
+            LayoutParams layoutParam = calendarName.getLayoutParams();
+
+            TextView secondaryText = (TextView) view.findViewById(R.id.status);
+            if (!TextUtils.isEmpty(mData[position].ownerAccount)
+                    && !mData[position].ownerAccount.equals(name)
+                    && !mData[position].ownerAccount.endsWith("calendar.google.com")) {
+                int secondaryColor;
+                if (selected) {
+                    secondaryColor = mColorCalendarSecondaryVisible;
+                } else {
+                    secondaryColor = mColorCalendarSecondaryHidden;
+                }
+                secondaryText.setText(mData[position].ownerAccount);
+                secondaryText.setTextColor(secondaryColor);
+                secondaryText.setVisibility(View.VISIBLE);
+                layoutParam.height = LayoutParams.WRAP_CONTENT;
+            } else {
+                secondaryText.setVisibility(View.GONE);
+                layoutParam.height = LayoutParams.MATCH_PARENT;
+            }
+
+            calendarName.setLayoutParams(layoutParam);
+
+        } else {
+            // Tablet layout
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    SELECTED_COLOR_CHIP_SIZE, SELECTED_COLOR_CHIP_SIZE);
+            params.leftMargin = COLOR_CHIP_LEFT_MARGIN;
+            params.rightMargin = COLOR_CHIP_RIGHT_MARGIN;
+            // This offset is needed because the assets include the bottom of the
+            // previous item
+            params.topMargin = COLOR_CHIP_TOP_OFFSET;
+            if (!selected) {
+                params.height = UNSELECTED_COLOR_CHIP_SIZE;
+                params.width = UNSELECTED_COLOR_CHIP_SIZE;
+                params.leftMargin += (SELECTED_COLOR_CHIP_SIZE - UNSELECTED_COLOR_CHIP_SIZE) / 2;
+                params.topMargin += (SELECTED_COLOR_CHIP_SIZE - UNSELECTED_COLOR_CHIP_SIZE) / 2;
+            }
+            colorView.setLayoutParams(params);
+
+            Drawable bg = getBackground(position, selected);
+            view.setBackgroundDrawable(bg);
+        }
         view.invalidate();
         return view;
     }
@@ -223,7 +282,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         bg |= position == mData.length - 1 ? IS_BOTTOM : 0;
         bg |= ((position == 0 && mOrientation != Configuration.ORIENTATION_LANDSCAPE && selected)
                 || (position > 0 && mData[position - 1].selected)) ? IS_BELOW_SELECTED : 0;
-        return mBackgrounds[bg];
+        return TabletCalendarItemBackgrounds.getBackgrounds(mRes)[bg];
     }
 
     private static void setText(View view, int id, String text) {

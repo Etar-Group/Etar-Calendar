@@ -5,6 +5,12 @@
 -keepclassmembers class com.android.calendar.AllInOneActivity {
   *** setControlsOffset(...);
 }
+-keepclassmembers class com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity {
+  *** handleSelectSyncedCalendarsClicked(...);
+}
+-keepclassmembers class com.android.calendar.AllInOneActivity {
+  *** handleSelectSyncedCalendarsClicked(...);
+}
 -keepclassmembers class com.android.calendar.DayView {
   *** setAnimateDayHeight(...);
   *** setAnimateDayEventHeight(...);

@@ -27,7 +27,8 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
-import com.android.calendar.selectcalendars.SelectCalendarsFragment;
+import com.android.calendar.selectcalendars.SelectSyncedCalendarsMultiAccountActivity;
+import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -40,11 +41,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -61,7 +60,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SearchView;
@@ -486,7 +484,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             ft.replace(R.id.mini_month, miniMonthFrag);
             mController.registerEventHandler(R.id.mini_month, (EventHandler) miniMonthFrag);
 
-            Fragment selectCalendarsFrag = new SelectCalendarsFragment();
+            Fragment selectCalendarsFrag = new SelectVisibleCalendarsFragment();
             ft.replace(R.id.calendar_list, selectCalendarsFrag);
             mController.registerEventHandler(
                     R.id.calendar_list, (EventHandler) selectCalendarsFrag);
@@ -615,6 +613,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 }
                 mController.sendEventRelatedEvent(
                         this, EventType.CREATE_EVENT, -1, t.toMillis(true), 0, 0, 0, -1);
+                return true;
+            case R.id.action_select_visible_calendars:
+                mController.sendEvent(this, EventType.LAUNCH_SELECT_VISIBLE_CALENDARS, null, null,
+                        0, 0);
                 return true;
             case R.id.action_settings:
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
@@ -969,6 +971,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
             }
         }
         updateHomeClock();
+    }
+
+    // Needs to be in proguard whitelist
+    // Specified as listener via android:onClick in a layout xml
+    public void handleSelectSyncedCalendarsClicked(View v) {
+        mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, null, 0, 0,
+                CalendarController.EXTRA_GOTO_TIME, null,
+                null);
     }
 
     @Override

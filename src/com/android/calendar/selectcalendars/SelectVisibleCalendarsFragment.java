@@ -37,8 +37,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-
-public class SelectCalendarsFragment extends Fragment
+public class SelectVisibleCalendarsFragment extends Fragment
         implements AdapterView.OnItemClickListener, CalendarController.EventHandler {
 
     private static final String TAG = "Calendar";
@@ -65,12 +64,20 @@ public class SelectCalendarsFragment extends Fragment
     private static final int COLUMN_SYNC_EVENTS = 6;
     private static int mUpdateToken;
     private static int mQueryToken;
+    private static int mCalendarItemLayout = R.layout.mini_calendar_item;
 
     private View mView = null;
     private ListView mList;
     private SelectCalendarsSimpleAdapter mAdapter;
     private Activity mContext;
     private AsyncQueryService mService;
+
+    public SelectVisibleCalendarsFragment() {
+    }
+
+    public SelectVisibleCalendarsFragment(int itemLayout) {
+        mCalendarItemLayout = itemLayout;
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -103,7 +110,7 @@ public class SelectCalendarsFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new SelectCalendarsSimpleAdapter(mContext, R.layout.mini_calendar_item, null);
+        mAdapter = new SelectCalendarsSimpleAdapter(mContext, mCalendarItemLayout, null);
         mList.setAdapter(mAdapter);
         mList.setOnItemClickListener(this);
     }

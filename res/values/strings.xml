@@ -127,7 +127,10 @@
          user to view and edit his Settings (or Preferences) -->
     <string name="menu_preferences">"Settings"</string>
     <!-- This is a label on a menu item. Pressing this menu item allows the
-         user to search their events. [CHAR LIMIT=11]-->
+         user to select the calendars to display [CHAR LIMIT=11] -->
+    <string name="menu_select_visible_calendars">"Calendars to display"</string>
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to select the calendars to display [CHAR LIMIT=11] -->
     <string name="search">"Search"</string>
     <!-- This is a label on a menu item. Pressing this menu item hides
          the navigation controls on the right side. [CHAR LIMIT=20] -->
@@ -139,10 +142,10 @@
     <!-- Month view -->
     <skip />
 
-    <!-- Select Calendars activity -->
+    <!-- Select Visible Calendars activity -->
     <skip />
     <!-- Title of "My calendars" screen -->
-    <string name="calendars_title">"Calendars"</string>
+    <string name="select_visible_calendars_title">"Calendars to Display"</string>
     <!-- Synced and visible status message -->
     <string name="synced_visible">synced, visible</string>
     <!-- Synced but not visible status message -->
@@ -161,6 +164,12 @@
         not be up to date.</string>
     <!-- Label on button that takes user to the Accounts and Sync settings page [CHAR LIMIT=60] -->
     <string name="accounts">Accounts &amp; sync</string>
+
+    <!-- Select Synced Calendars activity -->
+    <!-- Select the set of calendars to sync [CHAR LIMIT=60] -->
+    <string name="select_synced_calendars_title">Calendars to Sync</string>
+    <!-- Select the set of calendars to sync [CHAR LIMIT=60] -->
+    <string name="select_synced_calendars_button">Calendars to sync</string>
 
     <!-- Event edit activity -->
     <skip />

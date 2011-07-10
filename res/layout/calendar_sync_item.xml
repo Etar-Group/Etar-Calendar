@@ -14,45 +14,46 @@
      limitations under the License.
 -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:layout_marginRight="6dip"
     android:layout_marginTop="6dip"
     android:layout_marginBottom="6dip"
-    android:layout_weight="1">
-
-    <CheckBox android:id="@+id/sync"
+    android:clickable="false"
+    android:longClickable="false"
+    android:focusable="false">
+    <CheckBox
+        android:id="@+id/sync"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="4dip"
         android:layout_marginRight="14dip"
         android:layout_alignParentRight="true"
-        android:contentDescription="@string/accessibility_sync_cal"
-        android:gravity="center_vertical"
-    />
-
-    <View android:id="@+id/color"
+        android:contentDescription="@string/accessibility_sync_cal" />
+    <View
+        android:id="@+id/color"
         android:layout_width="16dip"
         android:layout_height="16dip"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="16dip"
         android:layout_marginRight="16dip"
-        android:layout_marginTop="8dip" />
-
-    <TextView android:id="@+id/calendar"
+        android:layout_marginTop="8dip"
+        android:layout_gravity="center_vertical" />
+    <TextView
+        android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/color"
         android:layout_toLeftOf="@id/sync"
+        android:gravity="center_vertical"
         android:singleLine="true"
         android:ellipsize="marquee"
-        style="?android:attr/textAppearanceLarge"
-        android:duplicateParentState="true"
-    />
-
-    <TextView android:id="@+id/status"
+        style="?android:attr/textAppearanceMedium"
+        android:duplicateParentState="true" />
+    <TextView
+        android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/calendar"
@@ -61,7 +62,5 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:duplicateParentState="true"
-    />
-
+        android:duplicateParentState="true" />
 </RelativeLayout>

@@ -20,6 +20,7 @@ import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 import com.android.calendar.event.EditEventActivity;
+import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
 
 import android.accounts.Account;
 import android.app.Activity;
@@ -126,6 +127,9 @@ public class CalendarController {
 
         // date range has changed, update the title
         final long UPDATE_TITLE = 1L << 10;
+
+        // select which calendars to display
+        final long LAUNCH_SELECT_VISIBLE_CALENDARS = 1L << 11;
     }
 
     /**
@@ -445,6 +449,12 @@ public class CalendarController {
                 return;
             }
 
+            // Launch Calendar Visible Selector
+            if (event.eventType == EventType.LAUNCH_SELECT_VISIBLE_CALENDARS) {
+                launchSelectVisibleCalendars();
+                return;
+            }
+
             // Create/View/Edit/Delete Event
             long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
             if (event.eventType == EventType.CREATE_EVENT) {
@@ -531,6 +541,13 @@ public class CalendarController {
 
     public int getPreviousViewType() {
         return mPreviousViewType;
+    }
+
+    private void launchSelectVisibleCalendars() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setClassName(mContext, SelectVisibleCalendarsActivity.class.getName());
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        mContext.startActivity(intent);
     }
 
     private void launchSettings() {
@@ -696,6 +713,8 @@ public class CalendarController {
             tmp = "Edit event";
         } else if ((eventInfo.eventType & EventType.DELETE_EVENT) != 0) {
             tmp = "Delete event";
+        } else if ((eventInfo.eventType & EventType.LAUNCH_SELECT_VISIBLE_CALENDARS) != 0) {
+            tmp = "Launch select visible calendars";
         } else if ((eventInfo.eventType & EventType.LAUNCH_SETTINGS) != 0) {
             tmp = "Launch settings";
         } else if ((eventInfo.eventType & EventType.EVENTS_CHANGED) != 0) {

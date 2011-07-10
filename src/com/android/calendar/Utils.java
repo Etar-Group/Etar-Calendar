@@ -28,7 +28,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MatrixCursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -68,8 +67,8 @@ public class Utils {
     // exiting is identical to reverting
     public static final int DONE_EXIT = 1 << 0;
 
-    protected static final String OPEN_EMAIL_MARKER = " <";
-    protected static final String CLOSE_EMAIL_MARKER = ">";
+    public static final String OPEN_EMAIL_MARKER = " <";
+    public static final String CLOSE_EMAIL_MARKER = ">";
 
     public static final String INTENT_KEY_DETAIL_VIEW = "DETAIL_VIEW";
     public static final String INTENT_KEY_VIEW_TYPE = "VIEW";
