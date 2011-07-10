@@ -51,11 +51,11 @@ public class EditEventActivity extends AbstractCalendarActivity {
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.edit_event_fragment);
+        setContentView(R.layout.simple_frame_layout);
 
         mEventInfo = getEventInfoFromIntent(icicle);
 
-        mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.edit_event);
+        mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.main_frame);
 
         mIsMultipane = Utils.isMultiPaneConfiguration (this);
 
@@ -81,7 +81,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
                     CalendarController.EVENT_EDIT_ON_LAUNCH, false);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.edit_event, mEditFragment);
+            ft.replace(R.id.main_frame, mEditFragment);
             ft.show(mEditFragment);
             ft.commit();
         }

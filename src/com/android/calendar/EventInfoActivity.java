@@ -26,20 +26,14 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
-import android.text.format.Time;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
-import com.android.calendar.EventInfoFragment;
-import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.event.EditEventActivity;
 
 public class EventInfoActivity extends Activity {
@@ -55,7 +49,7 @@ public class EventInfoActivity extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        setContentView(R.layout.event_info_activity);
+        setContentView(R.layout.simple_frame_layout);
 
         // Make sure the home button is visible
         getActionBar().setDisplayOptions(
@@ -63,7 +57,7 @@ public class EventInfoActivity extends Activity {
 
         // Get the fragment if exists
         mInfoFragment = (EventInfoFragment)
-            getFragmentManager().findFragmentById(R.id.event_info_fullscreen);
+                getFragmentManager().findFragmentById(R.id.main_frame);
 
 
         // Get the info needed for the fragment
@@ -104,7 +98,7 @@ public class EventInfoActivity extends Activity {
             FragmentTransaction ft = fragmentManager.beginTransaction();
             mInfoFragment = new EventInfoFragment(this, mEventId, mStartMillis, mEndMillis,
                     attendeeResponse, isDialog);
-            ft.replace(R.id.event_info_fullscreen, mInfoFragment);
+            ft.replace(R.id.main_frame, mInfoFragment);
             ft.commit();
         }
     }
