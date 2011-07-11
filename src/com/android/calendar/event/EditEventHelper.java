@@ -23,6 +23,7 @@ import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendarcommon.EventRecurrence;
 import com.android.common.Rfc822Validator;
 
 import android.content.ContentProviderOperation;
@@ -32,7 +33,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.pim.EventRecurrence;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;

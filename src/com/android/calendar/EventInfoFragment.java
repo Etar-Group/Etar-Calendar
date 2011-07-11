@@ -21,6 +21,7 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventHelper;
+import com.android.calendarcommon.EventRecurrence;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -39,7 +40,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.pim.EventRecurrence;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;

@@ -17,6 +17,7 @@
 package com.android.calendar;
 
 import com.android.calendar.event.EditEventHelper;
+import com.android.calendarcommon.EventRecurrence;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,7 +27,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
-import android.pim.EventRecurrence;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
