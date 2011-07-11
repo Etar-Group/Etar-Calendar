@@ -54,6 +54,7 @@
     <color name="calendar_grid_line_highlight_color">#ff707070</color>
 
     <color name="mini_month_bg_color">#FFFFFFFF</color>
+    <color name="mini_month_today_outline_color">#FF000000</color>
 
     <color name="month_day_number">#FF666666</color>
     <color name="month_mini_day_number">#FF000000</color>
@@ -73,7 +74,7 @@
     <color name="month_week_banner">#FFDDDDDD</color>
     <color name="month_busybits">#FF6090F0</color>
     <color name="month_other_bgcolor">#FFEEEEEE</color>
-    <color name="month_selected_week_bgcolor">#FFD4DFFD</color>
+    <color name="month_selected_week_bgcolor">#FFDDDDDD</color>
     <color name="month_today_bgcolor">#FFFFFFFF</color>
     <color name="month_bgcolor">#FFDDDDDD</color>
     <color name="month_title_color">#FFC8CAD0</color>

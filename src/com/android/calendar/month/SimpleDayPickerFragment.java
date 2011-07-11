@@ -77,7 +77,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     protected int mDayNameColor = 0;
 
     // You can override these numbers to get a different appearance
-    protected int mNumWeeks = 7;
+    protected int mNumWeeks = 6;
     protected boolean mShowWeekNumber = false;
     protected int mDaysPerWeek = 7;
 
