@@ -95,6 +95,8 @@ public class SimpleWeekView extends View {
 
     protected static int MINI_DAY_NUMBER_TEXT_SIZE = 14;
     protected static int MINI_TODAY_NUMBER_TEXT_SIZE = 18;
+    protected static int MINI_TODAY_OUTLINE_WIDTH = 2;
+    protected static int WEEK_NUM_MARGIN_BOTTOM = 4;
 
     // used for scaling to the device density
     protected static float mScale = 0;
@@ -153,6 +155,7 @@ public class SimpleWeekView extends View {
     protected int mFocusMonthColor;
     protected int mOtherMonthColor;
     protected int mDaySeparatorColor;
+    protected int mTodayOutlineColor;
     protected int mWeekNumColor;
 
     public SimpleWeekView(Context context) {
@@ -165,6 +168,7 @@ public class SimpleWeekView extends View {
         mFocusMonthColor = res.getColor(R.color.month_mini_day_number);
         mOtherMonthColor = res.getColor(R.color.month_other_month_day_number);
         mDaySeparatorColor = res.getColor(R.color.month_grid_lines);
+        mTodayOutlineColor = res.getColor(R.color.mini_month_today_outline_color);
         mWeekNumColor = res.getColor(R.color.month_week_num_color);
         mSelectedDayLine = res.getDrawable(R.drawable.dayline_minical_holo_light);
 
@@ -175,6 +179,8 @@ public class SimpleWeekView extends View {
                 MIN_HEIGHT *= mScale;
                 MINI_DAY_NUMBER_TEXT_SIZE *= mScale;
                 MINI_TODAY_NUMBER_TEXT_SIZE *= mScale;
+                MINI_TODAY_OUTLINE_WIDTH *= mScale;
+                WEEK_NUM_MARGIN_BOTTOM *= mScale;
             }
         }
 
@@ -388,15 +394,16 @@ public class SimpleWeekView extends View {
     protected void drawBackground(Canvas canvas) {
         if (mHasSelectedDay) {
             p.setColor(mSelectedWeekBGColor);
+            p.setStyle(Style.FILL);
         } else {
             return;
         }
-        r.top = 0;
-        r.bottom = mHeight;
+        r.top = 1;
+        r.bottom = mHeight - 1;
         r.left = mPadding;
-        r.right = mSelectedLeft - 2;
+        r.right = mSelectedLeft;
         canvas.drawRect(r, p);
-        r.left = mSelectedRight + 3;
+        r.left = mSelectedRight;
         r.right = mWidth - mPadding;
         canvas.drawRect(r, p);
     }
@@ -418,20 +425,19 @@ public class SimpleWeekView extends View {
         if (mShowWeekNum) {
             p.setColor(mWeekNumColor);
             int x = (mWidth - mPadding * 2) / divisor + mPadding;
-            y = (mHeight - 2);
+            y = (mHeight - WEEK_NUM_MARGIN_BOTTOM);
             canvas.drawText(mDayNumbers[0], x, y, p);
             i++;
         }
 
-        y = (int) ((mHeight + textHeight) / 2);
+        y = (int) ((mHeight + textHeight) / 2) - DAY_SEPARATOR_WIDTH;
         boolean isFocusMonth = mFocusDay[i];
         mMonthNumPaint.setColor(isFocusMonth ? mFocusMonthColor : mOtherMonthColor);
-        mMonthNumPaint.setFakeBoldText(isFocusMonth);
+        mMonthNumPaint.setFakeBoldText(false);
         for (; i < nDays; i++) {
             if (mFocusDay[i] != isFocusMonth) {
                 isFocusMonth = mFocusDay[i];
                 mMonthNumPaint.setColor(isFocusMonth ? mFocusMonthColor : mOtherMonthColor);
-                mMonthNumPaint.setFakeBoldText(isFocusMonth);
             }
             if (mHasToday && mToday == i) {
                 mMonthNumPaint.setTextSize(MINI_TODAY_NUMBER_TEXT_SIZE);
@@ -441,7 +447,7 @@ public class SimpleWeekView extends View {
             canvas.drawText(mDayNumbers[i], x, y, mMonthNumPaint);
             if (mHasToday && mToday == i) {
                 mMonthNumPaint.setTextSize(MINI_DAY_NUMBER_TEXT_SIZE);
-                mMonthNumPaint.setFakeBoldText(isFocusMonth);
+                mMonthNumPaint.setFakeBoldText(false);
             }
         }
     }
@@ -460,15 +466,15 @@ public class SimpleWeekView extends View {
             i = 2;
         }
 
-        p.setColor(mDaySeparatorColor);
-        p.setStrokeWidth(DAY_SEPARATOR_WIDTH);
-        canvas.drawLine(mPadding, 0, mWidth - mPadding, 0, p);
-
         if (mHasSelectedDay) {
-            mSelectedDayLine.setBounds(mSelectedLeft - 2, 0, mSelectedLeft + 4, mHeight + 1);
-            mSelectedDayLine.draw(canvas);
-            mSelectedDayLine.setBounds(mSelectedRight - 3, 0, mSelectedRight + 3, mHeight + 1);
-            mSelectedDayLine.draw(canvas);
+            r.top = 1;
+            r.bottom = mHeight - 1;
+            r.left = mSelectedLeft + 1;
+            r.right = mSelectedRight - 1;
+            p.setStrokeWidth(MINI_TODAY_OUTLINE_WIDTH);
+            p.setStyle(Style.STROKE);
+            p.setColor(mTodayOutlineColor);
+            canvas.drawRect(r, p);
         }
     }
 
