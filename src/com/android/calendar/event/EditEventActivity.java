@@ -122,12 +122,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent launchIntent = new Intent();
-            launchIntent.setAction(Intent.ACTION_VIEW);
-            launchIntent.setData(Uri.parse(CalendarContract.CONTENT_URI + "/time"));
-            launchIntent.setFlags(
-                    Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(launchIntent);
+            Utils.returnToCalendarHome(this);
             return true;
         }
         return super.onOptionsItemSelected(item);

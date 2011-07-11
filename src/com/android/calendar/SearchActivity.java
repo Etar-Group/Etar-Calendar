@@ -253,7 +253,7 @@ public class SearchActivity extends Activity
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
                 return true;
             case android.R.id.home:
-                returnToCalendarHome();
+                Utils.returnToCalendarHome(this);
                 return true;
             default:
                 return false;
@@ -346,16 +346,7 @@ public class SearchActivity extends Activity
 
     @Override
     public boolean onClose() {
-        returnToCalendarHome();
+        Utils.returnToCalendarHome(this);
         return true;
-    }
-
-    private void returnToCalendarHome() {
-        Intent launchIntent = new Intent();
-        launchIntent.setAction(Intent.ACTION_VIEW);
-        launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
-        launchIntent.setFlags(
-                Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(launchIntent);
     }
 }
