@@ -22,7 +22,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:paddingTop="5dip"
+    android:paddingTop="1dip"
     android:background="@null">
 
     <TextView android:id="@+id/month_name"
