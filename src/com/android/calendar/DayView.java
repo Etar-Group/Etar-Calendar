@@ -1079,7 +1079,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int maxAllDayEvents = mMaxAlldayEvents;
 
         // The min is where 24 hours cover the entire visible area
-        mMinCellHeight = (height - DAY_HEADER_HEIGHT) / 24;
+        mMinCellHeight = Math.max((height - DAY_HEADER_HEIGHT) / 24, (int) MIN_EVENT_HEIGHT);
         if (mCellHeight < mMinCellHeight) {
             mCellHeight = mMinCellHeight;
         }
