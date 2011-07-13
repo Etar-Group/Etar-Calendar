@@ -94,6 +94,8 @@ public class Utils {
     // was created.
     private static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
 
+    public static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
+
     private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
     private static boolean mAllowWeekForDetailView = false;
     private static long mTardis = 0;
@@ -999,5 +1001,4 @@ public class Utils {
                 Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(launchIntent);
     }
-
 }

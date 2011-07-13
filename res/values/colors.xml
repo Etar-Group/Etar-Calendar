@@ -86,7 +86,7 @@
     <color name="edit_event_separator">#FFDDDDDD</color>
 
     <!-- Text color of the date in the Calendar widget -->
-    <color name="agenda_day_bar_title_color">#FFFFFFFF</color>
+    <color name="agenda_day_bar_title_color">#FF999999</color>
     <color name="agenda_item_not_selected">#00000000</color>
     <!-- Text color of declined events in agenda view -->
     <color name="agenda_item_declined_color">#66000000</color>
@@ -117,11 +117,12 @@
     <color name="alert_event_other">#FF999999</color>
     <color name="alert_past_event">#8F999999</color>
 
-    <color name="appwidget_row_in_progress">#ffb5c6ee</color>
+    <color name="appwidget_row_in_progress">#ffe6e6ff</color>
 
     <color name="appwidget_date">#c0ffffff</color>
     <color name="appwidget_week">@android:color/white</color>
     <color name="appwidget_month">#c0ffffff</color>
+    <color name="appwidget_divider">#FFCCCCCC</color>
 
     <color name="appwidget_title">#ff000000</color>
     <color name="appwidget_when">#ff000000</color>

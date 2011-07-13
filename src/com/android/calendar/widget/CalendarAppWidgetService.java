@@ -62,8 +62,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             + Instances.START_MINUTE + " ASC, " + Instances.END_DAY + " ASC, "
             + Instances.END_MINUTE + " ASC LIMIT " + EVENT_MAX_COUNT;
 
-    // TODO can't use parameter here because provider is dropping them
-    private static final String EVENT_SELECTION = Calendars.VISIBLE + "=1 AND "
+    private static final String EVENT_SELECTION = Calendars.VISIBLE + "=1";
+    private static final String EVENT_SELECTION_HIDE_DECLINED = Calendars.VISIBLE + "=1 AND "
             + Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
 
     static final String[] EVENT_PROJECTION = new String[] {
@@ -75,7 +75,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         Instances.EVENT_ID,
         Instances.START_DAY,
         Instances.END_DAY,
-        Instances.CALENDAR_COLOR
+        Instances.CALENDAR_COLOR,
+        Instances.SELF_ATTENDEE_STATUS,
     };
 
     static final int INDEX_ALL_DAY = 0;
@@ -87,6 +88,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     static final int INDEX_START_DAY = 6;
     static final int INDEX_END_DAY = 7;
     static final int INDEX_COLOR = 8;
+    static final int INDEX_SELF_ATTENDEE_STATUS = 9;
 
     static final int MAX_DAYS = 7;
 
@@ -106,6 +108,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     protected static class CalendarFactory extends BroadcastReceiver implements
             RemoteViewsService.RemoteViewsFactory, Loader.OnLoadCompleteListener<Cursor> {
         private static final boolean LOGD = false;
+        private static final int DECLINED_EVENT_ALPHA = 0x66000000;
 
         // Suppress unnecessary logging about update time. Need to be static as this object is
         // re-instanciated frequently.
@@ -120,6 +123,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         private CursorLoader mLoader;
         private Handler mHandler = new Handler();
         private int mAppWidgetId;
+        private int mDeclinedColor;
+        private int mStandardColor;
 
         private Runnable mTimezoneChanged = new Runnable() {
             @Override
@@ -136,6 +141,9 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 if (mLoader != null) {
                     Uri uri = createLoaderUri();
                     mLoader.setUri(uri);
+                    String selection = Utils.getHideDeclinedEvents(mContext) ?
+                            EVENT_SELECTION_HIDE_DECLINED : EVENT_SELECTION;
+                    mLoader.setSelection(selection);
                     mLoader.forceLoad();
                 }
             }
@@ -146,6 +154,9 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             mResources = context.getResources();
             mAppWidgetId = intent.getIntExtra(
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+
+            mDeclinedColor = mResources.getColor(R.color.agenda_item_declined_color);
+            mStandardColor = mResources.getColor(R.color.agenda_item_standard_color);
         }
 
         @Override
@@ -198,25 +209,55 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 updateTextView(views, R.id.date, View.VISIBLE, dayInfo.mDayLabel);
                 return views;
             } else {
-                final RemoteViews views = new RemoteViews(mContext.getPackageName(),
-                        R.layout.appwidget_row);
+                RemoteViews views;
                 final EventInfo eventInfo = mModel.mEventInfos.get(rowInfo.mIndex);
+                if (eventInfo.allDay) {
+                    views = new RemoteViews(mContext.getPackageName(),
+                            R.layout.widget_all_day_item);
+                } else {
+                    views = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
+                }
 
                 final long now = System.currentTimeMillis();
                 if (!eventInfo.allDay && eventInfo.start <= now && now <= eventInfo.end) {
-                    views.setInt(R.id.appwidget_row, "setBackgroundColor",
+                    views.setInt(R.id.widget_row, "setBackgroundColor",
                             mResources.getColor(R.color.appwidget_row_in_progress));
                 } else {
-                    views.setInt(R.id.appwidget_row, "setBackgroundResource",
-                            R.drawable.bg_event_cal_widget_holo);
+                    views.setInt(R.id.widget_row, "setBackgroundColor", 0);
                 }
 
                 updateTextView(views, R.id.when, eventInfo.visibWhen, eventInfo.when);
                 updateTextView(views, R.id.where, eventInfo.visibWhere, eventInfo.where);
                 updateTextView(views, R.id.title, eventInfo.visibTitle, eventInfo.title);
 
-                views.setViewVisibility(R.id.color, View.VISIBLE);
-                views.setInt(R.id.color, "setBackgroundColor", eventInfo.color);
+                views.setViewVisibility(R.id.agenda_item_color, View.VISIBLE);
+
+                int selfAttendeeStatus = eventInfo.selfAttendeeStatus;
+                if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
+                    views.setInt(R.id.title, "setTextColor", mDeclinedColor);
+                    views.setInt(R.id.when, "setTextColor", mDeclinedColor);
+                    views.setInt(R.id.where, "setTextColor", mDeclinedColor);
+                    // views.setInt(R.id.agenda_item_color, "setDrawStyle",
+                    // ColorChipView.DRAW_CROSS_HATCHED);
+                    views.setInt(R.id.agenda_item_color, "setImageResource",
+                            R.drawable.widget_chip_declined_bg);
+                    // 40% opacity
+                    views.setInt(R.id.agenda_item_color, "setColorFilter",
+                            (eventInfo.color & 0x00FFFFFF) | DECLINED_EVENT_ALPHA);
+                } else {
+                    views.setInt(R.id.title, "setTextColor", mStandardColor);
+                    views.setInt(R.id.when, "setTextColor", mStandardColor);
+                    views.setInt(R.id.where, "setTextColor", mStandardColor);
+                    if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_INVITED) {
+                        views.setInt(R.id.agenda_item_color, "setImageResource",
+                                R.drawable.widget_chip_not_responded_bg);
+                    } else {
+                        views.setInt(R.id.agenda_item_color, "setImageResource",
+                                R.drawable.widget_chip_responded_bg);
+                    }
+                    views.setInt(R.id.agenda_item_color, "setColorFilter",
+                            eventInfo.color);
+                }
 
                 long start = eventInfo.start;
                 long end = eventInfo.end;
@@ -229,7 +270,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 }
                 final Intent fillInIntent = CalendarAppWidgetProvider.getLaunchFillInIntent(
                         eventInfo.id, start, end);
-                views.setOnClickFillInIntent(R.id.appwidget_row, fillInIntent);
+                views.setOnClickFillInIntent(R.id.widget_row, fillInIntent);
                 return views;
             }
         }
@@ -294,7 +335,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             filter.addDataScheme(ContentResolver.SCHEME_CONTENT);
             filter.addDataAuthority(CalendarContract.AUTHORITY, null);
             try {
-                filter.addDataType(CalendarAppWidgetProvider.APPWIDGET_DATA_TYPE);
+                filter.addDataType(Utils.APPWIDGET_DATA_TYPE);
             } catch (MalformedMimeTypeException e) {
                 Log.e(TAG, e.getMessage());
             }
@@ -314,9 +355,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
             // Search for events from now until some time in the future
             Uri uri = createLoaderUri();
-
-            mLoader = new CursorLoader(
-                    mContext, uri, EVENT_PROJECTION, EVENT_SELECTION, null, EVENT_SORT_ORDER);
+            String selection = Utils.getHideDeclinedEvents(mContext) ? EVENT_SELECTION_HIDE_DECLINED
+                    : EVENT_SELECTION;
+            mLoader = new CursorLoader(mContext, uri, EVENT_PROJECTION, selection, null,
+                    EVENT_SORT_ORDER);
             mLoader.setUpdateThrottle(WIDGET_UPDATE_THROTTLE);
             mLoader.startLoading();
             mLoader.registerListener(mAppWidgetId, this);
@@ -435,7 +477,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
             alertManager.cancel(pendingUpdate);
             alertManager.set(AlarmManager.RTC, triggerTime, pendingUpdate);
-            Log.d(TAG, "Scheduled next update at " + formatDebugTime(triggerTime, now));
             Time time = new Time(Utils.getTimeZone(mContext, null));
             time.setToNow();
 
