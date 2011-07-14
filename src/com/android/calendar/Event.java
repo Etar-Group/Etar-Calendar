@@ -216,10 +216,10 @@ public class Event implements Cloneable {
     }
 
     /**
-     * Loads <i>days</i> days worth of instances starting at <i>start</i>.
+     * Loads <i>days</i> days worth of instances starting at <i>startDay</i>.
      */
-    public static void loadEvents(Context context, ArrayList<Event> events,
-            long start, int days, int requestId, AtomicInteger sequenceNumber) {
+    public static void loadEvents(Context context, ArrayList<Event> events, int startDay, int days,
+            int requestId, AtomicInteger sequenceNumber) {
 
         if (PROFILE) {
             Debug.startMethodTracing("loadEvents");
@@ -230,22 +230,10 @@ public class Event implements Cloneable {
 
         events.clear();
         try {
-            Time local = new Time();
+            int endDay = startDay + days - 1;
 
-            local.set(start);
-            int startDay = Time.getJulianDay(start, local.gmtoff);
-            int endDay = startDay + days;
-
-            local.monthDay += days;
-            long end = local.normalize(true /* ignore isDst */);
-
-            // Widen the time range that we query by one day on each end
-            // so that we can catch all-day events.  All-day events are
-            // stored starting at midnight in UTC but should be included
-            // in the list of events starting at midnight local time.
-            // This may fetch more events than we actually want, so we
-            // filter them out below.
-            //
+            // We use the byDay instances query to get a list of all events for
+            // the days we're interested in.
             // The sort order is: events with an earlier start time occur
             // first and if the start times are the same, then events with
             // a later end time occur first. The later end time is ordered
@@ -268,12 +256,10 @@ public class Event implements Cloneable {
                 whereAllday += hideString;
             }
 
-            cEvents = instancesQuery(context.getContentResolver(), EVENT_PROJECTION,
-                    start - DateUtils.DAY_IN_MILLIS, end + DateUtils.DAY_IN_MILLIS, where,
-                    null, SORT_EVENTS_BY);
-            cAllday = instancesQuery(context.getContentResolver(), EVENT_PROJECTION,
-                    start - DateUtils.DAY_IN_MILLIS, end + DateUtils.DAY_IN_MILLIS, whereAllday,
-                    null, SORT_ALLDAY_BY);
+            cEvents = instancesQuery(context.getContentResolver(), EVENT_PROJECTION, startDay,
+                    endDay, where, null, SORT_EVENTS_BY);
+            cAllday = instancesQuery(context.getContentResolver(), EVENT_PROJECTION, startDay,
+                    endDay, whereAllday, null, SORT_ALLDAY_BY);
 
             // Check if we should return early because there are more recent
             // load requests waiting.
@@ -316,15 +302,15 @@ public class Event implements Cloneable {
      * @param orderBy How to order the rows as an SQL ORDER BY statement
      * @return A Cursor of instances matching the selection
      */
-    private static final Cursor instancesQuery(ContentResolver cr, String[] projection, long begin,
-            long end, String selection, String[] selectionArgs, String orderBy) {
+    private static final Cursor instancesQuery(ContentResolver cr, String[] projection,
+            int startDay, int endDay, String selection, String[] selectionArgs, String orderBy) {
         String WHERE_CALENDARS_SELECTED = Calendars.VISIBLE + "=?";
         String[] WHERE_CALENDARS_ARGS = {"1"};
         String DEFAULT_SORT_ORDER = "begin ASC";
 
-        Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
-        ContentUris.appendId(builder, begin);
-        ContentUris.appendId(builder, end);
+        Uri.Builder builder = Instances.CONTENT_BY_DAY_URI.buildUpon();
+        ContentUris.appendId(builder, startDay);
+        ContentUris.appendId(builder, endDay);
         if (TextUtils.isEmpty(selection)) {
             selection = WHERE_CALENDARS_SELECTED;
             selectionArgs = WHERE_CALENDARS_ARGS;
@@ -369,18 +355,19 @@ public class Event implements Cloneable {
         // Sort events in two passes so we ensure the allday and standard events
         // get sorted in the correct order
         while (cEvents.moveToNext()) {
-            Event e = generateEventFromCursor(cEvents, startDay, endDay);
+            Event e = generateEventFromCursor(cEvents);
+            if (e.startDay > endDay || e.endDay < startDay) {
+                continue;
+            }
             events.add(e);
         }
     }
 
     /**
      * @param cEvents Cursor pointing at event
-     * @param startDay First day of queried range
-     * @param endDay Last day of queried range
      * @return An event created from the cursor
      */
-    private static Event generateEventFromCursor(Cursor cEvents, int startDay, int endDay) {
+    private static Event generateEventFromCursor(Cursor cEvents) {
         Event e = new Event();
 
         e.id = cEvents.getLong(PROJECTION_EVENT_ID_INDEX);
@@ -415,10 +402,6 @@ public class Event implements Cloneable {
         e.endMillis = eEnd;
         e.endTime = cEvents.getInt(PROJECTION_END_MINUTE_INDEX);
         e.endDay = cEvents.getInt(PROJECTION_END_DAY_INDEX);
-
-        if (e.startDay > endDay || e.endDay < startDay) {
-            // continue;
-        }
 
         e.hasAlarm = cEvents.getInt(PROJECTION_HAS_ALARM_INDEX) != 0;
 

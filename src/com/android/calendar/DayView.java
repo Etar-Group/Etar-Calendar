@@ -87,6 +87,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Formatter;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -1786,7 +1787,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // load events in the background
 //        mContext.startProgressSpinner();
         final ArrayList<Event> events = new ArrayList<Event>();
-        mEventLoader.loadEventsInBackground(mNumDays, events, millis, new Runnable() {
+        mEventLoader.loadEventsInBackground(mNumDays, events, mFirstJulianDay, new Runnable() {
             public void run() {
                 mEvents = events;
                 if (mAllDayEvents == null) {
@@ -2618,7 +2619,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     event.bottom = allDayEventClip;
                 }
             }
-
             Rect r = drawEventRect(event, canvas, p, eventTextPaint, (int) event.top,
                     (int) event.bottom);
             setupAllDayTextRect(r);
@@ -4146,7 +4146,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private void findSelectedEvent(int x, int y) {
         int date = mSelectionDay;
         int cellWidth = mCellWidth;
-        final ArrayList<Event> events = mEvents;
+        ArrayList<Event> events = mEvents;
         int numEvents = events.size();
         int left = computeDayLeftPosition(mSelectionDay - mFirstJulianDay);
         int top = 0;
@@ -4164,6 +4164,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 // Leave a gap for the 'box +n' text
                 maxUnexpandedColumn--;
             }
+            events = mAllDayEvents;
+            numEvents = events.size();
             for (int i = 0; i < numEvents; i++) {
                 Event event = events.get(i);
                 if (!event.drawAsAllday() ||
@@ -4173,8 +4175,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 }
 
                 if (event.startDay <= mSelectionDay && event.endDay >= mSelectionDay) {
-                    float numRectangles = mShowAllAllDayEvents ?
-                            event.getMaxColumns() : mMaxUnexpandedAlldayEventCount;
+                    float numRectangles = mShowAllAllDayEvents ? mMaxAlldayEvents
+                            : mMaxUnexpandedAlldayEventCount;
                     float height = drawHeight / numRectangles;
                     if (height > MAX_HEIGHT_OF_ONE_ALLDAY_EVENT) {
                         height = MAX_HEIGHT_OF_ONE_ALLDAY_EVENT;

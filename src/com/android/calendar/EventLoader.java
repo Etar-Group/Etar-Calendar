@@ -124,16 +124,16 @@ public class EventLoader {
     private static class LoadEventsRequest implements LoadRequest {
 
         public int id;
-        public long startMillis;
+        public int startDay;
         public int numDays;
         public ArrayList<Event> events;
         public Runnable successCallback;
         public Runnable cancelCallback;
 
-        public LoadEventsRequest(int id, long startMillis, int numDays, ArrayList<Event> events,
+        public LoadEventsRequest(int id, int startDay, int numDays, ArrayList<Event> events,
                 final Runnable successCallback, final Runnable cancelCallback) {
             this.id = id;
-            this.startMillis = startMillis;
+            this.startDay = startDay;
             this.numDays = numDays;
             this.events = events;
             this.successCallback = successCallback;
@@ -141,7 +141,7 @@ public class EventLoader {
         }
 
         public void processRequest(EventLoader eventLoader) {
-            Event.loadEvents(eventLoader.mContext, events, startMillis,
+            Event.loadEvents(eventLoader.mContext, events, startDay,
                     numDays, id, eventLoader.mSequenceNumber);
 
             // Check if we are still the most recent request.
@@ -237,7 +237,7 @@ public class EventLoader {
      * via the uiCallback.
      */
     public void loadEventsInBackground(final int numDays, final ArrayList<Event> events,
-            long start, final Runnable successCallback, final Runnable cancelCallback) {
+            int startDay, final Runnable successCallback, final Runnable cancelCallback) {
 
         // Increment the sequence number for requests.  We don't care if the
         // sequence numbers wrap around because we test for equality with the
@@ -245,7 +245,7 @@ public class EventLoader {
         int id = mSequenceNumber.incrementAndGet();
 
         // Send the load request to the background thread
-        LoadEventsRequest request = new LoadEventsRequest(id, start, numDays,
+        LoadEventsRequest request = new LoadEventsRequest(id, startDay, numDays,
                 events, successCallback, cancelCallback);
 
         try {
