@@ -489,15 +489,28 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             return;
         }
 
+        mPreviousScrollPosition = currScroll;
+        mPreviousScrollState = mCurrentScrollState;
+    }
+
+    /**
+     * Figures out if the month being shown has changed and updates the
+     * highlight if needed
+     *
+     * @param view The ListView containing the weeks
+     */
+    private void updateMonthHighlight(AbsListView view) {
+        SimpleWeekView child = (SimpleWeekView) view.getChildAt(0);
+        if (child == null) {
+            return;
+        }
+
+        // Figure out where we are
+        int offset = child.getBottom() < WEEK_MIN_VISIBLE_HEIGHT ? 1 : 0;
         // Use some hysteresis for checking which month to highlight. This
         // causes the month to transition when two full weeks of a month are
-        // visible when scrolling up, and when the first day in a month reaches
-        // the top of the screen when scrolling down.
-        if (mIsScrollingUp) {
-            child = (SimpleWeekView)view.getChildAt(SCROLL_HYST_WEEKS + offset);
-        } else if (offset != 0) {
-            child = (SimpleWeekView)view.getChildAt(offset);
-        }
+        // visible.
+        child = (SimpleWeekView) view.getChildAt(SCROLL_HYST_WEEKS + offset);
 
         if (child == null) {
             return;
@@ -523,19 +536,17 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
 
         // Only switch months if we're scrolling away from the currently
         // selected month
-        if ((!mIsScrollingUp && monthDiff > 0)
-                || (mIsScrollingUp && monthDiff < 0)) {
-                int julianDay = child.getFirstJulianDay();
-                if (mIsScrollingUp) {
-                    julianDay -= DAYS_PER_WEEK;
-                } else {
-                    julianDay += DAYS_PER_WEEK;
-                }
-                mTempTime.setJulianDay(julianDay);
-                setMonthDisplayed(mTempTime);
+        if (monthDiff != 0) {
+            int julianDay = child.getFirstJulianDay();
+            if (mIsScrollingUp) {
+                // Takes the start of the week
+            } else {
+                // Takes the start of the following week
+                julianDay += DAYS_PER_WEEK;
+            }
+            mTempTime.setJulianDay(julianDay);
+            setMonthDisplayed(mTempTime);
         }
-        mPreviousScrollPosition = currScroll;
-        mPreviousScrollState = mCurrentScrollState;
     }
 
     /**
@@ -592,13 +603,17 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             if (mNewState == OnScrollListener.SCROLL_STATE_IDLE
                     && mPreviousScrollState != OnScrollListener.SCROLL_STATE_IDLE) {
                 mPreviousScrollState = mNewState;
-                View child = mView.getChildAt(0);
+                int i = 0;
+                View child = mView.getChildAt(i);
+                while (child != null && child.getBottom() <= 0) {
+                    child = mView.getChildAt(++i);
+                }
                 if (child == null) {
                     // The view is no longer visible, just return
                     return;
                 }
-                int dist = child.getBottom() - LIST_TOP_OFFSET;
-                if (dist > LIST_TOP_OFFSET) {
+                int dist = child.getTop();
+                if (dist < LIST_TOP_OFFSET) {
                     if (Log.isLoggable(TAG, Log.DEBUG)) {
                         Log.d(TAG, "scrolling by " + dist + " up? " + mIsScrollingUp);
                     }
@@ -606,10 +621,12 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
                     int lastPosition = mView.getLastVisiblePosition();
                     boolean scroll = firstPosition != 0 && lastPosition != mView.getCount() - 1;
                     if (mIsScrollingUp && scroll) {
-                        mView.smoothScrollBy(dist - child.getHeight(), 500);
-                    } else if (!mIsScrollingUp && scroll) {
                         mView.smoothScrollBy(dist, 500);
+                    } else if (!mIsScrollingUp && scroll) {
+                        mView.smoothScrollBy(child.getHeight() + dist, 500);
                     }
+                } else {
+                    updateMonthHighlight(mView);
                 }
             } else {
                 mPreviousScrollState = mNewState;
