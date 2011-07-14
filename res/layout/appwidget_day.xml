@@ -34,10 +34,11 @@
         android:id="@+id/date"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_marginLeft="16dip"
         android:layout_marginRight="7dip"
         android:layout_marginTop="2dip"
-        android:layout_marginBottom="-2dip"
+        android:layout_marginBottom="2dip"
         android:shadowColor="@color/text_shadow_color"
         android:shadowRadius="1"
         android:textColor="@color/agenda_day_bar_title_color" />

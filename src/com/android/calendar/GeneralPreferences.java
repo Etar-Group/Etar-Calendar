@@ -19,6 +19,7 @@ package com.android.calendar;
 import android.app.Activity;
 import android.app.backup.BackupManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarCache;
 import android.provider.SearchRecentSuggestions;
 import android.text.TextUtils;
@@ -98,6 +100,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     RingtonePreference mRingtone;
     CheckBoxPreference mPopup;
     CheckBoxPreference mUseHomeTZ;
+    CheckBoxPreference mHideDeclined;
     ListPreference mHomeTZ;
     ListPreference mWeekStart;
     ListPreference mDefaultReminder;
@@ -143,6 +146,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
+        mHideDeclined = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HIDE_DECLINED);
         mWeekStart = (ListPreference) preferenceScreen.findPreference(KEY_WEEK_START_DAY);
         mDefaultReminder = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_REMINDER);
         mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
@@ -185,6 +189,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         mWeekStart.setOnPreferenceChangeListener(listener);
         mDefaultReminder.setOnPreferenceChangeListener(listener);
         mRingtone.setOnPreferenceChangeListener(listener);
+        mHideDeclined.setOnPreferenceChangeListener(listener);
     }
 
     @Override
@@ -218,6 +223,13 @@ public class GeneralPreferences extends PreferenceFragment implements
                 tz = CalendarCache.TIMEZONE_TYPE_AUTO;
             }
             Utils.setTimeZone(getActivity(), tz);
+            return true;
+        } else if (preference == mHideDeclined) {
+            mHideDeclined.setChecked((Boolean) newValue);
+            Activity act = getActivity();
+            Intent intent = new Intent(Utils.getWidgetScheduledUpdateAction(act));
+            intent.setDataAndType(CalendarContract.CONTENT_URI, Utils.APPWIDGET_DATA_TYPE);
+            act.sendBroadcast(intent);
             return true;
         } else if (preference == mHomeTZ) {
             tz = (String) newValue;

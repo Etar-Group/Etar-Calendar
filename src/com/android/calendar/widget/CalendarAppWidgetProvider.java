@@ -44,8 +44,6 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
     static final String TAG = "CalendarAppWidgetProvider";
     static final boolean LOGD = false;
 
-    static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
-
     // TODO Move these to Calendar.java
     static final String EXTRA_EVENT_IDS = "com.android.calendar.EXTRA_EVENT_IDS";
 
@@ -169,7 +167,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      */
     static PendingIntent getUpdateIntent(Context context) {
         Intent intent = new Intent(Utils.getWidgetScheduledUpdateAction(context));
-        intent.setDataAndType(CalendarContract.CONTENT_URI, APPWIDGET_DATA_TYPE);
+        intent.setDataAndType(CalendarContract.CONTENT_URI, Utils.APPWIDGET_DATA_TYPE);
         return PendingIntent.getBroadcast(context, 0 /* no requestCode */, intent,
                 0 /* no flags */);
     }

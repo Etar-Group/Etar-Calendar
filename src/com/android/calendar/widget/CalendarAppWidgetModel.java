@@ -79,6 +79,7 @@ class CalendarAppWidgetModel {
         String where;
         int visibTitle; // Visibility value for Title textview (View.GONE or View.VISIBLE)
         String title;
+        int selfAttendeeStatus;
 
         long id;
         long start;
@@ -111,6 +112,8 @@ class CalendarAppWidgetModel {
             builder.append(where);
             builder.append(", color=");
             builder.append(String.format("0x%x", color));
+            builder.append(", selfAttendeeStatus=");
+            builder.append(selfAttendeeStatus);
             builder.append("]");
             return builder.toString();
         }
@@ -130,6 +133,7 @@ class CalendarAppWidgetModel {
             result = prime * result + ((when == null) ? 0 : when.hashCode());
             result = prime * result + ((where == null) ? 0 : where.hashCode());
             result = prime * result + color;
+            result = prime * result + selfAttendeeStatus;
             return result;
         }
 
@@ -164,14 +168,19 @@ class CalendarAppWidgetModel {
             if (when == null) {
                 if (other.when != null)
                     return false;
-            } else if (!when.equals(other.when))
+            } else if (!when.equals(other.when)) {
                 return false;
+            }
             if (where == null) {
                 if (other.where != null)
                     return false;
             } else if (!where.equals(other.where)) {
                 return false;
-            } else if (color != other.color) {
+            }
+            if (color != other.color) {
+                return false;
+            }
+            if (selfAttendeeStatus != other.selfAttendeeStatus) {
                 return false;
             }
             return true;
@@ -281,6 +290,8 @@ class CalendarAppWidgetModel {
             final int startDay = cursor.getInt(CalendarAppWidgetService.INDEX_START_DAY);
             final int endDay = cursor.getInt(CalendarAppWidgetService.INDEX_END_DAY);
             final int color = cursor.getInt(CalendarAppWidgetService.INDEX_COLOR);
+            final int selfStatus = cursor
+                    .getInt(CalendarAppWidgetService.INDEX_SELF_ATTENDEE_STATUS);
 
             // Adjust all-day times into local timezone
             if (allDay) {
@@ -300,8 +311,8 @@ class CalendarAppWidgetModel {
             }
 
             int i = mEventInfos.size();
-            mEventInfos.add(populateEventInfo(eventId,
-                    allDay, start, end, startDay, endDay, title, location, color));
+            mEventInfos.add(populateEventInfo(eventId, allDay, start, end, startDay, endDay, title,
+                    location, color, selfStatus));
             // populate the day buckets that this event falls into
             int from = Math.max(startDay, mTodayJulianDay);
             int to = Math.min(endDay, mMaxJulianDay);
@@ -341,17 +352,18 @@ class CalendarAppWidgetModel {
     }
 
     private EventInfo populateEventInfo(long eventId, boolean allDay, long start, long end,
-            int startDay, int endDay, String title, String location, int color) {
+            int startDay, int endDay, String title, String location, int color, int selfStatus) {
         EventInfo eventInfo = new EventInfo();
 
         // Compute a human-readable string for the start time of the event
         StringBuilder whenString = new StringBuilder();
         int visibWhen;
+        int flags = DateUtils.FORMAT_ABBREV_ALL;
+        visibWhen = View.VISIBLE;
         if (allDay) {
-            whenString.setLength(0);
-            visibWhen = View.GONE;
+            flags |= DateUtils.FORMAT_SHOW_DATE;
+            whenString.append(Utils.formatDateRange(mContext, start, end, flags));
         } else {
-            int flags = DateUtils.FORMAT_ABBREV_ALL;
             flags |= DateUtils.FORMAT_SHOW_TIME;
             if (DateFormat.is24HourFormat(mContext)) {
                 flags |= DateUtils.FORMAT_24HOUR;
@@ -364,7 +376,6 @@ class CalendarAppWidgetModel {
             if (mShowTZ) {
                 whenString.append(" ").append(mHomeTZName);
             }
-            visibWhen = View.VISIBLE;
         }
         eventInfo.id = eventId;
         eventInfo.start = start;
@@ -373,6 +384,7 @@ class CalendarAppWidgetModel {
         eventInfo.when = whenString.toString();
         eventInfo.visibWhen = visibWhen;
         eventInfo.color = color;
+        eventInfo.selfAttendeeStatus = selfStatus;
 
         // What
         if (TextUtils.isEmpty(title)) {
