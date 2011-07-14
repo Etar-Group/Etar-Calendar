@@ -23,7 +23,10 @@ import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendarcommon.DateException;
 import com.android.calendarcommon.EventRecurrence;
+import com.android.calendarcommon.RecurrenceProcessor;
+import com.android.calendarcommon.RecurrenceSet;
 import com.android.common.Rfc822Validator;
 
 import android.content.ContentProviderOperation;
@@ -347,8 +350,8 @@ public class EditEventHelper {
                 if (isFirstEventInSeries(model, originalModel)) {
                     ops.add(ContentProviderOperation.newDelete(uri).build());
                 } else {
-                    // Update the current repeating event to end at the new
-                    // start time.
+                    // Update the current repeating event to end at the new start time.  We
+                    // ignore the RRULE returned because the exception event doesn't want one.
                     updatePastEvents(ops, originalModel, model.mOriginalStart);
                 }
                 eventIdIndex = ops.size();
@@ -362,9 +365,16 @@ public class EditEventHelper {
                             .withValues(values);
                     ops.add(b.build());
                 } else {
-                    // Update the current repeating event to end at the new
-                    // start time.
-                    updatePastEvents(ops, originalModel, model.mOriginalStart);
+                    // We need to update the existing recurrence to end before the exception
+                    // event starts.  If the recurrence rule has a COUNT, we need to adjust
+                    // that in the original and in the exception.  This call rewrites the
+                    // original event's recurrence rule (in "ops"), and returns a new rule
+                    // for the exception.  If the exception explicitly set a new rule, however,
+                    // we don't want to overwrite it.
+                    String newRrule = updatePastEvents(ops, originalModel, model.mOriginalStart);
+                    if (model.mRrule.equals(originalModel.mRrule)) {
+                        values.put(Events.RRULE, newRrule);
+                    }
 
                     // Create a new event with the user-modified fields
                     eventIdIndex = ops.size();
@@ -660,59 +670,106 @@ public class EditEventHelper {
 
     /**
      * Prepares an update to the original event so it stops where the new series
-     * begins When we update 'this and all following' events we need to change
+     * begins. When we update 'this and all following' events we need to change
      * the original event to end before a new series starts. This creates an
      * update to the old event's rrule to do that.
+     *<p>
+     * If the event's recurrence rule has a COUNT, we also need to reduce the count in the
+     * RRULE for the exception event.
      *
      * @param ops The list of operations to add the update to
      * @param originalModel The original event that we're updating
-     * @param initialBeginTime The original start time for the exception
+     * @param endTimeMillis The time before which the event must end (i.e. the start time of the
+     *        exception event instance).
+     * @return A replacement exception recurrence rule.
      */
-    public void updatePastEvents(ArrayList<ContentProviderOperation> ops,
-            CalendarEventModel originalModel, long initialBeginTime) {
-        boolean allDay = originalModel.mAllDay;
-        String oldRrule = originalModel.mRrule;
+    public String updatePastEvents(ArrayList<ContentProviderOperation> ops,
+            CalendarEventModel originalModel, long endTimeMillis) {
+        boolean origAllDay = originalModel.mAllDay;
+        String origRrule = originalModel.mRrule;
+        String newRrule = origRrule;
 
-        EventRecurrence eventRecurrence = new EventRecurrence();
-        eventRecurrence.parse(oldRrule);
+        EventRecurrence origRecurrence = new EventRecurrence();
+        origRecurrence.parse(origRrule);
 
-        Time untilTime = new Time();
+        // Get the start time of the first instance in the original recurrence.
+        long startTimeMillis = originalModel.mStart;
         Time dtstart = new Time();
-        long begin = initialBeginTime;
-        ContentValues oldValues = new ContentValues();
-
-        // The "until" time must be in UTC time in order for Google calendar
-        // to display it properly. For all-day events, the "until" time string
-        // must include just the date field, and not the time field. The
-        // repeating events repeat up to and including the "until" time.
-        untilTime.timezone = Time.TIMEZONE_UTC;
         dtstart.timezone = originalModel.mTimezone;
-        dtstart.set(originalModel.mStart);
+        dtstart.set(startTimeMillis);
 
-        // Subtract one second from the old begin time to get the new
-        // "until" time.
-        untilTime.set(begin - 1000); // subtract one second (1000 millis)
-        if (allDay) {
-            untilTime.hour = 0;
-            untilTime.minute = 0;
-            untilTime.second = 0;
-            untilTime.allDay = true;
-            untilTime.normalize(false);
+        ContentValues updateValues = new ContentValues();
 
-            dtstart.hour = 0;
-            dtstart.minute = 0;
-            dtstart.second = 0;
-            dtstart.allDay = true;
-            dtstart.timezone = Time.TIMEZONE_UTC;
+        if (origRecurrence.count > 0) {
+            /*
+             * Generate the full set of instances for this recurrence, from the first to the
+             * one just before endTimeMillis.  The list should never be empty, because this method
+             * should not be called for the first instance.  All we're really interested in is
+             * the *number* of instances found.
+             *
+             * TODO: the model assumes RRULE and ignores RDATE, EXRULE, and EXDATE.  For the
+             * current environment this is reasonable, but that may not hold in the future.
+             *
+             * TODO: if COUNT is 1, should we convert the event to non-recurring?  e.g. we
+             * do an "edit this and all future events" on the 2nd instances.
+             */
+            RecurrenceSet recurSet = new RecurrenceSet(originalModel.mRrule, null, null, null);
+            RecurrenceProcessor recurProc = new RecurrenceProcessor();
+            long[] recurrences;
+            try {
+                recurrences = recurProc.expand(dtstart, recurSet, startTimeMillis, endTimeMillis);
+            } catch (DateException de) {
+                throw new RuntimeException(de);
+            }
+
+            if (recurrences.length == 0) {
+                throw new RuntimeException("can't use this method on first instance");
+            }
+
+            EventRecurrence excepRecurrence = new EventRecurrence();
+            excepRecurrence.parse(origRrule);  // TODO: add+use a copy constructor instead
+            excepRecurrence.count -= recurrences.length;
+            newRrule = excepRecurrence.toString();
+
+            origRecurrence.count = recurrences.length;
+
+        } else {
+            // The "until" time must be in UTC time in order for Google calendar
+            // to display it properly. For all-day events, the "until" time string
+            // must include just the date field, and not the time field. The
+            // repeating events repeat up to and including the "until" time.
+            Time untilTime = new Time();
+            untilTime.timezone = Time.TIMEZONE_UTC;
+
+            // Subtract one second from the old begin time to get the new
+            // "until" time.
+            untilTime.set(endTimeMillis - 1000); // subtract one second (1000 millis)
+            if (origAllDay) {
+                untilTime.hour = 0;
+                untilTime.minute = 0;
+                untilTime.second = 0;
+                untilTime.allDay = true;
+                untilTime.normalize(false);
+
+                // This should no longer be necessary -- DTSTART should already be in the correct
+                // format for an all-day event.
+                dtstart.hour = 0;
+                dtstart.minute = 0;
+                dtstart.second = 0;
+                dtstart.allDay = true;
+                dtstart.timezone = Time.TIMEZONE_UTC;
+            }
+            origRecurrence.until = untilTime.format2445();
         }
-        eventRecurrence.until = untilTime.format2445();
 
-        oldValues.put(Events.RRULE, eventRecurrence.toString());
-        oldValues.put(Events.DTSTART, dtstart.normalize(true));
+        updateValues.put(Events.RRULE, origRecurrence.toString());
+        updateValues.put(Events.DTSTART, dtstart.normalize(true));
         ContentProviderOperation.Builder b =
                 ContentProviderOperation.newUpdate(Uri.parse(originalModel.mUri))
-                .withValues(oldValues);
+                .withValues(updateValues);
         ops.add(b.build());
+
+        return newRrule;
     }
 
     /**
@@ -1111,7 +1168,7 @@ public class EditEventHelper {
     }
 
     /**
-     * Goes through an event model and fills in content values for saving This
+     * Goes through an event model and fills in content values for saving. This
      * method will perform the initial collection of values from the model and
      * put them into a set of ContentValues. It performs some basic work such as
      * fixing the time on allDay events and choosing whether to use an rrule or
