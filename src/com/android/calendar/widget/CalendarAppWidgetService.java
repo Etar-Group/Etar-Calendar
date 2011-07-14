@@ -193,7 +193,15 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 return null;
             }
 
-            if (mModel == null || mModel.mEventInfos.isEmpty() || mModel.mRowInfos.isEmpty()) {
+            if (mModel == null) {
+                RemoteViews views = new RemoteViews(mContext.getPackageName(),
+                        R.layout.appwidget_loading);
+                final Intent intent = CalendarAppWidgetProvider.getLaunchFillInIntent(0, 0, 0);
+                views.setOnClickFillInIntent(R.id.appwidget_loading, intent);
+                return views;
+
+            }
+            if (mModel.mEventInfos.isEmpty() || mModel.mRowInfos.isEmpty()) {
                 RemoteViews views = new RemoteViews(mContext.getPackageName(),
                         R.layout.appwidget_no_events);
                 final Intent intent =  CalendarAppWidgetProvider.getLaunchFillInIntent(0, 0, 0);
