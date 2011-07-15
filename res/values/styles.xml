@@ -195,10 +195,8 @@
     <style name="WidgetDayStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_vertical|left</item>
-        <item name="android:gravity">center_vertical|left</item>
-        <item name="android:layout_marginTop">-9dip</item>
-        <item name="android:textSize">46sp</item>
+        <item name="android:textSize">@dimen/widget_day_num_size</item>
+        <item name="android:layout_marginTop">@dimen/widget_day_num_top_padding</item>
         <item name="android:singleLine">true</item>
     </style>
 

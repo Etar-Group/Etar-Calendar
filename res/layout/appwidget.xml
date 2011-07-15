@@ -36,7 +36,7 @@
         android:layout_height="42dip"
         android:layout_marginLeft="3dip"
         android:layout_marginRight="3dip"
-        android:paddingLeft="16dip"
+        android:paddingLeft="8dip"
         android:orientation="horizontal"
         android:background="@drawable/appwidget_header_selector">
         <LinearLayout
@@ -58,17 +58,14 @@
                 style="@style/WidgetMonthStyle" />
         </LinearLayout>
 
-        <FrameLayout
+        <TextView
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical|left"
-            android:layout_toRightOf="@id/holder">
-            <TextView
-                android:id="@+id/day_of_month"
-                android:textColor="@color/appwidget_date"
-                style="@style/WidgetDayStyle" />
-        </FrameLayout>
+            android:gravity="center_vertical|left"
+            android:id="@+id/day_of_month"
+            android:textColor="@color/appwidget_date"
+            style="@style/WidgetDayStyle" />
 
         <ImageButton
             android:id="@+id/new_event_button"
