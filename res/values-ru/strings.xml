@@ -103,13 +103,12 @@
     <string name="event_info_timezone" msgid="6884490917897502454">"Часовой пояс:"</string>
     <string name="event_info_repetition" msgid="1556101382780225893">"Повтор:"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Организатор:"</string>
-    <string name="event_info_desc_more" msgid="2961880675118098743">"Еще"</string>
-    <string name="event_info_desc_less" msgid="8295683160345195225">"Свернуть"</string>
+    <string name="event_info_desc_more" msgid="2961880675118098743">"Больше"</string>
+    <string name="event_info_desc_less" msgid="8295683160345195225">"Меньше"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Напоминания"</string>
     <string name="agenda_today" msgid="5965841338467422191">"СЕГОДНЯ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"ВЧЕРА, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
-    <skip />
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"ЗАВТРА, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Загрузка…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Нажмите, чтобы увидеть мероприятия до <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Нажмите, чтобы увидеть мероприятия после <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>

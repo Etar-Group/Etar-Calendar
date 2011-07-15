@@ -89,7 +89,7 @@
     <string name="description_label" msgid="7193475046717505855">"Opis"</string>
     <string name="presence_label" msgid="6169724148441175862">"Prikaži me kao"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privatnost"</string>
-    <string name="reminders_label" msgid="7292389181815525676">"Dodaj podsjetnik"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Dodavanje podsjetnika"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nema kalendara"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Prije dodavanja događaja, na uređaj morate dodati barem jedan račun usluge Kalendar i prikazati kalendar. Dodirnite \"Dodaj račun\" za dodavanje računa (ako ste upravo dodali račun, pričekajte da završi sinkronizacija i pokušajte ponovo). Ili dodirnite Odustani i pazite da je prikazan barem jedan kalendar."</string>
     <string name="add_account" msgid="1669072099756774952">"Dodavanje računa"</string>
@@ -109,8 +109,7 @@
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Podsjetnici"</string>
     <string name="agenda_today" msgid="5965841338467422191">"DANAS, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"JUČER, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
-    <skip />
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"SUTRA, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Učitavanje…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"Dodirnite da biste vidjeli događaje prije <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Dodirnite da biste vidjeli događaje nakon <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>

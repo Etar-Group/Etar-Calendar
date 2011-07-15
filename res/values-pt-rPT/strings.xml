@@ -108,8 +108,7 @@
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Lembretes"</string>
     <string name="agenda_today" msgid="5965841338467422191">"HOJE, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"ONTEM, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
-    <skip />
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"AMANHÃ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"A carregar..."</string>
     <string name="show_older_events" msgid="5140647493681439926">"Tocar para ver eventos antes de <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Tocar para ver eventos após <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>

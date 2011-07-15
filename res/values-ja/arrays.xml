@@ -166,7 +166,7 @@
     <item msgid="7564374178324652137">"最終"</item>
   </string-array>
   <string-array name="response_labels1">
-    <!-- outdated translation 3654955385120106241 -->     <item msgid="5605392595848194997">"(出欠返信なし)"</item>
+    <item msgid="5605392595848194997">"応答がありません"</item>
     <item msgid="3724434080904437698">"はい"</item>
     <item msgid="8854145743148992583">"未定"</item>
     <item msgid="6174292185978948873">"いいえ"</item>
