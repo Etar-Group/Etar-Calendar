@@ -166,7 +166,7 @@
     <item msgid="7564374178324652137">"אחרון"</item>
   </string-array>
   <string-array name="response_labels1">
-    <!-- outdated translation 3654955385120106241 -->     <item msgid="5605392595848194997">"(ללא תגובה)"</item>
+    <item msgid="5605392595848194997">"אין תגובה"</item>
     <item msgid="3724434080904437698">"כן"</item>
     <item msgid="8854145743148992583">"אולי"</item>
     <item msgid="6174292185978948873">"לא"</item>
