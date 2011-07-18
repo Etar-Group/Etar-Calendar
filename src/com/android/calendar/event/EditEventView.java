@@ -600,7 +600,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             int nameColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_DISPLAY_NAME);
             int ownerColumn = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
             if (colorBar != null) {
-                colorBar.setBackgroundColor(cursor.getInt(colorColumn));
+                colorBar.setBackgroundColor(Utils.getDisplayColorFromColor(cursor
+                        .getInt(colorColumn)));
             }
 
             TextView name = (TextView) view.findViewById(R.id.calendar_name);
@@ -1115,6 +1116,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mResponseRadioGroup.setVisibility(View.GONE);
         }
 
+        int displayColor = Utils.getDisplayColorFromColor(model.mCalendarColor);
         if (model.mUri != null) {
             // This is an existing event so hide the calendar spinner
             // since we can't change the calendar.
@@ -1122,12 +1124,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             calendarGroup.setVisibility(View.GONE);
             TextView tv = (TextView) mView.findViewById(R.id.calendar_textview);
             tv.setText(model.mCalendarDisplayName);
-            tv.setBackgroundColor(model.mCalendarColor);
+            tv.setBackgroundColor(displayColor);
+            mColorChip.setBackgroundColor(displayColor);
         } else {
             View calendarGroup = mView.findViewById(R.id.calendar_group);
             calendarGroup.setVisibility(View.GONE);
-            mCalendarsSpinner.setBackgroundColor(model.mCalendarColor);
-            mCalendarSelectorGroup.setBackgroundColor(model.mCalendarColor);
+            mCalendarsSpinner.setBackgroundColor(displayColor);
+            mCalendarSelectorGroup.setBackgroundColor(displayColor);
         }
 
         populateTimezone();
@@ -1256,7 +1259,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mCalendarsSpinner.setOnItemSelectedListener(this);
 
         int colorColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
-        mColorChip.setBackgroundColor(cursor.getInt(colorColumn));
+        mColorChip.setBackgroundColor(Utils.getDisplayColorFromColor(cursor.getInt(colorColumn)));
 
 
         // Find user domain and set it to the validator.
@@ -1630,10 +1633,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
-        mColorChip.setBackgroundColor(c.getInt(colorColumn));
-        mModel.mCalendarColor = c.getInt(colorColumn);
-        mCalendarsSpinner.setBackgroundColor(mModel.mCalendarColor);
-        mCalendarSelectorGroup.setBackgroundColor(mModel.mCalendarColor);
+        int color = c.getInt(colorColumn);
+        int displayColor = Utils.getDisplayColorFromColor(color);
+        mColorChip.setBackgroundColor(displayColor);
+        mModel.mCalendarColor = color;
+        mCalendarsSpinner.setBackgroundColor(displayColor);
+        mCalendarSelectorGroup.setBackgroundColor(displayColor);
 
 
         // Update the max/allowed reminders with the new calendar properties.

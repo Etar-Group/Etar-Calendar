@@ -77,6 +77,8 @@ public class Utils {
 
     public static final int MONDAY_BEFORE_JULIAN_EPOCH = Time.EPOCH_JULIAN_DAY - 3;
 
+    private static final float SATURATION_ADJUST = 0.3f;
+
     // Defines used by the DNA generation code
     static final int DAY_IN_MINUTES = 60 * 24;
     static final int WEEK_IN_MINUTES = DAY_IN_MINUTES * 7;
@@ -565,6 +567,13 @@ public class Utils {
 
     public static boolean getConfigBool(Context c, int key) {
         return c.getResources().getBoolean(key);
+    }
+
+    public static int getDisplayColorFromColor(int color) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[1] = Math.max(hsv[1] - SATURATION_ADJUST, 0.0f);
+        return Color.HSVToColor(hsv);
     }
 
     // A single strand represents one color of events. Events are divided up by

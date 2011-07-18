@@ -17,6 +17,7 @@
 package com.android.calendar.selectcalendars;
 
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -117,7 +118,7 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         }
         String name = mData[position].displayName;
         boolean selected = mData[position].synced;
-        int color = mData[position].color;
+        int color = Utils.getDisplayColorFromColor(mData[position].color);
         View view;
         if (convertView == null) {
             view = mInflater.inflate(LAYOUT, parent, false);

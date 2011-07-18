@@ -17,6 +17,7 @@
 package com.android.calendar.selectcalendars;
 
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -180,7 +181,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         Drawable bg = getBackground(position, selected);
 
 
-        int color = mData[position].color;
+        int color = Utils.getDisplayColorFromColor(mData[position].color);
         View view;
         if (convertView == null) {
             view = mInflater.inflate(mLayout, parent, false);
