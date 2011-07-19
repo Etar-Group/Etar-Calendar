@@ -296,7 +296,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             try {
                 filter.addDataType(CalendarAppWidgetProvider.APPWIDGET_DATA_TYPE);
             } catch (MalformedMimeTypeException e) {
-                Log.e(TAG, e.getMessage());
+                Log.e(TAG, e.toString());
             }
             mContext.registerReceiver(this, filter);
 
