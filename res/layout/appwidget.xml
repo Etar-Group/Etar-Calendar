@@ -25,7 +25,7 @@
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
     android:orientation="vertical"
-    android:background="@null"
+    android:background="@drawable/gradient_bg_cal_widget_holo"
     android:focusable="true"
     android:clickable="true">
 
@@ -34,9 +34,10 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="42dip"
-        android:layout_marginLeft="3dip"
-        android:layout_marginRight="3dip"
-        android:paddingLeft="8dip"
+        android:layout_marginLeft="0dip"
+        android:layout_marginRight="0dip"
+        android:paddingLeft="2dip"
+        android:paddingRight="2dip"
         android:orientation="horizontal"
         android:background="@drawable/appwidget_header_selector">
         <LinearLayout
@@ -44,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="5dip"
+            android:layout_marginRight="2dip"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/day_of_week"
@@ -71,8 +72,8 @@
             android:id="@+id/new_event_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingLeft="5dip"
-            android:paddingRight="8dip"
+            android:paddingLeft="2dip"
+            android:paddingRight="2dip"
             android:layout_gravity="center_vertical|right"
             android:src="@drawable/btn_ic_new_event_cal_widget_holo_dark"
             android:contentDescription="@string/accessibility_new_event"
@@ -96,10 +97,9 @@
         android:layout_marginRight="3dip"
         android:layout_marginLeft="3dip"
         android:fadingEdge="none"
-        android:divider="@color/appwidget_divider"
-        android:dividerHeight="1dip"
-        android:background="@color/calendar_today_bg_color"
-        android:cacheColorHint="@color/calendar_today_bg_color" />
+        android:divider="@null"
+        android:dividerHeight="0dip"
+        android:cacheColorHint="@null" />
 
     <!-- Separator -->
     <ImageView
