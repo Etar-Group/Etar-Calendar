@@ -79,6 +79,11 @@
              days is a parameter. -->
         <item quantity="other"><xliff:g id="count">%d</xliff:g> days</item>
     </plurals>
+    <!-- This is for displaying the week of the year near the date. Eg. "January, 2011 Week 1" -->
+    <plurals name="weekN">
+        <!-- Label for displaying week of the year for all week values [CHAR LIMIT=16] -->
+        <item quantity="other">WEEK <xliff:g id="count">%d</xliff:g></item>
+    </plurals>
 
     <!-- Menu items: -->
     <skip />

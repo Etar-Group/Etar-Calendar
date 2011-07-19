@@ -27,7 +27,6 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
-import com.android.calendar.selectcalendars.SelectSyncedCalendarsMultiAccountActivity;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
 import android.animation.Animator;
@@ -64,7 +63,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.util.List;
@@ -106,8 +104,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private boolean mUpdateOnResume = false;
     private boolean mHideControls = false;
     private boolean mShowSideViews = true;
+    private boolean mShowWeekNum = false;
     private TextView mHomeTime;
     private TextView mDateRange;
+    private TextView mWeekTextView;
     private View mMiniMonth;
     private View mCalendarsList;
     private View mMiniMonthContainer;
@@ -115,6 +115,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private String mTimeZone;
     private boolean mShowCalendarControls;
     private boolean mShowEventInfoFullScreen;
+    private int mWeekNum;
 
     private long mViewEventId = -1;
     private long mIntentEventStartMillis = -1;
@@ -165,7 +166,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private Runnable mHomeTimeUpdater = new Runnable() {
         @Override
         public void run() {
-            updateHomeClock();
+            updateHomeClockAndWeekNum(-1);
         }
     };
 
@@ -257,6 +258,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         if (mIsTabletConfig) {
             mDateRange = (TextView) findViewById(R.id.date_bar);
+            mWeekTextView = (TextView) findViewById(R.id.week_num);
         } else {
             mDateRange = (TextView) getLayoutInflater().inflate(R.layout.date_range_title, null);
         }
@@ -402,7 +404,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             initFragments(mController.getTime(), mController.getViewType(), null);
             mUpdateOnResume = false;
         }
-        updateHomeClock();
+        updateHomeClockAndWeekNum(mController.getTime());
         // Make sure the drop-down menu will get its date updated at midnight
         if (mActionBarMenuSpinnerAdapter != null) {
             mActionBarMenuSpinnerAdapter.setMidnightHandler();
@@ -653,7 +655,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
     public void setControlsOffset(int controlsOffset) {
         mMiniMonth.setTranslationX(controlsOffset);
         mCalendarsList.setTranslationX(controlsOffset);
-        mHomeTime.setTranslationX(controlsOffset);
         mControlsParams.width = Math.max(0, CONTROLS_ANIMATE_WIDTH - controlsOffset);
         mMiniMonthContainer.setLayoutParams(mControlsParams);
     }
@@ -827,14 +828,35 @@ public class AllInOneActivity extends Activity implements EventHandler,
         final String msg = Utils.formatDateRange(this, start, end, (int) event.extraLong);
         CharSequence oldDate = mDateRange.getText();
         mDateRange.setText(msg);
+        updateHomeClockAndWeekNum(start);
         if (!TextUtils.equals(oldDate, msg)) {
             mDateRange.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
+            if (mShowWeekNum && mWeekTextView != null) {
+                mWeekTextView.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
+            }
         }
     }
 
-    private void updateHomeClock() {
+    private void updateHomeClockAndWeekNum(long visibleMillisSinceEpoch) {
+        mShowWeekNum = Utils.getShowWeekNumber(this);
         mTimeZone = Utils.getTimeZone(this, mHomeTimeUpdater);
-        if (mIsMultipane && (mCurrentView == ViewType.DAY || mCurrentView == ViewType.WEEK)
+        if (visibleMillisSinceEpoch != -1) {
+            int weekNum = Utils.getWeekNumberFromTime(visibleMillisSinceEpoch, this);
+            mWeekNum = weekNum;
+        }
+
+        if (mShowWeekNum && (mCurrentView == ViewType.WEEK) && mIsTabletConfig
+                && mWeekTextView != null) {
+            String weekString = getResources().getQuantityString(R.plurals.weekN, mWeekNum,
+                    mWeekNum);
+            mWeekTextView.setText(weekString);
+            mWeekTextView.setVisibility(View.VISIBLE);
+        } else if (mWeekTextView != null) {
+            mWeekTextView.setVisibility(View.GONE);
+        }
+        if (mHomeTime != null
+                && (mCurrentView == ViewType.DAY || mCurrentView == ViewType.WEEK
+                        || mCurrentView == ViewType.AGENDA)
                 && !TextUtils.equals(mTimeZone, Time.getCurrentTimezone())) {
             Time time = new Time(mTimeZone);
             time.setToNow();
@@ -855,8 +877,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mHomeTime.postDelayed(
                     mHomeTimeUpdater,
                     DateUtils.MINUTE_IN_MILLIS - (millis % DateUtils.MINUTE_IN_MILLIS));
-        } else {
-            mHomeTime.setVisibility(View.INVISIBLE);
+        } else if (mHomeTime != null) {
+            mHomeTime.setVisibility(View.GONE);
         }
     }
 
@@ -867,7 +889,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public void handleEvent(EventInfo event) {
-        Log.d(TAG, "handleEvent AllInOne=" + this);
+        long displayTime = -1;
         if (event.eventType == EventType.GO_TO) {
             setMainPane(
                     null, R.id.main_pane, event.viewType, event.startTime.toMillis(false), false);
@@ -917,6 +939,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     }
                 }
             }
+            displayTime = event.startTime.toMillis(true);
         } else if (event.eventType == EventType.VIEW_EVENT) {
 
             // If in Agenda view and "show_event_details_with_agenda" is "true",
@@ -964,13 +987,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     ft.commit();
                 }
             }
+            displayTime = event.startTime.toMillis(true);
         } else if (event.eventType == EventType.UPDATE_TITLE) {
             setTitleInActionBar(event);
             if (!mIsTabletConfig) {
                 mActionBarMenuSpinnerAdapter.setTime(event.startTime.toMillis(false));
             }
         }
-        updateHomeClock();
+        updateHomeClockAndWeekNum(displayTime);
     }
 
     // Needs to be in proguard whitelist

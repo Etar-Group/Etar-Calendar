@@ -17,4 +17,5 @@
 <resources>
     <dimen name="appwidget_width">206dip</dimen>
     <dimen name="appwidget_height">143dip</dimen>
+    <dimen name="action_bar_date_text_size">18sp</dimen>
 </resources>

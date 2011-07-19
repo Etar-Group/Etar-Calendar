@@ -1010,4 +1010,30 @@ public class Utils {
                 Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(launchIntent);
     }
+
+    /**
+     * Given a context and a time in millis since unix epoch figures out the
+     * correct week of the year for that time.
+     *
+     * @param millisSinceEpoch
+     * @return
+     */
+    public static int getWeekNumberFromTime(long millisSinceEpoch, Context context) {
+        Time weekTime = new Time(getTimeZone(context, null));
+        weekTime.set(millisSinceEpoch);
+        weekTime.normalize(true);
+        int firstDayOfWeek = getFirstDayOfWeek(context);
+        // if the date is on Saturday or Sunday and the start of the week
+        // isn't Monday we may need to shift the date to be in the correct
+        // week
+        if (weekTime.weekDay == Time.SUNDAY
+                && (firstDayOfWeek == Time.SUNDAY || firstDayOfWeek == Time.SATURDAY)) {
+            weekTime.monthDay++;
+            weekTime.normalize(true);
+        } else if (weekTime.weekDay == Time.SATURDAY && firstDayOfWeek == Time.SATURDAY) {
+            weekTime.monthDay += 2;
+            weekTime.normalize(true);
+        }
+        return weekTime.getWeekNumber();
+    }
 }
