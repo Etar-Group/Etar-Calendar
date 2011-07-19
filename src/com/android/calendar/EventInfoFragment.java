@@ -920,7 +920,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
         String organizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
 
-        mColor = mEventCursor.getInt(EVENT_INDEX_COLOR) & 0xbbffffff;
+        mColor = Utils.getDisplayColorFromColor(mEventCursor.getInt(EVENT_INDEX_COLOR));
         mHeadlines.setBackgroundColor(mColor);
 
         // What
@@ -1144,10 +1144,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         if (mAcceptedAttendees.size() + mDeclinedAttendees.size() +
                 mTentativeAttendees.size() + mNoResponseAttendees.size() > 0) {
-            ((AttendeesView) mLongAttendees).addAttendees(mAcceptedAttendees);
-            ((AttendeesView) mLongAttendees).addAttendees(mDeclinedAttendees);
-            ((AttendeesView) mLongAttendees).addAttendees(mTentativeAttendees);
-            ((AttendeesView) mLongAttendees).addAttendees(mNoResponseAttendees);
+            (mLongAttendees).addAttendees(mAcceptedAttendees);
+            (mLongAttendees).addAttendees(mDeclinedAttendees);
+            (mLongAttendees).addAttendees(mTentativeAttendees);
+            (mLongAttendees).addAttendees(mNoResponseAttendees);
             mLongAttendees.setEnabled(false);
             mLongAttendees.setVisibility(View.VISIBLE);
         } else {

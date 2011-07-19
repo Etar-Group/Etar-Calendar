@@ -47,7 +47,7 @@ public class AlertAdapter extends ResourceCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         View square = view.findViewById(R.id.color_square);
-        int color = cursor.getInt(AlertActivity.INDEX_COLOR);
+        int color = Utils.getDisplayColorFromColor(cursor.getInt(AlertActivity.INDEX_COLOR));
         square.setBackgroundColor(color);
 
         // Repeating info
