@@ -208,7 +208,8 @@ public class CalendarViewAdapter implements SpinnerAdapter {
                 date.setText(buildFullDate());
                 break;
             case ViewType.WEEK:
-                weekDay.setVisibility(View.GONE);
+                weekDay.setVisibility(View.VISIBLE);
+                weekDay.setText(buildWeekNum());
                 date.setText(buildMonthYearDate());
                 break;
             case ViewType.MONTH:
@@ -388,6 +389,11 @@ public class CalendarViewAdapter implements SpinnerAdapter {
         String date = DateUtils.formatDateRange(mContext, mFormatter, weekStartTime,
                 weekEndTime, flags, mTimeZone).toString();
          return date;
+    }
+
+    private String buildWeekNum() {
+        int week = Utils.getWeekNumberFromTime(mMilliTime, mContext);
+        return mContext.getResources().getQuantityString(R.plurals.weekN, week, week);
     }
 
 }
