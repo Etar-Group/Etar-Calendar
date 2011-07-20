@@ -41,6 +41,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
     private Resources mResources;
     private int mDeclinedColor;
     private int mStandardColor;
+    private int mWhereColor;
+    private int mWhereDeclinedColor;
     // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
     private Formatter mFormatter;
     private StringBuilder mStringBuilder;
@@ -81,6 +83,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         mNoTitleLabel = mResources.getString(R.string.no_title_label);
         mDeclinedColor = mResources.getColor(R.color.agenda_item_declined_color);
         mStandardColor = mResources.getColor(R.color.agenda_item_standard_color);
+        mWhereDeclinedColor = mResources.getColor(R.color.agenda_item_where_declined_text_color);
+        mWhereColor = mResources.getColor(R.color.agenda_item_where_text_color);
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
 
@@ -125,12 +129,12 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
             holder.title.setTextColor(mDeclinedColor);
             holder.when.setTextColor(mDeclinedColor);
-            holder.where.setTextColor(mDeclinedColor);
+            holder.where.setTextColor(mWhereDeclinedColor);
             holder.colorChip.setDrawStyle(ColorChipView.DRAW_CROSS_HATCHED);
         } else {
             holder.title.setTextColor(mStandardColor);
             holder.when.setTextColor(mStandardColor);
-            holder.where.setTextColor(mStandardColor);
+            holder.where.setTextColor(mWhereColor);
             if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_TENTATIVE) {
                 holder.colorChip.setDrawStyle(ColorChipView.DRAW_BORDER);
             } else {

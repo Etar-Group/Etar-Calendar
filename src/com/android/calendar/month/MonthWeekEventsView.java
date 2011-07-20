@@ -137,8 +137,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mMonthBusyBitsConflictTimeColor;
 
     protected int mEventChipOutlineColor = 0xFFFFFFFF;
-    protected int mDaySeparatorOuterColor = 0x33FFFFFF;
-    protected int mDaySeparatorInnerColor = 0xFFFFFFFF;
+    protected int mDaySeparatorInnerColor;
 
     private int[] mDayXs;
 
@@ -230,6 +229,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mMonthBGTodayColor = res.getColor(R.color.month_today_bgcolor);
         mMonthBGOtherColor = res.getColor(R.color.month_other_bgcolor);
         mMonthBGColor = res.getColor(R.color.month_bgcolor);
+        mDaySeparatorInnerColor = res.getColor(R.color.month_grid_lines);
 
         mTodayDrawable = res.getDrawable(R.drawable.today_blue_week_holo_light);
     }
@@ -387,7 +387,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     @Override
     protected void drawDaySeparators(Canvas canvas) {
-        // mDaySeparatorOuterColor
         float lines[] = new float[8 * 4];
         int count = 6 * 4;
         int wkNumOffset = 0;

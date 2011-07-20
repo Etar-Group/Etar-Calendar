@@ -68,7 +68,7 @@
     <color name="month_event_extra_other_color">#4C999999</color>
     <color name="month_saturday">#80333333</color>
     <color name="month_sunday">#80333333</color>
-    <color name="month_grid_lines">#ffC8CAD0</color>
+    <color name="month_grid_lines">#ffCCCCCC</color>
     <color name="month_other_month_day_number">#ff939497</color>
     <color name="month_other_month_banner">#80595959</color>
     <color name="month_week_banner">#FFDDDDDD</color>
@@ -109,6 +109,8 @@
     <color name="agenda_day_item_text_color">#FF666666</color>
     <!-- Color of the event location's text in an agenda item  -->
     <color name="agenda_item_where_text_color">#FF666666</color>
+    <!-- Color of the event location's text in an agenda item  -->
+    <color name="agenda_item_where_declined_text_color">#66666666</color>
     <!-- Color of text in the calendar view selection menu -->
     <color name="calendar_view_switch_menu_text_color">#FF666666</color>
     <!-- Light color of text in the calendar view selection menu -->
