@@ -151,7 +151,10 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putLong(BUNDLE_KEY_RESTORE_TIME, getSelectedTimeInMillis());
+        long time = getSelectedTimeInMillis();
+        if (time != -1) {
+            outState.putLong(BUNDLE_KEY_RESTORE_TIME, time);
+        }
     }
 
     @Override
@@ -223,7 +226,13 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
      * @return the selected time in milliseconds
      */
     public long getSelectedTimeInMillis() {
+        if (mViewSwitcher == null) {
+            return -1;
+        }
         DayView view = (DayView) mViewSwitcher.getCurrentView();
+        if (view == null) {
+            return -1;
+        }
         return view.getSelectedTimeInMillis();
     }
 
