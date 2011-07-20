@@ -163,7 +163,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     protected String updateWhere() {
         // TODO fix selection/selection args after b/3206641 is fixed
         String where = WHERE_CALENDARS_VISIBLE;
-        if (mHideDeclined) {
+        if (mHideDeclined || !mShowDetailsInMonth) {
             where += " AND " + Instances.SELF_ATTENDEE_STATUS + "!="
                     + Attendees.ATTENDEE_STATUS_DECLINED;
         }
