@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 import java.util.Formatter;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class AgendaAdapter extends ResourceCursorAdapter {
     private String mNoTitleLabel;
@@ -185,13 +186,14 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         // When
         long begin = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
         long end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
+        String eventTz = cursor.getString(AgendaWindowAdapter.INDEX_TIME_ZONE);
         int flags = 0;
         String whenString;
         // It's difficult to update all the adapters so just query this each
         // time we need to build the view.
-        String tz = Utils.getTimeZone(context, mTZUpdater);;
+        String tzString = Utils.getTimeZone(context, mTZUpdater);
         if (allDay) {
-            tz = Time.TIMEZONE_UTC;
+            tzString = Time.TIMEZONE_UTC;
         } else {
             flags = DateUtils.FORMAT_SHOW_TIME;
         }
@@ -199,8 +201,22 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             flags |= DateUtils.FORMAT_24HOUR;
         }
         mStringBuilder.setLength(0);
-        whenString = DateUtils.formatDateRange(context, mFormatter, begin, end, flags, tz)
+        whenString = DateUtils.formatDateRange(context, mFormatter, begin, end, flags, tzString)
                 .toString();
+        if (!allDay && !TextUtils.equals(tzString, eventTz)) {
+            String displayName;
+            // Figure out if this is in DST
+            Time date = new Time(tzString);
+            date.set(begin);
+
+            TimeZone tz = TimeZone.getTimeZone(tzString);
+            if (tz == null || tz.getID().equals("GMT")) {
+                displayName = tzString;
+            } else {
+                displayName = tz.getDisplayName(date.isDst != 0, TimeZone.SHORT);
+            }
+            whenString += " (" + displayName + ")";
+        }
         when.setText(whenString);
 
    /* Recurring event icon is removed

@@ -978,15 +978,21 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
             // Show the event timezone if it is different from the local timezone after the time
             // TODO: Fix comparison of Timezone
-            Time time = new Time();
-            String localTimezone = time.timezone;
-            if (eventTimezone != null && !localTimezone.equals(eventTimezone)) {
+            String localTimezone = Utils.getTimeZone(mActivity, mTZUpdater);
+            if (!TextUtils.equals(localTimezone, eventTimezone)) {
                 String displayName;
-                TimeZone tz = TimeZone.getTimeZone(eventTimezone);
+                // Figure out if this is in DST
+                Time date = new Time(Utils.getTimeZone(getActivity(), mTZUpdater));
+                if (allDay) {
+                    date.timezone = Time.TIMEZONE_UTC;
+                }
+                date.set(mStartMillis);
+
+                TimeZone tz = TimeZone.getTimeZone(localTimezone);
                 if (tz == null || tz.getID().equals("GMT")) {
                     displayName = localTimezone;
                 } else {
-                    displayName = tz.getDisplayName();
+                    displayName = tz.getDisplayName(date.isDst != 0, TimeZone.LONG);
                 }
                 setTextCommon(view, R.id.when_time, whenTime + " (" + displayName + ")");
             }

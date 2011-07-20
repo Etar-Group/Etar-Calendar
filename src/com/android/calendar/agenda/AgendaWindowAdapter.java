@@ -95,6 +95,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     public static final int INDEX_ORGANIZER = 13;
     public static final int INDEX_OWNER_ACCOUNT = 14;
     public static final int INDEX_CAN_ORGANIZER_RESPOND= 15;
+    public static final int INDEX_TIME_ZONE = 16;
 
     private static final String[] PROJECTION = new String[] {
             Instances._ID, // 0
@@ -113,6 +114,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.ORGANIZER, // 13
             Instances.OWNER_ACCOUNT, // 14
             Instances.CAN_ORGANIZER_RESPOND, // 15
+            Instances.EVENT_TIMEZONE, // 16
     };
 
     // Listview may have a bug where the index/position is not consistent when there's a header.
