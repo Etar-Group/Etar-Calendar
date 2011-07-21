@@ -509,7 +509,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mRepeatsSpinner.setSelection(position);
 
         // Don't allow the user to make exceptions recurring events.
-        if (mModel.mOriginalEvent != null) {
+        if (mModel.mOriginalSyncId != null) {
             mRepeatsSpinner.setEnabled(false);
         }
     }
@@ -1368,7 +1368,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mCalendarStaticGroup.setVisibility(View.VISIBLE);
             }
             mRepeatsSpinner.setBackgroundDrawable((Drawable) mRepeatsSpinner.getTag());
-            if (mModel.mOriginalEvent == null) {
+            if (mModel.mOriginalSyncId == null) {
                 mRepeatsSpinner.setEnabled(true);
             } else {
                 mRepeatsSpinner.setEnabled(false);

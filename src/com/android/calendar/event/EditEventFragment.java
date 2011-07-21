@@ -596,22 +596,29 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 mModifyDialog.dismiss();
                 mModifyDialog = null;
             }
-            mModifyDialog = new AlertDialog.Builder(mContext)
-                    .setTitle(R.string.edit_event_label).setItems(items, new OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    if (which == 0) {
-                        mModification = notSynced ? Utils.MODIFY_ALL : Utils.MODIFY_SELECTED;
-                        mModel.mOriginalEvent = notSynced ? null : mModel.mSyncId;
-                    } else if (which == 1) {
-                        mModification = notSynced ? Utils.MODIFY_ALL_FOLLOWING : Utils.MODIFY_ALL;
-                    } else if (which == 2) {
-                        mModification = Utils.MODIFY_ALL_FOLLOWING;
-                    }
+            mModifyDialog = new AlertDialog.Builder(mContext).setTitle(R.string.edit_event_label)
+                    .setItems(items, new OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (which == 0) {
+                                // Update this if we start allowing exceptions
+                                // to unsynced events in the app
+                                mModification = notSynced ? Utils.MODIFY_ALL
+                                        : Utils.MODIFY_SELECTED;
+                                if (mModification == Utils.MODIFY_SELECTED) {
+                                    mModel.mOriginalSyncId = notSynced ? null : mModel.mSyncId;
+                                    mModel.mOriginalId = mModel.mId;
+                                }
+                            } else if (which == 1) {
+                                mModification = notSynced ? Utils.MODIFY_ALL_FOLLOWING
+                                        : Utils.MODIFY_ALL;
+                            } else if (which == 2) {
+                                mModification = Utils.MODIFY_ALL_FOLLOWING;
+                            }
 
-                    mView.setModification(mModification);
-                    updateActionBar();
-                }
-            }).show();
+                            mView.setModification(mModification);
+                            updateActionBar();
+                        }
+                    }).show();
         }
     }
 
@@ -637,7 +644,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
                             || EditEventHelper.canModifyEvent(mModel))
                     && !isEmptyNewEvent()
                     && mModel.normalizeReminders()
-                    && !mModel.isUnchanged(mOriginalModel)
                     && mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
                 int stringResource;
                 if (!mModel.mAttendeesList.isEmpty()) {
