@@ -50,10 +50,6 @@
             android:name="AllInOneActivity"
             android:theme="@style/CalendarTheme.WithActionBar"
             android:launchMode="singleTop">
-        </activity>
-
-        <activity-alias android:name="LaunchActivity"
-            android:targetActivity=".AllInOneActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -71,6 +67,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/event" />
             </intent-filter>
+        </activity>
+
+        <activity-alias android:name="LaunchActivity"
+            android:targetActivity=".AllInOneActivity">
         </activity-alias>
 
         <activity android:name="EventInfoActivity"

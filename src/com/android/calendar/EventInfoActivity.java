@@ -103,44 +103,44 @@ public class EventInfoActivity extends Activity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        // Handles option menu selections:
-        // Home button - close event info activity and start the main calendar one
-        // Edit button - start the event edit activity and close the info activity
-        // Delete button - start a delete query that calls a runnable that close the info activity
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent launchIntent = new Intent();
-                launchIntent.setAction(Intent.ACTION_VIEW);
-                launchIntent.setData(Uri.parse(CalendarContract.CONTENT_URI + "/time"));
-                launchIntent.setFlags(
-                        Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(launchIntent);
-                finish();
-                return true;
-            case R.id.info_action_edit:
-                Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
-                Intent intent = new Intent(Intent.ACTION_EDIT, uri);
-                intent.putExtra(EXTRA_EVENT_BEGIN_TIME, mStartMillis);
-                intent.putExtra(EXTRA_EVENT_END_TIME, mEndMillis);
-                intent.setClass(this, EditEventActivity.class);
-                intent.putExtra(EVENT_EDIT_ON_LAUNCH, true);
-                startActivity(intent);
-                finish ();
-                break;
-            case R.id.info_action_delete:
-                DeleteEventHelper deleteHelper = new DeleteEventHelper(
-                        this, this, true /* exitWhenDone */);
-                deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
-                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        // Handles option menu selections:
+//        // Home button - close event info activity and start the main calendar one
+//        // Edit button - start the event edit activity and close the info activity
+//        // Delete button - start a delete query that calls a runnable that close the info activity
+//
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                Intent launchIntent = new Intent();
+//                launchIntent.setAction(Intent.ACTION_VIEW);
+//                launchIntent.setData(Uri.parse(CalendarContract.CONTENT_URI + "/time"));
+//                launchIntent.setFlags(
+//                        Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(launchIntent);
+//                finish();
+//                return true;
+//            case R.id.info_action_edit:
+//                Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
+//                Intent intent = new Intent(Intent.ACTION_EDIT, uri);
+//                intent.putExtra(EXTRA_EVENT_BEGIN_TIME, mStartMillis);
+//                intent.putExtra(EXTRA_EVENT_END_TIME, mEndMillis);
+//                intent.setClass(this, EditEventActivity.class);
+//                intent.putExtra(EVENT_EDIT_ON_LAUNCH, true);
+//                startActivity(intent);
+//                finish ();
+//                break;
+//            case R.id.info_action_delete:
+//                DeleteEventHelper deleteHelper = new DeleteEventHelper(
+//                        this, this, true /* exitWhenDone */);
+//                deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
+//                break;
+//            default:
+//                break;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     // runs at the end of a delete action and closes the activity
     private Runnable onDeleteRunnable = new Runnable() {

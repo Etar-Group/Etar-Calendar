@@ -16,11 +16,16 @@
 
 package com.android.calendar;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
+
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.event.AttendeesView;
+import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendarcommon.EventRecurrence;
 import com.android.calendar.event.EventViewUtils;
@@ -249,7 +254,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private TextView mWhat;
     private TextView mAttendees;
     private AttendeesView mLongAttendees;
-    private Menu mMenu;
+    private Menu mMenu = null;
     private View mHeadlines;
     private ScrollView mScrollView;
 
@@ -346,8 +351,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 updateCalendar(mView);
                 // FRAG_TODO fragments shouldn't set the title anymore
                 updateTitle();
-                // update the action bar since our option set might have changed
-                activity.invalidateOptionsMenu();
 
                 if (!mIsBusyFreeCalendar) {
                     args = new String[] { Long.toString(mEventId) };
@@ -738,10 +741,58 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // Show edit/delete buttons only in non-dialog configuration on a phone
         if (!mIsDialog && !mIsTabletConfig) {
             inflater.inflate(R.menu.event_info_title_bar, menu);
-                mMenu = menu;
+            mMenu = menu;
+            updateMenu();
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // If we're a dialog or part of a tablet display we don't want to handle
+        // menu buttons
+        if (mIsDialog || mIsTabletConfig) {
+            return false;
+        }
+        // Handles option menu selections:
+        // Home button - close event info activity and start the main calendar
+        // one
+        // Edit button - start the event edit activity and close the info
+        // activity
+        // Delete button - start a delete query that calls a runnable that close
+        // the info activity
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent launchIntent = new Intent();
+                launchIntent.setAction(Intent.ACTION_VIEW);
+                launchIntent.setData(Uri.parse(CalendarContract.CONTENT_URI + "/time"));
+                launchIntent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
+                        | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                launchIntent.setClass(mActivity, AllInOneActivity.class);
+                startActivity(launchIntent);
+                mActivity.finish();
+                return true;
+            case R.id.info_action_edit:
+                Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
+                Intent intent = new Intent(Intent.ACTION_EDIT, uri);
+                intent.putExtra(EXTRA_EVENT_BEGIN_TIME, mStartMillis);
+                intent.putExtra(EXTRA_EVENT_END_TIME, mEndMillis);
+                intent.setClass(mActivity, EditEventActivity.class);
+                intent.putExtra(EVENT_EDIT_ON_LAUNCH, true);
+                startActivity(intent);
+                mActivity.finish();
+                break;
+            case R.id.info_action_delete:
+                DeleteEventHelper deleteHelper =
+                        new DeleteEventHelper(mActivity, mActivity, true /* exitWhenDone */);
+                deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onDestroyView() {
@@ -1133,16 +1184,32 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 if (mIsDialog) {
                     mView.findViewById(R.id.delete).setEnabled(false);
                 }
-                else {
-                    MenuItem item = mMenu.findItem(R.id.info_action_delete);
-                    if (item != null) {
-                        item.setVisible(false);
-                    }
-                }
+            }
+            if (mMenu != null) {
+                mActivity.invalidateOptionsMenu();
             }
         } else {
             setVisibilityCommon(view, R.id.calendar, View.GONE);
             sendAccessibilityEventIfQueryDone(TOKEN_QUERY_DUPLICATE_CALENDARS);
+        }
+    }
+
+    /**
+     *
+     */
+    private void updateMenu() {
+        if (mMenu == null) {
+            return;
+        }
+        MenuItem delete = mMenu.findItem(R.id.info_action_delete);
+        MenuItem edit = mMenu.findItem(R.id.info_action_edit);
+        if (delete != null) {
+            delete.setVisible(mCanModifyCalendar);
+            delete.setEnabled(mCanModifyCalendar);
+        }
+        if (edit != null) {
+            edit.setVisible(mCanModifyCalendar);
+            edit.setEnabled(mCanModifyCalendar);
         }
     }
 
