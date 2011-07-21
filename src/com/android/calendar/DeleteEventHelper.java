@@ -250,7 +250,7 @@ public class DeleteEventHelper {
         // user if they want to delete all of the repeating events or
         // just some of them.
         String rRule = model.mRrule;
-        String originalEvent = model.mOriginalEvent;
+        String originalEvent = model.mOriginalSyncId;
         if (TextUtils.isEmpty(rRule)) {
             AlertDialog dialog = new AlertDialog.Builder(mContext).setTitle(R.string.delete_title)
                     .setMessage(R.string.delete_this_event_title)

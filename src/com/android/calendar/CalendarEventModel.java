@@ -240,7 +240,8 @@ public class CalendarEventModel implements Serializable {
     public boolean mHasAttendeeData = true;
     public int mSelfAttendeeStatus = -1;
     public int mOwnerAttendeeId = -1;
-    public String mOriginalEvent = null;
+    public String mOriginalSyncId = null;
+    public long mOriginalId = -1;
     public Long mOriginalTime = null;
     public Boolean mOriginalAllDay = null;
     public boolean mGuestsCanModify = false;
@@ -395,7 +396,8 @@ public class CalendarEventModel implements Serializable {
         mHasAttendeeData = true;
         mSelfAttendeeStatus = -1;
         mOwnerAttendeeId = -1;
-        mOriginalEvent = null;
+        mOriginalId = -1;
+        mOriginalSyncId = null;
         mOriginalTime = null;
         mOriginalAllDay = null;
 
@@ -471,7 +473,8 @@ public class CalendarEventModel implements Serializable {
         result = prime * result + ((mOrganizer == null) ? 0 : mOrganizer.hashCode());
         result = prime * result + ((mOriginalAllDay == null) ? 0 : mOriginalAllDay.hashCode());
         result = prime * result + (int) (mOriginalEnd ^ (mOriginalEnd >>> 32));
-        result = prime * result + ((mOriginalEvent == null) ? 0 : mOriginalEvent.hashCode());
+        result = prime * result + ((mOriginalSyncId == null) ? 0 : mOriginalSyncId.hashCode());
+        result = prime * result + (int) (mOriginalId ^ (mOriginalEnd >>> 32));
         result = prime * result + (int) (mOriginalStart ^ (mOriginalStart >>> 32));
         result = prime * result + ((mOriginalTime == null) ? 0 : mOriginalTime.hashCode());
         result = prime * result + ((mOwnerAccount == null) ? 0 : mOwnerAccount.hashCode());
@@ -510,6 +513,38 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
+        if (mLocation == null) {
+            if (other.mLocation != null) {
+                return false;
+            }
+        } else if (!mLocation.equals(other.mLocation)) {
+            return false;
+        }
+
+        if (mTitle == null) {
+            if (other.mTitle != null) {
+                return false;
+            }
+        } else if (!mTitle.equals(other.mTitle)) {
+            return false;
+        }
+
+        if (mDescription == null) {
+            if (other.mDescription != null) {
+                return false;
+            }
+        } else if (!mDescription.equals(other.mDescription)) {
+            return false;
+        }
+
+        if (mDuration == null) {
+            if (other.mDuration != null) {
+                return false;
+            }
+        } else if (!mDuration.equals(other.mDuration)) {
+            return false;
+        }
+
         if (mEnd != other.mEnd) {
             return false;
         }
@@ -527,11 +562,15 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
-        if (mOriginalEvent == null) {
-            if (other.mOriginalEvent != null) {
+        if (mOriginalId != other.mOriginalId) {
+            return false;
+        }
+
+        if (mOriginalSyncId == null) {
+            if (other.mOriginalSyncId != null) {
                 return false;
             }
-        } else if (!mOriginalEvent.equals(other.mOriginalEvent)) {
+        } else if (!mOriginalSyncId.equals(other.mOriginalSyncId)) {
             return false;
         }
 
@@ -562,6 +601,39 @@ public class CalendarEventModel implements Serializable {
         if (!checkOriginalModelFields(originalModel)) {
             return false;
         }
+
+        if (TextUtils.isEmpty(mLocation)) {
+            if (!TextUtils.isEmpty(originalModel.mLocation)) {
+                return false;
+            }
+        } else if (!mLocation.equals(originalModel.mLocation)) {
+            return false;
+        }
+
+        if (TextUtils.isEmpty(mTitle)) {
+            if (!TextUtils.isEmpty(originalModel.mTitle)) {
+                return false;
+            }
+        } else if (!mTitle.equals(originalModel.mTitle)) {
+            return false;
+        }
+
+        if (TextUtils.isEmpty(mDescription)) {
+            if (!TextUtils.isEmpty(originalModel.mDescription)) {
+                return false;
+            }
+        } else if (!mDescription.equals(originalModel.mDescription)) {
+            return false;
+        }
+
+        if (TextUtils.isEmpty(mDuration)) {
+            if (!TextUtils.isEmpty(originalModel.mDuration)) {
+                return false;
+            }
+        } else if (!mDuration.equals(originalModel.mDuration)) {
+            return false;
+        }
+
         if (mEnd != mOriginalEnd) {
             return false;
         }
@@ -569,9 +641,20 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
-        if (mRrule == null) {
-            if (originalModel.mRrule != null) {
-                if (mOriginalEvent == null || !mOriginalEvent.equals(originalModel.mSyncId)) {
+        // If this changed the original id and it's not just an exception to the
+        // original event
+        if (mOriginalId != originalModel.mOriginalId && mOriginalId != originalModel.mId) {
+            return false;
+        }
+
+        if (TextUtils.isEmpty(mRrule)) {
+            // if the rrule is no longer empty check if this is an exception
+            if (!TextUtils.isEmpty(originalModel.mRrule)) {
+                boolean syncIdNotReferenced = mOriginalSyncId == null
+                        || !mOriginalSyncId.equals(originalModel.mSyncId);
+                boolean localIdNotReferenced = mOriginalId == -1
+                        || !(mOriginalId == originalModel.mId);
+                if (syncIdNotReferenced && localIdNotReferenced) {
                     return false;
                 }
             }
@@ -607,22 +690,6 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
-        if (mDescription == null) {
-            if (originalModel.mDescription != null) {
-                return false;
-            }
-        } else if (!mDescription.equals(originalModel.mDescription)) {
-            return false;
-        }
-
-        if (mDuration == null) {
-            if (originalModel.mDuration != null) {
-                return false;
-            }
-        } else if (!mDuration.equals(originalModel.mDuration)) {
-            return false;
-        }
-
         if (mGuestsCanInviteOthers != originalModel.mGuestsCanInviteOthers) {
             return false;
         }
@@ -651,14 +718,6 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
         if (mIsOrganizer != originalModel.mIsOrganizer) {
-            return false;
-        }
-
-        if (mLocation == null) {
-            if (originalModel.mLocation != null) {
-                return false;
-            }
-        } else if (!mLocation.equals(originalModel.mLocation)) {
             return false;
         }
 
@@ -745,14 +804,6 @@ public class CalendarEventModel implements Serializable {
                 return false;
             }
         } else if (!mTimezone2.equals(originalModel.mTimezone2)) {
-            return false;
-        }
-
-        if (mTitle == null) {
-            if (originalModel.mTitle != null) {
-                return false;
-            }
-        } else if (!mTitle.equals(originalModel.mTitle)) {
             return false;
         }
 

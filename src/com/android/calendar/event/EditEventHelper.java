@@ -83,6 +83,7 @@ public class EditEventHelper {
             Events.ORIGINAL_SYNC_ID, // 17
             Events.ORGANIZER, // 18
             Events.GUESTS_CAN_MODIFY, // 19
+            Events.ORIGINAL_ID, // 20
     };
     protected static final int EVENT_INDEX_ID = 0;
     protected static final int EVENT_INDEX_TITLE = 1;
@@ -101,9 +102,10 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_ACCESS_LEVEL = 14;
     protected static final int EVENT_INDEX_OWNER_ACCOUNT = 15;
     protected static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 16;
-    protected static final int EVENT_INDEX_ORIGINAL_EVENT = 17;
+    protected static final int EVENT_INDEX_ORIGINAL_SYNC_ID = 17;
     protected static final int EVENT_INDEX_ORGANIZER = 18;
     protected static final int EVENT_INDEX_GUESTS_CAN_MODIFY = 19;
+    protected static final int EVENT_INDEX_ORIGINAL_ID = 20;
 
     public static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
@@ -282,6 +284,9 @@ public class EditEventHelper {
         if (originalModel != null && !isSameEvent(model, originalModel)) {
             Log.e(TAG, "Attempted to update existing event but models didn't refer to the same "
                     + "event.");
+            return false;
+        }
+        if (originalModel != null && model.isUnchanged(originalModel)) {
             return false;
         }
 
@@ -1050,7 +1055,8 @@ public class EditEventHelper {
         int accessLevel = cursor.getInt(EVENT_INDEX_ACCESS_LEVEL);
         model.mOwnerAccount = cursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
         model.mHasAttendeeData = cursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
-        model.mOriginalEvent = cursor.getString(EVENT_INDEX_ORIGINAL_EVENT);
+        model.mOriginalSyncId = cursor.getString(EVENT_INDEX_ORIGINAL_SYNC_ID);
+        model.mOriginalId = cursor.getLong(EVENT_INDEX_ORIGINAL_ID);
         model.mOrganizer = cursor.getString(EVENT_INDEX_ORGANIZER);
         model.mIsOrganizer = model.mOwnerAccount.equalsIgnoreCase(model.mOrganizer);
         model.mGuestsCanModify = cursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0;
