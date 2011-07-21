@@ -410,8 +410,8 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     }
 
     @Override
-    protected void setMonthDisplayed(Time time) {
-        super.setMonthDisplayed(time);
+    protected void setMonthDisplayed(Time time, boolean updateHighlight) {
+        super.setMonthDisplayed(time, updateHighlight);
         if (!mIsMiniMonth) {
             boolean useSelected = false;
             if (time.year == mDesiredDay.year && time.month == mDesiredDay.month) {
