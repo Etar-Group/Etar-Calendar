@@ -382,13 +382,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
             return;
         }
         MenuItem cancelItem = mOptionsMenu.findItem(R.id.action_cancel);
-        MenuItem deleteItem = mOptionsMenu.findItem(R.id.action_delete);
         MenuItem editItem = mOptionsMenu.findItem(R.id.action_edit);
         if (cancelItem != null) {
             cancelItem.setVisible(false);
-        }
-        if (deleteItem != null) {
-            deleteItem.setVisible(false);
         }
         if (editItem != null) {
             editItem.setVisible(false);

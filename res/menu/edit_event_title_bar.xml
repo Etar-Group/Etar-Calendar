@@ -22,10 +22,10 @@
         android:icon="@drawable/ic_menu_compose_holo_light"
         android:showAsAction="withText|always"
         android:visibility="gone" />
-    <item android:id="@+id/action_delete"
-        android:alphabeticShortcut="x"
-        android:title="@string/delete_label"
-        android:icon="@drawable/ic_menu_trash_holo_light"
+    <item android:id="@+id/action_cancel"
+        android:alphabeticShortcut="c"
+        android:title="@string/discard_label"
+        android:icon="@drawable/ic_menu_cancel_holo_light"
         android:showAsAction="withText|always"
         android:visibility="gone" />
     <item android:id="@+id/action_done"
@@ -33,10 +33,4 @@
         android:title="@string/save_label"
         android:icon="@drawable/ic_menu_done_holo_light"
         android:showAsAction="withText|always" />
-    <item android:id="@+id/action_cancel"
-        android:alphabeticShortcut="c"
-        android:title="@string/discard_label"
-        android:icon="@drawable/ic_menu_cancel_holo_light"
-        android:showAsAction="withText|always"
-        android:visibility="gone" />
 </menu>

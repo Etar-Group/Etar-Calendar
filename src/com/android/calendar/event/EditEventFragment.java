@@ -330,16 +330,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
             return;
         }
         MenuItem cancelItem = mMenu.findItem(R.id.action_cancel);
-        MenuItem deleteItem = mMenu.findItem(R.id.action_delete);
         MenuItem editItem = mMenu.findItem(R.id.action_edit);
         boolean canModifyEvent = EditEventHelper.canModifyEvent(mModel);
         boolean canModifyCalendar = EditEventHelper.canModifyCalendar(mModel);
 
-        if (canModifyCalendar && mModel.mUri != null) {
-            deleteItem.setVisible(true);
-        } else {
-            deleteItem.setVisible(false);
-        }
         if (mIsReadOnly) {
             mMenu.findItem(R.id.action_done).setVisible(false);
         }
@@ -523,10 +517,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 break;
             case R.id.action_cancel:
                 mOnDone.setDoneCode(Utils.DONE_REVERT);
-                mOnDone.run();
-                break;
-            case R.id.action_delete:
-                mOnDone.setDoneCode(Utils.DONE_DELETE);
                 mOnDone.run();
                 break;
             case R.id.action_edit:
