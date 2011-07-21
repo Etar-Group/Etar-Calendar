@@ -239,7 +239,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         mFirstVisibleDay.setJulianDay(julianDay);
         // set the title to the month of the second week
         mTempTime.setJulianDay(julianDay + DAYS_PER_WEEK);
-        setMonthDisplayed(mTempTime);
+        setMonthDisplayed(mTempTime, true);
     }
 
     /**
@@ -444,7 +444,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             mFirstDayOfMonth.set(mTempTime);
             mFirstDayOfMonth.monthDay = 1;
             millis = mFirstDayOfMonth.normalize(true);
-            setMonthDisplayed(mFirstDayOfMonth);
+            setMonthDisplayed(mFirstDayOfMonth, true);
             position = Utils.getWeeksSinceEpochFromJulianDay(
                     Time.getJulianDay(millis, mFirstDayOfMonth.gmtoff), mFirstDayOfWeek);
 
@@ -459,7 +459,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             }
         } else if (setSelected) {
             // Otherwise just set the selection
-            setMonthDisplayed(mSelectedDay);
+            setMonthDisplayed(mSelectedDay, true);
         }
     }
 
@@ -491,6 +491,8 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
 
         mPreviousScrollPosition = currScroll;
         mPreviousScrollState = mCurrentScrollState;
+
+        updateMonthHighlight(mListView);
     }
 
     /**
@@ -545,7 +547,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
                 julianDay += DAYS_PER_WEEK;
             }
             mTempTime.setJulianDay(julianDay);
-            setMonthDisplayed(mTempTime);
+            setMonthDisplayed(mTempTime, false);
         }
     }
 
@@ -554,8 +556,9 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
      * to add custom events when the title is changed.
      *
      * @param time A day in the new focus month.
+     * @param updateHighlight TODO(epastern):
      */
-    protected void setMonthDisplayed(Time time) {
+    protected void setMonthDisplayed(Time time, boolean updateHighlight) {
         CharSequence oldMonth = mMonthName.getText();
         mMonthName.setText(Utils.formatMonthYear(mContext, time));
         mMonthName.invalidate();
@@ -563,7 +566,9 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             mMonthName.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
         }
         mCurrentMonthDisplayed = time.month;
-        mAdapter.updateFocusMonth(mCurrentMonthDisplayed);
+        if (updateHighlight) {
+            mAdapter.updateFocusMonth(mCurrentMonthDisplayed);
+        }
     }
 
     @Override
@@ -603,31 +608,31 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             if (mNewState == OnScrollListener.SCROLL_STATE_IDLE
                     && mPreviousScrollState != OnScrollListener.SCROLL_STATE_IDLE) {
                 mPreviousScrollState = mNewState;
-                int i = 0;
-                View child = mView.getChildAt(i);
-                while (child != null && child.getBottom() <= 0) {
-                    child = mView.getChildAt(++i);
-                }
-                if (child == null) {
-                    // The view is no longer visible, just return
-                    return;
-                }
-                int dist = child.getTop();
-                if (dist < LIST_TOP_OFFSET) {
-                    if (Log.isLoggable(TAG, Log.DEBUG)) {
-                        Log.d(TAG, "scrolling by " + dist + " up? " + mIsScrollingUp);
-                    }
-                    int firstPosition = mView.getFirstVisiblePosition();
-                    int lastPosition = mView.getLastVisiblePosition();
-                    boolean scroll = firstPosition != 0 && lastPosition != mView.getCount() - 1;
-                    if (mIsScrollingUp && scroll) {
-                        mView.smoothScrollBy(dist, 500);
-                    } else if (!mIsScrollingUp && scroll) {
-                        mView.smoothScrollBy(child.getHeight() + dist, 500);
-                    }
-                } else {
-                    updateMonthHighlight(mView);
-                }
+                // Uncomment the below to add snap to week back
+//                int i = 0;
+//                View child = mView.getChildAt(i);
+//                while (child != null && child.getBottom() <= 0) {
+//                    child = mView.getChildAt(++i);
+//                }
+//                if (child == null) {
+//                    // The view is no longer visible, just return
+//                    return;
+//                }
+//                int dist = child.getTop();
+//                if (dist < LIST_TOP_OFFSET) {
+//                    if (Log.isLoggable(TAG, Log.DEBUG)) {
+//                        Log.d(TAG, "scrolling by " + dist + " up? " + mIsScrollingUp);
+//                    }
+//                    int firstPosition = mView.getFirstVisiblePosition();
+//                    int lastPosition = mView.getLastVisiblePosition();
+//                    boolean scroll = firstPosition != 0 && lastPosition != mView.getCount() - 1;
+//                    if (mIsScrollingUp && scroll) {
+//                        mView.smoothScrollBy(dist, 500);
+//                    } else if (!mIsScrollingUp && scroll) {
+//                        mView.smoothScrollBy(child.getHeight() + dist, 500);
+//                    }
+//                }
+                mAdapter.updateFocusMonth(mCurrentMonthDisplayed);
             } else {
                 mPreviousScrollState = mNewState;
             }
