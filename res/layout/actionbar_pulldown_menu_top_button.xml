@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:layout_marginTop="4dip"
+        android:layout_marginTop="-2dip"
         android:layout_marginBottom="-8dip"
         android:textColor="@color/calendar_view_switch_menu_text_color"
         android:gravity="left" />
