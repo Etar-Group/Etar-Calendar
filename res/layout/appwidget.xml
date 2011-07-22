@@ -18,12 +18,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="3dip"
-    android:layout_marginBottom="14dip"
-    android:layout_marginLeft="8dip"
-    android:layout_marginRight="8dip"
-    android:paddingLeft="6dip"
-    android:paddingRight="6dip"
     android:orientation="vertical"
     android:background="@drawable/gradient_bg_cal_widget_holo"
     android:focusable="true"
@@ -34,9 +28,9 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="42dip"
-        android:layout_marginLeft="0dip"
-        android:layout_marginRight="0dip"
-        android:paddingLeft="2dip"
+        android:layout_marginLeft="2dip"
+        android:layout_marginRight="2dip"
+        android:paddingLeft="8dip"
         android:paddingRight="2dip"
         android:orientation="horizontal"
         android:background="@drawable/appwidget_header_selector">
@@ -45,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="2dip"
+            android:layout_marginRight="4dip"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/day_of_week"
@@ -67,17 +61,6 @@
             android:id="@+id/day_of_month"
             android:textColor="@color/appwidget_date"
             style="@style/WidgetDayStyle" />
-
-        <ImageButton
-            android:id="@+id/new_event_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="2dip"
-            android:paddingRight="2dip"
-            android:layout_gravity="center_vertical|right"
-            android:src="@drawable/btn_ic_new_event_cal_widget_holo_dark"
-            android:contentDescription="@string/accessibility_new_event"
-            android:background="?android:attr/selectableItemBackground" />
     </LinearLayout>
 
     <!-- Separator -->

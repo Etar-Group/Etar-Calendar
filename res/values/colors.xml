@@ -135,9 +135,9 @@
 
     <color name="appwidget_row_in_progress">#ffe6e6ff</color>
 
-    <color name="appwidget_date">#c0ffffff</color>
+    <color name="appwidget_date">#ffEEEEEE</color>
     <color name="appwidget_week">@android:color/white</color>
-    <color name="appwidget_month">#c0ffffff</color>
+    <color name="appwidget_month">#ffEEEEEE</color>
     <color name="appwidget_divider">#FFCCCCCC</color>
 
     <color name="appwidget_title">#ff000000</color>

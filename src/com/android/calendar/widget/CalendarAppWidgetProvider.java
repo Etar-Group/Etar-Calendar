@@ -148,11 +148,6 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             final PendingIntent updateEventIntent = getLaunchPendingIntentTemplate(context);
             views.setPendingIntentTemplate(R.id.events_list, updateEventIntent);
 
-            // ImageButton is not a collection so we cannot/shouldn't call
-            // setPendingIntentTemplate().
-            final PendingIntent newEventIntent = getNewEventPendingIntent(context);
-            views.setOnClickPendingIntent(R.id.new_event_button, newEventIntent);
-
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
