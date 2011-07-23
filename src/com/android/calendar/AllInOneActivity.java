@@ -945,7 +945,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             // do not create the event info fragment here, it will be created by the Agenda
             // fragment
 
-            if (mCurrentView == ViewType.AGENDA) {
+            if (mCurrentView == ViewType.AGENDA && mShowEventDetailsWithAgenda) {
                 if (event.startTime != null && event.endTime != null) {
                     mController.sendEvent(this, EventType.GO_TO, event.startTime, event.endTime,
                             event.id, ViewType.AGENDA);
