@@ -525,6 +525,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     private EventInfo buildEventInfoFromCursor(final Cursor cursor, boolean isDayHeader) {
         EventInfo event = new EventInfo();
         event.begin = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
+        event.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
         event.startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
 
         boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
@@ -561,7 +562,8 @@ public class AgendaWindowAdapter extends BaseAdapter
         }
 
         if (DEBUGLOG) {
-            Log.e(TAG, "refresh " + goToTime.toString() + (forced ? " forced" : " not forced"));
+            Log.e(TAG, this + ": refresh " + goToTime.toString()
+                    + (forced ? " forced" : " not forced"));
         }
 
         int startDay = Time.getJulianDay(goToTime.toMillis(false), goToTime.gmtoff);

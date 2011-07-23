@@ -1440,7 +1440,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     @Override
     public void handleEvent(EventInfo event) {
-        if (event.eventType == EventType.EVENTS_CHANGED) {
+        if (event.eventType == EventType.EVENTS_CHANGED && mHandler != null) {
             // reload the data
             mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
                     null, null, null);
