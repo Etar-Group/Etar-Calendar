@@ -16,9 +16,6 @@
 
 package com.android.calendar.selectcalendars;
 
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -28,16 +25,19 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import java.util.HashMap;
 
 public class SelectCalendarsSyncAdapter extends BaseAdapter
-        implements ListAdapter, CompoundButton.OnCheckedChangeListener {
+        implements ListAdapter, AdapterView.OnItemClickListener {
     private static final String TAG = "SelCalsAdapter";
     private static int COLOR_CHIP_SIZE = 30;
     private RectShape r = new RectShape();
@@ -112,6 +112,7 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (position >= mRowCount) {
             return null;
@@ -126,12 +127,10 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
             view = convertView;
         }
 
+        view.setTag(mData[position]);
+
         CheckBox cb = (CheckBox) view.findViewById(R.id.sync);
-        // This must be set to null in case the view was recycled
-        cb.setOnCheckedChangeListener(null);
         cb.setChecked(selected);
-        cb.setTag(mData[position]);
-        cb.setOnCheckedChangeListener(this);
 
         if (selected) {
             setText(view, R.id.status, mSyncedString);
@@ -155,10 +154,12 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         textView.setText(text);
     }
 
+    @Override
     public int getCount() {
         return mRowCount;
     }
 
+    @Override
     public Object getItem(int position) {
         if (position >= mRowCount) {
             return null;
@@ -167,6 +168,7 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         return item;
     }
 
+    @Override
     public long getItemId(int position) {
         if (position >= mRowCount) {
             return 0;
@@ -184,14 +186,20 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        CalendarRow row = (CalendarRow) buttonView.getTag();
-        row.synced = isChecked;
-        if (isChecked) {
-            setText((View) buttonView.getParent(), R.id.status, mSyncedString);
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)  {
+        CalendarRow row = (CalendarRow) view.getTag();
+        row.synced = !row.synced;
+
+        String status;
+        if (row.synced) {
+            status = mSyncedString;
         } else {
-            setText((View) buttonView.getParent(), R.id.status, mNotSyncedString);
+            status = mNotSyncedString;
         }
+        setText(view, R.id.status, status);
+
+        CheckBox cb = (CheckBox) view.findViewById(R.id.sync);
+        cb.setChecked(row.synced);
 
         // There is some data loss in long -> int, but we should never see it in
         // practice regarding calendar ids.

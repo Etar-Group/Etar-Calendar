@@ -49,7 +49,6 @@ import java.util.HashMap;
 public class SelectCalendarsSyncFragment extends ListFragment
         implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "SelectCalendarSync";
-    private static final boolean DEBUG = false;
 
     private static final String COLLATE_NOCASE = " COLLATE NOCASE";
     private static final String SELECTION = Calendars.ACCOUNT_NAME + "=? AND "
@@ -59,17 +58,12 @@ public class SelectCalendarsSyncFragment extends ListFragment
     private static final String SORT_ORDER = IS_PRIMARY + " DESC," + Calendars.CALENDAR_DISPLAY_NAME
             + COLLATE_NOCASE;
 
-    private static final String[] PROJECTION = new String[] { Calendars._ID,
-            Calendars.ACCOUNT_NAME, Calendars.OWNER_ACCOUNT, Calendars.CALENDAR_DISPLAY_NAME,
-            Calendars.CALENDAR_COLOR, Calendars.VISIBLE, Calendars.SYNC_EVENTS,
-            "(" + Calendars.ACCOUNT_NAME + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY, };
-    private static final int COLUMN_ID = 0;
-    private static final int COLUMN_SYNC_ACCOUNT = 1;
-    private static final int COLUMN_OWNER_ACCOUNT = 2;
-    private static final int COLUMN_DISPLAY_NAME = 3;
-    private static final int COLUMN_COLOR = 4;
-    private static final int COLUMN_VISIBLE = 5;
-    private static final int COLUMN_SYNC_EVENTS = 6;
+    private static final String[] PROJECTION = new String[] {
+        Calendars._ID,
+        Calendars.CALENDAR_DISPLAY_NAME,
+        Calendars.CALENDAR_COLOR,
+        Calendars.SYNC_EVENTS,
+        "(" + Calendars.ACCOUNT_NAME + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY, };
 
     private TextView mSyncStatus;
     private Button mAccountsButton;
@@ -186,6 +180,7 @@ public class SelectCalendarsSyncFragment extends ListFragment
             adapter.changeCursor(data);
         }
         setListAdapter(adapter);
+        getListView().setOnItemClickListener(adapter);
     }
 
     public void onLoaderReset(Loader<Cursor> loader) {

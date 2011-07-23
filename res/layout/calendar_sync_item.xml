@@ -20,10 +20,7 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:layout_marginRight="6dip"
     android:layout_marginTop="6dip"
-    android:layout_marginBottom="6dip"
-    android:clickable="false"
-    android:longClickable="false"
-    android:focusable="false">
+    android:layout_marginBottom="6dip">
     <CheckBox
         android:id="@+id/sync"
         android:layout_width="wrap_content"
@@ -31,7 +28,10 @@
         android:layout_marginLeft="4dip"
         android:layout_marginRight="14dip"
         android:layout_alignParentRight="true"
-        android:contentDescription="@string/accessibility_sync_cal" />
+        android:contentDescription="@string/accessibility_sync_cal"
+        android:clickable="false"
+        android:longClickable="false"
+        android:focusable="false" />
     <View
         android:id="@+id/color"
         android:layout_width="16dip"
