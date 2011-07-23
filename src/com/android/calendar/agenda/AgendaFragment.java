@@ -78,7 +78,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         @Override
         public void run() {
             mTimeZone = Utils.getTimeZone(getActivity(), this);
-            mTime = new Time(mTimeZone);
+            mTime.switchTimezone(mTimeZone);
         }
     };
 
@@ -92,6 +92,11 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     public AgendaFragment(long timeMillis, boolean usedForSearch) {
         mInitialTimeMillis = timeMillis;
         mTime = new Time();
+        if (mInitialTimeMillis == 0) {
+            mTime.setToNow();
+        } else {
+            mTime.set(mInitialTimeMillis);
+        }
         mUsedForSearch = usedForSearch;
     }
 
@@ -99,12 +104,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mTimeZone = Utils.getTimeZone(activity, mTZUpdater);
-        mTime = new Time(mTimeZone);
-        if (mInitialTimeMillis == 0) {
-            mTime.setToNow();
-        } else {
-            mTime.set(mInitialTimeMillis);
-        }
+        mTime.switchTimezone(mTimeZone);
         mActivity = activity;
     }
 
@@ -116,21 +116,34 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             Utils.getConfigBool(mActivity, R.bool.show_event_details_with_agenda);
         mIsTabletConfig =
             Utils.getConfigBool(mActivity, R.bool.tablet_config);
+        if (icicle != null) {
+            long prevTime = icicle.getLong(BUNDLE_KEY_RESTORE_TIME, -1);
+            if (prevTime != -1) {
+                mTime.set(prevTime);
+                if (DEBUG) {
+                    Log.d(TAG, "Restoring time to " + mTime.toString());
+                }
+            }
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        long instanceId = -1;
-        if (savedInstanceState != null) {
-            instanceId = savedInstanceState.getLong(BUNDLE_KEY_RESTORE_INSTANCE_ID);
-        }
 
         View v = inflater.inflate(R.layout.agenda_fragment, null);
 
         mAgendaListView = (AgendaListView)v.findViewById(R.id.agenda_events_list);
-        mAgendaListView.goTo(mTime, -1, mQuery, false);
+        mAgendaListView.goTo(mTime, -1, mQuery, true);
+
+        if (savedInstanceState != null) {
+            long instanceId = savedInstanceState.getLong(BUNDLE_KEY_RESTORE_INSTANCE_ID, -1);
+            if (instanceId != -1) {
+                mAgendaListView.setSelectedInstanceId(instanceId);
+            }
+        }
+
         if (!mShowEventDetailsWithAgenda) {
             v.findViewById(R.id.agenda_event_info).setVisibility(View.GONE);
         }
@@ -151,9 +164,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
             // Set scroll listener so that the date on the ActionBar can be set while
             // the user scrolls the view
-            if (!mIsTabletConfig) {
-                lv.setOnScrollListener(this);
-            }
+            lv.setOnScrollListener(this);
         }
         return v;
     }
@@ -190,7 +201,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         if (mAgendaListView == null) {
             return;
         }
-        long firstVisibleTime = mAgendaListView.getFirstVisibleTime();
+        long firstVisibleTime = mController.getTime();
         if (firstVisibleTime > 0) {
             mTime.set(firstVisibleTime);
             outState.putLong(BUNDLE_KEY_RESTORE_TIME, firstVisibleTime);
@@ -244,7 +255,10 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             mTime.set(event.startTime);
             return;
         }
-        mAgendaListView.goTo(event.startTime, event.id, mQuery, false);
+        if (mTime.before(event.startTime) || mTime.after(event.endTime)) {
+            mTime.set(event.startTime);
+        }
+        mAgendaListView.goTo(mTime, event.id, mQuery, false);
         showEventInfo(event);
     }
 
@@ -326,10 +340,11 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
     // Gets the time of the first visible view. If it is a new time, send a message to update
     // the time on the ActionBar
+    @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
             int totalItemCount) {
-        int julianDay = mAgendaListView.getJulianDayFromPosition(firstVisibleItem -
-                mAgendaListView.getHeaderViewsCount());
+        int julianDay = mAgendaListView.getJulianDayFromPosition(firstVisibleItem
+                - mAgendaListView.getHeaderViewsCount());
         // On error - leave the old view
         if (julianDay == 0) {
             return;
@@ -337,17 +352,22 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         // If the day changed, update the ActionBar
         if (mJulianDayOnTop != julianDay) {
             mJulianDayOnTop = julianDay;
+            Time t = new Time(mTimeZone);
+            t.setJulianDay(mJulianDayOnTop);
+            mController.setTime(t.toMillis(true));
             // Cannot sent a message that eventually may change the layout of the views
             // so instead post a runnable that will run when the layout is done
-            view.post(new Runnable() {
-                @Override
-                public void run() {
-                    Time t = new Time(mTimeZone);
-                    t.setJulianDay(mJulianDayOnTop);
-                    mController.sendEvent(this, EventType.UPDATE_TITLE, t, t, null, -1,
-                            ViewType.CURRENT, 0, null, null);
-                }
-            });
+            if (!mIsTabletConfig) {
+                view.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Time t = new Time(mTimeZone);
+                        t.setJulianDay(mJulianDayOnTop);
+                        mController.sendEvent(this, EventType.UPDATE_TITLE, t, t, null, -1,
+                                ViewType.CURRENT, 0, null, null);
+                    }
+                });
+            }
         }
     }
 }

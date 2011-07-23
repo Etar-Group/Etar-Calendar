@@ -47,6 +47,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     private DeleteEventHelper mDeleteEventHelper;
     private Context mContext;
     private String mTimeZone;
+    private Time mTime;
     private boolean mShowEventDetailsWithAgenda;
     // Used to update the past/present separator at midnight
     private Handler mMidnightUpdate = null;
@@ -56,6 +57,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         @Override
         public void run() {
             mTimeZone = Utils.getTimeZone(mContext, this);
+            mTime.switchTimezone(mTimeZone);
         }
     };
 
@@ -88,6 +90,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     private void initView(Context context) {
         mContext = context;
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
+        mTime = new Time(mTimeZone);
         setOnItemClickListener(this);
         setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         setVerticalScrollBarEnabled(false);
@@ -226,24 +229,23 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     public void goTo(Time time, long id, String searchQuery, boolean forced) {
         if (time == null) {
-            time = new Time(mTimeZone);
+            time = mTime;
             long goToTime = getFirstVisibleTime();
             if (goToTime <= 0) {
                 goToTime = System.currentTimeMillis();
             }
             time.set(goToTime);
         }
+        mTime.set(time);
+        mTime.normalize(true);
+        if (DEBUG) {
+            Log.d(TAG, "Goto with time " + mTime.toString());
+        }
         mWindowAdapter.refresh(time, id, searchQuery, forced);
     }
 
     public void refresh(boolean forced) {
-        Time time = new Time(Utils.getTimeZone(mContext, null));
-        long goToTime = getFirstVisibleTime();
-        if (goToTime <= 0) {
-            goToTime = System.currentTimeMillis();
-        }
-        time.set(goToTime);
-        mWindowAdapter.refresh(time, -1, null, forced);
+        mWindowAdapter.refresh(mTime, -1, null, forced);
     }
 
     public void deleteSelectedEvent() {
@@ -307,6 +309,10 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             Time t = new Time(mTimeZone);
             t.set(event.begin);
             t.setJulianDay(event.startDay);
+            if (DEBUG) {
+                t.normalize(true);
+                Log.d(TAG, "position " + position + " had time " + t.toString());
+            }
             return t.normalize(false);
         }
         return 0;
@@ -358,6 +364,10 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     public long getSelectedInstanceId() {
         return mWindowAdapter.getSelectedInstanceId();
+    }
+
+    public void setSelectedInstanceId(long id) {
+        mWindowAdapter.setSelectedInstanceId(id);
     }
 
     // Move the currently selected or visible focus down by offset amount.

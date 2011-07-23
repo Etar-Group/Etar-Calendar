@@ -475,6 +475,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
     }
 
     private void initFragments(long timeMillis, int viewType, Bundle icicle) {
+        if (DEBUG) {
+            Log.d(TAG, "Initializing to " + timeMillis + " for view " + viewType);
+        }
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
         if (mShowCalendarControls) {
@@ -942,8 +945,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
             // do not create the event info fragment here, it will be created by the Agenda
             // fragment
 
-            if (mCurrentView == ViewType.AGENDA && mShowEventDetailsWithAgenda) {
-                if (event.selectedTime != null) {
+            if (mCurrentView == ViewType.AGENDA) {
+                if (event.startTime != null && event.endTime != null) {
+                    mController.sendEvent(this, EventType.GO_TO, event.startTime, event.endTime,
+                            event.id, ViewType.AGENDA);
+                } else if (event.selectedTime != null) {
                     mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
                         event.selectedTime, event.id, ViewType.AGENDA);
                 }
