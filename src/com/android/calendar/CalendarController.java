@@ -40,6 +40,7 @@ import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
+import android.util.Pair;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -75,6 +76,8 @@ public class CalendarController {
     private LinkedList<Integer> mToBeRemovedEventHandlers = new LinkedList<Integer>();
     private LinkedHashMap<Integer, EventHandler> mToBeAddedEventHandlers = new LinkedHashMap<
             Integer, EventHandler>();
+    private Pair<Integer, EventHandler> mFirstEventHandler;
+    private Pair<Integer, EventHandler> mToBeAddedFirstEventHandler;
     private volatile int mDispatchInProgressCounter = 0;
 
     private static WeakHashMap<Context, CalendarController> instances =
@@ -407,10 +410,23 @@ public class CalendarController {
                 Log.d(TAG, "sendEvent: Dispatching to " + eventHandlers.size() + " handlers");
             }
             // Dispatch to event handler(s)
+            if (mFirstEventHandler != null) {
+                // Handle the 'first' one before handling the others
+                EventHandler handler = mFirstEventHandler.second;
+                if (handler != null && (handler.getSupportedEventTypes() & event.eventType) != 0
+                        && !mToBeRemovedEventHandlers.contains(mFirstEventHandler.first)) {
+                    handler.handleEvent(event);
+                    handled = true;
+                }
+            }
             for (Iterator<Entry<Integer, EventHandler>> handlers =
                     eventHandlers.entrySet().iterator(); handlers.hasNext();) {
                 Entry<Integer, EventHandler> entry = handlers.next();
                 int key = entry.getKey();
+                if (mFirstEventHandler != null && key == mFirstEventHandler.first) {
+                    // If this was the 'first' handler it was already handled
+                    continue;
+                }
                 EventHandler eventHandler = entry.getValue();
                 if (eventHandler != null
                         && (eventHandler.getSupportedEventTypes() & event.eventType) != 0) {
@@ -430,10 +446,17 @@ public class CalendarController {
                 if (mToBeRemovedEventHandlers.size() > 0) {
                     for (Integer zombie : mToBeRemovedEventHandlers) {
                         eventHandlers.remove(zombie);
+                        if (mFirstEventHandler != null && zombie.equals(mFirstEventHandler.first)) {
+                            mFirstEventHandler = null;
+                        }
                     }
                     mToBeRemovedEventHandlers.clear();
                 }
                 // Add new handlers
+                if (mToBeAddedFirstEventHandler != null) {
+                    mFirstEventHandler = mToBeAddedFirstEventHandler;
+                    mToBeAddedFirstEventHandler = null;
+                }
                 if (mToBeAddedEventHandlers.size() > 0) {
                     for (Entry<Integer, EventHandler> food : mToBeAddedEventHandlers.entrySet()) {
                         eventHandlers.put(food.getKey(), food.getValue());
@@ -496,6 +519,17 @@ public class CalendarController {
         }
     }
 
+    public void registerFirstEventHandler(int key, EventHandler eventHandler) {
+        synchronized (this) {
+            registerEventHandler(key, eventHandler);
+            if (mDispatchInProgressCounter > 0) {
+                mToBeAddedFirstEventHandler = new Pair<Integer, EventHandler>(key, eventHandler);
+            } else {
+                mFirstEventHandler = new Pair<Integer, EventHandler>(key, eventHandler);
+            }
+        }
+    }
+
     public void deregisterEventHandler(Integer key) {
         synchronized (this) {
             if (mDispatchInProgressCounter > 0) {
@@ -503,6 +537,9 @@ public class CalendarController {
                 mToBeRemovedEventHandlers.add(key);
             } else {
                 eventHandlers.remove(key);
+                if (mFirstEventHandler != null && mFirstEventHandler.first == key) {
+                    mFirstEventHandler = null;
+                }
             }
         }
     }
