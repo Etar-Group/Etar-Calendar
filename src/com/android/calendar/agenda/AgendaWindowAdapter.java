@@ -432,6 +432,10 @@ public class AgendaWindowAdapter extends BaseAdapter
             v = tv;
         }
 
+        // If this is not a tablet config don't do selection highlighting
+        if (!mIsTabletConfig) {
+            return v;
+        }
         // Show selected marker if this is item is selected
         boolean selected = false;
         Object yy = v.getTag();
