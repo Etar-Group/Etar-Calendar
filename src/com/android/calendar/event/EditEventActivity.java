@@ -24,7 +24,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.MenuItem;

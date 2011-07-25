@@ -19,6 +19,7 @@ package com.android.calendar.widget;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
+import com.android.calendar.AllInOneActivity;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
@@ -30,7 +31,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.net.Uri.Builder;
 import android.provider.CalendarContract;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -137,6 +137,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
 
             // Launch calendar app when the user taps on the header
             final Intent launchCalendarIntent = new Intent(Intent.ACTION_VIEW);
+            launchCalendarIntent.setClass(context, AllInOneActivity.class);
             launchCalendarIntent.setData(Uri.parse("content://com.android.calendar/time"));
             final PendingIntent launchCalendarPendingIntent = PendingIntent.getActivity(
                     context, 0 /* no requestCode */, launchCalendarIntent, 0 /* no flags */);
@@ -177,6 +178,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED |
                 Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        launchIntent.setClass(context, AllInOneActivity.class);
         return PendingIntent.getActivity(context, 0 /* no requestCode */,
                 launchIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
     }
@@ -190,8 +192,9 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      * @param goToTime time that calendar should take the user to, or 0 to
      *            indicate no specific start time.
      */
-    static Intent getLaunchFillInIntent(long id, long start, long end) {
+    static Intent getLaunchFillInIntent(Context context, long id, long start, long end) {
         final Intent fillInIntent = new Intent();
+        fillInIntent.setClass(context, AllInOneActivity.class);
         String dataString = "content://com.android.calendar/events";
         if (id != 0) {
             fillInIntent.putExtra(Utils.INTENT_KEY_DETAIL_VIEW, true);
@@ -205,12 +208,13 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         return fillInIntent;
     }
 
-    private static PendingIntent getNewEventPendingIntent(Context context) {
-        Intent newEventIntent = new Intent(Intent.ACTION_EDIT);
-        Builder builder = CalendarContract.CONTENT_URI.buildUpon();
-        builder.appendPath("events");
-        newEventIntent.setData(builder.build());
-        return PendingIntent.getActivity(context, 0, newEventIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-    }
+//    private static PendingIntent getNewEventPendingIntent(Context context) {
+//        Intent newEventIntent = new Intent(Intent.ACTION_EDIT);
+//        newEventIntent.setClass(context, EditEventActivity.class);
+//        Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+//        builder.appendPath("events");
+//        newEventIntent.setData(builder.build());
+//        return PendingIntent.getActivity(context, 0, newEventIntent,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
+//    }
 }
