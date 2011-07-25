@@ -49,16 +49,6 @@ public class RecipientAdapter extends BaseRecipientAdapter {
     }
 
     @Override
-    protected int getSeparatorLayout() {
-        return R.layout.chips_separator;
-    }
-
-    @Override
-    protected int getSeparatorWithinGroupLayout() {
-        return R.layout.chips_separator_within_group;
-    }
-
-    @Override
     protected int getWaitingForDirectorySearchLayout() {
         return R.layout.chips_waiting_for_directory_search;
     }
