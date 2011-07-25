@@ -21,7 +21,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.Time;
@@ -33,7 +32,6 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.Adapter;
 import android.widget.HeaderViewListAdapter;
-import android.widget.ListView;
 
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
@@ -45,7 +43,6 @@ import com.android.calendar.R;
 import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.StickyHeaderListView.HeaderIndexer;
 import com.android.calendar.Utils;
-import com.android.calendar.event.EditEventFragment;
 
 
 public class AgendaFragment extends Fragment implements CalendarController.EventHandler,
@@ -56,7 +53,6 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     protected static final String BUNDLE_KEY_RESTORE_INSTANCE_ID = "key_restore_instance_id";
-    private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
 
     private AgendaListView mAgendaListView;
     private Activity mActivity;
@@ -324,16 +320,17 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                     mEventFragment);
             ft.commit();
         }
-        /*
-          * else { Intent intent = new Intent(Intent.ACTION_VIEW); Uri eventUri
-          * = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
-          * intent.setData(eventUri); // intent.setClassName(this,
-          * EventInfoActivity.class.getName());
-          * intent.putExtra(EVENT_BEGIN_TIME, event.startTime != null ?
-          * event.startTime.toMillis(true) : -1); intent.putExtra(
-          * EVENT_END_TIME, event.endTime != null ? event.endTime.toMillis(true)
-          * : -1); startActivity(intent); }
-          */
+//        else {
+//            Intent intent = new Intent(Intent.ACTION_VIEW);
+//            Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
+//            intent.setData(eventUri);
+//            intent.setClass(getActivity(), AllInOneActivity.class);
+//            intent.putExtra(EVENT_BEGIN_TIME, event.startTime != null ? event.startTime
+//                    .toMillis(true) : -1);
+//            intent.putExtra(EVENT_END_TIME, event.endTime != null ? event.endTime.toMillis(true)
+//                    : -1);
+//            startActivity(intent);
+//        }
     }
 
     // OnScrollListener implementation to update the date on the pull-down menu of the app

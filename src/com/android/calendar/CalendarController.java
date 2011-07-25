@@ -545,21 +545,21 @@ public class CalendarController {
 
     private void launchSelectVisibleCalendars() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClassName(mContext, SelectVisibleCalendarsActivity.class.getName());
+        intent.setClass(mContext, SelectVisibleCalendarsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         mContext.startActivity(intent);
     }
 
     private void launchSettings() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClassName(mContext, CalendarSettingsActivity.class.getName());
+        intent.setClass(mContext, CalendarSettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         mContext.startActivity(intent);
     }
 
     private void launchCreateEvent(long startMillis, long endMillis) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setClassName(mContext, EditEventActivity.class.getName());
+        intent.setClass(mContext, EditEventActivity.class);
         intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
         mEventId = -1;
@@ -570,7 +570,7 @@ public class CalendarController {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
         intent.setData(eventUri);
-//        intent.setClassName(mContext, EventInfoActivity.class.getName());
+        intent.setClass(mContext, AllInOneActivity.class);
         intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
         mContext.startActivity(intent);

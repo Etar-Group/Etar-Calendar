@@ -42,6 +42,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
+import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventFragment;
 
 
@@ -54,8 +55,6 @@ public class SearchActivity extends Activity
     private static final boolean DEBUG = false;
 
     private static final int HANDLER_KEY = 0;
-
-    private static final long INITIAL_HEAP_SIZE = 4*1024*1024;
 
     protected static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
 
@@ -180,7 +179,7 @@ public class SearchActivity extends Activity
             Intent intent = new Intent(Intent.ACTION_EDIT);
             Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
             intent.setData(eventUri);
-//            intent.setClassName(this, EventInfoActivity.class.getName());
+            intent.setClass(this, EditEventActivity.class);
             intent.putExtra(EXTRA_EVENT_BEGIN_TIME,
                     event.startTime != null ? event.startTime.toMillis(true) : -1);
             intent.putExtra(

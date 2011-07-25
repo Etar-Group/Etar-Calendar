@@ -16,6 +16,7 @@
 
 package com.android.calendar.alerts;
 
+import com.android.calendar.AllInOneActivity;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
@@ -34,12 +35,9 @@ import android.net.Uri.Builder;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -217,6 +215,7 @@ public class AlertActivity extends Activity implements OnClickListener {
             Builder builder = CalendarContract.CONTENT_URI.buildUpon();
             builder.appendEncodedPath("events/" + id);
             eventIntent.setData(builder.build());
+            eventIntent.setClass(AlertActivity.this, AllInOneActivity.class);
             eventIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startMillis);
             eventIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endMillis);
             alertActivity.startActivity(eventIntent);

@@ -1266,10 +1266,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     mCalendarAllowedReminders);
         }
 
-        int numReminders = 0;
         if (mHasAlarm) {
             ArrayList<ReminderEntry> reminders = mOriginalReminders;
-            numReminders = reminders.size();
             // Insert any minute values that aren't represented in the minutes list.
             for (ReminderEntry re : reminders) {
                 EventViewUtils.addMinutesToList(

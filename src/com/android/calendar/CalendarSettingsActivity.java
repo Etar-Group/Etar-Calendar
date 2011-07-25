@@ -86,7 +86,7 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent launchIntent = new Intent();
+                Intent launchIntent = new Intent(this, AllInOneActivity.class);
                 launchIntent.setAction(Intent.ACTION_VIEW);
                 launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
                 launchIntent.setFlags(

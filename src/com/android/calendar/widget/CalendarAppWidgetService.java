@@ -196,7 +196,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             if (mModel == null) {
                 RemoteViews views = new RemoteViews(mContext.getPackageName(),
                         R.layout.appwidget_loading);
-                final Intent intent = CalendarAppWidgetProvider.getLaunchFillInIntent(0, 0, 0);
+                final Intent intent = CalendarAppWidgetProvider.getLaunchFillInIntent(mContext, 0,
+                        0, 0);
                 views.setOnClickFillInIntent(R.id.appwidget_loading, intent);
                 return views;
 
@@ -204,7 +205,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             if (mModel.mEventInfos.isEmpty() || mModel.mRowInfos.isEmpty()) {
                 RemoteViews views = new RemoteViews(mContext.getPackageName(),
                         R.layout.appwidget_no_events);
-                final Intent intent =  CalendarAppWidgetProvider.getLaunchFillInIntent(0, 0, 0);
+                final Intent intent = CalendarAppWidgetProvider.getLaunchFillInIntent(mContext, 0,
+                        0, 0);
                 views.setOnClickFillInIntent(R.id.appwidget_no_events, intent);
                 return views;
             }
@@ -277,7 +279,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     end = Utils.convertAlldayLocalToUTC(recycle, end, tz);
                 }
                 final Intent fillInIntent = CalendarAppWidgetProvider.getLaunchFillInIntent(
-                        eventInfo.id, start, end);
+                        mContext, eventInfo.id, start, end);
                 views.setOnClickFillInIntent(R.id.widget_row, fillInIntent);
                 return views;
             }
@@ -401,7 +403,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             // Make sure an update happens at midnight or earlier
             long minUpdateTime = getNextMidnightTimeMillis(timeZone);
             for (EventInfo event : model.mEventInfos) {
-                final boolean allDay = event.allDay;
                 final long start;
                 final long end;
                 start = event.start;

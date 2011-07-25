@@ -19,22 +19,15 @@ import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 import static com.android.calendar.CalendarController.ATTENDEE_NO_RESPONSE;
 import static com.android.calendar.CalendarController.EVENT_ATTENDEE_RESPONSE;
-import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.ContentUris;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.CalendarContract;
-import android.provider.CalendarContract.Events;
 import android.util.Log;
-import android.view.MenuItem;
-
-import com.android.calendar.event.EditEventActivity;
 
 public class EventInfoActivity extends Activity {
 //        implements CalendarController.EventHandler, SearchView.OnQueryTextListener,
@@ -143,12 +136,12 @@ public class EventInfoActivity extends Activity {
 //    }
 
     // runs at the end of a delete action and closes the activity
-    private Runnable onDeleteRunnable = new Runnable() {
-        @Override
-        public void run() {
-            finish ();
-        }
-    };
+//    private Runnable onDeleteRunnable = new Runnable() {
+//        @Override
+//        public void run() {
+//            finish ();
+//        }
+//    };
 
     @Override
     protected void onNewIntent(Intent intent) {
