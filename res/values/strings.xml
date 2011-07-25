@@ -397,6 +397,10 @@
 
     <!-- Dialogs -->
 
+    <!-- This is a label on the dialog for creating a new event. [CHAR LIMIT=30] -->
+    <string name="new_event_dialog_label">"New event"</string>
+    <!-- This is the button to create a new event in a dialog window. [CHAR LIMIT=30] -->
+    <string name="new_event_dialog_option">"New event"</string>
     <!-- Confirmation dialog message -->
     <skip />
     <!-- This is a confirmation message in a popup dialog that appears when the

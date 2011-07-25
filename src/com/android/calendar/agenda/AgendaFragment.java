@@ -255,7 +255,11 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             mTime.set(event.startTime);
             return;
         }
-        if (mTime.before(event.startTime) || mTime.after(event.endTime)) {
+        // Set mTime if we have a start time and we aren't in the range of the
+        // goto
+        if (event.startTime != null
+                && (mTime.before(event.startTime) || event.endTime == null || mTime
+                        .after(event.endTime))) {
             mTime.set(event.startTime);
         }
         mAgendaListView.goTo(mTime, event.id, mQuery, false);

@@ -24,9 +24,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -185,6 +188,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private boolean[] mHasAllDayEvent;   // indexed by the week day offset
     private String mAllDayString;
     private String mEventCountTemplate;
+    private CharSequence[] mLongPressItems;
+    private String mLongPressTitle;
 
     protected static StringBuilder mStringBuilder = new StringBuilder(50);
     // TODO recreate formatter when locale changes
@@ -629,6 +634,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mEventGeometry.setCellMargin(DAY_GAP);
         mContext = context;
         mAllDayString = mContext.getString(R.string.edit_event_all_day_label);
+        mLongPressItems = new CharSequence[] {
+            mResources.getString(R.string.new_event_dialog_option)
+        };
+        mLongPressTitle = mResources.getString(R.string.new_event_dialog_label);
         mDeleteEventHelper = new DeleteEventHelper(context, null, false /* don't exit when done */);
         mLastPopupEventID = INVALID_EVENT_ID;
         mController = controller;
@@ -4406,8 +4415,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     @Override
     public boolean onLongClick(View v) {
-        mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
-                getSelectedTimeInMillis(), 0, -1, -1, -1);
+        new AlertDialog.Builder(mContext).setTitle(mLongPressTitle)
+                .setItems(mLongPressItems, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
+                                    getSelectedTimeInMillis(), 0, -1, -1, -1);
+                        }
+                    }
+                }).show();
         return true;
     }
 
