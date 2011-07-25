@@ -237,11 +237,12 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             time.set(goToTime);
         }
         mTime.set(time);
+        mTime.switchTimezone(mTimeZone);
         mTime.normalize(true);
         if (DEBUG) {
             Log.d(TAG, "Goto with time " + mTime.toString());
         }
-        mWindowAdapter.refresh(time, id, searchQuery, forced);
+        mWindowAdapter.refresh(mTime, id, searchQuery, forced);
     }
 
     public void refresh(boolean forced) {
