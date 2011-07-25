@@ -1481,7 +1481,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     r.getDrawable(R.drawable.chip_background_invalid),
                     r.getDrawable(R.drawable.chip_delete),
                     def,
-                    R.string.more_string,
+                    R.layout.more_item,
                     R.layout.chips_alternate_item,
                     r.getDimension(R.dimen.chip_height),
                     r.getDimension(R.dimen.chip_padding),
