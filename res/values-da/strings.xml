@@ -41,6 +41,7 @@
     <item quantity="one" msgid="5988137255732166573">"1 dag"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dage"</item>
   </plurals>
+    <!-- no translation found for weekN:other (8085184869561028365) -->
     <string name="calendar_refresh" msgid="6172731193680500025">"Opdater"</string>
     <string name="show_agenda_view" msgid="7971854300981408347">"Vis agenda"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Vis dag"</string>
@@ -55,10 +56,13 @@
     <string name="goto_today" msgid="9162136434410891230">"I dag"</string>
     <string name="menu_select_calendars" msgid="6200145996783123958">"Kalendere"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Indstillinger"</string>
+    <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
+    <skip />
     <string name="search" msgid="550656004486017426">"Søg"</string>
     <string name="hide_controls" msgid="830320505938520882">"Skjul knapper"</string>
     <string name="show_controls" msgid="715520586028062621">"Vis knapper"</string>
-    <string name="calendars_title" msgid="4046980972626276968">"Kalendere"</string>
+    <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
+    <skip />
     <string name="synced_visible" msgid="1406744353749335651">"synkroniseret, synlig"</string>
     <string name="synced_not_visible" msgid="54032655953110609">"synkroniseret, ikke synlig"</string>
     <string name="not_synced_not_visible" msgid="7178879061972059481">"ikke synkroniseret, ikke synlig"</string>
@@ -66,6 +70,10 @@
     <string name="not_synced" msgid="4275114941801829419">"ikke synkroniseret"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Denne konto synkroniseres ikke, og dine kalendere er muligvis ikke opdateret."</string>
     <string name="accounts" msgid="849401841083180306">"Konti og synkronisering"</string>
+    <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
+    <skip />
+    <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
+    <skip />
     <string name="event_edit_title" msgid="8487120407086532444">"Detaljer om begivenhed"</string>
     <string name="hint_what" msgid="709155115005044531">"Begivenhedens navn"</string>
     <string name="hint_where" msgid="4972598001033801974">"Placering"</string>
