@@ -410,25 +410,10 @@
 
     <!-- The vibrate notification modes -->
     <string-array name="prefEntries_alerts_vibrateWhen">
-        <!-- Always -->
-        <item msgid="2539376794936035639">"永遠要"</item>
-        <!-- Only when the phone is in Silent mode -->
-        <item msgid="8091719131860840185">"靜音時才啟用"</item>
-        <!-- Never -->
-        <item msgid="4552962311897985633">"永遠不要"</item>
+      <item msgid="2539376794936035639">"一律"</item>
+      <item msgid="8091719131860840185">"靜音時才啟用"</item>
+      <item msgid="4552962311897985633">"永遠不要"</item>
     </string-array>
-
-    <!-- The default vibrateWhen value, when none is set -->
-    <!-- skipping untranslatable /resources:0/string:name=prefDefault_alerts_vibrateWhen -->
-    <!-- The value to use then migrating from old versions for a true vibrate setting -->
-    <!-- skipping untranslatable /resources:0/string:name=prefDefault_alerts_vibrate_true -->
-    <!-- The value to use then migrating from old versions for a false vibrate setting -->
-    <!-- skipping untranslatable /resources:0/string:name=prefDefault_alerts_vibrate_false -->
-
-    <!-- The vibrateWhen values -->
-    <!-- skipping untranslatable /resources:0/string-array:name=prefValues_alerts_vibrateWhen -->
-
-    <!-- Dialog title for the Vibrate dialog -->
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"震動"</string>
+  <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"震動"</string>
 
 </resources>

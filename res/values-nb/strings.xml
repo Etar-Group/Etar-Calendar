@@ -140,7 +140,7 @@
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Bruk egen tidssone"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Viser kalender- og aktivitetstidspunkter i din egen tidssone når du er på reise"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Egen tidssone"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"Om"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"Info"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Delversjon"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
     <item msgid="2539376794936035639">"Alltid"</item>
