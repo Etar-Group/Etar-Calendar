@@ -41,6 +41,7 @@
     <item quantity="one" msgid="5988137255732166573">"1 hari"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> hari"</item>
   </plurals>
+    <!-- no translation found for weekN:other (8085184869561028365) -->
     <string name="calendar_refresh" msgid="6172731193680500025">"Muat semula"</string>
     <string name="show_agenda_view" msgid="7971854300981408347">"Tunjukkan agenda"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Tunjukkan hari"</string>
@@ -55,10 +56,13 @@
     <string name="goto_today" msgid="9162136434410891230">"Hari ini"</string>
     <string name="menu_select_calendars" msgid="6200145996783123958">"Kalendar"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Tetapan"</string>
+    <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
+    <skip />
     <string name="search" msgid="550656004486017426">"Carian"</string>
     <string name="hide_controls" msgid="830320505938520882">"Sembunyikan kawalan"</string>
     <string name="show_controls" msgid="715520586028062621">"Tunjukkan kawalan"</string>
-    <string name="calendars_title" msgid="4046980972626276968">"Kalendar"</string>
+    <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
+    <skip />
     <string name="synced_visible" msgid="1406744353749335651">"disegerak, dapat lihat"</string>
     <string name="synced_not_visible" msgid="54032655953110609">"disegerak, tidak dapat lihat"</string>
     <string name="not_synced_not_visible" msgid="7178879061972059481">"tidak disegerak, tidak dapat lihat"</string>
@@ -66,6 +70,10 @@
     <string name="not_synced" msgid="4275114941801829419">"tidak disegerakkan"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Akaun ini tidak tersegerak dan kalendar anda mungkin tidak dikemas kini."</string>
     <string name="accounts" msgid="849401841083180306">"Akaun &amp; penyegerakan"</string>
+    <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
+    <skip />
+    <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
+    <skip />
     <string name="event_edit_title" msgid="8487120407086532444">"Butiran acara"</string>
     <string name="hint_what" msgid="709155115005044531">"Nama acara"</string>
     <string name="hint_where" msgid="4972598001033801974">"Lokasi"</string>
@@ -105,8 +113,7 @@
     <string name="event_info_organizer" msgid="9138683335394832629">"Penganjur:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"Lagi"</string>
     <string name="event_info_desc_less" msgid="8295683160345195225">"Kurang"</string>
-    <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
-    <skip />
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Peringatan"</string>
     <string name="agenda_today" msgid="5965841338467422191">"HARI INI, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"SEMALAM, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"ESOK, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -183,41 +190,23 @@
     <string name="today" msgid="8577375020252453006">"Hari ini"</string>
     <string name="copy_db" msgid="437691290566699292">"Hantar pangkalan data"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Mencari <xliff:g id="DOMAIN">%s</xliff:g>..."</string>
-    <!-- no translation found for accessibility_new_event (6063141474224122288) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_date (3926641487042699037) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_time (4913428100936555149) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_date (5624250196618643922) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_time (7120310166355224941) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_time_zone (7155465783500323811) -->
-    <skip />
-    <!-- no translation found for accessibility_add_reminder (2267950744060950152) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_reminder (5261609343259665139) -->
-    <skip />
-    <!-- no translation found for accessibility_add_attendee (5654014177472600916) -->
-    <skip />
-    <!-- no translation found for accessibility_sync_cal (6506181885764723383) -->
-    <skip />
-    <!-- no translation found for accessibility_all_day (4146955438811915282) -->
-    <skip />
-    <!-- no translation found for accessibility_refresh (3458716385448853522) -->
-    <skip />
-    <!-- no translation found for accessibility_repeats (1629279916830919582) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_time (3594100545814579575) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_type (5339120699701437227) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_showmeas (6669129015980006570) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_privacy (8669288484484022771) -->
-    <skip />
+    <string name="accessibility_new_event" msgid="6063141474224122288">"Acara baru"</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Alih keluar hadirin"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Tarikh mula"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Masa mula"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Tarikh akhir"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Masa tamat"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Zon waktu"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Tambah peringatan"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Alih keluar peringatan"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Tambah hadirin"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Segerakkan kalendar"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Acara sepanjang hari"</string>
+    <string name="accessibility_refresh" msgid="3458716385448853522">"Muat semula"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Ulangan"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Waktu peringatan"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Jenis peringatan"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Tunjukkan saya sebagai"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privasi"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Acara <xliff:g id="ITEM_INDEX">%1$s</xliff:g> daripada <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
 </resources>
