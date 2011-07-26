@@ -71,7 +71,7 @@ import java.util.TimeZone;
 
 public class AllInOneActivity extends Activity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener, ActionBar.TabListener,
-        ActionBar.OnNavigationListener, OnCloseListener {
+        ActionBar.OnNavigationListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
     private static final String EVENT_INFO_FRAGMENT_TAG = "EventInfoFragment";
@@ -355,8 +355,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mActionBarMenuSpinnerAdapter = new CalendarViewAdapter (this, viewType);
         mActionBar = getActionBar();
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        mActionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_USE_LOGO|
-                ActionBar.DISPLAY_SHOW_TITLE);
         mActionBar.setListNavigationCallbacks(mActionBarMenuSpinnerAdapter, this);
         switch (viewType) {
             case ViewType.AGENDA:
@@ -559,15 +557,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         mOptionsMenu = menu;
+        Log.d(TAG, "OnCreateOptionsMenu is happening!");
         getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
 
         mSearchMenu = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) mSearchMenu.getActionView();
         if (mSearchView != null) {
-            mSearchView.setIconifiedByDefault(true);
+            Utils.setUpSearchView(mSearchView, this);
             mSearchView.setOnQueryTextListener(this);
-            mSearchView.setSubmitButtonEnabled(true);
-            mSearchView.setOnCloseListener(this);
         }
 
         // Hide the "show/hide controls" button if this is a phone
@@ -633,11 +630,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 slideAnimation.start();
                 return true;
             case R.id.action_search:
-                if (!mIsMultipane && mSearchView != null) {
-                    item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-                    mSearchView.setActivated(true);
-                    mSearchView.setIconified(false);
-                }
+                return false;
             default:
                 return false;
         }
@@ -1085,18 +1078,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
                         " Day:" + mDayTab + " Week:" + mWeekTab + " Month:" + mMonthTab +
                         " Agenda:" + mAgendaTab);
                 break;
-        }
-        return false;
-    }
-
-    /*
-     * Handles the search view being closed.
-     */
-    @Override
-    public boolean onClose() {
-        if (!mIsMultipane) {
-            mSearchMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-            invalidateOptionsMenu();
         }
         return false;
     }

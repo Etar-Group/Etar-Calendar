@@ -36,6 +36,7 @@ import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnActionExpandListener;
 import android.widget.SearchView;
 
 import com.android.calendar.CalendarController.EventInfo;
@@ -45,10 +46,8 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventFragment;
 
-
-public class SearchActivity extends Activity
-        implements CalendarController.EventHandler, SearchView.OnQueryTextListener,
-        SearchView.OnCloseListener {
+public class SearchActivity extends Activity implements CalendarController.EventHandler,
+        SearchView.OnQueryTextListener, SearchView.OnCloseListener {
 
     private static final String TAG = SearchActivity.class.getSimpleName();
 
@@ -226,10 +225,10 @@ public class SearchActivity extends Activity
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.search_title_bar, menu);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setIconifiedByDefault(false);
-        searchView.setOnQueryTextListener(this);
-        searchView.setSubmitButtonEnabled(true);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        Utils.setUpSearchView(searchView, this);
+        searchView.setIconified(false);
         searchView.setQuery(mQuery, false);
         searchView.setOnCloseListener(this);
         searchView.clearFocus();
@@ -246,8 +245,7 @@ public class SearchActivity extends Activity
                 mController.sendEvent(this, EventType.GO_TO, t, null, -1, ViewType.CURRENT);
                 return true;
             case R.id.action_search:
-                onSearchRequested();
-                return true;
+                return false;
             case R.id.action_settings:
                 mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
                 return true;
@@ -298,17 +296,6 @@ public class SearchActivity extends Activity
         super.onPause();
         mContentResolver.unregisterContentObserver(mObserver);
     }
-
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        switch (keyCode) {
-//            case KeyEvent.KEYCODE_DEL:
-//                // Delete the currently selected event (if any)
-//                mAgendaListView.deleteSelectedEvent();
-//                break;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
 
     @Override
     public void eventsChanged() {
