@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="3dip"
         android:layout_marginLeft="2dip"
-        android:background="@color/calendar_today_bg_color" />
+        android:background="@color/calendar_future_bg_color" />
 
     <LinearLayout
         android:id="@+id/widget_row"

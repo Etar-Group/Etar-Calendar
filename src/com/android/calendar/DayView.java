@@ -29,13 +29,11 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PorterDuff;
@@ -51,8 +49,6 @@ import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.text.Layout.Alignment;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -90,7 +86,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Formatter;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -147,13 +142,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static final int CALENDARS_INDEX_ACCESS_LEVEL = 1;
     private static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
     private static final String CALENDARS_WHERE = Calendars._ID + "=%d";
-
-    private static final String[] ATTENDEES_PROJECTION = new String[] {
-        Attendees._ID,                      // 0
-        Attendees.ATTENDEE_RELATIONSHIP,    // 1
-    };
-    private static final int ATTENDEES_INDEX_RELATIONSHIP = 1;
-    private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=%d";
 
     private static final int FROM_NONE = 0;
     private static final int FROM_ABOVE = 1;
@@ -318,8 +306,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     /* package */ static final int MILLIS_PER_DAY = MILLIS_PER_HOUR * 24;
 
     private static final int DECLINED_ALPHA = 0x66000000;
-    private static final int DATE_HEADER_ALPHA = 0x26000000;
-    private static final int DATE_HEADER_TODAY_ALPHA = 0x99000000;
     // More events text will transition between invisible and this alpha
     private static final int MORE_EVENTS_MAX_ALPHA = 0x4C;
     private static int DAY_HEADER_ONE_DAY_LEFT_MARGIN = 0;
@@ -372,7 +358,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int mCalendarGridAreaSelected;
     private static int mCalendarGridLineInnerHorizontalColor;
     private static int mCalendarGridLineInnerVerticalColor;
-    private static int mTodayBgColor;
+    private static int mFutureBgColor;
     private static int mBgColor;
     private static int mCalendarHourLabelColor;
     private static int mMoreAlldayEventsTextAlpha = MORE_EVENTS_MAX_ALPHA;
@@ -676,7 +662,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mWeek_saturdayColor = mResources.getColor(R.color.week_saturday);
         mWeek_sundayColor = mResources.getColor(R.color.week_sunday);
         mCalendarDateBannerTextColor = mResources.getColor(R.color.calendar_date_banner_text_color);
-        mTodayBgColor = mResources.getColor(R.color.calendar_today_bg_color);
+        mFutureBgColor = mResources.getColor(R.color.calendar_future_bg_color);
         mBgColor = mResources.getColor(R.color.calendar_hour_background);
         mCalendarAmPmLabel = mResources.getColor(R.color.calendar_ampm_label);
         mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected);
@@ -903,7 +889,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         invalidate();
 
         if (gotoY != Integer.MIN_VALUE) {
-            TypeEvaluator evaluator = new TypeEvaluator() {
+            TypeEvaluator<Object> evaluator = new TypeEvaluator<Object>() {
                 @Override
                 public Object evaluate(float fraction, Object startValue, Object endValue) {
                     int start = (Integer) startValue;
@@ -2051,17 +2037,28 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         r.left = 0;
         r.right = mHoursWidth;
         canvas.drawRect(r, p);
+
+        int startIndex = -1;
         int todayIndex = mTodayJulianDay - mFirstJulianDay;
-        if (mNumDays > 1 && todayIndex >= 0 && todayIndex < mNumDays) {
-            // Draw the today highlight
+        if (todayIndex < 0) {
+            // Future
+            startIndex = 0;
+        } else if (todayIndex >= 1 && todayIndex + 1 < mNumDays) {
+            // Multiday - tomorrow is visible.
+            startIndex = todayIndex + 1;
+        }
+
+        if (startIndex >= 0) {
+            // Draw the future highlight
             r.top = 0;
             r.bottom = mFirstCell - 1;
-            r.left = computeDayLeftPosition(todayIndex) + 1;
-            r.right = computeDayLeftPosition(todayIndex + 1);
-            p.setColor(mTodayBgColor);
+            r.left = computeDayLeftPosition(startIndex) + 1;
+            r.right = computeDayLeftPosition(mNumDays + 1);
+            p.setColor(mFutureBgColor);
             p.setStyle(Style.FILL);
             canvas.drawRect(r, p);
         }
+
         if (mSelectionAllday) {
             // Draw the selection highlight on the selected all-day area
             mRect.top = DAY_HEADER_HEIGHT + 1;
@@ -2091,11 +2088,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if (mNumDays == 1 && ONE_DAY_HEADER_HEIGHT == 0) {
             return;
         }
-        int todayNum = mTodayJulianDay - mFirstJulianDay;
 
         p.setTypeface(mBold);
         p.setTextAlign(Paint.Align.RIGHT);
-        int deltaX = mCellWidth + DAY_GAP;
         int cell = mFirstJulianDay;
 
         String[] dayNames;
@@ -2345,6 +2340,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         p.setStyle(Style.FILL);
         p.setAntiAlias(false);
         canvas.drawRect(r, p);
+
+        // Draw background for grid area
         if (mNumDays == 1 && todayIndex == 0) {
             // Draw a white background for the time later than current time
             int lineY = mCurrentTime.hour * (mCellHeight + HOUR_GAP)
@@ -2355,15 +2352,39 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 r.right = mViewWidth;
                 r.top = lineY;
                 r.bottom = mViewStartY + mViewHeight;
-                p.setColor(mTodayBgColor);
+                p.setColor(mFutureBgColor);
                 canvas.drawRect(r, p);
             }
         } else if (todayIndex >= 0 && todayIndex < mNumDays) {
-            r.left = computeDayLeftPosition(todayIndex) + 1;
-            r.right = computeDayLeftPosition(todayIndex + 1);
+            // Draw today with a white background for the time later than current time
+            int lineY = mCurrentTime.hour * (mCellHeight + HOUR_GAP)
+                    + ((mCurrentTime.minute * mCellHeight) / 60) + 1;
+            if (lineY < mViewStartY + mViewHeight) {
+                lineY = Math.max(lineY, mViewStartY);
+                r.left = computeDayLeftPosition(todayIndex) + 1;
+                r.right = computeDayLeftPosition(todayIndex + 1);
+                r.top = lineY;
+                r.bottom = mViewStartY + mViewHeight;
+                p.setColor(mFutureBgColor);
+                canvas.drawRect(r, p);
+            }
+
+            // Paint Tomorrow and later days with future color
+            if (todayIndex + 1 < mNumDays) {
+                r.left = computeDayLeftPosition(todayIndex + 1) + 1;
+                r.right = computeDayLeftPosition(mNumDays + 1);
+                r.top = mDestRect.top;
+                r.bottom = mDestRect.bottom;
+                p.setColor(mFutureBgColor);
+                canvas.drawRect(r, p);
+            }
+        } else if (todayIndex < 0) {
+            // Future
+            r.left = computeDayLeftPosition(0) + 1;
+            r.right = computeDayLeftPosition(mNumDays + 1);
             r.top = mDestRect.top;
             r.bottom = mDestRect.bottom;
-            p.setColor(mTodayBgColor);
+            p.setColor(mFutureBgColor);
             canvas.drawRect(r, p);
         }
         p.setAntiAlias(true);
@@ -2558,7 +2579,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         p.setStyle(Style.FILL);
 
         int y = DAY_HEADER_HEIGHT + ALLDAY_TOP_MARGIN;
-        float left = mHoursWidth;
         int lastDay = firstDay + numDays - 1;
         final ArrayList<Event> events = mAllDayEvents;
         int numEvents = events.size();
@@ -2931,17 +2951,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             if (bottom > box.bottom) {
                 bottom = box.bottom;
             }
-            if (false) {
-                int flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL
-                        | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
-                if (DateFormat.is24HourFormat(mContext)) {
-                    flags |= DateUtils.FORMAT_24HOUR;
-                }
-                String timeRange = DateUtils.formatDateRange(mContext, ev.startMillis,
-                        ev.endMillis, flags);
-                Log.i("Cal", "left: " + left + " right: " + right + " top: " + top + " bottom: "
-                        + bottom + " ev: " + timeRange + " " + ev.title);
-            }
+//            if (false) {
+//                int flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL
+//                        | DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
+//                if (DateFormat.is24HourFormat(mContext)) {
+//                    flags |= DateUtils.FORMAT_24HOUR;
+//                }
+//                String timeRange = DateUtils.formatDateRange(mContext, ev.startMillis,
+//                        ev.endMillis, flags);
+//                Log.i("Cal", "left: " + left + " right: " + right + " top: " + top + " bottom: "
+//                        + bottom + " ev: " + timeRange + " " + ev.title);
+//            }
             int upDistanceMin = 10000; // any large number
             int downDistanceMin = 10000; // any large number
             int leftDistanceMin = 10000; // any large number
@@ -3131,7 +3151,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         r.left = (int) event.left + EVENT_RECT_LEFT_MARGIN;
         r.right = (int) event.right;
 
-        Drawable eventBoxDrawable;
         switch (event.selfAttendeeStatus) {
             case Attendees.ATTENDEE_STATUS_INVITED:
                 p.setStyle(Style.STROKE);
@@ -3145,7 +3164,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             case Attendees.ATTENDEE_STATUS_TENTATIVE:
             default:
                 p.setStyle(Style.FILL_AND_STROKE);
-                // eventBoxDrawable = mAcceptedOrTentativeEventBoxDrawable;
                 break;
         }
 
@@ -3290,30 +3308,30 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     // This is to replace p.setStyle(Style.STROKE); canvas.drawRect() since it
     // doesn't work well with hardware acceleration
-    private void drawEmptyRect(Canvas canvas, Rect r, int color) {
-        int linesIndex = 0;
-        mLines[linesIndex++] = r.left;
-        mLines[linesIndex++] = r.top;
-        mLines[linesIndex++] = r.right;
-        mLines[linesIndex++] = r.top;
-
-        mLines[linesIndex++] = r.left;
-        mLines[linesIndex++] = r.bottom;
-        mLines[linesIndex++] = r.right;
-        mLines[linesIndex++] = r.bottom;
-
-        mLines[linesIndex++] = r.left;
-        mLines[linesIndex++] = r.top;
-        mLines[linesIndex++] = r.left;
-        mLines[linesIndex++] = r.bottom;
-
-        mLines[linesIndex++] = r.right;
-        mLines[linesIndex++] = r.top;
-        mLines[linesIndex++] = r.right;
-        mLines[linesIndex++] = r.bottom;
-        mPaint.setColor(color);
-        canvas.drawLines(mLines, 0, linesIndex, mPaint);
-    }
+//    private void drawEmptyRect(Canvas canvas, Rect r, int color) {
+//        int linesIndex = 0;
+//        mLines[linesIndex++] = r.left;
+//        mLines[linesIndex++] = r.top;
+//        mLines[linesIndex++] = r.right;
+//        mLines[linesIndex++] = r.top;
+//
+//        mLines[linesIndex++] = r.left;
+//        mLines[linesIndex++] = r.bottom;
+//        mLines[linesIndex++] = r.right;
+//        mLines[linesIndex++] = r.bottom;
+//
+//        mLines[linesIndex++] = r.left;
+//        mLines[linesIndex++] = r.top;
+//        mLines[linesIndex++] = r.left;
+//        mLines[linesIndex++] = r.bottom;
+//
+//        mLines[linesIndex++] = r.right;
+//        mLines[linesIndex++] = r.top;
+//        mLines[linesIndex++] = r.right;
+//        mLines[linesIndex++] = r.bottom;
+//        mPaint.setColor(color);
+//        canvas.drawLines(mLines, 0, linesIndex, mPaint);
+//    }
 
     private void updateEventDetails() {
         if (mSelectedEvent == null || mSelectionMode == SELECTION_HIDDEN
