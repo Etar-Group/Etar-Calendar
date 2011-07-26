@@ -123,6 +123,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
                 // Start the loader again
                 mEventUri = updateUri();
+
                 mLoader.setUri(mEventUri);
                 mLoader.startLoading();
                 mLoader.onContentChanged();
@@ -280,7 +281,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mListView.setOnTouchListener(this);
-        getLoaderManager().initLoader(0, null, this);
+        mLoader = (CursorLoader) getLoaderManager().initLoader(0, null, this);
     }
 
     public MonthByWeekFragment() {
@@ -312,6 +313,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         if (mIsMiniMonth) {
             return null;
         }
+        CursorLoader loader;
         synchronized (mUpdateLoader) {
             mFirstLoadedJulianDay =
                     Time.getJulianDay(mSelectedDay.toMillis(true), mSelectedDay.gmtoff)
@@ -319,15 +321,15 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             mEventUri = updateUri();
             String where = updateWhere();
 
-            mLoader = new CursorLoader(
+            loader = new CursorLoader(
                     getActivity(), mEventUri, Event.EVENT_PROJECTION, where,
                     null /* WHERE_CALENDARS_SELECTED_ARGS */, INSTANCES_SORT_ORDER);
-            mLoader.setUpdateThrottle(LOADER_THROTTLE_DELAY);
+            loader.setUpdateThrottle(LOADER_THROTTLE_DELAY);
         }
         if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "Returning new loader with uri: " + mEventUri);
         }
-        return mLoader;
+        return loader;
     }
 
     @Override
@@ -362,6 +364,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
                 Log.d(TAG, "Found " + data.getCount() + " cursor entries for uri " + mEventUri);
             }
             CursorLoader cLoader = (CursorLoader) loader;
+            if (mEventUri == null) {
+                mEventUri = cLoader.getUri();
+            }
             if (cLoader.getUri().compareTo(mEventUri) != 0) {
                 // We've started a new query since this loader ran so ignore the
                 // result
@@ -375,6 +380,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         }
     }
 
+    @Override
     public void onLoaderReset(Loader<Cursor> loader) {
     }
 
