@@ -1002,12 +1002,10 @@ public class Utils {
      * @param context
      */
     public static void returnToCalendarHome(Context context) {
-        Intent launchIntent = new Intent();
+        Intent launchIntent = new Intent(context, AllInOneActivity.class);
         launchIntent.setAction(Intent.ACTION_VIEW);
         launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
-        launchIntent.setClass(context, AllInOneActivity.class);
-        launchIntent.setFlags(
-                Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        launchIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(launchIntent);
     }
 

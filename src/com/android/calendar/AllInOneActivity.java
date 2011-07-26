@@ -201,6 +201,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
+
+
         // Get time from intent or icicle
         long timeMillis = -1;
         int viewType = -1;
@@ -268,16 +270,16 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // overwrite us
         configureActionBar(viewType);
 
-        // Must be the first to register because this activity can modify the
-        // list of event handlers in it's handle method. This affects who the
-        // rest of the handlers the controller dispatches to are.
-        mController.registerEventHandler(HANDLER_KEY, this);
-
         mHomeTime = (TextView) findViewById(R.id.home_time);
         mMiniMonth = findViewById(R.id.mini_month);
         mCalendarsList = findViewById(R.id.calendar_list);
         mMiniMonthContainer = findViewById(R.id.mini_month_container);
         mSecondaryPane = findViewById(R.id.secondary_pane);
+
+        // Must register as the first activity because this activity can modify
+        // the list of event handlers in it's handle method. This affects who
+        // the rest of the handlers the controller dispatches to are.
+        mController.registerFirstEventHandler(HANDLER_KEY, this);
 
         initFragments(timeMillis, viewType, icicle);
 
@@ -394,6 +396,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Must register as the first activity because this activity can modify
+        // the list of event handlers in it's handle method. This affects who
+        // the rest of the handlers the controller dispatches to are.
+        mController.registerFirstEventHandler(HANDLER_KEY, this);
+
         mContentResolver.registerContentObserver(CalendarContract.Events.CONTENT_URI,
                 true, mObserver);
         if (mUpdateOnResume) {
@@ -430,6 +438,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     @Override
     protected void onPause() {
         super.onPause();
+
+        mController.deregisterEventHandler(HANDLER_KEY);
         mPaused = true;
         mHomeTime.removeCallbacks(mHomeTimeUpdater);
         if (mActionBarMenuSpinnerAdapter != null) {
