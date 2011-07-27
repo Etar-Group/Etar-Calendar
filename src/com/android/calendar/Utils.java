@@ -21,6 +21,7 @@ import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import com.android.calendar.CalendarController.ViewType;
 
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,6 +36,9 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.MenuItem;
+import android.widget.SearchView;
+
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
 
 import java.util.ArrayList;
@@ -1007,6 +1011,19 @@ public class Utils {
         launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
         launchIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(launchIntent);
+    }
+
+    /**
+     * This sets up a search view to use Calendar's search suggestions provider
+     * and to allow refining the search.
+     * 
+     * @param view The {@link SearchView} to set up
+     * @param act The activity using the view
+     */
+    public static void setUpSearchView(SearchView view, Activity act) {
+        SearchManager searchManager = (SearchManager) act.getSystemService(Context.SEARCH_SERVICE);
+        view.setSearchableInfo(searchManager.getSearchableInfo(act.getComponentName()));
+        view.setQueryRefinementEnabled(true);
     }
 
     /**

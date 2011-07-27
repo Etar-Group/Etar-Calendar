@@ -20,7 +20,7 @@
         android:alphabeticShortcut="f"
         android:title="@string/search"
         android:icon="@drawable/ic_menu_search_holo_light"
-        android:showAsAction="never"
+        android:showAsAction="never|collapseActionView"
         android:actionViewClass="android.widget.SearchView" />
     <item
         android:id="@+id/action_today"
@@ -38,7 +38,8 @@
         android:id="@+id/action_refresh"
         android:alphabeticShortcut="r"
         android:title="@string/calendar_refresh"
-        android:icon="@drawable/ic_menu_refresh_holo_light" />
+        android:icon="@drawable/ic_menu_refresh_holo_light"
+        android:showAsAction="never" />
     <item
         android:id="@+id/action_select_visible_calendars"
         android:title="@string/menu_select_visible_calendars"
@@ -48,5 +49,6 @@
         android:id="@+id/action_settings"
         android:alphabeticShortcut="s"
         android:title="@string/menu_preferences"
-        android:icon="@drawable/ic_menu_settings_holo_light" />
+        android:icon="@drawable/ic_menu_settings_holo_light"
+        android:showAsAction="never" />
 </menu>
