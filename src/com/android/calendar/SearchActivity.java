@@ -47,7 +47,7 @@ import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventFragment;
 
 public class SearchActivity extends Activity implements CalendarController.EventHandler,
-        SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+        SearchView.OnQueryTextListener, OnActionExpandListener {
 
     private static final String TAG = SearchActivity.class.getSimpleName();
 
@@ -226,12 +226,11 @@ public class SearchActivity extends Activity implements CalendarController.Event
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.search_title_bar, menu);
         MenuItem item = menu.findItem(R.id.action_search);
+        item.expandActionView();
+        item.setOnActionExpandListener(this);
         SearchView searchView = (SearchView) item.getActionView();
         Utils.setUpSearchView(searchView, this);
-        searchView.setIconified(false);
         searchView.setQuery(mQuery, false);
-        searchView.setOnCloseListener(this);
-        searchView.clearFocus();
         return true;
     }
 
@@ -331,8 +330,13 @@ public class SearchActivity extends Activity implements CalendarController.Event
     }
 
     @Override
-    public boolean onClose() {
-        Utils.returnToCalendarHome(this);
+    public boolean onMenuItemActionExpand(MenuItem item) {
         return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+        Utils.returnToCalendarHome(this);
+        return false;
     }
 }
