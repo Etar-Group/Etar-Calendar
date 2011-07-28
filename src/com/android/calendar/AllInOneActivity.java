@@ -1015,7 +1015,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if ("TARDIS".equalsIgnoreCase(query)) {
             Utils.tardis();
         }
-        mSearchView.clearFocus();
+        mSearchMenu.collapseActionView();
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, -1, query,
                 getComponentName());
         return false;
