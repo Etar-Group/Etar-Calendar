@@ -231,6 +231,7 @@ public class SearchActivity extends Activity implements CalendarController.Event
         SearchView searchView = (SearchView) item.getActionView();
         Utils.setUpSearchView(searchView, this);
         searchView.setQuery(mQuery, false);
+        searchView.clearFocus();
         return true;
     }
 

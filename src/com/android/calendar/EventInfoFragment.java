@@ -1028,7 +1028,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
 
             // Show the event timezone if it is different from the local timezone after the time
-            // TODO: Fix comparison of Timezone
             String localTimezone = Utils.getTimeZone(mActivity, mTZUpdater);
             if (!TextUtils.equals(localTimezone, eventTimezone)) {
                 String displayName;
