@@ -13,9 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"לוח שנה"</string>
     <string name="what_label" msgid="1933578391985810049">"איזה"</string>
     <string name="where_label" msgid="3472482206065595118">"היכן"</string>
@@ -43,7 +41,7 @@
   </plurals>
     <!-- no translation found for weekN:other (8085184869561028365) -->
     <string name="calendar_refresh" msgid="6172731193680500025">"רענן"</string>
-    <string name="show_agenda_view" msgid="7971854300981408347">"הצג סדר יום"</string>
+    
     <string name="show_day_view" msgid="5782512782605466016">"הצג יום"</string>
     <string name="agenda_view" msgid="5566084759423843245">"סדר יום"</string>
     <string name="day_view" msgid="4467754504843584437">"יום"</string>
@@ -54,27 +52,27 @@
     <string name="event_edit" msgid="4006961928830064662">"ערוך אירוע"</string>
     <string name="event_delete" msgid="2386667193277770442">"מחק אירוע"</string>
     <string name="goto_today" msgid="9162136434410891230">"היום"</string>
-    <string name="menu_select_calendars" msgid="6200145996783123958">"לוחות שנה"</string>
+    
     <string name="menu_preferences" msgid="9120238479503233925">"הגדרות"</string>
     <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
-    <skip />
+    <skip/>
     <string name="search" msgid="550656004486017426">"חיפוש"</string>
     <string name="hide_controls" msgid="830320505938520882">"הסתר פקדים"</string>
     <string name="show_controls" msgid="715520586028062621">"הצג פקדים"</string>
     <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
-    <skip />
-    <string name="synced_visible" msgid="1406744353749335651">"מסונכרן, נראה"</string>
-    <string name="synced_not_visible" msgid="54032655953110609">"מסונכרן, לא נראה"</string>
-    <string name="not_synced_not_visible" msgid="7178879061972059481">"לא מסונכרן, לא נראה"</string>
+    <skip/>
+    
+    
+    
     <string name="synced" msgid="7913940305983383493">"מסונכרן"</string>
     <string name="not_synced" msgid="4275114941801829419">"לא מסונכרן"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"חשבון זה אינו מסונכרן וייתכן שלוחות השנה שלך לא יהיו מעודכנים."</string>
     <string name="accounts" msgid="849401841083180306">"חשבונות וסנכרון"</string>
     <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
-    <skip />
+    <skip/>
     <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
-    <skip />
-    <string name="event_edit_title" msgid="8487120407086532444">"פרטי האירוע"</string>
+    <skip/>
+    
     <string name="hint_what" msgid="709155115005044531">"שם האירוע"</string>
     <string name="hint_where" msgid="4972598001033801974">"מקום"</string>
     <string name="hint_description" msgid="1910143586169033232">"תיאור"</string>
@@ -83,8 +81,8 @@
     <string name="saving_event" msgid="7716081507367732169">"האירוע נשמר"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"ההזמנות נשלחו"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"העדכונים נשלחו"</string>
-    <string name="loading_calendars_title" msgid="3819254313413902272">"טוען לוחות שנה"</string>
-    <string name="loading_calendars_message" msgid="8266077515011438420">"טוען לוחות שנה..."</string>
+    
+    
     <string name="alert_title" msgid="7869592820853066853">"התראות של לוח שנה"</string>
     <string name="event_info_title" msgid="56024222340421620">"הצג אירוע"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"הזמנה לפגישה"</string>
@@ -103,13 +101,13 @@
     <string name="add_guests_label" msgid="7294569977062998743">"הוסף אורחים"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"לוח שנה:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"מארגן:"</string>
-    <string name="view_event_timezone_label" msgid="4757495486359041757">"אזור זמן מקומי:"</string>
+    
     <string name="view_event_response_label" msgid="8382281658458798329">"משתתף?"</string>
     <string name="response_yes" msgid="2027484304899988350">"כן"</string>
     <string name="response_maybe" msgid="7791500973627841695">"אולי"</string>
     <string name="response_no" msgid="561911691884148136">"לא"</string>
-    <string name="event_info_timezone" msgid="6884490917897502454">"אזור זמן:"</string>
-    <string name="event_info_repetition" msgid="1556101382780225893">"חזרה:"</string>
+    
+    
     <string name="event_info_organizer" msgid="9138683335394832629">"מארגן:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"עוד"</string>
     <string name="event_info_desc_less" msgid="8295683160345195225">"פחות"</string>
@@ -125,7 +123,7 @@
     <string name="edit_event_label" msgid="7413222956349977161">"פרטים"</string>
     <string name="edit_label" msgid="8934331258435656534">"ערוך"</string>
     <string name="delete_label" msgid="874742811918030739">"מחק"</string>
-    <string name="delete_event_label" msgid="3738436215987360463">"מחק אירוע"</string>
+    
     <string name="save_label" msgid="2133599104834432589">"בוצע"</string>
     <string name="discard_label" msgid="2394623883289782541">"ביטול"</string>
     <string name="import_label" msgid="6993796574741477222">"ייבא"</string>
@@ -186,11 +184,11 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"אין אירועים קרבים ביומן"</string>
     <string name="tomorrow" msgid="614434811813859237">"מחר"</string>
-    <string name="in_progress" msgid="3637799356103489011">"מתבצע"</string>
-    <string name="today" msgid="8577375020252453006">"היום"</string>
+    
+    
     <string name="copy_db" msgid="437691290566699292">"שלח מסד נתונים"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"מחפש <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    <string name="accessibility_new_event" msgid="6063141474224122288">"אירוע חדש"</string>
+    
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"הסר משתתף"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"תאריך התחלה"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"שעת התחלה"</string>
@@ -202,7 +200,7 @@
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"הוסף משתתף"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"סנכרן לוח שנה"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"אירוע הנמשך יום שלם"</string>
-    <string name="accessibility_refresh" msgid="3458716385448853522">"רענן"</string>
+    
     <string name="accessibility_repeats" msgid="1629279916830919582">"חזרה"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"שעת תזכורת"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"סוג תזכורת"</string>

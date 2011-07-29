@@ -13,9 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_methods_labels">
     <item msgid="37518307108263308">"Kontextové okná"</item>
     <item msgid="1751151680520784746">"E-mail"</item>
@@ -171,11 +169,7 @@
     <item msgid="8854145743148992583">"Možno"</item>
     <item msgid="6174292185978948873">"Nie"</item>
   </string-array>
-  <string-array name="response_labels2">
-    <item msgid="5967437218994333578">"Áno"</item>
-    <item msgid="1254269034445160199">"Možno"</item>
-    <item msgid="1099407454885268744">"Nie"</item>
-  </string-array>
+  
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"Iba túto udalosť"</item>
     <item msgid="8626755531271570950">"Túto a budúce udalosti"</item>

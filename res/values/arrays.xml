@@ -13,7 +13,6 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <resources>
     <!-- Choices for the "Reminder method" spinner.
          These must be kept in sync with the reminder_methods_values array.
@@ -337,14 +336,10 @@
         <item>Maybe</item>
         <item>No</item>
     </string-array>
-    <string-array name="response_labels2">
-        <item>Yes</item>
-        <item>Maybe</item>
-        <item>No</item>
-    </string-array>
+    
 
     <!-- The corresponding indices are defined in DeleteEventHelper.java -->
-    <skip />
+    <skip/>
     <string-array name="delete_repeating_labels">
         <item>Only this event</item>
         <item>This &amp; future events</item>
@@ -358,14 +353,14 @@
          code where you can't delete one instance of a repeating event that
          was created on the phone until that event has been synced to the server.
      -->
-    <skip />
+    <skip/>
     <string-array name="delete_repeating_labels_no_selected">
         <item>This &amp; future events</item>
         <item>All events</item>
     </string-array>
 
     <!-- The corresponding array indices are defined in EventInfoActivity.java -->
-    <skip />
+    <skip/>
     <!-- The list of choices displayed in a dialog box when the user wants to
     respond to an invitation that repeats. -->
     <string-array name="change_response_labels">

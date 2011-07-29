@@ -19,9 +19,7 @@
 -->
 <resources>
 
-    <style name="Alert" parent="android:Theme.Dialog">
-        <item name="android:windowBackground">@null</item>
-    </style>
+    
 
     <style name="MinusButton">
         <item name="android:background">?android:attr/selectableItemBackground</item>

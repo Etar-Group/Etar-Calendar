@@ -13,9 +13,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <resources>
-    <dimen name="edit_event_separator_height">15dip</dimen>
+    
     <dimen name="day_label_text_size">16sp</dimen>
     <dimen name="all_day_bottom_margin">10dip</dimen>
     <dimen name="one_day_header_height">0dip</dimen>

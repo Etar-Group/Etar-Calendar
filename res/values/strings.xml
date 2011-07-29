@@ -13,13 +13,12 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- This is the label underneath the icon for Calendar -->
     <string name="app_label">Calendar</string>
 
     <!-- Shared Labels. These labels are shared among the activities. -->
-    <skip />
+    <skip/>
     <!-- This is the label for the title or name of an event -->
     <string name="what_label">What</string>
     <!-- This is the label for the location of an event -->
@@ -86,13 +85,13 @@
     </plurals>
 
     <!-- Menu items: -->
-    <skip />
+    <skip/>
     <!-- This is a label on a context menu item. Pressing this menu item to initiate
         syncing of your Calendar data with the server. [CHAR LIMIT=11] -->
     <string name="calendar_refresh"> "Refresh"</string>
     <!-- This is a label on a context menu item. Pressing this menu item displays the
          Agenda view. -->
-    <string name="show_agenda_view">"Show agenda"</string>
+    
     <!-- This is a label on a context menu item. Pressing this menu item displays the
          Day view. -->
     <string name="show_day_view">"Show day"</string>
@@ -127,7 +126,7 @@
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to see the list of calendars that he is viewing and to then add
          or remove selected calendars. -->
-    <string name="menu_select_calendars">"Calendars"</string>
+    
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to view and edit his Settings (or Preferences) -->
     <string name="menu_preferences">"Settings"</string>
@@ -145,18 +144,18 @@
     <string name="show_controls">"Show controls"</string>
 
     <!-- Month view -->
-    <skip />
+    <skip/>
 
     <!-- Select Visible Calendars activity -->
-    <skip />
+    <skip/>
     <!-- Title of "My calendars" screen -->
     <string name="select_visible_calendars_title">"Calendars to Display"</string>
     <!-- Synced and visible status message -->
-    <string name="synced_visible">synced, visible</string>
+    
     <!-- Synced but not visible status message -->
-    <string name="synced_not_visible">synced, not visible</string>
+    
     <!-- not Synced or visible status message -->
-    <string name="not_synced_not_visible">not synced, not visible</string>
+    
     <!-- Synced status message displayed when the given calendar is stored/synced on the device
         [CHAR LIMIT=60] -->
     <string name="synced"> synced</string>
@@ -177,9 +176,9 @@
     <string name="select_synced_calendars_button">Calendars to sync</string>
 
     <!-- Event edit activity -->
-    <skip />
+    <skip/>
     <!-- The title of the screen where the user edits an event [CHAR LIMIT=17] -->
-    <string name="event_edit_title">"Event details"</string>
+    
     <!-- Default value of What field (as a hint to the user) [CHAR LIMIT=15] -->
     <string name="hint_what">"Event name"</string>
     <!-- Default value of Where field (as a hint to the user)[CHAR LIMIT=15] -->
@@ -200,20 +199,20 @@
     <string name="saving_event_with_guest">"Updates sent"</string>
     <!-- Title of message displayed to indicate available calendars are being loaded when creating
          a new event -->
-    <string name="loading_calendars_title">"Loading calendars"</string>
+    
     <!-- Body of message displayed to indicate available calendars are being loaded when creating
          a new event -->
-    <string name="loading_calendars_message">"Loading calendars\u2026"</string>
+    
 
     <!-- The alert toast is not actually being displayed for some reason. -->
-    <skip />
+    <skip/>
     <!-- the title of the alert/notification activity -->
     <string name="alert_title">Calendar notifications</string>
     <!-- Notification window messages: -->
-    <skip />
+    <skip/>
 
     <!-- Event info/edit screen labels:-->
-    <skip />
+    <skip/>
     <!-- This is the title of the screen used to view the details of an event -->
     <string name="event_info_title">View event</string>
     <!-- This is the title of the screen used to view the details of an invitation
@@ -221,7 +220,7 @@
     <string name="event_info_title_invite">Meeting invitation</string>
 
     <!-- EditEventActivity specific strings: -->
-    <skip />
+    <skip/>
     <!-- Events have a start date/time and an end date/time. The display shows
          the start and end times like 'From start date To end date'. This is the
          label before the 'end date'. -->
@@ -258,13 +257,13 @@
     <string name="google_email_domain">gmail.com</string>
 
     <!-- View Event -->
-    <skip />
+    <skip/>
     <!-- Label for which calendar an event is part of -->
     <string name="view_event_calendar_label">Calendar:</string>
     <!-- Label for the event organizer -->
     <string name="view_event_organizer_label">Organizer:</string>
     <!-- Label for the local timezone -->
-    <string name="view_event_timezone_label">Local time zone:</string>
+    
     <!-- Label for whether the user is attending this event. This is shown when
          a user is invited to a meeting or event.  The possible answers are
          'yes', 'no', and 'maybe' (and, initially, 'no response'). -->
@@ -278,9 +277,9 @@
 
     <!-- Event Info strings-->
     <!-- Time Zone Label [CHAR LIMIT=12]-->
-    <string name="event_info_timezone">TimeZone:</string>
+    
     <!-- Repetition Label [CHAR LIMIT=12]-->
-    <string name="event_info_repetition">Repetition:</string>
+    
     <!-- Organizer Label [CHAR LIMIT=12]-->
     <string name="event_info_organizer">Organizer:</string>
     <!-- More label in description button [CHAR LIMIT=6]-->
@@ -291,7 +290,7 @@
     <string name="event_info_reminders_label">Reminders</string>
 
     <!-- Agenda View strings -->
-    <skip />
+    <skip/>
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
     <string name="agenda_today">TODAY, <xliff:g id="date">%1$s</xliff:g></string>
     <!-- This is shown as part of the heading at the top of a list of today's events. -->
@@ -306,18 +305,18 @@
     <string name="show_newer_events">Touch to view events after <xliff:g id="newest_search_range">%1$s</xliff:g></string>
 
     <!-- Search activity strings -->
-    <skip />
+    <skip/>
     <!-- Title of the search screen [CHAR LIMIT=30] -->
     <string name="search_title">Search my calendars</string>
 
     <!-- ICS Import activity -->
-    <skip />
+    <skip/>
     <!-- This is a abbreviation for 'Number of events' and is a label next to
          an input for the user to enter the number of events to import. -->
     <string name="num_events">"Num events"</string>
 
     <!-- Button labels: -->
-    <skip />
+    <skip/>
     <!-- This is the title of a popup window that is displayed when the user
          edits a repeating event. [CHAR LIMIT=20]-->
     <string name="edit_event_label">"Details"</string>
@@ -327,7 +326,7 @@
     <!-- The button label for deleting an event -->
     <string name="delete_label">"Delete"</string>
     <!-- A menu item for deleting an event -->
-    <string name="delete_event_label">"Delete event"</string>
+    
     <!-- The button label for saving an event -->
     <string name="save_label">Done</string>
     <!-- The button label for discarding changes to an event -->
@@ -336,7 +335,7 @@
     <string name="import_label">"Import"</string>
 
     <!-- Button labels on expanded notification reminders: -->
-    <skip />
+    <skip/>
     <!-- The button label for making the reminder alarms go away temporarily.
          The reminder alarms will fire off again in 5 minutes. -->
     <string name="snooze_all_label">"Snooze all"</string>
@@ -345,7 +344,7 @@
     <string name="dismiss_all_label">"Dismiss all"</string>
 
     <!-- Repetition dialog options: -->
-    <skip />
+    <skip/>
     <!-- A label in a multiple-choice list for the specifying that an event does
          not repeat -->
     <string name="does_not_repeat">One-time event</string>
@@ -404,7 +403,7 @@
     <!-- This is the button to create a new event in a dialog window. [CHAR LIMIT=30] -->
     <string name="new_event_dialog_option">"New event"</string>
     <!-- Confirmation dialog message -->
-    <skip />
+    <skip/>
     <!-- This is a confirmation message in a popup dialog that appears when the
          user has asked to delete an event. The user still has a chance to cancel
          this operation. -->
@@ -510,7 +509,7 @@
     <string name="prefDialogTitle_vibrateWhen">Vibrate</string>
 
     <!-- Widget -->
-    <skip />
+    <skip/>
     <!-- Title for calendar gadget when displayed in list of all other gadgets -->
     <string name="gadget_title">Calendar</string>
 
@@ -531,10 +530,10 @@
     <string name="tomorrow">Tomorrow</string>
 
     <!-- Text to show on gadget when an event is currently in progress -->
-    <string name="in_progress">in progress</string>
+    
 
     <!-- Text to show on gadget when an all-day event is in progress -->
-    <string name="today">Today</string>
+    
 
     <!-- DO NOT TRANSLATE -->
     <string name="tardis">TARDIS</string>
@@ -549,7 +548,7 @@
     <!-- Accessibility Events -->
     <!-- Strings that describes actions for buttons without text -->
     <!-- Create a new calendar event [CHAR LIMIT = NONE]-->
-    <string name="accessibility_new_event">New event</string>
+    
     <!-- Remove a name of an attendee from a calendar event [CHAR LIMIT = NONE]-->
     <string name="accessibility_remove_attendee">Remove attendee</string>
     <!-- Pick a starting date for a new event [CHAR LIMIT = NONE]-->
@@ -573,7 +572,7 @@
     <!-- Mark this event as an "all day event" [CHAR LIMIT = NONE]-->
     <string name="accessibility_all_day">All day event</string>
     <!-- Refresh the data in the calendar [CHAR LIMIT = NONE]-->
-    <string name="accessibility_refresh">Refresh</string>
+    
     <!-- Choose the type of repetition for the event (daily, weekly, etc.[CHAR LIMIT = NONE]-->
     <string name="accessibility_repeats">Repetition</string>
     <!-- Set the time for the reminder[CHAR LIMIT = NONE]-->

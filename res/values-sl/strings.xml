@@ -13,14 +13,12 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Koledar"</string>
     <string name="what_label" msgid="1933578391985810049">"Kaj"</string>
     <string name="where_label" msgid="3472482206065595118">"Kje"</string>
     <!-- no translation found for when_label (894636567327261599) -->
-    <skip />
+    <skip/>
     <string name="timezone_label" msgid="3988530993300431650">"Časovni pas"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Gostje"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -44,7 +42,7 @@
   </plurals>
     <!-- no translation found for weekN:other (8085184869561028365) -->
     <string name="calendar_refresh" msgid="6172731193680500025">"Osveži"</string>
-    <string name="show_agenda_view" msgid="7971854300981408347">"Pokaži dnevni red"</string>
+    
     <string name="show_day_view" msgid="5782512782605466016">"Pokaži dan"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Dnevni red"</string>
     <string name="day_view" msgid="4467754504843584437">"Dan"</string>
@@ -55,27 +53,27 @@
     <string name="event_edit" msgid="4006961928830064662">"Uredi dogodek"</string>
     <string name="event_delete" msgid="2386667193277770442">"Izbriši dogodek"</string>
     <string name="goto_today" msgid="9162136434410891230">"Danes"</string>
-    <string name="menu_select_calendars" msgid="6200145996783123958">"Koledarji"</string>
+    
     <string name="menu_preferences" msgid="9120238479503233925">"Nastavitve"</string>
     <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
-    <skip />
+    <skip/>
     <string name="search" msgid="550656004486017426">"Išči"</string>
     <string name="hide_controls" msgid="830320505938520882">"Skrij kontrolnike"</string>
     <string name="show_controls" msgid="715520586028062621">"Pokaži kontrolnike"</string>
     <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
-    <skip />
-    <string name="synced_visible" msgid="1406744353749335651">"sinhronizirano, vidno"</string>
-    <string name="synced_not_visible" msgid="54032655953110609">"sinhronizirano, ni vidno"</string>
-    <string name="not_synced_not_visible" msgid="7178879061972059481">"ni sinhronizirano, ni vidno"</string>
+    <skip/>
+    
+    
+    
     <string name="synced" msgid="7913940305983383493">"sinhronizirano"</string>
     <string name="not_synced" msgid="4275114941801829419">"ni sinhronizirano"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Ta račun ni sinhroniziran in vaši koledarji morda niso posodobljeni."</string>
     <string name="accounts" msgid="849401841083180306">"Računi in sinhronizacija"</string>
     <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
-    <skip />
+    <skip/>
     <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
-    <skip />
-    <string name="event_edit_title" msgid="8487120407086532444">"Podrobnosti o dogodku"</string>
+    <skip/>
+    
     <string name="hint_what" msgid="709155115005044531">"Ime dogodka"</string>
     <string name="hint_where" msgid="4972598001033801974">"Lokacija"</string>
     <string name="hint_description" msgid="1910143586169033232">"Opis"</string>
@@ -84,8 +82,8 @@
     <string name="saving_event" msgid="7716081507367732169">"Dogodek je shranjen"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Povabila so poslana"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Posodobitve so poslane"</string>
-    <string name="loading_calendars_title" msgid="3819254313413902272">"Nalaganje koledarjev"</string>
-    <string name="loading_calendars_message" msgid="8266077515011438420">"Nalaganje koledarjev ..."</string>
+    
+    
     <string name="alert_title" msgid="7869592820853066853">"Obvestila koledarja"</string>
     <string name="event_info_title" msgid="56024222340421620">"Ogled dogodka"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Povabilo na srečanje"</string>
@@ -104,13 +102,13 @@
     <string name="add_guests_label" msgid="7294569977062998743">"Dodaj goste"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Koledar:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
-    <string name="view_event_timezone_label" msgid="4757495486359041757">"Lokalni časovni pas:"</string>
+    
     <string name="view_event_response_label" msgid="8382281658458798329">"Prisoten?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Da"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Morda"</string>
     <string name="response_no" msgid="561911691884148136">"Ne"</string>
-    <string name="event_info_timezone" msgid="6884490917897502454">"Časovni pas:"</string>
-    <string name="event_info_repetition" msgid="1556101382780225893">"Ponovitev:"</string>
+    
+    
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizator:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"Več"</string>
     <string name="event_info_desc_less" msgid="8295683160345195225">"Manj"</string>
@@ -126,7 +124,7 @@
     <string name="edit_event_label" msgid="7413222956349977161">"Podrobnosti"</string>
     <string name="edit_label" msgid="8934331258435656534">"Urejanje"</string>
     <string name="delete_label" msgid="874742811918030739">"Izbriši"</string>
-    <string name="delete_event_label" msgid="3738436215987360463">"Izbriši dogodek"</string>
+    
     <string name="save_label" msgid="2133599104834432589">"Dokončano"</string>
     <string name="discard_label" msgid="2394623883289782541">"Prekliči"</string>
     <string name="import_label" msgid="6993796574741477222">"Uvozi"</string>
@@ -186,13 +184,13 @@
     <item quantity="other" msgid="1997405398178470838">"+ <xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <!-- no translation found for gadget_no_events (5209110911088302855) -->
-    <skip />
+    <skip/>
     <string name="tomorrow" msgid="614434811813859237">"Jutri"</string>
-    <string name="in_progress" msgid="3637799356103489011">"poteka"</string>
-    <string name="today" msgid="8577375020252453006">"Danes"</string>
+    
+    
     <string name="copy_db" msgid="437691290566699292">"Pošlji zbirko podatkov"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Iskanje <xliff:g id="DOMAIN">%s</xliff:g> ..."</string>
-    <string name="accessibility_new_event" msgid="6063141474224122288">"Nov dogodek"</string>
+    
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Odstrani udeleženca"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Datum začetka"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Čas začetka"</string>
@@ -204,7 +202,7 @@
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Dodaj udeleženca"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"Sinhroniziraj koledar"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"Celodnevni dogodek"</string>
-    <string name="accessibility_refresh" msgid="3458716385448853522">"Osveži"</string>
+    
     <string name="accessibility_repeats" msgid="1629279916830919582">"Ponovitev"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Čas opomnika"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Vrsta opomnika"</string>

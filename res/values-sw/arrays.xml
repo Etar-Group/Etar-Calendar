@@ -13,9 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for reminder_methods_labels:0 (37518307108263308) -->
     <!-- no translation found for reminder_methods_labels:1 (1751151680520784746) -->
     <!-- no translation found for reminder_methods_labels:2 (2658001219380695677) -->
@@ -134,11 +132,7 @@
     <item msgid="8854145743148992583">"Labda"</item>
     <item msgid="6174292185978948873">"Hapana"</item>
   </string-array>
-  <string-array name="response_labels2">
-    <item msgid="5967437218994333578">"Ndio"</item>
-    <item msgid="1254269034445160199">"Labda"</item>
-    <item msgid="1099407454885268744">"Hapana"</item>
-  </string-array>
+  
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"Tukio hili tu"</item>
     <item msgid="8626755531271570950">"Tukio hili na yote yajayo"</item>

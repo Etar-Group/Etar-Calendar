@@ -13,9 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_methods_labels">
     <item msgid="37518307108263308">"팝업"</item>
     <item msgid="1751151680520784746">"이메일"</item>
@@ -171,11 +169,7 @@
     <item msgid="8854145743148992583">"미정"</item>
     <item msgid="6174292185978948873">"아니요"</item>
   </string-array>
-  <string-array name="response_labels2">
-    <item msgid="5967437218994333578">"예"</item>
-    <item msgid="1254269034445160199">"미정"</item>
-    <item msgid="1099407454885268744">"아니요"</item>
-  </string-array>
+  
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"이 일정만"</item>
     <item msgid="8626755531271570950">"이번 및 향후 일정"</item>
