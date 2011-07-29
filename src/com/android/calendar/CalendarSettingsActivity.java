@@ -39,21 +39,13 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     private static final int CHECK_ACCOUNTS_DELAY = 3000;
     private Account[] mAccounts;
     private Handler mHandler = new Handler();
-    private static boolean mIsMultipane;
 
     @Override
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.calendar_settings_headers, target);
 
-        mIsMultipane = Utils.isMultiPaneConfiguration (this);
-        if (mIsMultipane) {
-            getActionBar().setDisplayOptions(
-                    ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
-        }
-        else {
-            getActionBar().setDisplayOptions(0,
-                    ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
-        }
+        getActionBar()
+                .setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
 
         Account[] accounts = AccountManager.get(this).getAccounts();
         if (accounts != null) {
