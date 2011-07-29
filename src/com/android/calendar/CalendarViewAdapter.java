@@ -375,7 +375,8 @@ public class CalendarViewAdapter implements SpinnerAdapter {
         }
 
         long weekStartTime = t.toMillis(true);
-        long weekEndTime = weekStartTime + DateUtils.WEEK_IN_MILLIS;
+        // The end of the week is 6 days after the start of the week
+        long weekEndTime = weekStartTime + DateUtils.WEEK_IN_MILLIS - DateUtils.DAY_IN_MILLIS;
 
         // If week start and end is in 2 different months, use short months names
         Time t1 = new Time(mTimeZone);
