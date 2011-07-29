@@ -602,7 +602,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         HOURS_MARGIN = HOURS_LEFT_MARGIN + HOURS_RIGHT_MARGIN;
         DAY_HEADER_HEIGHT = numDays == 1 ? ONE_DAY_HEADER_HEIGHT : MULTI_DAY_HEADER_HEIGHT;
 
-        mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_week_holo_light);
+        mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_indicator_holo_light);
         mTodayHeaderDrawable = mResources.getDrawable(R.drawable.today_blue_week_holo_light);
         mExpandAlldayDrawable = mResources.getDrawable(R.drawable.ic_allday_expand_holo_light);
         mCollapseAlldayDrawable = mResources.getDrawable(R.drawable.ic_allday_collapse_holo_light);
@@ -612,6 +612,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mDeclinedBgDrawable = new BitmapDrawable(mResources, BitmapFactory.decodeResource(
                 mResources, R.drawable.event_bg_declined));
         mDeclinedBgDrawable.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
+        mDeclinedBgDrawable.setAntiAlias(false);
 
         mEventLoader = eventLoader;
         mEventGeometry = new EventGeometry();
