@@ -660,6 +660,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     }
                 }
                 Toast.makeText(mContext, stringResource, Toast.LENGTH_SHORT).show();
+            } else if ((mCode & Utils.DONE_SAVE) != 0 && mModel != null && isEmptyNewEvent()) {
+                Toast.makeText(mContext, R.string.empty_event, Toast.LENGTH_SHORT).show();
             }
 
             if ((mCode & Utils.DONE_DELETE) != 0 && mOriginalModel != null
