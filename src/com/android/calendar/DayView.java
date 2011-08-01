@@ -3545,7 +3545,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         if (mMaxAlldayEvents > mMaxUnexpandedAlldayEventCount) {
             // check if the tap was in the allday expansion area
-            int bottom = MAX_UNEXPANDED_ALLDAY_HEIGHT + DAY_HEADER_HEIGHT + ALLDAY_TOP_MARGIN;
+            int bottom = mFirstCell;
             if((x < mHoursWidth && y > DAY_HEADER_HEIGHT && y < DAY_HEADER_HEIGHT + mAlldayHeight)
                     || (!mShowAllAllDayEvents && mAnimateDayHeight == 0 && y < bottom &&
                             y >= bottom - MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT)) {
