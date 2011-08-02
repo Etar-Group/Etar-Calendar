@@ -13,7 +13,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_methods_labels">
     <item msgid="37518307108263308">"Fines. emergent"</item>
     <item msgid="1751151680520784746">"Correu electrònic"</item>
@@ -169,7 +171,6 @@
     <item msgid="8854145743148992583">"Potser"</item>
     <item msgid="6174292185978948873">"No"</item>
   </string-array>
-  
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"Només aquest esdeveniment"</item>
     <item msgid="8626755531271570950">"Aquest i els esdeveniments futurs"</item>

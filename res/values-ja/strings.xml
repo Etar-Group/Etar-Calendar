@@ -13,7 +13,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"カレンダー"</string>
     <string name="what_label" msgid="1933578391985810049">"タイトル"</string>
     <string name="where_label" msgid="3472482206065595118">"場所"</string>
@@ -39,9 +41,10 @@
     <item quantity="one" msgid="5988137255732166573">"1日"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g>日"</item>
   </plurals>
-    <!-- no translation found for weekN:other (8085184869561028365) -->
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"第<xliff:g id="COUNT">%d</xliff:g>週"</item>
+  </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"更新"</string>
-    
     <string name="show_day_view" msgid="5782512782605466016">"日付を表示"</string>
     <string name="agenda_view" msgid="5566084759423843245">"予定リスト"</string>
     <string name="day_view" msgid="4467754504843584437">"日"</string>
@@ -52,37 +55,28 @@
     <string name="event_edit" msgid="4006961928830064662">"予定を編集"</string>
     <string name="event_delete" msgid="2386667193277770442">"予定を削除"</string>
     <string name="goto_today" msgid="9162136434410891230">"今日"</string>
-    
     <string name="menu_preferences" msgid="9120238479503233925">"設定"</string>
-    <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
-    <skip/>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"表示するカレンダー"</string>
     <string name="search" msgid="550656004486017426">"検索"</string>
     <string name="hide_controls" msgid="830320505938520882">"コントロールを非表示"</string>
     <string name="show_controls" msgid="715520586028062621">"コントロールを表示"</string>
-    <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
-    <skip/>
-    
-    
-    
+    <string name="select_visible_calendars_title" msgid="5285053789530752843">"表示するカレンダー"</string>
     <string name="synced" msgid="7913940305983383493">"同期済み"</string>
     <string name="not_synced" msgid="4275114941801829419">"未同期"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"このアカウントは同期されないため、カレンダーが最新でない場合があります。"</string>
     <string name="accounts" msgid="849401841083180306">"アカウントと同期"</string>
-    <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
-    <skip/>
-    <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
-    <skip/>
-    
+    <string name="select_synced_calendars_title" msgid="7122363881046468658">"同期するカレンダー"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"同期するカレンダー"</string>
     <string name="hint_what" msgid="709155115005044531">"タイトル"</string>
     <string name="hint_where" msgid="4972598001033801974">"場所"</string>
     <string name="hint_description" msgid="1910143586169033232">"説明"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"ゲスト"</string>
     <string name="creating_event" msgid="5252306542761552414">"予定を作成しました"</string>
     <string name="saving_event" msgid="7716081507367732169">"予定を保存しました"</string>
+    <!-- no translation found for empty_event (757898251276814787) -->
+    <skip />
     <string name="creating_event_with_guest" msgid="608830786504021732">"招待状を送信しました"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"更新情報を送信しました"</string>
-    
-    
     <string name="alert_title" msgid="7869592820853066853">"カレンダーの通知"</string>
     <string name="event_info_title" msgid="56024222340421620">"予定を表示"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"会議への招待状"</string>
@@ -101,13 +95,10 @@
     <string name="add_guests_label" msgid="7294569977062998743">"ゲストを追加"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"カレンダー:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"主催者:"</string>
-    
     <string name="view_event_response_label" msgid="8382281658458798329">"参加しますか？"</string>
     <string name="response_yes" msgid="2027484304899988350">"はい"</string>
     <string name="response_maybe" msgid="7791500973627841695">"未定"</string>
     <string name="response_no" msgid="561911691884148136">"いいえ"</string>
-    
-    
     <string name="event_info_organizer" msgid="9138683335394832629">"主催:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"詳細"</string>
     <string name="event_info_desc_less" msgid="8295683160345195225">"隠す"</string>
@@ -123,7 +114,6 @@
     <string name="edit_event_label" msgid="7413222956349977161">"詳細"</string>
     <string name="edit_label" msgid="8934331258435656534">"編集"</string>
     <string name="delete_label" msgid="874742811918030739">"削除"</string>
-    
     <string name="save_label" msgid="2133599104834432589">"完了"</string>
     <string name="discard_label" msgid="2394623883289782541">"キャンセル"</string>
     <string name="import_label" msgid="6993796574741477222">"インポート"</string>
@@ -143,6 +133,10 @@
     <string name="modify_event" msgid="4501745557655992422">"この日だけ変更"</string>
     <string name="modify_all" msgid="7506579040966638538">"繰り返す予定すべて変更"</string>
     <string name="modify_all_following" msgid="4333745734894639276">"これ以降すべて変更"</string>
+    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
+    <skip />
+    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
+    <skip />
     <string name="delete_this_event_title" msgid="8738491083082780492">"この予定を削除します。"</string>
     <string name="delete_title" msgid="5143743507524995383">"削除"</string>
     <string name="change_response_title" msgid="7704714776070974984">"出欠状況を変更"</string>
@@ -184,11 +178,8 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"近日中の予定はありません"</string>
     <string name="tomorrow" msgid="614434811813859237">"明日"</string>
-    
-    
     <string name="copy_db" msgid="437691290566699292">"データベースを送信"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g>を検索中..."</string>
-    
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"参加者を削除"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"開始日"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"開始時間"</string>
@@ -200,7 +191,6 @@
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"参加者を追加"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"カレンダーを同期"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"終日"</string>
-    
     <string name="accessibility_repeats" msgid="1629279916830919582">"頻度"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"通知の時間"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"通知のタイプ"</string>
