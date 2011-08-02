@@ -13,7 +13,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalendarz"</string>
     <string name="what_label" msgid="1933578391985810049">"Co"</string>
     <string name="where_label" msgid="3472482206065595118">"Gdzie"</string>
@@ -39,9 +41,10 @@
     <item quantity="one" msgid="5988137255732166573">"1 dzień"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dni"</item>
   </plurals>
-    <!-- no translation found for weekN:other (8085184869561028365) -->
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"TYDZIEŃ <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Odśwież"</string>
-    
     <string name="show_day_view" msgid="5782512782605466016">"Pokaż dzień"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Plan dnia"</string>
     <string name="day_view" msgid="4467754504843584437">"Dzień"</string>
@@ -52,37 +55,28 @@
     <string name="event_edit" msgid="4006961928830064662">"Edytuj wydarzenie"</string>
     <string name="event_delete" msgid="2386667193277770442">"Usuń wydarzenie"</string>
     <string name="goto_today" msgid="9162136434410891230">"Dzisiaj"</string>
-    
     <string name="menu_preferences" msgid="9120238479503233925">"Ustawienia"</string>
-    <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
-    <skip/>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalendarze do wyświetlenia"</string>
     <string name="search" msgid="550656004486017426">"Szukaj"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ukryj nawigację"</string>
     <string name="show_controls" msgid="715520586028062621">"Pokaż nawigację"</string>
-    <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
-    <skip/>
-    
-    
-    
+    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Kalendarze do wyświetlenia"</string>
     <string name="synced" msgid="7913940305983383493">"zsynchronizowany"</string>
     <string name="not_synced" msgid="4275114941801829419">"niezsynchronizowany"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"To konto nie jest synchronizowane i kalendarze mogą być nieaktualne."</string>
     <string name="accounts" msgid="849401841083180306">"Konta i synchronizacja"</string>
-    <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
-    <skip/>
-    <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
-    <skip/>
-    
+    <string name="select_synced_calendars_title" msgid="7122363881046468658">"Kalendarze do synchronizacji"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalendarze do synchronizacji"</string>
     <string name="hint_what" msgid="709155115005044531">"Nazwa wydarzenia"</string>
     <string name="hint_where" msgid="4972598001033801974">"Lokalizacja"</string>
     <string name="hint_description" msgid="1910143586169033232">"Opis"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Goście"</string>
     <string name="creating_event" msgid="5252306542761552414">"Utworzono wydarzenie"</string>
     <string name="saving_event" msgid="7716081507367732169">"Zapisano wydarzenie"</string>
+    <!-- no translation found for empty_event (757898251276814787) -->
+    <skip />
     <string name="creating_event_with_guest" msgid="608830786504021732">"Zaproszenia zostały wysłane"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Aktualne informacje zostały wysłane"</string>
-    
-    
     <string name="alert_title" msgid="7869592820853066853">"Powiadomienia kalendarza"</string>
     <string name="event_info_title" msgid="56024222340421620">"Wyświetl wydarzenie"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Zaproszenie na spotkanie"</string>
@@ -101,13 +95,10 @@
     <string name="add_guests_label" msgid="7294569977062998743">"Dodaj gości"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendarz:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
-    
     <string name="view_event_response_label" msgid="8382281658458798329">"Uczestnictwo"</string>
     <string name="response_yes" msgid="2027484304899988350">"Tak"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Być może"</string>
     <string name="response_no" msgid="561911691884148136">"Nie"</string>
-    
-    
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizator:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"Więcej"</string>
     <string name="event_info_desc_less" msgid="8295683160345195225">"Mniej"</string>
@@ -123,7 +114,6 @@
     <string name="edit_event_label" msgid="7413222956349977161">"Szczegóły"</string>
     <string name="edit_label" msgid="8934331258435656534">"Edytuj"</string>
     <string name="delete_label" msgid="874742811918030739">"Usuń"</string>
-    
     <string name="save_label" msgid="2133599104834432589">"Gotowe"</string>
     <string name="discard_label" msgid="2394623883289782541">"Anuluj"</string>
     <string name="import_label" msgid="6993796574741477222">"Importuj"</string>
@@ -143,6 +133,10 @@
     <string name="modify_event" msgid="4501745557655992422">"Zmień tylko to wydarzenie."</string>
     <string name="modify_all" msgid="7506579040966638538">"Zmień wszystkie wydarzenia w serii."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Zmień to i wszystkie przyszłe wydarzenia."</string>
+    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
+    <skip />
+    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
+    <skip />
     <string name="delete_this_event_title" msgid="8738491083082780492">"To wydarzenie zostanie usunięte."</string>
     <string name="delete_title" msgid="5143743507524995383">"Usuń"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Zmień odpowiedź"</string>
@@ -184,11 +178,8 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Brak zbliżających się wydarzeń w kalendarzu"</string>
     <string name="tomorrow" msgid="614434811813859237">"Jutro"</string>
-    
-    
     <string name="copy_db" msgid="437691290566699292">"Wyślij bazę danych"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Trwa wyszukiwanie w witrynie <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Usuń uczestnika"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Data rozpoczęcia"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Godzina rozpoczęcia"</string>
@@ -200,7 +191,6 @@
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Dodaj uczestnika"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"Synchronizuj kalendarz"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"Wydarzenie całodniowe"</string>
-    
     <string name="accessibility_repeats" msgid="1629279916830919582">"Powtarzanie"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Godzina przypomnienia"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Typ przypomnienia"</string>

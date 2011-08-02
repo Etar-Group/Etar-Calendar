@@ -13,7 +13,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- no translation found for reminder_methods_labels:0 (37518307108263308) -->
     <!-- no translation found for reminder_methods_labels:1 (1751151680520784746) -->
     <!-- no translation found for reminder_methods_labels:2 (2658001219380695677) -->
@@ -132,7 +134,6 @@
     <item msgid="8854145743148992583">"Miskien"</item>
     <item msgid="6174292185978948873">"Nee"</item>
   </string-array>
-  
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"Slegs hierdie gebeurtenis"</item>
     <item msgid="8626755531271570950">"Hierdie en toekomstige gebeurtenisse"</item>

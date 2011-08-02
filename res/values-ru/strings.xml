@@ -13,7 +13,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Календарь"</string>
     <string name="what_label" msgid="1933578391985810049">"Что"</string>
     <string name="where_label" msgid="3472482206065595118">"Где"</string>
@@ -41,7 +43,6 @@
   </plurals>
     <!-- no translation found for weekN:other (8085184869561028365) -->
     <string name="calendar_refresh" msgid="6172731193680500025">"Обновить"</string>
-    
     <string name="show_day_view" msgid="5782512782605466016">"Показать день"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Повестка дня"</string>
     <string name="day_view" msgid="4467754504843584437">"День"</string>
@@ -52,37 +53,32 @@
     <string name="event_edit" msgid="4006961928830064662">"Изменить мероприятие"</string>
     <string name="event_delete" msgid="2386667193277770442">"Удалить мероприятие"</string>
     <string name="goto_today" msgid="9162136434410891230">"Сегодня"</string>
-    
     <string name="menu_preferences" msgid="9120238479503233925">"Настройки"</string>
     <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
-    <skip/>
+    <skip />
     <string name="search" msgid="550656004486017426">"Поиск"</string>
     <string name="hide_controls" msgid="830320505938520882">"Скрыть боковую панель"</string>
     <string name="show_controls" msgid="715520586028062621">"Показать боковую панель"</string>
     <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
-    <skip/>
-    
-    
-    
+    <skip />
     <string name="synced" msgid="7913940305983383493">"синхронизирован"</string>
     <string name="not_synced" msgid="4275114941801829419">"не синхронизирован"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Этот аккаунт не синхронизируется, поэтому ваши календари не обновляются."</string>
     <string name="accounts" msgid="849401841083180306">"Аккаунты и синхронизация"</string>
     <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
-    <skip/>
+    <skip />
     <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
-    <skip/>
-    
+    <skip />
     <string name="hint_what" msgid="709155115005044531">"Название мероприятия"</string>
     <string name="hint_where" msgid="4972598001033801974">"Место"</string>
     <string name="hint_description" msgid="1910143586169033232">"Описание"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Гости"</string>
     <string name="creating_event" msgid="5252306542761552414">"Мероприятие создано"</string>
     <string name="saving_event" msgid="7716081507367732169">"Мероприятие сохранено"</string>
+    <!-- no translation found for empty_event (757898251276814787) -->
+    <skip />
     <string name="creating_event_with_guest" msgid="608830786504021732">"Приглашения отправлены"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Обновления отправлены"</string>
-    
-    
     <string name="alert_title" msgid="7869592820853066853">"Уведомления календаря"</string>
     <string name="event_info_title" msgid="56024222340421620">"Просмотр мероприятия"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Приглашение на встречу"</string>
@@ -101,13 +97,10 @@
     <string name="add_guests_label" msgid="7294569977062998743">"Добавить гостей"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Календарь:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Организатор:"</string>
-    
     <string name="view_event_response_label" msgid="8382281658458798329">"Принять приглашение?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Да"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Может быть"</string>
     <string name="response_no" msgid="561911691884148136">"Нет"</string>
-    
-    
     <string name="event_info_organizer" msgid="9138683335394832629">"Организатор:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"Больше"</string>
     <string name="event_info_desc_less" msgid="8295683160345195225">"Меньше"</string>
@@ -123,7 +116,6 @@
     <string name="edit_event_label" msgid="7413222956349977161">"Сведения"</string>
     <string name="edit_label" msgid="8934331258435656534">"Изменить"</string>
     <string name="delete_label" msgid="874742811918030739">"Удалить"</string>
-    
     <string name="save_label" msgid="2133599104834432589">"Готово"</string>
     <string name="discard_label" msgid="2394623883289782541">"Отмена"</string>
     <string name="import_label" msgid="6993796574741477222">"Импорт"</string>
@@ -143,6 +135,10 @@
     <string name="modify_event" msgid="4501745557655992422">"Изменить только это мероприятие"</string>
     <string name="modify_all" msgid="7506579040966638538">"Изменить все мероприятия в серии"</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Изменить это и будущие мероприятия"</string>
+    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
+    <skip />
+    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
+    <skip />
     <string name="delete_this_event_title" msgid="8738491083082780492">"Мероприятие будет удалено."</string>
     <string name="delete_title" msgid="5143743507524995383">"Удалить"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Изменить ответ"</string>
@@ -184,11 +180,8 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"В календаре нет предстоящих мероприятий"</string>
     <string name="tomorrow" msgid="614434811813859237">"Завтра"</string>
-    
-    
     <string name="copy_db" msgid="437691290566699292">"Отправить базу данных"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Поиск в <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Удалить участника"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Дата начала"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Время начала"</string>
@@ -200,7 +193,6 @@
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Добавить участника"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"Синхронизировать календарь"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"На весь день"</string>
-    
     <string name="accessibility_repeats" msgid="1629279916830919582">"Повтор"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Время срабатывания напоминания"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Тип напоминания"</string>

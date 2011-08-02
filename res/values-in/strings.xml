@@ -13,12 +13,14 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Kalender"</string>
     <string name="what_label" msgid="1933578391985810049">"Apa"</string>
     <string name="where_label" msgid="3472482206065595118">"Di mana"</string>
     <!-- no translation found for when_label (894636567327261599) -->
-    <skip/>
+    <skip />
     <string name="timezone_label" msgid="3988530993300431650">"Zona waktu"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Tamu"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -40,9 +42,10 @@
     <item quantity="one" msgid="5988137255732166573">"1 hari"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> hari"</item>
   </plurals>
-    <!-- no translation found for weekN:other (8085184869561028365) -->
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"MINGGU <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Segarkan"</string>
-    
     <string name="show_day_view" msgid="5782512782605466016">"Tampilkan hari"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
     <string name="day_view" msgid="4467754504843584437">"Hari"</string>
@@ -53,37 +56,28 @@
     <string name="event_edit" msgid="4006961928830064662">"Edit acara"</string>
     <string name="event_delete" msgid="2386667193277770442">"Hapus acara"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hari ini"</string>
-    
     <string name="menu_preferences" msgid="9120238479503233925">"Setelan"</string>
-    <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
-    <skip/>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kal utk tmpl"</string>
     <string name="search" msgid="550656004486017426">"Telusuri"</string>
     <string name="hide_controls" msgid="830320505938520882">"Sembunyikan kontrol"</string>
     <string name="show_controls" msgid="715520586028062621">"Tampilkan kontrol"</string>
-    <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
-    <skip/>
-    
-    
-    
+    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Kalender untuk Ditampilkan"</string>
     <string name="synced" msgid="7913940305983383493">"disinkronkan"</string>
     <string name="not_synced" msgid="4275114941801829419">"tidak disinkronkan"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Akun ini belum disinkronkan dan kalender Anda mungkin tidak mutakhir."</string>
     <string name="accounts" msgid="849401841083180306">"Sinkronisasi &amp; akun"</string>
-    <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
-    <skip/>
-    <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
-    <skip/>
-    
+    <string name="select_synced_calendars_title" msgid="7122363881046468658">"Kalender untuk Disinkronkan"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalender untuk disinkronkan"</string>
     <string name="hint_what" msgid="709155115005044531">"Nama acara"</string>
     <string name="hint_where" msgid="4972598001033801974">"Lokasi"</string>
     <string name="hint_description" msgid="1910143586169033232">"Uraian"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Tamu"</string>
     <string name="creating_event" msgid="5252306542761552414">"Acara telah dibuat"</string>
     <string name="saving_event" msgid="7716081507367732169">"Acara yang disimpan"</string>
+    <!-- no translation found for empty_event (757898251276814787) -->
+    <skip />
     <string name="creating_event_with_guest" msgid="608830786504021732">"Undangan terkirim"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Pemutakhiran terkirim"</string>
-    
-    
     <string name="alert_title" msgid="7869592820853066853">"Pemberitahuan kalender"</string>
     <string name="event_info_title" msgid="56024222340421620">"Lihat acara"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Undangan rapat"</string>
@@ -102,13 +96,10 @@
     <string name="add_guests_label" msgid="7294569977062998743">"Tambahkan tamu"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Penyelenggara:"</string>
-    
     <string name="view_event_response_label" msgid="8382281658458798329">"Datang?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Ya"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Tentatif"</string>
     <string name="response_no" msgid="561911691884148136">"Tidak"</string>
-    
-    
     <string name="event_info_organizer" msgid="9138683335394832629">"Pnylenggara:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"Lainnya"</string>
     <string name="event_info_desc_less" msgid="8295683160345195225">"Kurangi"</string>
@@ -124,7 +115,6 @@
     <string name="edit_event_label" msgid="7413222956349977161">"Detail"</string>
     <string name="edit_label" msgid="8934331258435656534">"Edit"</string>
     <string name="delete_label" msgid="874742811918030739">"Hapus"</string>
-    
     <string name="save_label" msgid="2133599104834432589">"Selesai"</string>
     <string name="discard_label" msgid="2394623883289782541">"Batal"</string>
     <string name="import_label" msgid="6993796574741477222">"Impor"</string>
@@ -144,6 +134,10 @@
     <string name="modify_event" msgid="4501745557655992422">"Ubah hanya acara ini."</string>
     <string name="modify_all" msgid="7506579040966638538">"Ubah semua acara dalam rangkaian."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Ubah ini dan semua acara mendatang."</string>
+    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
+    <skip />
+    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
+    <skip />
     <string name="delete_this_event_title" msgid="8738491083082780492">"Acara ini akan dihapus."</string>
     <string name="delete_title" msgid="5143743507524995383">"Hapus"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Ubah tanggapan"</string>
@@ -184,13 +178,10 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <!-- no translation found for gadget_no_events (5209110911088302855) -->
-    <skip/>
+    <skip />
     <string name="tomorrow" msgid="614434811813859237">"Besok"</string>
-    
-    
     <string name="copy_db" msgid="437691290566699292">"Kirim database"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Menelusuri <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
-    
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Hapus tamu"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Tanggal mulai"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Waktu mulai"</string>
@@ -202,7 +193,6 @@
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Tambahkan tamu"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"Sinkronkan kalender"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"Acara sepanjang hari"</string>
-    
     <string name="accessibility_repeats" msgid="1629279916830919582">"Perulangan"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Waktu pengingat"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Jenis pengingat"</string>
