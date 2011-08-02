@@ -145,6 +145,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                         // was deleted.
                         cursor.close();
                         mOnDone.setDoneCode(Utils.DONE_EXIT);
+                        mSaveOnDetach = false;
                         mOnDone.run();
                         return;
                     }
