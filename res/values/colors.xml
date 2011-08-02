@@ -23,7 +23,7 @@
     
     <color name="activated">#4d0066ff</color>
     
-    <color name="selection">#4d99cc00</color>
+    <color name="selection">@android:color/holo_blue_light</color>
 
     <!-- The app wide background color -->
     <color name="background_color">#ffdddddd</color>
@@ -94,15 +94,15 @@
     
     <color name="agenda_item_not_selected">#00000000</color>
     <!-- Text color of declined events in agenda view -->
-    <color name="agenda_item_declined_color">#66000000</color>
+    <color name="agenda_item_declined_color">#66333333</color>
     <!-- Text color of non-declined events in agenda view -->
-    <color name="agenda_item_standard_color">#FF000000</color>
+    <color name="agenda_item_standard_color">#FF333333</color>
     <!-- Background Color of present/future events in agenda view  -->
     <color name="agenda_day_bar_background_color">#FFFFFFFF</color>
     <!-- Background Color of past events in agenda view  -->
     <color name="agenda_past_days_bar_background_color">#FFDDDDDD</color>
     <!-- Color of the separator between the past and the present/future in agenda view  -->
-    <color name="agenda_past_present_separator_color">#FF000000</color>
+    <color name="agenda_past_present_separator_color">#FF333333</color>
     <!-- General background color in agenda view  -->
     <color name="agenda_general_background_color">#FFEEEEEE</color>
     <!-- Agenda day item text color  -->

@@ -35,6 +35,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_marginLeft="16dip"
         android:layout_height="48dip">
         <TextView
             android:id="@+id/day"
@@ -42,14 +43,12 @@
             android:layout_width="match_parent"
             android:layout_marginTop="4dip"
             android:layout_marginBottom="-8dip"
-            android:layout_marginLeft="20dip"
             android:textSize="12sp"
             android:textColor="@color/agenda_day_item_text_color" />
         <TextView
             android:id="@+id/date"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginLeft="20dip"
             android:textSize="24sp"
             android:textColor="@color/agenda_day_item_text_color" />
     </LinearLayout>

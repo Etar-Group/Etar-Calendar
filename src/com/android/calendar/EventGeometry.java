@@ -90,7 +90,7 @@ public class EventGeometry {
 
         event.bottom = top;
         event.bottom += (int) (endTime * cellMinuteHeight);
-        event.bottom += endHour * mHourGap;
+        event.bottom += endHour * mHourGap - 1;
 
         // Make the rectangle be at least mMinEventHeight pixels high
         if (event.bottom < event.top + mMinEventHeight) {

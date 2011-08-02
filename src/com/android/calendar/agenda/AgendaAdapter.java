@@ -129,12 +129,12 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         int selfAttendeeStatus = cursor.getInt(AgendaWindowAdapter.INDEX_SELF_ATTENDEE_STATUS);
         if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
             holder.title.setTextColor(mDeclinedColor);
-            holder.when.setTextColor(mDeclinedColor);
+            holder.when.setTextColor(mWhereDeclinedColor);
             holder.where.setTextColor(mWhereDeclinedColor);
             holder.colorChip.setDrawStyle(ColorChipView.DRAW_CROSS_HATCHED);
         } else {
             holder.title.setTextColor(mStandardColor);
-            holder.when.setTextColor(mStandardColor);
+            holder.when.setTextColor(mWhereColor);
             holder.where.setTextColor(mWhereColor);
             if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_TENTATIVE) {
                 holder.colorChip.setDrawStyle(ColorChipView.DRAW_BORDER);

@@ -24,6 +24,7 @@
     android:orientation="vertical"
     android:addStatesFromChildren="true"
     android:focusableInTouchMode="false"
+    android:focusable="false"
     android:clickable="false">
 
     <!-- Left edge should align with those of event texts.

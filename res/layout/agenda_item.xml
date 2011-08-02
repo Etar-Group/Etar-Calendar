@@ -38,7 +38,7 @@
             android:layout_height="24dip"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="8dip"
-            android:layout_marginLeft="20dip"
+            android:layout_marginLeft="16dip"
             android:layout_marginRight="8dip" />
 
         <LinearLayout
@@ -55,7 +55,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:ellipsize="marquee"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="@color/agenda_item_standard_color"
                 style="?android:attr/textAppearanceMediumInverse" />
 
             <TextView
@@ -67,7 +67,7 @@
                 android:singleLine="true"
                 android:textSize="14sp"
                 android:ellipsize="marquee"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="@color/agenda_item_where_text_color"
                 style="?android:attr/textAppearanceSmallInverse" />
 
             <TextView

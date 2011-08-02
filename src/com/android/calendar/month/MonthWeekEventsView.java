@@ -66,7 +66,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     private static int DEFAULT_EDGE_SPACING = 0;
     private static int SIDE_PADDING_MONTH_NUMBER = 4;
-    private static int TOP_PADDING_MONTH_NUMBER = 6;
+    private static int TOP_PADDING_MONTH_NUMBER = 4;
     private static int TOP_PADDING_WEEK_NUMBER = 4;
     private static int SIDE_PADDING_WEEK_NUMBER = 20;
     private static int DAY_SEPARATOR_OUTER_WIDTH = 0;
@@ -185,7 +185,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
         if (!mShowDetailsInMonth) {
             int numDays = mEvents.size();
             int wkNumOffset = 1;
-            int effectiveWidth = mWidth - mPadding * 2 - SPACING_WEEK_NUMBER;
+            int effectiveWidth = mWidth - mPadding * 2;
+            if (mShowWeekNum) {
+                effectiveWidth -= SPACING_WEEK_NUMBER;
+            }
             DNA_ALL_DAY_WIDTH = effectiveWidth / numDays - 2 * DNA_SIDE_PADDING;
             mDNAAllDayPaint.setStrokeWidth(DNA_ALL_DAY_WIDTH);
             mDayXs = new int[numDays];

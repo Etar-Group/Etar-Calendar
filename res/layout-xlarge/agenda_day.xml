@@ -29,7 +29,6 @@
         android:layout_width="match_parent" />
     <LinearLayout
         android:orientation="vertical"
-        android:paddingLeft="32dip"
         android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -42,6 +41,7 @@
             android:orientation="horizontal"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
+            android:paddingLeft="16dip"
             android:layout_height="42dip">
             <TextView
                 android:id="@+id/date"
