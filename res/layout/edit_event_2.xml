@@ -97,12 +97,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/add_attendees_group"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="horizontal">
-            <!-- ATTENDEES INPUT -->
             <com.android.ex.chips.RecipientEditTextView
                 android:id="@+id/attendees"
                 android:layout_width="0dip"
@@ -112,34 +106,6 @@
                 android:hint="@string/hint_attendees"
                 android:imeOptions="actionNext"
                 style="@style/TextAppearance.EditEvent_Value" />
-
-            <!-- ATTENDEES ADD BUTTON -->
-            <ImageButton
-                android:id="@+id/add_attendee_button"
-                style="@style/PlusButton"
-                android:layout_gravity="center_vertical|right"
-                android:enabled="false"
-                android:contentDescription="@string/accessibility_add_attendee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- ATTENDEES -->
-    <LinearLayout
-        android:id="@+id/attendees_row"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true">
-        <!-- GUEST LIST -->
-        <com.android.calendar.event.AttendeesView
-            android:id="@+id/attendee_list"
-            android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:animateLayoutChanges="true">
-        </com.android.calendar.event.AttendeesView>
     </LinearLayout>
 
     <View

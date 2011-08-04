@@ -60,7 +60,6 @@ import android.provider.Settings;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -99,7 +98,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
-        DialogInterface.OnClickListener, TextWatcher, OnItemSelectedListener {
+        DialogInterface.OnClickListener, OnItemSelectedListener {
     private static final String TAG = "EditEvent";
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final String PERIOD_SPACE = ". ";
@@ -134,9 +133,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     TextView mTimezoneLabel;
     LinearLayout mRemindersContainer;
     MultiAutoCompleteTextView mAttendeesList;
-    ImageButton mAddAttendeesButton;
-    AttendeesView mAttendeesView;
-    AddAttendeeClickListener mAddAttendeesListener;
     View mCalendarSelectorGroup;
     View mCalendarStaticGroup;
     View mLocationGroup;
@@ -247,22 +243,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             setTime(mStartTimeButton, startMillis);
             setTime(mEndTimeButton, endMillis);
             updateHomeTime();
-        }
-    }
-
-    private class AddAttendeeClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            // Checking for null since this method may be called even though the
-            // add button wasn't clicked e.g. when the Save button is clicked.
-            // The mAttendeesList may not be setup since the user doesn't have
-            // permission to add attendees.
-            if (mAttendeesList != null) {
-                mAttendeesList.performValidation();
-                mAttendeesView.addAttendees(mAttendeesList.getText().toString());
-                mAttendeesList.setText("");
-                mAttendeesGroup.setVisibility(View.VISIBLE);
-            }
         }
     }
 
@@ -635,7 +615,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (mModel == null || (mCalendarsCursor == null && mModel.mUri == null)) {
             return false;
         }
-        mAddAttendeesListener.onClick(null);
         return fillModelFromUI();
     }
 
@@ -728,16 +707,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mModel.mSelfAttendeeStatus = status;
         }
 
-        if (mAttendeesView != null && mAttendeesView.getChildCount() > 0) {
-            final int size = mAttendeesView.getChildCount();
-            mModel.mAttendeesList.clear();
-            for (int i = 0; i < size; i++) {
-                final Attendee attendee = mAttendeesView.getItem(i);
-                if (attendee == null || mAttendeesView.isMarkAsRemoved(i)) {
-                    continue;
-                }
-                mModel.addAttendee(attendee);
-            }
+        if (mAttendeesList != null && !TextUtils.isEmpty(mAttendeesList.getText())) {
+            mEmailValidator.setRemoveInvalid(true);
+            mAttendeesList.performValidation();
+            mModel.addAttendees(mAttendeesList.getText().toString(), mEmailValidator);
         }
 
         // If this was a new event we need to fill in the Calendar information
@@ -847,17 +820,18 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mRemindersGroup = view.findViewById(R.id.reminders_row);
         mResponseGroup = view.findViewById(R.id.response_row);
         mOrganizerGroup = view.findViewById(R.id.organizer_row);
-        mAttendeesGroup = view.findViewById(R.id.attendees_row);
         mAttendeesPane = view.findViewById(R.id.attendees_group);
         mLocationGroup = view.findViewById(R.id.where_row);
         mDescriptionGroup = view.findViewById(R.id.description_row);
         mStartHomeGroup = view.findViewById(R.id.from_row_home_tz);
         mEndHomeGroup = view.findViewById(R.id.to_row_home_tz);
+        mAttendeesList = (MultiAutoCompleteTextView) view.findViewById(R.id.attendees);
 
         mTitleTextView.setTag(mTitleTextView.getBackground());
         mLocationTextView.setTag(mLocationTextView.getBackground());
         mDescriptionTextView.setTag(mDescriptionTextView.getBackground());
         mRepeatsSpinner.setTag(mRepeatsSpinner.getBackground());
+        mAttendeesList.setTag(mAttendeesList.getBackground());
         mOriginalPadding[0] = mLocationTextView.getPaddingLeft();
         mOriginalPadding[1] = mLocationTextView.getPaddingTop();
         mOriginalPadding[2] = mLocationTextView.getPaddingRight();
@@ -865,6 +839,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEditViewList.add(mTitleTextView);
         mEditViewList.add(mLocationTextView);
         mEditViewList.add(mDescriptionTextView);
+        mEditViewList.add(mAttendeesList);
 
         mViewOnlyList.add(view.findViewById(R.id.when_row));
         mViewOnlyList.add(view.findViewById(R.id.timezone_textview_row));
@@ -875,24 +850,18 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEditOnlyList.add(view.findViewById(R.id.from_row));
         mEditOnlyList.add(view.findViewById(R.id.to_row));
         mEditOnlyList.add(view.findViewById(R.id.timezone_button_row));
-        mEditOnlyList.add(view.findViewById(R.id.add_attendees_row));
         mEditOnlyList.add(mStartHomeGroup);
         mEditOnlyList.add(mEndHomeGroup);
 
         mResponseRadioGroup = (RadioGroup) view.findViewById(R.id.response_value);
         mRemindersContainer = (LinearLayout) view.findViewById(R.id.reminder_items_container);
 
-        mAddAttendeesButton = (ImageButton) view.findViewById(R.id.add_attendee_button);
-        mAddAttendeesListener = new AddAttendeeClickListener();
-        mAddAttendeesButton.setEnabled(false);
-        mAddAttendeesButton.setOnClickListener(mAddAttendeesListener);
-
-        mAttendeesView = (AttendeesView)view.findViewById(R.id.attendee_list);
-
         mTimezone = Utils.getTimeZone(activity, null);
         mStartTime = new Time(mTimezone);
         mEndTime = new Time(mTimezone);
         mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
+        mEmailValidator = new Rfc822Validator(null);
+        initMultiAutoCompleteTextView((RecipientEditTextView) mAttendeesList);
 
         mColorChip = view.findViewById(R.id.color_chip);
 
@@ -1028,26 +997,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // If the user is allowed to change the attendees set up the view and
         // validator
         if (!model.mHasAttendeeData) {
-            mView.findViewById(R.id.attendees_group).setVisibility(View.GONE);
-        } else if (!canModifyEvent) {
-            // Hide views used for adding attendees
-            View v =  mView.findViewById(R.id.add_attendees_label);
-            if (v != null) {
-                v.setVisibility(View.GONE);
-            }
-            mView.findViewById(R.id.add_attendees_group).setVisibility(View.GONE);
-            mAddAttendeesButton.setVisibility(View.GONE);
-        } else {
-            String domain = DEFAULT_DOMAIN;
-            if (!TextUtils.isEmpty(model.mOwnerAccount)) {
-                String ownerDomain = EditEventHelper.extractDomain(model.mOwnerAccount);
-                if (!TextUtils.isEmpty(ownerDomain)) {
-                    domain = ownerDomain;
-                }
-            }
-            mEmailValidator = new Rfc822Validator(domain);
-            mAttendeesList = initMultiAutoCompleteTextView(R.id.attendees);
-            mAttendeesList.addTextChangedListener(this);
+            mAttendeesGroup.setVisibility(View.GONE);
         }
 
         mAllDayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -1261,23 +1211,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         int colorColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         mColorChip.setBackgroundColor(Utils.getDisplayColorFromColor(cursor.getInt(colorColumn)));
 
-
-        // Find user domain and set it to the validator.
-        // TODO: we may want to update this validator if the user actually picks
-        // a different calendar. maybe not. depends on what we want for the
-        // user experience. this may change when we add support for multiple
-        // accounts, anyway.
-        if (mModel != null && mModel.mHasAttendeeData
-                && cursor.moveToPosition(defaultCalendarPosition)) {
-            String ownEmail = cursor.getString(EditEventHelper.CALENDARS_INDEX_OWNER_ACCOUNT);
-            if (ownEmail != null) {
-                String domain = EditEventHelper.extractDomain(ownEmail);
-                if (domain != null) {
-                    mEmailValidator = new Rfc822Validator(domain);
-                    mAttendeesList.setValidator(mEmailValidator);
-                }
-            }
-        }
         if (mSaveAfterQueryComplete) {
             mLoadingCalendarsDialog.cancel();
             if (prepareForSave() && fillModelFromUI()) {
@@ -1332,12 +1265,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             } else {
                 mRemindersGroup.setVisibility(View.GONE);
             }
-            setAttendeesEditable(false);
-            if (mAttendeesView.getChildCount() == 0) {
-                mAttendeesPane.setVisibility(View.GONE);
-            } else {
-                mAttendeesPane.setVisibility(View.VISIBLE);
-            }
             if (mAllDayCheckBox.isChecked()) {
                 mView.findViewById(R.id.timezone_textview_row).setVisibility(View.GONE);
             }
@@ -1374,30 +1301,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mRepeatsSpinner.setEnabled(false);
             }
             mRemindersGroup.setVisibility(View.VISIBLE);
-            setAttendeesEditable(true);
             mAttendeesPane.setVisibility(View.VISIBLE);
 
             mLocationGroup.setVisibility(View.VISIBLE);
             mDescriptionGroup.setVisibility(View.VISIBLE);
         }
-    }
-
-    /**
-     * Shows or hides the Guests view and sets the buttons for removing
-     * attendees based on the value passed in.
-     *
-     * @param editable View.GONE or View.VISIBLE
-     */
-    protected void setAttendeesEditable(boolean editable) {
-        int attCount = mAttendeesView.getChildCount();
-        if (attCount > 0) {
-            mResponseGroup.setVisibility(View.VISIBLE);
-            mAttendeesGroup.setVisibility(View.VISIBLE);
-        } else {
-            mResponseGroup.setVisibility(View.GONE);
-            mAttendeesGroup.setVisibility(View.GONE);
-        }
-        mAttendeesView.setEnabled(editable);
     }
 
     public void setModification(int modifyWhich) {
@@ -1432,8 +1340,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     private void updateAttendees(HashMap<String, Attendee> attendeesList) {
-        mAttendeesView.setRfc822Validator(mEmailValidator);
-        mAttendeesView.addAttendees(attendeesList);
+        if (attendeesList == null || attendeesList.isEmpty()) {
+            return;
+        }
+        mAttendeesList.setText(null);
+        for (Attendee attendee : attendeesList.values()) {
+            mAttendeesList.append(attendee.mEmail);
+        }
     }
 
     private void updateRemindersVisibility(int numReminders) {
@@ -1468,8 +1381,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     // From com.google.android.gm.ComposeActivity
-    private MultiAutoCompleteTextView initMultiAutoCompleteTextView(int res) {
-        RecipientEditTextView list = (RecipientEditTextView) mView.findViewById(res);
+    private MultiAutoCompleteTextView initMultiAutoCompleteTextView(RecipientEditTextView list) {
         if (ChipsUtil.supportsChipsUi()) {
             mAddressAdapter = new RecipientAdapter(mActivity);
             list.setAdapter((BaseRecipientAdapter) mAddressAdapter);
@@ -1564,22 +1476,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEndTime.timezone = mTimezone;
         mEndTime.normalize(true);
         mTimezoneAdapter.setCurrentTimezone(mTimezone);
-    }
-
-    // TextWatcher interface
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
-
-    // TextWatcher interface
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-    }
-
-    // TextWatcher interface
-    @Override
-    public void afterTextChanged(Editable s) {
-        mAddAttendeesButton.setEnabled(s.length() > 0);
     }
 
     /**

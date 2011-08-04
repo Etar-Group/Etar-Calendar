@@ -347,6 +347,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
             return;
         } else {
+            cancelItem.setVisible(true);
             editItem.setVisible(false);
         }
         boolean canRespond = EditEventHelper.canRespond(mModel);
@@ -643,6 +644,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if ((mCode & Utils.DONE_SAVE) != 0 && mModel != null
                     && (EditEventHelper.canRespond(mModel)
                             || EditEventHelper.canModifyEvent(mModel))
+                    && mView.prepareForSave()
                     && !isEmptyNewEvent()
                     && mModel.normalizeReminders()
                     && mHelper.saveEvent(mModel, mOriginalModel, mModification)) {
