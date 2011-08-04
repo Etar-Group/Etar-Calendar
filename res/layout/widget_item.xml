@@ -68,7 +68,7 @@
                 android:layout_below="@+id/title"
                 android:layout_alignLeft="@+id/title"
                 android:singleLine="true"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:ellipsize="marquee"
                 android:textColor="?android:attr/textColorSecondary"
                 style="?android:attr/textAppearanceSmallInverse" />
@@ -81,7 +81,7 @@
                 android:layout_alignLeft="@+id/title"
                 android:singleLine="true"
                 android:ellipsize="marquee"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="@color/agenda_item_where_text_color"
                 style="?android:attr/textAppearanceSmallInverse" />
         </LinearLayout>
