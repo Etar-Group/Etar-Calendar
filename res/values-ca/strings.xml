@@ -41,7 +41,9 @@
     <item quantity="one" msgid="5988137255732166573">"1 dia"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dies"</item>
   </plurals>
-    <!-- no translation found for weekN:other (8085184869561028365) -->
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"SETMANA <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Actualitza"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostra el dia"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
@@ -54,21 +56,17 @@
     <string name="event_delete" msgid="2386667193277770442">"Suprimeix l\'esdeveniment"</string>
     <string name="goto_today" msgid="9162136434410891230">"Avui"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Configuració"</string>
-    <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
-    <skip />
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendaris per visualitzar"</string>
     <string name="search" msgid="550656004486017426">"Cerca"</string>
     <string name="hide_controls" msgid="830320505938520882">"Amaga els controls"</string>
     <string name="show_controls" msgid="715520586028062621">"Mostra els controls"</string>
-    <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
-    <skip />
+    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Calendaris per visualitzar"</string>
     <string name="synced" msgid="7913940305983383493">"sincronitzat"</string>
     <string name="not_synced" msgid="4275114941801829419">"no sincronitzat"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Aquest compte no s\'està sincronitzant i és possible que els calendaris no estiguin actualitzats."</string>
     <string name="accounts" msgid="849401841083180306">"Comptes i sincronització"</string>
-    <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
-    <skip />
-    <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
-    <skip />
+    <string name="select_synced_calendars_title" msgid="7122363881046468658">"Calendaris per sincronitzar"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Calendaris per sincronitzar"</string>
     <string name="hint_what" msgid="709155115005044531">"Nom de l\'esdeveniment"</string>
     <string name="hint_where" msgid="4972598001033801974">"Ubicació"</string>
     <string name="hint_description" msgid="1910143586169033232">"Descripció"</string>

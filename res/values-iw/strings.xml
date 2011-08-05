@@ -41,7 +41,9 @@
     <item quantity="one" msgid="5988137255732166573">"יום אחד"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> ימים"</item>
   </plurals>
-    <!-- no translation found for weekN:other (8085184869561028365) -->
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"שבוע <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"רענן"</string>
     <string name="show_day_view" msgid="5782512782605466016">"הצג יום"</string>
     <string name="agenda_view" msgid="5566084759423843245">"סדר יום"</string>
@@ -54,21 +56,17 @@
     <string name="event_delete" msgid="2386667193277770442">"מחק אירוע"</string>
     <string name="goto_today" msgid="9162136434410891230">"היום"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"הגדרות"</string>
-    <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
-    <skip />
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"יומנים להצגה"</string>
     <string name="search" msgid="550656004486017426">"חיפוש"</string>
     <string name="hide_controls" msgid="830320505938520882">"הסתר פקדים"</string>
     <string name="show_controls" msgid="715520586028062621">"הצג פקדים"</string>
-    <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
-    <skip />
+    <string name="select_visible_calendars_title" msgid="5285053789530752843">"יומנים להצגה"</string>
     <string name="synced" msgid="7913940305983383493">"מסונכרן"</string>
     <string name="not_synced" msgid="4275114941801829419">"לא מסונכרן"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"חשבון זה אינו מסונכרן וייתכן שלוחות השנה שלך לא יהיו מעודכנים."</string>
     <string name="accounts" msgid="849401841083180306">"חשבונות וסנכרון"</string>
-    <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
-    <skip />
-    <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
-    <skip />
+    <string name="select_synced_calendars_title" msgid="7122363881046468658">"יומנים לסנכרון"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"יומנים לסנכרון"</string>
     <string name="hint_what" msgid="709155115005044531">"שם האירוע"</string>
     <string name="hint_where" msgid="4972598001033801974">"מקום"</string>
     <string name="hint_description" msgid="1910143586169033232">"תיאור"</string>

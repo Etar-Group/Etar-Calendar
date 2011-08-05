@@ -19,8 +19,7 @@
     <string name="app_label" msgid="5452708708398908131">"تقویم"</string>
     <string name="what_label" msgid="1933578391985810049">"چه چیزی"</string>
     <string name="where_label" msgid="3472482206065595118">"کجا"</string>
-    <!-- no translation found for when_label (894636567327261599) -->
-    <skip />
+    <string name="when_label" msgid="894636567327261599">"زمان"</string>
     <string name="timezone_label" msgid="3988530993300431650">"منطقه زمانی"</string>
     <string name="attendees_label" msgid="2971281641565729725">"مهمان ها"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -42,7 +41,9 @@
     <item quantity="one" msgid="5988137255732166573">"1 روز"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> روز"</item>
   </plurals>
-    <!-- no translation found for weekN:other (8085184869561028365) -->
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"هفته <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"تازه کردن"</string>
     <string name="show_day_view" msgid="5782512782605466016">"نمایش روز"</string>
     <string name="agenda_view" msgid="5566084759423843245">"دستور جلسه"</string>
@@ -55,21 +56,17 @@
     <string name="event_delete" msgid="2386667193277770442">"حذف رویداد"</string>
     <string name="goto_today" msgid="9162136434410891230">"امروز"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"تنظیمات"</string>
-    <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
-    <skip />
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"تقویم ها برای نمایش"</string>
     <string name="search" msgid="550656004486017426">"جستجو"</string>
     <string name="hide_controls" msgid="830320505938520882">"مخفی کردن کنترل ها"</string>
     <string name="show_controls" msgid="715520586028062621">"نمایش کنترل ها"</string>
-    <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
-    <skip />
+    <string name="select_visible_calendars_title" msgid="5285053789530752843">"تقویم ها برای نمایش"</string>
     <string name="synced" msgid="7913940305983383493">"همگام سازی شده"</string>
     <string name="not_synced" msgid="4275114941801829419">"همگام سازی نشده"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"این حساب همگام سازی نمی شود و تقویم های شما به روز نمی شوند."</string>
     <string name="accounts" msgid="849401841083180306">"حساب ها و همگام سازی"</string>
-    <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
-    <skip />
-    <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
-    <skip />
+    <string name="select_synced_calendars_title" msgid="7122363881046468658">"تقویمها برای همگام سازی"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"تقویمها برای همگام سازی"</string>
     <string name="hint_what" msgid="709155115005044531">"نام رویداد"</string>
     <string name="hint_where" msgid="4972598001033801974">"مکان"</string>
     <string name="hint_description" msgid="1910143586169033232">"توضیح"</string>
@@ -179,8 +176,7 @@
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
-    <!-- no translation found for gadget_no_events (5209110911088302855) -->
-    <skip />
+    <string name="gadget_no_events" msgid="5209110911088302855">"رویداد تقویمی برای روزهای آینده وجود ندارد"</string>
     <string name="tomorrow" msgid="614434811813859237">"فردا"</string>
     <string name="copy_db" msgid="437691290566699292">"ارسال پایگاه داده"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"در حال جستجو <xliff:g id="DOMAIN">%s</xliff:g>..."</string>
