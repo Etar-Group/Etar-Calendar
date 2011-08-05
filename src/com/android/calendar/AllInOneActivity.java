@@ -91,7 +91,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final int BUTTON_MONTH_INDEX = 2;
     private static final int BUTTON_AGENDA_INDEX = 3;
 
-    private static CalendarController mController;
+    private CalendarController mController;
     private static boolean mIsMultipane;
     private static boolean mIsTabletConfig;
     private static boolean mShowAgendaWithMonth;
