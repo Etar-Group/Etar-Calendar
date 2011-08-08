@@ -46,7 +46,7 @@
     
     <color name="calendar_date_banner_text_color">#ff666666</color>
     
-    <color name="calendar_grid_area_selected">#140066ff</color>
+    <color name="calendar_grid_area_selected">@android:color/holo_blue_light</color>
     
     
     <color name="calendar_grid_line_inner_horizontal_color">#FFCCCCCC</color>
