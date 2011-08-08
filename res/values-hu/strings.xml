@@ -42,7 +42,7 @@
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> nap"</item>
   </plurals>
   <plurals name="weekN">
-    <item quantity="other" msgid="8085184869561028365">"HÉT <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="8085184869561028365">"<xliff:g id="COUNT">%d</xliff:g>. hét"</item>
   </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Frissítés"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Nap megjelenítése"</string>
@@ -56,7 +56,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Esemény törlése"</string>
     <string name="goto_today" msgid="9162136434410891230">"Ma"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Beállítások"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Megj. napt."</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Naptárak"</string>
     <string name="search" msgid="550656004486017426">"Keresés"</string>
     <string name="hide_controls" msgid="830320505938520882">"Vezérlők elrejtése"</string>
     <string name="show_controls" msgid="715520586028062621">"Vezérlők megjelenít."</string>

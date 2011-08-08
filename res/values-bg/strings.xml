@@ -19,8 +19,7 @@
     <string name="app_label" msgid="5452708708398908131">"Календар"</string>
     <string name="what_label" msgid="1933578391985810049">"Какво"</string>
     <string name="where_label" msgid="3472482206065595118">"Къде"</string>
-    <!-- no translation found for when_label (894636567327261599) -->
-    <skip />
+    <string name="when_label" msgid="894636567327261599">"Кога"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Часова зона"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Гости"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -42,7 +41,9 @@
     <item quantity="one" msgid="5988137255732166573">"1 ден"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> дни"</item>
   </plurals>
-    <!-- no translation found for weekN:other (8085184869561028365) -->
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"СЕДМИЦА <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Опресняване"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Показване на деня"</string>
     <string name="agenda_view" msgid="5566084759423843245">"График"</string>
@@ -55,21 +56,17 @@
     <string name="event_delete" msgid="2386667193277770442">"Изтриване на събитие"</string>
     <string name="goto_today" msgid="9162136434410891230">"Днес"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Настройки"</string>
-    <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
-    <skip />
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Календари: Показване"</string>
     <string name="search" msgid="550656004486017426">"Търсене"</string>
     <string name="hide_controls" msgid="830320505938520882">"Контроли: Скриване"</string>
     <string name="show_controls" msgid="715520586028062621">"Контроли: Показване"</string>
-    <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
-    <skip />
+    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Календари за показване"</string>
     <string name="synced" msgid="7913940305983383493">"синхронизирано"</string>
     <string name="not_synced" msgid="4275114941801829419">"не е синхронизирано"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Този профил не е синхронизиран и календарите ви може да не са актуални."</string>
     <string name="accounts" msgid="849401841083180306">"Профили и синхронизиране"</string>
-    <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
-    <skip />
-    <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
-    <skip />
+    <string name="select_synced_calendars_title" msgid="7122363881046468658">"Календари за синхронизиране"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Календари за синхронизиране"</string>
     <string name="hint_what" msgid="709155115005044531">"Име на събитието"</string>
     <string name="hint_where" msgid="4972598001033801974">"Местоположение"</string>
     <string name="hint_description" msgid="1910143586169033232">"Описание"</string>
@@ -179,8 +176,7 @@
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
-    <!-- no translation found for gadget_no_events (5209110911088302855) -->
-    <skip />
+    <string name="gadget_no_events" msgid="5209110911088302855">"Няма предстоящи събития от календара"</string>
     <string name="tomorrow" msgid="614434811813859237">"Утре"</string>
     <string name="copy_db" msgid="437691290566699292">"Изпращане на базата от данни"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Търси се <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
