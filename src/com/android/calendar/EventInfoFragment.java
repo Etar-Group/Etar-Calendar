@@ -154,7 +154,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Events.HAS_ALARM,            // 14
         Calendars.MAX_REMINDERS,     //15
         Calendars.ALLOWED_REMINDERS, // 16
-        Events.ORIGINAL_SYNC_ID      // 17 do not remove; used in DeleteEventHelper
+        Events.ORIGINAL_SYNC_ID,     // 17 do not remove; used in DeleteEventHelper
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -236,6 +236,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private boolean mOwnerCanRespond;
     private String mCalendarOwnerAccount;
     private boolean mCanModifyCalendar;
+    private boolean mCanModifyEvent;
     private boolean mIsBusyFreeCalendar;
     private int mNumOfAttendees;
 
@@ -1156,8 +1157,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 setVisibilityCommon(view, R.id.organizer_container, View.GONE);
             }
             mHasAttendeeData = mEventCursor.getInt(EVENT_INDEX_HAS_ATTENDEE_DATA) != 0;
-            mCanModifyCalendar =
-                    mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) >= Calendars.CAL_ACCESS_CONTRIBUTOR;
+            mCanModifyCalendar = mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL)
+                    >= Calendars.CAL_ACCESS_CONTRIBUTOR;
+            // TODO add "|| guestCanModify" after b/1299071 is fixed
+            mCanModifyEvent = mCanModifyCalendar && mIsOrganizer;
             mIsBusyFreeCalendar =
                     mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) == Calendars.CAL_ACCESS_FREEBUSY;
 
@@ -1179,13 +1182,16 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     }
                 });
             }
-            if (!mCanModifyCalendar) {
-                if (mIsDialog) {
-                    View button = mView.findViewById(R.id.delete);
+            if (mIsDialog) {
+                View button;
+                if (!mCanModifyCalendar) {
+                    button = mView.findViewById(R.id.delete);
                     if (button != null) {
                         button.setEnabled(false);
                         button.setVisibility(View.GONE);
                     }
+                }
+                if (!mCanModifyEvent) {
                     button = mView.findViewById(R.id.edit);
                     if (button != null) {
                         button.setEnabled(false);
@@ -1216,8 +1222,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             delete.setEnabled(mCanModifyCalendar);
         }
         if (edit != null) {
-            edit.setVisible(mCanModifyCalendar);
-            edit.setEnabled(mCanModifyCalendar);
+            edit.setVisible(mCanModifyEvent);
+            edit.setEnabled(mCanModifyEvent);
         }
     }
 
