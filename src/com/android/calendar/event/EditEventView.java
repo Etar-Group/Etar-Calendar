@@ -1064,6 +1064,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         } else {
             responseLabel.setVisibility(View.GONE);
             mResponseRadioGroup.setVisibility(View.GONE);
+            mResponseGroup.setVisibility(View.GONE);
         }
 
         int displayColor = Utils.getDisplayColorFromColor(model.mCalendarColor);

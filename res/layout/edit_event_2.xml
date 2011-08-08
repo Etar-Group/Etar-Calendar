@@ -99,9 +99,8 @@
         android:layout_height="wrap_content">
             <com.android.ex.chips.RecipientEditTextView
                 android:id="@+id/attendees"
-                android:layout_width="0dip"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:inputType="textEmailAddress|textMultiLine"
                 android:hint="@string/hint_attendees"
                 android:imeOptions="actionNext"
