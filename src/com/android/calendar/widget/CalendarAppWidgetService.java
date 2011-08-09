@@ -105,7 +105,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         return new CalendarFactory(getApplicationContext(), intent);
     }
 
-    protected static class CalendarFactory extends BroadcastReceiver implements
+    public static class CalendarFactory extends BroadcastReceiver implements
             RemoteViewsService.RemoteViewsFactory, Loader.OnLoadCompleteListener<Cursor> {
         private static final boolean LOGD = false;
         private static final int DECLINED_EVENT_ALPHA = 0x66000000;
@@ -118,8 +118,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         private Context mContext;
         private Resources mResources;
-        private CalendarAppWidgetModel mModel;
-        private Cursor mCursor;
+        private static CalendarAppWidgetModel mModel;
+        private static Cursor mCursor;
+        private static volatile Integer mLock = new Integer(0);
+        private int mLastLock;
         private CursorLoader mLoader;
         private Handler mHandler = new Handler();
         private int mAppWidgetId;
@@ -144,6 +146,9 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     String selection = Utils.getHideDeclinedEvents(mContext) ?
                             EVENT_SELECTION_HIDE_DECLINED : EVENT_SELECTION;
                     mLoader.setSelection(selection);
+                    synchronized (mLock) {
+                        mLastLock = ++mLock;
+                    }
                     mLoader.forceLoad();
                 }
             }
@@ -157,6 +162,11 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
             mDeclinedColor = mResources.getColor(R.color.agenda_item_declined_color);
             mStandardColor = mResources.getColor(R.color.agenda_item_standard_color);
+        }
+
+        public CalendarFactory() {
+            // This is being created as part of onReceive
+
         }
 
         @Override
@@ -340,28 +350,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         public void initLoader() {
             if (LOGD)
                 Log.d(TAG, "Querying for widget events...");
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(Utils.getWidgetScheduledUpdateAction(mContext));
-            filter.addDataScheme(ContentResolver.SCHEME_CONTENT);
-            filter.addDataAuthority(CalendarContract.AUTHORITY, null);
-            try {
-                filter.addDataType(Utils.APPWIDGET_DATA_TYPE);
-            } catch (MalformedMimeTypeException e) {
-                Log.e(TAG, e.toString());
-            }
-            mContext.registerReceiver(this, filter);
-
-            filter = new IntentFilter();
-            filter.addAction(Intent.ACTION_PROVIDER_CHANGED);
-            filter.addDataScheme(ContentResolver.SCHEME_CONTENT);
-            filter.addDataAuthority(CalendarContract.AUTHORITY, null);
-            mContext.registerReceiver(this, filter);
-
-            filter = new IntentFilter();
-            filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-            filter.addAction(Intent.ACTION_TIME_CHANGED);
-            filter.addAction(Intent.ACTION_DATE_CHANGED);
-            mContext.registerReceiver(this, filter);
 
             // Search for events from now until some time in the future
             Uri uri = createLoaderUri();
@@ -370,6 +358,9 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             mLoader = new CursorLoader(mContext, uri, EVENT_PROJECTION, selection, null,
                     EVENT_SORT_ORDER);
             mLoader.setUpdateThrottle(WIDGET_UPDATE_THROTTLE);
+            synchronized (mLock) {
+                mLastLock = ++mLock;
+            }
             mLoader.startLoading();
             mLoader.registerListener(mAppWidgetId, this);
 
@@ -453,62 +444,86 @@ public class CalendarAppWidgetService extends RemoteViewsService {
          */
         @Override
         public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-            // Copy it to a local static cursor.
-            MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
-            cursor.close();
+            // If a newer update has happened since we started clean up and
+            // return
+            synchronized (mLock) {
+                if (mLastLock != mLock) {
+                    cursor.close();
+                    return;
+                }
+                // Copy it to a local static cursor.
+                MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
+                cursor.close();
 
-            final long now = System.currentTimeMillis();
-            if (mCursor != null) {
-                mCursor.close();
-            }
-            mCursor = matrixCursor;
-            String tz = Utils.getTimeZone(mContext, mTimezoneChanged);
-            mModel = buildAppWidgetModel(mContext, mCursor, tz);
+                final long now = System.currentTimeMillis();
+                if (mCursor != null) {
+                    mCursor.close();
+                }
+                mCursor = matrixCursor;
+                String tz = Utils.getTimeZone(mContext, mTimezoneChanged);
+                mModel = buildAppWidgetModel(mContext, mCursor, tz);
 
-            // Schedule an alarm to wake ourselves up for the next update.
-            // We also cancel
-            // all existing wake-ups because PendingIntents don't match
-            // against extras.
-            long triggerTime = calculateUpdateTime(mModel, now, tz);
+                // Schedule an alarm to wake ourselves up for the next update.
+                // We also cancel
+                // all existing wake-ups because PendingIntents don't match
+                // against extras.
+                long triggerTime = calculateUpdateTime(mModel, now, tz);
 
-            // If no next-update calculated, or bad trigger time in past,
-            // schedule
-            // update about six hours from now.
-            if (triggerTime < now) {
-                Log.w(TAG, "Encountered bad trigger time " + formatDebugTime(triggerTime, now));
-                triggerTime = now + UPDATE_TIME_NO_EVENTS;
-            }
-
-
-            final AlarmManager alertManager = (AlarmManager) mContext.getSystemService(
-                    Context.ALARM_SERVICE);
-            final PendingIntent pendingUpdate = CalendarAppWidgetProvider.getUpdateIntent(mContext);
-
-            alertManager.cancel(pendingUpdate);
-            alertManager.set(AlarmManager.RTC, triggerTime, pendingUpdate);
-            Time time = new Time(Utils.getTimeZone(mContext, null));
-            time.setToNow();
-
-            if (time.normalize(true) != sLastUpdateTime) {
-                Time time2 = new Time(Utils.getTimeZone(mContext, null));
-                time2.set(sLastUpdateTime);
-                time2.normalize(true);
-                if (time.year != time2.year || time.yearDay != time2.yearDay) {
-                    final Intent updateIntent = new Intent(Utils.getWidgetUpdateAction(mContext));
-                    mContext.sendBroadcast(updateIntent);
+                // If no next-update calculated, or bad trigger time in past,
+                // schedule
+                // update about six hours from now.
+                if (triggerTime < now) {
+                    Log.w(TAG, "Encountered bad trigger time " + formatDebugTime(triggerTime, now));
+                    triggerTime = now + UPDATE_TIME_NO_EVENTS;
                 }
 
-                sLastUpdateTime = time.toMillis(true);
-            }
+                final AlarmManager alertManager = (AlarmManager) mContext
+                        .getSystemService(Context.ALARM_SERVICE);
+                final PendingIntent pendingUpdate = CalendarAppWidgetProvider
+                        .getUpdateIntent(mContext);
 
-            AppWidgetManager.getInstance(mContext).notifyAppWidgetViewDataChanged(
-                    mAppWidgetId, R.id.events_list);
+                alertManager.cancel(pendingUpdate);
+                alertManager.set(AlarmManager.RTC, triggerTime, pendingUpdate);
+                Time time = new Time(Utils.getTimeZone(mContext, null));
+                time.setToNow();
+
+                if (time.normalize(true) != sLastUpdateTime) {
+                    Time time2 = new Time(Utils.getTimeZone(mContext, null));
+                    time2.set(sLastUpdateTime);
+                    time2.normalize(true);
+                    if (time.year != time2.year || time.yearDay != time2.yearDay) {
+                        final Intent updateIntent = new Intent(
+                                Utils.getWidgetUpdateAction(mContext));
+                        mContext.sendBroadcast(updateIntent);
+                    }
+
+                    sLastUpdateTime = time.toMillis(true);
+                }
+
+                AppWidgetManager widgetManager = AppWidgetManager.getInstance(mContext);
+                if (mAppWidgetId == -1) {
+                    int[] ids = widgetManager.getAppWidgetIds(CalendarAppWidgetProvider
+                            .getComponentName(mContext));
+
+                    widgetManager.notifyAppWidgetViewDataChanged(ids, R.id.events_list);
+                } else {
+                    widgetManager.notifyAppWidgetViewDataChanged(mAppWidgetId, R.id.events_list);
+                }
+            }
         }
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            mHandler.removeCallbacks(mUpdateLoader);
-            mHandler.post(mUpdateLoader);
+            if (LOGD)
+                Log.d(TAG, "AppWidgetService received an intent. It was " + intent.toString());
+            mContext = context;
+            if (mLoader == null) {
+                mAppWidgetId = -1;
+                initLoader();
+            } else {
+                mHandler.removeCallbacks(mUpdateLoader);
+                mHandler.post(mUpdateLoader);
+            }
         }
     }
 

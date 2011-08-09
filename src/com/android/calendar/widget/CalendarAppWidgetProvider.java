@@ -55,11 +55,20 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         // Handle calendar-specific updates ourselves because they might be
         // coming in without extras, which AppWidgetProvider then blocks.
         final String action = intent.getAction();
+        if (LOGD)
+            Log.d(TAG, "AppWidgetProvider got the intent: " + intent.toString());
         if (Utils.getWidgetUpdateAction(context).equals(action)) {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             performUpdate(context, appWidgetManager,
                     appWidgetManager.getAppWidgetIds(getComponentName(context)),
                     null /* no eventIds */);
+        } else if (action.equals(Intent.ACTION_PROVIDER_CHANGED)
+                || action.equals(Intent.ACTION_TIME_CHANGED)
+                || action.equals(Intent.ACTION_TIMEZONE_CHANGED)
+                || action.equals(Intent.ACTION_DATE_CHANGED)
+                || action.equals(Utils.getWidgetScheduledUpdateAction(context))) {
+            Intent service = new Intent(context, CalendarAppWidgetService.class);
+            context.startService(service);
         } else {
             super.onReceive(context, intent);
         }
