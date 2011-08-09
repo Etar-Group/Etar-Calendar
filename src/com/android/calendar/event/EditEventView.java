@@ -706,10 +706,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mModel.mSelfAttendeeStatus = status;
         }
 
-        if (mAttendeesList != null && !TextUtils.isEmpty(mAttendeesList.getText())) {
+        if (mAttendeesList != null) {
             mEmailValidator.setRemoveInvalid(true);
             mAttendeesList.performValidation();
+            mModel.mAttendeesList.clear();
             mModel.addAttendees(mAttendeesList.getText().toString(), mEmailValidator);
+            mEmailValidator.setRemoveInvalid(false);
         }
 
         // If this was a new event we need to fill in the Calendar information
