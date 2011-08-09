@@ -31,6 +31,8 @@
         <RadioGroup
             android:id="@+id/response_value"
             android:orientation="horizontal"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="8dip"
             android:paddingTop="11dip">
             <RadioButton
                 android:id="@+id/response_yes"

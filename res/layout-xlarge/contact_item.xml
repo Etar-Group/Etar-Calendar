@@ -28,6 +28,7 @@
             android:id="@+id/name"
             android:layout_height="wrap_content"
             android:layout_width="0dip"
+            android:layout_marginLeft="8dip"
             android:layout_weight="1"
             android:textSize="18sp"
             android:layout_gravity="center_vertical"

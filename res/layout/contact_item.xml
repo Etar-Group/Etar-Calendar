@@ -22,7 +22,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dip"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_marginRight="16dip" >
 
         <TextView
             android:id="@+id/name"
@@ -30,6 +31,7 @@
             android:layout_width="0dip"
             android:layout_weight="1"
             android:textSize="18sp"
+            android:layout_marginLeft="8dip"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceMedium"

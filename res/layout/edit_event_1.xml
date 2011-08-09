@@ -34,6 +34,10 @@
             android:layout_gravity="center_vertical"
             android:paddingBottom="10dip"
             android:paddingTop="10dip"
+            android:paddingLeft="8dip"
+            android:paddingRight="16dip"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
             android:gravity="center_vertical" />
     </LinearLayout>
 
@@ -43,12 +47,29 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip"
         android:focusable="true">
         <TextView
             android:id="@+id/calendar_textview"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:textColor="#FFFFFFFF"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            style="@style/TextAppearance.EditEvent_Value" />
+        <TextView
+            android:id="@+id/calendar_textview_secondary"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textColor="#FFFFFFFF"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:textSize="14sp"
             style="@style/TextAppearance.EditEvent_Value" />
     </LinearLayout>
 
@@ -56,8 +77,6 @@
     <EditText
         android:id="@+id/title"
         style="@style/TextAppearance.EditEvent_Value"
-        android:textSize="24sp"
-        android:textStyle="bold"
         android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,7 +115,8 @@
             android:text="@string/when_label"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
+            android:layout_marginBottom="-8dip"
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
         <TextView
             android:id="@+id/when"
             android:layout_height="wrap_content"
@@ -110,6 +130,12 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/from_label"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/edit_event_from_label"
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -128,34 +154,31 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:contentDescription="@string/accessibility_pick_start_time"
+                android:layout_marginLeft="-8dip"
                 style="@style/TextAppearance.EditEvent_Spinner" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout android:id="@+id/from_row_home_tz"
         android:visibility="gone"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dip"
+        android:layout_marginLeft="24dip"
+        android:layout_marginRight="16dip"
         android:focusable="true">
-        <LinearLayout android:orientation="horizontal"
+        <TextView android:id="@+id/start_date_home_tz"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:paddingLeft="5dip"
-            android:paddingRight="5dip"
-            android:paddingBottom="8dip">
-            <TextView android:id="@+id/start_date_home_tz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:gravity="left|center_vertical"
-                style="@style/TextAppearance.EditEvent_homeTime" />
-            <TextView android:id="@+id/start_time_home_tz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="right|center_vertical"
-                style="@style/TextAppearance.EditEvent_homeTime" />
-        </LinearLayout>
+            android:layout_weight="7"
+            android:gravity="left|center_vertical"
+            style="@style/TextAppearance.EditEvent_homeTime" />
+        <TextView android:id="@+id/start_time_home_tz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:gravity="right|center_vertical"
+            style="@style/TextAppearance.EditEvent_homeTime" />
     </LinearLayout>
 
     <!-- TO - Read/write version which launches the date/time pickers -->
@@ -164,6 +187,12 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/to_label"
+            android:text="@string/edit_event_to_label"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_height="wrap_content"
@@ -182,6 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:contentDescription="@string/accessibility_pick_end_time"
+                android:layout_marginLeft="-8dip"
                 style="@style/TextAppearance.EditEvent_Spinner" />
         </LinearLayout>
     </LinearLayout>
@@ -189,28 +219,24 @@
         android:id="@+id/to_row_home_tz"
         android:visibility="gone"
         android:focusable="true"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dip"
+        android:layout_marginLeft="24dip"
+        android:layout_marginRight="16dip">
+        <TextView android:id="@+id/end_date_home_tz"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:paddingLeft="5dip"
-            android:paddingRight="5dip"
-            android:paddingBottom="8dip">
-            <TextView android:id="@+id/end_date_home_tz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:gravity="left|center_vertical"
-                style="@style/TextAppearance.EditEvent_homeTime" />
-            <TextView android:id="@+id/end_time_home_tz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="right|center_vertical"
-                style="@style/TextAppearance.EditEvent_homeTime" />
-        </LinearLayout>
+            android:layout_weight="7"
+            android:gravity="left|center_vertical"
+            style="@style/TextAppearance.EditEvent_homeTime" />
+        <TextView android:id="@+id/end_time_home_tz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:gravity="right|center_vertical"
+            style="@style/TextAppearance.EditEvent_homeTime" />
     </LinearLayout>
 
     <!-- ALL DAY -->
@@ -220,19 +246,26 @@
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/is_all_day_label"
-            android:text="@string/edit_event_all_day_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
         <CheckBox
             android:id="@+id/is_all_day"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
-            android:contentDescription="@string/accessibility_all_day"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="0dip"
+            android:paddingLeft="0dip"
+            android:paddingRight="0dip"
+            android:contentDescription="@string/accessibility_all_day"/>
+        <TextView
+            android:id="@+id/is_all_day_label"
+            android:text="@string/edit_event_all_day_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingLeft="0dip"
+            android:layout_marginLeft="0dip"
+            android:layout_gravity="center_vertical"
+            style="@style/TextAppearance.EditEvent_Label" />
     </LinearLayout>
 
     <!-- TIME ZONE - Read-only textview version -->
@@ -243,11 +276,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true">
-        <TextView
-            android:text="@string/timezone_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
         <TextView
             android:id="@+id/timezone_textView"
             android:layout_height="wrap_content"
@@ -261,12 +289,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/timezone_label"
-            android:text="@string/timezone_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
         <Button
             android:id="@+id/timezone_button"
             android:gravity="left|center_vertical"

@@ -33,13 +33,15 @@
             android:gravity="center_vertical"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
         <RadioGroup
             android:id="@+id/response_value"
             android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:paddingTop="11dip">
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="8dip"
+            android:paddingTop="5dip">
             <RadioButton
                 android:id="@+id/response_yes"
                 android:layout_width="wrap_content"
@@ -83,7 +85,7 @@
             android:text="@string/view_event_organizer_label"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
         <TextView
             android:id="@+id/organizer"
             android:layout_height="wrap_content"
@@ -139,7 +141,7 @@
             android:text="@string/repeats_label"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            style="@style/TextAppearance.EditEvent_Label" />
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
         <Spinner
             android:id="@+id/repeats"
             style="@style/TextAppearance.EditEvent_Value"
@@ -159,9 +161,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true">
+        <TextView
+            android:id="@+id/reminders_group_label"
+            android:text="@string/event_info_reminders_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:layout_marginRight="16dip"
             android:orientation="horizontal">
             <LinearLayout
                 android:id="@+id/reminder_items_container"
@@ -173,6 +184,7 @@
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/reminders_label"
@@ -180,10 +192,11 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 android:layout_weight="1"
-                style="TextAppearance.EditEvent_Value"
-                android:textColor="#FF888888"
-                android:layout_marginLeft="16dp"  />
+                android:layout_marginBottom="5dip"
+                android:layout_marginTop="5dip"
+                style="@style/TextAppearance.EditEvent_LabelSmall" />
             <ImageButton
                 android:id="@+id/reminder_add"
                 android:layout_width="wrap_content"
@@ -206,7 +219,7 @@
             style="@style/EditEventSeparator"/>
         <LinearLayout
             android:id="@+id/availability_row"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -215,7 +228,7 @@
                 android:layout_weight="0"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                style="@style/TextAppearance.EditEvent_Label"
+                style="@style/TextAppearance.EditEvent_LabelSmall"
                 android:paddingRight="4dip" />
             <Spinner
                 android:id="@+id/availability"
@@ -223,7 +236,7 @@
                 style="@style/TextAppearance.EditEvent_Value"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:contentDescription="@string/accessibility_reminder_showmeas"
                 android:prompt="@string/presence_label" />
         </LinearLayout>
@@ -234,7 +247,7 @@
         <!-- PRIVACY -->
     <LinearLayout
         android:id="@+id/visibility_row"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -243,14 +256,14 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_weight="0"
-            style="@style/TextAppearance.EditEvent_Label" />
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
         <Spinner
             android:id="@+id/visibility"
             android:entries="@array/visibility"
             android:layout_weight="1"
             style="@style/TextAppearance.EditEvent_Value"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:contentDescription="@string/accessibility_reminder_privacy"
             android:prompt="@string/privacy_label" />
     </LinearLayout>

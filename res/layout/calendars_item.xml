@@ -15,14 +15,9 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
-
-    <ImageView android:id="@+id/right_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@drawable/calendars_item"/>
 
     <TextView android:id="@+id/calendar_name"
         style="?android:attr/spinnerItemStyle"
@@ -32,5 +27,18 @@
         android:ellipsize="end"
         android:textColor="#FFFFFFFF"
         android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/account_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calendar_name"
+        android:layout_alignLeft="@id/calendar_name"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        style="?android:attr/spinnerItemStyle"
+        android:textColor="#FFFFFFFF"
+        android:textSize="14sp"
+    />
 
 </LinearLayout>

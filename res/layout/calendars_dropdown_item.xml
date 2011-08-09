@@ -47,6 +47,7 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/calendar_owner_text_color"
     />
 
 </RelativeLayout>

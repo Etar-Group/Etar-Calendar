@@ -594,7 +594,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     Resources res = context.getResources();
                     accountName.setText(cursor.getString(ownerColumn));
                     accountName.setVisibility(TextView.VISIBLE);
-                    accountName.setTextColor(res.getColor(R.color.calendar_owner_text_color));
                 }
             }
         }
@@ -1075,12 +1074,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             calendarGroup.setVisibility(View.GONE);
             TextView tv = (TextView) mView.findViewById(R.id.calendar_textview);
             tv.setText(model.mCalendarDisplayName);
-            tv.setBackgroundColor(displayColor);
+            tv = (TextView) mView.findViewById(R.id.calendar_textview_secondary);
+            if (tv != null) {
+                tv.setText(model.mOwnerAccount);
+            }
+            mView.findViewById(R.id.calendar_group).setBackgroundColor(displayColor);
             mColorChip.setBackgroundColor(displayColor);
         } else {
             View calendarGroup = mView.findViewById(R.id.calendar_group);
             calendarGroup.setVisibility(View.GONE);
-            mCalendarsSpinner.setBackgroundColor(displayColor);
             mCalendarSelectorGroup.setBackgroundColor(displayColor);
         }
 
@@ -1286,6 +1288,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 v.setEnabled(true);
                 if (v.getTag() != null) {
                     v.setBackgroundDrawable((Drawable) v.getTag());
+                    v.setPadding(mOriginalPadding[0], mOriginalPadding[1], mOriginalPadding[2],
+                            mOriginalPadding[3]);
                 }
             }
             if (mModel.mUri == null) {
@@ -1296,6 +1300,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mCalendarStaticGroup.setVisibility(View.VISIBLE);
             }
             mRepeatsSpinner.setBackgroundDrawable((Drawable) mRepeatsSpinner.getTag());
+            mRepeatsSpinner.setPadding(mOriginalPadding[0], mOriginalPadding[1],
+                    mOriginalPadding[2], mOriginalPadding[3]);
             if (mModel.mOriginalSyncId == null) {
                 mRepeatsSpinner.setEnabled(true);
             } else {
@@ -1502,7 +1508,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mStartTimeButton.setVisibility(View.GONE);
             mEndTimeButton.setVisibility(View.GONE);
             mTimezoneButton.setVisibility(View.GONE);
-            mTimezoneLabel.setVisibility(View.GONE);
+            if (mTimezoneLabel != null) {
+                mTimezoneLabel.setVisibility(View.GONE);
+            }
         } else {
             if (mEndTime.hour == 0 && mEndTime.minute == 0) {
                 mEndTime.monthDay++;
@@ -1513,7 +1521,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mStartTimeButton.setVisibility(View.VISIBLE);
             mEndTimeButton.setVisibility(View.VISIBLE);
             mTimezoneButton.setVisibility(View.VISIBLE);
-            mTimezoneLabel.setVisibility(View.VISIBLE);
+            if (mTimezoneLabel != null) {
+                mTimezoneLabel.setVisibility(View.VISIBLE);
+            }
         }
         updateHomeTime();
     }
@@ -1534,7 +1544,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         int displayColor = Utils.getDisplayColorFromColor(color);
         mColorChip.setBackgroundColor(displayColor);
         mModel.mCalendarColor = color;
-        mCalendarsSpinner.setBackgroundColor(displayColor);
         mCalendarSelectorGroup.setBackgroundColor(displayColor);
 
 

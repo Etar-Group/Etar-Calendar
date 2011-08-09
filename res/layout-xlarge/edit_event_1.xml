@@ -38,29 +38,42 @@
     <!-- CALENDARS SELECTOR for new events -->
     <TableRow
         android:id="@+id/calendar_selector_group"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
         android:focusable="true" >
         <TextView
             android:text="@string/edit_event_calendar_label"
             style="@style/TextAppearance.EditEvent_Label"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="0dip"
             android:gravity="center_vertical" />
         <Spinner
             android:id="@+id/calendars_spinner"
             android:prompt="@string/edit_event_calendar_label"
-            style="@style/TextAppearance.EditEvent_Value"
             android:layout_gravity="center_vertical"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:paddingLeft="8dip"
+            android:paddingRight="16dip"
+            android:layout_marginLeft="0dip"
+            android:layout_marginRight="32dip" />
     </TableRow>
 
     <!-- CALENDAR DISPLAY for existing events -->
     <TableRow
         android:id="@+id/calendar_group"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
         android:focusable="true">
         <TextView
             android:text="@string/edit_event_calendar_label"
+            android:layout_marginLeft="0dip"
             style="@style/TextAppearance.EditEvent_Label" />
         <TextView
             android:id="@+id/calendar_textview"
+            android:layout_marginRight="0dip"
+            android:layout_marginLeft="0dip"
             style="@style/TextAppearance.EditEvent_Value" />
     </TableRow>
 
@@ -109,9 +122,11 @@
         android:focusable="true">
         <TextView/>
         <LinearLayout android:orientation="horizontal"
-            android:paddingLeft="5dip"
-            android:paddingRight="5dip"
-            android:paddingBottom="8dip">
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:paddingLeft="8dip"
+            android:paddingRight="0dip"
+            android:paddingBottom="5dip">
             <TextView android:id="@+id/start_date_home_tz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,9 +173,11 @@
         android:focusable="true">
         <TextView/>
         <LinearLayout android:orientation="horizontal"
-            android:paddingLeft="5dip"
-            android:paddingRight="5dip"
-            android:paddingBottom="8dip">
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:paddingLeft="8dip"
+            android:paddingRight="0dip"
+            android:paddingBottom="5dip">
             <TextView android:id="@+id/end_date_home_tz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -215,6 +232,8 @@
             android:id="@+id/is_all_day"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dip"
+            android:paddingLeft="8dip"
             android:contentDescription="@string/accessibility_all_day"
             android:gravity="center_vertical" />
     </TableRow>
@@ -269,13 +288,15 @@
             android:text="@string/reminders_label"
             style="@style/TextAppearance.EditEvent_Label" />
         <LinearLayout
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical|right">
             <LinearLayout
                 android:id="@+id/reminder_items_container"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                android:gravity="center_vertical|right"  />
             <ImageButton
                 android:id="@+id/reminder_add"
                 android:layout_width="wrap_content"

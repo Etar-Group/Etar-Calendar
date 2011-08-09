@@ -318,13 +318,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
             createTabs();
         } else {
             createButtonsSpinner(viewType);
-            mActionBar.setCustomView(mDateRange);
         }
         if (mIsMultipane) {
             mActionBar.setDisplayOptions(
                     ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
         } else {
-            mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            mActionBar.setDisplayOptions(0);
         }
     }
 

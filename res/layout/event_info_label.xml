@@ -20,7 +20,7 @@
     android:layout_height="32dip"
     android:background="@color/event_info_label_background_color"
     android:gravity="center_vertical"
-    android:paddingLeft="8dip"
+    android:paddingLeft="16dip"
     style="?android:attr/textAppearanceMedium"
     android:textColor="@android:color/black" />
 

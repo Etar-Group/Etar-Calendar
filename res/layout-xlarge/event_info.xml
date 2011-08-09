@@ -277,8 +277,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="8dip"
-                    android:paddingRight="8dip"
+                    android:paddingLeft="16dip"
+                    android:paddingRight="16dip"
                     android:layout_marginTop="4dip"
                     style="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
@@ -288,6 +288,7 @@
                         android:id="@+id/reminder_items_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dp"
                         android:layout_weight="1"
                         android:orientation="vertical" />
                 <LinearLayout
@@ -308,6 +309,7 @@
                         android:id="@+id/reminder_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="0dp"
                         style="@style/PlusButton"
                         android:contentDescription="@string/accessibility_add_reminder"
                         android:layout_gravity="center_vertical" />
