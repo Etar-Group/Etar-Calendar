@@ -1394,6 +1394,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         if (ChipsUtil.supportsChipsUi()) {
             mAddressAdapter = new RecipientAdapter(mActivity);
             list.setAdapter((BaseRecipientAdapter) mAddressAdapter);
+            list.setOnFocusListShrinkRecipients(false);
             Resources r = mActivity.getResources();
             Bitmap def = BitmapFactory.decodeResource(r, R.drawable.ic_contact_picture);
             list.setChipDimensions(
