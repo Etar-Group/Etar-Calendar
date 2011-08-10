@@ -941,6 +941,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 }
             }
             displayTime = event.startTime.toMillis(true);
+            if (!mIsTabletConfig) {
+                mActionBarMenuSpinnerAdapter.setTime(displayTime);
+            }
         } else if (event.eventType == EventType.VIEW_EVENT) {
 
             // If in Agenda view and "show_event_details_with_agenda" is "true",
