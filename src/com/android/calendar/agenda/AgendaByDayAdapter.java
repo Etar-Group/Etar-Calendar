@@ -254,10 +254,10 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
             // Set the background of the view, it is different if it is before today or not
             if (row.mDay >= mTodayJulianDay) {
-                agendaDayView.setBackgroundColor(mBackgroundColor);
+                agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
                 holder.grayed = false;
             } else {
-                agendaDayView.setBackgroundColor(mPastBackgroundColor);
+                agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
                 holder.grayed = true;
             }
             return agendaDayView;
@@ -275,16 +275,16 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
             // if event in the past , un-bold the title and set the background
             if (row.mDay < mTodayJulianDay) {
-                itemView.setBackgroundColor(mPastBackgroundColor);
+                itemView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
                 title.setTypeface(Typeface.DEFAULT);
                 holder.grayed = true;
             } else if (row.mDay == mTodayJulianDay && !allDay &&
                     eventEndTime < System.currentTimeMillis()){
-                itemView.setBackgroundColor(mPastBackgroundColor);
+                itemView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
                 title.setTypeface(Typeface.DEFAULT);
                 holder.grayed = true;
             } else {
-                itemView.setBackgroundColor(mBackgroundColor);
+                itemView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
                 title.setTypeface(Typeface.DEFAULT_BOLD);
                 holder.grayed = false;
             }

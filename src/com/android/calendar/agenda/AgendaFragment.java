@@ -131,6 +131,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         View v = inflater.inflate(R.layout.agenda_fragment, null);
 
         mAgendaListView = (AgendaListView)v.findViewById(R.id.agenda_events_list);
+        mAgendaListView.setClickable(true);
         mAgendaListView.goTo(mTime, -1, mQuery, true);
 
         if (savedInstanceState != null) {

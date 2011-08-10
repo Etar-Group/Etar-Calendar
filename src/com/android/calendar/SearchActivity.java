@@ -66,7 +66,7 @@ public class SearchActivity extends Activity implements CalendarController.Event
 
     private CalendarController mController;
 
-    private EditEventFragment mEventInfoFragment;
+    private EventInfoFragment mEventInfoFragment;
 
     private long mCurrentEventId = -1;
 
@@ -170,7 +170,9 @@ public class SearchActivity extends Activity implements CalendarController.Event
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
 
-            mEventInfoFragment = new EditEventFragment(event, true, null);
+            mEventInfoFragment = new EventInfoFragment(this, event.id,
+                    event.startTime.toMillis(false), event.endTime.toMillis(false),
+                    (int) event.extraLong, false);
             ft.replace(R.id.agenda_event_info, mEventInfoFragment);
             ft.commit();
             mController.registerEventHandler(R.id.agenda_event_info, mEventInfoFragment);
