@@ -276,7 +276,9 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
     @Override
     public void eventsChanged() {
-        mAgendaListView.refresh(true);
+        if (mAgendaListView != null) {
+            mAgendaListView.refresh(true);
+        }
     }
 
     @Override
