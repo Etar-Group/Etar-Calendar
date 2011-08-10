@@ -80,7 +80,7 @@
     
     
     
-    <color name="month_dna_conflict_time_color">#FF000000</color>
+    <color name="month_dna_conflict_time_color">#FF333333</color>
 
     <color name="event_center">#ff6bd697</color>
     <color name="edit_event_separator">#FFDDDDDD</color>
