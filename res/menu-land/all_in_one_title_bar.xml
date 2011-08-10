@@ -27,13 +27,13 @@
         android:alphabeticShortcut="t"
         android:title="@string/goto_today"
         android:icon="@drawable/ic_menu_today_holo_light"
-        android:showAsAction="withText|always" />
+        android:showAsAction="withText|ifRoom" />
     <item
         android:id="@+id/action_create_event"
         android:alphabeticShortcut="n"
         android:title="@string/event_create"
         android:icon="@drawable/ic_menu_add_event_holo_light"
-        android:showAsAction="always" />
+        android:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_refresh"
         android:alphabeticShortcut="r"
