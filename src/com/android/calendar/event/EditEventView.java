@@ -1406,7 +1406,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     R.layout.chips_alternate_item,
                     r.getDimension(R.dimen.chip_height),
                     r.getDimension(R.dimen.chip_padding),
-                    r.getDimension(R.dimen.chip_text_size));
+                    r.getDimension(R.dimen.chip_text_size),
+                    R.layout.copy_chip_dialog_layout);
         } else {
             mAddressAdapter = new EmailAddressAdapter(mActivity);
             list.setAdapter((EmailAddressAdapter)mAddressAdapter);
