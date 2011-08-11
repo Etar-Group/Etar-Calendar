@@ -44,6 +44,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     private static int COLOR_CHIP_LEFT_MARGIN = 20;
     private static int COLOR_CHIP_RIGHT_MARGIN = 8;
     private static int COLOR_CHIP_TOP_OFFSET = 5;
+    private static int BOTTOM_ITEM_HEIGHT = 64;
+    private static int NORMAL_ITEM_HEIGHT = 48;
 
     private static final int IS_SELECTED = 1 << 0;
     private static final int IS_TOP = 1 << 1;
@@ -97,58 +99,56 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
             COLOR_CHIP_LEFT_MARGIN *= mScale;
             COLOR_CHIP_RIGHT_MARGIN *= mScale;
             COLOR_CHIP_TOP_OFFSET *= mScale;
+            BOTTOM_ITEM_HEIGHT *= mScale;
+            NORMAL_ITEM_HEIGHT *= mScale;
         }
     }
 
     private static class TabletCalendarItemBackgrounds {
-        static private Drawable[] mBackgrounds = null;
+        static private int[] mBackgrounds = null;
 
         /**
          * Sets up the background drawables for the calendars list
          *
          * @param res The context's resources
          */
-        static Drawable[] getBackgrounds(Resources res) {
+        static int[] getBackgrounds() {
             // Not thread safe. Ok if called only from main thread
             if (mBackgrounds != null) {
                 return mBackgrounds;
             }
 
-            mBackgrounds = new Drawable[16];
+            mBackgrounds = new int[16];
 
-            mBackgrounds[0] = res.getDrawable(R.drawable.calname_unselected_holo_light);
-            mBackgrounds[IS_TOP] = mBackgrounds[0];
+            mBackgrounds[0] = R.drawable.calname_unselected;
 
-            mBackgrounds[IS_SELECTED] = res.getDrawable(
-                    R.drawable.calname_select_underunselected_holo_light);
-            mBackgrounds[IS_SELECTED | IS_TOP] = mBackgrounds[IS_SELECTED];
+            mBackgrounds[IS_SELECTED] = R.drawable.calname_select_underunselected;
 
-            mBackgrounds[IS_SELECTED | IS_BOTTOM] = res.getDrawable(
-                    R.drawable.calname_bottom_select_underunselected_holo_light);
+            mBackgrounds[IS_SELECTED | IS_BOTTOM] =
+                    R.drawable.calname_bottom_select_underunselected;
             mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM] = mBackgrounds[IS_SELECTED | IS_BOTTOM];
 
             mBackgrounds[IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED] =
-                    res.getDrawable(R.drawable.calname_bottom_select_underselect_holo_light);
+                    R.drawable.calname_bottom_select_underselect;
             mBackgrounds[IS_SELECTED | IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] = mBackgrounds[
                     IS_SELECTED | IS_BOTTOM | IS_BELOW_SELECTED];
 
-            mBackgrounds[IS_SELECTED | IS_BELOW_SELECTED] =
-                    res.getDrawable(R.drawable.calname_select_underselect_holo_light);
+            mBackgrounds[IS_SELECTED | IS_BELOW_SELECTED] = R.drawable.calname_select_underselect;
             mBackgrounds[IS_SELECTED | IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_SELECTED
                     | IS_BELOW_SELECTED];
+            mBackgrounds[IS_SELECTED | IS_TOP] = mBackgrounds[IS_SELECTED | IS_BELOW_SELECTED];
 
-            mBackgrounds[IS_BOTTOM] = res.getDrawable(
-                    R.drawable.calname_bottom_unselected_holo_light);
+            mBackgrounds[IS_BOTTOM] = R.drawable.calname_bottom_unselected;
             mBackgrounds[IS_TOP | IS_BOTTOM] = mBackgrounds[IS_BOTTOM];
 
-            mBackgrounds[IS_BOTTOM | IS_BELOW_SELECTED] = res.getDrawable(
-                    R.drawable.calname_bottom_unselected_underselect_holo_light);
+            mBackgrounds[IS_BOTTOM | IS_BELOW_SELECTED] =
+                    R.drawable.calname_bottom_unselected_underselect;
             mBackgrounds[IS_TOP | IS_BOTTOM | IS_BELOW_SELECTED] = mBackgrounds[IS_BOTTOM
                     | IS_BELOW_SELECTED];
 
-            mBackgrounds[IS_BELOW_SELECTED] = res.getDrawable(
-                    R.drawable.calname_unselected_underselect_holo_light);
+            mBackgrounds[IS_BELOW_SELECTED] = R.drawable.calname_unselected_underselect;
             mBackgrounds[IS_TOP | IS_BELOW_SELECTED] = mBackgrounds[IS_BELOW_SELECTED];
+            mBackgrounds[IS_TOP] = mBackgrounds[IS_BELOW_SELECTED];
             return mBackgrounds;
         }
     }
@@ -172,7 +172,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         mOwnerAccountColumn = c.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
 
         mRowCount = c.getCount();
-        mData = new CalendarRow[(c.getCount() + 2)];
+        mData = new CalendarRow[(c.getCount())];
         c.moveToPosition(-1);
         int p = 0;
         while (c.moveToNext()) {
@@ -266,6 +266,13 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
             Drawable bg = getBackground(position, selected);
             view.setBackgroundDrawable(bg);
+            ViewGroup.LayoutParams newParams = view.getLayoutParams();
+            if (position == mData.length - 1) {
+                newParams.height = BOTTOM_ITEM_HEIGHT;
+            } else {
+                newParams.height = NORMAL_ITEM_HEIGHT;
+            }
+            view.setLayoutParams(newParams);
         }
         view.invalidate();
         return view;
@@ -283,7 +290,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         bg |= position == mData.length - 1 ? IS_BOTTOM : 0;
         bg |= ((position == 0 && mOrientation != Configuration.ORIENTATION_LANDSCAPE && selected)
                 || (position > 0 && mData[position - 1].selected)) ? IS_BELOW_SELECTED : 0;
-        return TabletCalendarItemBackgrounds.getBackgrounds(mRes)[bg];
+        return mRes.getDrawable(TabletCalendarItemBackgrounds.getBackgrounds()[bg]);
     }
 
     private static void setText(View view, int id, String text) {
