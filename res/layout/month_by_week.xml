@@ -23,7 +23,7 @@
     android:layout_height="match_parent"
     android:paddingBottom="15dip"
     android:fillViewport="true"
-    android:background="@color/mini_month_bg_color">
+    android:background="@drawable/minical_bg_shadow_holo_light">
 
     <TextView android:id="@+id/month_name"
         android:layout_width="match_parent"
