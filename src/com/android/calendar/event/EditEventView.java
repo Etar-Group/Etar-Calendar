@@ -821,6 +821,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mRemindersGroup = view.findViewById(R.id.reminders_row);
         mResponseGroup = view.findViewById(R.id.response_row);
         mOrganizerGroup = view.findViewById(R.id.organizer_row);
+        mAttendeesGroup = view.findViewById(R.id.add_attendees_row);
         mAttendeesPane = view.findViewById(R.id.attendees_group);
         mLocationGroup = view.findViewById(R.id.where_row);
         mDescriptionGroup = view.findViewById(R.id.description_row);
