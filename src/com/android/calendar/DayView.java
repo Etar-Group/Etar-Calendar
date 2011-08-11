@@ -4400,6 +4400,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     @Override
     public boolean onLongClick(View v) {
+        int flags = DateUtils.FORMAT_SHOW_WEEKDAY;
+        long time = getSelectedTimeInMillis();
+        if (!mSelectionAllday) {
+            flags |= DateUtils.FORMAT_SHOW_TIME;
+        }
+        if (DateFormat.is24HourFormat(mContext)) {
+            flags |= DateUtils.FORMAT_24HOUR;
+        }
+        mLongPressTitle = Utils.formatDateRange(mContext, time, time, flags);
         new AlertDialog.Builder(mContext).setTitle(mLongPressTitle)
                 .setItems(mLongPressItems, new DialogInterface.OnClickListener() {
                     @Override
