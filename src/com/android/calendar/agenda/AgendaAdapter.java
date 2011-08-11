@@ -136,7 +136,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             holder.title.setTextColor(mStandardColor);
             holder.when.setTextColor(mWhereColor);
             holder.where.setTextColor(mWhereColor);
-            if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_TENTATIVE) {
+            if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_INVITED) {
                 holder.colorChip.setDrawStyle(ColorChipView.DRAW_BORDER);
             } else {
                 holder.colorChip.setDrawStyle(ColorChipView.DRAW_FULL);
