@@ -313,6 +313,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private int mDescLineNum;             // The default number of lines in the description
     private boolean mIsTabletConfig;
     private Activity mActivity;
+    private Context mContext;
 
     private class QueryHandler extends AsyncQueryService {
         public QueryHandler(Context context) {
@@ -421,6 +422,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
             int attendeeResponse, boolean isDialog) {
+        mContext = context;
 
         if (mScale == 0) {
             mScale = context.getResources().getDisplayMetrics().density;
@@ -577,7 +579,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     return;
                 }
                 DeleteEventHelper deleteHelper = new DeleteEventHelper(
-                        getActivity(), getActivity(),
+                        mContext, mActivity,
                         !mIsDialog && !mIsTabletConfig /* exitWhenDone */);
                 deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
             }});
