@@ -950,7 +950,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // unattached already
         if (c != null) {
             CalendarController.getInstance(c).sendEventRelatedEvent(
-                    this, EventType.VIEW_EVENT_DETAILS, mEventId, mStartMillis, mEndMillis, 0
+                    this, EventType.EDIT_EVENT, mEventId, mStartMillis, mEndMillis, 0
                     , 0, -1);
         }
     }
