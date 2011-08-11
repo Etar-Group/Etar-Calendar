@@ -255,8 +255,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         @Override
         public void onClick(View v) {
-            new TimePickerDialog(mActivity, new TimeListener(v), mTime.hour, mTime.minute,
-                    DateFormat.is24HourFormat(mActivity)).show();
+            TimePickerDialog tp = new TimePickerDialog(mActivity, new TimeListener(v), mTime.hour,
+                    mTime.minute, DateFormat.is24HourFormat(mActivity));
+            tp.setCanceledOnTouchOutside(true);
+            tp.show();
         }
     }
 
@@ -382,6 +384,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             }
         });
         mTimezoneDialog.getListView().addFooterView(timezoneFooterView);
+        mTimezoneDialog.setCanceledOnTouchOutside(true);
         mTimezoneDialog.show();
     }
 
@@ -563,6 +566,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 startOfWeek = Calendar.MONDAY;
             }
             cv.setFirstDayOfWeek(startOfWeek);
+            dpd.setCanceledOnTouchOutside(true);
             dpd.show();
         }
     }

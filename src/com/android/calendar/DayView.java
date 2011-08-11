@@ -4418,7 +4418,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                                     getSelectedTimeInMillis(), 0, -1, -1, -1);
                         }
                     }
-                }).show();
+                }).show().setCanceledOnTouchOutside(true);
         return true;
     }
 
