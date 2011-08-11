@@ -444,6 +444,9 @@ public class CalendarAppWidgetService extends RemoteViewsService {
          */
         @Override
         public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
+            if (cursor == null) {
+                return;
+            }
             // If a newer update has happened since we started clean up and
             // return
             synchronized (mLock) {
