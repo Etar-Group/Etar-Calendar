@@ -566,7 +566,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         mOptionsMenu = menu;
-        Log.d(TAG, "OnCreateOptionsMenu is happening!");
         getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
 
         mSearchMenu = menu.findItem(R.id.action_search);
