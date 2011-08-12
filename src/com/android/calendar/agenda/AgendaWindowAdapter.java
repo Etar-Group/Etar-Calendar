@@ -153,6 +153,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     private boolean mDoneSettingUpHeaderFooter = false;
 
     private final boolean mIsTabletConfig;
+    private final int mSkipDateHeader;
 
     /**
      * When the user scrolled to the top, a query will be made for older events
@@ -301,6 +302,7 @@ public class AgendaWindowAdapter extends BaseAdapter
         mResources = context.getResources();
         mSelectedAgendaItemColor = mResources.getColor(R.color.activated);
         mIsTabletConfig = Utils.getConfigBool(mContext, R.bool.tablet_config);
+        mSkipDateHeader = mIsTabletConfig ? 0 : 1;
 
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         mAgendaListView = agendaListView;
@@ -575,7 +577,8 @@ public class AgendaWindowAdapter extends BaseAdapter
         if (!forced && isInRange(startDay, startDay)) {
             // No need to re-query
             if (!mAgendaListView.isEventVisible(goToTime, id)) {
-                mAgendaListView.setSelection(findDayPositionNearestTime(goToTime) + OFF_BY_ONE_BUG);
+                mAgendaListView.setSelection(findDayPositionNearestTime(goToTime) + OFF_BY_ONE_BUG
+                        + mSkipDateHeader);
             }
             return;
         }
@@ -800,7 +803,8 @@ public class AgendaWindowAdapter extends BaseAdapter
                     notifyDataSetChanged();
                     int newPosition = findDayPositionNearestTime(goToTime);
                     if (newPosition >= 0) {
-                        mAgendaListView.setSelection(newPosition + OFF_BY_ONE_BUG);
+                        mAgendaListView.setSelection(newPosition + OFF_BY_ONE_BUG
+                                + mSkipDateHeader);
                     }
                     if (DEBUGLOG) {
                         Log.e(TAG, "Setting listview to " +

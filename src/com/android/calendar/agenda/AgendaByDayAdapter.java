@@ -21,9 +21,7 @@ import com.android.calendar.Utils;
 import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -44,11 +42,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
     private static final int TYPE_DAY = 0;
     private static final int TYPE_MEETING = 1;
     static final int TYPE_LAST = 2;
-
-
-    // Events background colors (past events are grayed)
-    private final int mPastBackgroundColor;
-    private final int mBackgroundColor;
 
     private final Context mContext;
     private final AgendaAdapter mAgendaAdapter;
@@ -85,11 +78,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         mTmpTime = new Time(mTimeZone);
-
-        // Get events colors
-        Resources r = mContext.getResources();
-        mPastBackgroundColor = r.getColor(R.color.agenda_past_days_bar_background_color);
-        mBackgroundColor = r.getColor(R.color.agenda_day_bar_background_color);
     }
 
 
