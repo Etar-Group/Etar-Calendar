@@ -62,7 +62,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SearchView;
-import android.widget.SearchView.OnCloseListener;
 import android.widget.TextView;
 
 import java.util.List;
@@ -97,6 +96,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static boolean mShowAgendaWithMonth;
     private static boolean mShowEventDetailsWithAgenda;
     private boolean mOnSaveInstanceStateCalled = false;
+    private boolean mBackToPreviousView = false;
     private ContentResolver mContentResolver;
     private int mPreviousView;
     private int mCurrentView;
@@ -555,7 +555,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public void onBackPressed() {
-        if (mCurrentView == ViewType.EDIT || mCurrentView == ViewType.DETAIL) {
+        if (mCurrentView == ViewType.EDIT || mBackToPreviousView) {
             mController.sendEvent(this, EventType.GO_TO, null, null, -1, mPreviousView);
         } else {
             super.onBackPressed();
@@ -891,6 +891,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
     public void handleEvent(EventInfo event) {
         long displayTime = -1;
         if (event.eventType == EventType.GO_TO) {
+            if ((event.extraLong & CalendarController.EXTRA_GOTO_BACK_TO_PREVIOUS) != 0) {
+                mBackToPreviousView = true;
+            } else if (event.viewType != mController.getPreviousViewType()
+                    && event.viewType != ViewType.EDIT) {
+                // Clear the flag is change to a different view type
+                mBackToPreviousView = false;
+            }
+
             setMainPane(
                     null, R.id.main_pane, event.viewType, event.startTime.toMillis(false), false);
             if (mSearchView != null) {
@@ -1027,7 +1035,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             Utils.tardis();
         }
         mSearchMenu.collapseActionView();
-        mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, -1, query,
+        mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, 0, query,
                 getComponentName());
         return false;
     }

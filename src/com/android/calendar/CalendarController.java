@@ -169,6 +169,10 @@ public class CalendarController {
          * For EventType.GO_TO:
          * Set to {@link #EXTRA_GOTO_TIME} to go to the specified date/time.
          * Set to {@link #EXTRA_GOTO_DATE} to consider the date but ignore the time.
+         * Set to {@link #EXTRA_GOTO_BACK_TO_PREVIOUS} if back should bring back previous view.
+         * <p>
+         * For EventType.UPDATE_TITLE:
+         * Set formatting flags for Utils.formatDateRange
          */
         public long extraLong;
     }
@@ -178,7 +182,8 @@ public class CalendarController {
      * can be ignored
      */
     public static final long EXTRA_GOTO_DATE = 1;
-    public static final long EXTRA_GOTO_TIME = -1;
+    public static final long EXTRA_GOTO_TIME = 2;
+    public static final long EXTRA_GOTO_BACK_TO_PREVIOUS = 4;
 
     public interface EventHandler {
         long getSupportedEventTypes();
