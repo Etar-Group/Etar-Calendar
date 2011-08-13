@@ -73,8 +73,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"ゲスト"</string>
     <string name="creating_event" msgid="5252306542761552414">"予定を作成しました"</string>
     <string name="saving_event" msgid="7716081507367732169">"予定を保存しました"</string>
-    <!-- no translation found for empty_event (757898251276814787) -->
-    <skip />
+    <string name="empty_event" msgid="757898251276814787">"空の予定は作成されませんでした"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"招待状を送信しました"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"更新情報を送信しました"</string>
     <string name="alert_title" msgid="7869592820853066853">"カレンダーの通知"</string>
@@ -133,10 +132,8 @@
     <string name="modify_event" msgid="4501745557655992422">"この日だけ変更"</string>
     <string name="modify_all" msgid="7506579040966638538">"繰り返す予定すべて変更"</string>
     <string name="modify_all_following" msgid="4333745734894639276">"これ以降すべて変更"</string>
-    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
-    <skip />
-    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
-    <skip />
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"新しい予定"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"新しい予定"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"この予定を削除します。"</string>
     <string name="delete_title" msgid="5143743507524995383">"削除"</string>
     <string name="change_response_title" msgid="7704714776070974984">"出欠状況を変更"</string>

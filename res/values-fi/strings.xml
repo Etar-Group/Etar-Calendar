@@ -73,8 +73,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Vieraat"</string>
     <string name="creating_event" msgid="5252306542761552414">"Tapahtuma luotu"</string>
     <string name="saving_event" msgid="7716081507367732169">"Tapahtuma tallennettu"</string>
-    <!-- no translation found for empty_event (757898251276814787) -->
-    <skip />
+    <string name="empty_event" msgid="757898251276814787">"Tyhjää tapahtumaa ei voi luoda"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Kutsut lähetetty"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Päivitykset lähetetty"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalenteri-ilmoitukset"</string>

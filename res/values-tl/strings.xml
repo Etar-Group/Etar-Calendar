@@ -56,7 +56,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Tanggalin ang kaganapan"</string>
     <string name="goto_today" msgid="9162136434410891230">"Ngayong araw"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Mga Setting"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Mga Kalendaryong ipapakita"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Mga kalendaryong ipapakita"</string>
     <string name="search" msgid="550656004486017426">"Paghahanap"</string>
     <string name="hide_controls" msgid="830320505938520882">"Itago ang mga kontrol"</string>
     <string name="show_controls" msgid="715520586028062621">"Ipakita ang mga kontrol"</string>
@@ -66,15 +66,14 @@
     <string name="acct_not_synced" msgid="2225937158458147648">"Hindi sini-sync ang account na ito at maaaring hindi bago ang iyong mga kalendaryo."</string>
     <string name="accounts" msgid="849401841083180306">"Mga Account &amp; sync"</string>
     <string name="select_synced_calendars_title" msgid="7122363881046468658">"Mga Kalendaryong Isi-sync"</string>
-    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Mga Kalendaryong isi-sync"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Mga kalendaryong isi-sync"</string>
     <string name="hint_what" msgid="709155115005044531">"Pangalan ng kaganapan"</string>
     <string name="hint_where" msgid="4972598001033801974">"Lokasyon"</string>
     <string name="hint_description" msgid="1910143586169033232">"Paglalarawan"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Mga Bisita"</string>
     <string name="creating_event" msgid="5252306542761552414">"Nalikha ang kaganapan"</string>
     <string name="saving_event" msgid="7716081507367732169">"Na-save ang kaganapan"</string>
-    <!-- no translation found for empty_event (757898251276814787) -->
-    <skip />
+    <string name="empty_event" msgid="757898251276814787">"Hindi nalikha ang walang lamang kaganapan"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Naipadala na ang mga imbitasyon"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Naipadala na ang mga update"</string>
     <string name="alert_title" msgid="7869592820853066853">"Mga notifcation sa kalendaryo"</string>
@@ -133,10 +132,8 @@
     <string name="modify_event" msgid="4501745557655992422">"Baguhin lang ang kaganapang ito."</string>
     <string name="modify_all" msgid="7506579040966638538">"Palitan ang lahat ng mga kaganapan sa serye."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Baguhin ito at ang lahat ng mga kaganapan sa hinaharap."</string>
-    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
-    <skip />
-    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
-    <skip />
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Bagong kaganapan"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Bagong kaganapan"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"Tatangalin ang kaganapang ito."</string>
     <string name="delete_title" msgid="5143743507524995383">"Tanggalin"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Baguhin ang tugon"</string>

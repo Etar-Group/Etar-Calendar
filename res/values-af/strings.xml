@@ -81,8 +81,7 @@
     <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"Voer e-posadresse in"</string>
     <string name="creating_event" msgid="5252306542761552414">"Gebeurtenis geskep"</string>
     <string name="saving_event" msgid="7716081507367732169">"Gebeurtenis gestoor"</string>
-    <!-- no translation found for empty_event (757898251276814787) -->
-    <skip />
+    <string name="empty_event" msgid="757898251276814787">"Leë gebeurtenis nie geskep nie"</string>
     <!-- no translation found for creating_event_with_guest (608830786504021732) -->
     <skip />
     <!-- no translation found for saving_event_with_guest (6177245412801310483) -->

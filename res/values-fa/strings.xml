@@ -56,25 +56,24 @@
     <string name="event_delete" msgid="2386667193277770442">"حذف رویداد"</string>
     <string name="goto_today" msgid="9162136434410891230">"امروز"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"تنظیمات"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"تقویم ها برای نمایش"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"تقویم‌ها برای نمایش"</string>
     <string name="search" msgid="550656004486017426">"جستجو"</string>
     <string name="hide_controls" msgid="830320505938520882">"مخفی کردن کنترل ها"</string>
     <string name="show_controls" msgid="715520586028062621">"نمایش کنترل ها"</string>
-    <string name="select_visible_calendars_title" msgid="5285053789530752843">"تقویم ها برای نمایش"</string>
+    <string name="select_visible_calendars_title" msgid="5285053789530752843">"تقویم‌ها برای نمایش"</string>
     <string name="synced" msgid="7913940305983383493">"همگام سازی شده"</string>
     <string name="not_synced" msgid="4275114941801829419">"همگام سازی نشده"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"این حساب همگام سازی نمی شود و تقویم های شما به روز نمی شوند."</string>
     <string name="accounts" msgid="849401841083180306">"حساب ها و همگام سازی"</string>
-    <string name="select_synced_calendars_title" msgid="7122363881046468658">"تقویمها برای همگام سازی"</string>
-    <string name="select_synced_calendars_button" msgid="8890542984949996251">"تقویمها برای همگام سازی"</string>
+    <string name="select_synced_calendars_title" msgid="7122363881046468658">"تقویم‌ها برای همگام‌سازی"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"تقویم‌ها برای همگام‌سازی"</string>
     <string name="hint_what" msgid="709155115005044531">"نام رویداد"</string>
     <string name="hint_where" msgid="4972598001033801974">"مکان"</string>
     <string name="hint_description" msgid="1910143586169033232">"توضیح"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"مهمان ها"</string>
     <string name="creating_event" msgid="5252306542761552414">"رویداد ایجاد شد"</string>
     <string name="saving_event" msgid="7716081507367732169">"رویداد ذخیره شده"</string>
-    <!-- no translation found for empty_event (757898251276814787) -->
-    <skip />
+    <string name="empty_event" msgid="757898251276814787">"رویداد خالی ایجاد نشد"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"دعوت نامه ها ارسال شد"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"به روزرسانی ها ارسال شد"</string>
     <string name="alert_title" msgid="7869592820853066853">"اعلان های تقویم"</string>
@@ -133,10 +132,8 @@
     <string name="modify_event" msgid="4501745557655992422">"فقط این رویداد را تغییر دهید."</string>
     <string name="modify_all" msgid="7506579040966638538">"همه رویدادهای موجود در این مجموعه را تغییر دهید."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"این رویدادها و همه رویدادهای آینده را تغییر دهید."</string>
-    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
-    <skip />
-    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
-    <skip />
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"رویداد جدید"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"رویداد جدید"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"این رویداد حذف می شود."</string>
     <string name="delete_title" msgid="5143743507524995383">"حذف"</string>
     <string name="change_response_title" msgid="7704714776070974984">"تغییر پاسخ"</string>

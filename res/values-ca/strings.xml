@@ -56,7 +56,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Suprimeix l\'esdeveniment"</string>
     <string name="goto_today" msgid="9162136434410891230">"Avui"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Configuració"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendaris per visualitzar"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calend. per visual."</string>
     <string name="search" msgid="550656004486017426">"Cerca"</string>
     <string name="hide_controls" msgid="830320505938520882">"Amaga els controls"</string>
     <string name="show_controls" msgid="715520586028062621">"Mostra els controls"</string>
@@ -73,8 +73,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Convidats"</string>
     <string name="creating_event" msgid="5252306542761552414">"Esdeveniment creat"</string>
     <string name="saving_event" msgid="7716081507367732169">"Esdeveniment desat"</string>
-    <!-- no translation found for empty_event (757898251276814787) -->
-    <skip />
+    <string name="empty_event" msgid="757898251276814787">"Esdeven. buit, no s\'ha creat"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"S\'han enviat les invitacions"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"S\'han enviat les actualitzacions"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notificacions de calendari"</string>
@@ -133,10 +132,8 @@
     <string name="modify_event" msgid="4501745557655992422">"Canvia només aquest esdeveniment."</string>
     <string name="modify_all" msgid="7506579040966638538">"Canvia tots els esdeveniments de la sèrie."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Canvia aquest i tots els esdeveniments futurs."</string>
-    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
-    <skip />
-    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
-    <skip />
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Esdeveniment nou"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Esdeveniment nou"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"Aquest esdeveniment se suprimirà."</string>
     <string name="delete_title" msgid="5143743507524995383">"Suprimeix"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Canvia la resposta"</string>
