@@ -91,7 +91,7 @@
     <string name="calendar_refresh"> "Refresh"</string>
     <!-- This is a label on a context menu item. Pressing this menu item displays the
          Agenda view. -->
-    
+
     <!-- This is a label on a context menu item. Pressing this menu item displays the
          Day view. -->
     <string name="show_day_view">"Show day"</string>
@@ -126,7 +126,7 @@
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to see the list of calendars that he is viewing and to then add
          or remove selected calendars. -->
-    
+
     <!-- This is a label on a menu item. Pressing this menu item allows the
          user to view and edit his Settings (or Preferences) -->
     <string name="menu_preferences">"Settings"</string>
@@ -151,11 +151,11 @@
     <!-- Title of "My calendars" screen -->
     <string name="select_visible_calendars_title">"Calendars to Display"</string>
     <!-- Synced and visible status message -->
-    
+
     <!-- Synced but not visible status message -->
-    
+
     <!-- not Synced or visible status message -->
-    
+
     <!-- Synced status message displayed when the given calendar is stored/synced on the device
         [CHAR LIMIT=60] -->
     <string name="synced"> synced</string>
@@ -178,7 +178,7 @@
     <!-- Event edit activity -->
     <skip/>
     <!-- The title of the screen where the user edits an event [CHAR LIMIT=17] -->
-    
+
     <!-- Default value of What field (as a hint to the user) [CHAR LIMIT=15] -->
     <string name="hint_what">"Event name"</string>
     <!-- Default value of Where field (as a hint to the user)[CHAR LIMIT=15] -->
@@ -199,10 +199,10 @@
     <string name="saving_event_with_guest">"Updates sent"</string>
     <!-- Title of message displayed to indicate available calendars are being loaded when creating
          a new event -->
-    
+
     <!-- Body of message displayed to indicate available calendars are being loaded when creating
          a new event -->
-    
+
 
     <!-- The alert toast is not actually being displayed for some reason. -->
     <skip/>
@@ -263,7 +263,7 @@
     <!-- Label for the event organizer -->
     <string name="view_event_organizer_label">Organizer:</string>
     <!-- Label for the local timezone -->
-    
+
     <!-- Label for whether the user is attending this event. This is shown when
          a user is invited to a meeting or event.  The possible answers are
          'yes', 'no', and 'maybe' (and, initially, 'no response'). -->
@@ -277,9 +277,9 @@
 
     <!-- Event Info strings-->
     <!-- Time Zone Label [CHAR LIMIT=12]-->
-    
+
     <!-- Repetition Label [CHAR LIMIT=12]-->
-    
+
     <!-- Organizer Label [CHAR LIMIT=12]-->
     <string name="event_info_organizer">Organizer:</string>
     <!-- More label in description button [CHAR LIMIT=6]-->
@@ -326,7 +326,7 @@
     <!-- The button label for deleting an event -->
     <string name="delete_label">"Delete"</string>
     <!-- A menu item for deleting an event -->
-    
+
     <!-- The button label for saving an event -->
     <string name="save_label">Done</string>
     <!-- The button label for discarding changes to an event -->
@@ -530,10 +530,10 @@
     <string name="tomorrow">Tomorrow</string>
 
     <!-- Text to show on gadget when an event is currently in progress -->
-    
+
 
     <!-- Text to show on gadget when an all-day event is in progress -->
-    
+
 
     <!-- DO NOT TRANSLATE -->
     <string name="tardis">TARDIS</string>
@@ -548,7 +548,7 @@
     <!-- Accessibility Events -->
     <!-- Strings that describes actions for buttons without text -->
     <!-- Create a new calendar event [CHAR LIMIT = NONE]-->
-    
+
     <!-- Remove a name of an attendee from a calendar event [CHAR LIMIT = NONE]-->
     <string name="accessibility_remove_attendee">Remove attendee</string>
     <!-- Pick a starting date for a new event [CHAR LIMIT = NONE]-->
@@ -572,7 +572,7 @@
     <!-- Mark this event as an "all day event" [CHAR LIMIT = NONE]-->
     <string name="accessibility_all_day">All day event</string>
     <!-- Refresh the data in the calendar [CHAR LIMIT = NONE]-->
-    
+
     <!-- Choose the type of repetition for the event (daily, weekly, etc.[CHAR LIMIT = NONE]-->
     <string name="accessibility_repeats">Repetition</string>
     <!-- Set the time for the reminder[CHAR LIMIT = NONE]-->

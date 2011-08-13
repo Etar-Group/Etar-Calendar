@@ -184,7 +184,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
         // Create the drawing coordinates for dna
         if (!mShowDetailsInMonth) {
             int numDays = mEvents.size();
-            int wkNumOffset = 1;
             int effectiveWidth = mWidth - mPadding * 2;
             if (mShowWeekNum) {
                 effectiveWidth -= SPACING_WEEK_NUMBER;
@@ -639,7 +638,6 @@ public class MonthWeekEventsView extends SimpleWeekView {
     }
 
     protected void drawMoreEvents(Canvas canvas, int remainingEvents, int x) {
-        FloatRef lines = new FloatRef(4 * 4);
         int y = mHeight - EVENT_BOTTOM_PADDING + EVENT_LINE_PADDING / 2 - mEventHeight;
         r.left = x;
         r.top = y;
@@ -687,9 +685,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             }
             int numDays = mDayXs.length;
             int xOffset = (DNA_ALL_DAY_WIDTH - DNA_WIDTH) / 2;
-            float[] allDayPoints = new float[numDays * 4];
             if (strand != null && strand.allDays != null && strand.allDays.length == numDays) {
-                int count = 0;
                 for (int i = 0; i < numDays; i++) {
                     // this adds at most 7 draws. We could sort it by color and
                     // build an array instead but this is easier.

@@ -19,7 +19,7 @@
 -->
 <resources>
 
-    
+
 
     <style name="MinusButton">
         <item name="android:background">?android:attr/selectableItemBackground</item>

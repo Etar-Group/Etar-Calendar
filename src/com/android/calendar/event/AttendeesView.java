@@ -28,7 +28,6 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
@@ -250,7 +249,6 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         }
         final AttendeeItem item = new AttendeeItem(attendee, -1 /* presence */, mDefaultBadge);
         final int status = attendee.mStatus;
-        final String name = attendee.mName == null ? "" : attendee.mName;
         final int index;
         boolean firstAttendeeInCategory = false;
         switch (status) {

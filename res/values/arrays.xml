@@ -54,7 +54,7 @@
         <item>12 hours</item>
         <item>24 hours</item>
         <item>2 days</item>
-        <item>1 week</item>  
+        <item>1 week</item>
     </string-array>
 
     <integer-array name="reminder_minutes_values" translatable="false">
@@ -97,7 +97,7 @@
         <item>12 hours</item>
         <item>24 hours</item>
         <item>2 days</item>
-        <item>1 week</item> 
+        <item>1 week</item>
     </string-array>
 
     <string-array name="preferences_default_reminder_values" translatable="false">
@@ -336,7 +336,7 @@
         <item>Maybe</item>
         <item>No</item>
     </string-array>
-    
+
 
     <!-- The corresponding indices are defined in DeleteEventHelper.java -->
     <skip/>

@@ -215,7 +215,7 @@
                 style="@style/TextAppearance.EditEvent_Spinner" />
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout 
+    <LinearLayout
         android:id="@+id/to_row_home_tz"
         android:visibility="gone"
         android:focusable="true"
