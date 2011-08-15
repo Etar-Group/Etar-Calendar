@@ -73,8 +73,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"الضيوف"</string>
     <string name="creating_event" msgid="5252306542761552414">"تم إنشاء الحدث"</string>
     <string name="saving_event" msgid="7716081507367732169">"تم حفظ الحدث"</string>
-    <!-- no translation found for empty_event (757898251276814787) -->
-    <skip />
+    <string name="empty_event" msgid="757898251276814787">"لم يتم إنشاء الحدث لأنه فارغ"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"تم إرسال الدعوات."</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"تم إرسال التحديثات."</string>
     <string name="alert_title" msgid="7869592820853066853">"إعلامات التقاويم"</string>
@@ -133,10 +132,8 @@
     <string name="modify_event" msgid="4501745557655992422">"تغيير هذا الحدث فقط."</string>
     <string name="modify_all" msgid="7506579040966638538">"تغيير جميع الأحداث في سلسلة الأحداث."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"تغيير هذا الحدث وجميع الأحداث المستقبلية."</string>
-    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
-    <skip />
-    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
-    <skip />
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"حدث جديد"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"حدث جديد"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"سيتم حذف هذا الحدث."</string>
     <string name="delete_title" msgid="5143743507524995383">"حذف"</string>
     <string name="change_response_title" msgid="7704714776070974984">"تغيير الرد"</string>

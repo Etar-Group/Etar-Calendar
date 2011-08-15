@@ -65,16 +65,15 @@
     <string name="not_synced" msgid="4275114941801829419">"לא מסונכרן"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"חשבון זה אינו מסונכרן וייתכן שלוחות השנה שלך לא יהיו מעודכנים."</string>
     <string name="accounts" msgid="849401841083180306">"חשבונות וסנכרון"</string>
-    <string name="select_synced_calendars_title" msgid="7122363881046468658">"יומנים לסנכרון"</string>
-    <string name="select_synced_calendars_button" msgid="8890542984949996251">"יומנים לסנכרון"</string>
+    <string name="select_synced_calendars_title" msgid="7122363881046468658">"יומנים לסינכרון"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"יומנים לסינכרון"</string>
     <string name="hint_what" msgid="709155115005044531">"שם האירוע"</string>
     <string name="hint_where" msgid="4972598001033801974">"מקום"</string>
     <string name="hint_description" msgid="1910143586169033232">"תיאור"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"אורחים"</string>
     <string name="creating_event" msgid="5252306542761552414">"האירוע נוצר"</string>
     <string name="saving_event" msgid="7716081507367732169">"האירוע נשמר"</string>
-    <!-- no translation found for empty_event (757898251276814787) -->
-    <skip />
+    <string name="empty_event" msgid="757898251276814787">"אירוע ריק לא נוצר"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"ההזמנות נשלחו"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"העדכונים נשלחו"</string>
     <string name="alert_title" msgid="7869592820853066853">"התראות של לוח שנה"</string>
@@ -133,10 +132,8 @@
     <string name="modify_event" msgid="4501745557655992422">"שנה אירוע זה בלבד."</string>
     <string name="modify_all" msgid="7506579040966638538">"שנה את כל האירועים בסדרה."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"שנה אירוע זה ואת כל האירועים העתידיים."</string>
-    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
-    <skip />
-    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
-    <skip />
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"אירוע חדש"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"אירוע חדש"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"אירוע זה ימחק."</string>
     <string name="delete_title" msgid="5143743507524995383">"מחק"</string>
     <string name="change_response_title" msgid="7704714776070974984">"שנה תגובה"</string>

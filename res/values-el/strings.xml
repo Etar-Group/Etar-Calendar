@@ -56,7 +56,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Διαγραφή συμβάντος"</string>
     <string name="goto_today" msgid="9162136434410891230">"Σήμερα"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Ρυθμίσεις"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Προβ.ημερ."</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Ημερολόγια"</string>
     <string name="search" msgid="550656004486017426">"Αναζήτηση"</string>
     <string name="hide_controls" msgid="830320505938520882">"Απόκρ. στοιχ. ελέγχ."</string>
     <string name="show_controls" msgid="715520586028062621">"Εμφ. στοιχ. ελέγχου"</string>
@@ -73,8 +73,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Επισκέπτες"</string>
     <string name="creating_event" msgid="5252306542761552414">"Το συμβάν δημιουργήθηκε"</string>
     <string name="saving_event" msgid="7716081507367732169">"Το συμβάν αποθηκεύτηκε"</string>
-    <!-- no translation found for empty_event (757898251276814787) -->
-    <skip />
+    <string name="empty_event" msgid="757898251276814787">"Δεν δημιουργήθηκε κενό συμβάν"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Οι προσκλήσεις έχουν σταλεί"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Οι ενημερώσεις έχουν σταλεί"</string>
     <string name="alert_title" msgid="7869592820853066853">"Ειδοποιήσεις ημερολογίου"</string>
@@ -133,10 +132,8 @@
     <string name="modify_event" msgid="4501745557655992422">"Αλλαγή μόνο αυτού του συμβάντος."</string>
     <string name="modify_all" msgid="7506579040966638538">"Αλλαγή όλων των συμβάντων στη σειρά."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Αλλαγή αυτού και όλων των μελλοντικών συμβάντων."</string>
-    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
-    <skip />
-    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
-    <skip />
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Νέο συμβάν"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Νέο συμβάν"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"Αυτό το συμβάν θα διαγραφεί."</string>
     <string name="delete_title" msgid="5143743507524995383">"Διαγραφή"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Αλλαγή απάντησης"</string>

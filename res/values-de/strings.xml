@@ -73,8 +73,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Gäste"</string>
     <string name="creating_event" msgid="5252306542761552414">"Termin erstellt"</string>
     <string name="saving_event" msgid="7716081507367732169">"Termin gespeichert"</string>
-    <!-- no translation found for empty_event (757898251276814787) -->
-    <skip />
+    <string name="empty_event" msgid="757898251276814787">"Leerer Termin nicht erstellt"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Einladungen versendet"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Updates gesendet"</string>
     <string name="alert_title" msgid="7869592820853066853">"Benachrichtigungen"</string>

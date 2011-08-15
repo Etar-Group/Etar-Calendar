@@ -56,11 +56,11 @@
     <string name="event_delete" msgid="2386667193277770442">"Dzēst pasākumu"</string>
     <string name="goto_today" msgid="9162136434410891230">"Šodien"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Iestatījumi"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Rād. kalen."</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Parād. kal."</string>
     <string name="search" msgid="550656004486017426">"Meklēt"</string>
     <string name="hide_controls" msgid="830320505938520882">"Slēpt vadīklas"</string>
     <string name="show_controls" msgid="715520586028062621">"Rādīt vadīklas"</string>
-    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Rādāmie kalendāri"</string>
+    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Parādāmie kalendāri"</string>
     <string name="synced" msgid="7913940305983383493">"sinhronizēts"</string>
     <string name="not_synced" msgid="4275114941801829419">"nav sinhronizēts"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Šis konts netiek sinhronizēts, un jūsu kalendāri, iespējams, nav atjaunināti."</string>
@@ -73,8 +73,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Viesi"</string>
     <string name="creating_event" msgid="5252306542761552414">"Pasākums ir izveidots."</string>
     <string name="saving_event" msgid="7716081507367732169">"Pasākums ir saglabāts."</string>
-    <!-- no translation found for empty_event (757898251276814787) -->
-    <skip />
+    <string name="empty_event" msgid="757898251276814787">"Tukšs notikums; nav izveidots"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Uzaicinājumi ir nosūtīti."</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Atjauninājumi ir nosūtīti."</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalendāra paziņojumi"</string>
@@ -133,10 +132,8 @@
     <string name="modify_event" msgid="4501745557655992422">"Mainīt tikai šo pasākumu."</string>
     <string name="modify_all" msgid="7506579040966638538">"Mainīt visus virknes pasākumus."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Mainīt šo un nākamos pasākumus."</string>
-    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
-    <skip />
-    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
-    <skip />
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Jauns notikums"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Jauns notikums"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"Šis pasākums tiks dzēsts."</string>
     <string name="delete_title" msgid="5143743507524995383">"Dzēst"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Atbildes maiņa"</string>
