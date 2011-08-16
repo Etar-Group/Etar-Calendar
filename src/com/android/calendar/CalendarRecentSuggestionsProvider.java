@@ -23,7 +23,6 @@ public class CalendarRecentSuggestionsProvider extends SearchRecentSuggestionsPr
 
     public final static int MODE = DATABASE_MODE_QUERIES;
 
-    // TODO Figure out why search suggestions are currently not working
     public CalendarRecentSuggestionsProvider() {
     }
 

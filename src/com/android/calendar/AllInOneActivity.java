@@ -62,6 +62,8 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SearchView;
+import android.widget.SearchView.OnCloseListener;
+import android.widget.SearchView.OnSuggestionListener;
 import android.widget.TextView;
 
 import java.util.List;
@@ -70,7 +72,7 @@ import java.util.TimeZone;
 
 public class AllInOneActivity extends Activity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener, ActionBar.TabListener,
-        ActionBar.OnNavigationListener {
+        ActionBar.OnNavigationListener, OnSuggestionListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
     private static final String EVENT_INFO_FRAGMENT_TAG = "EventInfoFragment";
@@ -573,6 +575,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (mSearchView != null) {
             Utils.setUpSearchView(mSearchView, this);
             mSearchView.setOnQueryTextListener(this);
+            mSearchView.setOnSuggestionListener(this);
         }
 
         // Hide the "show/hide controls" button if this is a phone
@@ -1039,7 +1042,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mSearchMenu.collapseActionView();
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, 0, query,
                 getComponentName());
-        return false;
+        return true;
     }
 
     @Override
@@ -1100,6 +1103,17 @@ public class AllInOneActivity extends Activity implements EventHandler,
                         " Agenda:" + mAgendaTab);
                 break;
         }
+        return false;
+    }
+
+    @Override
+    public boolean onSuggestionSelect(int position) {
+        return false;
+    }
+
+    @Override
+    public boolean onSuggestionClick(int position) {
+        mSearchMenu.collapseActionView();
         return false;
     }
 }
