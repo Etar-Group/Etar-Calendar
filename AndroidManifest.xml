@@ -185,6 +185,7 @@
                 <action android:name="com.android.calendar.APPWIDGET_SCHEDULED_UPDATE"/>
                 <data android:scheme="content"/>
                 <data android:host="com.android.calendar"/>
+                <data android:mimeType="vnd.android.data/update" />
             </intent-filter>
         </receiver>
 
