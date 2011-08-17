@@ -597,7 +597,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 EVENT_RECT_LEFT_MARGIN *= mScale;
                 EVENT_RECT_RIGHT_MARGIN *= mScale;
                 EVENT_RECT_STROKE_WIDTH *= mScale;
-                EXPAND_ALL_DAY_BOTTOM_MARGIN *= mScale;
                 EVENT_SQUARE_WIDTH *= mScale;
                 EVENT_LINE_PADDING *= mScale;
             }
