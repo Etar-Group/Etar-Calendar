@@ -44,7 +44,6 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.event.EditEventActivity;
-import com.android.calendar.event.EditEventFragment;
 
 public class SearchActivity extends Activity implements CalendarController.EventHandler,
         SearchView.OnQueryTextListener, OnActionExpandListener {
@@ -327,7 +326,7 @@ public class SearchActivity extends Activity implements CalendarController.Event
     @Override
     public boolean onQueryTextSubmit(String query) {
         mQuery = query;
-        mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, -1, query,
+        mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, 0, query,
                 getComponentName());
         return false;
     }
