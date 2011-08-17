@@ -199,7 +199,8 @@ public class AgendaWindowAdapter extends BaseAdapter
 
     private long mSelectedInstanceId = -1;
 
-    private final int mSelectedAgendaItemColor;
+    private final int mSelectedItemBackgroundColor;
+    private final int mSelectedItemTextColor;
 
     // Types of Query
     private static final int QUERY_TYPE_OLDER = 0; // Query for older events
@@ -300,7 +301,9 @@ public class AgendaWindowAdapter extends BaseAdapter
             AgendaListView agendaListView, boolean showEventOnStart) {
         mContext = context;
         mResources = context.getResources();
-        mSelectedAgendaItemColor = mResources.getColor(R.color.activated);
+        mSelectedItemBackgroundColor = mResources
+                .getColor(R.color.agenda_selected_background_color);
+        mSelectedItemTextColor = mResources.getColor(R.color.agenda_selected_text_color);
         mIsTabletConfig = Utils.getConfigBool(mContext, R.bool.tablet_config);
         mSkipDateHeader = mIsTabletConfig ? 0 : 1;
 
@@ -447,7 +450,10 @@ public class AgendaWindowAdapter extends BaseAdapter
             vh.selectedMarker.setVisibility((selected && mShowEventOnStart) ?
                     View.VISIBLE : View.GONE);
             if (selected) {
-                v.setBackgroundColor(mSelectedAgendaItemColor);
+                v.setBackgroundColor(mSelectedItemBackgroundColor);
+                vh.title.setTextColor(mSelectedItemTextColor);
+                vh.when.setTextColor(mSelectedItemTextColor);
+                vh.where.setTextColor(mSelectedItemTextColor);
             }
         }
 
