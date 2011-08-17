@@ -57,7 +57,6 @@ import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Reminders;
 import android.provider.Settings;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -102,8 +101,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private static final String TAG = "EditEvent";
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final String PERIOD_SPACE = ". ";
-
-    private static String DEFAULT_DOMAIN;
 
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
@@ -595,7 +592,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
                 TextView accountName = (TextView) view.findViewById(R.id.account_name);
                 if (accountName != null) {
-                    Resources res = context.getResources();
                     accountName.setText(cursor.getString(ownerColumn));
                     accountName.setVisibility(TextView.VISIBLE);
                 }
@@ -792,8 +788,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mActivity = activity;
         mView = view;
         mDone = done;
-
-        DEFAULT_DOMAIN = activity.getResources().getString(R.string.google_email_domain);
 
         // cache top level view elements
         mLoadingMessage = (TextView) view.findViewById(R.id.loading_message);

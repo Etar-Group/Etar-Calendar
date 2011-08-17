@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 <resources>
-    
+
     <dimen name="day_label_text_size">16sp</dimen>
     <dimen name="all_day_bottom_margin">10dip</dimen>
     <dimen name="one_day_header_height">0dip</dimen>

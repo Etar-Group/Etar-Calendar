@@ -1016,7 +1016,7 @@ public class Utils {
     /**
      * This sets up a search view to use Calendar's search suggestions provider
      * and to allow refining the search.
-     * 
+     *
      * @param view The {@link SearchView} to set up
      * @param act The activity using the view
      */

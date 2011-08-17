@@ -459,13 +459,6 @@ public class SimpleWeekView extends View {
      * @param canvas The canvas to draw on
      */
     protected void drawDaySeparators(Canvas canvas) {
-        int selectedPosition;
-        int nDays = mNumCells;
-        int i = 1;
-        if (mShowWeekNum) {
-            i = 2;
-        }
-
         if (mHasSelectedDay) {
             r.top = 1;
             r.bottom = mHeight - 1;

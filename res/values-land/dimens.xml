@@ -14,7 +14,5 @@
      limitations under the License.
 -->
 <resources>
-    
-    
     <dimen name="action_bar_date_text_size">18sp</dimen>
 </resources>
