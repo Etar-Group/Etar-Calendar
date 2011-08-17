@@ -1116,4 +1116,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mSearchMenu.collapseActionView();
         return false;
     }
+
+    @Override
+    public boolean onSearchRequested() {
+        if (mSearchMenu != null) {
+            mSearchMenu.expandActionView();
+        }
+        return false;
+    }
 }
