@@ -19,7 +19,8 @@
     android:layout_width="match_parent"
     android:paddingTop="1dip"
     android:gravity="center_vertical"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:minHeight="36dip">
 
     <Spinner android:id="@+id/reminder_minutes_value"
         style="@style/TextAppearance.EditEvent_Value"

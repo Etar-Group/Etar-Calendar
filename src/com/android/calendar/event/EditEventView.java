@@ -140,11 +140,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     View mAttendeesGroup;
     View mStartHomeGroup;
     View mEndHomeGroup;
-    View mAttendeesPane;
-    View mColorChip;
 
     private int[] mOriginalPadding = new int[4];
 
+    private boolean mIsMultipane;
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
     private AlertDialog mTimezoneDialog;
@@ -820,7 +819,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mResponseGroup = view.findViewById(R.id.response_row);
         mOrganizerGroup = view.findViewById(R.id.organizer_row);
         mAttendeesGroup = view.findViewById(R.id.add_attendees_row);
-        mAttendeesPane = view.findViewById(R.id.attendees_group);
         mLocationGroup = view.findViewById(R.id.where_row);
         mDescriptionGroup = view.findViewById(R.id.description_row);
         mStartHomeGroup = view.findViewById(R.id.from_row_home_tz);
@@ -857,13 +855,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mRemindersContainer = (LinearLayout) view.findViewById(R.id.reminder_items_container);
 
         mTimezone = Utils.getTimeZone(activity, null);
+        mIsMultipane = activity.getResources().getBoolean(R.bool.tablet_config);
         mStartTime = new Time(mTimezone);
         mEndTime = new Time(mTimezone);
         mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
         mEmailValidator = new Rfc822Validator(null);
         initMultiAutoCompleteTextView((RecipientEditTextView) mAttendeesList);
-
-        mColorChip = view.findViewById(R.id.color_chip);
 
         // Display loading screen
         setModel(null);
@@ -1079,12 +1076,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             if (tv != null) {
                 tv.setText(model.mOwnerAccount);
             }
-            mView.findViewById(R.id.calendar_group).setBackgroundColor(displayColor);
-            mColorChip.setBackgroundColor(displayColor);
+            if (mIsMultipane) {
+                mView.findViewById(R.id.calendar_textview).setBackgroundColor(displayColor);
+            } else {
+                mView.findViewById(R.id.calendar_group).setBackgroundColor(displayColor);
+            }
         } else {
             View calendarGroup = mView.findViewById(R.id.calendar_group);
             calendarGroup.setVisibility(View.GONE);
-            mCalendarSelectorGroup.setBackgroundColor(displayColor);
         }
 
         populateTimezone();
@@ -1213,7 +1212,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mCalendarsSpinner.setOnItemSelectedListener(this);
 
         int colorColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
-        mColorChip.setBackgroundColor(Utils.getDisplayColorFromColor(cursor.getInt(colorColumn)));
 
         if (mSaveAfterQueryComplete) {
             mLoadingCalendarsDialog.cancel();
@@ -1309,7 +1307,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mRepeatsSpinner.setEnabled(false);
             }
             mRemindersGroup.setVisibility(View.VISIBLE);
-            mAttendeesPane.setVisibility(View.VISIBLE);
 
             mLocationGroup.setVisibility(View.VISIBLE);
             mDescriptionGroup.setVisibility(View.VISIBLE);
@@ -1545,10 +1542,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         int color = c.getInt(colorColumn);
         int displayColor = Utils.getDisplayColorFromColor(color);
-        mColorChip.setBackgroundColor(displayColor);
         mModel.mCalendarColor = color;
-        mCalendarSelectorGroup.setBackgroundColor(displayColor);
-
+        if (mIsMultipane) {
+            mCalendarsSpinner.setBackgroundColor(displayColor);
+        } else {
+            mCalendarSelectorGroup.setBackgroundColor(displayColor);
+        }
 
         // Update the max/allowed reminders with the new calendar properties.
         int maxRemindersColumn = c.getColumnIndexOrThrow(Calendars.MAX_REMINDERS);
@@ -1641,7 +1640,5 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        mColorChip.setBackgroundColor(0);
-
     }
 }

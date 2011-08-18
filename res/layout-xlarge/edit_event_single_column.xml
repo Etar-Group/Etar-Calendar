@@ -73,18 +73,11 @@
                 android:layout_marginBottom="12dip"
                 android:layout_gravity="center_horizontal|top">
 
-                <!-- TOP HALF -->
                 <include
                     layout="@layout/edit_event_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <!-- BOTTOM HALF GUESTS/ATTENDEES -->
-                <include
-                    layout="@layout/edit_event_2"
-                    android:id="@+id/attendees_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <View android:id="@+id/color_chip"

@@ -80,6 +80,7 @@
         android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dip"
         android:hint="@string/hint_what"
         android:capitalize="sentences"
         android:focusable="true" />
@@ -89,6 +90,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dip"
         android:focusable="true">
         <EditText
             android:id="@+id/location"
@@ -109,6 +111,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dip"
         android:focusable="true">
         <TextView
             android:id="@+id/when_label"
@@ -129,7 +132,8 @@
         android:id="@+id/from_row"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="64dip">
         <TextView
             android:id="@+id/from_label"
             android:layout_height="wrap_content"
@@ -186,7 +190,8 @@
         android:id="@+id/to_row"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="64dip">
         <TextView
             android:id="@+id/to_label"
             android:text="@string/edit_event_to_label"
@@ -245,7 +250,8 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="48dip">
         <CheckBox
             android:id="@+id/is_all_day"
             android:layout_height="match_parent"
@@ -275,6 +281,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dip"
         android:focusable="true">
         <TextView
             android:id="@+id/timezone_textView"
@@ -288,7 +295,8 @@
         android:id="@+id/timezone_button_row"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="48dip">
         <Button
             android:id="@+id/timezone_button"
             android:gravity="left|center_vertical"
