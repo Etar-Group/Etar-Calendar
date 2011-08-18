@@ -90,6 +90,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:visibility="gone"
-        android:background="@drawable/list_activated_holo" />
+        android:background="@drawable/list_multi_left_activated_holo" />
 
 </LinearLayout>
