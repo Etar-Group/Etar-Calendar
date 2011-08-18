@@ -19,27 +19,23 @@
     android:id="@+id/edit_event"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_marginTop="0dip"
     style="@style/EditEvent_Layout">
     <TextView
         android:id="@+id/loading_message"
-        android:layout_width="match_parent"
+        android:layout_width="800dip"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/loading"
         style="?android:attr/textAppearanceLarge"
-        android:layout_marginLeft="50dip"
-        android:layout_marginRight="50dip"
-        android:layout_marginTop="12dip"
-        android:layout_marginBottom="12dip"
         android:background="#FFFFFFFF"/>
 
     <ScrollView
         android:id="@+id/scroll_view"
-        android:layout_width="match_parent"
+        android:layout_width="800dip"
         android:layout_height="match_parent"
-        android:layout_weight="2"
         android:animateLayoutChanges="true"
         android:fillViewport="true"
         android:visibility="gone">
@@ -51,45 +47,29 @@
             <View android:id="@+id/event_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="50dip"
-                android:layout_marginRight="50dip"
-                android:layout_marginTop="12dip"
-                android:layout_marginBottom="12dip"
                 android:layout_gravity="center_horizontal|top"
                 android:background="#FFFFFFFF"/>
 
             <LinearLayout
                 android:id="@+id/two_pane"
                 android:orientation="vertical"
-                android:paddingTop="32dip"
-                android:paddingBottom="32dip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dip"
-                android:layout_marginRight="100dip"
-                android:layout_marginTop="12dip"
-                android:layout_marginBottom="12dip"
+                android:paddingTop="28dip"
+                android:paddingLeft="80dip"
+                android:paddingRight="80dip"
                 android:layout_gravity="center_horizontal|top">
 
-                <!-- TOP HALF -->
                 <include
                     layout="@layout/edit_event_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <!-- BOTTOM HALF GUESTS/ATTENDEES -->
-                <include
-                    layout="@layout/edit_event_2"
-                    android:id="@+id/attendees_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <View android:id="@+id/color_chip"
                 android:layout_width="50dip"
                 android:layout_height="50dip"
-                android:layout_marginLeft="45dip"
-                android:layout_marginTop="7dip"
                 android:layout_gravity="left|top"/>
         </FrameLayout>
     </ScrollView>

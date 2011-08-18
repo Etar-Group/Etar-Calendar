@@ -26,6 +26,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="64dip"
         android:focusable="true">
         <TextView
             android:id="@+id/response_label"
@@ -79,6 +80,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dip"
         android:focusable="true">
         <TextView
             android:id="@+id/organizer_label"
@@ -98,7 +100,8 @@
         android:id="@+id/add_attendees_row"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="48dip">
             <com.android.ex.chips.RecipientEditTextView
                 android:id="@+id/attendees"
                 android:layout_width="match_parent"
@@ -117,7 +120,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true">
+        android:focusable="true"
+        android:minHeight="48dip">
         <EditText
             android:id="@+id/description"
             android:layout_height="wrap_content"
@@ -135,7 +139,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true">
+        android:focusable="true"
+        android:minHeight="64dip">
         <TextView
             android:id="@+id/repeats_label"
             android:text="@string/repeats_label"
@@ -160,6 +165,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="32dip"
         android:focusable="true">
         <TextView
             android:id="@+id/reminders_group_label"
@@ -167,7 +173,6 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
         <LinearLayout
             android:layout_height="wrap_content"
@@ -177,34 +182,37 @@
             <LinearLayout
                 android:id="@+id/reminder_items_container"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" />
         </LinearLayout>
-        <LinearLayout
+    </LinearLayout>
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="#00000000"
+        android:minHeight="28dip">
+        <TextView
+            android:id="@+id/reminders_label"
+            android:text="@string/reminders_label"
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/reminders_label"
-                android:text="@string/reminders_label"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:layout_weight="1"
-                android:layout_marginBottom="5dip"
-                android:layout_marginTop="5dip"
-                style="@style/TextAppearance.EditEvent_LabelSmall" />
-            <ImageButton
-                android:id="@+id/reminder_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/PlusButton"
-                android:contentDescription="@string/accessibility_add_reminder"
-                android:layout_gravity="center_vertical" />
-        </LinearLayout>
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="5dip"
+            android:background="#00000000"
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
+        <ImageButton
+            android:id="@+id/reminder_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/PlusButton"
+            android:background="#00000000"
+            android:contentDescription="@string/accessibility_add_reminder"
+            android:layout_gravity="center_vertical" />
     </LinearLayout>
 
 
@@ -214,34 +222,23 @@
         android:id="@+id/availability_row"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <View
-            style="@style/EditEventSeparator"/>
-        <LinearLayout
-            android:id="@+id/availability_row"
-            android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:minHeight="64dip">
+        <TextView
+            android:id="@+id/presence_label"
+            android:text="@string/presence_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="@style/TextAppearance.EditEvent_LabelSmall"
+            android:paddingRight="4dip" />
+        <Spinner
+            android:id="@+id/availability"
+            android:entries="@array/availability"
+            style="@style/TextAppearance.EditEvent_Value"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/presence_label"
-                android:text="@string/presence_label"
-                android:layout_weight="0"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                style="@style/TextAppearance.EditEvent_LabelSmall"
-                android:paddingRight="4dip" />
-            <Spinner
-                android:id="@+id/availability"
-                android:entries="@array/availability"
-                style="@style/TextAppearance.EditEvent_Value"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:contentDescription="@string/accessibility_reminder_showmeas"
-                android:prompt="@string/presence_label" />
-        </LinearLayout>
-        <View
-            style="@style/EditEventSeparator"/>
+            android:contentDescription="@string/accessibility_reminder_showmeas"
+            android:prompt="@string/presence_label" />
     </LinearLayout>
 
         <!-- PRIVACY -->
@@ -249,18 +246,17 @@
         android:id="@+id/visibility_row"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="64dip">
         <TextView
             android:id="@+id/privacy_label"
             android:text="@string/privacy_label"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_weight="0"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
         <Spinner
             android:id="@+id/visibility"
             android:entries="@array/visibility"
-            android:layout_weight="1"
             style="@style/TextAppearance.EditEvent_Value"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
