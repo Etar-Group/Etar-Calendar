@@ -26,6 +26,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
@@ -621,6 +622,16 @@ public class EditEventFragment extends Fragment implements EventHandler {
                             updateActionBar();
                         }
                     }).show();
+
+            mModifyDialog.setOnCancelListener(new OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    Activity a = EditEventFragment.this.getActivity();
+                    if (a != null) {
+                        a.finish();
+                    }
+                }
+            });
         }
     }
 
