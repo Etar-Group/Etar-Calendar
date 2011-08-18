@@ -183,7 +183,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             if (mLoader != null) {
                 mLoader.reset();
             }
-            mContext.unregisterReceiver(this);
         }
 
         @Override
