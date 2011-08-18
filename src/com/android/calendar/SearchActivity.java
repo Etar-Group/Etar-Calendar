@@ -71,6 +71,8 @@ public class SearchActivity extends Activity implements CalendarController.Event
 
     private String mQuery;
 
+    private SearchView mSearchView;
+
     private DeleteEventHelper mDeleteEventHelper;
 
     private ContentResolver mContentResolver;
@@ -206,6 +208,10 @@ public class SearchActivity extends Activity implements CalendarController.Event
         }
         mController.sendEvent(this, searchEventInfo);
         mQuery = searchQuery;
+        if (mSearchView != null) {
+            mSearchView.setQuery(mQuery, false);
+            mSearchView.clearFocus();
+        }
     }
 
     private void deleteEvent(long eventId, long startMillis, long endMillis) {
@@ -229,10 +235,10 @@ public class SearchActivity extends Activity implements CalendarController.Event
         MenuItem item = menu.findItem(R.id.action_search);
         item.expandActionView();
         item.setOnActionExpandListener(this);
-        SearchView searchView = (SearchView) item.getActionView();
-        Utils.setUpSearchView(searchView, this);
-        searchView.setQuery(mQuery, false);
-        searchView.clearFocus();
+        mSearchView = (SearchView) item.getActionView();
+        Utils.setUpSearchView(mSearchView, this);
+        mSearchView.setQuery(mQuery, false);
+        mSearchView.clearFocus();
         return true;
     }
 
