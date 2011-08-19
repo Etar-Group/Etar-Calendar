@@ -19,6 +19,7 @@ package com.android.calendar;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 
 import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.R.string;
 
 import android.app.Activity;
 import android.app.SearchManager;
@@ -1050,5 +1051,37 @@ public class Utils {
             weekTime.normalize(true);
         }
         return weekTime.getWeekNumber();
+    }
+
+    /**
+     * Formats a day of the week string. This is either just the name of the day
+     * or a combination of yesterday/today/tomorrow and the day of the week.
+     *
+     * @param julianDay The julian day to get the string for
+     * @param todayJulianDay The julian day for today's date
+     * @param millis A utc millis since epoch time that falls on julian day
+     * @param context The calling context, used to get the timezone and do the
+     *            formatting
+     * @return
+     */
+    public static String getDayOfWeekString(int julianDay, int todayJulianDay, long millis,
+            Context context) {
+        String tz = getTimeZone(context, null);
+        int flags = DateUtils.FORMAT_SHOW_WEEKDAY;
+        String dayViewText;
+        if (julianDay == todayJulianDay) {
+            dayViewText = context.getString(R.string.agenda_today,
+                    mTZUtils.formatDateRange(context, millis, millis, flags).toString());
+        } else if (julianDay == todayJulianDay - 1) {
+            dayViewText = context.getString(R.string.agenda_yesterday,
+                    mTZUtils.formatDateRange(context, millis, millis, flags).toString());
+        } else if (julianDay == todayJulianDay + 1) {
+            dayViewText = context.getString(R.string.agenda_tomorrow,
+                    mTZUtils.formatDateRange(context, millis, millis, flags).toString());
+        } else {
+            dayViewText = mTZUtils.formatDateRange(context, millis, millis, flags).toString();
+        }
+        dayViewText = dayViewText.toUpperCase();
+        return dayViewText;
     }
 }
