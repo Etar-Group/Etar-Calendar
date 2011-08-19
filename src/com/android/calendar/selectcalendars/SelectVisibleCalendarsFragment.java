@@ -21,6 +21,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.R;
 import com.android.calendar.CalendarController;
+import com.android.calendar.Utils;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -104,6 +105,15 @@ public class SelectVisibleCalendarsFragment extends Fragment
         mList = (ListView)mView.findViewById(R.id.list);
         mList.setDivider(null);
         mList.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
+
+        // Hide the Calendars to Sync button on tablets for now.
+        // Long terms stick it in the list of calendars
+        if (Utils.isMultiPaneConfiguration(getActivity())) {
+            View v = mView.findViewById(R.id.manage_sync_set);
+            if (v != null) {
+                v.setVisibility(View.GONE);
+            }
+        }
         return mView;
     }
 
