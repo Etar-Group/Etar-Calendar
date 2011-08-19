@@ -26,7 +26,6 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.provider.CalendarContract.Calendars;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -291,14 +290,6 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         bg |= position == mData.length - 1 ? IS_BOTTOM : 0;
         bg |= (position > 0 && mData[position - 1].selected) ? IS_BELOW_SELECTED : 0;
         return mRes.getDrawable(TabletCalendarItemBackgrounds.getBackgrounds()[bg]);
-    }
-
-    private static void setText(View view, int id, String text) {
-        if (TextUtils.isEmpty(text)) {
-            return;
-        }
-        TextView textView = (TextView) view.findViewById(id);
-        textView.setText(text);
     }
 
     public int getCount() {
