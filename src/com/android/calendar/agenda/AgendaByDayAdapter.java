@@ -207,23 +207,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
             int flags = DateUtils.FORMAT_SHOW_WEEKDAY;
             mStringBuilder.setLength(0);
 
-            String dayViewText;
-            if (row.mDay == mTodayJulianDay) {
-                dayViewText = mContext.getString(R.string.agenda_today, DateUtils.formatDateRange(
-                        mContext, mFormatter, millis, millis, flags, mTimeZone).toString());
-            } else if (row.mDay == mTodayJulianDay - 1) {
-                dayViewText = mContext.getString(R.string.agenda_yesterday,
-                        DateUtils.formatDateRange(mContext, mFormatter, millis, millis, flags,
-                                mTimeZone).toString());
-            } else if (row.mDay == mTodayJulianDay + 1) {
-                dayViewText = mContext.getString(R.string.agenda_tomorrow,
-                        DateUtils.formatDateRange(mContext, mFormatter, millis, millis, flags,
-                                mTimeZone).toString());
-            } else {
-                dayViewText = DateUtils.formatDateRange(mContext, mFormatter, millis, millis,
-                        flags, mTimeZone).toString();
-            }
-            dayViewText = dayViewText.toUpperCase();
+            String dayViewText = Utils.getDayOfWeekString(row.mDay, mTodayJulianDay, millis,
+                    mContext);
 
             // Build text for the date
             // Format should be month day

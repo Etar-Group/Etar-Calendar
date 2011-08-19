@@ -40,6 +40,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -66,6 +67,7 @@ import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnSuggestionListener;
 import android.widget.TextView;
 
+import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -168,7 +170,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private Runnable mHomeTimeUpdater = new Runnable() {
         @Override
         public void run() {
-            updateHomeClockAndWeekNum(-1);
+            updateSecondaryTitleFields(-1);
         }
     };
 
@@ -407,7 +409,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             initFragments(mController.getTime(), mController.getViewType(), null);
             mUpdateOnResume = false;
         }
-        updateHomeClockAndWeekNum(mController.getTime());
+        updateSecondaryTitleFields(mController.getTime());
         // Make sure the drop-down menu will get its date updated at midnight
         if (mActionBarMenuSpinnerAdapter != null) {
             mActionBarMenuSpinnerAdapter.setMidnightHandler();
@@ -831,7 +833,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         final String msg = Utils.formatDateRange(this, start, end, (int) event.extraLong);
         CharSequence oldDate = mDateRange.getText();
         mDateRange.setText(msg);
-        updateHomeClockAndWeekNum(start);
+        updateSecondaryTitleFields(start);
         if (!TextUtils.equals(oldDate, msg)) {
             mDateRange.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
             if (mShowWeekNum && mWeekTextView != null) {
@@ -840,7 +842,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
     }
 
-    private void updateHomeClockAndWeekNum(long visibleMillisSinceEpoch) {
+    private void updateSecondaryTitleFields(long visibleMillisSinceEpoch) {
         mShowWeekNum = Utils.getShowWeekNumber(this);
         mTimeZone = Utils.getTimeZone(this, mHomeTimeUpdater);
         if (visibleMillisSinceEpoch != -1) {
@@ -854,7 +856,18 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     mWeekNum);
             mWeekTextView.setText(weekString);
             mWeekTextView.setVisibility(View.VISIBLE);
-        } else if (mWeekTextView != null) {
+        } else if (visibleMillisSinceEpoch != -1 && mWeekTextView != null
+                && mCurrentView == ViewType.DAY && mIsTabletConfig) {
+            Time time = new Time(mTimeZone);
+            time.set(visibleMillisSinceEpoch);
+            int julianDay = Time.getJulianDay(visibleMillisSinceEpoch, time.gmtoff);
+            time.setToNow();
+            int todayJulianDay = Time.getJulianDay(time.toMillis(false), time.gmtoff);
+            String dayString = Utils.getDayOfWeekString(julianDay, todayJulianDay,
+                    visibleMillisSinceEpoch, this);
+            mWeekTextView.setText(dayString);
+            mWeekTextView.setVisibility(View.VISIBLE);
+        } else if (mWeekTextView != null && (!mIsTabletConfig || mCurrentView != ViewType.DAY)) {
             mWeekTextView.setVisibility(View.GONE);
         }
         if (mHomeTime != null
@@ -1013,7 +1026,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 mActionBarMenuSpinnerAdapter.setTime(event.startTime.toMillis(false));
             }
         }
-        updateHomeClockAndWeekNum(displayTime);
+        updateSecondaryTitleFields(displayTime);
     }
 
     // Needs to be in proguard whitelist
