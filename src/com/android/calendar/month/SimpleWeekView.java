@@ -419,6 +419,7 @@ public class SimpleWeekView extends View {
         int y;// = (int) ((mHeight + textHeight) / 2);
         int nDays = mNumCells;
 
+        p.setStyle(Style.FILL);
         p.setTextAlign(Align.CENTER);
         int i = 0;
         int divisor = 2 * nDays;
