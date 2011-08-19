@@ -149,7 +149,7 @@
             style="@style/TextAppearance.EditEvent_LabelSmall" />
         <Spinner
             android:id="@+id/repeats"
-            style="@style/TextAppearance.EditEvent_Value"
+            style="@style/TextAppearance.EditEvent_Spinner"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:contentDescription="@string/accessibility_repeats"
@@ -234,7 +234,7 @@
         <Spinner
             android:id="@+id/availability"
             android:entries="@array/availability"
-            style="@style/TextAppearance.EditEvent_Value"
+            style="@style/TextAppearance.EditEvent_Spinner"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:contentDescription="@string/accessibility_reminder_showmeas"
@@ -257,7 +257,7 @@
         <Spinner
             android:id="@+id/visibility"
             android:entries="@array/visibility"
-            style="@style/TextAppearance.EditEvent_Value"
+            style="@style/TextAppearance.EditEvent_Spinner"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:contentDescription="@string/accessibility_reminder_privacy"

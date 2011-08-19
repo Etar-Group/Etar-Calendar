@@ -142,6 +142,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     View mEndHomeGroup;
 
     private int[] mOriginalPadding = new int[4];
+    private int[] mOriginalSpinnerPadding = new int[4];
 
     private boolean mIsMultipane;
     private ProgressDialog mLoadingCalendarsDialog;
@@ -387,7 +388,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private void populateRepeats() {
         Time time = mStartTime;
         Resources r = mActivity.getResources();
-        int resource = android.R.layout.simple_spinner_item;
 
         String[] days = new String[] {
                 DateUtils.getDayOfWeekString(Calendar.SUNDAY, DateUtils.LENGTH_MEDIUM),
@@ -482,7 +482,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 }
             }
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity, resource, repeatArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity,
+                android.R.layout.simple_spinner_item, repeatArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mRepeatsSpinner.setAdapter(adapter);
         mRepeatsSpinner.setSelection(position);
@@ -834,6 +835,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mOriginalPadding[1] = mLocationTextView.getPaddingTop();
         mOriginalPadding[2] = mLocationTextView.getPaddingRight();
         mOriginalPadding[3] = mLocationTextView.getPaddingBottom();
+        mOriginalSpinnerPadding[0] = mRepeatsSpinner.getPaddingLeft();
+        mOriginalSpinnerPadding[1] = mRepeatsSpinner.getPaddingTop();
+        mOriginalSpinnerPadding[2] = mRepeatsSpinner.getPaddingRight();
+        mOriginalSpinnerPadding[3] = mRepeatsSpinner.getPaddingBottom();
         mEditViewList.add(mTitleTextView);
         mEditViewList.add(mLocationTextView);
         mEditViewList.add(mDescriptionTextView);
@@ -1299,8 +1304,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mCalendarStaticGroup.setVisibility(View.VISIBLE);
             }
             mRepeatsSpinner.setBackgroundDrawable((Drawable) mRepeatsSpinner.getTag());
-            mRepeatsSpinner.setPadding(mOriginalPadding[0], mOriginalPadding[1],
-                    mOriginalPadding[2], mOriginalPadding[3]);
+            mRepeatsSpinner.setPadding(mOriginalSpinnerPadding[0], mOriginalSpinnerPadding[1],
+                    mOriginalSpinnerPadding[2], mOriginalSpinnerPadding[3]);
             if (mModel.mOriginalSyncId == null) {
                 mRepeatsSpinner.setEnabled(true);
             } else {

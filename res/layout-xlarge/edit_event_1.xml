@@ -23,44 +23,34 @@
     <TableRow
         android:id="@+id/calendar_selector_group"
         android:gravity="center_vertical"
-        android:layout_marginLeft="16dip"
-        android:layout_marginRight="16dip"
         android:focusable="true" >
         <TextView
             android:text="@string/edit_event_calendar_label"
             style="@style/TextAppearance.EditEvent_Label"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="0dip"
             android:gravity="center_vertical" />
         <Spinner
             android:id="@+id/calendars_spinner"
             android:prompt="@string/edit_event_calendar_label"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:paddingLeft="8dip"
-            android:paddingRight="16dip"
-            android:layout_marginLeft="0dip"
-            android:layout_marginRight="32dip" />
+            style="@style/TextAppearance.EditEvent_Spinner"/>
     </TableRow>
 
     <!-- CALENDAR DISPLAY for existing events -->
     <TableRow
         android:id="@+id/calendar_group"
         android:gravity="center_vertical"
-        android:layout_marginLeft="16dip"
-        android:layout_marginRight="16dip"
         android:layout_marginBottom="8dip"
         android:focusable="true">
         <TextView
             android:text="@string/edit_event_calendar_label"
-            android:layout_marginLeft="0dip"
             style="@style/TextAppearance.EditEvent_Label" />
         <TextView
             android:id="@+id/calendar_textview"
-            android:layout_marginRight="0dip"
-            android:layout_marginLeft="0dip"
             android:textColor="#FFFFFFFF"
             android:minHeight="48dip"
+            android:paddingLeft="12dip"
+            android:paddingRight="12dip"
             style="@style/TextAppearance.EditEvent_Value" />
     </TableRow>
 
@@ -103,6 +93,8 @@
             style="@style/TextAppearance.EditEvent_Label" />
         <TextView
             android:id="@+id/when"
+            android:layout_marginLeft="24dip"
+            android:layout_marginRight="24dip"
             style="@style/TextAppearance.EditEvent_Value" />
     </TableRow>
 
@@ -122,14 +114,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
                 android:contentDescription="@string/accessibility_pick_start_date"
-                style="@style/TextAppearance.EditEvent_Spinner" />
+                style="@style/TextAppearance.EditEvent_SpinnerButton" />
             <Button
                 android:id="@+id/start_time"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:contentDescription="@string/accessibility_pick_start_time"
-                style="@style/TextAppearance.EditEvent_Spinner" />
+                style="@style/TextAppearance.EditEvent_SpinnerButton" />
         </LinearLayout>
     </TableRow>
     <TableRow android:id="@+id/from_row_home_tz"
@@ -173,14 +165,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
                 android:contentDescription="@string/accessibility_pick_end_date"
-                style="@style/TextAppearance.EditEvent_Spinner" />
+                style="@style/TextAppearance.EditEvent_SpinnerButton" />
             <Button
                 android:id="@+id/end_time"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:contentDescription="@string/accessibility_pick_end_time"
-                style="@style/TextAppearance.EditEvent_Spinner" />
+                style="@style/TextAppearance.EditEvent_SpinnerButton" />
         </LinearLayout>
     </TableRow>
     <TableRow android:id="@+id/to_row_home_tz"
@@ -218,6 +210,8 @@
             style="@style/TextAppearance.EditEvent_Label" />
         <TextView
             android:id="@+id/timezone_textView"
+            android:layout_marginLeft="24dip"
+            android:layout_marginRight="24dip"
             style="@style/TextAppearance.EditEvent_Value" />
     </TableRow>
 
@@ -250,7 +244,7 @@
             android:id="@+id/timezone_button"
             android:gravity="left|center_vertical"
             android:contentDescription="@string/accessibility_pick_time_zone"
-            style="@style/TextAppearance.EditEvent_Spinner" />
+            style="@style/TextAppearance.EditEvent_SpinnerButton" />
     </TableRow>
 
     <!-- RESPONSE -->
@@ -349,7 +343,7 @@
             style="@style/TextAppearance.EditEvent_Label" />
         <Spinner
             android:id="@+id/repeats"
-            style="@style/TextAppearance.EditEvent_Value"
+            style="@style/TextAppearance.EditEvent_Spinner"
             android:prompt="@string/repeats_label" />
     </TableRow>
 
@@ -394,7 +388,7 @@
         <Spinner
             android:id="@+id/availability"
             android:entries="@array/availability"
-            style="@style/TextAppearance.EditEvent_Value"
+            style="@style/TextAppearance.EditEvent_Spinner"
             android:prompt="@string/presence_label" />
     </TableRow>
 
@@ -408,7 +402,7 @@
         <Spinner
             android:id="@+id/visibility"
             android:entries="@array/visibility"
-            style="@style/TextAppearance.EditEvent_Value"
+            style="@style/TextAppearance.EditEvent_Spinner"
             android:prompt="@string/privacy_label" />
     </TableRow>
 
