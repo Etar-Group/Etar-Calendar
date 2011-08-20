@@ -40,7 +40,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -63,11 +62,9 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SearchView;
-import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnSuggestionListener;
 import android.widget.TextView;
 
-import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -403,6 +400,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // the rest of the handlers the controller dispatches to are.
         mController.registerFirstEventHandler(HANDLER_KEY, this);
 
+        mOnSaveInstanceStateCalled = false;
         mContentResolver.registerContentObserver(CalendarContract.Events.CONTENT_URI,
                 true, mObserver);
         if (mUpdateOnResume) {
@@ -419,7 +417,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mControlsMenu.setTitle(mHideControls ? mShowString : mHideString);
         }
         mPaused = false;
-        mOnSaveInstanceStateCalled = false;
 
         if (mViewEventId != -1 && mIntentEventStartMillis != -1 && mIntentEventEndMillis != -1) {
             long currentMillis = System.currentTimeMillis();
