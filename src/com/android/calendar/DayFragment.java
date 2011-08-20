@@ -134,17 +134,6 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         view = (DayView) mViewSwitcher.getNextView();
         view.handleOnResume();
         view.restartCurrentTimeUpdates();
-
-        // Register for Intent broadcasts
-//        IntentFilter filter = new IntentFilter();
-//
-//        filter.addAction(Intent.ACTION_TIME_CHANGED);
-//        filter.addAction(Intent.ACTION_DATE_CHANGED);
-//        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-//        registerReceiver(mIntentReceiver, filter);
-
-//        mContentResolver.registerContentObserver(Calendar.Events.CONTENT_URI,
-//                true, mObserver);
     }
 
     @Override
@@ -160,9 +149,6 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
     @Override
     public void onPause() {
         super.onPause();
-//        mContentResolver.unregisterContentObserver(mObserver);
-//        unregisterReceiver(mIntentReceiver);
-
         DayView view = (DayView) mViewSwitcher.getCurrentView();
         view.cleanup();
         view = (DayView) mViewSwitcher.getNextView();

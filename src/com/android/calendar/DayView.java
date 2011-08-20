@@ -174,7 +174,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private int mFirstVisibleDayOfWeek;
     private int[] mEarliestStartHour;    // indexed by the week day offset
     private boolean[] mHasAllDayEvent;   // indexed by the week day offset
-    private String mAllDayString;
     private String mEventCountTemplate;
     private CharSequence[] mLongPressItems;
     private String mLongPressTitle;
@@ -226,7 +225,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private ArrayList<Event> mAllDayEvents = new ArrayList<Event>();
     private StaticLayout[] mLayouts = null;
     private StaticLayout[] mAllDayLayouts = null;
-    private StaticLayout mAllDayTextLayout = null;
     private int mSelectionDay;        // Julian day
     private int mSelectionHour;
 
@@ -320,7 +318,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static float NORMAL_FONT_SIZE = 12;
     private static float EVENT_TEXT_FONT_SIZE = 12;
     private static float HOURS_TEXT_SIZE = 12;
-    private static float ALLDAY_TEXT_SIZE = 12;
     private static float AMPM_TEXT_SIZE = 9;
     private static int MIN_HOURS_WIDTH = 96;
     private static int MIN_CELL_WIDTH_FOR_TEXT = 20;
@@ -544,7 +541,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         EXPAND_ALL_DAY_BOTTOM_MARGIN = (int) mResources.getDimension(R.dimen.all_day_bottom_margin);
         HOURS_TEXT_SIZE = (int) mResources.getDimension(R.dimen.hours_text_size);
         AMPM_TEXT_SIZE = (int) mResources.getDimension(R.dimen.ampm_text_size);
-        ALLDAY_TEXT_SIZE = (int) mResources.getDimension(R.dimen.allday_text_size);
         MIN_HOURS_WIDTH = (int) mResources.getDimension(R.dimen.min_hours_width);
         HOURS_LEFT_MARGIN = (int) mResources.getDimension(R.dimen.hours_left_margin);
         HOURS_RIGHT_MARGIN = (int) mResources.getDimension(R.dimen.hours_right_margin);
@@ -622,7 +618,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mEventGeometry.setHourGap(HOUR_GAP);
         mEventGeometry.setCellMargin(DAY_GAP);
         mContext = context;
-        mAllDayString = mContext.getString(R.string.edit_event_all_day_label);
         mLongPressItems = new CharSequence[] {
             mResources.getString(R.string.new_event_dialog_option)
         };
@@ -1136,10 +1131,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mExpandAllDayRect.bottom = mFirstCell - EXPAND_ALL_DAY_BOTTOM_MARGIN;
         mExpandAllDayRect.top = mExpandAllDayRect.bottom
                 - mExpandAlldayDrawable.getIntrinsicHeight();
-
-        // Cause the allDay text to be relaid out on the next draw pass
-        mAllDayTextLayout = null;
-
 
         mNumHours = mGridAreaHeight / (mCellHeight + HOUR_GAP);
         mEventGeometry.setHourHeight(mCellHeight);
@@ -2473,18 +2464,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
     }
 
-    private StaticLayout getOrCreateAllDayTextLayout(Paint p) {
-
-        if (mAllDayTextLayout == null) {
-            int allDayWidth = mHoursWidth - EVENT_ALL_DAY_TEXT_LEFT_MARGIN
-                    - EVENT_ALL_DAY_TEXT_RIGHT_MARGIN;
-            mAllDayTextLayout = new StaticLayout(mAllDayString, 0, mAllDayString.length(),
-                    new TextPaint(p), allDayWidth, Alignment.ALIGN_NORMAL, 1.0f, 0.0f, true, null,
-                    allDayWidth);
-        }
-        return mAllDayTextLayout;
-    }
-
     /**
      * Return the layout for a numbered event. Create it if not already existing
      */
@@ -3813,7 +3792,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 return true;
 
             case MotionEvent.ACTION_MOVE:
-                if (DEBUG) Log.e(TAG, "ACTION_MOVE");
+                if (DEBUG) Log.e(TAG, "ACTION_MOVE " + DayView.this);
                 mGestureDetector.onTouchEvent(ev);
                 return true;
 

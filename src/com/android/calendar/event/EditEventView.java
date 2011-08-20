@@ -972,8 +972,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return;
         }
 
-        boolean canModifyCalendar = EditEventHelper.canModifyCalendar(model);
-        boolean canModifyEvent = EditEventHelper.canModifyEvent(model);
         boolean canRespond = EditEventHelper.canRespond(model);
 
         long begin = model.mStart;
@@ -1215,8 +1213,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mCalendarsSpinner.setAdapter(adapter);
         mCalendarsSpinner.setSelection(defaultCalendarPosition);
         mCalendarsSpinner.setOnItemSelectedListener(this);
-
-        int colorColumn = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
 
         if (mSaveAfterQueryComplete) {
             mLoadingCalendarsDialog.cancel();
