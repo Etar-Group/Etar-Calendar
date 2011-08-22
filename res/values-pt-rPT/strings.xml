@@ -56,7 +56,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Eliminar evento"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hoje"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Definições"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendários para Apresentar"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendários para apresentar"</string>
     <string name="search" msgid="550656004486017426">"Pesquisar"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ocultar controlos"</string>
     <string name="show_controls" msgid="715520586028062621">"Mostrar controlos"</string>
@@ -132,10 +132,8 @@
     <string name="modify_event" msgid="4501745557655992422">"Alterar apenas este evento."</string>
     <string name="modify_all" msgid="7506579040966638538">"Alterar todos os eventos da série."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Alterar este e todos os futuros eventos."</string>
-    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
-    <skip />
-    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
-    <skip />
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Novo evento"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Novo evento"</string>
     <string name="delete_this_event_title" msgid="8738491083082780492">"Este evento será eliminado."</string>
     <string name="delete_title" msgid="5143743507524995383">"Eliminar"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Alterar resposta"</string>
