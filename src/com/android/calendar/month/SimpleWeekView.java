@@ -94,6 +94,7 @@ public class SimpleWeekView extends View {
     protected static int DAY_SEPARATOR_WIDTH = 1;
 
     protected static int MINI_DAY_NUMBER_TEXT_SIZE = 14;
+    protected static int MINI_WK_NUMBER_TEXT_SIZE = 12;
     protected static int MINI_TODAY_NUMBER_TEXT_SIZE = 18;
     protected static int MINI_TODAY_OUTLINE_WIDTH = 2;
     protected static int WEEK_NUM_MARGIN_BOTTOM = 4;
@@ -181,6 +182,8 @@ public class SimpleWeekView extends View {
                 MINI_TODAY_NUMBER_TEXT_SIZE *= mScale;
                 MINI_TODAY_OUTLINE_WIDTH *= mScale;
                 WEEK_NUM_MARGIN_BOTTOM *= mScale;
+                DAY_SEPARATOR_WIDTH *= mScale;
+                MINI_WK_NUMBER_TEXT_SIZE *= mScale;
             }
         }
 
@@ -415,23 +418,22 @@ public class SimpleWeekView extends View {
      * @param canvas The canvas to draw on
      */
     protected void drawWeekNums(Canvas canvas) {
-        float textHeight = p.getTextSize();
-        int y;// = (int) ((mHeight + textHeight) / 2);
+        int y = ((mHeight + MINI_DAY_NUMBER_TEXT_SIZE) / 2) - DAY_SEPARATOR_WIDTH;
         int nDays = mNumCells;
 
-        p.setStyle(Style.FILL);
-        p.setTextAlign(Align.CENTER);
         int i = 0;
         int divisor = 2 * nDays;
         if (mShowWeekNum) {
+            p.setTextSize(MINI_WK_NUMBER_TEXT_SIZE);
+            p.setStyle(Style.FILL);
+            p.setTextAlign(Align.CENTER);
+            p.setAntiAlias(true);
             p.setColor(mWeekNumColor);
             int x = (mWidth - mPadding * 2) / divisor + mPadding;
-            y = (mHeight - WEEK_NUM_MARGIN_BOTTOM);
             canvas.drawText(mDayNumbers[0], x, y, p);
             i++;
         }
 
-        y = (int) ((mHeight + textHeight) / 2) - DAY_SEPARATOR_WIDTH;
         boolean isFocusMonth = mFocusDay[i];
         mMonthNumPaint.setColor(isFocusMonth ? mFocusMonthColor : mOtherMonthColor);
         mMonthNumPaint.setFakeBoldText(false);
@@ -469,6 +471,13 @@ public class SimpleWeekView extends View {
             p.setStyle(Style.STROKE);
             p.setColor(mTodayOutlineColor);
             canvas.drawRect(r, p);
+        }
+        if (mShowWeekNum) {
+            p.setColor(mDaySeparatorColor);
+            p.setStrokeWidth(DAY_SEPARATOR_WIDTH);
+
+            int x = (mWidth - mPadding * 2) / mNumCells + mPadding;
+            canvas.drawLine(x, 0, x, mHeight, p);
         }
     }
 
