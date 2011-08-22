@@ -3140,17 +3140,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             if (mSelectionMode == SELECTION_PRESSED) {
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
-                // box = mBoxPressed;
                 color = mPressedColor;
                 paintIt = true;
             } else if (mSelectionMode == SELECTION_SELECTED) {
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
-                // box = mBoxSelected;
-                color = mPressedColor;
-                paintIt = true;
-            } else if (mSelectionMode == SELECTION_LONGPRESS) {
-                // box = mBoxLongPressed;
                 color = mPressedColor;
                 paintIt = true;
             }
