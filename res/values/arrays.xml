@@ -16,10 +16,10 @@
 <resources>
     <!-- Choices for the "Reminder method" spinner.
          These must be kept in sync with the reminder_methods_values array.
-         [CHAR LIMIT=15]
+         [CHAR LIMIT=10]
     -->
     <string-array name="reminder_methods_labels">
-        <item>Pop-up</item>
+        <item>Notification</item>
         <item>Email</item>
         <item>SMS</item>
     </string-array>
