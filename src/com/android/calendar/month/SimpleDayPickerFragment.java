@@ -476,7 +476,6 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         }
 
         // Figure out where we are
-        int offset = child.getBottom() < WEEK_MIN_VISIBLE_HEIGHT ? 1 : 0;
         long currScroll = view.getFirstVisiblePosition() * child.getHeight() - child.getBottom();
         mFirstVisibleDay.setJulianDay(child.getFirstJulianDay());
 
@@ -581,7 +580,6 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     protected ScrollStateRunnable mScrollStateChangedRunnable = new ScrollStateRunnable();
 
     protected class ScrollStateRunnable implements Runnable {
-        private AbsListView mView;
         private int mNewState;
 
         /**
@@ -593,7 +591,6 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
          */
         public void doScrollStateChange(AbsListView view, int scrollState) {
             mHandler.removeCallbacks(this);
-            mView = view;
             mNewState = scrollState;
             mHandler.postDelayed(this, SCROLL_CHANGE_DELAY);
         }

@@ -19,7 +19,6 @@ package com.android.calendar;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 
 import com.android.calendar.CalendarController.ViewType;
-import com.android.calendar.R.string;
 
 import android.app.Activity;
 import android.app.SearchManager;
@@ -37,7 +36,6 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.SearchView;
 
 import com.android.calendar.CalendarUtils.TimeZoneUtils;

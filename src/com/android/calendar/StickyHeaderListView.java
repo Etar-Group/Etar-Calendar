@@ -17,13 +17,8 @@
 package com.android.calendar;
 
 import android.content.Context;
-import android.database.DataSetObserver;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Rect;
-import android.text.format.Time;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +27,6 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.Adapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 /**
  * Implements a ListView class with a sticky header at the top. The header is

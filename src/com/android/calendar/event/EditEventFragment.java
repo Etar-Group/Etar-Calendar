@@ -334,7 +334,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
         MenuItem cancelItem = mMenu.findItem(R.id.action_cancel);
         MenuItem editItem = mMenu.findItem(R.id.action_edit);
         boolean canModifyEvent = EditEventHelper.canModifyEvent(mModel);
-        boolean canModifyCalendar = EditEventHelper.canModifyCalendar(mModel);
 
         if (mIsReadOnly) {
             mMenu.findItem(R.id.action_done).setVisible(false);
@@ -817,6 +816,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
     }
 
     private static class EventBundle implements Serializable {
+        private static final long serialVersionUID = 1L;
         long id = -1;
         long start = -1;
         long end = -1;
