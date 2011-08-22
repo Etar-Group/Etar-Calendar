@@ -527,6 +527,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         super.onAttach(activity);
         mActivity = activity;
         mEditResponseHelper = new EditResponseHelper(activity);
+
+        if (mAttendeeResponseFromIntent != Attendees.ATTENDEE_STATUS_NONE) {
+            mEditResponseHelper.setWhichEvents(UPDATE_ALL);
+        }
         mHandler = new QueryHandler(activity);
         mDescLineNum = activity.getResources().getInteger((R.integer.event_info_desc_line_num));
         mMoreLabel = activity.getResources().getString((R.string.event_info_desc_more));
