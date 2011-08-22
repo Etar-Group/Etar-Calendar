@@ -44,9 +44,6 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.calendar_settings_headers, target);
 
-        getActionBar()
-                .setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
-
         Account[] accounts = AccountManager.get(this).getAccounts();
         if (accounts != null) {
             int length = accounts.length;
@@ -100,6 +97,8 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settings_title_bar, menu);
+        getActionBar()
+                .setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
         return true;
     }
 
