@@ -73,7 +73,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"ゲスト"</string>
     <string name="creating_event" msgid="5252306542761552414">"予定を作成しました"</string>
     <string name="saving_event" msgid="7716081507367732169">"予定を保存しました"</string>
-    <string name="empty_event" msgid="757898251276814787">"空の予定は作成されませんでした"</string>
+    <string name="empty_event" msgid="757898251276814787">"予定は空のため作成されませんでした"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"招待状を送信しました"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"更新情報を送信しました"</string>
     <string name="alert_title" msgid="7869592820853066853">"カレンダーの通知"</string>

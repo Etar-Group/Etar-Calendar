@@ -17,14 +17,14 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"לוח שנה"</string>
-    <string name="what_label" msgid="1933578391985810049">"איזה"</string>
+    <string name="what_label" msgid="1933578391985810049">"מה"</string>
     <string name="where_label" msgid="3472482206065595118">"היכן"</string>
     <string name="when_label" msgid="894636567327261599">"מתי"</string>
     <string name="timezone_label" msgid="3988530993300431650">"אזור זמן"</string>
     <string name="attendees_label" msgid="2971281641565729725">"אורחים"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"חזרה"</string>
-    <string name="no_title_label" msgid="302177118061368042">"(ללא כותרת)"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(אין כותרת)"</string>
   <plurals name="Nminutes">
     <item quantity="one" msgid="4871052965772159239">"דקה אחת"</item>
     <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> דקות"</item>
@@ -57,17 +57,17 @@
     <string name="goto_today" msgid="9162136434410891230">"היום"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"הגדרות"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"יומנים להצגה"</string>
-    <string name="search" msgid="550656004486017426">"חיפוש"</string>
+    <string name="search" msgid="550656004486017426">"חפש"</string>
     <string name="hide_controls" msgid="830320505938520882">"הסתר פקדים"</string>
     <string name="show_controls" msgid="715520586028062621">"הצג פקדים"</string>
     <string name="select_visible_calendars_title" msgid="5285053789530752843">"יומנים להצגה"</string>
     <string name="synced" msgid="7913940305983383493">"מסונכרן"</string>
     <string name="not_synced" msgid="4275114941801829419">"לא מסונכרן"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"חשבון זה אינו מסונכרן וייתכן שלוחות השנה שלך לא יהיו מעודכנים."</string>
-    <string name="accounts" msgid="849401841083180306">"חשבונות וסנכרון"</string>
+    <string name="accounts" msgid="849401841083180306">"חשבונות וסינכרון"</string>
     <string name="select_synced_calendars_title" msgid="7122363881046468658">"יומנים לסינכרון"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"יומנים לסינכרון"</string>
-    <string name="hint_what" msgid="709155115005044531">"שם האירוע"</string>
+    <string name="hint_what" msgid="709155115005044531">"שם אירוע"</string>
     <string name="hint_where" msgid="4972598001033801974">"מקום"</string>
     <string name="hint_description" msgid="1910143586169033232">"תיאור"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"אורחים"</string>
@@ -80,12 +80,12 @@
     <string name="event_info_title" msgid="56024222340421620">"הצג אירוע"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"הזמנה לפגישה"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"עד"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"מ-"</string>
-    <string name="edit_event_all_day_label" msgid="6200181113992136073">"יום מלא"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"מ:"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"כל היום"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"לוח שנה"</string>
-    <string name="edit_event_show_all" msgid="4558049350756058301">"הצג הכול"</string>
+    <string name="edit_event_show_all" msgid="4558049350756058301">"הצג הכל"</string>
     <string name="description_label" msgid="7193475046717505855">"תיאור"</string>
-    <string name="presence_label" msgid="6169724148441175862">"הצג אותי במצב"</string>
+    <string name="presence_label" msgid="6169724148441175862">"הצג אותי כ"</string>
     <string name="privacy_label" msgid="9215031965259597335">"פרטיות"</string>
     <string name="reminders_label" msgid="7292389181815525676">"הוסף תזכורת"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"אין לוחות שנה"</string>
@@ -105,40 +105,40 @@
     <string name="agenda_today" msgid="5965841338467422191">"היום, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"אתמול, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"מחר, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="loading" msgid="3772533493214331230">"טוען…"</string>
+    <string name="loading" msgid="3772533493214331230">"טוען..."</string>
     <string name="show_older_events" msgid="5140647493681439926">"גע כדי להציג אירועים לפני <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"גע כדי להציג אירועים אחרי <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="search_title" msgid="8898015280250716254">"חפש בלוחות השנה שלי"</string>
-    <string name="num_events" msgid="3351672964607162257">"מספר האירועים"</string>
+    <string name="search_title" msgid="8898015280250716254">"חפש ביומנים שלי"</string>
+    <string name="num_events" msgid="3351672964607162257">"מספר אירועים"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"פרטים"</string>
     <string name="edit_label" msgid="8934331258435656534">"ערוך"</string>
     <string name="delete_label" msgid="874742811918030739">"מחק"</string>
-    <string name="save_label" msgid="2133599104834432589">"בוצע"</string>
+    <string name="save_label" msgid="2133599104834432589">"סיום"</string>
     <string name="discard_label" msgid="2394623883289782541">"ביטול"</string>
     <string name="import_label" msgid="6993796574741477222">"ייבא"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"נדנד על הכל"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"העבר את כולם למצב נמנום"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"דחה הכל"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"אירוע חד-פעמי"</string>
-    <string name="daily" msgid="560350706808680448">"יומי"</string>
+    <string name="daily" msgid="560350706808680448">"מדי יום"</string>
     <string name="every_weekday" msgid="5896574838353902978">"כל יום חול (ראשון-חמישי)"</string>
-    <string name="weekly" msgid="2006107373119027114">"שבועי (כל <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"חודשי (כל <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
-    <string name="monthly" msgid="4587116285383048586">"חודשי"</string>
-    <string name="yearly_plain" msgid="3652692085322162449">"שנתי"</string>
-    <string name="monthly_on_day" msgid="5370155265278821156">"חודשי (ביום ה-<xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly" msgid="8576208380302949002">"שנתי (ב-<xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="weekly" msgid="2006107373119027114">"מדי שבוע (כל <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"מדי חודש (כל <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly" msgid="4587116285383048586">"כל חודש"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"כל שנה"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"מדי חודש (ביום <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"מדי שנה (בתאריכים <xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom" product="tablet" msgid="3784569535926286624">"מותאם אישית… (אין אפשרות להתאים אישית במחשב הלוח)"</string>
-    <string name="custom" product="default" msgid="3015205670911301856">"מותאם אישית... (אין אפשרות להתאים אישית בטלפון)"</string>
+    <string name="custom" product="default" msgid="3015205670911301856">"בהתאמה אישית??? (אין אפשרות להתאים אישית בטלפון)"</string>
     <string name="modify_event" msgid="4501745557655992422">"שנה אירוע זה בלבד."</string>
     <string name="modify_all" msgid="7506579040966638538">"שנה את כל האירועים בסדרה."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"שנה אירוע זה ואת כל האירועים העתידיים."</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"אירוע חדש"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"אירוע חדש"</string>
-    <string name="delete_this_event_title" msgid="8738491083082780492">"אירוע זה ימחק."</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"אירוע זה יימחק."</string>
     <string name="delete_title" msgid="5143743507524995383">"מחק"</string>
     <string name="change_response_title" msgid="7704714776070974984">"שנה תגובה"</string>
     <string name="menu_general_preferences" msgid="4057784477122524106">"העדפות כלליות"</string>
-    <string name="menu_about_preferences" msgid="160474554936812478">"אודות לוח שנה"</string>
+    <string name="menu_about_preferences" msgid="160474554936812478">"מידע על לוח שנה"</string>
     <string name="preferences_title" msgid="8045855493262131773">"הגדרות"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"הגדרות תצוגה של לוח שנה"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"הגדרות תזכורת"</string>
@@ -151,20 +151,20 @@
     <string name="preferences_alerts_title" msgid="6636088008103904020">"התראות"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"רטט"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"רטט גם בתזכורות"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"בחר צלצול"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"בחר רינגטון"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"התראה קופצת"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"ברירת מחדל של שעת תזכורת"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"ברירת מחדל של שעת תזכורת"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"השתמש באזור הזמן המקומי"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"הצגת לוחות שנה ושעות אירועים באזור הזמן המקומי שלך בעת נסיעות"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"מציג לוחות שנה ושעות אירועים באזור הזמן המקומי שלך בנסיעות"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"אזור זמן מקומי"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"הצג מספר שבוע"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"אודות"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"מידע על"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"גרסת Build"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
     <item msgid="2539376794936035639">"תמיד"</item>
-    <item msgid="8091719131860840185">"רק במצב שקט"</item>
+    <item msgid="8091719131860840185">"במצב שקט בלבד"</item>
     <item msgid="4552962311897985633">"אף פעם"</item>
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"רטט"</string>
@@ -173,10 +173,10 @@
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
-    <string name="gadget_no_events" msgid="5209110911088302855">"אין אירועים קרבים ביומן"</string>
+    <string name="gadget_no_events" msgid="5209110911088302855">"אין אירועים צפויים בלוח השנה"</string>
     <string name="tomorrow" msgid="614434811813859237">"מחר"</string>
     <string name="copy_db" msgid="437691290566699292">"שלח מסד נתונים"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"מחפש <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"מחפש את <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"הסר משתתף"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"תאריך התחלה"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"שעת התחלה"</string>
