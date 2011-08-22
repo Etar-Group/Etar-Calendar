@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.PowerManager;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -205,9 +206,10 @@ public class AlertReceiver extends BroadcastReceiver {
             sb.append(context.getString(R.string.tomorrow));
         }
 
-        if (location != null) {
+        String loc;
+        if (location != null && !TextUtils.isEmpty(loc = location.trim())) {
             sb.append(", ");
-            sb.append(location);
+            sb.append(loc);
         }
         bob.setContentText(sb.toString());
 
