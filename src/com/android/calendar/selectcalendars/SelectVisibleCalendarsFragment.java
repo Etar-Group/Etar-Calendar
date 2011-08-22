@@ -56,13 +56,6 @@ public class SelectVisibleCalendarsFragment extends Fragment
         Calendars.SYNC_EVENTS,
         "(" + Calendars.ACCOUNT_NAME + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY,
       };
-    private static final int COLUMN_ID = 0;
-    private static final int COLUMN_SYNC_ACCOUNT = 1;
-    private static final int COLUMN_OWNER_ACCOUNT = 2;
-    private static final int COLUMN_DISPLAY_NAME = 3;
-    private static final int COLUMN_COLOR = 4;
-    private static final int COLUMN_VISIBLE = 5;
-    private static final int COLUMN_SYNC_EVENTS = 6;
     private static int mUpdateToken;
     private static int mQueryToken;
     private static int mCalendarItemLayout = R.layout.mini_calendar_item;
@@ -72,6 +65,7 @@ public class SelectVisibleCalendarsFragment extends Fragment
     private SelectCalendarsSimpleAdapter mAdapter;
     private Activity mContext;
     private AsyncQueryService mService;
+    private Cursor mCursor;
 
     public SelectVisibleCalendarsFragment() {
     }
@@ -88,8 +82,19 @@ public class SelectVisibleCalendarsFragment extends Fragment
             @Override
             protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
                 mAdapter.changeCursor(cursor);
+                mCursor = cursor;
             }
         };
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mCursor != null) {
+            mAdapter.changeCursor(null);
+            mCursor.close();
+            mCursor = null;
+        }
     }
 
     @Override
