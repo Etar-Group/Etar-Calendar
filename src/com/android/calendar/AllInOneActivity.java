@@ -410,7 +410,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         updateSecondaryTitleFields(mController.getTime());
         // Make sure the drop-down menu will get its date updated at midnight
         if (mActionBarMenuSpinnerAdapter != null) {
-            mActionBarMenuSpinnerAdapter.setMidnightHandler();
+            mActionBarMenuSpinnerAdapter.refresh(this);
         }
 
         if (mControlsMenu != null) {
@@ -441,7 +441,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mPaused = true;
         mHomeTime.removeCallbacks(mHomeTimeUpdater);
         if (mActionBarMenuSpinnerAdapter != null) {
-            mActionBarMenuSpinnerAdapter.resetMidnightHandler();
+            mActionBarMenuSpinnerAdapter.onPause();
         }
         mContentResolver.unregisterContentObserver(mObserver);
         if (isFinishing()) {
@@ -867,6 +867,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         } else if (mWeekTextView != null && (!mIsTabletConfig || mCurrentView != ViewType.DAY)) {
             mWeekTextView.setVisibility(View.GONE);
         }
+
         if (mHomeTime != null
                 && (mCurrentView == ViewType.DAY || mCurrentView == ViewType.WEEK
                         || mCurrentView == ViewType.AGENDA)

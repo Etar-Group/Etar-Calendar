@@ -21,10 +21,8 @@ import com.android.calendar.CalendarController.ViewType;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +30,6 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.Locale;
@@ -74,7 +71,6 @@ public class CalendarViewAdapter implements SpinnerAdapter {
     // for the buttons.
     long mMilliTime;
     String mTimeZone;
-    private Time mTmpTime;
     long mTodayJulianDay;
 
     Context mContext;
@@ -86,7 +82,7 @@ public class CalendarViewAdapter implements SpinnerAdapter {
     private Runnable mTimeUpdater = new Runnable() {
         @Override
         public void run() {
-            setTimeVars(mContext);
+            refresh(mContext);
         }
     };
 
@@ -104,15 +100,14 @@ public class CalendarViewAdapter implements SpinnerAdapter {
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
 
         // Sets time specific variables and starts a thread for midnight updates
-        setTimeVars(context);
+        refresh(context);
     }
 
 
     // Sets the time zone and today's Julian day to be used by the adapter.
     // Also, notify listener on the change and resets the midnight update thread.
-    private void setTimeVars(Context context) {
+    public void refresh(Context context) {
         mTimeZone = Utils.getTimeZone(context, mTimeUpdater);
-        mTmpTime = new Time(mTimeZone);
         Time time = new Time(mTimeZone);
         long now = System.currentTimeMillis();
         time.set(now);
@@ -123,7 +118,7 @@ public class CalendarViewAdapter implements SpinnerAdapter {
 
     // Sets a thread to run 1 second after midnight and update the current date
     // This is used to display correctly the date of yesterday/today/tomorrow
-    public void setMidnightHandler() {
+    private void setMidnightHandler() {
         if (mMidnightHandler == null) {
             mMidnightHandler = new Handler();
         } else {
@@ -139,7 +134,7 @@ public class CalendarViewAdapter implements SpinnerAdapter {
     }
 
     // Stops the midnight update thread, called by the activity when it is paused.
-    public void resetMidnightHandler() {
+    public void onPause() {
         if (mMidnightHandler != null) {
             mMidnightHandler.removeCallbacks(mTimeUpdater);
         }
