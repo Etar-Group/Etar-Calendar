@@ -29,6 +29,8 @@ import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendarcommon.EventRecurrence;
 import com.android.calendar.event.EventViewUtils;
+import com.android.i18n.phonenumbers.PhoneNumberMatch;
+import com.android.i18n.phonenumbers.PhoneNumberUtil;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -58,14 +60,19 @@ import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.QuickContact;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.text.method.LinkMovementMethod;
+import android.text.method.MovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
+import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.text.util.Rfc822Token;
 import android.util.Log;
@@ -259,7 +266,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private View mHeadlines;
     private ScrollView mScrollView;
 
-    private Pattern mWildcardPattern = Pattern.compile("^.*$");
+    private static final Pattern mWildcardPattern = Pattern.compile("^.*$");
 
     ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mDeclinedAttendees = new ArrayList<Attendee>();
@@ -1070,10 +1077,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             if (textView != null) {
                 textView.setAutoLinkMask(0);
                 textView.setText(location.trim());
-                if (!Linkify.addLinks(textView, Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES
-                        | Linkify.MAP_ADDRESSES)) {
-                    Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
-                }
+                linkifyTextView(textView);
+
                 textView.setOnTouchListener(new OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
@@ -1093,6 +1098,174 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             setTextCommon(view, R.id.description, description);
         }
         updateDescription ();  // Expand or collapse full description
+    }
+
+    /**
+     * Replaces stretches of text that look like addresses and phone numbers with clickable
+     * links.
+     * <p>
+     * This is really just an enhanced version of Linkify.addLinks().
+     */
+    private static void linkifyTextView(TextView textView) {
+        /*
+         * If the text includes a street address like "1600 Amphitheater Parkway, 94043",
+         * the current Linkify code will identify "94043" as a phone number and invite
+         * you to dial it (and not provide a map link for the address).  We want to
+         * have better recognition of phone numbers without losing any of the existing
+         * annotations.
+         *
+         * Ideally this would be addressed by improving Linkify.  For now we manage it as
+         * a second pass over the text.
+         *
+         * URIs and e-mail addresses are pretty easy to pick out of text.  Phone numbers
+         * are a bit tricky because they have radically different formats in different
+         * countries, in terms of both the digits and the way in which they are commonly
+         * written or presented (e.g. the punctuation and spaces in "(650) 555-1212").
+         * The expected format of a street address is defined in WebView.findAddress().  It's
+         * pretty narrowly defined, so it won't often match.
+         *
+         * The RFC 3966 specification defines the format of a "tel:" URI.
+         */
+
+        /*
+         * Start by letting Linkify find anything that isn't a phone number.  We have to let it
+         * run first because every invocation removes all previous URLSpan annotations.
+         */
+        boolean linkifyFoundLinks = Linkify.addLinks(textView,
+                Linkify.ALL & ~(Linkify.PHONE_NUMBERS));
+
+        /*
+         * Search for phone numbers.
+         *
+         * The "leniency" value can be VALID or POSSIBLE.  With VALID we won't match NANP numbers
+         * shorter than 10 digits, which is inconvenient.  With POSSIBLE we get NANP 7-digit
+         * numbers, and possibly strings of digits inside URIs, but happily we don't flag
+         * five-digit zip codes like Linkify does.
+         *
+         * Phone links inside URIs will be annotated by the earlier URI linkification, so we just
+         * need to avoid creating overlapping spans.
+         */
+        String defaultPhoneRegion = System.getProperty("user.region", "US");
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        CharSequence text = textView.getText();
+        Iterable<PhoneNumberMatch> phoneIterable = phoneUtil.findNumbers(text, defaultPhoneRegion,
+                PhoneNumberUtil.Leniency.POSSIBLE, Long.MAX_VALUE);
+
+        /*
+         * If the contents of the TextView are already Spannable (which will be the case if
+         * Linkify found stuff, but might not be otherwise), we can just add annotations
+         * to what's there.  If it's not, and we find phone numbers, we need to convert it to
+         * a Spannable form.  (This mimics the behavior of Linkable.addLinks().)
+         */
+        Spannable spanText;
+        if (text instanceof SpannableString) {
+            spanText = (SpannableString) text;
+        } else {
+            spanText = SpannableString.valueOf(text);
+        }
+
+        /*
+         * Get a list of any spans created by Linkify, for the overlapping span check.
+         */
+        URLSpan[] existingSpans = spanText.getSpans(0, spanText.length(), URLSpan.class);
+
+        /*
+         * Insert spans for the numbers we found.  We generate "tel:" URIs.
+         */
+        int phoneCount = 0;
+        for (PhoneNumberMatch match : phoneIterable) {
+            int start = match.start();
+            int end = match.end();
+
+            if (spanWillOverlap(spanText, existingSpans, start, end)) {
+                if (Log.isLoggable(TAG, Log.VERBOSE)) {
+                    Log.v(TAG, "Not linkifying " + match.number().getNationalNumber() +
+                            " as phone number due to overlap");
+                }
+                continue;
+            }
+
+            /*
+             * A quick comparison of PhoneNumberUtil number parsing & formatting, with
+             * defaultRegion="US":
+             *
+             * Input string     RFC3966                     NATIONAL
+             * 5551212          +1-5551212                  555-1212
+             * 6505551212       +1-650-555-1212             (650) 555-1212
+             * 6505551212x123   +1-650-555-1212;ext=123     (650) 555-1212 ext. 123
+             * +41446681800     +41-44-668-18-00            044 668 18 00
+             *
+             * The conversion of NANP 7-digit numbers to RFC3966 is not compatible with our dialer
+             * (which tries to dial 8 digits, and fails).  So that won't work.
+             *
+             * The conversion of the Swiss number to NATIONAL format loses the country code,
+             * so that won't work.
+             *
+             * The Linkify code takes the matching span and strips out everything that isn't a
+             * digit or '+' sign.  We do the same here.  Extension numbers will get appended
+             * without a separator, but the dialer wasn't doing anything useful with ";ext="
+             * anyway.
+             */
+
+            //String dialStr = phoneUtil.format(match.number(),
+            //        PhoneNumberUtil.PhoneNumberFormat.RFC3966);
+            StringBuilder dialBuilder = new StringBuilder();
+            for (int i = start; i < end; i++) {
+                char ch = spanText.charAt(i);
+                if (ch == '+' || Character.isDigit(ch)) {
+                    dialBuilder.append(ch);
+                }
+            }
+            URLSpan span = new URLSpan("tel:" + dialBuilder.toString());
+
+            spanText.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            phoneCount++;
+        }
+
+        if (phoneCount != 0) {
+            // If we had to "upgrade" to Spannable, store the object into the TextView.
+            if (spanText != text) {
+                textView.setText(spanText);
+            }
+
+            // Linkify.addLinks() sets the TextView movement method if it finds any links.  We
+            // want to do the same here.  (This is cloned from Linkify.addLinkMovementMethod().)
+            MovementMethod mm = textView.getMovementMethod();
+
+            if ((mm == null) || !(mm instanceof LinkMovementMethod)) {
+                if (textView.getLinksClickable()) {
+                    textView.setMovementMethod(LinkMovementMethod.getInstance());
+                }
+            }
+        }
+
+        if (!linkifyFoundLinks && phoneCount == 0) {
+            if (Log.isLoggable(TAG, Log.VERBOSE)) {
+                Log.v(TAG, "No linkification matches, using geo default");
+            }
+            Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+        }
+    }
+
+    /**
+     * Determines whether a new span at [start,end) will overlap with any existing span.
+     */
+    private static boolean spanWillOverlap(Spannable spanText, URLSpan[] spanList, int start,
+            int end) {
+        if (start == end) {
+            // empty span, ignore
+            return false;
+        }
+        for (URLSpan span : spanList) {
+            int existingStart = spanText.getSpanStart(span);
+            int existingEnd = spanText.getSpanEnd(span);
+            if ((start >= existingStart && start < existingEnd) ||
+                    end > existingStart && end <= existingEnd) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void sendAccessibilityEvent() {
