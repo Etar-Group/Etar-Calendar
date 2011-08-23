@@ -48,6 +48,10 @@ public class EditResponseHelper implements DialogInterface.OnClickListener {
         return mWhichEvents;
     }
 
+    public void setWhichEvents(int which) {
+        mWhichEvents = which;
+    }
+
     public void onClick(DialogInterface dialog, int which) {
     }
 
