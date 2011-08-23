@@ -23,6 +23,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.CalendarContract.Attendees;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -315,9 +316,14 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         if (mShowEventDetailsWithAgenda) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
+            int response = CalendarController.ATTENDEE_NO_RESPONSE;
+            if (event.eventType == EventType.VIEW_EVENT
+                    || event.eventType == EventType.EDIT_EVENT) {
+                response = (int) event.extraLong;
+            }
             mEventFragment = new EventInfoFragment(mActivity, event.id,
                     event.startTime.toMillis(false), event.endTime.toMillis(false),
-                    (int) event.extraLong, false);
+                    response, false);
             ft.replace(R.id.agenda_event_info, mEventFragment);
             mController.registerEventHandler(R.id.agenda_event_info,
                     mEventFragment);
