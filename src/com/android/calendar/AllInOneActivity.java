@@ -424,7 +424,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             if (currentMillis > mIntentEventStartMillis && currentMillis < mIntentEventEndMillis) {
                 selectedTime = currentMillis;
             }
-            mController.sendEventRelatedEventWithResponse(this, EventType.VIEW_EVENT, mViewEventId,
+            mController.sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT, mViewEventId,
                     mIntentEventStartMillis, mIntentEventEndMillis, -1, -1,
                     mIntentAttendeeResponse, selectedTime);
             mViewEventId = -1;

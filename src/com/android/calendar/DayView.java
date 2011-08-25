@@ -1227,8 +1227,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     // Switch to the EditEvent view
                     long startMillis = getSelectedTimeInMillis();
                     long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
-                    mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
-                            startMillis, endMillis, 0, 0, -1);
+                    long extraLong = 0;
+                    if (mSelectionAllday) {
+                        extraLong = CalendarController.EXTRA_CREATE_ALL_DAY;
+                    }
+                    mController.sendEventRelatedEventWithExtra(this, EventType.CREATE_EVENT, -1,
+                            startMillis, endMillis, -1, -1, extraLong, -1);
                 } else {
                     // Switch to the EventInfo view
                     mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, selectedEvent.id,
@@ -1253,9 +1257,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 // Switch to the EditEvent view
                 long startMillis = getSelectedTimeInMillis();
                 long endMillis = startMillis + DateUtils.HOUR_IN_MILLIS;
-
-                mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1, startMillis,
-                        endMillis, 0, 0, -1);
+                long extraLong = 0;
+                if (mSelectionAllday) {
+                    extraLong = CalendarController.EXTRA_CREATE_ALL_DAY;
+                }
+                mController.sendEventRelatedEventWithExtra(this, EventType.CREATE_EVENT, -1,
+                        startMillis, endMillis, -1, -1, extraLong, -1);
             } else {
                 mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, selectedEvent.id,
                         selectedEvent.startMillis, selectedEvent.endMillis, 0, 0,
@@ -3516,8 +3523,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 && oldSelectionMode != SELECTION_HIDDEN) {
             // If the tap is on an already selected hour slot, then create a new
             // event
-            mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
-                    getSelectedTimeInMillis(), 0, (int) ev.getRawX(), (int) ev.getRawY(), -1);
+            long extraLong = 0;
+            if (mSelectionAllday) {
+                extraLong = CalendarController.EXTRA_CREATE_ALL_DAY;
+            }
+            mController.sendEventRelatedEventWithExtra(this, EventType.CREATE_EVENT, -1,
+                    getSelectedTimeInMillis(), 0, (int) ev.getRawX(), (int) ev.getRawY(),
+                    extraLong, -1);
         } else {
             Time startTime = new Time(mBaseDate);
             startTime.setJulianDay(mSelectionDay);
@@ -4386,8 +4398,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 0) {
-                            mController.sendEventRelatedEvent(this, EventType.CREATE_EVENT, -1,
-                                    getSelectedTimeInMillis(), 0, -1, -1, -1);
+                            long extraLong = 0;
+                            if (mSelectionAllday) {
+                                extraLong = CalendarController.EXTRA_CREATE_ALL_DAY;
+                            }
+                            mController.sendEventRelatedEventWithExtra(this,
+                                    EventType.CREATE_EVENT, -1, getSelectedTimeInMillis(), 0, -1,
+                                    -1, extraLong, -1);
                         }
                     }
                 }).show().setCanceledOnTouchOutside(true);

@@ -18,6 +18,7 @@ package com.android.calendar;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
@@ -166,6 +167,9 @@ public class CalendarController {
          * Set to {@link #ATTENDEE_NO_RESPONSE}, Calendar.ATTENDEE_STATUS_ACCEPTED,
          * Calendar.ATTENDEE_STATUS_DECLINED, or Calendar.ATTENDEE_STATUS_TENTATIVE.
          * <p>
+         * For EventType.CREATE_EVENT:
+         * Set to {@link #EXTRA_CREATE_ALL_DAY} for creating an all-day event.
+         * <p>
          * For EventType.GO_TO:
          * Set to {@link #EXTRA_GOTO_TIME} to go to the specified date/time.
          * Set to {@link #EXTRA_GOTO_DATE} to consider the date but ignore the time.
@@ -176,6 +180,12 @@ public class CalendarController {
          */
         public long extraLong;
     }
+
+    /**
+     * Pass to the ExtraLong parameter for EventType.CREATE_EVENT to create
+     * an all-day event
+     */
+    public static final long EXTRA_CREATE_ALL_DAY = 0x10;
 
     /**
      * Pass to the ExtraLong parameter for EventType.GO_TO to signal the time
@@ -240,7 +250,7 @@ public class CalendarController {
 
     public void sendEventRelatedEvent(Object sender, long eventType, long eventId, long startMillis,
             long endMillis, int x, int y, long selectedMillis) {
-        sendEventRelatedEventWithResponse(sender, eventType, eventId, startMillis, endMillis, x, y,
+        sendEventRelatedEventWithExtra(sender, eventType, eventId, startMillis, endMillis, x, y,
                 CalendarController.ATTENDEE_NO_RESPONSE, selectedMillis);
     }
 
@@ -258,7 +268,7 @@ public class CalendarController {
      *            CalendarController.ATTENDEE_NO_RESPONSE for no response.
      * @param selectedMillis The time to specify as selected
      */
-    public void sendEventRelatedEventWithResponse(Object sender, long eventType, long eventId,
+    public void sendEventRelatedEventWithExtra(Object sender, long eventType, long eventId,
             long startMillis, long endMillis, int x, int y, long extraLong, long selectedMillis) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
@@ -486,7 +496,8 @@ public class CalendarController {
             // Create/View/Edit/Delete Event
             long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
             if (event.eventType == EventType.CREATE_EVENT) {
-                launchCreateEvent(event.startTime.toMillis(false), endTime);
+                launchCreateEvent(event.startTime.toMillis(false), endTime,
+                        event.extraLong == EXTRA_CREATE_ALL_DAY);
                 return;
             } else if (event.eventType == EventType.VIEW_EVENT) {
                 launchViewEvent(event.id, event.startTime.toMillis(false), endTime);
@@ -599,11 +610,12 @@ public class CalendarController {
         mContext.startActivity(intent);
     }
 
-    private void launchCreateEvent(long startMillis, long endMillis) {
+    private void launchCreateEvent(long startMillis, long endMillis, boolean allDayEvent) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setClass(mContext, EditEventActivity.class);
         intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
+        intent.putExtra(EXTRA_EVENT_ALL_DAY, allDayEvent);
         mEventId = -1;
         mContext.startActivity(intent);
     }

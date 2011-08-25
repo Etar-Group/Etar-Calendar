@@ -378,6 +378,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (mEvent.id != -1) {
                 mModel.mId = mEvent.id;
                 mUri = ContentUris.withAppendedId(Events.CONTENT_URI, mEvent.id);
+            } else {
+                // New event. All day?
+                mModel.mAllDay = mEvent.extraLong == CalendarController.EXTRA_CREATE_ALL_DAY;
             }
             if (mEvent.startTime != null) {
                 mBegin = mEvent.startTime.toMillis(true);

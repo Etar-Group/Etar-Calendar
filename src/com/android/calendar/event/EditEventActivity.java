@@ -18,6 +18,7 @@ package com.android.calendar.event;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -115,6 +116,11 @@ public class EditEventActivity extends AbstractCalendarActivity {
         }
         info.id = eventId;
 
+        if (intent.getBooleanExtra(EXTRA_EVENT_ALL_DAY, false)) {
+            info.extraLong = CalendarController.EXTRA_CREATE_ALL_DAY;
+        } else {
+            info.extraLong = 0;
+        }
         return info;
     }
 
