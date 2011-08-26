@@ -27,8 +27,11 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 
 import java.security.InvalidParameterException;
 import java.util.HashMap;
@@ -510,4 +513,25 @@ public class SimpleWeekView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), mHeight);
     }
+
+    @Override
+    public boolean onHoverEvent(MotionEvent event) {
+        if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT) {
+            Time hover = getDayFromLocation(event.getX());
+            if (hover != null
+                    && (mLastHoverTime == null || Time.compare(hover, mLastHoverTime) != 0)) {
+                Long millis = hover.toMillis(true);
+                String date = Utils.formatDateRange(getContext(), millis, millis,
+                        DateUtils.FORMAT_SHOW_DATE);
+                AccessibilityEvent accessEvent =
+                    AccessibilityEvent.obtain(AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED);
+                accessEvent.getText().add(date);
+                sendAccessibilityEventUnchecked(accessEvent);
+                mLastHoverTime = hover;
+            }
+        }
+        return true;
+    }
+
+    Time mLastHoverTime = null;
 }
