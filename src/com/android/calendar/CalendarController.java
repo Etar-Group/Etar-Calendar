@@ -746,8 +746,8 @@ public class CalendarController {
             }
             if (url != null) {
                 extras.putString("feed", url);
-                extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
             }
+            extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
             ContentResolver.requestSync(account, Calendars.CONTENT_URI.getAuthority(), extras);
         }
     }
