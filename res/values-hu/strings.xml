@@ -56,7 +56,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Esemény törlése"</string>
     <string name="goto_today" msgid="9162136434410891230">"Ma"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Beállítások"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Megj. napt."</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Naptárak"</string>
     <string name="search" msgid="550656004486017426">"Keresés"</string>
     <string name="hide_controls" msgid="830320505938520882">"Vezérlők elrejtése"</string>
     <string name="show_controls" msgid="715520586028062621">"Vezérlők megjelenít."</string>

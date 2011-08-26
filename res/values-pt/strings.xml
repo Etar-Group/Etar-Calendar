@@ -73,7 +73,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Convidados"</string>
     <string name="creating_event" msgid="5252306542761552414">"Evento criado"</string>
     <string name="saving_event" msgid="7716081507367732169">"Evento salvo"</string>
-    <string name="empty_event" msgid="757898251276814787">"O evento vazio não foi criado"</string>
+    <string name="empty_event" msgid="757898251276814787">"Evento vazio não foi criado"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Convites enviados"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Atualizações enviadas"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notificações da agenda"</string>

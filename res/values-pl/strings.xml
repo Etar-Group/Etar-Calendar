@@ -56,7 +56,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Usuń wydarzenie"</string>
     <string name="goto_today" msgid="9162136434410891230">"Dzisiaj"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Ustawienia"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalendarze do wyświetlenia"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalendarze"</string>
     <string name="search" msgid="550656004486017426">"Szukaj"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ukryj nawigację"</string>
     <string name="show_controls" msgid="715520586028062621">"Pokaż nawigację"</string>
@@ -73,7 +73,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Goście"</string>
     <string name="creating_event" msgid="5252306542761552414">"Utworzono wydarzenie"</string>
     <string name="saving_event" msgid="7716081507367732169">"Zapisano wydarzenie"</string>
-    <string name="empty_event" msgid="757898251276814787">"Nie utworzono: puste wydarzenie"</string>
+    <string name="empty_event" msgid="757898251276814787">"Nie utworzono pustego wydarzenia."</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Zaproszenia zostały wysłane"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Aktualne informacje zostały wysłane"</string>
     <string name="alert_title" msgid="7869592820853066853">"Powiadomienia kalendarza"</string>

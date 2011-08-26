@@ -73,7 +73,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Hostia"</string>
     <string name="creating_event" msgid="5252306542761552414">"Udalosť bola vytvorená"</string>
     <string name="saving_event" msgid="7716081507367732169">"Udalosť bola uložená"</string>
-    <string name="empty_event" msgid="757898251276814787">"Prázdna udal. nebola vytvorená"</string>
+    <string name="empty_event" msgid="757898251276814787">"Prázdna udalosť nebola vytvorená"</string>
     <string name="creating_event_with_guest" msgid="608830786504021732">"Pozvánky boli odoslané"</string>
     <string name="saving_event_with_guest" msgid="6177245412801310483">"Aktualizácie boli odoslané"</string>
     <string name="alert_title" msgid="7869592820853066853">"Upozornenia v kalendári"</string>
