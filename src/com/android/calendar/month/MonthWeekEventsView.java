@@ -32,9 +32,12 @@ import android.graphics.drawable.Drawable;
 import android.provider.CalendarContract.Attendees;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.accessibility.AccessibilityEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -741,4 +744,41 @@ public class MonthWeekEventsView extends SimpleWeekView {
         return time;
     }
 
+    @Override
+    public boolean onHoverEvent(MotionEvent event) {
+        if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT) {
+            Time hover = getDayFromLocation(event.getX());
+            if (hover != null
+                    && (mLastHoverTime == null || Time.compare(hover, mLastHoverTime) != 0)) {
+                Long millis = hover.toMillis(true);
+                String date = Utils.formatDateRange(getContext(), millis, millis,
+                        DateUtils.FORMAT_SHOW_DATE);
+                AccessibilityEvent accessEvent = AccessibilityEvent
+                        .obtain(AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED);
+                accessEvent.getText().add(date);
+                if (mShowDetailsInMonth) {
+                    int dayStart = SPACING_WEEK_NUMBER + mPadding;
+                    int dayPosition = (int) ((event.getX() - dayStart) * mNumDays / (mWidth
+                            - dayStart - mPadding));
+                    ArrayList<Event> events = mEvents.get(dayPosition);
+                    List<CharSequence> text = accessEvent.getText();
+                    for (Event e : events) {
+                        text.add(e.getTitleAndLocation() + ". ");
+                        int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR;
+                        if (!e.allDay) {
+                            flags |= DateUtils.FORMAT_SHOW_TIME;
+                            if (DateFormat.is24HourFormat(getContext())) {
+                                flags |= DateUtils.FORMAT_24HOUR;
+                            }
+                        }
+                        text.add(Utils.formatDateRange(getContext(), e.startMillis, e.endMillis,
+                                flags) + ". ");
+                    }
+                }
+                sendAccessibilityEventUnchecked(accessEvent);
+                mLastHoverTime = hover;
+            }
+        }
+        return true;
+    }
 }
