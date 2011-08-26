@@ -38,6 +38,7 @@ import android.text.format.Time;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -746,6 +747,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     @Override
     public boolean onHoverEvent(MotionEvent event) {
+        AccessibilityManager manager = AccessibilityManager.getInstance(getContext());
+        // only send accessibility events if accessibility and exploration are
+        // on.
+        if (!manager.isEnabled() || !manager.isTouchExplorationEnabled()) {
+            return super.onHoverEvent(event);
+        }
         if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT) {
             Time hover = getDayFromLocation(event.getX());
             if (hover != null
