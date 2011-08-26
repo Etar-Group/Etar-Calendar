@@ -19,6 +19,8 @@ package com.android.calendar.month;
 import com.android.calendar.Event;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+
+import android.app.Service;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -38,6 +40,7 @@ import android.text.format.Time;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -746,12 +749,20 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     @Override
     public boolean onHoverEvent(MotionEvent event) {
+        Context context = getContext();
+        AccessibilityManager am = (AccessibilityManager) context
+                .getSystemService(Service.ACCESSIBILITY_SERVICE);
+        // only send accessibility events if accessibility and exploration are
+        // on.
+        if (!am.isEnabled() || !am.isTouchExplorationEnabled()) {
+            return super.onHoverEvent(event);
+        }
         if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT) {
             Time hover = getDayFromLocation(event.getX());
             if (hover != null
                     && (mLastHoverTime == null || Time.compare(hover, mLastHoverTime) != 0)) {
                 Long millis = hover.toMillis(true);
-                String date = Utils.formatDateRange(getContext(), millis, millis,
+                String date = Utils.formatDateRange(context, millis, millis,
                         DateUtils.FORMAT_SHOW_DATE);
                 AccessibilityEvent accessEvent = AccessibilityEvent
                         .obtain(AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED);
@@ -767,11 +778,11 @@ public class MonthWeekEventsView extends SimpleWeekView {
                         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR;
                         if (!e.allDay) {
                             flags |= DateUtils.FORMAT_SHOW_TIME;
-                            if (DateFormat.is24HourFormat(getContext())) {
+                            if (DateFormat.is24HourFormat(context)) {
                                 flags |= DateUtils.FORMAT_24HOUR;
                             }
                         }
-                        text.add(Utils.formatDateRange(getContext(), e.startMillis, e.endMillis,
+                        text.add(Utils.formatDateRange(context, e.startMillis, e.endMillis,
                                 flags) + ". ");
                     }
                 }

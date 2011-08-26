@@ -273,6 +273,10 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
                 newParams.height = NORMAL_ITEM_HEIGHT;
             }
             view.setLayoutParams(newParams);
+            CheckBox visibleCheckBox = (CheckBox) view.findViewById(R.id.visible_check_box);
+            if (visibleCheckBox != null) {
+                visibleCheckBox.setChecked(selected);
+            }
         }
         view.invalidate();
         return view;

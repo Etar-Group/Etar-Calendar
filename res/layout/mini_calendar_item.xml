@@ -58,4 +58,11 @@
         android:visibility="gone"
     />
 
+    <!-- This is here to provide selection info for accessibility events -->
+    <CheckBox
+        android:id="@+id/visible_check_box"
+        android:layout_width="0dip"
+        android:layout_height="0dip"
+        android:visibility="invisible" />
+
 </RelativeLayout>
