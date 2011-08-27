@@ -750,10 +750,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
     @Override
     public boolean onHoverEvent(MotionEvent event) {
         Context context = getContext();
-        AccessibilityManager am = (AccessibilityManager) context
-                .getSystemService(Service.ACCESSIBILITY_SERVICE);
         // only send accessibility events if accessibility and exploration are
         // on.
+        AccessibilityManager am = (AccessibilityManager) context
+                .getSystemService(Service.ACCESSIBILITY_SERVICE);
         if (!am.isEnabled() || !am.isTouchExplorationEnabled()) {
             return super.onHoverEvent(event);
         }

@@ -19,6 +19,7 @@ package com.android.calendar.month;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -32,6 +33,7 @@ import android.text.format.Time;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 
 import java.security.InvalidParameterException;
 import java.util.HashMap;
@@ -516,12 +518,20 @@ public class SimpleWeekView extends View {
 
     @Override
     public boolean onHoverEvent(MotionEvent event) {
+        Context context = getContext();
+        // only send accessibility events if accessibility and exploration are
+        // on.
+        AccessibilityManager am = (AccessibilityManager) context
+                .getSystemService(Service.ACCESSIBILITY_SERVICE);
+        if (!am.isEnabled() || !am.isTouchExplorationEnabled()) {
+            return super.onHoverEvent(event);
+        }
         if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT) {
             Time hover = getDayFromLocation(event.getX());
             if (hover != null
                     && (mLastHoverTime == null || Time.compare(hover, mLastHoverTime) != 0)) {
                 Long millis = hover.toMillis(true);
-                String date = Utils.formatDateRange(getContext(), millis, millis,
+                String date = Utils.formatDateRange(context, millis, millis,
                         DateUtils.FORMAT_SHOW_DATE);
                 AccessibilityEvent accessEvent =
                     AccessibilityEvent.obtain(AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED);
