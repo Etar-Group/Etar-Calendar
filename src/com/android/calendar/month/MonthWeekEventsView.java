@@ -767,7 +767,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 AccessibilityEvent accessEvent = AccessibilityEvent
                         .obtain(AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED);
                 accessEvent.getText().add(date);
-                if (mShowDetailsInMonth) {
+                if (mShowDetailsInMonth && mEvents != null) {
                     int dayStart = SPACING_WEEK_NUMBER + mPadding;
                     int dayPosition = (int) ((event.getX() - dayStart) * mNumDays / (mWidth
                             - dayStart - mPadding));
