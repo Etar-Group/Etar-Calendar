@@ -1305,9 +1305,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (view == null) {
             return;
         }
-        String str = view.toString().trim();
+        String str = view.getText().toString().trim();
         if (!TextUtils.isEmpty(str)) {
-            text.add(mTitle.getText());
+            text.add(str);
             text.add(PERIOD_SPACE);
         }
     }
