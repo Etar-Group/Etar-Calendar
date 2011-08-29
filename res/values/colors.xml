@@ -126,6 +126,8 @@
     <color name="event_info_headline_link_color">#FFFFFFFF</color>
     <color name="event_info_organizer_color">#FF666666</color>
     <color name="event_info_description_color">#FF666666</color>
+    <color name="event_info_body_color">#FF666666</color>
+    <color name="event_info_label_color">#FF999999</color>
     <color name="event_info_label_background_color">#FFDDDDDD</color>
 
 
