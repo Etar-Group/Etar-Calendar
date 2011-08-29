@@ -23,5 +23,6 @@
     android:voiceLanguageModel="free_form"
 
     android:searchSuggestAuthority="com.android.calendar.CalendarRecentSuggestionsProvider"
-    android:searchSuggestSelection=" ? " >
+    android:searchSuggestSelection=" ? "
+    android:imeOptions="actionSearch" >
 </searchable>

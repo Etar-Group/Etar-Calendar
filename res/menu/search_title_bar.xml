@@ -21,7 +21,8 @@
         android:title="@string/search"
         android:icon="@drawable/ic_menu_search_holo_light"
         android:showAsAction="always|collapseActionView"
-        android:actionViewClass="android.widget.SearchView" />
+        android:actionViewClass="android.widget.SearchView"
+        android:imeOptions="actionSearch" />
     <item
         android:id="@+id/action_today"
         android:alphabeticShortcut="t"
