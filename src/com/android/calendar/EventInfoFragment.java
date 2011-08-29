@@ -1361,21 +1361,19 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     }
                 });
             }
-            if (mIsDialog) {
-                View button;
-                if (!mCanModifyCalendar) {
-                    button = mView.findViewById(R.id.delete);
-                    if (button != null) {
-                        button.setEnabled(false);
-                        button.setVisibility(View.GONE);
-                    }
+            View button;
+            if (!mCanModifyCalendar) {
+                button = mView.findViewById(R.id.delete);
+                if (button != null) {
+                    button.setEnabled(false);
+                    button.setVisibility(View.GONE);
                 }
-                if (!mCanModifyEvent) {
-                    button = mView.findViewById(R.id.edit);
-                    if (button != null) {
-                        button.setEnabled(false);
-                        button.setVisibility(View.GONE);
-                    }
+            }
+            if (!mCanModifyEvent) {
+                button = mView.findViewById(R.id.edit);
+                if (button != null) {
+                    button.setEnabled(false);
+                    button.setVisibility(View.GONE);
                 }
             }
             if (mMenu != null) {
