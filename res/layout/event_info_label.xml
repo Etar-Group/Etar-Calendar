@@ -18,9 +18,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="32dip"
-    android:background="@color/event_info_label_background_color"
+    android:paddingLeft="8dip"
+    android:paddingRight="8dip"
+    android:layout_marginLeft="8dip"
+    android:layout_marginRight="8dip"
     android:gravity="center_vertical"
-    android:paddingLeft="16dip"
-    style="?android:attr/textAppearanceMedium"
-    android:textColor="@android:color/black" />
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    style="?android:attr/listSeparatorTextViewStyle"
+    android:textColor="@color/event_info_label_color" />
 

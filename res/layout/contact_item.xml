@@ -23,15 +23,14 @@
         android:layout_width="match_parent"
         android:layout_height="48dip"
         android:orientation="horizontal"
-        android:layout_marginRight="16dip" >
-
+        android:layout_marginRight="8dip" >
         <TextView
             android:id="@+id/name"
             android:layout_height="wrap_content"
             android:layout_width="0dip"
             android:layout_weight="1"
-            android:textSize="18sp"
-            android:layout_marginLeft="8dip"
+            android:textSize="16sp"
+            android:layout_marginLeft="16dip"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -70,6 +69,8 @@
         android:id="@+id/contact_separator"
         android:background="?android:attr/listDivider"
         android:visibility="gone"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
         android:layout_height="1px"
         android:layout_width="match_parent" />
 
