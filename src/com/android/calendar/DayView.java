@@ -25,6 +25,7 @@ import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.app.Service;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -72,6 +73,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Interpolator;
@@ -98,8 +100,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         {
     private static String TAG = "DayView";
     private static boolean DEBUG = false;
-    private static final String HOUR_FORMAT_12H = "%A %I%p";
-    private static final String HOUR_FORMAT_24H = "%A %H";
+    private static boolean DEBUG_SCALING = false;
     private static final String PERIOD_SPACE = ". ";
 
     private static float mScale = 0; // Used for supporting different screen densities
@@ -229,6 +230,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private int mSelectionHour;
 
     boolean mSelectionAllday;
+
+    private int mLastSelectionDay;
+    private int mLastSelectionHour;
+    private Event mLastSelectedEvent;
 
     /** Width of a day or non-conflicting event */
     private int mCellWidth;
@@ -528,11 +533,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private GestureDetector mGestureDetector;
     private OverScroller mScroller;
     private ScrollInterpolator mHScrollInterpolator;
+    private boolean mTouchExplorationEnabled = false;
+    private String mCreateNewEventString;
 
     public DayView(Context context, CalendarController controller,
             ViewSwitcher viewSwitcher, EventLoader eventLoader, int numDays) {
         super(context);
         mResources = context.getResources();
+        mCreateNewEventString = mResources.getString(R.string.event_create);
 
         DATE_HEADER_FONT_SIZE = (int) mResources.getDimension(R.dimen.date_header_text_size);
         DAY_HEADER_FONT_SIZE = (int) mResources.getDimension(R.dimen.day_label_text_size);
@@ -780,9 +788,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     public void handleOnResume() {
+        mTouchExplorationEnabled = isTouchExplorationEnabled();
         mIs24HourFormat = DateFormat.is24HourFormat(mContext);
         mHourStrs = mIs24HourFormat ? CalendarData.s24Hours : CalendarData.s12HoursNoAmPm;
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
+        mLastSelectionDay = 0;
+        mLastSelectionHour = 0;
+        mLastSelectedEvent = null;
     }
 
     /**
@@ -908,6 +920,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             scrollAnim.addListener(mAnimatorListener);
             scrollAnim.start();
         }
+        sendAccessibilityEventAsNeeded();
     }
 
     public void setViewStartY(int viewStartY) {
@@ -1460,61 +1473,102 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         return super.onKeyDown(keyCode, event);
     }
 
-    private class AccessibilityRunnable implements Runnable {
-        int mEventType = AccessibilityEvent.TYPE_VIEW_SELECTED;
-        @Override
-        public void run() {
-            sendAccessibilityEvent(mEventType);
-        }
-    }
-
-    private AccessibilityRunnable mDispatchAccessibilityEventRunnable = new AccessibilityRunnable();
 
     @Override
-    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
-        if (event.getEventType() != AccessibilityEvent.TYPE_VIEW_SELECTED &&
-                event.getEventType() != AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED) {
-            return false;
+    public boolean onHoverEvent(MotionEvent event) {
+        if (DEBUG) {
+            int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_HOVER_ENTER:
+                    Log.e(TAG, "ACTION_HOVER_ENTER");
+                    break;
+                case MotionEvent.ACTION_HOVER_MOVE:
+                    Log.e(TAG, "ACTION_HOVER_MOVE");
+                    break;
+                case MotionEvent.ACTION_HOVER_EXIT:
+                    Log.e(TAG, "ACTION_HOVER_EXIT");
+                    break;
+                default:
+                    Log.e(TAG, "Unknown hover event action. " + event);
+            }
         }
-        StringBuilder b = new StringBuilder(getSelectedTime()
-                .format(mIs24HourFormat ? HOUR_FORMAT_24H : HOUR_FORMAT_12H));
-        b.append(PERIOD_SPACE);
-        int numEvents = mSelectedEvents.size();
-        if (mEventCountTemplate == null) {
-            mEventCountTemplate = mContext.getString(R.string.template_announce_item_index);
+
+        // Mouse also generates hover events
+        // Send accessibility events if accessibility and exploration are on.
+        if (!mTouchExplorationEnabled) {
+            return super.onHoverEvent(event);
         }
-        switch (event.getEventType()) {
-            // When a new hour is selected we sent this event
-            case AccessibilityEvent.TYPE_VIEW_SELECTED:
-                int i = 1;
-                for (Event calEvent : mSelectedEvents) {
-                    if (numEvents > 1) {
-                        mStringBuilder.setLength(0);
-                        b.append(mFormatter.format(mEventCountTemplate, i++, numEvents));
-                        b.append(" ");
+        if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT) {
+            setSelectionFromPosition((int) event.getX(), (int) event.getY());
+            invalidate();
+        }
+        return true;
+    }
+
+    private boolean isTouchExplorationEnabled() {
+        AccessibilityManager am = (AccessibilityManager) mContext
+                .getSystemService(Service.ACCESSIBILITY_SERVICE);
+        return am != null && am.isEnabled() && am.isTouchExplorationEnabled();
+    }
+
+    private void sendAccessibilityEventAsNeeded() {
+        boolean dayChanged = mLastSelectionDay != mSelectionDay;
+        boolean hourChanged = mLastSelectionHour != mSelectionHour;
+        if (dayChanged || hourChanged || mLastSelectedEvent != mSelectedEvent) {
+            mLastSelectionDay = mSelectionDay;
+            mLastSelectionHour = mSelectionHour;
+            mLastSelectedEvent = mSelectedEvent;
+
+            StringBuilder b = new StringBuilder();
+            if (mEventCountTemplate == null) {
+                mEventCountTemplate = mContext.getString(R.string.template_announce_item_index);
+            }
+
+            // Announce only the changes i.e. day or hour or both
+            if (dayChanged) {
+                b.append(getSelectedTime().format("%A "));
+            }
+            if (hourChanged) {
+                b.append(getSelectedTime().format(mIs24HourFormat ? "%k" : "%l%p"));
+            }
+            b.append(PERIOD_SPACE);
+
+            // Read out the relevant event(s)
+            int numEvents = mSelectedEvents.size();
+            if (numEvents > 0) {
+                if (mSelectedEvent == null) {
+                    // Read out all the events
+                    int i = 1;
+                    for (Event calEvent : mSelectedEvents) {
+                        if (numEvents > 1) {
+                            // Read out x of numEvents if there are more than one event
+                            mStringBuilder.setLength(0);
+                            b.append(mFormatter.format(mEventCountTemplate, i++, numEvents));
+                            b.append(" ");
+                        }
+                        appendEventAccessibilityString(b, calEvent);
                     }
-                    appendEventAccessibilityString(b, calEvent);
-                }
-                break;
-            // When a different event is selected we send this event
-            case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
-                if (mSelectedEvent != null) {
+                } else {
                     if (numEvents > 1) {
+                        // Read out x of numEvents if there are more than one event
                         mStringBuilder.setLength(0);
-                        b.append(mFormatter.format(mEventCountTemplate,
-                                mSelectedEvents.indexOf(mSelectedEvent) + 1, numEvents));
+                        b.append(mFormatter.format(mEventCountTemplate, mSelectedEvents
+                                .indexOf(mSelectedEvent) + 1, numEvents));
                         b.append(" ");
                     }
                     appendEventAccessibilityString(b, mSelectedEvent);
                 }
-                break;
-            default:
-                break;
+            } else {
+                b.append(mCreateNewEventString);
+            }
+
+            AccessibilityEvent event = AccessibilityEvent
+                    .obtain(AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED);
+            CharSequence msg = b.toString();
+            event.getText().add(msg);
+            event.setAddedCount(msg.length());
+            sendAccessibilityEventUnchecked(event);
         }
-        CharSequence msg = b.toString();
-        event.getText().add(msg);
-        event.setAddedCount(msg.length());
-        return true;
     }
 
     /**
@@ -2794,14 +2848,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     - DAY_HEADER_HEIGHT - mAlldayHeight);
         }
 
-
-        if (mComputeSelectedEvents) {
-            mDispatchAccessibilityEventRunnable.mEventType = mSelectedEvent == null ?
-                    AccessibilityEvent.TYPE_VIEW_SELECTED :
-                    AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED;
-            post(mDispatchAccessibilityEventRunnable);
-        }
-
         if (date == mSelectionDay && !mSelectionAllday && isFocused()
                 && mSelectionMode != SELECTION_HIDDEN) {
             computeNeighbors();
@@ -3709,7 +3755,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mStartingSpanY = Math.max(MIN_Y_SPAN, Math.abs(detector.getCurrentSpanY()));
         mCellHeightBeforeScaleGesture = mCellHeight;
 
-        if (DEBUG) {
+        if (DEBUG_SCALING) {
             float ViewStartHour = mViewStartY / (float) (mCellHeight + DAY_GAP);
             Log.d(TAG, "mGestureCenterHour:" + mGestureCenterHour + "\tViewStartHour: "
                     + ViewStartHour + "\tmViewStartY:" + mViewStartY + "\tmCellHeight:"
@@ -3741,7 +3787,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mViewStartY = (int) (mGestureCenterHour * (mCellHeight + DAY_GAP)) - gestureCenterInPixels;
         mMaxViewStartY = HOUR_GAP + 24 * (mCellHeight + HOUR_GAP) - mGridAreaHeight;
 
-        if (DEBUG) {
+        if (DEBUG_SCALING) {
             float ViewStartHour = mViewStartY / (float) (mCellHeight + DAY_GAP);
             Log.d(TAG, " mGestureCenterHour:" + mGestureCenterHour + "\tViewStartHour: "
                     + ViewStartHour + "\tmViewStartY:" + mViewStartY + "\tmCellHeight:"
@@ -3775,6 +3821,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
+        if (DEBUG) Log.e(TAG, "" + action + " ev.getPointerCount() = " + ev.getPointerCount());
 
         if ((mTouchMode & TOUCH_MODE_HSCROLL) == 0) {
             mScaleGestureDetector.onTouchEvent(ev);
@@ -3786,7 +3833,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mStartingScroll = true;
-                if (DEBUG) Log.e(TAG, "ACTION_DOWN");
+                if (DEBUG) {
+                    Log.e(TAG, "ACTION_DOWN ev.getDownTime = " + ev.getDownTime() + " Cnt="
+                            + ev.getPointerCount());
+                }
+
                 int bottom = mAlldayHeight + DAY_HEADER_HEIGHT + ALLDAY_TOP_MARGIN;
                 if (ev.getY() < bottom) {
                     mTouchStartedInAlldayArea = true;
@@ -3798,12 +3849,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 return true;
 
             case MotionEvent.ACTION_MOVE:
-                if (DEBUG) Log.e(TAG, "ACTION_MOVE " + DayView.this);
+                if (DEBUG) Log.e(TAG, "ACTION_MOVE Cnt=" + ev.getPointerCount() + DayView.this);
                 mGestureDetector.onTouchEvent(ev);
                 return true;
 
             case MotionEvent.ACTION_UP:
-                if (DEBUG) Log.e(TAG, "ACTION_UP " + mHandleActionUp);
+                if (DEBUG) Log.e(TAG, "ACTION_UP Cnt=" + ev.getPointerCount() + mHandleActionUp);
                 mStartingScroll = false;
                 mGestureDetector.onTouchEvent(ev);
                 if (!mHandleActionUp) {
@@ -3850,7 +3901,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 return true;
 
             default:
-                if (DEBUG) Log.e(TAG, "Not MotionEvent " + action);
+                if (DEBUG) Log.e(TAG, "Not MotionEvent " + ev.toString());
                 if (mGestureDetector.onTouchEvent(ev)) {
                     return true;
                 }
@@ -4082,6 +4133,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mSelectionDay = day;
 
         if (y < DAY_HEADER_HEIGHT) {
+            sendAccessibilityEventAsNeeded();
             return false;
         }
 
@@ -4118,6 +4170,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 //                Log.i("Cal", "  " + timeRange + " " + ev.title);
 //            }
 //        }
+        sendAccessibilityEventAsNeeded();
         return true;
     }
 
@@ -4340,17 +4393,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     class CalendarGestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onSingleTapUp(MotionEvent ev) {
+            if (DEBUG) Log.e(TAG, "GestureDetector.onSingleTapUp");
             DayView.this.doSingleTapUp(ev);
             return true;
         }
 
         @Override
         public void onLongPress(MotionEvent ev) {
+            if (DEBUG) Log.e(TAG, "GestureDetector.onLongPress");
             DayView.this.doLongPress(ev);
         }
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            if (DEBUG) Log.e(TAG, "GestureDetector.onScroll");
             if (mTouchStartedInAlldayArea) {
                 if (Math.abs(distanceX) < Math.abs(distanceY)) {
                     return false;
@@ -4364,6 +4420,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (DEBUG) Log.e(TAG, "GestureDetector.onFling");
+
             if (mTouchStartedInAlldayArea) {
                 if (Math.abs(velocityX) < Math.abs(velocityY)) {
                     return false;
@@ -4377,6 +4435,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         @Override
         public boolean onDown(MotionEvent ev) {
+            if (DEBUG) Log.e(TAG, "GestureDetector.onDown");
             DayView.this.doDown(ev);
             return true;
         }
