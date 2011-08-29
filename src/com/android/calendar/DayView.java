@@ -2238,8 +2238,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             int daynum = mSelectionDay - mFirstJulianDay;
             r.top = mSelectionHour * (mCellHeight + HOUR_GAP);
             r.bottom = r.top + mCellHeight + HOUR_GAP;
-            r.left = computeDayLeftPosition(daynum);
-            r.right = computeDayLeftPosition(daynum + 1);
+            r.left = computeDayLeftPosition(daynum) + 1;
+            r.right = computeDayLeftPosition(daynum + 1) + 1;
 
             // Draw a border around the highlighted grid hour.
             // drawEmptyRect(canvas, r, mSelectionPaint.getColor());
