@@ -1512,6 +1512,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void sendAccessibilityEventAsNeeded() {
+        if (!((AccessibilityManager) mContext.getSystemService(Service.ACCESSIBILITY_SERVICE))
+                .isEnabled()) {
+            return;
+        }
         boolean dayChanged = mLastSelectionDay != mSelectionDay;
         boolean hourChanged = mLastSelectionHour != mSelectionHour;
         if (dayChanged || hourChanged || mLastSelectedEvent != mSelectedEvent) {
