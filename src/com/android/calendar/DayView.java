@@ -3566,7 +3566,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     mSelectedEvent.startMillis, mSelectedEvent.endMillis, (int) ev.getRawX(),
                     (int) ev.getRawY(), getSelectedTimeInMillis());
         } else if (selectedDay == mSelectionDay && selectedHour == mSelectionHour
-                && oldSelectionMode != SELECTION_HIDDEN) {
+                && (oldSelectionMode != SELECTION_HIDDEN || mTouchExplorationEnabled)) {
             // If the tap is on an already selected hour slot, then create a new
             // event
             long extraLong = 0;
@@ -3757,9 +3757,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         if (DEBUG_SCALING) {
             float ViewStartHour = mViewStartY / (float) (mCellHeight + DAY_GAP);
-            Log.d(TAG, "mGestureCenterHour:" + mGestureCenterHour + "\tViewStartHour: "
-                    + ViewStartHour + "\tmViewStartY:" + mViewStartY + "\tmCellHeight:"
-                    + mCellHeight);
+            Log.d(TAG, "onScaleBegin: mGestureCenterHour:" + mGestureCenterHour
+                    + "\tViewStartHour: " + ViewStartHour + "\tmViewStartY:" + mViewStartY
+                    + "\tmCellHeight:" + mCellHeight + " SpanY:" + detector.getCurrentSpanY());
         }
 
         return true;
@@ -3767,14 +3767,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     // ScaleGestureDetector.OnScaleGestureListener
     public boolean onScale(ScaleGestureDetector detector) {
-        float spanY = Math.abs(detector.getCurrentSpanY());
+        float spanY = Math.max(MIN_Y_SPAN, Math.abs(detector.getCurrentSpanY()));
 
         mCellHeight = (int) (mCellHeightBeforeScaleGesture * spanY / mStartingSpanY);
 
         if (mCellHeight < mMinCellHeight) {
             // If mStartingSpanY is too small, even a small increase in the
             // gesture can bump the mCellHeight beyond MAX_CELL_HEIGHT
-            mStartingSpanY = Math.max(MIN_Y_SPAN, spanY);
+            mStartingSpanY = spanY;
             mCellHeight = mMinCellHeight;
             mCellHeightBeforeScaleGesture = mMinCellHeight;
         } else if (mCellHeight > MAX_CELL_HEIGHT) {
@@ -3789,7 +3789,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         if (DEBUG_SCALING) {
             float ViewStartHour = mViewStartY / (float) (mCellHeight + DAY_GAP);
-            Log.d(TAG, " mGestureCenterHour:" + mGestureCenterHour + "\tViewStartHour: "
+            Log.d(TAG, "onScale: mGestureCenterHour:" + mGestureCenterHour + "\tViewStartHour: "
                     + ViewStartHour + "\tmViewStartY:" + mViewStartY + "\tmCellHeight:"
                     + mCellHeight + " SpanY:" + detector.getCurrentSpanY());
         }
