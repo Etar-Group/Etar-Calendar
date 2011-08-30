@@ -50,7 +50,8 @@
             android:name="AllInOneActivity"
             android:theme="@style/CalendarTheme.WithActionBar"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -71,7 +72,8 @@
         </activity>
 
         <activity-alias android:name="LaunchActivity"
-            android:targetActivity=".AllInOneActivity">
+            android:targetActivity=".AllInOneActivity"
+            android:exported="true">
         </activity-alias>
 
         <activity android:name="EventInfoActivity"
@@ -87,7 +89,8 @@
         </activity>
 
         <activity-alias android:name="EditEventActivity"
-            android:targetActivity=".event.EditEventActivity">
+            android:targetActivity=".event.EditEventActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
                 <action android:name="android.intent.action.INSERT" />
@@ -103,10 +106,11 @@
         </activity-alias>
 
         <activity android:name="GoogleCalendarUriIntentFilter" android:label="@string/app_label"
-            android:theme="@android:style/Theme.Light"
+            android:theme="@android:style/Theme.NoDisplay"
             android:configChanges="orientation|keyboardHidden">
 
-            <intent-filter>
+            <intent-filter
+               android:priority="50">
                <action android:name="android.intent.action.VIEW" />
                <category android:name="android.intent.category.DEFAULT" />
                <category android:name="android.intent.category.BROWSABLE" />
@@ -134,7 +138,8 @@
             android:value="com.android.calendar.SearchActivity"/>
 
         <activity android:name="SearchActivity" android:label="@string/search_title"
-            android:launchMode="singleTop" android:theme="@style/CalendarTheme.WithActionBar">
+            android:launchMode="singleTop" android:theme="@style/CalendarTheme.WithActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
@@ -192,9 +197,11 @@
 
         <service android:name=".widget.CalendarAppWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
-            android:exported="false"/>
+            android:exported="false">
+        </service>
 
-        <activity android:name="CalendarTests" android:label="Calendar Tests">
+        <activity android:name="CalendarTests" android:label="Calendar Tests"
+            android:exported="false">
             <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
                  <category android:name="android.intent.category.UNIT_TEST" />
