@@ -39,6 +39,8 @@
             android:id="@+id/event_info_headline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="12dip"
+            android:paddingBottom="16dip"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -54,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:autoLink="all"
                     android:textStyle="bold"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/event_info_headline_color"
                     android:paddingLeft="16dip"
                     android:paddingRight="16dip"
                     style="?android:attr/textAppearanceLarge"
@@ -74,7 +76,7 @@
                         android:layout_height="32dip"
                         android:layout_weight="1"
                         android:enabled="false"
-                        android:layout_marginTop="16dip"
+                        android:layout_marginTop="8dip"
                         android:layout_marginRight="16dip"
                         style="?android:attr/buttonBarButtonStyle"
                         android:background="@drawable/ic_menu_compose_holo_dark" />
@@ -82,7 +84,7 @@
                         android:id="@+id/delete"
                         android:layout_width="32dip"
                         android:layout_height="32dip"
-                        android:layout_marginTop="16dip"
+                        android:layout_marginTop="8dip"
                         android:layout_marginLeft="16dip"
                         android:layout_weight="1"
                         style="?android:attr/buttonBarButtonStyle"
@@ -96,10 +98,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:layout_marginTop="4dip"
+                android:layout_marginTop="2dip"
                 android:paddingLeft="16dip"
                 android:paddingRight="16dip"
-                android:textColor="@android:color/white"
+                android:textColor="@color/event_info_headline_color"
                 style="?android:attr/textAppearanceLarge" />
 
             <TextView
@@ -109,7 +111,7 @@
                 android:textSize="18sp"
                 android:paddingLeft="16dip"
                 android:paddingRight="16dip"
-                android:textColor="@android:color/white"
+                android:textColor="@color/event_info_headline_color"
                 style="?android:attr/textAppearanceLarge" />
 
             <!-- WHERE -->
@@ -119,13 +121,12 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:layout_marginTop="16dip"
+                android:layout_marginTop="8dip"
                 android:textSize="18sp"
                 android:paddingLeft="16dip"
                 android:paddingRight="16dip"
-                android:textColor="@android:color/white"
-                android:textColorLink="@android:color/white"
-                android:layout_marginBottom="16dip"
+                android:textColor="@color/event_info_headline_color"
+                android:textColorLink="@color/event_info_headline_link_color"
                 style="?android:attr/textAppearanceLarge" />
         </LinearLayout>
 
@@ -145,7 +146,7 @@
                 android:paddingRight="16dip"
                 android:singleLine="true"
                 android:text="@string/event_info_organizer"
-                android:textColor="@android:color/black"
+                android:textColor="@color/event_info_organizer_color"
                 style="?android:attr/textAppearanceSmall"
                 android:textSize="18sp"/>
             <TextView
@@ -156,7 +157,7 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:layout_marginLeft="4dip"
-                android:textColor="@android:color/black"
+                android:textColor="@color/event_info_organizer_color"
                 style="?android:attr/textAppearanceSmall"
                 android:textSize="18sp"/>
         </LinearLayout>
@@ -174,7 +175,7 @@
             android:ellipsize="end"
             android:maxLines="8"
             android:textSize="18sp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/event_info_description_color"
             style="?android:attr/textAppearanceSmall" />
         <Button
             android:id="@+id/desc_expand"
@@ -183,7 +184,7 @@
             android:layout_gravity="right"
             android:layout_marginTop="8dip"
             android:layout_marginRight="16dip"
-            android:textColor="@android:color/black"
+            android:textColor="@color/event_info_description_color"
             android:background="#00000000"
             style="?android:attr/textAppearanceSmall" />
 
@@ -198,13 +199,14 @@
                 android:id="@+id/response_label"
                 android:layout_width="match_parent"
                 android:layout_height="32dip"
-                android:background="#FFDDDDDD"
                 android:layout_gravity="center_vertical"
-                android:paddingLeft="16dip"
+                android:paddingLeft="8dip"
                 android:paddingRight="16dip"
                 android:layout_marginTop="16dip"
-                style="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/black"
+                android:layout_marginLeft="8dip"
+                android:textColor="@color/event_info_label_color"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                style="?android:attr/listSeparatorTextViewStyle"
                 android:text="@string/view_event_response_label" />
             <RadioGroup
                 android:id="@+id/response_value"
@@ -221,7 +223,7 @@
                     android:layout_weight="1"
                     android:minWidth="96dip"
                     style="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/event_info_body_color"
                     android:text="@string/response_yes" />
                 <RadioButton
                     android:id="@+id/response_maybe"
@@ -230,7 +232,7 @@
                     android:layout_weight="1"
                     android:minWidth="96dip"
                     style="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/event_info_body_color"
                     android:text="@string/response_maybe" />
                 <RadioButton
                     android:id="@+id/response_no"
@@ -239,7 +241,7 @@
                     android:layout_weight="1"
                     android:minWidth="96dip"
                     style="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/event_info_body_color"
                     android:text="@string/response_no" />
             </RadioGroup>
         </LinearLayout>
@@ -248,7 +250,7 @@
             android:id="@+id/attendee_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
+            android:textColor="@color/event_info_body_color"
             android:layout_marginTop="5dip"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
@@ -258,7 +260,7 @@
             style="?android:attr/textAppearanceMedium" />
         <com.android.calendar.event.AttendeesView
             android:id="@+id/long_attendee_list"
-            android:textColor="@android:color/black"
+            android:textColor="@color/event_info_body_color"
             android:orientation="vertical"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -277,12 +279,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="16dip"
+                    android:paddingLeft="8dip"
                     android:paddingRight="16dip"
                     android:layout_marginTop="4dip"
-                    style="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black"
-                    android:background="@color/event_info_label_background_color"
+                    android:layout_marginLeft="8dip"
+                    android:textColor="@color/event_info_label_color"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    style="?android:attr/listSeparatorTextViewStyle"
                     android:text="@string/event_info_reminders_label" />
                     <LinearLayout
                         android:id="@+id/reminder_items_container"
