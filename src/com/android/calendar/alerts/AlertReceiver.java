@@ -182,7 +182,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 flags |= DateUtils.FORMAT_24HOUR;
             }
         } else {
-            tz = Time.TIMEZONE_UTC;
+            flags |= DateUtils.FORMAT_UTC;
         }
 
         if (eventDay > today + 1) {
