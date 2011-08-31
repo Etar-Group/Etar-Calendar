@@ -1405,9 +1405,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     private void updateAttendees(View view) {
-
         if (mAcceptedAttendees.size() + mDeclinedAttendees.size() +
                 mTentativeAttendees.size() + mNoResponseAttendees.size() > 0) {
+            mLongAttendees.clearAttendees();
             (mLongAttendees).addAttendees(mAcceptedAttendees);
             (mLongAttendees).addAttendees(mDeclinedAttendees);
             (mLongAttendees).addAttendees(mTentativeAttendees);
@@ -1422,6 +1422,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public void initReminders(View view, Cursor cursor) {
 
         // Add reminders
+        mOriginalReminders.clear();
         while (cursor.moveToNext()) {
             int minutes = cursor.getInt(EditEventHelper.REMINDERS_INDEX_MINUTES);
             int method = cursor.getInt(EditEventHelper.REMINDERS_INDEX_METHOD);

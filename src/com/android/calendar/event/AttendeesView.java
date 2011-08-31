@@ -242,6 +242,13 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         return false;
     }
 
+    public void clearAttendees() {
+        removeAllViews();
+        mYes = 0;
+        mNo = 0;
+        mMaybe = 0;
+        mNoResponse = 0;
+    }
 
     private void addOneAttendee(Attendee attendee) {
         if (contains(attendee)) {
