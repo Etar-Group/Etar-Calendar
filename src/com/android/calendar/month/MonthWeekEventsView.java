@@ -781,6 +781,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
                             if (DateFormat.is24HourFormat(context)) {
                                 flags |= DateUtils.FORMAT_24HOUR;
                             }
+                        } else {
+                            flags |= DateUtils.FORMAT_UTC;
                         }
                         text.add(Utils.formatDateRange(context, e.startMillis, e.endMillis,
                                 flags) + ". ");
