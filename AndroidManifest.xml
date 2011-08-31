@@ -49,7 +49,8 @@
         <activity
             android:name="AllInOneActivity"
             android:theme="@style/CalendarTheme.WithActionBar"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
