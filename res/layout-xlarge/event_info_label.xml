@@ -20,9 +20,10 @@
     android:layout_height="32dip"
     android:layout_marginTop="4dip"
     android:layout_marginBottom="4dip"
-    android:background="#FFDDDDDD"
+    android:layout_marginLeft="8dip"
     android:layout_gravity="center_vertical"
-    android:paddingLeft="16dip"
-    style="?android:attr/textAppearanceMedium"
-    android:textColor="@android:color/black" />
+    android:paddingLeft="8dip"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    style="?android:attr/listSeparatorTextViewStyle"
+    android:textColor="@color/event_info_label_color" />
 

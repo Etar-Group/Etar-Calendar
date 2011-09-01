@@ -76,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/when"
                 android:layout_alignLeft="@+id/title"
+                android:layout_marginTop="-3dip"
                 android:singleLine="true"
                 android:ellipsize="marquee"
                 android:textSize="14sp"

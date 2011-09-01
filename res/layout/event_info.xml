@@ -73,7 +73,7 @@
                         android:layout_weight="1"
                         android:enabled="false"
                         style="?android:attr/buttonBarButtonStyle"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/event_info_headline_color"
                         android:text="@string/edit_event_label" />
                     <Button
                         android:id="@+id/delete"
@@ -81,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         style="?android:attr/buttonBarButtonStyle"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/event_info_headline_color"
                         android:text="@string/delete_label" />
                 </LinearLayout>
             </LinearLayout>
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:layout_marginTop="4dip"
+                android:layout_marginTop="-3dip"
                 android:textSize="14sp"
                 android:textColor="@color/event_info_headline_color"
                 android:textColorLink="@color/event_info_headline_link_color"
