@@ -241,16 +241,6 @@
         </LinearLayout>
 
         <!-- GUEST LIST -->
-        <TextView
-            android:id="@+id/attendee_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/event_info_body_color"
-            android:layout_marginTop="5dip"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android.visibility="gone"
-            style="?android:attr/textAppearanceMedium" />
         <com.android.calendar.event.AttendeesView
             android:id="@+id/long_attendee_list"
             android:textColor="@color/event_info_body_color"

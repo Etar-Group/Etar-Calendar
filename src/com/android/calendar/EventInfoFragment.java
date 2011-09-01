@@ -259,8 +259,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private TextView mTitle;
     private TextView mWhen;
     private TextView mWhere;
-    private TextView mWhat;
-    private TextView mAttendees;
+    private TextView mDesc;
     private AttendeesView mLongAttendees;
     private Menu mMenu = null;
     private View mHeadlines;
@@ -558,8 +557,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mTitle = (TextView) mView.findViewById(R.id.title);
         mWhen = (TextView) mView.findViewById(R.id.when);
         mWhere = (TextView) mView.findViewById(R.id.where);
-        mWhat = (TextView) mView.findViewById(R.id.description);
-        mAttendees = (TextView) mView.findViewById(R.id.attendee_list);
+        mDesc = (TextView) mView.findViewById(R.id.description);
         mHeadlines = mView.findViewById(R.id.event_info_headline);
         mLongAttendees = (AttendeesView)mView.findViewById(R.id.long_attendee_list);
         mDescButton = (Button)mView.findViewById(R.id.desc_expand);
@@ -646,7 +644,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     // Expand/collapse the description according the the current status
     private void updateDescription() {
         // Description is short, hide button
-        if (mWhat.getLineCount() <= mDescLineNum) {
+        if (mDesc.getLineCount() <= mDescLineNum) {
             mDescButton.setVisibility(View.GONE);
             return;
         }
@@ -654,10 +652,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mDescButton.setVisibility(View.VISIBLE);
         if (mShowMaxDescription) {
             mDescButton.setText(mLessLabel);
-            mWhat.setLines(mWhat.getLineCount());
+            mDesc.setLines(mDesc.getLineCount());
         } else {
             mDescButton.setText(mMoreLabel);
-            mWhat.setLines(mDescLineNum);
+            mDesc.setLines(mDescLineNum);
         }
     }
 
@@ -986,7 +984,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String description = mEventCursor.getString(EVENT_INDEX_DESCRIPTION);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
         String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
-        String organizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
 
         mColor = Utils.getDisplayColorFromColor(mEventCursor.getInt(EVENT_INDEX_COLOR));
         mHeadlines.setBackgroundColor(mColor);
@@ -1286,8 +1283,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         addFieldToAccessibilityEvent(text, mTitle);
         addFieldToAccessibilityEvent(text, mWhen);
         addFieldToAccessibilityEvent(text, mWhere);
-        addFieldToAccessibilityEvent(text, mWhat);
-        addFieldToAccessibilityEvent(text, mAttendees);
+        addFieldToAccessibilityEvent(text, mDesc);
 
         RadioGroup response = (RadioGroup) getView().findViewById(R.id.response_value);
         if (response.getVisibility() == View.VISIBLE) {
