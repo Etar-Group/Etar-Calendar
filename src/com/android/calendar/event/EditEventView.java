@@ -186,6 +186,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private EventRecurrence mEventRecurrence = new EventRecurrence();
 
     private ArrayList<LinearLayout> mReminderItems = new ArrayList<LinearLayout>(0);
+    private ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
 
     private static StringBuilder mSB = new StringBuilder(50);
     private static Formatter mF = new Formatter(mSB, Locale.getDefault());
@@ -623,6 +624,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         mModel.mReminders = EventViewUtils.reminderItemsToReminders(
                     mReminderItems, mReminderMinuteValues, mReminderMethodValues);
+        mModel.mReminders.addAll(mUnsupportedReminders);
+        mModel.normalizeReminders();
         int status = EventInfoFragment.getResponseFromButtonId(
                 mResponseRadioGroup.getCheckedRadioButtonId());
         if (status != Attendees.ATTENDEE_STATUS_NONE) {
@@ -688,6 +691,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         mModel.mReminders = EventViewUtils.reminderItemsToReminders(mReminderItems,
                 mReminderMinuteValues, mReminderMethodValues);
+        mModel.mReminders.addAll(mUnsupportedReminders);
+        mModel.normalizeReminders();
         mModel.mHasAlarm = mReminderItems.size() > 0;
         mModel.mTitle = mTitleTextView.getText().toString();
         mModel.mAllDay = mAllDayCheckBox.isChecked();
@@ -930,18 +935,25 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             numReminders = reminders.size();
             // Insert any minute values that aren't represented in the minutes list.
             for (ReminderEntry re : reminders) {
-                EventViewUtils.addMinutesToList(
-                        mActivity, mReminderMinuteValues, mReminderMinuteLabels, re.getMinutes());
+                if (mReminderMethodValues.contains(re.getMethod())) {
+                    EventViewUtils.addMinutesToList(mActivity, mReminderMinuteValues,
+                            mReminderMinuteLabels, re.getMinutes());
+                }
             }
 
             // Create a UI element for each reminder.  We display all of the reminders we get
             // from the provider, even if the count exceeds the calendar maximum.  (Also, for
             // a new event, we won't have a maxReminders value available.)
+            mUnsupportedReminders.clear();
             for (ReminderEntry re : reminders) {
-                EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
-                        mReminderMinuteValues, mReminderMinuteLabels,
-                        mReminderMethodValues, mReminderMethodLabels,
-                        re, Integer.MAX_VALUE);
+                if (mReminderMethodValues.contains(re.getMethod())) {
+                    EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
+                            mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
+                            mReminderMethodLabels, re, Integer.MAX_VALUE);
+                } else {
+                    // TODO figure out a way to display unsupported reminders
+                    mUnsupportedReminders.add(re);
+                }
             }
         }
 

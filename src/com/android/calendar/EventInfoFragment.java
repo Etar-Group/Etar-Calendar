@@ -279,6 +279,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private ArrayList<LinearLayout> mReminderViews = new ArrayList<LinearLayout>(0);
     public ArrayList<ReminderEntry> mReminders;
     public ArrayList<ReminderEntry> mOriginalReminders;
+    public ArrayList<ReminderEntry> mUnsupportedReminders;
 
     /**
      * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
@@ -347,6 +348,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     return;
                 }
                 updateEvent(mView);
+                prepareReminders();
 
                 // start calendar query
                 Uri uri = Calendars.CONTENT_URI;
@@ -372,6 +374,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     sendAccessibilityEventIfQueryDone(TOKEN_QUERY_ATTENDEES);
                 }
                 mOriginalReminders = new ArrayList<ReminderEntry> ();
+                mUnsupportedReminders = new ArrayList<ReminderEntry> ();
                 if (mHasAlarm) {
                     // start reminders query
                     args = new String[] { Long.toString(mEventId) };
@@ -1426,28 +1429,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         while (cursor.moveToNext()) {
             int minutes = cursor.getInt(EditEventHelper.REMINDERS_INDEX_MINUTES);
             int method = cursor.getInt(EditEventHelper.REMINDERS_INDEX_METHOD);
-            mOriginalReminders.add(ReminderEntry.valueOf(minutes, method));
+
+            if (!mReminderMethodValues.contains(method)) {
+                // Stash unsupported reminder types separately so we don't alter
+                // them in the UI
+                mUnsupportedReminders.add(ReminderEntry.valueOf(minutes, method));
+            } else {
+                mOriginalReminders.add(ReminderEntry.valueOf(minutes, method));
+            }
         }
         // Sort appropriately for display (by time, then type)
         Collections.sort(mOriginalReminders);
-
-        // Load the labels and corresponding numeric values for the minutes and methods lists
-        // from the assets.  If we're switching calendars, we need to clear and re-populate the
-        // lists (which may have elements added and removed based on calendar properties).  This
-        // is mostly relevant for "methods", since we shouldn't have any "minutes" values in a
-        // new event that aren't in the default set.
-        Resources r = mActivity.getResources();
-        mReminderMinuteValues = loadIntegerArray(r, R.array.reminder_minutes_values);
-        mReminderMinuteLabels = loadStringArray(r, R.array.reminder_minutes_labels);
-        mReminderMethodValues = loadIntegerArray(r, R.array.reminder_methods_values);
-        mReminderMethodLabels = loadStringArray(r, R.array.reminder_methods_labels);
-
-        // Remove any reminder methods that aren't allowed for this calendar.  If this is
-        // a new event, mCalendarAllowedReminders may not be set the first time we're called.
-        if (mCalendarAllowedReminders != null) {
-            EventViewUtils.reduceMethodList(mReminderMethodValues, mReminderMethodLabels,
-                    mCalendarAllowedReminders);
-        }
 
         if (mHasAlarm) {
             ArrayList<ReminderEntry> reminders = mOriginalReminders;
@@ -1460,11 +1452,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             // from the provider, even if the count exceeds the calendar maximum.  (Also, for
             // a new event, we won't have a maxReminders value available.)
             for (ReminderEntry re : reminders) {
-                      EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderViews,
-                              mReminderMinuteValues, mReminderMinuteLabels,
-                              mReminderMethodValues, mReminderMethodLabels,
-                              re, Integer.MAX_VALUE);
+                EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderViews,
+                        mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
+                        mReminderMethodLabels, re, Integer.MAX_VALUE);
             }
+            // TODO show unsupported reminder types in some fashion.
         }
     }
 
@@ -1664,12 +1656,35 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
 
-    private void prepareReminders() {
+    synchronized private void prepareReminders() {
+        // Nothing to do if we've already built these lists _and_ we aren't
+        // removing not allowed methods
+        if (mReminderMinuteValues != null && mReminderMinuteLabels != null
+                && mReminderMethodValues != null && mReminderMethodLabels != null
+                && mCalendarAllowedReminders == null) {
+            return;
+        }
+        // Load the labels and corresponding numeric values for the minutes and methods lists
+        // from the assets.  If we're switching calendars, we need to clear and re-populate the
+        // lists (which may have elements added and removed based on calendar properties).  This
+        // is mostly relevant for "methods", since we shouldn't have any "minutes" values in a
+        // new event that aren't in the default set.
         Resources r = mActivity.getResources();
         mReminderMinuteValues = loadIntegerArray(r, R.array.reminder_minutes_values);
         mReminderMinuteLabels = loadStringArray(r, R.array.reminder_minutes_labels);
         mReminderMethodValues = loadIntegerArray(r, R.array.reminder_methods_values);
         mReminderMethodLabels = loadStringArray(r, R.array.reminder_methods_labels);
+
+        // Remove any reminder methods that aren't allowed for this calendar.  If this is
+        // a new event, mCalendarAllowedReminders may not be set the first time we're called.
+        Log.d(TAG, "AllowedReminders is " + mCalendarAllowedReminders);
+        if (mCalendarAllowedReminders != null) {
+            EventViewUtils.reduceMethodList(mReminderMethodValues, mReminderMethodLabels,
+                    mCalendarAllowedReminders);
+        }
+        if (mView != null) {
+            mView.invalidate();
+        }
     }
 
 
@@ -1679,6 +1694,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // Read reminders from UI
         mReminders = EventViewUtils.reminderItemsToReminders(mReminderViews,
                 mReminderMinuteValues, mReminderMethodValues);
+        mOriginalReminders.addAll(mUnsupportedReminders);
+        Collections.sort(mOriginalReminders);
+        mReminders.addAll(mUnsupportedReminders);
+        Collections.sort(mReminders);
 
         // Check if there are any changes in the reminder
         boolean changed = EditEventHelper.saveReminders(ops, mEventId, mReminders,
