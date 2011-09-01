@@ -46,7 +46,7 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">2dip</item>
         <item name="android:paddingBottom">2dip</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/month_mini_day_number</item>
     </style>
