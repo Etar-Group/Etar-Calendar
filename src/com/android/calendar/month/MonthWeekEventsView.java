@@ -723,7 +723,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     @Override
     public Time getDayFromLocation(float x) {
-        int dayStart = SPACING_WEEK_NUMBER + mPadding;
+        int dayStart = mShowWeekNum ? SPACING_WEEK_NUMBER + mPadding : mPadding;
         if (x < dayStart || x > mWidth - mPadding) {
             return null;
         }
