@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="left"
+        android:gravity="right"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d1_label"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="left"
+        android:gravity="right"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d2_label"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="left"
+        android:gravity="right"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d3_label"
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="left"
+        android:gravity="right"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d4_label"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="left"
+        android:gravity="right"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d5_label"
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="left"
+        android:gravity="right"
         style="@style/TextAppearance.MonthView_DayLabel" />
 
     <TextView android:id="@+id/d6_label"
@@ -79,6 +79,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="6dip"
-        android:gravity="left"
+        android:gravity="right"
         style="@style/TextAppearance.MonthView_DayLabel" />
 </LinearLayout>

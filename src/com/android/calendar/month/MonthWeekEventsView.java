@@ -81,14 +81,14 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT = 64;
     private static int MIN_WEEK_WIDTH = 50;
 
-    private static int EVENT_X_OFFSET_LANDSCAPE = 44;
+    private static int EVENT_X_OFFSET_LANDSCAPE = 38;
     private static int EVENT_Y_OFFSET_LANDSCAPE = 11;
     private static int EVENT_Y_OFFSET_PORTRAIT = 16;
     private static int EVENT_SQUARE_WIDTH = 10;
     private static int EVENT_SQUARE_BORDER = 2;
     private static int EVENT_LINE_PADDING = 4;
     private static int EVENT_RIGHT_PADDING = 4;
-    private static int EVENT_BOTTOM_PADDING = 6;
+    private static int EVENT_BOTTOM_PADDING = 8;
 
 
     private static int SPACING_WEEK_NUMBER = 24;
@@ -310,7 +310,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mMonthNumHeight = (int) (-mMonthNumPaint.ascent());
 
         mEventPaint = new TextPaint();
-        mEventPaint.setFakeBoldText(false);
+        mEventPaint.setFakeBoldText(true);
         mEventPaint.setAntiAlias(true);
         mEventPaint.setTextSize(TEXT_SIZE_EVENT);
         mEventPaint.setColor(mMonthEventColor);
