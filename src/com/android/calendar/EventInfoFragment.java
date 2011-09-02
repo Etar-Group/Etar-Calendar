@@ -1379,7 +1379,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     button.setVisibility(View.GONE);
                 }
             }
-            if (mMenu != null) {
+            if (!mIsTabletConfig && mMenu != null) {
                 mActivity.invalidateOptionsMenu();
             }
         } else {
