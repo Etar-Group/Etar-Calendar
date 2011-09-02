@@ -201,7 +201,6 @@ public class EditEventHelper {
 
     public static class ContactViewHolder {
         QuickContactBadge badge;
-        ImageView presence;
         int updateCounts;
     }
 
@@ -209,13 +208,11 @@ public class EditEventHelper {
         public boolean mRemoved;
         public Attendee mAttendee;
         public Drawable mBadge;
-        public int mPresence;
         public int mUpdateCounts;
         public View mView;
 
-        public AttendeeItem(Attendee attendee, int presence, Drawable badge) {
+        public AttendeeItem(Attendee attendee, Drawable badge) {
             mAttendee = attendee;
-            mPresence = presence;
             mBadge = badge;
         }
     }

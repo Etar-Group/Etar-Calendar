@@ -37,15 +37,6 @@
             android:focusable="true"
             style="@style/TextAppearance.EditEvent_Value" />
 
-        <ImageView
-            android:id="@+id/presence"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingRight="3dip"
-            android:scaleType="fitXY"
-            android:visibility="gone" />
-
         <ImageButton
             android:id="@+id/contact_remove"
             android:layout_width="wrap_content"

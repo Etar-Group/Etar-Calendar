@@ -59,15 +59,13 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
     private static final boolean DEBUG = false;
 
     private static final int PRESENCE_PROJECTION_CONTACT_ID_INDEX = 0;
-    private static final int PRESENCE_PROJECTION_PRESENCE_INDEX = 1;
-    private static final int PRESENCE_PROJECTION_EMAIL_INDEX = 2;
-    private static final int PRESENCE_PROJECTION_PHOTO_ID_INDEX = 3;
+    private static final int PRESENCE_PROJECTION_EMAIL_INDEX = 1;
+    private static final int PRESENCE_PROJECTION_PHOTO_ID_INDEX = 2;
 
     private static final String[] PRESENCE_PROJECTION = new String[] {
         Email.CONTACT_ID,           // 0
-        Email.CONTACT_PRESENCE,     // 1
-        Email.DATA,                 // 2
-        Email.PHOTO_ID,             // 3
+        Email.DATA,                 // 1
+        Email.PHOTO_ID,             // 2
     };
 
     private static final Uri CONTACT_DATA_WITH_PRESENCE_URI = Data.CONTENT_URI;
@@ -218,11 +216,6 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         badge.setImageDrawable(item.mBadge);
         badge.assignContactFromEmail(item.mAttendee.mEmail, true);
         badge.setMaxHeight(60);
-        if (item.mPresence != -1) {
-            final ImageView presence = (ImageView) view.findViewById(R.id.presence);
-            presence.setImageResource(StatusUpdates.getPresenceIconResourceId(item.mPresence));
-            presence.setVisibility(View.VISIBLE);
-        }
 
         return view;
     }
@@ -254,7 +247,7 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
         if (contains(attendee)) {
             return;
         }
-        final AttendeeItem item = new AttendeeItem(attendee, -1 /* presence */, mDefaultBadge);
+        final AttendeeItem item = new AttendeeItem(attendee, mDefaultBadge);
         final int status = attendee.mStatus;
         final int index;
         boolean firstAttendeeInCategory = false;
@@ -388,7 +381,6 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
                 boolean found = false;
                 int contactId = 0;
                 int photoId = 0;
-                int presence = 0;
                 while (cursor.moveToNext()) {
                     String email = cursor.getString(PRESENCE_PROJECTION_EMAIL_INDEX);
                     int temp = 0;
@@ -399,20 +391,14 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
                         photoId = temp;
                         contactId = cursor.getInt(PRESENCE_PROJECTION_CONTACT_ID_INDEX);
                     }
-                    // Take the most available status we can find.
-                    presence = Math.max(
-                            cursor.getInt(PRESENCE_PROJECTION_PRESENCE_INDEX), presence);
 
                     found = true;
                     if (DEBUG) {
-                        Log.d(TAG,
-                                "onQueryComplete Id: " + contactId + " PhotoId: " + photoId
-                                        + " Email: " + email + " updateCount:" + item.mUpdateCounts
-                                        + " Presence:" + item.mPresence);
+                        Log.d(TAG, "onQueryComplete Id: " + contactId + " PhotoId: " + photoId
+                                + " Email: " + email + " updateCount:" + item.mUpdateCounts);
                     }
                 }
                 if (found) {
-                    item.mPresence = presence;
 
                     if (photoId > 0 && item.mUpdateCounts < queryIndex) {
                         item.mUpdateCounts = queryIndex;
