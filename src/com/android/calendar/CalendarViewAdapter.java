@@ -19,19 +19,16 @@ package com.android.calendar;
 import com.android.calendar.CalendarController.ViewType;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.os.Handler;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SpinnerAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Formatter;
-import java.util.Iterator;
 import java.util.Locale;
 
 
@@ -42,12 +39,11 @@ import java.util.Locale;
  * The MenuSpinnerAdapter responsible for creating the views used for in the pull down menu.
  */
 
-public class CalendarViewAdapter implements SpinnerAdapter {
+public class CalendarViewAdapter extends BaseAdapter {
 
     private static final String TAG = "MenuSpinnerAdapter";
 
     private String mButtonNames [];           // Text on buttons
-    private ArrayList<DataSetObserver> mObservers;
 
     // Used to define the look of the menu button according to the current view:
     // Day view: show day of the week + full date underneath
@@ -94,7 +90,6 @@ public class CalendarViewAdapter implements SpinnerAdapter {
 
         // Initialize
         mButtonNames = context.getResources().getStringArray(R.array.buttons_list);
-        mObservers = new ArrayList<DataSetObserver>();
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
@@ -112,7 +107,7 @@ public class CalendarViewAdapter implements SpinnerAdapter {
         long now = System.currentTimeMillis();
         time.set(now);
         mTodayJulianDay = Time.getJulianDay(now, time.gmtoff);
-        notifyDataChange();
+        notifyDataSetChanged();
         setMidnightHandler();
     }
 
@@ -140,30 +135,14 @@ public class CalendarViewAdapter implements SpinnerAdapter {
         }
     }
 
-    // Add a data observer that will be called if there is a change in the data set (buttons list)
-    public void registerDataSetObserver(DataSetObserver observer) {
-        if (observer != null) {
-            synchronized(mObservers) {
-                mObservers.add(observer);
-            }
-        }
-    }
-
-    // Remove an existing data observer
-    public void unregisterDataSetObserver(DataSetObserver observer) {
-        if (observer != null) {
-            synchronized(mObservers) {
-                mObservers.remove(observer);
-            }
-        }
-    }
-
     // Returns the amount of buttons in the menu
+    @Override
     public int getCount() {
         return mButtonNames.length;
     }
 
 
+    @Override
     public Object getItem(int position) {
         if (position < mButtonNames.length) {
             return mButtonNames[position];
@@ -171,15 +150,18 @@ public class CalendarViewAdapter implements SpinnerAdapter {
         return null;
     }
 
+    @Override
     public long getItemId(int position) {
         // Item ID is its location in the list
         return position;
     }
 
+    @Override
     public boolean hasStableIds() {
         return false;
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View v;
@@ -223,19 +205,23 @@ public class CalendarViewAdapter implements SpinnerAdapter {
         return v;
     }
 
+    @Override
     public int getItemViewType(int position) {
         // Only one kind of view is used
         return BUTTON_VIEW_TYPE;
     }
 
+    @Override
     public int getViewTypeCount() {
         return VIEW_TYPE_NUM;
     }
 
+    @Override
     public boolean isEmpty() {
         return (mButtonNames.length == 0);
     }
 
+    @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         View v = mInflater.inflate(R.layout.actionbar_pulldown_menu_button, parent, false);
         TextView viewType = (TextView)v.findViewById(R.id.button_view);
@@ -268,25 +254,14 @@ public class CalendarViewAdapter implements SpinnerAdapter {
     // Used to match the label on the menu button with the calendar view
     public void setMainView(int viewType) {
         mCurrentMainView = viewType;
-        notifyDataChange();
+        notifyDataSetChanged();
     }
 
     // Update the date that is displayed on buttons
     // Used when the user selects a new day/week/month to watch
     public void setTime(long time) {
         mMilliTime = time;
-        notifyDataChange();
-    }
-
-    private void notifyDataChange() {
-        synchronized(mObservers) {
-            if (!mObservers.isEmpty()) {
-                Iterator<DataSetObserver> i = mObservers.iterator();
-                while (i.hasNext()) {
-                    i.next().onChanged();
-                }
-            }
-        }
+        notifyDataSetChanged();
     }
 
     // Builds a string with the day of the week and the word yesterday/today/tomorrow
@@ -328,27 +303,38 @@ public class CalendarViewAdapter implements SpinnerAdapter {
         mStringBuilder.setLength(0);
         String date = DateUtils.formatDateRange(mContext, mFormatter, mMilliTime, mMilliTime,
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR, mTimeZone).toString();
-         return date;
+        return date;
     }
+
     private String buildMonthYearDate() {
         mStringBuilder.setLength(0);
-        String date = DateUtils.formatDateRange(mContext, mFormatter, mMilliTime, mMilliTime,
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_MONTH_DAY |
-                DateUtils.FORMAT_SHOW_YEAR, mTimeZone).toString();
-         return date;
+        String date = DateUtils.formatDateRange(
+                mContext,
+                mFormatter,
+                mMilliTime,
+                mMilliTime,
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_MONTH_DAY
+                        | DateUtils.FORMAT_SHOW_YEAR, mTimeZone).toString();
+        return date;
     }
+
     private String buildMonthDayDate() {
         mStringBuilder.setLength(0);
         String date = DateUtils.formatDateRange(mContext, mFormatter, mMilliTime, mMilliTime,
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_YEAR, mTimeZone).toString();
-         return date;
+        return date;
     }
+
     private String buildMonthDate() {
         mStringBuilder.setLength(0);
-        String date = DateUtils.formatDateRange(mContext, mFormatter, mMilliTime, mMilliTime,
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_YEAR |
-                DateUtils.FORMAT_NO_MONTH_DAY, mTimeZone).toString();
-         return date;
+        String date = DateUtils.formatDateRange(
+                mContext,
+                mFormatter,
+                mMilliTime,
+                mMilliTime,
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_YEAR
+                        | DateUtils.FORMAT_NO_MONTH_DAY, mTimeZone).toString();
+        return date;
     }
     private String buildWeekDate() {
 

@@ -754,6 +754,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // Update the current view so that the menu can update its look according to the
         // current view.
         if (!mIsTabletConfig && mActionBarMenuSpinnerAdapter != null) {
+            mActionBarMenuSpinnerAdapter.setTime(timeMillis);
             mActionBarMenuSpinnerAdapter.setMainView(viewType);
         }
 
@@ -1021,7 +1022,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         } else if (event.eventType == EventType.UPDATE_TITLE) {
             setTitleInActionBar(event);
             if (!mIsTabletConfig) {
-                mActionBarMenuSpinnerAdapter.setTime(event.startTime.toMillis(false));
+                mActionBarMenuSpinnerAdapter.setTime(mController.getTime());
             }
         }
         updateSecondaryTitleFields(displayTime);
