@@ -644,19 +644,34 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     // Expand/collapse the description according the the current status
     private void updateDescription() {
         // Description is short, hide button
+        if (mDesc.getLineCount() < mDescLineNum) {
+            mDescButton.setVisibility(View.GONE);
+            return;
+        }
+
+        // Trick to get textview to recalculate line count
+        mDesc.setMaxLines(Integer.MAX_VALUE);
+        mDesc.setText(mDesc.getText());
+
+        // Description is short, hide button
         if (mDesc.getLineCount() <= mDescLineNum) {
             mDescButton.setVisibility(View.GONE);
             return;
         }
         // Show button and set label according to the expand/collapse status
         mDescButton.setVisibility(View.VISIBLE);
+        int maxLineCount;
+        String moreLessLabel;
         if (mShowMaxDescription) {
-            mDescButton.setText(mLessLabel);
-            mDesc.setLines(mDesc.getLineCount());
+            moreLessLabel = mLessLabel;
+            maxLineCount = Integer.MAX_VALUE;
         } else {
-            mDescButton.setText(mMoreLabel);
-            mDesc.setLines(mDescLineNum);
+            moreLessLabel = mMoreLabel;
+            maxLineCount = mDescLineNum;
         }
+
+        mDesc.setMaxLines(maxLineCount);
+        mDescButton.setText(moreLessLabel);
     }
 
     private void updateTitle() {
@@ -1097,7 +1112,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (description != null && description.length() != 0) {
             setTextCommon(view, R.id.description, description);
         }
-        updateDescription ();  // Expand or collapse full description
+        updateDescription();  // Expand or collapse full description
     }
 
     /**

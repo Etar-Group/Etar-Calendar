@@ -167,7 +167,7 @@
                 android:layout_marginTop="8dip"
                 android:autoLink="all"
                 android:ellipsize="end"
-                android:maxLines="8"
+                android:maxLines="@integer/event_info_desc_line_num"
                 android:textColor="@color/event_info_description_color"
                 style="?android:attr/textAppearanceSmall" />
             <Button
