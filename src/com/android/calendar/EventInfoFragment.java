@@ -1441,6 +1441,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // Sort appropriately for display (by time, then type)
         Collections.sort(mOriginalReminders);
 
+        LinearLayout parent = (LinearLayout) mScrollView
+                .findViewById(R.id.reminder_items_container);
+        if (parent != null) {
+            parent.removeAllViews();
+        }
+
         if (mHasAlarm) {
             ArrayList<ReminderEntry> reminders = mOriginalReminders;
             // Insert any minute values that aren't represented in the minutes list.
