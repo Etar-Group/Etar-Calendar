@@ -66,6 +66,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private String mQuery;
     private boolean mUsedForSearch = false;
     private boolean mIsTabletConfig;
+    private EventInfo mOnAttachedInfo = null;
 
     // Tracks the time of the top visible view in order to send UPDATE_TITLE messages to the action
     // bar.
@@ -103,6 +104,10 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         mTimeZone = Utils.getTimeZone(activity, mTZUpdater);
         mTime.switchTimezone(mTimeZone);
         mActivity = activity;
+        if (mOnAttachedInfo != null) {
+            showEventInfo(mOnAttachedInfo);
+            mOnAttachedInfo = null;
+        }
     }
 
     @Override
@@ -315,6 +320,12 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         // Create a fragment to show the event to the side of the agenda list
         if (mShowEventDetailsWithAgenda) {
             FragmentManager fragmentManager = getFragmentManager();
+            if (fragmentManager == null) {
+                // Got a goto event before the fragment finished attaching,
+                // stash the event and handle it later.
+                mOnAttachedInfo = event;
+                return;
+            }
             FragmentTransaction ft = fragmentManager.beginTransaction();
             int response = CalendarController.ATTENDEE_NO_RESPONSE;
             if (event.eventType == EventType.VIEW_EVENT
