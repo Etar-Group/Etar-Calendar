@@ -553,6 +553,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         HOURS_LEFT_MARGIN = (int) mResources.getDimension(R.dimen.hours_left_margin);
         HOURS_RIGHT_MARGIN = (int) mResources.getDimension(R.dimen.hours_right_margin);
         MULTI_DAY_HEADER_HEIGHT = (int) mResources.getDimension(R.dimen.day_header_height);
+        EVENT_TEXT_FONT_SIZE = (int) mResources.getDimension(R.dimen.event_text_size);
+        MIN_EVENT_HEIGHT = mResources.getDimension(R.dimen.event_min_height);
+        EVENT_TEXT_TOP_MARGIN = (int) mResources.getDimension(R.dimen.event_text_vertical_margin);
+        EVENT_TEXT_BOTTOM_MARGIN = EVENT_TEXT_TOP_MARGIN;
+        EVENT_ALL_DAY_TEXT_TOP_MARGIN = EVENT_TEXT_TOP_MARGIN;
+        EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN = EVENT_TEXT_TOP_MARGIN;
 
         if (mScale == 0) {
 
@@ -563,11 +569,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 MAX_HEIGHT_OF_ONE_ALLDAY_EVENT *= mScale;
 
                 NORMAL_FONT_SIZE *= mScale;
-                EVENT_TEXT_FONT_SIZE *= mScale;
                 GRID_LINE_LEFT_MARGIN *= mScale;
                 HOURS_TOP_MARGIN *= mScale;
                 MIN_CELL_WIDTH_FOR_TEXT *= mScale;
-                MIN_EVENT_HEIGHT *= mScale;
                 MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT *= mScale;
                 MAX_UNEXPANDED_ALLDAY_HEIGHT *= mScale;
                 mAnimateDayEventHeight = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
@@ -587,12 +591,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 DAY_HEADER_ONE_DAY_RIGHT_MARGIN *= mScale;
                 DAY_HEADER_ONE_DAY_BOTTOM_MARGIN *= mScale;
                 CALENDAR_COLOR_SQUARE_SIZE *= mScale;
-                EVENT_TEXT_TOP_MARGIN *= mScale;
-                EVENT_TEXT_BOTTOM_MARGIN *= mScale;
                 EVENT_TEXT_LEFT_MARGIN *= mScale;
                 EVENT_TEXT_RIGHT_MARGIN *= mScale;
-                EVENT_ALL_DAY_TEXT_TOP_MARGIN *= mScale;
-                EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN *= mScale;
                 EVENT_ALL_DAY_TEXT_LEFT_MARGIN *= mScale;
                 EVENT_ALL_DAY_TEXT_RIGHT_MARGIN *= mScale;
                 EVENT_RECT_TOP_MARGIN *= mScale;
