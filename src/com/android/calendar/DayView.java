@@ -337,8 +337,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int EVENT_RECT_STROKE_WIDTH = 2;
     private static int EVENT_TEXT_TOP_MARGIN = 2;
     private static int EVENT_TEXT_BOTTOM_MARGIN = 2;
-    private static int EVENT_TEXT_LEFT_MARGIN = 4;
-    private static int EVENT_TEXT_RIGHT_MARGIN = 4;
+    private static int EVENT_TEXT_LEFT_MARGIN = 6;
+    private static int EVENT_TEXT_RIGHT_MARGIN = 6;
     private static int ALL_DAY_EVENT_RECT_BOTTOM_MARGIN = 1;
     private static int EVENT_ALL_DAY_TEXT_TOP_MARGIN = EVENT_TEXT_TOP_MARGIN;
     private static int EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN = EVENT_TEXT_BOTTOM_MARGIN;
@@ -560,6 +560,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         EVENT_ALL_DAY_TEXT_TOP_MARGIN = EVENT_TEXT_TOP_MARGIN;
         EVENT_ALL_DAY_TEXT_BOTTOM_MARGIN = EVENT_TEXT_TOP_MARGIN;
 
+        EVENT_TEXT_LEFT_MARGIN = (int) mResources
+                .getDimension(R.dimen.event_text_horizontal_margin);
+        EVENT_TEXT_RIGHT_MARGIN = EVENT_TEXT_LEFT_MARGIN;
+        EVENT_ALL_DAY_TEXT_LEFT_MARGIN = EVENT_TEXT_LEFT_MARGIN;
+        EVENT_ALL_DAY_TEXT_RIGHT_MARGIN = EVENT_TEXT_LEFT_MARGIN;
+
         if (mScale == 0) {
 
             mScale = mResources.getDisplayMetrics().density;
@@ -591,10 +597,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 DAY_HEADER_ONE_DAY_RIGHT_MARGIN *= mScale;
                 DAY_HEADER_ONE_DAY_BOTTOM_MARGIN *= mScale;
                 CALENDAR_COLOR_SQUARE_SIZE *= mScale;
-                EVENT_TEXT_LEFT_MARGIN *= mScale;
-                EVENT_TEXT_RIGHT_MARGIN *= mScale;
-                EVENT_ALL_DAY_TEXT_LEFT_MARGIN *= mScale;
-                EVENT_ALL_DAY_TEXT_RIGHT_MARGIN *= mScale;
                 EVENT_RECT_TOP_MARGIN *= mScale;
                 EVENT_RECT_BOTTOM_MARGIN *= mScale;
                 ALL_DAY_EVENT_RECT_BOTTOM_MARGIN *= mScale;

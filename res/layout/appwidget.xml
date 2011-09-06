@@ -19,57 +19,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/gradient_bg_cal_widget_holo"
     android:focusable="true"
-    android:clickable="true">
+    android:clickable="true"
+    android:background="@drawable/cal_widget_bg">
 
     <!-- Header -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="42dip"
-        android:layout_marginLeft="2dip"
-        android:layout_marginRight="2dip"
+        android:layout_height="48dip"
         android:paddingLeft="8dip"
         android:paddingRight="2dip"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:background="@drawable/appwidget_header_selector">
-        <LinearLayout
-            android:id="@+id/holder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="4dip"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/day_of_week"
-                android:textColor="@color/appwidget_week"
-                android:shadowColor="#0dffffff"
-                android:shadowRadius="3"
-                style="@style/WidgetDayOfWeekStyle" />
-            <TextView
-                android:id="@+id/month"
-                android:textColor="@color/appwidget_month"
-                style="@style/WidgetMonthStyle" />
-        </LinearLayout>
-
         <TextView
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical|left"
-            android:id="@+id/day_of_month"
-            android:textColor="@color/appwidget_date"
-            style="@style/WidgetDayStyle" />
+            android:id="@+id/day_of_week"
+            android:textColor="@color/appwidget_week"
+            android:shadowColor="#0dffffff"
+            android:shadowRadius="3"
+            android:layout_marginRight="4dip"
+            style="@style/WidgetDayOfWeekStyle" />
+        <TextView
+            android:id="@+id/date"
+            android:textColor="@color/appwidget_month"
+            android:layout_marginRight="4dip"
+            style="@style/WidgetMonthStyle" />
     </LinearLayout>
-
-    <!-- Separator -->
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/list_div_top_btm_cal_widget_holo"
-        android:focusable="false"
-        android:clickable="false" />
 
     <!-- Event list -->
     <ListView
@@ -77,18 +52,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:layout_marginRight="3dip"
-        android:layout_marginLeft="3dip"
+        android:layout_marginRight="6dip"
+        android:layout_marginLeft="6dip"
         android:fadingEdge="none"
         android:divider="@null"
-        android:dividerHeight="0dip"
+        android:dividerHeight="3dip"
         android:cacheColorHint="@null" />
-
-    <!-- Separator -->
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/list_div_top_btm_cal_widget_holo"
-        android:focusable="false"
-        android:clickable="false" />
 </LinearLayout>
