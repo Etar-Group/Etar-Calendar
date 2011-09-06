@@ -20,6 +20,7 @@ import com.android.calendar.CalendarController;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.StickyHeaderListView;
 
 import android.content.AsyncQueryHandler;
@@ -71,7 +72,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     implements StickyHeaderListView.HeaderIndexer{
 
     static final boolean BASICLOG = false;
-    static final boolean DEBUGLOG = false;
+    static final boolean DEBUGLOG = true;
     private static final String TAG = "AgendaWindowAdapter";
 
     private static final String AGENDA_SORT_ORDER =
@@ -585,6 +586,10 @@ public class AgendaWindowAdapter extends BaseAdapter
             if (!mAgendaListView.isEventVisible(goToTime, id)) {
                 mAgendaListView.setSelection(findDayPositionNearestTime(goToTime) + OFF_BY_ONE_BUG
                         + mSkipDateHeader);
+                Time actualTime = new Time(mTimeZone);
+                actualTime.set(mAgendaListView.getFirstVisibleTime());
+                CalendarController.getInstance(mContext).sendEvent(this, EventType.UPDATE_TITLE,
+                        actualTime, actualTime, -1, ViewType.CURRENT);
             }
             return;
         }
@@ -811,6 +816,11 @@ public class AgendaWindowAdapter extends BaseAdapter
                     if (newPosition >= 0) {
                         mAgendaListView.setSelection(newPosition + OFF_BY_ONE_BUG
                                 + mSkipDateHeader);
+                        Time actualTime = new Time(mTimeZone);
+                        actualTime.set(mAgendaListView.getFirstVisibleTime());
+                        CalendarController.getInstance(mContext).sendEvent(this,
+                                EventType.UPDATE_TITLE, actualTime, actualTime, -1,
+                                ViewType.CURRENT);
                     }
                     if (DEBUGLOG) {
                         Log.e(TAG, "Setting listview to " +
