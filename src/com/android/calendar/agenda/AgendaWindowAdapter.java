@@ -72,7 +72,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     implements StickyHeaderListView.HeaderIndexer{
 
     static final boolean BASICLOG = false;
-    static final boolean DEBUGLOG = true;
+    static final boolean DEBUGLOG = false;
     private static final String TAG = "AgendaWindowAdapter";
 
     private static final String AGENDA_SORT_ORDER =
