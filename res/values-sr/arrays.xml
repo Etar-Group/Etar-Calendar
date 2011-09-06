@@ -17,7 +17,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_methods_labels">
-    <!-- outdated translation 37518307108263308 -->     <item msgid="5172236776878811487">"Искачући прозор"</item>
+    <item msgid="5172236776878811487">"Обавештење"</item>
     <item msgid="1751151680520784746">"Е-пошта"</item>
     <item msgid="2658001219380695677">"SMS"</item>
   </string-array>

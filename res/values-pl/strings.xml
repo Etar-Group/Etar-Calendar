@@ -96,7 +96,7 @@
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Uczestnictwo"</string>
     <string name="response_yes" msgid="2027484304899988350">"Tak"</string>
-    <string name="response_maybe" msgid="7791500973627841695">"Być może"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"Może"</string>
     <string name="response_no" msgid="561911691884148136">"Nie"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizator:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"Więcej"</string>
