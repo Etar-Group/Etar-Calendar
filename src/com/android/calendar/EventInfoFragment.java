@@ -277,8 +277,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private int mDefaultReminderMinutes;
     private ArrayList<LinearLayout> mReminderViews = new ArrayList<LinearLayout>(0);
     public ArrayList<ReminderEntry> mReminders;
-    public ArrayList<ReminderEntry> mOriginalReminders;
-    public ArrayList<ReminderEntry> mUnsupportedReminders;
+    public ArrayList<ReminderEntry> mOriginalReminders = new ArrayList<ReminderEntry>();
+    public ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
 
     /**
      * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
@@ -372,8 +372,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 } else {
                     sendAccessibilityEventIfQueryDone(TOKEN_QUERY_ATTENDEES);
                 }
-                mOriginalReminders = new ArrayList<ReminderEntry> ();
-                mUnsupportedReminders = new ArrayList<ReminderEntry> ();
                 if (mHasAlarm) {
                     // start reminders query
                     args = new String[] { Long.toString(mEventId) };
