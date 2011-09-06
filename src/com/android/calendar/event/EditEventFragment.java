@@ -46,6 +46,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.calendar.AsyncQueryService;
@@ -107,7 +108,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     private Activity mContext;
     private Done mOnDone = new Done();
-    private Menu mMenu;
 
     private boolean mSaveOnDetach = true;
     private boolean mIsReadOnly = false;
@@ -116,6 +116,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private InputMethodManager mInputMethodManager;
 
     private Intent mIntent;
+
+    private boolean mUseCustomActionBar;
+
+    private View.OnClickListener mActionBarListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onActionBarItemSelected(v.getId());
+        }
+    };
 
     // TODO turn this into a helper function in EditEventHelper for building the
     // model
@@ -320,42 +329,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 }
                 mView.setModel(mModel);
                 mView.setModification(mModification);
-                if (mMenu != null) {
-                    updateActionBar();
-                }
             }
-        }
-    }
-
-    private void updateActionBar() {
-        if (mMenu == null) {
-            return;
-        }
-        MenuItem cancelItem = mMenu.findItem(R.id.action_cancel);
-        MenuItem editItem = mMenu.findItem(R.id.action_edit);
-        boolean canModifyEvent = EditEventHelper.canModifyEvent(mModel);
-
-        if (mIsReadOnly) {
-            mMenu.findItem(R.id.action_done).setVisible(false);
-        }
-        if (mModification == Utils.MODIFY_UNINITIALIZED) {
-            cancelItem.setVisible(false);
-            if (canModifyEvent) {
-                editItem.setVisible(true);
-            } else {
-                editItem.setVisible(false);
-            }
-            return;
-        } else {
-            cancelItem.setVisible(true);
-            editItem.setVisible(false);
-        }
-        boolean canRespond = EditEventHelper.canRespond(mModel);
-
-        if (canRespond || canModifyEvent) {
-            cancelItem.setVisible(true);
-        } else {
-            cancelItem.setVisible(false);
         }
     }
 
@@ -432,7 +406,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     null /* sort order */);
 
             mModification = Utils.MODIFY_ALL;
-            updateActionBar();
             mView.setModification(mModification);
         }
     }
@@ -447,6 +420,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
         mModel = new CalendarEventModel(activity, mIntent);
         mInputMethodManager = (InputMethodManager)
                 activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        mUseCustomActionBar = !Utils.isMultiPaneConfiguration(mContext);
     }
 
     @Override
@@ -461,7 +436,28 @@ public class EditEventFragment extends Fragment implements EventHandler {
         }
         mView = new EditEventView(mContext, view, mOnDone);
         startQuery();
+
+        if (mUseCustomActionBar) {
+            View actionBarButtons = inflater.inflate(R.layout.edit_event_custom_actionbar,
+                    new LinearLayout(mContext), false);
+            View cancelActionView = actionBarButtons.findViewById(R.id.action_cancel);
+            cancelActionView.setOnClickListener(mActionBarListener);
+            View doneActionView = actionBarButtons.findViewById(R.id.action_done);
+            doneActionView.setOnClickListener(mActionBarListener);
+
+            mContext.getActionBar().setCustomView(actionBarButtons);
+        }
+
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (mUseCustomActionBar) {
+            mContext.getActionBar().setCustomView(null);
+        }
     }
 
     @Override
@@ -488,16 +484,27 @@ public class EditEventFragment extends Fragment implements EventHandler {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.edit_event_title_bar, menu);
-        synchronized (this) {
-            mMenu = menu;
-            updateActionBar();
+
+        if (!mUseCustomActionBar) {
+            inflater.inflate(R.menu.edit_event_title_bar, menu);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        return onActionBarItemSelected(item.getItemId());
+    }
+
+    /**
+     * Handles menu item selections, whether they come from our custom action bar buttons or from
+     * the standard menu items. Depends on the menu item ids matching the custom action bar button
+     * ids.
+     *
+     * @param itemId the button or menu item id
+     * @return whether the event was handled here
+     */
+    private boolean onActionBarItemSelected(int itemId) {
+        switch (itemId) {
             case R.id.action_done:
                 if (EditEventHelper.canModifyEvent(mModel) || EditEventHelper.canRespond(mModel)) {
                     if (mView != null && mView.prepareForSave()) {
@@ -523,18 +530,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
             case R.id.action_cancel:
                 mOnDone.setDoneCode(Utils.DONE_REVERT);
                 mOnDone.run();
-                break;
-            case R.id.action_edit:
-                if (mIsReadOnly) {
-                    CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
-                            EventType.EDIT_EVENT, mModel.mId, mModel.mStart, mModel.mEnd, -1, -1, -1);
-                } else if (!TextUtils.isEmpty(mModel.mRrule)) {
-                    displayEditWhichDialog();
-                } else {
-                    mModification = Utils.MODIFY_ALL;
-                    updateActionBar();
-                    mView.setModification(mModification);
-                }
                 break;
         }
         return true;
@@ -621,7 +616,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
                             }
 
                             mView.setModification(mModification);
-                            updateActionBar();
                         }
                     }).show();
 

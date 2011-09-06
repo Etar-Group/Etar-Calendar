@@ -61,12 +61,16 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
         if (mIsMultipane) {
             getActionBar().setDisplayOptions(
-                ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+                    ActionBar.DISPLAY_SHOW_TITLE,
+                    ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME
+                            | ActionBar.DISPLAY_SHOW_TITLE);
+            getActionBar().setTitle(
+                    mEventInfo.id == -1 ? R.string.event_create : R.string.event_edit);
         }
         else {
-            getActionBar().setDisplayOptions(0,
+            getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM,
                     ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME|
-                    ActionBar.DISPLAY_SHOW_TITLE);
+                    ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
         }
 
         if (mEditFragment == null) {
