@@ -429,8 +429,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
             int attendeeResponse, boolean isDialog) {
-        mContext = context;
-
         if (mScale == 0) {
             mScale = context.getResources().getDisplayMetrics().density;
             if (mScale != 1) {
@@ -471,6 +469,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (mIsDialog) {
             applyDialogParams();
         }
+        mContext = getActivity();
     }
 
     private void applyDialogParams() {

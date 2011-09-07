@@ -108,10 +108,6 @@ public class DeleteEventHelper {
         mExitWhenDone = exitWhenDone;
     }
 
-    public void setAsyncQueryService(AsyncQueryService service) {
-        mService = service;
-    }
-
     public void setExitWhenDone(boolean exitWhenDone) {
         mExitWhenDone = exitWhenDone;
     }
