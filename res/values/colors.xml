@@ -130,22 +130,25 @@
     <color name="event_info_label_color">#FF999999</color>
     <color name="event_info_label_background_color">#FFDDDDDD</color>
 
-
     <color name="text_shadow_color">#4D000000</color>
 
     <color name="alert_event_title">#FFFFFFFF</color>
     <color name="alert_event_other">#FF999999</color>
     <color name="alert_past_event">#8F999999</color>
 
-    <color name="appwidget_row_in_progress">#ffe6e6ff</color>
+    <color name="appwidget_row_in_progress">#6633b5e5</color>
 
     <color name="appwidget_date">#ffEEEEEE</color>
     <color name="appwidget_week">@android:color/white</color>
     <color name="appwidget_month">#ffEEEEEE</color>
 
+    <!-- Text color of declined events in widget view -->
+    <color name="appwidget_item_declined_color">#ff333333</color>
+    <!-- Text color of non-declined events in widget view -->
+    <color name="appwidget_item_standard_color">#ff333333</color>
 
-    <color name="appwidget_title">#ff000000</color>
-    <color name="appwidget_when">#ff000000</color>
-    <color name="appwidget_where">#ff000000</color>
+    <color name="appwidget_title">#ffffffff</color>
+    <color name="appwidget_when">#ffffffff</color>
+    <color name="appwidget_where">#ffffffff</color>
     <color name="appwidget_no_events">#bb000000</color>
 </resources>

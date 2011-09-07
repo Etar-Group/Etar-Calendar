@@ -225,7 +225,9 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">-5dip</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">left</item>
         <item name="android:singleLine">true</item>
@@ -234,7 +236,8 @@
     <style name="WidgetDayStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/widget_day_num_size</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">bottom|left</item>
         <item name="android:layout_marginTop">@dimen/widget_day_num_top_padding</item>
         <item name="android:singleLine">true</item>
     </style>
@@ -242,8 +245,9 @@
     <style name="WidgetMonthStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:gravity">left</item>
+        <item name="android:layout_marginTop">-4dp</item>
         <item name="android:singleLine">true</item>
     </style>
 </resources>

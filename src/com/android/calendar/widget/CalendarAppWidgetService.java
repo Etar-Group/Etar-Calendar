@@ -157,8 +157,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             mAppWidgetId = intent.getIntExtra(
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
-            mDeclinedColor = mResources.getColor(R.color.agenda_item_declined_color);
-            mStandardColor = mResources.getColor(R.color.agenda_item_standard_color);
+            mDeclinedColor = mResources.getColor(R.color.appwidget_item_declined_color);
+            mStandardColor = mResources.getColor(R.color.appwidget_item_standard_color);
         }
 
         public CalendarFactory() {
