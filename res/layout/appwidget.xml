@@ -18,6 +18,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="6dip"
     android:orientation="vertical"
     android:focusable="true"
     android:clickable="true"
@@ -54,7 +55,6 @@
         android:layout_weight="1"
         android:layout_marginRight="6dip"
         android:layout_marginLeft="6dip"
-        android:fadingEdge="none"
         android:divider="@null"
         android:dividerHeight="3dip"
         android:cacheColorHint="@null" />
