@@ -947,7 +947,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             // a new event, we won't have a maxReminders value available.)
             mUnsupportedReminders.clear();
             for (ReminderEntry re : reminders) {
-                if (mReminderMethodValues.contains(re.getMethod())) {
+                if (mReminderMethodValues.contains(re.getMethod())
+                        || re.getMethod() == Reminders.METHOD_DEFAULT) {
                     EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
                             mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
                             mReminderMethodLabels, re, Integer.MAX_VALUE);
