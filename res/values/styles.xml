@@ -88,8 +88,7 @@
         <item name="android:textColor">#FF888888</item>
     </style>
 
-    <style name="TextAppearance.EditEvent_LabelSmall">
-        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+    <style name="TextAppearance.EditEvent_LabelSmall" parent="TextAppearance.EditEvent_Small">
         <item name="android:minHeight">24dip</item>
         <item name="android:layout_width">144dip</item>
         <item name="android:layout_marginLeft">16dip</item>
@@ -97,8 +96,13 @@
         <item name="android:paddingLeft">8dip</item>
         <item name="android:paddingRight">8dip</item>
         <item name="android:layout_marginBottom">-16dip</item>
+    </style>
+
+    <style name="TextAppearance.EditEvent_Small">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#FF888888</item>
+        <item name="android:textColor">#FFAAAAAA</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="TextAppearance.EditEvent">

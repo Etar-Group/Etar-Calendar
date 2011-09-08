@@ -77,7 +77,6 @@ import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
@@ -112,6 +111,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Button mStartTimeButton;
     Button mEndTimeButton;
     Button mTimezoneButton;
+    View mTimezoneRow;
     TextView mStartTimeHome;
     TextView mStartDateHome;
     TextView mEndTimeHome;
@@ -811,6 +811,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mStartTimeButton = (Button) view.findViewById(R.id.start_time);
         mEndTimeButton = (Button) view.findViewById(R.id.end_time);
         mTimezoneButton = (Button) view.findViewById(R.id.timezone_button);
+        mTimezoneRow = view.findViewById(R.id.timezone_button_row);
         mStartTimeHome = (TextView) view.findViewById(R.id.start_time_home_tz);
         mStartDateHome = (TextView) view.findViewById(R.id.start_date_home_tz);
         mEndTimeHome = (TextView) view.findViewById(R.id.end_time_home_tz);
@@ -857,7 +858,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEditOnlyList.add(view.findViewById(R.id.visibility_row));
         mEditOnlyList.add(view.findViewById(R.id.from_row));
         mEditOnlyList.add(view.findViewById(R.id.to_row));
-        mEditOnlyList.add(view.findViewById(R.id.timezone_button_row));
+        mEditOnlyList.add(mTimezoneRow);
         mEditOnlyList.add(mStartHomeGroup);
         mEditOnlyList.add(mEndHomeGroup);
 
@@ -1043,7 +1044,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         prepareReminders();
 
-        ImageButton reminderAddButton = (ImageButton) mView.findViewById(R.id.reminder_add);
+        View reminderAddButton = mView.findViewById(R.id.reminder_add);
         View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1051,6 +1052,16 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             }
         };
         reminderAddButton.setOnClickListener(addReminderOnClickListener);
+
+        if (!mIsMultipane) {
+            mView.findViewById(R.id.is_all_day_label).setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mAllDayCheckBox.setChecked(!mAllDayCheckBox.isChecked());
+                        }
+                    });
+        }
 
         mTitleTextView.setText(model.mTitle);
         if (model.mIsOrganizer || TextUtils.isEmpty(model.mOrganizer)
@@ -1520,10 +1531,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
             mStartTimeButton.setVisibility(View.GONE);
             mEndTimeButton.setVisibility(View.GONE);
-            mTimezoneButton.setVisibility(View.GONE);
-            if (mTimezoneLabel != null) {
-                mTimezoneLabel.setVisibility(View.GONE);
-            }
+            mTimezoneRow.setVisibility(View.GONE);
         } else {
             if (mEndTime.hour == 0 && mEndTime.minute == 0) {
                 mEndTime.monthDay++;
@@ -1533,10 +1541,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             }
             mStartTimeButton.setVisibility(View.VISIBLE);
             mEndTimeButton.setVisibility(View.VISIBLE);
-            mTimezoneButton.setVisibility(View.VISIBLE);
-            if (mTimezoneLabel != null) {
-                mTimezoneLabel.setVisibility(View.VISIBLE);
-            }
+            mTimezoneRow.setVisibility(View.VISIBLE);
         }
         updateHomeTime();
     }

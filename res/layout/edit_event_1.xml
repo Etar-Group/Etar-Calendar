@@ -261,10 +261,11 @@
             android:id="@+id/is_all_day_label"
             android:text="@string/edit_event_all_day_label"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
+            android:layout_weight="1"
             android:layout_marginLeft="0dip"
             android:layout_gravity="center_vertical"
-            style="@style/TextAppearance.EditEvent_Label" />
+            style="@style/TextAppearance.EditEvent_Small" />
     </LinearLayout>
 
     <!-- TIME ZONE - Read-only textview version -->
