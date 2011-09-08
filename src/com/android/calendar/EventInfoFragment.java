@@ -92,7 +92,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -603,7 +602,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         // Create a listener for the add reminder button
 
-        ImageButton reminderAddButton = (ImageButton) mView.findViewById(R.id.reminder_add);
+        View reminderAddButton = mView.findViewById(R.id.reminder_add);
         View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

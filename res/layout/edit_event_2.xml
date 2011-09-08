@@ -165,14 +165,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="32dip"
         android:focusable="true">
         <TextView
             android:id="@+id/reminders_group_label"
             android:text="@string/event_info_reminders_label"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="0dip"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
         <LinearLayout
             android:layout_height="wrap_content"
@@ -187,35 +187,20 @@
                 android:orientation="vertical" />
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
+    <Button
+        android:id="@+id/reminder_add"
+        android:text="@string/reminders_label"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:background="#00000000"
-        android:minHeight="28dip">
-        <TextView
-            android:id="@+id/reminders_label"
-            android:text="@string/reminders_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="5dip"
-            android:layout_marginTop="5dip"
-            android:background="#00000000"
-            style="@style/TextAppearance.EditEvent_LabelSmall" />
-        <ImageButton
-            android:id="@+id/reminder_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/PlusButton"
-            android:background="#00000000"
-            android:contentDescription="@string/accessibility_add_reminder"
-            android:layout_gravity="center_vertical" />
-    </LinearLayout>
-
-
+        android:layout_marginBottom="5dip"
+        android:textSize="18sp"
+        android:textColor="#FF777777"
+        android:minHeight="48dip"
+        android:background="@null"
+        android:contentDescription="@string/accessibility_add_reminder"
+        style="@style/TextAppearance.EditEvent_LabelSmall" />
 
        <!-- PRESENCE - Show me as [busy | available] -->
     <LinearLayout

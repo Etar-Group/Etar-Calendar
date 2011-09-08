@@ -251,7 +251,6 @@
 
         <!-- REMINDERS -->
         <TextView
-            android:id="@+id/response_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -272,28 +271,18 @@
             android:layout_marginLeft="-8dip"
             android:layout_marginRight="8dip"
             android:orientation="vertical" />
-        <LinearLayout
+        <Button
+            android:id="@+id/reminder_add"
+            android:text="@string/reminders_label"
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/reminders_label"
-                android:text="@string/reminders_label"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                style="TextAppearance.EditEvent_Value"
-                android:textColor="#FF888888"
-                android:layout_marginLeft="16dp"  />
-            <ImageButton
-                android:id="@+id/reminder_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dip"
-                style="@style/PlusButton"
-                android:contentDescription="@string/accessibility_add_reminder"
-                android:layout_gravity="center_vertical" />
-        </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical|left"
+            android:textSize="18sp"
+            android:textColor="#FF777777"
+            android:minHeight="48dip"
+            android:background="@null"
+            android:contentDescription="@string/accessibility_add_reminder"
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
     </LinearLayout>
 </ScrollView>
