@@ -109,7 +109,6 @@ public class SelectVisibleCalendarsFragment extends Fragment
         mView = inflater.inflate(R.layout.select_calendars_fragment, null);
         mList = (ListView)mView.findViewById(R.id.list);
         mList.setDivider(null);
-        mList.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
 
         // Hide the Calendars to Sync button on tablets for now.
         // Long terms stick it in the list of calendars
