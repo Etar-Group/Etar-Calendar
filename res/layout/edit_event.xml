@@ -57,14 +57,8 @@
             <LinearLayout
                 android:id="@+id/two_pane"
                 android:orientation="vertical"
-                android:paddingTop="1dip"
-                android:paddingBottom="1dip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="1dip"
-                android:layout_marginRight="1dip"
-                android:layout_marginTop="1dip"
-                android:layout_marginBottom="1dip"
                 android:layout_gravity="center_horizontal|top">
 
                 <!-- TOP HALF -->

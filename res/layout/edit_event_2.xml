@@ -96,20 +96,28 @@
         <View
             style="@style/EditEventSeparator"/>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/add_attendees_row"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dip">
-            <com.android.ex.chips.RecipientEditTextView
-                android:id="@+id/attendees"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress|textMultiLine"
-                android:hint="@string/hint_attendees"
-                android:imeOptions="actionNext"
-                style="@style/TextAppearance.EditEvent_Value" />
+        <TextView
+            android:text="@string/attendees_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="8dip"
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
+        <com.android.ex.chips.RecipientEditTextView
+            android:id="@+id/attendees"
+            android:layout_marginTop="2dip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress|textMultiLine"
+            android:hint="@string/hint_attendees"
+            android:imeOptions="actionNext"
+            style="@style/TextAppearance.EditEvent_Value" />
     </LinearLayout>
 
     <View
@@ -120,12 +128,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true"
-        android:minHeight="48dip">
+        android:layout_marginBottom="6dip"
+        android:focusable="true">
         <EditText
             android:id="@+id/description"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:minHeight="48dip"
             android:hint="@string/hint_description"
             style="@style/TextAppearance.EditEvent_Value"
             android:capitalize="sentences" />
@@ -139,8 +149,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true"
-        android:minHeight="64dip">
+        android:paddingBottom="6dp"
+        android:focusable="true">
         <TextView
             android:id="@+id/repeats_label"
             android:text="@string/repeats_label"
@@ -175,32 +185,31 @@
             android:layout_marginBottom="0dip"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
         <LinearLayout
+            android:id="@+id/reminder_items_container"
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:layout_marginRight="16dip"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:id="@+id/reminder_items_container"
-                android:layout_width="0dip"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_marginTop="-8dip"
+            android:layout_marginBottom="8dip"
+            android:layout_marginRight="8dip"
+            android:orientation="vertical" />
+        <Button
+            android:id="@+id/reminder_add"
+            android:text="@string/reminders_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="top"
+            android:paddingBottom="12dp"
+            android:layout_marginTop="0dip"
+            android:layout_marginBottom="0dip"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textColor="#FF777777"
+            android:minHeight="20dip"
+            android:background="@null"
+            android:contentDescription="@string/accessibility_add_reminder"
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
     </LinearLayout>
-    <Button
-        android:id="@+id/reminder_add"
-        android:text="@string/reminders_label"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="5dip"
-        android:textSize="18sp"
-        android:textColor="#FF777777"
-        android:minHeight="48dip"
-        android:background="@null"
-        android:contentDescription="@string/accessibility_add_reminder"
-        style="@style/TextAppearance.EditEvent_LabelSmall" />
 
        <!-- PRESENCE - Show me as [busy | available] -->
     <LinearLayout
@@ -208,7 +217,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="64dip">
+        android:paddingBottom="6dp">
         <TextView
             android:id="@+id/presence_label"
             android:text="@string/presence_label"
@@ -232,7 +241,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="64dip">
+        android:paddingBottom="6dp">
         <TextView
             android:id="@+id/privacy_label"
             android:text="@string/privacy_label"

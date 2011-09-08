@@ -74,6 +74,7 @@
         android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dip"
         android:minHeight="48dip"
         android:hint="@string/hint_what"
         android:capitalize="sentences"
@@ -84,13 +85,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="48dip"
+        android:layout_marginBottom="6dip"
         android:focusable="true">
         <EditText
             android:id="@+id/location"
             android:singleLine="false"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:minHeight="48dip"
             android:imeOptions="actionDone"
             style="@style/TextAppearance.EditEvent_Value"
             android:hint="@string/hint_where" />
@@ -140,6 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="horizontal"
+            android:layout_marginTop="-6dip"
             android:animateLayoutChanges="false">
             <Button
                 android:id="@+id/start_date"
@@ -198,6 +201,7 @@
             android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_marginTop="-6dip"
             android:animateLayoutChanges="false">
             <Button
                 android:id="@+id/end_date"
@@ -245,9 +249,10 @@
         android:id="@+id/all_day_row"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:layout_marginTop="4dip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="48dip">
+        android:minHeight="24dip">
         <CheckBox
             android:id="@+id/is_all_day"
             android:layout_height="match_parent"
@@ -263,8 +268,9 @@
             android:layout_height="wrap_content"
             android:layout_width="0dip"
             android:layout_weight="1"
-            android:layout_marginLeft="0dip"
-            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="-8dip"
+            android:layout_gravity="center_vertical|left"
+            android:gravity="center_vertical|left"
             style="@style/TextAppearance.EditEvent_Small" />
     </LinearLayout>
 
