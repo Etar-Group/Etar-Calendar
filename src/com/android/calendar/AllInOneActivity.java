@@ -29,6 +29,11 @@ import com.android.calendar.agenda.AgendaFragment;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
@@ -38,6 +43,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Intent;
@@ -45,10 +51,12 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.database.ContentObserver;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract;
+import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -65,6 +73,7 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnSuggestionListener;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -78,6 +87,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final String BUNDLE_KEY_RESTORE_TIME = "key_restore_time";
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
     private static final String BUNDLE_KEY_RESTORE_VIEW = "key_restore_view";
+    private static final String BUNDLE_KEY_CHECK_ACCOUNTS = "key_check_for_accounts";
     private static final int HANDLER_KEY = 0;
     private static final long CONTROLS_ANIMATE_DURATION = 400;
     private static int CONTROLS_ANIMATE_WIDTH = 280;
@@ -134,6 +144,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private MenuItem mControlsMenu;
     private Menu mOptionsMenu;
     private CalendarViewAdapter mActionBarMenuSpinnerAdapter;
+    private QueryHandler mHandler;
+    private boolean mCheckForAccounts = true;
 
     private String mHideString;
     private String mShowString;
@@ -163,6 +175,51 @@ public class AllInOneActivity extends Activity implements EventHandler,
         public void onAnimationStart(android.animation.Animator animation) {
         }
     };
+
+    private class QueryHandler extends AsyncQueryHandler {
+        public QueryHandler(ContentResolver cr) {
+            super(cr);
+        }
+
+        @Override
+        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            mCheckForAccounts = false;
+            // If the query didn't return a cursor for some reason return
+            if (cursor == null || cursor.getCount() > 0 || isFinishing()) {
+                return;
+            }
+            Bundle options = new Bundle();
+            options.putCharSequence("introMessage",
+                    getResources().getString(R.string.create_an_account_desc));
+            options.putBoolean("allowSkip", true);
+
+            AccountManager am = AccountManager.get(AllInOneActivity.this);
+            am.addAccount("com.google", CalendarContract.AUTHORITY, null, options,
+                    AllInOneActivity.this,
+                    new AccountManagerCallback<Bundle>() {
+                        @Override
+                        public void run(AccountManagerFuture<Bundle> future) {
+                            if (future.isCancelled()) {
+                                return;
+                            }
+                            try {
+                                Bundle result = future.getResult();
+                                boolean setupSkipped = result.getBoolean("setupSkipped");
+
+                                if (setupSkipped) {
+                                    Utils.setSharedPreference(AllInOneActivity.this,
+                                            GeneralPreferences.KEY_SKIP_SETUP, true);
+                                }
+
+                            } catch (OperationCanceledException ignore) {
+                                // The account creation process was canceled
+                            } catch (IOException ignore) {
+                            } catch (AuthenticatorException ignore) {
+                            }
+                        }
+                    }, null);
+        }
+    }
 
     private Runnable mHomeTimeUpdater = new Runnable() {
         @Override
@@ -199,6 +256,20 @@ public class AllInOneActivity extends Activity implements EventHandler,
             setTheme(R.style.CalendarTheme_WithActionBarWallpaper);
         }
         super.onCreate(icicle);
+
+        if (icicle != null && icicle.containsKey(BUNDLE_KEY_CHECK_ACCOUNTS)) {
+            mCheckForAccounts = icicle.getBoolean(BUNDLE_KEY_CHECK_ACCOUNTS);
+        }
+        // Launch add google account if this is first time and there are no
+        // accounts yet
+        if (mCheckForAccounts
+                && !Utils.getSharedPreference(this, GeneralPreferences.KEY_SKIP_SETUP, false)) {
+
+            mHandler = new QueryHandler(this.getContentResolver());
+            mHandler.startQuery(0, null, Calendars.CONTENT_URI, new String[] {
+                Calendars._ID
+            }, null, null /* selection args */, null /* sort order */);
+        }
 
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
@@ -467,6 +538,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             outState.putInt(BUNDLE_KEY_RESTORE_VIEW, mCurrentView);
             outState.putLong(BUNDLE_KEY_EVENT_ID, mController.getEventId());
         }
+        outState.putBoolean(BUNDLE_KEY_CHECK_ACCOUNTS, mCheckForAccounts);
     }
 
     @Override
