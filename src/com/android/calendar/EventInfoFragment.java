@@ -1436,11 +1436,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         // Add reminders
         mOriginalReminders.clear();
+        mUnsupportedReminders.clear();
         while (cursor.moveToNext()) {
             int minutes = cursor.getInt(EditEventHelper.REMINDERS_INDEX_MINUTES);
             int method = cursor.getInt(EditEventHelper.REMINDERS_INDEX_METHOD);
 
-            if (!mReminderMethodValues.contains(method)) {
+            if (method != Reminders.METHOD_DEFAULT && !mReminderMethodValues.contains(method)) {
                 // Stash unsupported reminder types separately so we don't alter
                 // them in the UI
                 mUnsupportedReminders.add(ReminderEntry.valueOf(minutes, method));
@@ -1455,6 +1456,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 .findViewById(R.id.reminder_items_container);
         if (parent != null) {
             parent.removeAllViews();
+        }
+        if (mReminderViews != null) {
+            mReminderViews.clear();
         }
 
         if (mHasAlarm) {
