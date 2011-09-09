@@ -562,6 +562,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         MULTI_DAY_HEADER_HEIGHT = (int) mResources.getDimension(R.dimen.day_header_height);
         EVENT_TEXT_FONT_SIZE = (int) mResources.getDimension(R.dimen.event_text_size);
         MIN_EVENT_HEIGHT = mResources.getDimension(R.dimen.event_min_height);
+        MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT = MIN_EVENT_HEIGHT;
         EVENT_TEXT_TOP_MARGIN = (int) mResources.getDimension(R.dimen.event_text_vertical_margin);
         EVENT_TEXT_BOTTOM_MARGIN = EVENT_TEXT_TOP_MARGIN;
         EVENT_ALL_DAY_TEXT_TOP_MARGIN = EVENT_TEXT_TOP_MARGIN;
@@ -585,7 +586,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 GRID_LINE_LEFT_MARGIN *= mScale;
                 HOURS_TOP_MARGIN *= mScale;
                 MIN_CELL_WIDTH_FOR_TEXT *= mScale;
-                MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT *= mScale;
                 MAX_UNEXPANDED_ALLDAY_HEIGHT *= mScale;
                 mAnimateDayEventHeight = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
 

@@ -26,7 +26,7 @@
     <dimen name="event_text_size">14sp</dimen>
     <dimen name="event_text_vertical_margin">4dp</dimen>
     <dimen name="event_text_horizontal_margin">6dp</dimen>
-    <dimen name="event_min_height">28dip</dimen>
+    <dimen name="event_min_height">30dip</dimen>
     <!-- minimum size of hours column in day/week view -->
     <dimen name="min_hours_width">32dip</dimen>
     <!-- margins size of hours column in day/week view -->
