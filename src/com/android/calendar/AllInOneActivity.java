@@ -301,10 +301,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
         Time t = new Time(mTimeZone);
         t.set(timeMillis);
 
-        if (icicle != null && intent != null) {
-            Log.d(TAG, "both, icicle:" + icicle.toString() + "  intent:" + intent.toString());
-        } else {
-            Log.d(TAG, "not both, icicle:" + icicle + " intent:" + intent);
+        if (DEBUG) {
+            if (icicle != null && intent != null) {
+                Log.d(TAG, "both, icicle:" + icicle.toString() + "  intent:" + intent.toString());
+            } else {
+                Log.d(TAG, "not both, icicle:" + icicle + " intent:" + intent);
+            }
         }
 
         Resources res = getResources();
@@ -878,7 +880,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
 
         if (doCommit) {
-            Log.d(TAG, "setMainPane AllInOne=" + this + " finishing:" + this.isFinishing());
+            if (DEBUG) {
+                Log.d(TAG, "setMainPane AllInOne=" + this + " finishing:" + this.isFinishing());
+            }
             ft.commit();
         }
     }
@@ -899,7 +903,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
         final String msg = Utils.formatDateRange(this, start, end, (int) event.extraLong);
         CharSequence oldDate = mDateRange.getText();
         mDateRange.setText(msg);
-        updateSecondaryTitleFields(start);
+        updateSecondaryTitleFields(event.selectedTime != null ? event.selectedTime.toMillis(true)
+                : start);
         if (!TextUtils.equals(oldDate, msg)) {
             mDateRange.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
             if (mShowWeekNum && mWeekTextView != null) {
@@ -1030,7 +1035,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     }
                 }
             }
-            displayTime = event.startTime.toMillis(true);
+            displayTime = event.selectedTime != null ? event.selectedTime.toMillis(true)
+                    : event.startTime.toMillis(true);
             if (!mIsTabletConfig) {
                 mActionBarMenuSpinnerAdapter.setTime(displayTime);
             }
