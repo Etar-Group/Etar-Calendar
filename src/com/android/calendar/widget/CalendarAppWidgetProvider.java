@@ -147,7 +147,8 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             // Launch calendar app when the user taps on the header
             final Intent launchCalendarIntent = new Intent(Intent.ACTION_VIEW);
             launchCalendarIntent.setClass(context, AllInOneActivity.class);
-            launchCalendarIntent.setData(Uri.parse("content://com.android.calendar/time"));
+            launchCalendarIntent
+                    .setData(Uri.parse("content://com.android.calendar/time/" + millis));
             final PendingIntent launchCalendarPendingIntent = PendingIntent.getActivity(
                     context, 0 /* no requestCode */, launchCalendarIntent, 0 /* no flags */);
             views.setOnClickPendingIntent(R.id.header, launchCalendarPendingIntent);
