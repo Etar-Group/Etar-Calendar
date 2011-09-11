@@ -246,7 +246,16 @@ public class AllInOneActivity extends Activity implements EventHandler,
     protected void onNewIntent(Intent intent) {
         String action = intent.getAction();
         if (Intent.ACTION_VIEW.equals(action)) {
-            parseViewAction(intent);
+            long millis = parseViewAction(intent);
+            if (millis == -1) {
+                millis = Utils.timeFromIntentInMillis(intent);
+            }
+            if (millis != -1 && mViewEventId == -1 && mController != null) {
+                Time time = new Time(mTimeZone);
+                time.set(millis);
+                time.normalize(true);
+                mController.sendEvent(this, EventType.GO_TO, time, time, -1, ViewType.CURRENT);
+            }
         }
     }
 
