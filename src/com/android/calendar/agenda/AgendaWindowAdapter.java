@@ -509,6 +509,19 @@ public class AgendaWindowAdapter extends BaseAdapter
     }
 
     public EventInfo getEventByPosition(final int positionInListView) {
+        return getEventByPosition(positionInListView, true);
+    }
+
+    /**
+     * Return the event info for a given position in the adapter
+     * @param positionInListView
+     * @param returnEventStartDay If true, return actual event startday. Otherwise
+     *        return agenda date-header date as the startDay.
+     *        The two will differ for multi-day events after the first day.
+     * @return
+     */
+    public EventInfo getEventByPosition(final int positionInListView,
+            boolean returnEventStartDay) {
         if (DEBUGLOG) Log.e(TAG, "getEventByPosition " + positionInListView);
 
         final int positionInAdapter = positionInListView - OFF_BY_ONE_BUG;
@@ -530,7 +543,11 @@ public class AgendaWindowAdapter extends BaseAdapter
 
         if (cursorPosition < info.cursor.getCount()) {
             info.cursor.moveToPosition(cursorPosition);
-            return buildEventInfoFromCursor(info.cursor, isDayHeader);
+            EventInfo ei = buildEventInfoFromCursor(info.cursor, isDayHeader);
+            if (!returnEventStartDay && !isDayHeader) {
+                ei.startDay = info.dayAdapter.findJulianDayFromPosition(cursorPosition);
+            }
+            return ei;
         }
         return null;
     }

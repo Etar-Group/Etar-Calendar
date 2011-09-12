@@ -306,7 +306,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             Log.v(TAG, "getFirstVisiblePosition = " + position);
         }
 
-        EventInfo event = mWindowAdapter.getEventByPosition(position);
+        EventInfo event = mWindowAdapter.getEventByPosition(position,
+                false /* startDay = date separator date instead of actual event startday */);
         if (event != null) {
             Time t = new Time(mTimeZone);
             t.set(event.begin);
