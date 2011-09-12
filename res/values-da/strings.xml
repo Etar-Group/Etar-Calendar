@@ -90,6 +90,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Tilføj påmindelse"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Der er ingen kalendere"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Før du kan tilføje en begivenhed, skal du føje mindst én Kalender-konto til enheden og gøre en kalender synlig. Tryk på \"Tilføj konto\" for at tilføje en konto (hvis du lige har tilføjet en konto, skal du vente, indtil den er synkroniseret, og prøve igen). Du kan også trykke på Annuller og kontrollere, at mindst én kalender vises."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalender fungerer bedre med en Google-konto."\n\n"• Få adgang til den fra enhver webbrowser"\n"• Sikkerhedskopier dine begivenheder på sikker vis"</string>
     <string name="add_account" msgid="1669072099756774952">"Tilføj konto"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Tilføj gæster"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>

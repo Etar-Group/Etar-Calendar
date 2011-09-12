@@ -90,6 +90,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Herinnering toevoegen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen agenda\'s"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Voordat u een afspraak kunt toevoegen, moet u ten minste één Google Agenda-account toevoegen aan het apparaat en een agenda zichtbaar maken. Raak \'Account toevoegen\' aan om een account toe te voegen (als u net een account heeft toegevoegd, wacht u totdat de synchronisatie is voltooid en probeert u het opnieuw). Of raak \'Annuleren\' aan en zorg ervoor dat ten minste één agenda zichtbaar is."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Agenda werkt beter met een Google-account."\n\n"• Toegang via elke webbrowser"\n"• Maak beveiligde back-ups van uw afspraken"</string>
     <string name="add_account" msgid="1669072099756774952">"Account toevoegen"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Gasten toevoegen"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda:"</string>

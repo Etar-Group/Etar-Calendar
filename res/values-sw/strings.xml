@@ -109,6 +109,7 @@
     <skip />
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Hakuna kalenda"</string>
     <!-- outdated translation 5354626435783289467 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Kabla ya kuongeza tukio, lazima uongeze angalau akaunti moja ya Kalenda kwa kifaa. Gusa \"Ongeza akaunti\" ili uongeze akaunti. Au kama ndio umeongeza akaunti tu, subiri imalize kusawazisha na ujaribu tena."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalenda inafanya kazi vizuri ukiwa na Akaunti ya Google. "\n" "\n" • Iangalie kwa kutumia kivinjari chochote "\n" • Tunza matukio yako kwa usalama."</string>
     <string name="add_account" msgid="1669072099756774952">"Ongeza akaunti"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Ongeza wageni"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalenda:"</string>

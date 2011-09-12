@@ -90,6 +90,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"إضافة تذكير"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"بلا تقاويم"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"قبل التمكن من إضافة حدث ما، يجب إضافة حساب تقويم واحد على الأقل إلى الجهاز وجعل أحد التقاويم ظاهرًا. المس \"إضافة حساب\" لإضافة حساب (إذا كنت قد أضفت لتوك حسابًا، فانتظر لحين إنهائه المزامنة ثم أعد المحاولة). أو المس \"إلغاء\" وتأكد من ظهور تقويم واحد على الأقل."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"يعمل التقويم بشكل أفضل مع حساب Google."\n\n"• يمكنك الدخول إليه من أي متصفح ويب"\n"• يمكنك نسخ أحداثك احتياطيًا بشكل آمن"</string>
     <string name="add_account" msgid="1669072099756774952">"إضافة حساب"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"إضافة مدعوين"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"التقويم:"</string>
