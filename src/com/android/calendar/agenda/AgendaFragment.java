@@ -23,7 +23,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.CalendarContract.Attendees;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
