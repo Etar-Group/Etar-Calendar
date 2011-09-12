@@ -33,16 +33,12 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
-import android.graphics.PorterDuff;
 import android.graphics.Paint.Style;
-import android.graphics.Shader.TileMode;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -470,7 +466,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     protected final Drawable mExpandAlldayDrawable;
     protected final Drawable mCollapseAlldayDrawable;
     protected Drawable mAcceptedOrTentativeEventBoxDrawable;
-    protected BitmapDrawable mDeclinedBgDrawable;
     private String mAmString;
     private String mPmString;
     private DeleteEventHelper mDeleteEventHelper;
@@ -540,12 +535,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private float mLastVelocity;
 
     private ScrollInterpolator mHScrollInterpolator;
+    private AccessibilityManager mAccessibilityMgr = null;
+    private boolean mIsAccessibilityEnabled = false;
     private boolean mTouchExplorationEnabled = false;
     private String mCreateNewEventString;
 
     public DayView(Context context, CalendarController controller,
             ViewSwitcher viewSwitcher, EventLoader eventLoader, int numDays) {
         super(context);
+        mContext = context;
+        initAccessibilityVariables();
+
         mResources = context.getResources();
         mCreateNewEventString = mResources.getString(R.string.event_create);
 
@@ -624,17 +624,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mAcceptedOrTentativeEventBoxDrawable = mResources
                 .getDrawable(R.drawable.panel_month_event_holo_light);
 
-        mDeclinedBgDrawable = new BitmapDrawable(mResources, BitmapFactory.decodeResource(
-                mResources, R.drawable.event_bg_declined));
-        mDeclinedBgDrawable.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
-        mDeclinedBgDrawable.setAntiAlias(false);
-
         mEventLoader = eventLoader;
         mEventGeometry = new EventGeometry();
         mEventGeometry.setMinEventHeight(MIN_EVENT_HEIGHT);
         mEventGeometry.setHourGap(HOUR_GAP);
         mEventGeometry.setCellMargin(DAY_GAP);
-        mContext = context;
         mLongPressItems = new CharSequence[] {
             mResources.getString(R.string.new_event_dialog_option)
         };
@@ -801,13 +795,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     public void handleOnResume() {
-        mTouchExplorationEnabled = isTouchExplorationEnabled();
+        initAccessibilityVariables();
         mIs24HourFormat = DateFormat.is24HourFormat(mContext);
         mHourStrs = mIs24HourFormat ? CalendarData.s24Hours : CalendarData.s12HoursNoAmPm;
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
         mLastSelectionDay = 0;
         mLastSelectionHour = 0;
         mLastSelectedEvent = null;
+    }
+
+    private void initAccessibilityVariables() {
+        mAccessibilityMgr = (AccessibilityManager) mContext
+                .getSystemService(Service.ACCESSIBILITY_SERVICE);
+        mIsAccessibilityEnabled = mAccessibilityMgr != null && mAccessibilityMgr.isEnabled();
+        mTouchExplorationEnabled = isTouchExplorationEnabled();
     }
 
     /**
@@ -933,7 +934,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             scrollAnim.addListener(mAnimatorListener);
             scrollAnim.start();
         }
-        sendAccessibilityEventAsNeeded();
+        sendAccessibilityEventAsNeeded(false);
     }
 
     public void setViewStartY(int viewStartY) {
@@ -1262,6 +1263,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     mController.sendEventRelatedEventWithExtra(this, EventType.CREATE_EVENT, -1,
                             startMillis, endMillis, -1, -1, extraLong, -1);
                 } else {
+                    if (mIsAccessibilityEnabled) {
+                        mAccessibilityMgr.interrupt();
+                    }
                     // Switch to the EventInfo view
                     mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, selectedEvent.id,
                             selectedEvent.startMillis, selectedEvent.endMillis, 0, 0,
@@ -1272,6 +1276,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 // unambiguous event, then view that event.  Otherwise go to
                 // Day/Agenda view.
                 if (mSelectedEvents.size() == 1) {
+                    if (mIsAccessibilityEnabled) {
+                        mAccessibilityMgr.interrupt();
+                    }
                     mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, selectedEvent.id,
                             selectedEvent.startMillis, selectedEvent.endMillis, 0, 0,
                             getSelectedTimeInMillis());
@@ -1292,6 +1299,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 mController.sendEventRelatedEventWithExtra(this, EventType.CREATE_EVENT, -1,
                         startMillis, endMillis, -1, -1, extraLong, -1);
             } else {
+                if (mIsAccessibilityEnabled) {
+                    mAccessibilityMgr.interrupt();
+                }
                 mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, selectedEvent.id,
                         selectedEvent.startMillis, selectedEvent.endMillis, 0, 0,
                         getSelectedTimeInMillis());
@@ -1521,14 +1531,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private boolean isTouchExplorationEnabled() {
-        AccessibilityManager am = (AccessibilityManager) mContext
-                .getSystemService(Service.ACCESSIBILITY_SERVICE);
-        return am != null && am.isEnabled() && am.isTouchExplorationEnabled();
+        return mIsAccessibilityEnabled && mAccessibilityMgr.isTouchExplorationEnabled();
     }
 
-    private void sendAccessibilityEventAsNeeded() {
-        if (!((AccessibilityManager) mContext.getSystemService(Service.ACCESSIBILITY_SERVICE))
-                .isEnabled()) {
+    private void sendAccessibilityEventAsNeeded(boolean speakEvents) {
+        if (!mIsAccessibilityEnabled) {
             return;
         }
         boolean dayChanged = mLastSelectionDay != mSelectionDay;
@@ -1539,9 +1546,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mLastSelectedEvent = mSelectedEvent;
 
             StringBuilder b = new StringBuilder();
-            if (mEventCountTemplate == null) {
-                mEventCountTemplate = mContext.getString(R.string.template_announce_item_index);
-            }
 
             // Announce only the changes i.e. day or hour or both
             if (dayChanged) {
@@ -1550,43 +1554,53 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             if (hourChanged) {
                 b.append(getSelectedTime().format(mIs24HourFormat ? "%k" : "%l%p"));
             }
-            b.append(PERIOD_SPACE);
+            if (dayChanged || hourChanged) {
+                b.append(PERIOD_SPACE);
+            }
 
-            // Read out the relevant event(s)
-            int numEvents = mSelectedEvents.size();
-            if (numEvents > 0) {
-                if (mSelectedEvent == null) {
-                    // Read out all the events
-                    int i = 1;
-                    for (Event calEvent : mSelectedEvents) {
+            if (speakEvents) {
+                if (mEventCountTemplate == null) {
+                    mEventCountTemplate = mContext.getString(R.string.template_announce_item_index);
+                }
+
+                // Read out the relevant event(s)
+                int numEvents = mSelectedEvents.size();
+                if (numEvents > 0) {
+                    if (mSelectedEvent == null) {
+                        // Read out all the events
+                        int i = 1;
+                        for (Event calEvent : mSelectedEvents) {
+                            if (numEvents > 1) {
+                                // Read out x of numEvents if there are more than one event
+                                mStringBuilder.setLength(0);
+                                b.append(mFormatter.format(mEventCountTemplate, i++, numEvents));
+                                b.append(" ");
+                            }
+                            appendEventAccessibilityString(b, calEvent);
+                        }
+                    } else {
                         if (numEvents > 1) {
                             // Read out x of numEvents if there are more than one event
                             mStringBuilder.setLength(0);
-                            b.append(mFormatter.format(mEventCountTemplate, i++, numEvents));
+                            b.append(mFormatter.format(mEventCountTemplate, mSelectedEvents
+                                    .indexOf(mSelectedEvent) + 1, numEvents));
                             b.append(" ");
                         }
-                        appendEventAccessibilityString(b, calEvent);
+                        appendEventAccessibilityString(b, mSelectedEvent);
                     }
                 } else {
-                    if (numEvents > 1) {
-                        // Read out x of numEvents if there are more than one event
-                        mStringBuilder.setLength(0);
-                        b.append(mFormatter.format(mEventCountTemplate, mSelectedEvents
-                                .indexOf(mSelectedEvent) + 1, numEvents));
-                        b.append(" ");
-                    }
-                    appendEventAccessibilityString(b, mSelectedEvent);
+                    b.append(mCreateNewEventString);
                 }
-            } else {
-                b.append(mCreateNewEventString);
             }
 
-            AccessibilityEvent event = AccessibilityEvent
-                    .obtain(AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED);
-            CharSequence msg = b.toString();
-            event.getText().add(msg);
-            event.setAddedCount(msg.length());
-            sendAccessibilityEventUnchecked(event);
+            if (dayChanged || hourChanged || speakEvents) {
+                AccessibilityEvent event = AccessibilityEvent
+                        .obtain(AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED);
+                CharSequence msg = b.toString();
+                event.getText().add(msg);
+                event.setAddedCount(msg.length());
+                sendAccessibilityEventUnchecked(event);
+            }
         }
     }
 
@@ -3188,14 +3202,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         r.left = (int) event.left + EVENT_RECT_LEFT_MARGIN;
         r.right = (int) event.right;
 
+        int color = event.color;
         switch (event.selfAttendeeStatus) {
             case Attendees.ATTENDEE_STATUS_INVITED:
                 p.setStyle(Style.STROKE);
                 break;
             case Attendees.ATTENDEE_STATUS_DECLINED:
-                mDeclinedBgDrawable.setColorFilter((event.color & 0x00FFFFFF) | DECLINED_ALPHA,
-                        PorterDuff.Mode.OVERLAY);
-                break;
+                color = (event.color & 0x00FFFFFF) | DECLINED_ALPHA;
             case Attendees.ATTENDEE_STATUS_NONE: // Your own events
             case Attendees.ATTENDEE_STATUS_ACCEPTED:
             case Attendees.ATTENDEE_STATUS_TENTATIVE:
@@ -3206,28 +3219,23 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         p.setAntiAlias(false);
 
-        if (event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
-            mDeclinedBgDrawable.setBounds(r);
-            mDeclinedBgDrawable.draw(canvas);
-        } else {
-            int floorHalfStroke = (int) Math.floor(EVENT_RECT_STROKE_WIDTH / 2.0f);
-            int ceilHalfStroke = (int) Math.ceil(EVENT_RECT_STROKE_WIDTH / 2.0f);
-            r.top = Math.max((int) event.top + EVENT_RECT_TOP_MARGIN + floorHalfStroke, visibleTop);
-            r.bottom = Math.min((int) event.bottom - EVENT_RECT_BOTTOM_MARGIN - ceilHalfStroke,
-                    visibleBot);
-            r.left += floorHalfStroke;
-            r.right -= ceilHalfStroke;
-            p.setStrokeWidth(EVENT_RECT_STROKE_WIDTH);
-            p.setColor(event.color);
-            canvas.drawRect(r, p);
-        }
+        int floorHalfStroke = (int) Math.floor(EVENT_RECT_STROKE_WIDTH / 2.0f);
+        int ceilHalfStroke = (int) Math.ceil(EVENT_RECT_STROKE_WIDTH / 2.0f);
+        r.top = Math.max((int) event.top + EVENT_RECT_TOP_MARGIN + floorHalfStroke, visibleTop);
+        r.bottom = Math.min((int) event.bottom - EVENT_RECT_BOTTOM_MARGIN - ceilHalfStroke,
+                visibleBot);
+        r.left += floorHalfStroke;
+        r.right -= ceilHalfStroke;
+        p.setStrokeWidth(EVENT_RECT_STROKE_WIDTH);
+        p.setColor(color);
+        canvas.drawRect(r, p);
 
         p.setStyle(Style.FILL);
 
         // If this event is selected, then use the selection color
         if (mSelectedEvent == event) {
             boolean paintIt = false;
-            int color = 0;
+            color = 0;
             if (mSelectionMode == SELECTION_PRESSED) {
                 // Also, remember the last selected event that we drew
                 mPrevSelectedEvent = event;
@@ -3599,6 +3607,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         invalidate();
 
         if (mSelectedEvent != null) {
+            if (mIsAccessibilityEnabled) {
+                mAccessibilityMgr.interrupt();
+            }
             // If the tap is on an event, launch the "View event" view
             mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mSelectedEvent.id,
                     mSelectedEvent.startMillis, mSelectedEvent.endMillis, (int) ev.getRawX(),
@@ -4200,7 +4211,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mSelectionDay = day;
 
         if (y < DAY_HEADER_HEIGHT) {
-            sendAccessibilityEventAsNeeded();
+            sendAccessibilityEventAsNeeded(false);
             return false;
         }
 
@@ -4237,7 +4248,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 //                Log.i("Cal", "  " + timeRange + " " + ev.title);
 //            }
 //        }
-        sendAccessibilityEventAsNeeded();
+        sendAccessibilityEventAsNeeded(true);
         return true;
     }
 

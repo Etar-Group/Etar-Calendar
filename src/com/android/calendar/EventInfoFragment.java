@@ -256,7 +256,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private String mCalendarAllowedReminders;
 
     private TextView mTitle;
-    private TextView mWhen;
+    private TextView mWhenDate;
+    private TextView mWhenTime;
     private TextView mWhere;
     private TextView mDesc;
     private AttendeesView mLongAttendees;
@@ -551,7 +552,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mView = inflater.inflate(R.layout.event_info, container, false);
         mScrollView = (ScrollView) mView.findViewById(R.id.event_info_scroll_view);
         mTitle = (TextView) mView.findViewById(R.id.title);
-        mWhen = (TextView) mView.findViewById(R.id.when);
+        mWhenDate = (TextView) mView.findViewById(R.id.when_date);
+        mWhenTime = (TextView) mView.findViewById(R.id.when_time);
         mWhere = (TextView) mView.findViewById(R.id.where);
         mDesc = (TextView) mView.findViewById(R.id.description);
         mHeadlines = mView.findViewById(R.id.event_info_headline);
@@ -1295,7 +1297,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         List<CharSequence> text = event.getText();
 
         addFieldToAccessibilityEvent(text, mTitle);
-        addFieldToAccessibilityEvent(text, mWhen);
+        addFieldToAccessibilityEvent(text, mWhenDate);
+        addFieldToAccessibilityEvent(text, mWhenTime);
         addFieldToAccessibilityEvent(text, mWhere);
         addFieldToAccessibilityEvent(text, mDesc);
 

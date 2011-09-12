@@ -257,7 +257,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     // views.setInt(R.id.agenda_item_color, "setDrawStyle",
                     // ColorChipView.DRAW_CROSS_HATCHED);
                     views.setInt(R.id.agenda_item_color, "setImageResource",
-                            R.drawable.widget_chip_declined_bg);
+                            R.drawable.widget_chip_responded_bg);
                     // 40% opacity
                     views.setInt(R.id.agenda_item_color, "setColorFilter",
                             (displayColor & 0x00FFFFFF) | DECLINED_EVENT_ALPHA);

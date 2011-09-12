@@ -45,9 +45,9 @@ public class ColorChipView extends View {
 
     public static final int DRAW_FULL = 0;
     public static final int DRAW_BORDER = 1;
-    public static final int DRAW_CROSS_HATCHED = 2;
+    public static final int DRAW_FADED = 2;
 
-    private static final float DECLINED_ALPHA = (float) 0.4;
+    private static final float DECLINED_ALPHA = (float) 0.625;
     private static final float DEFAULT_ALPHA = 1;
 
     int mDrawStyle = DRAW_FULL;
@@ -57,26 +57,21 @@ public class ColorChipView extends View {
     int mBorderWidth = DEF_BORDER_WIDTH;
 
     int mColor;
-    BitmapDrawable mCrosshatchedPattern;
 
     public ColorChipView(Context context) {
         super(context);
-        init(context);
     }
 
     public ColorChipView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
     }
 
     public void setDrawStyle(int style) {
-        if (style != DRAW_FULL && style != DRAW_BORDER && style != DRAW_CROSS_HATCHED) {
+        if (style != DRAW_FULL && style != DRAW_BORDER && style != DRAW_FADED) {
             return;
         }
         mDrawStyle = style;
-        if (style == DRAW_CROSS_HATCHED) {
-            mCrosshatchedPattern.setColorFilter(mColor, PorterDuff.Mode.OVERLAY);
-            setBackgroundDrawable(mCrosshatchedPattern);
+        if (style == DRAW_FADED) {
             setAlpha(DECLINED_ALPHA);
         } else {
             setBackgroundDrawable(null);
@@ -94,14 +89,7 @@ public class ColorChipView extends View {
 
     public void setColor(int color) {
         mColor = color;
-        mCrosshatchedPattern.setColorFilter(mColor, PorterDuff.Mode.OVERLAY);
         invalidate();
-    }
-
-    private void init(Context c) {
-        mCrosshatchedPattern = new BitmapDrawable(BitmapFactory.decodeResource(getResources(),
-                R.drawable.event_bg_declined));
-        mCrosshatchedPattern.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
     }
 
     @Override
@@ -114,6 +102,7 @@ public class ColorChipView extends View {
         p.setStyle(Style.FILL_AND_STROKE);
 
         switch (mDrawStyle) {
+            case DRAW_FADED:
             case DRAW_FULL:
                 c.drawRect(0, 0, right, bottom, p);
                 break;
@@ -145,10 +134,6 @@ public class ColorChipView extends View {
                 lines [ptr++] = right - halfBorderWidth;
                 lines [ptr++] = bottom;
                 c.drawLines(lines, p);
-                break;
-            default:
-                // Don't need to do anything for DRAW_CROSS_HATCHED since the
-                // pattern is already set in the background drawable in "setStyle"
                 break;
         }
     }

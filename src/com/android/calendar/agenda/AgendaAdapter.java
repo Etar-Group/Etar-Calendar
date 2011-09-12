@@ -131,7 +131,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             holder.title.setTextColor(mDeclinedColor);
             holder.when.setTextColor(mWhereDeclinedColor);
             holder.where.setTextColor(mWhereDeclinedColor);
-            holder.colorChip.setDrawStyle(ColorChipView.DRAW_CROSS_HATCHED);
+            holder.colorChip.setDrawStyle(ColorChipView.DRAW_FADED);
         } else {
             holder.title.setTextColor(mStandardColor);
             holder.when.setTextColor(mWhereColor);
