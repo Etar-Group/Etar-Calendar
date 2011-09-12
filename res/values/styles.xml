@@ -95,7 +95,7 @@
         <item name="android:layout_marginRight">16dip</item>
         <item name="android:paddingLeft">8dip</item>
         <item name="android:paddingRight">8dip</item>
-        <item name="android:layout_marginBottom">-16dip</item>
+        <item name="android:layout_marginBottom">-12dip</item>
     </style>
 
     <style name="TextAppearance.EditEvent_Small">
@@ -156,9 +156,6 @@
     </style>
 
     <style name="EditEvent_Layout" parent="android:Theme.Holo.Light">
-        <item name="android:paddingLeft">0dip</item>
-        <item name="android:paddingRight">0dip</item>
-        <item name="android:paddingTop">8dip</item>
     </style>
 
     <style name="TextAppearance.Date_Range_Title">
