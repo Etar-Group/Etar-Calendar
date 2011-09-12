@@ -90,6 +90,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Dodaj opomnik"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Ni koledarjev"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Dogodka ne morete dodati, dokler v napravo ne dodate vsaj enega računa za Google Koledar in koledar nastavite, da je viden. Dotaknite se »Dodaj račun«, da dodate račun (če ste pravkar dodali račun, počakajte, da se konča sinhronizacija, in poskusite znova). Lahko se tudi dotaknete »Prekliči« in poskrbite, da je viden vsaj en koledar."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Koledar deluje bolje z Google Računom."\n\n"• Do njega lahko dostopate v katerem koli spletnem brskalniku"\n"• Varno varnostno kopiranje dogodkov"</string>
     <string name="add_account" msgid="1669072099756774952">"Dodaj račun"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Dodaj goste"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Koledar:"</string>

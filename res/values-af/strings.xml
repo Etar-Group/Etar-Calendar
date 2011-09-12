@@ -109,6 +109,7 @@
     <skip />
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen kalenders nie"</string>
     <!-- outdated translation 5354626435783289467 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Voor jy \'n gebeurtenis kan byvoeg, moet jy ten minste een kalenderrekening by die toestel voeg. Raak \"Voeg rekening by\" om \'n rekening by te voeg. Of as jy sopas \'n rekening bygevoeg het, wag totdat dit klaar gesinkroniseer het en probeer dan weer."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalender werk beter met \'n Google-rekening "\n\n"•Verky toegang tot een vanaf enige webblaaier"\n"•Rugsteun jou dienste veilig"</string>
     <string name="add_account" msgid="1669072099756774952">"Voeg rekening by"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Voeg gaste by"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>

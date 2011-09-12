@@ -90,6 +90,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Ajouter un rappel"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Pas d\'agenda"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Avant d\'ajouter un événement, vous devez ajouter au moins un compte Agenda sur l\'appareil et activer la visibilité de cet agenda. Pour cela, appuyez sur Ajouter un compte, ou sur Annuler si vous pensez qu\'au moins un agenda est activé (vérifiez que c\'est bien le cas). Si vous venez d\'ajouter un compte, patientez jusqu\'à la fin de la synchronisation, puis réessayez."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Tirez le meilleur parti de Google Agenda en utilisant un compte Google."\n\n"• Accédez-y depuis n\'importe quel navigateur Web. "\n"• Sauvegardez vos événements en toute sécurité."</string>
     <string name="add_account" msgid="1669072099756774952">"Ajouter un compte"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Ajouter des invités"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda :"</string>

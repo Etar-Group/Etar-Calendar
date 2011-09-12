@@ -90,6 +90,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Agregar recordatorio"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No hay calendarios"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Antes de que puedas agregar un evento, debes agregar al menos una cuenta de Calendario al dispositivo y hacer visible un calendario. Toca \"Agregar cuenta\" para agregar una cuenta (si ya agregaste una cuenta, espera a que finalice la sincronización e intenta nuevamente). O toca Cancelar y asegúrate de que al menos se visualice un calendario."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Calendario funciona mejor con una cuenta de Google."\n\n" Accede desde cualquier navegador web."\n" Crea copias de seguridad de tus eventos de manera segura."</string>
     <string name="add_account" msgid="1669072099756774952">"Agregar cuenta"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Agregar invitados"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendario:"</string>

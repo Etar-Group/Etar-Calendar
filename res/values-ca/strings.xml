@@ -90,6 +90,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Afegeix recordatori"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No hi ha cap calendari"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Per tal de poder afegir un esdeveniment, primer has d\'afegir com a mínim un compte de Calendar al dispositiu i fer que un calendari sigui visible. Prem \"Afegeix un compte\" per afegir-ne un (si n\'acabes d\'afegir un, espera\'t que s\'acabi de sincronitzar i torna-ho a provar). O bé, prem \"Cancel·la\" i assegura\'t que hi ha com a mínim un calendari visible."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Calendar funciona millor amb un Compte de Google."\n\n"• Accedeix-hi des de qualsevol navegador web"\n"• Crea una còpia de seguretat dels teus esdeveniments"</string>
     <string name="add_account" msgid="1669072099756774952">"Afegeix un compte"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Afegeix convidats"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendari:"</string>

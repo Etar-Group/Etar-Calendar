@@ -109,6 +109,7 @@
     <skip />
     <string name="no_syncable_calendars" msgid="7019488867045436129">"ምንም ቀንመቁጠሪያ ዎች የለዎትም"</string>
     <!-- outdated translation 5354626435783289467 -->     <string name="no_calendars_found" msgid="4265845606733761102">"ክስተት ከማከልዎ በፊት፣ ወደ መሣሪያው ቢያንስ አንድ የቀን መቁጠሪያ መለያ ማከል አለብዎ። መለያ ለማከል \"መለያ አክል\"ን ይንኩ። ወይም መለያ ካከሉ፣ አሳምር ለመጨረስ ይቆዩ እና እንደገና ይሞክሩ።"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"የቀን መቁጠሪያዎች በGoogle መለያ የተሻለ ይሰራሉ።"\n\n"• ከማንኛውም የድረ ማሰሻ ላይ ይድረሱበት።"\n"• ዝግጅቶችዎን በደንብ ያስጠብቁ"</string>
     <string name="add_account" msgid="1669072099756774952">"መለያ አክል"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"እንግዶች አክል"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"የቀን አቆጣጠር:"</string>

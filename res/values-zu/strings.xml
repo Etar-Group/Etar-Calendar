@@ -109,6 +109,7 @@
     <skip />
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Awekho amakhalenda"</string>
     <!-- outdated translation 5354626435783289467 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Ngaphambi kokuba ufake isenzakalo, kumele ufake okungenani i-akhawunti eyodwa yedivaysi. Thinta \"Faka i-akhawunti\" ukufaka i-akhawunti. Noma uma usanda kufaka i-akhawunti, ilinde iqede ukuvumelanisa bese uzama futhi."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Ikhalenda isebenza kangcono nge-akhawunti yakwa-Google. I-akhawunti."\n\n"• Finyelela kuyo usebenzisa noma iluphi uhlobo lwesiphequluli sewebhu "\n"• Londoloza izinhlelo zakho ngokuphephile"</string>
     <string name="add_account" msgid="1669072099756774952">"Faka i-akhawunti"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Yengeza izivakashi"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Ikhalenda:"</string>

@@ -90,6 +90,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Dodavanje podsjetnika"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nema kalendara"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Prije dodavanja događaja, na uređaj morate dodati barem jedan račun usluge Kalendar i prikazati kalendar. Dodirnite \"Dodaj račun\" za dodavanje računa (ako ste upravo dodali račun, pričekajte da završi sinkronizacija i pokušajte ponovo). Ili dodirnite Odustani i pazite da je prikazan barem jedan kalendar."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalendar radi bolje s Google računom."\n\n"• Pristupite mu iz bilo kojeg web-preglednika"\n"• Stvorite sigurnosnu kopiju svojih događaja"</string>
     <string name="add_account" msgid="1669072099756774952">"Dodavanje računa"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Dodaj goste"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendar:"</string>
