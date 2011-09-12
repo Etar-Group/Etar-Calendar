@@ -38,6 +38,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.EventsEntity;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -59,8 +60,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             + Instances.START_MINUTE + " ASC, " + Instances.END_DAY + " ASC, "
             + Instances.END_MINUTE + " ASC LIMIT " + EVENT_MAX_COUNT;
 
-    private static final String EVENT_SELECTION = Calendars.VISIBLE + "=1";
+    private static final String EVENT_SELECTION = Calendars.VISIBLE + "=1 AND "
+            + EventsEntity.ALL_DAY + "=0";
     private static final String EVENT_SELECTION_HIDE_DECLINED = Calendars.VISIBLE + "=1 AND "
+            + EventsEntity.ALL_DAY + "=0 AND"
             + Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
 
     static final String[] EVENT_PROJECTION = new String[] {
