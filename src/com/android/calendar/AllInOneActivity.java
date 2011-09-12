@@ -1064,6 +1064,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
                         event.selectedTime, event.id, ViewType.AGENDA);
                 }
             } else {
+                // TODO Fix the temp hack below: && mCurrentView !=
+                // ViewType.AGENDA
+                if (event.selectedTime != null && mCurrentView != ViewType.AGENDA) {
+                    mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
+                            event.selectedTime, -1, ViewType.DETAIL);
+                }
                 if (mShowEventInfoFullScreen) {
                     // start event info as activity
                     Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -1081,12 +1087,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     EventInfoFragment fragment = new EventInfoFragment(this,
                             event.id, event.startTime.toMillis(false),
                             event.endTime.toMillis(false), (int) event.extraLong, true);
-                    // TODO Fix the temp hack below: && mCurrentView !=
-                    // ViewType.AGENDA
-                    if (event.selectedTime != null && mCurrentView != ViewType.AGENDA) {
-                        mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
-                                event.selectedTime, -1, ViewType.DETAIL);
-                    }
                     fragment.setDialogParams(event.x, event.y);
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
