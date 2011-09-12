@@ -171,8 +171,13 @@
         <item name="android:windowNoTitle">false</item>
         <item name="android:windowActionBar">true</item>
         <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:actionBarStyle">@style/CalendarActionBarStyle</item>
         <item name="android:endYear">2036</item>
         <item name="android:startYear">1970</item>
+    </style>
+
+    <style name="CalendarActionBarStyle" parent="android:style/Widget.Holo.Light.ActionBar.Solid">
+        <item name="android:displayOptions">showCustom</item>
     </style>
 
     <style name="CalendarTheme.WithActionBarWallpaper" parent="CalendarTheme.WithActionBar">
