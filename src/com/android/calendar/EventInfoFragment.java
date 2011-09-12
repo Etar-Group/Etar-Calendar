@@ -1037,7 +1037,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // If an all day event , show the date without the time
         if (allDay) {
             Formatter f = new Formatter(new StringBuilder(50), Locale.getDefault());
-            whenDate = DateUtils.formatDateRange(getActivity(), f, mStartMillis, mStartMillis,
+            whenDate = DateUtils.formatDateRange(getActivity(), f, mStartMillis, mEndMillis,
                     flagsDate, Time.TIMEZONE_UTC).toString();
             if (repeatString != null) {
                 setTextCommon(view, R.id.when_date, whenDate + " (" + repeatString + ")");
