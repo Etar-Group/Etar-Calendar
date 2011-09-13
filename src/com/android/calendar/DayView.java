@@ -294,6 +294,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int HOURS_LEFT_MARGIN = 2;
     private static int HOURS_RIGHT_MARGIN = 4;
     private static int HOURS_MARGIN = HOURS_LEFT_MARGIN + HOURS_RIGHT_MARGIN;
+    private static int NEW_EVENT_MARGIN = 4;
+    private static int NEW_EVENT_WIDTH = 5;
+    private static int NEW_EVENT_MAX_LENGTH = 16;
 
     private static int CURRENT_TIME_LINE_HEIGHT = 2;
     private static int CURRENT_TIME_LINE_BORDER_WIDTH = 1;
@@ -612,6 +615,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 EVENT_RECT_STROKE_WIDTH *= mScale;
                 EVENT_SQUARE_WIDTH *= mScale;
                 EVENT_LINE_PADDING *= mScale;
+                NEW_EVENT_MARGIN *= mScale;
+                NEW_EVENT_WIDTH *= mScale;
+                NEW_EVENT_MAX_LENGTH *= mScale;
             }
         }
         HOURS_MARGIN = HOURS_LEFT_MARGIN + HOURS_RIGHT_MARGIN;
@@ -905,10 +911,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         recalc();
 
-        // Don't draw the selection box if we are going to the "current" time
-        long currMillis = System.currentTimeMillis();
-        boolean recent = (currMillis - 10000) < millis && millis < currMillis;
-        mSelectionMode = (recent || ignoreTime) ? SELECTION_HIDDEN : SELECTION_SELECTED;
         mRemeasure = true;
         invalidate();
 
@@ -2279,32 +2281,44 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
         }
         p.setAntiAlias(true);
+
+        drawSelectedRect(r, canvas, p);
     }
 
-    private void drawHours(Rect r, Canvas canvas, Paint p) {
-        // Comment out as the background will be a drawable
-
+    private void drawSelectedRect(Rect r, Canvas canvas, Paint p) {
         // Draw a highlight on the selected hour (if needed)
         if (mSelectionMode != SELECTION_HIDDEN && !mSelectionAllday) {
-            // p.setColor(mCalendarHourSelected);
             int daynum = mSelectionDay - mFirstJulianDay;
             r.top = mSelectionHour * (mCellHeight + HOUR_GAP);
             r.bottom = r.top + mCellHeight + HOUR_GAP;
             r.left = computeDayLeftPosition(daynum) + 1;
             r.right = computeDayLeftPosition(daynum + 1) + 1;
 
-            // Draw a border around the highlighted grid hour.
-            // drawEmptyRect(canvas, r, mSelectionPaint.getColor());
             saveSelectionPosition(r.left, r.top, r.right, r.bottom);
 
-            // Also draw the highlight on the grid
+            // Draw the highlight on the grid
             p.setColor(mCalendarGridAreaSelected);
             r.top += HOUR_GAP;
             r.right -= DAY_GAP;
             p.setAntiAlias(false);
             canvas.drawRect(r, p);
-        }
 
+            // Draw a + on top of the highlight
+            int width = r.right - r.left;
+            int midX = r.left + width / 2;
+            int midY = r.top + mCellHeight / 2;
+            int length = Math.min(mCellHeight, width) - NEW_EVENT_MARGIN * 2;
+            length = Math.min(length, NEW_EVENT_MAX_LENGTH);
+            int verticalPadding = (mCellHeight - length) / 2;
+            int horizontalPadding = (width - length) / 2;
+            p.setStrokeWidth(NEW_EVENT_WIDTH);
+            p.setColor(0xFFFFFFFF);
+            canvas.drawLine(r.left + horizontalPadding, midY, r.right - horizontalPadding, midY, p);
+            canvas.drawLine(midX, r.top + verticalPadding, midX, r.bottom - verticalPadding, p);
+        }
+    }
+
+    private void drawHours(Rect r, Canvas canvas, Paint p) {
         setupHourTextPaint(p);
 
         int y = HOUR_GAP + mHoursTextHeight + HOURS_TOP_MARGIN;
@@ -3602,30 +3616,33 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             return;
         }
 
-        int oldSelectionMode = mSelectionMode;
-        mSelectionMode = SELECTION_SELECTED;
-        invalidate();
+        boolean hasSelection = mSelectionMode == SELECTION_SELECTED;
+        boolean pressedSelected = (hasSelection || mTouchExplorationEnabled)
+                && selectedDay == mSelectionDay && selectedHour == mSelectionHour;
 
-        if (mSelectedEvent != null) {
-            if (mIsAccessibilityEnabled) {
-                mAccessibilityMgr.interrupt();
-            }
-            // If the tap is on an event, launch the "View event" view
-            mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mSelectedEvent.id,
-                    mSelectedEvent.startMillis, mSelectedEvent.endMillis, (int) ev.getRawX(),
-                    (int) ev.getRawY(), getSelectedTimeInMillis());
-        } else if (selectedDay == mSelectionDay && selectedHour == mSelectionHour
-                && (oldSelectionMode != SELECTION_HIDDEN || mTouchExplorationEnabled)) {
+        if (pressedSelected) {
             // If the tap is on an already selected hour slot, then create a new
             // event
             long extraLong = 0;
             if (mSelectionAllday) {
                 extraLong = CalendarController.EXTRA_CREATE_ALL_DAY;
             }
+            mSelectionMode = SELECTION_SELECTED;
             mController.sendEventRelatedEventWithExtra(this, EventType.CREATE_EVENT, -1,
                     getSelectedTimeInMillis(), 0, (int) ev.getRawX(), (int) ev.getRawY(),
                     extraLong, -1);
+        } else if (mSelectedEvent != null) {
+            // If the tap is on an event, launch the "View event" view
+            if (mIsAccessibilityEnabled) {
+                mAccessibilityMgr.interrupt();
+            }
+
+            mSelectionMode = SELECTION_HIDDEN;
+            mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mSelectedEvent.id,
+                    mSelectedEvent.startMillis, mSelectedEvent.endMillis, (int) ev.getRawX(),
+                    (int) ev.getRawY(), getSelectedTimeInMillis());
         } else {
+            // Select time
             Time startTime = new Time(mBaseDate);
             startTime.setJulianDay(mSelectionDay);
             startTime.hour = mSelectionHour;
@@ -3634,9 +3651,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             Time endTime = new Time(startTime);
             endTime.hour++;
 
+            mSelectionMode = SELECTION_SELECTED;
             mController.sendEvent(this, EventType.GO_TO, startTime, endTime, -1, ViewType.CURRENT,
                     CalendarController.EXTRA_GOTO_TIME, null, null);
         }
+        invalidate();
     }
 
     private void doLongPress(MotionEvent ev) {
