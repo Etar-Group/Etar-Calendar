@@ -1021,6 +1021,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             }
         });
 
+        boolean prevAllDay = mAllDayCheckBox.isChecked();
         if (model.mAllDay) {
             mAllDayCheckBox.setChecked(true);
             // put things back in local time for all day events
@@ -1031,6 +1032,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mEndTime.normalize(true);
         } else {
             mAllDayCheckBox.setChecked(false);
+        }
+        // On a rotation we need to update the views but onCheckedChanged
+        // doesn't get called
+        if (prevAllDay == mAllDayCheckBox.isChecked()) {
+            setAllDayViewsVisibility(prevAllDay);
         }
 
         mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone);
@@ -1287,13 +1293,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mCalendarStaticGroup.setVisibility(View.VISIBLE);
             mRepeatsSpinner.setEnabled(false);
             mRepeatsSpinner.setBackgroundDrawable(null);
+            setAllDayViewsVisibility(mAllDayCheckBox.isChecked());
             if (EditEventHelper.canAddReminders(mModel)) {
                 mRemindersGroup.setVisibility(View.VISIBLE);
             } else {
                 mRemindersGroup.setVisibility(View.GONE);
-            }
-            if (mAllDayCheckBox.isChecked()) {
-                mView.findViewById(R.id.timezone_textview_row).setVisibility(View.GONE);
             }
             if (TextUtils.isEmpty(mLocationTextView.getText())) {
                 mLocationGroup.setVisibility(View.GONE);
