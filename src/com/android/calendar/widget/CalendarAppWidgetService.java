@@ -63,7 +63,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     private static final String EVENT_SELECTION = Calendars.VISIBLE + "=1 AND "
             + EventsEntity.ALL_DAY + "=0";
     private static final String EVENT_SELECTION_HIDE_DECLINED = Calendars.VISIBLE + "=1 AND "
-            + EventsEntity.ALL_DAY + "=0 AND"
+            + EventsEntity.ALL_DAY + "=0 AND "
             + Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
 
     static final String[] EVENT_PROJECTION = new String[] {
