@@ -1068,7 +1068,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 // ViewType.AGENDA
                 if (event.selectedTime != null && mCurrentView != ViewType.AGENDA) {
                     mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
-                            event.selectedTime, -1, ViewType.DETAIL);
+                            event.selectedTime, -1, ViewType.CURRENT);
                 }
                 if (mShowEventInfoFullScreen) {
                     // start event info as activity
