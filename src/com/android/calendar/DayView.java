@@ -3222,7 +3222,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 p.setStyle(Style.STROKE);
                 break;
             case Attendees.ATTENDEE_STATUS_DECLINED:
-                color = (event.color & 0x00FFFFFF) | DECLINED_ALPHA;
+                color = Utils.getDeclinedColorFromColor(color);
             case Attendees.ATTENDEE_STATUS_NONE: // Your own events
             case Attendees.ATTENDEE_STATUS_ACCEPTED:
             case Attendees.ATTENDEE_STATUS_TENTATIVE:

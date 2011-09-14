@@ -579,6 +579,17 @@ public class Utils {
         return Color.HSVToColor(hsv);
     }
 
+    // This takes a color and computes what it would look like blended with
+    // white. The result is the color that should be used for declined events.
+    public static int getDeclinedColorFromColor(int color) {
+        int bg = 0xffffffff;
+        int a = 0x66;
+        int r = (((color & 0x00ff0000) * a) + ((bg & 0x00ff0000) * (0xff - a))) & 0xff000000;
+        int g = (((color & 0x0000ff00) * a) + ((bg & 0x0000ff00) * (0xff - a))) & 0x00ff0000;
+        int b = (((color & 0x000000ff) * a) + ((bg & 0x000000ff) * (0xff - a))) & 0x0000ff00;
+        return (0xff000000) | ((r | g | b) >> 8);
+    }
+
     // A single strand represents one color of events. Events are divided up by
     // color to make them convenient to draw. The black strand is special in
     // that it holds conflicting events as well as color settings for allday on
