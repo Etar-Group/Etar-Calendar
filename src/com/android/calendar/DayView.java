@@ -808,6 +808,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mLastSelectionDay = 0;
         mLastSelectionHour = 0;
         mLastSelectedEvent = null;
+        mSelectionMode = SELECTION_HIDDEN;
     }
 
     private void initAccessibilityVariables() {
