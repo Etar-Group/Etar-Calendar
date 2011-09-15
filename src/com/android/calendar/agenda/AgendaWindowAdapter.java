@@ -228,7 +228,9 @@ public class AgendaWindowAdapter extends BaseAdapter
             result = prime * result + (int) (queryStartMillis ^ (queryStartMillis >>> 32));
             result = prime * result + queryType;
             result = prime * result + start;
-            result = prime * result + searchQuery.hashCode();
+            if (searchQuery != null) {
+                result = prime * result + searchQuery.hashCode();
+            }
             if (goToTime != null) {
                 long goToTimeMillis = goToTime.toMillis(false);
                 result = prime * result + (int) (goToTimeMillis ^ (goToTimeMillis >>> 32));
@@ -757,6 +759,27 @@ public class AgendaWindowAdapter extends BaseAdapter
                     queryData.start = end + 1;
                     queryData.end = queryData.start + queryDuration;
                     break;
+            }
+
+            // By "compacting" cursors, this fixes the disco/ping-pong problem
+            // b/5311977
+            if (mRowCount < 20 && queryData.queryType != QUERY_TYPE_CLEAN) {
+                if (DEBUGLOG) {
+                    Log.e(TAG, "Compacting cursor: mRowCount=" + mRowCount
+                            + " totalStart:" + start
+                            + " totalEnd:" + end
+                            + " query.start:" + queryData.start
+                            + " query.end:" + queryData.end);
+                }
+
+                queryData.queryType = QUERY_TYPE_CLEAN;
+
+                if (queryData.start > start) {
+                    queryData.start = start;
+                }
+                if (queryData.end < end) {
+                    queryData.end = end;
+                }
             }
         }
 
