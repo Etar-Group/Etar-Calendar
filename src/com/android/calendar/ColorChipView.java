@@ -71,12 +71,6 @@ public class ColorChipView extends View {
             return;
         }
         mDrawStyle = style;
-        if (style == DRAW_FADED) {
-            setAlpha(DECLINED_ALPHA);
-        } else {
-            setBackgroundDrawable(null);
-            setAlpha(DEFAULT_ALPHA);
-        }
         invalidate();
     }
 
@@ -98,7 +92,7 @@ public class ColorChipView extends View {
         int right = getWidth() - 1;
         int bottom = getHeight() - 1;
         Paint p = new Paint();
-        p.setColor(mColor);
+        p.setColor(mDrawStyle == DRAW_FADED ? Utils.getDeclinedColorFromColor(mColor) : mColor);
         p.setStyle(Style.FILL_AND_STROKE);
 
         switch (mDrawStyle) {

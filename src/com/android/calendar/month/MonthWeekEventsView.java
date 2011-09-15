@@ -113,7 +113,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     protected Paint mMonthNamePaint;
     protected TextPaint mEventPaint;
+    protected TextPaint mDeclinedEventPaint;
     protected TextPaint mEventExtrasPaint;
+    protected TextPaint mEventDeclinedExtrasPaint;
     protected Paint mWeekNumPaint;
     protected Paint mDNAAllDayPaint;
     protected Paint mDNATimePaint;
@@ -136,6 +138,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mMonthNameColor;
     protected int mMonthNameOtherColor;
     protected int mMonthEventColor;
+    protected int mMonthDeclinedEventColor;
+    protected int mMonthDeclinedExtrasColor;
     protected int mMonthEventExtraColor;
     protected int mMonthEventOtherColor;
     protected int mMonthEventExtraOtherColor;
@@ -233,6 +237,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mMonthNameColor = mMonthNumColor;
         mMonthNameOtherColor = mMonthNumOtherColor;
         mMonthEventColor = res.getColor(R.color.month_event_color);
+        mMonthDeclinedEventColor = res.getColor(R.color.agenda_item_declined_color);
+        mMonthDeclinedExtrasColor = res.getColor(R.color.agenda_item_where_declined_text_color);
         mMonthEventExtraColor = res.getColor(R.color.month_event_extra_color);
         mMonthEventOtherColor = res.getColor(R.color.month_event_other_color);
         mMonthEventExtraOtherColor = res.getColor(R.color.month_event_extra_other_color);
@@ -315,6 +321,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mEventPaint.setTextSize(TEXT_SIZE_EVENT);
         mEventPaint.setColor(mMonthEventColor);
 
+        mDeclinedEventPaint = new TextPaint();
+        mDeclinedEventPaint.setFakeBoldText(true);
+        mDeclinedEventPaint.setAntiAlias(true);
+        mDeclinedEventPaint.setTextSize(TEXT_SIZE_EVENT);
+        mDeclinedEventPaint.setColor(mMonthDeclinedEventColor);
+
         mEventHeight = (int) (-mEventPaint.ascent());
 
         mEventExtrasPaint = new TextPaint();
@@ -325,6 +337,15 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mEventExtrasPaint.setColor(mMonthEventExtraColor);
         mEventExtrasPaint.setStyle(Style.FILL);
         mEventExtrasPaint.setTextAlign(Align.LEFT);
+
+        mEventDeclinedExtrasPaint = new TextPaint();
+        mEventDeclinedExtrasPaint.setFakeBoldText(false);
+        mEventDeclinedExtrasPaint.setAntiAlias(true);
+        mEventDeclinedExtrasPaint.setStrokeWidth(EVENT_SQUARE_BORDER);
+        mEventDeclinedExtrasPaint.setTextSize(TEXT_SIZE_EVENT);
+        mEventDeclinedExtrasPaint.setColor(mMonthDeclinedExtrasColor);
+        mEventDeclinedExtrasPaint.setStyle(Style.FILL);
+        mEventDeclinedExtrasPaint.setTextAlign(Align.LEFT);
 
         mWeekNumPaint = new Paint();
         mWeekNumPaint.setFakeBoldText(false);
@@ -618,7 +639,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
         r.right = x + EVENT_SQUARE_WIDTH;
         r.top = y;
         r.bottom = y + EVENT_SQUARE_WIDTH;
-        mEventSquarePaint.setColor(event.color);
+        boolean isDeclined = event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED;
+        int color = event.color;
+        if (isDeclined) {
+            color = Utils.getDeclinedColorFromColor(color);
+        }
+        mEventSquarePaint.setColor(color);
         Style style = event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_NONE ? Style.STROKE
                 : Style.FILL_AND_STROKE;
         mEventSquarePaint.setStyle(style);
@@ -629,7 +655,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         float avail = rightEdge - textX;
         CharSequence text = TextUtils.ellipsize(
                 event.title, mEventPaint, avail, TextUtils.TruncateAt.END);
-        canvas.drawText(text.toString(), textX, textY, mEventPaint);
+        canvas.drawText(text.toString(), textX, textY, isDeclined ? mDeclinedEventPaint
+                : mEventPaint);
         if (!event.allDay) {
             textY += mEventHeight + EVENT_LINE_PADDING;
             mStringBuilder.setLength(0);
@@ -637,7 +664,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
                     event.endMillis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
                     Utils.getTimeZone(getContext(), null)).toString();
             text = TextUtils.ellipsize(text, mEventExtrasPaint, avail, TextUtils.TruncateAt.END);
-            canvas.drawText(text.toString(), textX, textY, mEventExtrasPaint);
+            canvas.drawText(text.toString(), textX, textY, isDeclined ? mEventDeclinedExtrasPaint
+                    : mEventExtrasPaint);
         }
 
         return textY + EVENT_LINE_PADDING;

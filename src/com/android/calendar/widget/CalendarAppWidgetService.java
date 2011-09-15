@@ -263,7 +263,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                             R.drawable.widget_chip_responded_bg);
                     // 40% opacity
                     views.setInt(R.id.agenda_item_color, "setColorFilter",
-                            (displayColor & 0x00FFFFFF) | DECLINED_EVENT_ALPHA);
+                            Utils.getDeclinedColorFromColor(displayColor));
                 } else {
                     views.setInt(R.id.title, "setTextColor", mStandardColor);
                     views.setInt(R.id.when, "setTextColor", mStandardColor);
