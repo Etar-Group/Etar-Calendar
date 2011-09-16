@@ -16,10 +16,48 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- no translation found for reminder_methods_labels:1 (1751151680520784746) -->
-    <!-- no translation found for reminder_methods_labels:2 (2658001219380695677) -->
-    <!-- no translation found for reminder_minutes_labels:15 (6135563708172153696) -->
-    <!-- no translation found for preferences_default_reminder_labels:16 (8336577387266744930) -->
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"Isaziso"</item>
+    <item msgid="1751151680520784746">"I-imeyili"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item msgid="2416970002377237011">"0-amaminithi angu"</item>
+    <item msgid="6681865010714743948">"1 iminithi"</item>
+    <item msgid="2327505114623595779">"5 amaminithi"</item>
+    <item msgid="1657410063332547113">"10 amaminithi"</item>
+    <item msgid="366087535181197780">"15 amaminithi"</item>
+    <item msgid="6252612791145061929">"20 amaminithi"</item>
+    <item msgid="7896694531989090700">"25 amaminithi"</item>
+    <item msgid="8754510169374808607">"30 amaminithi"</item>
+    <item msgid="3113380274218454394">"45 amaminithi"</item>
+    <item msgid="8546646645868526283">"1 ihora"</item>
+    <item msgid="6467845211024768872">"2 amahora"</item>
+    <item msgid="8201677619511076575">"3 amahora"</item>
+    <item msgid="7172504281650128893">"12 amahora"</item>
+    <item msgid="9114286702181482496">"24 amahora"</item>
+    <item msgid="3107009344872997366">"2 izinsuku"</item>
+    <item msgid="6135563708172153696">"1 iviki"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"Lutho"</item>
+    <item msgid="5883344836499335043">"0-amaminithi angu"</item>
+    <item msgid="4354350447805231188">"1 iminithi"</item>
+    <item msgid="265674592625309858">"5 amaminithi"</item>
+    <item msgid="8011089417728419666">"10 amaminithi"</item>
+    <item msgid="6177098581805412986">"15 amaminithi"</item>
+    <item msgid="356346660503078923">"20 amaminithi"</item>
+    <item msgid="992592434377054063">"25 amaminithi"</item>
+    <item msgid="9191353668596201944">"30 amaminithi"</item>
+    <item msgid="1192985682962908244">"45 amaminithi"</item>
+    <item msgid="1694315499429259938">"1 ihora"</item>
+    <item msgid="8281019320591769635">"2 amahora"</item>
+    <item msgid="2062931719019287773">"3 amahora"</item>
+    <item msgid="4086495711621133006">"12 amahora"</item>
+    <item msgid="3172669681920709561">"24 amahora"</item>
+    <item msgid="5557836606782821910">"2 izinsuku"</item>
+    <item msgid="8336577387266744930">"1 iviki"</item>
+  </string-array>
   <string-array name="preferences_week_start_day_labels">
     <item msgid="986150274035512339">"Okuzenzakalelayo kwezici zakhona"</item>
     <item msgid="134027225275475280">"Umgqibelo"</item>
@@ -128,7 +166,7 @@
     <item msgid="7564374178324652137">"okokugcina"</item>
   </string-array>
   <string-array name="response_labels1">
-    <!-- outdated translation 3654955385120106241 -->     <item msgid="5605392595848194997">"(Ayikho impendulo)"</item>
+    <item msgid="5605392595848194997">"Ayikho impendulo"</item>
     <item msgid="3724434080904437698">"Yebo"</item>
     <item msgid="8854145743148992583">"Mhlawumbe"</item>
     <item msgid="6174292185978948873">"Cha"</item>
@@ -146,8 +184,10 @@
     <item msgid="2012815396992847028">"Kulesi simo kuphela"</item>
     <item msgid="140670561403965380">"Zonke izenzakalo ochungechungeni"</item>
   </string-array>
-    <!-- no translation found for buttons_list:0 (5917946202321434335) -->
-    <!-- no translation found for buttons_list:1 (6248480754959562740) -->
-    <!-- no translation found for buttons_list:2 (4298472806133153766) -->
-    <!-- no translation found for buttons_list:3 (5033084974413793845) -->
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"Usuku"</item>
+    <item msgid="6248480754959562740">"Iviki"</item>
+    <item msgid="4298472806133153766">"Inyanga"</item>
+    <item msgid="5033084974413793845">"Ajenda"</item>
+  </string-array>
 </resources>

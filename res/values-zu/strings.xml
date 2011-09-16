@@ -16,14 +16,10 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- no translation found for app_label (5452708708398908131) -->
-    <skip />
-    <!-- no translation found for what_label (1933578391985810049) -->
-    <skip />
-    <!-- no translation found for where_label (3472482206065595118) -->
-    <skip />
-    <!-- no translation found for when_label (894636567327261599) -->
-    <skip />
+    <string name="app_label" msgid="5452708708398908131">"Ikhalenda"</string>
+    <string name="what_label" msgid="1933578391985810049">"Ini"</string>
+    <string name="where_label" msgid="3472482206065595118">"Kuphi"</string>
+    <string name="when_label" msgid="894636567327261599">"Nini"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Indawo yesikhathi"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Abavakashi"</string>
     <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
@@ -45,7 +41,9 @@
     <item quantity="one" msgid="5988137255732166573">"Usuku olungu-1"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> izinsuku"</item>
   </plurals>
-    <!-- no translation found for weekN:other (8085184869561028365) -->
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"IVIKI <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Qala kabusha"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Bonisa usuku"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Ajenda"</string>
@@ -58,81 +56,56 @@
     <string name="event_delete" msgid="2386667193277770442">"Susa isenzakalo"</string>
     <string name="goto_today" msgid="9162136434410891230">"Namhlanje"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Izilungiselelo"</string>
-    <!-- no translation found for menu_select_visible_calendars (735670432781741817) -->
-    <skip />
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Amakhalenda azoboniswa"</string>
     <string name="search" msgid="550656004486017426">"Sesha"</string>
-    <!-- no translation found for hide_controls (830320505938520882) -->
-    <skip />
-    <!-- no translation found for show_controls (715520586028062621) -->
-    <skip />
-    <!-- no translation found for select_visible_calendars_title (5285053789530752843) -->
-    <skip />
+    <string name="hide_controls" msgid="830320505938520882">"Fihla okulawulayo"</string>
+    <string name="show_controls" msgid="715520586028062621">"Bonisa wezilawuli"</string>
+    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Amakhalenda Azoboniswa"</string>
     <string name="synced" msgid="7913940305983383493">"kuvumelanisiwe"</string>
     <string name="not_synced" msgid="4275114941801829419">"akuvumelanisiwe"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Le-akhawunti ayivumelaniswa futhi amakhalenda akho kungenzeka awekho esikhathini."</string>
     <string name="accounts" msgid="849401841083180306">"Ama-akhawunti &amp; vumelanisa"</string>
-    <!-- no translation found for select_synced_calendars_title (7122363881046468658) -->
-    <skip />
-    <!-- no translation found for select_synced_calendars_button (8890542984949996251) -->
-    <skip />
+    <string name="select_synced_calendars_title" msgid="7122363881046468658">"Amakhalenda azovumelaniswa"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Amakhalenda azovumelaniswa"</string>
     <string name="hint_what" msgid="709155115005044531">"Igama lesenzakalo"</string>
-    <!-- outdated translation 3116239630502213241 -->     <string name="hint_where" msgid="4972598001033801974">"Indawo yesenzakalo"</string>
-    <!-- outdated translation 4198202812240544553 -->     <string name="hint_description" msgid="1910143586169033232">"Incazelo yesenzakalo"</string>
-    <!-- outdated translation 6367757073203911244 -->     <string name="hint_attendees" msgid="1650488163176888480">"Faka amakheli e-imeyli"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Indawo"</string>
+    <string name="hint_description" msgid="1910143586169033232">"Incazelo"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Abavakashi"</string>
     <string name="creating_event" msgid="5252306542761552414">"Isenzakalo senziwe"</string>
     <string name="saving_event" msgid="7716081507367732169">"Isenzakalo sigciniwe"</string>
     <string name="empty_event" msgid="757898251276814787">"Isenzakalo esingenalutho asenziwanga"</string>
-    <!-- no translation found for creating_event_with_guest (608830786504021732) -->
-    <skip />
-    <!-- no translation found for saving_event_with_guest (6177245412801310483) -->
-    <skip />
+    <string name="creating_event_with_guest" msgid="608830786504021732">"Izimemo zithunyelwe"</string>
+    <string name="saving_event_with_guest" msgid="6177245412801310483">"Buyekeza okuthunyelwe"</string>
     <string name="alert_title" msgid="7869592820853066853">"Izaziso zekhalenda"</string>
-    <!-- no translation found for event_info_title (56024222340421620) -->
-    <skip />
-    <!-- no translation found for event_info_title_invite (9160326363769403865) -->
-    <skip />
-    <!-- no translation found for edit_event_to_label (795012981218062421) -->
-    <skip />
-    <!-- no translation found for edit_event_from_label (174999102612666115) -->
-    <skip />
-    <!-- no translation found for edit_event_all_day_label (6200181113992136073) -->
-    <skip />
-    <!-- no translation found for edit_event_calendar_label (4556498359505856900) -->
-    <skip />
+    <string name="event_info_title" msgid="56024222340421620">"Buka isenzakalo"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Isimemo somhlangano"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Kuya ku"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Ivela ku"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Usuku Lonke"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Ikhalenda"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Bonisa konke"</string>
-    <!-- no translation found for description_label (7193475046717505855) -->
-    <skip />
+    <string name="description_label" msgid="7193475046717505855">"Incazelo"</string>
     <string name="presence_label" msgid="6169724148441175862">"Ngibonise njengo"</string>
-    <!-- no translation found for privacy_label (9215031965259597335) -->
-    <skip />
-    <!-- no translation found for reminders_label (7292389181815525676) -->
-    <skip />
+    <string name="privacy_label" msgid="9215031965259597335">"Okwangasese"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Faka isikhumbuzi"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Awekho amakhalenda"</string>
-    <!-- outdated translation 5354626435783289467 -->     <string name="no_calendars_found" msgid="4265845606733761102">"Ngaphambi kokuba ufake isenzakalo, kumele ufake okungenani i-akhawunti eyodwa yedivaysi. Thinta \"Faka i-akhawunti\" ukufaka i-akhawunti. Noma uma usanda kufaka i-akhawunti, ilinde iqede ukuvumelanisa bese uzama futhi."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Ngaphambi kokuba wengeze isenzakalo, kumelwe wengeze okungenani i-akhawunti ye-Calendar kudivayisi bese wenza ikhlenda ibonakale. Thinta \"Engeza i-akhawunti\" ukwengeza i-akhawunti (uma usanda kwengeza i-akhawunti, iyimele ukuba iqede ukuvumelanisa bese uzama futhi), Noma thinta Isikhanselo bese uqinisekisa ukuthi okungenani ikhalenda eyodwa iyabonakala."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Ikhalenda isebenza kangcono nge-akhawunti yakwa-Google. I-akhawunti."\n\n"• Finyelela kuyo usebenzisa noma iluphi uhlobo lwesiphequluli sewebhu "\n"• Londoloza izinhlelo zakho ngokuphephile"</string>
     <string name="add_account" msgid="1669072099756774952">"Faka i-akhawunti"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Yengeza izivakashi"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Ikhalenda:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Umdidiyeli:"</string>
-    <!-- no translation found for view_event_response_label (8382281658458798329) -->
-    <skip />
+    <string name="view_event_response_label" msgid="8382281658458798329">"Uyahlanganyela?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Yebo"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Mhlawumbe"</string>
     <string name="response_no" msgid="561911691884148136">"Cha"</string>
-    <!-- no translation found for event_info_organizer (9138683335394832629) -->
-    <skip />
-    <!-- no translation found for event_info_desc_more (2961880675118098743) -->
-    <skip />
-    <!-- no translation found for event_info_desc_less (8295683160345195225) -->
-    <skip />
-    <!-- no translation found for event_info_reminders_label (8913097552956388972) -->
-    <skip />
-    <!-- no translation found for agenda_today (5965841338467422191) -->
-    <skip />
-    <!-- no translation found for agenda_yesterday (4170964206728599693) -->
-    <skip />
-    <!-- no translation found for agenda_tomorrow (3893625470780723605) -->
-    <skip />
+    <string name="event_info_organizer" msgid="9138683335394832629">"Umhleli:"</string>
+    <string name="event_info_desc_more" msgid="2961880675118098743">"Okungaphezulu"</string>
+    <string name="event_info_desc_less" msgid="8295683160345195225">"Okungaphansi"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Izikhumbuzi"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"NAMHLANJE, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"IZOLO, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"KUSASA, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Iyalayisha..."</string>
     <string name="show_older_events" msgid="5140647493681439926">"Thinta ukubuka izenzakalo ngaphambi <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Thinta ukubona izenzakalo emuva <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
@@ -147,8 +120,7 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"Snuza konke"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Cashisa konke"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Isenzakalo sesikhathi esisodwa"</string>
-    <!-- no translation found for daily (560350706808680448) -->
-    <skip />
+    <string name="daily" msgid="560350706808680448">"Nsuku zonke"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Njalo phakathi nesonto (Msom-Lwes)"</string>
     <string name="weekly" msgid="2006107373119027114">"Maviki wonke (njalo <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
     <string name="monthly_on_day_count" msgid="6847991854413461795">"Zinyanga zonke (njalo <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
@@ -158,29 +130,20 @@
     <string name="yearly" msgid="8576208380302949002">"Minyaka yonke (ngezi-<xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom" product="tablet" msgid="3784569535926286624">"Ngokwezifiso... (ayikwazi ukwenza ngendlela oyifisayo kwithebhulethi)"</string>
     <string name="custom" product="default" msgid="3015205670911301856">"Ngokwezifiso... (ayikwazi ukwenza ngendlela oyifisayo efonini)"</string>
-    <!-- no translation found for modify_event (4501745557655992422) -->
-    <skip />
-    <!-- no translation found for modify_all (7506579040966638538) -->
-    <skip />
-    <!-- no translation found for modify_all_following (4333745734894639276) -->
-    <skip />
-    <!-- no translation found for new_event_dialog_label (7553105224561147916) -->
-    <skip />
-    <!-- no translation found for new_event_dialog_option (6154657379574669371) -->
-    <skip />
-    <!-- no translation found for delete_this_event_title (8738491083082780492) -->
-    <skip />
-    <!-- no translation found for delete_title (5143743507524995383) -->
-    <skip />
+    <string name="modify_event" msgid="4501745557655992422">"Shintsha kuphela lesi senzakalo."</string>
+    <string name="modify_all" msgid="7506579040966638538">"Shintsha zonke izenzakalo ochungechungeni."</string>
+    <string name="modify_all_following" msgid="4333745734894639276">"Shintsha lokhu nazo zonke izenzakalo zesikhathi esizayo."</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Isenzakalo esisha"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Isenzakalo esisha"</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"Lesi senzakalo sizosuswa."</string>
+    <string name="delete_title" msgid="5143743507524995383">"Susa"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Shintsha impendulo"</string>
     <string name="menu_general_preferences" msgid="4057784477122524106">"Izintandokazi Ezivamile"</string>
     <string name="menu_about_preferences" msgid="160474554936812478">"Mayelana nekhalenda"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Izilungiselelo"</string>
-    <!-- no translation found for preferences_general_title (2069075513760573117) -->
-    <skip />
+    <string name="preferences_general_title" msgid="2069075513760573117">"Ilungiselelo lokubuka ikhalenda"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Izilungiselelo Zesikhumbuzi"</string>
-    <!-- no translation found for preferences_hide_declined_title (1849295943669890034) -->
-    <skip />
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Fihla izenzakalo ezinqabelwe"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Iviki liqala ngezi"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Iviki liqala ngezi"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Sula umlando wokusesha"</string>
@@ -189,13 +152,11 @@
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Izaziso"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Dlidliza"</string>
     <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">" Iyadlidliza uma kungena izikhumbuzi"</string>
-    <!-- no translation found for preferences_alerts_ringtone_title (7565118268120729644) -->
-    <skip />
+    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Khetha iringithoni"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Isaziso esiqhamukayo"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Isikhathi sesikhumbuzi esizenzakalelayo"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Isikhathi sesikhumbuzi esizenzakalelayo"</string>
-    <!-- no translation found for preferences_default_reminder_default (2903884416749959435) -->
-    <skip />
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Sebenzisa umkhawulo wesikhathi sasekhaya"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Ibonisa amakhalenda nezikhathi zezenzakalo kumkhawulo wakho wasekhaya lapho uhamba"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Umkhawulo wesikhathi sasekhaya"</string>
@@ -215,41 +176,23 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Azikho izenzakalo zekhalenda ezizayo"</string>
     <string name="tomorrow" msgid="614434811813859237">"Kusasa"</string>
-    <!-- no translation found for copy_db (437691290566699292) -->
-    <skip />
+    <string name="copy_db" msgid="437691290566699292">"Thumela imininingo egciniwe"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Iyasesha...<xliff:g id="DOMAIN">%s</xliff:g>"</string>
-    <!-- no translation found for accessibility_remove_attendee (7082751172654698863) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_date (3926641487042699037) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_start_time (4913428100936555149) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_date (5624250196618643922) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_end_time (7120310166355224941) -->
-    <skip />
-    <!-- no translation found for accessibility_pick_time_zone (7155465783500323811) -->
-    <skip />
-    <!-- no translation found for accessibility_add_reminder (2267950744060950152) -->
-    <skip />
-    <!-- no translation found for accessibility_remove_reminder (5261609343259665139) -->
-    <skip />
-    <!-- no translation found for accessibility_add_attendee (5654014177472600916) -->
-    <skip />
-    <!-- no translation found for accessibility_sync_cal (6506181885764723383) -->
-    <skip />
-    <!-- no translation found for accessibility_all_day (4146955438811915282) -->
-    <skip />
-    <!-- no translation found for accessibility_repeats (1629279916830919582) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_time (3594100545814579575) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_type (5339120699701437227) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_showmeas (6669129015980006570) -->
-    <skip />
-    <!-- no translation found for accessibility_reminder_privacy (8669288484484022771) -->
-    <skip />
-    <!-- no translation found for template_announce_item_index (4067877800670753110) -->
-    <skip />
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Susa abaphelekezeli"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Qala idethi"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Qalisa iskhathi"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Idethi yokugcina"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Isikhathi Sokugcina"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Indawo yesikhathi"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Faka isikhumbuzi"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Khipha isikhumbuzi"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Engeza umphelezeli"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Vumelanisa ikhalenda"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Isenzakalo sosuku lonke"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Impinda"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Isikhathi sesikhumbuzi"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Uhlobo lwesikhumbuzi"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Ngibonise njengo"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Ubumfihlo"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"Isenzakalo <xliff:g id="ITEM_INDEX">%1$s</xliff:g> se <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
 </resources>
