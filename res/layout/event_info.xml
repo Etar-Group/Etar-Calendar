@@ -100,7 +100,7 @@
                 android:id="@+id/when_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dip"
+                android:layout_marginTop="-3dip"
                 android:textSize="14sp"
                 android:textColor="@color/event_info_headline_color"
                 style="?android:attr/textAppearanceLarge" />
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="false"
-                android:layout_marginTop="-3dip"
+                android:layout_marginTop="4dip"
                 android:textSize="14sp"
                 android:textColor="@color/event_info_headline_color"
                 android:textColorLink="@color/event_info_headline_link_color"
