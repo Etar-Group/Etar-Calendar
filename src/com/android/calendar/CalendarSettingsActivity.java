@@ -21,7 +21,6 @@ import android.accounts.AccountManager;
 import android.app.ActionBar;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceActivity;
@@ -75,12 +74,7 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent launchIntent = new Intent(this, AllInOneActivity.class);
-                launchIntent.setAction(Intent.ACTION_VIEW);
-                launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
-                launchIntent.setFlags(
-                        Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(launchIntent);
+                Utils.returnToCalendarHome(this);
                 return true;
             case R.id.action_add_account:
                 Intent nextIntent = new Intent(Settings.ACTION_ADD_ACCOUNT);

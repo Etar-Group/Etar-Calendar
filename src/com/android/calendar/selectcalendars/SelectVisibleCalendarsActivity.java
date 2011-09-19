@@ -16,13 +16,17 @@
 
 package com.android.calendar.selectcalendars;
 
+import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
     private SelectVisibleCalendarsFragment mFragment;
@@ -53,5 +57,22 @@ public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
         intent.setClass(this, SelectSyncedCalendarsMultiAccountActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getActionBar()
+                .setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Utils.returnToCalendarHome(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

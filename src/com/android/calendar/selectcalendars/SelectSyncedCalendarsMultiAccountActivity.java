@@ -19,12 +19,15 @@ package com.android.calendar.selectcalendars;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
+import android.app.ActionBar;
 import android.app.ExpandableListActivity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.provider.CalendarContract.Calendars;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 
@@ -136,6 +139,23 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getActionBar()
+                .setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Utils.returnToCalendarHome(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // startCalendarMetafeedSync() checks the server for an updated list of
