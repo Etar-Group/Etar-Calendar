@@ -28,6 +28,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 public class EventInfoActivity extends Activity {
 //        implements CalendarController.EventHandler, SearchView.OnQueryTextListener,
@@ -43,10 +45,6 @@ public class EventInfoActivity extends Activity {
         super.onCreate(icicle);
 
         setContentView(R.layout.simple_frame_layout);
-
-        // Make sure the home button is visible
-        getActionBar().setDisplayOptions(
-                ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
 
         // Get the fragment if exists
         mInfoFragment = (EventInfoFragment)
@@ -82,7 +80,7 @@ public class EventInfoActivity extends Activity {
         // Remove the application title
         ActionBar bar = getActionBar();
         if (bar != null) {
-            bar.setDisplayOptions (0, ActionBar.DISPLAY_SHOW_TITLE);
+            bar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME);
         }
 
         // Create a new fragment if none exists
