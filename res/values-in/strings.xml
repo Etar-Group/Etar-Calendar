@@ -176,7 +176,7 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Tidak ada acara kalender yang akan datang"</string>
     <string name="tomorrow" msgid="614434811813859237">"Besok"</string>
-    <string name="copy_db" msgid="437691290566699292">"Kirim database"</string>
+    <string name="copy_db" msgid="437691290566699292">"Kirim basis data"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Menelusuri <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Hapus tamu"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Tanggal mulai"</string>

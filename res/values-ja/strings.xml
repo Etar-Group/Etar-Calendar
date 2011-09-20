@@ -90,8 +90,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"通知を追加"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"カレンダーがありません"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"予定を追加するには、端末にカレンダーアカウントを追加してカレンダーを表示できるようにする必要があります。アカウントを追加するには[アカウントを追加]をタップします（アカウントを追加したばかりの場合は同期の完了を待って再試行してください）。または[キャンセル]をタップして、カレンダーが表示できるかどうかを確認してください。"</string>
-    <!-- no translation found for create_an_account_desc (7249605109240576895) -->
-    <skip />
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Googleアカウントがあればカレンダーをもっと活用できます。"\n\n"• どのウェブブラウザからもアクセスできます"\n"• 予定を安全にバックアップできます"</string>
     <string name="add_account" msgid="1669072099756774952">"アカウントを追加"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"ゲストを追加"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"カレンダー:"</string>
