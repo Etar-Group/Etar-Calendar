@@ -176,7 +176,7 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Hakuna matukio ya kalenda yatakayofanyika hivi karibuni"</string>
     <string name="tomorrow" msgid="614434811813859237">"Kesho"</string>
-    <string name="copy_db" msgid="437691290566699292">"Teua programu ya kutuma faili yako"</string>
+    <string name="copy_db" msgid="437691290566699292">"Tuma hifadhidata"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Inatafuta <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Ondoa mhudhuriaji"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Tarehe ya kuanza"</string>
