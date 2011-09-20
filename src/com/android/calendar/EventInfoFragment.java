@@ -32,6 +32,7 @@ import com.android.calendar.event.EventViewUtils;
 import com.android.i18n.phonenumbers.PhoneNumberMatch;
 import com.android.i18n.phonenumbers.PhoneNumberUtil;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -795,13 +796,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent launchIntent = new Intent();
-                launchIntent.setAction(Intent.ACTION_VIEW);
-                launchIntent.setData(Uri.parse(CalendarContract.CONTENT_URI + "/time"));
-                launchIntent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-                        | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                launchIntent.setClass(mActivity, AllInOneActivity.class);
-                startActivity(launchIntent);
+                Utils.returnToCalendarHome(mContext);
                 mActivity.finish();
                 return true;
             case R.id.info_action_edit:
