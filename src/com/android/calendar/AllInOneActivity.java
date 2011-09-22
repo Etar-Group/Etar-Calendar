@@ -245,7 +245,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
     @Override
     protected void onNewIntent(Intent intent) {
         String action = intent.getAction();
-        if (Intent.ACTION_VIEW.equals(action)) {
+        if (DEBUG)
+            Log.d(TAG, "New intent received " + intent.toString());
+        // Don't change the date if we're just returning to the app's home
+        if (Intent.ACTION_VIEW.equals(action)
+                && !intent.getBooleanExtra(Utils.INTENT_KEY_HOME, false)) {
             long millis = parseViewAction(intent);
             if (millis == -1) {
                 millis = Utils.timeFromIntentInMillis(intent);
