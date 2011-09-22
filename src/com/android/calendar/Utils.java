@@ -77,6 +77,7 @@ public class Utils {
     public static final String INTENT_KEY_DETAIL_VIEW = "DETAIL_VIEW";
     public static final String INTENT_KEY_VIEW_TYPE = "VIEW";
     public static final String INTENT_VALUE_VIEW_TYPE_DAY = "DAY";
+    public static final String INTENT_KEY_HOME = "KEY_HOME";
 
     public static final int MONDAY_BEFORE_JULIAN_EPOCH = Time.EPOCH_JULIAN_DAY - 3;
 
@@ -1017,9 +1018,9 @@ public class Utils {
      */
     public static void returnToCalendarHome(Context context) {
         Intent launchIntent = new Intent(context, AllInOneActivity.class);
-        launchIntent.setAction(Intent.ACTION_VIEW);
-        launchIntent.setData(Uri.parse("content://com.android.calendar/time"));
+        launchIntent.setAction(Intent.ACTION_DEFAULT);
         launchIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        launchIntent.putExtra(INTENT_KEY_HOME, true);
         context.startActivity(launchIntent);
     }
 
