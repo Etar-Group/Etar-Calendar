@@ -2151,7 +2151,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             canvas.drawRect(r, p);
         }
 
-        if (mSelectionAllday) {
+        if (mSelectionAllday && mSelectionMode != SELECTION_HIDDEN) {
             // Draw the selection highlight on the selected all-day area
             mRect.top = DAY_HEADER_HEIGHT + 1;
             mRect.bottom = mRect.top + mAlldayHeight + ALLDAY_TOP_MARGIN - 2;
@@ -3617,7 +3617,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             return;
         }
 
-        boolean hasSelection = mSelectionMode == SELECTION_SELECTED;
+        boolean hasSelection = mSelectionMode != SELECTION_HIDDEN;
         boolean pressedSelected = (hasSelection || mTouchExplorationEnabled)
                 && selectedDay == mSelectionDay && selectedHour == mSelectionHour;
 
