@@ -89,7 +89,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"ብሕትውነት"</string>
     <string name="reminders_label" msgid="7292389181815525676">"ማስታወሻ አክል"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"ምንም ቀንመቁጠሪያ ዎች የለዎትም"</string>
-    <string name="no_calendars_found" msgid="4265845606733761102">"ክስተት ከማከልዎ በፊት፣ቢያንስ አንድ የቀንመቁጠሪያ መለያ ወደ መሣሪያዎ ማከል እና የቀን መቁጠሪያውን እንዲታይ ማድረግ አለብዎ። መለያ ለማከል \"መለያ አክል\" ይንኩ(መለያውን ካከሉ፣አሳምርእስኪጨርስ ይጠብቁ እና እንደገና ይሞክሩ)። ወይም ይቅር ይንኩ እናቢያንስ አንድ የቀን መቁጠሪያ መታየቱን ያረጋግጡ።"</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"ክስተት ከማከልዎ በፊት፣ቢያንስ አንድ የቀንመቁጠሪያ መለያ ወደ መሣሪያዎ ማከል እና የቀን መቁጠሪያውን እንዲታይ ማድረግ አለብዎ። መለያ ለማከል \"መለያ አክል\" ይንኩ(መለያውን ካከሉ፣ አሳምርእስኪጨርስ ይጠብቁ እና እንደገና ይሞክሩ)። ወይም ይቅር ይንኩ እናቢያንስ አንድ የቀን መቁጠሪያ መታየቱን ያረጋግጡ።"</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"የቀን መቁጠሪያዎች በGoogle መለያ የተሻለ ይሰራሉ።"\n\n"• ከማንኛውም የድረ ማሰሻ ላይ ይድረሱበት።"\n"• ዝግጅቶችዎን በደንብ ያስጠብቁ"</string>
     <string name="add_account" msgid="1669072099756774952">"መለያ አክል"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"እንግዶች አክል"</string>
@@ -131,7 +131,7 @@
     <string name="custom" product="tablet" msgid="3784569535926286624">"ብጁ....(ጡባዊ ላይ ማበጀት አይቻልም)"</string>
     <string name="custom" product="default" msgid="3015205670911301856">"ብጁ....(ስልክ ላይ ማበጀት አይቻልም)"</string>
     <string name="modify_event" msgid="4501745557655992422">"ይህን ክስተት ብቻ ለውጥ።"</string>
-    <string name="modify_all" msgid="7506579040966638538">"በተከታታይውስጥ ያሉ ክስተቶችን ለውጥ።"</string>
+    <string name="modify_all" msgid="7506579040966638538">"በተከታታይ ውስጥ ያሉ ክስተቶችን ለውጥ።"</string>
     <string name="modify_all_following" msgid="4333745734894639276">"ይህን እና ሁሉንም የወደፊት ክስተቶች ለውጥ።"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"አዲስ ክስተት"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"አዲስ ክስተት"</string>
