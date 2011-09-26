@@ -44,7 +44,7 @@
 
     <color name="calendar_date_banner_text_color">#ff666666</color>
 
-    <color name="calendar_grid_area_selected">#E033b5e5</color>
+    <color name="calendar_grid_area_selected">#9933b5e5</color>
 
 
     <color name="calendar_grid_line_inner_horizontal_color">#FFCCCCCC</color>

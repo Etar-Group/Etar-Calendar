@@ -295,7 +295,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int HOURS_RIGHT_MARGIN = 4;
     private static int HOURS_MARGIN = HOURS_LEFT_MARGIN + HOURS_RIGHT_MARGIN;
     private static int NEW_EVENT_MARGIN = 4;
-    private static int NEW_EVENT_WIDTH = 5;
+    private static int NEW_EVENT_WIDTH = 2;
     private static int NEW_EVENT_MAX_LENGTH = 16;
 
     private static int CURRENT_TIME_LINE_HEIGHT = 2;
