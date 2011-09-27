@@ -212,28 +212,31 @@
                 android:orientation="horizontal">
                 <RadioButton
                     android:id="@+id/response_yes"
-                    android:layout_width="0dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:minWidth="96dip"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:textColor="@color/event_info_body_color"
                     android:text="@string/response_yes" />
                 <RadioButton
                     android:id="@+id/response_maybe"
-                    android:layout_width="0dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:minWidth="96dip"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:textColor="@color/event_info_body_color"
                     android:text="@string/response_maybe" />
                 <RadioButton
                     android:id="@+id/response_no"
-                    android:layout_width="0dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:minWidth="96dip"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:textColor="@color/event_info_body_color"
                     android:text="@string/response_no" />
