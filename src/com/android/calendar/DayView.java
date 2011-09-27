@@ -349,6 +349,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // sizing for "box +n" in allDay events
     private static int EVENT_SQUARE_WIDTH = 10;
     private static int EVENT_LINE_PADDING = 4;
+    private static int NEW_EVENT_HINT_FONT_SIZE = 12;
 
     private static int mPressedColor;
     private static int mEventTextColor;
@@ -363,6 +364,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int mCalendarGridLineInnerVerticalColor;
     private static int mFutureBgColor;
     private static int mBgColor;
+    private static int mNewEventHintColor;
     private static int mCalendarHourLabelColor;
     private static int mMoreAlldayEventsTextAlpha = MORE_EVENTS_MAX_ALPHA;
 
@@ -542,6 +544,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private boolean mIsAccessibilityEnabled = false;
     private boolean mTouchExplorationEnabled = false;
     private String mCreateNewEventString;
+    private String mNewEventHintString;
 
     public DayView(Context context, CalendarController controller,
             ViewSwitcher viewSwitcher, EventLoader eventLoader, int numDays) {
@@ -551,6 +554,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         mResources = context.getResources();
         mCreateNewEventString = mResources.getString(R.string.event_create);
+        mNewEventHintString = mResources.getString(R.string.day_view_new_event_hint);
 
         DATE_HEADER_FONT_SIZE = (int) mResources.getDimension(R.dimen.date_header_text_size);
         DAY_HEADER_FONT_SIZE = (int) mResources.getDimension(R.dimen.day_label_text_size);
@@ -564,6 +568,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         HOURS_RIGHT_MARGIN = (int) mResources.getDimension(R.dimen.hours_right_margin);
         MULTI_DAY_HEADER_HEIGHT = (int) mResources.getDimension(R.dimen.day_header_height);
         EVENT_TEXT_FONT_SIZE = (int) mResources.getDimension(R.dimen.event_text_size);
+        NEW_EVENT_HINT_FONT_SIZE = (int) mResources.getDimension(R.dimen.new_event_hint_text_size);
         MIN_EVENT_HEIGHT = mResources.getDimension(R.dimen.event_min_height);
         MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT = MIN_EVENT_HEIGHT;
         EVENT_TEXT_TOP_MARGIN = (int) mResources.getDimension(R.dimen.event_text_vertical_margin);
@@ -627,6 +632,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mTodayHeaderDrawable = mResources.getDrawable(R.drawable.today_blue_week_holo_light);
         mExpandAlldayDrawable = mResources.getDrawable(R.drawable.ic_allday_expand_holo_light);
         mCollapseAlldayDrawable = mResources.getDrawable(R.drawable.ic_allday_collapse_holo_light);
+        mNewEventHintColor =  mResources.getColor(R.color.new_event_hint_text_color);
         mAcceptedOrTentativeEventBoxDrawable = mResources
                 .getDrawable(R.drawable.panel_month_event_holo_light);
 
@@ -2304,18 +2310,29 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             p.setAntiAlias(false);
             canvas.drawRect(r, p);
 
-            // Draw a + on top of the highlight
-            int width = r.right - r.left;
-            int midX = r.left + width / 2;
-            int midY = r.top + mCellHeight / 2;
-            int length = Math.min(mCellHeight, width) - NEW_EVENT_MARGIN * 2;
-            length = Math.min(length, NEW_EVENT_MAX_LENGTH);
-            int verticalPadding = (mCellHeight - length) / 2;
-            int horizontalPadding = (width - length) / 2;
-            p.setStrokeWidth(NEW_EVENT_WIDTH);
-            p.setColor(0xFFFFFFFF);
-            canvas.drawLine(r.left + horizontalPadding, midY, r.right - horizontalPadding, midY, p);
-            canvas.drawLine(midX, r.top + verticalPadding, midX, r.bottom - verticalPadding, p);
+            // Draw a "new event hint" on top of the highlight
+            // For the week view, show a "+", for day view, show "+ New event"
+            p.setColor(mNewEventHintColor);
+            if (mNumDays > 1) {
+                p.setStrokeWidth(NEW_EVENT_WIDTH);
+                int width = r.right - r.left;
+                int midX = r.left + width / 2;
+                int midY = r.top + mCellHeight / 2;
+                int length = Math.min(mCellHeight, width) - NEW_EVENT_MARGIN * 2;
+                length = Math.min(length, NEW_EVENT_MAX_LENGTH);
+                int verticalPadding = (mCellHeight - length) / 2;
+                int horizontalPadding = (width - length) / 2;
+                canvas.drawLine(r.left + horizontalPadding, midY, r.right - horizontalPadding,
+                        midY, p);
+                canvas.drawLine(midX, r.top + verticalPadding, midX, r.bottom - verticalPadding, p);
+            } else {
+                p.setStyle(Paint.Style.FILL);
+                p.setTextSize(NEW_EVENT_HINT_FONT_SIZE);
+                p.setTextAlign(Paint.Align.LEFT);
+                p.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                canvas.drawText(mNewEventHintString, r.left + EVENT_TEXT_LEFT_MARGIN,
+                        r.top + Math.abs(p.getFontMetrics().ascent) + EVENT_TEXT_TOP_MARGIN , p);
+            }
         }
     }
 
