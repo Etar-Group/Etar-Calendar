@@ -42,12 +42,14 @@
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:paddingLeft="16dip"
-            android:layout_height="42dip">
+            android:layout_height="wrap_content"
+            android:minHeight="42dip">
             <TextView
                 android:id="@+id/date"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:textSize="24sp"
+                android:singleLine="true"
                 android:textColor="@color/agenda_day_item_text_color" />
             <TextView
                 android:id="@+id/day"
@@ -55,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="8dip"
                 android:textSize="14sp"
+                android:singleLine="true"
                 android:textColor="@color/agenda_day_item_text_color" />
         </LinearLayout>
     </LinearLayout>
