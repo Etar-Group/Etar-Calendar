@@ -434,6 +434,5 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     public void onPause() {
         resetMidnightUpdater();
         resetPastEventsUpdater();
-        mWindowAdapter.notifyDataSetInvalidated();
     }
 }
