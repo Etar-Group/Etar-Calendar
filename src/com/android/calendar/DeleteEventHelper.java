@@ -25,13 +25,18 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
 import android.text.format.Time;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A helper class for deleting events.  If a normal event is selected for
@@ -78,6 +83,7 @@ public class DeleteEventHelper {
     public static final int DELETE_ALL = 2;
 
     private int mWhichDelete;
+    private ArrayList<Integer> mWhichIndex;
     private AlertDialog mAlertDialog;
 
     private String mSyncId;
@@ -152,7 +158,8 @@ public class DeleteEventHelper {
     private DialogInterface.OnClickListener mDeleteListListener =
             new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int button) {
-            mWhichDelete = button;
+            // set mWhichDelete to the delete type at that index
+            mWhichDelete = mWhichIndex.get(button);
 
             // Enable the "ok" button now that the user has selected which
             // events in the series to delete.
@@ -268,17 +275,40 @@ public class DeleteEventHelper {
         } else {
             // This is a repeating event.  Pop up a dialog asking which events
             // to delete.
-            int labelsArrayId = R.array.delete_repeating_labels;
-            if (mSyncId == null) {
-                labelsArrayId = R.array.delete_repeating_labels_no_selected;
-                if (which > 0) {
-                    which--;
-                    mWhichDelete--;
-                }
+            Resources res = mContext.getResources();
+            ArrayList<String> labelArray = new ArrayList<String>(Arrays.asList(res
+                    .getStringArray(R.array.delete_repeating_labels)));
+            // asList doesn't like int[] so creating it manually.
+            int[] labelValues = res.getIntArray(R.array.delete_repeating_values);
+            ArrayList<Integer> labelIndex = new ArrayList<Integer>();
+            for (int val : labelValues) {
+                labelIndex.add(val);
             }
+
+            if (mSyncId == null) {
+                // remove 'Only this event' item
+                labelArray.remove(0);
+                labelIndex.remove(0);
+                if (!model.mIsOrganizer) {
+                    // remove 'This and future events' item
+                    labelArray.remove(0);
+                    labelIndex.remove(0);
+                }
+            } else if (!model.mIsOrganizer) {
+                // remove 'This and future events' item
+                labelArray.remove(1);
+                labelIndex.remove(1);
+            }
+            if (which != -1) {
+                // transform the which to the index in the array
+                which = labelIndex.indexOf(which);
+            }
+            mWhichIndex = labelIndex;
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
+                    android.R.layout.simple_list_item_single_choice, labelArray);
             AlertDialog dialog = new AlertDialog.Builder(mContext).setTitle(R.string.delete_title)
                     .setIconAttribute(android.R.attr.alertDialogIcon)
-                    .setSingleChoiceItems(labelsArrayId, which, mDeleteListListener)
+                    .setSingleChoiceItems(adapter, which, mDeleteListListener)
                     .setPositiveButton(android.R.string.ok, mDeleteRepeatingDialogListener)
                     .setNegativeButton(android.R.string.cancel, null).show();
             mAlertDialog = dialog;
@@ -309,17 +339,6 @@ public class DeleteEventHelper {
         boolean allDay = mModel.mAllDay;
         long dtstart = mModel.mStart;
         long id = mModel.mId; // mCursor.getInt(mEventIndexId);
-
-        // If the repeating event has not been given a sync id from the server
-        // yet, then we can't delete a single instance of this event.  (This is
-        // a deficiency in the CalendarProvider and sync code.) We checked for
-        // that when creating the list of items in the dialog and we removed
-        // the first element ("DELETE_SELECTED") from the dialog in that case.
-        // The "which" value is a 0-based index into the list of items, where
-        // the "DELETE_SELECTED" item is at index 0.
-        if (mSyncId == null) {
-            which += 1;
-        }
 
         switch (which) {
             case DELETE_SELECTED: {
