@@ -17,10 +17,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/content"
-    android:layout_height="80dip"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:minHeight="?android:attr/listPreferredItemHeight">
+    android:minHeight="80dip">
     <View
         android:layout_height="1px"
         android:background="@color/agenda_list_separator_color"

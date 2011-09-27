@@ -28,10 +28,10 @@
         android:layout_width="match_parent" />
 
     <LinearLayout
-    android:layout_height="64dip"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:orientation="horizontal"
-    android:minHeight="?android:attr/listPreferredItemHeight">
+    android:minHeight="64dip">
         <com.android.calendar.ColorChipView
             android:id="@+id/agenda_item_color"
             android:layout_width="24dip"
