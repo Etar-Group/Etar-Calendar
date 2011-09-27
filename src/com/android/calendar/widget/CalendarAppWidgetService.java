@@ -360,8 +360,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             synchronized (mLock) {
                 mLastLock = ++mLock;
             }
-            mLoader.startLoading();
             mLoader.registerListener(mAppWidgetId, this);
+            mLoader.startLoading();
 
         }
 

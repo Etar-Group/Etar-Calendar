@@ -337,14 +337,24 @@
         <item>No</item>
     </string-array>
 
-
     <!-- The corresponding indices are defined in DeleteEventHelper.java -->
+    <!-- This is a list of choices displayed when the user deletes an event.
+         It only is shown when deleting a recurring event.
+    -->
     <skip/>
     <string-array name="delete_repeating_labels">
         <item>Only this event</item>
         <item>This &amp; future events</item>
         <item>All events</item>
     </string-array>
+
+    <!-- DO NOT TRANSLATE These values need to correspond to the indices
+         defined in DeleteEventHelper.java-->
+    <integer-array name="delete_repeating_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
 
     <!-- The corresponding indices are defined in DeleteEventHelper.java -->
     <!-- This is the same array as above (the "delete_repeating_labels" array,
