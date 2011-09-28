@@ -1554,7 +1554,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // This is only used for the Calendar spinner in new events, and only fires when the
-        // calendar selection changes.
+        // calendar selection changes or on screen rotation
         Cursor c = (Cursor) parent.getItemAtPosition(position);
         if (c == null) {
             // TODO: can this happen? should we drop this check?
@@ -1565,13 +1565,20 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         int color = c.getInt(colorColumn);
         int displayColor = Utils.getDisplayColorFromColor(color);
-        mModel.mCalendarColor = color;
         if (mIsMultipane) {
             mCalendarsSpinner.setBackgroundColor(displayColor);
         } else {
             mCalendarSelectorGroup.setBackgroundColor(displayColor);
         }
 
+        // Do nothing if the selection didn't change so that reminders will not get lost
+        int idColumn = c.getColumnIndexOrThrow(Calendars._ID);
+        long calendarId = c.getLong(idColumn);
+        if (calendarId == mModel.mCalendarId) {
+            return;
+        }
+        mModel.mCalendarId = calendarId;
+        mModel.mCalendarColor = color;
         // Update the max/allowed reminders with the new calendar properties.
         int maxRemindersColumn = c.getColumnIndexOrThrow(Calendars.MAX_REMINDERS);
         mModel.mCalendarMaxReminders = c.getInt(maxRemindersColumn);
