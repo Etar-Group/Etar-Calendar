@@ -438,7 +438,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
                 long offset = useSelected ? 0 : DateUtils.WEEK_IN_MILLIS * mNumWeeks / 3;
                 controller.setTime(newTime + offset);
             }
-            controller.sendEvent(this, EventType.UPDATE_TITLE, time, null, null, -1,
+            controller.sendEvent(this, EventType.UPDATE_TITLE, time, time, time, -1,
                     ViewType.CURRENT, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_MONTH_DAY
                             | DateUtils.FORMAT_SHOW_YEAR, null, null);
         }
