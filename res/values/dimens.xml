@@ -36,4 +36,5 @@
     <dimen name="widget_day_num_size">36sp</dimen>
     <dimen name="widget_day_num_top_padding">-4dip</dimen>
     <dimen name="action_bar_date_text_size">22sp</dimen>
+    <dimen name="new_event_hint_text_size">12sp</dimen>
 </resources>

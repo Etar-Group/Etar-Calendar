@@ -119,6 +119,8 @@
     <color name="agenda_selected_background_color">@android:color/holo_blue_dark</color>
     <!-- Background color of a selected items in the agenda list -->
     <color name="agenda_selected_text_color">#FFFFFFFF</color>
+    <!-- Text color of the "new event" hint in day and week views -->
+    <color name="new_event_hint_text_color">#FFFFFFFF</color>
 
 
     <!-- Event info colors -->
