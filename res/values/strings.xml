@@ -586,6 +586,9 @@
     <!-- Set the event as private/public/default [CHAR LIMIT = NONE]-->
     <string name="accessibility_reminder_privacy">Privacy</string>
 
+    <!-- A "new event" hint for the user when selecting a specific hour in the day view [CHAR LIMIT = 30]-->
+    <string name="day_view_new_event_hint">+ New event</string>
+
     <!--
       Source: A value for announcing the current event index (example: "Event 2 of 6").
       Description: This is spoken to the user. [CHAR LIMIT="NONE"]
