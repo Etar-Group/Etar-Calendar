@@ -27,12 +27,11 @@ import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
-import com.android.calendarcommon.EventRecurrence;
 import com.android.calendar.event.EventViewUtils;
+import com.android.calendarcommon.EventRecurrence;
 import com.android.i18n.phonenumbers.PhoneNumberMatch;
 import com.android.i18n.phonenumbers.PhoneNumberUtil;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -92,12 +91,13 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -107,8 +107,8 @@ import java.util.Collections;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Pattern;
 import java.util.TimeZone;
+import java.util.regex.Pattern;
 
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
@@ -281,6 +281,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public ArrayList<ReminderEntry> mReminders;
     public ArrayList<ReminderEntry> mOriginalReminders = new ArrayList<ReminderEntry>();
     public ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
+    private boolean mUserModifiedReminders = false;
 
     /**
      * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
@@ -297,8 +298,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private ArrayList<Integer> mReminderMethodValues;
     private ArrayList<String> mReminderMethodLabels;
 
-
-
     private QueryHandler mHandler;
 
     private Runnable mTZUpdater = new Runnable() {
@@ -307,6 +306,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             updateEvent(mView);
         }
     };
+
+    private OnItemSelectedListener mReminderChangeListener;
 
     private static int DIALOG_WIDTH = 500;
     private static int DIALOG_HEIGHT = 600;
@@ -464,6 +465,23 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mReminderChangeListener = new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Integer prevValue = (Integer) parent.getTag();
+                if (prevValue == null || prevValue != position) {
+                    parent.setTag(position);
+                    mUserModifiedReminders = true;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+
+        };
+
         if (savedInstanceState != null) {
             mIsDialog = savedInstanceState.getBoolean(BUNDLE_KEY_IS_DIALOG, false);
         }
@@ -612,6 +630,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             @Override
             public void onClick(View v) {
                 addReminder();
+                mUserModifiedReminders = true;
             }
         };
         reminderAddButton.setOnClickListener(addReminderOnClickListener);
@@ -1452,6 +1471,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // Sort appropriately for display (by time, then type)
         Collections.sort(mOriginalReminders);
 
+        if (mUserModifiedReminders) {
+            // If the user has changed the list of reminders don't change what's
+            // shown.
+            return;
+        }
+
         LinearLayout parent = (LinearLayout) mScrollView
                 .findViewById(R.id.reminder_items_container);
         if (parent != null) {
@@ -1474,7 +1499,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             for (ReminderEntry re : reminders) {
                 EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderViews,
                         mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
-                        mReminderMethodLabels, re, Integer.MAX_VALUE);
+                        mReminderMethodLabels, re, Integer.MAX_VALUE, mReminderChangeListener);
             }
             // TODO show unsupported reminder types in some fashion.
         }
@@ -1652,6 +1677,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         LinearLayout parent = (LinearLayout) reminderItem.getParent();
         parent.removeView(reminderItem);
         mReminderViews.remove(reminderItem);
+        mUserModifiedReminders = true;
     }
 
 
@@ -1664,16 +1690,15 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // last one in the list (if any).
         if (mDefaultReminderMinutes == GeneralPreferences.NO_REMINDER) {
             EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderViews,
-                    mReminderMinuteValues, mReminderMinuteLabels,
-                    mReminderMethodValues, mReminderMethodLabels,
-                    ReminderEntry.valueOf(GeneralPreferences.REMINDER_DEFAULT_TIME),
-                    mMaxReminders);
+                    mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
+                    mReminderMethodLabels,
+                    ReminderEntry.valueOf(GeneralPreferences.REMINDER_DEFAULT_TIME), mMaxReminders,
+                    mReminderChangeListener);
         } else {
             EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderViews,
-                    mReminderMinuteValues, mReminderMinuteLabels,
-                    mReminderMethodValues, mReminderMethodLabels,
-                    ReminderEntry.valueOf(mDefaultReminderMinutes),
-                    mMaxReminders);
+                    mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
+                    mReminderMethodLabels, ReminderEntry.valueOf(mDefaultReminderMinutes),
+                    mMaxReminders, mReminderChangeListener);
         }
     }
 

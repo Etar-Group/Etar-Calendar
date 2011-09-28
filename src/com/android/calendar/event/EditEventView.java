@@ -951,7 +951,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                         || re.getMethod() == Reminders.METHOD_DEFAULT) {
                     EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
                             mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
-                            mReminderMethodLabels, re, Integer.MAX_VALUE);
+                            mReminderMethodLabels, re, Integer.MAX_VALUE, null);
                 } else {
                     // TODO figure out a way to display unsupported reminders
                     mUnsupportedReminders.add(re);
@@ -1403,13 +1403,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     mReminderMinuteValues, mReminderMinuteLabels,
                     mReminderMethodValues, mReminderMethodLabels,
                     ReminderEntry.valueOf(GeneralPreferences.REMINDER_DEFAULT_TIME),
-                    mModel.mCalendarMaxReminders);
+                    mModel.mCalendarMaxReminders, null);
         } else {
             EventViewUtils.addReminder(mActivity, mScrollView, this, mReminderItems,
                     mReminderMinuteValues, mReminderMinuteLabels,
                     mReminderMethodValues, mReminderMethodLabels,
                     ReminderEntry.valueOf(mDefaultReminderMinutes),
-                    mModel.mCalendarMaxReminders);
+                    mModel.mCalendarMaxReminders, null);
         }
         updateRemindersVisibility(mReminderItems.size());
     }

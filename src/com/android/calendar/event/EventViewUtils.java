@@ -24,6 +24,9 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -210,19 +213,21 @@ public class EventViewUtils {
     }
 
     /**
-     * Adds a reminder to the displayed list of reminders.
-     *
-     * The values/labels arrays must not change after calling here, or the spinners we
-     * created might index into the wrong entry.
-     *
-     * Returns true if successfully added reminder, false if no reminders can
-     * be added.
+     * Adds a reminder to the displayed list of reminders. The values/labels
+     * arrays must not change after calling here, or the spinners we created
+     * might index into the wrong entry. Returns true if successfully added
+     * reminder, false if no reminders can be added.
+     * 
+     * onItemSelected allows a listener to be set for any changes to the
+     * spinners in the reminder. If a listener is set it will store the
+     * initial position of the spinner into the spinner's tag for comparison
+     * with any new position setting.
      */
-    public static boolean addReminder(Activity activity, View view,
-            View.OnClickListener listener, ArrayList<LinearLayout> items,
-            ArrayList<Integer> minuteValues, ArrayList<String> minuteLabels,
-            ArrayList<Integer> methodValues, ArrayList<String> methodLabels,
-            ReminderEntry newReminder, int maxReminders) {
+    public static boolean addReminder(Activity activity, View view, View.OnClickListener listener,
+            ArrayList<LinearLayout> items, ArrayList<Integer> minuteValues,
+            ArrayList<String> minuteLabels, ArrayList<Integer> methodValues,
+            ArrayList<String> methodLabels, ReminderEntry newReminder, int maxReminders,
+            OnItemSelectedListener onItemSelected) {
 
         if (items.size() >= maxReminders) {
             return false;
@@ -248,6 +253,11 @@ public class EventViewUtils {
         int index = findMinutesInReminderList(minuteValues, newReminder.getMinutes());
         spinner.setSelection(index);
 
+        if (onItemSelected != null) {
+            spinner.setTag(index);
+            spinner.setOnItemSelectedListener(onItemSelected);
+        }
+
         /*
          * Configure the alert-method spinner.  Methods not supported by the current Calendar
          * will not be shown.
@@ -257,6 +267,11 @@ public class EventViewUtils {
 
         index = findMethodInReminderList(methodValues, newReminder.getMethod());
         spinner.setSelection(index);
+
+        if (onItemSelected != null) {
+            spinner.setTag(index);
+            spinner.setOnItemSelectedListener(onItemSelected);
+        }
 
         items.add(reminderItem);
 
