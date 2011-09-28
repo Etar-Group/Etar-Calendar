@@ -137,6 +137,7 @@
             android:layout_gravity="bottom"
             android:minHeight="48dip"
             android:hint="@string/hint_description"
+            android:inputType="textAutoCorrect"
             style="@style/TextAppearance.EditEvent_Value"
             android:capitalize="sentences" />
     </LinearLayout>
