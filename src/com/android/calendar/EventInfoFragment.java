@@ -251,6 +251,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     private int mOriginalAttendeeResponse;
     private int mAttendeeResponseFromIntent = CalendarController.ATTENDEE_NO_RESPONSE;
+    private int mUserSetResponse = CalendarController.ATTENDEE_NO_RESPONSE;
     private boolean mIsRepeating;
     private boolean mHasAlarm;
     private int mMaxReminders;
@@ -511,6 +512,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         // If this is not a repeating event, then don't display the dialog
         // asking which events to change.
+        mUserSetResponse = getResponseFromButtonId(checkedId);
         if (!mIsRepeating) {
             return;
         }
@@ -1541,7 +1543,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
 
         int response;
-        if (mAttendeeResponseFromIntent != CalendarController.ATTENDEE_NO_RESPONSE) {
+        if (mUserSetResponse != CalendarController.ATTENDEE_NO_RESPONSE) {
+            response = mUserSetResponse;
+        } else if (mAttendeeResponseFromIntent != CalendarController.ATTENDEE_NO_RESPONSE) {
             response = mAttendeeResponseFromIntent;
         } else {
             response = mOriginalAttendeeResponse;
