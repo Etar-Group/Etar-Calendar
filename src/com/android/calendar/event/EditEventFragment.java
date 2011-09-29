@@ -698,6 +698,12 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if ((mCode & Utils.DONE_EXIT) != 0) {
                 // This will exit the edit event screen, should be called
                 // when we want to return to the main calendar views
+                if ((mCode & Utils.DONE_SAVE) != 0) {
+                    if (mContext != null) {
+                        CalendarController.getInstance(mContext).
+                                launchViewEvent(-1, mModel.mStart, mModel.mEnd);
+                    }
+                }
                 Activity a = EditEventFragment.this.getActivity();
                 if (a != null) {
                     a.finish();

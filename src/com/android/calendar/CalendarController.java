@@ -620,13 +620,14 @@ public class CalendarController {
         mContext.startActivity(intent);
     }
 
-    private void launchViewEvent(long eventId, long startMillis, long endMillis) {
+    public void launchViewEvent(long eventId, long startMillis, long endMillis) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
         intent.setData(eventUri);
         intent.setClass(mContext, AllInOneActivity.class);
         intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mContext.startActivity(intent);
     }
 
