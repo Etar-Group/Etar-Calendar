@@ -74,14 +74,14 @@
     <string name="creating_event" msgid="5252306542761552414">"Tukio limeundwa"</string>
     <string name="saving_event" msgid="7716081507367732169">"Tukio limehifadhiwa"</string>
     <string name="empty_event" msgid="757898251276814787">"Tukio tupu halikuumbwa"</string>
-    <string name="creating_event_with_guest" msgid="608830786504021732">"Mwaliko umetumwa"</string>
-    <string name="saving_event_with_guest" msgid="6177245412801310483">"Sasisho zimetumwa"</string>
+    <string name="creating_event_with_guest" msgid="608830786504021732">"Mialiko imetumwa"</string>
+    <string name="saving_event_with_guest" msgid="6177245412801310483">"Masasisho yametumwa"</string>
     <string name="alert_title" msgid="7869592820853066853">"Arifa za kalenda"</string>
-    <string name="event_info_title" msgid="56024222340421620">"Angalia tukio"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Tazama tukio"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Mwaliko wa mktutano"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Kwa"</string>
     <string name="edit_event_from_label" msgid="174999102612666115">"Kutoka"</string>
-    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Siku yote"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Siku nzima"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalenda"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Onyesha zote"</string>
     <string name="description_label" msgid="7193475046717505855">"Maelezo"</string>
@@ -89,7 +89,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Faragha"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Ongeza kumbosho"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Hakuna kalenda"</string>
-    <string name="no_calendars_found" msgid="4265845606733761102">"Kabla ya kuongeza tukio, lazima uongeze angalau akaunti moja ya Kalenda kwenye kifaa na kuifanya kalenda kuonekana. Gusa \"Ongeza akaunti\" ili kuongeza akaunti (ikiwa umeongeza akaunti tu, subiri imalize kusawazishwa kisha jaribu tena). Au gusa Ghairi na hakikisha kwamba angalau kalenda moja inaonekana."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Kabla ya kuongeza tukio, lazima uongeze angalau akaunti moja ya Kalenda kwenye kifaa na kuifanya kalenda ionekane. Gusa \"Ongeza akaunti\" ili kuongeza akaunti (ikiwa ndio umeweka akaunti, subiri imalize kusawazishwa kisha jaribu tena). Au gusa Ghairi na uhakikishe kwamba angalau kalenda moja inaonekana."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Kalenda inafanya kazi vizuri ukiwa na Akaunti ya Google. "\n" "\n" • Iangalie kwa kutumia kivinjari chochote "\n" • Tunza matukio yako kwa usalama."</string>
     <string name="add_account" msgid="1669072099756774952">"Ongeza akaunti"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Ongeza wageni"</string>
@@ -135,13 +135,13 @@
     <string name="modify_all_following" msgid="4333745734894639276">"Badilisha hii na matukio yote ya usoni."</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Tukio jipya"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Tukio jipya"</string>
-    <string name="delete_this_event_title" msgid="8738491083082780492">"Kengele hii itafutwa."</string>
+    <string name="delete_this_event_title" msgid="8738491083082780492">"Tukio hili litafutwa."</string>
     <string name="delete_title" msgid="5143743507524995383">"Futa"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Badilisha jibu"</string>
     <string name="menu_general_preferences" msgid="4057784477122524106">"Mapendeleo ya Kijumla"</string>
     <string name="menu_about_preferences" msgid="160474554936812478">"Kuhusu kalenda"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Mipangilio"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Mipangilio ya muonekano wa kalenda"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Mipangilio ya mwonekano wa kalenda"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Mipangilio ya kikumbusho"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ficha matukio yaliyokataliwa"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Juma linaanza"</string>
@@ -176,7 +176,7 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Hakuna matukio ya kalenda yatakayofanyika hivi karibuni"</string>
     <string name="tomorrow" msgid="614434811813859237">"Kesho"</string>
-    <string name="copy_db" msgid="437691290566699292">"Teua programu ya kutuma faili yako"</string>
+    <string name="copy_db" msgid="437691290566699292">"Tuma hifadhidata"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Inatafuta <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Ondoa mhudhuriaji"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Tarehe ya kuanza"</string>
@@ -194,5 +194,7 @@
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Aina ya kumbusho"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Nionyeshe kama"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Faragha"</string>
+    <!-- no translation found for day_view_new_event_hint (2131483437911536229) -->
+    <skip />
     <string name="template_announce_item_index" msgid="4067877800670753110">"Tukio <xliff:g id="ITEM_INDEX">%1$s</xliff:g> la <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
 </resources>
