@@ -606,7 +606,11 @@ public class AgendaWindowAdapter extends BaseAdapter
                 mAgendaListView.setSelection(findDayPositionNearestTime(goToTime) + OFF_BY_ONE_BUG
                         + mSkipDateHeader);
                 Time actualTime = new Time(mTimeZone);
-                actualTime.set(mAgendaListView.getFirstVisibleTime());
+                if (goToTime != null) {
+                    actualTime.set(goToTime);
+                } else {
+                    actualTime.set(mAgendaListView.getFirstVisibleTime());
+                }
                 CalendarController.getInstance(mContext).sendEvent(this, EventType.UPDATE_TITLE,
                         actualTime, actualTime, -1, ViewType.CURRENT);
             }
@@ -617,6 +621,15 @@ public class AgendaWindowAdapter extends BaseAdapter
         int endDay = startDay + MIN_QUERY_DURATION;
 
         queueQuery(startDay, endDay, goToTime, searchQuery, QUERY_TYPE_CLEAN);
+
+        // Pre-fetch more data to overcome a race condition in AgendaListView.shiftSelection
+        // Queuing more data with the goToTime set to the selected time skips the call to
+        // shiftSelection on refresh.
+        mOlderRequests++;
+        queueQuery(0, 0, goToTime, searchQuery, QUERY_TYPE_OLDER);
+        mNewerRequests++;
+        queueQuery(0, 0, goToTime, searchQuery, QUERY_TYPE_NEWER);
+
     }
 
     public void close() {
@@ -857,7 +870,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                         mAgendaListView.setSelection(newPosition + OFF_BY_ONE_BUG
                                 + mSkipDateHeader);
                         Time actualTime = new Time(mTimeZone);
-                        actualTime.set(mAgendaListView.getFirstVisibleTime());
+                        actualTime.set(goToTime);
                         CalendarController.getInstance(mContext).sendEvent(this,
                                 EventType.UPDATE_TITLE, actualTime, actualTime, -1,
                                 ViewType.CURRENT);
