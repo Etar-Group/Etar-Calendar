@@ -3656,9 +3656,18 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
 
             mSelectionMode = SELECTION_HIDDEN;
+
+            int yLocation =
+                (int)((mSelectedEvent.top + mSelectedEvent.bottom)/2);
+            // Y location is affected by the position of the event in the scrolling
+            // view (mViewStartY) and the presence of all day events (mFirstCell)
+            if (!mSelectedEvent.allDay) {
+                yLocation += (mFirstCell - mViewStartY);
+            }
             mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mSelectedEvent.id,
-                    mSelectedEvent.startMillis, mSelectedEvent.endMillis, (int) ev.getRawX(),
-                    (int) ev.getRawY(), getSelectedTimeInMillis());
+                    mSelectedEvent.startMillis, mSelectedEvent.endMillis,
+                    (int)((mSelectedEvent.left + mSelectedEvent.right)/2),
+                    yLocation, getSelectedTimeInMillis());
         } else {
             // Select time
             Time startTime = new Time(mBaseDate);

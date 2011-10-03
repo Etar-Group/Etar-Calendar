@@ -1091,7 +1091,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     EventInfoFragment fragment = new EventInfoFragment(this,
                             event.id, event.startTime.toMillis(false),
                             event.endTime.toMillis(false), (int) event.extraLong, true);
-                    fragment.setDialogParams(event.x, event.y);
+                    fragment.setDialogParams(event.x, event.y, mActionBar.getHeight());
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
                     // if we have an old popup replace it
