@@ -1070,7 +1070,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     });
         }
 
-        mTitleTextView.setText(model.mTitle);
+        if (model.mTitle != null) {
+            mTitleTextView.setTextKeepState(model.mTitle);
+        }
+
         if (model.mIsOrganizer || TextUtils.isEmpty(model.mOrganizer)
                 || model.mOrganizer.endsWith(GOOGLE_SECONDARY_CALENDAR)) {
             mView.findViewById(R.id.organizer_label).setVisibility(View.GONE);
@@ -1079,8 +1082,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         } else {
             ((TextView) mView.findViewById(R.id.organizer)).setText(model.mOrganizerDisplayName);
         }
-        mLocationTextView.setText(model.mLocation);
-        mDescriptionTextView.setText(model.mDescription);
+
+        if (model.mLocation != null) {
+            mLocationTextView.setTextKeepState(model.mLocation);
+        }
+
+        if (model.mDescription != null) {
+            mDescriptionTextView.setTextKeepState(model.mDescription);
+        }
+
         mAvailabilitySpinner.setSelection(model.mAvailability ? 1 : 0);
         mAccessLevelSpinner.setSelection(model.mAccessLevel);
 
