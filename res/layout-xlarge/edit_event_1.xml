@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:hint="@string/hint_what"
             android:capitalize="sentences"
-            android:inputType="textAutoCorrect"
+            android:inputType="textAutoCorrect|textCapSentences"
             android:focusable="true" />
     </TableRow>
 
@@ -80,7 +80,7 @@
             android:id="@+id/location"
             android:singleLine="false"
             style="@style/TextAppearance.EditEvent_Value"
-            android:inputType="textAutoCorrect"
+            android:inputType="textAutoCorrect|textCapSentences"
             android:hint="@string/hint_where" />
     </TableRow>
 
@@ -315,7 +315,7 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="textEmailAddress|textMultiLine"
+            android:inputType="textEmailAddress|textMultiLine|textCapWords"
             android:hint="@string/hint_attendees"
             android:imeOptions="actionNext"
             style="@style/TextAppearance.EditEvent_Value" />
@@ -332,7 +332,7 @@
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:hint="@string/hint_description"
-            android:inputType="textAutoCorrect"
+            android:inputType="textAutoCorrect|textCapSentences"
             style="@style/TextAppearance.EditEvent_Value"
             android:capitalize="sentences" />
     </TableRow>

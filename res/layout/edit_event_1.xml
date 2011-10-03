@@ -78,7 +78,7 @@
         android:minHeight="48dip"
         android:hint="@string/hint_what"
         android:capitalize="sentences"
-        android:inputType="textAutoCorrect"
+        android:inputType="textAutoCorrect|textCapSentences"
         android:focusable="true" />
 
     <!-- WHERE -->
@@ -96,7 +96,7 @@
             android:minHeight="48dip"
             android:imeOptions="actionDone"
             style="@style/TextAppearance.EditEvent_Value"
-            android:inputType="textAutoCorrect"
+            android:inputType="textAutoCorrect|textCapSentences"
             android:hint="@string/hint_where" />
     <View
         style="@style/EditEventSeparator"/>
