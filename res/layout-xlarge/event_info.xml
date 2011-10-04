@@ -176,7 +176,8 @@
             android:maxLines="@integer/event_info_desc_line_num"
             android:textSize="18sp"
             android:textColor="@color/event_info_description_color"
-            style="?android:attr/textAppearanceSmall" />
+            style="?android:attr/textAppearanceSmall"
+            android:visibility="gone" />
         <Button
             android:id="@+id/desc_expand"
             android:layout_width="wrap_content"

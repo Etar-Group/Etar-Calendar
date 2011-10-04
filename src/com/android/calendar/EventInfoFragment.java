@@ -667,9 +667,21 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     // Set the expand/collapse button
     // Expand/collapse the description according the the current status
     private void updateDescription() {
+        // If there is no description, hide the description field
+        // and desc button.
+        String text = mDesc.getText().toString();
+        if (TextUtils.isEmpty(text) || TextUtils.isEmpty(text.trim())) {
+            mDesc.setVisibility(View.GONE);
+            mDescButton.setVisibility(View.GONE);
+            return;
+        }
         // getLineCount() returns at most maxLines worth of text. If we have
         // less than mDescLineNum lines, we know for sure we don't need the
-        // more/less button and we don't need to recal the number of lines.
+        // more/less button and we don't need to recalculate the number of
+        // lines.
+
+        mDesc.setVisibility(View.VISIBLE);
+
         if (mDesc.getLineCount() < mDescLineNum) {
             mDescButton.setVisibility(View.GONE);
             return;
