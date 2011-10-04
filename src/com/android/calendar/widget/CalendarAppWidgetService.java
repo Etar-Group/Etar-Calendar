@@ -240,10 +240,11 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
                 final long now = System.currentTimeMillis();
                 if (!eventInfo.allDay && eventInfo.start <= now && now <= eventInfo.end) {
-                    views.setInt(R.id.widget_row, "setBackgroundColor",
-                            mResources.getColor(R.color.appwidget_row_in_progress));
+                    views.setInt(R.id.widget_row, "setBackgroundResource",
+                            R.drawable.agenda_item_bg_secondary);
                 } else {
-                    views.setInt(R.id.widget_row, "setBackgroundColor", 0);
+                    views.setInt(R.id.widget_row, "setBackgroundResource",
+                            R.drawable.agenda_item_bg_primary);
                 }
 
                 updateTextView(views, R.id.when, eventInfo.visibWhen, eventInfo.when);
