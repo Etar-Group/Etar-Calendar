@@ -178,10 +178,10 @@ public class SearchActivity extends Activity implements CalendarController.Event
             ft.commit();
             mController.registerEventHandler(R.id.agenda_event_info, mEventInfoFragment);
         } else {
-            Intent intent = new Intent(Intent.ACTION_EDIT);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
             Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
             intent.setData(eventUri);
-            intent.setClass(this, EditEventActivity.class);
+            intent.setClass(this, EventInfoActivity.class);
             intent.putExtra(EXTRA_EVENT_BEGIN_TIME,
                     event.startTime != null ? event.startTime.toMillis(true) : -1);
             intent.putExtra(
