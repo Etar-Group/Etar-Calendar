@@ -72,6 +72,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private static final String BUNDLE_KEY_EDIT_STATE = "key_edit_state";
     private static final String BUNDLE_KEY_EVENT = "key_event";
     private static final String BUNDLE_KEY_READ_ONLY = "key_read_only";
+    private static final String BUNDLE_KEY_EDIT_ON_LAUNCH = "key_edit_on_launch";
 
     private static final boolean DEBUG = false;
 
@@ -471,6 +472,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (savedInstanceState.containsKey(BUNDLE_KEY_EDIT_STATE)) {
                 mModification = savedInstanceState.getInt(BUNDLE_KEY_EDIT_STATE);
             }
+            if (savedInstanceState.containsKey(BUNDLE_KEY_EDIT_ON_LAUNCH)) {
+                mShowModifyDialogOnLaunch = savedInstanceState
+                        .getBoolean(BUNDLE_KEY_EDIT_ON_LAUNCH);
+            }
             if (savedInstanceState.containsKey(BUNDLE_KEY_EVENT)) {
                 mEventBundle = (EventBundle) savedInstanceState.getSerializable(BUNDLE_KEY_EVENT);
             }
@@ -560,7 +565,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
     }
 
     protected void displayEditWhichDialog() {
-        if (!TextUtils.isEmpty(mModel.mRrule) && mModification == Utils.MODIFY_UNINITIALIZED) {
+        if (mModification == Utils.MODIFY_UNINITIALIZED) {
             final boolean notSynced = TextUtils.isEmpty(mModel.mSyncId);
             boolean isFirstEventInSeries = mModel.mIsFirstEventInSeries;
             int itemIndex = 0;
@@ -797,7 +802,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 mEventBundle.end = mEvent.startTime.toMillis(true);
             }
         }
-
+        outState.putBoolean(BUNDLE_KEY_EDIT_ON_LAUNCH, mShowModifyDialogOnLaunch);
         outState.putSerializable(BUNDLE_KEY_EVENT, mEventBundle);
         outState.putBoolean(BUNDLE_KEY_READ_ONLY, mIsReadOnly);
     }
