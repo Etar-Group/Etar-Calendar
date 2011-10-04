@@ -311,11 +311,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     private static int DIALOG_WIDTH = 500;
     private static int DIALOG_HEIGHT = 600;
+    private static int DIALOG_TOP_MARGIN = 8;
     private boolean mIsDialog = false;
     private boolean mIsPaused = true;
     private boolean mDismissOnResume = false;
     private int mX = -1;
     private int mY = -1;
+    private int mMinTop;         // Dialog cannot be above this location
     private Button mDescButton;  // Button to expand/collapse the description
     private String mMoreLabel;   // Labels for the button
     private String mLessLabel;
@@ -437,6 +439,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             if (mScale != 1) {
                 DIALOG_WIDTH *= mScale;
                 DIALOG_HEIGHT *= mScale;
+                DIALOG_TOP_MARGIN *= mScale;
             }
         }
         mIsDialog = isDialog;
@@ -510,19 +513,20 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // On phones , use the whole screen
 
         if (mX != -1 || mY != -1) {
-            a.x = mX - a.width - 64;
-            if (a.x < 0) {
-                a.x = mX + 64;
+            a.x = mX - DIALOG_WIDTH / 2;
+            a.y = mY - DIALOG_HEIGHT / 2;
+            if (a.y < mMinTop) {
+                a.y = mMinTop + DIALOG_TOP_MARGIN;
             }
-            a.y = mY - 64;
             a.gravity = Gravity.LEFT | Gravity.TOP;
         }
         window.setAttributes(a);
     }
 
-    public void setDialogParams(int x, int y) {
+    public void setDialogParams(int x, int y, int minTop) {
         mX = x;
         mY = y;
+        mMinTop = minTop;
     }
 
     // Implements OnCheckedChangeListener
