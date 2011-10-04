@@ -122,11 +122,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:paddingLeft="16dip"
             android:paddingRight="16dip"
-            android:paddingTop="8dip"
-            android:paddingBottom="8dip"
             android:orientation="vertical">
             <!-- Organizer -->
             <LinearLayout
@@ -169,7 +166,8 @@
                 android:ellipsize="end"
                 android:maxLines="@integer/event_info_desc_line_num"
                 android:textColor="@color/event_info_description_color"
-                style="?android:attr/textAppearanceSmall" />
+                style="?android:attr/textAppearanceSmall"
+                android:visibility="gone" />
             <Button
                 android:id="@+id/desc_expand"
                 android:layout_width="wrap_content"
