@@ -225,8 +225,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
             holder.dayView.setText(dayViewText);
             holder.dateView.setText(dateViewText);
 
-            // Set the background of the view, it is different if it is before today or not
-            if (row.mDay >= mTodayJulianDay) {
+            // Set the background of the view, it is grayed for day that are in the past and today
+            if (row.mDay > mTodayJulianDay) {
                 agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
                 holder.grayed = false;
             } else {
@@ -238,7 +238,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
             View itemView = mAgendaAdapter.getView(row.mPosition, convertView, parent);
             AgendaAdapter.ViewHolder holder = ((AgendaAdapter.ViewHolder) itemView.getTag());
             TextView title = holder.title;
-            long eventEndTime = holder.endTimeMilli;
+            long eventStartTime = holder.startTimeMilli;
             boolean allDay = holder.allDay;
             if (AgendaWindowAdapter.BASICLOG) {
                 title.setText(title.getText() + " P:" + position);
@@ -246,13 +246,9 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 title.setText(title.getText());
             }
 
-            // if event in the past , un-bold the title and set the background
-            if (row.mDay < mTodayJulianDay) {
-                itemView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
-                title.setTypeface(Typeface.DEFAULT);
-                holder.grayed = true;
-            } else if (row.mDay == mTodayJulianDay && !allDay &&
-                    eventEndTime < System.currentTimeMillis()){
+            // if event in the past or started already, un-bold the title and set the background
+            if ((!allDay && eventStartTime <= System.currentTimeMillis()) ||
+                    (allDay && row.mDay <= mTodayJulianDay)) {
                 itemView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
                 title.setTypeface(Typeface.DEFAULT);
                 holder.grayed = true;
@@ -261,6 +257,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 title.setTypeface(Typeface.DEFAULT_BOLD);
                 holder.grayed = false;
             }
+            holder.julianDay = row.mDay;
             return itemView;
         } else {
             // Error
