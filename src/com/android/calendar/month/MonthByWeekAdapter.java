@@ -39,6 +39,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
 
     public static final String WEEK_PARAMS_IS_MINI = "mini_month";
     protected static int DEFAULT_QUERY_DAYS = 7 * 8; // 8 weeks
+    private static final long ANIMATE_TODAY_TIMEOUT = 1000;
 
     protected CalendarController mController;
     protected String mHomeTimeZone;
@@ -53,12 +54,20 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     protected ArrayList<ArrayList<Event>> mEventDayList = new ArrayList<ArrayList<Event>>();
     protected ArrayList<Event> mEvents = null;
 
+    private boolean mAnimateToday = false;
+    private long mAnimateTime = 0;
+
     public MonthByWeekAdapter(Context context, HashMap<String, Integer> params) {
         super(context, params);
         if (params.containsKey(WEEK_PARAMS_IS_MINI)) {
             mIsMiniMonth = params.get(WEEK_PARAMS_IS_MINI) != 0;
         }
         mShowAgendaWithMonth = Utils.getConfigBool(context, R.bool.show_agenda_with_month);
+    }
+
+    public void animateToday() {
+        mAnimateToday = true;
+        mAnimateTime = System.currentTimeMillis();
     }
 
     @Override
@@ -155,11 +164,28 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         LayoutParams params = new LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         HashMap<String, Integer> drawingParams = null;
+        boolean isAnimatingToday = false;
         if (convertView != null) {
             v = (MonthWeekEventsView) convertView;
-            // TODO Store drawing params in the view's Tag instead of having a
-            // new getter method
-            drawingParams = (HashMap<String, Integer>) v.getTag();
+            // Checking updateToday uses the current params instead of the new
+            // params, so this is assuming the view is relatively stable
+            if (mAnimateToday && v.updateToday(mSelectedDay.timezone)) {
+                long currentTime = System.currentTimeMillis();
+                // If it's been too long since we tried to start the animation
+                // don't show it. This can happen if the user stops a scroll
+                // before reaching today.
+                if (currentTime - mAnimateTime > ANIMATE_TODAY_TIMEOUT) {
+                    mAnimateToday = false;
+                    mAnimateTime = 0;
+                } else {
+                    isAnimatingToday = true;
+                    // There is a bug that causes invalidates to not work some
+                    // of the time unless we recreate the view.
+                    v = new MonthWeekEventsView(mContext);
+                }
+            } else {
+                drawingParams = (HashMap<String, Integer>) v.getTag();
+            }
         } else {
             v = new MonthWeekEventsView(mContext);
         }
@@ -186,11 +212,14 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_WEEK, position);
         drawingParams.put(SimpleWeekView.VIEW_PARAMS_FOCUS_MONTH, mFocusMonth);
         drawingParams.put(MonthWeekEventsView.VIEW_PARAMS_ORIENTATION, mOrientation);
+
+        if (isAnimatingToday) {
+            drawingParams.put(MonthWeekEventsView.VIEW_PARAMS_ANIMATE_TODAY, 1);
+            mAnimateToday = false;
+        }
+
         v.setWeekParams(drawingParams, mSelectedDay.timezone);
-
         sendEventsToView(v);
-
-        v.invalidate();
         return v;
     }
 

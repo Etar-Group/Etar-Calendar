@@ -106,6 +106,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static final long ANIMATION_DURATION = 400;
     // duration of the more allday event text fade
     private static final long ANIMATION_SECONDARY_DURATION = 200;
+    // duration of the scroll to go to a specified time
+    private static final int GOTO_SCROLL_DURATION = 200;
 
     private static final int MENU_AGENDA = 2;
     private static final int MENU_DAY = 3;
@@ -190,6 +192,53 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             invalidate();
         }
     };
+
+    private TodayAnimatorListener mTodayAnimatorListener = new TodayAnimatorListener();
+
+    class TodayAnimatorListener extends AnimatorListenerAdapter {
+        private volatile Animator mAnimator = null;
+        private volatile boolean mFadingIn = false;
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            synchronized (this) {
+                if (mAnimator != animation) {
+                    animation.removeAllListeners();
+                    animation.cancel();
+                    return;
+                }
+                if (mFadingIn) {
+                    if (mTodayAnimator != null) {
+                        mTodayAnimator.removeAllListeners();
+                        mTodayAnimator.cancel();
+                    }
+                    mTodayAnimator = ObjectAnimator
+                            .ofInt(DayView.this, "animateTodayAlpha", 255, 0);
+                    mAnimator = mTodayAnimator;
+                    mFadingIn = false;
+                    mTodayAnimator.addListener(this);
+                    mTodayAnimator.setDuration(600);
+                    mTodayAnimator.start();
+                } else {
+                    mAnimateToday = false;
+                    mAnimateTodayAlpha = 0;
+                    mAnimator.removeAllListeners();
+                    mAnimator = null;
+                    mTodayAnimator = null;
+                    invalidate();
+                }
+            }
+        }
+
+        public void setAnimator(Animator animation) {
+            mAnimator = animation;
+        }
+
+        public void setFadingIn(boolean fadingIn) {
+            mFadingIn = fadingIn;
+        }
+
+    }
 
     AnimatorListenerAdapter mAnimatorListener = new AnimatorListenerAdapter() {
         @Override
@@ -467,6 +516,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private Rect mPrevBox = new Rect();
     protected final Resources mResources;
     protected final Drawable mCurrentTimeLine;
+    protected final Drawable mCurrentTimeAnimateLine;
     protected final Drawable mTodayHeaderDrawable;
     protected final Drawable mExpandAlldayDrawable;
     protected final Drawable mCollapseAlldayDrawable;
@@ -518,12 +568,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private float mInitialScrollX;
     private float mInitialScrollY;
 
+    private boolean mAnimateToday = false;
+    private int mAnimateTodayAlpha = 0;
+
     // Animates the height of the allday region
     ObjectAnimator mAlldayAnimator;
     // Animates the height of events in the allday region
     ObjectAnimator mAlldayEventAnimator;
     // Animates the transparency of the more events text
     ObjectAnimator mMoreAlldayEventsAnimator;
+    // Animates the current time marker when Today is pressed
+    ObjectAnimator mTodayAnimator;
     // whether or not an event is stopping because it was cancelled
     private boolean mCancellingAnimations = false;
     // tracks whether a touch originated in the allday area
@@ -629,6 +684,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         DAY_HEADER_HEIGHT = numDays == 1 ? ONE_DAY_HEADER_HEIGHT : MULTI_DAY_HEADER_HEIGHT;
 
         mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_indicator_holo_light);
+        mCurrentTimeAnimateLine = mResources
+                .getDrawable(R.drawable.timeline_indicator_activated_holo_light);
         mTodayHeaderDrawable = mResources.getDrawable(R.drawable.today_blue_week_holo_light);
         mExpandAlldayDrawable = mResources.getDrawable(R.drawable.ic_allday_expand_holo_light);
         mCollapseAlldayDrawable = mResources.getDrawable(R.drawable.ic_allday_collapse_holo_light);
@@ -870,7 +927,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mFirstHourOffset = 0;
     }
 
-    public void setSelected(Time time, boolean ignoreTime) {
+    public void setSelected(Time time, boolean ignoreTime, boolean animateToday) {
         mBaseDate.set(time);
         mSelectionHour = mBaseDate.hour;
         mSelectedEvent = null;
@@ -921,27 +978,33 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mRemeasure = true;
         invalidate();
 
+        boolean delayAnimateToday = false;
         if (gotoY != Integer.MIN_VALUE) {
-            TypeEvaluator<Object> evaluator = new TypeEvaluator<Object>() {
-                @Override
-                public Object evaluate(float fraction, Object startValue, Object endValue) {
-                    int start = (Integer) startValue;
-                    int end = (Integer) endValue;
-                    final int newValue = (int) ((end - start) * fraction + start);
-                    setViewStartY(newValue);
-                    return new Integer(newValue);
-                }
-            };
-            ValueAnimator scrollAnim = ObjectAnimator.ofObject(evaluator, new Integer(mViewStartY),
-                    new Integer(gotoY));
-//          TODO The following line is supposed to replace the two statements above.
-//          Need to investigate why it's not working.
-
-//          ValueAnimator scrollAnim = ObjectAnimator.ofInt(this, "viewStartY", mViewStartY, gotoY);
-            scrollAnim.setDuration(200);
+            ValueAnimator scrollAnim = ObjectAnimator.ofInt(this, "viewStartY", mViewStartY, gotoY);
+            scrollAnim.setDuration(GOTO_SCROLL_DURATION);
             scrollAnim.setInterpolator(new AccelerateDecelerateInterpolator());
             scrollAnim.addListener(mAnimatorListener);
             scrollAnim.start();
+            delayAnimateToday = true;
+        }
+        if (animateToday) {
+            synchronized (mTodayAnimatorListener) {
+                if (mTodayAnimator != null) {
+                    mTodayAnimator.removeAllListeners();
+                    mTodayAnimator.cancel();
+                }
+                mTodayAnimator = ObjectAnimator.ofInt(this, "animateTodayAlpha",
+                        mAnimateTodayAlpha, 255);
+                mAnimateToday = true;
+                mTodayAnimatorListener.setFadingIn(true);
+                mTodayAnimatorListener.setAnimator(mTodayAnimator);
+                mTodayAnimator.addListener(mTodayAnimatorListener);
+                mTodayAnimator.setDuration(150);
+                if (delayAnimateToday) {
+                    mTodayAnimator.setStartDelay(GOTO_SCROLL_DURATION);
+                }
+                mTodayAnimator.start();
+            }
         }
         sendAccessibilityEventAsNeeded(false);
     }
@@ -954,6 +1017,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mViewStartY = viewStartY;
 
         computeFirstHour();
+        invalidate();
+    }
+
+    public void setAnimateTodayAlpha(int todayAlpha) {
+        mAnimateTodayAlpha = todayAlpha;
         invalidate();
     }
 
@@ -1739,7 +1807,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         view.cleanup();
         mViewSwitcher.showNext();
         view = (DayView) mViewSwitcher.getCurrentView();
-        view.setSelected(newSelected, true);
+        view.setSelected(newSelected, true, false);
         view.requestFocus();
         view.reloadEvents();
         view.updateTitle();
@@ -2259,6 +2327,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         mCurrentTimeLine.setBounds(r);
         mCurrentTimeLine.draw(canvas);
+        if (mAnimateToday) {
+            mCurrentTimeAnimateLine.setBounds(r);
+            mCurrentTimeAnimateLine.setAlpha(mAnimateTodayAlpha);
+            mCurrentTimeAnimateLine.draw(canvas);
+        }
     }
 
     private void doDraw(Canvas canvas) {

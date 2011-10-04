@@ -408,7 +408,19 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             }
             mDesiredDay.set(event.selectedTime);
             mDesiredDay.normalize(true);
-            goTo(event.selectedTime.toMillis(true), animate, true, false);
+            boolean animateToday = (event.extraLong & CalendarController.EXTRA_GOTO_TODAY) != 0;
+            boolean delayAnimation = goTo(event.selectedTime.toMillis(true), animate, true, false);
+            if (animateToday) {
+                // If we need to flash today start the animation after any
+                // movement from listView has ended.
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((MonthByWeekAdapter) mAdapter).animateToday();
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }, delayAnimation ? GOTO_SCROLL_DURATION : 0);
+            }
         } else if (event.eventType == EventType.EVENTS_CHANGED) {
             eventsChanged();
         }
