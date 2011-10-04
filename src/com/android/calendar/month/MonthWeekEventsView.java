@@ -20,6 +20,9 @@ import com.android.calendar.Event;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Service;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -55,6 +58,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static final String TAG = "MonthView";
 
     public static final String VIEW_PARAMS_ORIENTATION = "orientation";
+    public static final String VIEW_PARAMS_ANIMATE_TODAY = "animate_today";
 
     private static int TEXT_SIZE_MONTH_NUMBER = 32;
     private static int TEXT_SIZE_EVENT = 14;
@@ -90,6 +94,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int EVENT_RIGHT_PADDING = 4;
     private static int EVENT_BOTTOM_PADDING = 8;
 
+    private static int TODAY_HIGHLIGHT_WIDTH = 2;
 
     private static int SPACING_WEEK_NUMBER = 24;
     private static boolean mScaled = false;
@@ -100,6 +105,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mTodayIndex = -1;
     protected int mOrientation = Configuration.ORIENTATION_LANDSCAPE;
     protected List<ArrayList<Event>> mEvents = null;
+    protected ArrayList<Event> mUnsortedEvents = null;
     HashMap<Integer, Utils.DNAStrand> mDna = null;
     // This is for drawing the outlines around event chips and supports up to 10
     // events being drawn on each day. The code will expand this if necessary.
@@ -150,6 +156,58 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     protected int mEventChipOutlineColor = 0xFFFFFFFF;
     protected int mDaySeparatorInnerColor;
+    protected int mTodayAnimateColor;
+
+    private boolean mAnimateToday;
+    private int mAnimateTodayAlpha = 0;
+    private ObjectAnimator mTodayAnimator = null;
+
+    private TodayAnimatorListener mAnimatorListener = new TodayAnimatorListener();
+
+    class TodayAnimatorListener extends AnimatorListenerAdapter {
+        private volatile Animator mAnimator = null;
+        private volatile boolean mFadingIn = false;
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            synchronized (this) {
+                if (mAnimator != animation) {
+                    animation.removeAllListeners();
+                    animation.cancel();
+                    return;
+                }
+                if (mFadingIn) {
+                    if (mTodayAnimator != null) {
+                        mTodayAnimator.removeAllListeners();
+                        mTodayAnimator.cancel();
+                    }
+                    mTodayAnimator = ObjectAnimator.ofInt(MonthWeekEventsView.this,
+                            "animateTodayAlpha", 255, 0);
+                    mAnimator = mTodayAnimator;
+                    mFadingIn = false;
+                    mTodayAnimator.addListener(this);
+                    mTodayAnimator.setDuration(600);
+                    mTodayAnimator.start();
+                } else {
+                    mAnimateToday = false;
+                    mAnimateTodayAlpha = 0;
+                    mAnimator.removeAllListeners();
+                    mAnimator = null;
+                    mTodayAnimator = null;
+                    invalidate();
+                }
+            }
+        }
+
+        public void setAnimator(Animator animation) {
+            mAnimator = animation;
+        }
+
+        public void setFadingIn(boolean fadingIn) {
+            mFadingIn = fadingIn;
+        }
+
+    }
 
     private int[] mDayXs;
 
@@ -172,9 +230,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
     }
 
-
     /**
-     * @param context
+     * Shows up as an error if we don't include this.
      */
     public MonthWeekEventsView(Context context) {
         super(context);
@@ -187,9 +244,24 @@ public class MonthWeekEventsView extends SimpleWeekView {
         setEvents(sortedEvents);
         // The MIN_WEEK_WIDTH is a hack to prevent the view from trying to
         // generate dna bits before its width has been fixed.
+        createDna(unsortedEvents);
+    }
+
+    /**
+     * Sets up the dna bits for the view. This will return early if the view
+     * isn't in a state that will create a valid set of dna yet (such as the
+     * views width not being set correctly yet).
+     */
+    public void createDna(ArrayList<Event> unsortedEvents) {
         if (unsortedEvents == null || mWidth <= MIN_WEEK_WIDTH || getContext() == null) {
+            // Stash the list of events for use when this view is ready, or
+            // just clear it if a null set has been passed to this view
+            mUnsortedEvents = unsortedEvents;
             mDna = null;
             return;
+        } else {
+            // clear the cached set of events since we're ready to build it now
+            mUnsortedEvents = null;
         }
         // Create the drawing coordinates for dna
         if (!mShowDetailsInMonth) {
@@ -246,6 +318,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mMonthBGOtherColor = res.getColor(R.color.month_other_bgcolor);
         mMonthBGColor = res.getColor(R.color.month_bgcolor);
         mDaySeparatorInnerColor = res.getColor(R.color.month_grid_lines);
+        mTodayAnimateColor = res.getColor(R.color.today_highlight_color);
 
         mTodayDrawable = res.getDrawable(R.drawable.today_blue_week_holo_light);
     }
@@ -294,6 +367,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 DNA_SIDE_PADDING *= mScale;
                 DEFAULT_EDGE_SPACING *= mScale;
                 DNA_ALL_DAY_WIDTH *= mScale;
+                TODAY_HIGHLIGHT_WIDTH *= mScale;
             }
             if (!mShowDetailsInMonth) {
                 TOP_PADDING_MONTH_NUMBER += DNA_ALL_DAY_HEIGHT + DNA_MARGIN;
@@ -381,6 +455,31 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mOrientation = params.get(VIEW_PARAMS_ORIENTATION);
         }
 
+        updateToday(tz);
+        mNumCells = mNumDays + 1;
+
+        if (params.containsKey(VIEW_PARAMS_ANIMATE_TODAY) && mHasToday) {
+            synchronized (mAnimatorListener) {
+                if (mTodayAnimator != null) {
+                    mTodayAnimator.removeAllListeners();
+                    mTodayAnimator.cancel();
+                }
+                mTodayAnimator = ObjectAnimator.ofInt(this, "animateTodayAlpha",
+                        Math.max(mAnimateTodayAlpha, 80), 255);
+                mTodayAnimator.setDuration(150);
+                mAnimatorListener.setAnimator(mTodayAnimator);
+                mAnimatorListener.setFadingIn(true);
+                mTodayAnimator.addListener(mAnimatorListener);
+                mAnimateToday = true;
+                mTodayAnimator.start();
+            }
+        }
+    }
+
+    /**
+     * @param tz
+     */
+    public boolean updateToday(String tz) {
         mToday.timezone = tz;
         mToday.setToNow();
         mToday.normalize(true);
@@ -392,7 +491,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
             mHasToday = false;
             mTodayIndex = -1;
         }
-        mNumCells = mNumDays + 1;
+        return mHasToday;
+    }
+
+    public void setAnimateTodayAlpha(int alpha) {
+        mAnimateTodayAlpha = alpha;
+        invalidate();
     }
 
     @Override
@@ -400,11 +504,30 @@ public class MonthWeekEventsView extends SimpleWeekView {
         drawBackground(canvas);
         drawWeekNums(canvas);
         drawDaySeparators(canvas);
+        if (mHasToday && mAnimateToday) {
+            drawToday(canvas);
+        }
         if (mShowDetailsInMonth) {
             drawEvents(canvas);
         } else {
+            if (mDna == null && mUnsortedEvents != null) {
+                createDna(mUnsortedEvents);
+            }
             drawDNA(canvas);
         }
+    }
+
+    protected void drawToday(Canvas canvas) {
+        r.top = DAY_SEPARATOR_INNER_WIDTH + (TODAY_HIGHLIGHT_WIDTH / 2);
+        r.bottom = mHeight - (int) Math.ceil(TODAY_HIGHLIGHT_WIDTH / 2.0f);
+        p.setStyle(Style.STROKE);
+        p.setStrokeWidth(TODAY_HIGHLIGHT_WIDTH);
+        r.left = computeDayLeftPosition(mTodayIndex) + (TODAY_HIGHLIGHT_WIDTH / 2);
+        r.right = computeDayLeftPosition(mTodayIndex + 1)
+                - (int) Math.ceil(TODAY_HIGHLIGHT_WIDTH / 2.0f);
+        p.setColor(mTodayAnimateColor | (mAnimateTodayAlpha << 24));
+        canvas.drawRect(r, p);
+        p.setStyle(Style.FILL);
     }
 
     // TODO move into SimpleWeekView

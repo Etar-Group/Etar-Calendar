@@ -684,6 +684,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     public boolean onOptionsItemSelected(MenuItem item) {
         Time t = null;
         int viewType = ViewType.CURRENT;
+        long extras = CalendarController.EXTRA_GOTO_TIME;
         switch (item.getItemId()) {
             case R.id.action_refresh:
                 mController.refreshCalendars();
@@ -692,6 +693,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 viewType = ViewType.CURRENT;
                 t = new Time(mTimeZone);
                 t.setToNow();
+                extras |= CalendarController.EXTRA_GOTO_TODAY;
                 break;
             case R.id.action_create_event:
                 t = new Time();
@@ -727,7 +729,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             default:
                 return false;
         }
-        mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
+        mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
         return true;
     }
 

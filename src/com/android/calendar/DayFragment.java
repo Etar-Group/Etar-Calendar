@@ -117,7 +117,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         view.setId(VIEW_ID);
         view.setLayoutParams(new ViewSwitcher.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        view.setSelected(mSelectedDay, false);
+        view.setSelected(mSelectedDay, false, false);
         return view;
     }
 
@@ -166,7 +166,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         mProgressBar.setVisibility(View.GONE);
     }
 
-    private void goTo(Time goToTime, boolean ignoreTime) {
+    private void goTo(Time goToTime, boolean ignoreTime, boolean animateToday) {
         if (mViewSwitcher == null) {
             // The view hasn't been set yet. Just save the time and use it later.
             mSelectedDay.set(goToTime);
@@ -180,7 +180,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 
         if (diff == 0) {
             // In visible range. No need to switch view
-            currentView.setSelected(goToTime, ignoreTime);
+            currentView.setSelected(goToTime, ignoreTime, animateToday);
         } else {
             // Figure out which way to animate
             if (diff > 0) {
@@ -196,7 +196,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
                 next.setFirstVisibleHour(currentView.getFirstVisibleHour());
             }
 
-            next.setSelected(goToTime, ignoreTime);
+            next.setSelected(goToTime, ignoreTime, animateToday);
             next.reloadEvents();
             mViewSwitcher.showNext();
             next.requestFocus();
@@ -262,7 +262,8 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 // TODO support a range of time
 // TODO support event_id
 // TODO support select message
-            goTo(msg.selectedTime, (msg.extraLong & CalendarController.EXTRA_GOTO_DATE) != 0);
+            goTo(msg.selectedTime, (msg.extraLong & CalendarController.EXTRA_GOTO_DATE) != 0,
+                    (msg.extraLong & CalendarController.EXTRA_GOTO_TODAY) != 0);
         } else if (msg.eventType == EventType.EVENTS_CHANGED) {
             eventsChanged();
         }
