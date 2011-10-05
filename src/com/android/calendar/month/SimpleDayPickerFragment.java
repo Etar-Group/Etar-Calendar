@@ -368,18 +368,19 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
      * the time is at the top of the view. If the new time is already in view
      * the list will not be scrolled unless forceScroll is true. This time may
      * optionally be highlighted as selected as well.
-     *
+     * 
      * @param time The time to move to
      * @param animate Whether to scroll to the given time or just redraw at the
      *            new location
      * @param setSelected Whether to set the given time as selected
      * @param forceScroll Whether to recenter even if the time is already
      *            visible
+     * @return Whether or not the view animated to the new location
      */
-    public void goTo(long time, boolean animate, boolean setSelected, boolean forceScroll) {
+    public boolean goTo(long time, boolean animate, boolean setSelected, boolean forceScroll) {
         if (time == -1) {
             Log.e(TAG, "time is invalid");
-            return;
+            return false;
         }
 
         // Set the selected day
@@ -394,7 +395,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             if (Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "We're not visible yet");
             }
-            return;
+            return false;
         }
 
         mTempTime.set(time);
@@ -452,6 +453,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             if (animate) {
                 mListView.smoothScrollToPositionFromTop(
                         position, LIST_TOP_OFFSET, GOTO_SCROLL_DURATION);
+                return true;
             } else {
                 mListView.setSelectionFromTop(position, LIST_TOP_OFFSET);
                 // Perform any after scroll operations that are needed
@@ -461,6 +463,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             // Otherwise just set the selection
             setMonthDisplayed(mSelectedDay, true);
         }
+        return false;
     }
 
      /**
