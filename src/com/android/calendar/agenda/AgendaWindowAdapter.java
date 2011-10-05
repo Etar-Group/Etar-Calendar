@@ -502,7 +502,7 @@ public class AgendaWindowAdapter extends BaseAdapter
         int day = Time.getJulianDay(timeInMillis, tmpTime.gmtoff);
         synchronized (mAdapterInfos) {
             for (DayAdapterInfo info : mAdapterInfos) {
-                if (info.start <= day && day < info.end) {
+                if (info.start <= day && day <= info.end) {
                     return info;
                 }
             }
@@ -603,8 +603,10 @@ public class AgendaWindowAdapter extends BaseAdapter
         if (!forced && isInRange(startDay, startDay)) {
             // No need to re-query
             if (!mAgendaListView.isEventVisible(goToTime, id)) {
-                mAgendaListView.setSelection(findDayPositionNearestTime(goToTime) + OFF_BY_ONE_BUG
-                        + mSkipDateHeader);
+                int gotoPosition = findDayPositionNearestTime(goToTime);
+                if (gotoPosition > 0) {
+                    mAgendaListView.setSelection(gotoPosition + OFF_BY_ONE_BUG + mSkipDateHeader);
+                }
                 Time actualTime = new Time(mTimeZone);
                 if (goToTime != null) {
                     actualTime.set(goToTime);
