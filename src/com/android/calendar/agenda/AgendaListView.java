@@ -300,6 +300,10 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         return getFirstVisibleTime();
     }
 
+    public AgendaAdapter.ViewHolder getSelectedViewHolder() {
+        return mWindowAdapter.getSelectedViewHolder();
+    }
+
     public long getFirstVisibleTime() {
         int position = getFirstVisiblePosition();
         if (DEBUG) {
