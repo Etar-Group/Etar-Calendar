@@ -453,6 +453,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             vh.selectedMarker.setVisibility((selected && mShowEventOnStart) ?
                     View.VISIBLE : View.GONE);
             if (selected) {
+                mSelectedVH = vh;
                 v.setBackgroundColor(mSelectedItemBackgroundColor);
                 vh.title.setTextColor(mSelectedItemTextColor);
                 vh.when.setTextColor(mSelectedItemTextColor);
@@ -465,6 +466,8 @@ public class AgendaWindowAdapter extends BaseAdapter
         }
         return v;
     }
+
+    private AgendaAdapter.ViewHolder mSelectedVH = null;
 
     private int findDayPositionNearestTime(Time time) {
         if (DEBUGLOG) Log.e(TAG, "findDayPositionNearestTime " + time);
@@ -525,6 +528,9 @@ public class AgendaWindowAdapter extends BaseAdapter
     public EventInfo getEventByPosition(final int positionInListView,
             boolean returnEventStartDay) {
         if (DEBUGLOG) Log.e(TAG, "getEventByPosition " + positionInListView);
+        if (positionInListView < 0) {
+            return null;
+        }
 
         final int positionInAdapter = positionInListView - OFF_BY_ONE_BUG;
         DayAdapterInfo info = getAdapterInfoByPosition(positionInAdapter);
@@ -903,6 +909,12 @@ public class AgendaWindowAdapter extends BaseAdapter
 
                 if (mSelectedInstanceId == -1 && cursor.moveToFirst()) {
                     mSelectedInstanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
+                    // Set up a dummy view holder so we have the right all day
+                    // info when the view is created.
+                    // TODO determine the full set of what might be useful to
+                    // know about the selected view and fill it in.
+                    mSelectedVH = new AgendaAdapter.ViewHolder();
+                    mSelectedVH.allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
 
                     EventInfo event = buildEventInfoFromCursor(cursor, false);
                     if (mShowEventOnStart) {
@@ -1130,9 +1142,14 @@ public class AgendaWindowAdapter extends BaseAdapter
         if (v != null) {
             Object vh = v.getTag();
             if (vh instanceof AgendaAdapter.ViewHolder) {
-                mSelectedInstanceId = ((AgendaAdapter.ViewHolder) vh).instanceId;
+                mSelectedVH = (AgendaAdapter.ViewHolder) vh;
+                mSelectedInstanceId = mSelectedVH.instanceId;
             }
         }
+    }
+
+    public AgendaAdapter.ViewHolder getSelectedViewHolder() {
+        return mSelectedVH;
     }
 
     public long getSelectedInstanceId() {
@@ -1141,6 +1158,7 @@ public class AgendaWindowAdapter extends BaseAdapter
 
     public void setSelectedInstanceId(long selectedInstanceId) {
         mSelectedInstanceId = selectedInstanceId;
+        mSelectedVH = null;
     }
 
 

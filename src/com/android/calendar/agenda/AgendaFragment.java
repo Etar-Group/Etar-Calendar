@@ -66,6 +66,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private boolean mUsedForSearch = false;
     private boolean mIsTabletConfig;
     private EventInfo mOnAttachedInfo = null;
+    private boolean mOnAttachAllDay = false;
 
     // Tracks the time of the top visible view in order to send UPDATE_TITLE messages to the action
     // bar.
@@ -104,7 +105,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         mTime.switchTimezone(mTimeZone);
         mActivity = activity;
         if (mOnAttachedInfo != null) {
-            showEventInfo(mOnAttachedInfo);
+            showEventInfo(mOnAttachedInfo, mOnAttachAllDay);
             mOnAttachedInfo = null;
         }
     }
@@ -264,7 +265,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             mTime.set(event.startTime);
         }
         mAgendaListView.goTo(mTime, event.id, mQuery, false);
-        showEventInfo(event);
+        AgendaAdapter.ViewHolder vh = mAgendaListView.getSelectedViewHolder();
+        showEventInfo(event, vh != null ? vh.allDay : false);
     }
 
     private void search(String query, Time time) {
@@ -307,7 +309,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
 
     // Shows the selected event in the Agenda view
-    private void showEventInfo(EventInfo event) {
+    private void showEventInfo(EventInfo event, boolean allDay) {
 
         // Ignore unknown events
         if (event.id == -1) {
@@ -322,6 +324,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 // Got a goto event before the fragment finished attaching,
                 // stash the event and handle it later.
                 mOnAttachedInfo = event;
+                mOnAttachAllDay = allDay;
                 return;
             }
             FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -330,8 +333,14 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                     || event.eventType == EventType.EDIT_EVENT) {
                 response = (int) event.extraLong;
             }
+
+            if (allDay) {
+                event.startTime.timezone = Time.TIMEZONE_UTC;
+                event.endTime.timezone = Time.TIMEZONE_UTC;
+            }
+
             mEventFragment = new EventInfoFragment(mActivity, event.id,
-                    event.startTime.toMillis(false), event.endTime.toMillis(false),
+                    event.startTime.toMillis(true), event.endTime.toMillis(true),
                     response, false);
             ft.replace(R.id.agenda_event_info, mEventFragment);
             mController.registerEventHandler(R.id.agenda_event_info,
