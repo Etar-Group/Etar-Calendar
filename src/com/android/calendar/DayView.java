@@ -1672,7 +1672,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             if (dayChanged || hourChanged || speakEvents) {
                 AccessibilityEvent event = AccessibilityEvent
-                        .obtain(AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED);
+                        .obtain(AccessibilityEvent.TYPE_VIEW_FOCUSED);
                 CharSequence msg = b.toString();
                 event.getText().add(msg);
                 event.setAddedCount(msg.length());
