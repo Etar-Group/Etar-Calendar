@@ -562,6 +562,15 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
         prefs.unregisterOnSharedPreferenceChangeListener(this);
+
+        // Deregistering the HANDLER_KEY event handler shouldn't be necessary, as it should have
+        // happened in onPause().  Deregistering it here, if for some reason it is still registered.
+        mController.deregisterEventHandler(HANDLER_KEY);
+        mController.deregisterEventHandler(R.id.mini_month);
+        mController.deregisterEventHandler(R.id.calendar_list);
+        mController.deregisterEventHandler(R.id.secondary_pane);
+        mController.deregisterEventHandler(R.id.main_pane);
+
         CalendarController.removeInstance(this);
     }
 
