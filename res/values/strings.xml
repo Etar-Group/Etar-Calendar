@@ -453,8 +453,6 @@
     <string name="preferences_alerts_title">Notifications</string>
     <!-- Settings dialog label that specifies when the phone should vibrate -->
     <string name="preferences_alerts_vibrateWhen_title">Vibrate</string>
-    <!-- Settings screen, setting summary text -->
-    <string name="preferences_alerts_vibrateWhen_summary">Also vibrate for reminders</string>
     <!-- Title of ringtone selector dialog -->
     <string name="preferences_alerts_ringtone_title">Select ringtone</string>
     <!-- Title of check box label to enable or disable pop-up notifications -->
