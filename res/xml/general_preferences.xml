@@ -68,7 +68,6 @@
             android:layout="?android:attr/preferenceLayoutChild"
             android:key="preferences_alerts_vibrateWhen"
             android:title="@string/preferences_alerts_vibrateWhen_title"
-            android:summary="@string/preferences_alerts_vibrateWhen_summary"
             android:entries="@array/prefEntries_alerts_vibrateWhen"
             android:entryValues="@array/prefValues_alerts_vibrateWhen"
             android:defaultValue="@string/prefDefault_alerts_vibrateWhen"

@@ -142,6 +142,8 @@ public class GeneralPreferences extends PreferenceFragment implements
             PreferenceCategory mAlertGroup = (PreferenceCategory) preferenceScreen
                     .findPreference(KEY_ALERTS_CATEGORY);
             mAlertGroup.removePreference(mVibrateWhen);
+        } else {
+            mVibrateWhen.setSummary(mVibrateWhen.getEntry());
         }
 
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
@@ -191,6 +193,8 @@ public class GeneralPreferences extends PreferenceFragment implements
         mDefaultReminder.setOnPreferenceChangeListener(listener);
         mRingtone.setOnPreferenceChangeListener(listener);
         mHideDeclined.setOnPreferenceChangeListener(listener);
+        mVibrateWhen.setOnPreferenceChangeListener(listener);
+
     }
 
     @Override
@@ -247,6 +251,9 @@ public class GeneralPreferences extends PreferenceFragment implements
         } else if (preference == mRingtone) {
             // TODO update this after b/3417832 is fixed
             return true;
+        } else if (preference == mVibrateWhen) {
+            mVibrateWhen.setValue((String)newValue);
+            mVibrateWhen.setSummary(mVibrateWhen.getEntry());
         } else {
             return true;
         }
