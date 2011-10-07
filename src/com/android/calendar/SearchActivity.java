@@ -149,9 +149,7 @@ public class SearchActivity extends Activity implements CalendarController.Event
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mController.deregisterEventHandler(R.id.search_results);
-        mController.deregisterEventHandler(R.id.agenda_event_info);
-        mController.deregisterEventHandler(HANDLER_KEY);
+        mController.deregisterAllEventHandlers();
         CalendarController.removeInstance(this);
     }
 
