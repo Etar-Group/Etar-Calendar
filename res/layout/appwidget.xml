@@ -27,23 +27,24 @@
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="48dip"
+        android:layout_height="wrap_content"
+        android:minHeight="48dip"
+        android:gravity="center_vertical|left"
         android:paddingLeft="8dip"
         android:paddingRight="2dip"
         android:orientation="vertical"
         android:background="@drawable/appwidget_header_selector">
         <TextView
             android:id="@+id/day_of_week"
+            android:layout_marginTop="4dip"
             android:textColor="@color/appwidget_week"
             android:shadowColor="#0dffffff"
             android:shadowRadius="3"
-            android:layout_marginRight="4dip"
             style="@style/WidgetDayOfWeekStyle" />
         <TextView
             android:id="@+id/date"
             android:textColor="@color/appwidget_month"
-            android:layout_marginRight="4dip"
-            style="@style/WidgetMonthStyle" />
+            style="@style/WidgetDateStyle" />
     </LinearLayout>
 
     <!-- Event list -->
