@@ -562,6 +562,18 @@ public class CalendarController {
         }
     }
 
+    public void deregisterAllEventHandlers() {
+        synchronized (this) {
+            if (mDispatchInProgressCounter > 0) {
+                // To avoid ConcurrencyException, stash away the event handler for now.
+                mToBeRemovedEventHandlers.addAll(eventHandlers.keySet());
+            } else {
+                eventHandlers.clear();
+                mFirstEventHandler = null;
+            }
+        }
+    }
+
     // FRAG_TODO doesn't work yet
     public void filterBroadcasts(Object sender, long eventTypes) {
         filters.put(sender, eventTypes);
