@@ -89,7 +89,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Okwangasese"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Faka isikhumbuzi"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Awekho amakhalenda"</string>
-    <string name="no_calendars_found" msgid="4265845606733761102">"Ngaphambi kokuba wengeze isenzakalo, kumelwe wengeze okungenani i-akhawunti ye-Calendar kudivayisi bese wenza ikhlenda ibonakale. Thinta \"Engeza i-akhawunti\" ukwengeza i-akhawunti (uma usanda kwengeza i-akhawunti, iyimele ukuba iqede ukuvumelanisa bese uzama futhi), Noma thinta Isikhanselo bese uqinisekisa ukuthi okungenani ikhalenda eyodwa iyabonakala."</string>
+    <string name="no_calendars_found" msgid="4265845606733761102">"Ngaphambi kokuba wengeze isenzakalo, kumelwe wengeze okungenani i-akhawunti Yekhalenda kwidivayisi bese wenza ikhalenda ibonakale. Thinta \"Engeza i-akhawunti\" ukwengeza i-akhawunti (uma usanda kwengeza i-akhawunti, yimele ukuba iqede ukuvumelanisa bese uzama futhi), Noma thinta Khansela bese uqinisekisa ukuthi okungenani ikhalenda eyodwa iyabonakala."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Ikhalenda isebenza kangcono nge-akhawunti yakwa-Google. I-akhawunti."\n\n"• Finyelela kuyo usebenzisa noma iluphi uhlobo lwesiphequluli sewebhu "\n"• Londoloza izinhlelo zakho ngokuphephile"</string>
     <string name="add_account" msgid="1669072099756774952">"Faka i-akhawunti"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Yengeza izivakashi"</string>
@@ -194,7 +194,6 @@
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Uhlobo lwesikhumbuzi"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Ngibonise njengo"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Ubumfihlo"</string>
-    <!-- no translation found for day_view_new_event_hint (2131483437911536229) -->
-    <skip />
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"Isenzakalo esisha"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Isenzakalo <xliff:g id="ITEM_INDEX">%1$s</xliff:g> se <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
 </resources>
