@@ -701,10 +701,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
             case R.id.action_create_event:
                 t = new Time();
                 t.set(mController.getTime());
-                if (t.minute >= 30) {
+                if (t.minute > 30) {
                     t.hour++;
                     t.minute = 0;
-                } else {
+                } else if (t.minute > 0 && t.minute < 30) {
                     t.minute = 30;
                 }
                 mController.sendEventRelatedEvent(
