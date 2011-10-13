@@ -33,8 +33,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Events;
+import android.text.TextUtils;
+import android.text.format.Time;
 import android.util.Base64;
 import android.util.Log;
+
+import com.android.calendarcommon.DateException;
 
 public class GoogleCalendarUriIntentFilter extends Activity {
     private static final String TAG = "GoogleCalendarUriIntentFilter";
@@ -42,11 +46,13 @@ public class GoogleCalendarUriIntentFilter extends Activity {
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_START = 1;
     private static final int EVENT_INDEX_END = 2;
+    private static final int EVENT_INDEX_DURATION = 3;
 
     private static final String[] EVENT_PROJECTION = new String[] {
         Events._ID,      // 0
         Events.DTSTART,  // 1
         Events.DTEND,    // 2
+        Events.DURATION, // 3
     };
 
     /**
@@ -95,48 +101,78 @@ public class GoogleCalendarUriIntentFilter extends Activity {
 
                     if (eventCursor != null && eventCursor.getCount() > 0) {
                         if (eventCursor.getCount() > 1) {
-                            // TODO what to do when there's more than one match
+                            // TODO what to do when there's more than one match?
+                            //
+                            // Probably the case of multiple calendar having the
+                            // same event.
+                            //
+                            // If the intent has info about account (Gmail
+                            // hashes the account name in some cases), we can
+                            // try to match it.
+                            //
+                            // Otherwise, pull up the copy with higher permission level.
                             Log.i(TAG, "NOTE: found " + eventCursor.getCount()
                                     + " matches on event with id='" + eid + "'");
                         }
+
                         // Get info from Cursor
-                        eventCursor.moveToFirst();
-                        int eventId = eventCursor.getInt(EVENT_INDEX_ID);
-                        long startMillis = eventCursor.getLong(EVENT_INDEX_START);
-                        long endMillis = eventCursor.getLong(EVENT_INDEX_END);
+                        while (eventCursor.moveToNext()) {
+                           int eventId = eventCursor.getInt(EVENT_INDEX_ID);
+                            long startMillis = eventCursor.getLong(EVENT_INDEX_START);
+                            long endMillis = eventCursor.getLong(EVENT_INDEX_END);
 
-                        // Pick up attendee status action from uri clicked
-                        int attendeeStatus = ATTENDEE_STATUS_NONE;
-                        if ("RESPOND".equals(uri.getQueryParameter("action"))) {
-                            try {
-                                switch (Integer.parseInt(uri.getQueryParameter("rst"))) {
-                                case 1: // Yes
-                                    attendeeStatus = ATTENDEE_STATUS_ACCEPTED;
-                                    break;
-                                case 2: // No
-                                    attendeeStatus = ATTENDEE_STATUS_DECLINED;
-                                    break;
-                                case 3: // Maybe
-                                    attendeeStatus = ATTENDEE_STATUS_TENTATIVE;
-                                    break;
+                            if (endMillis == 0) {
+                                String duration = eventCursor.getString(EVENT_INDEX_DURATION);
+                                if (TextUtils.isEmpty(duration)) {
+                                    continue;
                                 }
-                            } catch (NumberFormatException e) {
-                                // ignore this error as if the response code
-                                // wasn't in the uri.
-                            }
-                        }
 
-                        // Send intent to calendar app
-                        Uri calendarUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
-                        intent = new Intent(Intent.ACTION_VIEW, calendarUri);
-                        intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
-                        intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
-                        if (attendeeStatus != ATTENDEE_STATUS_NONE) {
-                            intent.putExtra(ATTENDEE_STATUS, attendeeStatus);
+                                try {
+                                    Duration d = new Duration();
+                                    d.parse(duration);
+                                    endMillis = startMillis + d.getMillis();
+                                    if (endMillis < startMillis) {
+                                        continue;
+                                    }
+                                } catch (DateException e) {
+                                    continue;
+                                }
+                            }
+
+                            // Pick up attendee status action from uri clicked
+                            int attendeeStatus = ATTENDEE_STATUS_NONE;
+                            if ("RESPOND".equals(uri.getQueryParameter("action"))) {
+                                try {
+                                    switch (Integer.parseInt(uri.getQueryParameter("rst"))) {
+                                    case 1: // Yes
+                                        attendeeStatus = ATTENDEE_STATUS_ACCEPTED;
+                                        break;
+                                    case 2: // No
+                                        attendeeStatus = ATTENDEE_STATUS_DECLINED;
+                                        break;
+                                    case 3: // Maybe
+                                        attendeeStatus = ATTENDEE_STATUS_TENTATIVE;
+                                        break;
+                                    }
+                                } catch (NumberFormatException e) {
+                                    // ignore this error as if the response code
+                                    // wasn't in the uri.
+                                }
+                            }
+
+                            // Send intent to calendar app
+                            Uri calendarUri = ContentUris.withAppendedId(Events.CONTENT_URI,
+                                    eventId);
+                            intent = new Intent(Intent.ACTION_VIEW, calendarUri);
+                            intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
+                            intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
+                            if (attendeeStatus != ATTENDEE_STATUS_NONE) {
+                                intent.putExtra(ATTENDEE_STATUS, attendeeStatus);
+                            }
+                            startActivity(intent);
+                            finish();
+                            return;
                         }
-                        startActivity(intent);
-                        finish();
-                        return;
                     }
                 }
             }
