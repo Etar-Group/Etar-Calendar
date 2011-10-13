@@ -29,8 +29,6 @@
     <string name="timezone_label">Time zone</string>
     <!-- This is the label for the Guests/Attendees of an event -->
     <string name="attendees_label">Guests</string>
-    <!-- This is the label for the Guest Responses and count of an event e.g. Yes (3) -->
-    <string name="response_label">"<xliff:g id="response_type">%s</xliff:g> (<xliff:g id="guest_count">%d</xliff:g>)"</string>
 
     <!-- Some events repeat daily, weekly, monthly, or yearly.  This is the label
          for all the choices about how often an event repeats (including the choice
@@ -253,10 +251,6 @@
     <string name="create_an_account_desc">"Calendar works better with a Google Account.\n\n\u2022 Access it from any web browser\n\u2022 Back up your events securely"</string>
     <!-- Title of a button shown when there is no account available and the system prompt a user to add one. [CHAR LIMIT=none] -->
     <string name="add_account">Add account</string>
-    <!-- Label for adding guests to an event [CHAR LIMIT=32]-->
-    <string name="add_guests_label">Add guests</string>
-    <!-- DO NOT TRANSLATE the domain to use for auto-completing email addresses-->
-    <string name="google_email_domain">gmail.com</string>
 
     <!-- View Event -->
     <skip/>
@@ -311,12 +305,6 @@
     <!-- Title of the search screen [CHAR LIMIT=30] -->
     <string name="search_title">Search my calendars</string>
 
-    <!-- ICS Import activity -->
-    <skip/>
-    <!-- This is a abbreviation for 'Number of events' and is a label next to
-         an input for the user to enter the number of events to import. -->
-    <string name="num_events">"Num events"</string>
-
     <!-- Button labels: -->
     <skip/>
     <!-- This is the title of a popup window that is displayed when the user
@@ -333,8 +321,6 @@
     <string name="save_label">Done</string>
     <!-- The button label for discarding changes to an event -->
     <string name="discard_label">Cancel</string>
-    <!-- The button label for importing events from another source to the phone -->
-    <string name="import_label">"Import"</string>
 
     <!-- Button labels on expanded notification reminders: -->
     <skip/>
@@ -410,9 +396,6 @@
          user has asked to delete an event. The user still has a chance to cancel
          this operation. -->
     <string name="delete_this_event_title">Delete this event?</string>
-    <!-- This is the title of a popup dialog that asks for confirmation before
-         deleting an event. -->
-    <string name="delete_title">Delete</string>
     <!-- This is the title of a popup dialog that asks for confirmation before
          changing the response to an invitation. -->
     <string name="change_response_title">Change response</string>
