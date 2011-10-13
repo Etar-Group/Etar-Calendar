@@ -344,7 +344,7 @@
     <skip/>
     <string-array name="delete_repeating_labels">
         <item>Only this event</item>
-        <item>This &amp; future events</item>
+        <item>This and future events</item>
         <item>All events</item>
     </string-array>
 
@@ -375,7 +375,7 @@
     respond to an invitation that repeats. -->
     <string-array name="change_response_labels">
         <!-- The choice for responding to only one instance of a repeating event -->
-        <item>Only this instance</item>
+        <item>Only this event</item>
         <!-- The choice for responding to all instances of a repeating event -->
         <item>All events in the series</item>
     </string-array>

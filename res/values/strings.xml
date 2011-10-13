@@ -149,7 +149,7 @@
     <!-- Select Visible Calendars activity -->
     <skip/>
     <!-- Title of "My calendars" screen -->
-    <string name="select_visible_calendars_title">"Calendars to Display"</string>
+    <string name="select_visible_calendars_title">"Calendars to display"</string>
     <!-- Synced and visible status message -->
 
     <!-- Synced but not visible status message -->
@@ -164,14 +164,14 @@
     <string name="not_synced"> not synced</string>
     <!-- Message displayed to user when an account with Calendars is not being auto-synced
         [CHAR LIMIT=120]-->
-    <string name="acct_not_synced">This account is not being synced and your calendars may
-        not be up to date.</string>
+    <string name="acct_not_synced">This account isn\'t being synced so your calendars may
+        not be up-to-date.</string>
     <!-- Label on button that takes user to the Accounts and Sync settings page [CHAR LIMIT=60] -->
     <string name="accounts">Accounts &amp; sync</string>
 
     <!-- Select Synced Calendars activity -->
     <!-- Select the set of calendars to sync [CHAR LIMIT=60] -->
-    <string name="select_synced_calendars_title">Calendars to Sync</string>
+    <string name="select_synced_calendars_title">Calendars to sync</string>
     <!-- Select the set of calendars to sync [CHAR LIMIT=60] -->
     <string name="select_synced_calendars_button">Calendars to sync</string>
 
@@ -188,15 +188,15 @@
     <!-- Default value of Attendees/Guests field (as a hint to the user) [CHAR LIMIT=10] -->
     <string name="hint_attendees">"Guests"</string>
     <!-- Toast message displayed when a new event is created -->
-    <string name="creating_event">"Event created"</string>
+    <string name="creating_event">"Event created."</string>
     <!-- Toast message displayed when an existing event is saved after being modified -->
-    <string name="saving_event">"Event saved"</string>
+    <string name="saving_event">"Event saved."</string>
     <!-- Toast message displayed when a new event was not saved because it was empty [CHAR LIMIT=30] -->
-    <string name="empty_event">"Empty event not created"</string>
+    <string name="empty_event">"Empty event not created."</string>
     <!-- Toast message displayed when a new event with guests is created -->
-    <string name="creating_event_with_guest">"Invitations sent"</string>
+    <string name="creating_event_with_guest">"Invitations sent."</string>
     <!-- Toast message displayed when an existing event with guests is saved after being modified -->
-    <string name="saving_event_with_guest">"Updates sent"</string>
+    <string name="saving_event_with_guest">"Updates sent."</string>
     <!-- Title of message displayed to indicate available calendars are being loaded when creating
          a new event -->
 
@@ -248,7 +248,7 @@
     <!-- Title of alert shown if the user tries to create an event and has no calendars -->
     <string name="no_syncable_calendars">No calendars</string>
     <!-- Body of alert shown if the user tries to create an event and has no calendars. Users can start adding an account here. [CHAR LIMIT=NONE] -->
-    <string name="no_calendars_found">Before you can add an event, you must add at least one Calendar account to the device and make a calendar visible. Touch \u0022Add account\u0022 to add an account (if you just added an account, wait for it to finish syncing and try again). Or touch Cancel and ensure that at least one calendar is visible.</string>
+    <string name="no_calendars_found">Before you can add an event, you must add at least one Calendar account to your device and make a calendar visible. Touch Add Account to add an account (if you just added an account, wait for it to finish syncing and try again). Or touch Cancel and make sure at least one calendar is visible.</string>
     <!-- Body of dialog prompting the user to create an account.[CHAR LIMIT=NONE] -->
     <string name="create_an_account_desc">"Calendar works better with a Google Account.\n\n\u2022 Access it from any web browser\n\u2022 Back up your events securely"</string>
     <!-- Title of a button shown when there is no account available and the system prompt a user to add one. [CHAR LIMIT=none] -->
@@ -378,25 +378,25 @@
          custom (non-standard) way from the usual repeat rates (such as daily,
          weekly, etc.) and that the user cannot change this on the phone
          (but only on the web). -->
-    <string name="custom" product="tablet">"Custom\u2026 (cannot customize on tablet)"</string>
+    <string name="custom" product="tablet">"Custom (can\'t customize on tablet)"</string>
     <!-- This is a label for telling the user that this event repeats in
          custom (non-standard) way from the usual repeat rates (such as daily,
          weekly, etc.) and that the user cannot change this on the phone
          (but only on the web). -->
-    <string name="custom" product="default">"Custom\u2026 (cannot customize on phone)"</string>
+    <string name="custom" product="default">"Custom (can\'t customize on phone)"</string>
 
     <!-- This is a choice in a list that the user sees when he tries to modify
          a repeating event.  This choice says to change just this one instance
          of this repeating event. -->
-    <string name="modify_event">Change only this event.</string>
+    <string name="modify_event">Change only this event</string>
     <!-- This is a choice in a list that the user sees when he tries to modify
          a repeating event.  This choice says to change all occurrences of
          this repeating event. -->
-    <string name="modify_all">Change all events in the series.</string>
+    <string name="modify_all">Change all events in the series</string>
     <!-- This is a choice in a list that the user sees when he tries to modify
          a repeating event.  This choice says to change this instance and all
          future occurrences of this repeating event. -->
-    <string name="modify_all_following">Change this and all future events.</string>
+    <string name="modify_all_following">Change this and all future events</string>
 
     <!-- Dialogs -->
 
@@ -409,7 +409,7 @@
     <!-- This is a confirmation message in a popup dialog that appears when the
          user has asked to delete an event. The user still has a chance to cancel
          this operation. -->
-    <string name="delete_this_event_title">This event will be deleted.</string>
+    <string name="delete_this_event_title">Delete this event?</string>
     <!-- This is the title of a popup dialog that asks for confirmation before
          deleting an event. -->
     <string name="delete_title">Delete</string>
@@ -420,12 +420,12 @@
     <!-- This the title of a menu for General Preferences.
          Pressing the menu item lets user to view and edit his general settings
          (or preferences) [CHAR LIMIT=30] -->
-    <string name="menu_general_preferences">General Preferences</string>
+    <string name="menu_general_preferences">General settings</string>
 
     <!-- This the title of a menu for "About Calendar" Preferences.
          Pressing the menu item lets user to view the current settings
          [CHAR LIMIT=30] -->
-    <string name="menu_about_preferences">About calendar</string>
+    <string name="menu_about_preferences">About Calendar</string>
 
     <!-- This is the title of the screen for setting user preferences. -->
     <string name="preferences_title">"Settings"</string>
@@ -446,15 +446,15 @@
     <!-- Title of the settings item to clear the recent search history [CHAR LIMIT=40] -->
     <string name="preferences_clear_search_history_title">Clear search history</string>
     <!-- Summary of the settings item to clear the recent search history [CHAR LIMIT=70]-->
-    <string name="preferences_clear_search_history_summary">Remove all the searches you have performed</string>
+    <string name="preferences_clear_search_history_summary">Remove all the searches you\'ve performed</string>
     <!-- Message to show in a toast when the history is cleared [CHAR LIMIT=40] -->
-    <string name="search_history_cleared">Search history cleared</string>
+    <string name="search_history_cleared">Search history cleared.</string>
     <!-- Settings check box label to enable or disable notifications -->
     <string name="preferences_alerts_title">Notifications</string>
     <!-- Settings dialog label that specifies when the phone should vibrate -->
     <string name="preferences_alerts_vibrateWhen_title">Vibrate</string>
     <!-- Title of ringtone selector dialog -->
-    <string name="preferences_alerts_ringtone_title">Select ringtone</string>
+    <string name="preferences_alerts_ringtone_title">Choose ringtone</string>
     <!-- Title of check box label to enable or disable pop-up notifications -->
     <string name="preferences_alerts_popup_title">Pop-up notification</string>
     <!-- List item label for setting the default number of reminder minutes -->
