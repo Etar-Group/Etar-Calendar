@@ -255,7 +255,7 @@ public class DeleteEventHelper {
         String rRule = model.mRrule;
         String originalEvent = model.mOriginalSyncId;
         if (TextUtils.isEmpty(rRule)) {
-            AlertDialog dialog = new AlertDialog.Builder(mContext).setTitle(R.string.delete_title)
+            AlertDialog dialog = new AlertDialog.Builder(mContext)
                     .setMessage(R.string.delete_this_event_title)
                     .setIconAttribute(android.R.attr.alertDialogIcon)
                     .setNegativeButton(android.R.string.cancel, null).create();
@@ -306,7 +306,7 @@ public class DeleteEventHelper {
             mWhichIndex = labelIndex;
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
                     android.R.layout.simple_list_item_single_choice, labelArray);
-            AlertDialog dialog = new AlertDialog.Builder(mContext).setTitle(R.string.delete_title)
+            AlertDialog dialog = new AlertDialog.Builder(mContext)
                     .setIconAttribute(android.R.attr.alertDialogIcon)
                     .setSingleChoiceItems(adapter, which, mDeleteListListener)
                     .setPositiveButton(android.R.string.ok, mDeleteRepeatingDialogListener)
