@@ -332,7 +332,7 @@
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:hint="@string/hint_description"
-            android:inputType="textAutoCorrect|textCapSentences"
+            android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
             style="@style/TextAppearance.EditEvent_Value"
             android:capitalize="sentences" />
     </TableRow>
