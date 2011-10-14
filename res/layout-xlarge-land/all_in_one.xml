@@ -76,7 +76,6 @@
             android:layout_weight="6"
             android:layout_height="match_parent"
             android:layout_width="0dip" />
-
         <FrameLayout
             android:id="@+id/secondary_pane"
             android:layout_weight="4"
@@ -84,6 +83,12 @@
             android:layout_height="match_parent"
             android:layout_width="0dip" />
     </LinearLayout>
+
+    <View
+        android:layout_toRightOf="@id/date_group"
+        android:background="@color/calendar_grid_line_inner_vertical_color"
+        android:layout_height="match_parent"
+        android:layout_width="1px" />
 
     <FrameLayout
         android:id="@+id/mini_month"
@@ -99,4 +104,5 @@
         android:layout_alignParentBottom="true"
         android:layout_height="match_parent"
         android:layout_width="280dip" />
+
 </RelativeLayout>
