@@ -61,6 +61,9 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
     protected ListView mListView = null;
     protected ListView.OnScrollListener mListener = null;
 
+    private int mSeparatorWidth;
+    private View mSeparatorView;
+
     // This code is needed only if dataset changes do not force a call to OnScroll
     // protected DataSetObserver mListDataObserver = null;
 
@@ -211,6 +214,22 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
         }
     }
 
+    /**
+     * Sets a separator below the sticky header, which will be visible while the sticky header
+     * is not scrolling up.
+     * @param color - color of separator
+     * @param width - width in pixels of separator
+     */
+    public void setHeaderSeparator(int color, int width) {
+        mSeparatorView = new View(mContext);
+        ViewGroup.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
+                width, Gravity.TOP);
+        mSeparatorView.setLayoutParams(params);
+        mSeparatorView.setBackgroundColor(color);
+        mSeparatorWidth = width;
+        this.addView(mSeparatorView);
+    }
+
     protected void updateStickyHeader(int firstVisibleItem) {
 
         // Try to make sure we have an adapter to work with (may not succeed).
@@ -229,11 +248,14 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
             boolean newView = false;
             if (sectionPos != mCurrentSectionPos) {
 
-                // No header for current position , use the dummy invisible one
+                // No header for current position , use the dummy invisible one, hide the separator
                 if (sectionPos == -1) {
                     sectionSize = 0;
                     this.removeView(mStickyHeader);
                     mStickyHeader = mDummyHeader;
+                    if (mSeparatorView != null) {
+                        mSeparatorView.setVisibility(View.GONE);
+                    }
                     newView = true;
                 } else {
                     // Create a copy of the header view to show on top
@@ -264,12 +286,26 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
                 if (SectionLastView != null && SectionLastView.getBottom() <= stickyHeaderHeight) {
                     int lastViewBottom = SectionLastView.getBottom();
                     mStickyHeader.setTranslationY(lastViewBottom - stickyHeaderHeight);
+                    if (mSeparatorView != null) {
+                        mSeparatorView.setVisibility(View.GONE);
+                    }
                 } else if (stickyHeaderHeight != 0) {
                     mStickyHeader.setTranslationY(0);
+                    if (mSeparatorView != null) {
+                        mSeparatorView.setVisibility(View.VISIBLE);
+                    }
                 }
                 if (newView) {
                     mStickyHeader.setVisibility(View.INVISIBLE);
                     this.addView(mStickyHeader);
+                    if (mSeparatorView != null && !mStickyHeader.equals(mDummyHeader)){
+                        FrameLayout.LayoutParams params =
+                                new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                                        mSeparatorWidth);
+                        params.setMargins(0, mStickyHeader.getMeasuredHeight(), 0, 0);
+                        mSeparatorView.setLayoutParams(params);
+                        mSeparatorView.setVisibility(View.VISIBLE);
+                    }
                     mStickyHeader.setVisibility(View.VISIBLE);
                 }
             }

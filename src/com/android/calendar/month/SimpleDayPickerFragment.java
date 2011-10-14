@@ -69,7 +69,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     protected static final int DAYS_PER_WEEK = 7;
     // The size of the month name displayed above the week list
     protected static final int MINI_MONTH_NAME_TEXT_SIZE = 18;
-    protected static int LIST_TOP_OFFSET = 0;
+    protected static int LIST_TOP_OFFSET = -1;  // so that the top line will be under the separator
     protected int WEEK_MIN_VISIBLE_HEIGHT = 12;
     protected int BOTTOM_BUFFER = 20;
     protected int mSaturdayColor = 0;
@@ -368,7 +368,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
      * the time is at the top of the view. If the new time is already in view
      * the list will not be scrolled unless forceScroll is true. This time may
      * optionally be highlighted as selected as well.
-     * 
+     *
      * @param time The time to move to
      * @param animate Whether to scroll to the given time or just redraw at the
      *            new location
