@@ -489,7 +489,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
             initFragments(mController.getTime(), mController.getViewType(), null);
             mUpdateOnResume = false;
         }
-        updateSecondaryTitleFields(mController.getTime());
+        Time t = new Time(mTimeZone);
+        t.set(mController.getTime());
+        mController.sendEvent(this, EventType.UPDATE_TITLE, t, t, -1, ViewType.CURRENT,
+                mController.getDateFlags(), null, null);
         // Make sure the drop-down menu will get its date updated at midnight
         if (mActionBarMenuSpinnerAdapter != null) {
             mActionBarMenuSpinnerAdapter.refresh(this);

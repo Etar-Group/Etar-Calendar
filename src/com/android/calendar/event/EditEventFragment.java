@@ -38,6 +38,7 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 import android.text.TextUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -705,8 +706,23 @@ public class EditEventFragment extends Fragment implements EventHandler {
                 // when we want to return to the main calendar views
                 if ((mCode & Utils.DONE_SAVE) != 0) {
                     if (mContext != null) {
-                        CalendarController.getInstance(mContext).
-                                launchViewEvent(-1, mModel.mStart, mModel.mEnd);
+                        long start = mModel.mStart;
+                        long end = mModel.mEnd;
+                        if (mModel.mAllDay) {
+                            // For allday events we want to go to the day in the
+                            // user's current tz
+                            String tz = Utils.getTimeZone(mContext, null);
+                            Time t = new Time(Time.TIMEZONE_UTC);
+                            t.set(start);
+                            t.timezone = tz;
+                            start = t.toMillis(true);
+
+                            t.timezone = Time.TIMEZONE_UTC;
+                            t.set(end);
+                            t.timezone = tz;
+                            end = t.toMillis(true);
+                        }
+                        CalendarController.getInstance(mContext).launchViewEvent(-1, start, end);
                     }
                 }
                 Activity a = EditEventFragment.this.getActivity();

@@ -91,6 +91,7 @@ public class CalendarController {
     private int mPreviousViewType = -1;
     private long mEventId = -1;
     private Time mTime = new Time();
+    private long mDateFlags = 0;
 
     private AsyncQueryService mService;
 
@@ -395,6 +396,10 @@ public class CalendarController {
             }
             event.selectedTime = mTime;
         }
+        // Store the formatting flags if this is an update to the title
+        if (event.eventType == EventType.UPDATE_TITLE) {
+            mDateFlags = event.extraLong;
+        }
 
         // Fix up start time if not specified
         if (startMillis == 0) {
@@ -584,6 +589,14 @@ public class CalendarController {
      */
     public long getTime() {
         return mTime.toMillis(false);
+    }
+
+    /**
+     * @return the last set of date flags sent with
+     *         {@link EventType#UPDATE_TITLE}
+     */
+    public long getDateFlags() {
+        return mDateFlags;
     }
 
     /**
