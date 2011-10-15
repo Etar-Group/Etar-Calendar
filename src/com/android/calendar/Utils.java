@@ -80,6 +80,7 @@ public class Utils {
     public static final String INTENT_KEY_HOME = "KEY_HOME";
 
     public static final int MONDAY_BEFORE_JULIAN_EPOCH = Time.EPOCH_JULIAN_DAY - 3;
+    public static final int DECLINED_EVENT_ALPHA = 0x66;
 
     private static final float SATURATION_ADJUST = 0.3f;
 
@@ -584,7 +585,7 @@ public class Utils {
     // white. The result is the color that should be used for declined events.
     public static int getDeclinedColorFromColor(int color) {
         int bg = 0xffffffff;
-        int a = 0x66;
+        int a = DECLINED_EVENT_ALPHA;
         int r = (((color & 0x00ff0000) * a) + ((bg & 0x00ff0000) * (0xff - a))) & 0xff000000;
         int g = (((color & 0x0000ff00) * a) + ((bg & 0x0000ff00) * (0xff - a))) & 0x00ff0000;
         int b = (((color & 0x000000ff) * a) + ((bg & 0x000000ff) * (0xff - a))) & 0x0000ff00;
