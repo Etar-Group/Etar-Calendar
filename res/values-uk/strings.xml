@@ -22,7 +22,6 @@
     <string name="when_label" msgid="894636567327261599">"Коли"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Часовий пояс"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Гості"</string>
-    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Повторювання"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Без назви)"</string>
   <plurals name="Nminutes">
@@ -60,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Пошук"</string>
     <string name="hide_controls" msgid="830320505938520882">"Сховати елем. керув."</string>
     <string name="show_controls" msgid="715520586028062621">"Показати елем.керув."</string>
-    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Календарі для відображення"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Календарі для показу"</string>
     <string name="synced" msgid="7913940305983383493">"синхронізовано"</string>
     <string name="not_synced" msgid="4275114941801829419">"не синхронізовано"</string>
-    <string name="acct_not_synced" msgid="2225937158458147648">"Цей обліковий запис не синхронізується. Ваші календарі, можливо, застаріли."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Цей обліковий запис не синхронізується, тому ваші календарі, можливо, застаріли."</string>
     <string name="accounts" msgid="849401841083180306">"Облікові записи і синхронізація"</string>
-    <string name="select_synced_calendars_title" msgid="7122363881046468658">"Календарі для синхронізації"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Календарі для синхронізації"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Календарі для синхронізації"</string>
     <string name="hint_what" msgid="709155115005044531">"Назва події"</string>
     <string name="hint_where" msgid="4972598001033801974">"Місцезнаходж-ня"</string>
     <string name="hint_description" msgid="1910143586169033232">"Опис"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Гості"</string>
-    <string name="creating_event" msgid="5252306542761552414">"Подію створено"</string>
-    <string name="saving_event" msgid="7716081507367732169">"Подію збереж."</string>
-    <string name="empty_event" msgid="757898251276814787">"Порожню подію не створено"</string>
-    <string name="creating_event_with_guest" msgid="608830786504021732">"Запрошення надіслано"</string>
-    <string name="saving_event_with_guest" msgid="6177245412801310483">"Оновлення надіслано"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Подію створено."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Подію збережено."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Порожню подію не створено."</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Запрошення надіслано."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Оновлення надіслано."</string>
     <string name="alert_title" msgid="7869592820853066853">"Сповіщення календаря"</string>
     <string name="event_info_title" msgid="56024222340421620">"Перегл. подію"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Запрошення на зустріч"</string>
@@ -89,10 +88,9 @@
     <string name="privacy_label" msgid="9215031965259597335">"Конфіденц."</string>
     <string name="reminders_label" msgid="7292389181815525676">"Додати нагадування"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Немає календ."</string>
-    <string name="no_calendars_found" msgid="4265845606733761102">"Перед додаванням події потрібно додати в пристрій хоча б один обліковий запис Календаря. Щоб додати обліковий запис, торкніться опції \"Додати обліковий запис\" (якщо ви його щойно додали, зачекайте завершення синхронізації та спробуйте ще раз). Або торкніться опції \"Скасувати\" та переконайтеся, що принаймні один календар видимий."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Перш ніж додавати подію, потрібно додати в пристрій хоча б один обліковий запис Календаря та зробити календар видимим. Щоб додати обліковий запис, торкніться опції \"Додати обліковий запис\" (якщо його щойно додано, зачекайте завершення синхронізації та повторіть спробу). Або торкніться опції \"Скасувати\" та переконайтеся, що принаймні один календар є видимим."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Календар пропонує більше можливостей, якщо у вас є обліковий запис Google."\n\n"•Отримуйте доступ до нього з будь-якого веб-переглядача"\n"•Створюйте надійні резервні копії своїх подій"</string>
     <string name="add_account" msgid="1669072099756774952">"Додати обліковий запис"</string>
-    <string name="add_guests_label" msgid="7294569977062998743">"Додати гостей"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Календар:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Організатор:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Підете?"</string>
@@ -110,13 +108,11 @@
     <string name="show_older_events" msgid="5140647493681439926">"Торкніться, щоб див. події до <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Торкн., щоб див. події після <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Пошук у моїх календарях"</string>
-    <string name="num_events" msgid="3351672964607162257">"К-сть подій"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Деталі"</string>
     <string name="edit_label" msgid="8934331258435656534">"Редагувати"</string>
     <string name="delete_label" msgid="874742811918030739">"Видалити"</string>
     <string name="save_label" msgid="2133599104834432589">"Готово"</string>
     <string name="discard_label" msgid="2394623883289782541">"Скасувати"</string>
-    <string name="import_label" msgid="6993796574741477222">"Імпорт."</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Періодично всі"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Припинити всі"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Одноразова подія"</string>
@@ -128,18 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Щороку"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Щомісяця (у день: <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Щороку (дата: <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3784569535926286624">"Спец... (неможливо змінити в пристрої)"</string>
-    <string name="custom" product="default" msgid="3015205670911301856">"Інше… (неможливо налашт. в тел.)"</string>
-    <string name="modify_event" msgid="4501745557655992422">"Змінити лише цю подію."</string>
-    <string name="modify_all" msgid="7506579040966638538">"Змінити всі події в серіях."</string>
-    <string name="modify_all_following" msgid="4333745734894639276">"Змінити цю й усі майбутні події."</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Спеціальне (неможливо налаштувати в планшетному ПК)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Спеціальне (неможливо налаштувати в телефоні)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Змінити лише цю подію"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Змінити всі події в серіях"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Змінити цю й усі майбутні події"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Нова подія"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Нова подія"</string>
-    <string name="delete_this_event_title" msgid="8738491083082780492">"Цю подію буде видалено."</string>
-    <string name="delete_title" msgid="5143743507524995383">"Видалити"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Видалити цю подію?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Змінити відповідь"</string>
-    <string name="menu_general_preferences" msgid="4057784477122524106">"Загальні налаштування"</string>
-    <string name="menu_about_preferences" msgid="160474554936812478">"Про календар"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Загальні налаштування"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Про Календар"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Налаштув-ня"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Налаш. перегляду календ."</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Налашт-ня нагадувань"</string>
@@ -147,12 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Початок тжн. у"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Початок тжн. у"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Очистити історію пошуку"</string>
-    <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"Видалити всі здійснені пошуки"</string>
-    <string name="search_history_cleared" msgid="7317062958300188595">"Історію пошуку очищено"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Видалити всі здійснені вами пошуки"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Історію пошуку очищено."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Сповіщення"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Вібросигнал"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"І відбросигн. для нагадув."</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Вибір мелодії"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Вибрати сигнал дзвінка"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Спливаюче сповіщення"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Час нагад. за умовч."</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Час нагад. за умовч."</string>

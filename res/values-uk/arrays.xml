@@ -173,7 +173,7 @@
   </string-array>
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"Лише ця подія"</item>
-    <item msgid="8626755531271570950">"Ця та майбутні події"</item>
+    <item msgid="1536401639805370405">"Ця та майбутні події"</item>
     <item msgid="7833229563617435430">"Усі події"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
@@ -181,7 +181,7 @@
     <item msgid="6315440193748139854">"Усі події"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item msgid="2012815396992847028">"Лише в цьому випадку"</item>
+    <item msgid="3466644709343519437">"Лише ця подія"</item>
     <item msgid="140670561403965380">"Усі події в серіях"</item>
   </string-array>
   <string-array name="buttons_list">
