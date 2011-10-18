@@ -22,7 +22,6 @@
     <string name="when_label" msgid="894636567327261599">"When"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Time zone"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Guests"</string>
-    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Repetition"</string>
     <string name="no_title_label" msgid="302177118061368042">"(No title)"</string>
   <plurals name="Nminutes">
@@ -60,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Search"</string>
     <string name="hide_controls" msgid="830320505938520882">"Hide controls"</string>
     <string name="show_controls" msgid="715520586028062621">"Show controls"</string>
-    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Calendars to be Displayed"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Calendars to be displayed"</string>
     <string name="synced" msgid="7913940305983383493">"synced"</string>
     <string name="not_synced" msgid="4275114941801829419">"not synced"</string>
-    <string name="acct_not_synced" msgid="2225937158458147648">"This account is not being synced and your calendars may not be up to date."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"This account isn\'t being synced, so your calendars may not be up to date."</string>
     <string name="accounts" msgid="849401841083180306">"Accounts &amp; sync"</string>
-    <string name="select_synced_calendars_title" msgid="7122363881046468658">"Calendars to be Synced"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Calendars to be synced"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Calendars to be synced"</string>
     <string name="hint_what" msgid="709155115005044531">"Event name"</string>
     <string name="hint_where" msgid="4972598001033801974">"Location"</string>
     <string name="hint_description" msgid="1910143586169033232">"Description"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Guests"</string>
-    <string name="creating_event" msgid="5252306542761552414">"Event created"</string>
-    <string name="saving_event" msgid="7716081507367732169">"Event saved"</string>
-    <string name="empty_event" msgid="757898251276814787">"Empty event not created"</string>
-    <string name="creating_event_with_guest" msgid="608830786504021732">"Invitations sent"</string>
-    <string name="saving_event_with_guest" msgid="6177245412801310483">"Updates sent"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Event created."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Event saved."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Empty event not created."</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Invitations sent."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Updates sent."</string>
     <string name="alert_title" msgid="7869592820853066853">"Calendar notifications"</string>
     <string name="event_info_title" msgid="56024222340421620">"View event"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Meeting invitation"</string>
@@ -89,10 +88,9 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Add reminder"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No calendars"</string>
-    <string name="no_calendars_found" msgid="4265845606733761102">"Before you can add an event, you must add at least one Calendar account to the device and make a calendar visible. Touch \"Add account\" to add an account (if you\'ve just added an account, wait for it to finish syncing and try again). Or touch Cancel and ensure that at least one calendar is visible."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Before you can add an event, you must add at least one Calendar account to your device and make a calendar visible. Touch Add Account to add an account (if you\'ve just added an account, wait for it to finish syncing and try again). Or touch Cancel and make sure that at least one calendar is visible."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Calendar works better with a Google Account."\n\n"• Access it from any web browser"\n"• Back up your events securely"</string>
     <string name="add_account" msgid="1669072099756774952">"Add account"</string>
-    <string name="add_guests_label" msgid="7294569977062998743">"Add guests"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendar:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organiser:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Attending?"</string>
@@ -110,13 +108,11 @@
     <string name="show_older_events" msgid="5140647493681439926">"Touch to view events before <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Touch to view events after <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Search my calendars"</string>
-    <string name="num_events" msgid="3351672964607162257">"Num events"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Details"</string>
     <string name="edit_label" msgid="8934331258435656534">"Edit"</string>
     <string name="delete_label" msgid="874742811918030739">"Delete"</string>
     <string name="save_label" msgid="2133599104834432589">"Done"</string>
     <string name="discard_label" msgid="2394623883289782541">"Cancel"</string>
-    <string name="import_label" msgid="6993796574741477222">"Import"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Snooze all"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Dismiss all"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"One-time event"</string>
@@ -128,18 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Yearly"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Monthly (on day <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Yearly (on <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3784569535926286624">"Customised… (cannot customise on tablet)"</string>
-    <string name="custom" product="default" msgid="3015205670911301856">"Custom… (cannot customise on phone)"</string>
-    <string name="modify_event" msgid="4501745557655992422">"Change only this event."</string>
-    <string name="modify_all" msgid="7506579040966638538">"Change all events in the series."</string>
-    <string name="modify_all_following" msgid="4333745734894639276">"Change this and all future events."</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Customise (can\'t customise on tablet)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Customise (can\'t customise on phone)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Change only this event"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Change all events in the series."</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Change this and all future events"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"New event"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"New event"</string>
-    <string name="delete_this_event_title" msgid="8738491083082780492">"This event will be deleted."</string>
-    <string name="delete_title" msgid="5143743507524995383">"Delete"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Delete this event?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Change response"</string>
-    <string name="menu_general_preferences" msgid="4057784477122524106">"General Preferences"</string>
-    <string name="menu_about_preferences" msgid="160474554936812478">"About calendar"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"General settings"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"About Calendar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Settings"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Calendar view setting"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Reminder settings"</string>
@@ -147,12 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Week starts on"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Week starts on"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Clear search history"</string>
-    <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"Remove all the searches that you have performed"</string>
-    <string name="search_history_cleared" msgid="7317062958300188595">"Search history cleared"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Remove all the searches that you\'ve performed"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Search history cleared."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notifications"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrate"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Also vibrate for reminders"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Select ringtone"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Choose ringtone"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pop-up notification"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Default reminder time"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Default reminder time"</string>

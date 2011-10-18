@@ -173,7 +173,7 @@
   </string-array>
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"Kuphela le senzakalo"</item>
-    <item msgid="8626755531271570950">"Le &amp; izenzakalo zesikhathi esizayo"</item>
+    <item msgid="1536401639805370405">"Lona kanye neyakusasa imicimbi"</item>
     <item msgid="7833229563617435430">"Zonke izenzakalo"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
@@ -181,7 +181,7 @@
     <item msgid="6315440193748139854">"Zonke izenzakalo"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item msgid="2012815396992847028">"Kulesi simo kuphela"</item>
+    <item msgid="3466644709343519437">"Kuphela le senzakalo"</item>
     <item msgid="140670561403965380">"Zonke izenzakalo ochungechungeni"</item>
   </string-array>
   <string-array name="buttons_list">
