@@ -151,7 +151,6 @@
     <string name="search_history_cleared" msgid="7317062958300188595">"검색기록이 지워짐"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"알림"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"진동"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"진동 알림"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"알림음 선택"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"팝업 알림"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"기본 알림 시간"</string>

@@ -151,7 +151,6 @@
     <string name="search_history_cleared" msgid="7317062958300188595">"Έγινε εκκαθάριση ιστορικού αναζήτησης"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Ειδοποιήσεις"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Δόνηση"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Δόνηση και στις υπενθυμίσεις"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Επιλογή ήχου κλήσης"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Αναδυόμενη ειδοποίηση"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Προεπιλεγμένος χρόνος υπενθύμισης"</string>

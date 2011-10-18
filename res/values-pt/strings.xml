@@ -151,7 +151,6 @@
     <string name="search_history_cleared" msgid="7317062958300188595">"Histórico de pesquisa removido"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificações"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrar"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Vibrar também para lembretes"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Selecionar toque"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificação pop-up"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Tempo do lembrete"</string>

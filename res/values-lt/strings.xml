@@ -151,7 +151,6 @@
     <string name="search_history_cleared" msgid="7317062958300188595">"Paieškos istorija išvalyta"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Pranešimai"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibruoti"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Taip pat įjungti vibraciją priminimams"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Pasirinkti skambėjimo toną"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Iššokantysis pranešimas"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Numatytasis priminimo laikas"</string>

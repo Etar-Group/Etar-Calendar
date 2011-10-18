@@ -151,7 +151,6 @@
     <string name="search_history_cleared" msgid="7317062958300188595">"Đã xóa lịch sử tìm kiếm"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Thông báo"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Rung"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Cũng rung đối với lời nhắc"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Chọn nhạc chuông"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Thông báo bật lên"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Thời gian nhắc mặc định"</string>

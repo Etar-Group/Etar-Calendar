@@ -44,7 +44,7 @@
   <plurals name="weekN">
     <item quantity="other" msgid="8085184869561028365">"Woche <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">"Aktualis."</string>
+    <string name="calendar_refresh" msgid="6172731193680500025">"Aktualisieren"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Tag anzeigen"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Terminübersicht"</string>
     <string name="day_view" msgid="4467754504843584437">"Tag"</string>
@@ -107,8 +107,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">"Gestern, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"Morgen, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Wird geladen..."</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Berühren Sie das Display, um Termine vor <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> anzuzeigen."</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Berühren Sie das Display, um Termine nach <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> anzuzeigen."</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Antippen, um Termine vor dem <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> anzuzeigen."</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Antippen, um Termine nach dem <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> anzuzeigen"</string>
     <string name="search_title" msgid="8898015280250716254">"Meine Kalender durchsuchen"</string>
     <string name="num_events" msgid="3351672964607162257">"Anzahl Termine"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Details"</string>
@@ -151,7 +151,6 @@
     <string name="search_history_cleared" msgid="7317062958300188595">"Suchverlauf gelöscht"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Benachrichtigungen"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibration"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Bei Erinnerungen zusätzlich vibrieren"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Klingelton auswählen"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pop-up-Benachrichtigung"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standard-Erinnerungszeit"</string>

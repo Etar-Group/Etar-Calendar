@@ -56,7 +56,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Elimina evento"</string>
     <string name="goto_today" msgid="9162136434410891230">"Oggi"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Impostazioni"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendari da visualizz."</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendari da visualizzare"</string>
     <string name="search" msgid="550656004486017426">"Cerca"</string>
     <string name="hide_controls" msgid="830320505938520882">"Nascondi controlli"</string>
     <string name="show_controls" msgid="715520586028062621">"Mostra controlli"</string>
@@ -151,7 +151,6 @@
     <string name="search_history_cleared" msgid="7317062958300188595">"Cronologia ricerche cancellata"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notifiche"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrazione"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Attiva anche vibrazione per promemoria"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Seleziona suoneria"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notifica popup"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Imposta promem. pred."</string>

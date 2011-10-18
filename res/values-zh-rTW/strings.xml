@@ -105,7 +105,7 @@
     <string name="event_info_reminders_label" msgid="8913097552956388972">"提醒"</string>
     <string name="agenda_today" msgid="5965841338467422191">"今天，<xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"昨天，<xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="agenda_tomorrow" msgid="3893625470780723605">"明天 (<xliff:g id="DATE">%1$s</xliff:g>)"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"明天, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"載入中..."</string>
     <string name="show_older_events" msgid="5140647493681439926">"輕觸即可瀏覽 <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>之前的活動"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"輕觸即可瀏覽 <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>之後的活動"</string>
@@ -151,7 +151,6 @@
     <string name="search_history_cleared" msgid="7317062958300188595">"已清除搜尋記錄"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"通知"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"震動"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"同時震動提醒"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"選取鈴聲"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"彈出式通知"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"預設提醒時間"</string>

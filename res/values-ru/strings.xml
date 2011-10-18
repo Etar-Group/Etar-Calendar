@@ -90,7 +90,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Добавить напоминание"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Нет календарей"</string>
     <string name="no_calendars_found" msgid="4265845606733761102">"Добавить мероприятие можно только в видимый календарь, связанный с аккаунтом Google. Нажмите \"Добавить аккаунт\" или, если это уже сделано, дождитесь окончания синхронизации и повторите попытку. Или нажмите \"Отмена\" и убедитесь, что виден хотя бы один календарь."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Эффективная работа в Календаре с помощью аккаунта Google – это: "\n\n"• Доступ к службе из любого браузера."\n"• Безопасное резервное копирование мероприятий."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Подключите Календарь к аккаунту Google, чтобы: "\n\n"• Всегда иметь под рукой обновленные данные – на любом устройстве."\n"• Синхронизировать все мероприятия – вы никогда не потеряете их."</string>
     <string name="add_account" msgid="1669072099756774952">"Добавить аккаунт"</string>
     <string name="add_guests_label" msgid="7294569977062998743">"Добавить гостей"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Календарь:"</string>
@@ -151,7 +151,6 @@
     <string name="search_history_cleared" msgid="7317062958300188595">"История поиска очищена"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Оповещения"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Вибросигнал"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Вибросигнал при напоминаниях"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Звук уведомления"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Всплывающее уведомление"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Время напоминания"</string>
