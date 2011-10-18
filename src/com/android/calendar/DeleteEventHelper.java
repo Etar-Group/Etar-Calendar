@@ -90,6 +90,13 @@ public class DeleteEventHelper {
 
     private AsyncQueryService mService;
 
+    private DeleteNotifyListener mDeleteStartedListener = null;
+
+    public interface DeleteNotifyListener {
+        public void onDeleteStarted();
+    }
+
+
     public DeleteEventHelper(Context context, Activity parentActivity, boolean exitWhenDone) {
         if (exitWhenDone && parentActivity == null) {
             throw new IllegalArgumentException("parentActivity is required to exit when done");
@@ -124,6 +131,7 @@ public class DeleteEventHelper {
     private DialogInterface.OnClickListener mDeleteNormalDialogListener =
             new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int button) {
+            deleteStarted();
             long id = mModel.mId; // mCursor.getInt(mEventIndexId);
             Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, id);
             mService.startDelete(mService.getNextToken(), null, uri, null, null, Utils.UNDO_DELAY);
@@ -142,6 +150,7 @@ public class DeleteEventHelper {
     private DialogInterface.OnClickListener mDeleteExceptionDialogListener =
         new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int button) {
+            deleteStarted();
             deleteExceptionEvent();
             if (mCallback != null) {
                 mCallback.run();
@@ -174,6 +183,7 @@ public class DeleteEventHelper {
     private DialogInterface.OnClickListener mDeleteRepeatingDialogListener =
             new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int button) {
+            deleteStarted();
             if (mWhichDelete != -1) {
                 deleteRepeatingEvent(mWhichDelete);
             }
@@ -421,6 +431,16 @@ public class DeleteEventHelper {
         }
         if (mExitWhenDone) {
             mParent.finish();
+        }
+    }
+
+    public void setDeleteNotificationListener(DeleteNotifyListener listener) {
+        mDeleteStartedListener = listener;
+    }
+
+    private void deleteStarted() {
+        if (mDeleteStartedListener != null) {
+            mDeleteStartedListener.onDeleteStarted();
         }
     }
 }

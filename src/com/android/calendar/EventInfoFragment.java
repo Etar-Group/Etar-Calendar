@@ -112,7 +112,7 @@ import java.util.regex.Pattern;
 
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
-        CalendarController.EventHandler, OnClickListener {
+        CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener {
     public static final boolean DEBUG = false;
 
     public static final String TAG = "EventInfoFragment";
@@ -256,6 +256,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private boolean mHasAlarm;
     private int mMaxReminders;
     private String mCalendarAllowedReminders;
+    // Used to prevent saving changes in event if it is being deleted.
+    private boolean mEventDeletionStarted = false;
 
     private TextView mTitle;
     private TextView mWhenDate;
@@ -299,6 +301,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private ArrayList<String> mReminderMethodLabels;
 
     private QueryHandler mHandler;
+
 
     private Runnable mTZUpdater = new Runnable() {
         @Override
@@ -616,6 +619,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 DeleteEventHelper deleteHelper = new DeleteEventHelper(
                         mContext, mActivity,
                         !mIsDialog && !mIsTabletConfig /* exitWhenDone */);
+                deleteHelper.setDeleteNotificationListener(EventInfoFragment.this);
                 deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
             }});
 
@@ -849,6 +853,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             case R.id.info_action_delete:
                 DeleteEventHelper deleteHelper =
                         new DeleteEventHelper(mActivity, mActivity, true /* exitWhenDone */);
+                deleteHelper.setDeleteNotificationListener(EventInfoFragment.this);
                 deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
                 break;
             default:
@@ -859,8 +864,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     @Override
     public void onDestroyView() {
-        if (saveResponse() || saveReminders()) {
-            Toast.makeText(getActivity(), R.string.saving_event, Toast.LENGTH_SHORT).show();
+        if (!mEventDeletionStarted) {
+            if (saveResponse() || saveReminders()) {
+                Toast.makeText(getActivity(), R.string.saving_event, Toast.LENGTH_SHORT).show();
+            }
         }
         super.onDestroyView();
     }
@@ -1806,6 +1813,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String[] labels = r.getStringArray(resNum);
         ArrayList<String> list = new ArrayList<String>(Arrays.asList(labels));
         return list;
+    }
+
+    @Override
+    public void onDeleteStarted() {
+        mEventDeletionStarted = true;
     }
 
 }
