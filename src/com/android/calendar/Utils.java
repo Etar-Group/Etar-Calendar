@@ -81,6 +81,7 @@ public class Utils {
 
     public static final int MONDAY_BEFORE_JULIAN_EPOCH = Time.EPOCH_JULIAN_DAY - 3;
     public static final int DECLINED_EVENT_ALPHA = 0x66;
+    public static final int DECLINED_EVENT_TEXT_ALPHA = 0xC0;
 
     private static final float SATURATION_ADJUST = 0.3f;
 
