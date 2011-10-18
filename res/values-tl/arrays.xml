@@ -173,7 +173,8 @@
   </string-array>
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"Ang kaganapang ito lang"</item>
-    <item msgid="8626755531271570950">"Itong &amp; mga kaganapan sa hinaharap"</item>
+    <!-- unknown quoting pattern: original -1, translation 1 -->
+    <!-- outdated translation 8626755531271570950 -->     <item msgid="1536401639805370405">"Itong &amp;amp; mga kaganapan sa hinaharap"</item>
     <item msgid="7833229563617435430">"Lahat ng mg kaganapan"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
@@ -181,7 +182,7 @@
     <item msgid="6315440193748139854">"Lahat ng mga kaganapan"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <item msgid="2012815396992847028">"Ang pangyayaring ito lang"</item>
+    <!-- outdated translation 2012815396992847028 -->     <item msgid="3466644709343519437">"Ang pangyayaring ito lang"</item>
     <item msgid="140670561403965380">"Lahat ng mga kaganapan sa serye"</item>
   </string-array>
   <string-array name="buttons_list">

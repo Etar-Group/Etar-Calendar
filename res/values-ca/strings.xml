@@ -22,7 +22,6 @@
     <string name="when_label" msgid="894636567327261599">"Quan"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Zona horària"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Convidats"</string>
-    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Repetició"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Sense títol)"</string>
   <plurals name="Nminutes">
@@ -60,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Cerca"</string>
     <string name="hide_controls" msgid="830320505938520882">"Amaga els controls"</string>
     <string name="show_controls" msgid="715520586028062621">"Mostra els controls"</string>
-    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Calendaris per visualitzar"</string>
+    <!-- outdated translation 5285053789530752843 -->     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Calendaris per visualitzar"</string>
     <string name="synced" msgid="7913940305983383493">"sincronitzat"</string>
     <string name="not_synced" msgid="4275114941801829419">"no sincronitzat"</string>
-    <string name="acct_not_synced" msgid="2225937158458147648">"Aquest compte no s\'està sincronitzant i és possible que els calendaris no estiguin actualitzats."</string>
+    <!-- outdated translation 2225937158458147648 -->     <string name="acct_not_synced" msgid="6126800985681230627">"Aquest compte no s\'està sincronitzant i és possible que els calendaris no estiguin actualitzats."</string>
     <string name="accounts" msgid="849401841083180306">"Comptes i sincronització"</string>
-    <string name="select_synced_calendars_title" msgid="7122363881046468658">"Calendaris per sincronitzar"</string>
+    <!-- outdated translation 7122363881046468658 -->     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Calendaris per sincronitzar"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Calendaris per sincronitzar"</string>
     <string name="hint_what" msgid="709155115005044531">"Nom de l\'esdeveniment"</string>
     <string name="hint_where" msgid="4972598001033801974">"Ubicació"</string>
     <string name="hint_description" msgid="1910143586169033232">"Descripció"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Convidats"</string>
-    <string name="creating_event" msgid="5252306542761552414">"Esdeveniment creat"</string>
-    <string name="saving_event" msgid="7716081507367732169">"Esdeveniment desat"</string>
-    <string name="empty_event" msgid="757898251276814787">"Esdeven. buit, no s\'ha creat"</string>
-    <string name="creating_event_with_guest" msgid="608830786504021732">"S\'han enviat les invitacions"</string>
-    <string name="saving_event_with_guest" msgid="6177245412801310483">"S\'han enviat les actualitzacions"</string>
+    <!-- outdated translation 5252306542761552414 -->     <string name="creating_event" msgid="7516249252554059980">"Esdeveniment creat"</string>
+    <!-- outdated translation 7716081507367732169 -->     <string name="saving_event" msgid="7694181017411177226">"Esdeveniment desat"</string>
+    <!-- outdated translation 757898251276814787 -->     <string name="empty_event" msgid="9018699257414338634">"Esdeven. buit, no s\'ha creat"</string>
+    <!-- outdated translation 608830786504021732 -->     <string name="creating_event_with_guest" msgid="8535098983005383300">"S\'han enviat les invitacions"</string>
+    <!-- outdated translation 6177245412801310483 -->     <string name="saving_event_with_guest" msgid="8678551213800311856">"S\'han enviat les actualitzacions"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notificacions de calendari"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visualitza l\'esdeveniment"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invitació a una reunió"</string>
@@ -89,10 +88,9 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privadesa"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Afegeix recordatori"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"No hi ha cap calendari"</string>
-    <string name="no_calendars_found" msgid="4265845606733761102">"Per tal de poder afegir un esdeveniment, primer has d\'afegir com a mínim un compte de Calendar al dispositiu i fer que un calendari sigui visible. Prem \"Afegeix un compte\" per afegir-ne un (si n\'acabes d\'afegir un, espera\'t que s\'acabi de sincronitzar i torna-ho a provar). O bé, prem \"Cancel·la\" i assegura\'t que hi ha com a mínim un calendari visible."</string>
+    <!-- outdated translation 4265845606733761102 -->     <string name="no_calendars_found" msgid="8968682716053492187">"Per tal de poder afegir un esdeveniment, primer has d\'afegir com a mínim un compte de Calendar al dispositiu i fer que un calendari sigui visible. Prem \"Afegeix un compte\" per afegir-ne un (si n\'acabes d\'afegir un, espera\'t que s\'acabi de sincronitzar i torna-ho a provar). O bé, prem \"Cancel·la\" i assegura\'t que hi ha com a mínim un calendari visible."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Calendar funciona millor amb un Compte de Google."\n\n"• Accedeix-hi des de qualsevol navegador web"\n"• Crea una còpia de seguretat dels teus esdeveniments"</string>
     <string name="add_account" msgid="1669072099756774952">"Afegeix un compte"</string>
-    <string name="add_guests_label" msgid="7294569977062998743">"Afegeix convidats"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendari:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organitzador:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Hi assistireu?"</string>
@@ -110,13 +108,11 @@
     <string name="show_older_events" msgid="5140647493681439926">"Toca per mostrar esdeveniments anteriors a <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Toca per mostrar esdeveniments posteriors a <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Cerca als meus calendaris"</string>
-    <string name="num_events" msgid="3351672964607162257">"Nombre d\'esdeveniments"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Detalls"</string>
     <string name="edit_label" msgid="8934331258435656534">"Edita"</string>
     <string name="delete_label" msgid="874742811918030739">"Suprimeix"</string>
     <string name="save_label" msgid="2133599104834432589">"Fet"</string>
     <string name="discard_label" msgid="2394623883289782541">"Cancel·la"</string>
-    <string name="import_label" msgid="6993796574741477222">"Importa"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Repeteix-les totes"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Omet-les totes"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Esdeveniment únic"</string>
@@ -128,18 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Anualment"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mensualment (el dia <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Anualment (el <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3784569535926286624">"Personalitza... (no es pot personalitzar en una tauleta)"</string>
-    <string name="custom" product="default" msgid="3015205670911301856">"Personalitza... (no es pot personalitzar al telèfon)"</string>
-    <string name="modify_event" msgid="4501745557655992422">"Canvia només aquest esdeveniment."</string>
-    <string name="modify_all" msgid="7506579040966638538">"Canvia tots els esdeveniments de la sèrie."</string>
-    <string name="modify_all_following" msgid="4333745734894639276">"Canvia aquest i tots els esdeveniments futurs."</string>
+    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="tablet" msgid="3806817351377723249">"Personalitza... (no es pot personalitzar en una tauleta)"</string>
+    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="default" msgid="4137468716966004993">"Personalitza... (no es pot personalitzar en una tauleta)"</string>
+    <!-- outdated translation 4501745557655992422 -->     <string name="modify_event" msgid="5982876409997142690">"Canvia només aquest esdeveniment."</string>
+    <!-- outdated translation 7506579040966638538 -->     <string name="modify_all" msgid="4421657265864209041">"Canvia tots els esdeveniments de la sèrie."</string>
+    <!-- outdated translation 4333745734894639276 -->     <string name="modify_all_following" msgid="3017428541066390380">"Canvia aquest i tots els esdeveniments futurs."</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Esdeveniment nou"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Esdeveniment nou"</string>
-    <string name="delete_this_event_title" msgid="8738491083082780492">"Aquest esdeveniment se suprimirà."</string>
-    <string name="delete_title" msgid="5143743507524995383">"Suprimeix"</string>
+    <!-- outdated translation 8738491083082780492 -->     <string name="delete_this_event_title" msgid="518402946676919384">"Aquest esdeveniment se suprimirà."</string>
     <string name="change_response_title" msgid="7704714776070974984">"Canvia la resposta"</string>
-    <string name="menu_general_preferences" msgid="4057784477122524106">"Preferències generals"</string>
-    <string name="menu_about_preferences" msgid="160474554936812478">"Quant al calendari"</string>
+    <!-- outdated translation 4057784477122524106 -->     <string name="menu_general_preferences" msgid="2812705323334260708">"Preferències generals"</string>
+    <!-- outdated translation 160474554936812478 -->     <string name="menu_about_preferences" msgid="6124375438237674973">"Quant al calendari"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Configuració"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Configuració de la visualització del calendari"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Configuració de recordatori"</string>
@@ -147,12 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"La setmana comença"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"La setmana comença"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Esborra l\'historial de cerca"</string>
-    <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"Elimina totes les cerques que hagis fet"</string>
-    <string name="search_history_cleared" msgid="7317062958300188595">"Historial de cerca esborrat"</string>
+    <!-- outdated translation 5813077357221990 -->     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Elimina totes les cerques que hagis fet"</string>
+    <!-- outdated translation 7317062958300188595 -->     <string name="search_history_cleared" msgid="1536707558435227567">"Historial de cerca esborrat"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificacions"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibra"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Vibra també per als recordatoris"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Selecció del to"</string>
+    <!-- outdated translation 7565118268120729644 -->     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Selecció del to"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificació de finestra emergent"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Temps de recordatori predeterminat"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Temps de recordatori predeterminat"</string>

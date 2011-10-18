@@ -22,7 +22,6 @@
     <string name="when_label" msgid="894636567327261599">"Khi"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Múi giờ"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Khách"</string>
-    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Lặp lại"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Không có tiêu đề)"</string>
   <plurals name="Nminutes">
@@ -60,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Tìm kiếm"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ẩn các điều khiển"</string>
     <string name="show_controls" msgid="715520586028062621">"Hiển thị các điều khiển"</string>
-    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Lịch để hiển thị"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Lịch để hiển thị"</string>
     <string name="synced" msgid="7913940305983383493">"đã đồng bộ hóa"</string>
     <string name="not_synced" msgid="4275114941801829419">"chưa được đồng bộ hóa"</string>
-    <string name="acct_not_synced" msgid="2225937158458147648">"Tài khoản này hiện không được đồng bộ hóa và lịch của bạn có thể không được cập nhật."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Tài khoản này hiện không được đồng bộ hóa và lịch của bạn có thể không cập nhật."</string>
     <string name="accounts" msgid="849401841083180306">"Tài khoản &amp; đồng bộ hóa"</string>
-    <string name="select_synced_calendars_title" msgid="7122363881046468658">"Lịch để đồng bộ hóa"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Lịch để đồng bộ hóa"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Lịch để đồng bộ hóa"</string>
     <string name="hint_what" msgid="709155115005044531">"Tên sự kiện"</string>
     <string name="hint_where" msgid="4972598001033801974">"Vị trí"</string>
     <string name="hint_description" msgid="1910143586169033232">"Mô tả"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Khách"</string>
-    <string name="creating_event" msgid="5252306542761552414">"Sự kiện đã được tạo"</string>
-    <string name="saving_event" msgid="7716081507367732169">"Đã lưu sự kiện"</string>
-    <string name="empty_event" msgid="757898251276814787">"Sự kiện trống không được tạo"</string>
-    <string name="creating_event_with_guest" msgid="608830786504021732">"Đã gửi thư mời"</string>
-    <string name="saving_event_with_guest" msgid="6177245412801310483">"Đã gửi cập nhật"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Đã tạo sự kiện."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Đã lưu sự kiện."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Chưa tạo sự kiện trống."</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Đã gửi thư mời."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Đã gửi cập nhật."</string>
     <string name="alert_title" msgid="7869592820853066853">"Thông báo lịch"</string>
     <string name="event_info_title" msgid="56024222340421620">"Xem sự kiện"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Thư mời họp"</string>
@@ -89,10 +88,9 @@
     <string name="privacy_label" msgid="9215031965259597335">"Bảo mật"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Thêm lời nhắc"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Không có lịch"</string>
-    <string name="no_calendars_found" msgid="4265845606733761102">"Trước khi bạn có thể thêm sự kiện, bạn phải thêm ít nhất một tài khoản Lịch vào thiết bị và đặt lịch ở chế độ hiển thị. Chạm \"Thêm tài khoản\" để thêm tài khoản (nếu bạn chỉ thêm tài khoản, hãy đợi thiết bị hoàn tất việc đồng bộ hóa và thử lại). Hoặc chạm Hủy và đảm bảo rằng có ít nhất một lịch hiển thị."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Trước khi có thể thêm sự kiện, bạn phải thêm ít nhất một tài khoản Lịch vào thiết bị của bạn và đặt lịch ở chế độ hiển thị. Chạm Thêm tài khoản để thêm tài khoản (nếu bạn vừa mới thêm tài khoản, hãy đợi tài khoản đó kết thúc đồng bộ hóa và thử lại). Hoặc chạm vào Hủy và đảm bảo ít nhất một lịch được hiển thị."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Lịch hoạt động tốt hơn với Tài khoản Google."\n\n"• Truy cập Lịch từ bất kỳ trình duyệt web nào"\n"• Sao lưu các sự kiện của bạn một cách an toàn"</string>
     <string name="add_account" msgid="1669072099756774952">"Thêm tài khoản"</string>
-    <string name="add_guests_label" msgid="7294569977062998743">"Thêm khách"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Lịch:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Người tổ chức:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Tham dự?"</string>
@@ -110,13 +108,11 @@
     <string name="show_older_events" msgid="5140647493681439926">"Chạm để xem sự kiện trước <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Chạm để xem sự kiện sau <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Tìm kiếm trên lịch của tôi"</string>
-    <string name="num_events" msgid="3351672964607162257">"Số sự kiện"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Chi tiết"</string>
     <string name="edit_label" msgid="8934331258435656534">"Chỉnh sửa"</string>
     <string name="delete_label" msgid="874742811918030739">"Xoá"</string>
     <string name="save_label" msgid="2133599104834432589">"Xong"</string>
     <string name="discard_label" msgid="2394623883289782541">"Hủy"</string>
-    <string name="import_label" msgid="6993796574741477222">"Nhập"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Báo lại tất cả"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Loại bỏ tất cả"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Sự kiện diễn ra một lần"</string>
@@ -128,18 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Hàng năm"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Hàng tháng (vào ngày <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Hàng năm (vào <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3784569535926286624">"Tùy chỉnh… (không thể tùy chỉnh trên máy tính bảng)"</string>
-    <string name="custom" product="default" msgid="3015205670911301856">"Tùy chỉnh… (không thể tùy chỉnh trên điện thoại)"</string>
-    <string name="modify_event" msgid="4501745557655992422">"Chỉ thay đổi sự kiện này."</string>
-    <string name="modify_all" msgid="7506579040966638538">"Thay đổi tất cả sự kiện trong hàng loạt sự kiện."</string>
-    <string name="modify_all_following" msgid="4333745734894639276">"Thay đổi trường hợp này và tất cả các sự kiện trong tương lai."</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Tùy chỉnh (không thể tùy chỉnh trên máy tính bảng)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Tùy chỉnh (không thể tùy chỉnh trên điện thoại)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Chỉ thay đổi sự kiện này"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Thay đổi tất cả các sự kiện trong loạt sự kiện"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Thay đổi sự kiện này và tất cả các sự kiện trong tương lai"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Sự kiện mới"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Sự kiện mới"</string>
-    <string name="delete_this_event_title" msgid="8738491083082780492">"Sự kiện này sẽ bị xoá."</string>
-    <string name="delete_title" msgid="5143743507524995383">"Xoá"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Xóa sự kiện này?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Thay đổi phản hồi"</string>
-    <string name="menu_general_preferences" msgid="4057784477122524106">"Tùy chọn chung"</string>
-    <string name="menu_about_preferences" msgid="160474554936812478">"Giới thiệu về lịch"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Cài đặt chung"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Giới thiệu về lịch"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Cài đặt"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Cài đặt chế độ xem lịch"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Cài đặt lời nhắc"</string>
@@ -147,12 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Tuần bắt đầu vào"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Tuần bắt đầu vào"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Xóa lịch sử tìm kiếm"</string>
-    <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"Xóa tất cả tìm kiếm bạn đã thực hiện"</string>
-    <string name="search_history_cleared" msgid="7317062958300188595">"Đã xóa lịch sử tìm kiếm"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Xóa tất cả tìm kiếm bạn đã thực hiện"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Đã xóa lịch sử tìm kiếm."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Thông báo"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Rung"</string>
-    <string name="preferences_alerts_vibrateWhen_summary" msgid="2809567649955441757">"Cũng rung đối với lời nhắc"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Chọn nhạc chuông"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Chọn nhạc chuông"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Thông báo bật lên"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Thời gian nhắc mặc định"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Thời gian nhắc mặc định"</string>
