@@ -2713,7 +2713,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     break;
                 case Attendees.ATTENDEE_STATUS_DECLINED:
                     paint.setColor(mEventTextColor);
-                    paint.setAlpha(Utils.DECLINED_EVENT_ALPHA);
+                    paint.setAlpha(Utils.DECLINED_EVENT_TEXT_ALPHA);
                     break;
                 case Attendees.ATTENDEE_STATUS_NONE: // Your own events
                 case Attendees.ATTENDEE_STATUS_ACCEPTED:
