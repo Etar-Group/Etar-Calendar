@@ -2698,7 +2698,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if (layout == null || r.width() != layout.getWidth()) {
             SpannableStringBuilder bob = new SpannableStringBuilder();
             if (event.title != null) {
-                bob.append(drawTextSanitizer(event.title.toString(), MAX_EVENT_TEXT_LEN));
+                // MAX - 1 since we add a space
+                bob.append(drawTextSanitizer(event.title.toString(), MAX_EVENT_TEXT_LEN - 1));
                 bob.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, bob.length(), 0);
                 bob.append(' ');
             }
@@ -3398,7 +3399,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         string = m.replaceAll(",");
 
         int len = string.length();
-        if (len > maxEventTextLen) {
+        if (maxEventTextLen <= 0) {
+            string = "";
+            len = 0;
+        } else if (len > maxEventTextLen) {
             string = string.substring(0, maxEventTextLen);
             len = maxEventTextLen;
         }
