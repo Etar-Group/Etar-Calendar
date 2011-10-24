@@ -64,7 +64,7 @@
     <string name="synced" msgid="7913940305983383493">"синхронизирован"</string>
     <string name="not_synced" msgid="4275114941801829419">"не синхронизирован"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Этот аккаунт не синхронизируется, поэтому ваши календари не обновляются."</string>
-    <string name="accounts" msgid="849401841083180306">"Аккаунты и синхронизация"</string>
+    <string name="accounts" msgid="849401841083180306">"Аккаунты"</string>
     <string name="select_synced_calendars_title" msgid="7122363881046468658">"Календари для синхронизации"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Календари для синхронизации"</string>
     <string name="hint_what" msgid="709155115005044531">"Название мероприятия"</string>

@@ -61,8 +61,8 @@
     <string name="hide_controls" msgid="830320505938520882">"Steuerelemente aus"</string>
     <string name="show_controls" msgid="715520586028062621">"Steuerelemente ein"</string>
     <string name="select_visible_calendars_title" msgid="5285053789530752843">"Anzuzeigende Kalender"</string>
-    <string name="synced" msgid="7913940305983383493">"synchronisiert"</string>
-    <string name="not_synced" msgid="4275114941801829419">"nicht synchronisiert"</string>
+    <string name="synced" msgid="7913940305983383493">"Synchronisiert"</string>
+    <string name="not_synced" msgid="4275114941801829419">"Nicht synchronisiert"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Dieses Konto wird nicht synchronisiert. Ihre Kalender sind möglicherweise nicht aktuell."</string>
     <string name="accounts" msgid="849401841083180306">"Konten &amp; Synchronisierung"</string>
     <string name="select_synced_calendars_title" msgid="7122363881046468658">"Zu synchronisierende Kalender"</string>
@@ -141,7 +141,7 @@
     <string name="menu_general_preferences" msgid="4057784477122524106">"Allgemeine Einstellungen"</string>
     <string name="menu_about_preferences" msgid="160474554936812478">"Über Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Einstellungen"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Einstellung für Kalenderansicht"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Einstellungen für Kalenderansicht"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Erinnerungseinstellungen"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgel. Termine ausbl."</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Woche beginnt am"</string>
