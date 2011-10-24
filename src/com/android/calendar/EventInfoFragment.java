@@ -42,6 +42,7 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -121,6 +122,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     protected static final String BUNDLE_KEY_START_MILLIS = "key_start_millis";
     protected static final String BUNDLE_KEY_END_MILLIS = "key_end_millis";
     protected static final String BUNDLE_KEY_IS_DIALOG = "key_fragment_is_dialog";
+    protected static final String BUNDLE_KEY_DELETE_DIALOG_VISIBLE = "key_delete_dialog_visible";
     protected static final String BUNDLE_KEY_ATTENDEE_RESPONSE = "key_attendee_response";
 
     private static final String PERIOD_SPACE = ". ";
@@ -248,6 +250,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private int mNumOfAttendees;
 
     private EditResponseHelper mEditResponseHelper;
+    private boolean mDeleteDialogVisible = false;
+    private DeleteEventHelper mDeleteHelper;
 
     private int mOriginalAttendeeResponse;
     private int mAttendeeResponseFromIntent = CalendarController.ATTENDEE_NO_RESPONSE;
@@ -616,16 +620,20 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 if (!mCanModifyCalendar) {
                     return;
                 }
-                DeleteEventHelper deleteHelper = new DeleteEventHelper(
+                mDeleteHelper = new DeleteEventHelper(
                         mContext, mActivity,
                         !mIsDialog && !mIsTabletConfig /* exitWhenDone */);
-                deleteHelper.setDeleteNotificationListener(EventInfoFragment.this);
-                deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
+                mDeleteHelper.setDeleteNotificationListener(EventInfoFragment.this);
+                mDeleteHelper.setOnDismissListener(createDeleteOnDismissListener());
+                mDeleteDialogVisible = true;
+                mDeleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
             }});
 
         // Hide Edit/Delete buttons if in full screen mode on a phone
         if (savedInstanceState != null) {
             mIsDialog = savedInstanceState.getBoolean(BUNDLE_KEY_IS_DIALOG, false);
+            mDeleteDialogVisible =
+                savedInstanceState.getBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE,false);
         }
         if (!mIsDialog && !mIsTabletConfig) {
             mView.findViewById(R.id.event_info_buttons_container).setVisibility(View.GONE);
@@ -804,6 +812,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         outState.putLong(BUNDLE_KEY_START_MILLIS, mStartMillis);
         outState.putLong(BUNDLE_KEY_END_MILLIS, mEndMillis);
         outState.putBoolean(BUNDLE_KEY_IS_DIALOG, mIsDialog);
+        outState.putBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE, mDeleteDialogVisible);
         outState.putInt(BUNDLE_KEY_ATTENDEE_RESPONSE, mAttendeeResponseFromIntent);
     }
 
@@ -851,10 +860,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 mActivity.finish();
                 break;
             case R.id.info_action_delete:
-                DeleteEventHelper deleteHelper =
+                mDeleteHelper =
                         new DeleteEventHelper(mActivity, mActivity, true /* exitWhenDone */);
-                deleteHelper.setDeleteNotificationListener(EventInfoFragment.this);
-                deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
+                mDeleteHelper.setDeleteNotificationListener(EventInfoFragment.this);
+                mDeleteHelper.setOnDismissListener(createDeleteOnDismissListener());
+                mDeleteDialogVisible = true;
+                mDeleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
                 break;
             default:
                 break;
@@ -1661,6 +1672,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mIsPaused = true;
         mHandler.removeCallbacks(onDeleteRunnable);
         super.onPause();
+        // Remove event deletion alert box since it is being rebuild in the OnResume
+        // This is done to get the same behavior on OnResume since the AlertDialog is gone on
+        // rotation but not if you press the HOME key
+        if (mDeleteDialogVisible && mDeleteHelper != null) {
+            mDeleteHelper.dismissAlertDialog();
+            mDeleteHelper = null;
+        }
     }
 
     @Override
@@ -1669,6 +1687,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mIsPaused = false;
         if (mDismissOnResume) {
             mHandler.post(onDeleteRunnable);
+        }
+        // Display the "delete confirmation" dialog if needed
+        if (mDeleteDialogVisible) {
+            mDeleteHelper = new DeleteEventHelper(
+                    mContext, mActivity,
+                    !mIsDialog && !mIsTabletConfig /* exitWhenDone */);
+            mDeleteHelper.setOnDismissListener(createDeleteOnDismissListener());
+            mDeleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
         }
     }
 
@@ -1815,9 +1841,21 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         return list;
     }
 
-    @Override
     public void onDeleteStarted() {
         mEventDeletionStarted = true;
+    }
+
+    private Dialog.OnDismissListener createDeleteOnDismissListener() {
+        return new Dialog.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        // Since OnPause will force the dialog to dismiss , do
+                        // not change the dialog status
+                        if (!mIsPaused) {
+                            mDeleteDialogVisible = false;
+                        }
+                    }
+                };
     }
 
 }
