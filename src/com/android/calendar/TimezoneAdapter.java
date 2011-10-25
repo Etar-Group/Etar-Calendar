@@ -21,6 +21,7 @@ import com.android.calendar.TimezoneAdapter.TimezoneRow;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -229,7 +230,9 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
         LinkedHashSet<String> ids = new LinkedHashSet<String>();
 
         // add in the provided (event) timezone
-        ids.add(mCurrentTimezone);
+        if (!TextUtils.isEmpty(mCurrentTimezone)) {
+            ids.add(mCurrentTimezone);
+        }
 
         // add in the device timezone if it is different
         ids.add(TimeZone.getDefault().getID());
@@ -240,7 +243,9 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
         if (recentsString != null) {
             String[] recents = recentsString.split(RECENT_TIMEZONES_DELIMITER);
             for (String recent : recents) {
-                ids.add(recent);
+                if (!TextUtils.isEmpty(recent)) {
+                    ids.add(recent);
+                }
             }
         }
 
