@@ -59,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Suche"</string>
     <string name="hide_controls" msgid="830320505938520882">"Steuerelemente aus"</string>
     <string name="show_controls" msgid="715520586028062621">"Steuerelemente ein"</string>
-    <!-- outdated translation 5285053789530752843 -->     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Anzuzeigende Kalender"</string>
-    <string name="synced" msgid="7913940305983383493">"synchronisiert"</string>
-    <string name="not_synced" msgid="4275114941801829419">"nicht synchronisiert"</string>
-    <!-- outdated translation 2225937158458147648 -->     <string name="acct_not_synced" msgid="6126800985681230627">"Dieses Konto wird nicht synchronisiert. Ihre Kalender sind möglicherweise nicht aktuell."</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Anzuzeigende Kalender"</string>
+    <string name="synced" msgid="7913940305983383493">"Synchronisiert"</string>
+    <string name="not_synced" msgid="4275114941801829419">"Nicht synchronisiert"</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Dieses Konto wird nicht synchronisiert. Ihre Kalender sind möglicherweise nicht aktuell."</string>
     <string name="accounts" msgid="849401841083180306">"Konten &amp; Synchronisierung"</string>
-    <!-- outdated translation 7122363881046468658 -->     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Zu synchronisierende Kalender"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Zu synchronisierende Kalender"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Zu synchronisierende Kalender"</string>
     <string name="hint_what" msgid="709155115005044531">"Terminname"</string>
     <string name="hint_where" msgid="4972598001033801974">"Standort"</string>
     <string name="hint_description" msgid="1910143586169033232">"Beschreibung"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Gäste"</string>
-    <!-- outdated translation 5252306542761552414 -->     <string name="creating_event" msgid="7516249252554059980">"Termin erstellt"</string>
-    <!-- outdated translation 7716081507367732169 -->     <string name="saving_event" msgid="7694181017411177226">"Termin gespeichert"</string>
-    <!-- outdated translation 757898251276814787 -->     <string name="empty_event" msgid="9018699257414338634">"Leerer Termin nicht erstellt"</string>
-    <!-- outdated translation 608830786504021732 -->     <string name="creating_event_with_guest" msgid="8535098983005383300">"Einladungen versendet"</string>
-    <!-- outdated translation 6177245412801310483 -->     <string name="saving_event_with_guest" msgid="8678551213800311856">"Updates gesendet"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Termin erstellt"</string>
+    <string name="saving_event" msgid="7694181017411177226">"Termin gespeichert"</string>
+    <string name="empty_event" msgid="9018699257414338634">"Leerer Termin nicht erstellt"</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Einladungen gesendet"</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Änderungen gesendet"</string>
     <string name="alert_title" msgid="7869592820853066853">"Benachrichtigungen"</string>
     <string name="event_info_title" msgid="56024222340421620">"Termin anzeigen"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Einladung zu einer Besprechung"</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Datenschutz"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Erinnerung hinzu"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Keine Kalender"</string>
-    <!-- outdated translation 4265845606733761102 -->     <string name="no_calendars_found" msgid="8968682716053492187">"Bevor Sie einen Termin hinzufügen können, müssen Sie zunächst ein Google Kalender-Konto auf dem Gerät hinzufügen und einen Kalender anzeigen. Tippen Sie auf \"Konto hinzufügen\", um ein Konto hinzuzufügen. Wenn Sie gerade ein Konto hinzugefügt haben, warten Sie, bis die Synchronisierung abgeschlossen ist und wiederholen Sie dann den Vorgang. Sie können auch auf \"Abbrechen\" tippen und sicherstellen, dass mindestens ein Kalender sichtbar ist."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Damit Sie einen Termin hinzufügen können, müssen Sie mindestens ein Google Kalender-Konto zu Ihrem Gerät hinzufügen und einen Kalender sichtbar machen. Tippen Sie zum Hinzufügen eines Kontos auf \"Konto hinzufügen\". Falls Sie gerade ein Konto hinzugefügt haben, warten Sie, bis die Synchronisierung abgeschlossen ist, und versuchen Sie es dann erneut. Sie können auch auf \"Abbrechen\" tippen und sich vergewissern, dass mindestens ein Kalender sichtbar ist."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Google Kalender funktioniert besser mit einem Google-Konto."\n\n"• Zugriff über jeden beliebigen Browser"\n"• Sichern von Terminen mit Schutzfunktion"</string>
     <string name="add_account" msgid="1669072099756774952">"Konto hinzufügen"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
@@ -124,29 +124,29 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Jährlich"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Monatlich (am <xliff:g id="DAY_OF_MONTH">%s</xliff:g>.)"</string>
     <string name="yearly" msgid="8576208380302949002">"Jährlich (am <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="tablet" msgid="3806817351377723249">"Benutzerdefiniert… (Anpassung über Tablet nicht möglich)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="default" msgid="4137468716966004993">"Benutzerdefiniert… (Anpassung über Tablet nicht möglich)"</string>
-    <!-- outdated translation 4501745557655992422 -->     <string name="modify_event" msgid="5982876409997142690">"Nur diesen Termin ändern"</string>
-    <!-- outdated translation 7506579040966638538 -->     <string name="modify_all" msgid="4421657265864209041">"Alle Termine in dieser Serie ändern"</string>
-    <!-- outdated translation 4333745734894639276 -->     <string name="modify_all_following" msgid="3017428541066390380">"Diesen und alle zukünftigen Termine ändern"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Benutzerdefiniert (Anpassung über Tablet nicht möglich)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Benutzerdefiniert (Anpassung über Telefon nicht möglich)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Nur diesen Termin ändern"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Alle Termine in dieser Serie ändern"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Diesen und alle zukünftigen Termine ändern"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Neuer Termin"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Neuer Termin"</string>
-    <!-- outdated translation 8738491083082780492 -->     <string name="delete_this_event_title" msgid="518402946676919384">"Dieser Termin wird gelöscht."</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Diesen Termin löschen?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Antwort ändern"</string>
-    <!-- outdated translation 4057784477122524106 -->     <string name="menu_general_preferences" msgid="2812705323334260708">"Allgemeine Einstellungen"</string>
-    <!-- outdated translation 160474554936812478 -->     <string name="menu_about_preferences" msgid="6124375438237674973">"Über Kalender"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Allgemeine Einstellungen"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Über Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Einstellungen"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Einstellung für Kalenderansicht"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Einstellungen für Kalenderansicht"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Erinnerungseinstellungen"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgel. Termine ausbl."</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Woche beginnt am"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Woche beginnt am"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Suchverlauf löschen"</string>
-    <!-- outdated translation 5813077357221990 -->     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Alle Suchvorgänge aus dem Verlauf entfernen"</string>
-    <!-- outdated translation 7317062958300188595 -->     <string name="search_history_cleared" msgid="1536707558435227567">"Suchverlauf gelöscht"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Alle Suchen aus dem Verlauf entfernen"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Suchverlauf gelöscht"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Benachrichtigungen"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibration"</string>
-    <!-- outdated translation 7565118268120729644 -->     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Klingelton auswählen"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Klingelton auswählen"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pop-up-Benachrichtigung"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standard-Erinnerungszeit"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standard-Erinnerungszeit"</string>
