@@ -173,7 +173,7 @@
   </string-array>
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"Samo ta dogodek"</item>
-    <!-- outdated translation 8626755531271570950 -->     <item msgid="1536401639805370405">"Ti in prihodnji dogodki"</item>
+    <item msgid="1536401639805370405">"Ta in prihodnji dogodki"</item>
     <item msgid="7833229563617435430">"Vsi dogodki"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
@@ -181,7 +181,7 @@
     <item msgid="6315440193748139854">"Vsi dogodki"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <!-- outdated translation 2012815396992847028 -->     <item msgid="3466644709343519437">"Samo za ta primer"</item>
+    <item msgid="3466644709343519437">"Samo ta dogodek"</item>
     <item msgid="140670561403965380">"Vsi dogodki v nizu"</item>
   </string-array>
   <string-array name="buttons_list">

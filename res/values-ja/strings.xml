@@ -59,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"検索"</string>
     <string name="hide_controls" msgid="830320505938520882">"コントロールを非表示"</string>
     <string name="show_controls" msgid="715520586028062621">"コントロールを表示"</string>
-    <!-- outdated translation 5285053789530752843 -->     <string name="select_visible_calendars_title" msgid="7944393060991949882">"表示するカレンダー"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"表示するカレンダー"</string>
     <string name="synced" msgid="7913940305983383493">"同期済み"</string>
     <string name="not_synced" msgid="4275114941801829419">"未同期"</string>
-    <!-- outdated translation 2225937158458147648 -->     <string name="acct_not_synced" msgid="6126800985681230627">"このアカウントは同期されないため、カレンダーが最新でない場合があります。"</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"このアカウントは同期されていないため、カレンダーが最新ではない可能性があります。"</string>
     <string name="accounts" msgid="849401841083180306">"アカウントと同期"</string>
-    <!-- outdated translation 7122363881046468658 -->     <string name="select_synced_calendars_title" msgid="7916084873075901448">"同期するカレンダー"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"同期するカレンダー"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"同期するカレンダー"</string>
     <string name="hint_what" msgid="709155115005044531">"タイトル"</string>
     <string name="hint_where" msgid="4972598001033801974">"場所"</string>
     <string name="hint_description" msgid="1910143586169033232">"説明"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"ゲスト"</string>
-    <!-- outdated translation 5252306542761552414 -->     <string name="creating_event" msgid="7516249252554059980">"予定を作成しました"</string>
-    <!-- outdated translation 7716081507367732169 -->     <string name="saving_event" msgid="7694181017411177226">"予定を保存しました"</string>
-    <!-- outdated translation 757898251276814787 -->     <string name="empty_event" msgid="9018699257414338634">"空の予定は作成されませんでした"</string>
-    <!-- outdated translation 608830786504021732 -->     <string name="creating_event_with_guest" msgid="8535098983005383300">"招待状を送信しました"</string>
-    <!-- outdated translation 6177245412801310483 -->     <string name="saving_event_with_guest" msgid="8678551213800311856">"更新情報を送信しました"</string>
+    <string name="creating_event" msgid="7516249252554059980">"予定を作成しました。"</string>
+    <string name="saving_event" msgid="7694181017411177226">"予定を保存しました。"</string>
+    <string name="empty_event" msgid="9018699257414338634">"予定は空のため保存できません。"</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"招待状を送信しました。"</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"更新情報を送信しました。"</string>
     <string name="alert_title" msgid="7869592820853066853">"カレンダーの通知"</string>
     <string name="event_info_title" msgid="56024222340421620">"予定を表示"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"会議への招待状"</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"公開設定"</string>
     <string name="reminders_label" msgid="7292389181815525676">"通知を追加"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"カレンダーがありません"</string>
-    <!-- outdated translation 4265845606733761102 -->     <string name="no_calendars_found" msgid="8968682716053492187">"予定を追加するには、端末にカレンダーアカウントを追加してカレンダーを表示できるようにする必要があります。アカウントを追加するには[アカウントを追加]をタップします（アカウントを追加したばかりの場合は同期の完了を待って再試行してください）。または[キャンセル]をタップして、カレンダーが表示できるかどうかを確認してください。"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"予定を追加するには、端末に少なくとも1つのカレンダーアカウントを追加してカレンダーを表示できるようにする必要があります。アカウントを追加するには[アカウントを追加]をタップします（アカウントを追加したばかりの場合は、同期の完了を待って再試行してください）。または[キャンセル]をタップして、カレンダーが表示できるかどうかを確認してください。"</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Googleアカウントがあればカレンダーをもっと活用できます。"\n\n"• どのウェブブラウザからもアクセスできます"\n"• 予定を安全にバックアップできます"</string>
     <string name="add_account" msgid="1669072099756774952">"アカウントを追加"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"カレンダー:"</string>
@@ -124,17 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"毎年"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"毎月（<xliff:g id="DAY_OF_MONTH">%s</xliff:g>日）"</string>
     <string name="yearly" msgid="8576208380302949002">"毎年（<xliff:g id="DATES">%s</xliff:g>）"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="tablet" msgid="3806817351377723249">"編集...（タブレットではカスタマイズ不可）"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="default" msgid="4137468716966004993">"編集...（タブレットではカスタマイズ不可）"</string>
-    <!-- outdated translation 4501745557655992422 -->     <string name="modify_event" msgid="5982876409997142690">"この日だけ変更"</string>
-    <!-- outdated translation 7506579040966638538 -->     <string name="modify_all" msgid="4421657265864209041">"繰り返す予定すべて変更"</string>
-    <!-- outdated translation 4333745734894639276 -->     <string name="modify_all_following" msgid="3017428541066390380">"これ以降すべて変更"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"カスタム（タブレットではカスタマイズ不可）"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"カスタム（端末ではカスタマイズ不可）"</string>
+    <string name="modify_event" msgid="5982876409997142690">"この予定のみを変更する"</string>
+    <string name="modify_all" msgid="4421657265864209041">"一連の定期的な予定すべてを変更する"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"これ以降の予定すべてを変更する"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"新しい予定"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"新しい予定"</string>
-    <!-- outdated translation 8738491083082780492 -->     <string name="delete_this_event_title" msgid="518402946676919384">"この予定を削除します。"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"この予定を削除しますか？"</string>
     <string name="change_response_title" msgid="7704714776070974984">"出欠状況を変更"</string>
-    <!-- outdated translation 4057784477122524106 -->     <string name="menu_general_preferences" msgid="2812705323334260708">"全般設定"</string>
-    <!-- outdated translation 160474554936812478 -->     <string name="menu_about_preferences" msgid="6124375438237674973">"カレンダーについて"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"全般設定"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"カレンダーについて"</string>
     <string name="preferences_title" msgid="8045855493262131773">"設定"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"カレンダーの表示設定"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"通知設定"</string>
@@ -142,11 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"週の開始日"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"週の開始日"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"検索履歴を消去"</string>
-    <!-- outdated translation 5813077357221990 -->     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"実行したすべての検索を削除する"</string>
-    <!-- outdated translation 7317062958300188595 -->     <string name="search_history_cleared" msgid="1536707558435227567">"検索履歴が消去されました"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"実行したすべての検索を削除する"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"検索履歴を消去しました。"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"通知"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"バイブレーション"</string>
-    <!-- outdated translation 7565118268120729644 -->     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"着信音を選択"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"着信音の選択"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"ポップアップ通知"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"デフォルトの通知時間"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"リマインダー通知"</string>
