@@ -173,7 +173,7 @@
   </string-array>
   <string-array name="delete_repeating_labels">
     <item msgid="4208432367651646938">"Csak a jelenlegi esemény"</item>
-    <!-- outdated translation 8626755531271570950 -->     <item msgid="1536401639805370405">"A jelen és a további események"</item>
+    <item msgid="1536401639805370405">"A jelen és a jövőbeli események"</item>
     <item msgid="7833229563617435430">"Összes esemény"</item>
   </string-array>
   <string-array name="delete_repeating_labels_no_selected">
@@ -181,7 +181,7 @@
     <item msgid="6315440193748139854">"Összes esemény"</item>
   </string-array>
   <string-array name="change_response_labels">
-    <!-- outdated translation 2012815396992847028 -->     <item msgid="3466644709343519437">"Csak erre az alkalomra"</item>
+    <item msgid="3466644709343519437">"Csak a jelen esemény"</item>
     <item msgid="140670561403965380">"A sorozat összes eseményére"</item>
   </string-array>
   <string-array name="buttons_list">

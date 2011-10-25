@@ -59,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Căutaţi"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ascundeţi comenzile"</string>
     <string name="show_controls" msgid="715520586028062621">"Afişaţi comenzile"</string>
-    <!-- outdated translation 5285053789530752843 -->     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Calendare de afişat"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Calendare de afişat"</string>
     <string name="synced" msgid="7913940305983383493">"sincronizat"</string>
     <string name="not_synced" msgid="4275114941801829419">"nesincronizat"</string>
-    <!-- outdated translation 2225937158458147648 -->     <string name="acct_not_synced" msgid="6126800985681230627">"Acest cont nu este sincronizat, iar calendarele pot să nu fie actualizate."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Acest cont nu este sincronizat, prin urmare calendarele dvs. pot să nu fie actualizate."</string>
     <string name="accounts" msgid="849401841083180306">"Conturi şi sincronizare"</string>
-    <!-- outdated translation 7122363881046468658 -->     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Calendare de sincronizat"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Calendare de sincronizat"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Calendare de sincronizat"</string>
     <string name="hint_what" msgid="709155115005044531">"Numele evenimentului"</string>
     <string name="hint_where" msgid="4972598001033801974">"Locaţie"</string>
     <string name="hint_description" msgid="1910143586169033232">"Descriere"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Invitaţi"</string>
-    <!-- outdated translation 5252306542761552414 -->     <string name="creating_event" msgid="7516249252554059980">"Eveniment creat"</string>
-    <!-- outdated translation 7716081507367732169 -->     <string name="saving_event" msgid="7694181017411177226">"Eveniment salvat"</string>
-    <!-- outdated translation 757898251276814787 -->     <string name="empty_event" msgid="9018699257414338634">"Evenim. gol nu a fost creat"</string>
-    <!-- outdated translation 608830786504021732 -->     <string name="creating_event_with_guest" msgid="8535098983005383300">"Invitaţiile au fost trimise"</string>
-    <!-- outdated translation 6177245412801310483 -->     <string name="saving_event_with_guest" msgid="8678551213800311856">"Actualizările au fost trimise"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Eveniment creat."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Eveniment salvat."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Evenimentul gol nu s-a creat."</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Invitaţiile au fost trimise."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Actualizările au fost trimise."</string>
     <string name="alert_title" msgid="7869592820853066853">"Notificările calendarului"</string>
     <string name="event_info_title" msgid="56024222340421620">"Vizualizaţi evenimentul"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invitaţie de întâlnire"</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Confidenţialitate"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Adăugaţi memento"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Niciun calendar"</string>
-    <!-- outdated translation 4265845606733761102 -->     <string name="no_calendars_found" msgid="8968682716053492187">"Înainte de a adăuga un eveniment, trebuie să adăugaţi cel puţin un cont Google Calendar pe acest dispozitiv şi să faceţi calendarul vizibil. Atingeţi „Adăugaţi un cont”, pentru a adăuga un cont (dacă aţi adăugat deja unul, aşteptaţi finalizarea sincronizării şi încercaţi din nou) sau atingeţi Anulaţi şi asiguraţi-vă că este vizibil cel puţin un calendar."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Înainte de a putea adăuga un eveniment, trebuie să adăugaţi cel puţin un cont Calendar pe dispozitiv şi să faceţi un calendar vizibil. Atingeţi „Adăugaţi un cont” pentru a adăuga un cont (dacă tocmai aţi adăugat un cont, aşteptaţi să se termine sincronizarea şi încercaţi din nou). Sau atingeţi „Anulaţi” şi asiguraţi-vă că cel puţin un calendar este vizibil."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Google Calendar funcţionează mai bine cu un Cont Google."\n\n"• Accesaţi serviciul din orice browser web"\n"• Creaţi în siguranţă copii de rezervă pentru evenimentele dvs."</string>
     <string name="add_account" msgid="1669072099756774952">"Adăugaţi un cont"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendar:"</string>
@@ -124,17 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Anual"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Lunar (în zile de <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Anual (pe <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="tablet" msgid="3806817351377723249">"Personalizat... (nu puteţi personaliza pe tabletă)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="default" msgid="4137468716966004993">"Personalizat... (nu puteţi personaliza pe tabletă)"</string>
-    <!-- outdated translation 4501745557655992422 -->     <string name="modify_event" msgid="5982876409997142690">"Modificaţi doar acest eveniment."</string>
-    <!-- outdated translation 7506579040966638538 -->     <string name="modify_all" msgid="4421657265864209041">"Modificaţi toate evenimentele din serie."</string>
-    <!-- outdated translation 4333745734894639276 -->     <string name="modify_all_following" msgid="3017428541066390380">"Modificaţi acest eveniment şi pe toate cele viitoare."</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Personalizat (nu se poate personaliza pe tabletă)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Personalizat (nu se poate personaliza pe telefon)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Modificaţi doar acest eveniment"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Modificaţi toate evenimentele din serie"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Modificaţi acest eveniment şi pe toate cele viitoare."</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Eveniment nou"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Eveniment nou"</string>
-    <!-- outdated translation 8738491083082780492 -->     <string name="delete_this_event_title" msgid="518402946676919384">"Evenimentul va fi şters."</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Ştergeţi acest eveniment?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Modificaţi răspunsul"</string>
-    <!-- outdated translation 4057784477122524106 -->     <string name="menu_general_preferences" msgid="2812705323334260708">"Preferinţe generale"</string>
-    <!-- outdated translation 160474554936812478 -->     <string name="menu_about_preferences" msgid="6124375438237674973">"Despre calendar"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Setări generale"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Despre Calendar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Setări"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Setarea afişării calendarului"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Setări mementouri"</string>
@@ -142,11 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Săptămâna începe"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Săptămâna începe"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Ştergeţi istoricul căutărilor"</string>
-    <!-- outdated translation 5813077357221990 -->     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Eliminaţi toate căutările efectuate"</string>
-    <!-- outdated translation 7317062958300188595 -->     <string name="search_history_cleared" msgid="1536707558435227567">"Istoricul căutărilor a fost şters"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Eliminaţi toate căutările efectuate"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Istoricul căutărilor a fost şters."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificări"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrare"</string>
-    <!-- outdated translation 7565118268120729644 -->     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Selectaţi tonul de apel"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Alegeţi un ton de sonerie"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificare pop-up"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Timp predefinit pentru memento"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Timp predefinit pentru memento"</string>
