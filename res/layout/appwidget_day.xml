@@ -36,7 +36,6 @@
         android:id="@+id/date"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginBottom="3dip"
         android:textSize="12sp"
         android:textAllCaps="true"
         android:paddingLeft="4dip"
