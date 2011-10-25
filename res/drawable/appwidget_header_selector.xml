@@ -18,16 +18,16 @@
         android:exitFadeDuration="@android:integer/config_mediumAnimTime">
     <item
         android:state_window_focused="false"
-        android:drawable="@drawable/header_bg_cal_widget_holo" />
+        android:drawable="@drawable/header_bg_cal_widget_normal_holo" />
     <item
         android:state_focused="true"
         android:state_pressed="true"
-        android:drawable="@drawable/header_row_press_cal_widget_holo" />
+        android:drawable="@drawable/header_bg_cal_widget_pressed_holo" />
     <item
         android:state_focused="false"
         android:state_pressed="true"
-        android:drawable="@drawable/header_row_press_cal_widget_holo" />
+        android:drawable="@drawable/header_bg_cal_widget_pressed_holo" />
     <item
         android:state_focused="true"
-        android:drawable="@drawable/header_row_focused_cal_widget_holo" />
+        android:drawable="@drawable/header_bg_cal_widget_focused_holo" />
 </selector>
