@@ -19,7 +19,7 @@
     <dimen name="all_day_bottom_margin">10dip</dimen>
     <dimen name="one_day_header_height">0dip</dimen>
     <dimen name="day_header_bottom_margin">6dip</dimen>
-    <dimen name="date_header_text_size">24sp</dimen>
+    <dimen name="date_header_text_size">18sp</dimen>
     <dimen name="hours_text_size">16sp</dimen>
     <dimen name="allday_text_size">14sp</dimen>
     <dimen name="ampm_text_size">12sp</dimen>
@@ -33,7 +33,7 @@
     <dimen name="hours_left_margin">28dip</dimen>
     <dimen name="hours_right_margin">4dip</dimen>
     <!-- size of day header in day and week views  -->
-    <dimen name="day_header_height">45dip</dimen>
+    <dimen name="day_header_height">24sp</dimen>
     <dimen name="widget_day_num_size">42sp</dimen>
     <dimen name="widget_day_num_top_padding">-8dip</dimen>
     <dimen name="new_event_hint_text_size">14sp</dimen>
