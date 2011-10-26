@@ -111,7 +111,7 @@ public class SelectVisibleCalendarsFragment extends Fragment
 
         // Hide the Calendars to Sync button on tablets for now.
         // Long terms stick it in the list of calendars
-        if (Utils.isMultiPaneConfiguration(getActivity())) {
+        if (Utils.getConfigBool(getActivity(), R.bool.multiple_pane_config)) {
             // Don't show dividers on tablets
             mList.setDivider(null);
             View v = mView.findViewById(R.id.manage_sync_set);

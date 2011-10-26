@@ -258,7 +258,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
     }
 
-    @Override
+/*    @Override
     public int getFirstVisiblePosition() {
         // TODO File bug!
         // getFirstVisiblePosition doesn't always return the first visible
@@ -275,7 +275,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
         return -1;
     }
-
+*/
     public View getFirstVisibleView() {
         Rect r = new Rect();
         int childCount = getChildCount();

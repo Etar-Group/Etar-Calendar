@@ -57,7 +57,7 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
         mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.main_frame);
 
-        mIsMultipane = Utils.isMultiPaneConfiguration (this);
+        mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
 
         if (mIsMultipane) {
             getActionBar().setDisplayOptions(

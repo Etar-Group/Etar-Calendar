@@ -342,7 +342,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
             mEventFragment = new EventInfoFragment(mActivity, event.id,
                     event.startTime.toMillis(true), event.endTime.toMillis(true),
-                    response, false);
+                    response, false, EventInfoFragment.DIALOG_WINDOW_STYLE);
             ft.replace(R.id.agenda_event_info, mEventFragment);
             mController.registerEventHandler(R.id.agenda_event_info,
                     mEventFragment);

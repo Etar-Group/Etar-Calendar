@@ -452,7 +452,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             selected = mSelectedInstanceId == vh.instanceId;
             vh.selectedMarker.setVisibility((selected && mShowEventOnStart) ?
                     View.VISIBLE : View.GONE);
-            if (selected) {
+            if (selected && mShowEventOnStart) {
                 mSelectedVH = vh;
                 v.setBackgroundColor(mSelectedItemBackgroundColor);
                 vh.title.setTextColor(mSelectedItemTextColor);

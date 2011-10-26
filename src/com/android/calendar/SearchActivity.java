@@ -95,7 +95,7 @@ public class SearchActivity extends Activity implements CalendarController.Event
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
 
-        mIsMultipane = Utils.isMultiPaneConfiguration (this);
+        mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
         mShowEventDetailsWithAgenda =
             Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
 
@@ -174,7 +174,7 @@ public class SearchActivity extends Activity implements CalendarController.Event
 
             mEventInfoFragment = new EventInfoFragment(this, event.id,
                     event.startTime.toMillis(false), event.endTime.toMillis(false),
-                    (int) event.extraLong, false);
+                    (int) event.extraLong, false, EventInfoFragment.FULL_WINDOW_STYLE);
             ft.replace(R.id.agenda_event_info, mEventInfoFragment);
             ft.commit();
             mController.registerEventHandler(R.id.agenda_event_info, mEventInfoFragment);

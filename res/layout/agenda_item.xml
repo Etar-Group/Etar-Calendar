@@ -45,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:layout_marginRight="16dip"
             android:orientation="vertical">
             <TextView
@@ -83,14 +84,13 @@
                 android:textColor="@color/agenda_item_where_text_color"
                 style="?android:attr/textAppearanceSmallInverse" />
         </LinearLayout>
+        <ImageView
+            android:id="@+id/selected_marker"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:background="@drawable/list_multi_left_activated_holo" />
     </LinearLayout>
-    <ImageView
-        android:id="@+id/selected_marker"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone"
-        android:background="@drawable/list_multi_left_activated_holo" />
-
 </LinearLayout>
