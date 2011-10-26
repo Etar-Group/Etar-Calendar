@@ -22,7 +22,6 @@
     <string name="when_label" msgid="894636567327261599">"Когда"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Часовой пояс"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Гости"</string>
-    <string name="response_label" msgid="5732943469653254290">"<xliff:g id="RESPONSE_TYPE">%s</xliff:g> (<xliff:g id="GUEST_COUNT">%d</xliff:g>)"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Повторять"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Нет заголовка)"</string>
   <plurals name="Nminutes">
@@ -60,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Поиск"</string>
     <string name="hide_controls" msgid="830320505938520882">"Скрыть боковую панель"</string>
     <string name="show_controls" msgid="715520586028062621">"Показать боковую панель"</string>
-    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Календари для отображения"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Календари"</string>
     <string name="synced" msgid="7913940305983383493">"синхронизирован"</string>
     <string name="not_synced" msgid="4275114941801829419">"не синхронизирован"</string>
-    <string name="acct_not_synced" msgid="2225937158458147648">"Этот аккаунт не синхронизируется, поэтому ваши календари не обновляются."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Этот аккаунт не синхронизируется, поэтому ваши календари не обновляются."</string>
     <string name="accounts" msgid="849401841083180306">"Аккаунты"</string>
-    <string name="select_synced_calendars_title" msgid="7122363881046468658">"Календари для синхронизации"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Календари для синхронизации"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Календари для синхронизации"</string>
     <string name="hint_what" msgid="709155115005044531">"Название мероприятия"</string>
     <string name="hint_where" msgid="4972598001033801974">"Место"</string>
     <string name="hint_description" msgid="1910143586169033232">"Описание"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Гости"</string>
-    <string name="creating_event" msgid="5252306542761552414">"Мероприятие создано"</string>
-    <string name="saving_event" msgid="7716081507367732169">"Мероприятие сохранено"</string>
-    <string name="empty_event" msgid="757898251276814787">"Пустое мероприятие не создано"</string>
-    <string name="creating_event_with_guest" msgid="608830786504021732">"Приглашения отправлены"</string>
-    <string name="saving_event_with_guest" msgid="6177245412801310483">"Обновления отправлены"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Мероприятие создано."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Мероприятие сохранено."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Нельзя создать мероприятие без данных."</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Приглашение отправлено."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Обновление отправлено."</string>
     <string name="alert_title" msgid="7869592820853066853">"Уведомления календаря"</string>
     <string name="event_info_title" msgid="56024222340421620">"Просмотр мероприятия"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Приглашение на встречу"</string>
@@ -89,10 +88,9 @@
     <string name="privacy_label" msgid="9215031965259597335">"Конфиденциальность"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Добавить напоминание"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Нет календарей"</string>
-    <string name="no_calendars_found" msgid="4265845606733761102">"Добавить мероприятие можно только в видимый календарь, связанный с аккаунтом Google. Нажмите \"Добавить аккаунт\" или, если это уже сделано, дождитесь окончания синхронизации и повторите попытку. Или нажмите \"Отмена\" и убедитесь, что виден хотя бы один календарь."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Добавить мероприятие можно только в видимый календарь, связанный с аккаунтом Google. Нажмите \"Добавить аккаунт\" или, если аккаунт уже добавлен, дождитесь окончания синхронизации и повторите попытку. Либо нажмите \"Отмена\" и сделайте видимым хотя бы один календарь."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Подключите Календарь к аккаунту Google, чтобы: "\n\n"• Всегда иметь под рукой обновленные данные – на любом устройстве."\n"• Синхронизировать все мероприятия – вы никогда не потеряете их."</string>
     <string name="add_account" msgid="1669072099756774952">"Добавить аккаунт"</string>
-    <string name="add_guests_label" msgid="7294569977062998743">"Добавить гостей"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Календарь:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Организатор:"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Принять приглашение?"</string>
@@ -110,13 +108,11 @@
     <string name="show_older_events" msgid="5140647493681439926">"Нажмите, чтобы увидеть мероприятия до <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Нажмите, чтобы увидеть мероприятия после <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Поиск в моих календарях"</string>
-    <string name="num_events" msgid="3351672964607162257">"Кол-во мероприятий"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Сведения"</string>
     <string name="edit_label" msgid="8934331258435656534">"Изменить"</string>
     <string name="delete_label" msgid="874742811918030739">"Удалить"</string>
     <string name="save_label" msgid="2133599104834432589">"Готово"</string>
     <string name="discard_label" msgid="2394623883289782541">"Отмена"</string>
-    <string name="import_label" msgid="6993796574741477222">"Импорт"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Напомнить"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Удалить все"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Однократное мероприятие"</string>
@@ -128,18 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Ежегодно"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Ежемесячно (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> числа)"</string>
     <string name="yearly" msgid="8576208380302949002">"Ежегодно (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3784569535926286624">"Особое… (настраивается только на сайте)"</string>
-    <string name="custom" product="default" msgid="3015205670911301856">"Особое… (нельзя настроить с телефона)"</string>
-    <string name="modify_event" msgid="4501745557655992422">"Изменить только это мероприятие"</string>
-    <string name="modify_all" msgid="7506579040966638538">"Изменить все мероприятия в серии"</string>
-    <string name="modify_all_following" msgid="4333745734894639276">"Изменить это и будущие мероприятия"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Особое… (настраивается только на сайте)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Особое… (настраивается только на сайте)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Изменить только это мероприятие"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Изменить все мероприятия в серии"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Изменить это и будущие мероприятия"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Новое мероприятие"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Новое мероприятие"</string>
-    <string name="delete_this_event_title" msgid="8738491083082780492">"Мероприятие будет удалено."</string>
-    <string name="delete_title" msgid="5143743507524995383">"Удалить"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Удалить мероприятие?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Изменить ответ"</string>
-    <string name="menu_general_preferences" msgid="4057784477122524106">"Основные настройки"</string>
-    <string name="menu_about_preferences" msgid="160474554936812478">"О календаре"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Общие настройки"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"О календаре"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Настройки"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Мероприятия"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Настройки напоминаний"</string>
@@ -147,11 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Начало недели:"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Начало недели:"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Очистить историю поиска"</string>
-    <string name="preferences_clear_search_history_summary" msgid="5813077357221990">"Удалить информацию о всех ваших поисковых запросах"</string>
-    <string name="search_history_cleared" msgid="7317062958300188595">"История поиска очищена"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Удалить информацию обо всех выполненных поисковых запросах"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"История поиска удалена."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Оповещения"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Вибросигнал"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"Звук уведомления"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Выбрать рингтон"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Всплывающее уведомление"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Время напоминания"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Напомнить"</string>

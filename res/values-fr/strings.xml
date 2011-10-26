@@ -59,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Rechercher"</string>
     <string name="hide_controls" msgid="830320505938520882">"Masquer commandes"</string>
     <string name="show_controls" msgid="715520586028062621">"Afficher commandes"</string>
-    <!-- outdated translation 5285053789530752843 -->     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Agendas à afficher"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Agendas à afficher"</string>
     <string name="synced" msgid="7913940305983383493">"synchronisé"</string>
     <string name="not_synced" msgid="4275114941801829419">"non synchronisé"</string>
-    <!-- outdated translation 2225937158458147648 -->     <string name="acct_not_synced" msgid="6126800985681230627">"Ce compte n\'est pas synchronisé. Vos agendas n\'ont peut-être pas été mis à jour."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Ce compte n\'est pas synchronisé. Il est possible que vos agendas ne soient pas à jour."</string>
     <string name="accounts" msgid="849401841083180306">"Comptes et synchro"</string>
-    <!-- outdated translation 7122363881046468658 -->     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Agendas à synchroniser"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Agendas à synchroniser"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Agendas à synchroniser"</string>
     <string name="hint_what" msgid="709155115005044531">"Nom de l\'événement"</string>
     <string name="hint_where" msgid="4972598001033801974">"Lieu"</string>
     <string name="hint_description" msgid="1910143586169033232">"Description"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Invités"</string>
-    <!-- outdated translation 5252306542761552414 -->     <string name="creating_event" msgid="7516249252554059980">"Événement créé"</string>
-    <!-- outdated translation 7716081507367732169 -->     <string name="saving_event" msgid="7694181017411177226">"Événement enregistré"</string>
-    <!-- outdated translation 757898251276814787 -->     <string name="empty_event" msgid="9018699257414338634">"Événement vide non créé"</string>
-    <!-- outdated translation 608830786504021732 -->     <string name="creating_event_with_guest" msgid="8535098983005383300">"Les invitations ont été envoyées."</string>
-    <!-- outdated translation 6177245412801310483 -->     <string name="saving_event_with_guest" msgid="8678551213800311856">"Les mises à jour ont été envoyées."</string>
+    <string name="creating_event" msgid="7516249252554059980">"Événement créé."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Événement enregistré."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Événement vide non créé."</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Invitations envoyées."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Mises à jour envoyées."</string>
     <string name="alert_title" msgid="7869592820853066853">"Notifications de l\'agenda"</string>
     <string name="event_info_title" msgid="56024222340421620">"Afficher l\'événement"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invitation à une réunion"</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Confidentialité"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Ajouter un rappel"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Pas d\'agenda"</string>
-    <!-- outdated translation 4265845606733761102 -->     <string name="no_calendars_found" msgid="8968682716053492187">"Avant d\'ajouter un événement, vous devez ajouter au moins un compte Agenda sur l\'appareil et activer la visibilité de cet agenda. Pour cela, appuyez sur Ajouter un compte, ou sur Annuler si vous pensez qu\'au moins un agenda est activé (vérifiez que c\'est bien le cas). Si vous venez d\'ajouter un compte, patientez jusqu\'à la fin de la synchronisation, puis réessayez."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Avant d\'ajouter un événement, vous devez ajouter au moins un compte Google Agenda à votre appareil et activer la visibilité de cet agenda. Pour cela, appuyez sur \"Ajouter un compte\", ou sur \"Annuler\" si vous pensez qu\'au moins un agenda est activé (vérifiez que c\'est bien le cas). Si vous venez d\'ajouter un compte, patientez jusqu\'à la fin de la synchronisation, puis réessayez."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Tirez le meilleur parti de Google Agenda en utilisant un compte Google."\n\n"• Accédez-y depuis n\'importe quel navigateur Web. "\n"• Sauvegardez vos événements en toute sécurité."</string>
     <string name="add_account" msgid="1669072099756774952">"Ajouter un compte"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Agenda :"</string>
@@ -124,17 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Tous les ans"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mensuel (le <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Annuel (le <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="tablet" msgid="3806817351377723249">"Personnalisé… (non paramétrable depuis la tablette)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="default" msgid="4137468716966004993">"Personnalisé… (non paramétrable depuis la tablette)"</string>
-    <!-- outdated translation 4501745557655992422 -->     <string name="modify_event" msgid="5982876409997142690">"Modifier uniquement cet événement."</string>
-    <!-- outdated translation 7506579040966638538 -->     <string name="modify_all" msgid="4421657265864209041">"Modifier tous les événements de la série."</string>
-    <!-- outdated translation 4333745734894639276 -->     <string name="modify_all_following" msgid="3017428541066390380">"Modifier cet événement et tous les suivants."</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Personnalisé (non paramétrable depuis la tablette)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Personnalisé (non paramétrable depuis le téléphone)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Modifier uniquement cet événement"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Modifier tous les événements de la série"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Modifier cet événement et tous les suivants"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Nouvel événement"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Nouvel événement"</string>
-    <!-- outdated translation 8738491083082780492 -->     <string name="delete_this_event_title" msgid="518402946676919384">"Cet événement va être supprimé."</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Supprimer cet événement ?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Modifier la réponse"</string>
-    <!-- outdated translation 4057784477122524106 -->     <string name="menu_general_preferences" msgid="2812705323334260708">"Préférences générales"</string>
-    <!-- outdated translation 160474554936812478 -->     <string name="menu_about_preferences" msgid="6124375438237674973">"À propos de l\'agenda"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Paramètres généraux"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"À propos de Google Agenda"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Paramètres"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Paramètres d\'affichage de l\'agenda"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Paramètres de rappel"</string>
@@ -142,11 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"1er jour de la semaine :"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"1er jour de la semaine :"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Effacer l\'historique des recherches"</string>
-    <!-- outdated translation 5813077357221990 -->     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Supprimer toutes les recherches que vous avez effectuées"</string>
-    <!-- outdated translation 7317062958300188595 -->     <string name="search_history_cleared" msgid="1536707558435227567">"Historique des recherches effacé"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Supprimer toutes les recherches effectuées"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Historique des recherches effacé."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notifications"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibreur"</string>
-    <!-- outdated translation 7565118268120729644 -->     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Sonnerie"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Sélectionner une sonnerie"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notification dans une fenêtre pop-up"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Rappel par défaut"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Rappel par défaut"</string>

@@ -59,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Paghahanap"</string>
     <string name="hide_controls" msgid="830320505938520882">"Itago ang mga kontrol"</string>
     <string name="show_controls" msgid="715520586028062621">"Ipakita ang mga kontrol"</string>
-    <!-- outdated translation 5285053789530752843 -->     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Mga Kalendaryong Ipapakita"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Mga kalendaryong ipapakita"</string>
     <string name="synced" msgid="7913940305983383493">"naka-sync"</string>
     <string name="not_synced" msgid="4275114941801829419">"hindi naka-sync"</string>
-    <!-- outdated translation 2225937158458147648 -->     <string name="acct_not_synced" msgid="6126800985681230627">"Hindi sini-sync ang account na ito at maaaring hindi bago ang iyong mga kalendaryo."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Hindi sini-sync ang account na ito kung kaya maaaring hindi napapanahon ang iyong mga kalendaryo."</string>
     <string name="accounts" msgid="849401841083180306">"Mga Account &amp; sync"</string>
-    <!-- outdated translation 7122363881046468658 -->     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Mga Kalendaryong Isi-sync"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Mga kalendaryong isi-sync"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Mga kalendaryong isi-sync"</string>
     <string name="hint_what" msgid="709155115005044531">"Pangalan ng kaganapan"</string>
     <string name="hint_where" msgid="4972598001033801974">"Lokasyon"</string>
     <string name="hint_description" msgid="1910143586169033232">"Paglalarawan"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Mga Bisita"</string>
-    <!-- outdated translation 5252306542761552414 -->     <string name="creating_event" msgid="7516249252554059980">"Nalikha ang kaganapan"</string>
-    <!-- outdated translation 7716081507367732169 -->     <string name="saving_event" msgid="7694181017411177226">"Na-save ang kaganapan"</string>
-    <!-- outdated translation 757898251276814787 -->     <string name="empty_event" msgid="9018699257414338634">"Hindi nalikha ang walang lamang kaganapan"</string>
-    <!-- outdated translation 608830786504021732 -->     <string name="creating_event_with_guest" msgid="8535098983005383300">"Naipadala na ang mga imbitasyon"</string>
-    <!-- outdated translation 6177245412801310483 -->     <string name="saving_event_with_guest" msgid="8678551213800311856">"Naipadala na ang mga update"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Nalikha ang kaganapan."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Na-save ang kaganapan."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Hindi nalikha ang walang lamang kaganapan."</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Naipadala ang mga imbitasyon."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Naipadala ang mga update."</string>
     <string name="alert_title" msgid="7869592820853066853">"Mga notifcation sa kalendaryo"</string>
     <string name="event_info_title" msgid="56024222340421620">"Tingnan ang kaganapan"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Imbitasyon sa meeting"</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Magdagdag ng paalala"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Walang mga kalendaryo"</string>
-    <!-- outdated translation 4265845606733761102 -->     <string name="no_calendars_found" msgid="8968682716053492187">"Bago ka makapagdagdag ng kaganapan, dapat ka munang magdagdag ng hindi bababa sa isang Calendar account sa device at gawing nakikita ang isang kalendaryo. Pindutin ang \"Magdagdag ng account\" upang magdagdag ng account (kung nagdagdag ka lang ng account, hintayin itong matapos ang pag-sync at subukang muli). O pindutin ang Kanselahin at tiyakin na nakikita ang hindi bababa sa isang kalendaryo."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Bago ka makapagdagdag ng isang kaganapan, dapat kang magdagdag ng hindi bababa sa isang Calendar account sa iyong device at gawing nakikita ang isang kalendaryo. Pindutin ang Magdagdag ng Account upang magdagdag ng isang account (kung kadaragdag mo lang ng isang account, hintayin itong matapos sa pag-sync at subukang muli). O pindutin ang Kanselahin at tiyaking nakikita ang hindi bababa sa isang kalendaryo."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Mas mahusay na gumagana ang Calendar gamit ang Google Account."\n\n"• I-access ito mula sa anumang web browser"\n"• I-back up nang secure ang iyong mga kaganapan"</string>
     <string name="add_account" msgid="1669072099756774952">"Magdagdag ng account"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendaryo:"</string>
@@ -124,17 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Taun-taon"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Buwan-buwan (sa araw na <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Taun-taon (sa <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="tablet" msgid="3806817351377723249">"Custom… (hindi ma-customize sa tablet)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="default" msgid="4137468716966004993">"Custom… (hindi ma-customize sa tablet)"</string>
-    <!-- outdated translation 4501745557655992422 -->     <string name="modify_event" msgid="5982876409997142690">"Baguhin lang ang kaganapang ito."</string>
-    <!-- outdated translation 7506579040966638538 -->     <string name="modify_all" msgid="4421657265864209041">"Palitan ang lahat ng mga kaganapan sa serye."</string>
-    <!-- outdated translation 4333745734894639276 -->     <string name="modify_all_following" msgid="3017428541066390380">"Baguhin ito at ang lahat ng mga kaganapan sa hinaharap."</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Custom (hindi mako-customize sa tablet)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Custom (hindi mako-customize sa telepono)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Baguhin ang kaganapang ito lamang"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Palitan ang lahat ng kaganapan sa serye"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Baguhin ito at ang lahat ng kaganapan sa hinaharap"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Bagong kaganapan"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Bagong kaganapan"</string>
-    <!-- outdated translation 8738491083082780492 -->     <string name="delete_this_event_title" msgid="518402946676919384">"Tatangalin ang kaganapang ito."</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Tanggalin ang kaganapang ito?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Baguhin ang tugon"</string>
-    <!-- outdated translation 4057784477122524106 -->     <string name="menu_general_preferences" msgid="2812705323334260708">"Mga Pangkalahatang Kagustuhan"</string>
-    <!-- outdated translation 160474554936812478 -->     <string name="menu_about_preferences" msgid="6124375438237674973">"Tungkol sa Calendar"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Mga pangkalahatang setting"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Tungkol sa Calendar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Mga Setting"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Setting ng pagtingin sa kalendaryo"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Mga setting ng paalala"</string>
@@ -142,11 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Magsisimula ang linggo sa"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Magsisimula ang linggo sa"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"I-clear ang kasaysayan ng paghahanap"</string>
-    <!-- outdated translation 5813077357221990 -->     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Alisin ang lahat ng mga paghahanap na iyong isinagawa"</string>
-    <!-- outdated translation 7317062958300188595 -->     <string name="search_history_cleared" msgid="1536707558435227567">"Na-clear na ang kasaysayan ng paghahanap"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Alisin ang lahat ng paghahanap na iyong naisagawa"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Na-clear ang kasaysayan ng paghahanap."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Mga Notification"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"I-vibrate"</string>
-    <!-- outdated translation 7565118268120729644 -->     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Pumili ng ringtone"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Pumili ng ringtone"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pop-up notification"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Default na oras ng paalala"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Default na oras ng paalala"</string>
