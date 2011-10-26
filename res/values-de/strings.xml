@@ -143,7 +143,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Einstellungen"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Einstellungen für Kalenderansicht"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Erinnerungseinstellungen"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgel. Termine ausbl."</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgelehnte Termine ausbl."</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Woche beginnt am"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Woche beginnt am"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Suchverlauf löschen"</string>

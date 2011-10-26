@@ -128,8 +128,8 @@
     <string name="yearly_plain" msgid="3652692085322162449">"כל שנה"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"מדי חודש (ביום <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"מדי שנה (בתאריכים <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3784569535926286624">"התאמה אישית??? (אין אפשרות להתאים אישית בטבלט)"</string>
-    <string name="custom" product="default" msgid="3015205670911301856">"בהתאמה אישית??? (אין אפשרות להתאים אישית בטלפון)"</string>
+    <string name="custom" product="tablet" msgid="3784569535926286624">"התאמה אישית… (אין אפשרות להתאים אישית בטבלט)"</string>
+    <string name="custom" product="default" msgid="3015205670911301856">"בהתאמה אישית… (אין אפשרות להתאים אישית בטלפון)"</string>
     <string name="modify_event" msgid="4501745557655992422">"שנה אירוע זה בלבד."</string>
     <string name="modify_all" msgid="7506579040966638538">"שנה את כל האירועים בסדרה."</string>
     <string name="modify_all_following" msgid="4333745734894639276">"שנה אירוע זה ואת כל האירועים העתידיים."</string>
