@@ -46,7 +46,6 @@ import android.text.util.Rfc822Token;
 import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.QuickContactBadge;
 
 import java.util.ArrayList;
@@ -1020,7 +1019,10 @@ public class EditEventHelper {
         model.mHasAlarm = cursor.getInt(EVENT_INDEX_HAS_ALARM) != 0;
         model.mCalendarId = cursor.getInt(EVENT_INDEX_CALENDAR_ID);
         model.mStart = cursor.getLong(EVENT_INDEX_DTSTART);
-        model.mTimezone = cursor.getString(EVENT_INDEX_TIMEZONE);
+        String tz = cursor.getString(EVENT_INDEX_TIMEZONE);
+        if (!TextUtils.isEmpty(tz)) {
+            model.mTimezone = tz;
+        }
         String rRule = cursor.getString(EVENT_INDEX_RRULE);
         model.mRrule = rRule;
         model.mSyncId = cursor.getString(EVENT_INDEX_SYNC_ID);
