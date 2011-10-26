@@ -59,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Търсене"</string>
     <string name="hide_controls" msgid="830320505938520882">"Контроли: Скриване"</string>
     <string name="show_controls" msgid="715520586028062621">"Контроли: Показване"</string>
-    <!-- outdated translation 5285053789530752843 -->     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Календари за показване"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Календари за показване"</string>
     <string name="synced" msgid="7913940305983383493">"синхронизирано"</string>
     <string name="not_synced" msgid="4275114941801829419">"не е синхронизирано"</string>
-    <!-- outdated translation 2225937158458147648 -->     <string name="acct_not_synced" msgid="6126800985681230627">"Този профил не е синхронизиран и календарите ви може да не са актуални."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Този профил не е синхронизиран, затова е възможно календарите ви да не са актуални."</string>
     <string name="accounts" msgid="849401841083180306">"Профили и синхронизиране"</string>
-    <!-- outdated translation 7122363881046468658 -->     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Календари за синхронизиране"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Календари за синхронизиране"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Календари за синхронизиране"</string>
     <string name="hint_what" msgid="709155115005044531">"Име на събитието"</string>
     <string name="hint_where" msgid="4972598001033801974">"Местоположение"</string>
     <string name="hint_description" msgid="1910143586169033232">"Описание"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Гости"</string>
-    <!-- outdated translation 5252306542761552414 -->     <string name="creating_event" msgid="7516249252554059980">"Събитието е създадено"</string>
-    <!-- outdated translation 7716081507367732169 -->     <string name="saving_event" msgid="7694181017411177226">"Събитието е запазено"</string>
-    <!-- outdated translation 757898251276814787 -->     <string name="empty_event" msgid="9018699257414338634">"Празно събитие: Не е създадено"</string>
-    <!-- outdated translation 608830786504021732 -->     <string name="creating_event_with_guest" msgid="8535098983005383300">"Поканите са изпратени"</string>
-    <!-- outdated translation 6177245412801310483 -->     <string name="saving_event_with_guest" msgid="8678551213800311856">"Актуализациите са изпратени"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Събитието е създадено."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Събитието е запазено."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Празно събитие: Не е създадено"</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Поканите са изпратени."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Актуализациите са изпратени."</string>
     <string name="alert_title" msgid="7869592820853066853">"Известия от Календар"</string>
     <string name="event_info_title" msgid="56024222340421620">"Преглед на събитие"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Покана за среща"</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Поверителност"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Добавяне: Напомняне"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Няма календари"</string>
-    <!-- outdated translation 4265845606733761102 -->     <string name="no_calendars_found" msgid="8968682716053492187">"Преди да можете да добавите събитие, в устройството трябва да има поне един профил в Google Календар и да направите видим календар. За целта докоснете „Добавяне на профил“ (ако току-що сте направили това, изчакайте синхронизирането да завърши и опитайте отново). Или докоснете „Отказ“ и се уверете, че поне един календар е видим."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Преди да можете да добавите събитие, в устройството трябва да има поне един профил в Google Календар и да направите видим календар. За целта докоснете „Добавяне на профил“ (ако току-що сте направили това, изчакайте синхронизирането да завърши и опитайте отново). Или докоснете „Отказ“ и се уверете, че поне един календар е видим."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Приложението Календар работи по-добре с профил в Google."\n\n"• Осъществявайте достъп до него от всеки уеб браузър."\n"• Създавайте надеждни резервни копия на събитията си."</string>
     <string name="add_account" msgid="1669072099756774952">"Добавяне на профил"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Календар:"</string>
@@ -124,17 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Всяка година"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Всеки месец (на <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Всяка година (на <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="tablet" msgid="3806817351377723249">"Персонализирано... (не може да се персонализира от таблет)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="default" msgid="4137468716966004993">"Персонализирано... (не може да се персонализира от таблет)"</string>
-    <!-- outdated translation 4501745557655992422 -->     <string name="modify_event" msgid="5982876409997142690">"Промяна само на това събитие."</string>
-    <!-- outdated translation 7506579040966638538 -->     <string name="modify_all" msgid="4421657265864209041">"Промяна на всички събития в поредицата."</string>
-    <!-- outdated translation 4333745734894639276 -->     <string name="modify_all_following" msgid="3017428541066390380">"Промяна на това и всички бъдещи събития."</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Персонализирано (не може да се извърши от таблет)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Персонализирано (не може да се извърши от телефон)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Промяна само на това събитие"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Промяна на всички събития в поредицата"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Промяна на това и всички бъдещи събития"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Ново събитие"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Ново събитие"</string>
-    <!-- outdated translation 8738491083082780492 -->     <string name="delete_this_event_title" msgid="518402946676919384">"Това събитие ще бъде изтрито."</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Да се изтрие ли това събитие?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Промяна на отговор"</string>
-    <!-- outdated translation 4057784477122524106 -->     <string name="menu_general_preferences" msgid="2812705323334260708">"Общи предпочитания"</string>
-    <!-- outdated translation 160474554936812478 -->     <string name="menu_about_preferences" msgid="6124375438237674973">"Всичко за календара"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Общи настройки"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Всичко за Google Календар"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Настройки"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Настройки за преглед на календар"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Настройки за напомняне"</string>
@@ -142,11 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Седмицата започва от"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Седмицата започва от"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Изчистване на историята на търсенията"</string>
-    <!-- outdated translation 5813077357221990 -->     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Премахване на всички извършени от вас търсения"</string>
-    <!-- outdated translation 7317062958300188595 -->     <string name="search_history_cleared" msgid="1536707558435227567">"Историята на търсенията е изчистена"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Премахване на всички извършени от вас търсения"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Историята на търсенията е изчистена."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Известия"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Вибриране"</string>
-    <!-- outdated translation 7565118268120729644 -->     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Избор на мелодия"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Избор на мелодия"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Изскачащо известие"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Стандартен час за напомняне"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Стандартен час за напомняне"</string>

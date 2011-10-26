@@ -59,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Sök"</string>
     <string name="hide_controls" msgid="830320505938520882">"Dölj kontroller"</string>
     <string name="show_controls" msgid="715520586028062621">"Visa kontroller"</string>
-    <!-- outdated translation 5285053789530752843 -->     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalendrar som ska visas"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalendrar som ska visas"</string>
     <string name="synced" msgid="7913940305983383493">"synkroniserat"</string>
     <string name="not_synced" msgid="4275114941801829419">"inte synkat"</string>
-    <!-- outdated translation 2225937158458147648 -->     <string name="acct_not_synced" msgid="6126800985681230627">"Kontot synkroniseras inte och kalendrarna kanske inte är uppdaterade."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Kontot synkroniseras inte, så det är inte säkert att kalendrarna är uppdaterade."</string>
     <string name="accounts" msgid="849401841083180306">"Konton och synkronisering"</string>
-    <!-- outdated translation 7122363881046468658 -->     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendrar som ska synkroniseras"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendrar som ska synkroniseras"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalendrar som ska synkroniseras"</string>
     <string name="hint_what" msgid="709155115005044531">"Händelsens namn"</string>
     <string name="hint_where" msgid="4972598001033801974">"Plats"</string>
     <string name="hint_description" msgid="1910143586169033232">"Beskrivning"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Gäster"</string>
-    <!-- outdated translation 5252306542761552414 -->     <string name="creating_event" msgid="7516249252554059980">"Händelsen har skapats"</string>
-    <!-- outdated translation 7716081507367732169 -->     <string name="saving_event" msgid="7694181017411177226">"Händelsen har sparats"</string>
-    <!-- outdated translation 757898251276814787 -->     <string name="empty_event" msgid="9018699257414338634">"Den tomma händelsen sparades inte"</string>
-    <!-- outdated translation 608830786504021732 -->     <string name="creating_event_with_guest" msgid="8535098983005383300">"Inbjudningar har skickats"</string>
-    <!-- outdated translation 6177245412801310483 -->     <string name="saving_event_with_guest" msgid="8678551213800311856">"Uppdateringar har skickats"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Händelsen har skapats."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Händelsen har sparats."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Den tomma händelsen sparades inte."</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Inbjudningarna har skickats."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Uppdateringarna har skickats."</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalenderaviseringar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visa händelse"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Inbjudan till möte"</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Sekretess"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Lägg till påminnelse"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Inga kalendrar"</string>
-    <!-- outdated translation 4265845606733761102 -->     <string name="no_calendars_found" msgid="8968682716053492187">"Innan du kan skapa händelser måste du lägga till minst ett Kalender-konto på enheten så att en kalender kan visas. Tryck på Lägg till konto så att ett nytt konto läggs till. Om du precis har lagt till ett konto väntar du tills synkroniseringen har slutförts innan du försöker igen. Du kan också trycka på Avbryt och kontrollera att minst en kalender visas."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Innan du kan lägga till en händelse måste du lägga till minst ett kalenderkonto på enheten och göra en kalender synlig. Tryck på Lägg till konto (om du precis har lagt till ett konto väntar du tills synkroniseringen är slutförd och försöker sedan igen). Annars trycker du på Avbryt och kontrollerar att minst en kalender visas."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Kalendern fungerar bättre med ett Google-konto."\n\n"• Öppna den i valfri webbläsare"\n"• Säkerhetskopiera dina händelser på ett tryggt sätt"</string>
     <string name="add_account" msgid="1669072099756774952">"Lägg till konto"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
@@ -124,17 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Varje år"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Varje månad (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Varje år (den <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="tablet" msgid="3806817351377723249">"Anpassad… (går ej att anpassa på pekdatorn)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="default" msgid="4137468716966004993">"Anpassad… (går ej att anpassa på pekdatorn)"</string>
-    <!-- outdated translation 4501745557655992422 -->     <string name="modify_event" msgid="5982876409997142690">"Ändra bara den här händelsen."</string>
-    <!-- outdated translation 7506579040966638538 -->     <string name="modify_all" msgid="4421657265864209041">"Ändra alla händelser i serien."</string>
-    <!-- outdated translation 4333745734894639276 -->     <string name="modify_all_following" msgid="3017428541066390380">"Ändra den här och alla framtida händelser."</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Anpassad (går ej att anpassa på pekdatorn)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Anpassad (går ej att anpassa i mobilen)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Ändra bara den här händelsen"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Ändra alla händelser i serien"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Ändra den här och alla framtida händelser"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Ny händelse"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Ny händelse"</string>
-    <!-- outdated translation 8738491083082780492 -->     <string name="delete_this_event_title" msgid="518402946676919384">"Händelsen kommer att tas bort."</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Vill du ta bort den här händelsen?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Ändra svar"</string>
-    <!-- outdated translation 4057784477122524106 -->     <string name="menu_general_preferences" msgid="2812705323334260708">"Allmänna inställningar"</string>
-    <!-- outdated translation 160474554936812478 -->     <string name="menu_about_preferences" msgid="6124375438237674973">"Om kalendern"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Allmänna inställningar"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Om Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Inställningar"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Inställning för kalendervy"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Inställningar för påminnelse"</string>
@@ -142,11 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Veckan börjar med"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Veckan börjar med"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Rensa sökhistorik"</string>
-    <!-- outdated translation 5813077357221990 -->     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Ta bort alla sökningar du har gjort"</string>
-    <!-- outdated translation 7317062958300188595 -->     <string name="search_history_cleared" msgid="1536707558435227567">"Sökhistoriken rensad"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Ta bort alla sökningar som du har gjort"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Sökhistoriken har rensats."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Aviseringar"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrera"</string>
-    <!-- outdated translation 7565118268120729644 -->     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Välj ringsignal"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Välj ringsignal"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Popup-meddelande"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standardtid för påminnelse"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standardtid för påminnelse"</string>

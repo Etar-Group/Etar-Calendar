@@ -59,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Pretraži"</string>
     <string name="hide_controls" msgid="830320505938520882">"Sakrij kontrole"</string>
     <string name="show_controls" msgid="715520586028062621">"Prikaži kontrole"</string>
-    <!-- outdated translation 5285053789530752843 -->     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalendari za prikaz"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalendari za prikaz"</string>
     <string name="synced" msgid="7913940305983383493">"sinkronizirano"</string>
     <string name="not_synced" msgid="4275114941801829419">"nije sinkronizirano"</string>
-    <!-- outdated translation 2225937158458147648 -->     <string name="acct_not_synced" msgid="6126800985681230627">"Ovaj se račun ne sinkronizira i vaši kalendari možda nisu ažurni."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Ovaj se račun ne sinkronizira pa vaši kalendari možda nisu ažurni."</string>
     <string name="accounts" msgid="849401841083180306">"Računi &amp; sinkronizacija"</string>
-    <!-- outdated translation 7122363881046468658 -->     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendari za sinkronizaciju"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendari za sinkronizaciju"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalendari za sinkronizaciju"</string>
     <string name="hint_what" msgid="709155115005044531">"Naziv događaja"</string>
     <string name="hint_where" msgid="4972598001033801974">"Mjesto"</string>
     <string name="hint_description" msgid="1910143586169033232">"Opis"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Gosti"</string>
-    <!-- outdated translation 5252306542761552414 -->     <string name="creating_event" msgid="7516249252554059980">"Događaj je izrađen"</string>
-    <!-- outdated translation 7716081507367732169 -->     <string name="saving_event" msgid="7694181017411177226">"Događaj je spremljen"</string>
-    <!-- outdated translation 757898251276814787 -->     <string name="empty_event" msgid="9018699257414338634">"Nije stvoren prazan događaj"</string>
-    <!-- outdated translation 608830786504021732 -->     <string name="creating_event_with_guest" msgid="8535098983005383300">"Pozivnice poslane"</string>
-    <!-- outdated translation 6177245412801310483 -->     <string name="saving_event_with_guest" msgid="8678551213800311856">"Ažuriranja poslana"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Događaj je izrađen."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Događaj je spremljen."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Nije stvoren prazan događaj."</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Pozivnice su poslane."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Ažuriranja su poslana."</string>
     <string name="alert_title" msgid="7869592820853066853">"Obavijesti kalendara"</string>
     <string name="event_info_title" msgid="56024222340421620">"Prikaži događaj"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Pozivnica za sastanak"</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privatnost"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Dodavanje podsjetnika"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nema kalendara"</string>
-    <!-- outdated translation 4265845606733761102 -->     <string name="no_calendars_found" msgid="8968682716053492187">"Prije dodavanja događaja, na uređaj morate dodati barem jedan račun usluge Kalendar i prikazati kalendar. Dodirnite \"Dodaj račun\" za dodavanje računa (ako ste upravo dodali račun, pričekajte da završi sinkronizacija i pokušajte ponovo). Ili dodirnite Odustani i pazite da je prikazan barem jedan kalendar."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Prije nego što ćete moći dodati događaj morate dodati barem jedan račun usluge Kalendar na svoj uređaj i kalendar učiniti vidljivim. Da biste dodali račun, dodirnite Dodaj račun (ako ste upravo dodali račun, pričekajte dovrši sinkronizaciju i pokušajte ponovno) ili dodirnite Odustani i provjerite je li barem jedan kalendar vidljiv."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Kalendar radi bolje s Google računom."\n\n"• Pristupite mu iz bilo kojeg web-preglednika."\n"• Stvorite sigurnosnu kopiju svojih događaja."</string>
     <string name="add_account" msgid="1669072099756774952">"Dodavanje računa"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendar:"</string>
@@ -124,17 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Godišnje"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mjesečno (na dan <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Godišnje (na dan <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="tablet" msgid="3806817351377723249">"Prilagođeno… (prilagođavanje na tabletnom uređaju nije moguće)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="default" msgid="4137468716966004993">"Prilagođeno… (prilagođavanje na tabletnom uređaju nije moguće)"</string>
-    <!-- outdated translation 4501745557655992422 -->     <string name="modify_event" msgid="5982876409997142690">"Promijeni samo ovaj događaj."</string>
-    <!-- outdated translation 7506579040966638538 -->     <string name="modify_all" msgid="4421657265864209041">"Promijeni sve događaje u nizu."</string>
-    <!-- outdated translation 4333745734894639276 -->     <string name="modify_all_following" msgid="3017428541066390380">"Promijeni ovaj i sve buduće događaje."</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Prilagođeno (prilagođavanje na tabletnom računalu nije moguće)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Prilagođeno (prilagođavanje na telefonu nije moguće)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Promijeni samo ovaj događaj"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Promijeni sve događaje u nizu"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Promijeni ovaj i sve buduće događaje"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Novi događaj"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Novi događaj"</string>
-    <!-- outdated translation 8738491083082780492 -->     <string name="delete_this_event_title" msgid="518402946676919384">"Ovaj će događaj biti izbrisan."</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Izbrisati ovaj događaj?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Promijeni odgovor"</string>
-    <!-- outdated translation 4057784477122524106 -->     <string name="menu_general_preferences" msgid="2812705323334260708">"Opće postavke"</string>
-    <!-- outdated translation 160474554936812478 -->     <string name="menu_about_preferences" msgid="6124375438237674973">"O kalendaru"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Opće postavke"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"O kalendaru"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Postavke"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Postavka prikazivanja kalendara"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Postavke podsjetnika"</string>
@@ -142,11 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Tjedan počinje u"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Tjedan počinje u"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Očisti povijest pretraživanja"</string>
-    <!-- outdated translation 5813077357221990 -->     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Uklonite sva izvršena pretraživanja"</string>
-    <!-- outdated translation 7317062958300188595 -->     <string name="search_history_cleared" msgid="1536707558435227567">"Povijest pretraživanja izbrisana"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Uklonite sva poduzeta pretraživanja"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Povijest pretraživanja obrisana je."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Obavijesti"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibracija"</string>
-    <!-- outdated translation 7565118268120729644 -->     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Odaberite zvuk zvona"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Odaberite melodiju zvona"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Skočna obavijest"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Zadano vrijeme podsjetnika"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Zadano vrijeme podsjetnika"</string>

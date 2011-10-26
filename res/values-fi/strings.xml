@@ -59,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Haku"</string>
     <string name="hide_controls" msgid="830320505938520882">"Piilota toiminnot"</string>
     <string name="show_controls" msgid="715520586028062621">"Näytä toiminnot"</string>
-    <!-- outdated translation 5285053789530752843 -->     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Näytettävät kalenterit"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Näytettävät kalenterit"</string>
     <string name="synced" msgid="7913940305983383493">"synkronoitu"</string>
     <string name="not_synced" msgid="4275114941801829419">"ei synkronoitu"</string>
-    <!-- outdated translation 2225937158458147648 -->     <string name="acct_not_synced" msgid="6126800985681230627">"Tätä tiliä ei synkronoida. Kalenterisi eivät välttämättä ole ajan tasalla."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Tätä tiliä ei synkronoida. Kalenterisi eivät välttämättä ole ajan tasalla."</string>
     <string name="accounts" msgid="849401841083180306">"Tilit ja synkronointi"</string>
-    <!-- outdated translation 7122363881046468658 -->     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Synkronoitavat kalenterit"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Synkronoitavat kalenterit"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Synkronoitavat kalenterit"</string>
     <string name="hint_what" msgid="709155115005044531">"Tapahtuman nimi"</string>
     <string name="hint_where" msgid="4972598001033801974">"Sijainti"</string>
     <string name="hint_description" msgid="1910143586169033232">"Kuvaus"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Vieraat"</string>
-    <!-- outdated translation 5252306542761552414 -->     <string name="creating_event" msgid="7516249252554059980">"Tapahtuma luotu"</string>
-    <!-- outdated translation 7716081507367732169 -->     <string name="saving_event" msgid="7694181017411177226">"Tapahtuma tallennettu"</string>
-    <!-- outdated translation 757898251276814787 -->     <string name="empty_event" msgid="9018699257414338634">"Tyhjää tapahtumaa ei voi luoda"</string>
-    <!-- outdated translation 608830786504021732 -->     <string name="creating_event_with_guest" msgid="8535098983005383300">"Kutsut lähetetty"</string>
-    <!-- outdated translation 6177245412801310483 -->     <string name="saving_event_with_guest" msgid="8678551213800311856">"Päivitykset lähetetty"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Tapahtuma luotu."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Tapahtuma tallennettu."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Tyhjää tapahtumaa ei voi luoda"</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Kutsut lähetetty."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Päivitykset lähetetty."</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalenteri-ilmoitukset"</string>
     <string name="event_info_title" msgid="56024222340421620">"Näytä tapahtuma"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Kokouskutsu"</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Tietosuoja"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Lisää muistutus"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Ei kalentereita"</string>
-    <!-- outdated translation 4265845606733761102 -->     <string name="no_calendars_found" msgid="8968682716053492187">"Ennen tapahtuman lisäämistä sinun tulee lisätä laitteeseen vähintään yksi kalenteritili ja asettaa kalenteri näkyville. Lisää tili koskettamalla Lisää tili (jos lisäsit tilin äskettäin, odota, että se synkronoidaan, ja yritä uudelleen), tai kosketa Peruuta ja varmista, että vähintään yksi kalenteri on näkyvillä."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Ennen kuin voit lisätä tapahtuman, sinun on lisättävä laitteeseen vähintään yksi kalenteritili ja otettava kalenteri näkyviin. Lisää tili koskettamalla Lisää tili (jos olet jo lisännyt tilin, odota synkronoinnin valmistumista ja yritä uudelleen). Tai kosketa Peruuta ja varmista, että vähintään yksi kalenteri on näkyvissä."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Kalenteri toimii paremmin Google-tilin kanssa."\n\n"• Käytä kalenteriasi millä tahansa selaimella"\n"• Varmuuskopioi tapahtumasi turvallisesti"</string>
     <string name="add_account" msgid="1669072099756774952">"Lisää tili"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalenteri:"</string>
@@ -124,17 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Vuosittain"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Kuukausittain (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>. päivänä)"</string>
     <string name="yearly" msgid="8576208380302949002">"Vuosittain (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="tablet" msgid="3806817351377723249">"Muokattu… (ei voi muokata tablet-laitteella)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="default" msgid="4137468716966004993">"Muokattu… (ei voi muokata tablet-laitteella)"</string>
-    <!-- outdated translation 4501745557655992422 -->     <string name="modify_event" msgid="5982876409997142690">"Muuta vain tämä tapahtuma."</string>
-    <!-- outdated translation 7506579040966638538 -->     <string name="modify_all" msgid="4421657265864209041">"Muuta tapahtuman kaikki toistokerrat."</string>
-    <!-- outdated translation 4333745734894639276 -->     <string name="modify_all_following" msgid="3017428541066390380">"Muuta tämä ja kaikki tulevat tapahtumat."</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Muokattu (ei voi muokata tablet-laitteella)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Muokattu (ei voi muokata puhelimessa)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Muuta vain tämä tapahtuma"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Muuta tapahtuman kaikki toistokerrat"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Muuta tämä ja kaikki tulevat tapahtumat"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Uusi tapahtuma"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Uusi tapahtuma"</string>
-    <!-- outdated translation 8738491083082780492 -->     <string name="delete_this_event_title" msgid="518402946676919384">"Tämä tapahtuma poistetaan."</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Poistetaanko tämä tapahtuma?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Muuta vastausta"</string>
-    <!-- outdated translation 4057784477122524106 -->     <string name="menu_general_preferences" msgid="2812705323334260708">"Yleisasetukset"</string>
-    <!-- outdated translation 160474554936812478 -->     <string name="menu_about_preferences" msgid="6124375438237674973">"Tietoja kalenterista"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Yleiset asetukset"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Tietoja kalenterista"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Asetukset"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Kalenterinäkymän asetus"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Muistutusten asetukset"</string>
@@ -142,11 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Viikko alkaa päivänä"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Viikko alkaa päivänä"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Tyhjennä hakuhistoria"</string>
-    <!-- outdated translation 5813077357221990 -->     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Poista kaikki tekemäsi haut"</string>
-    <!-- outdated translation 7317062958300188595 -->     <string name="search_history_cleared" msgid="1536707558435227567">"Hakuhistoria tyhjennetty"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Poista kaikki tekemäsi haut."</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Hakuhistoria tyhjennetty."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Ilmoitukset"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Värinä"</string>
-    <!-- outdated translation 7565118268120729644 -->     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Valitse hälytysääni"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Valitse soittoääni"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Ponnahdusikkunailmoitus"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Muistutuksen oletusaika"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Muistutuksen oletusaika"</string>
