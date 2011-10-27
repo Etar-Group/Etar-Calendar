@@ -62,7 +62,7 @@
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalenda za kuonyesha"</string>
     <string name="synced" msgid="7913940305983383493">"imesawazishwa"</string>
     <string name="not_synced" msgid="4275114941801829419">"haijasawazishwa"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Akaunti hii hailandanishwi na huenda kalenda yako si ya kisasa."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Akaunti hii hailandanishwi na huenda kalenda zako zaweza kuwa hazijasasishwa."</string>
     <string name="accounts" msgid="849401841083180306">"Akaunti na usawazishaji"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalenda za kulandanisha"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalenda za kusawazisha"</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Faragha"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Ongeza kumbosho"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Hakuna kalenda"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Kabla ya kuongeza tukio, unapaswa kuongeza angalau akaunti moja ya Kalenda kwa kifaa chako na kufanya kalenda ionekane. Gusa Ongeza Akaunti ili kuongeza akaunti (kama wewe tu umeongeza akaunti, subiri imalize kulandanisha na jaribu tena). Au gusa Ghairi na uhakikishe kuwa angalau kalenda moja inaonekana."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Kabla ya kuongeza tukio, unapaswa kuongeza angalau akaunti moja ya Kalenda kwa kifaa chako na kufanya kalenda ionekane. Gusa Ongeza Akaunti ili kuongeza akaunti (kama umeongeza akaunti, subiri imalize kulandanisha na ujaribu tena). Au gusa Ghairi na uhakikishe kuwa angalau kalenda moja inaonekana."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Kalenda inafanya kazi vizuri ukiwa na Akaunti ya Google. "\n" "\n" • Iangalie kwa kutumia kivinjari chochote "\n" • Tunza matukio yako kwa usalama."</string>
     <string name="add_account" msgid="1669072099756774952">"Ongeza akaunti"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalenda:"</string>
@@ -124,8 +124,8 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Kila mwaka"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Kila mwezi (kwa siku ya <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Kila mwaka (mnamo <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Kaida (haiwezi kukaida kwa kompyuta ndogo)"</string>
-    <string name="custom" product="default" msgid="4137468716966004993">"Kaida (haiwezi kukaida kwa simu)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Kaida (haiwezi kugeuzia kwa kompyuta ndogo)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Kaida (haiwezi kugeuzia kwa simu)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Badilisha tukio hili pekee"</string>
     <string name="modify_all" msgid="4421657265864209041">"Badilisha matukio yote katika mfululizo"</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Badilisha hili na matukio yote yajayo"</string>
@@ -142,7 +142,7 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Juma linaanza"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Juma linaanza"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Futa historia ya utafutaji"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Ondoa utafutaji wote ulizotekeleza"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Ondoa utafutaji wote uliotekeleza"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Historia ya utafutaji imefutwa."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Taarifa"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Tikisika"</string>
