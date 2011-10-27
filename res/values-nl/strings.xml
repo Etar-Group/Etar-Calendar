@@ -156,7 +156,7 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Herinneringstijd"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Herinneringstijd"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Eigen tijdz. gebr."</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Eigen tijdzone gebruiken"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Op reis agenda\'s en gebeurtenistijden weergeven in eigen tijdzone"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Eigen tijdzone"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Weeknummer weergeven"</string>
