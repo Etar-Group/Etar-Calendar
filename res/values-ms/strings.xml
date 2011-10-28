@@ -59,22 +59,22 @@
     <string name="search" msgid="550656004486017426">"Carian"</string>
     <string name="hide_controls" msgid="830320505938520882">"Sembunyikan kawalan"</string>
     <string name="show_controls" msgid="715520586028062621">"Tunjukkan kawalan"</string>
-    <!-- outdated translation 5285053789530752843 -->     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalendar untuk Dipaparkan"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalendar untuk dipaparkan"</string>
     <string name="synced" msgid="7913940305983383493">"tersegerak"</string>
     <string name="not_synced" msgid="4275114941801829419">"tidak disegerakkan"</string>
-    <!-- outdated translation 2225937158458147648 -->     <string name="acct_not_synced" msgid="6126800985681230627">"Akaun ini tidak tersegerak dan kalendar anda mungkin tidak dikemas kini."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Akaun ini tidak disegerakkan, maka kalendar anda mungkin tidak terkini."</string>
     <string name="accounts" msgid="849401841083180306">"Akaun &amp; penyegerakan"</string>
-    <!-- outdated translation 7122363881046468658 -->     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendar untuk Disegerakkan"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendar untuk disegerakkan"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalendar untuk disegerakkan"</string>
     <string name="hint_what" msgid="709155115005044531">"Nama acara"</string>
     <string name="hint_where" msgid="4972598001033801974">"Lokasi"</string>
     <string name="hint_description" msgid="1910143586169033232">"Huraian"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Tetamu"</string>
-    <!-- outdated translation 5252306542761552414 -->     <string name="creating_event" msgid="7516249252554059980">"Acara sudah dibuat"</string>
-    <!-- outdated translation 7716081507367732169 -->     <string name="saving_event" msgid="7694181017411177226">"Acara sudah disimpan"</string>
-    <!-- outdated translation 757898251276814787 -->     <string name="empty_event" msgid="9018699257414338634">"Acara kosong tidak dibuat"</string>
-    <!-- outdated translation 608830786504021732 -->     <string name="creating_event_with_guest" msgid="8535098983005383300">"Jemputan telah dihantar"</string>
-    <!-- outdated translation 6177245412801310483 -->     <string name="saving_event_with_guest" msgid="8678551213800311856">"Kemas kini telah dihantar"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Acara sudah dibuat."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Acara sudah disimpan."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Acara kosong tidak dibuat."</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Jemputan telah dihantar."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Kemas kini telah dihantar."</string>
     <string name="alert_title" msgid="7869592820853066853">"Pemberitahuan kalendar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Lihat acara"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Jemputan pertemuan"</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privasi"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Tambah peringatan"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Tiada kalendar"</string>
-    <!-- outdated translation 4265845606733761102 -->     <string name="no_calendars_found" msgid="8968682716053492187">"Sebelum anda boleh menambah acara, anda mesti menambah sekurang-kurangnya satu akaun Kalendar pada peranti dan menjadikan kalendar itu boleh dilihat. Sentuh \"Tambah akaun\" untuk menambah akaun (jika anda baru sahaja menambah akaun, tunggu sehingga ia selesai menyegerak dan cuba lagi). Atau sentuh Batal dan pastikan sekurang-kurangnya satu kalendar boleh dilihat."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Sebelum anda dapat menambahkan sesuatu acara, anda mesti menambahkan sekurang-kurangnya satu akaun Kalendar pada peranti anda dan menjadikan kalendar dapat dilihat. Sentuh Tambah Akaun untuk menambahkan akaun (jika anda baru sahaja menambahkan akaun, tunggu sehingga ia selesai menyegerak dan cuba lagi). Jika tidak, sentuh Batal dan pastikan sekurang-kurangnya satu kalendar kelihatan."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Kalendar berfungsi lebih baik dengan Akaun Google. "\n" "\n"• Akses dari sebarang penyemak imbas "\n"• Buat sandaran untuk acara anda secara selamat"</string>
     <string name="add_account" msgid="1669072099756774952">"Tambah akaun"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendar"</string>
@@ -124,17 +124,17 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Tahunan"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Bulanan (pada hari ke-<xliff:g id="DAY_OF_MONTH">%s</xliff:g> )"</string>
     <string name="yearly" msgid="8576208380302949002">"Tahunan (pada <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="tablet" msgid="3806817351377723249">"Peribadi... (tidak boleh diperibadikan pada tablet)"</string>
-    <!-- outdated translation 3784569535926286624 -->     <string name="custom" product="default" msgid="4137468716966004993">"Peribadi... (tidak boleh diperibadikan pada tablet)"</string>
-    <!-- outdated translation 4501745557655992422 -->     <string name="modify_event" msgid="5982876409997142690">"Tukar acara ini sahaja."</string>
-    <!-- outdated translation 7506579040966638538 -->     <string name="modify_all" msgid="4421657265864209041">"Tukar semua acara dalam siri."</string>
-    <!-- outdated translation 4333745734894639276 -->     <string name="modify_all_following" msgid="3017428541066390380">"Tukar acara ini dan semua acara masa depan."</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Peribadi (tidak boleh diperibadikan pada tablet)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Peribadi (tidak boleh diperibadikan pada telefon)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Tukar acara ini sahaja"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Tukar semua acara dalam siri"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Tukar acara ini dan semua acara masa depan"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Acara baru"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Acara baru"</string>
-    <!-- outdated translation 8738491083082780492 -->     <string name="delete_this_event_title" msgid="518402946676919384">"Acara ini akan dipadamkan."</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Padamkan acara ini?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Tukar jawapan"</string>
-    <!-- outdated translation 4057784477122524106 -->     <string name="menu_general_preferences" msgid="2812705323334260708">"Pilihan Umum"</string>
-    <!-- outdated translation 160474554936812478 -->     <string name="menu_about_preferences" msgid="6124375438237674973">"Mengenai kalendar"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Tetapan umum"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Mengenai Kalendar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Tetapan"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Tetapan paparan kalendar"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Tetapan peringatan"</string>
@@ -142,11 +142,11 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Minggu bermula pada"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Minggu bermula pada"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Padam bersih sejarah carian"</string>
-    <!-- outdated translation 5813077357221990 -->     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Alih keluar semua carian yang anda telah lakukan"</string>
-    <!-- outdated translation 7317062958300188595 -->     <string name="search_history_cleared" msgid="1536707558435227567">"Sejarah Carian telah dipadam bersih"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Alih keluar semua carian yang telah anda lakukan"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Sejarah carian dipadam bersih."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Pemberitahuan"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Getar"</string>
-    <!-- outdated translation 7565118268120729644 -->     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Pilih nada dering"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Pilih nada dering"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pemberitahuan pop timbul"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Waktu peringatan lalai"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Waktu peringatan lalai"</string>

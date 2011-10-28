@@ -138,7 +138,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Einstellungen"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Einstellungen für Kalenderansicht"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Erinnerungseinstellungen"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgel. Termine ausbl."</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgelehnte Termine ausbl."</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Woche beginnt am"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Woche beginnt am"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Suchverlauf löschen"</string>
@@ -159,7 +159,7 @@
     <string name="preferences_build_version" msgid="8242471883413502068">"Build-Version"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
     <item msgid="2539376794936035639">"Immer"</item>
-    <item msgid="8091719131860840185">"Nur im Lautlosmodus"</item>
+    <item msgid="8091719131860840185">"Nur im Lautlos-Modus"</item>
     <item msgid="4552962311897985633">"Nie"</item>
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Vibration"</string>
