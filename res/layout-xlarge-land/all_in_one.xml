@@ -94,7 +94,7 @@
         android:id="@+id/mini_month"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_height="263dip"
+        android:layout_height="262dip"
         android:layout_width="280dip" />
 
     <FrameLayout
