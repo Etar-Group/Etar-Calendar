@@ -67,7 +67,7 @@
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"要同步的日历"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"要同步的日历"</string>
     <string name="hint_what" msgid="709155115005044531">"活动名称"</string>
-    <string name="hint_where" msgid="4972598001033801974">"位置"</string>
+    <string name="hint_where" msgid="4972598001033801974">"地点"</string>
     <string name="hint_description" msgid="1910143586169033232">"说明"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"邀请对象"</string>
     <string name="creating_event" msgid="7516249252554059980">"活动已创建。"</string>
@@ -85,7 +85,7 @@
     <string name="edit_event_show_all" msgid="4558049350756058301">"显示全部选择"</string>
     <string name="description_label" msgid="7193475046717505855">"说明"</string>
     <string name="presence_label" msgid="6169724148441175862">"将我的状态显示为"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"隐私"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"活动性质"</string>
     <string name="reminders_label" msgid="7292389181815525676">"添加提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"无日历"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"您必须向设备中至少添加一个日历帐户并显示一个日历，然后才能添加活动。您可以触摸“添加帐户”以添加帐户（如果您​​刚刚添加过帐户，请等待该帐户完成同步，然后重试）。您也可以触摸“取消”，并确保至少显示了一个日历。"</string>
@@ -151,9 +151,9 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"默认提醒时间"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"默认提醒时间"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"使用主时区"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行时按主时区显示日历和活动时间"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"主时区"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"使用家所在时区"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行时按家所在时区显示日历和活动时间"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"家所在时区"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"显示周数"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"关于"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"版本号"</string>

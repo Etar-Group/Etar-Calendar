@@ -105,8 +105,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">"WCZORAJ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"JUTRO, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Trwa wczytywanie..."</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Dotknij, aby wyświetlić wydarzenia przed okresem <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Dotknij, aby wyświetlić wydarzenia po okresie <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Dotknij, aby wyświetlić wydarzenia przed <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Dotknij, aby wyświetlić wydarzenia po <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Szukaj w moich kalendarzach"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Szczegóły"</string>
     <string name="edit_label" msgid="8934331258435656534">"Edytuj"</string>
@@ -147,12 +147,12 @@
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Powiadomienia"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Wibracje"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Wybierz dzwonek"</string>
-    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Wyskakujące powiadomienie"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Wyświetl na ekranie"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Domyślne przypomnienie"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Domyślne przypomnienie"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Użyj domowej strefy czasowej"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Godziny kalendarza w podróży dla domowej strefy czasowej"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Domowa strefa czasowa"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Godziny będą podawane w domowej strefie czasowej (nawet w podróży)"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Domowa strefa czasowa"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Pokaż numer tygodnia"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Informacje"</string>
