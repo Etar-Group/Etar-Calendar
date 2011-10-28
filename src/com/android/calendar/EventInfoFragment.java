@@ -29,8 +29,8 @@ import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventViewUtils;
 import com.android.calendarcommon.EventRecurrence;
-import com.android.i18n.phonenumbers.PhoneNumberMatch;
-import com.android.i18n.phonenumbers.PhoneNumberUtil;
+import com.android.calendarcommon.phonenumbers.PhoneNumberMatch;
+import com.android.calendarcommon.phonenumbers.PhoneNumberUtil;
 
 import android.app.Activity;
 import android.app.Dialog;
