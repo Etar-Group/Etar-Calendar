@@ -130,7 +130,7 @@
     <string name="yearly" msgid="8576208380302949002">"Cada año (el <xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom" product="tablet" msgid="3784569535926286624">"Personalizar... (no se puede personalizar en los tablets)"</string>
     <string name="custom" product="default" msgid="3015205670911301856">"Personalizado... (no se puede personalizar por teléfono)"</string>
-    <string name="modify_event" msgid="4501745557655992422">"Cambiar sólo este evento"</string>
+    <string name="modify_event" msgid="4501745557655992422">"Cambiar solo este evento"</string>
     <string name="modify_all" msgid="7506579040966638538">"Cambiar todos los eventos de la serie"</string>
     <string name="modify_all_following" msgid="4333745734894639276">"Cambiar este y todos los eventos futuros"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Evento nuevo"</string>
