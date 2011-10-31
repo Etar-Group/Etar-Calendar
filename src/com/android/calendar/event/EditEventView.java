@@ -174,6 +174,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private ArrayList<Integer> mReminderMethodValues;
     private ArrayList<String> mReminderMethodLabels;
 
+    /**
+     * Contents of the "availability" spinner. The "values" list specifies the
+     * type constant (e.g. {@link Events#AVAILABILITY_BUSY}) associated with the
+     * labels. Any types that aren't allowed by the Calendar will be removed.
+     */
+    private ArrayList<Integer> mAvailabilityValues;
+    private ArrayList<String> mAvailabilityLabels;
+
     private int mDefaultReminderMinutes;
 
     private boolean mSaveAfterQueryComplete = false;
@@ -766,7 +774,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         mModel.mTimezone = mTimezone;
         mModel.mAccessLevel = mAccessLevelSpinner.getSelectedItemPosition();
-        mModel.mAvailability = mAvailabilitySpinner.getSelectedItemPosition() != 0;
+        // TODO set correct availability value
+        mModel.mAvailability = mAvailabilityValues.get(mAvailabilitySpinner
+                .getSelectedItemPosition());
 
         int selection;
         // If we're making an exception we don't want it to be a repeating
@@ -900,6 +910,24 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         String[] labels = r.getStringArray(resNum);
         ArrayList<String> list = new ArrayList<String>(Arrays.asList(labels));
         return list;
+    }
+
+    private void prepareAvailability() {
+        CalendarEventModel model = mModel;
+        Resources r = mActivity.getResources();
+
+        mAvailabilityValues = loadIntegerArray(r, R.array.availability_values);
+        mAvailabilityLabels = loadStringArray(r, R.array.availability);
+
+        if (mModel.mCalendarAllowedAvailability != null) {
+            EventViewUtils.reduceMethodList(mAvailabilityValues, mAvailabilityLabels,
+                    mModel.mCalendarAllowedAvailability);
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity,
+                android.R.layout.simple_spinner_item, mAvailabilityLabels);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mAvailabilitySpinner.setAdapter(adapter);
     }
 
     /**
@@ -1050,6 +1078,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mDefaultReminderMinutes = Integer.parseInt(defaultReminderString);
 
         prepareReminders();
+        prepareAvailability();
 
         View reminderAddButton = mView.findViewById(R.id.reminder_add);
         View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
@@ -1091,7 +1120,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mDescriptionTextView.setTextKeepState(model.mDescription);
         }
 
-        mAvailabilitySpinner.setSelection(model.mAvailability ? 1 : 0);
+        int availIndex = mAvailabilityValues.indexOf(model.mAvailability);
+        if (availIndex != -1) {
+            mAvailabilitySpinner.setSelection(availIndex);
+        }
         mAccessLevelSpinner.setSelection(model.mAccessLevel);
 
         View responseLabel = mView.findViewById(R.id.response_label);
@@ -1594,6 +1626,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mModel.mCalendarMaxReminders = c.getInt(maxRemindersColumn);
         int allowedRemindersColumn = c.getColumnIndexOrThrow(Calendars.ALLOWED_REMINDERS);
         mModel.mCalendarAllowedReminders = c.getString(allowedRemindersColumn);
+        int allowedAttendeeTypesColumn = c.getColumnIndexOrThrow(Calendars.ALLOWED_ATTENDEE_TYPES);
+        mModel.mCalendarAllowedAttendeeTypes = c.getString(allowedAttendeeTypesColumn);
+        int allowedAvailabilityColumn = c.getColumnIndexOrThrow(Calendars.ALLOWED_AVAILABILITY);
+        mModel.mCalendarAllowedAvailability = c.getString(allowedAvailabilityColumn);
 
         // Discard the current reminders and replace them with the model's default reminder set.
         // We could attempt to save & restore the reminders that have been added, but that's
@@ -1608,6 +1644,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             (LinearLayout) mScrollView.findViewById(R.id.reminder_items_container);
         reminderLayout.removeAllViews();
         prepareReminders();
+        prepareAvailability();
     }
 
     /**
