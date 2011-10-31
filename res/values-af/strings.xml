@@ -62,7 +62,7 @@
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalenders om te wys"</string>
     <string name="synced" msgid="7913940305983383493">"gesinkroniseer"</string>
     <string name="not_synced" msgid="4275114941801829419">"nie gesinkroniseer nie"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Hierdie rekening word nie gesinkroniseer nie, dus is jou kalenders dalk nie op datum nie."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Hierdie rekening word nie gesinkroniseer nie, dus mag jou kalenders dalk nie op datum wees nie."</string>
     <string name="accounts" msgid="849401841083180306">"Rekeninge en sinkronisering"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalenders om te sinkroniseer"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalenders om te sinkroniseer"</string>
@@ -70,7 +70,7 @@
     <string name="hint_where" msgid="4972598001033801974">"Ligging"</string>
     <string name="hint_description" msgid="1910143586169033232">"Beskrywing"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Gaste"</string>
-    <string name="creating_event" msgid="7516249252554059980">"Gebeurtenis geskep"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Gebeurtenis geskep."</string>
     <string name="saving_event" msgid="7694181017411177226">"Gebeurtenis gestoor."</string>
     <string name="empty_event" msgid="9018699257414338634">"Leë gebeurtenis nie geskep nie."</string>
     <string name="creating_event_with_guest" msgid="8535098983005383300">"Uitnodigings gestuur."</string>
@@ -88,7 +88,7 @@
     <string name="privacy_label" msgid="9215031965259597335">"Privaatheid"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Voeg herinnering by"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen kalenders nie"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Voordat jy \'n gebeurtenis kan byvoeg, moet jy minstens een Kalender-rekening by jou toestel voeg en \'n kalender sigbaar maak. Raak \"Voeg rekekning by\" om \'n rekening by te voeg (as jy sopas \'n rekening bygevoeg het, wag tot dit klaar gesinchroniseer het en probeer weer). Of raak \"Kanselleer\" en maak seker dat ten minste een kalender sigbaar is."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Voordat jy \'n gebeurtenis kan byvoeg, moet jy minstens een Kalender-rekening by jou toestel voeg en \'n kalender sigbaar maak. Raak Voeg Rekekning By om \'n rekening by te voeg (as jy sopas \'n rekening bygevoeg het, wag tot dit klaar gesinkroniseer het en probeer weer). Of raak Kanselleer en maak seker dat ten minste een kalender sigbaar is."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Kalender werk beter met \'n Google-rekening "\n\n"•Verky toegang tot een vanaf enige webblaaier"\n"•Rugsteun jou dienste veilig"</string>
     <string name="add_account" msgid="1669072099756774952">"Voeg rekening by"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
@@ -127,14 +127,14 @@
     <string name="custom" product="tablet" msgid="3806817351377723249">"Gepasmaak (kan nie op tablet pasmaak nie)"</string>
     <string name="custom" product="default" msgid="4137468716966004993">"Gepasmaak (kan nie op foon pasmaak nie)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Verander slegs hierdie gebeurtenis"</string>
-    <string name="modify_all" msgid="4421657265864209041">"Verander alle gebeurtenisse in die reeks"</string>
-    <string name="modify_all_following" msgid="3017428541066390380">"Verander hierdie en alle toekomstige gebeurtenisse."</string>
+    <string name="modify_all" msgid="4421657265864209041">"Verander alle gebeure in die reeks"</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Verander hierdie en alle toekomstige gebeure"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Nuwe gebeurtenis"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Nuwe gebeurtenis"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Vee hierdie gebeurtenis uit?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Verander antwoord"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Algemene instellings"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"Meer oor kalender"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Meer oor Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Instellings"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Kalenderaansig-instelling"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Herinneringsinstellings"</string>

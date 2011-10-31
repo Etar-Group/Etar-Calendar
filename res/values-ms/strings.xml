@@ -62,7 +62,7 @@
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalendar untuk dipaparkan"</string>
     <string name="synced" msgid="7913940305983383493">"tersegerak"</string>
     <string name="not_synced" msgid="4275114941801829419">"tidak disegerakkan"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Akaun ini tidak disegerakkan, maka kalendar anda mungkin tidak kemas kini."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Akaun ini tidak disegerakkan, maka kalendar anda mungkin tidak terkini."</string>
     <string name="accounts" msgid="849401841083180306">"Akaun &amp; penyegerakan"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendar untuk disegerakkan"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalendar untuk disegerakkan"</string>

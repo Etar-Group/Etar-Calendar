@@ -21,7 +21,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="15dip"
     android:fillViewport="true"
     android:background="@drawable/minical_bg_shadow_holo_light">
 
