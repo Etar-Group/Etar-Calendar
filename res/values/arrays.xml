@@ -313,7 +313,15 @@
     <string-array name="availability">
         <item>Busy</item>
         <item>Available</item>
+        <item>Tentative</item>
     </string-array>
+
+    <!-- This maps reminder_methods_labels to internal constants. -->
+    <integer-array name="availability_values" translatable="false">
+        <item>0</item>  <!-- Busy -->
+        <item>1</item>  <!-- Available -->
+        <item>2</item>  <!-- Tentative -->
+    </integer-array>
 
     <string-array name="visibility">
         <item>Default</item>

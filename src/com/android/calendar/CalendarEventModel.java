@@ -28,7 +28,6 @@ import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 import android.text.TextUtils;
 import android.text.util.Rfc822Token;
-import android.widget.AutoCompleteTextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -200,6 +199,8 @@ public class CalendarEventModel implements Serializable {
     public int mCalendarColor = 0;
     public int mCalendarMaxReminders;
     public String mCalendarAllowedReminders;
+    public String mCalendarAllowedAttendeeTypes;
+    public String mCalendarAllowedAvailability;
 
     public String mSyncId = null;
     public String mSyncAccount = null;
@@ -233,7 +234,7 @@ public class CalendarEventModel implements Serializable {
     public String mTimezone2 = null;
     public boolean mAllDay = false;
     public boolean mHasAlarm = false;
-    public boolean mAvailability = false;
+    public int mAvailability = Events.AVAILABILITY_BUSY;
 
     // PROVIDER_NOTES How does an event not have attendee data? The owner is added
     // as an attendee by default.
@@ -311,7 +312,7 @@ public class CalendarEventModel implements Serializable {
 
         int availability = intent.getIntExtra(Events.AVAILABILITY, -1);
         if (availability != -1) {
-            mAvailability = availability != 0;
+            mAvailability = availability;
         }
 
         int accessLevel = intent.getIntExtra(Events.ACCESS_LEVEL, -1);
@@ -413,6 +414,9 @@ public class CalendarEventModel implements Serializable {
         mOrganizerCanRespond = false;
         mCalendarAccessLevel = Calendars.CAL_ACCESS_CONTRIBUTOR;
         mModelUpdatedWithEventCursor = false;
+        mCalendarAllowedReminders = null;
+        mCalendarAllowedAttendeeTypes = null;
+        mCalendarAllowedAvailability = null;
 
         mReminders = new ArrayList<ReminderEntry>();
         mAttendeesList.clear();
@@ -494,7 +498,7 @@ public class CalendarEventModel implements Serializable {
         result = prime * result + ((mTimezone == null) ? 0 : mTimezone.hashCode());
         result = prime * result + ((mTimezone2 == null) ? 0 : mTimezone2.hashCode());
         result = prime * result + ((mTitle == null) ? 0 : mTitle.hashCode());
-        result = prime * result + (mAvailability ? 1231 : 1237);
+        result = prime * result + (mAvailability);
         result = prime * result + ((mUri == null) ? 0 : mUri.hashCode());
         result = prime * result + mAccessLevel;
         return result;
