@@ -21,7 +21,6 @@ import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.R;
-import com.android.calendar.event.EventViewUtils;
 
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
@@ -1479,7 +1478,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         model.mTimezone = "UTC";
         model.mRrule = "FREQ=DAILY;WKST=SU";
         model.mSyncId = "unique per calendar stuff";
-        model.mAvailability = false;
+        model.mAvailability = 0;
         model.mAccessLevel = 2; // This is one less than the values written if >0
         model.mOwnerAccount = "steve@gmail.com";
         model.mHasAttendeeData = true;
