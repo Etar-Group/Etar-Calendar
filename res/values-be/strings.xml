@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="5452708708398908131">"Каляндар"</string>
+    <string name="what_label" msgid="1933578391985810049">"Што"</string>
+    <string name="where_label" msgid="3472482206065595118">"Дзе"</string>
+    <string name="when_label" msgid="894636567327261599">"Калі"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"Гадзінны пояс"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"Госці"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"Паўтарэнне"</string>
+    <string name="no_title_label" msgid="302177118061368042">"(Без назвы)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"1 хвіліна"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> хвілін"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"1 хв."</item>
+    <item quantity="other" msgid="9175648445939148974">"Хвілін <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"1 гадзіна"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> гадзін"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"1 дзень"</item>
+    <item quantity="other" msgid="1709378992389618261">"Дзён: <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"ТЫДЗЕНЬ <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="calendar_refresh" msgid="6172731193680500025">"Абнавіць"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Паказаць дзень"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Парадак дня"</string>
+    <string name="day_view" msgid="4467754504843584437">"Дзень"</string>
+    <string name="week_view" msgid="6775043022159508060">"Тыдзень"</string>
+    <string name="month_view" msgid="7287101431749285412">"Месяц"</string>
+    <string name="event_view" msgid="7621353079385122317">"Прагледзець падзею"</string>
+    <string name="event_create" msgid="6941040556709110617">"Новая падзея"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Рэдагаваць падзею"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Выдаліць падзею"</string>
+    <string name="goto_today" msgid="9162136434410891230">"Сёння"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Налады"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Адл. кал."</string>
+    <string name="search" msgid="550656004486017426">"Пошук"</string>
+    <string name="hide_controls" msgid="830320505938520882">"Схаваць кіраванне"</string>
+    <string name="show_controls" msgid="715520586028062621">"Паказаць кіраванне"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Календары для адлюстравання"</string>
+    <string name="synced" msgid="7913940305983383493">"сінхранізаваныя"</string>
+    <string name="not_synced" msgid="4275114941801829419">"не сінхранізаваны"</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Гэты ўліковы запіс не сінхранізаваны, i вашыя календары маглi састарэць."</string>
+    <string name="accounts" msgid="849401841083180306">"Уліковыя запісы і сінхранізацыя"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Календары для сiнхранiзацыi"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Календары для сінхранізацыі"</string>
+    <string name="hint_what" msgid="709155115005044531">"Назва падзеі"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Месцазнаходж."</string>
+    <string name="hint_description" msgid="1910143586169033232">"Апісанне"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Госці"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Мерапрыемства створана."</string>
+    <string name="saving_event" msgid="7694181017411177226">"Мерапрыемства захавана."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Пустое мерапрыемства не створана."</string>
+    <string name="creating_event_with_guest" msgid="8535098983005383300">"Запрашэнні адасланы."</string>
+    <string name="saving_event_with_guest" msgid="8678551213800311856">"Абнаўленні адасланы."</string>
+    <string name="alert_title" msgid="7869592820853066853">"Паведамленні календара"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Прагледзець падзею"</string>
+    <string name="event_info_title_invite" msgid="9160326363769403865">"Запрашэнне на сустрэчу"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Каму"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Ад"</string>
+    <string name="edit_event_all_day_label" msgid="6200181113992136073">"Увесь дзень"</string>
+    <string name="edit_event_calendar_label" msgid="4556498359505856900">"Каляндар"</string>
+    <string name="edit_event_show_all" msgid="4558049350756058301">"Паказаць усё"</string>
+    <string name="description_label" msgid="7193475046717505855">"Апісанне"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Паказваць як"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Прыватнасць"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Дадаць напамін"</string>
+    <string name="no_syncable_calendars" msgid="7019488867045436129">"Няма календароў"</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Перш чым дадаваць мерапрыемствы, трэба дадаць хаця б адзін улiковы запiс Calendar на прыладу і зрабіць каляндар бачным. Нацiснiце \"Дадаць улiковы запiс\" (калi вы толькi што дадалi яго, пачакайце, пакуль скончыцца сiнхранiзацыя i паўтарыце спробу). Цi выберыце \"Адмянiць\", каб упэўнiцца, што як мiнiмум адзiн каляндар бачны."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Служба Calendar лепш працуе з уліковым запісам Google."\n\n"•Доступ да яе можна атрымаць з любога вэб-браўзэра"\n"•Выканайце рэзервовае капіяванне сваiх мерапрыемстваў"</string>
+    <string name="add_account" msgid="1669072099756774952">"Дадаць уліковы запіс"</string>
+    <string name="view_event_calendar_label" msgid="6126231656338241140">"Каляндар:"</string>
+    <string name="view_event_organizer_label" msgid="2753151795647402277">"Арганізатар:"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"Удзел?"</string>
+    <string name="response_yes" msgid="2027484304899988350">"Так"</string>
+    <string name="response_maybe" msgid="7791500973627841695">"Магчыма"</string>
+    <string name="response_no" msgid="561911691884148136">"Не"</string>
+    <string name="event_info_organizer" msgid="9138683335394832629">"Арганізатар:"</string>
+    <string name="event_info_desc_more" msgid="2961880675118098743">"Яшчэ"</string>
+    <string name="event_info_desc_less" msgid="8295683160345195225">"Схав."</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"Напаміны"</string>
+    <string name="agenda_today" msgid="5965841338467422191">"СЁННЯ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_yesterday" msgid="4170964206728599693">"УЧОРА, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="agenda_tomorrow" msgid="3893625470780723605">"ЗАЎТРА, <xliff:g id="DATE">%1$s</xliff:g>"</string>
+    <string name="loading" msgid="3772533493214331230">"Загрузка..."</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Дакраніцеся, каб прагледзець падзеі да пошуку <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Дакраніцеся, каб прагледзець падзеі пасля пошуку <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="search_title" msgid="8898015280250716254">"Пошук у маіх календарах"</string>
+    <string name="edit_event_label" msgid="7413222956349977161">"Падрабязнасці"</string>
+    <string name="edit_label" msgid="8934331258435656534">"Рэдагаваць"</string>
+    <string name="delete_label" msgid="874742811918030739">"Выдаліць"</string>
+    <string name="save_label" msgid="2133599104834432589">"Гатова"</string>
+    <string name="discard_label" msgid="2394623883289782541">"Адмена"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"Адкласці ўсе"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Адмяніць усё"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Аднаразовая падзея"</string>
+    <string name="daily" msgid="560350706808680448">"Штодзённа"</string>
+    <string name="every_weekday" msgid="5896574838353902978">"Кожны будны дзень (Пн–Пт)"</string>
+    <string name="weekly" msgid="2006107373119027114">"Штотыдзень (кожн. <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Штомесяц (кожн. <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g> )"</string>
+    <string name="monthly" msgid="4587116285383048586">"Штомесяц"</string>
+    <string name="yearly_plain" msgid="3652692085322162449">"Штогод"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"Штомесяц (у дзень <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"Штогод (па <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Карыстальніцкія (не атрымліваецца наладзіць на планшэце)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Карыстальніцкія (не атрымліваецца наладзіць на тэлефоне)"</string>
+    <string name="modify_event" msgid="5982876409997142690">"Змяніць толькі гэта мерапрыемства"</string>
+    <string name="modify_all" msgid="4421657265864209041">"Паслядоўная змена ўсіх мерапрыемстваў."</string>
+    <string name="modify_all_following" msgid="3017428541066390380">"Змяніць гэта і ўсе будучыя мерапрыемствы."</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Новая падзея"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Новая падзея"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Выдаліць гэта мерапрыемства?"</string>
+    <string name="change_response_title" msgid="7704714776070974984">"Змяніць адказ"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"Агульныя налады"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Пра Calendar"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Налады"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Каляндарны рэжым прагляду налад"</string>
+    <string name="preferences_reminder_title" msgid="6940022527071973010">"Налады напамінаў"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Схаваць адхіленыя падзеі"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Тыдзень пачынаецца з"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Тыдзень пачынаецца з"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Ачысціць гісторыю пошуку"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Выдаліць усе пошукавыя запыты"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Гісторыя пошуку выдалена."</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"Апавяшчэнні"</string>
+    <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Вібрацыя"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Выбраць рынгтон"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Усплывальнае апавяшчэнне"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Час напаміну па змаўчанні"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Час напаміну па змаўчанні"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Выкарыстанне хатняга гадзіннага поясу"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Адлюстроўваць календары і падзеі у вашым хатнім гадзінным поясе падчас падарожжа"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Хатні гадзінны пояс"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Паказаць нумар тыдня"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"Звесткі"</string>
+    <string name="preferences_build_version" msgid="8242471883413502068">"Версія зборкі"</string>
+  <string-array name="prefEntries_alerts_vibrateWhen">
+    <item msgid="2539376794936035639">"Заўсёды"</item>
+    <item msgid="8091719131860840185">"Толькі ў рэжыме без гуку"</item>
+    <item msgid="4552962311897985633">"Ніколі"</item>
+  </string-array>
+    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Вібрацыя"</string>
+    <string name="gadget_title" msgid="939918875331310945">"Каляндар"</string>
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+    <string name="gadget_no_events" msgid="5209110911088302855">"Няма падзей календара, якія павiнны адбыцца"</string>
+    <string name="tomorrow" msgid="614434811813859237">"Заўтра"</string>
+    <string name="copy_db" msgid="437691290566699292">"Адправіць базу дадзеных"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"Пошук дамена <xliff:g id="DOMAIN">%s</xliff:g>..."</string>
+    <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Выдаліць удзельніка"</string>
+    <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Дата пачатку"</string>
+    <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Час пачатку:"</string>
+    <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Дата заканчэння"</string>
+    <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Час заканчэння"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Часавы пояс"</string>
+    <string name="accessibility_add_reminder" msgid="2267950744060950152">"Дадаць напамін"</string>
+    <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Выдаліць напамін"</string>
+    <string name="accessibility_add_attendee" msgid="5654014177472600916">"Дадаць удзельніка"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"Сінхранізаваць каляндар"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Цэлы дзень"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Паўтарэнне:"</string>
+    <string name="accessibility_reminder_time" msgid="3594100545814579575">"Дата напаміну"</string>
+    <string name="accessibility_reminder_type" msgid="5339120699701437227">"Тып напаміну"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Паказваць як"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Канфідэнцыяльнасть"</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Новае мерапрыемства"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"Падзея <xliff:g id="ITEM_INDEX">%1$s</xliff:g> з <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+</resources>
