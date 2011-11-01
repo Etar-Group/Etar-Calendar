@@ -14,13 +14,13 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- turn on/off the mini-calendar and calendar picker -->
     <!-- supported only for x-large devices  -->
-    <bool name="show_calendar_controls">false</bool>
+    <bool name="show_calendar_controls">true</bool>
     <!-- turn on/off month with agenda view -->
     <!-- not supported for X-large devices -->
     <bool name="show_agenda_with_month">false</bool>
     <!-- when on, shows details of event in month view, when off, shows busy bits -->
     <!-- the "show details" mode is recommended for devices with large screens -->
-    <bool name="show_details_in_month">false</bool>
+    <bool name="show_details_in_month">true</bool>
     <!-- when on, shows the event next to the agenda list,
          when off, shows the event on top of the agenda list after it was clicked. -->
     <bool name="show_event_details_with_agenda">false</bool>
@@ -29,9 +29,9 @@
     <bool name="agenda_show_event_info_full_screen">true</bool>
     <!-- when on, event info launched from day/week view is shown in full screen, -->
     <!-- when off, shown as a popup. -->
-    <bool name="day_show_event_info_full_screen">true</bool>
+    <bool name="day_show_event_info_full_screen">false</bool>
     <!--  A global var used to tablet vs phone settings -->
-    <bool name="tablet_config">false</bool>
+    <bool name="tablet_config">true</bool>
     <!--  A global var used to set the main layout theme (one pane vs multiple panes) -->
-    <bool name="multiple_pane_config">false</bool>
+    <bool name="multiple_pane_config">true</bool>
 </resources>

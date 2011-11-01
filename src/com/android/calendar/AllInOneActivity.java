@@ -125,7 +125,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private View mSecondaryPane;
     private String mTimeZone;
     private boolean mShowCalendarControls;
-    private boolean mShowEventInfoFullScreen;
+    private boolean mShowEventInfoFullScreenAgenda;
+    private boolean mShowEventInfoFullScreenDay;
     private int mWeekNum;
 
     private long mViewEventId = -1;
@@ -331,14 +332,16 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mShowString = res.getString(R.string.show_controls);
         mControlsParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-        mIsMultipane = Utils.isMultiPaneConfiguration(this);
+        mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
         mIsTabletConfig = Utils.getConfigBool(this, R.bool.tablet_config);
         mShowAgendaWithMonth = Utils.getConfigBool(this, R.bool.show_agenda_with_month);
         mShowCalendarControls = Utils.getConfigBool(this, R.bool.show_calendar_controls);
         mShowEventDetailsWithAgenda =
             Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
-        mShowEventInfoFullScreen =
-            Utils.getConfigBool(this, R.bool.show_event_info_full_screen);
+        mShowEventInfoFullScreenAgenda =
+            Utils.getConfigBool(this, R.bool.agenda_show_event_info_full_screen);
+        mShowEventInfoFullScreenDay =
+            Utils.getConfigBool(this, R.bool.day_show_event_info_full_screen);
 
         Utils.setAllowWeekForDetailView(mIsMultipane);
 
@@ -1082,7 +1085,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
                             event.selectedTime, -1, ViewType.CURRENT);
                 }
-                if (mShowEventInfoFullScreen) {
+                if ((mCurrentView == ViewType.AGENDA && mShowEventInfoFullScreenAgenda) ||
+                        ((mCurrentView == ViewType.DAY || (mCurrentView == ViewType.WEEK))
+                                && mShowEventInfoFullScreenDay)){
                     // start event info as activity
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
@@ -1098,7 +1103,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     // start event info as a dialog
                     EventInfoFragment fragment = new EventInfoFragment(this,
                             event.id, event.startTime.toMillis(false),
-                            event.endTime.toMillis(false), (int) event.extraLong, true);
+                            event.endTime.toMillis(false), (int) event.extraLong, true,
+                            EventInfoFragment.DIALOG_WINDOW_STYLE);
                     fragment.setDialogParams(event.x, event.y, mActionBar.getHeight());
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
