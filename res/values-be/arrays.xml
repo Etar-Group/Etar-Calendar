@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"Апавяшч-е"</item>
+    <item msgid="1751151680520784746">"Электр. пошта"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item msgid="2416970002377237011">"0 хвілін"</item>
+    <item msgid="6681865010714743948">"1 хвіліна"</item>
+    <item msgid="2327505114623595779">"5 хвілін"</item>
+    <item msgid="1657410063332547113">"10 хвілін"</item>
+    <item msgid="366087535181197780">"15 хвілін"</item>
+    <item msgid="6252612791145061929">"20 хвілін"</item>
+    <item msgid="7896694531989090700">"25 хвілін"</item>
+    <item msgid="8754510169374808607">"30 хвілін"</item>
+    <item msgid="3113380274218454394">"45 хвілін"</item>
+    <item msgid="8546646645868526283">"1 гадзіна"</item>
+    <item msgid="6467845211024768872">"2 гадзіны"</item>
+    <item msgid="8201677619511076575">"3 гадзіны"</item>
+    <item msgid="7172504281650128893">"12 гадзін"</item>
+    <item msgid="9114286702181482496">"24 гадзіны"</item>
+    <item msgid="3107009344872997366">"2 дні"</item>
+    <item msgid="6135563708172153696">"1 тыдзень"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"Няма"</item>
+    <item msgid="5883344836499335043">"0 хвілін"</item>
+    <item msgid="4354350447805231188">"1 хвіліна"</item>
+    <item msgid="265674592625309858">"5 хвілін"</item>
+    <item msgid="8011089417728419666">"10 хвілін"</item>
+    <item msgid="6177098581805412986">"15 хвілін"</item>
+    <item msgid="356346660503078923">"20 хвілін"</item>
+    <item msgid="992592434377054063">"25 хвілін"</item>
+    <item msgid="9191353668596201944">"30 хвілін"</item>
+    <item msgid="1192985682962908244">"45 хвілін"</item>
+    <item msgid="1694315499429259938">"1 гадзіна"</item>
+    <item msgid="8281019320591769635">"2 гадзіны"</item>
+    <item msgid="2062931719019287773">"3 гадзіны"</item>
+    <item msgid="4086495711621133006">"12 гадзін"</item>
+    <item msgid="3172669681920709561">"24 гадзіны"</item>
+    <item msgid="5557836606782821910">"2 дні"</item>
+    <item msgid="8336577387266744930">"1 тыдзень"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"Рэгiянальная налада па змаўчанні"</item>
+    <item msgid="134027225275475280">"Субота"</item>
+    <item msgid="95029346069903091">"Нядзеля"</item>
+    <item msgid="5840983116375063739">"Панядзелак"</item>
+  </string-array>
+  <string-array name="timezone_labels">
+    <item msgid="6833649526258274889">"Маршалавы астравы"</item>
+    <item msgid="7176569939440505575">"Востраў Мідуэй"</item>
+    <item msgid="5000628410717488070">"Гаваі"</item>
+    <item msgid="3809977082338992040">"Аляска"</item>
+    <item msgid="1206600898319778734">"Ціхаакіянскі час"</item>
+    <item msgid="4251553449779733536">"Ціхуана"</item>
+    <item msgid="4796372144693551811">"Арызона"</item>
+    <item msgid="4589419122570218444">"Чыхуахуа"</item>
+    <item msgid="1653398220457872326">"Горны час"</item>
+    <item msgid="229005026661478023">"Цэнтральная Амерыка"</item>
+    <item msgid="1545268116831476742">"Цэнтр. паясны час"</item>
+    <item msgid="9135129204936732090">"Мехіка"</item>
+    <item msgid="3703110560723049255">"Саскачэван"</item>
+    <item msgid="5458958644945369505">"Багата"</item>
+    <item msgid="355450740949670294">"Усходні паясны час"</item>
+    <item msgid="5786717434693228701">"Венесуэла"</item>
+    <item msgid="165048018515834952">"Атлантычны час"</item>
+    <item msgid="5398045998666341917">"Манаўс"</item>
+    <item msgid="8167627904199889197">"Сант\'яга"</item>
+    <item msgid="2793058279461039833">"Ньюфаўндленд"</item>
+    <item msgid="5247265991408608312">"Бразіліа"</item>
+    <item msgid="7862856378699038344">"Буэнас-Айрэс"</item>
+    <item msgid="7307349572838946177">"Грэнландыя"</item>
+    <item msgid="2287491943472924232">"Монтавідэа"</item>
+    <item msgid="6337125611768317903">"Сярэднеатлантыч. час"</item>
+    <item msgid="1083966762112959704">"Азорскія астравы"</item>
+    <item msgid="3208435599095023369">"Каба-Вердэ"</item>
+    <item msgid="8380333624463354109">"Пакістан"</item>
+    <item msgid="8737442113188999866">"Лондан, Дублін"</item>
+    <item msgid="72424340270348400">"Амстэрдам, Берлін"</item>
+    <item msgid="3665952257850630547">"Бялград"</item>
+    <item msgid="3284290759549286849">"Брусэль"</item>
+    <item msgid="3112943938015033049">"Сараева"</item>
+    <item msgid="1746966478800108111">"Вiндхук"</item>
+    <item msgid="7008598576103662879">"Усходнеафрыканскі час"</item>
+    <item msgid="1358916275855835758">"Аман, Іарданія"</item>
+    <item msgid="5900185968201011015">"Афіны, Стамбул"</item>
+    <item msgid="4975304496845689895">"Бейрут, Ліван"</item>
+    <item msgid="4099790960681254059">"Каір"</item>
+    <item msgid="4174072690298729061">"Хельсінкі"</item>
+    <item msgid="5233437715028921599">"Ерусалім"</item>
+    <item msgid="612137838544847325">"Мінск"</item>
+    <item msgid="385832033162858704">"Харарэ"</item>
+    <item msgid="1439592855284837653">"Багдад"</item>
+    <item msgid="3703352987270492256">"Масква"</item>
+    <item msgid="1657996636394546903">"Кувейт"</item>
+    <item msgid="3719675800096223903">"Найробі"</item>
+    <item msgid="4216389209911081345">"Тэгеран"</item>
+    <item msgid="4949871918709805735">"Баку"</item>
+    <item msgid="2863183321532922311">"Тбілісі"</item>
+    <item msgid="1943529325618264999">"Емен"</item>
+    <item msgid="5094507376721687886">"Дубаі"</item>
+    <item msgid="2849654571454095226">"Кабул"</item>
+    <item msgid="3641915655045056824">"Ісламабад, Карачы"</item>
+    <item msgid="5795351343828254400">"Уральск"</item>
+    <item msgid="8779467771115356898">"Екацерынбург"</item>
+    <item msgid="297412491658718331">"Калькута"</item>
+    <item msgid="2290076787008042202">"Шры-Ланка"</item>
+    <item msgid="4119703758417825749">"Катманду"</item>
+    <item msgid="9161760299912900568">"Астана"</item>
+    <item msgid="5753596907402377327">"Янгон"</item>
+    <item msgid="6275146302340764856">"Краснаярск"</item>
+    <item msgid="2385588555356900033">"Бангкок"</item>
+    <item msgid="7651147941145227340">"Пекін"</item>
+    <item msgid="7831696303531874014">"Ганконг"</item>
+    <item msgid="7943498021949728203">"Іркуцк"</item>
+    <item msgid="707009198021550118">"Куала-Лумпур"</item>
+    <item msgid="4268864549735629220">"Перт"</item>
+    <item msgid="4584239166170514795">"Тайбэй"</item>
+    <item msgid="4972387553080120086">"Сеул"</item>
+    <item msgid="5749349714875345358">"Токіо, Осака"</item>
+    <item msgid="4435870687083770252">"Якутск"</item>
+    <item msgid="4857952326324510625">"Адэлаіда"</item>
+    <item msgid="7802545626741434274">"Дарвін"</item>
+    <item msgid="7184691104734480971">"Брысбэн"</item>
+    <item msgid="7795651165061255022">"Хобарт"</item>
+    <item msgid="1858052331367859514">"Сіднэй, Канбера"</item>
+    <item msgid="4396794682654884440">"Уладзівасток"</item>
+    <item msgid="4152655496917506653">"Гуам"</item>
+    <item msgid="3608508135351982746">"Магадан"</item>
+    <item msgid="722180563708274099">"Окленд"</item>
+    <item msgid="1736037231626139044">"Фіджы"</item>
+    <item msgid="8187746821081424875">"Тонга"</item>
+  </string-array>
+    <!-- no translation found for availability:2 (2064426942462573474) -->
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"Па змаўчанні"</item>
+    <item msgid="5200216103966973369">"Прыватны"</item>
+    <item msgid="9182342638433672664">"Агульнадаступнае"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"першы"</item>
+    <item msgid="5631923029483854900">"другі"</item>
+    <item msgid="148935502975250973">"трэці"</item>
+    <item msgid="5124200797326669172">"чацвёрты"</item>
+    <item msgid="7564374178324652137">"апошні"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"Няма адказу"</item>
+    <item msgid="3724434080904437698">"Так"</item>
+    <item msgid="8854145743148992583">"Магчыма"</item>
+    <item msgid="6174292185978948873">"Не"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"Толькі гэта падзея"</item>
+    <item msgid="1536401639805370405">"Гэта і будучыя мерапрыемствы"</item>
+    <item msgid="7833229563617435430">"Усе падзеі"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"Гэтыя i будучыя падзеі"</item>
+    <item msgid="6315440193748139854">"Усе падзеі"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"Толькі гэта мерапрыемства"</item>
+    <item msgid="140670561403965380">"Усе падзеі ў серыі"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"Дзень"</item>
+    <item msgid="6248480754959562740">"Тыдзень"</item>
+    <item msgid="4298472806133153766">"Месяц"</item>
+    <item msgid="5033084974413793845">"Парадак дня"</item>
+  </string-array>
+</resources>

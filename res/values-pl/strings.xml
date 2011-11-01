@@ -114,7 +114,7 @@
     <string name="save_label" msgid="2133599104834432589">"Gotowe"</string>
     <string name="discard_label" msgid="2394623883289782541">"Anuluj"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Odłóż wszystkie"</string>
-    <string name="dismiss_all_label" msgid="1834400025868091301">"Zamknij wszystkie"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Zamknij"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Wydarzenie jednorazowe"</string>
     <string name="daily" msgid="560350706808680448">"Codziennie"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Codziennie (pn-pt)"</string>
