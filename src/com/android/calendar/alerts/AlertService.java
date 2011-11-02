@@ -88,10 +88,14 @@ public class AlertService extends Service {
             + CalendarAlerts.STATE + "=?) AND " + CalendarAlerts.ALARM_TIME + "<=";
 
     private static final String[] ACTIVE_ALERTS_SELECTION_ARGS = new String[] {
-            Integer.toString(CalendarAlerts.STATE_FIRED), Integer.toString(CalendarAlerts.STATE_SCHEDULED)
+            Integer.toString(CalendarAlerts.STATE_FIRED),
+            Integer.toString(CalendarAlerts.STATE_SCHEDULED)
     };
 
     private static final String ACTIVE_ALERTS_SORT = "begin DESC, end DESC";
+
+    private static final String DISMISS_OLD_SELECTION = CalendarAlerts.END + "<? AND "
+            + CalendarAlerts.STATE + "=?";
 
     void processMessage(Message msg) {
         Bundle bundle = (Bundle) msg.obj;
@@ -111,17 +115,48 @@ public class AlertService extends Service {
         }
 
         if (!action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER)
-                && !action.equals(Intent.ACTION_LOCALE_CHANGED)) {
+                && !action.equals(Intent.ACTION_LOCALE_CHANGED)
+                && !action.equals(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS)) {
             Log.w(TAG, "Invalid action: " + action);
             return;
         }
-
+        if (action.equals(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS)) {
+            dismissOldAlerts(this);
+        }
         updateAlertNotification(this);
+    }
+
+    static void dismissOldAlerts(Context context) {
+        ContentResolver cr = context.getContentResolver();
+        final long currentTime = System.currentTimeMillis();
+        ContentValues vals = new ContentValues();
+        vals.put(CalendarAlerts.STATE, CalendarAlerts.STATE_DISMISSED);
+        cr.update(CalendarAlerts.CONTENT_URI, vals, DISMISS_OLD_SELECTION, new String[] {
+                Long.toString(currentTime), Integer.toString(CalendarAlerts.STATE_SCHEDULED)
+        });
     }
 
     static boolean updateAlertNotification(Context context) {
         ContentResolver cr = context.getContentResolver();
         final long currentTime = System.currentTimeMillis();
+
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+
+        boolean doAlert = prefs.getBoolean(GeneralPreferences.KEY_ALERTS, true);
+        boolean doPopup = prefs.getBoolean(GeneralPreferences.KEY_ALERTS_POPUP, false);
+
+        if (!doAlert) {
+            if (DEBUG) {
+                Log.d(TAG, "alert preference is OFF");
+            }
+
+            // If we shouldn't be showing notifications cancel any existing ones
+            // and return.
+            NotificationManager nm = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.cancelAll();
+            return true;
+        }
 
         Cursor alertCursor = cr.query(CalendarAlerts.CONTENT_URI, ALERT_PROJECTION,
                 (ACTIVE_ALERTS_SELECTION + currentTime), ACTIVE_ALERTS_SELECTION_ARGS,
@@ -254,19 +289,6 @@ public class AlertService extends Service {
             if (alertCursor != null) {
                 alertCursor.close();
             }
-        }
-
-        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
-
-        boolean doAlert = prefs.getBoolean(GeneralPreferences.KEY_ALERTS, true);
-        boolean doPopup = prefs.getBoolean(GeneralPreferences.KEY_ALERTS_POPUP, false);
-
-        // TODO check for this before adding stuff to the alerts table.
-        if (!doAlert) {
-            if (DEBUG) {
-                Log.d(TAG, "alert preference is OFF");
-            }
-            return true;
         }
 
         boolean quietUpdate = numFired == 0;

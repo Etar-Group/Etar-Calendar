@@ -60,6 +60,8 @@ public class AlertReceiver extends BroadcastReceiver {
     static final Object mStartingServiceSync = new Object();
     static PowerManager.WakeLock mStartingService;
 
+    public static final String ACTION_DISMISS_OLD_REMINDERS = "removeOldReminders";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         if (AlertService.DEBUG) {

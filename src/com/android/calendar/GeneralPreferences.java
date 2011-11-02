@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import com.android.calendar.alerts.AlertReceiver;
+
 import android.app.Activity;
 import android.app.backup.BackupManager;
 import android.content.Context;
@@ -205,11 +207,22 @@ public class GeneralPreferences extends PreferenceFragment implements
         setPreferenceListeners(null);
     }
 
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Activity a = getActivity();
         if (key.equals(KEY_ALERTS)) {
             updateChildPreferences();
+            if (a != null) {
+                Intent intent = new Intent();
+                intent.setClass(a, AlertReceiver.class);
+                if (mAlert.isChecked()) {
+                    intent.setAction(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS);
+                } else {
+                    intent.setAction(CalendarContract.ACTION_EVENT_REMINDER);
+                }
+                a.sendBroadcast(intent);
+            }
         }
-        Activity a = getActivity();
         if (a != null) {
             BackupManager.dataChanged(a.getPackageName());
         }
