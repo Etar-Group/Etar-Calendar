@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"Teatis"</item>
+    <item msgid="1751151680520784746">"E-post"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item msgid="2416970002377237011">"0 minutit"</item>
+    <item msgid="6681865010714743948">"1 minut"</item>
+    <item msgid="2327505114623595779">"5 minutit"</item>
+    <item msgid="1657410063332547113">"10 minutit"</item>
+    <item msgid="366087535181197780">"15 minutit"</item>
+    <item msgid="6252612791145061929">"20 minutit"</item>
+    <item msgid="7896694531989090700">"25 minutit"</item>
+    <item msgid="8754510169374808607">"30 minutit"</item>
+    <item msgid="3113380274218454394">"45 minutit"</item>
+    <item msgid="8546646645868526283">"1 tund"</item>
+    <item msgid="6467845211024768872">"2 tundi"</item>
+    <item msgid="8201677619511076575">"3 tundi"</item>
+    <item msgid="7172504281650128893">"12 tundi"</item>
+    <item msgid="9114286702181482496">"24 tundi"</item>
+    <item msgid="3107009344872997366">"2 päeva"</item>
+    <item msgid="6135563708172153696">"1 nädal"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"Puudub"</item>
+    <item msgid="5883344836499335043">"0 minutit"</item>
+    <item msgid="4354350447805231188">"1 minut"</item>
+    <item msgid="265674592625309858">"5 minutit"</item>
+    <item msgid="8011089417728419666">"10 minutit"</item>
+    <item msgid="6177098581805412986">"15 minutit"</item>
+    <item msgid="356346660503078923">"20 minutit"</item>
+    <item msgid="992592434377054063">"25 minutit"</item>
+    <item msgid="9191353668596201944">"30 minutit"</item>
+    <item msgid="1192985682962908244">"45 minutit"</item>
+    <item msgid="1694315499429259938">"1 tund"</item>
+    <item msgid="8281019320591769635">"2 tundi"</item>
+    <item msgid="2062931719019287773">"3 tundi"</item>
+    <item msgid="4086495711621133006">"12 tundi"</item>
+    <item msgid="3172669681920709561">"24 tundi"</item>
+    <item msgid="5557836606782821910">"2 päeva"</item>
+    <item msgid="8336577387266744930">"1 nädal"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"Lokaadi vaikeseade"</item>
+    <item msgid="134027225275475280">"Laupäev"</item>
+    <item msgid="95029346069903091">"Pühapäev"</item>
+    <item msgid="5840983116375063739">"Esmaspäev"</item>
+  </string-array>
+  <string-array name="timezone_labels">
+    <item msgid="6833649526258274889">"Marshalli saared"</item>
+    <item msgid="7176569939440505575">"Midway saared"</item>
+    <item msgid="5000628410717488070">"Hawaii"</item>
+    <item msgid="3809977082338992040">"Alaska"</item>
+    <item msgid="1206600898319778734">"Vaikse ookeani aeg"</item>
+    <item msgid="4251553449779733536">"Tijuana"</item>
+    <item msgid="4796372144693551811">"Arizona"</item>
+    <item msgid="4589419122570218444">"Chihuahua"</item>
+    <item msgid="1653398220457872326">"Kaljumäestiku aeg"</item>
+    <item msgid="229005026661478023">"Kesk-Ameerika"</item>
+    <item msgid="1545268116831476742">"Kesk-Ameerika aeg"</item>
+    <item msgid="9135129204936732090">"Mexico"</item>
+    <item msgid="3703110560723049255">"Saskatchewan"</item>
+    <item msgid="5458958644945369505">"Bogota"</item>
+    <item msgid="355450740949670294">"Ida-Ameerika aeg"</item>
+    <item msgid="5786717434693228701">"Venezuela"</item>
+    <item msgid="165048018515834952">"Atlandi aeg"</item>
+    <item msgid="5398045998666341917">"Manaus"</item>
+    <item msgid="8167627904199889197">"Santiago"</item>
+    <item msgid="2793058279461039833">"Newfoundland"</item>
+    <item msgid="5247265991408608312">"Brasiilia"</item>
+    <item msgid="7862856378699038344">"Buenos Aires"</item>
+    <item msgid="7307349572838946177">"Gröönimaa"</item>
+    <item msgid="2287491943472924232">"Montevideo"</item>
+    <item msgid="6337125611768317903">"Kesk-Atlandi"</item>
+    <item msgid="1083966762112959704">"Assoorid"</item>
+    <item msgid="3208435599095023369">"Roheneemesaared"</item>
+    <item msgid="8380333624463354109">"Casablanca"</item>
+    <item msgid="8737442113188999866">"London, Dublin"</item>
+    <item msgid="72424340270348400">"Amsterdam, Berliin"</item>
+    <item msgid="3665952257850630547">"Belgrad"</item>
+    <item msgid="3284290759549286849">"Brüssel"</item>
+    <item msgid="3112943938015033049">"Sarajevo"</item>
+    <item msgid="1746966478800108111">"Windhoek"</item>
+    <item msgid="7008598576103662879">"Lääne-Aafrika aeg"</item>
+    <item msgid="1358916275855835758">"Amman, Jordaania"</item>
+    <item msgid="5900185968201011015">"Ateena, Istanbul"</item>
+    <item msgid="4975304496845689895">"Beirut, Liibanon"</item>
+    <item msgid="4099790960681254059">"Kairo"</item>
+    <item msgid="4174072690298729061">"Helsingi"</item>
+    <item msgid="5233437715028921599">"Jeruusalemm"</item>
+    <item msgid="612137838544847325">"Minsk"</item>
+    <item msgid="385832033162858704">"Harare"</item>
+    <item msgid="1439592855284837653">"Bagdad"</item>
+    <item msgid="3703352987270492256">"Moskva"</item>
+    <item msgid="1657996636394546903">"Kuveit"</item>
+    <item msgid="3719675800096223903">"Nairobi"</item>
+    <item msgid="4216389209911081345">"Teheran"</item>
+    <item msgid="4949871918709805735">"Bakuu"</item>
+    <item msgid="2863183321532922311">"Thbilisi"</item>
+    <item msgid="1943529325618264999">"Jerevan"</item>
+    <item msgid="5094507376721687886">"Dubai"</item>
+    <item msgid="2849654571454095226">"Kabul"</item>
+    <item msgid="3641915655045056824">"Islamabad, Karachi"</item>
+    <item msgid="5795351343828254400">"Uralsk"</item>
+    <item msgid="8779467771115356898">"Jekaterinburg"</item>
+    <item msgid="297412491658718331">"Kolkata"</item>
+    <item msgid="2290076787008042202">"Sri Lanka"</item>
+    <item msgid="4119703758417825749">"Katmandu"</item>
+    <item msgid="9161760299912900568">"Astana"</item>
+    <item msgid="5753596907402377327">"Yangon"</item>
+    <item msgid="6275146302340764856">"Krasnojarsk"</item>
+    <item msgid="2385588555356900033">"Bangkok"</item>
+    <item msgid="7651147941145227340">"Peking"</item>
+    <item msgid="7831696303531874014">"Hongkong"</item>
+    <item msgid="7943498021949728203">"Irkutsk"</item>
+    <item msgid="707009198021550118">"Kuala Lumpur"</item>
+    <item msgid="4268864549735629220">"Perth"</item>
+    <item msgid="4584239166170514795">"Taipei"</item>
+    <item msgid="4972387553080120086">"Söul"</item>
+    <item msgid="5749349714875345358">"Tokyo, Osaka"</item>
+    <item msgid="4435870687083770252">"Jakutsk"</item>
+    <item msgid="4857952326324510625">"Adelaide"</item>
+    <item msgid="7802545626741434274">"Darwin"</item>
+    <item msgid="7184691104734480971">"Brisbane"</item>
+    <item msgid="7795651165061255022">"Hobart"</item>
+    <item msgid="1858052331367859514">"Sydney, Canberra"</item>
+    <item msgid="4396794682654884440">"Vladivostok"</item>
+    <item msgid="4152655496917506653">"Guam"</item>
+    <item msgid="3608508135351982746">"Magadan"</item>
+    <item msgid="722180563708274099">"Auckland"</item>
+    <item msgid="1736037231626139044">"Fidži"</item>
+    <item msgid="8187746821081424875">"Tonga"</item>
+  </string-array>
+    <!-- no translation found for availability:2 (2064426942462573474) -->
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"Vaikeseade"</item>
+    <item msgid="5200216103966973369">"Privaatne"</item>
+    <item msgid="9182342638433672664">"Avalik"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"esimene"</item>
+    <item msgid="5631923029483854900">"sekund"</item>
+    <item msgid="148935502975250973">"kolmas"</item>
+    <item msgid="5124200797326669172">"neljas"</item>
+    <item msgid="7564374178324652137">"viimane"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"Vastust pole"</item>
+    <item msgid="3724434080904437698">"Jah"</item>
+    <item msgid="8854145743148992583">"Võib-olla"</item>
+    <item msgid="6174292185978948873">"Ei"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"Ainult see sündmus"</item>
+    <item msgid="1536401639805370405">"See sündmus ja tulevased sündmused"</item>
+    <item msgid="7833229563617435430">"Kõik sündmused"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"See ja tulevased sündmused"</item>
+    <item msgid="6315440193748139854">"Kõik sündmused"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"Ainult see sündmus"</item>
+    <item msgid="140670561403965380">"Kõik seerias olevad sündmused"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"Päev"</item>
+    <item msgid="6248480754959562740">"Nädal"</item>
+    <item msgid="4298472806133153766">"Kuu"</item>
+    <item msgid="5033084974413793845">"Ajakava"</item>
+  </string-array>
+</resources>
