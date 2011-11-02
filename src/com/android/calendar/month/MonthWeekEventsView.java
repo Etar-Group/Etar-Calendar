@@ -795,19 +795,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
     }
 
     protected void drawMoreEvents(Canvas canvas, int remainingEvents, int x) {
-        int y = mHeight - EVENT_BOTTOM_PADDING + EVENT_LINE_PADDING / 2 - mEventHeight;
-        r.left = x;
-        r.top = y;
-        r.right = x + EVENT_SQUARE_WIDTH;
-        r.bottom = y + EVENT_SQUARE_WIDTH;
-        mEventSquarePaint.setColor(mMonthEventExtraColor);
-        mEventSquarePaint.setStyle(Style.STROKE);
-        canvas.drawRect(r, mEventSquarePaint);
-        mEventExtrasPaint.setAntiAlias(true);
+        int y = mHeight - EVENT_BOTTOM_PADDING;
         String text = getContext().getResources().getQuantityString(
                 R.plurals.month_more_events, remainingEvents);
-        y = mHeight - EVENT_BOTTOM_PADDING;
-        x += EVENT_SQUARE_WIDTH + EVENT_LINE_PADDING;
+        mEventExtrasPaint.setAntiAlias(true);
         mEventExtrasPaint.setFakeBoldText(true);
         canvas.drawText(String.format(text, remainingEvents), x, y, mEventExtrasPaint);
         mEventExtrasPaint.setFakeBoldText(false);
