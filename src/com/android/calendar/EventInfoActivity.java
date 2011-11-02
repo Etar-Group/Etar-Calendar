@@ -88,7 +88,9 @@ public class EventInfoActivity extends Activity {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             mInfoFragment = new EventInfoFragment(this, mEventId, mStartMillis, mEndMillis,
-                    attendeeResponse, isDialog);
+                    attendeeResponse, isDialog, isDialog ?
+                            EventInfoFragment.DIALOG_WINDOW_STYLE :
+                                EventInfoFragment.FULL_WINDOW_STYLE);
             ft.replace(R.id.main_frame, mInfoFragment);
             ft.commit();
         }

@@ -16,13 +16,6 @@
 
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_search"
-        android:alphabeticShortcut="f"
-        android:title="@string/search"
-        android:icon="@drawable/ic_menu_search_holo_light"
-        android:showAsAction="ifRoom|collapseActionView"
-        android:actionViewClass="android.widget.SearchView"
-        android:imeOptions="actionSearch" />
     <item
         android:id="@+id/action_today"
         android:alphabeticShortcut="t"
@@ -38,8 +31,17 @@
     <item
         android:id="@+id/action_refresh"
         android:alphabeticShortcut="r"
+        android:showAsAction="never"
         android:title="@string/calendar_refresh"
         android:icon="@drawable/ic_menu_refresh_holo_light" />
+    <item
+        android:id="@+id/action_search"
+        android:alphabeticShortcut="f"
+        android:title="@string/search"
+        android:icon="@drawable/ic_menu_search_holo_light"
+        android:showAsAction="never|collapseActionView"
+        android:actionViewClass="android.widget.SearchView"
+        android:imeOptions="actionSearch" />
     <item
         android:id="@+id/action_select_visible_calendars"
         android:title="@string/menu_select_visible_calendars"
@@ -48,10 +50,12 @@
     <item
         android:id="@+id/action_settings"
         android:alphabeticShortcut="s"
+        android:showAsAction="never"
         android:title="@string/menu_preferences"
         android:icon="@drawable/ic_menu_settings_holo_light" />
     <item
         android:id="@+id/action_hide_controls"
         android:alphabeticShortcut="h"
+        android:showAsAction="never"
         android:title="@string/hide_controls" />
 </menu>

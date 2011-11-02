@@ -566,11 +566,6 @@ public class Utils {
         return mAllowWeekForDetailView;
     }
 
-    public static boolean isMultiPaneConfiguration (Context c) {
-        return (c.getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_XLARGE) != 0;
-    }
-
     public static boolean getConfigBool(Context c, int key) {
         return c.getResources().getBoolean(key);
     }

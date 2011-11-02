@@ -12,12 +12,7 @@
 -->
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- size of day date font in month view  -->
-    <integer name="text_size_month_number">24</integer>
-    <!-- margin between the day number and the edge of the day in month view -->
-    <integer name="month_day_number_margin">8</integer>
-    <!-- The size of the color chip in the agenda view for all day events -->
-    <integer name="color_chip_all_day_height">64</integer>
-    <!-- The size of the color chip in the agenda view -->
-    <integer name="color_chip_height">32</integer>
+    <!-- Size of event info dialog box -->
+    <integer name="event_info_dialog_width">500</integer>
+    <integer name="event_info_dialog_height">600</integer>
 </resources>

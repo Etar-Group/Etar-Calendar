@@ -423,7 +423,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
         mInputMethodManager = (InputMethodManager)
                 activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        mUseCustomActionBar = !Utils.isMultiPaneConfiguration(mContext);
+        mUseCustomActionBar = !Utils.getConfigBool(mContext, R.bool.multiple_pane_config);
     }
 
     @Override

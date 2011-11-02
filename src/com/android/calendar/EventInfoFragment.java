@@ -123,6 +123,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     protected static final String BUNDLE_KEY_END_MILLIS = "key_end_millis";
     protected static final String BUNDLE_KEY_IS_DIALOG = "key_fragment_is_dialog";
     protected static final String BUNDLE_KEY_DELETE_DIALOG_VISIBLE = "key_delete_dialog_visible";
+    protected static final String BUNDLE_KEY_WINDOW_STYLE = "key_window_style";
     protected static final String BUNDLE_KEY_ATTENDEE_RESPONSE = "key_attendee_response";
 
     private static final String PERIOD_SPACE = ". ";
@@ -133,6 +134,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
      */
     static final int UPDATE_SINGLE = 0;
     static final int UPDATE_ALL = 1;
+
+    // Style of view
+    public static final int FULL_WINDOW_STYLE = 0;
+    public static final int DIALOG_WINDOW_STYLE = 1;
+
+    private int mWindowStyle = DIALOG_WINDOW_STYLE;
 
     // Query tokens for QueryHandler
     private static final int TOKEN_QUERY_EVENT = 1 << 0;
@@ -316,8 +323,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     private OnItemSelectedListener mReminderChangeListener;
 
-    private static int DIALOG_WIDTH = 500;
-    private static int DIALOG_HEIGHT = 600;
+    private static int mDialogWidth = 500;
+    private static int mDialogHeight = 600;
     private static int DIALOG_TOP_MARGIN = 8;
     private boolean mIsDialog = false;
     private boolean mIsPaused = true;
@@ -440,13 +447,21 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
-            int attendeeResponse, boolean isDialog) {
-        if (mScale == 0) {
-            mScale = context.getResources().getDisplayMetrics().density;
-            if (mScale != 1) {
-                DIALOG_WIDTH *= mScale;
-                DIALOG_HEIGHT *= mScale;
-                DIALOG_TOP_MARGIN *= mScale;
+            int attendeeResponse, boolean isDialog, int windowStyle) {
+
+        if (isDialog) {
+            Resources r = context.getResources();
+
+            mDialogWidth = r.getInteger(R.integer.event_info_dialog_width);
+            mDialogHeight = r.getInteger(R.integer.event_info_dialog_height);
+
+            if (mScale == 0) {
+                mScale = context.getResources().getDisplayMetrics().density;
+                if (mScale != 1) {
+                    mDialogWidth *= mScale;
+                    mDialogHeight *= mScale;
+                    DIALOG_TOP_MARGIN *= mScale;
+                }
             }
         }
         mIsDialog = isDialog;
@@ -456,6 +471,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mStartMillis = startMillis;
         mEndMillis = endMillis;
         mAttendeeResponseFromIntent = attendeeResponse;
+        mWindowStyle = windowStyle;
     }
 
     // This is currently required by the fragment manager.
@@ -465,9 +481,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
 
     public EventInfoFragment(Context context, long eventId, long startMillis, long endMillis,
-            int attendeeResponse, boolean isDialog) {
+            int attendeeResponse, boolean isDialog, int windowStyle) {
         this(context, ContentUris.withAppendedId(Events.CONTENT_URI, eventId), startMillis,
-                endMillis, attendeeResponse, isDialog);
+                endMillis, attendeeResponse, isDialog, windowStyle);
         mEventId = eventId;
     }
 
@@ -494,6 +510,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         if (savedInstanceState != null) {
             mIsDialog = savedInstanceState.getBoolean(BUNDLE_KEY_IS_DIALOG, false);
+            mWindowStyle = savedInstanceState.getInt(BUNDLE_KEY_WINDOW_STYLE,
+                    DIALOG_WINDOW_STYLE);
         }
 
         if (mIsDialog) {
@@ -512,16 +530,16 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         WindowManager.LayoutParams a = window.getAttributes();
         a.dimAmount = .4f;
 
-        a.width = DIALOG_WIDTH;
-        a.height = DIALOG_HEIGHT;
+        a.width = mDialogWidth;
+        a.height = mDialogHeight;
 
 
         // On tablets , do smart positioning of dialog
         // On phones , use the whole screen
 
         if (mX != -1 || mY != -1) {
-            a.x = mX - DIALOG_WIDTH / 2;
-            a.y = mY - DIALOG_HEIGHT / 2;
+            a.x = mX - mDialogWidth / 2;
+            a.y = mY - mDialogHeight / 2;
             if (a.y < mMinTop) {
                 a.y = mMinTop + DIALOG_TOP_MARGIN;
             }
@@ -581,7 +599,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.event_info, container, false);
+        if (mWindowStyle == DIALOG_WINDOW_STYLE) {
+            mView = inflater.inflate(R.layout.dialog_event_info, container, false);
+        } else {
+            mView = inflater.inflate(R.layout.event_info, container, false);
+        }
         mScrollView = (ScrollView) mView.findViewById(R.id.event_info_scroll_view);
         mTitle = (TextView) mView.findViewById(R.id.title);
         mWhenDate = (TextView) mView.findViewById(R.id.when_date);
@@ -632,10 +654,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // Hide Edit/Delete buttons if in full screen mode on a phone
         if (savedInstanceState != null) {
             mIsDialog = savedInstanceState.getBoolean(BUNDLE_KEY_IS_DIALOG, false);
+            mWindowStyle = savedInstanceState.getInt(BUNDLE_KEY_WINDOW_STYLE,
+                    DIALOG_WINDOW_STYLE);
             mDeleteDialogVisible =
                 savedInstanceState.getBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE,false);
+
         }
-        if (!mIsDialog && !mIsTabletConfig) {
+        if (!mIsDialog && !mIsTabletConfig || mWindowStyle == EventInfoFragment.FULL_WINDOW_STYLE) {
             mView.findViewById(R.id.event_info_buttons_container).setVisibility(View.GONE);
         }
 
@@ -812,6 +837,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         outState.putLong(BUNDLE_KEY_START_MILLIS, mStartMillis);
         outState.putLong(BUNDLE_KEY_END_MILLIS, mEndMillis);
         outState.putBoolean(BUNDLE_KEY_IS_DIALOG, mIsDialog);
+        outState.putInt(BUNDLE_KEY_WINDOW_STYLE, mWindowStyle);
         outState.putBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE, mDeleteDialogVisible);
         outState.putInt(BUNDLE_KEY_ATTENDEE_RESPONSE, mAttendeeResponseFromIntent);
     }
@@ -820,8 +846,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        // Show edit/delete buttons only in non-dialog configuration on a phone
-        if (!mIsDialog && !mIsTabletConfig) {
+        // Show edit/delete buttons only in non-dialog configuration
+        if (!mIsDialog && !mIsTabletConfig || mWindowStyle == EventInfoFragment.FULL_WINDOW_STYLE) {
             inflater.inflate(R.menu.event_info_title_bar, menu);
             mMenu = menu;
             updateMenu();
@@ -831,9 +857,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // If we're a dialog or part of a tablet display we don't want to handle
-        // menu buttons
-        if (mIsDialog || mIsTabletConfig) {
+        // If we're a dialog we don't want to handle menu buttons
+        if (mIsDialog) {
             return false;
         }
         // Handles option menu selections:
@@ -1442,7 +1467,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     button.setVisibility(View.GONE);
                 }
             }
-            if (!mIsTabletConfig && mMenu != null) {
+            if ((!mIsDialog && !mIsTabletConfig ||
+                    mWindowStyle == EventInfoFragment.FULL_WINDOW_STYLE) && mMenu != null) {
                 mActivity.invalidateOptionsMenu();
             }
         } else {
