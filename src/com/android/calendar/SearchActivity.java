@@ -174,7 +174,7 @@ public class SearchActivity extends Activity implements CalendarController.Event
 
             mEventInfoFragment = new EventInfoFragment(this, event.id,
                     event.startTime.toMillis(false), event.endTime.toMillis(false),
-                    (int) event.extraLong, false, EventInfoFragment.FULL_WINDOW_STYLE);
+                    (int) event.extraLong, false, EventInfoFragment.DIALOG_WINDOW_STYLE);
             ft.replace(R.id.agenda_event_info, mEventInfoFragment);
             ft.commit();
             mController.registerEventHandler(R.id.agenda_event_info, mEventInfoFragment);
