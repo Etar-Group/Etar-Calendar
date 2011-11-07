@@ -149,7 +149,11 @@
     <item msgid="1736037231626139044">"Fiji"</item>
     <item msgid="8187746821081424875">"Tonga"</item>
   </string-array>
-    <!-- no translation found for availability:2 (2064426942462573474) -->
+  <string-array name="availability">
+    <item msgid="454869065893453189">"Abala"</item>
+    <item msgid="6228387173725732140">"Available"</item>
+    <item msgid="2064426942462573474">"Pansamantala"</item>
+  </string-array>
   <string-array name="visibility">
     <item msgid="3035788428581513163">"Default"</item>
     <item msgid="5200216103966973369">"Pribado"</item>
