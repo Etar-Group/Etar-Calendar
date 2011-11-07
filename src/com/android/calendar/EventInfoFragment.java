@@ -1168,7 +1168,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             if (textView != null) {
                 textView.setAutoLinkMask(0);
                 textView.setText(location.trim());
-                linkifyTextView(textView);
+                try {
+                    linkifyTextView(textView);
+                } catch (Exception ex) {
+                    // unexpected
+                    Log.e(TAG, "Linkification failed", ex);
+                }
 
                 textView.setOnTouchListener(new OnTouchListener() {
                     @Override
