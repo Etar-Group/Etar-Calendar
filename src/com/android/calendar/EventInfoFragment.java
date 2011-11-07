@@ -599,6 +599,16 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+
+        if (savedInstanceState != null) {
+            mIsDialog = savedInstanceState.getBoolean(BUNDLE_KEY_IS_DIALOG, false);
+            mWindowStyle = savedInstanceState.getInt(BUNDLE_KEY_WINDOW_STYLE,
+                    DIALOG_WINDOW_STYLE);
+            mDeleteDialogVisible =
+                savedInstanceState.getBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE,false);
+
+        }
+
         if (mWindowStyle == DIALOG_WINDOW_STYLE) {
             mView = inflater.inflate(R.layout.dialog_event_info, container, false);
         } else {
@@ -652,14 +662,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }});
 
         // Hide Edit/Delete buttons if in full screen mode on a phone
-        if (savedInstanceState != null) {
-            mIsDialog = savedInstanceState.getBoolean(BUNDLE_KEY_IS_DIALOG, false);
-            mWindowStyle = savedInstanceState.getInt(BUNDLE_KEY_WINDOW_STYLE,
-                    DIALOG_WINDOW_STYLE);
-            mDeleteDialogVisible =
-                savedInstanceState.getBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE,false);
-
-        }
         if (!mIsDialog && !mIsTabletConfig || mWindowStyle == EventInfoFragment.FULL_WINDOW_STYLE) {
             mView.findViewById(R.id.event_info_buttons_container).setVisibility(View.GONE);
         }
@@ -1799,7 +1801,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         // Remove any reminder methods that aren't allowed for this calendar.  If this is
         // a new event, mCalendarAllowedReminders may not be set the first time we're called.
-        Log.d(TAG, "AllowedReminders is " + mCalendarAllowedReminders);
         if (mCalendarAllowedReminders != null) {
             EventViewUtils.reduceMethodList(mReminderMethodValues, mReminderMethodLabels,
                     mCalendarAllowedReminders);
