@@ -126,7 +126,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private String mTimeZone;
     private boolean mShowCalendarControls;
     private boolean mShowEventInfoFullScreenAgenda;
-    private boolean mShowEventInfoFullScreenDay;
+    private boolean mShowEventInfoFullScreen;
     private int mWeekNum;
 
     private long mViewEventId = -1;
@@ -340,8 +340,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
             Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
         mShowEventInfoFullScreenAgenda =
             Utils.getConfigBool(this, R.bool.agenda_show_event_info_full_screen);
-        mShowEventInfoFullScreenDay =
-            Utils.getConfigBool(this, R.bool.day_show_event_info_full_screen);
+        mShowEventInfoFullScreen =
+            Utils.getConfigBool(this, R.bool.show_event_info_full_screen);
 
         Utils.setAllowWeekForDetailView(mIsMultipane);
 
@@ -1086,8 +1086,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                             event.selectedTime, -1, ViewType.CURRENT);
                 }
                 if ((mCurrentView == ViewType.AGENDA && mShowEventInfoFullScreenAgenda) ||
-                        ((mCurrentView == ViewType.DAY || (mCurrentView == ViewType.WEEK))
-                                && mShowEventInfoFullScreenDay)){
+                        ((mCurrentView == ViewType.DAY || (mCurrentView == ViewType.WEEK) ||
+                                mCurrentView == ViewType.MONTH) && mShowEventInfoFullScreen)){
                     // start event info as activity
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
