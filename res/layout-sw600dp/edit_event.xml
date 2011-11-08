@@ -36,7 +36,7 @@
         android:id="@+id/scroll_view"
         android:layout_width="@dimen/edit_event_view_width"
         android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
+        android:animateLayoutChanges="false"
         android:fillViewport="true"
         android:visibility="gone">
 
