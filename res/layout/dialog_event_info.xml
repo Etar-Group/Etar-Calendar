@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:animateLayoutChanges="true">
+        android:animateLayoutChanges="false">
 
         <!--  Container for the event's headline
               Name, Date, Time & Location
