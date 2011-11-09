@@ -22,7 +22,6 @@ import com.android.calendar.CalendarController.ViewType;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.Service;
@@ -358,7 +357,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     /* package */ static final int MILLIS_PER_HOUR = (3600 * 1000);
     /* package */ static final int MILLIS_PER_DAY = MILLIS_PER_HOUR * 24;
 
-    private static final int DECLINED_ALPHA = 0x66000000;
     // More events text will transition between invisible and this alpha
     private static final int MORE_EVENTS_MAX_ALPHA = 0x4C;
     private static int DAY_HEADER_ONE_DAY_LEFT_MARGIN = 0;
@@ -412,6 +410,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int mCalendarGridLineInnerHorizontalColor;
     private static int mCalendarGridLineInnerVerticalColor;
     private static int mFutureBgColor;
+    private static int mFutureBgColorRes;
     private static int mBgColor;
     private static int mNewEventHintColor;
     private static int mCalendarHourLabelColor;
@@ -744,7 +743,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mWeek_saturdayColor = mResources.getColor(R.color.week_saturday);
         mWeek_sundayColor = mResources.getColor(R.color.week_sunday);
         mCalendarDateBannerTextColor = mResources.getColor(R.color.calendar_date_banner_text_color);
-        mFutureBgColor = mResources.getColor(R.color.calendar_future_bg_color);
+        mFutureBgColorRes = mResources.getColor(R.color.calendar_future_bg_color);
         mBgColor = mResources.getColor(R.color.calendar_hour_background);
         mCalendarAmPmLabel = mResources.getColor(R.color.calendar_ampm_label);
         mCalendarGridAreaSelected = mResources.getColor(R.color.calendar_grid_area_selected);
@@ -865,6 +864,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     public void handleOnResume() {
         initAccessibilityVariables();
+        if(Utils.getSharedPreference(mContext, OtherPreferences.KEY_OTHER_1, false)) {
+            mFutureBgColor = 0;
+        } else {
+            mFutureBgColor = mFutureBgColorRes;
+        }
         mIs24HourFormat = DateFormat.is24HourFormat(mContext);
         mHourStrs = mIs24HourFormat ? CalendarData.s24Hours : CalendarData.s12HoursNoAmPm;
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
@@ -2189,40 +2193,43 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void drawAllDayHighlights(Rect r, Canvas canvas, Paint p) {
-        // First, color the labels area light gray
-        r.top = 0;
-        r.bottom = DAY_HEADER_HEIGHT;
-        r.left = 0;
-        r.right = mViewWidth;
-        p.setColor(mBgColor);
-        p.setStyle(Style.FILL);
-        canvas.drawRect(r, p);
-        // and the area that says All day
-        r.top = DAY_HEADER_HEIGHT;
-        r.bottom = mFirstCell - 1;
-        r.left = 0;
-        r.right = mHoursWidth;
-        canvas.drawRect(r, p);
-
-        int startIndex = -1;
-        int todayIndex = mTodayJulianDay - mFirstJulianDay;
-        if (todayIndex < 0) {
-            // Future
-            startIndex = 0;
-        } else if (todayIndex >= 1 && todayIndex + 1 < mNumDays) {
-            // Multiday - tomorrow is visible.
-            startIndex = todayIndex + 1;
-        }
-
-        if (startIndex >= 0) {
-            // Draw the future highlight
+        if (mFutureBgColor != 0) {
+            // First, color the labels area light gray
             r.top = 0;
-            r.bottom = mFirstCell - 1;
-            r.left = computeDayLeftPosition(startIndex) + 1;
-            r.right = computeDayLeftPosition(mNumDays + 1);
-            p.setColor(mFutureBgColor);
+            r.bottom = DAY_HEADER_HEIGHT;
+            r.left = 0;
+            r.right = mViewWidth;
+            p.setColor(mBgColor);
             p.setStyle(Style.FILL);
             canvas.drawRect(r, p);
+            // and the area that says All day
+            r.top = DAY_HEADER_HEIGHT;
+            r.bottom = mFirstCell - 1;
+            r.left = 0;
+            r.right = mHoursWidth;
+            canvas.drawRect(r, p);
+
+            int startIndex = -1;
+
+            int todayIndex = mTodayJulianDay - mFirstJulianDay;
+            if (todayIndex < 0) {
+                // Future
+                startIndex = 0;
+            } else if (todayIndex >= 1 && todayIndex + 1 < mNumDays) {
+                // Multiday - tomorrow is visible.
+                startIndex = todayIndex + 1;
+            }
+
+            if (startIndex >= 0) {
+                // Draw the future highlight
+                r.top = 0;
+                r.bottom = mFirstCell - 1;
+                r.left = computeDayLeftPosition(startIndex) + 1;
+                r.right = computeDayLeftPosition(mNumDays + 1);
+                p.setColor(mFutureBgColor);
+                p.setStyle(Style.FILL);
+                canvas.drawRect(r, p);
+            }
         }
 
         if (mSelectionAllday && mSelectionMode != SELECTION_HIDDEN) {
@@ -2338,7 +2345,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         Paint p = mPaint;
         Rect r = mRect;
 
-        drawBgColors(r, canvas, p);
+        if (mFutureBgColor != 0) {
+            drawBgColors(r, canvas, p);
+        }
         drawGridBackground(r, canvas, p);
         drawHours(r, canvas, p);
 
