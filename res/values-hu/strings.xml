@@ -46,7 +46,7 @@
   </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Frissítés"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Nap megjelenítése"</string>
-    <string name="agenda_view" msgid="5566084759423843245">"Napirend"</string>
+    <string name="agenda_view" msgid="5566084759423843245">"Napló"</string>
     <string name="day_view" msgid="4467754504843584437">"Nap"</string>
     <string name="week_view" msgid="6775043022159508060">"Hét"</string>
     <string name="month_view" msgid="7287101431749285412">"Hónap"</string>
@@ -60,7 +60,7 @@
     <string name="search" msgid="550656004486017426">"Keresés"</string>
     <string name="hide_controls" msgid="830320505938520882">"Vezérlők elrejtése"</string>
     <string name="show_controls" msgid="715520586028062621">"Vezérlők megjelenít."</string>
-    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Megjeleníteni kívánt naptárak"</string>
+    <string name="select_visible_calendars_title" msgid="5285053789530752843">"Megjelenítendő naptárak"</string>
     <string name="synced" msgid="7913940305983383493">"szinkronizálva"</string>
     <string name="not_synced" msgid="4275114941801829419">"nincs szinkronizálva"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Ez a fiók nincs szinkronizálva, ezért nem biztos, hogy a naptár naprakész."</string>
@@ -138,7 +138,7 @@
     <string name="delete_this_event_title" msgid="8738491083082780492">"Az esemény törlésre kerül."</string>
     <string name="delete_title" msgid="5143743507524995383">"Törlés"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Válasz módosítása"</string>
-    <string name="menu_general_preferences" msgid="4057784477122524106">"Általános preferenciák"</string>
+    <string name="menu_general_preferences" msgid="4057784477122524106">"Általános beállítások"</string>
     <string name="menu_about_preferences" msgid="160474554936812478">"A Naptárról"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Beállítások"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"A naptár megjelenésének beállítása"</string>
