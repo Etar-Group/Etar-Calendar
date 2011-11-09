@@ -21,9 +21,7 @@
     android:layout_width="match_parent"
     android:background="#fafafa"
     android:layout_weight="1"
-    android:paddingTop="16dip"
-    android:paddingRight="16dip"
-    android:paddingLeft="16dip"
+    android:padding="16dip"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -158,6 +156,7 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:layout_marginLeft="4dip"
+                android:layout_marginRight="8dip"
                 android:textColor="@color/event_info_organizer_color"
                 style="?android:attr/textAppearanceSmall"
                 android:textSize="18sp"/>
@@ -217,6 +216,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="8dip"
                 android:layout_marginBottom="8dip"
+                android:paddingLeft="9dip"
                 android:orientation="horizontal">
                 <RadioButton
                     android:id="@+id/response_yes"
@@ -290,13 +290,15 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:layout_marginBottom="-6dp"
                 android:gravity="center_vertical|left"
                 android:textSize="18sp"
                 android:textColor="#FF777777"
-                android:minHeight="48dip"
+                android:minHeight="38dip"
                 android:background="@null"
                 android:contentDescription="@string/accessibility_add_reminder"
-                style="@style/TextAppearance.EditEvent_LabelSmall" />
+                style="@style/TextAppearance.EditEvent_LabelSmall"
+                android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
