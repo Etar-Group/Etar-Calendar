@@ -19,34 +19,33 @@
     android:id="@android:id/content"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:minHeight="?android:attr/listPreferredItemHeight">
-
+    android:orientation="vertical">
     <View
         android:layout_height="1px"
         android:background="@color/agenda_list_separator_color"
         android:layout_width="match_parent" />
-
     <LinearLayout
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:orientation="horizontal"
-    android:minHeight="64dip">
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
         <com.android.calendar.ColorChipView
             android:id="@+id/agenda_item_color"
             android:layout_width="24dip"
             android:layout_height="24dip"
-            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_vertical"
             android:layout_marginTop="8dip"
+            android:layout_marginBottom="8dip"
             android:layout_marginLeft="16dip"
             android:layout_marginRight="8dip" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:layout_marginRight="16dip"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:minHeight="64dip"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/title"
@@ -84,6 +83,7 @@
                 android:textColor="@color/agenda_item_where_text_color"
                 style="?android:attr/textAppearanceSmallInverse" />
         </LinearLayout>
+
         <ImageView
             android:id="@+id/selected_marker"
             android:layout_width="wrap_content"
