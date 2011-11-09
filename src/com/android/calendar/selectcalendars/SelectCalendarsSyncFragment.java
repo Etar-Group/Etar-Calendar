@@ -36,7 +36,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,11 +71,9 @@ public class SelectCalendarsSyncFragment extends ListFragment
     private AsyncQueryService mService;
 
     public SelectCalendarsSyncFragment() {
-        Log.d(TAG, "Without bundle was created");
     }
 
     public SelectCalendarsSyncFragment(Bundle bundle) {
-        Log.d(TAG, "With bundle was created");
         mAccount = new Account(bundle.getString(Calendars.ACCOUNT_NAME),
                 bundle.getString(Calendars.ACCOUNT_TYPE));
     }
