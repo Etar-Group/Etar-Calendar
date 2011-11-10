@@ -610,7 +610,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         if (mWindowStyle == DIALOG_WINDOW_STYLE) {
-            mView = inflater.inflate(R.layout.dialog_event_info, container, false);
+            mView = inflater.inflate(R.layout.event_info_dialog, container, false);
         } else {
             mView = inflater.inflate(R.layout.event_info, container, false);
         }
