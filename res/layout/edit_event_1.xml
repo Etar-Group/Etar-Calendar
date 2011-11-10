@@ -151,6 +151,9 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
+                android:singleLine="true"
+                android:paddingRight="4dp"
+                android:layout_marginRight="0dp"
                 android:contentDescription="@string/accessibility_pick_start_date"
                 style="@style/TextAppearance.EditEvent_SpinnerButton" />
             <Button
@@ -159,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:contentDescription="@string/accessibility_pick_start_time"
-                android:layout_marginLeft="-8dip"
+                android:layout_marginLeft="0dip"
                 style="@style/TextAppearance.EditEvent_SpinnerButton" />
         </LinearLayout>
     </LinearLayout>
@@ -210,6 +213,9 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
+                android:singleLine="true"
+                android:paddingRight="4dp"
+                android:layout_marginRight="0dp"
                 android:contentDescription="@string/accessibility_pick_end_date"
                 style="@style/TextAppearance.EditEvent_SpinnerButton" />
             <Button
@@ -218,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:contentDescription="@string/accessibility_pick_end_time"
-                android:layout_marginLeft="-8dip"
+                android:layout_marginLeft="0dip"
                 style="@style/TextAppearance.EditEvent_SpinnerButton" />
         </LinearLayout>
     </LinearLayout>
