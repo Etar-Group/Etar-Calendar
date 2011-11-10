@@ -34,6 +34,11 @@
 
     <include android:id="@+id/day_names" layout="@layout/full_month_header" />
 
+     <View
+        android:background="@color/calendar_grid_line_inner_vertical_color"
+        android:layout_height="1px"
+        android:layout_width="match_parent" />
+
     <include android:id="@+id/week_list" layout="@android:layout/list_content"/>
 
 </LinearLayout>
