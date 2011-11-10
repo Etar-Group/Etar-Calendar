@@ -4072,6 +4072,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 mGestureDetector.onTouchEvent(ev);
                 if (!mHandleActionUp) {
                     mHandleActionUp = true;
+                    mViewStartX = 0;
+                    invalidate();
                     return true;
                 }
                 if (mOnFlingCalled) {
