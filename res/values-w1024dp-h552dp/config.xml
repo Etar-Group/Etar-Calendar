@@ -27,9 +27,9 @@
     <!-- when on, event info launched from agenda view is shown in full screen, -->
     <!-- when off, shown as a popup. -->
     <bool name="agenda_show_event_info_full_screen">false</bool>
-    <!-- when on, event info launched from day/week view is shown in full screen, -->
+    <!-- when on, event info launched from day/week/month view is shown in full screen, -->
     <!-- when off, shown as a popup. -->
-    <bool name="day_show_event_info_full_screen">false</bool>
+    <bool name="show_event_info_full_screen">false</bool>
     <!--  A global var used to tablet vs phone settings -->
     <bool name="tablet_config">true</bool>
     <!--  A global var used to set the main layout theme (one pane vs multiple panes) -->
