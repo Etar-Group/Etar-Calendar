@@ -30,7 +30,6 @@
             android:layout_width="0dip"
             android:layout_weight="1"
             android:textSize="16sp"
-            android:layout_marginLeft="16dip"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceMedium"
