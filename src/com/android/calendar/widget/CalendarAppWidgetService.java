@@ -108,7 +108,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     public static class CalendarFactory extends BroadcastReceiver implements
             RemoteViewsService.RemoteViewsFactory, Loader.OnLoadCompleteListener<Cursor> {
         private static final boolean LOGD = false;
-        private static final int DECLINED_EVENT_ALPHA = 0x66000000;
 
         // Suppress unnecessary logging about update time. Need to be static as this object is
         // re-instanciated frequently.

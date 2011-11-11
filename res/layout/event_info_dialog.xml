@@ -163,31 +163,9 @@
         </LinearLayout>
 
         <!-- DESCRIPTION -->
-        <TextView
+        <include
             android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-            android:paddingLeft="16dip"
-            android:paddingRight="16dip"
-            android:layout_marginTop="16dip"
-            android:autoLink="all"
-            android:ellipsize="end"
-            android:maxLines="@integer/event_info_desc_line_num"
-            android:textSize="18sp"
-            android:textColor="@color/event_info_description_color"
-            style="?android:attr/textAppearanceSmall"
-            android:visibility="gone" />
-        <Button
-            android:id="@+id/desc_expand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="8dip"
-            android:layout_marginRight="16dip"
-            android:textColor="@color/event_info_description_color"
-            android:background="#00000000"
-            style="?android:attr/textAppearanceSmall" />
+            layout="@layout/expandable_textview" />
 
         <!-- RESPONSE -->
         <LinearLayout
@@ -203,7 +181,6 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="8dip"
                 android:paddingRight="16dip"
-                android:layout_marginTop="16dip"
                 android:layout_marginLeft="8dip"
                 android:textColor="@color/event_info_label_color"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -281,7 +258,7 @@
                 android:id="@+id/reminder_items_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
+                android:layout_marginLeft="-8dp"
                 android:layout_weight="1"
                 android:orientation="vertical" />
             <Button

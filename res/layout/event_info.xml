@@ -124,13 +124,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dip"
-            android:paddingRight="16dip"
             android:orientation="vertical">
             <!-- Organizer -->
             <LinearLayout
                 android:id="@+id/organizer_container"
                 android:visibility="gone"
                 android:layout_marginTop="8dip"
+                android:paddingRight="16dip"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -157,26 +157,10 @@
             </LinearLayout>
 
             <!-- DESCRIPTION -->
-            <TextView
+            <include
                 android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:layout_marginTop="8dip"
-                android:autoLink="all"
-                android:ellipsize="end"
-                android:maxLines="@integer/event_info_desc_line_num"
-                android:textColor="@color/event_info_description_color"
-                style="?android:attr/textAppearanceSmall"
-                android:visibility="gone" />
-            <Button
-                android:id="@+id/desc_expand"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="5dip"
-                android:textColor="@color/event_info_description_color"
-                style="?android:attr/textAppearanceSmall" />
+                layout="@layout/expandable_textview" />
+
         </LinearLayout>
 
         <!-- RESPONSE -->
@@ -195,7 +179,6 @@
                 android:paddingRight="8dip"
                 android:layout_marginLeft="8dip"
                 android:layout_marginRight="8dip"
-                android:layout_marginTop="4dip"
                 android:textColor="@color/event_info_label_color"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 style="?android:attr/listSeparatorTextViewStyle"

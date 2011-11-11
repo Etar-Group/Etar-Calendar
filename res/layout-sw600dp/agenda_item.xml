@@ -33,8 +33,8 @@
             android:id="@+id/agenda_item_color"
             android:layout_width="32dip"
             android:layout_height="32dip"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="8dip"
+            android:layout_gravity="top"
+            android:layout_marginTop="12dip"
             android:layout_marginBottom="8dip"
             android:layout_marginLeft="16dip"
             android:layout_marginRight="8dip" />

@@ -15,9 +15,7 @@
  */
 package com.android.calendar;
 
-import android.content.Context;
 import android.content.SearchRecentSuggestionsProvider;
-import android.util.Log;
 
 public class CalendarRecentSuggestionsProvider extends SearchRecentSuggestionsProvider {
 

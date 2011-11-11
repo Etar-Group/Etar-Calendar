@@ -25,7 +25,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -1073,7 +1072,7 @@ public class Utils {
      */
     public static String getDayOfWeekString(int julianDay, int todayJulianDay, long millis,
             Context context) {
-        String tz = getTimeZone(context, null);
+        getTimeZone(context, null);
         int flags = DateUtils.FORMAT_SHOW_WEEKDAY;
         String dayViewText;
         if (julianDay == todayJulianDay) {

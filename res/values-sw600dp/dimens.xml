@@ -13,9 +13,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
-<selector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:exitFadeDuration="@android:integer/config_mediumAnimTime">
-    <item
-        android:drawable="@drawable/ic_allday_collapse_large_holo_light" />
-</selector>
+<resources>
+    <dimen name="event_info_text_size">18dip</dimen>
+    <dimen name="event_info_desc_margin_left">16dip</dimen>
+    <dimen name="event_info_desc_margin_right">16dip</dimen>
+</resources>
