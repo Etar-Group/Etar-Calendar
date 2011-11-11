@@ -61,7 +61,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
     public static final String VIEW_PARAMS_ANIMATE_TODAY = "animate_today";
 
     private static int TEXT_SIZE_MONTH_NUMBER = 32;
-    private static int TEXT_SIZE_EVENT = 14;
+    private static int TEXT_SIZE_EVENT = 12;
+    private static int TEXT_SIZE_EVENT_TITLE = 14;
     private static int TEXT_SIZE_MORE_EVENTS = 12;
     private static int TEXT_SIZE_MONTH_NAME = 14;
     private static int TEXT_SIZE_WEEK_NUM = 12;
@@ -90,9 +91,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int EVENT_Y_OFFSET_PORTRAIT = 16;
     private static int EVENT_SQUARE_WIDTH = 10;
     private static int EVENT_SQUARE_BORDER = 2;
-    private static int EVENT_LINE_PADDING = 4;
+    private static int EVENT_LINE_PADDING = 8;
+    private static int EVENT_LINE_EXTRA_PADDING = 2;
     private static int EVENT_RIGHT_PADDING = 4;
-    private static int EVENT_BOTTOM_PADDING = 8;
+    private static int EVENT_BOTTOM_PADDING = 6;
 
     private static int TODAY_HIGHLIGHT_WIDTH = 2;
 
@@ -345,6 +347,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 SPACING_WEEK_NUMBER *= mScale;
                 TEXT_SIZE_MONTH_NUMBER *= mScale;
                 TEXT_SIZE_EVENT *= mScale;
+                TEXT_SIZE_EVENT_TITLE *= mScale;
                 TEXT_SIZE_MORE_EVENTS *= mScale;
                 TEXT_SIZE_MONTH_NAME *= mScale;
                 TEXT_SIZE_WEEK_NUM *= mScale;
@@ -358,6 +361,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 EVENT_SQUARE_WIDTH *= mScale;
                 EVENT_SQUARE_BORDER *= mScale;
                 EVENT_LINE_PADDING *= mScale;
+                EVENT_LINE_EXTRA_PADDING *= mScale;
                 EVENT_BOTTOM_PADDING *= mScale;
                 EVENT_RIGHT_PADDING *= mScale;
                 DNA_MARGIN *= mScale;
@@ -392,13 +396,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mEventPaint = new TextPaint();
         mEventPaint.setFakeBoldText(true);
         mEventPaint.setAntiAlias(true);
-        mEventPaint.setTextSize(TEXT_SIZE_EVENT);
+        mEventPaint.setTextSize(TEXT_SIZE_EVENT_TITLE);
         mEventPaint.setColor(mMonthEventColor);
 
         mDeclinedEventPaint = new TextPaint();
         mDeclinedEventPaint.setFakeBoldText(true);
         mDeclinedEventPaint.setAntiAlias(true);
-        mDeclinedEventPaint.setTextSize(TEXT_SIZE_EVENT);
+        mDeclinedEventPaint.setTextSize(TEXT_SIZE_EVENT_TITLE);
         mDeclinedEventPaint.setColor(mMonthDeclinedEventColor);
 
         mEventHeight = (int) (-mEventPaint.ascent());
@@ -753,7 +757,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         requiredSpace *= multiplier;
         // The last one doesn't need the EVENT_LINE_PADDING as it will have
         // EVENT_BOTTOM_PADDING instead
-        requiredSpace -= EVENT_LINE_PADDING;
+        requiredSpace -= EVENT_LINE_PADDING + (event.allDay ? 0 : EVENT_LINE_PADDING);
         if (requiredSpace + y > mHeight - EVENT_BOTTOM_PADDING) {
             // Not enough space, return
             return y;
@@ -773,15 +777,15 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mEventSquarePaint.setStyle(style);
         canvas.drawRect(r, mEventSquarePaint);
 
-        int textX = x + EVENT_SQUARE_WIDTH + EVENT_LINE_PADDING;
-        int textY = y + mEventHeight - EVENT_LINE_PADDING / 2;
+        int textX = x + EVENT_SQUARE_WIDTH + EVENT_RIGHT_PADDING;
+        int textY = y + EVENT_SQUARE_WIDTH;
         float avail = rightEdge - textX;
         CharSequence text = TextUtils.ellipsize(
                 event.title, mEventPaint, avail, TextUtils.TruncateAt.END);
         canvas.drawText(text.toString(), textX, textY, isDeclined ? mDeclinedEventPaint
                 : mEventPaint);
         if (!event.allDay) {
-            textY += mEventHeight + EVENT_LINE_PADDING;
+            textY += mEventHeight + EVENT_LINE_EXTRA_PADDING;
             mStringBuilder.setLength(0);
             text = DateUtils.formatDateRange(getContext(), mFormatter, event.startMillis,
                     event.endMillis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL,
