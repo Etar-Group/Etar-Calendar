@@ -28,12 +28,24 @@
             android:text="@string/edit_event_calendar_label"
             style="@style/TextAppearance.EditEvent_Label"
             android:gravity="center_vertical" />
-        <Spinner
-            android:id="@+id/calendars_spinner"
-            android:prompt="@string/edit_event_calendar_label"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            style="@style/TextAppearance.EditEvent_Spinner"/>
+        <FrameLayout
+            android:id="@+id/calendar_selector_wrapper"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginRight="12dip"
+            android:layout_marginLeft="12dip"
+            android:focusable="true" >
+            <Spinner
+                android:id="@+id/calendars_spinner"
+                android:prompt="@string/edit_event_calendar_label"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginRight="0dip"
+                android:layout_marginLeft="0dip"
+                style="@style/TextAppearance.EditEvent_Spinner"/>
+        </FrameLayout>
     </TableRow>
 
     <!-- CALENDAR DISPLAY for existing events -->
@@ -355,29 +367,31 @@
         android:id="@+id/reminders_row"
         android:focusable="true">
         <TextView
-            android:id="@+id/reminders_label"
-            android:text="@string/reminders_label"
+            android:id="@+id/reminders_group_label"
+            android:text="@string/event_info_reminders_label"
             android:layout_gravity="top|left"
             style="@style/TextAppearance.EditEvent_Label" />
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical|right">
+            android:orientation="vertical"
+            android:gravity="center_vertical|right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:id="@+id/reminder_items_container"
-                android:layout_width="0dip"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center_vertical|right"  />
-            <ImageButton
+            <Button
                 android:id="@+id/reminder_add"
-                android:layout_width="wrap_content"
+                android:text="@string/reminders_label"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dip"
-                style="@style/PlusButton"
+                android:layout_width="wrap_content"
+                android:background="@null"
+                android:layout_gravity="top|left"
                 android:contentDescription="@string/accessibility_add_reminder"
-                android:gravity="center_vertical|right"
-                android:layout_gravity="top|right" />
+                style="@style/TextAppearance.EditEvent_Button"
+                android:layout_marginTop="0dip" />
         </LinearLayout>
     </TableRow>
 
