@@ -291,7 +291,7 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
                     }
                 } else if (stickyHeaderHeight != 0) {
                     mStickyHeader.setTranslationY(0);
-                    if (mSeparatorView != null) {
+                    if (mSeparatorView != null && !mStickyHeader.equals(mDummyHeader)) {
                         mSeparatorView.setVisibility(View.VISIBLE);
                     }
                 }
