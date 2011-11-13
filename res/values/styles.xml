@@ -85,7 +85,11 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_gravity">top|left</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">#FF888888</item>
+        <item name="android:textColor">#FFAAAAAA</item>
+    </style>
+
+    <style name="TextAppearance.EditEvent_Button" parent="TextAppearance.EditEvent_Label">
+        <item name="android:textColor">#FF777777</item>
     </style>
 
     <style name="TextAppearance.EditEvent_LabelSmall" parent="TextAppearance.EditEvent_Small">
