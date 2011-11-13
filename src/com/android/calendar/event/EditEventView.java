@@ -131,6 +131,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     LinearLayout mRemindersContainer;
     MultiAutoCompleteTextView mAttendeesList;
     View mCalendarSelectorGroup;
+    View mCalendarSelectorWrapper;
     View mCalendarStaticGroup;
     View mLocationGroup;
     View mDescriptionGroup;
@@ -831,6 +832,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mAvailabilitySpinner = (Spinner) view.findViewById(R.id.availability);
         mAccessLevelSpinner = (Spinner) view.findViewById(R.id.visibility);
         mCalendarSelectorGroup = view.findViewById(R.id.calendar_selector_group);
+        mCalendarSelectorWrapper = view.findViewById(R.id.calendar_selector_wrapper);
         mCalendarStaticGroup = view.findViewById(R.id.calendar_group);
         mRemindersGroup = view.findViewById(R.id.reminders_row);
         mResponseGroup = view.findViewById(R.id.response_row);
@@ -1607,8 +1609,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         int color = c.getInt(colorColumn);
         int displayColor = Utils.getDisplayColorFromColor(color);
+
         if (mIsMultipane) {
-            mCalendarsSpinner.setBackgroundColor(displayColor);
+            mCalendarSelectorWrapper.setBackgroundColor(displayColor);
         } else {
             mCalendarSelectorGroup.setBackgroundColor(displayColor);
         }
