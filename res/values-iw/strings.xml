@@ -153,8 +153,8 @@
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"רטט"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7565118268120729644">"בחר רינגטון"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"התראה קופצת"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"ברירת מחדל של שעת תזכורת"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"ברירת מחדל של שעת תזכורת"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"ברירת מחדל של מועד תזכורת"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"ברירת מחדל של מועד תזכורת"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"השתמש באזור הזמן המקומי"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"מציג לוחות שנה ושעות אירועים באזור הזמן המקומי שלך בנסיעות"</string>

@@ -64,7 +64,7 @@
     <string name="synced" msgid="7913940305983383493">"kuvumelanisiwe"</string>
     <string name="not_synced" msgid="4275114941801829419">"akuvumelanisiwe"</string>
     <string name="acct_not_synced" msgid="2225937158458147648">"Le-akhawunti ayivumelaniswa futhi amakhalenda akho kungenzeka awekho esikhathini."</string>
-    <string name="accounts" msgid="849401841083180306">"Ama-akhawunti &amp; vumelanisa"</string>
+    <string name="accounts" msgid="849401841083180306">"Ama-akhawunti; ukuvumelanisa"</string>
     <string name="select_synced_calendars_title" msgid="7122363881046468658">"Amakhalenda azovumelaniswa"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Amakhalenda azovumelaniswa"</string>
     <string name="hint_what" msgid="709155115005044531">"Igama lesenzakalo"</string>
