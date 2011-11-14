@@ -21,7 +21,7 @@
         android:alphabeticShortcut="t"
         android:title="@string/goto_today"
         android:icon="@drawable/ic_menu_today_holo_light"
-        android:showAsAction="always" />
+        android:showAsAction="always|withText" />
     <item
         android:id="@+id/action_create_event"
         android:alphabeticShortcut="n"
