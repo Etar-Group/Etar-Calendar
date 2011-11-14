@@ -280,8 +280,8 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     @Override
     public void onResume() {
         super.onResume();
-        doResumeUpdates();
         setUpAdapter();
+        doResumeUpdates();
     }
 
     @Override
