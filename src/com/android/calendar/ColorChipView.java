@@ -17,13 +17,9 @@
 package com.android.calendar;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
-import android.graphics.PorterDuff;
-import android.graphics.Shader.TileMode;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -46,9 +42,6 @@ public class ColorChipView extends View {
     public static final int DRAW_FULL = 0;
     public static final int DRAW_BORDER = 1;
     public static final int DRAW_FADED = 2;
-
-    private static final float DECLINED_ALPHA = (float) 0.625;
-    private static final float DEFAULT_ALPHA = 1;
 
     int mDrawStyle = DRAW_FULL;
 

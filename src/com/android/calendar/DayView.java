@@ -686,8 +686,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mCurrentTimeAnimateLine = mResources
                 .getDrawable(R.drawable.timeline_indicator_activated_holo_light);
         mTodayHeaderDrawable = mResources.getDrawable(R.drawable.today_blue_week_holo_light);
-        mExpandAlldayDrawable = mResources.getDrawable(R.drawable.ic_allday_expand_holo_light);
-        mCollapseAlldayDrawable = mResources.getDrawable(R.drawable.ic_allday_collapse_holo_light);
+        mExpandAlldayDrawable = mResources.getDrawable(R.drawable.ic_expand_holo_light);
+        mCollapseAlldayDrawable = mResources.getDrawable(R.drawable.ic_collapse_holo_light);
         mNewEventHintColor =  mResources.getColor(R.color.new_event_hint_text_color);
         mAcceptedOrTentativeEventBoxDrawable = mResources
                 .getDrawable(R.drawable.panel_month_event_holo_light);
