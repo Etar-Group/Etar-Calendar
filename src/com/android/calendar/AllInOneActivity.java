@@ -1110,12 +1110,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     FragmentTransaction ft = fm.beginTransaction();
                     // if we have an old popup replace it
                     Fragment fOld = fm.findFragmentByTag(EVENT_INFO_FRAGMENT_TAG);
-                    int oldId;
-                    if (fOld != null && fOld.isAdded() && (oldId = fOld.getId()) != 0) {
-                        ft.replace(oldId, fragment, EVENT_INFO_FRAGMENT_TAG);
-                    } else {
-                        ft.add(fragment, EVENT_INFO_FRAGMENT_TAG);
+                    if (fOld != null && fOld.isAdded()) {
+                        ft.remove(fOld);
                     }
+                    ft.add(fragment, EVENT_INFO_FRAGMENT_TAG);
                     ft.commit();
                 }
             }
