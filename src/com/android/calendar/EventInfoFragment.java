@@ -274,7 +274,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private TextView mWhenDate;
     private TextView mWhenTime;
     private TextView mWhere;
-    private TextView mDesc;
+    private ExpandableTextView mDesc;
     private AttendeesView mLongAttendees;
     private Menu mMenu = null;
     private View mHeadlines;
@@ -332,11 +332,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private int mX = -1;
     private int mY = -1;
     private int mMinTop;         // Dialog cannot be above this location
-    private Button mDescButton;  // Button to expand/collapse the description
-    private String mMoreLabel;   // Labels for the button
-    private String mLessLabel;
-    private boolean mShowMaxDescription;  // Current status of button
-    private int mDescLineNum;             // The default number of lines in the description
     private boolean mIsTabletConfig;
     private Activity mActivity;
     private Context mContext;
@@ -588,9 +583,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mEditResponseHelper.setWhichEvents(UPDATE_ALL);
         }
         mHandler = new QueryHandler(activity);
-        mDescLineNum = activity.getResources().getInteger((R.integer.event_info_desc_line_num));
-        mMoreLabel = activity.getResources().getString((R.string.event_info_desc_more));
-        mLessLabel = activity.getResources().getString((R.string.event_info_desc_less));
         if (!mIsDialog) {
             setHasOptionsMenu(true);
         }
@@ -619,18 +611,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mWhenDate = (TextView) mView.findViewById(R.id.when_date);
         mWhenTime = (TextView) mView.findViewById(R.id.when_time);
         mWhere = (TextView) mView.findViewById(R.id.where);
-        mDesc = (TextView) mView.findViewById(R.id.description);
+        mDesc = (ExpandableTextView) mView.findViewById(R.id.description);
         mHeadlines = mView.findViewById(R.id.event_info_headline);
         mLongAttendees = (AttendeesView)mView.findViewById(R.id.long_attendee_list);
-        mDescButton = (Button)mView.findViewById(R.id.desc_expand);
-        mDescButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mShowMaxDescription = !mShowMaxDescription;
-                updateDescription();
-            }
-        });
-        mShowMaxDescription = false; // Show short version of description as default.
         mIsTabletConfig = Utils.getConfigBool(mActivity, R.bool.tablet_config);
 
         if (mUri == null) {
@@ -701,56 +684,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
         }
     };
-
-    // Sets the description:
-    // Set the expand/collapse button
-    // Expand/collapse the description according the the current status
-    private void updateDescription() {
-        // If there is no description, hide the description field
-        // and desc button.
-        String text = mDesc.getText().toString();
-        if (TextUtils.isEmpty(text) || TextUtils.isEmpty(text.trim())) {
-            mDesc.setVisibility(View.GONE);
-            mDescButton.setVisibility(View.GONE);
-            return;
-        }
-        // getLineCount() returns at most maxLines worth of text. If we have
-        // less than mDescLineNum lines, we know for sure we don't need the
-        // more/less button and we don't need to recalculate the number of
-        // lines.
-
-        mDesc.setVisibility(View.VISIBLE);
-
-        if (mDesc.getLineCount() < mDescLineNum) {
-            mDescButton.setVisibility(View.GONE);
-            return;
-        }
-
-        // getLineCount() returns at most maxLines worth of text. To
-        // recalculate, set to MAX_VALUE.
-        mDesc.setMaxLines(Integer.MAX_VALUE);
-
-        // Trick to get textview to recalculate line count
-        mDesc.setText(mDesc.getText());
-
-        // Description is exactly mDescLineNum lines (or less).
-        if (mDesc.getLineCount() <= mDescLineNum) {
-            mDescButton.setVisibility(View.GONE);
-            return;
-        }
-
-        // Show button and set label according to the expand/collapse status
-        mDescButton.setVisibility(View.VISIBLE);
-        String moreLessLabel;
-        if (mShowMaxDescription) {
-            moreLessLabel = mLessLabel;
-        } else {
-            moreLessLabel = mMoreLabel;
-            mDesc.setMaxLines(mDescLineNum);
-        }
-
-        mDescButton.setText(moreLessLabel);
-    }
 
     private void updateTitle() {
         Resources res = getActivity().getResources();
@@ -1188,9 +1121,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         // Description
         if (description != null && description.length() != 0) {
-            setTextCommon(view, R.id.description, description);
+            mDesc.setText(description);
         }
-        updateDescription();  // Expand or collapse full description
     }
 
     /**
@@ -1373,11 +1305,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         event.setPackageName(getActivity().getPackageName());
         List<CharSequence> text = event.getText();
 
-        addFieldToAccessibilityEvent(text, mTitle);
-        addFieldToAccessibilityEvent(text, mWhenDate);
-        addFieldToAccessibilityEvent(text, mWhenTime);
-        addFieldToAccessibilityEvent(text, mWhere);
-        addFieldToAccessibilityEvent(text, mDesc);
+        addFieldToAccessibilityEvent(text, mTitle, null);
+        addFieldToAccessibilityEvent(text, mWhenDate, null);
+        addFieldToAccessibilityEvent(text, mWhenTime, null);
+        addFieldToAccessibilityEvent(text, mWhere, null);
+        addFieldToAccessibilityEvent(text, null, mDesc);
 
         RadioGroup response = (RadioGroup) getView().findViewById(R.id.response_value);
         if (response.getVisibility() == View.VISIBLE) {
@@ -1391,14 +1323,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         am.sendAccessibilityEvent(event);
     }
 
-    /**
-     * @param text
-     */
-    private void addFieldToAccessibilityEvent(List<CharSequence> text, TextView view) {
-        if (view == null) {
+    private void addFieldToAccessibilityEvent(List<CharSequence> text, TextView tv,
+            ExpandableTextView etv) {
+        String str;
+        if (tv != null) {
+            str = tv.getText().toString().trim();
+        } else if (etv != null) {
+            str = etv.getText().toString().trim();
+        } else {
             return;
         }
-        String str = view.getText().toString().trim();
+
         if (!TextUtils.isEmpty(str)) {
             text.add(str);
             text.add(PERIOD_SPACE);
