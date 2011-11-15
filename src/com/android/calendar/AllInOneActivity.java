@@ -555,8 +555,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
         super.onSaveInstanceState(outState);
 
         outState.putLong(BUNDLE_KEY_RESTORE_TIME, mController.getTime());
+        outState.putInt(BUNDLE_KEY_RESTORE_VIEW, mCurrentView);
         if (mCurrentView == ViewType.EDIT) {
-            outState.putInt(BUNDLE_KEY_RESTORE_VIEW, mCurrentView);
             outState.putLong(BUNDLE_KEY_EVENT_ID, mController.getEventId());
         }
         outState.putBoolean(BUNDLE_KEY_CHECK_ACCOUNTS, mCheckForAccounts);
