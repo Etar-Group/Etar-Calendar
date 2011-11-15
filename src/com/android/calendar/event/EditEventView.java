@@ -915,7 +915,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     private void prepareAvailability() {
-        CalendarEventModel model = mModel;
         Resources r = mActivity.getResources();
 
         mAvailabilityValues = loadIntegerArray(r, R.array.availability_values);
