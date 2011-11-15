@@ -24,8 +24,6 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -217,7 +215,7 @@ public class EventViewUtils {
      * arrays must not change after calling here, or the spinners we created
      * might index into the wrong entry. Returns true if successfully added
      * reminder, false if no reminders can be added.
-     * 
+     *
      * onItemSelected allows a listener to be set for any changes to the
      * spinners in the reminder. If a listener is set it will store the
      * initial position of the spinner into the spinner's tag for comparison

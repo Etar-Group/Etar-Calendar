@@ -34,7 +34,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
-import android.text.format.Time;
 import android.util.Base64;
 import android.util.Log;
 
