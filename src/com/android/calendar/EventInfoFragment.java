@@ -29,8 +29,6 @@ import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventViewUtils;
 import com.android.calendarcommon.EventRecurrence;
-import com.android.calendarcommon.phonenumbers.PhoneNumberMatch;
-import com.android.calendarcommon.phonenumbers.PhoneNumberUtil;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -231,6 +229,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
     static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.CALENDAR_DISPLAY_NAME + "=?";
+
+    private static final String NANP_ALLOWED_SYMBOLS = "()+-*#.";
+    private static final int NANP_MIN_DIGITS = 7;
+    private static final int NANP_MAX_DIGITS = 11;
+
 
     private View mView;
 
@@ -1131,6 +1134,122 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     /**
+     * Finds North American Numbering Plan (NANP) phone numbers in the input text.
+     *
+     * @param text The text to scan.
+     * @return A list of [start, end) pairs indicating the positions of phone numbers in the input.
+     */
+    // @VisibleForTesting
+    static int[] findNanpPhoneNumbers(CharSequence text) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+
+        int startPos = 0;
+        int endPos = text.length() - NANP_MIN_DIGITS + 1;
+        if (endPos < 0) {
+            return new int[] {};
+        }
+
+        /*
+         * We can't just strip the whitespace out and crunch it down, because the whitespace
+         * is significant.  March through, trying to figure out where numbers start and end.
+         */
+        while (startPos < endPos) {
+            // skip whitespace
+            while (Character.isWhitespace(text.charAt(startPos)) && startPos < endPos) {
+                startPos++;
+            }
+            if (startPos == endPos) {
+                break;
+            }
+
+            // check for a match at this position
+            int matchEnd = findNanpMatchEnd(text, startPos);
+            if (matchEnd > startPos) {
+                list.add(startPos);
+                list.add(matchEnd);
+                startPos = matchEnd;    // skip past match
+            } else {
+                // skip to next whitespace char
+                while (!Character.isWhitespace(text.charAt(startPos)) && startPos < endPos) {
+                    startPos++;
+                }
+            }
+        }
+
+        int[] result = new int[list.size()];
+        for (int i = list.size() - 1; i >= 0; i--) {
+            result[i] = list.get(i);
+        }
+        return result;
+    }
+
+    /**
+     * Checks to see if there is a valid phone number in the input, starting at the specified
+     * offset.  If so, the index of the last character + 1 is returned.  The input is assumed
+     * to begin with a non-whitespace character.
+     *
+     * @return Exclusive end position, or -1 if not a match.
+     */
+    private static int findNanpMatchEnd(CharSequence text, int startPos) {
+        /*
+         * A few interesting cases:
+         *   94043                              # too short, ignore
+         *   123456789012                       # too long, ignore
+         *   +1 (650) 555-1212                  # 11 digits, spaces
+         *   (650) 555-1212, (650) 555-1213     # two numbers, return first
+         *   1-650-555-1212                     # 11 digits with leading '1'
+         *   *#650.555.1212#*!                  # 10 digits, include #*, ignore trailing '!'
+         *   555.1212                           # 7 digits
+         *
+         * For the most part we want to break on whitespace, but it's common to leave a space
+         * between the initial '1' and/or after the area code.
+         */
+
+        int endPos = text.length();
+        int curPos = startPos;
+        int foundDigits = 0;
+        char firstDigit = 'x';
+
+        while (curPos <= endPos) {
+            char ch;
+            if (curPos < endPos) {
+                ch = text.charAt(curPos);
+            } else {
+                ch = 27;    // fake invalid symbol at end to trigger loop break
+            }
+
+            if (Character.isDigit(ch)) {
+                if (foundDigits == 0) {
+                    firstDigit = ch;
+                }
+                foundDigits++;
+                if (foundDigits > NANP_MAX_DIGITS) {
+                    // too many digits, stop early
+                    return -1;
+                }
+            } else if (Character.isWhitespace(ch)) {
+                if (!(  (firstDigit == '1' && (foundDigits == 1 || foundDigits == 4)) ||
+                        (foundDigits == 3)) ) {
+                    break;
+                }
+            } else if (NANP_ALLOWED_SYMBOLS.indexOf(ch) == -1) {
+                break;
+            }
+            // else it's an allowed symbol
+
+            curPos++;
+        }
+
+        if ((firstDigit != '1' && (foundDigits == 7 || foundDigits == 10)) ||
+                (firstDigit == '1' && foundDigits == 11)) {
+            // match
+            return curPos;
+        }
+
+        return -1;
+    }
+
+    /**
      * Replaces stretches of text that look like addresses and phone numbers with clickable
      * links.
      * <p>
@@ -1158,8 +1277,20 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
          */
 
         /*
+         * If we're in the US, handle this specially.  Otherwise, punt to Linkify.
+         */
+        String defaultPhoneRegion = System.getProperty("user.region", "US");
+        if (!defaultPhoneRegion.equals("US")) {
+            Linkify.addLinks(textView, Linkify.ALL);
+            return;
+        }
+
+        /*
          * Start by letting Linkify find anything that isn't a phone number.  We have to let it
          * run first because every invocation removes all previous URLSpan annotations.
+         *
+         * Ideally we'd use the external/libphonenumber routines, but those aren't available
+         * to unbundled applications.
          */
         boolean linkifyFoundLinks = Linkify.addLinks(textView,
                 Linkify.ALL & ~(Linkify.PHONE_NUMBERS));
@@ -1167,19 +1298,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         /*
          * Search for phone numbers.
          *
-         * The "leniency" value can be VALID or POSSIBLE.  With VALID we won't match NANP numbers
-         * shorter than 10 digits, which is inconvenient.  With POSSIBLE we get NANP 7-digit
-         * numbers, and possibly strings of digits inside URIs, but happily we don't flag
-         * five-digit zip codes like Linkify does.
-         *
-         * Phone links inside URIs will be annotated by the earlier URI linkification, so we just
-         * need to avoid creating overlapping spans.
+         * Some URIs contain strings of digits that look like phone numbers.  If both the URI
+         * scanner and the phone number scanner find them, we want the URI link to win.  Since
+         * the URI scanner runs first, we just need to avoid creating overlapping spans.
          */
-        String defaultPhoneRegion = System.getProperty("user.region", "US");
-        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
         CharSequence text = textView.getText();
-        Iterable<PhoneNumberMatch> phoneIterable = phoneUtil.findNumbers(text, defaultPhoneRegion,
-                PhoneNumberUtil.Leniency.POSSIBLE, Long.MAX_VALUE);
+        int[] phoneSequences = findNanpPhoneNumbers(text);
 
         /*
          * If the contents of the TextView are already Spannable (which will be the case if
@@ -1203,34 +1327,19 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
          * Insert spans for the numbers we found.  We generate "tel:" URIs.
          */
         int phoneCount = 0;
-        for (PhoneNumberMatch match : phoneIterable) {
-            int start = match.start();
-            int end = match.end();
+        for (int match = 0; match < phoneSequences.length / 2; match++) {
+            int start = phoneSequences[match*2];
+            int end = phoneSequences[match*2 + 1];
 
             if (spanWillOverlap(spanText, existingSpans, start, end)) {
                 if (Log.isLoggable(TAG, Log.VERBOSE)) {
-                    Log.v(TAG, "Not linkifying " + match.number().getNationalNumber() +
-                            " as phone number due to overlap");
+                    CharSequence seq = text.subSequence(start, end);
+                    Log.v(TAG, "Not linkifying " + seq + " as phone number due to overlap");
                 }
                 continue;
             }
 
             /*
-             * A quick comparison of PhoneNumberUtil number parsing & formatting, with
-             * defaultRegion="US":
-             *
-             * Input string     RFC3966                     NATIONAL
-             * 5551212          +1-5551212                  555-1212
-             * 6505551212       +1-650-555-1212             (650) 555-1212
-             * 6505551212x123   +1-650-555-1212;ext=123     (650) 555-1212 ext. 123
-             * +41446681800     +41-44-668-18-00            044 668 18 00
-             *
-             * The conversion of NANP 7-digit numbers to RFC3966 is not compatible with our dialer
-             * (which tries to dial 8 digits, and fails).  So that won't work.
-             *
-             * The conversion of the Swiss number to NATIONAL format loses the country code,
-             * so that won't work.
-             *
              * The Linkify code takes the matching span and strips out everything that isn't a
              * digit or '+' sign.  We do the same here.  Extension numbers will get appended
              * without a separator, but the dialer wasn't doing anything useful with ";ext="
