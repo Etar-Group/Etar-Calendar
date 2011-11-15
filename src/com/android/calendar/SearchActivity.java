@@ -43,7 +43,6 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
-import com.android.calendar.event.EditEventActivity;
 
 public class SearchActivity extends Activity implements CalendarController.EventHandler,
         SearchView.OnQueryTextListener, OnActionExpandListener {
