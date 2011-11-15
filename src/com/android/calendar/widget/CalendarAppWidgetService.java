@@ -38,7 +38,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
-import android.provider.CalendarContract.EventsEntity;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -60,10 +59,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             + Instances.START_MINUTE + " ASC, " + Instances.END_DAY + " ASC, "
             + Instances.END_MINUTE + " ASC LIMIT " + EVENT_MAX_COUNT;
 
-    private static final String EVENT_SELECTION = Calendars.VISIBLE + "=1 AND "
-            + EventsEntity.ALL_DAY + "=0";
+    private static final String EVENT_SELECTION = Calendars.VISIBLE + "=1";
     private static final String EVENT_SELECTION_HIDE_DECLINED = Calendars.VISIBLE + "=1 AND "
-            + EventsEntity.ALL_DAY + "=0 AND "
             + Instances.SELF_ATTENDEE_STATUS + "!=" + Attendees.ATTENDEE_STATUS_DECLINED;
 
     static final String[] EVENT_PROJECTION = new String[] {
@@ -126,6 +123,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         private int mAppWidgetId;
         private int mDeclinedColor;
         private int mStandardColor;
+        private int mAllDayColor;
 
         private Runnable mTimezoneChanged = new Runnable() {
             @Override
@@ -161,6 +159,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
             mDeclinedColor = mResources.getColor(R.color.appwidget_item_declined_color);
             mStandardColor = mResources.getColor(R.color.appwidget_item_standard_color);
+            mAllDayColor = mResources.getColor(R.color.appwidget_item_allday_color);
         }
 
         public CalendarFactory() {
@@ -246,14 +245,33 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                             R.drawable.agenda_item_bg_primary);
                 }
 
-                updateTextView(views, R.id.when, eventInfo.visibWhen, eventInfo.when);
-                updateTextView(views, R.id.where, eventInfo.visibWhere, eventInfo.where);
+                if (!eventInfo.allDay) {
+                    updateTextView(views, R.id.when, eventInfo.visibWhen, eventInfo.when);
+                    updateTextView(views, R.id.where, eventInfo.visibWhere, eventInfo.where);
+                }
                 updateTextView(views, R.id.title, eventInfo.visibTitle, eventInfo.title);
 
                 views.setViewVisibility(R.id.agenda_item_color, View.VISIBLE);
 
                 int selfAttendeeStatus = eventInfo.selfAttendeeStatus;
-                if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
+                if (eventInfo.allDay) {
+                    if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_INVITED) {
+                        views.setInt(R.id.agenda_item_color, "setImageResource",
+                                R.drawable.widget_chip_not_responded_bg);
+                        views.setInt(R.id.title, "setTextColor", displayColor);
+                    } else {
+                        views.setInt(R.id.agenda_item_color, "setImageResource",
+                                R.drawable.widget_chip_responded_bg);
+                        views.setInt(R.id.title, "setTextColor", mAllDayColor);
+                    }
+                    if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
+                        // 40% opacity
+                        views.setInt(R.id.agenda_item_color, "setColorFilter",
+                                Utils.getDeclinedColorFromColor(displayColor));
+                    } else {
+                        views.setInt(R.id.agenda_item_color, "setColorFilter", displayColor);
+                    }
+                } else if (selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED) {
                     views.setInt(R.id.title, "setTextColor", mDeclinedColor);
                     views.setInt(R.id.when, "setTextColor", mDeclinedColor);
                     views.setInt(R.id.where, "setTextColor", mDeclinedColor);
