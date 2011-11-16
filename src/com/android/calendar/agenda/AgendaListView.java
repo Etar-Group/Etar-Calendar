@@ -228,7 +228,8 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
     }
 
-    public void goTo(Time time, long id, String searchQuery, boolean forced) {
+    public void goTo(Time time, long id, String searchQuery, boolean forced,
+            boolean refreshEventInfo) {
         if (time == null) {
             time = mTime;
             long goToTime = getFirstVisibleTime();
@@ -243,11 +244,11 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         if (DEBUG) {
             Log.d(TAG, "Goto with time " + mTime.toString());
         }
-        mWindowAdapter.refresh(mTime, id, searchQuery, forced);
+        mWindowAdapter.refresh(mTime, id, searchQuery, forced, refreshEventInfo);
     }
 
     public void refresh(boolean forced) {
-        mWindowAdapter.refresh(mTime, -1, null, forced);
+        mWindowAdapter.refresh(mTime, -1, null, forced, false);
     }
 
     public void deleteSelectedEvent() {
@@ -258,24 +259,6 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         }
     }
 
-/*    @Override
-    public int getFirstVisiblePosition() {
-        // TODO File bug!
-        // getFirstVisiblePosition doesn't always return the first visible
-        // item. Sometimes, it is above the visible one.
-        // instead. I loop through the viewgroup children and find the first
-        // visible one. BTW, getFirstVisiblePosition() == getChildAt(0). I
-        // am not looping through the entire list.
-        View v = getFirstVisibleView();
-        if (v != null) {
-            if (DEBUG) {
-                Log.v(TAG, "getFirstVisiblePosition: " + AgendaWindowAdapter.getViewTitle(v));
-            }
-            return getPositionForView(v);
-        }
-        return -1;
-    }
-*/
     public View getFirstVisibleView() {
         Rect r = new Rect();
         int childCount = getChildCount();

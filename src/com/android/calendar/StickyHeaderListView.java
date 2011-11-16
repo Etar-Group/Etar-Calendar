@@ -56,6 +56,7 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
     protected Context mContext = null;
     protected Adapter mAdapter = null;
     protected HeaderIndexer mIndexer = null;
+    protected HeaderHeightListener mHeaderHeightListener = null;
     protected View mStickyHeader = null;
     protected View mDummyHeader = null; // A invisible header used when a section has no header
     protected ListView mListView = null;
@@ -63,6 +64,7 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
 
     private int mSeparatorWidth;
     private View mSeparatorView;
+    private int mLastStickyHeaderHeight = 0;
 
     // This code is needed only if dataset changes do not force a call to OnScroll
     // protected DataSetObserver mListDataObserver = null;
@@ -102,6 +104,21 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
          */
         int getHeaderItemsNumber(int headerPosition);
     }
+
+    /***
+    *
+    * Interface that is used to update the sticky header's height
+    *
+    */
+   public interface HeaderHeightListener {
+
+       /***
+        * Updated a change in the sticky header's size
+        *
+        * @param height - new height of sticky header
+        */
+       void OnHeaderHeightChanged(int height);
+   }
 
     /**
      * Sets the adapter to be used by the class to get views of headers
@@ -156,6 +173,10 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
      */
     public void setOnScrollListener(ListView.OnScrollListener listener) {
         mListener = listener;
+    }
+
+    public void setHeaderHeightListener(HeaderHeightListener listener) {
+        mHeaderHeightListener = listener;
     }
 
     // This code is needed only if dataset changes do not force a call to OnScroll
@@ -282,6 +303,14 @@ public class StickyHeaderListView extends FrameLayout implements OnScrollListene
                 if (stickyHeaderHeight == 0) {
                     stickyHeaderHeight = mStickyHeader.getMeasuredHeight();
                 }
+
+                // Update new header height
+                if (mHeaderHeightListener != null &&
+                        mLastStickyHeaderHeight != stickyHeaderHeight) {
+                    mLastStickyHeaderHeight = stickyHeaderHeight;
+                    mHeaderHeightListener.OnHeaderHeightChanged(stickyHeaderHeight);
+                }
+
                 View SectionLastView = mListView.getChildAt(sectionLastItemPosition);
                 if (SectionLastView != null && SectionLastView.getBottom() <= stickyHeaderHeight) {
                     int lastViewBottom = SectionLastView.getBottom();
