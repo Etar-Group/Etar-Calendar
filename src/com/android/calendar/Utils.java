@@ -525,6 +525,26 @@ public class Utils {
     }
 
     /**
+     * Finds and returns the next midnight after "theTime" in milliseconds UTC
+     *
+     * @param recycle - Time object to recycle, otherwise null.
+     * @param theTime - Time used for calculations (in UTC)
+     * @param tz The time zone to convert this time to.
+     */
+    public static long getNextMidnight(Time recycle, long theTime, String tz) {
+        if (recycle == null) {
+            recycle = new Time();
+        }
+        recycle.timezone = tz;
+        recycle.set(theTime);
+        recycle.monthDay ++;
+        recycle.hour = 0;
+        recycle.minute = 0;
+        recycle.second = 0;
+        return recycle.normalize(true);
+    }
+
+    /**
      * Scan through a cursor of calendars and check if names are duplicated.
      * This travels a cursor containing calendar display names and fills in the
      * provided map with whether or not each name is repeated.
