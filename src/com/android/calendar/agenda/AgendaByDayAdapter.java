@@ -80,6 +80,12 @@ public class AgendaByDayAdapter extends BaseAdapter {
         mTmpTime = new Time(mTimeZone);
     }
 
+    public long getInstanceId(int position) {
+        if (mRowInfo == null || position >= mRowInfo.size()) {
+            return -1;
+        }
+        return mRowInfo.get(position).mInstanceId;
+    }
 
     // Returns the position of a header of a specific item
     public int getHeaderPosition(int position) {
@@ -278,21 +284,31 @@ public class AgendaByDayAdapter extends BaseAdapter {
         Cursor cursor = dayAdapterInfo.cursor;
         ArrayList<RowInfo> rowInfo = new ArrayList<RowInfo>();
         int prevStartDay = -1;
-        Time time = new Time(mTimeZone);
+
+        Time tempTime = new Time(mTimeZone);
         long now = System.currentTimeMillis();
-        time.set(now);
-        mTodayJulianDay = Time.getJulianDay(now, time.gmtoff);
+        tempTime.set(now);
+        mTodayJulianDay = Time.getJulianDay(now, tempTime.gmtoff);
+
         LinkedList<MultipleDayInfo> multipleDayList = new LinkedList<MultipleDayInfo>();
         for (int position = 0; cursor.moveToNext(); position++) {
             int startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
-
+            long id = cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
+            long startTime =  cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
+            long endTime =  cursor.getLong(AgendaWindowAdapter.INDEX_END);
+            long instanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
+            boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
+            if (allDay) {
+                startTime = Utils.convertAlldayUtcToLocal(tempTime, startTime, mTimeZone);
+                endTime = Utils.convertAlldayUtcToLocal(tempTime, endTime, mTimeZone);
+            }
             // Skip over the days outside of the adapter's range
             startDay = Math.max(startDay, dayAdapterInfo.start);
 
             if (startDay != prevStartDay) {
                 // Check if we skipped over any empty days
                 if (prevStartDay == -1) {
-                    rowInfo.add(new RowInfo(TYPE_DAY, startDay, 0));
+                    rowInfo.add(new RowInfo(TYPE_DAY, startDay));
                 } else {
                     // If there are any multiple-day events that span the empty
                     // range of days, then create day headers and events for
@@ -313,24 +329,34 @@ public class AgendaByDayAdapter extends BaseAdapter {
                             // If this is the first event for the day, then
                             // insert a day header.
                             if (!dayHeaderAdded) {
-                                rowInfo.add(new RowInfo(TYPE_DAY, currentDay, 0));
+                                rowInfo.add(new RowInfo(TYPE_DAY, currentDay));
                                 dayHeaderAdded = true;
                             }
-                            rowInfo.add(new RowInfo(TYPE_MEETING, currentDay, info.mPosition));
+                            long infoEndTime =
+                                    ((info.mEndDay == currentDay) ? info.mEventEndTimeMilli : Utils
+                                            .getNextMidnight(tempTime, info.mEventStartTimeMilli,
+                                                    mTimeZone));
+                            rowInfo.add(new RowInfo(TYPE_MEETING, currentDay, info.mPosition,
+                                    info.mEventId, info.mEventStartTimeMilli,
+                                    infoEndTime, info.mInstanceId, info.mAllDay));
+
+                            info.mEventStartTimeMilli = Utils.getNextMidnight(tempTime,
+                                    info.mEventStartTimeMilli, mTimeZone);
                         }
                     }
 
                     // If the day header was not added for the start day, then
                     // add it now.
                     if (!dayHeaderAdded) {
-                        rowInfo.add(new RowInfo(TYPE_DAY, startDay, 0));
+                        rowInfo.add(new RowInfo(TYPE_DAY, startDay));
                     }
                 }
                 prevStartDay = startDay;
             }
 
             // Add in the event for this cursor position
-            rowInfo.add(new RowInfo(TYPE_MEETING, startDay, position));
+            rowInfo.add(new RowInfo(TYPE_MEETING, startDay, position, id, startTime, endTime,
+                    instanceId, allDay));
 
             // If this event spans multiple days, then add it to the multipleDay
             // list.
@@ -339,7 +365,9 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // Skip over the days outside of the adapter's range
             endDay = Math.min(endDay, dayAdapterInfo.end);
             if (endDay > startDay) {
-                multipleDayList.add(new MultipleDayInfo(position, endDay));
+                multipleDayList.add(new MultipleDayInfo(position, endDay, id,
+                        Utils.getNextMidnight(tempTime, startTime, mTimeZone),
+                        endTime, instanceId, allDay));
             }
         }
 
@@ -362,10 +390,18 @@ public class AgendaByDayAdapter extends BaseAdapter {
                     // If this is the first event for the day, then
                     // insert a day header.
                     if (!dayHeaderAdded) {
-                        rowInfo.add(new RowInfo(TYPE_DAY, currentDay, 0));
+                        rowInfo.add(new RowInfo(TYPE_DAY, currentDay));
                         dayHeaderAdded = true;
                     }
-                    rowInfo.add(new RowInfo(TYPE_MEETING, currentDay, info.mPosition));
+                    long nextMidnight = Utils.getNextMidnight(tempTime, info.mEventStartTimeMilli,
+                            mTimeZone);
+                    long infoEndTime =
+                            (info.mEndDay == currentDay) ? info.mEventEndTimeMilli : nextMidnight;
+                    rowInfo.add(new RowInfo(TYPE_MEETING, currentDay, info.mPosition,
+                            info.mEventId, info.mEventStartTimeMilli, infoEndTime,
+                            info.mInstanceId, info.mAllDay));
+
+                    info.mEventStartTimeMilli = nextMidnight;
                 }
             }
         }
@@ -382,62 +418,145 @@ public class AgendaByDayAdapter extends BaseAdapter {
         // or later. This flag is used by the adapter to create a view with a visual separator
         // between the past and the present/future
         boolean mFirstDayAfterYesterday;
+        final long mEventId;
+        final long mEventStartTimeMilli;
+        final long mEventEndTimeMilli;
+        final long mInstanceId;
+        final boolean mAllDay;
 
-        RowInfo(int type, int julianDay, int position) {
+        RowInfo(int type, int julianDay, int position, long id, long startTime, long endTime,
+                long instanceId, boolean allDay) {
             mType = type;
             mDay = julianDay;
             mPosition = position;
+            mEventId = id;
+            mEventStartTimeMilli = startTime;
+            mEventEndTimeMilli = endTime;
             mFirstDayAfterYesterday = false;
+            mInstanceId = instanceId;
+            mAllDay = allDay;
+        }
+
+        RowInfo(int type, int julianDay) {
+            mType = type;
+            mDay = julianDay;
+            mPosition = 0;
+            mEventId = 0;
+            mEventStartTimeMilli = 0;
+            mEventEndTimeMilli = 0;
+            mFirstDayAfterYesterday = false;
+            mInstanceId = -1;
+            mAllDay = false;
         }
     }
 
     private static class MultipleDayInfo {
         final int mPosition;
         final int mEndDay;
+        final long mEventId;
+        long mEventStartTimeMilli;
+        long mEventEndTimeMilli;
+        final long mInstanceId;
+        final boolean mAllDay;
 
-        MultipleDayInfo(int position, int endDay) {
+        MultipleDayInfo(int position, int endDay, long id, long startTime, long endTime,
+                long instanceId, boolean allDay) {
             mPosition = position;
             mEndDay = endDay;
+            mEventId = id;
+            mEventStartTimeMilli = startTime;
+            mEventEndTimeMilli = endTime;
+            mInstanceId = instanceId;
+            mAllDay = allDay;
         }
     }
 
     /**
-     * Searches for the day that matches the given Time object and returns the
-     * list position of that day.  If there are no events for that day, then it
-     * finds the nearest day (before or after) that has events and returns the
-     * list position for that day.
-     *
-     * @param time the date to search for
-     * @return the cursor position of the first event for that date, or zero
-     * if no match was found
+     * Finds the position in the cursor of the event that best matches the time and Id.
+     * It will try to find the event that has the specified id and start time, if such event
+     * doesn't exist, it will return the event with a matching id that is closest to the start time.
+     * If the id doesn't exist, it will return the event with start time closest to the specified
+     * time.
+     * @param time - start of event in milliseconds (or any arbitrary time if event id is unknown)
+     * @param id - Event id (-1 if unknown).
+     * @return Position of event (if found) or position of nearest event according to the time.
+     *         Zero if no event found
      */
-    public int findDayPositionNearestTime(Time time) {
+    public int findEventPositionNearestTime(Time time, long id) {
         if (mRowInfo == null) {
             return 0;
         }
         long millis = time.toMillis(false /* use isDst */);
-        int julianDay = Time.getJulianDay(millis, time.gmtoff);
-        int minDistance = 1000;  // some big number
+        long minDistance =  Integer.MAX_VALUE;  // some big number
+        long IdFoundMinDistance =  Integer.MAX_VALUE;  // some big number
         int minIndex = 0;
+        int idFoundMinIndex = 0;
+        int eventInTimeIndex = -1;
+        int allDayEventInTimeIndex = -1;
+        int allDayEventDay = 0;
+        int minDay = 0;
+        boolean idFound = false;
         int len = mRowInfo.size();
+
+        // Loop through the events and find the best match
+        // 1. Event id and start time matches requested id and time
+        // 2. Event id matches and closest time
+        // 3. No event id match , time is between event start and end
+        // 4. No event id match , all day event
+        // 5. The closest event to the requested time
+
         for (int index = 0; index < len; index++) {
             RowInfo row = mRowInfo.get(index);
             if (row.mType == TYPE_DAY) {
-                int distance = Math.abs(julianDay - row.mDay);
-                if (distance == 0) {
+                continue;
+            }
+
+            // Found exact match - done
+            if (row.mEventId == id) {
+                if (row.mEventStartTimeMilli == millis) {
                     return index;
                 }
+
+                // Not an exact match, Save event index if it is the closest to time so far
+                long distance = Math.abs(millis - row.mEventStartTimeMilli);
                 if (distance < minDistance) {
-                    minDistance = distance;
-                    minIndex = index;
+                    IdFoundMinDistance = distance;
+                    idFoundMinIndex = index;
+                }
+                idFound = true;
+            }
+            if (!idFound) {
+                // Found an event that contains the requested time
+                if (millis >= row.mEventStartTimeMilli && millis <= row.mEventEndTimeMilli) {
+                    if (row.mAllDay) {
+                        allDayEventInTimeIndex = index;
+                        allDayEventDay = row.mDay;
+                    } else {
+                        eventInTimeIndex = index;
+                    }
+                } else {
+                    // Save event index if it is the closest to time so far
+                    long distance = Math.abs(millis - row.mEventStartTimeMilli);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        minIndex = index;
+                        minDay = row.mDay;
+                    }
                 }
             }
         }
-
-        // We didn't find an exact match so take the nearest day that had
-        // events.
+        // We didn't find an exact match so take the best matching event
+        if (idFound) {
+            return idFoundMinIndex;
+        }
+        if (eventInTimeIndex != -1) {
+            return eventInTimeIndex;
+        } else if (allDayEventInTimeIndex != -1 && minDay != allDayEventDay) {
+            return allDayEventInTimeIndex;
+        }
         return minIndex;
     }
+
 
     /**
      * Returns a flag indicating if this position is the first day after "yesterday" that has
@@ -497,6 +616,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
      *
      * @param listPos the list position of an event
      * @return the corresponding cursor position of that event
+     *         if the position point to day header , it will give the position of the next event
+     *         negated.
      */
     public int getCursorPosition(int listPos) {
         if (mRowInfo != null && listPos >= 0) {

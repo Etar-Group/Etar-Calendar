@@ -41,6 +41,7 @@ import com.android.calendar.EventInfoFragment;
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
 import com.android.calendar.StickyHeaderListView;
+import com.android.calendar.StickyHeaderListView.HeaderHeightListener;
 import com.android.calendar.StickyHeaderListView.HeaderIndexer;
 import com.android.calendar.Utils;
 
@@ -67,6 +68,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private boolean mIsTabletConfig;
     private EventInfo mOnAttachedInfo = null;
     private boolean mOnAttachAllDay = false;
+    private AgendaWindowAdapter mAdapter = null;
 
     // Tracks the time of the top visible view in order to send UPDATE_TITLE messages to the action
     // bar.
@@ -157,9 +159,13 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             Adapter a = mAgendaListView.getAdapter();
             lv.setAdapter(a);
             if (a instanceof HeaderViewListAdapter) {
-                lv.setIndexer((HeaderIndexer) ((HeaderViewListAdapter)a).getWrappedAdapter());
+                mAdapter = (AgendaWindowAdapter) ((HeaderViewListAdapter)a).getWrappedAdapter();
+                lv.setIndexer(mAdapter);
+                lv.setHeaderHeightListener(mAdapter);
             } else if (a instanceof AgendaWindowAdapter) {
-                lv.setIndexer((HeaderIndexer) a);
+                mAdapter = (AgendaWindowAdapter)a;
+                lv.setIndexer(mAdapter);
+                lv.setHeaderHeightListener(mAdapter);
             } else {
                 Log.wtf(TAG, "Cannot find HeaderIndexer for StickyHeaderListView");
             }
@@ -185,7 +191,13 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 GeneralPreferences.KEY_HIDE_DECLINED, false);
 
         mAgendaListView.setHideDeclinedEvents(hideDeclined);
-        mAgendaListView.goTo(mTime, -1, mQuery, true);
+        if (mLastHandledEventId != -1) {
+            mAgendaListView.goTo(mLastHandledEventTime, mLastHandledEventId, mQuery, true, false);
+            mLastHandledEventTime = null;
+            mLastHandledEventId = -1;
+        } else {
+            mAgendaListView.goTo(mTime, -1, mQuery, true, false);
+        }
         mAgendaListView.onResume();
 
 //        // Register for Intent broadcasts
@@ -265,7 +277,9 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                         .after(event.endTime))) {
             mTime.set(event.startTime);
         }
-        mAgendaListView.goTo(mTime, event.id, mQuery, false);
+        mAgendaListView.goTo(mTime, event.id, mQuery, false,
+                ((event.extraLong & CalendarController.EXTRA_GOTO_TODAY) != 0  &&
+                        mShowEventDetailsWithAgenda) ? true : false);
         AgendaAdapter.ViewHolder vh = mAgendaListView.getSelectedViewHolder();
         showEventInfo(event, vh != null ? vh.allDay : false);
     }
@@ -279,7 +293,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             // The view hasn't been set yet. Just return.
             return;
         }
-        mAgendaListView.goTo(time, -1, mQuery, true);
+        mAgendaListView.goTo(time, -1, mQuery, true, false);
     }
 
     @Override
@@ -294,12 +308,16 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         return EventType.GO_TO | EventType.EVENTS_CHANGED | ((mUsedForSearch)?EventType.SEARCH:0);
     }
 
+    private long mLastHandledEventId = -1;
+    private Time mLastHandledEventTime = null;
     @Override
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.GO_TO) {
             // TODO support a range of time
             // TODO support event_id
             // TODO figure out the animate bit
+            mLastHandledEventId = event.id;
+            mLastHandledEventTime = event.startTime;
             goTo(event, true);
         } else if (event.eventType == EventType.SEARCH) {
             search(event.query, event.startTime);
@@ -363,8 +381,13 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
     // OnScrollListener implementation to update the date on the pull-down menu of the app
 
+    @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        // Do nothing
+        // Save scroll state so that the adapter can stop the scroll when the
+        // agenda list is fling state and it needs to set the agenda list to a new position
+        if (mAdapter != null) {
+            mAdapter.setScrollState(scrollState);
+        }
     }
 
     // Gets the time of the first visible view. If it is a new time, send a message to update
