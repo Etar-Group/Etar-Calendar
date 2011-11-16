@@ -46,7 +46,7 @@
     <string name="calendar_refresh" msgid="6172731193680500025">"重新整理"</string>
     <string name="show_day_view" msgid="5782512782605466016">"顯示天"</string>
     <string name="agenda_view" msgid="5566084759423843245">"待辦事項"</string>
-    <string name="day_view" msgid="4467754504843584437">"日"</string>
+    <string name="day_view" msgid="4467754504843584437">"天"</string>
     <string name="week_view" msgid="6775043022159508060">"週"</string>
     <string name="month_view" msgid="7287101431749285412">"月"</string>
     <string name="event_view" msgid="7621353079385122317">"檢視活動"</string>
