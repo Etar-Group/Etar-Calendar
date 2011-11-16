@@ -233,4 +233,70 @@ public class UtilsTests extends TestCase {
         assertEquals(segments, Utils.createBusyBitSegments(100, 350, 100, 1100, 1, events));
 */
     }
+
+    /**
+     * Tests the findNanpPhoneNumbers function.
+     */
+    @SmallTest
+    public void testFindNanpPhoneNumber() {
+        final String[] NO_NUMBERS = new String[] {};
+
+        findPhoneNumber("", NO_NUMBERS);
+        findPhoneNumber("               ", NO_NUMBERS);
+        findPhoneNumber("123", NO_NUMBERS);
+        findPhoneNumber("how much wood", NO_NUMBERS);
+        findPhoneNumber("abc1-650-555-1212", NO_NUMBERS);
+        findPhoneNumber("abc 5551212 def", new String[] { "5551212" });
+        findPhoneNumber("1234567", NO_NUMBERS);
+        findPhoneNumber(" 2345678 ", new String[] { "2345678" });
+        findPhoneNumber("1234567890", NO_NUMBERS);
+        findPhoneNumber("12345678901", new String[] { "12345678901" });
+        findPhoneNumber("123456789012", NO_NUMBERS);
+        findPhoneNumber("+1-555-1212", NO_NUMBERS);
+        findPhoneNumber("+1 (650) 555-1212", new String[] { "+1 (650) 555-1212" });
+        findPhoneNumber("(650) 555-1212, (650) 555-1213",
+                new String[] { "(650) 555-1212", "(650) 555-1213" });
+        findPhoneNumber("Call 555-1212, 555-1213 and also 555-1214.",
+                new String[] { "555-1212", "555-1213", "555-1214." });
+        findPhoneNumber("555-1212,555-1213,555-1214", new String[] { "555-1212" });
+        findPhoneNumber("123 (650) 555-1212", new String[] { "(650) 555-1212" });
+        findPhoneNumber("1-650-555-1212", new String[] { "1-650-555-1212" });
+        findPhoneNumber("1650-555-1212", new String[] { "1650-555-1212" });
+        findPhoneNumber("1650 555-1212", new String[] { "1650 555-1212" });
+        findPhoneNumber("1650/555-1212", NO_NUMBERS);
+        findPhoneNumber("1650-555 1212", NO_NUMBERS);
+        findPhoneNumber("8-650-555-1212", NO_NUMBERS);
+        findPhoneNumber("8 650-555-1212", new String[] { "650-555-1212" });
+        findPhoneNumber("650.555.1212", new String[] { "650.555.1212" });
+        findPhoneNumber(" *#650.555.1212#*!", new String[] { "*#650.555.1212#*" });
+        findPhoneNumber("555.1212", new String[] { "555.1212" });
+        findPhoneNumber("6505551212 x123, 555-1212", new String[] { "6505551212", "555-1212" });
+        findPhoneNumber("6505551212x123", new String[] { "6505551212" });
+        findPhoneNumber("http://example.com/6505551212/", NO_NUMBERS);
+        findPhoneNumber("Mountain View, CA 94043 (650) 555-1212", new String[]{ "(650) 555-1212" });
+        findPhoneNumber("New York, NY 10001-0001", NO_NUMBERS);
+    }
+
+    /**
+     * Finds the numbers in a block of text, and checks to see if the positions of the numbers
+     * match the expected values.
+     *
+     * @param text The text to search.
+     * @param matches Pairs of start/end positions.
+     */
+    private static void findPhoneNumber(String text, String[] matches) {
+        int[] results = EventInfoFragment.findNanpPhoneNumbers(text);
+
+        assertEquals(results.length % 2, 0);
+
+        if (results.length / 2 != matches.length) {
+            fail("Text '" + text + "': expected " + matches.length
+                    + " matches, found " + results.length / 2);
+        }
+
+        for (int i = 0; i < results.length / 2; i++) {
+            CharSequence seq = text.subSequence(results[i*2], results[i*2 + 1]);
+            assertEquals(matches[i], seq);
+        }
+    }
 }
