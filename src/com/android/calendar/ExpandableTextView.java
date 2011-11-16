@@ -119,6 +119,9 @@ public class ExpandableTextView extends LinearLayout implements OnClickListener 
     }
 
     public CharSequence getText() {
+        if (mTv == null) {
+            return "";
+        }
         return mTv.getText();
     }
 }
