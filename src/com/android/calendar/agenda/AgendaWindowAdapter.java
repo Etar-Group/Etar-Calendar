@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
@@ -41,6 +42,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -69,7 +72,7 @@ Check for leaks and excessive allocations
  */
 
 public class AgendaWindowAdapter extends BaseAdapter
-    implements StickyHeaderListView.HeaderIndexer{
+    implements StickyHeaderListView.HeaderIndexer, StickyHeaderListView.HeaderHeightListener{
 
     static final boolean BASICLOG = false;
     static final boolean DEBUGLOG = false;
@@ -156,6 +159,9 @@ public class AgendaWindowAdapter extends BaseAdapter
     private final boolean mIsTabletConfig;
     private final int mSkipDateHeader;
 
+    boolean mCleanQueryInitiated = false;
+    private int mStickyHeaderSize = 44; // Initial size big enough for it to work
+
     /**
      * When the user scrolled to the top, a query will be made for older events
      * and this will be incremented. Don't make more requests if
@@ -195,6 +201,9 @@ public class AgendaWindowAdapter extends BaseAdapter
     private boolean mShuttingDown;
     private boolean mHideDeclined;
 
+    // Used to stop a fling motion if the ListView is set to a specific position
+    int mListViewScrollState = OnScrollListener.SCROLL_STATE_IDLE;
+
     /** The current search query, or null if none */
     private String mSearchQuery;
 
@@ -215,9 +224,11 @@ public class AgendaWindowAdapter extends BaseAdapter
         int end;
         String searchQuery;
         int queryType;
+        long id;
 
         public QuerySpec(int queryType) {
             this.queryType = queryType;
+            id = -1;
         }
 
         @Override
@@ -235,6 +246,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                 long goToTimeMillis = goToTime.toMillis(false);
                 result = prime * result + (int) (goToTimeMillis ^ (goToTimeMillis >>> 32));
             }
+            result = prime * result + (int)id;
             return result;
         }
 
@@ -246,7 +258,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             QuerySpec other = (QuerySpec) obj;
             if (end != other.end || queryStartMillis != other.queryStartMillis
                     || queryType != other.queryType || start != other.start
-                    || Utils.equals(searchQuery, other.searchQuery)) {
+                    || Utils.equals(searchQuery, other.searchQuery) || id != other.id) {
                 return false;
             }
 
@@ -319,6 +331,10 @@ public class AgendaWindowAdapter extends BaseAdapter
 
         mShowEventOnStart = showEventOnStart;
 
+        // Implies there is no sticky header
+        if (!mShowEventOnStart) {
+            mStickyHeaderSize = 0;
+        }
         mSearchQuery = null;
 
         LayoutInflater inflater = (LayoutInflater) context
@@ -385,10 +401,23 @@ public class AgendaWindowAdapter extends BaseAdapter
     }
 
     // Abstract Method in BaseAdapter
+    @Override
     public long getItemId(int position) {
         DayAdapterInfo info = getAdapterInfoByPosition(position);
         if (info != null) {
-            return ((position - info.offset) << 20) + info.start ;
+            int curPos = info.dayAdapter.getCursorPosition(position - info.offset);
+            if (curPos == Integer.MIN_VALUE) {
+                return -1;
+            }
+            // Regular event
+            if (curPos >= 0) {
+                info.cursor.moveToPosition(curPos);
+                return info.cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID) << 20 +
+                    info.cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
+            }
+            // Day Header
+            return info.dayAdapter.findJulianDayFromPosition(position);
+
         } else {
             return -1;
         }
@@ -469,12 +498,11 @@ public class AgendaWindowAdapter extends BaseAdapter
 
     private AgendaAdapter.ViewHolder mSelectedVH = null;
 
-    private int findDayPositionNearestTime(Time time) {
-        if (DEBUGLOG) Log.e(TAG, "findDayPositionNearestTime " + time);
-
+    private int findEventPositionNearestTime(Time time, long id) {
+        if (DEBUGLOG) Log.e(TAG, "findEventPositionNearestTime " + time + " id " + id);
         DayAdapterInfo info = getAdapterInfoByTime(time);
         if (info != null) {
-            return info.offset + info.dayAdapter.findDayPositionNearestTime(time);
+            return info.offset + info.dayAdapter.findEventPositionNearestTime(time, id);
         } else {
             return -1;
         }
@@ -550,8 +578,7 @@ public class AgendaWindowAdapter extends BaseAdapter
         }
 
         if (cursorPosition < info.cursor.getCount()) {
-            info.cursor.moveToPosition(cursorPosition);
-            EventInfo ei = buildEventInfoFromCursor(info.cursor, isDayHeader);
+            EventInfo ei = buildEventInfoFromCursor(info.cursor, cursorPosition, isDayHeader);
             if (!returnEventStartDay && !isDayHeader) {
                 ei.startDay = info.dayAdapter.findJulianDayFromPosition(cursorPosition);
             }
@@ -560,7 +587,13 @@ public class AgendaWindowAdapter extends BaseAdapter
         return null;
     }
 
-    private EventInfo buildEventInfoFromCursor(final Cursor cursor, boolean isDayHeader) {
+    private EventInfo buildEventInfoFromCursor(final Cursor cursor, int cursorPosition,
+            boolean isDayHeader) {
+        if (cursorPosition == -1) {
+            cursor.moveToFirst();
+        } else {
+            cursor.moveToPosition(cursorPosition);
+        }
         EventInfo event = new EventInfo();
         event.begin = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
         event.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
@@ -594,25 +627,54 @@ public class AgendaWindowAdapter extends BaseAdapter
         return event;
     }
 
-    public void refresh(Time goToTime, long id, String searchQuery, boolean forced) {
+    public void refresh(Time goToTime, long id, String searchQuery, boolean forced,
+            boolean refreshEventInfo) {
         if (searchQuery != null) {
             mSearchQuery = searchQuery;
         }
 
         if (DEBUGLOG) {
-            Log.e(TAG, this + ": refresh " + goToTime.toString()
-                    + (forced ? " forced" : " not forced"));
+            Log.e(TAG, this + ": refresh " + goToTime.toString() + " id " + id
+                    + ((searchQuery != null) ? searchQuery : "")
+                    + (forced ? " forced" : " not forced")
+                    + (refreshEventInfo ? " refresh event info" : ""));
         }
-
         int startDay = Time.getJulianDay(goToTime.toMillis(false), goToTime.gmtoff);
 
         if (!forced && isInRange(startDay, startDay)) {
             // No need to re-query
             if (!mAgendaListView.isEventVisible(goToTime, id)) {
-                int gotoPosition = findDayPositionNearestTime(goToTime);
+                int gotoPosition = findEventPositionNearestTime(goToTime, id);
                 if (gotoPosition > 0) {
-                    mAgendaListView.setSelection(gotoPosition + OFF_BY_ONE_BUG + mSkipDateHeader);
+                    mAgendaListView.setSelectionFromTop(gotoPosition +
+                            OFF_BY_ONE_BUG + mSkipDateHeader, mStickyHeaderSize);
+                    if (mListViewScrollState == OnScrollListener.SCROLL_STATE_FLING) {
+                        mAgendaListView.smoothScrollBy(0, 0);
+                    }
+                    if (refreshEventInfo) {
+                        long newInstanceId = findInstanceIdFromPosition(gotoPosition);
+                        if (newInstanceId != getSelectedInstanceId()) {
+                            setSelectedInstanceId(newInstanceId);
+                            new Handler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    notifyDataSetChanged();
+                                }
+                            });
+                            Cursor tempCursor = getCursorByPosition(gotoPosition);
+                            if (tempCursor != null) {
+                                int tempCursorPosition = getCursorPositionByPosition(gotoPosition);
+                                EventInfo event =
+                                        buildEventInfoFromCursor(tempCursor, tempCursorPosition,
+                                                false);
+                                CalendarController.getInstance(mContext).sendEventRelatedEvent(
+                                        this, EventType.VIEW_EVENT, event.id, event.begin,
+                                        event.end, 0, 0, -1);
+                            }
+                        }
+                    }
                 }
+
                 Time actualTime = new Time(mTimeZone);
                 if (goToTime != null) {
                     actualTime.set(goToTime);
@@ -625,19 +687,23 @@ public class AgendaWindowAdapter extends BaseAdapter
             return;
         }
 
-        // Query for a total of MIN_QUERY_DURATION days
-        int endDay = startDay + MIN_QUERY_DURATION;
+        // If AllInOneActivity is sending a second GOTO event(in OnResume), ignore it.
+        if (!mCleanQueryInitiated || searchQuery != null) {
+            // Query for a total of MIN_QUERY_DURATION days
+            int endDay = startDay + MIN_QUERY_DURATION;
 
-        queueQuery(startDay, endDay, goToTime, searchQuery, QUERY_TYPE_CLEAN);
+            mSelectedInstanceId = -1;
+            queueQuery(startDay, endDay, goToTime, searchQuery, QUERY_TYPE_CLEAN, id);
+            mCleanQueryInitiated = true;
 
-        // Pre-fetch more data to overcome a race condition in AgendaListView.shiftSelection
-        // Queuing more data with the goToTime set to the selected time skips the call to
-        // shiftSelection on refresh.
-        mOlderRequests++;
-        queueQuery(0, 0, goToTime, searchQuery, QUERY_TYPE_OLDER);
-        mNewerRequests++;
-        queueQuery(0, 0, goToTime, searchQuery, QUERY_TYPE_NEWER);
-
+            // Pre-fetch more data to overcome a race condition in AgendaListView.shiftSelection
+            // Queuing more data with the goToTime set to the selected time skips the call to
+            // shiftSelection on refresh.
+            mOlderRequests++;
+            queueQuery(0, 0, goToTime, searchQuery, QUERY_TYPE_OLDER, id);
+            mNewerRequests++;
+            queueQuery(0, 0, goToTime, searchQuery, QUERY_TYPE_NEWER, id);
+        }
     }
 
     public void close() {
@@ -742,12 +808,13 @@ public class AgendaWindowAdapter extends BaseAdapter
     }
 
     private boolean queueQuery(int start, int end, Time goToTime,
-            String searchQuery, int queryType) {
+            String searchQuery, int queryType, long id) {
         QuerySpec queryData = new QuerySpec(queryType);
         queryData.goToTime = goToTime;
         queryData.start = start;
         queryData.end = end;
         queryData.searchQuery = searchQuery;
+        queryData.id = id;
         return queueQuery(queryData);
     }
 
@@ -856,6 +923,10 @@ public class AgendaWindowAdapter extends BaseAdapter
                         + " Count: " + cursor.getCount());
             }
 
+            if (data.queryType == QUERY_TYPE_CLEAN) {
+                mCleanQueryInitiated = false;
+            }
+
             if (mShuttingDown) {
                 cursor.close();
                 return;
@@ -865,6 +936,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             int cursorSize = cursor.getCount();
             if (cursorSize > 0 || mAdapterInfos.isEmpty() || data.queryType == QUERY_TYPE_CLEAN) {
                 final int listPositionOffset = processNewCursor(data, cursor);
+                int newPosition = -1;
                 if (data.goToTime == null) { // Typical Scrolling type query
                     notifyDataSetChanged();
                     if (listPositionOffset != 0) {
@@ -873,10 +945,13 @@ public class AgendaWindowAdapter extends BaseAdapter
                 } else { // refresh() called. Go to the designated position
                     final Time goToTime = data.goToTime;
                     notifyDataSetChanged();
-                    int newPosition = findDayPositionNearestTime(goToTime);
+                    newPosition = findEventPositionNearestTime(goToTime, data.id);
                     if (newPosition >= 0) {
-                        mAgendaListView.setSelection(newPosition + OFF_BY_ONE_BUG
-                                + mSkipDateHeader);
+                        if (mListViewScrollState == OnScrollListener.SCROLL_STATE_FLING) {
+                            mAgendaListView.smoothScrollBy(0, 0);
+                        }
+                        mAgendaListView.setSelectionFromTop(newPosition + OFF_BY_ONE_BUG
+                                + mSkipDateHeader, mStickyHeaderSize);
                         Time actualTime = new Time(mTimeZone);
                         actualTime.set(goToTime);
                         CalendarController.getInstance(mContext).sendEvent(this,
@@ -885,7 +960,16 @@ public class AgendaWindowAdapter extends BaseAdapter
                     }
                     if (DEBUGLOG) {
                         Log.e(TAG, "Setting listview to " +
-                                "findDayPositionNearestTime: " + (newPosition + OFF_BY_ONE_BUG));
+                                "findEventPositionNearestTime: " + (newPosition + OFF_BY_ONE_BUG));
+                    }
+                }
+
+                // Make sure we change the selected instance Id only on a clean query and we
+                // do not have one set already
+                if (mSelectedInstanceId == -1 && newPosition != -1 &&
+                        data.queryType == QUERY_TYPE_CLEAN) {
+                    if (data.id != -1 || data.goToTime != null) {
+                        mSelectedInstanceId = findInstanceIdFromPosition(newPosition);
                     }
                 }
 
@@ -907,17 +991,32 @@ public class AgendaWindowAdapter extends BaseAdapter
                     }
                 }
 
-                if (mSelectedInstanceId == -1 && cursor.moveToFirst()) {
-                    mSelectedInstanceId = cursor.getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
-                    // Set up a dummy view holder so we have the right all day
-                    // info when the view is created.
-                    // TODO determine the full set of what might be useful to
-                    // know about the selected view and fill it in.
-                    mSelectedVH = new AgendaAdapter.ViewHolder();
-                    mSelectedVH.allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
+                // Show the requested event
+                if (mShowEventOnStart && data.queryType == QUERY_TYPE_CLEAN) {
+                    Cursor tempCursor = null;
+                    int tempCursorPosition = -1;
 
-                    EventInfo event = buildEventInfoFromCursor(cursor, false);
-                    if (mShowEventOnStart) {
+                    // If no valid event is selected , just pick the first one
+                    if (mSelectedInstanceId == -1) {
+                        if (cursor.moveToFirst()) {
+                            mSelectedInstanceId = cursor
+                                    .getLong(AgendaWindowAdapter.INDEX_INSTANCE_ID);
+                            // Set up a dummy view holder so we have the right all day
+                            // info when the view is created.
+                            // TODO determine the full set of what might be useful to
+                            // know about the selected view and fill it in.
+                            mSelectedVH = new AgendaAdapter.ViewHolder();
+                            mSelectedVH.allDay =
+                                cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
+                            tempCursor = cursor;
+                        }
+                    } else if (newPosition != -1) {
+                         tempCursor = getCursorByPosition(newPosition);
+                         tempCursorPosition = getCursorPositionByPosition(newPosition);
+                    }
+                    if (tempCursor != null) {
+                        EventInfo event = buildEventInfoFromCursor(tempCursor, tempCursorPosition,
+                                false);
                         CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
                                 EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0, -1);
                     }
@@ -1161,11 +1260,35 @@ public class AgendaWindowAdapter extends BaseAdapter
         mSelectedVH = null;
     }
 
+    private long findInstanceIdFromPosition(int position) {
+        DayAdapterInfo info = getAdapterInfoByPosition(position);
+        if (info != null) {
+            return info.dayAdapter.getInstanceId(position - info.offset);
+        }
+        return -1;
+    }
+
+    private Cursor getCursorByPosition(int position) {
+        DayAdapterInfo info = getAdapterInfoByPosition(position);
+        if (info != null) {
+            return info.cursor;
+        }
+        return null;
+    }
+
+    private int getCursorPositionByPosition(int position) {
+        DayAdapterInfo info = getAdapterInfoByPosition(position);
+        if (info != null) {
+            return info.dayAdapter.getCursorPosition(position - info.offset);
+        }
+        return -1;
+    }
 
     // Implementation of HeaderIndexer interface for StickyHeeaderListView
 
     // Returns the location of the day header of a specific event specified in the position
     // in the adapter
+    @Override
     public int getHeaderPositionFromItemPosition(int position) {
 
         // For phone configuration, return -1 so there will be no sticky header
@@ -1182,6 +1305,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     }
 
     // Returns the number of events for a specific day header
+    @Override
     public int getHeaderItemsNumber(int headerPosition) {
         if (headerPosition < 0 || !mIsTabletConfig) {
             return -1;
@@ -1191,5 +1315,14 @@ public class AgendaWindowAdapter extends BaseAdapter
             return info.dayAdapter.getHeaderItemsCount(headerPosition - info.offset);
         }
         return -1;
+    }
+
+    @Override
+    public void OnHeaderHeightChanged(int height) {
+        mStickyHeaderSize = height;
+    }
+
+    public void setScrollState(int state) {
+        mListViewScrollState = state;
     }
 }
