@@ -32,9 +32,9 @@
         <ImageView
             android:id="@+id/agenda_item_color"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:layout_width="16dip"
-            android:layout_height="36dip"
+            android:layout_height="16dip"
             android:scaleType="fitXY"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="4dip" />
