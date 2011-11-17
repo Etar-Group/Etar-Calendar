@@ -121,6 +121,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private boolean mOnFlingCalled;
     private boolean mStartingScroll = false;
+    protected boolean mPaused = true;
+    private Handler mHandler;
     /**
      * ID of the last event which was displayed with the toast popup.
      *
@@ -721,6 +723,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         init(context);
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        if (mHandler == null) {
+            mHandler = getHandler();
+            mHandler.post(mUpdateCurrentTime);
+        }
+    }
+
     private void init(Context context) {
         setFocusable(true);
 
@@ -735,9 +745,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mCurrentTime = new Time(Utils.getTimeZone(context, mTZUpdater));
         long currentTime = System.currentTimeMillis();
         mCurrentTime.set(currentTime);
-        //The % makes it go off at the next increment of 5 minutes.
-        postDelayed(mUpdateCurrentTime,
-                UPDATE_CURRENT_TIME_DELAY - (currentTime % UPDATE_CURRENT_TIME_DELAY));
         mTodayJulianDay = Time.getJulianDay(currentTime, mCurrentTime.gmtoff);
 
         mWeek_saturdayColor = mResources.getColor(R.color.week_saturday);
@@ -3503,7 +3510,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mLastPopupEventID = mSelectedEvent.id;
 
         // Remove any outstanding callbacks to dismiss the popup.
-        getHandler().removeCallbacks(mDismissPopup);
+        mHandler.removeCallbacks(mDismissPopup);
 
         Event event = mSelectedEvent;
         TextView titleView = (TextView) mPopupView.findViewById(R.id.event_title);
@@ -3538,7 +3545,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if (!empty) whereView.setText(event.location);
 
         mPopup.showAtLocation(this, Gravity.BOTTOM | Gravity.LEFT, mHoursWidth, 5);
-        postDelayed(mDismissPopup, POPUP_DISMISS_DELAY);
+        mHandler.postDelayed(mDismissPopup, POPUP_DISMISS_DELAY);
     }
 
     // The following routines are called from the parent activity when certain
@@ -3547,7 +3554,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mTouchMode = TOUCH_MODE_DOWN;
         mViewStartX = 0;
         mOnFlingCalled = false;
-        getHandler().removeCallbacks(mContinueScroll);
+        mHandler.removeCallbacks(mContinueScroll);
     }
 
     // Kicks off all the animations when the expand allday area is tapped
@@ -3932,7 +3939,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         else if (velocityY < 0 && mViewStartY != mMaxViewStartY) {
             mCallEdgeEffectOnAbsorb = true;
         }
-        post(mContinueScroll);
+        mHandler.post(mContinueScroll);
     }
 
     private boolean initNextView(int deltaX) {
@@ -4529,7 +4536,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private class ContinueScroll implements Runnable {
         public void run() {
             mScrolling = mScrolling && mScroller.computeScrollOffset();
-            if (!mScrolling) {
+            if (!mScrolling || mPaused) {
                 resetSelectedHour();
                 invalidate();
                 return;
@@ -4559,7 +4566,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
 
             computeFirstHour();
-            post(this);
+            mHandler.post(this);
             invalidate();
         }
     }
@@ -4572,8 +4579,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if (mPopup != null) {
             mPopup.dismiss();
         }
+        mPaused = true;
         mLastPopupEventID = INVALID_EVENT_ID;
-        Handler handler = getHandler();
+        Handler handler = mHandler;
         if (handler != null) {
             handler.removeCallbacks(mDismissPopup);
             handler.removeCallbacks(mUpdateCurrentTime);
@@ -4590,7 +4598,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * Restart the update timer
      */
     public void restartCurrentTimeUpdates() {
-        post(mUpdateCurrentTime);
+        mPaused = false;
+        if (mHandler != null) {
+            mHandler.post(mUpdateCurrentTime);
+        }
     }
 
     @Override
@@ -4613,8 +4624,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             long currentTime = System.currentTimeMillis();
             mCurrentTime.set(currentTime);
             //% causes update to occur on 5 minute marks (11:10, 11:15, 11:20, etc.)
-            postDelayed(mUpdateCurrentTime,
-                    UPDATE_CURRENT_TIME_DELAY - (currentTime % UPDATE_CURRENT_TIME_DELAY));
+            if (!DayView.this.mPaused)
+                mHandler.postDelayed(mUpdateCurrentTime, UPDATE_CURRENT_TIME_DELAY
+                        - (currentTime % UPDATE_CURRENT_TIME_DELAY));
             mTodayJulianDay = Time.getJulianDay(currentTime, mCurrentTime.gmtoff);
             invalidate();
         }
