@@ -332,16 +332,16 @@ public class AgendaByDayAdapter extends BaseAdapter {
                                 rowInfo.add(new RowInfo(TYPE_DAY, currentDay));
                                 dayHeaderAdded = true;
                             }
-                            long infoEndTime =
-                                    ((info.mEndDay == currentDay) ? info.mEventEndTimeMilli : Utils
-                                            .getNextMidnight(tempTime, info.mEventStartTimeMilli,
-                                                    mTimeZone));
+                            long nextMidnight = Utils.getNextMidnight(tempTime,
+                                    info.mEventStartTimeMilli, mTimeZone);
+
+                            long infoEndTime = (info.mEndDay == currentDay) ?
+                                    info.mEventEndTimeMilli : nextMidnight;
                             rowInfo.add(new RowInfo(TYPE_MEETING, currentDay, info.mPosition,
                                     info.mEventId, info.mEventStartTimeMilli,
                                     infoEndTime, info.mInstanceId, info.mAllDay));
 
-                            info.mEventStartTimeMilli = Utils.getNextMidnight(tempTime,
-                                    info.mEventStartTimeMilli, mTimeZone);
+                            info.mEventStartTimeMilli = nextMidnight;
                         }
                     }
 

@@ -157,7 +157,6 @@ public class AgendaWindowAdapter extends BaseAdapter
     private boolean mDoneSettingUpHeaderFooter = false;
 
     private final boolean mIsTabletConfig;
-    private final int mSkipDateHeader;
 
     boolean mCleanQueryInitiated = false;
     private int mStickyHeaderSize = 44; // Initial size big enough for it to work
@@ -320,7 +319,6 @@ public class AgendaWindowAdapter extends BaseAdapter
                 .getColor(R.color.agenda_selected_background_color);
         mSelectedItemTextColor = mResources.getColor(R.color.agenda_selected_text_color);
         mIsTabletConfig = Utils.getConfigBool(mContext, R.bool.tablet_config);
-        mSkipDateHeader = mIsTabletConfig ? 0 : 1;
 
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         mAgendaListView = agendaListView;
@@ -639,6 +637,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                     + (forced ? " forced" : " not forced")
                     + (refreshEventInfo ? " refresh event info" : ""));
         }
+
         int startDay = Time.getJulianDay(goToTime.toMillis(false), goToTime.gmtoff);
 
         if (!forced && isInRange(startDay, startDay)) {
@@ -647,7 +646,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                 int gotoPosition = findEventPositionNearestTime(goToTime, id);
                 if (gotoPosition > 0) {
                     mAgendaListView.setSelectionFromTop(gotoPosition +
-                            OFF_BY_ONE_BUG + mSkipDateHeader, mStickyHeaderSize);
+                            OFF_BY_ONE_BUG, mStickyHeaderSize);
                     if (mListViewScrollState == OnScrollListener.SCROLL_STATE_FLING) {
                         mAgendaListView.smoothScrollBy(0, 0);
                     }
@@ -950,8 +949,8 @@ public class AgendaWindowAdapter extends BaseAdapter
                         if (mListViewScrollState == OnScrollListener.SCROLL_STATE_FLING) {
                             mAgendaListView.smoothScrollBy(0, 0);
                         }
-                        mAgendaListView.setSelectionFromTop(newPosition + OFF_BY_ONE_BUG
-                                + mSkipDateHeader, mStickyHeaderSize);
+                        mAgendaListView.setSelectionFromTop(newPosition + OFF_BY_ONE_BUG,
+                                mStickyHeaderSize);
                         Time actualTime = new Time(mTimeZone);
                         actualTime.set(goToTime);
                         CalendarController.getInstance(mContext).sendEvent(this,
