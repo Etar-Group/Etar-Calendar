@@ -216,9 +216,10 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         if (mAgendaListView == null) {
             return;
         }
-        long firstVisibleTime = mController.getTime();
+        long firstVisibleTime = mAgendaListView.getFirstVisibleTime();
         if (firstVisibleTime > 0) {
             mTime.set(firstVisibleTime);
+            mController.setTime(firstVisibleTime);
             outState.putLong(BUNDLE_KEY_RESTORE_TIME, firstVisibleTime);
             if (DEBUG) {
                 Log.v(TAG, "onSaveInstanceState " + mTime.toString());
