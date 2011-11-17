@@ -85,6 +85,7 @@ public class CalendarViewAdapter extends BaseAdapter {
     public CalendarViewAdapter(Context context, int viewType) {
         super();
 
+        mMidnightHandler = new Handler();
         mCurrentMainView = viewType;
         mContext = context;
 
@@ -114,11 +115,7 @@ public class CalendarViewAdapter extends BaseAdapter {
     // Sets a thread to run 1 second after midnight and update the current date
     // This is used to display correctly the date of yesterday/today/tomorrow
     private void setMidnightHandler() {
-        if (mMidnightHandler == null) {
-            mMidnightHandler = new Handler();
-        } else {
-            mMidnightHandler.removeCallbacks(mTimeUpdater);
-        }
+        mMidnightHandler.removeCallbacks(mTimeUpdater);
         // Set the time updater to run at 1 second after midnight
         long now = System.currentTimeMillis();
         Time time = new Time(mTimeZone);
@@ -130,9 +127,7 @@ public class CalendarViewAdapter extends BaseAdapter {
 
     // Stops the midnight update thread, called by the activity when it is paused.
     public void onPause() {
-        if (mMidnightHandler != null) {
-            mMidnightHandler.removeCallbacks(mTimeUpdater);
-        }
+        mMidnightHandler.removeCallbacks(mTimeUpdater);
     }
 
     // Returns the amount of buttons in the menu
