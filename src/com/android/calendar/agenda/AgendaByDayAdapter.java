@@ -501,9 +501,10 @@ public class AgendaByDayAdapter extends BaseAdapter {
         // Loop through the events and find the best match
         // 1. Event id and start time matches requested id and time
         // 2. Event id matches and closest time
-        // 3. No event id match , time is between event start and end
-        // 4. No event id match , all day event
-        // 5. The closest event to the requested time
+        // 3. No event id match , time matches a all day event (midnight)
+        // 4. No event id match , time is between event start and end
+        // 5. No event id match , all day event
+        // 6. The closest event to the requested time
 
         for (int index = 0; index < len; index++) {
             RowInfo row = mRowInfo.get(index);
@@ -529,6 +530,9 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 // Found an event that contains the requested time
                 if (millis >= row.mEventStartTimeMilli && millis <= row.mEventEndTimeMilli) {
                     if (row.mAllDay) {
+                        if (millis == row.mEventStartTimeMilli) {
+                            return index;
+                        }
                         allDayEventInTimeIndex = index;
                         allDayEventDay = row.mDay;
                     } else {
