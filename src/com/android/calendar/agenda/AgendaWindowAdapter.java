@@ -578,7 +578,8 @@ public class AgendaWindowAdapter extends BaseAdapter
         if (cursorPosition < info.cursor.getCount()) {
             EventInfo ei = buildEventInfoFromCursor(info.cursor, cursorPosition, isDayHeader);
             if (!returnEventStartDay && !isDayHeader) {
-                ei.startDay = info.dayAdapter.findJulianDayFromPosition(cursorPosition);
+                ei.startDay = info.dayAdapter.findJulianDayFromPosition(positionInAdapter -
+                        info.offset);
             }
             return ei;
         }
@@ -1319,6 +1320,10 @@ public class AgendaWindowAdapter extends BaseAdapter
     @Override
     public void OnHeaderHeightChanged(int height) {
         mStickyHeaderSize = height;
+    }
+
+    public int getStickyHeaderHeight() {
+        return mStickyHeaderSize;
     }
 
     public void setScrollState(int state) {
