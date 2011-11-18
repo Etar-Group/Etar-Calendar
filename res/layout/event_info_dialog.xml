@@ -181,6 +181,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="8dip"
                 android:paddingRight="16dip"
+                android:layout_marginTop="8dip"
                 android:layout_marginLeft="8dip"
                 android:textColor="@color/event_info_label_color"
                 android:textAppearance="?android:attr/textAppearanceMedium"
