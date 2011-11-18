@@ -24,6 +24,7 @@ import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
@@ -92,8 +93,6 @@ public class CalendarController {
     private long mEventId = -1;
     private Time mTime = new Time();
     private long mDateFlags = 0;
-
-    private AsyncQueryService mService;
 
     private Runnable mUpdateTimezone = new Runnable() {
         @Override
@@ -243,12 +242,6 @@ public class CalendarController {
         mDetailViewType = Utils.getSharedPreference(mContext,
                 GeneralPreferences.KEY_DETAILED_VIEW,
                 GeneralPreferences.DEFAULT_DETAILED_VIEW);
-        mService = new AsyncQueryService(context) {
-            @Override
-            protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
-                new RefreshInBackground().execute(cursor);
-            }
-        };
     }
 
     public void sendEventRelatedEvent(Object sender, long eventType, long eventId, long startMillis,
@@ -698,15 +691,22 @@ public class CalendarController {
         mContext.startActivity(intent);
     }
 
+    /**
+     * Performs a manual refresh of calendars in all known accounts.
+     */
     public void refreshCalendars() {
-        Log.d(TAG, "RefreshCalendars starting");
-        // get the account, url, and current sync state
-        mService.startQuery(mService.getNextToken(), null, Calendars.CONTENT_URI,
-                new String[] {Calendars._ID, // 0
-                        Calendars.ACCOUNT_NAME, // 1
-                        Calendars.ACCOUNT_TYPE, // 2
-                        },
-                REFRESH_SELECTION, REFRESH_ARGS, REFRESH_ORDER);
+        Account[] accounts = AccountManager.get(mContext).getAccounts();
+        Log.d(TAG, "Refreshing " + accounts.length + " accounts");
+
+        String authority = Calendars.CONTENT_URI.getAuthority();
+        for (int i = 0; i < accounts.length; i++) {
+            if (Log.isLoggable(TAG, Log.DEBUG)) {
+                Log.d(TAG, "Refreshing calendars for: " + accounts[i]);
+            }
+            Bundle extras = new Bundle();
+            extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+            ContentResolver.requestSync(accounts[i], authority, extras);
+        }
     }
 
     // Forces the viewType. Should only be used for initialization.
@@ -717,67 +717,6 @@ public class CalendarController {
     // Sets the eventId. Should only be used for initialization.
     public void setEventId(long eventId) {
         mEventId = eventId;
-    }
-
-    private class RefreshInBackground extends AsyncTask<Cursor, Integer, Integer> {
-        /* (non-Javadoc)
-         * @see android.os.AsyncTask#doInBackground(Params[])
-         */
-        @Override
-        protected Integer doInBackground(Cursor... params) {
-            if (params.length != 1) {
-                return null;
-            }
-            Cursor cursor = params[0];
-            if (cursor == null) {
-                return null;
-            }
-
-            String previousAccount = null;
-            String previousType = null;
-            Log.d(TAG, "Refreshing " + cursor.getCount() + " calendars");
-            try {
-                while (cursor.moveToNext()) {
-                    Account account = null;
-                    String accountName = cursor.getString(1);
-                    String accountType = cursor.getString(2);
-                    // Only need to schedule one sync per account and they're
-                    // ordered by account,type
-                    if (TextUtils.equals(accountName, previousAccount) &&
-                            TextUtils.equals(accountType, previousType)) {
-                        continue;
-                    }
-                    previousAccount = accountName;
-                    previousType = accountType;
-                    account = new Account(accountName, accountType);
-                    scheduleSync(account, false /* two-way sync */, null);
-                }
-            } finally {
-                cursor.close();
-            }
-            return null;
-        }
-
-        /**
-         * Schedule a calendar sync for the account.
-         * @param account the account for which to schedule a sync
-         * @param uploadChangesOnly if set, specify that the sync should only send
-         *   up local changes.  This is typically used for a local sync, a user override of
-         *   too many deletions, or a sync after a calendar is unselected.
-         * @param url the url feed for the calendar to sync (may be null, in which case a poll of
-         *   all feeds is done.)
-         */
-        void scheduleSync(Account account, boolean uploadChangesOnly, String url) {
-            Bundle extras = new Bundle();
-            if (uploadChangesOnly) {
-                extras.putBoolean(ContentResolver.SYNC_EXTRAS_UPLOAD, uploadChangesOnly);
-            }
-            if (url != null) {
-                extras.putString("feed", url);
-            }
-            extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-            ContentResolver.requestSync(account, Calendars.CONTENT_URI.getAuthority(), extras);
-        }
     }
 
     private String eventInfoToString(EventInfo eventInfo) {
