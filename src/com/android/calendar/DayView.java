@@ -4600,6 +4600,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     public void restartCurrentTimeUpdates() {
         mPaused = false;
         if (mHandler != null) {
+            mHandler.removeCallbacks(mUpdateCurrentTime);
             mHandler.post(mUpdateCurrentTime);
         }
     }
@@ -4624,9 +4625,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             long currentTime = System.currentTimeMillis();
             mCurrentTime.set(currentTime);
             //% causes update to occur on 5 minute marks (11:10, 11:15, 11:20, etc.)
-            if (!DayView.this.mPaused)
+            if (!DayView.this.mPaused) {
                 mHandler.postDelayed(mUpdateCurrentTime, UPDATE_CURRENT_TIME_DELAY
                         - (currentTime % UPDATE_CURRENT_TIME_DELAY));
+            }
             mTodayJulianDay = Time.getJulianDay(currentTime, mCurrentTime.gmtoff);
             invalidate();
         }
