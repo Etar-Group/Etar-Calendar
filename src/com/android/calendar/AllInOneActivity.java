@@ -986,6 +986,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mHomeTime.setText(timeString);
             mHomeTime.setVisibility(View.VISIBLE);
             // Update when the minute changes
+            mHomeTime.removeCallbacks(mHomeTimeUpdater);
             mHomeTime.postDelayed(
                     mHomeTimeUpdater,
                     DateUtils.MINUTE_IN_MILLIS - (millis % DateUtils.MINUTE_IN_MILLIS));
