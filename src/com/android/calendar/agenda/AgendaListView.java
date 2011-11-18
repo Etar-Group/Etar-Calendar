@@ -293,12 +293,33 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             Log.v(TAG, "getFirstVisiblePosition = " + position);
         }
 
+        // mShowEventDetailsWithAgenda == true implies we have a sticky header. In that case
+        // we may need to take the second visible position, since the first one maybe the one
+        // under the sticky header.
+        if (mShowEventDetailsWithAgenda) {
+            View v = getFirstVisibleView ();
+            if (v != null) {
+                Rect r = new Rect ();
+                v.getLocalVisibleRect(r);
+                if (r.bottom - r.top <=  mWindowAdapter.getStickyHeaderHeight()) {
+                    position ++;
+                }
+            }
+        }
+
         EventInfo event = mWindowAdapter.getEventByPosition(position,
                 false /* startDay = date separator date instead of actual event startday */);
         if (event != null) {
             Time t = new Time(mTimeZone);
             t.set(event.begin);
+            // Save and restore the time since setJulianDay sets the time to 00:00:00
+            int hour = t.hour;
+            int minute = t.minute;
+            int second = t.second;
             t.setJulianDay(event.startDay);
+            t.hour = hour;
+            t.minute = minute;
+            t.second = second;
             if (DEBUG) {
                 t.normalize(true);
                 Log.d(TAG, "position " + position + " had time " + t.toString());
