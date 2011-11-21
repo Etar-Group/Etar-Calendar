@@ -52,7 +52,7 @@
     <string name="event_view" msgid="7621353079385122317">"Xem sự kiện"</string>
     <string name="event_create" msgid="6941040556709110617">"Sự kiện mới"</string>
     <string name="event_edit" msgid="4006961928830064662">"Chỉnh sửa sự kiện"</string>
-    <string name="event_delete" msgid="2386667193277770442">"Xoá sự kiện"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Xóa sự kiện"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hôm nay"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Cài đặt"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"Lịch để h.t"</string>
@@ -110,7 +110,7 @@
     <string name="search_title" msgid="8898015280250716254">"Tìm kiếm trên lịch của tôi"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Chi tiết"</string>
     <string name="edit_label" msgid="8934331258435656534">"Chỉnh sửa"</string>
-    <string name="delete_label" msgid="874742811918030739">"Xoá"</string>
+    <string name="delete_label" msgid="874742811918030739">"Xóa"</string>
     <string name="save_label" msgid="2133599104834432589">"Xong"</string>
     <string name="discard_label" msgid="2394623883289782541">"Hủy"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Báo lại tất cả"</string>
