@@ -611,6 +611,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mResources = context.getResources();
         mCreateNewEventString = mResources.getString(R.string.event_create);
         mNewEventHintString = mResources.getString(R.string.day_view_new_event_hint);
+        mNumDays = numDays;
 
         DATE_HEADER_FONT_SIZE = (int) mResources.getDimension(R.dimen.date_header_text_size);
         DAY_HEADER_FONT_SIZE = (int) mResources.getDimension(R.dimen.day_label_text_size);
@@ -623,7 +624,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         HOURS_LEFT_MARGIN = (int) mResources.getDimension(R.dimen.hours_left_margin);
         HOURS_RIGHT_MARGIN = (int) mResources.getDimension(R.dimen.hours_right_margin);
         MULTI_DAY_HEADER_HEIGHT = (int) mResources.getDimension(R.dimen.day_header_height);
-        EVENT_TEXT_FONT_SIZE = (int) mResources.getDimension(R.dimen.event_text_size);
+        int eventTextSizeId;
+        if (mNumDays == 1) {
+            eventTextSizeId = R.dimen.day_view_event_text_size;
+        } else {
+            eventTextSizeId = R.dimen.week_view_event_text_size;
+        }
+        EVENT_TEXT_FONT_SIZE = (int) mResources.getDimension(eventTextSizeId);
         NEW_EVENT_HINT_FONT_SIZE = (int) mResources.getDimension(R.dimen.new_event_hint_text_size);
         MIN_EVENT_HEIGHT = mResources.getDimension(R.dimen.event_min_height);
         MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT = MIN_EVENT_HEIGHT;
@@ -682,7 +689,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
         }
         HOURS_MARGIN = HOURS_LEFT_MARGIN + HOURS_RIGHT_MARGIN;
-        DAY_HEADER_HEIGHT = numDays == 1 ? ONE_DAY_HEADER_HEIGHT : MULTI_DAY_HEADER_HEIGHT;
+        DAY_HEADER_HEIGHT = mNumDays == 1 ? ONE_DAY_HEADER_HEIGHT : MULTI_DAY_HEADER_HEIGHT;
 
         mCurrentTimeLine = mResources.getDrawable(R.drawable.timeline_indicator_holo_light);
         mCurrentTimeAnimateLine = mResources
@@ -709,7 +716,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mViewSwitcher = viewSwitcher;
         mGestureDetector = new GestureDetector(context, new CalendarGestureListener());
         mScaleGestureDetector = new ScaleGestureDetector(getContext(), this);
-        mNumDays = numDays;
         if (mCellHeight == 0) {
             mCellHeight = Utils.getSharedPreference(mContext,
                     GeneralPreferences.KEY_DEFAULT_CELL_HEIGHT, DEFAULT_CELL_HEIGHT);
