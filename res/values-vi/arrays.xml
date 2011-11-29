@@ -30,14 +30,14 @@
     <item msgid="6252612791145061929">"20 phút"</item>
     <item msgid="7896694531989090700">"25 phút"</item>
     <item msgid="8754510169374808607">"30 phút"</item>
-    <item msgid="3113380274218454394">"45 phút"</item>
+    <item msgid="3113380274218454394">"45 phút"</item>
     <item msgid="8546646645868526283">"1 giờ"</item>
     <item msgid="6467845211024768872">"2 giờ"</item>
     <item msgid="8201677619511076575">"3 giờ"</item>
     <item msgid="7172504281650128893">"12 giờ"</item>
     <item msgid="9114286702181482496">"24 giờ"</item>
     <item msgid="3107009344872997366">"2 ngày"</item>
-    <item msgid="6135563708172153696">"1 tuần"</item>
+    <item msgid="6135563708172153696">"1 tuần"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item msgid="7495163916242649023">"Không"</item>
@@ -49,14 +49,14 @@
     <item msgid="356346660503078923">"20 phút"</item>
     <item msgid="992592434377054063">"25 phút"</item>
     <item msgid="9191353668596201944">"30 phút"</item>
-    <item msgid="1192985682962908244">"45 phút"</item>
+    <item msgid="1192985682962908244">"45 phút"</item>
     <item msgid="1694315499429259938">"1 giờ"</item>
     <item msgid="8281019320591769635">"2 giờ"</item>
     <item msgid="2062931719019287773">"3 giờ"</item>
     <item msgid="4086495711621133006">"12 giờ"</item>
     <item msgid="3172669681920709561">"24 giờ"</item>
     <item msgid="5557836606782821910">"2 ngày"</item>
-    <item msgid="8336577387266744930">"1 tuần"</item>
+    <item msgid="8336577387266744930">"1 tuần"</item>
   </string-array>
   <string-array name="preferences_week_start_day_labels">
     <item msgid="986150274035512339">"Ngôn ngữ mặc định"</item>
@@ -69,19 +69,19 @@
     <item msgid="7176569939440505575">"Đảo Midway"</item>
     <item msgid="5000628410717488070">"Hawaii"</item>
     <item msgid="3809977082338992040">"Alaska"</item>
-    <item msgid="1206600898319778734">"Giờ Thái Bình Dương"</item>
+    <item msgid="1206600898319778734">"Giờ Thái Bình Dương"</item>
     <item msgid="4251553449779733536">"Tijuana"</item>
     <item msgid="4796372144693551811">"Arizona"</item>
     <item msgid="4589419122570218444">"Chihuahua"</item>
-    <item msgid="1653398220457872326">"Giờ Mountain"</item>
+    <item msgid="1653398220457872326">"Giờ Mountain"</item>
     <item msgid="229005026661478023">"Trung Mỹ"</item>
-    <item msgid="1545268116831476742">"Giờ Trung Tâm"</item>
+    <item msgid="1545268116831476742">"Giờ Trung Tâm"</item>
     <item msgid="9135129204936732090">"Mexico City"</item>
     <item msgid="3703110560723049255">"Saskatchewan"</item>
     <item msgid="5458958644945369505">"Bogota"</item>
-    <item msgid="355450740949670294">"Giờ Miền Tây"</item>
+    <item msgid="355450740949670294">"Giờ Miền Tây"</item>
     <item msgid="5786717434693228701">"Venezuela"</item>
-    <item msgid="165048018515834952">"Giờ Đại Tây Dương"</item>
+    <item msgid="165048018515834952">"Giờ Đại Tây Dương"</item>
     <item msgid="5398045998666341917">"Manaus"</item>
     <item msgid="8167627904199889197">"Santiago"</item>
     <item msgid="2793058279461039833">"Newfoundland"</item>
@@ -133,7 +133,7 @@
     <item msgid="7943498021949728203">"Irkutsk"</item>
     <item msgid="707009198021550118">"Kuala Lumpur"</item>
     <item msgid="4268864549735629220">"Perth"</item>
-    <item msgid="4584239166170514795">"Đài Bắc"</item>
+    <item msgid="4584239166170514795">"Đài Bắc"</item>
     <item msgid="4972387553080120086">"Seoul"</item>
     <item msgid="5749349714875345358">"Tokyo, Osaka"</item>
     <item msgid="4435870687083770252">"Yakutsk"</item>
@@ -150,7 +150,7 @@
     <item msgid="8187746821081424875">"Tonga"</item>
   </string-array>
   <string-array name="availability">
-    <item msgid="454869065893453189">"Bận"</item>
+    <item msgid="454869065893453189">"Bận"</item>
     <item msgid="6228387173725732140">"Sẵn có"</item>
     <item msgid="2064426942462573474">"Thử nghiệm"</item>
   </string-array>
@@ -187,7 +187,7 @@
   </string-array>
   <string-array name="buttons_list">
     <item msgid="5917946202321434335">"Ngày"</item>
-    <item msgid="6248480754959562740">"Tuần"</item>
+    <item msgid="6248480754959562740">"Tuần"</item>
     <item msgid="4298472806133153766">"Tháng"</item>
     <item msgid="5033084974413793845">"Lịch biểu"</item>
   </string-array>
