@@ -1828,6 +1828,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         view.requestFocus();
         view.reloadEvents();
         view.updateTitle();
+        view.restartCurrentTimeUpdates();
 
         return view;
     }
@@ -4587,10 +4588,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
         mPaused = true;
         mLastPopupEventID = INVALID_EVENT_ID;
-        Handler handler = mHandler;
-        if (handler != null) {
-            handler.removeCallbacks(mDismissPopup);
-            handler.removeCallbacks(mUpdateCurrentTime);
+        if (mHandler != null) {
+            mHandler.removeCallbacks(mDismissPopup);
+            mHandler.removeCallbacks(mUpdateCurrentTime);
         }
 
         Utils.setSharedPreference(mContext, GeneralPreferences.KEY_DEFAULT_CELL_HEIGHT,
