@@ -77,6 +77,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int DNA_ALL_DAY_WIDTH = 32;
     private static int DNA_SIDE_PADDING = 6;
     private static int CONFLICT_COLOR = Color.BLACK;
+    private static int EVENT_TEXT_COLOR = Color.WHITE;
 
     private static int DEFAULT_EDGE_SPACING = 0;
     private static int SIDE_PADDING_MONTH_NUMBER = 4;
@@ -101,7 +102,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int TODAY_HIGHLIGHT_WIDTH = 2;
 
     private static int SPACING_WEEK_NUMBER = 24;
-    private static boolean mScaled = false;
+    private static boolean mInitialized = false;
     private static boolean mShowDetailsInMonth;
 
     protected Time mToday = new Time();
@@ -123,6 +124,8 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     protected Paint mMonthNamePaint;
     protected TextPaint mEventPaint;
+    protected TextPaint mSolidBackgroundEventPaint;
+    protected TextPaint mFramedEventPaint;
     protected TextPaint mDeclinedEventPaint;
     protected TextPaint mEventExtrasPaint;
     protected TextPaint mEventDeclinedExtrasPaint;
@@ -339,12 +342,13 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected void initView() {
         super.initView();
 
-        if (!mScaled) {
+        if (!mInitialized) {
             Resources resources = getContext().getResources();
             mShowDetailsInMonth = Utils.getConfigBool(getContext(), R.bool.show_details_in_month);
             TEXT_SIZE_MONTH_NUMBER = resources.getInteger(R.integer.text_size_month_number);
             SIDE_PADDING_MONTH_NUMBER = resources.getInteger(R.integer.month_day_number_margin);
             CONFLICT_COLOR = resources.getColor(R.color.month_dna_conflict_time_color);
+            EVENT_TEXT_COLOR = resources.getColor(R.color.calendar_event_text_color);
             if (mScale != 1) {
                 TOP_PADDING_MONTH_NUMBER *= mScale;
                 TOP_PADDING_WEEK_NUMBER *= mScale;
@@ -381,7 +385,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             if (!mShowDetailsInMonth) {
                 TOP_PADDING_MONTH_NUMBER += DNA_ALL_DAY_HEIGHT + DNA_MARGIN;
             }
-            mScaled = true;
+            mInitialized = true;
         }
         mPadding = DEFAULT_EDGE_SPACING;
         loadColors(getContext());
@@ -404,6 +408,10 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mEventPaint.setAntiAlias(true);
         mEventPaint.setTextSize(TEXT_SIZE_EVENT_TITLE);
         mEventPaint.setColor(mMonthEventColor);
+
+        mSolidBackgroundEventPaint = new TextPaint(mEventPaint);
+        mSolidBackgroundEventPaint.setColor(EVENT_TEXT_COLOR);
+        mFramedEventPaint = new TextPaint(mSolidBackgroundEventPaint);
 
         mDeclinedEventPaint = new TextPaint();
         mDeclinedEventPaint.setFakeBoldText(true);
@@ -711,11 +719,28 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 ySquare = EVENT_Y_OFFSET_LANDSCAPE;
                 rightEdge -= EVENT_X_OFFSET_LANDSCAPE;
             }
-            int eventCount = 0;
+
+            // Determine if everything will fit when time ranges are shown.
+            boolean showTimes = true;
             Iterator<Event> iter = eventDay.iterator();
+            int yTest = ySquare;
             while (iter.hasNext()) {
                 Event event = iter.next();
-                int newY = drawEvent(canvas, event, xSquare, ySquare, rightEdge, iter.hasNext());
+                int newY = drawEvent(canvas, event, xSquare, yTest, rightEdge, iter.hasNext(),
+                        showTimes, /*doDraw*/ false);
+                if (newY == yTest) {
+                    showTimes = false;
+                    break;
+                }
+                yTest = newY;
+            }
+
+            int eventCount = 0;
+            iter = eventDay.iterator();
+            while (iter.hasNext()) {
+                Event event = iter.next();
+                int newY = drawEvent(canvas, event, xSquare, ySquare, rightEdge, iter.hasNext(),
+                        showTimes, /*doDraw*/ true);
                 if (newY == ySquare) {
                     break;
                 }
@@ -762,74 +787,131 @@ public class MonthWeekEventsView extends SimpleWeekView {
      * if the event and its extras won't fit or if there are more events and the
      * more events line would not fit after drawing this event.
      *
+     * @param canvas the canvas to draw on
      * @param event the event to draw
      * @param x the top left corner for this event's color chip
      * @param y the top left corner for this event's color chip
+     * @param rightEdge the rightmost point we're allowed to draw on (exclusive)
+     * @param moreEvents indicates whether additional events will follow this one
+     * @param showTimes if set, a second line with a time range will be displayed for non-all-day
+     *   events
+     * @param doDraw if set, do the actual drawing; otherwise this just computes the height
+     *   and returns
      * @return the y for the next event or the original y if it won't fit
      */
-    protected int drawEvent(
-            Canvas canvas, Event event, int x, int y, int rightEdge, boolean moreEvents) {
+    protected int drawEvent(Canvas canvas, Event event, int x, int y, int rightEdge,
+            boolean moreEvents, boolean showTimes, boolean doDraw) {
         /*
          * Vertical layout:
          *   (top of box)
          * a. EVENT_Y_OFFSET_LANDSCAPE or portrait equivalent
-         * b. Event title (mEventHeight)
+         * b. Event title: mEventHeight for a normal event, + 2xBORDER_SPACE for all-day event
          * c. [optional] Time range (mExtrasHeight)
          * d. EVENT_LINE_PADDING
          *
          * Repeat (b,c,d) as needed and space allows.  If we have more events than fit, we need
          * to leave room for something like "+2" at the bottom:
          *
-         * e. More stuff (mExtrasHeight)
+         * e. "+ more" line (mExtrasHeight)
          *
          * f. EVENT_BOTTOM_PADDING (overlaps EVENT_LINE_PADDING)
          *   (bottom of box)
          */
-        int requiredSpace = mEventHeight;
-        if (!event.allDay) {
+        final int BORDER_SPACE = EVENT_SQUARE_BORDER + 1;       // want a 1-pixel gap inside border
+        final int STROKE_WIDTH_ADJ = EVENT_SQUARE_BORDER / 2;   // adjust bounds for stroke width
+        boolean allDay = event.allDay;
+        int eventRequiredSpace = mEventHeight;
+        if (allDay) {
+            // Add a few pixels for the box we draw around all-day events.
+            eventRequiredSpace += BORDER_SPACE * 2;
+        } else if (showTimes) {
             // Need room for the "1pm - 2pm" line.
-            requiredSpace += mExtrasHeight;
+            eventRequiredSpace += mExtrasHeight;
         }
+        int reservedSpace = EVENT_BOTTOM_PADDING;   // leave a bit of room at the bottom
         if (moreEvents) {
-            // If there's more events after this, make sure we have room for a "+ more" line.
-            // (The "+ more" line is expected to be <= the height of an event line, so we
-            // never show "+ more" when we could be showing an event.)
-            requiredSpace += EVENT_LINE_PADDING + mExtrasHeight;
-        } else {
-            // We don't need to factor in EVENT_LINE_PADDING -- EVENT_BOTTOM_PADDING is enough.
-        }
-        // Leave a little space at the bottom.
-        requiredSpace += EVENT_BOTTOM_PADDING;
+            // More events follow.  Leave a bit of space between events.
+            eventRequiredSpace += EVENT_LINE_PADDING;
 
-        if (requiredSpace + y > mHeight) {
-            // Not enough space, return
-            return y;
+            // Make sure we have room for the "+ more" line.  (The "+ more" line is expected
+            // to be <= the height of an event line, so we won't show "+1" when we could be
+            // showing the event.)
+            reservedSpace += mExtrasHeight;
         }
-        r.left = x;
-        r.right = x + EVENT_SQUARE_WIDTH;
-        r.bottom = y + mEventAscentHeight;
-        r.top = r.bottom - EVENT_SQUARE_WIDTH;
+
+        if (y + eventRequiredSpace + reservedSpace > mHeight) {
+            // Not enough space, return original y
+            return y;
+        } else if (!doDraw) {
+            return y + eventRequiredSpace;
+        }
+
         boolean isDeclined = event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_DECLINED;
         int color = event.color;
         if (isDeclined) {
             color = Utils.getDeclinedColorFromColor(color);
         }
+
+        int textX, textY, textRightEdge;
+
+        if (allDay) {
+            // We shift the render offset "inward", because drawRect with a stroke width greater
+            // than 1 draws outside the specified bounds.  (We don't adjust the left edge, since
+            // we want to match the existing appearance of the "event square".)
+            r.left = x;
+            r.right = rightEdge - STROKE_WIDTH_ADJ;
+            r.top = y + STROKE_WIDTH_ADJ;
+            r.bottom = y + mEventHeight + BORDER_SPACE * 2 - STROKE_WIDTH_ADJ;
+            textX = x + BORDER_SPACE;
+            textY = y + mEventAscentHeight + BORDER_SPACE;
+            textRightEdge = rightEdge - BORDER_SPACE;
+        } else {
+            r.left = x;
+            r.right = x + EVENT_SQUARE_WIDTH;
+            r.bottom = y + mEventAscentHeight;
+            r.top = r.bottom - EVENT_SQUARE_WIDTH;
+            textX = x + EVENT_SQUARE_WIDTH + EVENT_RIGHT_PADDING;
+            textY = y + mEventAscentHeight;
+            textRightEdge = rightEdge;
+        }
+
+        Style boxStyle = Style.STROKE;
+        boolean solidBackground = false;
+        if (event.selfAttendeeStatus != Attendees.ATTENDEE_STATUS_INVITED) {
+            boxStyle = Style.FILL_AND_STROKE;
+            if (allDay) {
+                solidBackground = true;
+            }
+        }
+        mEventSquarePaint.setStyle(boxStyle);
         mEventSquarePaint.setColor(color);
-        Style style = event.selfAttendeeStatus == Attendees.ATTENDEE_STATUS_NONE ? Style.STROKE
-                : Style.FILL_AND_STROKE;
-        mEventSquarePaint.setStyle(style);
         canvas.drawRect(r, mEventSquarePaint);
 
-        int textX = x + EVENT_SQUARE_WIDTH + EVENT_RIGHT_PADDING;
-        int textY = y + mEventAscentHeight;
-        float avail = rightEdge - textX;
+        float avail = textRightEdge - textX;
         CharSequence text = TextUtils.ellipsize(
                 event.title, mEventPaint, avail, TextUtils.TruncateAt.END);
-        canvas.drawText(text.toString(), textX, textY, isDeclined ? mDeclinedEventPaint
-                : mEventPaint);
+        Paint textPaint;
+        if (solidBackground) {
+            // Text color needs to contrast with solid background.
+            textPaint = mSolidBackgroundEventPaint;
+        } else if (isDeclined) {
+            // Use "declined event" color.
+            textPaint = mDeclinedEventPaint;
+        } else if (allDay) {
+            // Text inside frame is same color as frame.
+            mFramedEventPaint.setColor(color);
+            textPaint = mFramedEventPaint;
+        } else {
+            // Use generic event text color.
+            textPaint = mEventPaint;
+        }
+        canvas.drawText(text.toString(), textX, textY, textPaint);
         y += mEventHeight;
+        if (allDay) {
+            y += BORDER_SPACE * 2;
+        }
 
-        if (!event.allDay) {
+        if (showTimes && !allDay) {
             // show start/end time, e.g. "1pm - 2pm"
             textY = y + mExtrasAscentHeight;
             mStringBuilder.setLength(0);
