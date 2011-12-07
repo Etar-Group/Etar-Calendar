@@ -26,6 +26,7 @@ import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -304,6 +305,10 @@ public class AgendaByDayAdapter extends BaseAdapter {
             }
             // Skip over the days outside of the adapter's range
             startDay = Math.max(startDay, dayAdapterInfo.start);
+            // Make sure event's start time is not before the start of the day
+            // (setJulianDay sets the time to 12:00am)
+            long adapterStartTime = tempTime.setJulianDay(startDay);
+            startTime = Math.max(startTime, adapterStartTime);
 
             if (startDay != prevStartDay) {
                 // Check if we skipped over any empty days
