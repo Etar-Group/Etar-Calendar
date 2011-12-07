@@ -201,6 +201,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
             mViewSwitcher.showNext();
             next.requestFocus();
             next.updateTitle();
+            next.restartCurrentTimeUpdates();
         }
     }
 
