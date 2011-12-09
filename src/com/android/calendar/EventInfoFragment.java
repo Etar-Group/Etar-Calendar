@@ -1171,95 +1171,107 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
          * need to avoid creating overlapping spans.
          */
         String defaultPhoneRegion = System.getProperty("user.region", "US");
-        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-        CharSequence text = textView.getText();
-        Iterable<PhoneNumberMatch> phoneIterable = phoneUtil.findNumbers(text, defaultPhoneRegion,
-                PhoneNumberUtil.Leniency.POSSIBLE, Long.MAX_VALUE);
-
-        /*
-         * If the contents of the TextView are already Spannable (which will be the case if
-         * Linkify found stuff, but might not be otherwise), we can just add annotations
-         * to what's there.  If it's not, and we find phone numbers, we need to convert it to
-         * a Spannable form.  (This mimics the behavior of Linkable.addLinks().)
-         */
-        Spannable spanText;
-        if (text instanceof SpannableString) {
-            spanText = (SpannableString) text;
-        } else {
-            spanText = SpannableString.valueOf(text);
-        }
-
-        /*
-         * Get a list of any spans created by Linkify, for the overlapping span check.
-         */
-        URLSpan[] existingSpans = spanText.getSpans(0, spanText.length(), URLSpan.class);
-
-        /*
-         * Insert spans for the numbers we found.  We generate "tel:" URIs.
-         */
+        boolean usRegion = "US".equalsIgnoreCase(defaultPhoneRegion);
         int phoneCount = 0;
-        for (PhoneNumberMatch match : phoneIterable) {
-            int start = match.start();
-            int end = match.end();
 
-            if (spanWillOverlap(spanText, existingSpans, start, end)) {
-                if (Log.isLoggable(TAG, Log.VERBOSE)) {
-                    Log.v(TAG, "Not linkifying " + match.number().getNationalNumber() +
-                            " as phone number due to overlap");
-                }
-                continue;
+        // For US region, use the phone lib to detect numbers
+        // For non-US, skip the phone number detection if links are found already.
+        if (usRegion || !linkifyFoundLinks) {
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+            CharSequence text = textView.getText();
+            Iterable<PhoneNumberMatch> phoneIterable = phoneUtil.findNumbers(text,
+                    defaultPhoneRegion, PhoneNumberUtil.Leniency.POSSIBLE, Long.MAX_VALUE);
+
+            /*
+             * If the contents of the TextView are already Spannable (which will be the case if
+             * Linkify found stuff, but might not be otherwise), we can just add annotations
+             * to what's there.  If it's not, and we find phone numbers, we need to convert it to
+             * a Spannable form.  (This mimics the behavior of Linkable.addLinks().)
+             */
+            Spannable spanText;
+            if (text instanceof SpannableString) {
+                spanText = (SpannableString) text;
+            } else {
+                spanText = SpannableString.valueOf(text);
             }
 
             /*
-             * A quick comparison of PhoneNumberUtil number parsing & formatting, with
-             * defaultRegion="US":
-             *
-             * Input string     RFC3966                     NATIONAL
-             * 5551212          +1-5551212                  555-1212
-             * 6505551212       +1-650-555-1212             (650) 555-1212
-             * 6505551212x123   +1-650-555-1212;ext=123     (650) 555-1212 ext. 123
-             * +41446681800     +41-44-668-18-00            044 668 18 00
-             *
-             * The conversion of NANP 7-digit numbers to RFC3966 is not compatible with our dialer
-             * (which tries to dial 8 digits, and fails).  So that won't work.
-             *
-             * The conversion of the Swiss number to NATIONAL format loses the country code,
-             * so that won't work.
-             *
-             * The Linkify code takes the matching span and strips out everything that isn't a
-             * digit or '+' sign.  We do the same here.  Extension numbers will get appended
-             * without a separator, but the dialer wasn't doing anything useful with ";ext="
-             * anyway.
+             * Get a list of any spans created by Linkify, for the overlapping span check.
              */
+            URLSpan[] existingSpans = spanText.getSpans(0, spanText.length(), URLSpan.class);
 
-            //String dialStr = phoneUtil.format(match.number(),
-            //        PhoneNumberUtil.PhoneNumberFormat.RFC3966);
-            StringBuilder dialBuilder = new StringBuilder();
-            for (int i = start; i < end; i++) {
-                char ch = spanText.charAt(i);
-                if (ch == '+' || Character.isDigit(ch)) {
-                    dialBuilder.append(ch);
+            /*
+             * Insert spans for the numbers we found.  We generate "tel:" URIs.
+             */
+            for (PhoneNumberMatch match : phoneIterable) {
+                int start = match.start();
+                int end = match.end();
+
+                // For non-US region, stop processing if the match doesn't
+                // include the entire text. Should be in there at most once.
+                if (!usRegion && (start != 0 || end != text.length())) {
+                    break;
                 }
+
+                if (spanWillOverlap(spanText, existingSpans, start, end)) {
+                    if (Log.isLoggable(TAG, Log.VERBOSE)) {
+                        Log.v(TAG, "Not linkifying " + match.number().getNationalNumber() +
+                                " as phone number due to overlap");
+                    }
+                    continue;
+                }
+
+                /*
+                 * A quick comparison of PhoneNumberUtil number parsing & formatting, with
+                 * defaultRegion="US":
+                 *
+                 * Input string     RFC3966                     NATIONAL
+                 * 5551212          +1-5551212                  555-1212
+                 * 6505551212       +1-650-555-1212             (650) 555-1212
+                 * 6505551212x123   +1-650-555-1212;ext=123     (650) 555-1212 ext. 123
+                 * +41446681800     +41-44-668-18-00            044 668 18 00
+                 *
+                 * The conversion of NANP 7-digit numbers to RFC3966 is not compatible with our
+                 * dialer (which tries to dial 8 digits, and fails).  So that won't work.
+                 *
+                 * The conversion of the Swiss number to NATIONAL format loses the country code,
+                 * so that won't work.
+                 *
+                 * The Linkify code takes the matching span and strips out everything that isn't a
+                 * digit or '+' sign.  We do the same here.  Extension numbers will get appended
+                 * without a separator, but the dialer wasn't doing anything useful with ";ext="
+                 * anyway.
+                 */
+
+                //String dialStr = phoneUtil.format(match.number(),
+                //        PhoneNumberUtil.PhoneNumberFormat.RFC3966);
+                StringBuilder dialBuilder = new StringBuilder();
+                for (int i = start; i < end; i++) {
+                    char ch = spanText.charAt(i);
+                    if (ch == '+' || Character.isDigit(ch)) {
+                        dialBuilder.append(ch);
+                    }
+                }
+                URLSpan span = new URLSpan("tel:" + dialBuilder.toString());
+
+                spanText.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                phoneCount++;
             }
-            URLSpan span = new URLSpan("tel:" + dialBuilder.toString());
 
-            spanText.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            phoneCount++;
-        }
+            if (phoneCount != 0) {
+                // If we had to "upgrade" to Spannable, store the object into the TextView.
+                if (spanText != text) {
+                    textView.setText(spanText);
+                }
 
-        if (phoneCount != 0) {
-            // If we had to "upgrade" to Spannable, store the object into the TextView.
-            if (spanText != text) {
-                textView.setText(spanText);
-            }
+                // Linkify.addLinks() sets the TextView movement method if it finds any links.  We
+                // want to do the same here.  (This is cloned from Linkify.addLinkMovementMethod().)
+                MovementMethod mm = textView.getMovementMethod();
 
-            // Linkify.addLinks() sets the TextView movement method if it finds any links.  We
-            // want to do the same here.  (This is cloned from Linkify.addLinkMovementMethod().)
-            MovementMethod mm = textView.getMovementMethod();
-
-            if ((mm == null) || !(mm instanceof LinkMovementMethod)) {
-                if (textView.getLinksClickable()) {
-                    textView.setMovementMethod(LinkMovementMethod.getInstance());
+                if ((mm == null) || !(mm instanceof LinkMovementMethod)) {
+                    if (textView.getLinksClickable()) {
+                        textView.setMovementMethod(LinkMovementMethod.getInstance());
+                    }
                 }
             }
         }
