@@ -37,19 +37,4 @@ public class RecipientAdapter extends BaseRecipientAdapter {
             super.setAccount(new android.accounts.Account(account.name, "unknown"));
         }
     }
-
-    @Override
-    protected int getDefaultPhotoResource() {
-        return R.drawable.ic_contact_picture;
-    }
-
-    @Override
-    protected int getItemLayout() {
-        return R.layout.chips_recipient_dropdown_item;
-    }
-
-    @Override
-    protected int getWaitingForDirectorySearchLayout() {
-        return R.layout.chips_waiting_for_directory_search;
-    }
 }
