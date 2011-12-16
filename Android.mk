@@ -30,6 +30,8 @@ LOCAL_PACKAGE_NAME := Calendar
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
+LOCAL_AAPT_FLAGS := --auto-add-overlay
+LOCAL_AAPT_FLAGS += --extra-packages com.android.ex.chips
 
 include $(BUILD_PACKAGE)
 
