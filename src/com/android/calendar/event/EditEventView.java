@@ -1463,6 +1463,20 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mAddressAdapter = new RecipientAdapter(mActivity);
             list.setAdapter((BaseRecipientAdapter) mAddressAdapter);
             list.setOnFocusListShrinkRecipients(false);
+            Resources r = mActivity.getResources();
+            Bitmap def = BitmapFactory.decodeResource(r, R.drawable.ic_contact_picture);
+            list.setChipDimensions(
+                    r.getDrawable(R.drawable.chip_background),
+                    r.getDrawable(R.drawable.chip_background_selected),
+                    r.getDrawable(R.drawable.chip_background_invalid),
+                    r.getDrawable(R.drawable.chip_delete),
+                    def,
+                    R.layout.more_item,
+                    R.layout.chips_alternate_item,
+                    r.getDimension(R.dimen.chip_height),
+                    r.getDimension(R.dimen.chip_padding),
+                    r.getDimension(R.dimen.chip_text_size),
+                    R.layout.copy_chip_dialog_layout);
         } else {
             mAddressAdapter = new EmailAddressAdapter(mActivity);
             list.setAdapter((EmailAddressAdapter)mAddressAdapter);
