@@ -18,7 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="reminder_methods_labels">
     <item msgid="5172236776878811487">"Notif."</item>
-    <item msgid="1751151680520784746">"Correo electrónico"</item>
+    <item msgid="1751151680520784746">"Correo"</item>
     <item msgid="2658001219380695677">"SMS"</item>
   </string-array>
   <string-array name="reminder_minutes_labels">
