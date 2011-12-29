@@ -136,7 +136,7 @@
     <string name="menu_general_preferences" msgid="2812705323334260708">"Configurações gerais"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Sobre a Agenda"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Configurações"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Configuração de visualização da agenda"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Configuração de visualização"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Configurações dos lembretes"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar recusados"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"A semana começa em"</string>
@@ -154,7 +154,7 @@
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usar hora local"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Exibe agendas e eventos no seu fuso horário local quando você viajar"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Fuso horário local"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número da semana"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar núm. da semana"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Sobre"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versão da compilação"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
