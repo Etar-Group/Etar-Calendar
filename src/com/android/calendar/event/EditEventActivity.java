@@ -108,19 +108,27 @@ public class EditEventActivity extends AbstractCalendarActivity {
             eventId = icicle.getLong(BUNDLE_KEY_EVENT_ID);
         }
 
+        boolean allDay = intent.getBooleanExtra(EXTRA_EVENT_ALL_DAY, false);
+
         long begin = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, -1);
         long end = intent.getLongExtra(EXTRA_EVENT_END_TIME, -1);
         if (end != -1) {
             info.endTime = new Time();
+            if (allDay) {
+                info.endTime.timezone = Time.TIMEZONE_UTC;
+            }
             info.endTime.set(end);
         }
         if (begin != -1) {
             info.startTime = new Time();
+            if (allDay) {
+                info.startTime.timezone = Time.TIMEZONE_UTC;
+            }
             info.startTime.set(begin);
         }
         info.id = eventId;
 
-        if (intent.getBooleanExtra(EXTRA_EVENT_ALL_DAY, false)) {
+        if (allDay) {
             info.extraLong = CalendarController.EXTRA_CREATE_ALL_DAY;
         } else {
             info.extraLong = 0;
