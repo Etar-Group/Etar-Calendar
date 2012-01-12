@@ -18,6 +18,7 @@ package com.android.calendar;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
 
 import com.android.calendar.CalendarController.EventInfo;
@@ -245,6 +246,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     private long mStartMillis;
     private long mEndMillis;
+    private boolean mAllDay;
 
     private boolean mHasAttendeeData;
     private boolean mIsOrganizer;
@@ -814,6 +816,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 Intent intent = new Intent(Intent.ACTION_EDIT, uri);
                 intent.putExtra(EXTRA_EVENT_BEGIN_TIME, mStartMillis);
                 intent.putExtra(EXTRA_EVENT_END_TIME, mEndMillis);
+                intent.putExtra(EXTRA_EVENT_ALL_DAY, mAllDay);
                 intent.setClass(mActivity, EditEventActivity.class);
                 intent.putExtra(EVENT_EDIT_ON_LAUNCH, true);
                 startActivity(intent);
@@ -1005,7 +1008,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             eventName = getActivity().getString(R.string.no_title_label);
         }
 
-        boolean allDay = mEventCursor.getInt(EVENT_INDEX_ALL_DAY) != 0;
+        mAllDay = mEventCursor.getInt(EVENT_INDEX_ALL_DAY) != 0;
         String location = mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION);
         String description = mEventCursor.getString(EVENT_INDEX_DESCRIPTION);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
@@ -1036,7 +1039,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             EventRecurrence eventRecurrence = new EventRecurrence();
             eventRecurrence.parse(rRule);
             Time date = new Time(Utils.getTimeZone(getActivity(), mTZUpdater));
-            if (allDay) {
+            if (mAllDay) {
                 date.timezone = Time.TIMEZONE_UTC;
             }
             date.set(mStartMillis);
@@ -1045,7 +1048,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     getActivity().getResources(), eventRecurrence);
         }
         // If an all day event , show the date without the time
-        if (allDay) {
+        if (mAllDay) {
             Formatter f = new Formatter(new StringBuilder(50), Locale.getDefault());
             whenDate = DateUtils.formatDateRange(getActivity(), f, mStartMillis, mEndMillis,
                     flagsDate, Time.TIMEZONE_UTC).toString();
@@ -1073,7 +1076,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 String displayName;
                 // Figure out if this is in DST
                 Time date = new Time(Utils.getTimeZone(getActivity(), mTZUpdater));
-                if (allDay) {
+                if (mAllDay) {
                     date.timezone = Time.TIMEZONE_UTC;
                 }
                 date.set(mStartMillis);
