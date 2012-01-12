@@ -202,9 +202,15 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
             if (event != null && (oldInstanceId != mWindowAdapter.getSelectedInstanceId() ||
                     !mShowEventDetailsWithAgenda)) {
+                long startTime = event.begin;
+                long endTime = event.end;
+                if (event.allDay) {
+                    startTime = Utils.convertAlldayLocalToUTC(mTime, startTime, mTimeZone);
+                    endTime = Utils.convertAlldayLocalToUTC(mTime, endTime, mTimeZone);
+                }
                 CalendarController controller = CalendarController.getInstance(mContext);
-                controller.sendEventRelatedEvent(this, EventType.VIEW_EVENT, event.id, event.begin,
-                        event.end, 0, 0, controller.getTime());
+                controller.sendEventRelatedEvent(this, EventType.VIEW_EVENT, event.id, startTime,
+                        endTime, 0, 0, controller.getTime());
             }
         }
     }

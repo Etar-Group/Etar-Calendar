@@ -190,6 +190,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private Time mStartTime;
     private Time mEndTime;
     private String mTimezone;
+    private boolean mAllDay = false;
     private int mModification = EditEventHelper.MODIFY_UNINITIALIZED;
 
     private EventRecurrence mEventRecurrence = new EventRecurrence();
@@ -1051,6 +1052,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         });
 
         boolean prevAllDay = mAllDayCheckBox.isChecked();
+        mAllDay = false; // default to false. Let setAllDayViewsVisibility update it as needed
         if (model.mAllDay) {
             mAllDayCheckBox.setChecked(true);
             // put things back in local time for all day events
@@ -1563,7 +1565,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     protected void setAllDayViewsVisibility(boolean isChecked) {
         if (isChecked) {
             if (mEndTime.hour == 0 && mEndTime.minute == 0) {
-                mEndTime.monthDay--;
+                if (mAllDay != isChecked) {
+                    mEndTime.monthDay--;
+                }
+
                 long endMillis = mEndTime.normalize(true);
 
                 // Do not allow an event to have an end time
@@ -1582,7 +1587,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTimezoneRow.setVisibility(View.GONE);
         } else {
             if (mEndTime.hour == 0 && mEndTime.minute == 0) {
-                mEndTime.monthDay++;
+                if (mAllDay != isChecked) {
+                    mEndTime.monthDay++;
+                }
+
                 long endMillis = mEndTime.normalize(true);
                 setDate(mEndDateButton, endMillis);
                 setTime(mEndTimeButton, endMillis);
@@ -1591,6 +1599,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mEndTimeButton.setVisibility(View.VISIBLE);
             mTimezoneRow.setVisibility(View.VISIBLE);
         }
+        mAllDay = isChecked;
         updateHomeTime();
     }
 
