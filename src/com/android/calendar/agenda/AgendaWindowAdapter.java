@@ -42,7 +42,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
@@ -279,6 +278,7 @@ public class AgendaWindowAdapter extends BaseAdapter
         long end;
         long id;
         int startDay;
+        boolean allDay;
     }
 
     static class DayAdapterInfo {
@@ -598,8 +598,8 @@ public class AgendaWindowAdapter extends BaseAdapter
         event.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
         event.startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
 
-        boolean allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
-        if (allDay) { // UTC
+        event.allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
+        if (event.allDay) { // UTC
             Time time = new Time(mTimeZone);
             time.setJulianDay(Time.getJulianDay(event.begin, 0));
             event.begin = time.toMillis(false /* use isDst */);
@@ -613,7 +613,7 @@ public class AgendaWindowAdapter extends BaseAdapter
         }
 
         if (!isDayHeader) {
-            if (allDay) {
+            if (event.allDay) {
                 Time time = new Time(mTimeZone);
                 time.setJulianDay(Time.getJulianDay(event.end, 0));
                 event.end = time.toMillis(false /* use isDst */);
