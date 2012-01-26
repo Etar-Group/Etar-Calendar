@@ -55,7 +55,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Eliminar evento"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hoy"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Configuración"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calend most"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendarios"</string>
     <string name="search" msgid="550656004486017426">"Buscar"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ocultar los controles"</string>
     <string name="show_controls" msgid="715520586028062621">"Mostrar los controles"</string>
@@ -64,8 +64,8 @@
     <string name="not_synced" msgid="4275114941801829419">"no sincronizada"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"Puede que tus calendarios no estén actualizados ya que la sincronización de esta cuenta no se está realizando."</string>
     <string name="accounts" msgid="849401841083180306">"Cuentas y sincronización"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Calendarios para sincronizar"</string>
-    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Calendarios para sincronizar"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Sincronización de calendarios"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Sincronización de calendarios"</string>
     <string name="hint_what" msgid="709155115005044531">"Nombre del evento"</string>
     <string name="hint_where" msgid="4972598001033801974">"Ubicación"</string>
     <string name="hint_description" msgid="1910143586169033232">"Descripción"</string>
@@ -117,13 +117,13 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Descartar todos"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
     <string name="daily" msgid="560350706808680448">"Diariamente"</string>
-    <string name="every_weekday" msgid="5896574838353902978">"Los días de semana (lun. a vie.)"</string>
-    <string name="weekly" msgid="2006107373119027114">"Semanalmente (cada <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"Mensual (cada <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="every_weekday" msgid="5896574838353902978">"Semanalmente (lun. a vie.)"</string>
+    <string name="weekly" msgid="2006107373119027114">"Semanalmente (todos los <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Mensualmente (el <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"Mensual"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Anual"</string>
-    <string name="monthly_on_day" msgid="5370155265278821156">"Mensual (el día <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
-    <string name="yearly" msgid="8576208380302949002">"Anual (el <xliff:g id="DATES">%s</xliff:g>)"</string>
+    <string name="monthly_on_day" msgid="5370155265278821156">"Mensualmente (el día <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
+    <string name="yearly" msgid="8576208380302949002">"Anualmente (el <xliff:g id="DATES">%s</xliff:g>)"</string>
     <string name="custom" product="tablet" msgid="3806817351377723249">"Personalizado (no se puede personalizar en la tableta)"</string>
     <string name="custom" product="default" msgid="4137468716966004993">"Personalizado (no se puede personalizar en el teléfono)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Cambiar solo este evento"</string>
@@ -138,12 +138,12 @@
     <string name="preferences_title" msgid="8045855493262131773">"Configuración"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Configuración de vista de calendario"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Configuración de recordatorio"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos rechaz."</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"La semana comienza el"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"La semana comienza el"</string>
-    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Borrar historial de búsqueda"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos declinados"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Primer día de la semana"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Primer día de la semana"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Eliminar historial de búsqueda"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Elimina todas las búsquedas que realizaste."</string>
-    <string name="search_history_cleared" msgid="1536707558435227567">"Se borró el historial de búsqueda."</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Se eliminó el historial de búsqueda."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificaciones"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrar"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Elegir un tono"</string>
