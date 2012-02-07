@@ -202,17 +202,13 @@ public class EditEventHelper {
             + Attendees.ATTENDEE_RELATIONSHIP + "<>" + Attendees.RELATIONSHIP_ORGANIZER;
     static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=?";
 
-    public static class ContactViewHolder {
-        QuickContactBadge badge;
-        int updateCounts;
-    }
-
     public static class AttendeeItem {
         public boolean mRemoved;
         public Attendee mAttendee;
         public Drawable mBadge;
         public int mUpdateCounts;
         public View mView;
+        public Uri mContactLookupUri;
 
         public AttendeeItem(Attendee attendee, Drawable badge) {
             mAttendee = attendee;

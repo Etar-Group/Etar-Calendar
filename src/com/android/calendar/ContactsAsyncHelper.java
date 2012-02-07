@@ -136,11 +136,11 @@ public class ContactsAsyncHelper extends Handler {
      * placeholderImageResource value, we make sure the image is visible.
      */
     public static final void updateImageViewWithContactPhotoAsync(Context context,
-            ImageView imageView, Uri person, int placeholderImageResource) {
+            ImageView imageView, Uri contact, int placeholderImageResource) {
 
         // in case the source caller info is null, the URI will be null as well.
         // just update using the placeholder image in this case.
-        if (person == null) {
+        if (contact == null) {
             if (DBG) Log.d(LOG_TAG, "target image is null, just display placeholder.");
             imageView.setVisibility(View.VISIBLE);
             imageView.setImageResource(placeholderImageResource);
@@ -154,7 +154,7 @@ public class ContactsAsyncHelper extends Handler {
         WorkerArgs args = new WorkerArgs();
         args.context = context;
         args.view = imageView;
-        args.uri = person;
+        args.uri = contact;
         args.defaultResource = placeholderImageResource;
 
         if (mInstance == null) {
@@ -188,11 +188,11 @@ public class ContactsAsyncHelper extends Handler {
      * placeholderImageResource value, we make sure the image is visible.
      */
     public static final void retrieveContactPhotoAsync(Context context,
-            AttendeeItem item, Runnable run, Uri person) {
+            AttendeeItem item, Runnable run, Uri photoUri) {
 
         // in case the source caller info is null, the URI will be null as well.
         // just return as there's nothing to do.
-        if (person == null) {
+        if (photoUri == null) {
             return;
         }
 
@@ -203,7 +203,7 @@ public class ContactsAsyncHelper extends Handler {
         WorkerArgs args = new WorkerArgs();
         args.context = context;
         args.item = item;
-        args.uri = person;
+        args.uri = photoUri;
         args.callback = run;
 
         if (mInstance == null) {
