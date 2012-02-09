@@ -86,7 +86,7 @@
     <string name="description_label" msgid="7193475046717505855">"Beschreibung"</string>
     <string name="presence_label" msgid="6169724148441175862">"Mich anzeigen als"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Datenschutz"</string>
-    <string name="reminders_label" msgid="7292389181815525676">"Erinnerung hinzu"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Erinnerung hinzufügen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Keine Kalender"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Damit Sie einen Termin hinzufügen können, müssen Sie mindestens ein Google Kalender-Konto zu Ihrem Gerät hinzufügen und einen Kalender sichtbar machen. Tippen Sie zum Hinzufügen eines Kontos auf \"Konto hinzufügen\". Falls Sie gerade ein Konto hinzugefügt haben, warten Sie, bis die Synchronisierung abgeschlossen ist, und versuchen Sie es dann erneut. Sie können auch auf \"Abbrechen\" tippen und sich vergewissern, dass mindestens ein Kalender sichtbar ist."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Google Kalender funktioniert besser mit einem Google-Konto."\n\n"• Zugriff über jeden beliebigen Browser"\n"• Sichern von Terminen mit Schutzfunktion"</string>
