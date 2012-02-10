@@ -26,7 +26,7 @@
     <string name="no_title_label" msgid="302177118061368042">"(Asikho isihloko)"</string>
   <plurals name="Nminutes">
     <item quantity="one" msgid="4871052965772159239">"1 iminithi"</item>
-    <item quantity="other" msgid="5644461630927544936">"Amaminithi angu-<xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> amaminithi"</item>
   </plurals>
   <plurals name="Nmins">
     <item quantity="one" msgid="9191090668359663663">"iminithi engu-1"</item>
