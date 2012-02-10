@@ -22,7 +22,7 @@
     <item msgid="2658001219380695677">"SMS"</item>
   </string-array>
   <string-array name="reminder_minutes_labels">
-    <item msgid="2416970002377237011">"0-amaminithi angu"</item>
+    <item msgid="2416970002377237011">"0 amaminithi"</item>
     <item msgid="6681865010714743948">"1 iminithi"</item>
     <item msgid="2327505114623595779">"5 amaminithi"</item>
     <item msgid="1657410063332547113">"10 amaminithi"</item>
@@ -41,7 +41,7 @@
   </string-array>
   <string-array name="preferences_default_reminder_labels">
     <item msgid="7495163916242649023">"Lutho"</item>
-    <item msgid="5883344836499335043">"0-amaminithi angu"</item>
+    <item msgid="5883344836499335043">"0 amaminithi"</item>
     <item msgid="4354350447805231188">"1 iminithi"</item>
     <item msgid="265674592625309858">"5 amaminithi"</item>
     <item msgid="8011089417728419666">"10 amaminithi"</item>
