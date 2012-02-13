@@ -82,7 +82,8 @@ public class Utils {
     public static final int DECLINED_EVENT_ALPHA = 0x66;
     public static final int DECLINED_EVENT_TEXT_ALPHA = 0xC0;
 
-    private static final float SATURATION_ADJUST = 0.3f;
+    private static final float SATURATION_ADJUST = 1.3f;
+    private static final float INTENSITY_ADJUST = 0.8f;
 
     // Defines used by the DNA generation code
     static final int DAY_IN_MINUTES = 60 * 24;
@@ -590,9 +591,12 @@ public class Utils {
     }
 
     public static int getDisplayColorFromColor(int color) {
+        // STOPSHIP - Finalize color adjustment algorithm before shipping
+
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
-        hsv[1] = Math.max(hsv[1] - SATURATION_ADJUST, 0.0f);
+        hsv[1] = Math.min(hsv[1] * SATURATION_ADJUST, 1.0f);
+        hsv[2] = hsv[2] * INTENSITY_ADJUST;
         return Color.HSVToColor(hsv);
     }
 
