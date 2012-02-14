@@ -82,8 +82,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     protected int mDaysPerWeek = 7;
 
     // These affect the scroll speed and feel
-    protected float mFriction = .05f;
-    protected float mVelocityScale = 0.333f;
+    protected float mFriction = 1.0f;
 
     protected Context mContext;
     protected Handler mHandler;
@@ -273,8 +272,7 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
         mListView.setOnScrollListener(this);
         mListView.setFadingEdgeLength(0);
         // Make the scrolling behavior nicer
-        mListView.setFriction(mFriction);
-        mListView.setVelocityScale(mVelocityScale);
+        mListView.setFriction(ViewConfiguration.getScrollFriction() * mFriction);
     }
 
     @Override
@@ -464,6 +462,15 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             setMonthDisplayed(mSelectedDay, true);
         }
         return false;
+    }
+
+    // Returns the julian day of the day in the upper right corner
+    public int getUpperRightJulianDay() {
+        SimpleWeekView child = (SimpleWeekView)mListView.getChildAt(0);
+        if (child == null) {
+            return -1;
+        }
+        return child.getFirstJulianDay() + DAYS_PER_WEEK - 1;
     }
 
      /**
