@@ -625,16 +625,16 @@ public class MonthWeekEventsView extends SimpleWeekView {
             i++;
             offset++;
         }
-        if (!mFocusDay[i]) {
-            while (++i < mFocusDay.length && !mFocusDay[i])
+        if (!mOddMonth[i]) {
+            while (++i < mOddMonth.length && !mOddMonth[i])
                 ;
             r.right = computeDayLeftPosition(i - offset);
             r.left = 0;
             p.setColor(mMonthBGOtherColor);
             canvas.drawRect(r, p);
             // compute left edge for i, set up r, draw
-        } else if (!mFocusDay[(i = mFocusDay.length - 1)]) {
-            while (--i >= offset && !mFocusDay[i])
+        } else if (!mOddMonth[(i = mOddMonth.length - 1)]) {
+            while (--i >= offset && !mOddMonth[i])
                 ;
             i++;
             // compute left edge for i, set up r, draw

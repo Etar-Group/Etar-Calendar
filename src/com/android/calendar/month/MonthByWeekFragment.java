@@ -302,6 +302,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mListView.setOnTouchListener(this);
+        if (!mIsMiniMonth) {
+            mListView.setBackgroundColor(getResources().getColor(R.color.month_bgcolor));
+        }
         mLoader = (CursorLoader) getLoaderManager().initLoader(0, null, this);
     }
 

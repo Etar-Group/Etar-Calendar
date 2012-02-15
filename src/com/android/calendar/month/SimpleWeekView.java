@@ -119,6 +119,8 @@ public class SimpleWeekView extends View {
     protected String[] mDayNumbers;
     // Quick lookup for checking which days are in the focus month
     protected boolean[] mFocusDay;
+    // Quick lookup for checking which days are in an odd month (to set a different background)
+    protected boolean[] mOddMonth;
     // The Julian day of the first day displayed by this item
     protected int mFirstJulianDay = -1;
     // The month of the first day in this week
@@ -239,6 +241,7 @@ public class SimpleWeekView extends View {
         // Allocate space for caching the day numbers and focus values
         mDayNumbers = new String[mNumCells];
         mFocusDay = new boolean[mNumCells];
+        mOddMonth = new boolean[mNumCells];
         mWeek = params.get(VIEW_PARAMS_WEEK);
         int julianMonday = Utils.getJulianMondayFromWeeksSinceEpoch(mWeek);
         Time time = new Time(tz);
@@ -284,6 +287,7 @@ public class SimpleWeekView extends View {
             if (time.monthDay == 1) {
                 mFirstMonth = time.month;
             }
+            mOddMonth [i] = (time.month %2) == 1;
             if (time.month == focusMonth) {
                 mFocusDay[i] = true;
             } else {
