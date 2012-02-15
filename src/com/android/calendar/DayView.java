@@ -2188,7 +2188,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void drawScrollLine(Rect r, Canvas canvas, Paint p) {
-        final int right = computeDayLeftPosition(mNumDays + 1);
+        final int right = computeDayLeftPosition(mNumDays);
         final int y = mFirstCell - 1;
 
         p.setAntiAlias(false);
@@ -2200,7 +2200,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         p.setAntiAlias(true);
     }
 
-    // Computes the x position for the left side of the given day
+    // Computes the x position for the left side of the given day (base 0)
     private int computeDayLeftPosition(int day) {
         int effectiveWidth = mViewWidth - mHoursWidth;
         return day * effectiveWidth / mNumDays + mHoursWidth;
@@ -2239,7 +2239,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 r.top = 0;
                 r.bottom = mFirstCell - 1;
                 r.left = computeDayLeftPosition(startIndex) + 1;
-                r.right = computeDayLeftPosition(mNumDays + 1);
+                r.right = computeDayLeftPosition(mNumDays);
                 p.setColor(mFutureBgColor);
                 p.setStyle(Style.FILL);
                 canvas.drawRect(r, p);
@@ -2501,7 +2501,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private void drawGridBackground(Rect r, Canvas canvas, Paint p) {
         Paint.Style savedStyle = p.getStyle();
 
-        final float stopX = computeDayLeftPosition(mNumDays + 1);
+        final float stopX = computeDayLeftPosition(mNumDays);
         float y = 0;
         final float deltaY = mCellHeight + HOUR_GAP;
         int linesIndex = 0;
@@ -2591,7 +2591,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             // Paint Tomorrow and later days with future color
             if (todayIndex + 1 < mNumDays) {
                 r.left = computeDayLeftPosition(todayIndex + 1) + 1;
-                r.right = computeDayLeftPosition(mNumDays + 1);
+                r.right = computeDayLeftPosition(mNumDays);
                 r.top = mDestRect.top;
                 r.bottom = mDestRect.bottom;
                 p.setColor(mFutureBgColor);
@@ -2600,7 +2600,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         } else if (todayIndex < 0) {
             // Future
             r.left = computeDayLeftPosition(0) + 1;
-            r.right = computeDayLeftPosition(mNumDays + 1);
+            r.right = computeDayLeftPosition(mNumDays);
             r.top = mDestRect.top;
             r.bottom = mDestRect.bottom;
             p.setColor(mFutureBgColor);
@@ -2775,7 +2775,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Line bounding the top of the all day area
         mLines[linesIndex++] = GRID_LINE_LEFT_MARGIN;
         mLines[linesIndex++] = startY;
-        mLines[linesIndex++] = computeDayLeftPosition(mNumDays + 1);
+        mLines[linesIndex++] = computeDayLeftPosition(mNumDays);
         mLines[linesIndex++] = startY;
 
         for (int day = 0; day <= mNumDays; day++) {
