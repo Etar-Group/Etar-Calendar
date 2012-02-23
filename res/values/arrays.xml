@@ -22,6 +22,7 @@
         <item>Notification</item>
         <item>Email</item>
         <item>SMS</item>
+        <item>Alarm</item>
     </string-array>
 
     <!-- This maps reminder_methods_labels to internal constants. -->
@@ -29,6 +30,7 @@
         <item>1</item>  <!-- METHOD_ALERT -->
         <item>2</item>  <!-- METHOD_EMAIL -->
         <item>3</item>  <!-- METHOD_SMS -->
+        <item>4</item>  <!-- METHOD_ALARM -->
     </integer-array>
 
     <!-- Choices for the "Reminder minutes" spinner.
