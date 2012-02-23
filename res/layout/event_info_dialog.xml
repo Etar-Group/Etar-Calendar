@@ -273,7 +273,7 @@
                 android:textSize="18sp"
                 android:textColor="#FF777777"
                 android:minHeight="38dip"
-                android:background="@null"
+                android:background="?android:attr/selectableItemBackground"
                 android:contentDescription="@string/accessibility_add_reminder"
                 style="@style/TextAppearance.EditEvent_LabelSmall"
                 android:textAllCaps="false" />

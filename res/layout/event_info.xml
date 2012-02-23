@@ -276,7 +276,7 @@
             android:textSize="18sp"
             android:textColor="#FF777777"
             android:minHeight="20dip"
-            android:background="@null"
+            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/accessibility_add_reminder"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
     </LinearLayout>
