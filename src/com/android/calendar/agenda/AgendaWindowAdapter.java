@@ -1242,7 +1242,10 @@ public class AgendaWindowAdapter extends BaseAdapter
             Object vh = v.getTag();
             if (vh instanceof AgendaAdapter.ViewHolder) {
                 mSelectedVH = (AgendaAdapter.ViewHolder) vh;
-                mSelectedInstanceId = mSelectedVH.instanceId;
+                if (mSelectedInstanceId != mSelectedVH.instanceId) {
+                    mSelectedInstanceId = mSelectedVH.instanceId;
+                    notifyDataSetChanged();
+                }
             }
         }
     }

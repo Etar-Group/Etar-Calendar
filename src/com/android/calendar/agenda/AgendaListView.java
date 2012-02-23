@@ -90,7 +90,6 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
         mTime = new Time(mTimeZone);
         setOnItemClickListener(this);
-        setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         setVerticalScrollBarEnabled(false);
         mWindowAdapter = new AgendaWindowAdapter(context, this,
                 Utils.getConfigBool(context, R.bool.show_event_details_with_agenda));
