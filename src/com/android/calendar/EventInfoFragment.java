@@ -31,6 +31,9 @@ import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventViewUtils;
 import com.android.calendarcommon.EventRecurrence;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -284,6 +287,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private Menu mMenu = null;
     private View mHeadlines;
     private ScrollView mScrollView;
+    private View mLoadingMsgView;
+    private ObjectAnimator mAnimateAlpha;
+    private ObjectAnimator mAnimateLoadingMsgAlpha;
+    private static final int FADE_IN_TIME = 300;   // in milliseconds
+    private static final int LOADING_MSG_DELAY = 500;   // in milliseconds
+    private static final int EVENT_INFO_DELAY = 500;   // in milliseconds
+
 
     private static final Pattern mWildcardPattern = Pattern.compile("^.*$");
 
@@ -612,6 +622,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mView = inflater.inflate(R.layout.event_info, container, false);
         }
         mScrollView = (ScrollView) mView.findViewById(R.id.event_info_scroll_view);
+        mLoadingMsgView = mView.findViewById(R.id.event_info_loading_msg);
         mTitle = (TextView) mView.findViewById(R.id.title);
         mWhenDate = (TextView) mView.findViewById(R.id.when_date);
         mWhenTime = (TextView) mView.findViewById(R.id.when_time);
@@ -629,7 +640,42 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mEndMillis = savedInstanceState.getLong(BUNDLE_KEY_END_MILLIS);
         }
 
+        mAnimateAlpha = ObjectAnimator.ofFloat(mScrollView, "Alpha", 0, 1);
+        mAnimateAlpha.setDuration(FADE_IN_TIME);
+        mAnimateAlpha.addListener(new AnimatorListenerAdapter() {
+            int defLayerType;
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                // Use hardware layer for better performance during animation
+                defLayerType = mScrollView.getLayerType();
+                mScrollView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                // Ensure that the loading message is gone before showing the
+                // event info
+                mAnimateLoadingMsgAlpha.cancel();
+                mLoadingMsgView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                mScrollView.setLayerType(defLayerType, null);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mScrollView.setLayerType(defLayerType, null);
+            }
+        });
+
+        mAnimateLoadingMsgAlpha = ObjectAnimator.ofFloat(mLoadingMsgView, "Alpha", 0, 1);
+        mAnimateLoadingMsgAlpha.setStartDelay(LOADING_MSG_DELAY);
+        mAnimateLoadingMsgAlpha.setDuration(FADE_IN_TIME);
+
+        mLoadingMsgView.setAlpha(0);
+        mScrollView.setAlpha(0);
+
         // start loading the data
+
         mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
                 null, null, null);
 
@@ -674,6 +720,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mDefaultReminderMinutes = Integer.parseInt(defaultReminderString);
         prepareReminders();
 
+        mAnimateLoadingMsgAlpha.start();
         return mView;
     }
 
@@ -1134,8 +1181,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (description != null && description.length() != 0) {
             mDesc.setText(description);
         }
-    }
 
+        if (mAnimateLoadingMsgAlpha.isRunning() || !mAnimateLoadingMsgAlpha.isStarted()) {
+            // Loading message is showing, let it stay a bit more (to prevent
+            // flashing) and then show the event info
+            mAnimateAlpha.setStartDelay(EVENT_INFO_DELAY);
+            mAnimateAlpha.start();
+        } else {
+            // The loading message is not showing, show event info now
+            mAnimateAlpha.start();
+        }
+    }
     /**
      * Finds North American Numbering Plan (NANP) phone numbers in the input text.
      *
