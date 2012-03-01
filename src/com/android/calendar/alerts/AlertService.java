@@ -139,7 +139,6 @@ public class AlertService extends Service {
     static boolean updateAlertNotification(Context context) {
         ContentResolver cr = context.getContentResolver();
         final long currentTime = System.currentTimeMillis();
-
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
 
         boolean doAlert = prefs.getBoolean(GeneralPreferences.KEY_ALERTS, true);
@@ -170,7 +169,7 @@ public class AlertService extends Service {
             if (DEBUG) Log.d(TAG, "No fired or scheduled alerts");
             NotificationManager nm =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.cancel(0);
+            nm.cancel(AlertUtils.NOTIFICATION_ID);
             return false;
         }
 
@@ -181,6 +180,8 @@ public class AlertService extends Service {
         String notificationEventName = null;
         String notificationEventLocation = null;
         long notificationEventBegin = 0;
+        long notificationEventEnd = 0;
+        long notificationEventId = -1;
         int notificationEventStatus = 0;
         boolean notificationEventAllDay = true;
         HashMap<Long, Long> eventIds = new HashMap<Long, Long>();
@@ -278,11 +279,17 @@ public class AlertService extends Service {
                 if (notificationEventName == null
                         || (notificationEventBegin <= beginTime &&
                                 notificationEventStatus < newStatus)) {
-                    notificationEventName = eventName;
                     notificationEventLocation = location;
                     notificationEventBegin = beginTime;
+                    notificationEventEnd = endTime;
+                    notificationEventId = eventId;
                     notificationEventStatus = newStatus;
                     notificationEventAllDay = allDay;
+                }
+                if (numReminders == 1) {
+                    notificationEventName = eventName;
+                } else {
+                    notificationEventName = eventName + ", " + notificationEventName;
                 }
             }
         } finally {
@@ -295,14 +302,14 @@ public class AlertService extends Service {
         boolean highPriority = numFired > 0 && doPopup;
         postNotification(context, prefs, notificationEventName, notificationEventLocation,
                 numReminders, quietUpdate, highPriority, notificationEventBegin,
-                notificationEventAllDay);
+                notificationEventEnd, notificationEventId, notificationEventAllDay);
 
         return true;
     }
 
     private static void postNotification(Context context, SharedPreferences prefs,
-            String eventName, String location, int numReminders,
-            boolean quietUpdate, boolean highPriority, long startMillis, boolean allDay) {
+            String eventName, String location, int numReminders, boolean quietUpdate, 
+            boolean highPriority, long startMillis, long endMillis, long id, boolean allDay) {
         if (DEBUG) {
             Log.d(TAG, "###### creating new alarm notification, numReminders: " + numReminders
                     + (quietUpdate ? " QUIET" : " loud")
@@ -313,12 +320,12 @@ public class AlertService extends Service {
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (numReminders == 0) {
-            nm.cancel(0);
+            nm.cancel(AlertUtils.NOTIFICATION_ID);
             return;
         }
 
         Notification notification = AlertReceiver.makeNewAlertNotification(context, eventName,
-                location, numReminders, highPriority, startMillis, allDay);
+                location, numReminders, highPriority, startMillis, endMillis, id, allDay);
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
@@ -373,7 +380,7 @@ public class AlertService extends Service {
                     .parse(reminderRingtone);
         }
 
-        nm.notify(0, notification);
+        nm.notify(AlertUtils.NOTIFICATION_ID, notification);
     }
 
     private void doTimeChanged() {
@@ -443,7 +450,7 @@ public class AlertService extends Service {
                     if (DEBUG) {
                         Log.w(TAG, "rescheduling missed alarm. alarmTime: " + newAlarmTime);
                     }
-                    AlertActivity.scheduleAlarm(context, manager, newAlarmTime);
+                    AlertUtils.scheduleAlarm(context, manager, newAlarmTime);
                     alarmTime = newAlarmTime;
                 }
             }

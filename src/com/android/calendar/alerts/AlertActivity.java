@@ -50,9 +50,6 @@ import android.widget.ListView;
 public class AlertActivity extends Activity implements OnClickListener {
     private static final String TAG = "AlertActivity";
 
-    // The default snooze delay: 5 minutes
-    public static final long SNOOZE_DELAY = 5 * 60 * 1000L;
-
     private static final String[] PROJECTION = new String[] {
         CalendarAlerts._ID,              // 0
         CalendarAlerts.TITLE,            // 1
@@ -61,7 +58,7 @@ public class AlertActivity extends Activity implements OnClickListener {
         CalendarAlerts.BEGIN,            // 4
         CalendarAlerts.END,              // 5
         CalendarAlerts.EVENT_ID,         // 6
-        CalendarAlerts.CALENDAR_COLOR,            // 7
+        CalendarAlerts.CALENDAR_COLOR,   // 7
         CalendarAlerts.RRULE,            // 8
         CalendarAlerts.HAS_ALARM,        // 9
         CalendarAlerts.STATE,            // 10
@@ -85,11 +82,6 @@ public class AlertActivity extends Activity implements OnClickListener {
     private static final String[] SELECTIONARG = new String[] {
         Integer.toString(CalendarAlerts.STATE_FIRED)
     };
-
-    // We use one notification id for all events so that we don't clutter
-    // the notification screen.  It doesn't matter what the id is, as long
-    // as it is used consistently everywhere.
-    public static final int NOTIFICATION_ID = 0;
 
     private AlertAdapter mAdapter;
     private QueryHandler mQueryHandler;
@@ -145,9 +137,7 @@ public class AlertActivity extends Activity implements OnClickListener {
                     // Set a new alarm to go off after the snooze delay.
                     // TODO make provider schedule this automatically when
                     // inserting an alarm
-                    AlarmManager alarmManager =
-                            (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                    scheduleAlarm(AlertActivity.this, alarmManager, alarmTime);
+                    AlertUtils.scheduleAlarm(AlertActivity.this, null, alarmTime);
                 }
             }
         }
@@ -158,48 +148,11 @@ public class AlertActivity extends Activity implements OnClickListener {
         }
     }
 
-    /**
-     * Schedules an alarm intent with the system AlarmManager that will notify
-     * listeners when a reminder should be fired. The provider will keep
-     * scheduled reminders up to date but apps may use this to implement snooze
-     * functionality without modifying the reminders table. Scheduled alarms
-     * will generate an intent using {@link #ACTION_EVENT_REMINDER}.
-     *
-     * @param context A context for referencing system resources
-     * @param manager The AlarmManager to use or null
-     * @param alarmTime The time to fire the intent in UTC millis since epoch
-     */
-    public static void scheduleAlarm(Context context, AlarmManager manager, long alarmTime) {
 
-        if (manager == null) {
-            manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        }
-
-        Intent intent = new Intent(CalendarContract.ACTION_EVENT_REMINDER);
-        intent.setData(ContentUris.withAppendedId(CalendarContract.CONTENT_URI, alarmTime));
-        intent.putExtra(CalendarContract.CalendarAlerts.ALARM_TIME, alarmTime);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        manager.set(AlarmManager.RTC_WAKEUP, alarmTime, pi);
-    }
-
-    private static ContentValues makeContentValues(long eventId, long begin, long end,
-            long alarmTime, int minutes) {
-        ContentValues values = new ContentValues();
-        values.put(CalendarAlerts.EVENT_ID, eventId);
-        values.put(CalendarAlerts.BEGIN, begin);
-        values.put(CalendarAlerts.END, end);
-        values.put(CalendarAlerts.ALARM_TIME, alarmTime);
-        long currentTime = System.currentTimeMillis();
-        values.put(CalendarAlerts.CREATION_TIME, currentTime);
-        values.put(CalendarAlerts.RECEIVED_TIME, 0);
-        values.put(CalendarAlerts.NOTIFY_TIME, 0);
-        values.put(CalendarAlerts.STATE, CalendarAlerts.STATE_SCHEDULED);
-        values.put(CalendarAlerts.MINUTES, minutes);
-        return values;
-    }
 
     private OnItemClickListener mViewListener = new OnItemClickListener() {
 
+        @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
                 long i) {
             AlertActivity alertActivity = AlertActivity.this;
@@ -211,13 +164,8 @@ public class AlertActivity extends Activity implements OnClickListener {
             long id = cursor.getInt(AlertActivity.INDEX_EVENT_ID);
             long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
             long endMillis = cursor.getLong(AlertActivity.INDEX_END);
-            Intent eventIntent = new Intent(Intent.ACTION_VIEW);
-            Builder builder = CalendarContract.CONTENT_URI.buildUpon();
-            builder.appendEncodedPath("events/" + id);
-            eventIntent.setData(builder.build());
-            eventIntent.setClass(AlertActivity.this, AllInOneActivity.class);
-            eventIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startMillis);
-            eventIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endMillis);
+            Intent eventIntent = AlertUtils.buildEventViewIntent(AlertActivity.this, id,
+                    startMillis, endMillis);
             alertActivity.startActivity(eventIntent);
 
             alertActivity.finish();
@@ -288,11 +236,11 @@ public class AlertActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == mSnoozeAllButton) {
-            long alarmTime = System.currentTimeMillis() + SNOOZE_DELAY;
+            long alarmTime = System.currentTimeMillis() + AlertUtils.SNOOZE_DELAY;
 
             NotificationManager nm =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.cancel(NOTIFICATION_ID);
+            nm.cancel(AlertUtils.NOTIFICATION_ID);
 
             if (mCursor != null) {
                 long scheduleAlarmTime = 0;
@@ -305,8 +253,8 @@ public class AlertActivity extends Activity implements OnClickListener {
                     // Set the "minutes" to zero to indicate this is a snoozed
                     // alarm.  There is code in AlertService.java that checks
                     // this field.
-                    ContentValues values =
-                            makeContentValues(eventId, begin, end, alarmTime, 0 /* minutes */);
+                    ContentValues values = AlertUtils.makeContentValues(eventId, begin, end, 
+                            alarmTime, 0 /* minutes */);
 
                     // Create a new alarm entry in the CalendarAlerts table
                     if (mCursor.isLast()) {
@@ -325,7 +273,7 @@ public class AlertActivity extends Activity implements OnClickListener {
         } else if (v == mDismissAllButton) {
             NotificationManager nm =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.cancel(NOTIFICATION_ID);
+            nm.cancel(AlertUtils.NOTIFICATION_ID);
 
             dismissFiredAlarms();
 

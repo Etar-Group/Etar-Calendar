@@ -17,8 +17,10 @@
 package com.android.calendar.alerts;
 
 import android.app.IntentService;
+import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
@@ -27,14 +29,14 @@ import android.provider.CalendarContract.CalendarAlerts;
 /**
  * Service for asynchronously marking all fired alarms as dismissed.
  */
-public class DismissAllAlarmsService extends IntentService {
+public class DismissAlarmsService extends IntentService {
     private static final String[] PROJECTION = new String[] {
             CalendarAlerts.STATE,
     };
     private static final int COLUMN_INDEX_STATE = 0;
 
-    public DismissAllAlarmsService() {
-        super("DismissAllAlarmsService");
+    public DismissAlarmsService() {
+        super("DismissAlarmsService");
     }
 
     @Override
@@ -44,14 +46,37 @@ public class DismissAllAlarmsService extends IntentService {
 
     @Override
     public void onHandleIntent(Intent intent) {
-        // Mark all fired alarms as dismissed
+
+        long eventId = intent.getLongExtra(AlertUtils.EVENT_ID_KEY, -1);
+        long eventStart = intent.getLongExtra(AlertUtils.EVENT_START_KEY, -1);
+        long eventEnd = intent.getLongExtra(AlertUtils.EVENT_END_KEY, -1);
+        boolean showEvent = intent.getBooleanExtra(AlertUtils.SHOW_EVENT_KEY, false);
+
         Uri uri = CalendarAlerts.CONTENT_URI;
-        String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED;
+        String selection;
+
+        // Dismiss a specific fired alarm if id is present, otherwise, dismiss all alarms
+        if (eventId != -1) {
+            selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED + " AND " +
+            CalendarAlerts.EVENT_ID + "=" + eventId;
+        } else {
+            selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED;
+        }
         ContentResolver resolver = getContentResolver();
 
         ContentValues values = new ContentValues();
         values.put(PROJECTION[COLUMN_INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
+
         resolver.update(uri, values, selection, null);
+        if (showEvent) {
+            // Remove notification
+            NotificationManager nm =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.cancel(AlertUtils.NOTIFICATION_ID);
+            // Show event on Calendar app
+            Intent i = AlertUtils.buildEventViewIntent(this, eventId, eventStart, eventEnd);
+            startActivity(i);
+        }
 
         // Stop this service
         stopSelf();
