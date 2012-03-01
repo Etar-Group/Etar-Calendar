@@ -72,7 +72,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         Instances.EVENT_ID,
         Instances.START_DAY,
         Instances.END_DAY,
-        Instances.CALENDAR_COLOR,
+        Instances.DISPLAY_COLOR,
         Instances.SELF_ATTENDEE_STATUS,
     };
 

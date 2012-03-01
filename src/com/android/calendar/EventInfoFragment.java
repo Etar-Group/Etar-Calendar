@@ -16,11 +16,6 @@
 
 package com.android.calendar;
 
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
-import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
-
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
@@ -113,6 +108,11 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
+
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
         CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener {
@@ -166,7 +166,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Events.DESCRIPTION,          // 8
         Events.EVENT_LOCATION,       // 9
         Calendars.CALENDAR_ACCESS_LEVEL,      // 10
-        Calendars.CALENDAR_COLOR,             // 11
+        Events.DISPLAY_COLOR,                 // 11
         Events.HAS_ATTENDEE_DATA,    // 12
         Events.ORGANIZER,            // 13
         Events.HAS_ALARM,            // 14

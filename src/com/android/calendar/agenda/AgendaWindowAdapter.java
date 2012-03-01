@@ -106,7 +106,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.EVENT_LOCATION, // 2
             Instances.ALL_DAY, // 3
             Instances.HAS_ALARM, // 4
-            Instances.CALENDAR_COLOR, // 5
+            Instances.DISPLAY_COLOR, // 5
             Instances.RRULE, // 6
             Instances.BEGIN, // 7
             Instances.END, // 8

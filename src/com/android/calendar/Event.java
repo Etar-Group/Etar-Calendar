@@ -67,7 +67,7 @@ public class Event implements Cloneable {
             Instances.TITLE,                 // 0
             Instances.EVENT_LOCATION,        // 1
             Instances.ALL_DAY,               // 2
-            Instances.CALENDAR_COLOR,        // 3
+            Instances.DISPLAY_COLOR,         // 3
             Instances.EVENT_TIMEZONE,        // 4
             Instances.EVENT_ID,              // 5
             Instances.BEGIN,                 // 6
