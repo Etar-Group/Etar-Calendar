@@ -16,7 +16,12 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- no translation found for reminder_methods_labels:3 (7926918288165444873) -->
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"ማሳወቂያ"</item>
+    <item msgid="1751151680520784746">"ኢሜይል"</item>
+    <item msgid="2658001219380695677">"አጭር የፅሁፍ መልዕክት"</item>
+    <item msgid="7926918288165444873">"ማንቂያ ደውል"</item>
+  </string-array>
   <string-array name="reminder_minutes_labels">
     <item msgid="2416970002377237011">"0 ደቂቃዎች"</item>
     <item msgid="6681865010714743948">"1 ደቂቃ"</item>
