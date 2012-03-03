@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -41,6 +42,7 @@ import com.android.calendarcommon.DateException;
 
 public class GoogleCalendarUriIntentFilter extends Activity {
     private static final String TAG = "GoogleCalendarUriIntentFilter";
+    static final boolean debug = false;
 
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_START = 1;
@@ -55,33 +57,81 @@ public class GoogleCalendarUriIntentFilter extends Activity {
     };
 
     /**
-     * Extracts the ID from the eid parameter of a URI.
+     * Extracts the ID and calendar email from the eid parameter of a URI.
      *
-     * The URI contains an "eid" parameter, which is comprised of an ID, followed by a space,
-     * followed by some other stuff.  This is Base64-encoded before being added to the URI.
+     * The URI contains an "eid" parameter, which is comprised of an ID, followed
+     * by a space, followed by the calendar email address. The domain is sometimes
+     * shortened. See the switch statement. This is Base64-encoded before being
+     * added to the URI.
      *
      * @param uri incoming request
-     * @return the decoded ID
+     * @return the decoded event ID and calendar email
      */
-    private String extractEid(Uri uri) {
+    private String[] extractEidAndEmail(Uri uri) {
         try {
-            String eid = uri.getQueryParameter("eid");
-            if (eid == null) {
+            String eidParam = uri.getQueryParameter("eid");
+            if (debug) Log.d(TAG, "eid=" + eidParam );
+            if (eidParam == null) {
                 return null;
             }
 
-            byte[] decodedBytes = Base64.decode(eid, Base64.DEFAULT);
-            int spacePosn;
-            for (spacePosn = 0; spacePosn < decodedBytes.length; spacePosn++) {
+            byte[] decodedBytes = Base64.decode(eidParam, Base64.DEFAULT);
+            if (debug) Log.d(TAG, "decoded eid=" + new String(decodedBytes) );
+
+            for (int spacePosn = 0; spacePosn < decodedBytes.length; spacePosn++) {
                 if (decodedBytes[spacePosn] == ' ') {
-                    break;
+                    int emailLen = decodedBytes.length - spacePosn - 1;
+                    if (spacePosn == 0 || emailLen < 3) {
+                        break;
+                    }
+
+                    String domain = null;
+                    if (decodedBytes[decodedBytes.length - 2] == '@') {
+                        // Drop the special one character domain
+                        emailLen--;
+
+                        switch(decodedBytes[decodedBytes.length - 1]) {
+                            case 'm':
+                                domain = "gmail.com";
+                                break;
+                            case 'g':
+                                domain = "group.calendar.google.com";
+                                break;
+                            case 'h':
+                                domain = "holiday.calendar.google.com";
+                                break;
+                            case 'i':
+                                domain = "import.calendar.google.com";
+                                break;
+                            case 'v':
+                                domain = "group.v.calendar.google.com";
+                                break;
+                            default:
+                                Log.wtf(TAG, "Unexpected one letter domain: "
+                                        + decodedBytes[decodedBytes.length - 1]);
+                                // Add sql wild card char to handle new cases
+                                // that we don't know about.
+                                domain = "%";
+                                break;
+                        }
+                    }
+
+                    String eid = new String(decodedBytes, 0, spacePosn);
+                    String email = new String(decodedBytes, spacePosn + 1, emailLen);
+                    if (debug) Log.d(TAG, "eid=   " + eid );
+                    if (debug) Log.d(TAG, "email= " + email );
+                    if (debug) Log.d(TAG, "domain=" + domain );
+                    if (domain != null) {
+                        email += domain;
+                    }
+
+                    return new String[] { eid, email };
                 }
             }
-            return new String(decodedBytes, 0, spacePosn);
         } catch (RuntimeException e) {
             Log.w(TAG, "Punting malformed URI " + uri);
-            return null;
         }
+        return null;
     }
 
     @Override
@@ -92,36 +142,38 @@ public class GoogleCalendarUriIntentFilter extends Activity {
         if (intent != null) {
             Uri uri = intent.getData();
             if (uri != null) {
-                String eid = extractEid(uri);
-                if (eid != null) {
-                    String selection = Events._SYNC_ID + " LIKE \"%/" + eid + "\"";
-                    Cursor eventCursor = managedQuery(Events.CONTENT_URI, EVENT_PROJECTION,
-                            selection, null, null);
+                String[] eidParts = extractEidAndEmail(uri);
+                if (debug) Log.d(TAG, "eidParts=" + eidParts );
+
+                if (eidParts != null) {
+                    final String selection = Events._SYNC_ID + " LIKE \"%" + eidParts[0]
+                            + "\" AND " + Calendars.OWNER_ACCOUNT + " LIKE \"" + eidParts[1] + "\"";
+
+                    if (debug) Log.d(TAG, "selection: " + selection);
+                    Cursor eventCursor = getContentResolver().query(Events.CONTENT_URI,
+                            EVENT_PROJECTION, selection, null,
+                            Calendars.CALENDAR_ACCESS_LEVEL + " desc");
+                    if (debug) Log.d(TAG, "Found: " + eventCursor.getCount());
 
                     if (eventCursor != null && eventCursor.getCount() > 0) {
                         if (eventCursor.getCount() > 1) {
-                            // TODO what to do when there's more than one match?
-                            //
-                            // Probably the case of multiple calendar having the
-                            // same event.
-                            //
-                            // If the intent has info about account (Gmail
-                            // hashes the account name in some cases), we can
-                            // try to match it.
-                            //
-                            // Otherwise, pull up the copy with higher permission level.
                             Log.i(TAG, "NOTE: found " + eventCursor.getCount()
-                                    + " matches on event with id='" + eid + "'");
+                                    + " matches on event with id='" + eidParts[0] + "'");
+                            // Don't print eidPart[1] as it contains the user's PII
                         }
 
                         // Get info from Cursor
                         while (eventCursor.moveToNext()) {
-                           int eventId = eventCursor.getInt(EVENT_INDEX_ID);
+                            int eventId = eventCursor.getInt(EVENT_INDEX_ID);
                             long startMillis = eventCursor.getLong(EVENT_INDEX_START);
                             long endMillis = eventCursor.getLong(EVENT_INDEX_END);
+                            if (debug) Log.d(TAG, "_id: " + eventCursor.getLong(EVENT_INDEX_ID));
+                            if (debug) Log.d(TAG, "startMillis: " + startMillis);
+                            if (debug) Log.d(TAG, "endMillis:   " + endMillis);
 
                             if (endMillis == 0) {
                                 String duration = eventCursor.getString(EVENT_INDEX_DURATION);
+                                if (debug) Log.d(TAG, "duration:    " + duration);
                                 if (TextUtils.isEmpty(duration)) {
                                     continue;
                                 }
@@ -130,13 +182,19 @@ public class GoogleCalendarUriIntentFilter extends Activity {
                                     Duration d = new Duration();
                                     d.parse(duration);
                                     endMillis = startMillis + d.getMillis();
+                                    if (debug) Log.d(TAG, "startMillis! " + startMillis);
+                                    if (debug) Log.d(TAG, "endMillis!   " + endMillis);
                                     if (endMillis < startMillis) {
                                         continue;
                                     }
                                 } catch (DateException e) {
+                                    if (debug) Log.d(TAG, "duration:" + e.toString());
                                     continue;
                                 }
                             }
+
+                            eventCursor.close();
+                            eventCursor = null;
 
                             // Pick up attendee status action from uri clicked
                             int attendeeStatus = ATTENDEE_STATUS_NONE;
@@ -163,6 +221,7 @@ public class GoogleCalendarUriIntentFilter extends Activity {
                             Uri calendarUri = ContentUris.withAppendedId(Events.CONTENT_URI,
                                     eventId);
                             intent = new Intent(Intent.ACTION_VIEW, calendarUri);
+                            intent.setClass(this, AllInOneActivity.class);
                             intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
                             intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
                             if (attendeeStatus != ATTENDEE_STATUS_NONE) {
@@ -173,6 +232,7 @@ public class GoogleCalendarUriIntentFilter extends Activity {
                             return;
                         }
                     }
+                    if (eventCursor != null) eventCursor.close();
                 }
             }
 
