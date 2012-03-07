@@ -43,7 +43,9 @@ public class ColorChipView extends View {
     public static final int DRAW_BORDER = 1;
     public static final int DRAW_FADED = 2;
 
-    int mDrawStyle = DRAW_FULL;
+    private int mDrawStyle = DRAW_FULL;
+    private float mDefStrokeWidth;
+    private Paint mPaint;
 
     private static final int DEF_BORDER_WIDTH = 4;
 
@@ -53,11 +55,20 @@ public class ColorChipView extends View {
 
     public ColorChipView(Context context) {
         super(context);
+        init();
     }
 
     public ColorChipView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
+
+    private void init() {
+        mPaint = new Paint();
+        mDefStrokeWidth = mPaint.getStrokeWidth();
+        mPaint.setStyle(Style.FILL_AND_STROKE);
+    }
+
 
     public void setDrawStyle(int style) {
         if (style != DRAW_FULL && style != DRAW_BORDER && style != DRAW_FADED) {
@@ -84,14 +95,14 @@ public class ColorChipView extends View {
 
         int right = getWidth() - 1;
         int bottom = getHeight() - 1;
-        Paint p = new Paint();
-        p.setColor(mDrawStyle == DRAW_FADED ? Utils.getDeclinedColorFromColor(mColor) : mColor);
-        p.setStyle(Style.FILL_AND_STROKE);
+        mPaint.setColor(mDrawStyle == DRAW_FADED ?
+                Utils.getDeclinedColorFromColor(mColor) : mColor);
 
         switch (mDrawStyle) {
             case DRAW_FADED:
             case DRAW_FULL:
-                c.drawRect(0, 0, right, bottom, p);
+                mPaint.setStrokeWidth(mDefStrokeWidth);
+                c.drawRect(0, 0, right, bottom, mPaint);
                 break;
             case DRAW_BORDER:
                 if (mBorderWidth <= 0) {
@@ -100,7 +111,7 @@ public class ColorChipView extends View {
                 int halfBorderWidth = mBorderWidth / 2;
                 int top = halfBorderWidth;
                 int left = halfBorderWidth;
-                p.setStrokeWidth(mBorderWidth);
+                mPaint.setStrokeWidth(mBorderWidth);
 
                 float[] lines = new float[16];
                 int ptr = 0;
@@ -120,7 +131,7 @@ public class ColorChipView extends View {
                 lines [ptr++] = 0;
                 lines [ptr++] = right - halfBorderWidth;
                 lines [ptr++] = bottom;
-                c.drawLines(lines, p);
+                c.drawLines(lines, mPaint);
                 break;
         }
     }
