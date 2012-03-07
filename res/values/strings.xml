@@ -587,4 +587,8 @@
         <!-- This is the label for 2 or more events. -->
         <item quantity="other"><xliff:g id="count">%d</xliff:g> events</item>
     </plurals>
+  
+    <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->
+    <string name="acessibility_selected_marker_description">Selected event</string>
+
 </resources>
