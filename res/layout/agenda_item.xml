@@ -62,8 +62,6 @@
                 android:id="@+id/when"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/title"
-                android:layout_alignLeft="@+id/title"
                 android:singleLine="true"
                 android:textSize="14sp"
                 android:ellipsize="marquee"
@@ -74,8 +72,6 @@
                 android:id="@+id/where"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/when"
-                android:layout_alignLeft="@+id/title"
                 android:layout_marginTop="-3dip"
                 android:singleLine="true"
                 android:ellipsize="marquee"
@@ -88,9 +84,8 @@
             android:id="@+id/selected_marker"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:visibility="gone"
+            android:contentDescription="@string/acessibility_selected_marker_description"
             android:background="@drawable/list_multi_left_activated_holo" />
     </LinearLayout>
 </LinearLayout>
