@@ -145,12 +145,14 @@ public class AlertReceiver extends BroadcastReceiver {
             clickIntent.putExtra(AlertUtils.EVENT_START_KEY, startMillis);
             clickIntent.putExtra(AlertUtils.EVENT_END_KEY, endMillis);
             clickIntent.putExtra(AlertUtils.SHOW_EVENT_KEY, true);
+            pendingClickIntent = PendingIntent.getService(context, 0, clickIntent,
+                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         } else {
             clickIntent.setClass(context, AlertActivity.class);
             clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            pendingClickIntent = PendingIntent.getActivity(context, 0, clickIntent,
+                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         }
-        pendingClickIntent = PendingIntent.getService(context, 0, clickIntent,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Create an intent triggered by clicking on the "Clear All Notifications" button or
         // by dismissing the notification
