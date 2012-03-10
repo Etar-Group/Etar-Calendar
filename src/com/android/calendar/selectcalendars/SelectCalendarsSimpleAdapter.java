@@ -65,7 +65,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     private int mColorColumn;
     private int mVisibleColumn;
     private int mOwnerAccountColumn;
-    private float mScale = 0;
+    private static float mScale = 0;
     private int mColorCalendarVisible;
     private int mColorCalendarHidden;
     private int mColorCalendarSecondaryVisible;
