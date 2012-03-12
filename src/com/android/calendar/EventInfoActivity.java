@@ -42,13 +42,6 @@ public class EventInfoActivity extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        setContentView(R.layout.simple_frame_layout);
-
-        // Get the fragment if exists
-        mInfoFragment = (EventInfoFragment)
-                getFragmentManager().findFragmentById(R.id.main_frame);
-
-
         // Get the info needed for the fragment
         Intent intent = getIntent();
         int attendeeResponse = 0;
@@ -74,6 +67,23 @@ public class EventInfoActivity extends Activity {
                 }
             }
         }
+
+        // Never show this activity if we support showing double pane agenda view
+        // If we do support this, instead launch AllInOneActivity in double pane mode
+        // This can happen if this activity is launched while in portrait mode in sw600dp
+        if (!getResources().getBoolean(R.bool.agenda_show_event_info_full_screen)) {
+            CalendarController.getInstance(this)
+                    .launchViewEvent(mEventId, mStartMillis, mEndMillis);
+            finish();
+            return;
+        }
+
+        setContentView(R.layout.simple_frame_layout);
+
+        // Get the fragment if exists
+        mInfoFragment = (EventInfoFragment)
+                getFragmentManager().findFragmentById(R.id.main_frame);
+
 
         // Remove the application title
         ActionBar bar = getActionBar();
