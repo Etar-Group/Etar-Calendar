@@ -44,4 +44,5 @@
     <dimen name="event_info_text_size">14dip</dimen>
     <dimen name="event_info_desc_margin_left">0dip</dimen>
     <dimen name="event_info_desc_margin_right">0dip</dimen>
+    <dimen name="event_info_padding">0dip</dimen>
 </resources>
