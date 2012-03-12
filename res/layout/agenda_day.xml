@@ -16,7 +16,6 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:calendar="http://schemas.android.com/apk/res/com.android.calendar"
     android:background="@color/agenda_day_bar_background_color"
     android:orientation="vertical"
     android:layout_width="match_parent"
