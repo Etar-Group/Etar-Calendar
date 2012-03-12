@@ -23,7 +23,8 @@
     android:layout_weight="1"
     android:fadingEdge="none"
     android:animateLayoutChanges="true"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/event_info_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
