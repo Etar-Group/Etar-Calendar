@@ -188,14 +188,13 @@
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"提醒類型"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"將我的狀態顯示為"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"隱私權"</string>
-    <!-- no translation found for acessibility_cal_notification (7267601064994839394) -->
-    <skip />
-    <!-- no translation found for acessibility_snooze_notification (5007852779125102681) -->
-    <skip />
+    <string name="acessibility_cal_notification" msgid="7267601064994839394">"日曆通知"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"延遲通知"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ 新活動"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"第 <xliff:g id="ITEM_INDEX">%1$s</xliff:g> 個活動 (共 <xliff:g id="ITEM_COUNT">%2$s</xliff:g> 個)"</string>
-    <!-- no translation found for Nevents:one (5230907142214104485) -->
-    <!-- no translation found for Nevents:other (6093072093209431078) -->
-    <!-- no translation found for acessibility_selected_marker_description (3010149843148810768) -->
-    <skip />
+  <plurals name="Nevents">
+    <item quantity="one" msgid="5230907142214104485">"1 個活動"</item>
+    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> 個活動"</item>
+  </plurals>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"選取的活動"</string>
 </resources>
