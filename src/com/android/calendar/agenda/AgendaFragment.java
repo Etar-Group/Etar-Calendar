@@ -136,6 +136,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             Bundle savedInstanceState) {
 
 
+        int screenWidth = mActivity.getResources().getDisplayMetrics().widthPixels;
         View v = inflater.inflate(R.layout.agenda_fragment, null);
 
         mAgendaListView = (AgendaListView)v.findViewById(R.id.agenda_events_list);
@@ -148,10 +149,12 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             }
         }
 
+        View eventView =  v.findViewById(R.id.agenda_event_info);
         if (!mShowEventDetailsWithAgenda) {
-            v.findViewById(R.id.agenda_event_info).setVisibility(View.GONE);
+            eventView.setVisibility(View.GONE);
         }
 
+        View topListView;
         // Set adapter & HeaderIndexer for StickyHeaderListView
         StickyHeaderListView lv =
             (StickyHeaderListView)v.findViewById(R.id.agenda_sticky_header_list);
@@ -174,6 +177,26 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             // the user scrolls the view
             lv.setOnScrollListener(this);
             lv.setHeaderSeparator(getResources().getColor(R.color.agenda_list_separator_color), 1);
+            topListView = lv;
+        } else {
+            topListView = mAgendaListView;
+        }
+
+        // Since using weight for sizing the two panes of the agenda fragment causes the whole
+        // fragment to re-measure when the sticky header is replaced, calculate the weighted
+        // size of each pane here and set it
+
+        if (!mShowEventDetailsWithAgenda) {
+            ViewGroup.LayoutParams params = topListView.getLayoutParams();
+            params.width = screenWidth;
+            topListView.setLayoutParams(params);
+        } else {
+            ViewGroup.LayoutParams listParams = topListView.getLayoutParams();
+            listParams.width = screenWidth * 4 / 10;
+            topListView.setLayoutParams(listParams);
+            ViewGroup.LayoutParams detailsParams = eventView.getLayoutParams();
+            detailsParams.width = screenWidth - listParams.width;
+            eventView.setLayoutParams(detailsParams);
         }
         return v;
     }

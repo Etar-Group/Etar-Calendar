@@ -24,7 +24,6 @@
         android:id="@+id/agenda_sticky_header_list"
         android:layout_height="match_parent"
         android:layout_marginLeft="0dip"
-        android:layout_weight=".40"
         android:layout_width="0px">
         <view
             class="com.android.calendar.agenda.AgendaListView"
@@ -37,7 +36,6 @@
         android:id="@+id/agenda_event_info"
         android:layout_height="match_parent"
         android:layout_width="0px"
-        android:layout_weight=".60"
         android:background="@color/agenda_general_background_color"
         android:layout_marginTop="0dip"/>
 </LinearLayout>

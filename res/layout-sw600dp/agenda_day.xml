@@ -13,46 +13,56 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
-<LinearLayout
+<GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/agenda_day_bar_background_color"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:columnCount="2"
+    android:rowCount="2">
     <View
         android:id="@+id/top_divider_simple"
         android:layout_height="1px"
         android:background="@color/agenda_list_separator_color"
+        android:layout_column="0"
+        android:layout_row="0"
+        android:layout_rowSpan="1"
+        android:layout_columnSpan="2"
         android:layout_width="match_parent" />
     <View
         android:id="@+id/top_divider_past_present"
         android:background="@color/agenda_past_present_separator_color"
         android:visibility="gone"
         android:layout_height="2dip"
+        android:layout_column="0"
+        android:layout_row="0"
+        android:layout_rowSpan="1"
+        android:layout_columnSpan="2"
         android:layout_width="match_parent" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_marginTop="2dip"
-        android:paddingLeft="16dip"
+    <TextView
+        android:id="@+id/date"
         android:layout_height="wrap_content"
-        android:minHeight="42dip">
-        <TextView
-            android:id="@+id/date"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textSize="24sp"
-            android:singleLine="true"
-            android:textColor="@color/agenda_day_item_text_color" />
-        <TextView
-            android:id="@+id/day"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="8dip"
-            android:textSize="14sp"
-            android:singleLine="true"
-            android:textColor="@color/agenda_day_item_text_color" />
-    </LinearLayout>
-</LinearLayout>
+        android:layout_width="wrap_content"
+        android:layout_column="0"
+        android:layout_row="1"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="16dip"
+        android:layout_marginTop="2dip"
+        android:textSize="24sp"
+        android:singleLine="true"
+        android:minHeight="42dip"
+        android:textColor="@color/agenda_day_item_text_color" />
+    <TextView
+        android:id="@+id/day"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_column="1"
+        android:layout_row="1"
+        android:layout_marginTop="2dip"
+        android:layout_marginLeft="8dip"
+        android:textSize="14sp"
+        android:singleLine="true"
+        android:minHeight="42dip"
+        android:textColor="@color/agenda_day_item_text_color" />
+</GridLayout>

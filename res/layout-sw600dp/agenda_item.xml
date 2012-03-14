@@ -14,78 +14,86 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/content"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="vertical">
+    android:minHeight="80dip"
+    android:columnCount="3"
+    android:rowCount="2">
     <View
         android:layout_height="1px"
         android:background="@color/agenda_list_separator_color"
+        android:layout_column="0"
+        android:layout_row="0"
+        android:layout_rowSpan="1"
+        android:layout_columnSpan="3"
         android:layout_width="match_parent" />
+    <com.android.calendar.ColorChipView
+        android:id="@+id/agenda_item_color"
+        android:layout_column="0"
+        android:layout_row="1"
+        android:layout_rowSpan="1"
+        android:layout_width="32dip"
+        android:layout_height="32dip"
+        android:layout_gravity="top|left"
+        android:layout_marginTop="12dip"
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="8dip" />
+
     <LinearLayout
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:orientation="horizontal">
+        android:layout_gravity="center_vertical|fill_horizontal"
+        android:layout_marginRight="16dip"
+        android:layout_column="1"
+        android:layout_row="1"
+        android:layout_rowSpan="1"
+        android:orientation="vertical">
 
-        <com.android.calendar.ColorChipView
-            android:id="@+id/agenda_item_color"
-            android:layout_width="32dip"
-            android:layout_height="32dip"
-            android:layout_gravity="top"
-            android:layout_marginTop="12dip"
-            android:layout_marginBottom="8dip"
-            android:layout_marginLeft="16dip"
-            android:layout_marginRight="8dip" />
-
-        <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dip"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:minHeight="80dip"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:ellipsize="marquee"
-                android:textColor="@color/agenda_item_standard_color"
-                style="?android:attr/textAppearanceMediumInverse" />
-
-            <TextView
-                android:id="@+id/when"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textSize="14sp"
-                android:ellipsize="marquee"
-                android:textColor="@color/agenda_item_where_text_color"
-                style="?android:attr/textAppearanceSmallInverse" />
-
-            <TextView
-                android:id="@+id/where"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-3dip"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:textSize="14sp"
-                android:textColor="@color/agenda_item_where_text_color"
-                style="?android:attr/textAppearanceSmallInverse" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/selected_marker"
+        <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:contentDescription="@string/acessibility_selected_marker_description"
-            android:background="@drawable/list_multi_left_activated_holo" />
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:ellipsize="marquee"
+            android:textColor="@color/agenda_item_standard_color"
+            style="?android:attr/textAppearanceMediumInverse" />
+
+        <TextView
+            android:id="@+id/when"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:ellipsize="marquee"
+            android:textColor="@color/agenda_item_where_text_color"
+            style="?android:attr/textAppearanceSmallInverse" />
+
+        <TextView
+            android:id="@+id/where"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-3dip"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:textSize="14sp"
+            android:textColor="@color/agenda_item_where_text_color"
+            style="?android:attr/textAppearanceSmallInverse" />
     </LinearLayout>
-</LinearLayout>
+    <ImageView
+        android:id="@+id/selected_marker"
+        android:layout_column="2"
+        android:layout_row="1"
+        android:layout_rowSpan="1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:visibility="gone"
+        android:contentDescription="@string/acessibility_selected_marker_description"
+        android:background="@drawable/list_multi_left_activated_holo" />
+</GridLayout>
