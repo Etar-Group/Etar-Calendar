@@ -265,7 +265,6 @@
                 android:layout_height="wrap_content"
                 android:focusable="true">
                 <TextView
-                    android:id="@+id/response_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
