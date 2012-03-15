@@ -97,10 +97,22 @@
                             android:layout_height="32dip"
                             android:layout_weight="1"
                             android:enabled="false"
+                            android:visibility="gone"
                             android:layout_marginTop="8dip"
                             android:layout_marginRight="16dip"
                             style="?android:attr/buttonBarButtonStyle"
                             android:background="@drawable/event_info_compose_button" />
+                        <Button
+                            android:id="@+id/mail"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:layout_weight="1"
+                            android:layout_marginTop="8dip"
+                            android:layout_marginRight="16dip"
+                            android:enabled="false"
+                            android:visibility="gone"
+                            style="?android:attr/buttonBarButtonStyle"
+                            android:background="@drawable/event_info_mail_button" />
                         <Button
                             android:id="@+id/delete"
                             android:layout_width="32dip"
@@ -108,6 +120,8 @@
                             android:layout_marginTop="8dip"
                             android:layout_marginLeft="16dip"
                             android:layout_weight="1"
+                            android:enabled="false"
+                            android:visibility="gone"
                             style="?android:attr/buttonBarButtonStyle"
                             android:background="@drawable/event_info_delete_button" />
                     </LinearLayout>
