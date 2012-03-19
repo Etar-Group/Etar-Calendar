@@ -104,7 +104,7 @@
     <string name="agenda_today" msgid="5965841338467422191">"I DAG, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"I GÅR, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"I MORGEN, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="loading" msgid="3772533493214331230">"Indlæser ..."</string>
+    <string name="loading" msgid="3772533493214331230">"Indlæser..."</string>
     <string name="show_older_events" msgid="5140647493681439926">"Tryk for at få vist begivenheder før <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"Tryk for at få vist begivenheder efter <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Søg i mine kalendere"</string>
