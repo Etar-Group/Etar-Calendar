@@ -1617,7 +1617,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if (!mTouchExplorationEnabled) {
             return super.onHoverEvent(event);
         }
-        if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT) {
+        if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT && !mTouchExplorationEnabled) {
             setSelectionFromPosition((int) event.getX(), (int) event.getY());
             invalidate();
         }
