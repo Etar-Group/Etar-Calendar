@@ -20,7 +20,7 @@
         android:id="@+id/action_today"
         android:alphabeticShortcut="t"
         android:title="@string/goto_today"
-        android:icon="@drawable/ic_menu_today_holo_light"
+        android:icon="@drawable/today_icon"
         android:showAsAction="always|withText" />
     <item
         android:id="@+id/action_create_event"

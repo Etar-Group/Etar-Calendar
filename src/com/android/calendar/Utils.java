@@ -31,6 +31,7 @@ import android.database.MatrixCursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -1113,5 +1114,28 @@ public class Utils {
         }
         dayViewText = dayViewText.toUpperCase();
         return dayViewText;
+    }
+
+    // Calculate the time until midnight + 1 second and set the handler to
+    // do run the runnable
+    public static void setMidnightUpdater(Handler h, Runnable r, String timezone) {
+        if (h == null || r == null || timezone == null) {
+            return;
+        }
+        long now = System.currentTimeMillis();
+        Time time = new Time(timezone);
+        time.set(now);
+        long runInMillis = (24 * 3600 - time.hour * 3600 - time.minute * 60 -
+                time.second + 1) * 1000;
+        h.removeCallbacks(r);
+        h.postDelayed(r, runInMillis);
+    }
+
+    // Stop the midnight update thread
+    public static void resetMidnightUpdater(Handler h, Runnable r) {
+        if (h == null || r == null) {
+            return;
+        }
+        h.removeCallbacks(r);
     }
 }

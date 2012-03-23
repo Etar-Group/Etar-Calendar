@@ -21,14 +21,6 @@ import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
 import static com.android.calendar.CalendarController.EVENT_ATTENDEE_RESPONSE;
 
-import com.android.calendar.CalendarController.EventHandler;
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarController.ViewType;
-import com.android.calendar.agenda.AgendaFragment;
-import com.android.calendar.month.MonthByWeekFragment;
-import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
-
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
@@ -44,14 +36,18 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.AsyncQueryHandler;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -72,6 +68,14 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SearchView;
 import android.widget.SearchView.OnSuggestionListener;
 import android.widget.TextView;
+
+import com.android.calendar.CalendarController.EventHandler;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.agenda.AgendaFragment;
+import com.android.calendar.month.MonthByWeekFragment;
+import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
 import java.io.IOException;
 import java.util.List;
@@ -151,6 +155,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private String mHideString;
     private String mShowString;
 
+    DayOfMonthDrawable mDayOfMonthIcon;
+    Handler mMidnightUpdaterHandler;
+
     // Params for animating the controls on the right
     private LayoutParams mControlsParams = new LayoutParams(CONTROLS_ANIMATE_WIDTH, 0);
 
@@ -226,8 +233,18 @@ public class AllInOneActivity extends Activity implements EventHandler,
         @Override
         public void run() {
             updateSecondaryTitleFields(-1);
+            AllInOneActivity.this.invalidateOptionsMenu();
         }
     };
+
+    // runs every midnight and refreshes the today icon
+    private Runnable mMidnightUpdater = new Runnable() {
+        @Override
+        public void run() {
+            AllInOneActivity.this.invalidateOptionsMenu();
+        }
+    };
+
 
     // Create an observer so that we can update the views whenever a
     // Calendar event changes.
@@ -242,6 +259,24 @@ public class AllInOneActivity extends Activity implements EventHandler,
             eventsChanged();
         }
     };
+
+    private class CalendarBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_DATE_CHANGED) ||
+                    intent.getAction().equals(Intent.ACTION_TIME_CHANGED) ||
+                    intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED) ||
+                    intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                // Update the day of month in the today button by invalidating
+                // the option menu thus forcing it to redraw and update the day of month
+                Utils.setMidnightUpdater(mHandler, mMidnightUpdater, mTimeZone);
+                AllInOneActivity.this.invalidateOptionsMenu();
+            }
+        }
+    }
+
+    CalendarBroadcastReceiver mCalIntentReceiver;
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -519,6 +554,23 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mIntentEventStartMillis = -1;
             mIntentEventEndMillis = -1;
         }
+        if (mMidnightUpdaterHandler == null) {
+            mMidnightUpdaterHandler = new Handler();
+        }
+        Utils.setMidnightUpdater(mHandler, mMidnightUpdater, mTimeZone);
+        // Make sure the today icon is up to date
+        invalidateOptionsMenu();
+
+              // Register for Intent broadcasts
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_TIME_CHANGED);
+        filter.addAction(Intent.ACTION_DATE_CHANGED);
+        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        filter.addAction(Intent.ACTION_LOCALE_CHANGED);
+        if (mCalIntentReceiver == null) {
+            mCalIntentReceiver = new CalendarBroadcastReceiver();
+        }
+        registerReceiver(mCalIntentReceiver, filter);
     }
 
     @Override
@@ -541,6 +593,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (mController.getViewType() != ViewType.EDIT) {
             Utils.setDefaultView(this, mController.getViewType());
         }
+        Utils.resetMidnightUpdater(mHandler, mMidnightUpdater);
+        unregisterReceiver(mCalIntentReceiver);
     }
 
     @Override
@@ -686,6 +740,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
         } else if (mControlsMenu != null){
             mControlsMenu.setTitle(mHideControls ? mShowString : mHideString);
         }
+
+        // replace the default top layer drawable of the today icon with a custom drawable
+        // that shows the day of the month of today
+        LayerDrawable icon = (LayerDrawable)menu.findItem(R.id.action_today).getIcon();
+        setTodayIcon();
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.today_icon_day, mDayOfMonthIcon);
         return true;
     }
 
@@ -1235,5 +1296,16 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mSearchMenu.expandActionView();
         }
         return false;
+    }
+
+    // Updates the day of the month drawable in the today icon
+    private void setTodayIcon() {
+        if (mDayOfMonthIcon == null) {
+            mDayOfMonthIcon = new DayOfMonthDrawable();
+        }
+        Time now = new Time();
+        now.set(System.currentTimeMillis());
+        now.normalize(false);
+        mDayOfMonthIcon.setDayOfMonth(now.monthDay);
     }
 }

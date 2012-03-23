@@ -65,7 +65,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         @Override
         public void run() {
             refresh(true);
-            setMidnightUpdater();
+            Utils.setMidnightUpdater(mHandler, mMidnightUpdater, mTimeZone);
         }
     };
 
@@ -105,26 +105,6 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         setDividerHeight(0);
 
         mHandler = new Handler();
-    }
-
-
-    // Sets a thread to run one second after midnight and refresh the list view
-    // causing the separator between past/present to be updated.
-    private void setMidnightUpdater() {
-        // Calculate the time until midnight + 1 second and set the handler to
-        // do a refresh at that time.
-        long now = System.currentTimeMillis();
-        Time time = new Time(mTimeZone);
-        time.set(now);
-        long runInMillis = (24 * 3600 - time.hour * 3600 - time.minute * 60 -
-                time.second + 1) * 1000;
-        mHandler.removeCallbacks(mMidnightUpdater);
-        mHandler.postDelayed(mMidnightUpdater, runInMillis);
-    }
-
-    // Stop the midnight update thread
-    private void resetMidnightUpdater() {
-        mHandler.removeCallbacks(mMidnightUpdater);
     }
 
     // Sets a thread to run every EVENT_UPDATE_TIME in order to update the list
@@ -420,13 +400,13 @@ public class AgendaListView extends ListView implements OnItemClickListener {
 
     public void onResume() {
         mTZUpdater.run();
-        setMidnightUpdater();
+        Utils.setMidnightUpdater(mHandler, mMidnightUpdater, mTimeZone);
         setPastEventsUpdater();
         mWindowAdapter.onResume();
     }
 
     public void onPause() {
-        resetMidnightUpdater();
+        Utils.resetMidnightUpdater(mHandler, mMidnightUpdater);
         resetPastEventsUpdater();
     }
 }
