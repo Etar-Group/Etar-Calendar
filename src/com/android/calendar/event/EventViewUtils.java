@@ -275,4 +275,22 @@ public class EventViewUtils {
 
         return true;
     }
+
+    /**
+     * Enables/disables the 'add reminder' button depending on the current number of
+     * reminders.
+     */
+    public static void updateAddReminderButton(View view, ArrayList<LinearLayout> reminders,
+            int maxReminders) {
+        View reminderAddButton = view.findViewById(R.id.reminder_add);
+        if (reminderAddButton != null) {
+            if (reminders.size() >= maxReminders) {
+                reminderAddButton.setEnabled(false);
+                reminderAddButton.setVisibility(View.GONE);
+            } else {
+                reminderAddButton.setEnabled(true);
+                reminderAddButton.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 }

@@ -1739,6 +1739,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         mReminderMinuteValues, mReminderMinuteLabels, mReminderMethodValues,
                         mReminderMethodLabels, re, Integer.MAX_VALUE, mReminderChangeListener);
             }
+            EventViewUtils.updateAddReminderButton(mView, mReminderViews, mMaxReminders);
             // TODO show unsupported reminder types in some fashion.
         }
     }
@@ -1931,6 +1932,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         parent.removeView(reminderItem);
         mReminderViews.remove(reminderItem);
         mUserModifiedReminders = true;
+        EventViewUtils.updateAddReminderButton(mView, mReminderViews, mMaxReminders);
     }
 
 
@@ -1953,8 +1955,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     mReminderMethodLabels, ReminderEntry.valueOf(mDefaultReminderMinutes),
                     mMaxReminders, mReminderChangeListener);
         }
-    }
 
+        EventViewUtils.updateAddReminderButton(mView, mReminderViews, mMaxReminders);
+    }
 
     synchronized private void prepareReminders() {
         // Nothing to do if we've already built these lists _and_ we aren't

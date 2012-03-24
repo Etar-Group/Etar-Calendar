@@ -656,6 +656,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         parent.removeView(reminderItem);
         mReminderItems.remove(reminderItem);
         updateRemindersVisibility(mReminderItems.size());
+        EventViewUtils.updateAddReminderButton(mView, mReminderItems, mModel.mCalendarMaxReminders);
     }
 
     // This is called if the user cancels the "No calendars" dialog.
@@ -990,6 +991,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         updateRemindersVisibility(numReminders);
+        EventViewUtils.updateAddReminderButton(mView, mReminderItems, mModel.mCalendarMaxReminders);
     }
 
     /**
@@ -1457,6 +1459,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     mModel.mCalendarMaxReminders, null);
         }
         updateRemindersVisibility(mReminderItems.size());
+        EventViewUtils.updateAddReminderButton(mView, mReminderItems, mModel.mCalendarMaxReminders);
     }
 
     // From com.google.android.gm.ComposeActivity
