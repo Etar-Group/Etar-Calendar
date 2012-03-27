@@ -97,10 +97,8 @@
     <string name="response_yes" msgid="2027484304899988350">"Sí"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Potser"</string>
     <string name="response_no" msgid="561911691884148136">"No"</string>
-    <!-- no translation found for email_attendees_label (973163326023133940) -->
-    <skip />
-    <!-- no translation found for email_picker_label (4808253965057791781) -->
-    <skip />
+    <string name="email_attendees_label" msgid="973163326023133940">"Correu"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"Correu electrònic amb"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organitz.:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"Més"</string>
     <string name="event_info_desc_less" msgid="8295683160345195225">"Menys"</string>
