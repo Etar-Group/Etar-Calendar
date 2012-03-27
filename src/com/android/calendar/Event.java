@@ -350,6 +350,7 @@ public class Event implements Cloneable {
         mNoColorColor = res.getColor(R.color.event_center);
         // Sort events in two passes so we ensure the allday and standard events
         // get sorted in the correct order
+        cEvents.moveToPosition(-1);
         while (cEvents.moveToNext()) {
             Event e = generateEventFromCursor(cEvents);
             if (e.startDay > endDay || e.endDay < startDay) {

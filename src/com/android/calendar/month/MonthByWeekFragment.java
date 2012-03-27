@@ -16,14 +16,6 @@
 
 package com.android.calendar.month;
 
-import com.android.calendar.CalendarController;
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarController.ViewType;
-import com.android.calendar.Event;
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.ContentUris;
@@ -50,9 +42,18 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.Event;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         CalendarController.EventHandler, LoaderManager.LoaderCallbacks<Cursor>, OnScrollListener,
@@ -91,6 +92,10 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
     private static float mScale = 0;
     private static int SPACING_WEEK_NUMBER = 19;
+
+    private int mEventsLoadingDelay;
+    private boolean mShowCalendarControls;
+    private boolean mIsDetached;
 
     // These define the behavior of the fling. Below MIN_VELOCITY_FOR_FLING, do the system fling
     // behavior. Between MIN_VELOCITY_FOR_FLING and MULTIPLE_MONTH_VELOCITY_THRESHOLD, do one month
@@ -140,6 +145,17 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             }
         }
     };
+    // Used to load the events when a delay is needed
+    Runnable mLoadingRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (!mIsDetached) {
+                mLoader = (CursorLoader) getLoaderManager().initLoader(0, null,
+                        MonthByWeekFragment.this);
+            }
+        }
+    };
+
 
     /**
      * Updates the uri used by the loader according to the current position of
@@ -166,6 +182,21 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         ContentUris.appendId(builder, start);
         ContentUris.appendId(builder, end);
         return builder.build();
+    }
+
+    // Extract range of julian days from URI
+    private void updateLoadedDays() {
+        List<String> pathSegments = mEventUri.getPathSegments();
+        int size = pathSegments.size();
+        if (size <= 2) {
+            return;
+        }
+        long first = Long.parseLong(pathSegments.get(size - 2));
+        long last = Long.parseLong(pathSegments.get(size - 1));
+        mTempTime.set(first);
+        mFirstLoadedJulianDay = Time.getJulianDay(first, mTempTime.gmtoff);
+        mTempTime.set(last);
+        mLastLoadedJulianDay = Time.getJulianDay(last, mTempTime.gmtoff);
     }
 
     protected String updateWhere() {
@@ -246,13 +277,20 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         if (mAdapter != null) {
             mAdapter.setSelectedDay(mSelectedDay);
         }
+        mIsDetached = false;
 
         mGestureDetector = new GestureDetector(activity, new MonthGestureListener());
         ViewConfiguration viewConfig = ViewConfiguration.get(activity);
         mMinimumTwoMonthFlingVelocity = viewConfig.getScaledMaximumFlingVelocity() / 2;
+        Resources res = activity.getResources();
+        mShowCalendarControls = Utils.getConfigBool(activity, R.bool.show_calendar_controls);
+        // Synchronized the loading time of the month's events with the animation of the
+        // calendar controls.
+        if (mShowCalendarControls) {
+            mEventsLoadingDelay = res.getInteger(R.integer.calendar_controls_animation_time);
+        }
 
         if (mScale == 0) {
-            Resources res = activity.getResources();
             mScale = res.getDisplayMetrics().density;
             mShowDetailsInMonth = res.getBoolean(R.bool.show_details_in_month);
             if (mScale != 1) {
@@ -260,6 +298,15 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
                 MIN_VELOCITY_FOR_FLING *= mScale;
                 MULTIPLE_MONTH_VELOCITY_THRESHOLD *= mScale;
             }
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        mIsDetached = true;
+        super.onDetach();
+        if (mShowCalendarControls) {
+            mListView.removeCallbacks(mLoadingRunnable);
         }
     }
 
@@ -305,7 +352,14 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         if (!mIsMiniMonth) {
             mListView.setBackgroundColor(getResources().getColor(R.color.month_bgcolor));
         }
-        mLoader = (CursorLoader) getLoaderManager().initLoader(0, null, this);
+
+        // To get a smoother transition when showing this fragment, delay loading of events until
+        // the fragment is expended fully and the calendar controls are gone.
+        if (mShowCalendarControls) {
+            mListView.postDelayed(mLoadingRunnable, mEventsLoadingDelay);
+        } else {
+            mLoader = (CursorLoader) getLoaderManager().initLoader(0, null, this);
+        }
     }
 
     public MonthByWeekFragment() {
@@ -382,6 +436,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             CursorLoader cLoader = (CursorLoader) loader;
             if (mEventUri == null) {
                 mEventUri = cLoader.getUri();
+                updateLoadedDays();
             }
             if (cLoader.getUri().compareTo(mEventUri) != 0) {
                 // We've started a new query since this loader ran so ignore the

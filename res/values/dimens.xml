@@ -45,4 +45,6 @@
     <dimen name="event_info_desc_margin_left">0dip</dimen>
     <dimen name="event_info_desc_margin_right">0dip</dimen>
     <dimen name="event_info_padding">0dip</dimen>
+    <dimen name="calendar_controls_width">280dip</dimen>
+    <dimen name="calendar_controls_height">300dip</dimen>
 </resources>
