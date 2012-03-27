@@ -85,7 +85,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     private CursorLoader mLoader;
     private Uri mEventUri;
     private GestureDetector mGestureDetector;
-    private Time mDesiredDay = new Time();
+    private final Time mDesiredDay = new Time();
 
     private volatile boolean mShouldLoad = true;
     private boolean mUserScrolled = false;
@@ -105,7 +105,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     private static int MIN_VELOCITY_FOR_FLING = 750;
     private static int MULTIPLE_MONTH_VELOCITY_THRESHOLD = 4000;
 
-    private Runnable mTZUpdater = new Runnable() {
+    private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
             String tz = Utils.getTimeZone(mContext, mTZUpdater);
@@ -123,7 +123,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     };
 
 
-    private Runnable mUpdateLoader = new Runnable() {
+    private final Runnable mUpdateLoader = new Runnable() {
         @Override
         public void run() {
             synchronized (this) {
@@ -360,6 +360,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         } else {
             mLoader = (CursorLoader) getLoaderManager().initLoader(0, null, this);
         }
+        mAdapter.setListView(mListView);
     }
 
     public MonthByWeekFragment() {
@@ -557,5 +558,4 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         // wrong in a scroll such as the user stopping the view but not
         // scrolling
     }
-
 }

@@ -164,6 +164,9 @@ public class MonthWeekEventsView extends SimpleWeekView {
     protected int mMonthBusyBitsBgColor;
     protected int mMonthBusyBitsBusyTimeColor;
     protected int mMonthBusyBitsConflictTimeColor;
+    private int mClickedDayIndex = -1;
+    private int mClickedDayColor;
+    private static final int mClickedAlpha = 128;
 
     protected int mEventChipOutlineColor = 0xFFFFFFFF;
     protected int mDaySeparatorInnerColor;
@@ -173,7 +176,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private int mAnimateTodayAlpha = 0;
     private ObjectAnimator mTodayAnimator = null;
 
-    private TodayAnimatorListener mAnimatorListener = new TodayAnimatorListener();
+    private final TodayAnimatorListener mAnimatorListener = new TodayAnimatorListener();
 
     class TodayAnimatorListener extends AnimatorListenerAdapter {
         private volatile Animator mAnimator = null;
@@ -330,7 +333,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
         mMonthBGColor = res.getColor(R.color.month_bgcolor);
         mDaySeparatorInnerColor = res.getColor(R.color.month_grid_lines);
         mTodayAnimateColor = res.getColor(R.color.today_highlight_color);
-
+        mClickedDayColor = res.getColor(R.color.day_clicked_background_color);
         mTodayDrawable = res.getDrawable(R.drawable.today_blue_week_holo_light);
     }
 
@@ -550,6 +553,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
             }
             drawDNA(canvas);
         }
+        drawClick(canvas);
     }
 
     protected void drawToday(Canvas canvas) {
@@ -648,6 +652,21 @@ public class MonthWeekEventsView extends SimpleWeekView {
             r.left = computeDayLeftPosition(mTodayIndex);
             r.right = computeDayLeftPosition(mTodayIndex + 1);
             canvas.drawRect(r, p);
+        }
+    }
+
+    // Draw the "clicked" color on the tapped day
+    private void drawClick(Canvas canvas) {
+        if (mClickedDayIndex != -1) {
+            int alpha = p.getAlpha();
+            p.setColor(mClickedDayColor);
+            p.setAlpha(mClickedAlpha);
+            r.left = computeDayLeftPosition(mClickedDayIndex);
+            r.right = computeDayLeftPosition(mClickedDayIndex + 1);
+            r.top = DAY_SEPARATOR_INNER_WIDTH;
+            r.bottom = mHeight;
+            canvas.drawRect(r, p);
+            p.setAlpha(alpha);
         }
     }
 
@@ -998,14 +1017,21 @@ public class MonthWeekEventsView extends SimpleWeekView {
         }
     }
 
-    @Override
-    public Time getDayFromLocation(float x) {
+    public int getDayIndexFromLocation(float x) {
         int dayStart = mShowWeekNum ? SPACING_WEEK_NUMBER + mPadding : mPadding;
         if (x < dayStart || x > mWidth - mPadding) {
-            return null;
+            return -1;
         }
         // Selection is (x - start) / (pixels/day) == (x -s) * day / pixels
-        int dayPosition = (int) ((x - dayStart) * mNumDays / (mWidth - dayStart - mPadding));
+        return ((int) ((x - dayStart) * mNumDays / (mWidth - dayStart - mPadding)));
+    }
+
+    @Override
+    public Time getDayFromLocation(float x) {
+        int dayPosition = getDayIndexFromLocation(x);
+        if (dayPosition == -1) {
+            return null;
+        }
         int day = mFirstJulianDay + dayPosition;
 
         Time time = new Time(mTimeZone);
@@ -1070,5 +1096,14 @@ public class MonthWeekEventsView extends SimpleWeekView {
             }
         }
         return true;
+    }
+
+    public void setClickedDay(float xLocation) {
+        mClickedDayIndex = getDayIndexFromLocation(xLocation);
+        invalidate();
+    }
+    public void clearClickedDay() {
+        mClickedDayIndex = -1;
+        invalidate();
     }
 }

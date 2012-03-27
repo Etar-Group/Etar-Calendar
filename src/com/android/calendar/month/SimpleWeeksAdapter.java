@@ -31,6 +31,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -291,5 +292,11 @@ public class SimpleWeeksAdapter extends BaseAdapter implements OnTouchListener {
         public boolean onSingleTapUp(MotionEvent e) {
             return true;
         }
+    }
+
+    ListView mListView;
+
+    public void setListView(ListView lv) {
+        mListView = lv;
     }
 }
