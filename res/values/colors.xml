@@ -26,7 +26,7 @@
     <color name="today_highlight_color">#0033b5e5</color>
 
     <!-- The app wide background color -->
-    <color name="background_color">#ffdddddd</color>
+    <color name="background_color">#fafafa</color>
     <color name="event_background">#ffc3d9ff</color>
     <color name="panel_text_foreground">#ffffffff</color>
     <color name="calendar_event_text_color">#ffFFFFFF</color>
