@@ -98,7 +98,7 @@
     <string name="response_maybe" msgid="7791500973627841695">"Peut-être"</string>
     <string name="response_no" msgid="561911691884148136">"Non"</string>
     <string name="email_attendees_label" msgid="973163326023133940">"E-mail"</string>
-    <string name="email_picker_label" msgid="4808253965057791781">"Envoyer un e-mail à"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"Envoyer un e-mail via"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisateur :"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"Plus"</string>
     <string name="event_info_desc_less" msgid="8295683160345195225">"Moins"</string>
