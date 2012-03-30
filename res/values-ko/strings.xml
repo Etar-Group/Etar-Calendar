@@ -98,7 +98,7 @@
     <string name="response_maybe" msgid="7791500973627841695">"미정"</string>
     <string name="response_no" msgid="561911691884148136">"아니요"</string>
     <string name="email_attendees_label" msgid="973163326023133940">"메일"</string>
-    <string name="email_picker_label" msgid="4808253965057791781">"이메일 수신자"</string>
+    <string name="email_picker_label" msgid="4808253965057791781">"이메일:"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"주최자:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"더보기"</string>
     <string name="event_info_desc_less" msgid="8295683160345195225">"접기"</string>
