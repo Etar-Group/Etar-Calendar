@@ -124,6 +124,8 @@
     <!-- Text color of the "new event" hint in day and week views -->
     <color name="new_event_hint_text_color">#FFFFFFFF</color>
 
+    <!-- Text color of a clicked event in the day/week view -->
+    <color name="day_event_clicked_background_color">#8033B5E5</color>
 
     <!-- Event info colors -->
     <color name="event_info_headline_color">#FFFFFFFF</color>
