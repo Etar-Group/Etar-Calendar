@@ -556,6 +556,10 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             //
             // Note that as currently implemented, this must run in a single threaded executor
             // or else the loads may be run out of order.
+            //
+            // TODO: Remove use of mHandler and CursorLoader, and do all the work synchronously
+            // in the background thread.  All the handshaking going on here between the UI and
+            // background thread with using goAsync, mHandler, and CursorLoader is confusing.
             final PendingResult result = goAsync();
             executor.submit(new Runnable() {
                 @Override
