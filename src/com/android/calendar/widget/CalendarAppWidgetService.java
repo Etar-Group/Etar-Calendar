@@ -329,7 +329,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         @Override
         public long getItemId(int position) {
-            if (mModel == null ||  mModel.mRowInfos.isEmpty()) {
+            if (mModel == null ||  mModel.mRowInfos.isEmpty() || position >= getCount()) {
                 return 0;
             }
             RowInfo rowInfo = mModel.mRowInfos.get(position);
