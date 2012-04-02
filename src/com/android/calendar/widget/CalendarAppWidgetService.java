@@ -22,11 +22,14 @@ import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
 import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -120,6 +123,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         private int mLastLock;
         private CursorLoader mLoader;
         private Handler mHandler = new Handler();
+        private static final AtomicInteger currentVersion = new AtomicInteger(0);
+        private ExecutorService executor = Executors.newSingleThreadExecutor();
         private int mAppWidgetId;
         private int mDeclinedColor;
         private int mStandardColor;
@@ -134,22 +139,25 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             }
         };
 
-        private Runnable mUpdateLoader = new Runnable() {
-            @Override
-            public void run() {
-                if (mLoader != null) {
-                    Uri uri = createLoaderUri();
-                    mLoader.setUri(uri);
-                    String selection = Utils.getHideDeclinedEvents(mContext) ?
-                            EVENT_SELECTION_HIDE_DECLINED : EVENT_SELECTION;
-                    mLoader.setSelection(selection);
-                    synchronized (mLock) {
-                        mLastLock = ++mLock;
+        private Runnable createUpdateLoaderRunnable(final String selection,
+                final PendingResult result, final int version) {
+            return new Runnable() {
+                @Override
+                public void run() {
+                    // If there is a newer load request in the queue, skip loading.
+                    if (mLoader != null && version >= currentVersion.get()) {
+                        Uri uri = createLoaderUri();
+                        mLoader.setUri(uri);
+                        mLoader.setSelection(selection);
+                        synchronized (mLock) {
+                            mLastLock = ++mLock;
+                        }
+                        mLoader.forceLoad();
                     }
-                    mLoader.forceLoad();
+                    result.finish();
                 }
-            }
-        };
+            };
+        }
 
         protected CalendarFactory(Context context, Intent intent) {
             mContext = context;
@@ -169,7 +177,8 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
-            initLoader();
+            String selection = queryForSelection();
+            initLoader(selection);
         }
 
         @Override
@@ -357,21 +366,14 @@ public class CalendarAppWidgetService extends RemoteViewsService {
          * in the list of events starting at midnight local time. This may fetch
          * more events than we actually want, so we filter them out later.
          *
-         * @param resolver {@link ContentResolver} to use when querying
-         *            {@link Instances#CONTENT_URI}.
-         * @param searchDuration Distance into the future to look for event
-         *            instances, in milliseconds.
-         * @param now Current system time to use for this update, possibly from
-         *            {@link System#currentTimeMillis()}.
+         * @param selection The selection string for the loader to filter the query with.
          */
-        public void initLoader() {
+        public void initLoader(String selection) {
             if (LOGD)
                 Log.d(TAG, "Querying for widget events...");
 
             // Search for events from now until some time in the future
             Uri uri = createLoaderUri();
-            String selection = Utils.getHideDeclinedEvents(mContext) ? EVENT_SELECTION_HIDE_DECLINED
-                    : EVENT_SELECTION;
             mLoader = new CursorLoader(mContext, uri, EVENT_PROJECTION, selection, null,
                     EVENT_SORT_ORDER);
             mLoader.setUpdateThrottle(WIDGET_UPDATE_THROTTLE);
@@ -381,6 +383,15 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             mLoader.registerListener(mAppWidgetId, this);
             mLoader.startLoading();
 
+        }
+
+        /**
+         * This gets the selection string for the loader.  This ends up doing a query in the
+         * shared preferences.
+         */
+        private String queryForSelection() {
+            return Utils.getHideDeclinedEvents(mContext) ? EVENT_SELECTION_HIDE_DECLINED
+                    : EVENT_SELECTION;
         }
 
         /**
@@ -537,13 +548,39 @@ public class CalendarAppWidgetService extends RemoteViewsService {
             if (LOGD)
                 Log.d(TAG, "AppWidgetService received an intent. It was " + intent.toString());
             mContext = context;
-            if (mLoader == null) {
-                mAppWidgetId = -1;
-                initLoader();
-            } else {
-                mHandler.removeCallbacks(mUpdateLoader);
-                mHandler.post(mUpdateLoader);
-            }
+
+            // We cannot do any queries from the UI thread, so push the 'selection' query
+            // to a background thread.  However the implementation of the latter query
+            // (cursor loading) uses CursorLoader which must be initiated from the UI thread,
+            // so there is some convoluted handshaking here.
+            //
+            // Note that as currently implemented, this must run in a single threaded executor
+            // or else the loads may be run out of order.
+            final PendingResult result = goAsync();
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    // We always complete queryForSelection() even if the load task ends up being
+                    // canceled because of a more recent one.  Optimizing this to allow
+                    // canceling would require keeping track of all the PendingResults
+                    // (from goAsync) to abort them.  Defer this until it becomes a problem.
+                    final String selection = queryForSelection();
+
+                    if (mLoader == null) {
+                        mAppWidgetId = -1;
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                initLoader(selection);
+                                result.finish();
+                            }
+                        });
+                    } else {
+                        mHandler.post(createUpdateLoaderRunnable(selection, result,
+                                currentVersion.incrementAndGet()));
+                    }
+                }
+            });
         }
     }
 
