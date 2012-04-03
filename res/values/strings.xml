@@ -192,9 +192,9 @@
     <!-- Toast message displayed when a new event was not saved because it was empty [CHAR LIMIT=30] -->
     <string name="empty_event">"Empty event not created."</string>
     <!-- Toast message displayed when a new event with guests is created -->
-    <string name="creating_event_with_guest">"Invitations sent."</string>
+    <string name="creating_event_with_guest">"Invitations will be sent."</string>
     <!-- Toast message displayed when an existing event with guests is saved after being modified -->
-    <string name="saving_event_with_guest">"Updates sent."</string>
+    <string name="saving_event_with_guest">"Updates will be sent."</string>
     <!-- Title of message displayed to indicate available calendars are being loaded when creating
          a new event -->
 
