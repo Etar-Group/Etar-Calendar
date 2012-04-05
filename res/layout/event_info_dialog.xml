@@ -103,17 +103,6 @@
                             style="?android:attr/buttonBarButtonStyle"
                             android:background="@drawable/event_info_compose_button" />
                         <Button
-                            android:id="@+id/mail"
-                            android:layout_width="32dip"
-                            android:layout_height="32dip"
-                            android:layout_weight="1"
-                            android:layout_marginTop="8dip"
-                            android:layout_marginRight="16dip"
-                            android:enabled="false"
-                            android:visibility="gone"
-                            style="?android:attr/buttonBarButtonStyle"
-                            android:background="@drawable/event_info_mail_button" />
-                        <Button
                             android:id="@+id/delete"
                             android:layout_width="32dip"
                             android:layout_height="32dip"
@@ -213,7 +202,7 @@
                 <TextView
                     android:id="@+id/response_label"
                     android:layout_width="match_parent"
-                    android:layout_height="32dip"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="8dip"
                     android:paddingRight="16dip"
@@ -227,9 +216,8 @@
                     android:id="@+id/response_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="52dip"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginTop="8dip"
-                    android:layout_marginBottom="8dip"
                     android:paddingLeft="9dip"
                     android:orientation="horizontal">
                     <RadioButton
@@ -237,6 +225,7 @@
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
                         android:minWidth="96dip"
                         style="?android:attr/textAppearanceMedium"
                         android:textColor="@color/event_info_body_color"
@@ -246,6 +235,7 @@
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
                         android:minWidth="96dip"
                         style="?android:attr/textAppearanceMedium"
                         android:textColor="@color/event_info_body_color"
@@ -255,12 +245,48 @@
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
                         android:minWidth="96dip"
                         style="?android:attr/textAppearanceMedium"
                         android:textColor="@color/event_info_body_color"
                         android:text="@string/response_no" />
                 </RadioGroup>
             </LinearLayout>
+
+            <!-- EMAIL GUESTS -->
+            <LinearLayout
+                android:id="@+id/email_attendees_container"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:background="?android:attr/listDivider"
+                    android:layout_height="1px"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="8dip"
+                    android:layout_marginRight="0dip" />
+                <Button
+                    android:id="@+id/email_attendees_button"
+                    android:text="@string/email_guests_label"
+                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_gravity="left"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="0dp"
+                    android:layout_marginTop="0dip"
+                    android:layout_marginBottom="0dip"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textColor="#777777"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawableLeft="@drawable/event_info_mail_button"
+                    android:drawablePadding="8dp"
+                    style="@style/TextAppearance.EditEvent_LabelSmall" />
+            </LinearLayout>
+
             <!-- GUEST LIST -->
             <com.android.calendar.event.AttendeesView
                 android:id="@+id/long_attendee_list"
@@ -301,8 +327,9 @@
                     android:id="@+id/reminder_add"
                     android:text="@string/reminders_label"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginRight="0dp"
                     android:layout_marginBottom="-6dp"
                     android:gravity="center_vertical|left"
                     android:textSize="18sp"
