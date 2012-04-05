@@ -73,8 +73,10 @@
     <string name="creating_event" msgid="7516249252554059980">"Eveniment creat."</string>
     <string name="saving_event" msgid="7694181017411177226">"Eveniment salvat."</string>
     <string name="empty_event" msgid="9018699257414338634">"Evenimentul gol nu s-a creat."</string>
-    <string name="creating_event_with_guest" msgid="8535098983005383300">"Invitaţiile au fost trimise."</string>
-    <string name="saving_event_with_guest" msgid="8678551213800311856">"Actualizările au fost trimise."</string>
+    <!-- no translation found for creating_event_with_guest (5758688413124191931) -->
+    <skip />
+    <!-- no translation found for saving_event_with_guest (9184584438475689577) -->
+    <skip />
     <string name="alert_title" msgid="7869592820853066853">"Notificările calendarului"</string>
     <string name="event_info_title" msgid="56024222340421620">"Vizualizaţi evenimentul"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invitaţie de întâlnire"</string>
