@@ -497,13 +497,13 @@ public class AgendaWindowAdapter extends BaseAdapter
     private AgendaAdapter.ViewHolder mSelectedVH = null;
 
     private int findEventPositionNearestTime(Time time, long id) {
-        if (DEBUGLOG) Log.e(TAG, "findEventPositionNearestTime " + time + " id " + id);
         DayAdapterInfo info = getAdapterInfoByTime(time);
+        int pos = -1;
         if (info != null) {
-            return info.offset + info.dayAdapter.findEventPositionNearestTime(time, id);
-        } else {
-            return -1;
+            pos = info.offset + info.dayAdapter.findEventPositionNearestTime(time, id);
         }
+        if (DEBUGLOG) Log.e(TAG, "findEventPositionNearestTime " + time + " id:" + id + " =" + pos);
+        return pos;
     }
 
     protected DayAdapterInfo getAdapterInfoByPosition(int position) {
@@ -676,11 +676,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                 }
 
                 Time actualTime = new Time(mTimeZone);
-                if (goToTime != null) {
-                    actualTime.set(goToTime);
-                } else {
-                    actualTime.set(mAgendaListView.getFirstVisibleTime());
-                }
+                actualTime.set(goToTime);
                 CalendarController.getInstance(mContext).sendEvent(this, EventType.UPDATE_TITLE,
                         actualTime, actualTime, -1, ViewType.CURRENT);
             }
