@@ -23,13 +23,6 @@
         android:showAsAction="withText|always"
         android:enabled="false"
         android:visible="false" />
-    <item android:id="@+id/info_action_mail"
-        android:alphabeticShortcut="m"
-        android:title="@string/email_attendees_label"
-        android:icon="@drawable/ic_menu_email_holo_light"
-        android:showAsAction="withText|always"
-        android:enabled="false"
-        android:visible="false" />
     <item android:id="@+id/info_action_delete"
         android:alphabeticShortcut="x"
         android:title="@string/delete_label"

@@ -265,8 +265,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private String mCalendarOwnerAccount;
     private boolean mCanModifyCalendar;
     private boolean mCanModifyEvent;
-    private boolean mVisibleMailButton;
-    private boolean mEnableMailButton;
     private boolean mIsBusyFreeCalendar;
     private int mNumOfAttendees;
 
@@ -307,6 +305,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     ArrayList<Attendee> mDeclinedAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mTentativeAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mNoResponseAttendees = new ArrayList<Attendee>();
+    ArrayList<String> mToEmails = new ArrayList<String>();
+    ArrayList<String> mCcEmails = new ArrayList<String>();
     private int mColor;
 
 
@@ -727,8 +727,18 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mView.findViewById(R.id.event_info_buttons_container).setVisibility(View.GONE);
         }
 
-        // Create a listener for the add reminder button
+        // Create a listener for the email guests button
+        View emailAttendeesButton = mView.findViewById(R.id.email_attendees_button);
+        if (emailAttendeesButton != null) {
+            emailAttendeesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    emailAttendees();
+                }
+            });
+        }
 
+        // Create a listener for the add reminder button
         View reminderAddButton = mView.findViewById(R.id.reminder_add);
         View.OnClickListener addReminderOnClickListener = new View.OnClickListener() {
             @Override
@@ -841,9 +851,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 updateAttendees(view);
             }
         }
-        // Delay enabling the mail button until after attendees are processed.
-        mEnableMailButton = true;
-        updateMailButton();
     }
 
     @Override
@@ -900,9 +907,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 intent.putExtra(EVENT_EDIT_ON_LAUNCH, true);
                 startActivity(intent);
                 mActivity.finish();
-                break;
-            case R.id.info_action_mail:
-                emailAttendees();
                 break;
             case R.id.info_action_delete:
                 mDeleteHelper =
@@ -1571,9 +1575,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mIsBusyFreeCalendar =
                     mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) == Calendars.CAL_ACCESS_FREEBUSY;
 
-            // Use this var so the mail button doesn't pop up before the others in the title bar.
-            mVisibleMailButton = true;
-
             if (!mIsBusyFreeCalendar) {
                 Button b = (Button) mView.findViewById(R.id.edit);
                 b.setEnabled(true);
@@ -1607,17 +1608,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     button.setVisibility(View.VISIBLE);
                 }
             }
-            Button mailButton = (Button) mView.findViewById(R.id.mail);
-            if (mailButton != null) {
-                mailButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        emailAttendees();
-                    }
-                });
-                // Make the button visible now but enable later after processing attendees.
-                mailButton.setVisibility(View.VISIBLE);
-            }
 
             if ((!mIsDialog && !mIsTabletConfig ||
                     mWindowStyle == EventInfoFragment.FULL_WINDOW_STYLE) && mMenu != null) {
@@ -1626,22 +1616,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         } else {
             setVisibilityCommon(view, R.id.calendar, View.GONE);
             sendAccessibilityEventIfQueryDone(TOKEN_QUERY_DUPLICATE_CALENDARS);
-        }
-    }
-
-    private void updateMailButton() {
-        // For tablet...
-        Button mailButton = (mView == null) ? null : (Button) mView.findViewById(R.id.mail);
-        if (mailButton != null) {
-            mailButton.setEnabled(mEnableMailButton);
-        }
-
-        // For phone...
-        MenuItem mailItem = (mMenu == null) ? null : mMenu.findItem(R.id.info_action_mail);
-        if (mailItem != null) {
-            // The email functionality requires the attendees being processed, so delay
-            // enabling this until after initAttendeesCursor().
-            mailItem.setEnabled(mEnableMailButton);
         }
     }
 
@@ -1654,7 +1628,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
         MenuItem delete = mMenu.findItem(R.id.info_action_delete);
         MenuItem edit = mMenu.findItem(R.id.info_action_edit);
-        MenuItem mail = mMenu.findItem(R.id.info_action_mail);
         if (delete != null) {
             delete.setVisible(mCanModifyCalendar);
             delete.setEnabled(mCanModifyCalendar);
@@ -1662,15 +1635,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (edit != null) {
             edit.setVisible(mCanModifyEvent);
             edit.setEnabled(mCanModifyEvent);
-        }
-        if (mail != null) {
-            // The mail button should always be visible but we don't want to show it before
-            // the other buttons, so delay showing it until the others are processed.
-            mail.setVisible(mVisibleMailButton);
-
-            // The email functionality requires the attendees being processed, so delay
-            // enabling this until after initAttendeesCursor().
-            mail.setEnabled(mEnableMailButton);
         }
     }
 
@@ -1686,6 +1650,49 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mLongAttendees.setVisibility(View.VISIBLE);
         } else {
             mLongAttendees.setVisibility(View.GONE);
+        }
+
+        updateEmailAttendees();
+    }
+
+    /**
+     * Initializes the list of 'to' and 'cc' emails from the attendee list.
+     */
+    private void updateEmailAttendees() {
+        // The declined attendees will go in the 'cc' line, all others will go in the 'to' line.
+        mToEmails = new ArrayList<String>();
+        for (Attendee attendee : mAcceptedAttendees) {
+            addIfEmailable(mToEmails, attendee.mEmail);
+        }
+        for (Attendee attendee : mTentativeAttendees) {
+            addIfEmailable(mToEmails, attendee.mEmail);
+        }
+        for (Attendee attendee : mNoResponseAttendees) {
+            addIfEmailable(mToEmails, attendee.mEmail);
+        }
+        mCcEmails = new ArrayList<String>();
+        for (Attendee attendee : this.mDeclinedAttendees) {
+            addIfEmailable(mCcEmails, attendee.mEmail);
+        }
+
+        // The meeting organizer doesn't appear as an attendee sometimes (particularly
+        // when viewing someone else's calendar), so add the organizer now.
+        if (mEventOrganizer != null && !mToEmails.contains(mEventOrganizer) &&
+                !mCcEmails.contains(mEventOrganizer)) {
+            addIfEmailable(mToEmails, mEventOrganizer);
+        }
+
+        // The Email app behaves strangely when there is nothing in the 'mailto' part,
+        // so move all the 'cc' emails to the 'to' list.  Gmail works fine though.
+        if (mToEmails.size() <= 0 && mCcEmails.size() > 0) {
+            mToEmails.addAll(mCcEmails);
+            mCcEmails.clear();
+        }
+
+        if (mToEmails.size() <= 0) {
+            setVisibilityCommon(mView, R.id.email_attendees_container, View.GONE);
+        } else {
+            setVisibilityCommon(mView, R.id.email_attendees_container, View.VISIBLE);
         }
     }
 
@@ -1741,46 +1748,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             }
             EventViewUtils.updateAddReminderButton(mView, mReminderViews, mMaxReminders);
             // TODO show unsupported reminder types in some fashion.
-        }
-    }
-
-    private void formatAttendees(ArrayList<Attendee> attendees, SpannableStringBuilder sb, int type) {
-        if (attendees.size() <= 0) {
-            return;
-        }
-
-        int begin = sb.length();
-        boolean firstTime = sb.length() == 0;
-
-        if (firstTime == false) {
-            begin += 2; // skip over the ", " for formatting.
-        }
-
-        for (Attendee attendee : attendees) {
-            if (firstTime) {
-                firstTime = false;
-            } else {
-                sb.append(", ");
-            }
-
-            String name = attendee.getDisplayName();
-            sb.append(name);
-        }
-
-        switch (type) {
-            case Attendees.ATTENDEE_STATUS_ACCEPTED:
-                break;
-            case Attendees.ATTENDEE_STATUS_DECLINED:
-                sb.setSpan(new StrikethroughSpan(), begin, sb.length(),
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                // fall through
-            default:
-                // The last INCLUSIVE causes the foreground color to be applied
-                // to the rest of the span. If not, the comma at the end of the
-                // declined or tentative may be black.
-                sb.setSpan(new ForegroundColorSpan(0xFF999999), begin, sb.length(),
-                        Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-                break;
         }
     }
 
@@ -2050,95 +2017,52 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             subject = res.getString(R.string.email_subject_prefix) + mTitle.getText().toString();
         }
 
-        // The declined attendees will go in the 'cc' line, all others will go in the 'to' line.
-        ArrayList<String> toEmails = new ArrayList<String>();
-        for (Attendee attendee : mAcceptedAttendees) {
-            addIfEmailable(toEmails, attendee.mEmail);
-        }
-        for (Attendee attendee : mTentativeAttendees) {
-            addIfEmailable(toEmails, attendee.mEmail);
-        }
-        for (Attendee attendee : mNoResponseAttendees) {
-            addIfEmailable(toEmails, attendee.mEmail);
-        }
-        ArrayList<String> ccEmails = new ArrayList<String>();
-        for (Attendee attendee : this.mDeclinedAttendees) {
-            addIfEmailable(ccEmails, attendee.mEmail);
-        }
+        // Use the SENDTO intent with a 'mailto' URI, because using SEND will cause
+        // the picker to show apps like text messaging, which does not make sense
+        // for email addresses.  We put all data in the URI instead of using the extra
+        // Intent fields (ie. EXTRA_CC, etc) because some email apps might not handle
+        // those (though gmail does).
+        Uri.Builder uriBuilder = new Uri.Builder();
+        uriBuilder.scheme("mailto");
 
-        // The meeting organizer doesn't appear as an attendee sometimes (particularly
-        // when viewing someone else's calendar), so add the organizer now.
-        if (mEventOrganizer != null && !toEmails.contains(mEventOrganizer) &&
-                !ccEmails.contains(mEventOrganizer)) {
-            addIfEmailable(toEmails, mEventOrganizer);
-        }
-
-        // The Email app behaves strangely when there is nothing in the 'mailto' part,
-        // so move all the 'cc' emails to the 'to' list.  Gmail works fine though.
-        if (toEmails.size() <= 0 && ccEmails.size() > 0) {
-            toEmails.addAll(ccEmails);
-            ccEmails.clear();
-        }
-
-        if (toEmails.size() <= 0) {
-            // If there are no 'to' emails, use the SEND intent.  Cannot use SENDTO since
-            // the Email app does not handle an empty 'to' value.
-            Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-            emailIntent.setType("text/plain");
-            if (subject != null) {
-                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+        // We will append the first email to the 'mailto' field later (because the
+        // current state of the Email app requires it).  Add the remaining 'to' values
+        // here.  When the email codebase is updated, we can simplify this.
+        if (mToEmails.size() > 1) {
+            for (int i = 1; i < mToEmails.size(); i++) {
+                // The Email app requires repeated parameter settings instead of
+                // a single comma-separated list.
+                uriBuilder.appendQueryParameter("to", mToEmails.get(i));
             }
-            emailIntent.putExtra("account", mCalendarOwnerAccount);
-            startActivity(Intent.createChooser(emailIntent,
-                    res.getString(R.string.email_picker_label)));
-        } else {
-            // Otherwise use the SENDTO intent with a 'mailto' URI, because using SEND will
-            // cause the picker to show apps like text messaging, which does not make sense
-            // for email addresses.  We put all data in the URI instead of using the extra
-            // Intent fields (ie. EXTRA_CC, etc) because some email apps might not handle
-            // those (though gmail does).
-            Uri.Builder uriBuilder = new Uri.Builder();
-            uriBuilder.scheme("mailto");
-
-            // We will append the first email to the 'mailto' field later (because the
-            // current state of the Email app requires it).  Add the remaining 'to' values
-            // here.  When the email codebase is updated, we can simplify this.
-            if (toEmails.size() > 1) {
-                for (int i = 1; i < toEmails.size(); i++) {
-                    // The Email app requires repeated parameter settings instead of
-                    // a single comma-separated list.
-                    uriBuilder.appendQueryParameter("to", toEmails.get(i));
-                }
-            }
-
-            // Add the subject parameter.
-            if (subject != null) {
-                uriBuilder.appendQueryParameter("subject", subject);
-            }
-
-            // Add the cc parameters.
-            if (ccEmails.size() > 0) {
-                for (String email : ccEmails) {
-                    uriBuilder.appendQueryParameter("cc", email);
-                }
-            }
-
-            // Insert the first email after 'mailto:' in the URI manually since Uri.Builder
-            // doesn't seem to have a way to do this.
-            String uri = uriBuilder.toString();
-            if (uri.startsWith("mailto:")) {
-                StringBuilder builder = new StringBuilder(uri);
-                builder.insert(7, Uri.encode(toEmails.get(0)));
-                uri = builder.toString();
-            }
-
-            // Start the email intent.  Email from the account of the calendar owner in case there
-            // are multiple email accounts.
-            Intent emailIntent = new Intent(android.content.Intent.ACTION_SENDTO, Uri.parse(uri));
-            emailIntent.putExtra("account", mCalendarOwnerAccount);
-            startActivity(Intent.createChooser(emailIntent,
-                    res.getString(R.string.email_picker_label)));
         }
+
+        // Add the subject parameter.
+        if (subject != null) {
+            uriBuilder.appendQueryParameter("subject", subject);
+        }
+
+        // Add the cc parameters.
+        if (mCcEmails.size() > 0) {
+            for (String email : mCcEmails) {
+                uriBuilder.appendQueryParameter("cc", email);
+            }
+        }
+
+        // Insert the first email after 'mailto:' in the URI manually since Uri.Builder
+        // doesn't seem to have a way to do this.
+        String uri = uriBuilder.toString();
+        if (uri.startsWith("mailto:")) {
+            StringBuilder builder = new StringBuilder(uri);
+            builder.insert(7, Uri.encode(mToEmails.get(0)));
+            uri = builder.toString();
+        }
+
+        // Start the email intent.  Email from the account of the calendar owner in case there
+        // are multiple email accounts.
+        Intent emailIntent = new Intent(android.content.Intent.ACTION_SENDTO, Uri.parse(uri));
+        emailIntent.putExtra("account", mCalendarOwnerAccount);
+        startActivity(Intent.createChooser(emailIntent,
+                res.getString(R.string.email_picker_label)));
     }
 
     /**
