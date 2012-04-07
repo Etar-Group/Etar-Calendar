@@ -131,6 +131,8 @@ public class AgendaWindowAdapter extends BaseAdapter
     private static final int MAX_QUERY_DURATION = 60; // days
     private static final int PREFETCH_BOUNDARY = 1;
 
+    private static final int MAX_SMOOTH_DISTANCE = 20;
+
     /** Times to auto-expand/retry query after getting no data */
     private static final int RETRIES_ON_NO_DATA = 1;
 
@@ -658,11 +660,20 @@ public class AgendaWindowAdapter extends BaseAdapter
             if (!mAgendaListView.isEventVisible(goToTime, id)) {
                 int gotoPosition = findEventPositionNearestTime(goToTime, id);
                 if (gotoPosition > 0) {
-                    mAgendaListView.setSelectionFromTop(gotoPosition +
-                            OFF_BY_ONE_BUG, mStickyHeaderSize);
                     if (mListViewScrollState == OnScrollListener.SCROLL_STATE_FLING) {
                         mAgendaListView.smoothScrollBy(0, 0);
                     }
+
+                    if (MAX_SMOOTH_DISTANCE < Math.abs(gotoPosition
+                            - mAgendaListView.getFirstVisiblePosition())) {
+                        // Too many items to scroll through. Jump straight to it.
+                        mAgendaListView.setSelectionFromTop(gotoPosition + OFF_BY_ONE_BUG,
+                                mStickyHeaderSize);
+                    } else {
+                        mAgendaListView.smoothScrollToPositionFromTop(
+                                gotoPosition + OFF_BY_ONE_BUG, mStickyHeaderSize);
+                    }
+
                     if (refreshEventInfo) {
                         long newInstanceId = findInstanceIdFromPosition(gotoPosition);
                         if (newInstanceId != getSelectedInstanceId()) {
