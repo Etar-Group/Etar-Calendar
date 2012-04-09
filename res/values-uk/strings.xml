@@ -73,10 +73,8 @@
     <string name="creating_event" msgid="7516249252554059980">"Подію створено."</string>
     <string name="saving_event" msgid="7694181017411177226">"Подію збережено."</string>
     <string name="empty_event" msgid="9018699257414338634">"Порожню подію не створено."</string>
-    <!-- no translation found for creating_event_with_guest (5758688413124191931) -->
-    <skip />
-    <!-- no translation found for saving_event_with_guest (9184584438475689577) -->
-    <skip />
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"Запрошення буде надіслано."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"Оновлення буде надіслано."</string>
     <string name="alert_title" msgid="7869592820853066853">"Сповіщення календаря"</string>
     <string name="event_info_title" msgid="56024222340421620">"Перегл. подію"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Запрошення на зустріч"</string>
@@ -99,7 +97,7 @@
     <string name="response_yes" msgid="2027484304899988350">"Так"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Можливо"</string>
     <string name="response_no" msgid="561911691884148136">"Ні"</string>
-    <string name="email_attendees_label" msgid="973163326023133940">"Пошта"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"Надіслати гостям електронною поштою"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Надіслати електронний лист"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Організатор:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"Більше"</string>

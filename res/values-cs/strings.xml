@@ -99,7 +99,8 @@
     <string name="response_yes" msgid="2027484304899988350">"Ano"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Možná"</string>
     <string name="response_no" msgid="561911691884148136">"Ne"</string>
-    <string name="email_attendees_label" msgid="973163326023133940">"E-mail"</string>
+    <!-- no translation found for email_guests_label (8772030932155305903) -->
+    <skip />
     <string name="email_picker_label" msgid="4808253965057791781">"Psát si s uživateli"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizátor:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"Více"</string>

@@ -73,10 +73,8 @@
     <string name="creating_event" msgid="7516249252554059980">"일정을 만들었습니다."</string>
     <string name="saving_event" msgid="7694181017411177226">"일정을 저장했습니다."</string>
     <string name="empty_event" msgid="9018699257414338634">"빈 일정은 만들 수 없습니다."</string>
-    <!-- no translation found for creating_event_with_guest (5758688413124191931) -->
-    <skip />
-    <!-- no translation found for saving_event_with_guest (9184584438475689577) -->
-    <skip />
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"초대장이 전송됩니다."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"업데이트가 전송됩니다."</string>
     <string name="alert_title" msgid="7869592820853066853">"캘린더 알림"</string>
     <string name="event_info_title" msgid="56024222340421620">"일정 보기"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"회의 초대"</string>
@@ -99,7 +97,7 @@
     <string name="response_yes" msgid="2027484304899988350">"예"</string>
     <string name="response_maybe" msgid="7791500973627841695">"미정"</string>
     <string name="response_no" msgid="561911691884148136">"아니요"</string>
-    <string name="email_attendees_label" msgid="973163326023133940">"메일"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"참석자에게 이메일 보내기"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"이메일:"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"주최자:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"더보기"</string>

@@ -99,7 +99,7 @@
     <string name="response_yes" msgid="2027484304899988350">"是"</string>
     <string name="response_maybe" msgid="7791500973627841695">"不確定"</string>
     <string name="response_no" msgid="561911691884148136">"否"</string>
-    <string name="email_attendees_label" msgid="973163326023133940">"寄送電子郵件"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"傳送電子郵件給邀請對象"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"寄送電子郵件時使用"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"主辦人："</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"詳細說明"</string>

@@ -99,7 +99,7 @@
     <string name="response_yes" msgid="2027484304899988350">"Ja"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Miskien"</string>
     <string name="response_no" msgid="561911691884148136">"Nee"</string>
-    <string name="email_attendees_label" msgid="973163326023133940">"Pos"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"Stuur e-pos aan gaste"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-pos met"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organiseerder:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"Meer"</string>
