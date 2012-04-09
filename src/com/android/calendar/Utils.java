@@ -33,6 +33,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -48,7 +49,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class Utils {
     private static final boolean DEBUG = false;
@@ -101,7 +104,7 @@ public class Utils {
     // historical
     // reasons, as it's what PreferenceManager assigned the first time the file
     // was created.
-    private static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
+    static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
 
     public static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
 
@@ -1137,5 +1140,106 @@ public class Utils {
             return;
         }
         h.removeCallbacks(r);
+    }
+
+    /**
+     * Returns a string description of the specified time interval.
+     */
+    public static String getDisplayedDatetime(long startMillis, long endMillis, long currentMillis,
+            String localTimezone, String eventTimezone, boolean allDay, Context context) {
+        // Configure date/time formatting.
+        int flagsDate = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_WEEKDAY;
+        int flagsTime = DateUtils.FORMAT_SHOW_TIME;
+        if (DateFormat.is24HourFormat(context)) {
+            flagsTime |= DateUtils.FORMAT_24HOUR;
+        }
+
+        Time currentTime = new Time(localTimezone);
+        currentTime.set(currentMillis);
+        String datetimeString = null;
+        if (allDay) {
+            // All day events require special timezone adjustment.
+            long localStartMillis = convertAlldayUtcToLocal(null, startMillis, localTimezone);
+            long localEndMillis = convertAlldayUtcToLocal(null, endMillis, localTimezone);
+            if (singleDayEvent(localStartMillis, localEndMillis, currentTime.gmtoff)) {
+                // If possible, use "Today" or "Tomorrow" instead of a full date string.
+                datetimeString = getRelativeDayStringOrNull(context.getResources(),
+                        localStartMillis, currentMillis, currentTime.gmtoff);
+            }
+            if (datetimeString == null) {
+                Formatter f = new Formatter(new StringBuilder(50), Locale.getDefault());
+                datetimeString = DateUtils.formatDateRange(context, f, startMillis,
+                        endMillis, flagsDate, Time.TIMEZONE_UTC).toString();
+            }
+        } else {
+            if (singleDayEvent(startMillis, endMillis, currentTime.gmtoff)) {
+                // If possible, use "Today" or "Tomorrow" instead of a full date string.
+                String dateString = getRelativeDayStringOrNull(context.getResources(), startMillis,
+                       currentTime.toMillis(false), currentTime.gmtoff);
+                if (dateString == null) {
+                    dateString = Utils.formatDateRange(context, startMillis, endMillis, flagsDate);
+                }
+                // Example: "Today, 1:00pm - 2:00pm" or "Thursday, April 12, 1:00pm - 2:00pm"
+                String timeString = Utils.formatDateRange(context, startMillis, endMillis,
+                        flagsTime);
+                datetimeString = dateString + ", " + timeString;
+            } else {
+                // For multiday events, shorten day/month names.
+                // Example format: "Fri Apr 6, 5:00pm - Sun, Apr 8, 6:00pm"
+                int flagsDatetime = flagsDate | flagsTime | DateUtils.FORMAT_ABBREV_MONTH |
+                        DateUtils.FORMAT_ABBREV_WEEKDAY;
+                datetimeString = Utils.formatDateRange(context, startMillis, endMillis,
+                        flagsDatetime);
+            }
+
+            // Show the local timezone if it is different from the event timezone
+            if (!TextUtils.equals(localTimezone, eventTimezone)) {
+                // Figure out if this is in DST
+                TimeZone tz = TimeZone.getTimeZone(localTimezone);
+                String tzDisplay;
+                if (tz == null || tz.getID().equals("GMT")) {
+                    tzDisplay = localTimezone;
+                } else {
+                    Time startTime = new Time(localTimezone);
+                    startTime.set(startMillis);
+                    tzDisplay = tz.getDisplayName(startTime.isDst != 0, TimeZone.SHORT);
+                }
+                datetimeString += " (" + tzDisplay + ")";
+            }
+        }
+        return datetimeString;
+    }
+
+    /**
+     * Returns whether the specified time interval is in a single day.
+     */
+    private static boolean singleDayEvent(long startMillis, long endMillis, long localGmtOffset) {
+        if (startMillis == endMillis) {
+            return true;
+        }
+
+        // An event ending at midnight should still be a single-day event, so check
+        // time end-1.
+        int startDay = Time.getJulianDay(startMillis, localGmtOffset);
+        int endDay = Time.getJulianDay(endMillis - 1, localGmtOffset);
+        return startDay == endDay;
+    }
+
+    /**
+     * Returns "Today" or "Tomorrow" if applicable.  Otherwise returns null.
+     */
+    private static String getRelativeDayStringOrNull(Resources r, long dayMillis,
+            long currentMillis, long localGmtOffset) {
+        int startDay = Time.getJulianDay(dayMillis, localGmtOffset);
+        int currentDay = Time.getJulianDay(currentMillis, localGmtOffset);
+
+        int days = startDay - currentDay;
+        if (days == 1) {
+            return r.getString(R.string.tomorrow);
+        } else if (days == 0) {
+            return r.getString(R.string.today);
+        } else {
+            return null;
+        }
     }
 }

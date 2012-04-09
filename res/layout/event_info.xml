@@ -111,7 +111,7 @@
 
                 <!-- WHEN -->
                 <TextView
-                    android:id="@+id/when_date"
+                    android:id="@+id/when_datetime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dip"
@@ -120,7 +120,7 @@
                     style="?android:attr/textAppearanceLarge" />
 
                 <TextView
-                    android:id="@+id/when_time"
+                    android:id="@+id/when_repeat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-3dip"
