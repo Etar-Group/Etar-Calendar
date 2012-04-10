@@ -303,6 +303,10 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        if (!(v instanceof MonthWeekEventsView)) {
+            return false;
+        }
+
         int action = event.getAction();
 
         // Event was tapped - switch to the detailed view making sure the click animation
