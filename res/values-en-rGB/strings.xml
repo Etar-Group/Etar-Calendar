@@ -73,10 +73,8 @@
     <string name="creating_event" msgid="7516249252554059980">"Event created."</string>
     <string name="saving_event" msgid="7694181017411177226">"Event saved."</string>
     <string name="empty_event" msgid="9018699257414338634">"Empty event not created."</string>
-    <!-- no translation found for creating_event_with_guest (5758688413124191931) -->
-    <skip />
-    <!-- no translation found for saving_event_with_guest (9184584438475689577) -->
-    <skip />
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"Invitations will be sent."</string>
+    <string name="saving_event_with_guest" msgid="9184584438475689577">"Updates will be sent."</string>
     <string name="alert_title" msgid="7869592820853066853">"Calendar notifications"</string>
     <string name="event_info_title" msgid="56024222340421620">"View event"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Meeting invitation"</string>
@@ -99,8 +97,7 @@
     <string name="response_yes" msgid="2027484304899988350">"Yes"</string>
     <string name="response_maybe" msgid="7791500973627841695">" Maybe"</string>
     <string name="response_no" msgid="561911691884148136">"No"</string>
-    <!-- no translation found for email_guests_label (8772030932155305903) -->
-    <skip />
+    <string name="email_guests_label" msgid="8772030932155305903">"Email guests"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Email with"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organiser:"</string>
     <string name="event_info_desc_more" msgid="2961880675118098743">"More"</string>
