@@ -304,7 +304,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (!(v instanceof MonthWeekEventsView)) {
-            return false;
+            return super.onTouch(v, event);
         }
 
         int action = event.getAction();
