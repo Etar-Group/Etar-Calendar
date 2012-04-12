@@ -21,3 +21,7 @@
 -keepclassmembers class com.android.calendar.month.MonthWeekEventsView {
   *** setAnimateTodayAlpha(...);
 }
+
+-keepclassmembers class * implements android.content.SharedPreferences$Editor {
+    public *** apply();
+}
