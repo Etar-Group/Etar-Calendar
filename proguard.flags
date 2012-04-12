@@ -17,6 +17,8 @@
   *** setExpandDayHeightIconRotation(...);
   *** setViewStartY(...);
   *** setAnimateTodayAlpha(...);
+  *** setEventsAlpha(...);
+  *** getEventsAlpha(...);
 }
 -keepclassmembers class com.android.calendar.month.MonthWeekEventsView {
   *** setAnimateTodayAlpha(...);

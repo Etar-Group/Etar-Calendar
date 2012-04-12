@@ -56,7 +56,7 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
 
     Time mSelectedDay = new Time();
 
-    private Runnable mTZUpdater = new Runnable() {
+    private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
             if (!DayFragment.this.isAdded()) {
@@ -154,6 +154,10 @@ public class DayFragment extends Fragment implements CalendarController.EventHan
         view = (DayView) mViewSwitcher.getNextView();
         view.cleanup();
         mEventLoader.stopBackgroundThread();
+
+        // Stop events cross-fade animation
+        view.stopEventsAnimation();
+        ((DayView) mViewSwitcher.getNextView()).stopEventsAnimation();
     }
 
     void startProgressSpinner() {

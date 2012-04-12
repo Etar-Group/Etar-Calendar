@@ -107,6 +107,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static final long ANIMATION_SECONDARY_DURATION = 200;
     // duration of the scroll to go to a specified time
     private static final int GOTO_SCROLL_DURATION = 200;
+    // duration for events' cross-fade animation
+    private static final int EVENTS_CROSS_FADE_DURATION = 400;
 
     private static final int MENU_AGENDA = 2;
     private static final int MENU_DAY = 3;
@@ -182,6 +184,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private int mClickedYLocation;
     Event mViewEvent;                      // Temporary storage for the clicked event
 
+    private int mEventsAlpha = 255;
+    private ObjectAnimator mEventsCrossFadeAnimation;
 
     protected static StringBuilder mStringBuilder = new StringBuilder(50);
     // TODO recreate formatter when locale changes
@@ -2033,10 +2037,32 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 mRemeasure = true;
                 mComputeSelectedEvents = true;
                 recalc();
-//                mContext.stopProgressSpinner();
-                invalidate();
+
+                // Start animation to cross fade the events
+                if (mEventsCrossFadeAnimation == null) {
+                    mEventsCrossFadeAnimation =
+                            ObjectAnimator.ofInt(DayView.this, "EventsAlpha", 0, 255);
+                    mEventsCrossFadeAnimation.setDuration(EVENTS_CROSS_FADE_DURATION);
+                }
+                mEventsCrossFadeAnimation.start();
             }
         }, mCancelCallback);
+    }
+
+    public void setEventsAlpha(int alpha) {
+        mEventsAlpha = alpha;
+        invalidate();
+    }
+
+    public int getEventsAlpha() {
+        return mEventsAlpha;
+    }
+
+    public void stopEventsAnimation() {
+        if (mEventsCrossFadeAnimation != null) {
+            mEventsCrossFadeAnimation.cancel();
+        }
+        mEventsAlpha = 255;
     }
 
     private void computeEventRelations() {
@@ -2402,6 +2428,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Draw each day
         int cell = mFirstJulianDay;
         p.setAntiAlias(false);
+        int alpha = p.getAlpha();
+        p.setAlpha(mEventsAlpha);
         for (int day = 0; day < mNumDays; day++, cell++) {
             // TODO Wow, this needs cleanup. drawEvents loop through all the
             // events on every call.
@@ -2418,6 +2446,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
         }
         p.setAntiAlias(true);
+        p.setAlpha(alpha);
 
         drawSelectedRect(r, canvas, p);
     }
@@ -2787,7 +2816,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             layouts[i] = layout;
         }
-
+        layout.getPaint().setAlpha(mEventsAlpha);
         return layout;
     }
 
@@ -2849,6 +2878,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             // clip at the end of the animating space
             allDayEventClip = DAY_HEADER_HEIGHT + mAnimateDayHeight + ALLDAY_TOP_MARGIN;
         }
+
+        int alpha = eventTextPaint.getAlpha();
+        eventTextPaint.setAlpha(mEventsAlpha);
         for (int i = 0; i < numEvents; i++) {
             Event event = events.get(i);
             int startDay = event.startDay;
@@ -2906,14 +2938,19 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 }
             }
         }
+        eventTextPaint.setAlpha(alpha);
+
         if (mMoreAlldayEventsTextAlpha != 0 && mSkippedAlldayEvents != null) {
             // If the more allday text should be visible, draw it.
+            alpha = p.getAlpha();
+            p.setAlpha(mEventsAlpha);
             p.setColor(mMoreAlldayEventsTextAlpha << 24 & mMoreEventsTextColor);
             for (int i = 0; i < mSkippedAlldayEvents.length; i++) {
                 if (mSkippedAlldayEvents[i] > 0) {
                     drawMoreAlldayEvents(canvas, mSkippedAlldayEvents[i], i, p);
                 }
             }
+            p.setAlpha(alpha);
         }
 
         if (mSelectionAllday) {
@@ -3037,6 +3074,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         EventGeometry geometry = mEventGeometry;
 
         final int viewEndY = mViewStartY + mViewHeight - DAY_HEADER_HEIGHT - mAlldayHeight;
+
+        int alpha = eventTextPaint.getAlpha();
+        eventTextPaint.setAlpha(mEventsAlpha);
         for (int i = 0; i < numEvents; i++) {
             Event event = events.get(i);
             if (!geometry.computeEventRect(date, left, top, cellWidth, event)) {
@@ -3065,6 +3105,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             drawEventText(layout, r, canvas, mViewStartY + 4, mViewStartY + mViewHeight
                     - DAY_HEADER_HEIGHT - mAlldayHeight);
         }
+        eventTextPaint.setAlpha(alpha);
 
         if (date == mSelectionDay && !mSelectionAllday && isFocused()
                 && mSelectionMode != SELECTION_HIDDEN) {
@@ -3404,8 +3445,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         r.right -= ceilHalfStroke;
         p.setStrokeWidth(EVENT_RECT_STROKE_WIDTH);
         p.setColor(color);
+        int alpha = p.getAlpha();
+        p.setAlpha(mEventsAlpha);
         canvas.drawRect(r, p);
-
+        p.setAlpha(alpha);
         p.setStyle(Style.FILL);
 
         // If this event is selected, then use the selection color
