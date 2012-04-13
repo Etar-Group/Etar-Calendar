@@ -109,6 +109,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static final int GOTO_SCROLL_DURATION = 200;
     // duration for events' cross-fade animation
     private static final int EVENTS_CROSS_FADE_DURATION = 400;
+    // duration to show the event clicked
+    private static final int CLICK_DISPLAY_DURATION = 200;
 
     private static final int MENU_AGENDA = 2;
     private static final int MENU_DAY = 3;
@@ -181,6 +183,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private final CharSequence[] mLongPressItems;
     private String mLongPressTitle;
     private Event mClickedEvent;           // The event the user clicked on
+    private Event mSavedClickedEvent;
+    private static int mOnDownDelay;
     private int mClickedYLocation;
     Event mViewEvent;                      // Temporary storage for the clicked event
 
@@ -202,6 +206,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
     };
 
+    // Sets the "clicked" color from the clicked event
+    private final Runnable mSetClick = new Runnable() {
+        @Override
+        public void run() {
+                mClickedEvent = mSavedClickedEvent;
+                mSavedClickedEvent = null;
+                DayView.this.invalidate();
+        }
+    };
 
     // Clears the "clicked" color from the clicked event
     private final Runnable mClearClick = new Runnable() {
@@ -761,7 +774,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mHScrollInterpolator = new ScrollInterpolator();
         mEdgeEffectTop = new EdgeEffect(context);
         mEdgeEffectBottom = new EdgeEffect(context);
-        OVERFLING_DISTANCE = ViewConfiguration.get(context).getScaledOverflingDistance();
+        ViewConfiguration vc = ViewConfiguration.get(context);
+        mOnDownDelay = vc.getTapTimeout();
+        OVERFLING_DISTANCE = vc.getScaledOverflingDistance();
 
         init(context);
     }
@@ -3665,9 +3680,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             boolean pressedSelected = (hasSelection || mTouchExplorationEnabled)
                     && oldSelectionDay == mSelectionDay && oldSelectionHour == mSelectionHour;
             if (!pressedSelected && mSelectedEvent != null) {
-                mClickedEvent = mSelectedEvent;
+                mSavedClickedEvent = mSelectedEvent;
+                postDelayed (mSetClick,mOnDownDelay);
             } else {
-                mClickedEvent = null;
+                eventClickCleanup();
             }
         }
         mSelectedEvent = oldSelectedEvent;
@@ -3880,7 +3896,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 yLocation += (mFirstCell - mViewStartY);
             }
             mClickedYLocation = yLocation;
-            this.postDelayed(mClearClick, 200);
+            this.postDelayed(mClearClick, CLICK_DISPLAY_DURATION + mOnDownDelay);
         } else {
             // Select time
             Time startTime = new Time(mBaseDate);
@@ -3899,7 +3915,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void doLongPress(MotionEvent ev) {
-        mClickedEvent = null;
+        eventClickCleanup();
         if (mScrolling) {
             return;
         }
@@ -4015,7 +4031,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         cancelAnimation();
 
         mSelectionMode = SELECTION_HIDDEN;
-        mClickedEvent = null;
+        eventClickCleanup();
 
         mOnFlingCalled = true;
 
@@ -4709,11 +4725,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         Utils.setSharedPreference(mContext, GeneralPreferences.KEY_DEFAULT_CELL_HEIGHT,
             mCellHeight);
         // Clear all click animations
-        this.removeCallbacks(mClearClick);
+        eventClickCleanup();
         this.removeCallbacks(mViewEventRunnable);
-        mClickedEvent = null;
         // Turn off redraw
         mRemeasure = false;
+    }
+
+    private void eventClickCleanup() {
+        this.removeCallbacks(mClearClick);
+        this.removeCallbacks(mSetClick);
+        mClickedEvent = null;
+        mSavedClickedEvent = null;
     }
 
     /**
@@ -4773,7 +4795,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             if (DEBUG) Log.e(TAG, "GestureDetector.onScroll");
-            mClickedEvent = null;
+            eventClickCleanup();
             if (mTouchStartedInAlldayArea) {
                 if (Math.abs(distanceX) < Math.abs(distanceY)) {
                     // Make sure that click feedback is gone when you scroll from the
