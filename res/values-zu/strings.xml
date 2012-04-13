@@ -73,7 +73,7 @@
     <string name="creating_event" msgid="7516249252554059980">"Isenzakalo senziwe"</string>
     <string name="saving_event" msgid="7694181017411177226">"Isenzakalo sigciniwe"</string>
     <string name="empty_event" msgid="9018699257414338634">"Isenzakalo esingenalutho asenziwanga"</string>
-    <string name="creating_event_with_guest" msgid="5758688413124191931">"Izimemo zizothunyelwe."</string>
+    <string name="creating_event_with_guest" msgid="5758688413124191931">"Izimemo zizothunyelwa."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Ukubuyekeza kuzothunyelwa."</string>
     <string name="alert_title" msgid="7869592820853066853">"Izaziso zekhalenda"</string>
     <string name="event_info_title" msgid="56024222340421620">"Buka isenzakalo"</string>
