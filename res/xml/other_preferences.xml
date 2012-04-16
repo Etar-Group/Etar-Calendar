@@ -23,6 +23,7 @@
             android:title="@string/copy_db" />
         <CheckBoxPreference
             android:key="preferences_tardis_1"
+            android:title="@string/do_not_check" />
             android:defaultValue="false" />
     </PreferenceCategory>
 </PreferenceScreen>
