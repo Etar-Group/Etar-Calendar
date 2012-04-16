@@ -596,5 +596,7 @@
   
     <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->
     <string name="acessibility_selected_marker_description">Selected event</string>
-
+    
+    <!-- Tell user not to check a checkbox [CHAR LIMIT=30] -->
+    <string name="do_not_check">Do NOT check -></string>
 </resources>
