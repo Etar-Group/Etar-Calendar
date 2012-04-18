@@ -199,4 +199,6 @@
     <item quantity="other" msgid="6093072093209431078">"Matukio <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Tukio lililochaguliwa"</string>
+    <!-- no translation found for do_not_check (7815441673853466129) -->
+    <skip />
 </resources>

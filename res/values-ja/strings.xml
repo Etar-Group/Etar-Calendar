@@ -199,4 +199,5 @@
     <item quantity="other" msgid="6093072093209431078">"予定<xliff:g id="COUNT">%d</xliff:g>件"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"選択した予定"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"オンにしないでください -&gt;"</string>
 </resources>

@@ -199,4 +199,5 @@
     <item quantity="other" msgid="6093072093209431078">"일정 <xliff:g id="COUNT">%d</xliff:g>개"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"선택한 일정"</string>
+    <string name="do_not_check" msgid="7815441673853466129">"선택안함 -&gt;"</string>
 </resources>

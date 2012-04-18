@@ -199,4 +199,6 @@
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> acara"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Acara dipilih"</string>
+    <!-- no translation found for do_not_check (7815441673853466129) -->
+    <skip />
 </resources>
