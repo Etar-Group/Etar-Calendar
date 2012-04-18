@@ -2060,7 +2060,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // Start the email intent.  Email from the account of the calendar owner in case there
         // are multiple email accounts.
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SENDTO, Uri.parse(uri));
-        emailIntent.putExtra("account", mCalendarOwnerAccount);
+        emailIntent.putExtra("fromAccountString", mCalendarOwnerAccount);
         startActivity(Intent.createChooser(emailIntent,
                 res.getString(R.string.email_picker_label)));
     }
