@@ -327,9 +327,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     boolean mSelectionAllday;
 
-    private int mLastSelectionDay;
-    private int mLastSelectionHour;
-    private Event mLastSelectedEvent;
+    // Current selection info for accessibility
+    private int mSelectionDayForAccessibility;        // Julian day
+    private int mSelectionHourForAccessibility;
+    private Event mSelectedEventForAccessibility;
+    // Last selection info for accessibility
+    private int mLastSelectionDayForAccessibility;
+    private int mLastSelectionHourForAccessibility;
+    private Event mLastSelectedEventForAccessibility;
+
 
     /** Width of a day or non-conflicting event */
     private int mCellWidth;
@@ -938,9 +944,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mIs24HourFormat = DateFormat.is24HourFormat(mContext);
         mHourStrs = mIs24HourFormat ? CalendarData.s24Hours : CalendarData.s12HoursNoAmPm;
         mFirstDayOfWeek = Utils.getFirstDayOfWeek(mContext);
-        mLastSelectionDay = 0;
-        mLastSelectionHour = 0;
-        mLastSelectedEvent = null;
+        mLastSelectionDayForAccessibility = 0;
+        mLastSelectionHourForAccessibility = 0;
+        mLastSelectedEventForAccessibility = null;
         mSelectionMode = SELECTION_HIDDEN;
     }
 
@@ -979,6 +985,18 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         return time;
     }
 
+    Time getSelectedTimeForAccessibility() {
+        Time time = new Time(mBaseDate);
+        time.setJulianDay(mSelectionDayForAccessibility);
+        time.hour = mSelectionHourForAccessibility;
+
+        // We ignore the "isDst" field because we want normalize() to figure
+        // out the correct DST value and not adjust the selected time based
+        // on the current setting of DST.
+        time.normalize(true /* ignore isDst */);
+        return time;
+    }
+
     /**
      * Returns the start of the selected time in minutes since midnight,
      * local time.  The derived class must ensure that this is consistent
@@ -999,11 +1017,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     public void setSelected(Time time, boolean ignoreTime, boolean animateToday) {
         mBaseDate.set(time);
-        mSelectionHour = mBaseDate.hour;
-        mSelectedEvent = null;
+        setSelectedHour(mBaseDate.hour);
+        setSelectedEvent(null);
         mPrevSelectedEvent = null;
         long millis = mBaseDate.toMillis(false /* use isDst */);
-        mSelectionDay = Time.getJulianDay(millis, mBaseDate.gmtoff);
+        setSelectedDay(Time.getJulianDay(millis, mBaseDate.gmtoff));
         mSelectedEvents.clear();
         mComputeSelectedEvents = true;
 
@@ -1358,7 +1376,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      * @param view the view to initialize.
      */
     private void initView(DayView view) {
-        view.mSelectionHour = mSelectionHour;
+        view.setSelectedHour(mSelectionHour);
         view.mSelectedEvents.clear();
         view.mComputeSelectedEvents = true;
         view.mFirstHour = mFirstHour;
@@ -1366,7 +1384,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         view.remeasure(getWidth(), getHeight());
         view.initAllDayHeights();
 
-        view.mSelectedEvent = null;
+        view.setSelectedEvent(null);
         view.mPrevSelectedEvent = null;
         view.mFirstDayOfWeek = mFirstDayOfWeek;
         if (view.mEvents.size() > 0) {
@@ -1549,7 +1567,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 return super.onKeyDown(keyCode, event);
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 if (mSelectedEvent != null) {
-                    mSelectedEvent = mSelectedEvent.nextLeft;
+                    setSelectedEvent(mSelectedEvent.nextLeft);
                 }
                 if (mSelectedEvent == null) {
                     mLastPopupEventID = INVALID_EVENT_ID;
@@ -1560,7 +1578,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             case KeyEvent.KEYCODE_DPAD_RIGHT:
                 if (mSelectedEvent != null) {
-                    mSelectedEvent = mSelectedEvent.nextRight;
+                    setSelectedEvent(mSelectedEvent.nextRight);
                 }
                 if (mSelectedEvent == null) {
                     mLastPopupEventID = INVALID_EVENT_ID;
@@ -1571,12 +1589,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             case KeyEvent.KEYCODE_DPAD_UP:
                 if (mSelectedEvent != null) {
-                    mSelectedEvent = mSelectedEvent.nextUp;
+                    setSelectedEvent(mSelectedEvent.nextUp);
                 }
                 if (mSelectedEvent == null) {
                     mLastPopupEventID = INVALID_EVENT_ID;
                     if (!mSelectionAllday) {
-                        mSelectionHour -= 1;
+                        setSelectedHour(mSelectionHour - 1);
                         adjustHourSelection();
                         mSelectedEvents.clear();
                         mComputeSelectedEvents = true;
@@ -1587,14 +1605,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             case KeyEvent.KEYCODE_DPAD_DOWN:
                 if (mSelectedEvent != null) {
-                    mSelectedEvent = mSelectedEvent.nextDown;
+                    setSelectedEvent(mSelectedEvent.nextDown);
                 }
                 if (mSelectedEvent == null) {
                     mLastPopupEventID = INVALID_EVENT_ID;
                     if (mSelectionAllday) {
                         mSelectionAllday = false;
                     } else {
-                        mSelectionHour++;
+                        setSelectedHour(mSelectionHour + 1);
                         adjustHourSelection();
                         mSelectedEvents.clear();
                         mComputeSelectedEvents = true;
@@ -1617,7 +1635,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 date.monthDay += mNumDays;
             }
             date.normalize(true /* ignore isDst */);
-            view.mSelectionDay = selectionDay;
+            view.setSelectedDay(selectionDay);
 
             initView(view);
 
@@ -1632,7 +1650,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             date.hour = mSelectionHour;
             mController.sendEvent(this, EventType.GO_TO, date, date, -1, ViewType.CURRENT);
         }
-        mSelectionDay = selectionDay;
+        setSelectedDay(selectionDay);
         mSelectedEvents.clear();
         mComputeSelectedEvents = true;
         mUpdateToast = true;
@@ -1670,8 +1688,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if (!mTouchExplorationEnabled) {
             return super.onHoverEvent(event);
         }
-        if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT && !mTouchExplorationEnabled) {
-            setSelectionFromPosition((int) event.getX(), (int) event.getY());
+        if (event.getAction() != MotionEvent.ACTION_HOVER_EXIT) {
+            setSelectionFromPosition((int) event.getX(), (int) event.getY(), true);
             invalidate();
         }
         return true;
@@ -1685,21 +1703,22 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         if (!mIsAccessibilityEnabled) {
             return;
         }
-        boolean dayChanged = mLastSelectionDay != mSelectionDay;
-        boolean hourChanged = mLastSelectionHour != mSelectionHour;
-        if (dayChanged || hourChanged || mLastSelectedEvent != mSelectedEvent) {
-            mLastSelectionDay = mSelectionDay;
-            mLastSelectionHour = mSelectionHour;
-            mLastSelectedEvent = mSelectedEvent;
+        boolean dayChanged = mLastSelectionDayForAccessibility != mSelectionDayForAccessibility;
+        boolean hourChanged = mLastSelectionHourForAccessibility != mSelectionHourForAccessibility;
+        if (dayChanged || hourChanged ||
+                mLastSelectedEventForAccessibility != mSelectedEventForAccessibility) {
+            mLastSelectionDayForAccessibility = mSelectionDayForAccessibility;
+            mLastSelectionHourForAccessibility = mSelectionHourForAccessibility;
+            mLastSelectedEventForAccessibility = mSelectedEventForAccessibility;
 
             StringBuilder b = new StringBuilder();
 
             // Announce only the changes i.e. day or hour or both
             if (dayChanged) {
-                b.append(getSelectedTime().format("%A "));
+                b.append(getSelectedTimeForAccessibility().format("%A "));
             }
             if (hourChanged) {
-                b.append(getSelectedTime().format(mIs24HourFormat ? "%k" : "%l%p"));
+                b.append(getSelectedTimeForAccessibility().format(mIs24HourFormat ? "%k" : "%l%p"));
             }
             if (dayChanged || hourChanged) {
                 b.append(PERIOD_SPACE);
@@ -1713,7 +1732,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 // Read out the relevant event(s)
                 int numEvents = mSelectedEvents.size();
                 if (numEvents > 0) {
-                    if (mSelectedEvent == null) {
+                    if (mSelectedEventForAccessibility == null) {
                         // Read out all the events
                         int i = 1;
                         for (Event calEvent : mSelectedEvents) {
@@ -1730,10 +1749,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                             // Read out x of numEvents if there are more than one event
                             mStringBuilder.setLength(0);
                             b.append(mFormatter.format(mEventCountTemplate, mSelectedEvents
-                                    .indexOf(mSelectedEvent) + 1, numEvents));
+                                    .indexOf(mSelectedEventForAccessibility) + 1, numEvents));
                             b.append(" ");
                         }
-                        appendEventAccessibilityString(b, mSelectedEvent);
+                        appendEventAccessibilityString(b, mSelectedEventForAccessibility);
                     }
                 } else {
                     b.append(mCreateNewEventString);
@@ -1890,13 +1909,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // to the visible part of the screen.
     private void resetSelectedHour() {
         if (mSelectionHour < mFirstHour + 1) {
-            mSelectionHour = mFirstHour + 1;
-            mSelectedEvent = null;
+            setSelectedHour(mFirstHour + 1);
+            setSelectedEvent(null);
             mSelectedEvents.clear();
             mComputeSelectedEvents = true;
         } else if (mSelectionHour > mFirstHour + mNumHours - 3) {
-            mSelectionHour = mFirstHour + mNumHours - 3;
-            mSelectedEvent = null;
+            setSelectedHour(mFirstHour + mNumHours - 3);
+            setSelectedEvent(null);
             mSelectedEvents.clear();
             mComputeSelectedEvents = true;
         }
@@ -1923,7 +1942,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private void adjustHourSelection() {
         if (mSelectionHour < 0) {
-            mSelectionHour = 0;
+            setSelectedHour(0);
             if (mMaxAlldayEvents > 0) {
                 mPrevSelectedEvent = null;
                 mSelectionAllday = true;
@@ -1931,7 +1950,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
 
         if (mSelectionHour > 23) {
-            mSelectionHour = 23;
+            setSelectedHour(23);
         }
 
         // If the selected hour is at least 2 time slots from the top and
@@ -1949,7 +1968,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     && mFirstHour > 0 && mFirstHour < 8) {
                 mPrevSelectedEvent = null;
                 mSelectionAllday = true;
-                mSelectionHour = mFirstHour + 1;
+                setSelectedHour(mFirstHour + 1);
                 return;
             }
 
@@ -1997,7 +2016,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Make sure our time zones are up to date
         mTZUpdater.run();
 
-        mSelectedEvent = null;
+        setSelectedEvent(null);
         mPrevSelectedEvent = null;
         mSelectedEvents.clear();
 
@@ -3065,9 +3084,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
         }
         if (startEvent != null) {
-            mSelectedEvent = startEvent;
+            setSelectedEvent(startEvent);
         } else {
-            mSelectedEvent = maxPositionEvent;
+            setSelectedEvent(maxPositionEvent);
         }
     }
 
@@ -3412,7 +3431,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             ev.nextLeft = leftEvent;
             ev.nextRight = rightEvent;
         }
-        mSelectedEvent = startEvent;
+        setSelectedEvent(startEvent);
     }
 
     private Rect drawEventRect(Event event, Canvas canvas, Paint p, Paint eventTextPaint,
@@ -3672,12 +3691,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         Event oldSelectedEvent = mSelectedEvent;
         int oldSelectionDay = mSelectionDay;
         int oldSelectionHour = mSelectionHour;
-        if (setSelectionFromPosition(x, y)) {
+        if (setSelectionFromPosition(x, y, false)) {
             // If a time was selected (a blue selection box is visible) and the click location
             // is in the selected time, do not show a click on an event to prevent a situation
             // of both a selection and an event are clicked when they overlap.
-            boolean hasSelection = mSelectionMode != SELECTION_HIDDEN;
-            boolean pressedSelected = (hasSelection || mTouchExplorationEnabled)
+            boolean pressedSelected = (mSelectionMode != SELECTION_HIDDEN)
                     && oldSelectionDay == mSelectionDay && oldSelectionHour == mSelectionHour;
             if (!pressedSelected && mSelectedEvent != null) {
                 mSavedClickedEvent = mSelectedEvent;
@@ -3852,7 +3870,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
         }
 
-        boolean validPosition = setSelectionFromPosition(x, y);
+        boolean validPosition = setSelectionFromPosition(x, y, false);
         if (!validPosition) {
             if (y < DAY_HEADER_HEIGHT) {
                 Time selectedTime = new Time(mBaseDate);
@@ -3868,8 +3886,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         boolean hasSelection = mSelectionMode != SELECTION_HIDDEN;
         boolean pressedSelected = (hasSelection || mTouchExplorationEnabled)
                 && selectedDay == mSelectionDay && selectedHour == mSelectionHour;
+        boolean noEvent = mTouchExplorationEnabled && mSelectedEvent == null;
 
-        if (pressedSelected) {
+        if (pressedSelected && mSavedClickedEvent == null) {
             // If the tap is on an already selected hour slot, then create a new
             // event
             long extraLong = 0;
@@ -3928,7 +3947,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int x = (int) ev.getX();
         int y = (int) ev.getY();
 
-        boolean validPosition = setSelectionFromPosition(x, y);
+        boolean validPosition = setSelectionFromPosition(x, y, false);
         if (!validPosition) {
             // return if the touch wasn't on an area of concern
             return;
@@ -4086,11 +4105,11 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         boolean switchForward;
         if (deltaX > 0) {
             date.monthDay -= mNumDays;
-            view.mSelectionDay = mSelectionDay - mNumDays;
+            view.setSelectedDay(mSelectionDay - mNumDays);
             switchForward = false;
         } else {
             date.monthDay += mNumDays;
-            view.mSelectionDay = mSelectionDay + mNumDays;
+            view.setSelectedDay(mSelectionDay + mNumDays);
             switchForward = true;
         }
         date.normalize(true /* ignore isDst */);
@@ -4476,9 +4495,24 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
      *
      * @param x the x position of the touch
      * @param y the y position of the touch
+     * @param keepOldSelection - do not change the selection info (used for invoking accessibility
+     *                           messages)
      * @return true if the touch position is valid
      */
-    private boolean setSelectionFromPosition(int x, final int y) {
+    private boolean setSelectionFromPosition(int x, final int y, boolean keepOldSelection) {
+
+        Event savedEvent = null;
+        int savedDay = 0;
+        int savedHour = 0;
+        boolean savedAllDay = false;
+        if (keepOldSelection) {
+            // Store selection info and restore it at the end. This way, we can invoke the
+            // right accessibility message without affecting the selection.
+            savedEvent = mSelectedEvent;
+            savedDay = mSelectionDay;
+            savedHour = mSelectionHour;
+            savedAllDay = mSelectionAllday;
+        }
         if (x < mHoursWidth) {
             x = mHoursWidth;
         }
@@ -4488,14 +4522,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             day = mNumDays - 1;
         }
         day += mFirstJulianDay;
-        mSelectionDay = day;
+        setSelectedDay(day);
 
         if (y < DAY_HEADER_HEIGHT) {
             sendAccessibilityEventAsNeeded(false);
             return false;
         }
 
-        mSelectionHour = mFirstHour; /* First fully visible hour */
+        setSelectedHour(mFirstHour); /* First fully visible hour */
 
         if (y < mFirstCell) {
             mSelectionAllday = true;
@@ -4504,9 +4538,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             int adjustedY = y - mFirstCell;
 
             if (adjustedY < mFirstHourOffset) {
-                --mSelectionHour; /* In the partially visible hour */
+                setSelectedHour(mSelectionHour - 1); /* In the partially visible hour */
             } else {
-                mSelectionHour += (adjustedY - mFirstHourOffset) / (mCellHeight + HOUR_GAP);
+                setSelectedHour(mSelectionHour +
+                        (adjustedY - mFirstHourOffset) / (mCellHeight + HOUR_GAP));
             }
 
             mSelectionAllday = false;
@@ -4529,6 +4564,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 //            }
 //        }
         sendAccessibilityEventAsNeeded(true);
+
+        // Restore old values
+        if (keepOldSelection) {
+            mSelectedEvent = savedEvent;
+            mSelectionDay = savedDay;
+            mSelectionHour = savedHour;
+            mSelectionAllday = savedAllDay;
+        }
         return true;
     }
 
@@ -4539,7 +4582,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int numEvents = events.size();
         int left = computeDayLeftPosition(mSelectionDay - mFirstJulianDay);
         int top = 0;
-        mSelectedEvent = null;
+        setSelectedEvent(null);
 
         mSelectedEvents.clear();
         if (mSelectionAllday) {
@@ -4592,7 +4635,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     }
                 }
             }
-            mSelectedEvent = closestEvent;
+            setSelectedEvent(closestEvent);
             return;
         }
 
@@ -4636,7 +4679,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     closestEvent = ev;
                 }
             }
-            mSelectedEvent = closestEvent;
+            setSelectedEvent(closestEvent);
 
             // Keep the selected hour and day consistent with the selected
             // event. They could be different if we touched on an empty hour
@@ -4645,9 +4688,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             int startDay = mSelectedEvent.startDay;
             int endDay = mSelectedEvent.endDay;
             if (mSelectionDay < startDay) {
-                mSelectionDay = startDay;
+                setSelectedDay(startDay);
             } else if (mSelectionDay > endDay) {
-                mSelectionDay = endDay;
+                setSelectedDay(endDay);
             }
 
             int startHour = mSelectedEvent.startTime / 60;
@@ -4659,9 +4702,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
 
             if (mSelectionHour < startHour && mSelectionDay == startDay) {
-                mSelectionHour = startHour;
+                setSelectedHour(startHour);
             } else if (mSelectionHour > endHour && mSelectionDay == endDay) {
-                mSelectionHour = endHour;
+                setSelectedHour(endHour);
             }
         }
     }
@@ -4736,6 +4779,20 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         this.removeCallbacks(mSetClick);
         mClickedEvent = null;
         mSavedClickedEvent = null;
+    }
+
+    private void setSelectedEvent(Event e) {
+        mSelectedEvent = e;
+        mSelectedEventForAccessibility = e;
+    }
+
+    private void setSelectedHour(int h) {
+        mSelectionHour = h;
+        mSelectionHourForAccessibility = h;
+    }
+    private void setSelectedDay(int d) {
+        mSelectionDay = d;
+        mSelectionDayForAccessibility = d;
     }
 
     /**
