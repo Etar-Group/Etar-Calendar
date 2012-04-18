@@ -110,7 +110,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     // duration for events' cross-fade animation
     private static final int EVENTS_CROSS_FADE_DURATION = 400;
     // duration to show the event clicked
-    private static final int CLICK_DISPLAY_DURATION = 200;
+    private static final int CLICK_DISPLAY_DURATION = 50;
 
     private static final int MENU_AGENDA = 2;
     private static final int MENU_DAY = 3;
@@ -186,7 +186,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private Event mSavedClickedEvent;
     private static int mOnDownDelay;
     private int mClickedYLocation;
-    Event mViewEvent;                      // Temporary storage for the clicked event
+    private long mDownTouchTime;
 
     private int mEventsAlpha = 255;
     private ObjectAnimator mEventsCrossFadeAnimation;
@@ -216,30 +216,18 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
     };
 
-    // Clears the "clicked" color from the clicked event
+    // Clears the "clicked" color from the clicked event and launch the event
     private final Runnable mClearClick = new Runnable() {
         @Override
         public void run() {
-                mViewEvent = mClickedEvent;
-                mClickedEvent = null;
-                DayView.this.invalidate();
-                // Delay the loading of the event info to prevent color flashing in the clicked
-                // button.
-                DayView.this.postDelayed(mViewEventRunnable, 100);
-        }
-    };
-
-    // Shows the "clicked" events
-    private final Runnable mViewEventRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (mViewEvent != null) {
-                mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mViewEvent.id,
-                        mViewEvent.startMillis, mViewEvent.endMillis,
-                        (int)((mViewEvent.left + mViewEvent.right)/2),
-                        mClickedYLocation, getSelectedTimeInMillis());
-                mViewEvent = null;
+            if (mClickedEvent != null) {
+                mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mClickedEvent.id,
+                        mClickedEvent.startMillis, mClickedEvent.endMillis,
+                        (int) ((mClickedEvent.left + mClickedEvent.right) / 2), mClickedYLocation,
+                        getSelectedTimeInMillis());
             }
+            mClickedEvent = null;
+            DayView.this.invalidate();
         }
     };
 
@@ -3681,6 +3669,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     && oldSelectionDay == mSelectionDay && oldSelectionHour == mSelectionHour;
             if (!pressedSelected && mSelectedEvent != null) {
                 mSavedClickedEvent = mSelectedEvent;
+                mDownTouchTime = System.currentTimeMillis();
                 postDelayed (mSetClick,mOnDownDelay);
             } else {
                 eventClickCleanup();
@@ -3896,7 +3885,13 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 yLocation += (mFirstCell - mViewStartY);
             }
             mClickedYLocation = yLocation;
-            this.postDelayed(mClearClick, CLICK_DISPLAY_DURATION + mOnDownDelay);
+            long clearDelay = (CLICK_DISPLAY_DURATION + mOnDownDelay) -
+                    (System.currentTimeMillis() - mDownTouchTime);
+            if (clearDelay > 0) {
+                this.postDelayed(mClearClick, clearDelay);
+            } else {
+                this.post(mClearClick);
+            }
         } else {
             // Select time
             Time startTime = new Time(mBaseDate);
@@ -4726,7 +4721,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mCellHeight);
         // Clear all click animations
         eventClickCleanup();
-        this.removeCallbacks(mViewEventRunnable);
         // Turn off redraw
         mRemeasure = false;
     }
