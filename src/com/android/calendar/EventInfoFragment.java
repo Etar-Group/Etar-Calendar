@@ -311,7 +311,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
 
     private int mDefaultReminderMinutes;
-    private ArrayList<LinearLayout> mReminderViews = new ArrayList<LinearLayout>(0);
+    private final ArrayList<LinearLayout> mReminderViews = new ArrayList<LinearLayout>(0);
     public ArrayList<ReminderEntry> mReminders;
     public ArrayList<ReminderEntry> mOriginalReminders = new ArrayList<ReminderEntry>();
     public ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
@@ -335,14 +335,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private QueryHandler mHandler;
 
 
-    private Runnable mTZUpdater = new Runnable() {
+    private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
             updateEvent(mView);
         }
     };
 
-    private Runnable mLoadingMsgAlphaUpdater = new Runnable() {
+    private final Runnable mLoadingMsgAlphaUpdater = new Runnable() {
         @Override
         public void run() {
             // Since this is run after a delay, make sure to only show the message
@@ -760,7 +760,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         return mView;
     }
 
-    private Runnable onDeleteRunnable = new Runnable() {
+    private final Runnable onDeleteRunnable = new Runnable() {
         @Override
         public void run() {
             if (EventInfoFragment.this.mIsPaused) {
@@ -924,8 +924,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     @Override
     public void onDestroyView() {
+
         if (!mEventDeletionStarted) {
-            if (saveResponse() || saveReminders()) {
+            boolean responseSaved = saveResponse();
+            if (saveReminders() || responseSaved) {
                 Toast.makeText(getActivity(), R.string.saving_event, Toast.LENGTH_SHORT).show();
             }
         }
