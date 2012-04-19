@@ -19,6 +19,7 @@ package com.android.calendar;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
 
 import android.content.res.Configuration;
+import android.content.res.Resources.NotFoundException;
 import android.database.MatrixCursor;
 import android.provider.CalendarContract.CalendarCache;
 import android.test.mock.MockResources;
@@ -87,6 +88,20 @@ public class UtilsTests extends TestCase {
             }
             if (id == R.string.tomorrow) {
                 return "Tomorrow";
+            }
+            throw new IllegalArgumentException("unexpected resource ID: " + id);
+        }
+
+        @Override
+        public String getString(int id, Object... formatArgs) {
+            if (id == R.string.today_at_time_fmt) {
+                return String.format("Today at %s", formatArgs);
+            }
+            if (id == R.string.tomorrow_at_time_fmt) {
+                return String.format("Tomorrow at %s", formatArgs);
+            }
+            if (id == R.string.date_time_fmt) {
+                return String.format("%s, %s", formatArgs);
             }
             throw new IllegalArgumentException("unexpected resource ID: " + id);
         }
@@ -397,7 +412,7 @@ public class UtilsTests extends TestCase {
         long end = createTimeInMillis(0, 0, 18, NOW_DAY, NOW_MONTH, NOW_YEAR);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 DEFAULT_TIMEZONE, false, dbUtils.getContext());
-        assertEquals("Today, 5:00pm \u2013 6:00pm", result);
+        assertEquals("Today at 5:00pm \u2013 6:00pm", result);
     }
 
     @SmallTest
@@ -407,7 +422,7 @@ public class UtilsTests extends TestCase {
         long end = createTimeInMillis(0, 0, 0, NOW_DAY + 1, NOW_MONTH, NOW_YEAR);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 DEFAULT_TIMEZONE, false, dbUtils.getContext());
-        assertEquals("Today, 5:00pm \u2013 midnight", result);
+        assertEquals("Today at 5:00pm \u2013 midnight", result);
     }
 
     @SmallTest
@@ -417,7 +432,7 @@ public class UtilsTests extends TestCase {
         long end = createTimeInMillis(0, 59, 23, NOW_DAY + 1, NOW_MONTH, NOW_YEAR);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 DEFAULT_TIMEZONE, false, dbUtils.getContext());
-        assertEquals("Tomorrow, 12:01am \u2013 11:59pm", result);
+        assertEquals("Tomorrow at 12:01am \u2013 11:59pm", result);
     }
 
     @SmallTest
@@ -501,4 +516,6 @@ public class UtilsTests extends TestCase {
                 Time.TIMEZONE_UTC, true, dbUtils.getContext());
         assertEquals("Tomorrow", result);
     }
+
+    // TODO: add tests for army time.
 }

@@ -1103,6 +1103,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mColor = Utils.getDisplayColorFromColor(mEventCursor.getInt(EVENT_INDEX_COLOR));
         mHeadlines.setBackgroundColor(mColor);
 
+        // What
+        if (eventName != null) {
+            setTextCommon(view, R.id.title, eventName);
+        }
+
         // When
         // Set the date and repeats (if any)
         String localTimezone = Utils.getTimeZone(mActivity, mTZUpdater);
