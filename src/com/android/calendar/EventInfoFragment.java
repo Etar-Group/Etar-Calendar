@@ -283,8 +283,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private boolean mEventDeletionStarted = false;
 
     private TextView mTitle;
-    private TextView mWhenDate;
-    private TextView mWhenTime;
+    private TextView mWhenDateTime;
     private TextView mWhere;
     private ExpandableTextView mDesc;
     private AttendeesView mLongAttendees;
@@ -654,8 +653,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mScrollView = (ScrollView) mView.findViewById(R.id.event_info_scroll_view);
         mLoadingMsgView = mView.findViewById(R.id.event_info_loading_msg);
         mTitle = (TextView) mView.findViewById(R.id.title);
-        mWhenDate = (TextView) mView.findViewById(R.id.when_date);
-        mWhenTime = (TextView) mView.findViewById(R.id.when_time);
+        mWhenDateTime = (TextView) mView.findViewById(R.id.when_datetime);
         mWhere = (TextView) mView.findViewById(R.id.where);
         mDesc = (ExpandableTextView) mView.findViewById(R.id.description);
         mHeadlines = mView.findViewById(R.id.event_info_headline);
@@ -1105,83 +1103,35 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mColor = Utils.getDisplayColorFromColor(mEventCursor.getInt(EVENT_INDEX_COLOR));
         mHeadlines.setBackgroundColor(mColor);
 
-        // What
-        if (eventName != null) {
-            setTextCommon(view, R.id.title, eventName);
-        }
-
         // When
         // Set the date and repeats (if any)
-        String whenDate;
-        int flagsTime = DateUtils.FORMAT_SHOW_TIME;
-        int flagsDate = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_WEEKDAY |
-                DateUtils.FORMAT_SHOW_YEAR;
+        String localTimezone = Utils.getTimeZone(mActivity, mTZUpdater);
+        Activity context = getActivity();
+        String datetimeString = Utils.getDisplayedDatetime(mStartMillis, mEndMillis,
+                System.currentTimeMillis(), localTimezone, eventTimezone, mAllDay, context);
 
-        if (DateFormat.is24HourFormat(getActivity())) {
-            flagsTime |= DateUtils.FORMAT_24HOUR;
-        }
+        // Display the datetime.
+        setTextCommon(view, R.id.when_datetime, datetimeString);
 
-        // Put repeat after the date (if any)
+        // Display the repeat string (if any)
         String repeatString = null;
         if (!TextUtils.isEmpty(rRule)) {
             EventRecurrence eventRecurrence = new EventRecurrence();
             eventRecurrence.parse(rRule);
-            Time date = new Time(Utils.getTimeZone(getActivity(), mTZUpdater));
+            Time date = new Time(localTimezone);
+            date.set(mStartMillis);
             if (mAllDay) {
                 date.timezone = Time.TIMEZONE_UTC;
             }
-            date.set(mStartMillis);
             eventRecurrence.setStartDate(date);
             repeatString = EventRecurrenceFormatter.getRepeatString(
                     getActivity().getResources(), eventRecurrence);
         }
-        // If an all day event , show the date without the time
-        if (mAllDay) {
-            Formatter f = new Formatter(new StringBuilder(50), Locale.getDefault());
-            whenDate = DateUtils.formatDateRange(getActivity(), f, mStartMillis, mEndMillis,
-                    flagsDate, Time.TIMEZONE_UTC).toString();
-            if (repeatString != null) {
-                setTextCommon(view, R.id.when_date, whenDate + " (" + repeatString + ")");
-            } else {
-                setTextCommon(view, R.id.when_date, whenDate);
-            }
-            view.findViewById(R.id.when_time).setVisibility(View.GONE);
-
+        if (repeatString == null) {
+            view.findViewById(R.id.when_repeat).setVisibility(View.GONE);
         } else {
-            // Show date for none all-day events
-            whenDate = Utils.formatDateRange(getActivity(), mStartMillis, mEndMillis, flagsDate);
-            String whenTime = Utils.formatDateRange(getActivity(), mStartMillis, mEndMillis,
-                    flagsTime);
-            if (repeatString != null) {
-                setTextCommon(view, R.id.when_date, whenDate + " (" + repeatString + ")");
-            } else {
-                setTextCommon(view, R.id.when_date, whenDate);
-            }
-
-            // Show the event timezone if it is different from the local timezone after the time
-            String localTimezone = Utils.getTimeZone(mActivity, mTZUpdater);
-            if (!TextUtils.equals(localTimezone, eventTimezone)) {
-                String displayName;
-                // Figure out if this is in DST
-                Time date = new Time(Utils.getTimeZone(getActivity(), mTZUpdater));
-                if (mAllDay) {
-                    date.timezone = Time.TIMEZONE_UTC;
-                }
-                date.set(mStartMillis);
-
-                TimeZone tz = TimeZone.getTimeZone(localTimezone);
-                if (tz == null || tz.getID().equals("GMT")) {
-                    displayName = localTimezone;
-                } else {
-                    displayName = tz.getDisplayName(date.isDst != 0, TimeZone.LONG);
-                }
-                setTextCommon(view, R.id.when_time, whenTime + " (" + displayName + ")");
-            }
-            else {
-                setTextCommon(view, R.id.when_time, whenTime);
-            }
+            setTextCommon(view, R.id.when_repeat, repeatString);
         }
-
 
         // Organizer view is setup in the updateCalendar method
 
@@ -1221,6 +1171,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
     }
+
     /**
      * Finds North American Numbering Plan (NANP) phone numbers in the input text.
      *
@@ -1508,8 +1459,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         List<CharSequence> text = event.getText();
 
         addFieldToAccessibilityEvent(text, mTitle, null);
-        addFieldToAccessibilityEvent(text, mWhenDate, null);
-        addFieldToAccessibilityEvent(text, mWhenTime, null);
+        addFieldToAccessibilityEvent(text, mWhenDateTime, null);
         addFieldToAccessibilityEvent(text, mWhere, null);
         addFieldToAccessibilityEvent(text, null, mDesc);
 
