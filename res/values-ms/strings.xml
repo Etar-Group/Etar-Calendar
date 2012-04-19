@@ -22,6 +22,8 @@
     <string name="when_label" msgid="894636567327261599">"Bila"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Zon waktu"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Tamu"</string>
+    <string name="today" msgid="8577375020252453006">"Hari ini"</string>
+    <string name="tomorrow" msgid="614434811813859237">"Esok"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Ulangan"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Tiada tajuk)"</string>
   <plurals name="Nminutes">
@@ -171,7 +173,6 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Tiada acara kalendar yang akan datang"</string>
-    <string name="tomorrow" msgid="614434811813859237">"Esok"</string>
     <string name="copy_db" msgid="437691290566699292">"Hantar pangkalan data"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Mencari <xliff:g id="DOMAIN">%s</xliff:g>..."</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Alih keluar hadirin"</string>
@@ -199,6 +200,5 @@
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> acara"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Acara dipilih"</string>
-    <!-- no translation found for do_not_check (7815441673853466129) -->
-    <skip />
+    <string name="do_not_check" msgid="7815441673853466129">"JANGAN periksa -&gt;"</string>
 </resources>

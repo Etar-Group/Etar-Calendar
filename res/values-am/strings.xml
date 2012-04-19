@@ -22,6 +22,8 @@
     <string name="when_label" msgid="894636567327261599">"መቼ"</string>
     <string name="timezone_label" msgid="3988530993300431650">"ሰዓት ሰቅ"</string>
     <string name="attendees_label" msgid="2971281641565729725">"እንግዶች"</string>
+    <string name="today" msgid="8577375020252453006">"ዛሬ"</string>
+    <string name="tomorrow" msgid="614434811813859237">"ነገ"</string>
     <string name="repeats_label" msgid="7414023871434593196">"ድግግሞሽ"</string>
     <string name="no_title_label" msgid="302177118061368042">"(አርእስት አልባ)"</string>
   <plurals name="Nminutes">
@@ -135,7 +137,7 @@
     <string name="new_event_dialog_option" msgid="6154657379574669371">"አዲስ ክስተት"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"ይህን ክስተት ሰርዝ?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"ምላሽ ለውጥ"</string>
-    <string name="menu_general_preferences" msgid="2812705323334260708">"ጠቅላላ ቅንጅቶች"</string>
+    <string name="menu_general_preferences" msgid="2812705323334260708">"ጠቅላላ ቅንብሮች"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"ስለ ቀን መቁጠሪያ"</string>
     <string name="preferences_title" msgid="8045855493262131773">"ቅንብሮች"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"የቀን መቁጠሪያ ማያ ቅንብር"</string>
@@ -171,7 +173,6 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"በቅርቡ ምንም ክስተቶች የሉም"</string>
-    <string name="tomorrow" msgid="614434811813859237">"ነገ"</string>
     <string name="copy_db" msgid="437691290566699292">"የውሂብ ጎታ ላክ"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"በመፈለግ ላይ<xliff:g id="DOMAIN">%s</xliff:g>..."</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"ተካፋይ አስወግድ"</string>

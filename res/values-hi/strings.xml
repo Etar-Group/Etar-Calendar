@@ -22,6 +22,8 @@
     <string name="when_label" msgid="894636567327261599">"कब"</string>
     <string name="timezone_label" msgid="3988530993300431650">"समय क्षेत्र"</string>
     <string name="attendees_label" msgid="2971281641565729725">"अतिथि"</string>
+    <string name="today" msgid="8577375020252453006">"आज"</string>
+    <string name="tomorrow" msgid="614434811813859237">"आने वाला कल"</string>
     <string name="repeats_label" msgid="7414023871434593196">"दोहराव"</string>
     <string name="no_title_label" msgid="302177118061368042">"(कोई शीर्षक नहीं)"</string>
   <plurals name="Nminutes">
@@ -171,7 +173,6 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"कोई आगामी कैलेंडर ईवेंट नहीं"</string>
-    <string name="tomorrow" msgid="614434811813859237">"आने वाला कल"</string>
     <string name="copy_db" msgid="437691290566699292">"डेटाबेस भेजें"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> खोज रहा है..."</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"अतिथि निकालें"</string>
