@@ -1156,6 +1156,7 @@ public class Utils {
 
         Time currentTime = new Time(localTimezone);
         currentTime.set(currentMillis);
+        Resources resources = context.getResources();
         String datetimeString = null;
         if (allDay) {
             // All day events require special timezone adjustment.
@@ -1163,26 +1164,42 @@ public class Utils {
             long localEndMillis = convertAlldayUtcToLocal(null, endMillis, localTimezone);
             if (singleDayEvent(localStartMillis, localEndMillis, currentTime.gmtoff)) {
                 // If possible, use "Today" or "Tomorrow" instead of a full date string.
-                datetimeString = getRelativeDayStringOrNull(context.getResources(),
+                int todayOrTomorrow = isTodayOrTomorrow(context.getResources(),
                         localStartMillis, currentMillis, currentTime.gmtoff);
-            }
-            if (datetimeString == null) {
-                Formatter f = new Formatter(new StringBuilder(50), Locale.getDefault());
-                datetimeString = DateUtils.formatDateRange(context, f, startMillis,
-                        endMillis, flagsDate, Time.TIMEZONE_UTC).toString();
+                if (TODAY == todayOrTomorrow) {
+                    datetimeString = resources.getString(R.string.today);
+                } else if (TOMORROW == todayOrTomorrow) {
+                    datetimeString = resources.getString(R.string.tomorrow);
+                } else {
+                    Formatter f = new Formatter(new StringBuilder(50), Locale.getDefault());
+                    datetimeString = DateUtils.formatDateRange(context, f, startMillis,
+                            endMillis, flagsDate, Time.TIMEZONE_UTC).toString();
+                }
             }
         } else {
             if (singleDayEvent(startMillis, endMillis, currentTime.gmtoff)) {
-                // If possible, use "Today" or "Tomorrow" instead of a full date string.
-                String dateString = getRelativeDayStringOrNull(context.getResources(), startMillis,
-                       currentTime.toMillis(false), currentTime.gmtoff);
-                if (dateString == null) {
-                    dateString = Utils.formatDateRange(context, startMillis, endMillis, flagsDate);
-                }
-                // Example: "Today, 1:00pm - 2:00pm" or "Thursday, April 12, 1:00pm - 2:00pm"
+                // Format the time.
                 String timeString = Utils.formatDateRange(context, startMillis, endMillis,
                         flagsTime);
-                datetimeString = dateString + ", " + timeString;
+
+                // If possible, use "Today" or "Tomorrow" instead of a full date string.
+                int todayOrTomorrow = isTodayOrTomorrow(context.getResources(), startMillis,
+                        currentMillis, currentTime.gmtoff);
+                if (TODAY == todayOrTomorrow) {
+                    // Example: "Today at 1:00pm - 2:00 pm"
+                    datetimeString = resources.getString(R.string.today_at_time_fmt,
+                            timeString);
+                } else if (TOMORROW == todayOrTomorrow) {
+                    // Example: "Tomorrow at 1:00pm - 2:00 pm"
+                    datetimeString = resources.getString(R.string.tomorrow_at_time_fmt,
+                            timeString);
+                } else {
+                    // Format the full date. Example: "Thursday, April 12, 1:00pm - 2:00pm"
+                    String dateString = Utils.formatDateRange(context, startMillis, endMillis,
+                            flagsDate);
+                    datetimeString = resources.getString(R.string.date_time_fmt, dateString,
+                            timeString);
+                }
             } else {
                 // For multiday events, shorten day/month names.
                 // Example format: "Fri Apr 6, 5:00pm - Sun, Apr 8, 6:00pm"
@@ -1225,21 +1242,26 @@ public class Utils {
         return startDay == endDay;
     }
 
+    // Using int constants as a return value instead of an enum to minimize resources.
+    private static final int TODAY = 1;
+    private static final int TOMORROW = 2;
+    private static final int NONE = 0;
+
     /**
-     * Returns "Today" or "Tomorrow" if applicable.  Otherwise returns null.
+     * Returns TODAY or TOMORROW if applicable.  Otherwise returns NONE.
      */
-    private static String getRelativeDayStringOrNull(Resources r, long dayMillis,
+    private static int isTodayOrTomorrow(Resources r, long dayMillis,
             long currentMillis, long localGmtOffset) {
         int startDay = Time.getJulianDay(dayMillis, localGmtOffset);
         int currentDay = Time.getJulianDay(currentMillis, localGmtOffset);
 
         int days = startDay - currentDay;
         if (days == 1) {
-            return r.getString(R.string.tomorrow);
+            return TOMORROW;
         } else if (days == 0) {
-            return r.getString(R.string.today);
+            return TODAY;
         } else {
-            return null;
+            return NONE;
         }
     }
 }
