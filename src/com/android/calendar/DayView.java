@@ -172,6 +172,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private final Typeface mBold = Typeface.DEFAULT_BOLD;
     private int mFirstJulianDay;
+    private int mLoadedFirstJulianDay = -1;
     private int mLastJulianDay;
 
     private int mMonthLength;
@@ -2039,7 +2040,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         final ArrayList<Event> events = new ArrayList<Event>();
         mEventLoader.loadEventsInBackground(mNumDays, events, mFirstJulianDay, new Runnable() {
             public void run() {
+                boolean fadeinEvents = mFirstJulianDay != mLoadedFirstJulianDay;
                 mEvents = events;
+                mLoadedFirstJulianDay = mFirstJulianDay;
                 if (mAllDayEvents == null) {
                     mAllDayEvents = new ArrayList<Event>();
                 } else {
@@ -2073,12 +2076,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 recalc();
 
                 // Start animation to cross fade the events
-                if (mEventsCrossFadeAnimation == null) {
-                    mEventsCrossFadeAnimation =
-                            ObjectAnimator.ofInt(DayView.this, "EventsAlpha", 0, 255);
-                    mEventsCrossFadeAnimation.setDuration(EVENTS_CROSS_FADE_DURATION);
+                if (fadeinEvents) {
+                    if (mEventsCrossFadeAnimation == null) {
+                        mEventsCrossFadeAnimation =
+                                ObjectAnimator.ofInt(DayView.this, "EventsAlpha", 0, 255);
+                        mEventsCrossFadeAnimation.setDuration(EVENTS_CROSS_FADE_DURATION);
+                    }
+                    mEventsCrossFadeAnimation.start();
+                } else{
+                    invalidate();
                 }
-                mEventsCrossFadeAnimation.start();
             }
         }, mCancelCallback);
     }
