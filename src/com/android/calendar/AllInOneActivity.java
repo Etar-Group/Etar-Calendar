@@ -414,7 +414,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         mHomeTime = (TextView) findViewById(R.id.home_time);
         mMiniMonth = findViewById(R.id.mini_month);
-        if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (mIsTabletConfig && mOrientation == Configuration.ORIENTATION_PORTRAIT) {
             mMiniMonth.setLayoutParams(new LinearLayout.LayoutParams(mControlsAnimateWidth,
                     mControlsAnimateHeight));
         }
