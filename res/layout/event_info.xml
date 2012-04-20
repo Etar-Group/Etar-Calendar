@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-3dip"
                     android:textSize="14sp"
-                    android:textColor="@color/event_info_headline_color"
+                    android:textColor="@color/event_info_headline_transparent_color"
                     style="?android:attr/textAppearanceLarge" />
 
                 <!-- WHERE -->

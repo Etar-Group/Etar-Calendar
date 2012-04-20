@@ -1146,7 +1146,7 @@ public class Utils {
      * Returns a string description of the specified time interval.
      */
     public static String getDisplayedDatetime(long startMillis, long endMillis, long currentMillis,
-            String localTimezone, String eventTimezone, boolean allDay, Context context) {
+            String localTimezone, boolean allDay, Context context) {
         // Configure date/time formatting.
         int flagsDate = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_WEEKDAY;
         int flagsTime = DateUtils.FORMAT_SHOW_TIME;
@@ -1208,23 +1208,29 @@ public class Utils {
                 datetimeString = Utils.formatDateRange(context, startMillis, endMillis,
                         flagsDatetime);
             }
-
-            // Show the local timezone if it is different from the event timezone
-            if (!TextUtils.equals(localTimezone, eventTimezone)) {
-                // Figure out if this is in DST
-                TimeZone tz = TimeZone.getTimeZone(localTimezone);
-                String tzDisplay;
-                if (tz == null || tz.getID().equals("GMT")) {
-                    tzDisplay = localTimezone;
-                } else {
-                    Time startTime = new Time(localTimezone);
-                    startTime.set(startMillis);
-                    tzDisplay = tz.getDisplayName(startTime.isDst != 0, TimeZone.SHORT);
-                }
-                datetimeString += " (" + tzDisplay + ")";
-            }
         }
         return datetimeString;
+    }
+
+    /**
+     * Returns the timezone to display in the event info, if the local timezone is different
+     * from the event timezone.  Otherwise returns null.
+     */
+    public static String getDisplayedTimezone(long startMillis, String localTimezone,
+            String eventTimezone) {
+        String tzDisplay = null;
+        if (!TextUtils.equals(localTimezone, eventTimezone)) {
+            // Figure out if this is in DST
+            TimeZone tz = TimeZone.getTimeZone(localTimezone);
+            if (tz == null || tz.getID().equals("GMT")) {
+                tzDisplay = localTimezone;
+            } else {
+                Time startTime = new Time(localTimezone);
+                startTime.set(startMillis);
+                tzDisplay = tz.getDisplayName(startTime.isDst != 0, TimeZone.SHORT);
+            }
+        }
+        return tzDisplay;
     }
 
     /**

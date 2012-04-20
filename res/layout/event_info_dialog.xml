@@ -135,7 +135,7 @@
                     android:textSize="18sp"
                     android:paddingLeft="16dip"
                     android:paddingRight="16dip"
-                    android:textColor="@color/event_info_headline_color"
+                    android:textColor="@color/event_info_headline_transparent_color"
                     style="?android:attr/textAppearanceLarge" />
 
                 <!-- WHERE -->

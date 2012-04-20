@@ -384,14 +384,14 @@ public class UtilsTests extends TestCase {
         long start = createTimeInMillis(0, 0, 17, 12, 3, 2000);
         long end = createTimeInMillis(0, 0, 18, 12, 3, 2000);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
-                DEFAULT_TIMEZONE, false, dbUtils.getContext());
+                false, dbUtils.getContext());
         assertEquals("Wednesday, April 12, 2000, 5:00pm \u2013 6:00pm", result);
 
         // 12/31/2012 5pm - 1/1/2013 6pm
         start = createTimeInMillis(0, 0, 17, 31, 11, 2012);
         end = createTimeInMillis(0, 0, 18, 1, 0, 2013);
         result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
-                DEFAULT_TIMEZONE, false, dbUtils.getContext());
+                false, dbUtils.getContext());
         assertEquals("Mon, Dec 31, 2012, 5:00pm – Tue, Jan 1, 2013, 6:00pm", result);
     }
 
@@ -401,7 +401,7 @@ public class UtilsTests extends TestCase {
         long start = createTimeInMillis(0, 0, 17, 12, 3, 2012);
         long end = createTimeInMillis(0, 0, 18, 12, 3, 2012);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
-                DEFAULT_TIMEZONE, false, dbUtils.getContext());
+                false, dbUtils.getContext());
         assertEquals("Thursday, April 12, 5:00pm \u2013 6:00pm", result);
     }
 
@@ -411,7 +411,7 @@ public class UtilsTests extends TestCase {
         long start = createTimeInMillis(0, 0, 17, NOW_DAY, NOW_MONTH, NOW_YEAR);
         long end = createTimeInMillis(0, 0, 18, NOW_DAY, NOW_MONTH, NOW_YEAR);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
-                DEFAULT_TIMEZONE, false, dbUtils.getContext());
+                false, dbUtils.getContext());
         assertEquals("Today at 5:00pm \u2013 6:00pm", result);
     }
 
@@ -421,7 +421,7 @@ public class UtilsTests extends TestCase {
         long start = createTimeInMillis(0, 0, 17, NOW_DAY, NOW_MONTH, NOW_YEAR);
         long end = createTimeInMillis(0, 0, 0, NOW_DAY + 1, NOW_MONTH, NOW_YEAR);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
-                DEFAULT_TIMEZONE, false, dbUtils.getContext());
+                false, dbUtils.getContext());
         assertEquals("Today at 5:00pm \u2013 midnight", result);
     }
 
@@ -431,7 +431,7 @@ public class UtilsTests extends TestCase {
         long start = createTimeInMillis(0, 1, 0, NOW_DAY + 1, NOW_MONTH, NOW_YEAR);
         long end = createTimeInMillis(0, 59, 23, NOW_DAY + 1, NOW_MONTH, NOW_YEAR);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
-                DEFAULT_TIMEZONE, false, dbUtils.getContext());
+                false, dbUtils.getContext());
         assertEquals("Tomorrow at 12:01am \u2013 11:59pm", result);
     }
 
@@ -441,7 +441,7 @@ public class UtilsTests extends TestCase {
         long start = createTimeInMillis(0, 0, 17, 9, 3, 2012);
         long end = createTimeInMillis(0, 0, 18, 9, 3, 2012);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
-                DEFAULT_TIMEZONE, false, dbUtils.getContext());
+                false, dbUtils.getContext());
         assertEquals("Monday, April 9, 5:00pm \u2013 6:00pm", result);
     }
 
@@ -451,7 +451,7 @@ public class UtilsTests extends TestCase {
         long start = createTimeInMillis(0, 1, 0, NOW_DAY, NOW_MONTH, NOW_YEAR);
         long end = createTimeInMillis(0, 1, 0, NOW_DAY + 1, NOW_MONTH, NOW_YEAR);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
-                DEFAULT_TIMEZONE, false, dbUtils.getContext());
+                false, dbUtils.getContext());
         assertEquals("Tue, Apr 10, 12:01am \u2013 Wed, Apr 11, 12:01am", result);
     }
 
@@ -461,7 +461,7 @@ public class UtilsTests extends TestCase {
         long start = createTimeInMillis(0, 0, 0, 2, 3, NOW_YEAR, Time.TIMEZONE_UTC);
         long end = createTimeInMillis(0, 0, 0, 3, 3, NOW_YEAR, Time.TIMEZONE_UTC);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
-                DEFAULT_TIMEZONE, true, dbUtils.getContext());
+                true, dbUtils.getContext());
         assertEquals("Monday, April 2", result);
     }
 
@@ -471,7 +471,7 @@ public class UtilsTests extends TestCase {
         long start = createTimeInMillis(0, 0, 0, NOW_DAY, NOW_MONTH, NOW_YEAR, Time.TIMEZONE_UTC);
         long end = createTimeInMillis(0, 0, 0, NOW_DAY + 1, NOW_MONTH, NOW_YEAR, Time.TIMEZONE_UTC);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
-                DEFAULT_TIMEZONE, true, dbUtils.getContext());
+                true, dbUtils.getContext());
         assertEquals("Today", result);
     }
 
@@ -484,9 +484,9 @@ public class UtilsTests extends TestCase {
         // 4/12/2012 5pm - 4/12/2012 6pm (Pacific)
         long start = createTimeInMillis(0, 0, 17, 12, 3, 2012, eventTz);
         long end = createTimeInMillis(0, 0, 18, 12, 3, 2012, eventTz);
-        String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, localTz, eventTz, false,
+        String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, localTz, false,
                 dbUtils.getContext());
-        assertEquals("Thursday, April 12, 8:00pm \u2013 9:00pm (EDT)", result);
+        assertEquals("Thursday, April 12, 8:00pm \u2013 9:00pm", result);
     }
 
     @SmallTest
@@ -497,8 +497,8 @@ public class UtilsTests extends TestCase {
         // 4/2/2012 12:00am - 4/3/2012 12:00am
         long start = createTimeInMillis(0, 0, 0, 2, 3, NOW_YEAR, Time.TIMEZONE_UTC);
         long end = createTimeInMillis(0, 0, 0, 3, 3, NOW_YEAR, Time.TIMEZONE_UTC);
-        String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, localTz,
-                Time.TIMEZONE_UTC, true, dbUtils.getContext());
+        String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, localTz, true,
+                dbUtils.getContext());
         assertEquals("Monday, April 2", result);
     }
 
@@ -512,10 +512,42 @@ public class UtilsTests extends TestCase {
                 Time.TIMEZONE_UTC);
         long end = createTimeInMillis(0, 0, 0, NOW_DAY + 2, NOW_MONTH, NOW_YEAR,
                 Time.TIMEZONE_UTC);
-        String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, localTz,
-                Time.TIMEZONE_UTC, true, dbUtils.getContext());
+        String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, localTz, true,
+                dbUtils.getContext());
         assertEquals("Tomorrow", result);
     }
 
     // TODO: add tests for army time.
+
+    @SmallTest
+    public void testGetDisplayedTimezone_sameTimezone() {
+        String localTz = "America/New_York";
+        setTimezone(localTz);
+
+        // 4/12/2012 5pm
+        long start = createTimeInMillis(0, 0, 17, 12, 3, 2012, localTz);
+        assertNull(Utils.getDisplayedTimezone(start, localTz, localTz));
+    }
+
+    @SmallTest
+    public void testGetDisplayedTimezone_differentTimezone() {
+        String localTz = "America/New_York";
+        String eventTz = "America/Los_Angeles";
+        setTimezone(localTz);
+
+        // 1/12/2012 5pm (not daylight savings)
+        long start = createTimeInMillis(0, 0, 17, 12, 0, 2012, eventTz);
+        assertEquals("EST", Utils.getDisplayedTimezone(start, localTz, eventTz));
+    }
+
+    @SmallTest
+    public void testGetDisplayedTimezone_differentTimezoneDst() {
+        String localTz = "America/New_York";
+        String eventTz = "America/Los_Angeles";
+        setTimezone(localTz);
+
+        // 4/12/2012 5pm (daylight savings)
+        long start = createTimeInMillis(0, 0, 17, 12, 3, 2012, eventTz);
+        assertEquals("EDT", Utils.getDisplayedTimezone(start, localTz, eventTz));
+    }
 }
