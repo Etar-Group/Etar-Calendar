@@ -369,14 +369,20 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mShowString = res.getString(R.string.show_controls);
         mOrientation = res.getConfiguration().orientation;
         if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            mControlsAnimateWidth = (int)res.getDimension(R.dimen.calendar_controls_width);
             if (mControlsParams == null) {
                 mControlsParams = new LayoutParams(mControlsAnimateWidth, 0);
             }
             mControlsParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        } else {
+            // Make sure width is in between allowed min and max width values
+            mControlsAnimateWidth = Math.max(res.getDisplayMetrics().widthPixels * 45 / 100,
+                    (int)res.getDimension(R.dimen.min_portrait_calendar_controls_width));
+            mControlsAnimateWidth = Math.min(mControlsAnimateWidth,
+                    (int)res.getDimension(R.dimen.max_portrait_calendar_controls_width));
         }
 
         mControlsAnimateHeight = (int)res.getDimension(R.dimen.calendar_controls_height);
-        mControlsAnimateWidth = (int)res.getDimension(R.dimen.calendar_controls_width);
 
         mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
         mIsTabletConfig = Utils.getConfigBool(this, R.bool.tablet_config);
@@ -408,6 +414,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         mHomeTime = (TextView) findViewById(R.id.home_time);
         mMiniMonth = findViewById(R.id.mini_month);
+        if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            mMiniMonth.setLayoutParams(new LinearLayout.LayoutParams(mControlsAnimateWidth,
+                    mControlsAnimateHeight));
+        }
         mCalendarsList = findViewById(R.id.calendar_list);
         mMiniMonthContainer = findViewById(R.id.mini_month_container);
         mSecondaryPane = findViewById(R.id.secondary_pane);

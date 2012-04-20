@@ -86,15 +86,16 @@
         android:visibility="gone"
         android:layout_height="@dimen/calendar_controls_height"
         android:layout_width="match_parent" >
+        <!-- The width of mini_month is set programmatically in AllInOne -->
         <FrameLayout
             android:id="@+id/mini_month"
             android:layout_height="@dimen/calendar_controls_height"
-            android:layout_weight="1"
             android:layout_width="0dip" />
         <FrameLayout
             android:id="@+id/calendar_list"
             android:layout_marginTop="16dip"
             android:layout_height="@dimen/calendar_controls_height"
-            android:layout_width="450dip" />
+            android:layout_weight="1"
+            android:layout_width="0dip" />
     </LinearLayout>
 </LinearLayout>
