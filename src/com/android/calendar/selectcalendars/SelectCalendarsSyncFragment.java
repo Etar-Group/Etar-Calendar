@@ -67,7 +67,7 @@ public class SelectCalendarsSyncFragment extends ListFragment
     private TextView mSyncStatus;
     private Button mAccountsButton;
     private Account mAccount;
-    private String[] mArgs = new String[2];
+    private final String[] mArgs = new String[2];
     private AsyncQueryService mService;
 
     public SelectCalendarsSyncFragment() {
@@ -173,10 +173,10 @@ public class SelectCalendarsSyncFragment extends ListFragment
         SelectCalendarsSyncAdapter adapter = (SelectCalendarsSyncAdapter) getListAdapter();
         if (adapter == null) {
             adapter = new SelectCalendarsSyncAdapter(getActivity(), data);
+            setListAdapter(adapter);
         } else {
             adapter.changeCursor(data);
         }
-        setListAdapter(adapter);
         getListView().setOnItemClickListener(adapter);
     }
 
