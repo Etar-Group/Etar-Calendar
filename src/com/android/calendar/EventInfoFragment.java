@@ -62,13 +62,10 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
@@ -102,10 +99,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Formatter;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
@@ -1112,11 +1106,26 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // Set the date and repeats (if any)
         String localTimezone = Utils.getTimeZone(mActivity, mTZUpdater);
         Activity context = getActivity();
-        String datetimeString = Utils.getDisplayedDatetime(mStartMillis, mEndMillis,
-                System.currentTimeMillis(), localTimezone, eventTimezone, mAllDay, context);
-
-        // Display the datetime.
-        setTextCommon(view, R.id.when_datetime, datetimeString);
+        Resources resources = context.getResources();
+        String displayedDatetime = Utils.getDisplayedDatetime(mStartMillis, mEndMillis,
+                System.currentTimeMillis(), localTimezone, mAllDay, context);
+        String displayedTimezone = Utils.getDisplayedTimezone(mStartMillis, localTimezone,
+                eventTimezone);
+        int timezoneIndex = displayedDatetime.length();
+        if (displayedTimezone != null) {
+            displayedDatetime += "  " + displayedTimezone;
+        }
+        // Display the datetime.  Make the timezone (if any) transparent.
+        if (displayedTimezone == null) {
+            setTextCommon(view, R.id.when_datetime, displayedDatetime);
+        } else {
+            SpannableStringBuilder sb = new SpannableStringBuilder(displayedDatetime);
+            ForegroundColorSpan transparentColorSpan = new ForegroundColorSpan(
+                    resources.getColor(R.color.event_info_headline_transparent_color));
+            sb.setSpan(transparentColorSpan, timezoneIndex, displayedDatetime.length(),
+                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            setTextCommon(view, R.id.when_datetime, sb);
+        }
 
         // Display the repeat string (if any)
         String repeatString = null;
@@ -1129,8 +1138,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 date.timezone = Time.TIMEZONE_UTC;
             }
             eventRecurrence.setStartDate(date);
-            repeatString = EventRecurrenceFormatter.getRepeatString(
-                    getActivity().getResources(), eventRecurrence);
+            repeatString = EventRecurrenceFormatter.getRepeatString(resources, eventRecurrence);
         }
         if (repeatString == null) {
             view.findViewById(R.id.when_repeat).setVisibility(View.GONE);
