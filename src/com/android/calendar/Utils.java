@@ -1270,4 +1270,94 @@ public class Utils {
             return NONE;
         }
     }
+
+    /**
+     * Create an intent for emailing attendees of an event.
+     *
+     * @param resources The resources for translating strings.
+     * @param eventTitle The title of the event to use as the email subject.
+     * @param toEmails The list of emails for the 'to' line.
+     * @param ccEmails The list of emails for the 'cc' line.
+     * @param ownerAccount The owner account to use as the email sender.
+     */
+    public static Intent createEmailAttendeesIntent(Resources resources, String eventTitle,
+            List<String> toEmails, List<String> ccEmails, String ownerAccount) {
+        List<String> toList = toEmails;
+        List<String> ccList = ccEmails;
+        if (toEmails.size() <= 0) {
+            if (ccEmails.size() <= 0) {
+                // TODO: Return a SEND intent if no one to email to, to at least populate
+                // a draft email with the subject (and no recipients).
+                throw new IllegalArgumentException("Both toEmails and ccEmails are null.");
+            }
+
+            // Email app does not work with no "to" recipient.  Move all 'cc' to 'to'
+            // in this case.
+            toList = ccEmails;
+            ccList = null;
+        }
+
+        // Use the event title as the email subject (prepended with 'Re: ').
+        String subject = null;
+        if (eventTitle != null) {
+            subject = resources.getString(R.string.email_subject_prefix) + eventTitle;
+        }
+
+        // Use the SENDTO intent with a 'mailto' URI, because using SEND will cause
+        // the picker to show apps like text messaging, which does not make sense
+        // for email addresses.  We put all data in the URI instead of using the extra
+        // Intent fields (ie. EXTRA_CC, etc) because some email apps might not handle
+        // those (though gmail does).
+        Uri.Builder uriBuilder = new Uri.Builder();
+        uriBuilder.scheme("mailto");
+
+        // We will append the first email to the 'mailto' field later (because the
+        // current state of the Email app requires it).  Add the remaining 'to' values
+        // here.  When the email codebase is updated, we can simplify this.
+        if (toList.size() > 1) {
+            for (int i = 1; i < toList.size(); i++) {
+                // The Email app requires repeated parameter settings instead of
+                // a single comma-separated list.
+                uriBuilder.appendQueryParameter("to", toList.get(i));
+            }
+        }
+
+        // Add the subject parameter.
+        if (subject != null) {
+            uriBuilder.appendQueryParameter("subject", subject);
+        }
+
+        // Add the cc parameters.
+        if (ccList != null && ccList.size() > 0) {
+            for (String email : ccList) {
+                uriBuilder.appendQueryParameter("cc", email);
+            }
+        }
+
+        // Insert the first email after 'mailto:' in the URI manually since Uri.Builder
+        // doesn't seem to have a way to do this.
+        String uri = uriBuilder.toString();
+        if (uri.startsWith("mailto:")) {
+            StringBuilder builder = new StringBuilder(uri);
+            builder.insert(7, Uri.encode(toList.get(0)));
+            uri = builder.toString();
+        }
+
+        // Start the email intent.  Email from the account of the calendar owner in case there
+        // are multiple email accounts.
+        Intent emailIntent = new Intent(android.content.Intent.ACTION_SENDTO, Uri.parse(uri));
+        emailIntent.putExtra("fromAccountString", ownerAccount);
+        return Intent.createChooser(emailIntent, resources.getString(R.string.email_picker_label));
+    }
+
+    /**
+     * Adds the attendee's email to the list if:
+     *   (1) the attendee is not a resource like a conference room or another calendar.
+     *       Catch most of these by filtering out suffix calendar.google.com.
+     *   (2) the attendee is not the viewer, to prevent mailing himself.
+     */
+    public static boolean isEmailable(String email, String syncAccount) {
+        return (email != null && !email.equals(syncAccount) &&
+                !email.endsWith("calendar.google.com"));
+    }
 }

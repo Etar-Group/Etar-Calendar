@@ -1974,60 +1974,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
      * himself) and resources like conference rooms.
      */
     private void emailAttendees() {
-        Resources res = getActivity().getResources();
-
-        // Use the event title as the email subject (prepended with 'Re: ').
-        String subject = null;
-        if (mTitle != null && mTitle.getText() != null) {
-            subject = res.getString(R.string.email_subject_prefix) + mTitle.getText().toString();
-        }
-
-        // Use the SENDTO intent with a 'mailto' URI, because using SEND will cause
-        // the picker to show apps like text messaging, which does not make sense
-        // for email addresses.  We put all data in the URI instead of using the extra
-        // Intent fields (ie. EXTRA_CC, etc) because some email apps might not handle
-        // those (though gmail does).
-        Uri.Builder uriBuilder = new Uri.Builder();
-        uriBuilder.scheme("mailto");
-
-        // We will append the first email to the 'mailto' field later (because the
-        // current state of the Email app requires it).  Add the remaining 'to' values
-        // here.  When the email codebase is updated, we can simplify this.
-        if (mToEmails.size() > 1) {
-            for (int i = 1; i < mToEmails.size(); i++) {
-                // The Email app requires repeated parameter settings instead of
-                // a single comma-separated list.
-                uriBuilder.appendQueryParameter("to", mToEmails.get(i));
-            }
-        }
-
-        // Add the subject parameter.
-        if (subject != null) {
-            uriBuilder.appendQueryParameter("subject", subject);
-        }
-
-        // Add the cc parameters.
-        if (mCcEmails.size() > 0) {
-            for (String email : mCcEmails) {
-                uriBuilder.appendQueryParameter("cc", email);
-            }
-        }
-
-        // Insert the first email after 'mailto:' in the URI manually since Uri.Builder
-        // doesn't seem to have a way to do this.
-        String uri = uriBuilder.toString();
-        if (uri.startsWith("mailto:")) {
-            StringBuilder builder = new StringBuilder(uri);
-            builder.insert(7, Uri.encode(mToEmails.get(0)));
-            uri = builder.toString();
-        }
-
-        // Start the email intent.  Email from the account of the calendar owner in case there
-        // are multiple email accounts.
-        Intent emailIntent = new Intent(android.content.Intent.ACTION_SENDTO, Uri.parse(uri));
-        emailIntent.putExtra("fromAccountString", mCalendarOwnerAccount);
-        startActivity(Intent.createChooser(emailIntent,
-                res.getString(R.string.email_picker_label)));
+        String eventTitle = (mTitle == null || mTitle.getText() == null) ? null :
+                mTitle.getText().toString();
+        Intent emailIntent = Utils.createEmailAttendeesIntent(getActivity().getResources(),
+                eventTitle, mToEmails, mCcEmails, mCalendarOwnerAccount);
+        startActivity(emailIntent);
     }
 
     /**
