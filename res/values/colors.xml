@@ -131,7 +131,7 @@
 
     <!-- Event info colors -->
     <color name="event_info_headline_color">#FFFFFFFF</color>
-    <color name="event_info_headline_transparent_color">#66FFFFFF</color>
+    <color name="event_info_headline_transparent_color">#B3FFFFFF</color>
     <color name="event_info_headline_link_color">#FFFFFFFF</color>
     <color name="event_info_organizer_color">#FF666666</color>
     <color name="event_info_description_color">#FF666666</color>
