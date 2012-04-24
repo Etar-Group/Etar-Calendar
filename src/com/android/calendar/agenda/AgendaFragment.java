@@ -57,9 +57,9 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
     private AgendaListView mAgendaListView;
     private Activity mActivity;
-    private Time mTime;
+    private final Time mTime;
     private String mTimeZone;
-    private long mInitialTimeMillis;
+    private final long mInitialTimeMillis;
     private boolean mShowEventDetailsWithAgenda;
     private CalendarController mController;
     private EventInfoFragment mEventFragment;
@@ -69,12 +69,13 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private EventInfo mOnAttachedInfo = null;
     private boolean mOnAttachAllDay = false;
     private AgendaWindowAdapter mAdapter = null;
+    private boolean mForceReplace = true;
 
     // Tracks the time of the top visible view in order to send UPDATE_TITLE messages to the action
     // bar.
     int  mJulianDayOnTop = -1;
 
-    private Runnable mTZUpdater = new Runnable() {
+    private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
             mTimeZone = Utils.getTimeZone(getActivity(), this);
@@ -107,7 +108,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         mTime.switchTimezone(mTimeZone);
         mActivity = activity;
         if (mOnAttachedInfo != null) {
-            showEventInfo(mOnAttachedInfo, mOnAttachAllDay);
+            showEventInfo(mOnAttachedInfo, mOnAttachAllDay, true);
             mOnAttachedInfo = null;
         }
     }
@@ -280,6 +281,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         super.onPause();
 
         mAgendaListView.onPause();
+
 //        mContentResolver.unregisterContentObserver(mObserver);
 //        unregisterReceiver(mIntentReceiver);
 
@@ -305,7 +307,9 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 ((event.extraLong & CalendarController.EXTRA_GOTO_TODAY) != 0  &&
                         mShowEventDetailsWithAgenda) ? true : false);
         AgendaAdapter.ViewHolder vh = mAgendaListView.getSelectedViewHolder();
-        showEventInfo(event, vh != null ? vh.allDay : false);
+        // Make sure that on the first time the event info is shown to recreate it
+        showEventInfo(event, vh != null ? vh.allDay : false, mForceReplace);
+        mForceReplace = false;
     }
 
     private void search(String query, Time time) {
@@ -352,7 +356,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
 
 
     // Shows the selected event in the Agenda view
-    private void showEventInfo(EventInfo event, boolean allDay) {
+    private void showEventInfo(EventInfo event, boolean allDay, boolean replaceFragment) {
 
         // Ignore unknown events
         if (event.id == -1) {
@@ -382,13 +386,22 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 event.endTime.timezone = Time.TIMEZONE_UTC;
             }
 
-            mEventFragment = new EventInfoFragment(mActivity, event.id,
-                    event.startTime.toMillis(true), event.endTime.toMillis(true),
-                    response, false, EventInfoFragment.DIALOG_WINDOW_STYLE);
-            ft.replace(R.id.agenda_event_info, mEventFragment);
-            mController.registerEventHandler(R.id.agenda_event_info,
-                    mEventFragment);
-            ft.commit();
+            long startMillis = event.startTime.toMillis(true);
+            long endMillis = event.endTime.toMillis(true);
+            EventInfoFragment fOld =
+                    (EventInfoFragment)fragmentManager.findFragmentById(R.id.agenda_event_info);
+            if (fOld == null || replaceFragment || fOld.getStartMillis() != startMillis ||
+                    fOld.getEndMillis() != endMillis || fOld.getEventId() != event.id) {
+                mEventFragment = new EventInfoFragment(mActivity, event.id,
+                        event.startTime.toMillis(true), event.endTime.toMillis(true),
+                        response, false, EventInfoFragment.DIALOG_WINDOW_STYLE);
+                ft.replace(R.id.agenda_event_info, mEventFragment);
+                mController.registerEventHandler(R.id.agenda_event_info,
+                        mEventFragment);
+                ft.commit();
+            } else {
+                fOld.reloadEvents();
+            }
         }
 //        else {
 //            Intent intent = new Intent(Intent.ACTION_VIEW);

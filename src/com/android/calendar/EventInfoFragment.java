@@ -290,6 +290,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int FADE_IN_TIME = 300;   // in milliseconds
     private static final int LOADING_MSG_DELAY = 600;   // in milliseconds
     private static final int LOADING_MSG_MIN_DISPLAY_TIME = 600;
+    private boolean mNoCrossFade = false;  // Used to prevent repeated cross-fade
 
 
     private static final Pattern mWildcardPattern = Pattern.compile("^.*$");
@@ -467,7 +468,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         mAnimateAlpha.setStartDelay(timeDiff);
                     }
                 }
-                mAnimateAlpha.start();
+                if (!mAnimateAlpha.isRunning() &&!mAnimateAlpha.isStarted() && !mNoCrossFade) {
+                    mAnimateAlpha.start();
+                } else {
+                    mScrollView.setAlpha(1);
+                    mLoadingMsgView.setVisibility(View.GONE);
+                }
             }
         }
     }
@@ -686,6 +692,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             @Override
             public void onAnimationEnd(Animator animation) {
                 mScrollView.setLayerType(defLayerType, null);
+                // Do not cross fade after the first time
+                mNoCrossFade = true;
             }
         });
 
@@ -1848,12 +1856,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public void handleEvent(EventInfo event) {
         if (event.eventType == EventType.EVENTS_CHANGED && mHandler != null) {
             // reload the data
-            mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
-                    null, null, null);
+            reloadEvents();
         }
-
     }
 
+    public void reloadEvents() {
+        mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
+                null, null, null);
+    }
 
     @Override
     public void onClick(View view) {
@@ -2020,5 +2030,18 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     }
                 };
     }
+
+    public long getEventId() {
+        return mEventId;
+    }
+
+    public long getStartMillis() {
+        return mStartMillis;
+    }
+    public long getEndMillis() {
+        return mEndMillis;
+    }
+
+
 
 }
