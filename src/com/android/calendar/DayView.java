@@ -4240,15 +4240,17 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     invalidate();
                     return true;
                 }
+
+                if (mOnFlingCalled) {
+                    return true;
+                }
+
                 // If we were scrolling, then reset the selected hour so that it
                 // is visible.
                 if (mScrolling) {
                     mScrolling = false;
                     resetSelectedHour();
                     invalidate();
-                }
-                if (mOnFlingCalled) {
-                    return true;
                 }
                 if ((mTouchMode & TOUCH_MODE_HSCROLL) != 0) {
                     mTouchMode = TOUCH_MODE_INITIAL_STATE;
