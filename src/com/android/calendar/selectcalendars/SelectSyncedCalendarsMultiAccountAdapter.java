@@ -320,8 +320,11 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         int accountTypeColumn = cursor.getColumnIndexOrThrow(Calendars.ACCOUNT_TYPE);
         String account = cursor.getString(accountColumn);
         String accountType = cursor.getString(accountTypeColumn);
+        CharSequence accountLabel = getLabelForType(accountType);
         setText(view, R.id.account, account);
-        setText(view, R.id.account_type, getLabelForType(accountType).toString());
+        if (accountLabel != null) {
+            setText(view, R.id.account_type, accountLabel.toString());
+        }
     }
 
     @Override
