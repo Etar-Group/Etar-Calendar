@@ -476,6 +476,16 @@ public class UtilsTests extends TestCase {
     }
 
     @SmallTest
+    public void testGetDisplayedDatetime_allDayMultiday() {
+        // 4/10/2012 12:00am - 4/13/2012 12:00am
+        long start = createTimeInMillis(0, 0, 0, NOW_DAY, NOW_MONTH, NOW_YEAR, Time.TIMEZONE_UTC);
+        long end = createTimeInMillis(0, 0, 0, NOW_DAY + 3, NOW_MONTH, NOW_YEAR, Time.TIMEZONE_UTC);
+        String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
+                true, dbUtils.getContext());
+        assertEquals("Tuesday, April 10 \u2013 Thursday, April 12", result);
+    }
+
+    @SmallTest
     public void testGetDisplayedDatetime_differentTimezone() {
         String localTz = "America/New_York";
         String eventTz = "America/Los_Angeles";
