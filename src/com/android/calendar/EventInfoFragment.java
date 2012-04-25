@@ -110,6 +110,8 @@ import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
         CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener {
+    private static final String MACHINE_GENERATED_ADDRESS = "calendar.google.com";
+
     public static final boolean DEBUG = false;
 
     public static final String TAG = "EventInfoFragment";
@@ -251,7 +253,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private boolean mAllDay;
 
     private boolean mHasAttendeeData;
-    private String mEventOrganizer;
+    private String mEventOrganizerEmail;
+    private String mEventOrganizerDisplayName = "";
     private boolean mIsOrganizer;
     private long mCalendarOwnerAttendeeId = EditEventHelper.ATTENDEE_ID_NONE;
     private boolean mOwnerCanRespond;
@@ -818,6 +821,19 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     int status = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
                     String name = mAttendeesCursor.getString(ATTENDEES_INDEX_NAME);
                     String email = mAttendeesCursor.getString(ATTENDEES_INDEX_EMAIL);
+
+                    if (mAttendeesCursor.getInt(ATTENDEES_INDEX_RELATIONSHIP) ==
+                            Attendees.RELATIONSHIP_ORGANIZER) {
+
+                        // Overwrites the one from Event table if available
+                        if (!TextUtils.isEmpty(name)) {
+                            mEventOrganizerDisplayName = name;
+                            if (!mIsOrganizer) {
+                                setVisibilityCommon(view, R.id.organizer_container, View.VISIBLE);
+                                setTextCommon(view, R.id.organizer, mEventOrganizerDisplayName);
+                            }
+                        }
+                    }
 
                     if (mCalendarOwnerAttendeeId == EditEventHelper.ATTENDEE_ID_NONE &&
                             mCalendarOwnerAccount.equalsIgnoreCase(email)) {
@@ -1532,10 +1548,15 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     CALENDARS_PROJECTION, CALENDARS_DUPLICATE_NAME_WHERE,
                     new String[] {displayName}, null);
 
-            mEventOrganizer = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
-            mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(mEventOrganizer);
-            setTextCommon(view, R.id.organizer, mEventOrganizer);
-            if (!mIsOrganizer) {
+            mEventOrganizerEmail = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
+            mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(mEventOrganizerEmail);
+
+            if (!mEventOrganizerEmail.endsWith(MACHINE_GENERATED_ADDRESS)) {
+                mEventOrganizerDisplayName = mEventOrganizerEmail;
+            }
+
+            if (!mIsOrganizer && !TextUtils.isEmpty(mEventOrganizerDisplayName)) {
+                setTextCommon(view, R.id.organizer, mEventOrganizerDisplayName);
                 setVisibilityCommon(view, R.id.organizer_container, View.VISIBLE);
             } else {
                 setVisibilityCommon(view, R.id.organizer_container, View.GONE);
@@ -1650,9 +1671,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         // The meeting organizer doesn't appear as an attendee sometimes (particularly
         // when viewing someone else's calendar), so add the organizer now.
-        if (mEventOrganizer != null && !mToEmails.contains(mEventOrganizer) &&
-                !mCcEmails.contains(mEventOrganizer)) {
-            addIfEmailable(mToEmails, mEventOrganizer);
+        if (mEventOrganizerEmail != null && !mToEmails.contains(mEventOrganizerEmail) &&
+                !mCcEmails.contains(mEventOrganizerEmail)) {
+            addIfEmailable(mToEmails, mEventOrganizerEmail);
         }
 
         // The Email app behaves strangely when there is nothing in the 'mailto' part,
@@ -1974,7 +1995,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
      */
     private void addIfEmailable(ArrayList<String> emailList, String email) {
         if (email != null && !email.equals(mSyncAccountName) &&
-                !email.endsWith("calendar.google.com")) {
+                !email.endsWith(MACHINE_GENERATED_ADDRESS)) {
             emailList.add(email);
         }
     }
