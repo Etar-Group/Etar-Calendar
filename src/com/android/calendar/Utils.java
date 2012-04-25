@@ -1170,11 +1170,14 @@ public class Utils {
                     datetimeString = resources.getString(R.string.today);
                 } else if (TOMORROW == todayOrTomorrow) {
                     datetimeString = resources.getString(R.string.tomorrow);
-                } else {
-                    Formatter f = new Formatter(new StringBuilder(50), Locale.getDefault());
-                    datetimeString = DateUtils.formatDateRange(context, f, startMillis,
-                            endMillis, flagsDate, Time.TIMEZONE_UTC).toString();
                 }
+            }
+            if (datetimeString == null) {
+                // For multi-day allday events or single-day all-day events that are not
+                // today or tomorrow, use framework formatter.
+                Formatter f = new Formatter(new StringBuilder(50), Locale.getDefault());
+                datetimeString = DateUtils.formatDateRange(context, f, startMillis,
+                        endMillis, flagsDate, Time.TIMEZONE_UTC).toString();
             }
         } else {
             if (singleDayEvent(startMillis, endMillis, currentTime.gmtoff)) {
