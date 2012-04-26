@@ -1486,8 +1486,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         model.mAccessLevel = 2; // This is one less than the values written if >0
         model.mOwnerAccount = "steve@gmail.com";
         model.mHasAttendeeData = true;
-
-
+        model.mEventStatus = Events.STATUS_CONFIRMED;
         return model;
     }
 
@@ -1510,6 +1509,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         values.put(Events.DESCRIPTION, "Evaluating Life, the Universe, and Everything");
         values.put(Events.EVENT_LOCATION, "Earth Mk2");
         values.put(Events.AVAILABILITY, 0);
+        values.put(Events.STATUS, Events.STATUS_CONFIRMED);
         values.put(Events.ACCESS_LEVEL, 3); // This is one more than the model if
                                           // >0
 
