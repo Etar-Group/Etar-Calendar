@@ -689,8 +689,8 @@ public class AgendaWindowAdapter extends BaseAdapter
             int endDay = startDay + MIN_QUERY_DURATION;
 
             mSelectedInstanceId = -1;
-            queueQuery(startDay, endDay, goToTime, searchQuery, QUERY_TYPE_CLEAN, id);
             mCleanQueryInitiated = true;
+            queueQuery(startDay, endDay, goToTime, searchQuery, QUERY_TYPE_CLEAN, id);
 
             // Pre-fetch more data to overcome a race condition in AgendaListView.shiftSelection
             // Queuing more data with the goToTime set to the selected time skips the call to
@@ -1133,7 +1133,8 @@ public class AgendaWindowAdapter extends BaseAdapter
                 Iterator<QuerySpec> it = mQueryQueue.iterator();
                 while (it.hasNext()) {
                     QuerySpec queryData = it.next();
-                    if (!isInRange(queryData.start, queryData.end)) {
+                    if (queryData.queryType == QUERY_TYPE_CLEAN
+                            || !isInRange(queryData.start, queryData.end)) {
                         // Query accepted
                         if (DEBUGLOG) Log.e(TAG, "Query accepted. QueueSize:" + mQueryQueue.size());
                         doQuery(queryData);
