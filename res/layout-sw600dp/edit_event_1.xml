@@ -380,6 +380,7 @@
                 android:id="@+id/reminder_items_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="8dip"
                 android:orientation="vertical"
                 android:gravity="center_vertical|right"  />
             <Button
