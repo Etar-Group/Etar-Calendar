@@ -24,9 +24,12 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ContentUris;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract.Events;
 import android.util.Log;
 
 public class EventInfoActivity extends Activity {
@@ -68,10 +71,11 @@ public class EventInfoActivity extends Activity {
             }
         }
 
-        // Never show this activity if we support showing double pane agenda view
-        // If we do support this, instead launch AllInOneActivity in double pane mode
-        // This can happen if this activity is launched while in portrait mode in sw600dp
-        if (!getResources().getBoolean(R.bool.agenda_show_event_info_full_screen)) {
+        // If we do not support showing full screen event info in this configuration,
+        // close the activity and show the event in AllInOne.
+        Resources res = getResources();
+        if (!res.getBoolean(R.bool.agenda_show_event_info_full_screen)
+                && !res.getBoolean(R.bool.show_event_info_full_screen)) {
             CalendarController.getInstance(this)
                     .launchViewEvent(mEventId, mStartMillis, mEndMillis);
             finish();

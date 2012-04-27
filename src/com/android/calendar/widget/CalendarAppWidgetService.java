@@ -122,15 +122,15 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         private static volatile Integer mLock = new Integer(0);
         private int mLastLock;
         private CursorLoader mLoader;
-        private Handler mHandler = new Handler();
+        private final Handler mHandler = new Handler();
         private static final AtomicInteger currentVersion = new AtomicInteger(0);
-        private ExecutorService executor = Executors.newSingleThreadExecutor();
+        private final ExecutorService executor = Executors.newSingleThreadExecutor();
         private int mAppWidgetId;
         private int mDeclinedColor;
         private int mStandardColor;
         private int mAllDayColor;
 
-        private Runnable mTimezoneChanged = new Runnable() {
+        private final Runnable mTimezoneChanged = new Runnable() {
             @Override
             public void run() {
                 if (mLoader != null) {
