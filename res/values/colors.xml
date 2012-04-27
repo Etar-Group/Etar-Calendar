@@ -128,6 +128,8 @@
     <color name="day_event_clicked_background_color">#8033B5E5</color>
     <!-- background color for for clicked days in month view-->
     <color name="day_clicked_background_color">#FF33B5E5</color>
+    <!-- background color for the past -->
+    <color name="day_past_background_color">#FFDDDDDD</color>
 
     <!-- Event info colors -->
     <color name="event_info_headline_color">#FFFFFFFF</color>
