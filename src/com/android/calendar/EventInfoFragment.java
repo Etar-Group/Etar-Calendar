@@ -110,7 +110,6 @@ import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
         CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener {
-    private static final String MACHINE_GENERATED_ADDRESS = "calendar.google.com";
 
     public static final boolean DEBUG = false;
 
@@ -194,12 +193,16 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Attendees.ATTENDEE_EMAIL,           // 2
         Attendees.ATTENDEE_RELATIONSHIP,    // 3
         Attendees.ATTENDEE_STATUS,          // 4
+        Attendees.ATTENDEE_IDENTITY,        // 5
+        Attendees.ATTENDEE_ID_NAMESPACE     // 6
     };
     private static final int ATTENDEES_INDEX_ID = 0;
     private static final int ATTENDEES_INDEX_NAME = 1;
     private static final int ATTENDEES_INDEX_EMAIL = 2;
     private static final int ATTENDEES_INDEX_RELATIONSHIP = 3;
     private static final int ATTENDEES_INDEX_STATUS = 4;
+    private static final int ATTENDEES_INDEX_IDENTITY = 5;
+    private static final int ATTENDEES_INDEX_ID_NAMESPACE = 6;
 
     private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=?";
 
@@ -840,25 +843,33 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         mCalendarOwnerAttendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
                         mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
                     } else {
+                        String identity = mAttendeesCursor.getString(ATTENDEES_INDEX_IDENTITY);
+                        String idNamespace = mAttendeesCursor.getString(
+                                ATTENDEES_INDEX_ID_NAMESPACE);
+
                         // Don't show your own status in the list because:
                         //  1) it doesn't make sense for event without other guests.
                         //  2) there's a spinner for that for events with guests.
                         switch(status) {
                             case Attendees.ATTENDEE_STATUS_ACCEPTED:
                                 mAcceptedAttendees.add(new Attendee(name, email,
-                                        Attendees.ATTENDEE_STATUS_ACCEPTED));
+                                        Attendees.ATTENDEE_STATUS_ACCEPTED, identity,
+                                        idNamespace));
                                 break;
                             case Attendees.ATTENDEE_STATUS_DECLINED:
                                 mDeclinedAttendees.add(new Attendee(name, email,
-                                        Attendees.ATTENDEE_STATUS_DECLINED));
+                                        Attendees.ATTENDEE_STATUS_DECLINED, identity,
+                                        idNamespace));
                                 break;
                             case Attendees.ATTENDEE_STATUS_TENTATIVE:
                                 mTentativeAttendees.add(new Attendee(name, email,
-                                        Attendees.ATTENDEE_STATUS_TENTATIVE));
+                                        Attendees.ATTENDEE_STATUS_TENTATIVE, identity,
+                                        idNamespace));
                                 break;
                             default:
                                 mNoResponseAttendees.add(new Attendee(name, email,
-                                        Attendees.ATTENDEE_STATUS_NONE));
+                                        Attendees.ATTENDEE_STATUS_NONE, identity,
+                                        idNamespace));
                         }
                     }
                 } while (mAttendeesCursor.moveToNext());
@@ -1551,7 +1562,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mEventOrganizerEmail = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
             mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(mEventOrganizerEmail);
 
-            if (!mEventOrganizerEmail.endsWith(MACHINE_GENERATED_ADDRESS)) {
+            if (!mEventOrganizerEmail.endsWith(Utils.MACHINE_GENERATED_ADDRESS)) {
                 mEventOrganizerDisplayName = mEventOrganizerEmail;
             }
 
@@ -1994,8 +2005,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
      *   (2) the attendee is not the viewer, to prevent mailing himself.
      */
     private void addIfEmailable(ArrayList<String> emailList, String email) {
-        if (email != null && !email.equals(mSyncAccountName) &&
-                !email.endsWith(MACHINE_GENERATED_ADDRESS)) {
+        if (Utils.isValidEmail(email) && !email.equals(mSyncAccountName)) {
             emailList.add(email);
         }
     }
