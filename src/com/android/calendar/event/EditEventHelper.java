@@ -82,6 +82,7 @@ public class EditEventHelper {
             Events.ORGANIZER, // 18
             Events.GUESTS_CAN_MODIFY, // 19
             Events.ORIGINAL_ID, // 20
+            Events.STATUS, // 21
     };
     protected static final int EVENT_INDEX_ID = 0;
     protected static final int EVENT_INDEX_TITLE = 1;
@@ -104,6 +105,7 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_ORGANIZER = 18;
     protected static final int EVENT_INDEX_GUESTS_CAN_MODIFY = 19;
     protected static final int EVENT_INDEX_ORIGINAL_ID = 20;
+    protected static final int EVENT_INDEX_EVENT_STATUS = 21;
 
     public static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
@@ -285,7 +287,7 @@ public class EditEventHelper {
         if (uri == null) {
             // Add hasAttendeeData for a new event
             values.put(Events.HAS_ATTENDEE_DATA, 1);
-            values.put(Events.STATUS, Events.STATUS_TENTATIVE);
+            values.put(Events.STATUS, Events.STATUS_CONFIRMED);
             eventIdIndex = ops.size();
             ContentProviderOperation.Builder b = ContentProviderOperation.newInsert(
                     Events.CONTENT_URI).withValues(values);
@@ -310,7 +312,7 @@ public class EditEventHelper {
             values.put(Events.ORIGINAL_INSTANCE_TIME, begin);
             boolean allDay = originalModel.mAllDay;
             values.put(Events.ORIGINAL_ALL_DAY, allDay ? 1 : 0);
-            values.put(Events.STATUS, Events.STATUS_TENTATIVE);
+            values.put(Events.STATUS, originalModel.mEventStatus);
 
             eventIdIndex = ops.size();
             ContentProviderOperation.Builder b = ContentProviderOperation.newInsert(
@@ -333,7 +335,7 @@ public class EditEventHelper {
                     updatePastEvents(ops, originalModel, model.mOriginalStart);
                 }
                 eventIdIndex = ops.size();
-                values.put(Events.STATUS, Events.STATUS_TENTATIVE);
+                values.put(Events.STATUS, originalModel.mEventStatus);
                 ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(values)
                         .build());
             } else {
@@ -356,7 +358,7 @@ public class EditEventHelper {
 
                     // Create a new event with the user-modified fields
                     eventIdIndex = ops.size();
-                    values.put(Events.STATUS, Events.STATUS_TENTATIVE);
+                    values.put(Events.STATUS, originalModel.mEventStatus);
                     ops.add(ContentProviderOperation.newInsert(Events.CONTENT_URI).withValues(
                             values).build());
                 }
@@ -1043,6 +1045,7 @@ public class EditEventHelper {
             accessLevel--;
         }
         model.mAccessLevel = accessLevel;
+        model.mEventStatus = cursor.getInt(EVENT_INDEX_EVENT_STATUS);
 
         boolean hasRRule = !TextUtils.isEmpty(rRule);
 
@@ -1238,6 +1241,7 @@ public class EditEventHelper {
             accessLevel++;
         }
         values.put(Events.ACCESS_LEVEL, accessLevel);
+        values.put(Events.STATUS, model.mEventStatus);
 
         return values;
     }

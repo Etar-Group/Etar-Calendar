@@ -414,6 +414,7 @@ public class AsyncQueryServiceTest extends ServiceTestCase<AsyncQueryServiceHelp
                 return AsyncQueryServiceTest.class.getPackage().getName();
             }
 
+            @Override
             public ComponentName startService(Intent service) {
                 AsyncQueryServiceTest.this.startService(service);
                 return service.getComponent();
