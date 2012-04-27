@@ -1562,7 +1562,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mEventOrganizerEmail = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
             mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(mEventOrganizerEmail);
 
-            if (!mEventOrganizerEmail.endsWith(Utils.MACHINE_GENERATED_ADDRESS)) {
+            if (!TextUtils.isEmpty(mEventOrganizerEmail) &&
+                    !mEventOrganizerEmail.endsWith(Utils.MACHINE_GENERATED_ADDRESS)) {
                 mEventOrganizerDisplayName = mEventOrganizerEmail;
             }
 
