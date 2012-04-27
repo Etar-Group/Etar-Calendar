@@ -23,10 +23,10 @@
     <bool name="show_details_in_month">true</bool>
     <!-- when on, shows the event next to the agenda list,
          when off, shows the event on top of the agenda list after it was clicked. -->
-    <bool name="show_event_details_with_agenda">false</bool>
+    <bool name="show_event_details_with_agenda">true</bool>
     <!-- when on, event info launched from agenda view is shown in full screen, -->
     <!-- when off, shown as a popup. -->
-    <bool name="agenda_show_event_info_full_screen">true</bool>
+    <bool name="agenda_show_event_info_full_screen">false</bool>
     <!-- when on, event info launched from day/week/month view is shown in full screen, -->
     <!-- when off, shown as a popup. -->
     <bool name="show_event_info_full_screen">false</bool>
