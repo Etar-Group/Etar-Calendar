@@ -56,6 +56,7 @@ import java.util.TimeZone;
 public class Utils {
     private static final boolean DEBUG = false;
     private static final String TAG = "CalUtils";
+
     // Set to 0 until we have UI to perform undo
     public static final long UNDO_DELAY = 0;
 
@@ -107,6 +108,8 @@ public class Utils {
     static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
 
     public static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
+
+    static final String MACHINE_GENERATED_ADDRESS = "calendar.google.com";
 
     private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
     private static boolean mAllowWeekForDetailView = false;
@@ -1354,13 +1357,10 @@ public class Utils {
     }
 
     /**
-     * Adds the attendee's email to the list if:
-     *   (1) the attendee is not a resource like a conference room or another calendar.
-     *       Catch most of these by filtering out suffix calendar.google.com.
-     *   (2) the attendee is not the viewer, to prevent mailing himself.
+     * Example fake email addresses used as attendee emails are resources like conference rooms,
+     * or another calendar, etc.  These all end in "calendar.google.com".
      */
-    public static boolean isEmailable(String email, String syncAccount) {
-        return (email != null && !email.equals(syncAccount) &&
-                !email.endsWith("calendar.google.com"));
+    public static boolean isValidEmail(String email) {
+        return email != null && !email.endsWith(MACHINE_GENERATED_ADDRESS);
     }
 }

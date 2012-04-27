@@ -19,6 +19,7 @@ package com.android.calendar.event;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.ContactsAsyncHelper;
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventHelper.AttendeeItem;
 import com.android.common.Rfc822Validator;
 
@@ -35,7 +36,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.CalendarContract.Attendees;
 import android.provider.ContactsContract.CommonDataKinds.Email;
+import android.provider.ContactsContract.CommonDataKinds.Identity;
 import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.Data;
+import android.provider.ContactsContract.RawContacts;
 import android.text.TextUtils;
 import android.text.util.Rfc822Token;
 import android.util.AttributeSet;
@@ -59,10 +63,10 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
     private static final int EMAIL_PROJECTION_CONTACT_LOOKUP_INDEX = 1;
     private static final int EMAIL_PROJECTION_PHOTO_ID_INDEX = 2;
 
-    private static final String[] EMAIL_PROJECTION = new String[] {
-        Email.CONTACT_ID,           // 0
+    private static final String[] PROJECTION = new String[] {
+        RawContacts.CONTACT_ID,     // 0
         Contacts.LOOKUP_KEY,        // 1
-        Email.PHOTO_ID,             // 2
+        Contacts.PHOTO_ID,          // 2
     };
 
     private final Context mContext;
@@ -343,9 +347,23 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
             }
         }
 
-        mPresenceQueryHandler.startQuery(item.mUpdateCounts + 1, item,
-                Uri.withAppendedPath(Email.CONTENT_LOOKUP_URI, Uri.encode(attendee.mEmail)),
-                EMAIL_PROJECTION, null, null, null);
+        Uri uri;
+        String selection = null;
+        String[] selectionArgs = null;
+        if (attendee.mIdentity != null && attendee.mIdNamespace != null) {
+            // Query by identity + namespace
+            uri = Data.CONTENT_URI;
+            selection = Data.MIMETYPE + "=? AND " + Identity.IDENTITY + "=? AND " +
+                    Identity.NAMESPACE + "=?";
+            selectionArgs = new String[] {Identity.CONTENT_ITEM_TYPE, attendee.mIdentity,
+                    attendee.mIdNamespace};
+        } else {
+            // Query by email
+            uri = Uri.withAppendedPath(Email.CONTENT_LOOKUP_URI, Uri.encode(attendee.mEmail));
+        }
+
+        mPresenceQueryHandler.startQuery(item.mUpdateCounts + 1, item, uri, PROJECTION, selection,
+                selectionArgs, null);
     }
 
     public void addAttendees(ArrayList<Attendee> attendees) {
@@ -435,9 +453,13 @@ public class AttendeesView extends LinearLayout implements View.OnClickListener 
                             updateAttendeeView(item);
                         }
                     } else {
-                        // Contact not found. Keep the QuickContactBadge with its Email address set,
-                        // so that the user can create a contact by tapping
+                        // Contact not found.  For real emails, keep the QuickContactBadge with
+                        // its Email address set, so that the user can create a contact by tapping.
                         item.mContactLookupUri = null;
+                        if (!Utils.isValidEmail(item.mAttendee.mEmail)) {
+                            item.mAttendee.mEmail = null;
+                            updateAttendeeView(item);
+                        }
                     }
                 }
             } finally {

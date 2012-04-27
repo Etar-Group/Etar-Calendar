@@ -76,16 +76,19 @@ public class CalendarEventModel implements Serializable {
         public String mName;
         public String mEmail;
         public int mStatus;
+        public String mIdentity;
+        public String mIdNamespace;
 
         public Attendee(String name, String email) {
-            mName = name;
-            mEmail = email;
-            mStatus = Attendees.ATTENDEE_STATUS_NONE;
+            this(name, email, Attendees.ATTENDEE_STATUS_NONE, null, null);
         }
-        public Attendee(String name, String email, int status) {
+        public Attendee(String name, String email, int status, String identity,
+                String idNamespace) {
             mName = name;
             mEmail = email;
             mStatus = status;
+            mIdentity = identity;
+            mIdNamespace = idNamespace;
         }
     }
 
