@@ -285,7 +285,11 @@ public class Utils {
     }
 
     public static MatrixCursor matrixCursorFromCursor(Cursor cursor) {
-        MatrixCursor newCursor = new MatrixCursor(cursor.getColumnNames());
+        String[] columnNames = cursor.getColumnNames();
+        if (columnNames == null) {
+            columnNames = new String[] {};
+        }
+        MatrixCursor newCursor = new MatrixCursor(columnNames);
         int numColumns = cursor.getColumnCount();
         String data[] = new String[numColumns];
         cursor.moveToPosition(-1);
