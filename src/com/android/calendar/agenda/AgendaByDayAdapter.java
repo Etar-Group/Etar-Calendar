@@ -52,17 +52,16 @@ public class AgendaByDayAdapter extends BaseAdapter {
     private Time mTmpTime;
     private String mTimeZone;
     // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
-    private Formatter mFormatter;
-    private StringBuilder mStringBuilder;
+    private final Formatter mFormatter;
+    private final StringBuilder mStringBuilder;
 
     static class ViewHolder {
         TextView dayView;
         TextView dateView;
         int julianDay;
-        boolean grayed;
     }
 
-    private Runnable mTZUpdater = new Runnable() {
+    private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
             mTimeZone = Utils.getTimeZone(mContext, this);
@@ -192,7 +191,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 holder.dayView = (TextView) agendaDayView.findViewById(R.id.day);
                 holder.dateView = (TextView) agendaDayView.findViewById(R.id.date);
                 holder.julianDay = row.mDay;
-                holder.grayed = false;
                 agendaDayView.setTag(holder);
             }
 
@@ -232,14 +230,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
             holder.dayView.setText(dayViewText);
             holder.dateView.setText(dateViewText);
 
-            // Set the background of the view, it is grayed for day that are in the past and today
-            if (row.mDay > mTodayJulianDay) {
-                agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
-                holder.grayed = false;
-            } else {
-                agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
-                holder.grayed = true;
-            }
             return agendaDayView;
         } else if (row.mType == TYPE_MEETING) {
             View itemView = mAgendaAdapter.getView(row.mPosition, convertView, parent);
