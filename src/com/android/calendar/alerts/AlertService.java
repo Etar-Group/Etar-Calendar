@@ -46,6 +46,7 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -138,6 +139,8 @@ public class AlertService extends Service {
 
     static boolean updateAlertNotification(Context context) {
         ContentResolver cr = context.getContentResolver();
+        NotificationManager nm =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         final long currentTime = System.currentTimeMillis();
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
 
@@ -151,8 +154,6 @@ public class AlertService extends Service {
 
             // If we shouldn't be showing notifications cancel any existing ones
             // and return.
-            NotificationManager nm = (NotificationManager) context
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancelAll();
             return true;
         }
@@ -167,8 +168,6 @@ public class AlertService extends Service {
             }
 
             if (DEBUG) Log.d(TAG, "No fired or scheduled alerts");
-            NotificationManager nm =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancel(AlertUtils.NOTIFICATION_ID);
             return false;
         }
@@ -185,8 +184,9 @@ public class AlertService extends Service {
         int notificationEventStatus = 0;
         boolean notificationEventAllDay = true;
         HashMap<Long, Long> eventIds = new HashMap<Long, Long>();
-        int numReminders = 0;
         int numFired = 0;
+        ArrayList<NotificationInfo> notificationInfos = new ArrayList<NotificationInfo>();
+        String digestTitle = null;
         try {
             while (alertCursor.moveToNext()) {
                 final long alertId = alertCursor.getLong(ALERT_INDEX_ID);
@@ -223,11 +223,6 @@ public class AlertService extends Service {
 
                 // Remove declined events
                 if (!declined) {
-                    // Don't count duplicate alerts for the same event
-                    if (eventIds.put(eventId, beginTime) == null) {
-                        numReminders++;
-                    }
-
                     if (state == CalendarAlerts.STATE_SCHEDULED) {
                         newState = CalendarAlerts.STATE_FIRED;
                         numFired++;
@@ -274,22 +269,18 @@ public class AlertService extends Service {
                         newStatus = 0;
                 }
 
-                // TODO Prioritize by "primary" calendar
-                // Assumes alerts are sorted by begin time in reverse
-                if (notificationEventName == null
-                        || (notificationEventBegin <= beginTime &&
-                                notificationEventStatus < newStatus)) {
-                    notificationEventLocation = location;
-                    notificationEventBegin = beginTime;
-                    notificationEventEnd = endTime;
-                    notificationEventId = eventId;
-                    notificationEventStatus = newStatus;
-                    notificationEventAllDay = allDay;
-                }
-                if (numReminders == 1) {
-                    notificationEventName = eventName;
-                } else {
-                    notificationEventName = eventName + ", " + notificationEventName;
+                // Don't count duplicate alerts for the same event
+                if (eventIds.put(eventId, beginTime) == null) {
+                    notificationInfos.add(0, new NotificationInfo(eventName, location, beginTime,
+                            endTime, eventId, allDay));
+
+                    if (digestTitle == null) {
+                        digestTitle = eventName;
+                    } else if (eventName != null) {
+                        // TODO: Prioritize by "primary" calendar
+                        // Assumes alerts are sorted by begin time in reverse
+                        digestTitle = eventName + ", " + digestTitle;
+                    }
                 }
             }
         } finally {
@@ -298,77 +289,111 @@ public class AlertService extends Service {
             }
         }
 
-        boolean quietUpdate = numFired == 0;
-        boolean highPriority = numFired > 0 && doPopup;
-        postNotification(context, prefs, notificationEventName, notificationEventLocation,
-                numReminders, quietUpdate, highPriority, notificationEventBegin,
-                notificationEventEnd, notificationEventId, notificationEventAllDay);
+        int numEvents = notificationInfos.size();
+        if (numEvents == 0) {
+            nm.cancel(AlertUtils.NOTIFICATION_ID);
+        } else {
+            boolean quietUpdate = numFired == 0;
+            boolean highPriority = numFired > 0 && doPopup;
+            boolean defaultVibrate = shouldUseDefaultVibrate(context, prefs);
 
+            if (DEBUG) {
+                Log.d(TAG, "###### creating new alarm notification, numEvents: " + numEvents
+                        + (quietUpdate ? " QUIET" : " loud")
+                        + (highPriority ? " high-priority" : ""));
+            }
+
+            // Create the notification grouping all the alerts into an expanded digest.
+            Notification notification = AlertReceiver.makeDigestNotification(context,
+                    notificationInfos, digestTitle, highPriority);
+
+            // Add other options like ticker text, sound, etc.
+            String tickerText = null;
+            if (notificationInfos.size() == 1) {
+                NotificationInfo info = notificationInfos.get(0);
+                tickerText = info.eventName;
+                if (!TextUtils.isEmpty(info.location)) {
+                    tickerText = info.eventName + " - " + info.location;
+                }
+            } else {
+                tickerText = digestTitle;
+            }
+            addNotificationOptions(notification, prefs, quietUpdate, highPriority, tickerText,
+                    defaultVibrate);
+
+            // Post the notification.
+            nm.notify(AlertUtils.NOTIFICATION_ID, notification);
+        }
         return true;
     }
 
-    private static void postNotification(Context context, SharedPreferences prefs,
-            String eventName, String location, int numReminders, boolean quietUpdate, 
-            boolean highPriority, long startMillis, long endMillis, long id, boolean allDay) {
-        if (DEBUG) {
-            Log.d(TAG, "###### creating new alarm notification, numReminders: " + numReminders
-                    + (quietUpdate ? " QUIET" : " loud")
-                    + (highPriority ? " high-priority" : ""));
+    static class NotificationInfo {
+        String eventName;
+        String location;
+        long startMillis;
+        long endMillis;
+        long eventId;
+        boolean allDay;
+
+        NotificationInfo(String eventName, String location, long startMillis,
+                long endMillis, long eventId, boolean allDay) {
+            this.eventName = eventName;
+            this.location = location;
+            this.startMillis = startMillis;
+            this.endMillis = endMillis;
+            this.eventId = eventId;
+            this.allDay = allDay;
+        }
+    }
+
+    private static boolean shouldUseDefaultVibrate(Context context, SharedPreferences prefs) {
+        // Find out the circumstances under which to vibrate.
+        // Migrate from pre-Froyo boolean setting if necessary.
+        String vibrateWhen; // "always" or "silent" or "never"
+        if(prefs.contains(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN))
+        {
+            // Look up Froyo setting
+            vibrateWhen =
+                prefs.getString(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN, null);
+        } else if(prefs.contains(GeneralPreferences.KEY_ALERTS_VIBRATE)) {
+            // No Froyo setting. Migrate pre-Froyo setting to new Froyo-defined value.
+            boolean vibrate =
+                prefs.getBoolean(GeneralPreferences.KEY_ALERTS_VIBRATE, false);
+            vibrateWhen = vibrate ?
+                context.getString(R.string.prefDefault_alerts_vibrate_true) :
+                context.getString(R.string.prefDefault_alerts_vibrate_false);
+        } else {
+            // No setting. Use Froyo-defined default.
+            vibrateWhen = context.getString(R.string.prefDefault_alerts_vibrateWhen);
         }
 
-        NotificationManager nm =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (numReminders == 0) {
-            nm.cancel(AlertUtils.NOTIFICATION_ID);
-            return;
+        if (vibrateWhen.equals("always")) {
+            return true;
+        }
+        if (!vibrateWhen.equals("silent")) {
+            return false;
         }
 
-        Notification notification = AlertReceiver.makeNewAlertNotification(context, eventName,
-                location, numReminders, highPriority, startMillis, endMillis, id, allDay);
+        // Settings are to vibrate when silent.  Return true if it is now silent.
+        AudioManager audioManager =
+            (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        return audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE;
+    }
+
+    private static void addNotificationOptions(Notification notification, SharedPreferences prefs,
+            boolean quietUpdate, boolean highPriority, String tickerText, boolean defaultVibrate) {
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
         if (!quietUpdate) {
             // Flash ticker in status bar
-            notification.tickerText = eventName;
-            if (!TextUtils.isEmpty(location)) {
-                notification.tickerText = eventName + " - " + location;
-            }
+            notification.tickerText = tickerText;
 
             // Generate either a pop-up dialog, status bar notification, or
             // neither. Pop-up dialog and status bar notification may include a
             // sound, an alert, or both. A status bar notification also includes
             // a toast.
-
-            // Find out the circumstances under which to vibrate.
-            // Migrate from pre-Froyo boolean setting if necessary.
-            String vibrateWhen; // "always" or "silent" or "never"
-            if(prefs.contains(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN))
-            {
-                // Look up Froyo setting
-                vibrateWhen =
-                    prefs.getString(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN, null);
-            } else if(prefs.contains(GeneralPreferences.KEY_ALERTS_VIBRATE)) {
-                // No Froyo setting. Migrate pre-Froyo setting to new Froyo-defined value.
-                boolean vibrate =
-                    prefs.getBoolean(GeneralPreferences.KEY_ALERTS_VIBRATE, false);
-                vibrateWhen = vibrate ?
-                    context.getString(R.string.prefDefault_alerts_vibrate_true) :
-                    context.getString(R.string.prefDefault_alerts_vibrate_false);
-            } else {
-                // No setting. Use Froyo-defined default.
-                vibrateWhen = context.getString(R.string.prefDefault_alerts_vibrateWhen);
-            }
-            boolean vibrateAlways = vibrateWhen.equals("always");
-            boolean vibrateSilent = vibrateWhen.equals("silent");
-            AudioManager audioManager =
-                (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-            boolean nowSilent =
-                audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE;
-
-            // Possibly generate a vibration
-            if (vibrateAlways || (vibrateSilent && nowSilent)) {
+            if (defaultVibrate) {
                 notification.defaults |= Notification.DEFAULT_VIBRATE;
             }
 
@@ -379,8 +404,6 @@ public class AlertService extends Service {
             notification.sound = TextUtils.isEmpty(reminderRingtone) ? null : Uri
                     .parse(reminderRingtone);
         }
-
-        nm.notify(AlertUtils.NOTIFICATION_ID, notification);
     }
 
     private void doTimeChanged() {
