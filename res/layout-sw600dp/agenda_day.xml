@@ -15,7 +15,7 @@
 -->
 <GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/agenda_day_bar_background_color"
+    android:background="@drawable/agenda_item_bg_primary"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:columnCount="2"
@@ -55,13 +55,15 @@
     <TextView
         android:id="@+id/day"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:gravity="center_vertical"
-        android:layout_gravity="center_vertical|left"
+        android:layout_gravity="center_vertical|fill_horizontal"
         android:layout_column="1"
         android:layout_row="1"
         android:layout_marginTop="2dip"
         android:layout_marginLeft="8dip"
+        android:layout_marginRight="16dip"
+        android:ellipsize="marquee"
         android:textSize="14sp"
         android:singleLine="true"
         android:minHeight="42dip"
