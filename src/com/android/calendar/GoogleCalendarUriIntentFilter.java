@@ -222,7 +222,7 @@ public class GoogleCalendarUriIntentFilter extends Activity {
                             Uri calendarUri = ContentUris.withAppendedId(Events.CONTENT_URI,
                                     eventId);
                             intent = new Intent(Intent.ACTION_VIEW, calendarUri);
-                            intent.setClass(this, AllInOneActivity.class);
+                            intent.setClass(this, EventInfoActivity.class);
                             intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
                             intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
                             if (attendeeStatus != ATTENDEE_STATUS_NONE) {
