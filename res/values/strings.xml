@@ -288,7 +288,7 @@
     <!-- This is shown in the popup picker when emailing attendees -->
     <string name="email_picker_label">Email with</string>
     <!-- The is shown in the email subject as the prefix appended to the event title -->
-    <string translatable="false" name="email_subject_prefix">Re: </string>
+    <string translatable="false" name="email_subject_prefix">Re:\u0020</string>
 
     <!-- Event Info strings-->
     <!-- Time Zone Label [CHAR LIMIT=12]-->
