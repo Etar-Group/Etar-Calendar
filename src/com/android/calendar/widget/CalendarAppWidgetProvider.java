@@ -19,9 +19,12 @@ package com.android.calendar.widget;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
+import com.android.calendar.AllInOneActivity;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -33,11 +36,6 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.widget.RemoteViews;
-
-import com.android.calendar.AllInOneActivity;
-import com.android.calendar.EventInfoActivity;
-import com.android.calendar.R;
-import com.android.calendar.Utils;
 
 /**
  * Simple widget to show next upcoming calendar event.
@@ -187,11 +185,12 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
     static PendingIntent getLaunchPendingIntentTemplate(Context context) {
         Intent launchIntent = new Intent();
         launchIntent.setAction(Intent.ACTION_VIEW);
-        launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-            launchIntent.setClass(context, AllInOneActivity.class);
-            return PendingIntent.getActivity(context, 0 /* no requestCode */, launchIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+        launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED |
+                Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        launchIntent.setClass(context, AllInOneActivity.class);
+        return PendingIntent.getActivity(context, 0 /* no requestCode */,
+                launchIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     /**
@@ -205,18 +204,11 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      */
     static Intent getLaunchFillInIntent(Context context, long id, long start, long end) {
         final Intent fillInIntent = new Intent();
+        fillInIntent.setClass(context, AllInOneActivity.class);
         String dataString = "content://com.android.calendar/events";
         if (id != 0) {
             fillInIntent.putExtra(Utils.INTENT_KEY_DETAIL_VIEW, true);
-            fillInIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
-            Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-
             dataString += "/" + id;
-            // If we have an event id - start the event info activity
-            fillInIntent.setClass(context, EventInfoActivity.class);
-        } else {
-            // If we do not have an event id - start AllInOne
-            fillInIntent.setClass(context, AllInOneActivity.class);
         }
         Uri data = Uri.parse(dataString);
         fillInIntent.setData(data);

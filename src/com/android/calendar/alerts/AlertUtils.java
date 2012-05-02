@@ -25,7 +25,7 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
 
-import com.android.calendar.EventInfoActivity;
+import com.android.calendar.AllInOneActivity;
 
 public class AlertUtils {
 
@@ -84,12 +84,13 @@ public class AlertUtils {
         return values;
     }
 
-    public static Intent buildEventViewIntent(Context c, long eventId, long begin, long end) {
+    public static Intent buildEventViewIntent(Context c, long eventId, long begin, long end){
         Intent i = new Intent(Intent.ACTION_VIEW);
         Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         builder.appendEncodedPath("events/" + eventId);
         i.setData(builder.build());
-        i.setClass(c, EventInfoActivity.class);
+        i.setClass(c, AllInOneActivity.class);
         i.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, begin);
         i.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, end);
         return i;

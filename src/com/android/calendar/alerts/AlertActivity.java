@@ -18,19 +18,22 @@ package com.android.calendar.alerts;
 
 import com.android.calendar.AllInOneActivity;
 import com.android.calendar.AsyncQueryService;
-import com.android.calendar.EventInfoActivity;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.NotificationManager;
-import android.app.TaskStackBuilder;
+import android.app.PendingIntent;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.Uri.Builder;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.util.Log;
 import android.view.View;
@@ -147,7 +150,7 @@ public class AlertActivity extends Activity implements OnClickListener {
 
 
 
-    private final OnItemClickListener mViewListener = new OnItemClickListener() {
+    private OnItemClickListener mViewListener = new OnItemClickListener() {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -158,17 +161,12 @@ public class AlertActivity extends Activity implements OnClickListener {
             // Mark this alarm as DISMISSED
             dismissAlarm(cursor.getLong(INDEX_ROW_ID));
 
-            // build an intent and task stack to start EventInfoActivity with AllInOneActivity
-            // as the parent activity rooted to home.
             long id = cursor.getInt(AlertActivity.INDEX_EVENT_ID);
             long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
             long endMillis = cursor.getLong(AlertActivity.INDEX_END);
             Intent eventIntent = AlertUtils.buildEventViewIntent(AlertActivity.this, id,
                     startMillis, endMillis);
-
-            TaskStackBuilder.from(AlertActivity.this)
-                    .addParentStack(EventInfoActivity.class).addNextIntent(eventIntent)
-                    .startActivities();
+            alertActivity.startActivity(eventIntent);
 
             alertActivity.finish();
         }
@@ -255,7 +253,7 @@ public class AlertActivity extends Activity implements OnClickListener {
                     // Set the "minutes" to zero to indicate this is a snoozed
                     // alarm.  There is code in AlertService.java that checks
                     // this field.
-                    ContentValues values = AlertUtils.makeContentValues(eventId, begin, end,
+                    ContentValues values = AlertUtils.makeContentValues(eventId, begin, end, 
                             alarmTime, 0 /* minutes */);
 
                     // Create a new alarm entry in the CalendarAlerts table
