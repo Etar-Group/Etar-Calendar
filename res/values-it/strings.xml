@@ -202,8 +202,10 @@
     <item quantity="one" msgid="5230907142214104485">"1 evento"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> eventi"</item>
   </plurals>
-    <!-- no translation found for N_more_events:one (2575806163135782451) -->
-    <!-- no translation found for N_more_events:other (2325345990825543328) -->
+  <plurals name="N_more_events">
+    <item quantity="one" msgid="2575806163135782451">"Un altro evento"</item>
+    <item quantity="other" msgid="2325345990825543328">"Altri <xliff:g id="COUNT">%d</xliff:g> eventi"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Evento selezionato"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NON controllare -&gt;"</string>
 </resources>
