@@ -202,8 +202,10 @@
     <item quantity="one" msgid="5230907142214104485">"Мероприятий: 1"</item>
     <item quantity="other" msgid="6093072093209431078">"Мероприятий: <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
-    <!-- no translation found for N_more_events:one (2575806163135782451) -->
-    <!-- no translation found for N_more_events:other (2325345990825543328) -->
+  <plurals name="N_more_events">
+    <item quantity="one" msgid="2575806163135782451">"Еще мероприятий: 1"</item>
+    <item quantity="other" msgid="2325345990825543328">"Еще мероприятий: <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Выбранное мероприятие"</string>
     <string name="do_not_check" msgid="7815441673853466129">"НЕ устанавливайте флажок &gt;"</string>
 </resources>
