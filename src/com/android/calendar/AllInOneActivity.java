@@ -16,6 +16,7 @@
 
 package com.android.calendar;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
@@ -53,6 +54,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract;
+import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
@@ -139,7 +141,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private long mViewEventId = -1;
     private long mIntentEventStartMillis = -1;
     private long mIntentEventEndMillis = -1;
-    private int mIntentAttendeeResponse = CalendarController.ATTENDEE_NO_RESPONSE;
+    private int mIntentAttendeeResponse = Attendees.ATTENDEE_STATUS_NONE;
+    private boolean mIntentAllDay = false;
 
     // Action bar and Navigation bar (left side of Action bar)
     private ActionBar mActionBar;
@@ -448,7 +451,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                         mIntentEventStartMillis = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, 0);
                         mIntentEventEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
                         mIntentAttendeeResponse = intent.getIntExtra(
-                                ATTENDEE_STATUS, CalendarController.ATTENDEE_NO_RESPONSE);
+                                ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
+                        mIntentAllDay = intent.getBooleanExtra(EXTRA_EVENT_ALL_DAY, false);
                         timeMillis = mIntentEventStartMillis;
                     }
                 } catch (NumberFormatException e) {
@@ -570,10 +574,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
             }
             mController.sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT, mViewEventId,
                     mIntentEventStartMillis, mIntentEventEndMillis, -1, -1,
-                    mIntentAttendeeResponse, selectedTime);
+                    EventInfo.buildViewExtraLong(mIntentAttendeeResponse,mIntentAllDay),
+                    selectedTime);
             mViewEventId = -1;
             mIntentEventStartMillis = -1;
             mIntentEventEndMillis = -1;
+            mIntentAllDay = false;
         }
         if (mMidnightUpdaterHandler == null) {
             mMidnightUpdaterHandler = new Handler();
@@ -1167,6 +1173,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
             if (mCurrentView == ViewType.AGENDA && mShowEventDetailsWithAgenda) {
                 if (event.startTime != null && event.endTime != null) {
+                    // Event is all day , adjust the goto time to local time
+                    if (event.isAllDay()) {
+                        Utils.convertAlldayUtcToLocal(
+                                event.startTime, event.startTime.toMillis(false), mTimeZone);
+                        Utils.convertAlldayUtcToLocal(
+                                event.endTime, event.endTime.toMillis(false), mTimeZone);
+                    }
                     mController.sendEvent(this, EventType.GO_TO, event.startTime, event.endTime,
                             event.id, ViewType.AGENDA);
                 } else if (event.selectedTime != null) {
@@ -1180,6 +1193,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
                             event.selectedTime, -1, ViewType.CURRENT);
                 }
+                int response = event.getResponse();
                 if ((mCurrentView == ViewType.AGENDA && mShowEventInfoFullScreenAgenda) ||
                         ((mCurrentView == ViewType.DAY || (mCurrentView == ViewType.WEEK) ||
                                 mCurrentView == ViewType.MONTH) && mShowEventInfoFullScreen)){
@@ -1192,13 +1206,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
                             Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.putExtra(EXTRA_EVENT_BEGIN_TIME, event.startTime.toMillis(false));
                     intent.putExtra(EXTRA_EVENT_END_TIME, event.endTime.toMillis(false));
-                    intent.putExtra(EVENT_ATTENDEE_RESPONSE, (int)event.extraLong);
+                    intent.putExtra(EVENT_ATTENDEE_RESPONSE, response);
                     startActivity(intent);
                 } else {
                     // start event info as a dialog
                     EventInfoFragment fragment = new EventInfoFragment(this,
                             event.id, event.startTime.toMillis(false),
-                            event.endTime.toMillis(false), (int) event.extraLong, true,
+                            event.endTime.toMillis(false), response, true,
                             EventInfoFragment.DIALOG_WINDOW_STYLE);
                     fragment.setDialogParams(event.x, event.y, mActionBar.getHeight());
                     FragmentManager fm = getFragmentManager();

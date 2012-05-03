@@ -102,14 +102,14 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private AlertDialog mModifyDialog;
     int mModification = Utils.MODIFY_UNINITIALIZED;
 
-    private EventInfo mEvent;
+    private final EventInfo mEvent;
     private EventBundle mEventBundle;
     private Uri mUri;
     private long mBegin;
     private long mEnd;
 
     private Activity mContext;
-    private Done mOnDone = new Done();
+    private final Done mOnDone = new Done();
 
     private boolean mSaveOnDetach = true;
     private boolean mIsReadOnly = false;
@@ -117,11 +117,11 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     private InputMethodManager mInputMethodManager;
 
-    private Intent mIntent;
+    private final Intent mIntent;
 
     private boolean mUseCustomActionBar;
 
-    private View.OnClickListener mActionBarListener = new View.OnClickListener() {
+    private final View.OnClickListener mActionBarListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             onActionBarItemSelected(v.getId());
@@ -722,7 +722,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
                             t.timezone = tz;
                             end = t.toMillis(true);
                         }
-                        CalendarController.getInstance(mContext).launchViewEvent(-1, start, end);
+                        CalendarController.getInstance(mContext).launchViewEvent(-1, start, end,
+                                Attendees.ATTENDEE_STATUS_NONE);
                     }
                 }
                 Activity a = EditEventFragment.this.getActivity();
