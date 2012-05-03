@@ -16,13 +16,6 @@
 
 package com.android.calendar.agenda;
 
-import com.android.calendar.CalendarController;
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarController.ViewType;
-import com.android.calendar.StickyHeaderListView;
-
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -44,7 +37,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
+import android.widget.GridLayout;
 import android.widget.TextView;
+
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.R;
+import com.android.calendar.StickyHeaderListView;
+import com.android.calendar.Utils;
 
 import java.util.Formatter;
 import java.util.Iterator;
@@ -133,10 +134,10 @@ public class AgendaWindowAdapter extends BaseAdapter
     /** Times to auto-expand/retry query after getting no data */
     private static final int RETRIES_ON_NO_DATA = 1;
 
-    private Context mContext;
-    private Resources mResources;
-    private QueryHandler mQueryHandler;
-    private AgendaListView mAgendaListView;
+    private final Context mContext;
+    private final Resources mResources;
+    private final QueryHandler mQueryHandler;
+    private final AgendaListView mAgendaListView;
 
     /** The sum of the rows in all the adapters */
     private int mRowCount;
@@ -151,8 +152,8 @@ public class AgendaWindowAdapter extends BaseAdapter
             new LinkedList<DayAdapterInfo>();
     private final ConcurrentLinkedQueue<QuerySpec> mQueryQueue =
             new ConcurrentLinkedQueue<QuerySpec>();
-    private TextView mHeaderView;
-    private TextView mFooterView;
+    private final TextView mHeaderView;
+    private final TextView mFooterView;
     private boolean mDoneSettingUpHeaderFooter = false;
 
     private final boolean mIsTabletConfig;
@@ -181,14 +182,14 @@ public class AgendaWindowAdapter extends BaseAdapter
     private int mNewerRequestsProcessed;
 
     // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
-    private Formatter mFormatter;
-    private StringBuilder mStringBuilder;
+    private final Formatter mFormatter;
+    private final StringBuilder mStringBuilder;
     private String mTimeZone;
 
     // defines if to pop-up the current event when the agenda is first shown
-    private boolean mShowEventOnStart;
+    private final boolean mShowEventOnStart;
 
-    private Runnable mTZUpdater = new Runnable() {
+    private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
             mTimeZone = Utils.getTimeZone(mContext, this);
@@ -209,6 +210,7 @@ public class AgendaWindowAdapter extends BaseAdapter
 
     private final int mSelectedItemBackgroundColor;
     private final int mSelectedItemTextColor;
+    private final float mItemRightMargin;
 
     // Types of Query
     private static final int QUERY_TYPE_OLDER = 0; // Query for older events
@@ -318,6 +320,7 @@ public class AgendaWindowAdapter extends BaseAdapter
         mSelectedItemBackgroundColor = mResources
                 .getColor(R.color.agenda_selected_background_color);
         mSelectedItemTextColor = mResources.getColor(R.color.agenda_selected_text_color);
+        mItemRightMargin = mResources.getDimension(R.dimen.agenda_item_right_margin);
         mIsTabletConfig = Utils.getConfigBool(mContext, R.bool.tablet_config);
 
         mTimeZone = Utils.getTimeZone(context, mTZUpdater);
@@ -479,12 +482,21 @@ public class AgendaWindowAdapter extends BaseAdapter
             selected = mSelectedInstanceId == vh.instanceId;
             vh.selectedMarker.setVisibility((selected && mShowEventOnStart) ?
                     View.VISIBLE : View.GONE);
-            if (selected && mShowEventOnStart) {
-                mSelectedVH = vh;
-                v.setBackgroundColor(mSelectedItemBackgroundColor);
-                vh.title.setTextColor(mSelectedItemTextColor);
-                vh.when.setTextColor(mSelectedItemTextColor);
-                vh.where.setTextColor(mSelectedItemTextColor);
+            if (mShowEventOnStart) {
+                GridLayout.LayoutParams lp =
+                        (GridLayout.LayoutParams)vh.textContainer.getLayoutParams();
+                if (selected) {
+                    mSelectedVH = vh;
+                    v.setBackgroundColor(mSelectedItemBackgroundColor);
+                    vh.title.setTextColor(mSelectedItemTextColor);
+                    vh.when.setTextColor(mSelectedItemTextColor);
+                    vh.where.setTextColor(mSelectedItemTextColor);
+                    lp.setMargins(0, 0, 0, 0);
+                    vh.textContainer.setLayoutParams(lp);
+                } else {
+                    lp.setMargins(0, 0, (int)mItemRightMargin, 0);
+                    vh.textContainer.setLayoutParams(lp);
+                }
             }
         }
 

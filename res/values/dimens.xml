@@ -50,4 +50,5 @@
     <dimen name="min_portrait_calendar_controls_width">300dip</dimen>
     <dimen name="max_portrait_calendar_controls_width">350dip</dimen>
     <dimen name="calendar_controls_height">300dip</dimen>
+    <dimen name="agenda_item_right_margin">4dip</dimen>
 </resources>
