@@ -62,7 +62,7 @@
         android:layout_row="1"
         android:layout_marginTop="2dip"
         android:layout_marginLeft="8dip"
-        android:layout_marginRight="16dip"
+        android:layout_marginRight="@dimen/agenda_item_right_margin"
         android:ellipsize="marquee"
         android:textSize="14sp"
         android:singleLine="true"

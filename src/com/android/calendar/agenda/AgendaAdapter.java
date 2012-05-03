@@ -16,10 +16,6 @@
 
 package com.android.calendar.agenda;
 
-import com.android.calendar.ColorChipView;
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -30,29 +26,35 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
+
+import com.android.calendar.ColorChipView;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import java.util.Formatter;
 import java.util.Locale;
 import java.util.TimeZone;
 
 public class AgendaAdapter extends ResourceCursorAdapter {
-    private String mNoTitleLabel;
-    private Resources mResources;
-    private int mDeclinedColor;
-    private int mStandardColor;
-    private int mWhereColor;
-    private int mWhereDeclinedColor;
+    private final String mNoTitleLabel;
+    private final Resources mResources;
+    private final int mDeclinedColor;
+    private final int mStandardColor;
+    private final int mWhereColor;
+    private final int mWhereDeclinedColor;
     // Note: Formatter is not thread safe. Fine for now as it is only used by the main thread.
-    private Formatter mFormatter;
-    private StringBuilder mStringBuilder;
+    private final Formatter mFormatter;
+    private final StringBuilder mStringBuilder;
     private float mScale;
 
     private int COLOR_CHIP_ALL_DAY_HEIGHT;
     private int COLOR_CHIP_HEIGHT;
 
-    private Runnable mTZUpdater = new Runnable() {
+    private final Runnable mTZUpdater = new Runnable() {
         @Override
         public void run() {
             notifyDataSetChanged();
@@ -70,6 +72,7 @@ public class AgendaAdapter extends ResourceCursorAdapter {
         TextView when;
         TextView where;
         View selectedMarker;
+        LinearLayout textContainer;
         long instanceId;
         ColorChipView colorChip;
         long startTimeMilli;
@@ -119,6 +122,8 @@ public class AgendaAdapter extends ResourceCursorAdapter {
             holder.title = (TextView) view.findViewById(R.id.title);
             holder.when = (TextView) view.findViewById(R.id.when);
             holder.where = (TextView) view.findViewById(R.id.where);
+            holder.textContainer = (LinearLayout)
+                    view.findViewById(R.id.agenda_item_text_container);
             holder.selectedMarker = view.findViewById(R.id.selected_marker);
             holder.colorChip = (ColorChipView)view.findViewById(R.id.agenda_item_color);
         }
