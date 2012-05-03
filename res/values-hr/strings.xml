@@ -202,8 +202,10 @@
     <item quantity="one" msgid="5230907142214104485">"1 događaj"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> događaja"</item>
   </plurals>
-    <!-- no translation found for N_more_events:one (2575806163135782451) -->
-    <!-- no translation found for N_more_events:other (2325345990825543328) -->
+  <plurals name="N_more_events">
+    <item quantity="one" msgid="2575806163135782451">"još 1 događaj"</item>
+    <item quantity="other" msgid="2325345990825543328">"još ovoliko događaja: <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Odabrani događaj"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NE provjeravaj -&gt;"</string>
 </resources>
