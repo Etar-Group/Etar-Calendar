@@ -71,6 +71,7 @@ public class AlertService extends Service {
         CalendarAlerts.MINUTES,                 // 8
         CalendarAlerts.BEGIN,                   // 9
         CalendarAlerts.END,                     // 10
+        CalendarAlerts.DESCRIPTION,             // 11
     };
 
     private static final int ALERT_INDEX_ID = 0;
@@ -84,6 +85,7 @@ public class AlertService extends Service {
     private static final int ALERT_INDEX_MINUTES = 8;
     private static final int ALERT_INDEX_BEGIN = 9;
     private static final int ALERT_INDEX_END = 10;
+    private static final int ALERT_INDEX_DESCRIPTION = 11;
 
     private static final String ACTIVE_ALERTS_SELECTION = "(" + CalendarAlerts.STATE + "=? OR "
             + CalendarAlerts.STATE + "=?) AND " + CalendarAlerts.ALARM_TIME + "<=";
@@ -124,7 +126,13 @@ public class AlertService extends Service {
         if (action.equals(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS)) {
             dismissOldAlerts(this);
         }
-        updateAlertNotification(this);
+
+        if (action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER) &&
+                bundle.getBoolean(AlertUtils.QUIET_UPDATE_KEY)) {
+            updateAlertNotification(this, true);
+        } else {
+            updateAlertNotification(this, false);
+        }
     }
 
     static void dismissOldAlerts(Context context) {
@@ -137,7 +145,7 @@ public class AlertService extends Service {
         });
     }
 
-    static boolean updateAlertNotification(Context context) {
+    static boolean updateAlertNotification(Context context, boolean quietUpdate) {
         ContentResolver cr = context.getContentResolver();
         NotificationManager nm =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -145,8 +153,6 @@ public class AlertService extends Service {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
 
         boolean doAlert = prefs.getBoolean(GeneralPreferences.KEY_ALERTS, true);
-        boolean doPopup = prefs.getBoolean(GeneralPreferences.KEY_ALERTS_POPUP, false);
-
         if (!doAlert) {
             if (DEBUG) {
                 Log.d(TAG, "alert preference is OFF");
@@ -168,7 +174,7 @@ public class AlertService extends Service {
             }
 
             if (DEBUG) Log.d(TAG, "No fired or scheduled alerts");
-            nm.cancel(AlertUtils.NOTIFICATION_ID);
+            nm.cancelAll();
             return false;
         }
 
@@ -176,23 +182,19 @@ public class AlertService extends Service {
             Log.d(TAG, "alert count:" + alertCursor.getCount());
         }
 
-        String notificationEventName = null;
-        String notificationEventLocation = null;
-        long notificationEventBegin = 0;
-        long notificationEventEnd = 0;
-        long notificationEventId = -1;
-        int notificationEventStatus = 0;
-        boolean notificationEventAllDay = true;
         HashMap<Long, Long> eventIds = new HashMap<Long, Long>();
         int numFired = 0;
-        ArrayList<NotificationInfo> notificationInfos = new ArrayList<NotificationInfo>();
-        String digestTitle = null;
+        ArrayList<NotificationInfo> currentEvents = new ArrayList<NotificationInfo>();
+        ArrayList<NotificationInfo> futureEvents = new ArrayList<NotificationInfo>();
+        ArrayList<NotificationInfo> expiredEvents = new ArrayList<NotificationInfo>();
+        String expiredDigestTitle = null;
         try {
             while (alertCursor.moveToNext()) {
                 final long alertId = alertCursor.getLong(ALERT_INDEX_ID);
                 final long eventId = alertCursor.getLong(ALERT_INDEX_EVENT_ID);
                 final int minutes = alertCursor.getInt(ALERT_INDEX_MINUTES);
                 final String eventName = alertCursor.getString(ALERT_INDEX_TITLE);
+                final String description = alertCursor.getString(ALERT_INDEX_DESCRIPTION);
                 final String location = alertCursor.getString(ALERT_INDEX_EVENT_LOCATION);
                 final int status = alertCursor.getInt(ALERT_INDEX_SELF_ATTENDEE_STATUS);
                 final boolean declined = status == Attendees.ATTENDEE_STATUS_DECLINED;
@@ -271,15 +273,24 @@ public class AlertService extends Service {
 
                 // Don't count duplicate alerts for the same event
                 if (eventIds.put(eventId, beginTime) == null) {
-                    notificationInfos.add(0, new NotificationInfo(eventName, location, beginTime,
-                            endTime, eventId, allDay));
+                    NotificationInfo notificationInfo = new NotificationInfo(eventName, location,
+                            description, beginTime, endTime, eventId, allDay, alertId);
 
-                    if (digestTitle == null) {
-                        digestTitle = eventName;
-                    } else if (eventName != null) {
+                    if ((beginTime <= currentTime) && (endTime >= currentTime)) {
+                        currentEvents.add(notificationInfo);
+                    } else if (beginTime > currentTime) {
+                        futureEvents.add(notificationInfo);
+                    } else {
                         // TODO: Prioritize by "primary" calendar
                         // Assumes alerts are sorted by begin time in reverse
-                        digestTitle = eventName + ", " + digestTitle;
+                        expiredEvents.add(0, notificationInfo);
+                        if (!TextUtils.isEmpty(eventName)) {
+                            if (expiredDigestTitle == null) {
+                                expiredDigestTitle = eventName;
+                            } else {
+                                expiredDigestTitle = eventName + ", " + expiredDigestTitle;
+                            }
+                        }
                     }
                 }
             }
@@ -289,60 +300,133 @@ public class AlertService extends Service {
             }
         }
 
-        int numEvents = notificationInfos.size();
-        if (numEvents == 0) {
-            nm.cancel(AlertUtils.NOTIFICATION_ID);
-        } else {
-            boolean quietUpdate = numFired == 0;
-            boolean highPriority = numFired > 0 && doPopup;
-            boolean defaultVibrate = shouldUseDefaultVibrate(context, prefs);
+        if (currentEvents.size() + futureEvents.size() + expiredEvents.size() == 0) {
+            nm.cancelAll();
+            return true;
+        }
+
+        quietUpdate = quietUpdate || (numFired == 0);
+        boolean doPopup = numFired > 0 &&
+                prefs.getBoolean(GeneralPreferences.KEY_ALERTS_POPUP, false);
+        boolean defaultVibrate = shouldUseDefaultVibrate(context, prefs);
+        String ringtone = quietUpdate ? null : prefs.getString(
+                GeneralPreferences.KEY_ALERTS_RINGTONE, null);
+
+        // Post the individual future events (higher priority).
+        for (NotificationInfo info : futureEvents) {
+            String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
+                    info.allDay, info.location);
+            postNotification(info, summaryText, context, quietUpdate, doPopup, defaultVibrate,
+                    ringtone, true, nm);
+        }
+
+        // Post the individual concurrent events (lower priority).
+        for (NotificationInfo info : currentEvents) {
+            // TODO: Change to a relative time description like: "Started 40 minutes ago".
+            // This requires constant refreshing to the message as time goes.
+            String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
+                    info.allDay, info.location);
+
+            // Keep concurrent events high priority (to appear higher in the notification list)
+            // until 15 minutes into the event.
+            boolean highPriority = false;
+            if (currentTime < info.startMillis + (15 * 60 * 1000)) {
+                highPriority = true;
+            }
+            postNotification(info, summaryText, context, quietUpdate, (doPopup && highPriority),
+                    defaultVibrate, ringtone, highPriority, nm);
+        }
+
+        // Post the expired events as 1 combined notification.
+        int numExpired = expiredEvents.size();
+        if (numExpired > 0) {
+            Notification notification;
+            if (numExpired == 1) {
+                // If only 1 expired event, display an "old-style" basic alert.
+                NotificationInfo info = expiredEvents.get(0);
+                String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
+                        info.allDay, info.location);
+                notification = AlertReceiver.makeBasicNotification(context, info.eventName,
+                        summaryText, info.startMillis, info.endMillis, info.eventId,
+                        info.notificationId, false);
+            } else {
+                // Multiple expired events are listed in a digest.
+                notification = AlertReceiver.makeDigestNotification(context,
+                    expiredEvents, expiredDigestTitle);
+            }
+            addNotificationOptions(notification, quietUpdate, null, defaultVibrate, ringtone);
+
+            // Remove any individual expired notifications before posting.
+            for (NotificationInfo expiredInfo : expiredEvents) {
+                nm.cancel(expiredInfo.notificationId);
+            }
+
+            // Post the new notification for the group.
+            nm.notify(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, notification);
 
             if (DEBUG) {
-                Log.d(TAG, "###### creating new alarm notification, numEvents: " + numEvents
-                        + (quietUpdate ? " QUIET" : " loud")
-                        + (highPriority ? " high-priority" : ""));
+                Log.d(TAG, "Posting digest alarm notification, numEvents:" + expiredEvents.size()
+                        + ", notificationId:" + AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID
+                        + (quietUpdate ? ", quiet" : ", loud"));
             }
-
-            // Create the notification grouping all the alerts into an expanded digest.
-            Notification notification = AlertReceiver.makeDigestNotification(context,
-                    notificationInfos, digestTitle, highPriority);
-
-            // Add other options like ticker text, sound, etc.
-            String tickerText = null;
-            if (notificationInfos.size() == 1) {
-                NotificationInfo info = notificationInfos.get(0);
-                tickerText = info.eventName;
-                if (!TextUtils.isEmpty(info.location)) {
-                    tickerText = info.eventName + " - " + info.location;
-                }
-            } else {
-                tickerText = digestTitle;
-            }
-            addNotificationOptions(notification, prefs, quietUpdate, highPriority, tickerText,
-                    defaultVibrate);
-
-            // Post the notification.
-            nm.notify(AlertUtils.NOTIFICATION_ID, notification);
         }
         return true;
+    }
+
+    private static void postNotification(NotificationInfo info, String summaryText,
+            Context context, boolean quietUpdate, boolean doPopup, boolean defaultVibrate,
+            String ringtone, boolean highPriority, NotificationManager notificationMgr) {
+        String tickerText = getTickerText(info.eventName, info.location);
+        Notification notification = AlertReceiver.makeExpandingNotification(context,
+                info.eventName, summaryText, info.description, info.startMillis,
+                info.endMillis, info.eventId, info.notificationId, doPopup, highPriority);
+        addNotificationOptions(notification, quietUpdate, tickerText, defaultVibrate,
+                ringtone);
+        notificationMgr.notify(info.notificationId, notification);
+
+        if (DEBUG) {
+            Log.d(TAG, "Posting individual alarm notification, eventId:" + info.eventId
+                    + ", notificationId:" + info.notificationId
+                    + (quietUpdate ? ", quiet" : ", loud")
+                    + (highPriority ? ", high-priority" : ""));
+        }
+    }
+
+    private static String getTickerText(String eventName, String location) {
+        String tickerText = eventName;
+        if (!TextUtils.isEmpty(location)) {
+            tickerText = eventName + " - " + location;
+        }
+        return tickerText;
     }
 
     static class NotificationInfo {
         String eventName;
         String location;
+        String description;
         long startMillis;
         long endMillis;
         long eventId;
+        int notificationId;
         boolean allDay;
 
-        NotificationInfo(String eventName, String location, long startMillis,
-                long endMillis, long eventId, boolean allDay) {
+        NotificationInfo(String eventName, String location, String description, long startMillis,
+                long endMillis, long eventId, boolean allDay, long alertId) {
             this.eventName = eventName;
             this.location = location;
+            this.description = description;
             this.startMillis = startMillis;
             this.endMillis = endMillis;
             this.eventId = eventId;
             this.allDay = allDay;
+
+            // Convert alert ID into the ID for posting notifications.  Use hash so we don't
+            // have to worry about any limits (but handle the case of a collision with the ID
+            // reserved for representing the expired notification digest).
+            this.notificationId = Long.valueOf(alertId).hashCode();
+            if (notificationId == AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID) {
+                this.notificationId = Integer.MAX_VALUE;
+            }
         }
     }
 
@@ -380,14 +464,16 @@ public class AlertService extends Service {
         return audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE;
     }
 
-    private static void addNotificationOptions(Notification notification, SharedPreferences prefs,
-            boolean quietUpdate, boolean highPriority, String tickerText, boolean defaultVibrate) {
+    private static void addNotificationOptions(Notification notification, boolean quietUpdate,
+            String tickerText, boolean defaultVibrate, String reminderRingtone) {
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
         if (!quietUpdate) {
             // Flash ticker in status bar
-            notification.tickerText = tickerText;
+            if (!TextUtils.isEmpty(tickerText)) {
+                notification.tickerText = tickerText;
+            }
 
             // Generate either a pop-up dialog, status bar notification, or
             // neither. Pop-up dialog and status bar notification may include a
@@ -399,8 +485,6 @@ public class AlertService extends Service {
 
             // Possibly generate a sound. If 'Silent' is chosen, the ringtone
             // string will be empty.
-            String reminderRingtone = prefs.getString(
-                    GeneralPreferences.KEY_ALERTS_RINGTONE, null);
             notification.sound = TextUtils.isEmpty(reminderRingtone) ? null : Uri
                     .parse(reminderRingtone);
         }
@@ -412,7 +496,7 @@ public class AlertService extends Service {
         AlarmManager manager = (AlarmManager) service;
         // TODO Move this into Provider
         rescheduleMissedAlarms(cr, this, manager);
-        updateAlertNotification(this);
+        updateAlertNotification(this, false);
     }
 
     private static final String SORT_ORDER_ALARMTIME_ASC =

@@ -27,7 +27,8 @@ import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
 
 /**
- * Service for asynchronously marking all fired alarms as dismissed.
+ * Service for asynchronously marking a fired alarm as dismissed and scheduling
+ * a new alarm in the future.
  */
 public class SnoozeAlarmsService extends IntentService {
     private static final String[] PROJECTION = new String[] {
@@ -47,17 +48,24 @@ public class SnoozeAlarmsService extends IntentService {
     @Override
     public void onHandleIntent(Intent intent) {
 
-        // Remove notification
-        NotificationManager nm =
-            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.cancel(AlertUtils.NOTIFICATION_ID);
-
         long eventId = intent.getLongExtra(AlertUtils.EVENT_ID_KEY, -1);
         long eventStart = intent.getLongExtra(AlertUtils.EVENT_START_KEY, -1);
         long eventEnd = intent.getLongExtra(AlertUtils.EVENT_END_KEY, -1);
 
+        // The ID reserved for the expired notification digest should never be passed in
+        // here, so use that as a default.
+        int notificationId = intent.getIntExtra(AlertUtils.NOTIFICATION_ID_KEY,
+                AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
+
         if (eventId != -1) {
             ContentResolver resolver = getContentResolver();
+
+            // Remove notification
+            if (notificationId != AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID) {
+                NotificationManager nm =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                nm.cancel(notificationId);
+            }
 
             // Dismiss current alarm
             Uri uri = CalendarAlerts.CONTENT_URI;
@@ -74,7 +82,7 @@ public class SnoozeAlarmsService extends IntentService {
             resolver.insert(uri, values);
             AlertUtils.scheduleAlarm(SnoozeAlarmsService.this, null, alarmTime);
         }
-        AlertService.updateAlertNotification(this);
+        AlertService.updateAlertNotification(this, false);
         stopSelf();
     }
 }
