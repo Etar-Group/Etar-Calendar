@@ -203,8 +203,8 @@
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> Ereignisse"</item>
   </plurals>
   <plurals name="N_more_events">
-    <item quantity="one" msgid="2575806163135782451">"+1 Ereignis"</item>
-    <item quantity="other" msgid="2325345990825543328">"+<xliff:g id="COUNT">%d</xliff:g> Ereignisse"</item>
+    <item quantity="one" msgid="2575806163135782451">"+1 Termin"</item>
+    <item quantity="other" msgid="2325345990825543328">"+<xliff:g id="COUNT">%d</xliff:g> Termine"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Ausgewähltes Ereignis"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NICHT aktivieren -&gt;"</string>
