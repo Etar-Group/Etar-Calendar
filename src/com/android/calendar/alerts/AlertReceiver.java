@@ -17,23 +17,29 @@
 package com.android.calendar.alerts;
 
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.PowerManager;
+import android.provider.CalendarContract.Attendees;
+import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -212,8 +218,12 @@ public class AlertReceiver extends BroadcastReceiver {
             notificationBuilder.addAction(R.drawable.snooze,
                     resources.getString(R.string.snooze_5min_label), snoozeIntent);
 
-            // TODO: Add email button when framework display bug is fixed (2nd button
-            // won't show up).
+            // Create an email button.
+            PendingIntent emailIntent = createEmailIntent(context, eventId, title);
+            if (emailIntent != null) {
+                notificationBuilder.addAction(R.drawable.ic_menu_email_holo_dark,
+                        resources.getString(R.string.email_guests_label), emailIntent);
+            }
         }
         if (doPopup) {
             notificationBuilder.setFullScreenIntent(clickIntent, true);
@@ -351,5 +361,85 @@ public class AlertReceiver extends BroadcastReceiver {
         notificationBuilder.setPriority(Notification.PRIORITY_LOW);
 
         return expandedBuilder.build();
+    }
+
+    private static final String[] ATTENDEES_PROJECTION = new String[] {
+        Attendees.ATTENDEE_EMAIL,           // 0
+        Attendees.ATTENDEE_STATUS,          // 1
+    };
+    private static final int ATTENDEES_INDEX_EMAIL = 0;
+    private static final int ATTENDEES_INDEX_STATUS = 1;
+    private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=?";
+    private static final String ATTENDEES_SORT_ORDER = Attendees.ATTENDEE_NAME + " ASC, "
+            + Attendees.ATTENDEE_EMAIL + " ASC";
+
+    private static final String[] EVENT_PROJECTION = new String[] {
+        Calendars.OWNER_ACCOUNT, // 0
+        Calendars.ACCOUNT_NAME   // 1
+    };
+    private static final int EVENT_INDEX_OWNER_ACCOUNT = 0;
+    private static final int EVENT_INDEX_ACCOUNT_NAME = 1;
+
+    /**
+     * Creates an Intent for emailing the attendees of the event.  Returns null if there
+     * are no emailable attendees.
+     */
+    private static PendingIntent createEmailIntent(Context context, long eventId,
+            String eventTitle) {
+        ContentResolver resolver = context.getContentResolver();
+
+        // TODO: Refactor to move query part into Utils.createEmailAttendeeIntent, to
+        // be shared with EventInfoFragment.
+
+        // Query for the owner account(s).
+        String ownerAccount = null;
+        String syncAccount = null;
+        Cursor eventCursor = resolver.query(
+                ContentUris.withAppendedId(Events.CONTENT_URI, eventId), EVENT_PROJECTION,
+                null, null, null);
+        if (eventCursor.moveToFirst()) {
+            ownerAccount = eventCursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
+            syncAccount = eventCursor.getString(EVENT_INDEX_ACCOUNT_NAME);
+        }
+
+        // Query for the attendees.
+        List<String> toEmails = new ArrayList<String>();
+        List<String> ccEmails = new ArrayList<String>();
+        Cursor attendeesCursor = resolver.query(Attendees.CONTENT_URI, ATTENDEES_PROJECTION,
+                ATTENDEES_WHERE, new String[] { Long.toString(eventId) }, ATTENDEES_SORT_ORDER);
+        if (attendeesCursor.moveToFirst()) {
+            do {
+                int status = attendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
+                String email = attendeesCursor.getString(ATTENDEES_INDEX_EMAIL);
+                switch(status) {
+                    case Attendees.ATTENDEE_STATUS_DECLINED:
+                        addIfEmailable(ccEmails, email, syncAccount);
+                        break;
+                    default:
+                        addIfEmailable(toEmails, email, syncAccount);
+                }
+            } while (attendeesCursor.moveToNext());
+        }
+
+        Intent intent = null;
+        if (ownerAccount != null && (toEmails.size() > 0 || ccEmails.size() > 0)) {
+            intent = Utils.createEmailAttendeesIntent(context.getResources(), eventTitle,
+                    toEmails, ccEmails, ownerAccount);
+        }
+
+        if (intent == null) {
+            return null;
+        }
+        else {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            return PendingIntent.getActivity(context, Long.valueOf(eventId).hashCode(), intent,
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+        }
+    }
+
+    private static void addIfEmailable(List<String> emailList, String email, String syncAccount) {
+        if (Utils.isValidEmail(email) && !email.equals(syncAccount)) {
+            emailList.add(email);
+        }
     }
 }
