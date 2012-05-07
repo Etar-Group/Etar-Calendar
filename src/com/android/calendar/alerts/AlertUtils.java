@@ -24,22 +24,33 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
+import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 
 import com.android.calendar.EventInfoActivity;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class AlertUtils {
 
     public static final long SNOOZE_DELAY = 5 * 60 * 1000L;
 
-    // We use one notification id for all events so that we don't clutter
-    // the notification screen.  It doesn't matter what the id is, as long
-    // as it is used consistently everywhere.
-    public static final int NOTIFICATION_ID = 0;
+    // We use one notification id for the expired events notification.  All
+    // other notifications (the 'active' future/concurrent ones) use a unique ID.
+    public static final int EXPIRED_GROUP_NOTIFICATION_ID = 0;
 
     public static final String EVENT_ID_KEY = "eventid";
     public static final String SHOW_EVENT_KEY = "showevent";
     public static final String EVENT_START_KEY = "eventstart";
     public static final String EVENT_END_KEY = "eventend";
+    public static final String NOTIFICATION_ID_KEY = "notificationid";
+    public static final String DELETE_EXPIRED_ONLY_KEY = "expired";
+    static final String QUIET_UPDATE_KEY = "quietupdate";
 
     /**
      * Schedules an alarm intent with the system AlarmManager that will notify
@@ -66,6 +77,62 @@ public class AlertUtils {
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         manager.set(AlarmManager.RTC_WAKEUP, alarmTime, pi);
+    }
+
+    /**
+     * Format the second line which shows time and location for single alert or the
+     * number of events for multiple alerts
+     *     1) Show time only for non-all day events
+     *     2) No date for today
+     *     3) Show "tomorrow" for tomorrow
+     *     4) Show date for days beyond that
+     */
+    static String formatTimeLocation(Context context, long startMillis, boolean allDay,
+            String location) {
+        String tz = Utils.getTimeZone(context, null);
+        Time time = new Time(tz);
+        time.setToNow();
+        int today = Time.getJulianDay(time.toMillis(false), time.gmtoff);
+        time.set(startMillis);
+        int eventDay = Time.getJulianDay(time.toMillis(false), time.gmtoff);
+
+        int flags = DateUtils.FORMAT_ABBREV_ALL;
+        if (!allDay) {
+            flags |= DateUtils.FORMAT_SHOW_TIME;
+            if (DateFormat.is24HourFormat(context)) {
+                flags |= DateUtils.FORMAT_24HOUR;
+            }
+        } else {
+            flags |= DateUtils.FORMAT_UTC;
+        }
+
+        if (eventDay < today || eventDay > today + 1) {
+            flags |= DateUtils.FORMAT_SHOW_DATE;
+        }
+
+        StringBuilder sb = new StringBuilder(Utils.formatDateRange(context, startMillis,
+                startMillis, flags));
+
+        if (!allDay && tz != Time.getCurrentTimezone()) {
+            // Assumes time was set to the current tz
+            time.set(startMillis);
+            boolean isDST = time.isDst != 0;
+            sb.append(" ").append(TimeZone.getTimeZone(tz).getDisplayName(
+                    isDST, TimeZone.SHORT, Locale.getDefault()));
+        }
+
+        if (eventDay == today + 1) {
+            // Tomorrow
+            sb.append(", ");
+            sb.append(context.getString(R.string.tomorrow));
+        }
+
+        String loc;
+        if (location != null && !TextUtils.isEmpty(loc = location.trim())) {
+            sb.append(", ");
+            sb.append(loc);
+        }
+        return sb.toString();
     }
 
     public static ContentValues makeContentValues(long eventId, long begin, long end,

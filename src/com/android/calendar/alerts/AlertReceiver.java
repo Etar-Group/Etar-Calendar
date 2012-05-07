@@ -17,33 +17,24 @@
 package com.android.calendar.alerts;
 
 import com.android.calendar.R;
-import com.android.calendar.Utils;
 
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.PowerManager;
-import android.text.Spannable;
+import android.provider.CalendarContract.Events;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
-import android.text.format.DateUtils;
-import android.text.format.Time;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
+import android.text.style.TextAppearanceSpan;
 import android.util.Log;
-import android.view.View;
-import android.widget.RemoteViews;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  * Receives android.intent.action.EVENT_REMINDER intents and handles
@@ -130,14 +121,147 @@ public class AlertReceiver extends BroadcastReceiver {
         }
     }
 
+    private static PendingIntent createClickEventIntent(Context context, long eventId,
+            long startMillis, long endMillis, int notificationId) {
+        return createDismissAlarmsIntent(context, eventId, startMillis, endMillis, notificationId,
+                "com.android.calendar.CLICK", true);
+    }
+
+    private static PendingIntent createDeleteEventIntent(Context context, long eventId,
+            long startMillis, long endMillis, int notificationId) {
+        return createDismissAlarmsIntent(context, eventId, startMillis, endMillis, notificationId,
+                "com.android.calendar.DELETE", false);
+    }
+
+    private static PendingIntent createDismissAlarmsIntent(Context context, long eventId,
+            long startMillis, long endMillis, int notificationId, String action,
+            boolean showEvent) {
+        Intent intent = new Intent();
+        intent.setClass(context, DismissAlarmsService.class);
+        intent.putExtra(AlertUtils.EVENT_ID_KEY, eventId);
+        intent.putExtra(AlertUtils.EVENT_START_KEY, startMillis);
+        intent.putExtra(AlertUtils.EVENT_END_KEY, endMillis);
+        intent.putExtra(AlertUtils.SHOW_EVENT_KEY, showEvent);
+        intent.putExtra(AlertUtils.NOTIFICATION_ID_KEY, notificationId);
+
+        // Must set a field that affects Intent.filterEquals so that the resulting
+        // PendingIntent will be a unique instance (the 'extras' don't achieve this).
+        // This must be unique for the click event across all reminders (so using
+        // event ID + startTime should be unique).  This also must be unique from
+        // the delete event (which also uses DismissAlarmsService).
+        Uri.Builder builder = Events.CONTENT_URI.buildUpon();
+        ContentUris.appendId(builder, eventId);
+        ContentUris.appendId(builder, startMillis);
+        intent.setData(builder.build());
+        intent.setAction(action);
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private static PendingIntent createSnoozeIntent(Context context, long eventId,
+            long startMillis, long endMillis, int notificationId) {
+        Intent intent = new Intent();
+        intent.setClass(context, SnoozeAlarmsService.class);
+        intent.putExtra(AlertUtils.EVENT_ID_KEY, eventId);
+        intent.putExtra(AlertUtils.EVENT_START_KEY, startMillis);
+        intent.putExtra(AlertUtils.EVENT_END_KEY, endMillis);
+        intent.putExtra(AlertUtils.NOTIFICATION_ID_KEY, notificationId);
+
+        Uri.Builder builder = Events.CONTENT_URI.buildUpon();
+        ContentUris.appendId(builder, eventId);
+        ContentUris.appendId(builder, startMillis);
+        intent.setData(builder.build());
+        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    public static Notification makeBasicNotification(Context context, String title,
+            String summaryText, long startMillis, long endMillis, long eventId,
+            int notificationId, boolean doPopup) {
+        return makeBasicNotificationBuilder(context, title, summaryText, startMillis, endMillis,
+                eventId, notificationId, doPopup, false, false).getNotification();
+    }
+
+    private static Notification.Builder makeBasicNotificationBuilder(Context context, String title,
+            String summaryText, long startMillis, long endMillis, long eventId,
+            int notificationId, boolean doPopup, boolean highPriority, boolean addActionButtons) {
+        Resources resources = context.getResources();
+        if (title == null || title.length() == 0) {
+            title = resources.getString(R.string.no_title_label);
+        }
+
+        // Create an intent triggered by clicking on the status icon, that dismisses the
+        // notification and shows the event.
+        PendingIntent clickIntent = createClickEventIntent(context, eventId, startMillis,
+                endMillis, notificationId);
+
+        // Create a delete intent triggered by dismissing the notification.
+        PendingIntent deleteIntent = createDeleteEventIntent(context, eventId, startMillis,
+            endMillis, notificationId);
+
+        // Create the base notification.
+        Notification.Builder notificationBuilder = new Notification.Builder(context);
+        notificationBuilder.setContentTitle(title);
+        notificationBuilder.setContentText(summaryText);
+        // TODO: change to the clock icon
+        notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
+        notificationBuilder.setContentIntent(clickIntent);
+        notificationBuilder.setDeleteIntent(deleteIntent);
+        if (addActionButtons) {
+            // Create a snooze button.  TODO: change snooze to 10 minutes.
+            PendingIntent snoozeIntent = createSnoozeIntent(context, eventId, startMillis,
+                    endMillis, notificationId);
+            notificationBuilder.addAction(R.drawable.snooze,
+                    resources.getString(R.string.snooze_5min_label), snoozeIntent);
+
+            // TODO: Add email button when framework display bug is fixed (2nd button
+            // won't show up).
+        }
+        if (doPopup) {
+            notificationBuilder.setFullScreenIntent(clickIntent, true);
+        }
+
+        // Setting to a higher priority will encourage notification manager to expand the
+        // notification.
+        if (highPriority) {
+            notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
+        } else {
+            notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
+        }
+        return notificationBuilder;
+    }
+
     /**
-     * Creates an alert notification. If high priority, this will set
-     * FLAG_HIGH_PRIORITY on the resulting notification and attach the a pending
-     * intent. Otherwise, it creates a standard notification.
+     * Creates an expanding notification.  The initial expanded state is decided by
+     * the notification manager based on the priority.
+     */
+    public static Notification makeExpandingNotification(Context context, String title,
+            String summaryText, String description, long startMillis, long endMillis, long eventId,
+            int notificationId, boolean doPopup, boolean highPriority) {
+        Notification.Builder basicBuilder = makeBasicNotificationBuilder(context, title,
+                summaryText, startMillis, endMillis, eventId, notificationId,
+                doPopup, highPriority, true);
+
+        if (TextUtils.isEmpty(description)) {
+            // When no description, don't use BigTextStyle since it puts too much whitespace.
+            // This still has the same desired behavior (expands with buttons, pinch closed, etc).
+            return basicBuilder.build();
+        } else {
+            // Create an expanded notification.
+            Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
+                    basicBuilder);
+            SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+            stringBuilder.append(summaryText);
+            stringBuilder.append("\n");
+            stringBuilder.append(description);
+            expandedBuilder.bigText(stringBuilder);
+            return expandedBuilder.build();
+        }
+    }
+
+    /**
+     * Creates an expanding digest notification for expired events.
      */
     public static Notification makeDigestNotification(Context context,
-            List<AlertService.NotificationInfo> notificationInfos, String digestTitle,
-            boolean highPriority) {
+            List<AlertService.NotificationInfo> notificationInfos, String digestTitle) {
         if (notificationInfos == null || notificationInfos.size() < 1) {
             return null;
         }
@@ -145,38 +269,21 @@ public class AlertReceiver extends BroadcastReceiver {
         Resources res = context.getResources();
         int numEvents = notificationInfos.size();
 
-        // Create an intent triggered by clicking on the status icon.
-        // For a notification with one event, dismiss the notification and show event
-        // For a notification with more than one alert, show the alerts list.
+        // Create an intent triggered by clicking on the status icon that shows the alerts list.
         Intent clickIntent = new Intent();
-        PendingIntent pendingClickIntent;
-        if (numEvents == 1) {
-            AlertService.NotificationInfo info = notificationInfos.get(0);
-            clickIntent.setClass(context, DismissAlarmsService.class);
-            clickIntent.putExtra(AlertUtils.EVENT_ID_KEY, info.eventId);
-            clickIntent.putExtra(AlertUtils.EVENT_START_KEY, info.startMillis);
-            clickIntent.putExtra(AlertUtils.EVENT_END_KEY, info.endMillis);
-            clickIntent.putExtra(AlertUtils.SHOW_EVENT_KEY, true);
-            pendingClickIntent = PendingIntent.getService(context, 0, clickIntent,
+        clickIntent.setClass(context, AlertActivity.class);
+        clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingClickIntent = PendingIntent.getActivity(context, 0, clickIntent,
                     PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
-        } else {
-            clickIntent.setClass(context, AlertActivity.class);
-            clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            pendingClickIntent = PendingIntent.getActivity(context, 0, clickIntent,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
-        }
 
-        // Create an intent triggered by clicking on the "Clear All Notifications" button or
-        // by dismissing the notification
+        // Create an intent triggered by dismissing the digest notification that clears all
+        // expired events.
         Intent deleteIntent = new Intent();
-        deleteIntent.setClass(context, AlertReceiver.class);
+        deleteIntent.setClass(context, DismissAlarmsService.class);
         deleteIntent.setAction(DELETE_ACTION);
-        if (numEvents == 1) {
-            AlertService.NotificationInfo info = notificationInfos.get(0);
-            deleteIntent.putExtra(AlertUtils.EVENT_ID_KEY, info.eventId);
-            deleteIntent.putExtra(AlertUtils.EVENT_START_KEY, info.startMillis);
-            deleteIntent.putExtra(AlertUtils.EVENT_END_KEY, info.endMillis);
-        }
+        deleteIntent.putExtra(AlertUtils.DELETE_EXPIRED_ONLY_KEY, true);
+        PendingIntent pendingDeleteIntent = PendingIntent.getService(context, 0, deleteIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (digestTitle == null || digestTitle.length() == 0) {
             digestTitle = res.getString(R.string.no_title_label);
@@ -186,135 +293,63 @@ public class AlertReceiver extends BroadcastReceiver {
         notificationBuilder.setContentTitle(digestTitle);
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
         notificationBuilder.setContentIntent(pendingClickIntent);
-        notificationBuilder.setDeleteIntent(
-                PendingIntent.getBroadcast(context, 0, deleteIntent, 0));
-        if (highPriority) {
-            notificationBuilder.setFullScreenIntent(pendingClickIntent, true);
-        }
+        notificationBuilder.setDeleteIntent(pendingDeleteIntent);
+        notificationBuilder.addKind(Notification.KIND_EVENT);
 
-        if (numEvents == 1) {
-            // A single event reminder.  Return an old style notification for now.
-            AlertService.NotificationInfo info = notificationInfos.get(0);
-            String timeLocation = formatTimeLocation(context, info.startMillis, info.allDay,
-                    info.location);
+        String nEventsStr = res.getQuantityString(R.plurals.Nevents, numEvents, numEvents);
+        notificationBuilder.setContentText(nEventsStr);
 
-            RemoteViews contentView = new RemoteViews(context.getPackageName(),
-                    R.layout.notification);
-            contentView.setTextViewText(R.id.title, digestTitle);
-            contentView.setTextViewText(R.id.text, timeLocation);
-            contentView.setViewVisibility(R.id.snooze_button, View.VISIBLE);
-
-            // Create an intent triggered by clicking on the snooze button.
-            Intent snoozeIntent = new Intent();
-            snoozeIntent.setClass(context, SnoozeAlarmsService.class);
-            snoozeIntent.putExtra(AlertUtils.EVENT_ID_KEY, info.eventId);
-            snoozeIntent.putExtra(AlertUtils.EVENT_START_KEY, info.startMillis);
-            snoozeIntent.putExtra(AlertUtils.EVENT_END_KEY, info.endMillis);
-            PendingIntent pendingSnoozeIntent = PendingIntent.getService(context, 0, snoozeIntent,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
-            contentView.setOnClickPendingIntent(R.id.snooze_button, pendingSnoozeIntent);
-
-            Notification notification = notificationBuilder.getNotification();
-            notification.contentView = contentView;
-            return notification;
-
-        } else {
-            String nEventsStr = res.getQuantityString(R.plurals.Nevents, numEvents, numEvents);
-            notificationBuilder.setContentText(nEventsStr);
-
-            // Multiple reminders.  Combine into an expanded digest notification.
-            Notification.InboxStyle expandedBuilder = new Notification.InboxStyle(
-                    notificationBuilder);
-            int i = 0;
-            for (AlertService.NotificationInfo info : notificationInfos) {
-                if (i < NOTIFICATION_DIGEST_MAX_LENGTH) {
-                    String timeLocation = formatTimeLocation(context, info.startMillis,
-                            info.allDay, info.location);
-                    SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
-                    stringBuilder.append(info.eventName);
-                    stringBuilder.append("  ");
-                    stringBuilder.append(timeLocation);
-                    stringBuilder.setSpan(new StyleSpan(Typeface.BOLD), 0, info.eventName.length(),
-                            Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-                    stringBuilder.setSpan(new RelativeSizeSpan(1.2f), 0, info.eventName.length(),
-                            Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-                    expandedBuilder.addLine(stringBuilder);
-                    i++;
-                } else {
-                    break;
+        // Multiple reminders.  Combine into an expanded digest notification.
+        Notification.InboxStyle expandedBuilder = new Notification.InboxStyle(
+                notificationBuilder);
+        int i = 0;
+        for (AlertService.NotificationInfo info : notificationInfos) {
+            if (i < NOTIFICATION_DIGEST_MAX_LENGTH) {
+                String name = info.eventName;
+                if (TextUtils.isEmpty(name)) {
+                    name = context.getResources().getString(R.string.no_title_label);
                 }
+                String timeLocation = AlertUtils.formatTimeLocation(context, info.startMillis,
+                        info.allDay, info.location);
+
+                TextAppearanceSpan primaryTextSpan = new TextAppearanceSpan(context,
+                        R.style.NotificationPrimaryText);
+                TextAppearanceSpan secondaryTextSpan = new TextAppearanceSpan(context,
+                        R.style.NotificationSecondaryText);
+
+                // Event title in bold.
+                SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+                stringBuilder.append(name);
+                stringBuilder.setSpan(primaryTextSpan, 0, stringBuilder.length(), 0);
+                stringBuilder.append("  ");
+
+                // Followed by time and location.
+                int secondaryIndex = stringBuilder.length();
+                stringBuilder.append(timeLocation);
+                stringBuilder.setSpan(secondaryTextSpan, secondaryIndex, stringBuilder.length(),
+                        0);
+                expandedBuilder.addLine(stringBuilder);
+                i++;
+            } else {
+                break;
             }
-
-            // If there are too many to display, add "+X missed events" for the last line.
-            int remaining = numEvents - i;
-            if (remaining > 0) {
-                String nMoreEventsStr = res.getQuantityString(R.plurals.N_more_events, remaining,
-                        remaining);
-                // TODO: Add highlighting and icon to this last entry once framework allows it.
-                expandedBuilder.addLine(nMoreEventsStr);
-            }
-
-            // TODO: Set to a low priority to encourage the notification manager to collapse it,
-            // when this contains only expired alerts (when future alerts are moved to their own
-            // individual expanded alerts).
-
-            return expandedBuilder.build();
-        }
-    }
-
-    /**
-     * Format the second line which shows time and location for single alert or the
-     * number of events for multiple alerts
-     *     1) Show time only for non-all day events
-     *     2) No date for today
-     *     3) Show "tomorrow" for tomorrow
-     *     4) Show date for days beyond that
-     */
-    private static String formatTimeLocation(Context context, long startMillis, boolean allDay,
-            String location) {
-        String tz = Utils.getTimeZone(context, null);
-        Time time = new Time(tz);
-        time.setToNow();
-        int today = Time.getJulianDay(time.toMillis(false), time.gmtoff);
-        time.set(startMillis);
-        int eventDay = Time.getJulianDay(time.toMillis(false), time.gmtoff);
-
-        int flags = DateUtils.FORMAT_ABBREV_ALL;
-        if (!allDay) {
-            flags |= DateUtils.FORMAT_SHOW_TIME;
-            if (DateFormat.is24HourFormat(context)) {
-                flags |= DateUtils.FORMAT_24HOUR;
-            }
-        } else {
-            flags |= DateUtils.FORMAT_UTC;
         }
 
-        if (eventDay > today + 1) {
-            flags |= DateUtils.FORMAT_SHOW_DATE;
+        // If there are too many to display, add "+X missed events" for the last line.
+        int remaining = numEvents - i;
+        if (remaining > 0) {
+            String nMoreEventsStr = res.getQuantityString(R.plurals.N_missed_events, remaining,
+                    remaining);
+            // TODO: Add highlighting and icon to this last entry once framework allows it.
+            expandedBuilder.setSummaryText(nMoreEventsStr);
         }
 
-        StringBuilder sb = new StringBuilder(Utils.formatDateRange(context, startMillis,
-                startMillis, flags));
+        // Remove the title in the expanded form (redundant with the listed items).
+        expandedBuilder.setBigContentTitle("");
 
-        if (!allDay && tz != Time.getCurrentTimezone()) {
-            // Assumes time was set to the current tz
-            time.set(startMillis);
-            boolean isDST = time.isDst != 0;
-            sb.append(" ").append(TimeZone.getTimeZone(tz).getDisplayName(
-                    isDST, TimeZone.SHORT, Locale.getDefault()));
-        }
+        // Set to a low priority to encourage the notification manager to collapse it.
+        notificationBuilder.setPriority(Notification.PRIORITY_LOW);
 
-        if (eventDay == today + 1) {
-            // Tomorrow
-            sb.append(", ");
-            sb.append(context.getString(R.string.tomorrow));
-        }
-
-        String loc;
-        if (location != null && !TextUtils.isEmpty(loc = location.trim())) {
-            sb.append(", ");
-            sb.append(loc);
-        }
-        return sb.toString();
+        return expandedBuilder.build();
     }
 }
