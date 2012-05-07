@@ -203,7 +203,7 @@
     <item quantity="other" msgid="6093072093209431078">"Izehlakalo ezingu-<xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
   <plurals name="N_more_events">
-    <item quantity="one" msgid="2575806163135782451">"Isehlakalo esin-+1"</item>
+    <item quantity="one" msgid="2575806163135782451">"Isehlakalo esi-+1"</item>
     <item quantity="other" msgid="2325345990825543328">"Izehlakalo ezingu-+<xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Isehlakalo esikhethiwe"</string>
