@@ -12,6 +12,8 @@
 -->
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- size of event title font in month view  -->
+    <integer name="text_size_event_title">12</integer>
     <!-- size of day date font in month view  -->
     <integer name="text_size_month_number">24</integer>
     <!-- margin between the day number and the edge of the day in month view -->
