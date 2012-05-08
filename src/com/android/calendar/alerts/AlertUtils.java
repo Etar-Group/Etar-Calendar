@@ -18,6 +18,7 @@ package com.android.calendar.alerts;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -64,19 +65,42 @@ public class AlertUtils {
      * @param alarmTime The time to fire the intent in UTC millis since epoch
      */
     public static void scheduleAlarm(Context context, AlarmManager manager, long alarmTime) {
+        scheduleAlarmHelper(context, manager, alarmTime, false);
+    }
 
-        // The default snooze delay: 5 minutes
+    /**
+     * Schedules the next alarm to silently refresh the notifications.  Note that if there
+     * is a pending silent refresh alarm, it will be replaced with this one.
+     */
+    static void scheduleNextNotificationRefresh(Context context, AlarmManager manager,
+            long alarmTime) {
+        scheduleAlarmHelper(context, manager, alarmTime, true);
+    }
 
+    private static void scheduleAlarmHelper(Context context, AlarmManager manager, long alarmTime,
+            boolean quietUpdate) {
         if (manager == null) {
             manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         }
 
+        int alarmType = AlarmManager.RTC_WAKEUP;
         Intent intent = new Intent(CalendarContract.ACTION_EVENT_REMINDER);
-        intent.setData(CalendarAlerts.CONTENT_URI);
+        intent.setClass(context, AlertReceiver.class);
+        if (quietUpdate) {
+            intent.putExtra(AlertUtils.QUIET_UPDATE_KEY, true);
+            alarmType = AlarmManager.RTC;
+        } else {
+            // Set data field so we get a unique PendingIntent instance per alarm or else alarms
+            // may be dropped.
+            Uri.Builder builder = CalendarAlerts.CONTENT_URI.buildUpon();
+            ContentUris.appendId(builder, alarmTime);
+            intent.setData(builder.build());
+        }
+
         intent.putExtra(CalendarContract.CalendarAlerts.ALARM_TIME, alarmTime);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        manager.set(AlarmManager.RTC_WAKEUP, alarmTime, pi);
+        manager.set(alarmType, alarmTime, pi);
     }
 
     /**

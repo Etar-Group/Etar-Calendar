@@ -100,6 +100,9 @@ public class AlertService extends Service {
     private static final String DISMISS_OLD_SELECTION = CalendarAlerts.END + "<? AND "
             + CalendarAlerts.STATE + "=?";
 
+    // The grace period before changing a notification's priority bucket.
+    private static final int DEPRIORITIZE_GRACE_PERIOD_MS = 15 * 60 * 1000;
+
     void processMessage(Message msg) {
         Bundle bundle = (Bundle) msg.obj;
 
@@ -310,9 +313,11 @@ public class AlertService extends Service {
         boolean defaultVibrate = shouldUseDefaultVibrate(context, prefs);
         String ringtone = quietUpdate ? null : prefs.getString(
                 GeneralPreferences.KEY_ALERTS_RINGTONE, null);
+        long nextRefreshTime = Long.MAX_VALUE;
 
         // Post the individual future events (higher priority).
         for (NotificationInfo info : futureEvents) {
+            nextRefreshTime = Math.min(nextRefreshTime, info.startMillis);
             String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
                     info.allDay, info.location);
             postNotification(info, summaryText, context, quietUpdate, doPopup, defaultVibrate,
@@ -329,9 +334,13 @@ public class AlertService extends Service {
             // Keep concurrent events high priority (to appear higher in the notification list)
             // until 15 minutes into the event.
             boolean highPriority = false;
-            if (currentTime < info.startMillis + (15 * 60 * 1000)) {
+            long gracePeriodEnd = info.startMillis + DEPRIORITIZE_GRACE_PERIOD_MS;
+            if (currentTime < gracePeriodEnd) {
                 highPriority = true;
+                nextRefreshTime = Math.min(nextRefreshTime, gracePeriodEnd);
             }
+            nextRefreshTime = Math.min(nextRefreshTime, info.endMillis);
+
             postNotification(info, summaryText, context, quietUpdate, (doPopup && highPriority),
                     defaultVibrate, ringtone, highPriority, nm);
         }
@@ -353,7 +362,9 @@ public class AlertService extends Service {
                 notification = AlertReceiver.makeDigestNotification(context,
                     expiredEvents, expiredDigestTitle);
             }
-            addNotificationOptions(notification, quietUpdate, null, defaultVibrate, ringtone);
+
+            // Add options for a quiet update.
+            addNotificationOptions(notification, true, expiredDigestTitle, defaultVibrate, ringtone);
 
             // Remove any individual expired notifications before posting.
             for (NotificationInfo expiredInfo : expiredEvents) {
@@ -368,7 +379,14 @@ public class AlertService extends Service {
                         + ", notificationId:" + AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID
                         + (quietUpdate ? ", quiet" : ", loud"));
             }
+        } else {
+            nm.cancel(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
         }
+
+        // Schedule the next silent refresh time so notifications will change
+        // buckets (eg. drop into expired digest, etc).
+        AlertUtils.scheduleNextNotificationRefresh(context, null, nextRefreshTime);
+
         return true;
     }
 
