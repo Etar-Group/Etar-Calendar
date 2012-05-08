@@ -43,7 +43,7 @@ public class CalendarViewAdapter extends BaseAdapter {
 
     private static final String TAG = "MenuSpinnerAdapter";
 
-    private String mButtonNames [];           // Text on buttons
+    private final String mButtonNames [];           // Text on buttons
 
     // Used to define the look of the menu button according to the current view:
     // Day view: show day of the week + full date underneath
@@ -65,29 +65,31 @@ public class CalendarViewAdapter extends BaseAdapter {
 
     // The current selected event's time, used to calculate the date and day of the week
     // for the buttons.
-    long mMilliTime;
-    String mTimeZone;
-    long mTodayJulianDay;
+    private long mMilliTime;
+    private String mTimeZone;
+    private long mTodayJulianDay;
 
-    Context mContext;
-    private Formatter mFormatter;
-    private StringBuilder mStringBuilder;
+    private final Context mContext;
+    private final Formatter mFormatter;
+    private final StringBuilder mStringBuilder;
     private Handler mMidnightHandler = null; // Used to run a time update every midnight
+    private final boolean mShowDate;   // Spinner mode indicator (view name or view name with date)
 
     // Updates time specific variables (time-zone, today's Julian day).
-    private Runnable mTimeUpdater = new Runnable() {
+    private final Runnable mTimeUpdater = new Runnable() {
         @Override
         public void run() {
             refresh(mContext);
         }
     };
 
-    public CalendarViewAdapter(Context context, int viewType) {
+    public CalendarViewAdapter(Context context, int viewType, boolean showDate) {
         super();
 
         mMidnightHandler = new Handler();
         mCurrentMainView = viewType;
         mContext = context;
+        mShowDate = showDate;
 
         // Initialize
         mButtonNames = context.getResources().getStringArray(R.array.buttons_list);
@@ -96,7 +98,9 @@ public class CalendarViewAdapter extends BaseAdapter {
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
 
         // Sets time specific variables and starts a thread for midnight updates
-        refresh(context);
+        if (showDate) {
+            refresh(context);
+        }
     }
 
 
@@ -160,46 +164,78 @@ public class CalendarViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View v;
-        // Check if can recycle the view
-        if (convertView == null ||
-                ((Integer)convertView.getTag()).intValue() !=
-                    R.layout.actionbar_pulldown_menu_top_button) {
-            v = mInflater.inflate(R.layout.actionbar_pulldown_menu_top_button, parent, false);
-            // Set the tag to make sure you can recycle it when you get it as a convert view
-            v.setTag(new Integer(R.layout.actionbar_pulldown_menu_top_button));
-        } else {
-            v = convertView;
-        }
-        TextView weekDay = (TextView)v.findViewById(R.id.top_button_weekday);
-        TextView date = (TextView)v.findViewById(R.id.top_button_date);
 
-        switch (mCurrentMainView) {
-            case ViewType.DAY:
-                weekDay.setVisibility(View.VISIBLE);
-                weekDay.setText(buildDayOfWeek());
-                date.setText(buildFullDate());
-                break;
-            case ViewType.WEEK:
-                if (Utils.getShowWeekNumber(mContext)) {
+        if (mShowDate) {
+            // Check if can recycle the view
+            if (convertView == null || ((Integer) convertView.getTag()).intValue()
+                    != R.layout.actionbar_pulldown_menu_top_button) {
+                v = mInflater.inflate(R.layout.actionbar_pulldown_menu_top_button, parent, false);
+                // Set the tag to make sure you can recycle it when you get it
+                // as a convert view
+                v.setTag(new Integer(R.layout.actionbar_pulldown_menu_top_button));
+            } else {
+                v = convertView;
+            }
+            TextView weekDay = (TextView) v.findViewById(R.id.top_button_weekday);
+            TextView date = (TextView) v.findViewById(R.id.top_button_date);
+
+            switch (mCurrentMainView) {
+                case ViewType.DAY:
                     weekDay.setVisibility(View.VISIBLE);
-                    weekDay.setText(buildWeekNum());
-                } else {
+                    weekDay.setText(buildDayOfWeek());
+                    date.setText(buildFullDate());
+                    break;
+                case ViewType.WEEK:
+                    if (Utils.getShowWeekNumber(mContext)) {
+                        weekDay.setVisibility(View.VISIBLE);
+                        weekDay.setText(buildWeekNum());
+                    } else {
+                        weekDay.setVisibility(View.GONE);
+                    }
+                    date.setText(buildMonthYearDate());
+                    break;
+                case ViewType.MONTH:
                     weekDay.setVisibility(View.GONE);
-                }
-                date.setText(buildMonthYearDate());
-                break;
-            case ViewType.MONTH:
-                weekDay.setVisibility(View.GONE);
-                date.setText(buildMonthYearDate());
-                break;
-            case ViewType.AGENDA:
-                weekDay.setVisibility(View.VISIBLE);
-                weekDay.setText(buildDayOfWeek());
-                date.setText(buildFullDate());
-                break;
-            default:
-                v = null;
-                break;
+                    date.setText(buildMonthYearDate());
+                    break;
+                case ViewType.AGENDA:
+                    weekDay.setVisibility(View.VISIBLE);
+                    weekDay.setText(buildDayOfWeek());
+                    date.setText(buildFullDate());
+                    break;
+                default:
+                    v = null;
+                    break;
+            }
+        } else {
+            if (convertView == null || ((Integer) convertView.getTag()).intValue()
+                    != R.layout.actionbar_pulldown_menu_top_button_no_date) {
+                v = mInflater.inflate(
+                        R.layout.actionbar_pulldown_menu_top_button_no_date, parent, false);
+                // Set the tag to make sure you can recycle it when you get it
+                // as a convert view
+                v.setTag(new Integer(R.layout.actionbar_pulldown_menu_top_button_no_date));
+            } else {
+                v = convertView;
+            }
+            TextView title = (TextView) v;
+            switch (mCurrentMainView) {
+                case ViewType.DAY:
+                    title.setText(mButtonNames [DAY_BUTTON_INDEX]);
+                    break;
+                case ViewType.WEEK:
+                    title.setText(mButtonNames [WEEK_BUTTON_INDEX]);
+                    break;
+                case ViewType.MONTH:
+                    title.setText(mButtonNames [MONTH_BUTTON_INDEX]);
+                    break;
+                case ViewType.AGENDA:
+                    title.setText(mButtonNames [AGENDA_BUTTON_INDEX]);
+                    break;
+                default:
+                    v = null;
+                    break;
+            }
         }
         return v;
     }
@@ -228,19 +264,27 @@ public class CalendarViewAdapter extends BaseAdapter {
         switch (position) {
             case DAY_BUTTON_INDEX:
                 viewType.setText(mButtonNames [DAY_BUTTON_INDEX]);
-                date.setText(buildMonthDayDate());
+                if (mShowDate) {
+                    date.setText(buildMonthDayDate());
+                }
                 break;
             case WEEK_BUTTON_INDEX:
                 viewType.setText(mButtonNames [WEEK_BUTTON_INDEX]);
-                date.setText(buildWeekDate());
+                if (mShowDate) {
+                    date.setText(buildWeekDate());
+                }
                 break;
             case MONTH_BUTTON_INDEX:
                 viewType.setText(mButtonNames [MONTH_BUTTON_INDEX]);
-                date.setText(buildMonthDate());
+                if (mShowDate) {
+                    date.setText(buildMonthDate());
+                }
                 break;
             case AGENDA_BUTTON_INDEX:
                 viewType.setText(mButtonNames [AGENDA_BUTTON_INDEX]);
-                date.setText(buildMonthDayDate());
+                if (mShowDate) {
+                    date.setText(buildMonthDayDate());
+                }
                 break;
             default:
                 v = convertView;
