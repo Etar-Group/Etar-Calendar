@@ -80,7 +80,8 @@
     <string name="empty_event" msgid="9018699257414338634">"予定は空のため保存できません。"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"招待を送信します。"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"アップデートを送信します。"</string>
-    <string name="alert_title" msgid="7869592820853066853">"カレンダーの通知"</string>
+    <!-- no translation found for past_alerts_title (8087610284451833210) -->
+    <skip />
     <string name="event_info_title" msgid="56024222340421620">"予定を表示"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"会議への招待状"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"終了"</string>
@@ -122,6 +123,8 @@
     <string name="discard_label" msgid="2394623883289782541">"キャンセル"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"すべてスヌーズ"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"通知を消去"</string>
+    <!-- no translation found for snooze_5min_label (3846502651367125116) -->
+    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"繰り返しなし"</string>
     <string name="daily" msgid="560350706808680448">"毎日"</string>
     <string name="every_weekday" msgid="5896574838353902978">"平日（月～金）"</string>
@@ -202,10 +205,8 @@
     <item quantity="one" msgid="5230907142214104485">"予定1件"</item>
     <item quantity="other" msgid="6093072093209431078">"予定<xliff:g id="COUNT">%d</xliff:g>件"</item>
   </plurals>
-  <plurals name="N_more_events">
-    <item quantity="one" msgid="2575806163135782451">"他1件の予定"</item>
-    <item quantity="other" msgid="2325345990825543328">"他<xliff:g id="COUNT">%d</xliff:g>件の予定"</item>
-  </plurals>
+    <!-- no translation found for N_missed_events:one (1593156519341582311) -->
+    <!-- no translation found for N_missed_events:other (2265435399149554901) -->
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"選択した予定"</string>
     <string name="do_not_check" msgid="7815441673853466129">"オンにしないでください -&gt;"</string>
 </resources>
