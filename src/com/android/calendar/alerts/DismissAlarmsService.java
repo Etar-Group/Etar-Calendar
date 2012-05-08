@@ -27,11 +27,10 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
 
-import com.android.calendar.AllInOneActivity;
 import com.android.calendar.EventInfoActivity;
 
 /**
- * Service for asynchronously marking all fired alarms as dismissed.
+ * Service for asynchronously marking fired alarms as dismissed.
  */
 public class DismissAlarmsService extends IntentService {
     private static final String[] PROJECTION = new String[] {
@@ -55,6 +54,12 @@ public class DismissAlarmsService extends IntentService {
         long eventStart = intent.getLongExtra(AlertUtils.EVENT_START_KEY, -1);
         long eventEnd = intent.getLongExtra(AlertUtils.EVENT_END_KEY, -1);
         boolean showEvent = intent.getBooleanExtra(AlertUtils.SHOW_EVENT_KEY, false);
+        boolean expiredOnly = intent.getBooleanExtra(AlertUtils.DELETE_EXPIRED_ONLY_KEY, false);
+
+        // The ID reserved for the expired notification digest should never be passed in
+        // here, so use that as a default.
+        int notificationId = intent.getIntExtra(AlertUtils.NOTIFICATION_ID_KEY,
+                AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
 
         Uri uri = CalendarAlerts.CONTENT_URI;
         String selection;
@@ -66,20 +71,27 @@ public class DismissAlarmsService extends IntentService {
         } else {
             selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED;
         }
+        if (expiredOnly) {
+            selection += " AND " + CalendarAlerts.END + "<" +
+                    Long.toString(System.currentTimeMillis());
+        }
         ContentResolver resolver = getContentResolver();
-
         ContentValues values = new ContentValues();
         values.put(PROJECTION[COLUMN_INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
-
         resolver.update(uri, values, selection, null);
+
+        // Remove from notification bar.
+        NotificationManager nm =
+            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (expiredOnly) {
+            nm.cancel(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
+        } else if (notificationId != AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID) {
+            nm.cancel(notificationId);
+        }
+
         if (showEvent) {
-            // Remove notification
-            NotificationManager nm =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.cancel(AlertUtils.NOTIFICATION_ID);
             // Show event on Calendar app by building an intent and task stack to start
             // EventInfoActivity with AllInOneActivity as the parent activity rooted to home.
-
             Intent i = AlertUtils.buildEventViewIntent(this, eventId, eventStart, eventEnd);
             TaskStackBuilder.create(this)
                     .addParentStack(EventInfoActivity.class).addNextIntent(i).startActivities();
