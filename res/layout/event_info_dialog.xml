@@ -271,7 +271,7 @@
                     android:text="@string/email_guests_label"
                     android:layout_height="50dp"
                     android:layout_width="match_parent"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="0dp"
                     android:layout_gravity="left"
                     android:gravity="center_vertical"
@@ -283,6 +283,38 @@
                     android:textColor="#777777"
                     android:background="?android:attr/selectableItemBackground"
                     android:drawableLeft="@drawable/event_info_mail_button"
+                    android:drawablePadding="8dp"
+                    style="@style/TextAppearance.EditEvent_LabelSmall" />
+            </LinearLayout>
+
+            <!-- LAUNCH CUSTOM APP -->
+            <LinearLayout
+                android:id="@+id/launch_custom_app_container"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:background="?android:attr/listDivider"
+                    android:layout_height="1px"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="8dip"
+                    android:layout_marginRight="0dip" />
+                <Button
+                    android:id="@+id/launch_custom_app_button"
+                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_gravity="left"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="0dp"
+                    android:layout_marginTop="0dip"
+                    android:layout_marginBottom="0dip"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textColor="#777777"
+                    android:background="?android:attr/selectableItemBackground"
                     android:drawablePadding="8dp"
                     style="@style/TextAppearance.EditEvent_LabelSmall" />
             </LinearLayout>
