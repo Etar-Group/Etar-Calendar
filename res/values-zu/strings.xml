@@ -80,7 +80,8 @@
     <string name="empty_event" msgid="9018699257414338634">"Isenzakalo esingenalutho asenziwanga"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Izimemo zizothunyelwa."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Ukubuyekeza kuzothunyelwa."</string>
-    <string name="alert_title" msgid="7869592820853066853">"Izaziso zekhalenda"</string>
+    <!-- no translation found for past_alerts_title (8087610284451833210) -->
+    <skip />
     <string name="event_info_title" msgid="56024222340421620">"Buka isenzakalo"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Isimemo somhlangano"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Kuya ku"</string>
@@ -122,6 +123,8 @@
     <string name="discard_label" msgid="2394623883289782541">"Khansela"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Snuza konke"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Cashisa konke"</string>
+    <!-- no translation found for snooze_5min_label (3846502651367125116) -->
+    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"Isenzakalo sesikhathi esisodwa"</string>
     <string name="daily" msgid="560350706808680448">"Nsuku zonke"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Njalo phakathi nesonto (Msom-Lwes)"</string>
@@ -202,10 +205,8 @@
     <item quantity="one" msgid="5230907142214104485">"Isehlakalo esi-1"</item>
     <item quantity="other" msgid="6093072093209431078">"Izehlakalo ezingu-<xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
-  <plurals name="N_more_events">
-    <item quantity="one" msgid="2575806163135782451">"Isehlakalo esi-+1"</item>
-    <item quantity="other" msgid="2325345990825543328">"Izehlakalo ezingu-+<xliff:g id="COUNT">%d</xliff:g>"</item>
-  </plurals>
+    <!-- no translation found for N_missed_events:one (1593156519341582311) -->
+    <!-- no translation found for N_missed_events:other (2265435399149554901) -->
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Isehlakalo esikhethiwe"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Ungalokothi uhlole -&gt;"</string>
 </resources>
