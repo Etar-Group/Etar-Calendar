@@ -16,6 +16,7 @@
 
 package com.android.calendar.widget;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
@@ -203,7 +204,8 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
      * @param goToTime time that calendar should take the user to, or 0 to
      *            indicate no specific start time.
      */
-    static Intent getLaunchFillInIntent(Context context, long id, long start, long end) {
+    static Intent getLaunchFillInIntent(Context context, long id, long start, long end,
+            boolean allDay) {
         final Intent fillInIntent = new Intent();
         String dataString = "content://com.android.calendar/events";
         if (id != 0) {
@@ -222,6 +224,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         fillInIntent.setData(data);
         fillInIntent.putExtra(EXTRA_EVENT_BEGIN_TIME, start);
         fillInIntent.putExtra(EXTRA_EVENT_END_TIME, end);
+        fillInIntent.putExtra(EXTRA_EVENT_ALL_DAY, allDay);
 
         return fillInIntent;
     }

@@ -23,6 +23,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.CalendarContract.Attendees;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -296,11 +297,7 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             mTime.set(event.startTime);
             return;
         }
-        // Set mTime if we have a start time and we aren't in the range of the
-        // goto
-        if (event.startTime != null
-                && (mTime.before(event.startTime) || event.endTime == null || mTime
-                        .after(event.endTime))) {
+        if (event.startTime != null) {
             mTime.set(event.startTime);
         }
         mAgendaListView.goTo(mTime, event.id, mQuery, false,
@@ -375,11 +372,6 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 return;
             }
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            int response = CalendarController.ATTENDEE_NO_RESPONSE;
-            if (event.eventType == EventType.VIEW_EVENT
-                    || event.eventType == EventType.EDIT_EVENT) {
-                response = (int) event.extraLong;
-            }
 
             if (allDay) {
                 event.startTime.timezone = Time.TIMEZONE_UTC;
@@ -394,7 +386,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                     fOld.getEndMillis() != endMillis || fOld.getEventId() != event.id) {
                 mEventFragment = new EventInfoFragment(mActivity, event.id,
                         event.startTime.toMillis(true), event.endTime.toMillis(true),
-                        response, false, EventInfoFragment.DIALOG_WINDOW_STYLE);
+                        Attendees.ATTENDEE_STATUS_NONE, false,
+                        EventInfoFragment.DIALOG_WINDOW_STYLE);
                 ft.replace(R.id.agenda_event_info, mEventFragment);
                 mController.registerEventHandler(R.id.agenda_event_info,
                         mEventFragment);

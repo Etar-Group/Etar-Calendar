@@ -679,9 +679,12 @@ public class AgendaWindowAdapter extends BaseAdapter
                                 EventInfo event =
                                         buildEventInfoFromCursor(tempCursor, tempCursorPosition,
                                                 false);
-                                CalendarController.getInstance(mContext).sendEventRelatedEvent(
-                                        this, EventType.VIEW_EVENT, event.id, event.begin,
-                                        event.end, 0, 0, -1);
+                                CalendarController.getInstance(mContext)
+                                        .sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT,
+                                                event.id, event.begin, event.end, 0,
+                                                0, CalendarController.EventInfo.buildViewExtraLong(
+                                                        Attendees.ATTENDEE_STATUS_NONE,
+                                                        event.allDay), -1);
                             }
                         }
                     }
@@ -1025,8 +1028,10 @@ public class AgendaWindowAdapter extends BaseAdapter
                     if (tempCursor != null) {
                         EventInfo event = buildEventInfoFromCursor(tempCursor, tempCursorPosition,
                                 false);
-                        CalendarController.getInstance(mContext).sendEventRelatedEvent(this,
-                                EventType.VIEW_EVENT, event.id, event.begin, event.end, 0, 0, -1);
+                        CalendarController.getInstance(mContext).sendEventRelatedEventWithExtra(
+                                this, EventType.VIEW_EVENT, event.id, event.begin,
+                                event.end, 0, 0, CalendarController.EventInfo.buildViewExtraLong(
+                                        Attendees.ATTENDEE_STATUS_NONE, event.allDay), -1);
                     }
                 }
             } else {
