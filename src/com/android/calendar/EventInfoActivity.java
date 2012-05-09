@@ -17,7 +17,6 @@ package com.android.calendar;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-import static com.android.calendar.CalendarController.ATTENDEE_NO_RESPONSE;
 import static com.android.calendar.CalendarController.EVENT_ATTENDEE_RESPONSE;
 
 import android.app.ActionBar;
@@ -29,6 +28,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Events;
 import android.util.Log;
 
@@ -60,7 +60,8 @@ public class EventInfoActivity extends Activity {
         } else if (intent != null && Intent.ACTION_VIEW.equals(intent.getAction())) {
             mStartMillis = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, 0);
             mEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
-            attendeeResponse = intent.getIntExtra(EVENT_ATTENDEE_RESPONSE, ATTENDEE_NO_RESPONSE);
+            attendeeResponse = intent.getIntExtra(EVENT_ATTENDEE_RESPONSE,
+                    Attendees.ATTENDEE_STATUS_NONE);
             Uri data = intent.getData();
             if (data != null) {
                 try {
@@ -77,7 +78,7 @@ public class EventInfoActivity extends Activity {
         if (!res.getBoolean(R.bool.agenda_show_event_info_full_screen)
                 && !res.getBoolean(R.bool.show_event_info_full_screen)) {
             CalendarController.getInstance(this)
-                    .launchViewEvent(mEventId, mStartMillis, mEndMillis);
+                    .launchViewEvent(mEventId, mStartMillis, mEndMillis, attendeeResponse);
             finish();
             return;
         }

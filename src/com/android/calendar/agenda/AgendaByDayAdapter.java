@@ -525,15 +525,14 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 // Found an event that contains the requested time
                 if (millis >= row.mEventStartTimeMilli && millis <= row.mEventEndTimeMilli) {
                     if (row.mAllDay) {
-                        if (millis == row.mEventStartTimeMilli) {
-                            return index;
+                        if (allDayEventInTimeIndex == -1) {
+                            allDayEventInTimeIndex = index;
+                            allDayEventDay = row.mDay;
                         }
-                        allDayEventInTimeIndex = index;
-                        allDayEventDay = row.mDay;
-                    } else {
+                    } else if (eventInTimeIndex == -1){
                         eventInTimeIndex = index;
                     }
-                } else {
+                } else if (eventInTimeIndex == -1){
                     // Save event index if it is the closest to time so far
                     long distance = Math.abs(millis - row.mEventStartTimeMilli);
                     if (distance < minDistance) {
@@ -545,14 +544,19 @@ public class AgendaByDayAdapter extends BaseAdapter {
             }
         }
         // We didn't find an exact match so take the best matching event
+        // Closest event with the same id
         if (idFound) {
             return idFoundMinIndex;
         }
+        // Event which occurs at the searched time
         if (eventInTimeIndex != -1) {
             return eventInTimeIndex;
+        // All day event which occurs at the same day of the searched time as long as there is
+        // no regular event at the same day
         } else if (allDayEventInTimeIndex != -1 && minDay != allDayEventDay) {
             return allDayEventInTimeIndex;
         }
+        // Closest event
         return minIndex;
     }
 

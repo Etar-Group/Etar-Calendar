@@ -136,7 +136,7 @@ public class EditEventHelper {
 
     protected static final int DAY_IN_SECONDS = 24 * 60 * 60;
 
-    private AsyncQueryService mService;
+    private final AsyncQueryService mService;
 
     // This allows us to flag the event if something is wrong with it, right now
     // if an uri is provided for an event that doesn't exist in the db.
@@ -144,10 +144,10 @@ public class EditEventHelper {
 
     public static final int ATTENDEE_ID_NONE = -1;
     public static final int[] ATTENDEE_VALUES = {
-            CalendarController.ATTENDEE_NO_RESPONSE,
-            Attendees.ATTENDEE_STATUS_ACCEPTED,
-            Attendees.ATTENDEE_STATUS_TENTATIVE,
-            Attendees.ATTENDEE_STATUS_DECLINED,
+        Attendees.ATTENDEE_STATUS_NONE,
+        Attendees.ATTENDEE_STATUS_ACCEPTED,
+        Attendees.ATTENDEE_STATUS_TENTATIVE,
+        Attendees.ATTENDEE_STATUS_DECLINED,
     };
 
     /**

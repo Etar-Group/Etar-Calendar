@@ -273,8 +273,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private DeleteEventHelper mDeleteHelper;
 
     private int mOriginalAttendeeResponse;
-    private int mAttendeeResponseFromIntent = CalendarController.ATTENDEE_NO_RESPONSE;
-    private int mUserSetResponse = CalendarController.ATTENDEE_NO_RESPONSE;
+    private int mAttendeeResponseFromIntent = Attendees.ATTENDEE_STATUS_NONE;
+    private int mUserSetResponse = Attendees.ATTENDEE_STATUS_NONE;
     private boolean mIsRepeating;
     private boolean mHasAlarm;
     private int mMaxReminders;
@@ -809,7 +809,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     @SuppressWarnings("fallthrough")
     private void initAttendeesCursor(View view) {
-        mOriginalAttendeeResponse = CalendarController.ATTENDEE_NO_RESPONSE;
+        mOriginalAttendeeResponse = Attendees.ATTENDEE_STATUS_NONE;
         mCalendarOwnerAttendeeId = EditEventHelper.ATTENDEE_ID_NONE;
         mNumOfAttendees = 0;
         if (mAttendeesCursor != null) {
@@ -1780,9 +1780,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
 
         int response;
-        if (mUserSetResponse != CalendarController.ATTENDEE_NO_RESPONSE) {
+        if (mUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
             response = mUserSetResponse;
-        } else if (mAttendeeResponseFromIntent != CalendarController.ATTENDEE_NO_RESPONSE) {
+        } else if (mAttendeeResponseFromIntent != Attendees.ATTENDEE_STATUS_NONE) {
             response = mAttendeeResponseFromIntent;
         } else {
             response = mOriginalAttendeeResponse;
