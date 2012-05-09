@@ -54,7 +54,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     private static final String TAG = "CalendarWidget";
 
     static final int EVENT_MIN_COUNT = 20;
-    static final int EVENT_MAX_COUNT = 503;
+    static final int EVENT_MAX_COUNT = 50;
     // Minimum delay between queries on the database for widget updates in ms
     static final int WIDGET_UPDATE_THROTTLE = 500;
 
@@ -213,7 +213,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 RemoteViews views = new RemoteViews(mContext.getPackageName(),
                         R.layout.appwidget_loading);
                 final Intent intent = CalendarAppWidgetProvider.getLaunchFillInIntent(mContext, 0,
-                        0, 0);
+                        0, 0, false);
                 views.setOnClickFillInIntent(R.id.appwidget_loading, intent);
                 return views;
 
@@ -222,7 +222,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 RemoteViews views = new RemoteViews(mContext.getPackageName(),
                         R.layout.appwidget_no_events);
                 final Intent intent = CalendarAppWidgetProvider.getLaunchFillInIntent(mContext, 0,
-                        0, 0);
+                        0, 0, false);
                 views.setOnClickFillInIntent(R.id.appwidget_no_events, intent);
                 return views;
             }
@@ -315,7 +315,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     end = Utils.convertAlldayLocalToUTC(recycle, end, tz);
                 }
                 final Intent fillInIntent = CalendarAppWidgetProvider.getLaunchFillInIntent(
-                        mContext, eventInfo.id, start, end);
+                        mContext, eventInfo.id, start, end, eventInfo.allDay);
                 views.setOnClickFillInIntent(R.id.widget_row, fillInIntent);
                 return views;
             }
