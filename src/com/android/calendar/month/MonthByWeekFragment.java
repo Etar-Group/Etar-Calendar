@@ -103,8 +103,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     // fling strength. When doing multiple month fling, the velocity is reduced by this threshold
     // to prevent moving from one month fling to 4 months and above flings.
     private static int MIN_VELOCITY_FOR_FLING = 750;
-    private static int MULTIPLE_MONTH_VELOCITY_THRESHOLD = 5000;
-    private static int FLING_VELOCITY_DIVIDER = 2000;
+    private static int MULTIPLE_MONTH_VELOCITY_THRESHOLD = 4000;
+    private static int FLING_VELOCITY_DIVIDER = 1000;
+    private static int FLING_TIME_PER_VIEW = 20;
 
     private final Runnable mTZUpdater = new Runnable() {
         @Override
@@ -267,8 +268,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             int scrollToDay = Time.getJulianDay(timeInMillis, mTempTime.gmtoff) +
                     ((monthsToJump > 0) ? 6 : 0);
             int curPosition = mListView.getPositionForView(mListView.getChildAt(0));
-            mListView.smoothScrollToPositionFromTop(curPosition + (scrollToDay - day) / 7,
-                    LIST_TOP_OFFSET);
+            int viewsToFling = (scrollToDay - day) / 7;
+            mListView.smoothScrollToPositionFromTop(curPosition + viewsToFling,
+                    LIST_TOP_OFFSET, FLING_TIME_PER_VIEW * Math.abs(viewsToFling));
             return true;
         }
     }
