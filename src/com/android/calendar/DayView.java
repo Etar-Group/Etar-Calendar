@@ -4252,6 +4252,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     resetSelectedHour();
                     invalidate();
                 }
+
                 if ((mTouchMode & TOUCH_MODE_HSCROLL) != 0) {
                     mTouchMode = TOUCH_MODE_INITIAL_STATE;
                     if (Math.abs(mViewStartX) > mHorizontalSnapBackThreshold) {
@@ -4775,6 +4776,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         eventClickCleanup();
         // Turn off redraw
         mRemeasure = false;
+        // Turn off scrolling to make sure the view is in the correct state if we fling back to it
+        mScrolling = false;
     }
 
     private void eventClickCleanup() {
