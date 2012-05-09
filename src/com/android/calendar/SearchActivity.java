@@ -23,10 +23,12 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.ContentObserver;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -74,6 +76,8 @@ public class SearchActivity extends Activity implements CalendarController.Event
 
     private DeleteEventHelper mDeleteEventHelper;
 
+    private Handler mHandler;
+    private BroadcastReceiver mTimeChangesReceiver;
     private ContentResolver mContentResolver;
 
     private final ContentObserver mObserver = new ContentObserver(new Handler()) {
@@ -88,11 +92,22 @@ public class SearchActivity extends Activity implements CalendarController.Event
         }
     };
 
+    // runs when a timezone was changed and updates the today icon
+    private final Runnable mTimeChangesUpdater = new Runnable() {
+        @Override
+        public void run() {
+            Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater,
+                    Utils.getTimeZone(SearchActivity.this, mTimeChangesUpdater));
+            SearchActivity.this.invalidateOptionsMenu();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         // This needs to be created before setContentView
         mController = CalendarController.getInstance(this);
+        mHandler = new Handler();
 
         mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
         mShowEventDetailsWithAgenda =
@@ -232,6 +247,12 @@ public class SearchActivity extends Activity implements CalendarController.Event
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.search_title_bar, menu);
+
+        // replace the default top layer drawable of the today icon with a custom drawable
+        // that shows the day of the month of today
+        LayerDrawable icon = (LayerDrawable)menu.findItem(R.id.action_today).getIcon();
+        Utils.setTodayIcon(icon, this, Utils.getTimeZone(SearchActivity.this, mTimeChangesUpdater));
+
         MenuItem item = menu.findItem(R.id.action_search);
         item.expandActionView();
         item.setOnActionExpandListener(this);
@@ -239,6 +260,7 @@ public class SearchActivity extends Activity implements CalendarController.Event
         Utils.setUpSearchView(mSearchView, this);
         mSearchView.setQuery(mQuery, false);
         mSearchView.clearFocus();
+
         return true;
     }
 
@@ -293,6 +315,12 @@ public class SearchActivity extends Activity implements CalendarController.Event
     @Override
     protected void onResume() {
         super.onResume();
+
+        Utils.setMidnightUpdater(
+                mHandler, mTimeChangesUpdater, Utils.getTimeZone(this, mTimeChangesUpdater));
+        // Make sure the today icon is up to date
+        invalidateOptionsMenu();
+        mTimeChangesReceiver = Utils.setTimeChangesReceiver(this, mTimeChangesUpdater);
         mContentResolver.registerContentObserver(Events.CONTENT_URI, true, mObserver);
         // We call this in case the user changed the time zone
         eventsChanged();
@@ -301,6 +329,8 @@ public class SearchActivity extends Activity implements CalendarController.Event
     @Override
     protected void onPause() {
         super.onPause();
+        Utils.resetMidnightUpdater(mHandler, mTimeChangesUpdater);
+        Utils.clearTimeChangesReceiver(this, mTimeChangesReceiver);
         mContentResolver.unregisterContentObserver(mObserver);
     }
 

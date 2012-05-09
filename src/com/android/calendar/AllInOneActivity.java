@@ -162,7 +162,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private String mShowString;
 
     DayOfMonthDrawable mDayOfMonthIcon;
-    Handler mMidnightUpdaterHandler;
 
     int mOrientation;
 
@@ -241,16 +240,20 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private final Runnable mHomeTimeUpdater = new Runnable() {
         @Override
         public void run() {
+            mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
             updateSecondaryTitleFields(-1);
             AllInOneActivity.this.invalidateOptionsMenu();
+            Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
         }
     };
 
-    // runs every midnight and refreshes the today icon
-    private final Runnable mMidnightUpdater = new Runnable() {
+    // runs every midnight/time changes and refreshes the today icon
+    private final Runnable mTimeChangesUpdater = new Runnable() {
         @Override
         public void run() {
+            mTimeZone = Utils.getTimeZone(AllInOneActivity.this, mHomeTimeUpdater);
             AllInOneActivity.this.invalidateOptionsMenu();
+            Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
         }
     };
 
@@ -269,23 +272,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
     };
 
-    private class CalendarBroadcastReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Intent.ACTION_DATE_CHANGED) ||
-                    intent.getAction().equals(Intent.ACTION_TIME_CHANGED) ||
-                    intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED) ||
-                    intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                // Update the day of month in the today button by invalidating
-                // the option menu thus forcing it to redraw and update the day of month
-                Utils.setMidnightUpdater(mHandler, mMidnightUpdater, mTimeZone);
-                AllInOneActivity.this.invalidateOptionsMenu();
-            }
-        }
-    }
-
-    CalendarBroadcastReceiver mCalIntentReceiver;
+    BroadcastReceiver mCalIntentReceiver;
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -578,23 +565,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mIntentEventEndMillis = -1;
             mIntentAllDay = false;
         }
-        if (mMidnightUpdaterHandler == null) {
-            mMidnightUpdaterHandler = new Handler();
-        }
-        Utils.setMidnightUpdater(mHandler, mMidnightUpdater, mTimeZone);
+        Utils.setMidnightUpdater(mHandler, mTimeChangesUpdater, mTimeZone);
         // Make sure the today icon is up to date
         invalidateOptionsMenu();
 
-              // Register for Intent broadcasts
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_TIME_CHANGED);
-        filter.addAction(Intent.ACTION_DATE_CHANGED);
-        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        filter.addAction(Intent.ACTION_LOCALE_CHANGED);
-        if (mCalIntentReceiver == null) {
-            mCalIntentReceiver = new CalendarBroadcastReceiver();
-        }
-        registerReceiver(mCalIntentReceiver, filter);
+        mCalIntentReceiver = Utils.setTimeChangesReceiver(this, mTimeChangesUpdater);
     }
 
     @Override
@@ -617,8 +592,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
         if (mController.getViewType() != ViewType.EDIT) {
             Utils.setDefaultView(this, mController.getViewType());
         }
-        Utils.resetMidnightUpdater(mHandler, mMidnightUpdater);
-        unregisterReceiver(mCalIntentReceiver);
+        Utils.resetMidnightUpdater(mHandler, mTimeChangesUpdater);
+        Utils.clearTimeChangesReceiver(this, mCalIntentReceiver);
     }
 
     @Override
@@ -768,9 +743,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         // replace the default top layer drawable of the today icon with a custom drawable
         // that shows the day of the month of today
         LayerDrawable icon = (LayerDrawable)menu.findItem(R.id.action_today).getIcon();
-        setTodayIcon();
-        icon.mutate();
-        icon.setDrawableByLayerId(R.id.today_icon_day, mDayOfMonthIcon);
+        Utils.setTodayIcon(icon, this, mTimeZone);
         return true;
     }
 
@@ -1342,16 +1315,5 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mSearchMenu.expandActionView();
         }
         return false;
-    }
-
-    // Updates the day of the month drawable in the today icon
-    private void setTodayIcon() {
-        if (mDayOfMonthIcon == null) {
-            mDayOfMonthIcon = new DayOfMonthDrawable(this);
-        }
-        Time now = new Time();
-        now.set(System.currentTimeMillis());
-        now.normalize(false);
-        mDayOfMonthIcon.setDayOfMonth(now.monthDay);
     }
 }
