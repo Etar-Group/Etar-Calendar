@@ -1340,7 +1340,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mCalendarStaticGroup.setVisibility(View.VISIBLE);
             mRepeatsSpinner.setEnabled(false);
             mRepeatsSpinner.setBackgroundDrawable(null);
-            setAllDayViewsVisibility(mAllDayCheckBox.isChecked());
             if (EditEventHelper.canAddReminders(mModel)) {
                 mRemindersGroup.setVisibility(View.VISIBLE);
             } else {
@@ -1387,6 +1386,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mLocationGroup.setVisibility(View.VISIBLE);
             mDescriptionGroup.setVisibility(View.VISIBLE);
         }
+        setAllDayViewsVisibility(mAllDayCheckBox.isChecked());
     }
 
     public void setModification(int modifyWhich) {
