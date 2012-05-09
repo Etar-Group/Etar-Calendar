@@ -80,8 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"האירוע הריק לא נוצר."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"הזמנות יישלחו."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"עדכונים יישלחו."</string>
-    <!-- no translation found for past_alerts_title (8087610284451833210) -->
-    <skip />
+    <string name="past_alerts_title" msgid="8087610284451833210">"אירועים קודמים"</string>
     <string name="event_info_title" msgid="56024222340421620">"הצג אירוע"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"הזמנה לפגישה"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"עד"</string>
@@ -123,8 +122,7 @@
     <string name="discard_label" msgid="2394623883289782541">"ביטול"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"העבר את כולם למצב נמנום"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"דחה הכל"</string>
-    <!-- no translation found for snooze_5min_label (3846502651367125116) -->
-    <skip />
+    <string name="snooze_5min_label" msgid="3846502651367125116">"העבר למצב נמנום ל-5 דקות"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"אירוע חד-פעמי"</string>
     <string name="daily" msgid="560350706808680448">"מדי יום"</string>
     <string name="every_weekday" msgid="5896574838353902978">"כל יום חול (ראשון-חמישי)"</string>
@@ -205,8 +203,10 @@
     <item quantity="one" msgid="5230907142214104485">"אירוע אחד"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> אירועים"</item>
   </plurals>
-    <!-- no translation found for N_missed_events:one (1593156519341582311) -->
-    <!-- no translation found for N_missed_events:other (2265435399149554901) -->
+  <plurals name="N_missed_events">
+    <item quantity="one" msgid="1593156519341582311">"פלוס אירוע אחד שהוחמץ"</item>
+    <item quantity="other" msgid="2265435399149554901">"פלוס <xliff:g id="COUNT">%d</xliff:g> אירועים שהוחמצו"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"אירוע נבחר"</string>
     <string name="do_not_check" msgid="7815441673853466129">"אל תסמן -&gt;"</string>
 </resources>
