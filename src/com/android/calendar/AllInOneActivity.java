@@ -1334,7 +1334,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     // Updates the day of the month drawable in the today icon
     private void setTodayIcon() {
         if (mDayOfMonthIcon == null) {
-            mDayOfMonthIcon = new DayOfMonthDrawable();
+            mDayOfMonthIcon = new DayOfMonthDrawable(this);
         }
         Time now = new Time();
         now.set(System.currentTimeMillis());
