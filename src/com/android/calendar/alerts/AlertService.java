@@ -185,12 +185,117 @@ public class AlertService extends Service {
             Log.d(TAG, "alert count:" + alertCursor.getCount());
         }
 
-        HashMap<Long, Long> eventIds = new HashMap<Long, Long>();
-        int numFired = 0;
+        // Process the query results and bucketize events.
         ArrayList<NotificationInfo> currentEvents = new ArrayList<NotificationInfo>();
         ArrayList<NotificationInfo> futureEvents = new ArrayList<NotificationInfo>();
         ArrayList<NotificationInfo> expiredEvents = new ArrayList<NotificationInfo>();
-        String expiredDigestTitle = null;
+        StringBuilder expiredDigestTitleBuilder = new StringBuilder();
+        int numFired = processQuery(alertCursor, cr, currentTime, currentEvents, futureEvents,
+                expiredEvents, expiredDigestTitleBuilder);
+        String expiredDigestTitle = expiredDigestTitleBuilder.toString();
+
+        if (currentEvents.size() + futureEvents.size() + expiredEvents.size() == 0) {
+            nm.cancelAll();
+            return true;
+        }
+
+        quietUpdate = quietUpdate || (numFired == 0);
+        boolean doPopup = numFired > 0 &&
+                prefs.getBoolean(GeneralPreferences.KEY_ALERTS_POPUP, false);
+        boolean defaultVibrate = shouldUseDefaultVibrate(context, prefs);
+        String ringtone = quietUpdate ? null : prefs.getString(
+                GeneralPreferences.KEY_ALERTS_RINGTONE, null);
+        long nextRefreshTime = Long.MAX_VALUE;
+
+        // Post the individual future events (higher priority).
+        for (NotificationInfo info : futureEvents) {
+            nextRefreshTime = Math.min(nextRefreshTime, info.startMillis);
+            String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
+                    info.allDay, info.location);
+            postNotification(info, summaryText, context, quietUpdate, doPopup, defaultVibrate,
+                    ringtone, true, nm);
+        }
+
+        // Post the individual concurrent events (lower priority).
+        for (NotificationInfo info : currentEvents) {
+            // TODO: Change to a relative time description like: "Started 40 minutes ago".
+            // This requires constant refreshing to the message as time goes.
+            String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
+                    info.allDay, info.location);
+
+            // Keep concurrent events high priority (to appear higher in the notification list)
+            // until 15 minutes into the event.
+            boolean highPriority = false;
+            long gracePeriodEnd = info.startMillis + DEPRIORITIZE_GRACE_PERIOD_MS;
+            if (currentTime < gracePeriodEnd) {
+                highPriority = true;
+                nextRefreshTime = Math.min(nextRefreshTime, gracePeriodEnd);
+            }
+            nextRefreshTime = Math.min(nextRefreshTime, info.endMillis);
+
+            postNotification(info, summaryText, context, quietUpdate, (doPopup && highPriority),
+                    defaultVibrate, ringtone, highPriority, nm);
+        }
+
+        // Post the expired events as 1 combined notification.
+        int numExpired = expiredEvents.size();
+        if (numExpired > 0) {
+            Notification notification;
+            if (numExpired == 1) {
+                // If only 1 expired event, display an "old-style" basic alert.
+                NotificationInfo info = expiredEvents.get(0);
+                String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
+                        info.allDay, info.location);
+                notification = AlertReceiver.makeBasicNotification(context, info.eventName,
+                        summaryText, info.startMillis, info.endMillis, info.eventId,
+                        info.notificationId, false);
+            } else {
+                // Multiple expired events are listed in a digest.
+                notification = AlertReceiver.makeDigestNotification(context,
+                    expiredEvents, expiredDigestTitle);
+            }
+
+            // Add options for a quiet update.
+            addNotificationOptions(notification, true, expiredDigestTitle, defaultVibrate, ringtone);
+
+            // Remove any individual expired notifications before posting.
+            for (NotificationInfo expiredInfo : expiredEvents) {
+                nm.cancel(expiredInfo.notificationId);
+            }
+
+            // Post the new notification for the group.
+            nm.notify(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, notification);
+
+            if (DEBUG) {
+                Log.d(TAG, "Posting digest alarm notification, numEvents:" + expiredEvents.size()
+                        + ", notificationId:" + AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID
+                        + (quietUpdate ? ", quiet" : ", loud"));
+            }
+        } else {
+            nm.cancel(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
+        }
+
+        // Schedule the next silent refresh time so notifications will change
+        // buckets (eg. drop into expired digest, etc).
+        AlertUtils.scheduleNextNotificationRefresh(context, null, nextRefreshTime);
+
+        return true;
+    }
+
+    /**
+     * Processes the query results and bucketizes the alerts.
+     *
+     * @param expiredDigestTitle Should pass in an empty StringBuilder; this will be
+     *     modified to contain a title consolidating all expired event titles.
+     * @return Returns the number of new alerts to fire.  If this is 0, it implies
+     *     a quiet update.
+     */
+    private static int processQuery(final Cursor alertCursor, final ContentResolver cr,
+            final long currentTime, ArrayList<NotificationInfo> currentEvents,
+            ArrayList<NotificationInfo> futureEvents, ArrayList<NotificationInfo> expiredEvents,
+            StringBuilder expiredDigestTitle) {
+        HashMap<Long, Long> eventIds = new HashMap<Long, Long>();
+        int numFired = 0;
         try {
             while (alertCursor.moveToNext()) {
                 final long alertId = alertCursor.getLong(ALERT_INDEX_ID);
@@ -287,11 +392,10 @@ public class AlertService extends Service {
                         // TODO: Prioritize by "primary" calendar
                         expiredEvents.add(notificationInfo);
                         if (!TextUtils.isEmpty(eventName)) {
-                            if (expiredDigestTitle == null) {
-                                expiredDigestTitle = eventName;
-                            } else {
-                                expiredDigestTitle = expiredDigestTitle + ", " + eventName;
+                            if (expiredDigestTitle.length() > 0) {
+                                expiredDigestTitle.append(", ");
                             }
+                            expiredDigestTitle.append(eventName);
                         }
                     }
                 }
@@ -301,93 +405,7 @@ public class AlertService extends Service {
                 alertCursor.close();
             }
         }
-
-        if (currentEvents.size() + futureEvents.size() + expiredEvents.size() == 0) {
-            nm.cancelAll();
-            return true;
-        }
-
-        quietUpdate = quietUpdate || (numFired == 0);
-        boolean doPopup = numFired > 0 &&
-                prefs.getBoolean(GeneralPreferences.KEY_ALERTS_POPUP, false);
-        boolean defaultVibrate = shouldUseDefaultVibrate(context, prefs);
-        String ringtone = quietUpdate ? null : prefs.getString(
-                GeneralPreferences.KEY_ALERTS_RINGTONE, null);
-        long nextRefreshTime = Long.MAX_VALUE;
-
-        // Post the individual future events (higher priority).
-        for (NotificationInfo info : futureEvents) {
-            nextRefreshTime = Math.min(nextRefreshTime, info.startMillis);
-            String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
-                    info.allDay, info.location);
-            postNotification(info, summaryText, context, quietUpdate, doPopup, defaultVibrate,
-                    ringtone, true, nm);
-        }
-
-        // Post the individual concurrent events (lower priority).
-        for (NotificationInfo info : currentEvents) {
-            // TODO: Change to a relative time description like: "Started 40 minutes ago".
-            // This requires constant refreshing to the message as time goes.
-            String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
-                    info.allDay, info.location);
-
-            // Keep concurrent events high priority (to appear higher in the notification list)
-            // until 15 minutes into the event.
-            boolean highPriority = false;
-            long gracePeriodEnd = info.startMillis + DEPRIORITIZE_GRACE_PERIOD_MS;
-            if (currentTime < gracePeriodEnd) {
-                highPriority = true;
-                nextRefreshTime = Math.min(nextRefreshTime, gracePeriodEnd);
-            }
-            nextRefreshTime = Math.min(nextRefreshTime, info.endMillis);
-
-            postNotification(info, summaryText, context, quietUpdate, (doPopup && highPriority),
-                    defaultVibrate, ringtone, highPriority, nm);
-        }
-
-        // Post the expired events as 1 combined notification.
-        int numExpired = expiredEvents.size();
-        if (numExpired > 0) {
-            Notification notification;
-            if (numExpired == 1) {
-                // If only 1 expired event, display an "old-style" basic alert.
-                NotificationInfo info = expiredEvents.get(0);
-                String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
-                        info.allDay, info.location);
-                notification = AlertReceiver.makeBasicNotification(context, info.eventName,
-                        summaryText, info.startMillis, info.endMillis, info.eventId,
-                        info.notificationId, false);
-            } else {
-                // Multiple expired events are listed in a digest.
-                notification = AlertReceiver.makeDigestNotification(context,
-                    expiredEvents, expiredDigestTitle);
-            }
-
-            // Add options for a quiet update.
-            addNotificationOptions(notification, true, expiredDigestTitle, defaultVibrate, ringtone);
-
-            // Remove any individual expired notifications before posting.
-            for (NotificationInfo expiredInfo : expiredEvents) {
-                nm.cancel(expiredInfo.notificationId);
-            }
-
-            // Post the new notification for the group.
-            nm.notify(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, notification);
-
-            if (DEBUG) {
-                Log.d(TAG, "Posting digest alarm notification, numEvents:" + expiredEvents.size()
-                        + ", notificationId:" + AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID
-                        + (quietUpdate ? ", quiet" : ", loud"));
-            }
-        } else {
-            nm.cancel(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
-        }
-
-        // Schedule the next silent refresh time so notifications will change
-        // buckets (eg. drop into expired digest, etc).
-        AlertUtils.scheduleNextNotificationRefresh(context, null, nextRefreshTime);
-
-        return true;
+        return numFired;
     }
 
     private static void postNotification(NotificationInfo info, String summaryText,
