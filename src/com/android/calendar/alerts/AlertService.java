@@ -274,7 +274,7 @@ public class AlertService extends Service {
                 // Don't count duplicate alerts for the same event
                 if (eventIds.put(eventId, beginTime) == null) {
                     NotificationInfo notificationInfo = new NotificationInfo(eventName, location,
-                            description, beginTime, endTime, eventId, allDay, alertId);
+                            description, beginTime, endTime, eventId, allDay);
 
                     if ((beginTime <= currentTime) && (endTime >= currentTime)) {
                         currentEvents.add(notificationInfo);
@@ -282,13 +282,12 @@ public class AlertService extends Service {
                         futureEvents.add(notificationInfo);
                     } else {
                         // TODO: Prioritize by "primary" calendar
-                        // Assumes alerts are sorted by begin time in reverse
-                        expiredEvents.add(0, notificationInfo);
+                        expiredEvents.add(notificationInfo);
                         if (!TextUtils.isEmpty(eventName)) {
                             if (expiredDigestTitle == null) {
                                 expiredDigestTitle = eventName;
                             } else {
-                                expiredDigestTitle = eventName + ", " + expiredDigestTitle;
+                                expiredDigestTitle = expiredDigestTitle + ", " + eventName;
                             }
                         }
                     }
@@ -411,7 +410,7 @@ public class AlertService extends Service {
         boolean allDay;
 
         NotificationInfo(String eventName, String location, String description, long startMillis,
-                long endMillis, long eventId, boolean allDay, long alertId) {
+                long endMillis, long eventId, boolean allDay) {
             this.eventName = eventName;
             this.location = location;
             this.description = description;
@@ -419,14 +418,23 @@ public class AlertService extends Service {
             this.endMillis = endMillis;
             this.eventId = eventId;
             this.allDay = allDay;
+            this.notificationId = getNotificationId(eventId, startMillis);
+        }
 
-            // Convert alert ID into the ID for posting notifications.  Use hash so we don't
-            // have to worry about any limits (but handle the case of a collision with the ID
-            // reserved for representing the expired notification digest).
-            this.notificationId = Long.valueOf(alertId).hashCode();
+        /*
+         * Convert reminder into the ID for posting notifications.  Use hash so we don't
+         * have to worry about any limits (but handle the case of a collision with the ID
+         * reserved for representing the expired notification digest).
+         */
+        private static int getNotificationId(long eventId, long startMillis) {
+            long result = 17;
+            result = 37 * result + eventId;
+            result = 37 * result + startMillis;
+            int notificationId = Long.valueOf(result).hashCode();
             if (notificationId == AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID) {
-                this.notificationId = Integer.MAX_VALUE;
+                notificationId = Integer.MAX_VALUE;
             }
+            return notificationId;
         }
     }
 
