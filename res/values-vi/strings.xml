@@ -80,7 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Chưa tạo sự kiện trống."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Thư mời sẽ được gửi."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Các cập nhật sẽ được gửi."</string>
-    <string name="alert_title" msgid="7869592820853066853">"Thông báo lịch"</string>
+    <string name="past_alerts_title" msgid="8087610284451833210">"Sự kiện trong quá khứ"</string>
     <string name="event_info_title" msgid="56024222340421620">"Xem sự kiện"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Thư mời họp"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Tới"</string>
@@ -122,6 +122,7 @@
     <string name="discard_label" msgid="2394623883289782541">"Hủy"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Báo lại tất cả"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Loại bỏ tất cả"</string>
+    <string name="snooze_5min_label" msgid="3846502651367125116">"Báo lại trong 5 phút"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Sự kiện diễn ra một lần"</string>
     <string name="daily" msgid="560350706808680448">"Hàng ngày"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Ngày trong tuần (Thứ Hai - Thứ Sáu)"</string>
@@ -202,9 +203,9 @@
     <item quantity="one" msgid="5230907142214104485">"1 sự kiện"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> sự kiện"</item>
   </plurals>
-  <plurals name="N_more_events">
-    <item quantity="one" msgid="2575806163135782451">"+1 sự kiện"</item>
-    <item quantity="other" msgid="2325345990825543328">"+<xliff:g id="COUNT">%d</xliff:g> sự kiện"</item>
+  <plurals name="N_missed_events">
+    <item quantity="one" msgid="1593156519341582311">"+1 sự kiện đã bỏ lỡ"</item>
+    <item quantity="other" msgid="2265435399149554901">"+<xliff:g id="COUNT">%d</xliff:g> sự kiện đã bỏ lỡ"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Sự kiện đã chọn"</string>
     <string name="do_not_check" msgid="7815441673853466129">"KHÔNG chọn -&gt;"</string>
