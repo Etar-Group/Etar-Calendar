@@ -460,11 +460,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
     }
 
     private void configureActionBar(int viewType) {
-        if (mIsTabletConfig) {
-            createTabs();
-        } else {
-            createButtonsSpinner(viewType);
-        }
+        createButtonsSpinner(viewType, mIsTabletConfig);
         if (mIsMultipane) {
             mActionBar.setDisplayOptions(
                     ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
@@ -498,8 +494,9 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
     }
 
-    private void createButtonsSpinner(int viewType) {
-        mActionBarMenuSpinnerAdapter = new CalendarViewAdapter (this, viewType);
+    private void createButtonsSpinner(int viewType, boolean tabletConfig) {
+        // If tablet configuration , show spinner with no dates
+        mActionBarMenuSpinnerAdapter = new CalendarViewAdapter (this, viewType, !tabletConfig);
         mActionBar = getActionBar();
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         mActionBar.setListNavigationCallbacks(mActionBarMenuSpinnerAdapter, this);
@@ -940,9 +937,11 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         // Update the current view so that the menu can update its look according to the
         // current view.
-        if (!mIsTabletConfig && mActionBarMenuSpinnerAdapter != null) {
-            mActionBarMenuSpinnerAdapter.setTime(timeMillis);
+        if (mActionBarMenuSpinnerAdapter != null) {
             mActionBarMenuSpinnerAdapter.setMainView(viewType);
+            if (!mIsTabletConfig) {
+                mActionBarMenuSpinnerAdapter.setTime(timeMillis);
+            }
         }
 
 
