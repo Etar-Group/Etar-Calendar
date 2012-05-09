@@ -16,14 +16,14 @@
 
 package com.android.calendar;
 
+import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 
 
@@ -34,15 +34,18 @@ import android.util.Log;
 
 public class DayOfMonthDrawable extends Drawable {
 
-    String mDayOfMonth = "1";
-    Paint mPaint;
-    Rect mTextBounds = new Rect();
+    private String mDayOfMonth = "1";
+    private final Paint mPaint;
+    private final Rect mTextBounds = new Rect();
+    private static float mTextSize = 14;
 
-    public DayOfMonthDrawable() {
+    public DayOfMonthDrawable(Context c) {
+        mTextSize = c.getResources().getDimension(R.dimen.today_icon_text_size);
         mPaint = new Paint();
         mPaint.setAlpha(255);
         mPaint.setColor(0xFF777777);
-        mPaint.setTextSize(12);
+        mPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        mPaint.setTextSize(mTextSize);
     }
 
     @Override
@@ -51,8 +54,8 @@ public class DayOfMonthDrawable extends Drawable {
         int textWidth = mTextBounds.right - mTextBounds.left;
         int textHeight = mTextBounds.bottom - mTextBounds.top;
         Rect bounds = getBounds();
-        canvas.drawText(mDayOfMonth, bounds.right / 2 - textWidth / 2 - 1,
-                bounds.bottom / 2 + textHeight / 2 + 1, mPaint);
+        canvas.drawText(mDayOfMonth, ((float)(bounds.right - textWidth)) / 2,
+                ((float)bounds.bottom + textHeight) / 2, mPaint);
     }
 
     @Override
