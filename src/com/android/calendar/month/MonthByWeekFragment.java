@@ -103,7 +103,8 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     // fling strength. When doing multiple month fling, the velocity is reduced by this threshold
     // to prevent moving from one month fling to 4 months and above flings.
     private static int MIN_VELOCITY_FOR_FLING = 750;
-    private static int MULTIPLE_MONTH_VELOCITY_THRESHOLD = 4000;
+    private static int MULTIPLE_MONTH_VELOCITY_THRESHOLD = 5000;
+    private static int FLING_VELOCITY_DIVIDER = 2000;
 
     private final Runnable mTZUpdater = new Runnable() {
         @Override
@@ -245,9 +246,11 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             } else {
                 if (velocityY < 0) {
                     monthsToJump = 1 -
-                        (int)((velocityY + MULTIPLE_MONTH_VELOCITY_THRESHOLD) / 1000);
+                        (int)((velocityY + MULTIPLE_MONTH_VELOCITY_THRESHOLD) /
+                                FLING_VELOCITY_DIVIDER);
                 } else {
-                    monthsToJump = -(int)((velocityY - MULTIPLE_MONTH_VELOCITY_THRESHOLD) / 1000);
+                    monthsToJump = -(int)((velocityY - MULTIPLE_MONTH_VELOCITY_THRESHOLD) /
+                            FLING_VELOCITY_DIVIDER);
                 }
             }
 
@@ -297,6 +300,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
                 SPACING_WEEK_NUMBER *= mScale;
                 MIN_VELOCITY_FOR_FLING *= mScale;
                 MULTIPLE_MONTH_VELOCITY_THRESHOLD *= mScale;
+                FLING_VELOCITY_DIVIDER *= mScale;
             }
         }
     }
