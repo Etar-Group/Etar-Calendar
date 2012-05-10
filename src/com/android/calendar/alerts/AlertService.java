@@ -186,15 +186,15 @@ public class AlertService extends Service {
         }
 
         // Process the query results and bucketize events.
-        ArrayList<NotificationInfo> currentEvents = new ArrayList<NotificationInfo>();
-        ArrayList<NotificationInfo> futureEvents = new ArrayList<NotificationInfo>();
+        ArrayList<NotificationInfo> highPriorityEvents = new ArrayList<NotificationInfo>();
+        ArrayList<NotificationInfo> mediumPriorityEvents = new ArrayList<NotificationInfo>();
         ArrayList<NotificationInfo> expiredEvents = new ArrayList<NotificationInfo>();
         StringBuilder expiredDigestTitleBuilder = new StringBuilder();
-        int numFired = processQuery(alertCursor, cr, currentTime, currentEvents, futureEvents,
-                expiredEvents, expiredDigestTitleBuilder);
+        int numFired = processQuery(alertCursor, cr, currentTime, highPriorityEvents,
+                mediumPriorityEvents, expiredEvents, expiredDigestTitleBuilder);
         String expiredDigestTitle = expiredDigestTitleBuilder.toString();
 
-        if (currentEvents.size() + futureEvents.size() + expiredEvents.size() == 0) {
+        if (highPriorityEvents.size() + mediumPriorityEvents.size() + expiredEvents.size() == 0) {
             nm.cancelAll();
             return true;
         }
@@ -207,34 +207,37 @@ public class AlertService extends Service {
                 GeneralPreferences.KEY_ALERTS_RINGTONE, null);
         long nextRefreshTime = Long.MAX_VALUE;
 
-        // Post the individual future events (higher priority).
-        for (NotificationInfo info : futureEvents) {
-            nextRefreshTime = Math.min(nextRefreshTime, info.startMillis);
+        // Post the individual higher priority events (future and recently started
+        // concurrent events).  Order these so that earlier start times appear higher in
+        // the notification list.
+        for (NotificationInfo info : highPriorityEvents) {
             String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
                     info.allDay, info.location);
             postNotification(info, summaryText, context, quietUpdate, doPopup, defaultVibrate,
                     ringtone, true, nm);
+
+            // Keep concurrent events high priority (to appear higher in the notification list)
+            // until 15 minutes into the event.
+            long gracePeriodEnd = info.startMillis + DEPRIORITIZE_GRACE_PERIOD_MS;
+            if (gracePeriodEnd > currentTime) {
+                nextRefreshTime = Math.min(nextRefreshTime, gracePeriodEnd);
+            }
         }
 
-        // Post the individual concurrent events (lower priority).
-        for (NotificationInfo info : currentEvents) {
+        // Post the medium priority events (concurrent events that started a while ago).
+        // Order these so more recent start times appear higher in the notification list.
+        for (int i = mediumPriorityEvents.size() - 1; i >= 0; i--) {
+            NotificationInfo info = mediumPriorityEvents.get(i);
             // TODO: Change to a relative time description like: "Started 40 minutes ago".
             // This requires constant refreshing to the message as time goes.
             String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
                     info.allDay, info.location);
 
-            // Keep concurrent events high priority (to appear higher in the notification list)
-            // until 15 minutes into the event.
-            boolean highPriority = false;
-            long gracePeriodEnd = info.startMillis + DEPRIORITIZE_GRACE_PERIOD_MS;
-            if (currentTime < gracePeriodEnd) {
-                highPriority = true;
-                nextRefreshTime = Math.min(nextRefreshTime, gracePeriodEnd);
-            }
+            // Refresh when concurrent event ends so it will drop into the expired digest.
             nextRefreshTime = Math.min(nextRefreshTime, info.endMillis);
 
-            postNotification(info, summaryText, context, quietUpdate, (doPopup && highPriority),
-                    defaultVibrate, ringtone, highPriority, nm);
+            postNotification(info, summaryText, context, quietUpdate, false, defaultVibrate,
+                    ringtone, false, nm);
         }
 
         // Post the expired events as 1 combined notification.
@@ -277,7 +280,11 @@ public class AlertService extends Service {
 
         // Schedule the next silent refresh time so notifications will change
         // buckets (eg. drop into expired digest, etc).
-        AlertUtils.scheduleNextNotificationRefresh(context, null, nextRefreshTime);
+        if (nextRefreshTime > currentTime) {
+            AlertUtils.scheduleNextNotificationRefresh(context, null, nextRefreshTime);
+        } else if (nextRefreshTime < currentTime) {
+            Log.e(TAG, "Illegal state: next notification refresh time found to be in the past.");
+        }
 
         return true;
     }
@@ -285,15 +292,20 @@ public class AlertService extends Service {
     /**
      * Processes the query results and bucketizes the alerts.
      *
+     * @param highPriorityEvents This will contain future events, and concurrent events
+     *     that started recently (less than the interval DEPRIORITIZE_GRACE_PERIOD_MS).
+     * @param mediumPriorityEvents This will contain concurrent events that started
+     *     more than DEPRIORITIZE_GRACE_PERIOD_MS ago.
+     * @param expiredEvents Will contain events that have ended.
      * @param expiredDigestTitle Should pass in an empty StringBuilder; this will be
      *     modified to contain a title consolidating all expired event titles.
      * @return Returns the number of new alerts to fire.  If this is 0, it implies
      *     a quiet update.
      */
     private static int processQuery(final Cursor alertCursor, final ContentResolver cr,
-            final long currentTime, ArrayList<NotificationInfo> currentEvents,
-            ArrayList<NotificationInfo> futureEvents, ArrayList<NotificationInfo> expiredEvents,
-            StringBuilder expiredDigestTitle) {
+            final long currentTime, ArrayList<NotificationInfo> highPriorityEvents,
+            ArrayList<NotificationInfo> mediumPriorityEvents,
+            ArrayList<NotificationInfo> expiredEvents, StringBuilder expiredDigestTitle) {
         HashMap<Long, Long> eventIds = new HashMap<Long, Long>();
         int numFired = 0;
         try {
@@ -384,12 +396,13 @@ public class AlertService extends Service {
                     NotificationInfo notificationInfo = new NotificationInfo(eventName, location,
                             description, beginTime, endTime, eventId, allDay);
 
-                    if ((beginTime <= currentTime) && (endTime >= currentTime)) {
-                        currentEvents.add(notificationInfo);
-                    } else if (beginTime > currentTime) {
-                        futureEvents.add(notificationInfo);
+                    // TODO: Prioritize by "primary" calendar
+                    long highPriorityCutoff = currentTime - DEPRIORITIZE_GRACE_PERIOD_MS;
+                    if (beginTime > highPriorityCutoff) {
+                        highPriorityEvents.add(notificationInfo);
+                    } else if (endTime >= currentTime) {
+                        mediumPriorityEvents.add(notificationInfo);
                     } else {
-                        // TODO: Prioritize by "primary" calendar
                         expiredEvents.add(notificationInfo);
                         if (!TextUtils.isEmpty(eventName)) {
                             if (expiredDigestTitle.length() > 0) {
