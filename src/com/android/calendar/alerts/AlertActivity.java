@@ -79,6 +79,7 @@ public class AlertActivity extends Activity implements OnClickListener {
     private static final String[] SELECTIONARG = new String[] {
         Integer.toString(CalendarAlerts.STATE_FIRED), Long.toString(System.currentTimeMillis())
     };
+    private static final String DESCENDING_SORT = "begin DESC, end DESC";
 
     private AlertAdapter mAdapter;
     private QueryHandler mQueryHandler;
@@ -203,7 +204,7 @@ public class AlertActivity extends Activity implements OnClickListener {
         if (mCursor == null) {
             Uri uri = CalendarAlerts.CONTENT_URI_BY_INSTANCE;
             mQueryHandler.startQuery(0, null, uri, PROJECTION, SELECTION,
-                    SELECTIONARG, CalendarAlerts.DEFAULT_SORT_ORDER);
+                    SELECTIONARG, DESCENDING_SORT);
         } else {
             if (!mCursor.requery()) {
                 Log.w(TAG, "Cursor#requery() failed.");
