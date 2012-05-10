@@ -258,11 +258,9 @@ public class AlertReceiver extends BroadcastReceiver {
             // Create an expanded notification.
             Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
                     basicBuilder);
-            SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
-            stringBuilder.append(summaryText);
-            stringBuilder.append("\n");
-            stringBuilder.append(description);
-            expandedBuilder.bigText(stringBuilder);
+            String text = context.getResources().getString(
+                    R.string.event_notification_big_text, summaryText, description);
+            expandedBuilder.bigText(text);
             return expandedBuilder.build();
         }
     }
