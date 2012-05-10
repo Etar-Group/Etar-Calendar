@@ -250,19 +250,21 @@ public class AlertReceiver extends BroadcastReceiver {
                 summaryText, startMillis, endMillis, eventId, notificationId,
                 doPopup, highPriority, true);
 
-        if (TextUtils.isEmpty(description)) {
-            // When no description, don't use BigTextStyle since it puts too much whitespace.
-            // This still has the same desired behavior (expands with buttons, pinch closed, etc).
-            return basicBuilder.build();
-        } else {
-            // Create an expanded notification.
-            Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
-                    basicBuilder);
-            String text = context.getResources().getString(
-                    R.string.event_notification_big_text, summaryText, description);
-            expandedBuilder.bigText(text);
-            return expandedBuilder.build();
+        // Create an expanded notification
+        Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
+                basicBuilder);
+        if (description != null) {
+            description = description.trim();
         }
+        String text;
+        if (TextUtils.isEmpty(description)) {
+            text = summaryText;
+        } else {
+            text = context.getResources().getString(
+                    R.string.event_notification_big_text, summaryText, description);
+        }
+        expandedBuilder.bigText(text);
+        return expandedBuilder.build();
     }
 
     /**
