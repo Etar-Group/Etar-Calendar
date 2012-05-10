@@ -23,6 +23,7 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
@@ -91,7 +92,6 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     private boolean mUserScrolled = false;
 
     private static float mScale = 0;
-    private static int SPACING_WEEK_NUMBER = 19;
 
     private int mEventsLoadingDelay;
     private boolean mShowCalendarControls;
@@ -104,8 +104,10 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     // to prevent moving from one month fling to 4 months and above flings.
     private static int MIN_VELOCITY_FOR_FLING = 750;
     private static int MULTIPLE_MONTH_VELOCITY_THRESHOLD = 4000;
-    private static int FLING_VELOCITY_DIVIDER = 1000;
-    private static int FLING_TIME_PER_VIEW = 20;
+    private static int FLING_VELOCITY_DIVIDER = 500;
+    private static int FLING_TIME = 1000;
+    private final Rect mFirstViewRect = new Rect();
+
 
     private final Runnable mTZUpdater = new Runnable() {
         @Override
@@ -267,10 +269,19 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             // at least one view.
             int scrollToDay = Time.getJulianDay(timeInMillis, mTempTime.gmtoff) +
                     ((monthsToJump > 0) ? 6 : 0);
-            int curPosition = mListView.getPositionForView(mListView.getChildAt(0));
-            int viewsToFling = (scrollToDay - day) / 7;
-            mListView.smoothScrollToPositionFromTop(curPosition + viewsToFling,
-                    LIST_TOP_OFFSET, FLING_TIME_PER_VIEW * Math.abs(viewsToFling));
+
+            // Since all views have the same height, scroll by pixels instead of "to position".
+            // Compensate for the top view offset from the top.
+            View firstView = mListView.getChildAt(0);
+            int firstViewHeight = firstView.getHeight();
+            // Get visible part length
+            firstView.getLocalVisibleRect(mFirstViewRect);
+            int topViewVisiblePart = mFirstViewRect.bottom - mFirstViewRect.top;
+            int viewsToFling = (scrollToDay - day) / 7 - ((monthsToJump <= 0) ? 1 : 0);
+            int offset = (viewsToFling > 0) ? -(firstViewHeight - topViewVisiblePart) :
+                    topViewVisiblePart - LIST_TOP_OFFSET;
+            // Fling
+            mListView.smoothScrollBy(viewsToFling * firstViewHeight + offset, FLING_TIME);
             return true;
         }
     }
@@ -299,7 +310,6 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
             mScale = res.getDisplayMetrics().density;
             mShowDetailsInMonth = res.getBoolean(R.bool.show_details_in_month);
             if (mScale != 1) {
-                SPACING_WEEK_NUMBER *= mScale;
                 MIN_VELOCITY_FOR_FLING *= mScale;
                 MULTIPLE_MONTH_VELOCITY_THRESHOLD *= mScale;
                 FLING_VELOCITY_DIVIDER *= mScale;
