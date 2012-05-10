@@ -354,8 +354,8 @@ public class AlertReceiver extends BroadcastReceiver {
         // Remove the title in the expanded form (redundant with the listed items).
         expandedBuilder.setBigContentTitle("");
 
-        // Set to a low priority to encourage the notification manager to collapse it.
-        notificationBuilder.setPriority(Notification.PRIORITY_LOW);
+        // Set to min priority to encourage the notification manager to collapse it.
+        notificationBuilder.setPriority(Notification.PRIORITY_MIN);
 
         return expandedBuilder.build();
     }
