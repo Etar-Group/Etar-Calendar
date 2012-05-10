@@ -125,6 +125,8 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Cancelar tudo"</string>
     <!-- no translation found for snooze_5min_label (3846502651367125116) -->
     <skip />
+    <!-- no translation found for event_notification_big_text (3523682911470976907) -->
+    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
     <string name="daily" msgid="560350706808680448">"Diariamente"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Todos os dias úteis (Seg-Sex)"</string>
