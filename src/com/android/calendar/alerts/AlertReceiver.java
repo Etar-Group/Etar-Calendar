@@ -183,7 +183,7 @@ public class AlertReceiver extends BroadcastReceiver {
             String summaryText, long startMillis, long endMillis, long eventId,
             int notificationId, boolean doPopup) {
         return makeBasicNotificationBuilder(context, title, summaryText, startMillis, endMillis,
-                eventId, notificationId, doPopup, false, false).getNotification();
+                eventId, notificationId, doPopup, false, false).build();
     }
 
     private static Notification.Builder makeBasicNotificationBuilder(Context context, String title,
@@ -269,7 +269,8 @@ public class AlertReceiver extends BroadcastReceiver {
      * Creates an expanding digest notification for expired events.
      */
     public static Notification makeDigestNotification(Context context,
-            List<AlertService.NotificationInfo> notificationInfos, String digestTitle) {
+            List<AlertService.NotificationInfo> notificationInfos, String digestTitle,
+            boolean expandable) {
         if (notificationInfos == null || notificationInfos.size() < 1) {
             return null;
         }
@@ -302,62 +303,65 @@ public class AlertReceiver extends BroadcastReceiver {
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
         notificationBuilder.setContentIntent(pendingClickIntent);
         notificationBuilder.setDeleteIntent(pendingDeleteIntent);
-
         String nEventsStr = res.getQuantityString(R.plurals.Nevents, numEvents, numEvents);
         notificationBuilder.setContentText(nEventsStr);
-
-        // Multiple reminders.  Combine into an expanded digest notification.
-        Notification.InboxStyle expandedBuilder = new Notification.InboxStyle(
-                notificationBuilder);
-        int i = 0;
-        for (AlertService.NotificationInfo info : notificationInfos) {
-            if (i < NOTIFICATION_DIGEST_MAX_LENGTH) {
-                String name = info.eventName;
-                if (TextUtils.isEmpty(name)) {
-                    name = context.getResources().getString(R.string.no_title_label);
-                }
-                String timeLocation = AlertUtils.formatTimeLocation(context, info.startMillis,
-                        info.allDay, info.location);
-
-                TextAppearanceSpan primaryTextSpan = new TextAppearanceSpan(context,
-                        R.style.NotificationPrimaryText);
-                TextAppearanceSpan secondaryTextSpan = new TextAppearanceSpan(context,
-                        R.style.NotificationSecondaryText);
-
-                // Event title in bold.
-                SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
-                stringBuilder.append(name);
-                stringBuilder.setSpan(primaryTextSpan, 0, stringBuilder.length(), 0);
-                stringBuilder.append("  ");
-
-                // Followed by time and location.
-                int secondaryIndex = stringBuilder.length();
-                stringBuilder.append(timeLocation);
-                stringBuilder.setSpan(secondaryTextSpan, secondaryIndex, stringBuilder.length(),
-                        0);
-                expandedBuilder.addLine(stringBuilder);
-                i++;
-            } else {
-                break;
-            }
-        }
-
-        // If there are too many to display, add "+X missed events" for the last line.
-        int remaining = numEvents - i;
-        if (remaining > 0) {
-            String nMoreEventsStr = res.getQuantityString(R.plurals.N_missed_events, remaining,
-                    remaining);
-            // TODO: Add highlighting and icon to this last entry once framework allows it.
-            expandedBuilder.setSummaryText(nMoreEventsStr);
-        }
-
-        // Remove the title in the expanded form (redundant with the listed items).
-        expandedBuilder.setBigContentTitle("");
 
         // Set to min priority to encourage the notification manager to collapse it.
         notificationBuilder.setPriority(Notification.PRIORITY_MIN);
 
-        return expandedBuilder.build();
+        if (expandable) {
+            // Multiple reminders.  Combine into an expanded digest notification.
+            Notification.InboxStyle expandedBuilder = new Notification.InboxStyle(
+                    notificationBuilder);
+            int i = 0;
+            for (AlertService.NotificationInfo info : notificationInfos) {
+                if (i < NOTIFICATION_DIGEST_MAX_LENGTH) {
+                    String name = info.eventName;
+                    if (TextUtils.isEmpty(name)) {
+                        name = context.getResources().getString(R.string.no_title_label);
+                    }
+                    String timeLocation = AlertUtils.formatTimeLocation(context, info.startMillis,
+                            info.allDay, info.location);
+
+                    TextAppearanceSpan primaryTextSpan = new TextAppearanceSpan(context,
+                            R.style.NotificationPrimaryText);
+                    TextAppearanceSpan secondaryTextSpan = new TextAppearanceSpan(context,
+                            R.style.NotificationSecondaryText);
+
+                    // Event title in bold.
+                    SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+                    stringBuilder.append(name);
+                    stringBuilder.setSpan(primaryTextSpan, 0, stringBuilder.length(), 0);
+                    stringBuilder.append("  ");
+
+                    // Followed by time and location.
+                    int secondaryIndex = stringBuilder.length();
+                    stringBuilder.append(timeLocation);
+                    stringBuilder.setSpan(secondaryTextSpan, secondaryIndex, stringBuilder.length(),
+                            0);
+                    expandedBuilder.addLine(stringBuilder);
+                    i++;
+                } else {
+                    break;
+                }
+            }
+
+            // If there are too many to display, add "+X missed events" for the last line.
+            int remaining = numEvents - i;
+            if (remaining > 0) {
+                String nMoreEventsStr = res.getQuantityString(R.plurals.N_missed_events, remaining,
+                        remaining);
+                // TODO: Add highlighting and icon to this last entry once framework allows it.
+                expandedBuilder.setSummaryText(nMoreEventsStr);
+            }
+
+            // Remove the title in the expanded form (redundant with the listed items).
+            expandedBuilder.setBigContentTitle("");
+
+            return expandedBuilder.build();
+        } else {
+            return notificationBuilder.build();
+        }
     }
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
