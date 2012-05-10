@@ -321,6 +321,8 @@ public class DeleteEventHelper {
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
                     android.R.layout.simple_list_item_single_choice, labelArray);
             AlertDialog dialog = new AlertDialog.Builder(mContext)
+                    .setTitle(
+                            mContext.getString(R.string.delete_recurring_event_title,model.mTitle))
                     .setIconAttribute(android.R.attr.alertDialogIcon)
                     .setSingleChoiceItems(adapter, which, mDeleteListListener)
                     .setPositiveButton(android.R.string.ok, mDeleteRepeatingDialogListener)
