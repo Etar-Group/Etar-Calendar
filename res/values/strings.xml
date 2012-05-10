@@ -418,6 +418,10 @@
          user has asked to delete an event. The user still has a chance to cancel
          this operation. -->
     <string name="delete_this_event_title">Delete this event?</string>
+    <!-- This is a confirmation message in a popup dialog that appears when the
+         user has asked to delete an event that is recurring. The user still has a chance to cancel
+         this operation. -->
+    <string name="delete_recurring_event_title">Delete <xliff:g id="eventtitle">%s</xliff:g>?</string>
     <!-- This is the title of a popup dialog that asks for confirmation before
          changing the response to an invitation. -->
     <string name="change_response_title">Change response</string>
