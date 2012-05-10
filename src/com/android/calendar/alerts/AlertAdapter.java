@@ -16,9 +16,6 @@
 
 package com.android.calendar.alerts;
 
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -30,6 +27,9 @@ import android.view.View;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -38,7 +38,6 @@ public class AlertAdapter extends ResourceCursorAdapter {
     private static boolean mFirstTime = true;
     private static int mTitleColor;
     private static int mOtherColor; // non-title fields
-    private static int mPastEventColor;
 
     public AlertAdapter(Context context, int resource) {
         super(context, resource, null);
@@ -85,21 +84,14 @@ public class AlertAdapter extends ResourceCursorAdapter {
         TextView whenView = (TextView) view.findViewById(R.id.when);
         TextView whereView = (TextView) view.findViewById(R.id.where);
         if (mFirstTime) {
-            mPastEventColor = res.getColor(R.color.alert_past_event);
             mTitleColor = res.getColor(R.color.alert_event_title);
             mOtherColor = res.getColor(R.color.alert_event_other);
             mFirstTime = false;
         }
 
-        if (endMillis < System.currentTimeMillis()) {
-            titleView.setTextColor(mPastEventColor);
-            whenView.setTextColor(mPastEventColor);
-            whereView.setTextColor(mPastEventColor);
-        } else {
-            titleView.setTextColor(mTitleColor);
-            whenView.setTextColor(mOtherColor);
-            whereView.setTextColor(mOtherColor);
-        }
+        titleView.setTextColor(mTitleColor);
+        whenView.setTextColor(mOtherColor);
+        whereView.setTextColor(mOtherColor);
 
         // What
         if (eventName == null || eventName.length() == 0) {
