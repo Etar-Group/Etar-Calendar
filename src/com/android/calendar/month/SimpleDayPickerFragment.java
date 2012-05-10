@@ -66,10 +66,10 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
     // before acting on it
     protected static final int SCROLL_CHANGE_DELAY = 40;
     // The number of days to display in each week
-    protected static final int DAYS_PER_WEEK = 7;
+    public static final int DAYS_PER_WEEK = 7;
     // The size of the month name displayed above the week list
     protected static final int MINI_MONTH_NAME_TEXT_SIZE = 18;
-    protected static int LIST_TOP_OFFSET = -1;  // so that the top line will be under the separator
+    public static int LIST_TOP_OFFSET = -1;  // so that the top line will be under the separator
     protected int WEEK_MIN_VISIBLE_HEIGHT = 12;
     protected int BOTTOM_BUFFER = 20;
     protected int mSaturdayColor = 0;
@@ -462,15 +462,6 @@ public class SimpleDayPickerFragment extends ListFragment implements OnScrollLis
             setMonthDisplayed(mSelectedDay, true);
         }
         return false;
-    }
-
-    // Returns the julian day of the day in the upper right corner
-    public int getUpperRightJulianDay() {
-        SimpleWeekView child = (SimpleWeekView)mListView.getChildAt(0);
-        if (child == null) {
-            return -1;
-        }
-        return child.getFirstJulianDay() + DAYS_PER_WEEK - 1;
     }
 
      /**

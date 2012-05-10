@@ -39,6 +39,10 @@
         android:layout_height="1px"
         android:layout_width="match_parent" />
 
-    <include android:id="@+id/week_list" layout="@android:layout/list_content"/>
+    <com.android.calendar.month.MonthListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:drawSelectorOnTop="false" />
 
 </LinearLayout>
