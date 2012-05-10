@@ -15,7 +15,7 @@
 -->
 <GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/agenda_item_bg_primary"
+    android:background="@color/agenda_day_bar_background_color"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:columnCount="2"

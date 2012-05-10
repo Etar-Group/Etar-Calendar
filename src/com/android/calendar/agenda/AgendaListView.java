@@ -140,7 +140,14 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         for (int i = 0; i < childCount; ++i) {
             View listItem = getChildAt(i);
             Object o = listItem.getTag();
-            if (o instanceof AgendaAdapter.ViewHolder) {
+            if (o instanceof AgendaByDayAdapter.ViewHolder) {
+                // day view - check if day in the past and not grayed yet
+                AgendaByDayAdapter.ViewHolder holder = (AgendaByDayAdapter.ViewHolder) o;
+                if (holder.julianDay <= todayJulianDay && !holder.grayed) {
+                    needUpdate = true;
+                    break;
+                }
+            } else if (o instanceof AgendaAdapter.ViewHolder) {
                 // meeting view - check if event in the past or started already and not grayed yet
                 // All day meetings for a day are grayed out
                 AgendaAdapter.ViewHolder holder = (AgendaAdapter.ViewHolder) o;
