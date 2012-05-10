@@ -59,6 +59,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         TextView dayView;
         TextView dateView;
         int julianDay;
+        boolean grayed;
     }
 
     private final Runnable mTZUpdater = new Runnable() {
@@ -191,6 +192,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 holder.dayView = (TextView) agendaDayView.findViewById(R.id.day);
                 holder.dateView = (TextView) agendaDayView.findViewById(R.id.date);
                 holder.julianDay = row.mDay;
+                holder.grayed = false;
                 agendaDayView.setTag(holder);
             }
 
@@ -230,6 +232,14 @@ public class AgendaByDayAdapter extends BaseAdapter {
             holder.dayView.setText(dayViewText);
             holder.dateView.setText(dateViewText);
 
+            // Set the background of the view, it is grayed for day that are in the past and today
+            if (row.mDay > mTodayJulianDay) {
+                agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_primary);
+                holder.grayed = false;
+            } else {
+                agendaDayView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
+                holder.grayed = true;
+            }
             return agendaDayView;
         } else if (row.mType == TYPE_MEETING) {
             View itemView = mAgendaAdapter.getView(row.mPosition, convertView, parent);
