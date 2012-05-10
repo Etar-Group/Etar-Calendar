@@ -16,15 +16,10 @@
 
 package com.android.calendar;
 
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarEventModel.Attendee;
-import com.android.calendar.CalendarEventModel.ReminderEntry;
-import com.android.calendar.event.AttendeesView;
-import com.android.calendar.event.EditEventActivity;
-import com.android.calendar.event.EditEventHelper;
-import com.android.calendar.event.EventViewUtils;
-import com.android.calendarcommon.EventRecurrence;
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
+import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -42,10 +37,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -96,17 +95,21 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarEventModel.Attendee;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
+import com.android.calendar.event.AttendeesView;
+import com.android.calendar.event.EditEventActivity;
+import com.android.calendar.event.EditEventHelper;
+import com.android.calendar.event.EventViewUtils;
+import com.android.calendarcommon.EventRecurrence;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-import static com.android.calendar.CalendarController.EVENT_EDIT_ON_LAUNCH;
-
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
         CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener {
@@ -167,7 +170,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Events.HAS_ALARM,            // 14
         Calendars.MAX_REMINDERS,     //15
         Calendars.ALLOWED_REMINDERS, // 16
-        Events.ORIGINAL_SYNC_ID,     // 17 do not remove; used in DeleteEventHelper
+        Events.CUSTOM_APP_PACKAGE,   // 17
+        Events.CUSTOM_APP_URI,       // 18
+        Events.ORIGINAL_SYNC_ID,     // 19 do not remove; used in DeleteEventHelper
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -185,6 +190,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int EVENT_INDEX_HAS_ALARM = 14;
     private static final int EVENT_INDEX_MAX_REMINDERS = 15;
     private static final int EVENT_INDEX_ALLOWED_REMINDERS = 16;
+    private static final int EVENT_INDEX_CUSTOM_APP_PACKAGE = 17;
+    private static final int EVENT_INDEX_CUSTOM_APP_URI = 18;
 
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
@@ -250,6 +257,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private Cursor mRemindersCursor;
 
     private static float mScale = 0; // Used for supporting different screen densities
+
+    private static int mCustomAppIconSize = 32;
 
     private long mStartMillis;
     private long mEndMillis;
@@ -494,13 +503,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
             int attendeeResponse, boolean isDialog, int windowStyle) {
 
-        if (isDialog) {
-            Resources r = context.getResources();
-
-
-            if (mScale == 0) {
-                mScale = context.getResources().getDisplayMetrics().density;
-                if (mScale != 1) {
+        Resources r = context.getResources();
+        if (mScale == 0) {
+            mScale = context.getResources().getDisplayMetrics().density;
+            if (mScale != 1) {
+                mCustomAppIconSize *= mScale;
+                if (isDialog) {
                     mDialogWidth = r.getInteger(R.integer.event_info_dialog_width);
                     mDialogHeight = r.getInteger(R.integer.event_info_dialog_height);
                     mDialogWidth *= mScale;
@@ -1218,6 +1226,81 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mDesc.setText(description);
         }
 
+        // Launch Custom App
+        updateCustomAppButton();
+    }
+
+    private void updateCustomAppButton() {
+        buttonSetup: {
+            final Button launchButton = (Button) mView.findViewById(R.id.launch_custom_app_button);
+            if (launchButton == null)
+                break buttonSetup;
+
+            final String customAppPackage = mEventCursor.getString(EVENT_INDEX_CUSTOM_APP_PACKAGE);
+            final String customAppUri = mEventCursor.getString(EVENT_INDEX_CUSTOM_APP_URI);
+
+            if (TextUtils.isEmpty(customAppPackage) || TextUtils.isEmpty(customAppUri))
+                break buttonSetup;
+
+            PackageManager pm = mContext.getPackageManager();
+            if (pm == null)
+                break buttonSetup;
+
+            ApplicationInfo info;
+            try {
+                info = pm.getApplicationInfo(customAppPackage, 0);
+                if (info == null)
+                    break buttonSetup;
+            } catch (NameNotFoundException e) {
+                break buttonSetup;
+            }
+
+            Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
+            final Intent intent = new Intent(CalendarContract.ACTION_HANDLE_CUSTOM_EVENT, uri);
+            intent.setPackage(customAppPackage);
+            intent.putExtra(CalendarContract.EXTRA_CUSTOM_APP_URI, customAppUri);
+            intent.putExtra(EXTRA_EVENT_BEGIN_TIME, mStartMillis);
+
+            // See if we have a taker for our intent
+            if (pm.resolveActivity(intent, 0) == null)
+                break buttonSetup;
+
+            Drawable icon = pm.getApplicationIcon(info);
+            if (icon != null) {
+
+                Drawable[] d = launchButton.getCompoundDrawables();
+                icon.setBounds(0, 0, mCustomAppIconSize, mCustomAppIconSize);
+                launchButton.setCompoundDrawables(icon, d[1], d[2], d[3]);
+            }
+
+            CharSequence label = pm.getApplicationLabel(info);
+            if (label != null && label.length() != 0) {
+                launchButton.setText(label);
+            } else if (icon == null) {
+                // No icon && no label. Hide button?
+                break buttonSetup;
+            }
+
+            // Launch custom app
+            launchButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        startActivityForResult(intent, 0);
+                    } catch (ActivityNotFoundException e) {
+                        // Shouldn't happen as we checked it already
+                        setVisibilityCommon(mView, R.id.launch_custom_app_container, View.GONE);
+                    }
+                }
+            });
+
+            setVisibilityCommon(mView, R.id.launch_custom_app_container, View.VISIBLE);
+            return;
+
+        }
+
+        setVisibilityCommon(mView, R.id.launch_custom_app_container, View.GONE);
+        return;
     }
 
     /**
