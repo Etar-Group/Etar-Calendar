@@ -252,7 +252,7 @@ public class AlertService extends Service {
             } else {
                 // Multiple expired events are listed in a digest.
                 notification = AlertReceiver.makeDigestNotification(context,
-                    expiredEvents, expiredDigestTitle);
+                    expiredEvents, expiredDigestTitle, false);
             }
 
             // Add options for a quiet update.
