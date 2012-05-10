@@ -80,8 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Tyhjää tapahtumaa ei voi luoda"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Kutsut lähetetään."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Päivitykset lähetetään."</string>
-    <!-- no translation found for past_alerts_title (8087610284451833210) -->
-    <skip />
+    <string name="past_alerts_title" msgid="8087610284451833210">"Aiemmat tapahtumat"</string>
     <string name="event_info_title" msgid="56024222340421620">"Näytä tapahtuma"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Kokouskutsu"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Loppupvm"</string>
@@ -123,7 +122,8 @@
     <string name="discard_label" msgid="2394623883289782541">"Peruuta"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Kaikki torkkutilaan"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Ohita kaikki"</string>
-    <!-- no translation found for snooze_5min_label (3846502651367125116) -->
+    <string name="snooze_5min_label" msgid="3846502651367125116">"Torkuta 5 minuuttia"</string>
+    <!-- no translation found for event_notification_big_text (3523682911470976907) -->
     <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"Yksittäinen tapahtuma"</string>
     <string name="daily" msgid="560350706808680448">"Päivittäin"</string>
@@ -205,8 +205,10 @@
     <item quantity="one" msgid="5230907142214104485">"1 tapahtuma"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> tapahtumaa"</item>
   </plurals>
-    <!-- no translation found for N_missed_events:one (1593156519341582311) -->
-    <!-- no translation found for N_missed_events:other (2265435399149554901) -->
+  <plurals name="N_missed_events">
+    <item quantity="one" msgid="1593156519341582311">"+1 ohitettu tapahtuma"</item>
+    <item quantity="other" msgid="2265435399149554901">"+<xliff:g id="COUNT">%d</xliff:g> ohitettua tapahtumaa"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Valittu tapahtuma"</string>
     <string name="do_not_check" msgid="7815441673853466129">"ÄLÄ valitse -&gt;"</string>
 </resources>
