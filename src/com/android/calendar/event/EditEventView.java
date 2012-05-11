@@ -16,26 +16,6 @@
 
 package com.android.calendar.event;
 
-import com.android.calendar.CalendarEventModel;
-import com.android.calendar.CalendarEventModel.Attendee;
-import com.android.calendar.CalendarEventModel.ReminderEntry;
-import com.android.calendar.EmailAddressAdapter;
-import com.android.calendar.EventInfoFragment;
-import com.android.calendar.GeneralPreferences;
-import com.android.calendar.R;
-import com.android.calendar.RecipientAdapter;
-import com.android.calendar.TimezoneAdapter;
-import com.android.calendar.TimezoneAdapter.TimezoneRow;
-import com.android.calendar.Utils;
-import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
-import com.android.calendarcommon.EventRecurrence;
-import com.android.common.Rfc822InputFilter;
-import com.android.common.Rfc822Validator;
-import com.android.ex.chips.AccountSpecifier;
-import com.android.ex.chips.BaseRecipientAdapter;
-import com.android.ex.chips.ChipsUtil;
-import com.android.ex.chips.RecipientEditTextView;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -50,11 +30,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 import android.provider.Settings;
 import android.text.InputFilter;
@@ -86,6 +65,26 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.android.calendar.CalendarEventModel;
+import com.android.calendar.CalendarEventModel.Attendee;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
+import com.android.calendar.EmailAddressAdapter;
+import com.android.calendar.EventInfoFragment;
+import com.android.calendar.GeneralPreferences;
+import com.android.calendar.R;
+import com.android.calendar.RecipientAdapter;
+import com.android.calendar.TimezoneAdapter;
+import com.android.calendar.TimezoneAdapter.TimezoneRow;
+import com.android.calendar.Utils;
+import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
+import com.android.calendarcommon.EventRecurrence;
+import com.android.common.Rfc822InputFilter;
+import com.android.common.Rfc822Validator;
+import com.android.ex.chips.AccountSpecifier;
+import com.android.ex.chips.BaseRecipientAdapter;
+import com.android.ex.chips.ChipsUtil;
+import com.android.ex.chips.RecipientEditTextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;

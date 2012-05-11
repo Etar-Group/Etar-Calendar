@@ -16,9 +16,6 @@
 
 package com.android.calendar;
 
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarController.ViewType;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -79,6 +76,9 @@ import android.widget.OverScroller;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
+
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -770,7 +770,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mEdgeEffectTop = new EdgeEffect(context);
         mEdgeEffectBottom = new EdgeEffect(context);
         ViewConfiguration vc = ViewConfiguration.get(context);
-        mOnDownDelay = vc.getTapTimeout();
+        mOnDownDelay = ViewConfiguration.getTapTimeout();
         OVERFLING_DISTANCE = vc.getScaledOverflingDistance();
 
         init(context);
@@ -3882,7 +3882,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         boolean hasSelection = mSelectionMode != SELECTION_HIDDEN;
         boolean pressedSelected = (hasSelection || mTouchExplorationEnabled)
                 && selectedDay == mSelectionDay && selectedHour == mSelectionHour;
-        boolean noEvent = mTouchExplorationEnabled && mSelectedEvent == null;
 
         if (pressedSelected && mSavedClickedEvent == null) {
             // If the tap is on an already selected hour slot, then create a new
