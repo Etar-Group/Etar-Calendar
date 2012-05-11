@@ -75,8 +75,10 @@ public class AlertActivity extends Activity implements OnClickListener {
     public static final int INDEX_STATE = 10;
     public static final int INDEX_ALARM_TIME = 11;
 
-    private static final String SELECTION = CalendarAlerts.STATE + "=? AND " +
-            CalendarAlerts.END + "<?";
+    private static final String SELECTION = CalendarAlerts.STATE + "=?";
+    private static final String[] SELECTIONARG = new String[] {
+        Integer.toString(CalendarAlerts.STATE_FIRED)
+    };
 
     private AlertAdapter mAdapter;
     private QueryHandler mQueryHandler;
@@ -85,11 +87,10 @@ public class AlertActivity extends Activity implements OnClickListener {
     private Button mDismissAllButton;
 
 
-    private void dismissFiredAlarmsForPastEvents() {
+    private void dismissFiredAlarms() {
         ContentValues values = new ContentValues(1 /* size */);
         values.put(PROJECTION[INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
-        String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED + " AND " +
-                CalendarAlerts.END + "<" + Long.toString(System.currentTimeMillis());
+        String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED;
         mQueryHandler.startUpdate(0, null, CalendarAlerts.CONTENT_URI, values,
                 selection, null /* selectionArgs */, Utils.UNDO_DELAY);
     }
@@ -176,7 +177,7 @@ public class AlertActivity extends Activity implements OnClickListener {
         super.onCreate(icicle);
 
         setContentView(R.layout.alert_activity);
-        setTitle(R.string.past_alerts_title);
+        setTitle(R.string.alert_title);
 
         mQueryHandler = new QueryHandler(this);
         mAdapter = new AlertAdapter(this, R.layout.alert_item);
@@ -200,11 +201,7 @@ public class AlertActivity extends Activity implements OnClickListener {
         // If the cursor is null, start the async handler. If it is not null just requery.
         if (mCursor == null) {
             Uri uri = CalendarAlerts.CONTENT_URI_BY_INSTANCE;
-            String[] selectionArgs = new String[] {
-                    Integer.toString(CalendarAlerts.STATE_FIRED),
-                    Long.toString(System.currentTimeMillis())
-            };
-            mQueryHandler.startQuery(0, null, uri, PROJECTION, SELECTION, selectionArgs,
+            mQueryHandler.startQuery(0, null, uri, PROJECTION, SELECTION, SELECTIONARG,
                     CalendarContract.CalendarAlerts.DEFAULT_SORT_ORDER);
         } else {
             if (!mCursor.requery()) {
@@ -218,7 +215,7 @@ public class AlertActivity extends Activity implements OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
-        AlertService.updateAlertNotification(this, false);
+        AlertService.updateAlertNotification(this);
 
         if (mCursor != null) {
             mCursor.deactivate();
@@ -240,7 +237,7 @@ public class AlertActivity extends Activity implements OnClickListener {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancel(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
 
-            dismissFiredAlarmsForPastEvents();
+            dismissFiredAlarms();
 
             finish();
         }

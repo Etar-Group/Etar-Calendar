@@ -217,8 +217,8 @@
 
     <!-- The alert toast is not actually being displayed for some reason. -->
     <skip/>
-    <!-- the title of the expired alert/notification activity -->
-    <string name="past_alerts_title">Past events</string>
+    <!-- the title of the alert/notification activity -->
+    <string name="alert_title">Calendar notifications</string>
     <!-- Notification window messages: -->
     <skip/>
 
@@ -612,11 +612,11 @@
     </plurals>
 
     <!-- number of remaining events for an alert digest in the notification bar [CHAR LIMIT = 30] -->
-    <plurals name="N_missed_events">
+    <plurals name="N_remaining_events">
         <!-- This is the label for 1 event. -->
-        <item quantity="one">+1 missed event</item>
+        <item quantity="one">+1 event</item>
         <!-- This is the label for 2 or more events. -->
-        <item quantity="other">+<xliff:g id="count">%d</xliff:g> missed events</item>
+        <item quantity="other">+<xliff:g id="count">%d</xliff:g> events</item>
     </plurals>
 
     <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->

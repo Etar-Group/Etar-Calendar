@@ -51,7 +51,6 @@ public class AlertUtils {
     public static final String EVENT_END_KEY = "eventend";
     public static final String NOTIFICATION_ID_KEY = "notificationid";
     public static final String DELETE_EXPIRED_ONLY_KEY = "expired";
-    static final String QUIET_UPDATE_KEY = "quietupdate";
 
     /**
      * Schedules an alarm intent with the system AlarmManager that will notify
@@ -87,7 +86,6 @@ public class AlertUtils {
         Intent intent = new Intent(CalendarContract.ACTION_EVENT_REMINDER);
         intent.setClass(context, AlertReceiver.class);
         if (quietUpdate) {
-            intent.putExtra(AlertUtils.QUIET_UPDATE_KEY, true);
             alarmType = AlarmManager.RTC;
         } else {
             // Set data field so we get a unique PendingIntent instance per alarm or else alarms

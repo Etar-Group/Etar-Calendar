@@ -82,7 +82,7 @@ public class SnoozeAlarmsService extends IntentService {
             resolver.insert(uri, values);
             AlertUtils.scheduleAlarm(SnoozeAlarmsService.this, null, alarmTime);
         }
-        AlertService.updateAlertNotification(this, false);
+        AlertService.updateAlertNotification(this);
         stopSelf();
     }
 }
