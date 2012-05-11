@@ -44,6 +44,7 @@ import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -100,8 +101,10 @@ public class AlertService extends Service {
     private static final String DISMISS_OLD_SELECTION = CalendarAlerts.END + "<? AND "
             + CalendarAlerts.STATE + "=?";
 
+    private static final int MINUTE_MS = 60 * 1000;
+
     // The grace period before changing a notification's priority bucket.
-    private static final int DEPRIORITIZE_GRACE_PERIOD_MS = 15 * 60 * 1000;
+    private static final int DEPRIORITIZE_GRACE_PERIOD_MS = 15 * MINUTE_MS;
 
     void processMessage(Message msg) {
         Bundle bundle = (Bundle) msg.obj;
@@ -155,8 +158,12 @@ public class AlertService extends Service {
         final long currentTime = System.currentTimeMillis();
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
 
-        boolean doAlert = prefs.getBoolean(GeneralPreferences.KEY_ALERTS, true);
-        if (!doAlert) {
+        if (DEBUG) {
+            Log.d(TAG, "Beginning updateAlertNotification" +
+                (quietUpdate ? " (silent refresh)" : ""));
+        }
+
+        if (!prefs.getBoolean(GeneralPreferences.KEY_ALERTS, true)) {
             if (DEBUG) {
                 Log.d(TAG, "alert preference is OFF");
             }
@@ -182,7 +189,7 @@ public class AlertService extends Service {
         }
 
         if (DEBUG) {
-            Log.d(TAG, "alert count:" + alertCursor.getCount());
+            Log.d(TAG, "alertCursor count:" + alertCursor.getCount());
         }
 
         // Process the query results and bucketize events.
@@ -200,13 +207,8 @@ public class AlertService extends Service {
         }
 
         quietUpdate = quietUpdate || (numFired == 0);
-        boolean doPopup = numFired > 0 &&
-                prefs.getBoolean(GeneralPreferences.KEY_ALERTS_POPUP, false);
-        boolean defaultVibrate = shouldUseDefaultVibrate(context, prefs);
-        String ringtone = quietUpdate ? null : prefs.getString(
-                GeneralPreferences.KEY_ALERTS_RINGTONE, null);
-        boolean notificationPosted = false;
         long nextRefreshTime = Long.MAX_VALUE;
+        NotificationPrefs notificationPrefs = new NotificationPrefs(context, prefs, quietUpdate);
 
         // Post the individual higher priority events (future and recently started
         // concurrent events).  Order these so that earlier start times appear higher in
@@ -214,9 +216,14 @@ public class AlertService extends Service {
         for (NotificationInfo info : highPriorityEvents) {
             String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
                     info.allDay, info.location);
-            postNotification(info, summaryText, context, quietUpdate, doPopup, defaultVibrate,
-                    ringtone, true, notificationPosted, nm);
-            notificationPosted = true;
+            postNotification(info, summaryText, context, true, notificationPrefs, nm);
+
+            // Keep concurrent events high priority (to appear higher in the notification list)
+            // until 15 minutes into the event.
+            long gracePeriodEnd = info.startMillis + DEPRIORITIZE_GRACE_PERIOD_MS;
+            if (gracePeriodEnd > currentTime) {
+                nextRefreshTime = Math.min(nextRefreshTime, gracePeriodEnd);
+            }
         }
 
         // Post the medium priority events (concurrent events that started a while ago).
@@ -231,9 +238,7 @@ public class AlertService extends Service {
             // Refresh when concurrent event ends so it will drop into the expired digest.
             nextRefreshTime = Math.min(nextRefreshTime, info.endMillis);
 
-            postNotification(info, summaryText, context, quietUpdate, false, defaultVibrate,
-                    ringtone, false, notificationPosted, nm);
-            notificationPosted = true;
+            postNotification(info, summaryText, context, false, notificationPrefs, nm);
         }
 
         // Post the expired events as 1 combined notification.
@@ -255,8 +260,9 @@ public class AlertService extends Service {
             }
 
             // Add options for a quiet update.
-            addNotificationOptions(notification, true, expiredDigestTitle, defaultVibrate,
-                    ringtone, notificationPosted);
+            addNotificationOptions(notification, true, expiredDigestTitle,
+                    notificationPrefs.getDefaultVibrate(),
+                    notificationPrefs.getRingtoneAndSilence());
 
             // Remove any individual expired notifications before posting.
             for (NotificationInfo expiredInfo : expiredEvents) {
@@ -265,21 +271,31 @@ public class AlertService extends Service {
 
             // Post the new notification for the group.
             nm.notify(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, notification);
-            notificationPosted = true;
 
             if (DEBUG) {
-                Log.d(TAG, "Posting digest alarm notification, numEvents:" + expiredEvents.size()
-                        + ", notificationId:" + AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID
-                        + (quietUpdate ? ", quiet" : ", loud"));
+                Log.d(TAG, "Quietly posting digest alarm notification, numEvents:"
+                        + expiredEvents.size() + ", notificationId:"
+                        + AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
             }
         } else {
             nm.cancel(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
+            if (DEBUG) {
+                Log.d(TAG, "No expired events, canceling the digest notification.");
+            }
         }
 
         // Schedule the next silent refresh time so notifications will change
         // buckets (eg. drop into expired digest, etc).
         if (nextRefreshTime > currentTime) {
             AlertUtils.scheduleNextNotificationRefresh(context, null, nextRefreshTime);
+            if (DEBUG) {
+                long minutesBeforeRefresh = (nextRefreshTime - currentTime) / MINUTE_MS;
+                Time time = new Time();
+                time.set(nextRefreshTime);
+                String msg = String.format("Scheduling next notification refresh in %d min at: "
+                        + "%d:%02d", minutesBeforeRefresh, time.hour, time.minute);
+                Log.d(TAG, msg);
+            }
         } else if (nextRefreshTime < currentTime) {
             Log.e(TAG, "Illegal state: next notification refresh time found to be in the past.");
         }
@@ -325,7 +341,7 @@ public class AlertService extends Service {
                 final boolean allDay = alertCursor.getInt(ALERT_INDEX_ALL_DAY) != 0;
 
                 if (DEBUG) {
-                    Log.d(TAG, "alarmTime:" + alarmTime + " alertId:" + alertId
+                    Log.d(TAG, "alertCursor result: alarmTime:" + alarmTime + " alertId:" + alertId
                             + " eventId:" + eventId + " state: " + state + " minutes:" + minutes
                             + " declined:" + declined + " beginTime:" + beginTime
                             + " endTime:" + endTime);
@@ -420,21 +436,27 @@ public class AlertService extends Service {
     }
 
     private static void postNotification(NotificationInfo info, String summaryText,
-            Context context, boolean quietUpdate, boolean doPopup, boolean defaultVibrate,
-            String ringtone, boolean highPriority, boolean invokedNotify,
+            Context context, boolean highPriority, NotificationPrefs prefs,
             NotificationManager notificationMgr) {
         String tickerText = getTickerText(info.eventName, info.location);
         Notification notification = AlertReceiver.makeExpandingNotification(context,
                 info.eventName, summaryText, info.description, info.startMillis,
-                info.endMillis, info.eventId, info.notificationId, doPopup, highPriority);
-        addNotificationOptions(notification, quietUpdate, tickerText, defaultVibrate,
-                ringtone, invokedNotify);
+                info.endMillis, info.eventId, info.notificationId, prefs.getDoPopup(),
+                highPriority);
+
+        // If we've already posted a notification, don't play any more sounds so only
+        // 1 sound per group of notifications.
+        String ringtone = prefs.getRingtoneAndSilence();
+        addNotificationOptions(notification, prefs.quietUpdate, tickerText,
+                prefs.getDefaultVibrate(), ringtone);
+
+        // Post the notification.
         notificationMgr.notify(info.notificationId, notification);
 
         if (DEBUG) {
             Log.d(TAG, "Posting individual alarm notification, eventId:" + info.eventId
                     + ", notificationId:" + info.notificationId
-                    + (quietUpdate ? ", quiet" : ", loud")
+                    + (TextUtils.isEmpty(ringtone) ? ", quiet" : ", LOUD")
                     + (highPriority ? ", high-priority" : ""));
         }
     }
@@ -521,8 +543,7 @@ public class AlertService extends Service {
     }
 
     private static void addNotificationOptions(Notification notification, boolean quietUpdate,
-            String tickerText, boolean defaultVibrate, String reminderRingtone,
-            boolean invokedNotify) {
+            String tickerText, boolean defaultVibrate, String reminderRingtone) {
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
@@ -532,23 +553,103 @@ public class AlertService extends Service {
                 notification.tickerText = tickerText;
             }
 
-            // If we've already posted a notification, don't play any more sounds so only
-            // 1 sound per group of notifications.
-            if (!invokedNotify) {
+            // Generate either a pop-up dialog, status bar notification, or
+            // neither. Pop-up dialog and status bar notification may include a
+            // sound, an alert, or both. A status bar notification also includes
+            // a toast.
+            if (defaultVibrate) {
+                notification.defaults |= Notification.DEFAULT_VIBRATE;
+            }
 
-                // Generate either a pop-up dialog, status bar notification, or
-                // neither. Pop-up dialog and status bar notification may include a
-                // sound, an alert, or both. A status bar notification also includes
-                // a toast.
-                if (defaultVibrate) {
-                    notification.defaults |= Notification.DEFAULT_VIBRATE;
+            // Possibly generate a sound. If 'Silent' is chosen, the ringtone
+            // string will be empty.
+            notification.sound = TextUtils.isEmpty(reminderRingtone) ? null : Uri
+                    .parse(reminderRingtone);
+        }
+    }
+
+    private static class NotificationPrefs {
+        boolean quietUpdate;
+        private Context context;
+        private SharedPreferences prefs;
+
+        // These are lazily initialized, do not access any of the following directly; use getters.
+        private int doPopup = -1;
+        private int defaultVibrate = -1;
+        private String ringtone = null;
+
+        private static final String EMPTY = "";
+
+        NotificationPrefs(Context context, SharedPreferences prefs,
+                boolean quietUpdate) {
+            this.context = context;
+            this.prefs = prefs;
+            this.quietUpdate = quietUpdate;
+        }
+
+        private boolean getDoPopup() {
+            if (doPopup < 0) {
+                if (prefs.getBoolean(GeneralPreferences.KEY_ALERTS_POPUP, false)) {
+                    doPopup = 1;
+                } else {
+                    doPopup = 0;
+                }
+            }
+            return doPopup == 1;
+        }
+
+        private boolean getDefaultVibrate() {
+            if (defaultVibrate < 0) {
+                // Find out the circumstances under which to vibrate.
+                // Migrate from pre-Froyo boolean setting if necessary.
+                String vibrateWhen; // "always" or "silent" or "never"
+                if(prefs.contains(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN))
+                {
+                    // Look up Froyo setting
+                    vibrateWhen =
+                        prefs.getString(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN, null);
+                } else if(prefs.contains(GeneralPreferences.KEY_ALERTS_VIBRATE)) {
+                    // No Froyo setting. Migrate pre-Froyo setting to new Froyo-defined value.
+                    boolean vibrate =
+                        prefs.getBoolean(GeneralPreferences.KEY_ALERTS_VIBRATE, false);
+                    vibrateWhen = vibrate ?
+                        context.getString(R.string.prefDefault_alerts_vibrate_true) :
+                        context.getString(R.string.prefDefault_alerts_vibrate_false);
+                } else {
+                    // No setting. Use Froyo-defined default.
+                    vibrateWhen = context.getString(R.string.prefDefault_alerts_vibrateWhen);
                 }
 
-                // Possibly generate a sound. If 'Silent' is chosen, the ringtone
-                // string will be empty.
-                notification.sound = TextUtils.isEmpty(reminderRingtone) ? null : Uri
-                        .parse(reminderRingtone);
+                if (vibrateWhen.equals("always")) {
+                    return true;
+                }
+                if (!vibrateWhen.equals("silent")) {
+                    return false;
+                }
+
+                // Settings are to vibrate when silent.  Return true if it is now silent.
+                AudioManager audioManager =
+                    (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+                if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE) {
+                    defaultVibrate = 1;
+                } else {
+                    defaultVibrate = 0;
+                }
             }
+            return defaultVibrate == 1;
+        }
+
+        private String getRingtoneAndSilence() {
+            if (ringtone == null) {
+                if (quietUpdate) {
+                    ringtone = EMPTY;
+                } else {
+                    ringtone = prefs.getString(GeneralPreferences.KEY_ALERTS_RINGTONE, null);
+                }
+            }
+            String retVal = ringtone;
+            ringtone = EMPTY;
+            return retVal;
         }
     }
 
