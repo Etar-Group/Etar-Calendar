@@ -16,11 +16,6 @@
 
 package com.android.calendar.alerts;
 
-import com.android.calendar.AsyncQueryService;
-import com.android.calendar.EventInfoActivity;
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.TaskStackBuilder;
@@ -30,6 +25,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +34,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.android.calendar.AsyncQueryService;
+import com.android.calendar.EventInfoActivity;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 /**
  * The alert panel that pops up when there is a calendar event alarm.
@@ -76,10 +77,6 @@ public class AlertActivity extends Activity implements OnClickListener {
 
     private static final String SELECTION = CalendarAlerts.STATE + "=? AND " +
             CalendarAlerts.END + "<?";
-    private static final String[] SELECTIONARG = new String[] {
-        Integer.toString(CalendarAlerts.STATE_FIRED), Long.toString(System.currentTimeMillis())
-    };
-    private static final String DESCENDING_SORT = "begin DESC, end DESC";
 
     private AlertAdapter mAdapter;
     private QueryHandler mQueryHandler;
@@ -203,8 +200,12 @@ public class AlertActivity extends Activity implements OnClickListener {
         // If the cursor is null, start the async handler. If it is not null just requery.
         if (mCursor == null) {
             Uri uri = CalendarAlerts.CONTENT_URI_BY_INSTANCE;
-            mQueryHandler.startQuery(0, null, uri, PROJECTION, SELECTION,
-                    SELECTIONARG, DESCENDING_SORT);
+            String[] selectionArgs = new String[] {
+                    Integer.toString(CalendarAlerts.STATE_FIRED),
+                    Long.toString(System.currentTimeMillis())
+            };
+            mQueryHandler.startQuery(0, null, uri, PROJECTION, SELECTION, selectionArgs,
+                    CalendarContract.CalendarAlerts.DEFAULT_SORT_ORDER);
         } else {
             if (!mCursor.requery()) {
                 Log.w(TAG, "Cursor#requery() failed.");
