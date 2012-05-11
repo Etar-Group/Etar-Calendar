@@ -25,9 +25,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
-
-
-
 /**
  * A custom view to draw the day of the month in the today button in the options menu
  */
@@ -46,16 +43,16 @@ public class DayOfMonthDrawable extends Drawable {
         mPaint.setColor(0xFF777777);
         mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mPaint.setTextSize(mTextSize);
+        mPaint.setTextAlign(Paint.Align.CENTER);
     }
 
     @Override
     public void draw(Canvas canvas) {
         mPaint.getTextBounds(mDayOfMonth, 0, mDayOfMonth.length(), mTextBounds);
-        int textWidth = mTextBounds.right - mTextBounds.left;
         int textHeight = mTextBounds.bottom - mTextBounds.top;
         Rect bounds = getBounds();
-        canvas.drawText(mDayOfMonth, ((float)(bounds.right - textWidth)) / 2,
-                ((float)bounds.bottom + textHeight) / 2, mPaint);
+        canvas.drawText(mDayOfMonth, bounds.right / 2, ((float) bounds.bottom + textHeight + 1) / 2,
+                mPaint);
     }
 
     @Override
