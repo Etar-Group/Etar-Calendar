@@ -142,6 +142,8 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"אירוע חדש"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"אירוע חדש"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"למחוק אירוע זה?"</string>
+    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
+    <skip />
     <string name="change_response_title" msgid="7704714776070974984">"שנה תגובה"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"הגדרות כלליות"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"מידע על \'יומן Google\'"</string>

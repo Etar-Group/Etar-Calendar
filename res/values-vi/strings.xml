@@ -142,6 +142,8 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Sự kiện mới"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Sự kiện mới"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Xóa sự kiện này?"</string>
+    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
+    <skip />
     <string name="change_response_title" msgid="7704714776070974984">"Thay đổi phản hồi"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Cài đặt chung"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Giới thiệu về lịch"</string>
