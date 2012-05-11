@@ -205,6 +205,7 @@ public class AlertService extends Service {
         boolean defaultVibrate = shouldUseDefaultVibrate(context, prefs);
         String ringtone = quietUpdate ? null : prefs.getString(
                 GeneralPreferences.KEY_ALERTS_RINGTONE, null);
+        boolean notificationPosted = false;
         long nextRefreshTime = Long.MAX_VALUE;
 
         // Post the individual higher priority events (future and recently started
@@ -214,14 +215,8 @@ public class AlertService extends Service {
             String summaryText = AlertUtils.formatTimeLocation(context, info.startMillis,
                     info.allDay, info.location);
             postNotification(info, summaryText, context, quietUpdate, doPopup, defaultVibrate,
-                    ringtone, true, nm);
-
-            // Keep concurrent events high priority (to appear higher in the notification list)
-            // until 15 minutes into the event.
-            long gracePeriodEnd = info.startMillis + DEPRIORITIZE_GRACE_PERIOD_MS;
-            if (gracePeriodEnd > currentTime) {
-                nextRefreshTime = Math.min(nextRefreshTime, gracePeriodEnd);
-            }
+                    ringtone, true, notificationPosted, nm);
+            notificationPosted = true;
         }
 
         // Post the medium priority events (concurrent events that started a while ago).
@@ -237,7 +232,8 @@ public class AlertService extends Service {
             nextRefreshTime = Math.min(nextRefreshTime, info.endMillis);
 
             postNotification(info, summaryText, context, quietUpdate, false, defaultVibrate,
-                    ringtone, false, nm);
+                    ringtone, false, notificationPosted, nm);
+            notificationPosted = true;
         }
 
         // Post the expired events as 1 combined notification.
@@ -259,7 +255,8 @@ public class AlertService extends Service {
             }
 
             // Add options for a quiet update.
-            addNotificationOptions(notification, true, expiredDigestTitle, defaultVibrate, ringtone);
+            addNotificationOptions(notification, true, expiredDigestTitle, defaultVibrate,
+                    ringtone, notificationPosted);
 
             // Remove any individual expired notifications before posting.
             for (NotificationInfo expiredInfo : expiredEvents) {
@@ -268,6 +265,7 @@ public class AlertService extends Service {
 
             // Post the new notification for the group.
             nm.notify(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, notification);
+            notificationPosted = true;
 
             if (DEBUG) {
                 Log.d(TAG, "Posting digest alarm notification, numEvents:" + expiredEvents.size()
@@ -423,13 +421,14 @@ public class AlertService extends Service {
 
     private static void postNotification(NotificationInfo info, String summaryText,
             Context context, boolean quietUpdate, boolean doPopup, boolean defaultVibrate,
-            String ringtone, boolean highPriority, NotificationManager notificationMgr) {
+            String ringtone, boolean highPriority, boolean invokedNotify,
+            NotificationManager notificationMgr) {
         String tickerText = getTickerText(info.eventName, info.location);
         Notification notification = AlertReceiver.makeExpandingNotification(context,
                 info.eventName, summaryText, info.description, info.startMillis,
                 info.endMillis, info.eventId, info.notificationId, doPopup, highPriority);
         addNotificationOptions(notification, quietUpdate, tickerText, defaultVibrate,
-                ringtone);
+                ringtone, invokedNotify);
         notificationMgr.notify(info.notificationId, notification);
 
         if (DEBUG) {
@@ -522,7 +521,8 @@ public class AlertService extends Service {
     }
 
     private static void addNotificationOptions(Notification notification, boolean quietUpdate,
-            String tickerText, boolean defaultVibrate, String reminderRingtone) {
+            String tickerText, boolean defaultVibrate, String reminderRingtone,
+            boolean invokedNotify) {
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
@@ -532,18 +532,23 @@ public class AlertService extends Service {
                 notification.tickerText = tickerText;
             }
 
-            // Generate either a pop-up dialog, status bar notification, or
-            // neither. Pop-up dialog and status bar notification may include a
-            // sound, an alert, or both. A status bar notification also includes
-            // a toast.
-            if (defaultVibrate) {
-                notification.defaults |= Notification.DEFAULT_VIBRATE;
-            }
+            // If we've already posted a notification, don't play any more sounds so only
+            // 1 sound per group of notifications.
+            if (!invokedNotify) {
 
-            // Possibly generate a sound. If 'Silent' is chosen, the ringtone
-            // string will be empty.
-            notification.sound = TextUtils.isEmpty(reminderRingtone) ? null : Uri
-                    .parse(reminderRingtone);
+                // Generate either a pop-up dialog, status bar notification, or
+                // neither. Pop-up dialog and status bar notification may include a
+                // sound, an alert, or both. A status bar notification also includes
+                // a toast.
+                if (defaultVibrate) {
+                    notification.defaults |= Notification.DEFAULT_VIBRATE;
+                }
+
+                // Possibly generate a sound. If 'Silent' is chosen, the ringtone
+                // string will be empty.
+                notification.sound = TextUtils.isEmpty(reminderRingtone) ? null : Uri
+                        .parse(reminderRingtone);
+            }
         }
     }
 
