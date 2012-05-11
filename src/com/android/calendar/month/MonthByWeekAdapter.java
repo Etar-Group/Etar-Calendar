@@ -81,7 +81,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         }
         mShowAgendaWithMonth = Utils.getConfigBool(context, R.bool.show_agenda_with_month);
         ViewConfiguration vc = ViewConfiguration.get(context);
-        mOnDownDelay = vc.getTapTimeout();
+        mOnDownDelay = ViewConfiguration.getTapTimeout();
         mMovedPixelToCancel = vc.getScaledTouchSlop();
         mTotalClickDelay = mOnDownDelay + mOnTapDelay;
 

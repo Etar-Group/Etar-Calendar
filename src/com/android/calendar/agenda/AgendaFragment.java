@@ -42,10 +42,7 @@ import com.android.calendar.EventInfoFragment;
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
 import com.android.calendar.StickyHeaderListView;
-import com.android.calendar.StickyHeaderListView.HeaderHeightListener;
-import com.android.calendar.StickyHeaderListView.HeaderIndexer;
 import com.android.calendar.Utils;
-
 
 public class AgendaFragment extends Fragment implements CalendarController.EventHandler,
         OnScrollListener {

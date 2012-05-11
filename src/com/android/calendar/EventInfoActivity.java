@@ -23,13 +23,11 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.ContentUris;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
-import android.provider.CalendarContract.Events;
 import android.util.Log;
 
 public class EventInfoActivity extends Activity {
