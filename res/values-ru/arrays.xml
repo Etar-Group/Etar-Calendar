@@ -168,7 +168,7 @@
     <item msgid="7564374178324652137">"последн."</item>
   </string-array>
   <string-array name="response_labels1">
-    <item msgid="5605392595848194997">"Нет ответов"</item>
+    <item msgid="5605392595848194997">"Не ответили"</item>
     <item msgid="3724434080904437698">"Да"</item>
     <item msgid="8854145743148992583">"Может быть"</item>
     <item msgid="6174292185978948873">"Нет"</item>
