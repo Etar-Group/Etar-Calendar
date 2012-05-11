@@ -18,17 +18,19 @@ package com.android.calendar;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 
-import com.android.calendar.CalendarController.ViewType;
-
 import android.app.Activity;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,6 +41,7 @@ import android.text.format.Time;
 import android.util.Log;
 import android.widget.SearchView;
 
+import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
 
 import java.util.ArrayList;
@@ -1366,5 +1369,65 @@ public class Utils {
      */
     public static boolean isValidEmail(String email) {
         return email != null && !email.endsWith(MACHINE_GENERATED_ADDRESS);
+    }
+
+    /**
+     * Inserts a drawable with today's day into the today's icon in the option menu
+     * @param icon - today's icon from the options menu
+     */
+    public static void setTodayIcon(LayerDrawable icon, Context c, String timezone) {
+        DayOfMonthDrawable today;
+
+        // Reuse current drawable if possible
+        Drawable currentDrawable = icon.findDrawableByLayerId(R.id.today_icon_day);
+        if (currentDrawable != null && currentDrawable instanceof DayOfMonthDrawable) {
+            today = (DayOfMonthDrawable)currentDrawable;
+        } else {
+            today = new DayOfMonthDrawable(c);
+        }
+        // Set the day and update the icon
+        Time now =  new Time(timezone);
+        now.setToNow();
+        now.normalize(false);
+        today.setDayOfMonth(now.monthDay);
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.today_icon_day, today);
+    }
+
+    private static class CalendarBroadcastReceiver extends BroadcastReceiver {
+
+        Runnable mCallBack;
+
+        public CalendarBroadcastReceiver(Runnable callback) {
+            super();
+            mCallBack = callback;
+        }
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_DATE_CHANGED) ||
+                    intent.getAction().equals(Intent.ACTION_TIME_CHANGED) ||
+                    intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED) ||
+                    intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                if (mCallBack != null) {
+                    mCallBack.run();
+                }
+            }
+        }
+    }
+
+    public static BroadcastReceiver setTimeChangesReceiver(Context c, Runnable callback) {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_TIME_CHANGED);
+        filter.addAction(Intent.ACTION_DATE_CHANGED);
+        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        filter.addAction(Intent.ACTION_LOCALE_CHANGED);
+
+        CalendarBroadcastReceiver r = new CalendarBroadcastReceiver(callback);
+        c.registerReceiver(r, filter);
+        return r;
+    }
+
+    public static void clearTimeChangesReceiver(Context c, BroadcastReceiver r) {
+        c.unregisterReceiver(r);
     }
 }
