@@ -23,7 +23,6 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
@@ -32,8 +31,6 @@ import android.provider.CalendarContract.Instances;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -85,29 +82,14 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
     private CursorLoader mLoader;
     private Uri mEventUri;
-    private GestureDetector mGestureDetector;
     private final Time mDesiredDay = new Time();
 
     private volatile boolean mShouldLoad = true;
     private boolean mUserScrolled = false;
 
-    private static float mScale = 0;
-
     private int mEventsLoadingDelay;
     private boolean mShowCalendarControls;
     private boolean mIsDetached;
-
-    // These define the behavior of the fling. Below MIN_VELOCITY_FOR_FLING, do the system fling
-    // behavior. Between MIN_VELOCITY_FOR_FLING and MULTIPLE_MONTH_VELOCITY_THRESHOLD, do one month
-    // fling. Above MULTIPLE_MONTH_VELOCITY_THRESHOLD, do multiple month flings according to the
-    // fling strength. When doing multiple month fling, the velocity is reduced by this threshold
-    // to prevent moving from one month fling to 4 months and above flings.
-    private static int MIN_VELOCITY_FOR_FLING = 750;
-    private static int MULTIPLE_MONTH_VELOCITY_THRESHOLD = 4000;
-    private static int FLING_VELOCITY_DIVIDER = 500;
-    private static int FLING_TIME = 1000;
-    private final Rect mFirstViewRect = new Rect();
-
 
     private final Runnable mTZUpdater = new Runnable() {
         @Override
@@ -225,67 +207,6 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         }
     }
 
-    class MonthGestureListener extends SimpleOnGestureListener {
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                float velocityY) {
-
-            // Small flings are just that, do not change the behavior
-            if (Math.abs(velocityY) < MIN_VELOCITY_FOR_FLING) {
-                return false;
-            }
-
-            // Below the threshold, fling one month. Above the threshold , fling according
-            // to the speed of the fling.
-            int monthsToJump;
-            if (Math.abs(velocityY) < MULTIPLE_MONTH_VELOCITY_THRESHOLD) {
-                if (velocityY < 0) {
-                    monthsToJump = 1;
-                } else {
-                    // value here is zero and not -1 since by the time the fling is detected
-                    // the list moved back one month.
-                    monthsToJump = 0;
-                }
-            } else {
-                if (velocityY < 0) {
-                    monthsToJump = 1 -
-                        (int)((velocityY + MULTIPLE_MONTH_VELOCITY_THRESHOLD) /
-                                FLING_VELOCITY_DIVIDER);
-                } else {
-                    monthsToJump = -(int)((velocityY - MULTIPLE_MONTH_VELOCITY_THRESHOLD) /
-                            FLING_VELOCITY_DIVIDER);
-                }
-            }
-
-            // Get the day at the top right corner
-            int day = getUpperRightJulianDay();
-            // Get the day of the first day of the next/previous month
-            // (according to scroll direction)
-            mTempTime.setJulianDay(day);
-            mTempTime.monthDay = 1;
-            mTempTime.month += monthsToJump;
-            long timeInMillis = mTempTime.normalize(true);
-            // Since each view is 7 days, round the target day up to make sure the scroll will be
-            // at least one view.
-            int scrollToDay = Time.getJulianDay(timeInMillis, mTempTime.gmtoff) +
-                    ((monthsToJump > 0) ? 6 : 0);
-
-            // Since all views have the same height, scroll by pixels instead of "to position".
-            // Compensate for the top view offset from the top.
-            View firstView = mListView.getChildAt(0);
-            int firstViewHeight = firstView.getHeight();
-            // Get visible part length
-            firstView.getLocalVisibleRect(mFirstViewRect);
-            int topViewVisiblePart = mFirstViewRect.bottom - mFirstViewRect.top;
-            int viewsToFling = (scrollToDay - day) / 7 - ((monthsToJump <= 0) ? 1 : 0);
-            int offset = (viewsToFling > 0) ? -(firstViewHeight - topViewVisiblePart) :
-                    topViewVisiblePart - LIST_TOP_OFFSET;
-            // Fling
-            mListView.smoothScrollBy(viewsToFling * firstViewHeight + offset, FLING_TIME);
-            return true;
-        }
-    }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -295,7 +216,6 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         }
         mIsDetached = false;
 
-        mGestureDetector = new GestureDetector(activity, new MonthGestureListener());
         ViewConfiguration viewConfig = ViewConfiguration.get(activity);
         mMinimumTwoMonthFlingVelocity = viewConfig.getScaledMaximumFlingVelocity() / 2;
         Resources res = activity.getResources();
@@ -305,16 +225,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         if (mShowCalendarControls) {
             mEventsLoadingDelay = res.getInteger(R.integer.calendar_controls_animation_time);
         }
-
-        if (mScale == 0) {
-            mScale = res.getDisplayMetrics().density;
-            mShowDetailsInMonth = res.getBoolean(R.bool.show_details_in_month);
-            if (mScale != 1) {
-                MIN_VELOCITY_FOR_FLING *= mScale;
-                MULTIPLE_MONTH_VELOCITY_THRESHOLD *= mScale;
-                FLING_VELOCITY_DIVIDER *= mScale;
-            }
-        }
+        mShowDetailsInMonth = res.getBoolean(R.bool.show_details_in_month);
     }
 
     @Override
@@ -569,7 +480,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         mDesiredDay.setToNow();
-        return mGestureDetector.onTouchEvent(event);
+        return false;
         // TODO post a cleanup to push us back onto the grid if something went
         // wrong in a scroll such as the user stopping the view but not
         // scrolling
