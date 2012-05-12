@@ -43,7 +43,7 @@
             android:title="@string/preferences_home_tz_title"
             android:entries="@array/timezone_labels"
             android:entryValues="@array/timezone_values"
-            android:dialogTitle="@string/preferences_home_tz_title" />
+            android:dialogTitle="@string/timezone_label" />
         <PreferenceScreen
             android:key="preferences_clear_search_history"
             android:title="@string/preferences_clear_search_history_title"
