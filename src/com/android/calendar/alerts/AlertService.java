@@ -252,7 +252,7 @@ public class AlertService extends Service {
                         info.allDay, info.location);
                 notification = AlertReceiver.makeBasicNotification(context, info.eventName,
                         summaryText, info.startMillis, info.endMillis, info.eventId,
-                        info.notificationId, false);
+                        AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, false);
             } else {
                 // Multiple expired events are listed in a digest.
                 notification = AlertReceiver.makeDigestNotification(context,
@@ -286,7 +286,7 @@ public class AlertService extends Service {
 
         // Schedule the next silent refresh time so notifications will change
         // buckets (eg. drop into expired digest, etc).
-        if (nextRefreshTime > currentTime) {
+        if (nextRefreshTime < Long.MAX_VALUE && nextRefreshTime > currentTime) {
             AlertUtils.scheduleNextNotificationRefresh(context, null, nextRefreshTime);
             if (DEBUG) {
                 long minutesBeforeRefresh = (nextRefreshTime - currentTime) / MINUTE_MS;
