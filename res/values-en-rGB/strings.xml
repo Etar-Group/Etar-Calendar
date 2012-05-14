@@ -141,8 +141,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"New event"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"New event"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Delete this event?"</string>
-    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
-    <skip />
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Delete <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Change response"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"General settings"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"About Calendar"</string>
