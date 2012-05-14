@@ -2958,7 +2958,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                     (int) event.bottom);
             setupAllDayTextRect(r);
             StaticLayout layout = getEventLayout(mAllDayLayouts, i, event, eventTextPaint, r);
-            drawEventText(layout, r, canvas, r.top, r.bottom);
+            drawEventText(layout, r, canvas, r.top, r.bottom, true);
 
             // Check if this all-day event intersects the selected day
             if (mSelectionAllday && mComputeSelectedEvents) {
@@ -3132,7 +3132,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             StaticLayout layout = getEventLayout(mLayouts, i, event, eventTextPaint, r);
             // TODO: not sure why we are 4 pixels off
             drawEventText(layout, r, canvas, mViewStartY + 4, mViewStartY + mViewHeight
-                    - DAY_HEADER_HEIGHT - mAlldayHeight);
+                    - DAY_HEADER_HEIGHT - mAlldayHeight, false);
         }
         eventTextPaint.setAlpha(alpha);
 
@@ -3549,7 +3549,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     }
 
     private void drawEventText(StaticLayout eventLayout, Rect rect, Canvas canvas, int top,
-            int bottom) {
+            int bottom, boolean center) {
         // drawEmptyRect(canvas, rect, 0xFFFF00FF); // for debugging
 
         int width = rect.right - rect.left;
@@ -3577,7 +3577,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         // Use a StaticLayout to format the string.
         canvas.save();
-        canvas.translate(rect.left, rect.top);
+      //  canvas.translate(rect.left, rect.top + (rect.bottom - rect.top / 2));
+        int padding = center? (rect.bottom - rect.top - totalLineHeight) / 2 : 0;
+        canvas.translate(rect.left, rect.top + padding);
         rect.left = 0;
         rect.right = width;
         rect.top = 0;
