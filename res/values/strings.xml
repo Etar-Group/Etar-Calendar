@@ -25,8 +25,8 @@
     <string name="where_label">Where</string>
     <!-- This is the label for the time of an event [CHAR LIMIT=30] -->
     <string name="when_label">When</string>
-    <!-- This is the label for the timezone of an event [CHAR LIMIT=30] -->
-    <string name="timezone_label">Time zone</string>
+    <!-- This is the label for the timezone of an event [CHAR LIMIT=60] -->
+    <string name="timezone_label">Time zone\n\u2600 observes daylight saving time</string>
     <!-- This is the label for the Guests/Attendees of an event -->
     <string name="attendees_label">Guests</string>
     <!-- Text to show when an event starts on the current day -->
