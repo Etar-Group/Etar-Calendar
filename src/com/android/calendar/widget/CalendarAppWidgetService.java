@@ -16,16 +16,6 @@
 
 package com.android.calendar.widget;
 
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
-import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
-import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -49,12 +39,22 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+import com.android.calendar.widget.CalendarAppWidgetModel.DayInfo;
+import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
+import com.android.calendar.widget.CalendarAppWidgetModel.RowInfo;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class CalendarAppWidgetService extends RemoteViewsService {
     private static final String TAG = "CalendarWidget";
 
     static final int EVENT_MIN_COUNT = 20;
-    static final int EVENT_MAX_COUNT = 50;
+    static final int EVENT_MAX_COUNT = 100;
     // Minimum delay between queries on the database for widget updates in ms
     static final int WIDGET_UPDATE_THROTTLE = 500;
 

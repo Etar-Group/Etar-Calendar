@@ -26,7 +26,6 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;

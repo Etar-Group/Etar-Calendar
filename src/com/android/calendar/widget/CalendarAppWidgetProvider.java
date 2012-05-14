@@ -22,7 +22,6 @@ import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;

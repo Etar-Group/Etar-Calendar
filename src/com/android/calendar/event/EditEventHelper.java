@@ -16,18 +16,6 @@
 
 package com.android.calendar.event;
 
-import com.android.calendar.AsyncQueryService;
-import com.android.calendar.CalendarController;
-import com.android.calendar.CalendarEventModel;
-import com.android.calendar.CalendarEventModel.Attendee;
-import com.android.calendar.CalendarEventModel.ReminderEntry;
-import com.android.calendar.Utils;
-import com.android.calendarcommon.DateException;
-import com.android.calendarcommon.EventRecurrence;
-import com.android.calendarcommon.RecurrenceProcessor;
-import com.android.calendarcommon.RecurrenceSet;
-import com.android.common.Rfc822Validator;
-
 import android.content.ContentProviderOperation;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -46,7 +34,17 @@ import android.text.util.Rfc822Token;
 import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.View;
-import android.widget.QuickContactBadge;
+
+import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarEventModel;
+import com.android.calendar.CalendarEventModel.Attendee;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
+import com.android.calendar.Utils;
+import com.android.calendarcommon.DateException;
+import com.android.calendarcommon.EventRecurrence;
+import com.android.calendarcommon.RecurrenceProcessor;
+import com.android.calendarcommon.RecurrenceSet;
+import com.android.common.Rfc822Validator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
