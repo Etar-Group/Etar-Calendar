@@ -141,8 +141,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Nová událost"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Nová událost"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Smazat tuto událost?"</string>
-    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
-    <skip />
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Smazat <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Změnit odpověď"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Obecná nastavení"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"O Kalendáři"</string>

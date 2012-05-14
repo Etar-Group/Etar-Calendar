@@ -123,8 +123,7 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"सभी स्नूज़ करें"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"सभी ख़ारिज करें"</string>
     <string name="snooze_5min_label" msgid="3846502651367125116">"5 मिनट के लिए स्‍नूज़ करें"</string>
-    <!-- no translation found for event_notification_big_text (3523682911470976907) -->
-    <skip />
+    <string name="event_notification_big_text" msgid="3523682911470976907">"<xliff:g id="SUMMARY">%1$s</xliff:g> • <xliff:g id="DESCRIPTION">%2$s</xliff:g>"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"एक-बार का ईवेंट"</string>
     <string name="daily" msgid="560350706808680448">"प्रतिदिन"</string>
     <string name="every_weekday" msgid="5896574838353902978">"प्रत्‍येक कार्य-दिवस (सोम–शुक्र)"</string>
