@@ -63,6 +63,8 @@ public class GeneralPreferences extends PreferenceFragment implements
     public static final String KEY_ALERTS_RINGTONE = "preferences_alerts_ringtone";
     public static final String KEY_ALERTS_POPUP = "preferences_alerts_popup";
 
+    public static final String KEY_SHOW_CONTROLS = "preferences_show_controls";
+
     public static final String KEY_DEFAULT_REMINDER = "preferences_default_reminder";
     public static final int NO_REMINDER = -1;
     public static final String NO_REMINDER_STRING = "-1";
