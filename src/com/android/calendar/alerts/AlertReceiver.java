@@ -30,6 +30,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
@@ -59,7 +61,9 @@ import java.util.List;
 public class AlertReceiver extends BroadcastReceiver {
     private static final String TAG = "AlertReceiver";
 
-    private static final String DELETE_ACTION = "delete";
+    private static final String DELETE_ALL_ACTION = "com.android.calendar.DELETEALL";
+    private static final String MAIL_ACTION = "com.android.calendar.MAIL";
+    private static final String EXTRA_EVENT_ID = "eventid";
 
     static final Object mStartingServiceSync = new Object();
     static PowerManager.WakeLock mStartingService;
@@ -67,12 +71,19 @@ public class AlertReceiver extends BroadcastReceiver {
     public static final String ACTION_DISMISS_OLD_REMINDERS = "removeOldReminders";
     private static final int NOTIFICATION_DIGEST_MAX_LENGTH = 3;
 
+    private static Handler sAsyncHandler;
+    static {
+        HandlerThread thr = new HandlerThread("AlertReceiver async");
+        thr.start();
+        sAsyncHandler = new Handler(thr.getLooper());
+    }
+
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, final Intent intent) {
         if (AlertService.DEBUG) {
             Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent.toString());
         }
-        if (DELETE_ACTION.equals(intent.getAction())) {
+        if (DELETE_ALL_ACTION.equals(intent.getAction())) {
 
             /* The user has clicked the "Clear All Notifications"
              * buttons so dismiss all Calendar alerts.
@@ -80,6 +91,27 @@ public class AlertReceiver extends BroadcastReceiver {
             // TODO Grab a wake lock here?
             Intent serviceIntent = new Intent(context, DismissAlarmsService.class);
             context.startService(serviceIntent);
+        } else if (MAIL_ACTION.equals(intent.getAction())) {
+            // Close the notification shade.
+            Intent closeNotificationShadeIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+            context.sendBroadcast(closeNotificationShadeIntent);
+
+            // Now start the email intent.
+            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
+            if (eventId != -1) {
+                final PendingResult result = goAsync();
+                Runnable worker = new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent emailIntent = createEmailIntent(context, eventId);
+                        if (emailIntent != null) {
+                            context.startActivity(emailIntent);
+                        }
+                        result.finish();
+                    }
+                };
+                sAsyncHandler.post(worker);
+            }
         } else {
             Intent i = new Intent();
             i.setClass(context, AlertService.class);
@@ -219,7 +251,7 @@ public class AlertReceiver extends BroadcastReceiver {
                     resources.getString(R.string.snooze_5min_label), snoozeIntent);
 
             // Create an email button.
-            PendingIntent emailIntent = createEmailIntent(context, eventId, title);
+            PendingIntent emailIntent = createBroadcastMailIntent(context, eventId, title);
             if (emailIntent != null) {
                 notificationBuilder.addAction(R.drawable.ic_menu_email_holo_dark,
                         resources.getString(R.string.email_guests_label), emailIntent);
@@ -291,7 +323,7 @@ public class AlertReceiver extends BroadcastReceiver {
         // expired events.
         Intent deleteIntent = new Intent();
         deleteIntent.setClass(context, DismissAlarmsService.class);
-        deleteIntent.setAction(DELETE_ACTION);
+        deleteIntent.setAction(DELETE_ALL_ACTION);
         deleteIntent.putExtra(AlertUtils.DELETE_EXPIRED_ONLY_KEY, true);
         PendingIntent pendingDeleteIntent = PendingIntent.getService(context, 0, deleteIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
@@ -378,17 +410,78 @@ public class AlertReceiver extends BroadcastReceiver {
 
     private static final String[] EVENT_PROJECTION = new String[] {
         Calendars.OWNER_ACCOUNT, // 0
-        Calendars.ACCOUNT_NAME   // 1
+        Calendars.ACCOUNT_NAME,  // 1
+        Events.TITLE,            // 2
     };
     private static final int EVENT_INDEX_OWNER_ACCOUNT = 0;
     private static final int EVENT_INDEX_ACCOUNT_NAME = 1;
+    private static final int EVENT_INDEX_TITLE = 2;
+
+    private static Cursor getEventCursor(Context context, long eventId) {
+        return context.getContentResolver().query(
+                ContentUris.withAppendedId(Events.CONTENT_URI, eventId), EVENT_PROJECTION,
+                null, null, null);
+    }
+
+    private static Cursor getAttendeesCursor(Context context, long eventId) {
+        return context.getContentResolver().query(Attendees.CONTENT_URI,
+                ATTENDEES_PROJECTION, ATTENDEES_WHERE, new String[] { Long.toString(eventId) },
+                ATTENDEES_SORT_ORDER);
+    }
+
+    /**
+     * Creates a broadcast pending intent that fires to AlertReceiver when the email button
+     * is clicked.
+     */
+    private static PendingIntent createBroadcastMailIntent(Context context, long eventId,
+            String eventTitle) {
+        // Query for viewer account.
+        String syncAccount = null;
+        Cursor eventCursor = getEventCursor(context, eventId);
+        try {
+            if (eventCursor != null && eventCursor.moveToFirst()) {
+                syncAccount = eventCursor.getString(EVENT_INDEX_ACCOUNT_NAME);
+            }
+        } finally {
+            if (eventCursor != null) {
+                eventCursor.close();
+            }
+        }
+
+        // Query attendees to see if there are any to email.
+        Cursor attendeesCursor = getAttendeesCursor(context, eventId);
+        try {
+            if (attendeesCursor != null && attendeesCursor.moveToFirst()) {
+                do {
+                    String email = attendeesCursor.getString(ATTENDEES_INDEX_EMAIL);
+                    if (Utils.isEmailableFrom(email, syncAccount)) {
+                        // Send intent back to ourself first for a couple reasons:
+                        // 1) Workaround issue where clicking action button in notification does
+                        //    not automatically close the notification shade.
+                        // 2) Attendees list in email will always be up to date.
+                        Intent broadcastIntent = new Intent(MAIL_ACTION);
+                        broadcastIntent.setClass(context, AlertReceiver.class);
+                        broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
+                        return PendingIntent.getBroadcast(context,
+                                Long.valueOf(eventId).hashCode(), broadcastIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
+                    }
+                } while (attendeesCursor.moveToNext());
+            }
+            return null;
+
+        } finally {
+            if (attendeesCursor != null) {
+                attendeesCursor.close();
+            }
+        }
+    }
 
     /**
      * Creates an Intent for emailing the attendees of the event.  Returns null if there
      * are no emailable attendees.
      */
-    private static PendingIntent createEmailIntent(Context context, long eventId,
-            String eventTitle) {
+    private static Intent createEmailIntent(Context context, long eventId) {
         ContentResolver resolver = context.getContentResolver();
 
         // TODO: Refactor to move query part into Utils.createEmailAttendeeIntent, to
@@ -397,31 +490,45 @@ public class AlertReceiver extends BroadcastReceiver {
         // Query for the owner account(s).
         String ownerAccount = null;
         String syncAccount = null;
-        Cursor eventCursor = resolver.query(
-                ContentUris.withAppendedId(Events.CONTENT_URI, eventId), EVENT_PROJECTION,
-                null, null, null);
-        if (eventCursor.moveToFirst()) {
-            ownerAccount = eventCursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
-            syncAccount = eventCursor.getString(EVENT_INDEX_ACCOUNT_NAME);
+        String eventTitle = null;
+        Cursor eventCursor = getEventCursor(context, eventId);
+        try {
+            if (eventCursor != null && eventCursor.moveToFirst()) {
+                ownerAccount = eventCursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
+                syncAccount = eventCursor.getString(EVENT_INDEX_ACCOUNT_NAME);
+                eventTitle = eventCursor.getString(EVENT_INDEX_TITLE);
+            }
+        } finally {
+            if (eventCursor != null) {
+                eventCursor.close();
+            }
+        }
+        if (TextUtils.isEmpty(eventTitle)) {
+            eventTitle = context.getResources().getString(R.string.no_title_label);
         }
 
         // Query for the attendees.
         List<String> toEmails = new ArrayList<String>();
         List<String> ccEmails = new ArrayList<String>();
-        Cursor attendeesCursor = resolver.query(Attendees.CONTENT_URI, ATTENDEES_PROJECTION,
-                ATTENDEES_WHERE, new String[] { Long.toString(eventId) }, ATTENDEES_SORT_ORDER);
-        if (attendeesCursor.moveToFirst()) {
-            do {
-                int status = attendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
-                String email = attendeesCursor.getString(ATTENDEES_INDEX_EMAIL);
-                switch(status) {
-                    case Attendees.ATTENDEE_STATUS_DECLINED:
-                        addIfEmailable(ccEmails, email, syncAccount);
-                        break;
-                    default:
-                        addIfEmailable(toEmails, email, syncAccount);
-                }
-            } while (attendeesCursor.moveToNext());
+        Cursor attendeesCursor = getAttendeesCursor(context, eventId);
+        try {
+            if (attendeesCursor != null && attendeesCursor.moveToFirst()) {
+                do {
+                    int status = attendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
+                    String email = attendeesCursor.getString(ATTENDEES_INDEX_EMAIL);
+                    switch(status) {
+                        case Attendees.ATTENDEE_STATUS_DECLINED:
+                            addIfEmailable(ccEmails, email, syncAccount);
+                            break;
+                        default:
+                            addIfEmailable(toEmails, email, syncAccount);
+                    }
+                } while (attendeesCursor.moveToNext());
+            }
+        } finally {
+            if (attendeesCursor != null) {
+                attendeesCursor.close();
+            }
         }
 
         Intent intent = null;
@@ -434,14 +541,13 @@ public class AlertReceiver extends BroadcastReceiver {
             return null;
         }
         else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            return PendingIntent.getActivity(context, Long.valueOf(eventId).hashCode(), intent,
-                    PendingIntent.FLAG_CANCEL_CURRENT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            return intent;
         }
     }
 
     private static void addIfEmailable(List<String> emailList, String email, String syncAccount) {
-        if (Utils.isValidEmail(email) && !email.equals(syncAccount)) {
+        if (Utils.isEmailableFrom(email, syncAccount)) {
             emailList.add(email);
         }
     }
