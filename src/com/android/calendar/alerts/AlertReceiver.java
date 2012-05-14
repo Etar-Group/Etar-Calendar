@@ -36,6 +36,7 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.RelativeSizeSpan;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 
@@ -256,12 +257,17 @@ public class AlertReceiver extends BroadcastReceiver {
         if (description != null) {
             description = description.trim();
         }
-        String text;
+        CharSequence text;
         if (TextUtils.isEmpty(description)) {
             text = summaryText;
         } else {
-            text = context.getResources().getString(
-                    R.string.event_notification_big_text, summaryText, description);
+            SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+            stringBuilder.append(summaryText);
+            stringBuilder.append("\n\n");
+            stringBuilder.setSpan(new RelativeSizeSpan(0.5f), summaryText.length(),
+                    stringBuilder.length(), 0);
+            stringBuilder.append(description);
+            text = stringBuilder;
         }
         expandedBuilder.bigText(text);
         return expandedBuilder.build();
