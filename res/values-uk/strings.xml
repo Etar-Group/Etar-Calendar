@@ -123,8 +123,7 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"Періодично всі"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Припинити всі"</string>
     <string name="snooze_5min_label" msgid="3846502651367125116">"Повторити сигнал через 5 хв."</string>
-    <!-- no translation found for event_notification_big_text (3523682911470976907) -->
-    <skip />
+    <string name="event_notification_big_text" msgid="3523682911470976907">"<xliff:g id="SUMMARY">%1$s</xliff:g> • <xliff:g id="DESCRIPTION">%2$s</xliff:g>"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Одноразова подія"</string>
     <string name="daily" msgid="560350706808680448">"Щодня"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Будні дні (пн.-пт.)"</string>
@@ -142,8 +141,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Нова подія"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Нова подія"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Видалити цю подію?"</string>
-    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
-    <skip />
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Видалити <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Змінити відповідь"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Загальні налаштування"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Про Календар"</string>
