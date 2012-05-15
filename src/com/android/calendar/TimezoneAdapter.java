@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import com.android.calendar.TimezoneAdapter.TimezoneRow;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -26,12 +24,16 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.android.calendar.TimezoneAdapter.TimezoneRow;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -44,42 +46,62 @@ import java.util.TimeZone;
  */
 public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
     private static final String TAG = "TimezoneAdapter";
-    private static final boolean DEBUG = true;
 
     /**
      * {@link TimezoneRow} is an immutable class for representing a timezone. We
      * don't use {@link TimeZone} directly, in order to provide a reasonable
      * implementation of toString() and to control which display names we use.
      */
-    public static class TimezoneRow implements Comparable<TimezoneRow> {
+    public class TimezoneRow implements Comparable<TimezoneRow> {
 
         /** The ID of this timezone, e.g. "America/Los_Angeles" */
         public final String mId;
 
         /** The display name of this timezone, e.g. "Pacific Time" */
-        public final String mDisplayName;
+        private final String mDisplayName;
 
         /** The actual offset of this timezone from GMT in milliseconds */
-        public final int mOffset;
+        private final int mOffset;
+
+        /** Whether the TZ observes daylight saving time */
+        private final boolean mUseDaylightTime;
 
         /**
          * A one-line representation of this timezone, including both GMT offset
          * and display name, e.g. "(GMT-7:00) Pacific Time"
          */
-        private final String mGmtDisplayName;
+        private String mGmtDisplayName;
 
         public TimezoneRow(String id, String displayName) {
             mId = id;
             mDisplayName = displayName;
             TimeZone tz = TimeZone.getTimeZone(id);
+            mUseDaylightTime = tz.useDaylightTime();
+            mOffset = tz.getOffset(TimezoneAdapter.this.mTime);
+        }
 
-            int offset = tz.getOffset(System.currentTimeMillis());
-            mOffset = offset;
-            int p = Math.abs(offset);
+        @Override
+        public String toString() {
+            if (mGmtDisplayName == null) {
+                buildGmtDisplayName();
+            }
+
+            return mGmtDisplayName;
+        }
+
+        /**
+         *
+         */
+        public void buildGmtDisplayName() {
+            if (mGmtDisplayName != null) {
+                return;
+            }
+
+            int p = Math.abs(mOffset);
             StringBuilder name = new StringBuilder();
             name.append("GMT");
 
-            if (offset < 0) {
+            if (mOffset < 0) {
                 name.append('-');
             } else {
                 name.append('+');
@@ -97,13 +119,11 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
             name.append(min);
             name.insert(0, "(");
             name.append(") ");
-            name.append(displayName);
+            name.append(mDisplayName);
+            if (mUseDaylightTime) {
+                name.append(" \u2600"); // Sun symbol
+            }
             mGmtDisplayName = name.toString();
-        }
-
-        @Override
-        public String toString() {
-            return mGmtDisplayName;
         }
 
         @Override
@@ -183,6 +203,10 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
 
     private boolean mShowingAll = false;
 
+    private long mTime;
+
+    private Date mDateTime;
+
     /**
      * Constructs a timezone adapter that contains an initial set of entries
      * including the current timezone, the device timezone, and two recently
@@ -190,11 +214,14 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
      *
      * @param context
      * @param currentTimezone
+     * @param time - needed to determine whether DLS is in effect
      */
-    public TimezoneAdapter(Context context, String currentTimezone) {
+    public TimezoneAdapter(Context context, String currentTimezone, long time) {
         super(context, android.R.layout.simple_spinner_dropdown_item, android.R.id.text1);
         mContext = context;
         mCurrentTimezone = currentTimezone;
+        mTime = time;
+        mDateTime = new Date(mTime);
         mShowingAll = false;
         showInitialTimezones();
     }
@@ -262,7 +289,10 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
                     // when it doesn't recognize the ID, this appears to be the only
                     // reliable way to check to see if the ID is a valid timezone
                     if (!newTz.equals(gmt)) {
-                        sTimezones.put(id, new TimezoneRow(id, newTz.getDisplayName()));
+                        final String tzDisplayName = newTz.getDisplayName(
+                                newTz.inDaylightTime(mDateTime), TimeZone.LONG,
+                                Locale.getDefault());
+                        sTimezones.put(id, new TimezoneRow(id, tzDisplayName));
                     } else {
                         continue;
                     }
@@ -281,6 +311,7 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
         Collections.sort(timezones);
         clear();
         for (TimezoneRow timezone : timezones) {
+            timezone.buildGmtDisplayName();
             add(timezone);
         }
         mShowingAll = true;
@@ -293,8 +324,25 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
      * @param currentTimezone the current timezone
      */
     public void setCurrentTimezone(String currentTimezone) {
-        mCurrentTimezone = currentTimezone;
-        if (!mShowingAll) {
+        if (currentTimezone != null && !currentTimezone.equals(mCurrentTimezone)) {
+            mCurrentTimezone = currentTimezone;
+            if (!mShowingAll) {
+                showInitialTimezones();
+            }
+        }
+    }
+
+    /**
+     * Set the time for the adapter and update the display string appropriate
+     * for the time of the year e.g. standard time vs daylight time
+     *
+     * @param time
+     */
+    public void setTime(long time) {
+        if (time != mTime) {
+            mTime = time;
+            mDateTime.setTime(mTime);
+            sTimezones = null;
             showInitialTimezones();
         }
     }
