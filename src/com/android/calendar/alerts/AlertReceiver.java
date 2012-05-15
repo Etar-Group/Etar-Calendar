@@ -335,12 +335,12 @@ public class AlertReceiver extends BroadcastReceiver {
         }
 
         Notification.Builder notificationBuilder = new Notification.Builder(context);
-        notificationBuilder.setContentTitle(digestTitle);
+        notificationBuilder.setContentText(digestTitle);
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
         notificationBuilder.setContentIntent(pendingClickIntent);
         notificationBuilder.setDeleteIntent(pendingDeleteIntent);
         String nEventsStr = res.getQuantityString(R.plurals.Nevents, numEvents, numEvents);
-        notificationBuilder.setContentText(nEventsStr);
+        notificationBuilder.setContentTitle(nEventsStr);
 
         // Set to min priority to encourage the notification manager to collapse it.
         notificationBuilder.setPriority(Notification.PRIORITY_MIN);
