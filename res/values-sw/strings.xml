@@ -20,7 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"Nini"</string>
     <string name="where_label" msgid="3472482206065595118">"Wapi"</string>
     <string name="when_label" msgid="894636567327261599">"Lini"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Saa za eneo"</string>
+    <string name="timezone_label" msgid="3266819367144821270">"Ukanda wa saa"\n"☀ unazingatia uhifadhi wa mchana"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Wageni"</string>
     <string name="today" msgid="8577375020252453006">"Leo"</string>
     <string name="tomorrow" msgid="614434811813859237">"Kesho"</string>
@@ -123,8 +123,7 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"Sinzisha zote"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Kataa zote"</string>
     <string name="snooze_5min_label" msgid="3846502651367125116">"Sinzia kwa dakika 5"</string>
-    <!-- no translation found for event_notification_big_text (3523682911470976907) -->
-    <skip />
+    <string name="event_notification_big_text" msgid="3523682911470976907">"<xliff:g id="SUMMARY">%1$s</xliff:g> • <xliff:g id="DESCRIPTION">%2$s</xliff:g>"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Tukio la wakati mmoja"</string>
     <string name="daily" msgid="560350706808680448">"Kila siku"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Kila siku ya kazi (Jumatatu-Ijumaa)"</string>
@@ -142,8 +141,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Tukio jipya"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Tukio jipya"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Futa tukio hili?"</string>
-    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
-    <skip />
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Futa <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Badilisha jibu"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Mipangilio ya kawaida"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Kuhusu Kalenda"</string>

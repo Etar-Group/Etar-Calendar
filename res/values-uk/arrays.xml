@@ -65,91 +65,24 @@
     <item msgid="95029346069903091">"Неділя"</item>
     <item msgid="5840983116375063739">"Понеділок"</item>
   </string-array>
-  <string-array name="timezone_labels">
-    <item msgid="6833649526258274889">"Маршалові острови"</item>
-    <item msgid="7176569939440505575">"Острів Мідвей"</item>
-    <item msgid="5000628410717488070">"Гаваї"</item>
-    <item msgid="3809977082338992040">"Аляска"</item>
-    <item msgid="1206600898319778734">"Тихоокеанський час"</item>
-    <item msgid="4251553449779733536">"Тіхуана"</item>
-    <item msgid="4796372144693551811">"Аризона"</item>
-    <item msgid="4589419122570218444">"Чиуауа"</item>
-    <item msgid="1653398220457872326">"Гірський час"</item>
-    <item msgid="229005026661478023">"Центральна Америка"</item>
-    <item msgid="1545268116831476742">"Центральний час"</item>
-    <item msgid="9135129204936732090">"Мехіко"</item>
-    <item msgid="3703110560723049255">"Саскачеван"</item>
-    <item msgid="5458958644945369505">"Богота"</item>
-    <item msgid="355450740949670294">"Східний час"</item>
-    <item msgid="5786717434693228701">"Венесуела"</item>
-    <item msgid="165048018515834952">"Атлантичний час"</item>
-    <item msgid="5398045998666341917">"Манаус"</item>
-    <item msgid="8167627904199889197">"Сантьяго"</item>
-    <item msgid="2793058279461039833">"Ньюфаундленд"</item>
-    <item msgid="5247265991408608312">"Бразиліа"</item>
-    <item msgid="7862856378699038344">"Буенос-Айрес"</item>
-    <item msgid="7307349572838946177">"Гренландія"</item>
-    <item msgid="2287491943472924232">"Монтевідео"</item>
-    <item msgid="6337125611768317903">"Середня Атлантика"</item>
-    <item msgid="1083966762112959704">"Азорські острови"</item>
-    <item msgid="3208435599095023369">"Острови Кабо-Верде"</item>
-    <item msgid="8380333624463354109">"Касабланка"</item>
-    <item msgid="8737442113188999866">"Лондон, Дублін"</item>
-    <item msgid="72424340270348400">"Амстердам, Берлін"</item>
-    <item msgid="3665952257850630547">"Белград"</item>
-    <item msgid="3284290759549286849">"Брюссель"</item>
-    <item msgid="3112943938015033049">"Сараєво"</item>
-    <item msgid="1746966478800108111">"Віндгук"</item>
-    <item msgid="7008598576103662879">"Західно-африк. час"</item>
-    <item msgid="1358916275855835758">"Амман, Йорданія"</item>
-    <item msgid="5900185968201011015">"Афіни, Стамбул"</item>
-    <item msgid="4975304496845689895">"Бейрут, Ліван"</item>
-    <item msgid="4099790960681254059">"Каїр"</item>
-    <item msgid="4174072690298729061">"Гельсінкі"</item>
-    <item msgid="5233437715028921599">"Єрусалим"</item>
-    <item msgid="612137838544847325">"Мінськ"</item>
-    <item msgid="385832033162858704">"Хараре"</item>
-    <item msgid="1439592855284837653">"Багдад"</item>
-    <item msgid="3703352987270492256">"Москва"</item>
-    <item msgid="1657996636394546903">"Кувейт"</item>
-    <item msgid="3719675800096223903">"Найробі"</item>
-    <item msgid="4216389209911081345">"Тегеран"</item>
-    <item msgid="4949871918709805735">"Баку"</item>
-    <item msgid="2863183321532922311">"Тбілісі"</item>
-    <item msgid="1943529325618264999">"Єреван"</item>
-    <item msgid="5094507376721687886">"Дубай"</item>
-    <item msgid="2849654571454095226">"Кабул"</item>
-    <item msgid="3641915655045056824">"Ісламабад, Карачі"</item>
-    <item msgid="5795351343828254400">"Уральськ"</item>
-    <item msgid="8779467771115356898">"Єкатеринбург"</item>
-    <item msgid="297412491658718331">"Колката"</item>
-    <item msgid="2290076787008042202">"Шрі-Ланка"</item>
-    <item msgid="4119703758417825749">"Катманду"</item>
-    <item msgid="9161760299912900568">"Астана"</item>
-    <item msgid="5753596907402377327">"Янгон"</item>
-    <item msgid="6275146302340764856">"Красноярськ"</item>
-    <item msgid="2385588555356900033">"Бангкок"</item>
-    <item msgid="7651147941145227340">"Пекін"</item>
-    <item msgid="7831696303531874014">"Гонконг"</item>
-    <item msgid="7943498021949728203">"Іркутськ"</item>
-    <item msgid="707009198021550118">"Куала-Лумпур"</item>
-    <item msgid="4268864549735629220">"Перт"</item>
-    <item msgid="4584239166170514795">"Тайбей"</item>
-    <item msgid="4972387553080120086">"Сеул"</item>
-    <item msgid="5749349714875345358">"Токіо, Осака"</item>
-    <item msgid="4435870687083770252">"Якутськ"</item>
-    <item msgid="4857952326324510625">"Аделаїда"</item>
-    <item msgid="7802545626741434274">"Дарвін"</item>
-    <item msgid="7184691104734480971">"Брісбейн"</item>
-    <item msgid="7795651165061255022">"Гобарт"</item>
-    <item msgid="1858052331367859514">"Сідней, Канберра"</item>
-    <item msgid="4396794682654884440">"Владивосток"</item>
-    <item msgid="4152655496917506653">"Гуам"</item>
-    <item msgid="3608508135351982746">"Магадан"</item>
-    <item msgid="722180563708274099">"Окленд"</item>
-    <item msgid="1736037231626139044">"Фіджі"</item>
-    <item msgid="8187746821081424875">"Тонга"</item>
-  </string-array>
+    <!-- no translation found for timezone_labels:16 (4977886006524392240) -->
+    <!-- no translation found for timezone_labels:17 (10153187433760387) -->
+    <!-- no translation found for timezone_labels:18 (6115801678953677414) -->
+    <!-- no translation found for timezone_labels:19 (2593929186990540989) -->
+    <!-- no translation found for timezone_labels:20 (6585031589100947696) -->
+    <!-- no translation found for timezone_labels:21 (5295092779694537214) -->
+    <!-- no translation found for timezone_labels:22 (6402931335497071732) -->
+    <!-- no translation found for timezone_labels:23 (4432313195052285856) -->
+    <!-- no translation found for timezone_labels:24 (7938414883764011047) -->
+    <!-- no translation found for timezone_labels:25 (2737154427296635021) -->
+    <!-- no translation found for timezone_labels:26 (1379490252091746679) -->
+    <!-- no translation found for timezone_labels:27 (6212233464119368698) -->
+    <!-- no translation found for timezone_labels:28 (1810261367179140820) -->
+    <!-- no translation found for timezone_labels:29 (1230179411620530148) -->
+    <!-- no translation found for timezone_labels:30 (372075306913304327) -->
+    <!-- no translation found for timezone_labels:31 (9046296030447565862) -->
+    <!-- no translation found for timezone_labels:32 (4921622452710220193) -->
+    <!-- no translation found for timezone_labels:33 (727296339287965963) -->
   <string-array name="availability">
     <item msgid="454869065893453189">"Зайнятий"</item>
     <item msgid="6228387173725732140">"На місці"</item>
