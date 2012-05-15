@@ -16,8 +16,6 @@
 
 package com.android.calendar;
 
-import com.android.calendar.alerts.AlertReceiver;
-
 import android.app.Activity;
 import android.app.backup.BackupManager;
 import android.content.Context;
@@ -40,6 +38,8 @@ import android.provider.CalendarContract.CalendarCache;
 import android.provider.SearchRecentSuggestions;
 import android.text.TextUtils;
 import android.widget.Toast;
+
+import com.android.calendar.alerts.AlertReceiver;
 
 public class GeneralPreferences extends PreferenceFragment implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener {
@@ -161,7 +161,8 @@ public class GeneralPreferences extends PreferenceFragment implements
         mDefaultReminder.setSummary(mDefaultReminder.getEntry());
 
         if (mTimezones == null) {
-            mTimezones = (new TimezoneAdapter(activity, tz)).getAllTimezones();
+            mTimezones = (new TimezoneAdapter(activity, tz, System.currentTimeMillis()))
+                    .getAllTimezones();
         }
         mHomeTZ.setEntryValues(mTimezones[0]);
         mHomeTZ.setEntries(mTimezones[1]);
