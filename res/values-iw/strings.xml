@@ -20,7 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"מה"</string>
     <string name="where_label" msgid="3472482206065595118">"היכן"</string>
     <string name="when_label" msgid="894636567327261599">"מתי"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"אזור זמן"</string>
+    <string name="timezone_label" msgid="3266819367144821270">"אזור הזמן"\n"☀ מקיים שעון קיץ"</string>
     <string name="attendees_label" msgid="2971281641565729725">"אורחים"</string>
     <string name="today" msgid="8577375020252453006">"היום"</string>
     <string name="tomorrow" msgid="614434811813859237">"מחר"</string>

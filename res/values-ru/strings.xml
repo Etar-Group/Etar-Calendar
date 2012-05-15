@@ -20,7 +20,8 @@
     <string name="what_label" msgid="1933578391985810049">"Что"</string>
     <string name="where_label" msgid="3472482206065595118">"Где"</string>
     <string name="when_label" msgid="894636567327261599">"Когда"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Часовой пояс"</string>
+    <!-- no translation found for timezone_label (3266819367144821270) -->
+    <skip />
     <string name="attendees_label" msgid="2971281641565729725">"Гости"</string>
     <string name="today" msgid="8577375020252453006">"Сегодня"</string>
     <string name="tomorrow" msgid="614434811813859237">"Завтра"</string>
@@ -141,8 +142,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Новое мероприятие"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Новое мероприятие"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Удалить мероприятие?"</string>
-    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
-    <skip />
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Удалить мероприятие \"<xliff:g id="EVENTTITLE">%s</xliff:g>\"?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Изменить ответ"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Общие настройки"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"О календаре"</string>
