@@ -20,7 +20,8 @@
     <string name="what_label" msgid="1933578391985810049">"主題"</string>
     <string name="where_label" msgid="3472482206065595118">"地點"</string>
     <string name="when_label" msgid="894636567327261599">"時間"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"時區"</string>
+    <!-- no translation found for timezone_label (3266819367144821270) -->
+    <skip />
     <string name="attendees_label" msgid="2971281641565729725">"邀請對象"</string>
     <string name="today" msgid="8577375020252453006">"今天"</string>
     <string name="tomorrow" msgid="614434811813859237">"明天"</string>
@@ -141,8 +142,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"新活動"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"新活動"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"刪除這項活動？"</string>
-    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
-    <skip />
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"要刪除「<xliff:g id="EVENTTITLE">%s</xliff:g>」嗎？"</string>
     <string name="change_response_title" msgid="7704714776070974984">"變更回應"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"一般設定"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"關於日曆"</string>

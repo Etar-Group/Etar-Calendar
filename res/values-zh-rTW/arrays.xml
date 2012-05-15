@@ -65,91 +65,24 @@
     <item msgid="95029346069903091">"週日"</item>
     <item msgid="5840983116375063739">"週一"</item>
   </string-array>
-  <string-array name="timezone_labels">
-    <item msgid="6833649526258274889">"馬紹爾群島"</item>
-    <item msgid="7176569939440505575">"中途島"</item>
-    <item msgid="5000628410717488070">"夏威夷"</item>
-    <item msgid="3809977082338992040">"阿拉斯加"</item>
-    <item msgid="1206600898319778734">"太平洋時間"</item>
-    <item msgid="4251553449779733536">"提華納"</item>
-    <item msgid="4796372144693551811">"亞利桑那"</item>
-    <item msgid="4589419122570218444">"奇瓦瓦"</item>
-    <item msgid="1653398220457872326">"山區時間"</item>
-    <item msgid="229005026661478023">"中美洲"</item>
-    <item msgid="1545268116831476742">"中部時間"</item>
-    <item msgid="9135129204936732090">"墨西哥市"</item>
-    <item msgid="3703110560723049255">"薩克斯其萬省"</item>
-    <item msgid="5458958644945369505">"波哥大"</item>
-    <item msgid="355450740949670294">"東部時間"</item>
-    <item msgid="5786717434693228701">"委內瑞拉"</item>
-    <item msgid="165048018515834952">"大西洋時間"</item>
-    <item msgid="5398045998666341917">"瑪瑙斯"</item>
-    <item msgid="8167627904199889197">"聖地亞哥"</item>
-    <item msgid="2793058279461039833">"紐芬蘭"</item>
-    <item msgid="5247265991408608312">"巴西利亞"</item>
-    <item msgid="7862856378699038344">"布宜諾斯艾利斯"</item>
-    <item msgid="7307349572838946177">"格陵蘭"</item>
-    <item msgid="2287491943472924232">"蒙特維多"</item>
-    <item msgid="6337125611768317903">"大西洋中部"</item>
-    <item msgid="1083966762112959704">"亞速爾群島"</item>
-    <item msgid="3208435599095023369">"維德角群島"</item>
-    <item msgid="8380333624463354109">"卡薩布蘭卡"</item>
-    <item msgid="8737442113188999866">"倫敦、都柏林"</item>
-    <item msgid="72424340270348400">"阿姆斯特丹、柏林"</item>
-    <item msgid="3665952257850630547">"貝爾格勒"</item>
-    <item msgid="3284290759549286849">"布魯塞爾"</item>
-    <item msgid="3112943938015033049">"塞拉耶佛"</item>
-    <item msgid="1746966478800108111">"溫特和克"</item>
-    <item msgid="7008598576103662879">"非洲西部時間"</item>
-    <item msgid="1358916275855835758">"安曼、約旦"</item>
-    <item msgid="5900185968201011015">"雅典、伊斯坦堡"</item>
-    <item msgid="4975304496845689895">"貝魯特、黎巴嫩"</item>
-    <item msgid="4099790960681254059">"開羅"</item>
-    <item msgid="4174072690298729061">"赫爾辛基"</item>
-    <item msgid="5233437715028921599">"耶路撒冷"</item>
-    <item msgid="612137838544847325">"明斯克"</item>
-    <item msgid="385832033162858704">"哈拉雷"</item>
-    <item msgid="1439592855284837653">"巴格達"</item>
-    <item msgid="3703352987270492256">"莫斯科"</item>
-    <item msgid="1657996636394546903">"科威特"</item>
-    <item msgid="3719675800096223903">"奈洛比"</item>
-    <item msgid="4216389209911081345">"德黑蘭"</item>
-    <item msgid="4949871918709805735">"巴庫"</item>
-    <item msgid="2863183321532922311">"第比利斯"</item>
-    <item msgid="1943529325618264999">"埃里溫"</item>
-    <item msgid="5094507376721687886">"杜拜"</item>
-    <item msgid="2849654571454095226">"喀布爾"</item>
-    <item msgid="3641915655045056824">"伊斯蘭馬巴德、喀拉蚩"</item>
-    <item msgid="5795351343828254400">"烏拉爾"</item>
-    <item msgid="8779467771115356898">"凱薩琳堡"</item>
-    <item msgid="297412491658718331">"加爾各答"</item>
-    <item msgid="2290076787008042202">"斯里蘭卡"</item>
-    <item msgid="4119703758417825749">"加德滿都"</item>
-    <item msgid="9161760299912900568">"阿斯塔納"</item>
-    <item msgid="5753596907402377327">"仰光"</item>
-    <item msgid="6275146302340764856">"克拉斯諾亞爾斯克"</item>
-    <item msgid="2385588555356900033">"曼谷"</item>
-    <item msgid="7651147941145227340">"北京"</item>
-    <item msgid="7831696303531874014">"香港"</item>
-    <item msgid="7943498021949728203">"伊爾庫次克"</item>
-    <item msgid="707009198021550118">"吉隆坡"</item>
-    <item msgid="4268864549735629220">"伯斯"</item>
-    <item msgid="4584239166170514795">"台北"</item>
-    <item msgid="4972387553080120086">"首爾"</item>
-    <item msgid="5749349714875345358">"東京、大阪"</item>
-    <item msgid="4435870687083770252">"亞庫次克"</item>
-    <item msgid="4857952326324510625">"阿得雷德"</item>
-    <item msgid="7802545626741434274">"達爾文"</item>
-    <item msgid="7184691104734480971">"布里斯本"</item>
-    <item msgid="7795651165061255022">"霍巴特"</item>
-    <item msgid="1858052331367859514">"雪梨、坎培拉"</item>
-    <item msgid="4396794682654884440">"海參威"</item>
-    <item msgid="4152655496917506653">"關島"</item>
-    <item msgid="3608508135351982746">"馬加丹"</item>
-    <item msgid="722180563708274099">"奧克蘭"</item>
-    <item msgid="1736037231626139044">"斐濟"</item>
-    <item msgid="8187746821081424875">"東加"</item>
-  </string-array>
+    <!-- no translation found for timezone_labels:16 (4977886006524392240) -->
+    <!-- no translation found for timezone_labels:17 (10153187433760387) -->
+    <!-- no translation found for timezone_labels:18 (6115801678953677414) -->
+    <!-- no translation found for timezone_labels:19 (2593929186990540989) -->
+    <!-- no translation found for timezone_labels:20 (6585031589100947696) -->
+    <!-- no translation found for timezone_labels:21 (5295092779694537214) -->
+    <!-- no translation found for timezone_labels:22 (6402931335497071732) -->
+    <!-- no translation found for timezone_labels:23 (4432313195052285856) -->
+    <!-- no translation found for timezone_labels:24 (7938414883764011047) -->
+    <!-- no translation found for timezone_labels:25 (2737154427296635021) -->
+    <!-- no translation found for timezone_labels:26 (1379490252091746679) -->
+    <!-- no translation found for timezone_labels:27 (6212233464119368698) -->
+    <!-- no translation found for timezone_labels:28 (1810261367179140820) -->
+    <!-- no translation found for timezone_labels:29 (1230179411620530148) -->
+    <!-- no translation found for timezone_labels:30 (372075306913304327) -->
+    <!-- no translation found for timezone_labels:31 (9046296030447565862) -->
+    <!-- no translation found for timezone_labels:32 (4921622452710220193) -->
+    <!-- no translation found for timezone_labels:33 (727296339287965963) -->
   <string-array name="availability">
     <item msgid="454869065893453189">"忙碌"</item>
     <item msgid="6228387173725732140">"有空"</item>

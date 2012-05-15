@@ -20,7 +20,8 @@
     <string name="what_label" msgid="1933578391985810049">"内容"</string>
     <string name="where_label" msgid="3472482206065595118">"地点"</string>
     <string name="when_label" msgid="894636567327261599">"时间"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"时区"</string>
+    <!-- no translation found for timezone_label (3266819367144821270) -->
+    <skip />
     <string name="attendees_label" msgid="2971281641565729725">"邀请对象"</string>
     <string name="today" msgid="8577375020252453006">"今天"</string>
     <string name="tomorrow" msgid="614434811813859237">"明天"</string>
@@ -123,8 +124,7 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"全部延迟"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"全部关闭"</string>
     <string name="snooze_5min_label" msgid="3846502651367125116">"暂停 5 分钟"</string>
-    <!-- no translation found for event_notification_big_text (3523682911470976907) -->
-    <skip />
+    <string name="event_notification_big_text" msgid="3523682911470976907">"<xliff:g id="SUMMARY">%1$s</xliff:g> • <xliff:g id="DESCRIPTION">%2$s</xliff:g>"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"一次性活动"</string>
     <string name="daily" msgid="560350706808680448">"每天"</string>
     <string name="every_weekday" msgid="5896574838353902978">"每个工作日（周一至周五）"</string>
@@ -142,8 +142,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"新建活动"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"新建活动"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"要删除此活动吗？"</string>
-    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
-    <skip />
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"要删除<xliff:g id="EVENTTITLE">%s</xliff:g>吗？"</string>
     <string name="change_response_title" msgid="7704714776070974984">"更改答复"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"常规设置"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"关于日历"</string>
