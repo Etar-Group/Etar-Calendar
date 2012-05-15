@@ -207,7 +207,6 @@ public class AlertReceiver extends BroadcastReceiver {
         Notification.Builder notificationBuilder = new Notification.Builder(context);
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setContentText(summaryText);
-        // TODO: change to the clock icon
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
         notificationBuilder.setContentIntent(clickIntent);
         notificationBuilder.setDeleteIntent(deleteIntent);
@@ -228,6 +227,9 @@ public class AlertReceiver extends BroadcastReceiver {
         if (doPopup) {
             notificationBuilder.setFullScreenIntent(clickIntent, true);
         }
+
+        // Turn off timestamp.
+        notificationBuilder.setWhen(0);
 
         // Setting to a higher priority will encourage notification manager to expand the
         // notification.
