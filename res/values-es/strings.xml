@@ -20,7 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"Asunto"</string>
     <string name="where_label" msgid="3472482206065595118">"Dónde"</string>
     <string name="when_label" msgid="894636567327261599">"Cuándo"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Zona horaria"</string>
+    <string name="timezone_label" msgid="3266819367144821270">"Zona horaria"\n"☀ se aplica el horario de verano."</string>
     <string name="attendees_label" msgid="2971281641565729725">"Invitados"</string>
     <string name="today" msgid="8577375020252453006">"Hoy"</string>
     <string name="tomorrow" msgid="614434811813859237">"Mañana"</string>
@@ -141,8 +141,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Evento nuevo"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Evento nuevo"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"¿Eliminar este evento?"</string>
-    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
-    <skip />
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"¿Quieres eliminar <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Cambiar respuesta"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Ajustes generales"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Acerca de Calendario"</string>

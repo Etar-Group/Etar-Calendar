@@ -20,7 +20,8 @@
     <string name="what_label" msgid="1933578391985810049">"Što"</string>
     <string name="where_label" msgid="3472482206065595118">"Gdje"</string>
     <string name="when_label" msgid="894636567327261599">"Kad"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Vremenska zona"</string>
+    <!-- no translation found for timezone_label (3266819367144821270) -->
+    <skip />
     <string name="attendees_label" msgid="2971281641565729725">"Gosti"</string>
     <string name="today" msgid="8577375020252453006">"Danas"</string>
     <string name="tomorrow" msgid="614434811813859237">"Sutra"</string>
@@ -141,8 +142,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Novi događaj"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Novi događaj"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Izbrisati ovaj događaj?"</string>
-    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
-    <skip />
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Izbrisati <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Promijeni odgovor"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Opće postavke"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"O kalendaru"</string>
