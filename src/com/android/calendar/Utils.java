@@ -1372,6 +1372,16 @@ public class Utils {
     }
 
     /**
+     * Returns true if:
+     *   (1) the email is not a resource like a conference room or another calendar.
+     *       Catch most of these by filtering out suffix calendar.google.com.
+     *   (2) the email is not equal to the sync account to prevent mailing himself.
+     */
+    public static boolean isEmailableFrom(String email, String syncAccountName) {
+        return Utils.isValidEmail(email) && !email.equals(syncAccountName);
+    }
+
+    /**
      * Inserts a drawable with today's day into the today's icon in the option menu
      * @param icon - today's icon from the options menu
      */
