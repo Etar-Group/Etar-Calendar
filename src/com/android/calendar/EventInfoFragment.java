@@ -2089,7 +2089,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
      *   (2) the attendee is not the viewer, to prevent mailing himself.
      */
     private void addIfEmailable(ArrayList<String> emailList, String email) {
-        if (Utils.isValidEmail(email) && !email.equals(mSyncAccountName)) {
+        if (Utils.isEmailableFrom(email, mSyncAccountName)) {
             emailList.add(email);
         }
     }
