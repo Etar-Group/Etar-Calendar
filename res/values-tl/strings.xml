@@ -20,7 +20,8 @@
     <string name="what_label" msgid="1933578391985810049">"Ano"</string>
     <string name="where_label" msgid="3472482206065595118">"Saan"</string>
     <string name="when_label" msgid="894636567327261599">"Kailan"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"Time zone"</string>
+    <!-- no translation found for timezone_label (3266819367144821270) -->
+    <skip />
     <string name="attendees_label" msgid="2971281641565729725">"Mga Bisita"</string>
     <string name="today" msgid="8577375020252453006">"Ngayong araw"</string>
     <string name="tomorrow" msgid="614434811813859237">"Bukas"</string>
