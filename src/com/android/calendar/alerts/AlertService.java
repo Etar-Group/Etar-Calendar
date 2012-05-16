@@ -122,24 +122,17 @@ public class AlertService extends Service {
                     + " Action = " + action);
         }
 
-        if (action.equals(Intent.ACTION_BOOT_COMPLETED)
+        if (action.equals(Intent.ACTION_PROVIDER_CHANGED) ||
+                action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER) ||
+                action.equals(Intent.ACTION_LOCALE_CHANGED)) {
+            updateAlertNotification(this);
+        } else if (action.equals(Intent.ACTION_BOOT_COMPLETED)
                 || action.equals(Intent.ACTION_TIME_CHANGED)) {
             doTimeChanged();
-            return;
-        }
-
-        if (!action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER)
-                && !action.equals(Intent.ACTION_LOCALE_CHANGED)
-                && !action.equals(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS)) {
-            Log.w(TAG, "Invalid action: " + action);
-            return;
-        }
-        if (action.equals(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS)) {
+        } else if (action.equals(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS)) {
             dismissOldAlerts(this);
-        }
-
-        if (action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER)) {
-            updateAlertNotification(this);
+        } else {
+            Log.w(TAG, "Invalid action: " + action);
         }
     }
 
