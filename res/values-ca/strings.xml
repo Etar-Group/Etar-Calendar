@@ -20,8 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"Què"</string>
     <string name="where_label" msgid="3472482206065595118">"On"</string>
     <string name="when_label" msgid="894636567327261599">"Quan"</string>
-    <!-- no translation found for timezone_label (3266819367144821270) -->
-    <skip />
+    <string name="timezone_label" msgid="3988530993300431650">"Zona horària"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Convidats"</string>
     <string name="today" msgid="8577375020252453006">"Avui"</string>
     <string name="tomorrow" msgid="614434811813859237">"Demà"</string>
@@ -81,7 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Esdeven. buit, no s\'ha creat."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"S\'enviaran les invitacions."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"S\'enviaran les actualitzacions."</string>
-    <string name="past_alerts_title" msgid="8087610284451833210">"Esdeveniments passats"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Notificacions de calendari"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visualitza l\'esdeveniment"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invitació a una reunió"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Fins a"</string>
@@ -124,8 +123,6 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"Repeteix-les totes"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Omet-les totes"</string>
     <string name="snooze_5min_label" msgid="3846502651367125116">"Posposa 5 minuts"</string>
-    <!-- no translation found for event_notification_big_text (3523682911470976907) -->
-    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"Esdeveniment únic"</string>
     <string name="daily" msgid="560350706808680448">"Diàriament"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Entre setmana (Dl.-Dv.)"</string>
@@ -208,10 +205,8 @@
     <item quantity="one" msgid="5230907142214104485">"1 esdeveniment"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> esdeveniments"</item>
   </plurals>
-  <plurals name="N_missed_events">
-    <item quantity="one" msgid="1593156519341582311">"+1 esdeveniment perdut"</item>
-    <item quantity="other" msgid="2265435399149554901">"+<xliff:g id="COUNT">%d</xliff:g> esdeveniments perduts"</item>
-  </plurals>
+    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
+    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Esdeveniment seleccionat"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NO activis -&gt;"</string>
 </resources>

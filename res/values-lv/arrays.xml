@@ -65,24 +65,92 @@
     <item msgid="95029346069903091">"Svētdiena"</item>
     <item msgid="5840983116375063739">"Pirmdiena"</item>
   </string-array>
-    <!-- no translation found for timezone_labels:16 (4977886006524392240) -->
-    <!-- no translation found for timezone_labels:17 (10153187433760387) -->
-    <!-- no translation found for timezone_labels:18 (6115801678953677414) -->
-    <!-- no translation found for timezone_labels:19 (2593929186990540989) -->
-    <!-- no translation found for timezone_labels:20 (6585031589100947696) -->
-    <!-- no translation found for timezone_labels:21 (5295092779694537214) -->
-    <!-- no translation found for timezone_labels:22 (6402931335497071732) -->
-    <!-- no translation found for timezone_labels:23 (4432313195052285856) -->
-    <!-- no translation found for timezone_labels:24 (7938414883764011047) -->
-    <!-- no translation found for timezone_labels:25 (2737154427296635021) -->
-    <!-- no translation found for timezone_labels:26 (1379490252091746679) -->
-    <!-- no translation found for timezone_labels:27 (6212233464119368698) -->
-    <!-- no translation found for timezone_labels:28 (1810261367179140820) -->
-    <!-- no translation found for timezone_labels:29 (1230179411620530148) -->
-    <!-- no translation found for timezone_labels:30 (372075306913304327) -->
-    <!-- no translation found for timezone_labels:31 (9046296030447565862) -->
-    <!-- no translation found for timezone_labels:32 (4921622452710220193) -->
-    <!-- no translation found for timezone_labels:33 (727296339287965963) -->
+  <string-array name="timezone_labels">
+    <item msgid="6833649526258274889">"Māršala Salas"</item>
+    <item msgid="7176569939440505575">"Midveja salas"</item>
+    <item msgid="5000628410717488070">"Havajas"</item>
+    <item msgid="3809977082338992040">"Aļaska"</item>
+    <item msgid="1206600898319778734">"Kl. ok. piekr. laiks"</item>
+    <item msgid="4251553449779733536">"Tihuana"</item>
+    <item msgid="4796372144693551811">"Arizona"</item>
+    <item msgid="4589419122570218444">"Čivava"</item>
+    <item msgid="1653398220457872326">"Kalnu laika josla"</item>
+    <item msgid="229005026661478023">"Centrālamerika"</item>
+    <item msgid="1545268116831476742">"Centrālā laika josla"</item>
+    <item msgid="9135129204936732090">"Mehiko"</item>
+    <item msgid="3703110560723049255">"Saskačevana"</item>
+    <item msgid="5458958644945369505">"Bogota"</item>
+    <item msgid="355450740949670294">"Austrumu laika josla"</item>
+    <item msgid="5786717434693228701">"Venecuēla"</item>
+    <item msgid="4977886006524392240">"Atlant. l. (Barbad.)"</item>
+    <item msgid="10153187433760387">"Atlant. l. (Kanāda)"</item>
+    <item msgid="6115801678953677414">"Manausa"</item>
+    <item msgid="2593929186990540989">"Santjago"</item>
+    <item msgid="6585031589100947696">"Ņūfaundlenda"</item>
+    <item msgid="5295092779694537214">"Brazilja"</item>
+    <item msgid="6402931335497071732">"Buenosairesa"</item>
+    <item msgid="4432313195052285856">"Grenlande"</item>
+    <item msgid="7938414883764011047">"Montevideo"</item>
+    <item msgid="2737154427296635021">"Vidusatlantija"</item>
+    <item msgid="1379490252091746679">"Azoru Salas"</item>
+    <item msgid="6212233464119368698">"Zaļā raga salas"</item>
+    <item msgid="1810261367179140820">"Kasablanka"</item>
+    <item msgid="1230179411620530148">"Londona, Dublina"</item>
+    <item msgid="372075306913304327">"Amsterdama, Berlīne"</item>
+    <item msgid="9046296030447565862">"Belgrada"</item>
+    <item msgid="4921622452710220193">"Brisele"</item>
+    <item msgid="727296339287965963">"Sarajeva"</item>
+    <item msgid="5997630882187580225">"Vindhuka"</item>
+    <item msgid="3828800493609994208">"Rietumāfrikas laiks"</item>
+    <item msgid="7527935722014187591">"Ammāna, Jordānija"</item>
+    <item msgid="672509109295227133">"Atēnas, Stambula"</item>
+    <item msgid="1835470340349221646">"Beirūta, Libāna"</item>
+    <item msgid="9006223109403693650">"Kaira"</item>
+    <item msgid="2877875673636361825">"Helsinki"</item>
+    <item msgid="4528124308590807049">"Jeruzaleme"</item>
+    <item msgid="7823856457885290195">"Minska"</item>
+    <item msgid="8650995074282357197">"Harare"</item>
+    <item msgid="209523815326871285">"Bagdāde"</item>
+    <item msgid="8077211460729251609">"Maskava"</item>
+    <item msgid="6103383184232804522">"Kuveita"</item>
+    <item msgid="8581935265080466099">"Nairobi"</item>
+    <item msgid="1531618843539764728">"Teherāna"</item>
+    <item msgid="141548505188106312">"Baku"</item>
+    <item msgid="5974315340250149692">"Tbilisi"</item>
+    <item msgid="3344801680659888795">"Erevāna"</item>
+    <item msgid="2537944335416132075">"Dubaija"</item>
+    <item msgid="5630432498109110949">"Kabula"</item>
+    <item msgid="2274762525650993846">"Islāmābāda, Karāči"</item>
+    <item msgid="272153171103339242">"Uraļska"</item>
+    <item msgid="4757644551253886090">"Jekaterinburga"</item>
+    <item msgid="3036512479614493957">"Kalkāta"</item>
+    <item msgid="4190271241277312277">"Šrilanka"</item>
+    <item msgid="4489139826358657866">"Katmandu"</item>
+    <item msgid="1195461607876034232">"Astana"</item>
+    <item msgid="8777509327730950228">"Jangona"</item>
+    <item msgid="3838899720161825998">"Krasnojarska"</item>
+    <item msgid="6495532062164690437">"Bangkoka"</item>
+    <item msgid="4910549870048384487">"Pekina"</item>
+    <item msgid="7174954011332328153">"Honkonga"</item>
+    <item msgid="415034182139280334">"Irkutska"</item>
+    <item msgid="3407263784503834649">"Kualalumpura"</item>
+    <item msgid="6547945295249807755">"Pērta"</item>
+    <item msgid="4571776847411430193">"Taibei"</item>
+    <item msgid="3043691515163887690">"Seula"</item>
+    <item msgid="6369124969606372122">"Tokija, Osaka"</item>
+    <item msgid="8317842783685169193">"Jakutska"</item>
+    <item msgid="6993206457323990990">"Adelaida"</item>
+    <item msgid="2431970257749452312">"Dārvina"</item>
+    <item msgid="2709489188606506801">"Brisbena"</item>
+    <item msgid="6832511138206913044">"Hobārta"</item>
+    <item msgid="6933429790996727761">"Sidneja, Kanbera"</item>
+    <item msgid="4546625974877459074">"Vladivostoka"</item>
+    <item msgid="7421491250467489614">"Guama"</item>
+    <item msgid="3450367738093440984">"Magadana"</item>
+    <item msgid="5046540868552082971">"Oklenda"</item>
+    <item msgid="481903191189494072">"Fidži"</item>
+    <item msgid="1926932394586102998">"Tonga"</item>
+  </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"Aizņemts"</item>
     <item msgid="6228387173725732140">"Pieejams"</item>

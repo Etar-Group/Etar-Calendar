@@ -20,7 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"Nini"</string>
     <string name="where_label" msgid="3472482206065595118">"Wapi"</string>
     <string name="when_label" msgid="894636567327261599">"Lini"</string>
-    <string name="timezone_label" msgid="3266819367144821270">"Ukanda wa saa"\n"☀ unazingatia uhifadhi wa mchana"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"Saa za eneo"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Wageni"</string>
     <string name="today" msgid="8577375020252453006">"Leo"</string>
     <string name="tomorrow" msgid="614434811813859237">"Kesho"</string>
@@ -80,7 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Tukio tupu halikuundwa."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Mialiko itatumwa."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Visasisho vitatumwa."</string>
-    <string name="past_alerts_title" msgid="8087610284451833210">"Matukio yaliyopita"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Arifa za kalenda"</string>
     <string name="event_info_title" msgid="56024222340421620">"Tazama tukio"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Mwaliko wa mktutano"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Kwa"</string>
@@ -123,7 +123,6 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"Sinzisha zote"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Kataa zote"</string>
     <string name="snooze_5min_label" msgid="3846502651367125116">"Sinzia kwa dakika 5"</string>
-    <string name="event_notification_big_text" msgid="3523682911470976907">"<xliff:g id="SUMMARY">%1$s</xliff:g> • <xliff:g id="DESCRIPTION">%2$s</xliff:g>"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Tukio la wakati mmoja"</string>
     <string name="daily" msgid="560350706808680448">"Kila siku"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Kila siku ya kazi (Jumatatu-Ijumaa)"</string>
@@ -205,10 +204,8 @@
     <item quantity="one" msgid="5230907142214104485">"Tukio 1"</item>
     <item quantity="other" msgid="6093072093209431078">"Matukio <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
-  <plurals name="N_missed_events">
-    <item quantity="one" msgid="1593156519341582311">"+1 amekosa tukio"</item>
-    <item quantity="other" msgid="2265435399149554901">"Matukio + <xliff:g id="COUNT">%d</xliff:g> yaliyokosekana"</item>
-  </plurals>
+    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
+    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Tukio lililochaguliwa"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Usikague -&gt;"</string>
 </resources>
