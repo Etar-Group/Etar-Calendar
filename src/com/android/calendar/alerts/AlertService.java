@@ -104,7 +104,7 @@ public class AlertService extends Service {
     private static final int MINUTE_MS = 60 * 1000;
 
     // The grace period before changing a notification's priority bucket.
-    private static final int DEPRIORITIZE_GRACE_PERIOD_MS = 15 * MINUTE_MS;
+    private static final int DEFAULT_DEPRIORITIZE_GRACE_PERIOD_MS = 15 * MINUTE_MS;
 
     void processMessage(Message msg) {
         Bundle bundle = (Bundle) msg.obj;
@@ -220,7 +220,9 @@ public class AlertService extends Service {
 
             // Keep concurrent events high priority (to appear higher in the notification list)
             // until 15 minutes into the event.
-            long gracePeriodEnd = info.startMillis + DEPRIORITIZE_GRACE_PERIOD_MS;
+            long gracePeriodEnd = info.startMillis
+                    + getGracePeriodMs(info.startMillis, info.endMillis);
+
             if (gracePeriodEnd > currentTime) {
                 nextRefreshTime = Math.min(nextRefreshTime, gracePeriodEnd);
             }
@@ -310,8 +312,8 @@ public class AlertService extends Service {
      *     that started recently (less than the interval DEPRIORITIZE_GRACE_PERIOD_MS).
      * @param mediumPriorityEvents This will contain concurrent events that started
      *     more than DEPRIORITIZE_GRACE_PERIOD_MS ago.
-     * @param expiredEvents Will contain events that have ended.
-     * @param expiredDigestTitle Should pass in an empty StringBuilder; this will be
+     * @param lowPriorityEvents Will contain events that have ended.
+     * @param lowPriorityDigestTitle Should pass in an empty StringBuilder; this will be
      *     modified to contain a title consolidating all expired event titles.
      * @return Returns the number of new alerts to fire.  If this is 0, it implies
      *     a quiet update.
@@ -319,7 +321,7 @@ public class AlertService extends Service {
     private static int processQuery(final Cursor alertCursor, final ContentResolver cr,
             final long currentTime, ArrayList<NotificationInfo> highPriorityEvents,
             ArrayList<NotificationInfo> mediumPriorityEvents,
-            ArrayList<NotificationInfo> expiredEvents, StringBuilder expiredDigestTitle) {
+            ArrayList<NotificationInfo> lowPriorityEvents, StringBuilder lowPriorityDigestTitle) {
         HashMap<Long, Long> eventIds = new HashMap<Long, Long>();
         int numFired = 0;
         try {
@@ -358,10 +360,12 @@ public class AlertService extends Service {
                 // } else
 
                 // Remove declined events
+                boolean newAlert = false;
                 if (!declined) {
                     if (state == CalendarAlerts.STATE_SCHEDULED) {
                         newState = CalendarAlerts.STATE_FIRED;
                         numFired++;
+                        newAlert = true;
 
                         // Record the received time in the CalendarAlerts table.
                         // This is useful for finding bugs that cause alarms to be
@@ -406,23 +410,29 @@ public class AlertService extends Service {
                 }
 
                 // Don't count duplicate alerts for the same event
+                // TODO: Prioritize by "primary" calendar
                 if (eventIds.put(eventId, beginTime) == null) {
                     NotificationInfo notificationInfo = new NotificationInfo(eventName, location,
-                            description, beginTime, endTime, eventId, allDay);
+                            description, beginTime, endTime, eventId, allDay, newAlert);
 
-                    // TODO: Prioritize by "primary" calendar
-                    long highPriorityCutoff = currentTime - DEPRIORITIZE_GRACE_PERIOD_MS;
+                    // High priority cutoff should be 1/4 event duration or 15 min, whichever is
+                    // longer.
+                    long gracePeriodMs = getGracePeriodMs(beginTime, endTime);
+                    long highPriorityCutoff = currentTime - gracePeriodMs;
+
                     if (beginTime > highPriorityCutoff) {
+                        // High priority = future events or events that just started
                         highPriorityEvents.add(notificationInfo);
-                    } else if (endTime >= currentTime) {
+                    } else if (allDay && DateUtils.isToday(beginTime)) {
+                        // Medium priority = in progress all day events
                         mediumPriorityEvents.add(notificationInfo);
                     } else {
-                        expiredEvents.add(notificationInfo);
+                        lowPriorityEvents.add(notificationInfo);
                         if (!TextUtils.isEmpty(eventName)) {
-                            if (expiredDigestTitle.length() > 0) {
-                                expiredDigestTitle.append(", ");
+                            if (lowPriorityDigestTitle.length() > 0) {
+                                lowPriorityDigestTitle.append(", ");
                             }
-                            expiredDigestTitle.append(eventName);
+                            lowPriorityDigestTitle.append(eventName);
                         }
                     }
                 }
@@ -435,6 +445,10 @@ public class AlertService extends Service {
         return numFired;
     }
 
+    private static long getGracePeriodMs(long beginTime, long endTime) {
+        return Math.max(DEFAULT_DEPRIORITIZE_GRACE_PERIOD_MS, ((endTime - beginTime) / 4));
+    }
+
     private static void postNotification(NotificationInfo info, String summaryText,
             Context context, boolean highPriority, NotificationPrefs prefs,
             NotificationManager notificationMgr) {
@@ -444,10 +458,16 @@ public class AlertService extends Service {
                 info.endMillis, info.eventId, info.notificationId, prefs.getDoPopup(),
                 highPriority);
 
-        // If we've already posted a notification, don't play any more sounds so only
-        // 1 sound per group of notifications.
-        String ringtone = prefs.getRingtoneAndSilence();
-        addNotificationOptions(notification, prefs.quietUpdate, tickerText,
+        boolean quietUpdate = true;
+        String ringtone = NotificationPrefs.EMPTY_RINGTONE;
+        if (info.newAlert) {
+            quietUpdate = prefs.quietUpdate;
+
+            // If we've already played a ringtone, don't play any more sounds so only
+            // 1 sound per group of notifications.
+            ringtone = prefs.getRingtoneAndSilence();
+        }
+        addNotificationOptions(notification, quietUpdate, tickerText,
                 prefs.getDefaultVibrate(), ringtone);
 
         // Post the notification.
@@ -478,9 +498,10 @@ public class AlertService extends Service {
         long eventId;
         int notificationId;
         boolean allDay;
+        boolean newAlert;
 
         NotificationInfo(String eventName, String location, String description, long startMillis,
-                long endMillis, long eventId, boolean allDay) {
+                long endMillis, long eventId, boolean allDay, boolean newAlert) {
             this.eventName = eventName;
             this.location = location;
             this.description = description;
@@ -488,6 +509,7 @@ public class AlertService extends Service {
             this.endMillis = endMillis;
             this.eventId = eventId;
             this.allDay = allDay;
+            this.newAlert = newAlert;
             this.notificationId = getNotificationId(eventId, startMillis);
         }
 
@@ -578,7 +600,7 @@ public class AlertService extends Service {
         private int defaultVibrate = -1;
         private String ringtone = null;
 
-        private static final String EMPTY = "";
+        private static final String EMPTY_RINGTONE = "";
 
         NotificationPrefs(Context context, SharedPreferences prefs,
                 boolean quietUpdate) {
@@ -642,13 +664,13 @@ public class AlertService extends Service {
         private String getRingtoneAndSilence() {
             if (ringtone == null) {
                 if (quietUpdate) {
-                    ringtone = EMPTY;
+                    ringtone = EMPTY_RINGTONE;
                 } else {
                     ringtone = prefs.getString(GeneralPreferences.KEY_ALERTS_RINGTONE, null);
                 }
             }
             String retVal = ringtone;
-            ringtone = EMPTY;
+            ringtone = EMPTY_RINGTONE;
             return retVal;
         }
     }
