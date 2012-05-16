@@ -391,8 +391,8 @@ public class AlertReceiver extends BroadcastReceiver {
             // If there are too many to display, add "+X missed events" for the last line.
             int remaining = numEvents - i;
             if (remaining > 0) {
-                String nMoreEventsStr = res.getQuantityString(R.plurals.N_missed_events, remaining,
-                        remaining);
+                String nMoreEventsStr = res.getQuantityString(R.plurals.N_remaining_events,
+                        remaining, remaining);
                 // TODO: Add highlighting and icon to this last entry once framework allows it.
                 expandedBuilder.setSummaryText(nMoreEventsStr);
             }
