@@ -20,8 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"主題"</string>
     <string name="where_label" msgid="3472482206065595118">"地點"</string>
     <string name="when_label" msgid="894636567327261599">"時間"</string>
-    <!-- no translation found for timezone_label (3266819367144821270) -->
-    <skip />
+    <string name="timezone_label" msgid="3988530993300431650">"時區"</string>
     <string name="attendees_label" msgid="2971281641565729725">"邀請對象"</string>
     <string name="today" msgid="8577375020252453006">"今天"</string>
     <string name="tomorrow" msgid="614434811813859237">"明天"</string>
@@ -81,7 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"無法建立空白活動。"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"即將傳送邀請。"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"即將傳送更新。"</string>
-    <string name="past_alerts_title" msgid="8087610284451833210">"過往活動"</string>
+    <string name="alert_title" msgid="7869592820853066853">"日曆通知"</string>
     <string name="event_info_title" msgid="56024222340421620">"檢視活動"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"會議邀請"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"到"</string>
@@ -124,7 +123,6 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"全部延遲"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"全部關閉"</string>
     <string name="snooze_5min_label" msgid="3846502651367125116">"延遲 5 分鐘"</string>
-    <string name="event_notification_big_text" msgid="3523682911470976907">"<xliff:g id="SUMMARY">%1$s</xliff:g> • <xliff:g id="DESCRIPTION">%2$s</xliff:g>"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"單次活動"</string>
     <string name="daily" msgid="560350706808680448">"每日"</string>
     <string name="every_weekday" msgid="5896574838353902978">"平日 (週一至週五)"</string>
@@ -206,10 +204,8 @@
     <item quantity="one" msgid="5230907142214104485">"1 個活動"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> 個活動"</item>
   </plurals>
-  <plurals name="N_missed_events">
-    <item quantity="one" msgid="1593156519341582311">"+1 個錯過的活動"</item>
-    <item quantity="other" msgid="2265435399149554901">"+<xliff:g id="COUNT">%d</xliff:g> 個錯過的活動"</item>
-  </plurals>
+    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
+    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"選取的活動"</string>
     <string name="do_not_check" msgid="7815441673853466129">"請勿勾選 -&gt;"</string>
 </resources>
