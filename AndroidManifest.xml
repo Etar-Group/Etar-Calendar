@@ -161,10 +161,17 @@
         <receiver android:name=".alerts.AlertReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.EVENT_REMINDER" />
-                <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <data android:scheme="content" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PROVIDER_CHANGED"/>
+                <data android:scheme="content"/>
+                <data android:host="com.android.calendar"/>
             </intent-filter>
         </receiver>
 
