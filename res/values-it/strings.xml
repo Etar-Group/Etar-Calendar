@@ -20,8 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"Che cosa"</string>
     <string name="where_label" msgid="3472482206065595118">"Dove"</string>
     <string name="when_label" msgid="894636567327261599">"Intervallo di tempo"</string>
-    <!-- no translation found for timezone_label (3266819367144821270) -->
-    <skip />
+    <string name="timezone_label" msgid="3988530993300431650">"Fuso orario"</string>
     <string name="attendees_label" msgid="2971281641565729725">"Invitati"</string>
     <string name="today" msgid="8577375020252453006">"Oggi"</string>
     <string name="tomorrow" msgid="614434811813859237">"Domani"</string>
@@ -81,7 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Evento vuoto non creato."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Gli inviti verranno inviati."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Gli aggiornamenti verranno inviati."</string>
-    <string name="past_alerts_title" msgid="8087610284451833210">"Eventi passati"</string>
+    <string name="alert_title" msgid="7869592820853066853">"Notifiche di Google Calendar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visualizza evento"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invito a riunione"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"A"</string>
@@ -124,7 +123,6 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"Posponi tutto"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Ignora tutto"</string>
     <string name="snooze_5min_label" msgid="3846502651367125116">"Ripeti fra 5 minuti"</string>
-    <string name="event_notification_big_text" msgid="3523682911470976907">"<xliff:g id="SUMMARY">%1$s</xliff:g> • <xliff:g id="DESCRIPTION">%2$s</xliff:g>"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento occasionale"</string>
     <string name="daily" msgid="560350706808680448">"Ogni giorno"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Ogni giorno della sett. (lun-ven)"</string>
@@ -206,10 +204,8 @@
     <item quantity="one" msgid="5230907142214104485">"1 evento"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> eventi"</item>
   </plurals>
-  <plurals name="N_missed_events">
-    <item quantity="one" msgid="1593156519341582311">"Un altro evento perso"</item>
-    <item quantity="other" msgid="2265435399149554901">"Altri <xliff:g id="COUNT">%d</xliff:g> eventi persi"</item>
-  </plurals>
+    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
+    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Evento selezionato"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NON controllare -&gt;"</string>
 </resources>
