@@ -20,8 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"내용"</string>
     <string name="where_label" msgid="3472482206065595118">"장소"</string>
     <string name="when_label" msgid="894636567327261599">"일시"</string>
-    <!-- no translation found for timezone_label (3266819367144821270) -->
-    <skip />
+    <string name="timezone_label" msgid="3988530993300431650">"시간대"</string>
     <string name="attendees_label" msgid="2971281641565729725">"참석자"</string>
     <string name="today" msgid="8577375020252453006">"오늘"</string>
     <string name="tomorrow" msgid="614434811813859237">"내일"</string>
@@ -81,7 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"빈 일정은 만들 수 없습니다."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"초대장이 전송됩니다."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"업데이트가 전송됩니다."</string>
-    <string name="past_alerts_title" msgid="8087610284451833210">"과거 일정"</string>
+    <string name="alert_title" msgid="7869592820853066853">"캘린더 알림"</string>
     <string name="event_info_title" msgid="56024222340421620">"일정 보기"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"회의 초대"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"종료:"</string>
@@ -124,8 +123,6 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"모두 일시 중지"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"모두 해제"</string>
     <string name="snooze_5min_label" msgid="3846502651367125116">"5분 동안 알람 일시 중지"</string>
-    <!-- no translation found for event_notification_big_text (3523682911470976907) -->
-    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"한번만"</string>
     <string name="daily" msgid="560350706808680448">"매일"</string>
     <string name="every_weekday" msgid="5896574838353902978">"주중 매일(월-금)"</string>
@@ -208,10 +205,8 @@
     <item quantity="one" msgid="5230907142214104485">"일정 1개"</item>
     <item quantity="other" msgid="6093072093209431078">"일정 <xliff:g id="COUNT">%d</xliff:g>개"</item>
   </plurals>
-  <plurals name="N_missed_events">
-    <item quantity="one" msgid="1593156519341582311">"확인하지 않은 일정 1개"</item>
-    <item quantity="other" msgid="2265435399149554901">"확인하지 않은 일정 <xliff:g id="COUNT">%d</xliff:g>개"</item>
-  </plurals>
+    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
+    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"선택한 일정"</string>
     <string name="do_not_check" msgid="7815441673853466129">"선택안함 -&gt;"</string>
 </resources>
