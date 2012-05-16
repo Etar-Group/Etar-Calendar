@@ -16,10 +16,6 @@
 
 package com.android.calendar.alerts;
 
-import com.android.calendar.GeneralPreferences;
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -48,6 +44,10 @@ import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
 
+import com.android.calendar.GeneralPreferences;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,7 +62,7 @@ public class AlertService extends Service {
     private volatile Looper mServiceLooper;
     private volatile ServiceHandler mServiceHandler;
 
-    private static final String[] ALERT_PROJECTION = new String[] {
+    static final String[] ALERT_PROJECTION = new String[] {
         CalendarAlerts._ID,                     // 0
         CalendarAlerts.EVENT_ID,                // 1
         CalendarAlerts.STATE,                   // 2
@@ -109,7 +109,72 @@ public class AlertService extends Service {
     private static final int MIN_DEPRIORITIZE_GRACE_PERIOD_MS = 15 * MINUTE_MS;
 
     // Hard limit to the number of notifications displayed.
-    private static final int MAX_NOTIFICATIONS = 20;
+    public static final int MAX_NOTIFICATIONS = 20;
+
+    // Added wrapper for testing
+    public static class NotificationWrapper {
+        Notification mNotification;
+        long mEventId;
+        long mBegin;
+        long mEnd;
+        ArrayList<NotificationWrapper> mNw;
+
+        public NotificationWrapper(Notification n, int notificationId, long eventId,
+                long startMillis, long endMillis, boolean doPopup) {
+            mNotification = n;
+            mEventId = eventId;
+            mBegin = startMillis;
+            mEnd = endMillis;
+
+            // popup?
+            // notification id?
+        }
+
+        public NotificationWrapper(Notification n) {
+            mNotification = n;
+        }
+
+        public void add(NotificationWrapper nw) {
+            if (mNw == null) {
+                mNw = new ArrayList<NotificationWrapper>();
+            }
+            mNw.add(nw);
+        }
+    }
+
+    // Added wrapper for testing
+    public static class NotificationMgrWrapper implements NotificationMgr {
+        NotificationManager mNm;
+
+        public NotificationMgrWrapper(NotificationManager nm) {
+            mNm = nm;
+        }
+
+        @Override
+        public void cancel(int id) {
+            mNm.cancel(id);
+        }
+
+        @Override
+        public void cancel(String tag, int id) {
+            mNm.cancel(tag, id);
+        }
+
+        @Override
+        public void cancelAll() {
+            mNm.cancelAll();
+        }
+
+        @Override
+        public void notify(int id, NotificationWrapper nw) {
+            mNm.notify(id, nw.mNotification);
+        }
+
+        @Override
+        public void notify(String tag, int id, NotificationWrapper nw) {
+            mNm.notify(tag, id, nw.mNotification);
+        }
+    }
 
     void processMessage(Message msg) {
         Bundle bundle = (Bundle) msg.obj;
@@ -148,8 +213,8 @@ public class AlertService extends Service {
 
     static boolean updateAlertNotification(Context context) {
         ContentResolver cr = context.getContentResolver();
-        NotificationManager nm =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationMgr nm = new NotificationMgrWrapper(
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
         final long currentTime = System.currentTimeMillis();
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
 
@@ -182,6 +247,11 @@ public class AlertService extends Service {
             return false;
         }
 
+        return generateAlerts(context, nm, prefs, alertCursor, currentTime);
+    }
+
+    public static boolean generateAlerts(Context context, NotificationMgr nm,
+            SharedPreferences prefs, Cursor alertCursor, final long currentTime) {
         if (DEBUG) {
             Log.d(TAG, "alertCursor count:" + alertCursor.getCount());
         }
@@ -246,7 +316,7 @@ public class AlertService extends Service {
         int numLowPriority = lowPriorityEvents.size();
         if (numLowPriority > 0) {
             String expiredDigestTitle = getDigestTitle(lowPriorityEvents);
-            Notification notification;
+            NotificationWrapper notification;
             if (numLowPriority == 1) {
                 // If only 1 expired event, display an "old-style" basic alert.
                 NotificationInfo info = lowPriorityEvents.get(0);
@@ -415,7 +485,6 @@ public class AlertService extends Service {
         ContentResolver cr = context.getContentResolver();
         HashMap<Long, NotificationInfo> eventIds = new HashMap<Long, NotificationInfo>();
         int numFired = 0;
-        int notificationId = 1;
         try {
             while (alertCursor.moveToNext()) {
                 final long alertId = alertCursor.getLong(ALERT_INDEX_ID);
@@ -487,8 +556,7 @@ public class AlertService extends Service {
                     continue;
                 }
 
-                // Pick an Event title for the notification panel by the latest
-                // alertTime and give prefer accepted events in case of ties.
+                // TODO: Prefer accepted events in case of ties.
                 int newStatus;
                 switch (status) {
                     case Attendees.ATTENDEE_STATUS_ACCEPTED:
@@ -596,9 +664,9 @@ public class AlertService extends Service {
 
     private static void postNotification(NotificationInfo info, String summaryText,
             Context context, boolean highPriority, NotificationPrefs prefs,
-            NotificationManager notificationMgr, int notificationId) {
+            NotificationMgr notificationMgr, int notificationId) {
         String tickerText = getTickerText(info.eventName, info.location);
-        Notification notification = AlertReceiver.makeExpandingNotification(context,
+        NotificationWrapper notification = AlertReceiver.makeExpandingNotification(context,
                 info.eventName, summaryText, info.description, info.startMillis,
                 info.endMillis, info.eventId, notificationId, prefs.getDoPopup(),
                 highPriority);
@@ -657,8 +725,9 @@ public class AlertService extends Service {
         }
     }
 
-    private static void addNotificationOptions(Notification notification, boolean quietUpdate,
+    private static void addNotificationOptions(NotificationWrapper nw, boolean quietUpdate,
             String tickerText, boolean defaultVibrate, String reminderRingtone) {
+        Notification notification = nw.mNotification;
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
@@ -683,7 +752,7 @@ public class AlertService extends Service {
         }
     }
 
-    private static class NotificationPrefs {
+    /* package */ static class NotificationPrefs {
         boolean quietUpdate;
         private Context context;
         private SharedPreferences prefs;
@@ -695,8 +764,7 @@ public class AlertService extends Service {
 
         private static final String EMPTY_RINGTONE = "";
 
-        NotificationPrefs(Context context, SharedPreferences prefs,
-                boolean quietUpdate) {
+        NotificationPrefs(Context context, SharedPreferences prefs, boolean quietUpdate) {
             this.context = context;
             this.prefs = prefs;
             this.quietUpdate = quietUpdate;
