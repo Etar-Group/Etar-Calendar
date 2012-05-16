@@ -352,8 +352,6 @@
     <!-- The button label for making the reminder alarms go away temporarily
          and re-fire in 5 minutes. [CHAR LIMIT=30]-->
     <string name="snooze_5min_label">"Snooze for 5 minutes"</string>
-    <!-- Format string used when displaying the big text of a future/current event notification. [CHAR LIMIT=120] -->
-    <string name="event_notification_big_text"><xliff:g id="summary">%1$s</xliff:g> \u2022 <xliff:g id="description">%2$s</xliff:g></string>
 
     <!-- Repetition dialog options: -->
     <skip/>
