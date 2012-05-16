@@ -44,6 +44,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Receives android.intent.action.EVENT_REMINDER intents and handles
@@ -68,6 +70,8 @@ public class AlertReceiver extends BroadcastReceiver {
 
     static final Object mStartingServiceSync = new Object();
     static PowerManager.WakeLock mStartingService;
+    private static final Pattern mBlankLinePattern = Pattern.compile("^\\s*$[\n\r]",
+            Pattern.MULTILINE);
 
     public static final String ACTION_DISMISS_OLD_REMINDERS = "removeOldReminders";
     private static final int NOTIFICATION_DIGEST_MAX_LENGTH = 3;
@@ -289,6 +293,7 @@ public class AlertReceiver extends BroadcastReceiver {
         Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
                 basicBuilder);
         if (description != null) {
+            description = mBlankLinePattern.matcher(description).replaceAll("");
             description = description.trim();
         }
         CharSequence text;
