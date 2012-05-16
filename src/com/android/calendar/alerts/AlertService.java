@@ -18,6 +18,7 @@ package com.android.calendar.alerts;
 
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -196,7 +197,7 @@ public class AlertService extends Service {
         ArrayList<NotificationInfo> highPriorityEvents = new ArrayList<NotificationInfo>();
         ArrayList<NotificationInfo> mediumPriorityEvents = new ArrayList<NotificationInfo>();
         ArrayList<NotificationInfo> lowPriorityEvents = new ArrayList<NotificationInfo>();
-        int numFired = processQuery(alertCursor, cr, currentTime, highPriorityEvents,
+        int numFired = processQuery(alertCursor, context, currentTime, highPriorityEvents,
                 mediumPriorityEvents, lowPriorityEvents);
 
         if (highPriorityEvents.size() + mediumPriorityEvents.size()
@@ -414,10 +415,11 @@ public class AlertService extends Service {
      * @return Returns the number of new alerts to fire.  If this is 0, it implies
      *     a quiet update.
      */
-    private static int processQuery(final Cursor alertCursor, final ContentResolver cr,
+    private static int processQuery(final Cursor alertCursor, final Context context,
             final long currentTime, ArrayList<NotificationInfo> highPriorityEvents,
             ArrayList<NotificationInfo> mediumPriorityEvents,
             ArrayList<NotificationInfo> lowPriorityEvents) {
+        ContentResolver cr = context.getContentResolver();
         HashMap<Long, NotificationInfo> eventIds = new HashMap<Long, NotificationInfo>();
         int numFired = 0;
         int notificationId = 1;
@@ -443,7 +445,7 @@ public class AlertService extends Service {
                     Log.d(TAG, "alertCursor result: alarmTime:" + alarmTime + " alertId:" + alertId
                             + " eventId:" + eventId + " state: " + state + " minutes:" + minutes
                             + " declined:" + declined + " beginTime:" + beginTime
-                            + " endTime:" + endTime);
+                            + " endTime:" + endTime + " allDay:" + allDay);
                 }
 
                 ContentValues values = new ContentValues();
@@ -546,13 +548,25 @@ public class AlertService extends Service {
                     }
                 }
 
+                // Adjust for all day events to ensure the right bucket.  Don't use the 1/4 event
+                // duration grace period for these.
+                long gracePeriodMs;
+                long beginTimeAdjustedForAllDay = beginTime;
+                if (allDay) {
+                    beginTimeAdjustedForAllDay = Utils.convertAlldayUtcToLocal(null, beginTime,
+                            Utils.getTimeZone(context, null));
+                    gracePeriodMs = MIN_DEPRIORITIZE_GRACE_PERIOD_MS;
+                } else {
+                    gracePeriodMs = getGracePeriodMs(beginTime, endTime);
+                }
+
                 // TODO: Prioritize by "primary" calendar
                 eventIds.put(eventId, newInfo);
-                long highPriorityCutoff = currentTime - getGracePeriodMs(beginTime, endTime);
-                if (beginTime > highPriorityCutoff) {
+                long highPriorityCutoff = currentTime - gracePeriodMs;
+                if (beginTimeAdjustedForAllDay > highPriorityCutoff) {
                     // High priority = future events or events that just started
                     highPriorityEvents.add(newInfo);
-                } else if (allDay && DateUtils.isToday(beginTime)) {
+                } else if (allDay && DateUtils.isToday(beginTimeAdjustedForAllDay)) {
                     // Medium priority = in progress all day events
                     mediumPriorityEvents.add(newInfo);
                 } else {
