@@ -355,7 +355,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
         Notification.Builder notificationBuilder = new Notification.Builder(context);
         notificationBuilder.setContentText(digestTitle);
-        notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
+        notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar_multiple);
         notificationBuilder.setContentIntent(pendingClickIntent);
         notificationBuilder.setDeleteIntent(pendingDeleteIntent);
         String nEventsStr = res.getQuantityString(R.plurals.Nevents, numEvents, numEvents);
