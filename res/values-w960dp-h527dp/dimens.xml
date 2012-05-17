@@ -39,4 +39,8 @@
     <dimen name="widget_day_num_top_padding">-8dip</dimen>
     <dimen name="new_event_hint_text_size">14sp</dimen>
     <dimen name="edit_reminder_min_size">48dip</dimen>
+        <!-- Size of event info dialog box -->
+    <dimen name="event_info_dialog_width">550dip</dimen>
+    <dimen name="event_info_dialog_height">470dip</dimen>
+
 </resources>

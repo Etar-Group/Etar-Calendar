@@ -509,13 +509,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             if (mScale != 1) {
                 mCustomAppIconSize *= mScale;
                 if (isDialog) {
-                    mDialogWidth = r.getInteger(R.integer.event_info_dialog_width);
-                    mDialogHeight = r.getInteger(R.integer.event_info_dialog_height);
-                    mDialogWidth *= mScale;
-                    mDialogHeight *= mScale;
                     DIALOG_TOP_MARGIN *= mScale;
                 }
             }
+        }
+        if (isDialog) {
+            setDialogSize(r);
         }
         mIsDialog = isDialog;
 
@@ -1945,6 +1944,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     @Override
     public void onResume() {
         super.onResume();
+        if (mIsDialog) {
+            setDialogSize(getActivity().getResources());
+            applyDialogParams();
+        }
         mIsPaused = false;
         if (mDismissOnResume) {
             mHandler.post(onDeleteRunnable);
@@ -2156,7 +2159,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public long getEndMillis() {
         return mEndMillis;
     }
-
+    private void setDialogSize(Resources r) {
+        mDialogWidth = (int)r.getDimension(R.dimen.event_info_dialog_width);
+        mDialogHeight = (int)r.getDimension(R.dimen.event_info_dialog_height);
+    }
 
 
 }
