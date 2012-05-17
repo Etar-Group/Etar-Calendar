@@ -50,7 +50,7 @@ public class AlertUtils {
     public static final String EVENT_START_KEY = "eventstart";
     public static final String EVENT_END_KEY = "eventend";
     public static final String NOTIFICATION_ID_KEY = "notificationid";
-    public static final String DELETE_EXPIRED_ONLY_KEY = "expired";
+    public static final String EVENT_IDS_KEY = "eventids";
 
     /**
      * Schedules an alarm intent with the system AlarmManager that will notify

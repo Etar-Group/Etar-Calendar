@@ -54,7 +54,7 @@ public class DismissAlarmsService extends IntentService {
         long eventStart = intent.getLongExtra(AlertUtils.EVENT_START_KEY, -1);
         long eventEnd = intent.getLongExtra(AlertUtils.EVENT_END_KEY, -1);
         boolean showEvent = intent.getBooleanExtra(AlertUtils.SHOW_EVENT_KEY, false);
-        boolean expiredOnly = intent.getBooleanExtra(AlertUtils.DELETE_EXPIRED_ONLY_KEY, false);
+        long[] eventIds = intent.getLongArrayExtra(AlertUtils.EVENT_IDS_KEY);
 
         // The ID reserved for the expired notification digest should never be passed in
         // here, so use that as a default.
@@ -68,26 +68,19 @@ public class DismissAlarmsService extends IntentService {
         if (eventId != -1) {
             selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED + " AND " +
             CalendarAlerts.EVENT_ID + "=" + eventId;
+        } else if (eventIds != null && eventIds.length > 0) {
+            selection = buildMultipleEventsQuery(eventIds);
         } else {
             selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED;
         }
-        if (expiredOnly) {
-            selection += " AND " + CalendarAlerts.END + "<" +
-                    Long.toString(System.currentTimeMillis());
-        }
+
         ContentResolver resolver = getContentResolver();
         ContentValues values = new ContentValues();
         values.put(PROJECTION[COLUMN_INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
         resolver.update(uri, values, selection, null);
 
         // Remove from notification bar.
-        NotificationManager nm =
-            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (expiredOnly) {
-            nm.cancel(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
-        } else if (notificationId != AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID) {
-            nm.cancel(notificationId);
-        }
+        AlertService.updateAlertNotification(this);
 
         if (showEvent) {
             // Show event on Calendar app by building an intent and task stack to start
@@ -99,5 +92,26 @@ public class DismissAlarmsService extends IntentService {
 
         // Stop this service
         stopSelf();
+    }
+
+    private String buildMultipleEventsQuery(long[] eventIds) {
+        StringBuilder selection = new StringBuilder();
+        selection.append(CalendarAlerts.STATE);
+        selection.append("=");
+        selection.append(CalendarAlerts.STATE_FIRED);
+        if (eventIds.length > 0) {
+            selection.append(" AND (");
+            selection.append(CalendarAlerts.EVENT_ID);
+            selection.append("=");
+            selection.append(eventIds[0]);
+            for (int i = 1; i < eventIds.length; i++) {
+                selection.append(" OR ");
+                selection.append(CalendarAlerts.EVENT_ID);
+                selection.append("=");
+                selection.append(eventIds[i]);
+            }
+            selection.append(")");
+        }
+        return selection.toString();
     }
 }
