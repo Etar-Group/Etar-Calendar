@@ -402,28 +402,28 @@ public class EditEventHelper {
         ContentProviderOperation.Builder b;
         boolean hasAttendeeData = model.mHasAttendeeData;
 
-        // New event/instance - Set Organizer's response as yes
-        if (hasAttendeeData && newEvent) {
-            values.clear();
+        if (hasAttendeeData && model.mOwnerAttendeeId == -1) {
+            // Organizer is not an attendee
 
             String ownerEmail = model.mOwnerAccount;
-            if (ownerEmail != null) {
+            if (model.mAttendeesList.size() != 0 && Utils.isValidEmail(ownerEmail)) {
+                // Add organizer as attendee since we got some attendees
+
+                values.clear();
                 values.put(Attendees.ATTENDEE_EMAIL, ownerEmail);
                 values.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
-                values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
-                int initialStatus = Attendees.ATTENDEE_STATUS_ACCEPTED;
-                if (originalModel != null) {
-                    initialStatus = model.mSelfAttendeeStatus;
-                }
+                values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
+                values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_ACCEPTED);
 
-                // Don't accept for secondary calendars
-                if (ownerEmail.endsWith("calendar.google.com")) {
-                    initialStatus = Attendees.ATTENDEE_STATUS_NONE;
+                if (newEvent) {
+                    b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                            .withValues(values);
+                    b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
+                } else {
+                    values.put(Attendees.EVENT_ID, model.mId);
+                    b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI)
+                            .withValues(values);
                 }
-                values.put(Attendees.ATTENDEE_STATUS, initialStatus);
-
-                b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI).withValues(values);
-                b.withValueBackReference(Attendees.EVENT_ID, eventIdIndex);
                 ops.add(b.build());
             }
         } else if (hasAttendeeData &&
@@ -509,7 +509,7 @@ public class EditEventHelper {
                         values.put(Attendees.ATTENDEE_EMAIL, attendee.mEmail);
                         values.put(Attendees.ATTENDEE_RELATIONSHIP,
                                 Attendees.RELATIONSHIP_ATTENDEE);
-                        values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+                        values.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
                         values.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
 
                         if (newEvent) {
