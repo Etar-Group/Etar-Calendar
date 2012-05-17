@@ -484,13 +484,11 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                 }
 
                 if (mLastLock != mLock) {
-                    cursor.close();
                     return;
                 }
 
                 // Copy it to a local static cursor.
                 MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
-                cursor.close();
 
                 final long now = System.currentTimeMillis();
                 if (mCursor != null) {
