@@ -32,10 +32,4 @@
     <instrumentation android:name="android.test.InstrumentationTestRunner"
                      android:targetPackage="com.android.calendar"
                      android:label="calendar tests"/>
-
-    <instrumentation android:name="com.android.calendar.CalendarLaunchPerformance"
-        android:targetPackage="com.android.calendar"
-        android:label="Calendar Launch Performance">
-    </instrumentation>
-
 </manifest>

@@ -16,14 +16,10 @@
 
 package com.android.calendar.alerts;
 
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -42,9 +38,12 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+import com.android.calendar.alerts.AlertService.NotificationWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -216,11 +215,14 @@ public class AlertReceiver extends BroadcastReceiver {
         return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-    public static Notification makeBasicNotification(Context context, String title,
+    public static NotificationWrapper makeBasicNotification(Context context, String title,
             String summaryText, long startMillis, long endMillis, long eventId,
             int notificationId, boolean doPopup) {
-        return makeBasicNotificationBuilder(context, title, summaryText, startMillis, endMillis,
-                eventId, notificationId, doPopup, false, false).build();
+
+        Notification n = makeBasicNotificationBuilder(context, title, summaryText, startMillis,
+                endMillis, eventId, notificationId, doPopup, false, false).build();
+
+        return new NotificationWrapper(n, notificationId, eventId, startMillis, endMillis, doPopup);
     }
 
     private static Notification.Builder makeBasicNotificationBuilder(Context context, String title,
@@ -282,7 +284,7 @@ public class AlertReceiver extends BroadcastReceiver {
      * Creates an expanding notification.  The initial expanded state is decided by
      * the notification manager based on the priority.
      */
-    public static Notification makeExpandingNotification(Context context, String title,
+    public static NotificationWrapper makeExpandingNotification(Context context, String title,
             String summaryText, String description, long startMillis, long endMillis, long eventId,
             int notificationId, boolean doPopup, boolean highPriority) {
         Notification.Builder basicBuilder = makeBasicNotificationBuilder(context, title,
@@ -309,13 +311,15 @@ public class AlertReceiver extends BroadcastReceiver {
             text = stringBuilder;
         }
         expandedBuilder.bigText(text);
-        return expandedBuilder.build();
+
+        return new NotificationWrapper(expandedBuilder.build(), notificationId, eventId,
+                startMillis, endMillis, doPopup);
     }
 
     /**
      * Creates an expanding digest notification for expired events.
      */
-    public static Notification makeDigestNotification(Context context,
+    public static NotificationWrapper makeDigestNotification(Context context,
             ArrayList<AlertService.NotificationInfo> notificationInfos, String digestTitle,
             boolean expandable) {
         if (notificationInfos == null || notificationInfos.size() < 1) {
@@ -359,6 +363,8 @@ public class AlertReceiver extends BroadcastReceiver {
 
         // Set to min priority to encourage the notification manager to collapse it.
         notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+
+        Notification n;
 
         if (expandable) {
             // Multiple reminders.  Combine into an expanded digest notification.
@@ -409,10 +415,19 @@ public class AlertReceiver extends BroadcastReceiver {
             // Remove the title in the expanded form (redundant with the listed items).
             expandedBuilder.setBigContentTitle("");
 
-            return expandedBuilder.build();
+            n = expandedBuilder.build();
         } else {
-            return notificationBuilder.build();
+            n = notificationBuilder.build();
         }
+
+        NotificationWrapper nw = new NotificationWrapper(n);
+        if (AlertService.DEBUG) {
+            for (AlertService.NotificationInfo info : notificationInfos) {
+                nw.add(new NotificationWrapper(null, 0, info.eventId, info.startMillis,
+                        info.endMillis, false));
+            }
+        }
+        return nw;
     }
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
@@ -499,8 +514,6 @@ public class AlertReceiver extends BroadcastReceiver {
      * are no emailable attendees.
      */
     private static Intent createEmailIntent(Context context, long eventId) {
-        ContentResolver resolver = context.getContentResolver();
-
         // TODO: Refactor to move query part into Utils.createEmailAttendeeIntent, to
         // be shared with EventInfoFragment.
 
