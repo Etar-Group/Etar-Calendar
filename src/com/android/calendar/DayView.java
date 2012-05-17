@@ -224,7 +224,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             if (mClickedEvent != null) {
                 mController.sendEventRelatedEvent(this, EventType.VIEW_EVENT, mClickedEvent.id,
                         mClickedEvent.startMillis, mClickedEvent.endMillis,
-                        (int) (mClickedEvent.right / 2), mClickedYLocation,
+                        DayView.this.getWidth() / 2, mClickedYLocation,
                         getSelectedTimeInMillis());
             }
             mClickedEvent = null;
