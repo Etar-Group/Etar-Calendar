@@ -22,7 +22,4 @@
     <integer name="color_chip_all_day_height">64</integer>
     <!-- The size of the color chip in the agenda view -->
     <integer name="color_chip_height">32</integer>
-    <!-- Size of event info dialog box -->
-    <integer name="event_info_dialog_width">550</integer>
-    <integer name="event_info_dialog_height">470</integer>
 </resources>
