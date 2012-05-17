@@ -29,6 +29,7 @@ import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Smoke;
 
 import com.android.calendar.GeneralPreferences;
+import com.android.calendar.alerts.AlertService.NotificationInfo;
 import com.android.calendar.alerts.AlertService.NotificationWrapper;
 
 import java.util.ArrayList;
@@ -341,5 +342,145 @@ public class AlertServiceTest extends AndroidTestCase {
 
         AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime);
         ntm.validateNotificationsAndReset();
+    }
+
+
+    private NotificationInfo createNotificationInfo(long eventId) {
+        return new NotificationInfo("eventName", "location", "description", 100L, 200L, eventId,
+                false, false);
+    }
+
+    @SmallTest
+    public void testRedistributeBuckets_withinLimits() throws Exception {
+        int maxNotifications = 3;
+        ArrayList<NotificationInfo> threeItemList = new ArrayList<NotificationInfo>();
+        threeItemList.add(createNotificationInfo(5));
+        threeItemList.add(createNotificationInfo(4));
+        threeItemList.add(createNotificationInfo(3));
+
+        // Test when max notifications at high priority.
+        ArrayList<NotificationInfo> high = threeItemList;
+        ArrayList<NotificationInfo> medium = new ArrayList<NotificationInfo>();
+        ArrayList<NotificationInfo> low = new ArrayList<NotificationInfo>();
+        AlertService.redistributeBuckets(high, medium, low, maxNotifications);
+        assertEquals(3, high.size());
+        assertEquals(0, medium.size());
+        assertEquals(0, low.size());
+
+        // Test when max notifications at medium priority.
+        high = new ArrayList<NotificationInfo>();
+        medium = threeItemList;
+        low = new ArrayList<NotificationInfo>();
+        AlertService.redistributeBuckets(high, medium, low, maxNotifications);
+        assertEquals(0, high.size());
+        assertEquals(3, medium.size());
+        assertEquals(0, low.size());
+
+        // Test when max notifications at high and medium priority
+        high = new ArrayList<NotificationInfo>(threeItemList);
+        medium = new ArrayList<NotificationInfo>();
+        medium.add(high.remove(1));
+        low = new ArrayList<NotificationInfo>();
+        AlertService.redistributeBuckets(high, medium, low, maxNotifications);
+        assertEquals(2, high.size());
+        assertEquals(1, medium.size());
+        assertEquals(0, low.size());
+    }
+
+    @SmallTest
+    public void testRedistributeBuckets_tooManyHighPriority() throws Exception {
+        ArrayList<NotificationInfo> high = new ArrayList<NotificationInfo>();
+        ArrayList<NotificationInfo> medium = new ArrayList<NotificationInfo>();
+        ArrayList<NotificationInfo> low = new ArrayList<NotificationInfo>();
+        high.add(createNotificationInfo(5));
+        high.add(createNotificationInfo(4));
+        high.add(createNotificationInfo(3));
+        high.add(createNotificationInfo(2));
+        high.add(createNotificationInfo(1));
+
+        // Invoke the method under test.
+        int maxNotifications = 3;
+        AlertService.redistributeBuckets(high, medium, low, maxNotifications);
+
+        // Verify some high priority were kicked out.
+        assertEquals(3, high.size());
+        assertEquals(3, high.get(0).eventId);
+        assertEquals(2, high.get(1).eventId);
+        assertEquals(1, high.get(2).eventId);
+
+        // Verify medium priority untouched.
+        assertEquals(0, medium.size());
+
+        // Verify the extras went to low priority.
+        assertEquals(2, low.size());
+        assertEquals(5, low.get(0).eventId);
+        assertEquals(4, low.get(1).eventId);
+    }
+
+    @SmallTest
+    public void testRedistributeBuckets_tooManyMediumPriority() throws Exception {
+        ArrayList<NotificationInfo> high = new ArrayList<NotificationInfo>();
+        ArrayList<NotificationInfo> medium = new ArrayList<NotificationInfo>();
+        ArrayList<NotificationInfo> low = new ArrayList<NotificationInfo>();
+        high.add(createNotificationInfo(5));
+        high.add(createNotificationInfo(4));
+        medium.add(createNotificationInfo(3));
+        medium.add(createNotificationInfo(2));
+        medium.add(createNotificationInfo(1));
+
+        // Invoke the method under test.
+        int maxNotifications = 3;
+        AlertService.redistributeBuckets(high, medium, low, maxNotifications);
+
+        // Verify high priority untouched.
+        assertEquals(2, high.size());
+        assertEquals(5, high.get(0).eventId);
+        assertEquals(4, high.get(1).eventId);
+
+        // Verify some medium priority were kicked out (the ones near the end of the
+        // list).
+        assertEquals(1, medium.size());
+        assertEquals(3, medium.get(0).eventId);
+
+        // Verify the extras went to low priority.
+        assertEquals(2, low.size());
+        assertEquals(2, low.get(0).eventId);
+        assertEquals(1, low.get(1).eventId);
+    }
+
+    @SmallTest
+    public void testRedistributeBuckets_tooManyHighMediumPriority() throws Exception {
+        ArrayList<NotificationInfo> high = new ArrayList<NotificationInfo>();
+        ArrayList<NotificationInfo> medium = new ArrayList<NotificationInfo>();
+        ArrayList<NotificationInfo> low = new ArrayList<NotificationInfo>();
+        high.add(createNotificationInfo(8));
+        high.add(createNotificationInfo(7));
+        high.add(createNotificationInfo(6));
+        high.add(createNotificationInfo(5));
+        high.add(createNotificationInfo(4));
+        medium.add(createNotificationInfo(3));
+        medium.add(createNotificationInfo(2));
+        medium.add(createNotificationInfo(1));
+
+        // Invoke the method under test.
+        int maxNotifications = 3;
+        AlertService.redistributeBuckets(high, medium, low, maxNotifications);
+
+        // Verify high priority.
+        assertEquals(3, high.size());
+        assertEquals(6, high.get(0).eventId);
+        assertEquals(5, high.get(1).eventId);
+        assertEquals(4, high.get(2).eventId);
+
+        // Verify some medium priority.
+        assertEquals(0, medium.size());
+
+        // Verify low priority.
+        assertEquals(5, low.size());
+        assertEquals(8, low.get(0).eventId);
+        assertEquals(7, low.get(1).eventId);
+        assertEquals(3, low.get(2).eventId);
+        assertEquals(2, low.get(3).eventId);
+        assertEquals(1, low.get(4).eventId);
     }
 }

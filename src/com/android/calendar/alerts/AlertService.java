@@ -269,10 +269,10 @@ public class AlertService extends Service {
             return true;
         }
 
-        boolean quietUpdate = (numFired == 0);
         long nextRefreshTime = Long.MAX_VALUE;
         int currentNotificationId = 1;
-        NotificationPrefs notificationPrefs = new NotificationPrefs(context, prefs, quietUpdate);
+        NotificationPrefs notificationPrefs = new NotificationPrefs(context, prefs,
+                (numFired == 0));
 
         // If there are more high/medium priority events than we can show, bump some to
         // the low priority digest.
@@ -413,7 +413,9 @@ public class AlertService extends Service {
         if (mediumPriorityEvents.size() + highPriorityEvents.size() > maxNotifications) {
             int spaceRemaining = maxNotifications - highPriorityEvents.size();
 
-            // Reached our max, move the rest to the digest.
+            // Reached our max, move the rest to the digest.  Since these are concurrent
+            // events, we move the ones with the earlier start time first since they are
+            // further in the past and less important.
             List<NotificationInfo> itemsToMoveSublist = mediumPriorityEvents.subList(
                     spaceRemaining, mediumPriorityEvents.size());
             lowPriorityEvents.addAll(0, itemsToMoveSublist);
