@@ -316,7 +316,7 @@ public class AlertReceiver extends BroadcastReceiver {
      * Creates an expanding digest notification for expired events.
      */
     public static Notification makeDigestNotification(Context context,
-            List<AlertService.NotificationInfo> notificationInfos, String digestTitle,
+            ArrayList<AlertService.NotificationInfo> notificationInfos, String digestTitle,
             boolean expandable) {
         if (notificationInfos == null || notificationInfos.size() < 1) {
             return null;
@@ -324,6 +324,10 @@ public class AlertReceiver extends BroadcastReceiver {
 
         Resources res = context.getResources();
         int numEvents = notificationInfos.size();
+        long[] eventIds = new long[notificationInfos.size()];
+        for (int i = 0; i < notificationInfos.size(); i++) {
+            eventIds[i] = notificationInfos.get(i).eventId;
+        }
 
         // Create an intent triggered by clicking on the status icon that shows the alerts list.
         Intent clickIntent = new Intent();
@@ -337,7 +341,7 @@ public class AlertReceiver extends BroadcastReceiver {
         Intent deleteIntent = new Intent();
         deleteIntent.setClass(context, DismissAlarmsService.class);
         deleteIntent.setAction(DELETE_ALL_ACTION);
-        deleteIntent.putExtra(AlertUtils.DELETE_EXPIRED_ONLY_KEY, true);
+        deleteIntent.putExtra(AlertUtils.EVENT_IDS_KEY, eventIds);
         PendingIntent pendingDeleteIntent = PendingIntent.getService(context, 0, deleteIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
