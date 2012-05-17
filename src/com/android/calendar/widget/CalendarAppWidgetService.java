@@ -314,7 +314,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         @Override
         public int getViewTypeCount() {
-            return 4;
+            return 5;
         }
 
         @Override
