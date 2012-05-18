@@ -245,7 +245,10 @@ public class AgendaByDayAdapter extends BaseAdapter {
             View itemView = mAgendaAdapter.getView(row.mPosition, convertView, parent);
             AgendaAdapter.ViewHolder holder = ((AgendaAdapter.ViewHolder) itemView.getTag());
             TextView title = holder.title;
-            long eventStartTime = holder.startTimeMilli;
+            // The holder in the view stores information from the cursor, but the cursor has no
+            // notion of multi-day event and the start time of each instance of a multi-day event
+            // is the same.  RowInfo has the correct info , so take it from there.
+            holder.startTimeMilli = row.mEventStartTimeMilli;
             boolean allDay = holder.allDay;
             if (AgendaWindowAdapter.BASICLOG) {
                 title.setText(title.getText() + " P:" + position);
@@ -254,7 +257,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
             }
 
             // if event in the past or started already, un-bold the title and set the background
-            if ((!allDay && eventStartTime <= System.currentTimeMillis()) ||
+            if ((!allDay && row.mEventStartTimeMilli <= System.currentTimeMillis()) ||
                     (allDay && row.mDay <= mTodayJulianDay)) {
                 itemView.setBackgroundResource(R.drawable.agenda_item_bg_secondary);
                 title.setTypeface(Typeface.DEFAULT);
