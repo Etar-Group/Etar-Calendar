@@ -145,6 +145,7 @@
 
     <color name="alert_event_title">#FFFFFFFF</color>
     <color name="alert_event_other">#FF999999</color>
+    <color name="alert_past_event">#8F999999</color>
 
     <color name="appwidget_row_in_progress">#6633b5e5</color>
 
