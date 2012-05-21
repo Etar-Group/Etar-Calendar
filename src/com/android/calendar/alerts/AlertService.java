@@ -51,6 +51,7 @@ import com.android.calendar.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * This service is used to handle calendar event reminders.
@@ -247,11 +248,12 @@ public class AlertService extends Service {
             return false;
         }
 
-        return generateAlerts(context, nm, prefs, alertCursor, currentTime);
+        return generateAlerts(context, nm, prefs, alertCursor, currentTime, MAX_NOTIFICATIONS);
     }
 
     public static boolean generateAlerts(Context context, NotificationMgr nm,
-            SharedPreferences prefs, Cursor alertCursor, final long currentTime) {
+            SharedPreferences prefs, Cursor alertCursor, final long currentTime,
+            final int maxNotifications) {
         if (DEBUG) {
             Log.d(TAG, "alertCursor count:" + alertCursor.getCount());
         }
@@ -277,7 +279,7 @@ public class AlertService extends Service {
         // If there are more high/medium priority events than we can show, bump some to
         // the low priority digest.
         redistributeBuckets(highPriorityEvents, mediumPriorityEvents, lowPriorityEvents,
-                MAX_NOTIFICATIONS);
+                maxNotifications);
 
         // Post the individual higher priority events (future and recently started
         // concurrent events).  Order these so that earlier start times appear higher in
@@ -336,13 +338,13 @@ public class AlertService extends Service {
                     notificationPrefs.getDefaultVibrate(),
                     notificationPrefs.getRingtoneAndSilence());
 
+            if (DEBUG) {
+              Log.d(TAG, "Quietly posting digest alarm notification, numEvents:" + numLowPriority
+                      + ", notificationId:" + AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
+          }
+
             // Post the new notification for the group.
             nm.notify(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, notification);
-
-            if (DEBUG) {
-                Log.d(TAG, "Quietly posting digest alarm notification, numEvents:" + numLowPriority
-                        + ", notificationId:" + AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
-            }
         } else {
             nm.cancel(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
             if (DEBUG) {
@@ -351,13 +353,13 @@ public class AlertService extends Service {
         }
 
         // Remove the notifications that are hanging around from the previous refresh.
-        if (currentNotificationId <= MAX_NOTIFICATIONS) {
-            for (int i = currentNotificationId; i <= MAX_NOTIFICATIONS; i++) {
+        if (currentNotificationId <= maxNotifications) {
+            for (int i = currentNotificationId; i <= maxNotifications; i++) {
                 nm.cancel(i);
             }
             if (DEBUG) {
                 Log.d(TAG, "Canceling leftover notification IDs " + currentNotificationId + "-"
-                        + MAX_NOTIFICATIONS);
+                        + maxNotifications);
             }
         }
 
@@ -480,7 +482,7 @@ public class AlertService extends Service {
      * @return Returns the number of new alerts to fire.  If this is 0, it implies
      *     a quiet update.
      */
-    private static int processQuery(final Cursor alertCursor, final Context context,
+    static int processQuery(final Cursor alertCursor, final Context context,
             final long currentTime, ArrayList<NotificationInfo> highPriorityEvents,
             ArrayList<NotificationInfo> mediumPriorityEvents,
             ArrayList<NotificationInfo> lowPriorityEvents) {
@@ -573,13 +575,34 @@ public class AlertService extends Service {
 
                 NotificationInfo newInfo = new NotificationInfo(eventName, location,
                         description, beginTime, endTime, eventId, allDay, newAlert);
+
+                // Adjust for all day events to ensure the right bucket.  Don't use the 1/4 event
+                // duration grace period for these.
+                long gracePeriodMs;
+                long beginTimeAdjustedForAllDay = beginTime;
+                String tz = null;
+                if (allDay) {
+                    tz = TimeZone.getDefault().getID();
+                    beginTimeAdjustedForAllDay = Utils.convertAlldayUtcToLocal(null, beginTime,
+                            tz);
+                    gracePeriodMs = MIN_DEPRIORITIZE_GRACE_PERIOD_MS;
+                } else {
+                    gracePeriodMs = getGracePeriodMs(beginTime, endTime);
+                }
+
+                // Handle multiple alerts for the same event ID.
                 if (eventIds.containsKey(eventId)) {
                     NotificationInfo oldInfo = eventIds.get(eventId);
+                    long oldBeginTimeAdjustedForAllDay = oldInfo.startMillis;
+                    if (allDay) {
+                        oldBeginTimeAdjustedForAllDay = Utils.convertAlldayUtcToLocal(null,
+                                oldInfo.startMillis, tz);
+                    }
 
                     // Determine whether to replace the previous reminder with this one.
                     // Query results are sorted so this one will always have a lower start time.
-                    long oldStartInterval = oldInfo.startMillis - currentTime;
-                    long newStartInterval = newInfo.startMillis - currentTime;
+                    long oldStartInterval = oldBeginTimeAdjustedForAllDay - currentTime;
+                    long newStartInterval = beginTimeAdjustedForAllDay - currentTime;
                     boolean dropOld;
                     if (newStartInterval < 0 && oldStartInterval > 0) {
                         // Use this reminder if this event started recently
@@ -611,25 +634,14 @@ public class AlertService extends Service {
                     }
                 }
 
-                // Adjust for all day events to ensure the right bucket.  Don't use the 1/4 event
-                // duration grace period for these.
-                long gracePeriodMs;
-                long beginTimeAdjustedForAllDay = beginTime;
-                if (allDay) {
-                    beginTimeAdjustedForAllDay = Utils.convertAlldayUtcToLocal(null, beginTime,
-                            Utils.getTimeZone(context, null));
-                    gracePeriodMs = MIN_DEPRIORITIZE_GRACE_PERIOD_MS;
-                } else {
-                    gracePeriodMs = getGracePeriodMs(beginTime, endTime);
-                }
-
                 // TODO: Prioritize by "primary" calendar
                 eventIds.put(eventId, newInfo);
                 long highPriorityCutoff = currentTime - gracePeriodMs;
+
                 if (beginTimeAdjustedForAllDay > highPriorityCutoff) {
                     // High priority = future events or events that just started
                     highPriorityEvents.add(newInfo);
-                } else if (allDay && DateUtils.isToday(beginTimeAdjustedForAllDay)) {
+                } else if (allDay && tz != null && DateUtils.isToday(beginTimeAdjustedForAllDay)) {
                     // Medium priority = in progress all day events
                     mediumPriorityEvents.add(newInfo);
                 } else {
