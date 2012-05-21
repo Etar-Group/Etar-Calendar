@@ -350,8 +350,8 @@
          causes them to disappear from the notification screen. -->
     <string name="dismiss_all_label">"Dismiss all"</string>
     <!-- The button label for making the reminder alarms go away temporarily
-         and re-fire in 5 minutes. [CHAR LIMIT=30]-->
-    <string name="snooze_5min_label">"Snooze for 5 minutes"</string>
+         and re-fire in 5 minutes. [CHAR LIMIT=12]-->
+    <string name="snooze_label">"Snooze"</string>
 
     <!-- Repetition dialog options: -->
     <skip/>

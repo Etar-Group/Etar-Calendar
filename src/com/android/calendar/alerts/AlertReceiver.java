@@ -253,8 +253,8 @@ public class AlertReceiver extends BroadcastReceiver {
             // Create a snooze button.  TODO: change snooze to 10 minutes.
             PendingIntent snoozeIntent = createSnoozeIntent(context, eventId, startMillis,
                     endMillis, notificationId);
-            notificationBuilder.addAction(R.drawable.snooze,
-                    resources.getString(R.string.snooze_5min_label), snoozeIntent);
+            notificationBuilder.addAction(R.drawable.ic_alarm_holo_dark,
+                    resources.getString(R.string.snooze_label), snoozeIntent);
 
             // Create an email button.
             PendingIntent emailIntent = createBroadcastMailIntent(context, eventId, title);
