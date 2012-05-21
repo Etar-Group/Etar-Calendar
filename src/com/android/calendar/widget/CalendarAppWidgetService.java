@@ -472,16 +472,22 @@ public class CalendarAppWidgetService extends RemoteViewsService {
          */
         @Override
         public void onLoadComplete(Loader<Cursor> loader, Cursor cursor) {
-            if (cursor == null || cursor.isClosed()) {
+            if (cursor == null) {
                 return;
             }
             // If a newer update has happened since we started clean up and
             // return
             synchronized (mLock) {
+                if (cursor.isClosed()) {
+                    Log.wtf(TAG, "Got a closed cursor from onLoadComplete");
+                    return;
+                }
+
                 if (mLastLock != mLock) {
                     cursor.close();
                     return;
                 }
+
                 // Copy it to a local static cursor.
                 MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
                 cursor.close();
