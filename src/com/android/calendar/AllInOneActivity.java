@@ -374,10 +374,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         mControlsAnimateHeight = (int)res.getDimension(R.dimen.calendar_controls_height);
 
+        mHideControls = !Utils.getSharedPreference(
+                this, GeneralPreferences.KEY_SHOW_CONTROLS, true);
         mIsMultipane = Utils.getConfigBool(this, R.bool.multiple_pane_config);
         mIsTabletConfig = Utils.getConfigBool(this, R.bool.tablet_config);
         mShowAgendaWithMonth = Utils.getConfigBool(this, R.bool.show_agenda_with_month);
-        mShowCalendarControls = Utils.getConfigBool(this, R.bool.show_calendar_controls);
+        mShowCalendarControls =
+                Utils.getConfigBool(this, R.bool.show_calendar_controls);
         mShowEventDetailsWithAgenda =
             Utils.getConfigBool(this, R.bool.show_event_details_with_agenda);
         mShowEventInfoFullScreenAgenda =
@@ -783,7 +786,14 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 return true;
             case R.id.action_hide_controls:
                 mHideControls = !mHideControls;
+                Utils.setSharedPreference(
+                        this, GeneralPreferences.KEY_SHOW_CONTROLS, !mHideControls);
                 item.setTitle(mHideControls ? mShowString : mHideString);
+                if (!mHideControls) {
+                    mMiniMonth.setVisibility(View.VISIBLE);
+                    mCalendarsList.setVisibility(View.VISIBLE);
+                    mMiniMonthContainer.setVisibility(View.VISIBLE);
+                }
                 final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this, "controlsOffset",
                         mHideControls ? 0 : mControlsAnimateWidth,
                         mHideControls ? mControlsAnimateWidth : 0);
@@ -1088,17 +1098,17 @@ public class AllInOneActivity extends Activity implements EventHandler,
             if (mSearchView != null) {
                 mSearchView.clearFocus();
             }
-
             if (mShowCalendarControls) {
                 int animationSize = (mOrientation == Configuration.ORIENTATION_LANDSCAPE) ?
                         mControlsAnimateWidth : mControlsAnimateHeight;
-                if (event.viewType == ViewType.MONTH || event.viewType == ViewType.AGENDA) {
+                boolean noControlsView = event.viewType == ViewType.MONTH || event.viewType == ViewType.AGENDA;
+                if (mControlsMenu != null) {
+                    mControlsMenu.setVisible(!noControlsView);
+                    mControlsMenu.setEnabled(!noControlsView);
+                }
+                if (noControlsView || mHideControls) {
                     // hide minimonth and calendar frag
                     mShowSideViews = false;
-                    if (mControlsMenu != null) {
-                        mControlsMenu.setVisible(false);
-                        mControlsMenu.setEnabled(false);
-                    }
                     if (!mHideControls) {
                             final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this,
                                     "controlsOffset", 0, animationSize);
@@ -1117,10 +1127,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     mMiniMonth.setVisibility(View.VISIBLE);
                     mCalendarsList.setVisibility(View.VISIBLE);
                     mMiniMonthContainer.setVisibility(View.VISIBLE);
-                    if (mControlsMenu != null) {
-                        mControlsMenu.setVisible(true);
-                        mControlsMenu.setEnabled(true);
-                    }
                     if (!mHideControls &&
                             (mController.getPreviousViewType() == ViewType.MONTH ||
                              mController.getPreviousViewType() == ViewType.AGENDA)) {
