@@ -616,11 +616,16 @@ public class AllInOneActivity extends Activity implements EventHandler,
     public void onSaveInstanceState(Bundle outState) {
         mOnSaveInstanceStateCalled = true;
         super.onSaveInstanceState(outState);
-
         outState.putLong(BUNDLE_KEY_RESTORE_TIME, mController.getTime());
         outState.putInt(BUNDLE_KEY_RESTORE_VIEW, mCurrentView);
         if (mCurrentView == ViewType.EDIT) {
             outState.putLong(BUNDLE_KEY_EVENT_ID, mController.getEventId());
+        } else if (mCurrentView == ViewType.AGENDA) {
+            FragmentManager fm = getFragmentManager();
+            Fragment f = fm.findFragmentById(R.id.main_pane);
+            if (f instanceof AgendaFragment) {
+                outState.putLong(BUNDLE_KEY_EVENT_ID, ((AgendaFragment)f).getLastShowEventId());
+            }
         }
         outState.putBoolean(BUNDLE_KEY_CHECK_ACCOUNTS, mCheckForAccounts);
     }
@@ -704,7 +709,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         Time t = new Time(mTimeZone);
         t.set(timeMillis);
-        if (viewType != ViewType.EDIT) {
+        if (viewType == ViewType.AGENDA && icicle != null) {
+            mController.sendEvent(this, EventType.GO_TO, t, null,
+                    icicle.getLong(BUNDLE_KEY_EVENT_ID, -1), viewType);
+        } else if (viewType != ViewType.EDIT) {
             mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
         }
     }
@@ -1166,7 +1174,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                                 event.endTime, event.endTime.toMillis(false), mTimeZone);
                     }
                     mController.sendEvent(this, EventType.GO_TO, event.startTime, event.endTime,
-                            event.id, ViewType.AGENDA);
+                            event.selectedTime, event.id, ViewType.AGENDA,
+                            CalendarController.EXTRA_GOTO_TIME, null, null);
                 } else if (event.selectedTime != null) {
                     mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
                         event.selectedTime, event.id, ViewType.AGENDA);
