@@ -118,7 +118,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         private Context mContext;
         private Resources mResources;
         private static CalendarAppWidgetModel mModel;
-        private static Cursor mCursor;
         private static volatile Integer mLock = new Integer(0);
         private int mLastLock;
         private CursorLoader mLoader;
@@ -187,9 +186,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
 
         @Override
         public void onDestroy() {
-            if (mCursor != null) {
-                mCursor.close();
-            }
             if (mLoader != null) {
                 mLoader.reset();
             }
@@ -487,16 +483,22 @@ public class CalendarAppWidgetService extends RemoteViewsService {
                     return;
                 }
 
+                final long now = System.currentTimeMillis();
+                String tz = Utils.getTimeZone(mContext, mTimezoneChanged);
+
                 // Copy it to a local static cursor.
                 MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
+                try {
+                    mModel = buildAppWidgetModel(mContext, matrixCursor, tz);
+                } finally {
+                    if (matrixCursor != null) {
+                        matrixCursor.close();
+                    }
 
-                final long now = System.currentTimeMillis();
-                if (mCursor != null) {
-                    mCursor.close();
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                 }
-                mCursor = matrixCursor;
-                String tz = Utils.getTimeZone(mContext, mTimezoneChanged);
-                mModel = buildAppWidgetModel(mContext, mCursor, tz);
 
                 // Schedule an alarm to wake ourselves up for the next update.
                 // We also cancel
