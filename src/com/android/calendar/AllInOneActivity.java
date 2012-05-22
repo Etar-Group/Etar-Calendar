@@ -200,10 +200,17 @@ public class AllInOneActivity extends Activity implements EventHandler,
         @Override
         protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
             mCheckForAccounts = false;
-            // If the query didn't return a cursor for some reason return
-            if (cursor == null || cursor.getCount() > 0 || isFinishing()) {
-                return;
+            try {
+                // If the query didn't return a cursor for some reason return
+                if (cursor == null || cursor.getCount() > 0 || isFinishing()) {
+                    return;
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
             }
+
             Bundle options = new Bundle();
             options.putCharSequence("introMessage",
                     getResources().getString(R.string.create_an_account_desc));
