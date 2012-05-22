@@ -1124,13 +1124,16 @@ public class AgendaWindowAdapter extends BaseAdapter
 
                 // Go over the events and mark the first day after yesterday
                 // that has events in it
+                // If the range of adapters doesn't include yesterday, skip marking it since it will
+                // mark the first day in the adapters.
                 synchronized (mAdapterInfos) {
                     DayAdapterInfo info = mAdapterInfos.getFirst();
-                    if (info != null) {
-                        Time time = new Time(mTimeZone);
-                        long now = System.currentTimeMillis();
-                        time.set(now);
-                        int JulianToday = Time.getJulianDay(now, time.gmtoff);
+                    Time time = new Time(mTimeZone);
+                    long now = System.currentTimeMillis();
+                    time.set(now);
+                    int JulianToday = Time.getJulianDay(now, time.gmtoff);
+                    if (info != null && JulianToday >= info.start && JulianToday
+                            <= mAdapterInfos.getLast().end) {
                         Iterator<DayAdapterInfo> iter = mAdapterInfos.iterator();
                         boolean foundDay = false;
                         while (iter.hasNext() && !foundDay) {
