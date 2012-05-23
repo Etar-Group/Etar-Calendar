@@ -818,19 +818,18 @@ public class AlertService extends Service {
                 }
 
                 if (vibrateWhen.equals("always")) {
-                    return true;
-                }
-                if (!vibrateWhen.equals("silent")) {
-                    return false;
-                }
-
-                // Settings are to vibrate when silent.  Return true if it is now silent.
-                AudioManager audioManager =
-                    (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-                if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE) {
                     defaultVibrate = 1;
-                } else {
+                } else if (!vibrateWhen.equals("silent")) {
                     defaultVibrate = 0;
+                } else {
+                    // Settings are to vibrate when silent.  Return true if it is now silent.
+                    AudioManager audioManager =
+                        (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+                    if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE) {
+                        defaultVibrate = 1;
+                    } else {
+                        defaultVibrate = 0;
+                    }
                 }
             }
             return defaultVibrate == 1;
