@@ -34,6 +34,8 @@ import com.android.calendar.GeneralPreferences;
 import com.android.calendar.alerts.AlertService.NotificationInfo;
 import com.android.calendar.alerts.AlertService.NotificationWrapper;
 
+import junit.framework.Assert;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -44,9 +46,28 @@ public class AlertServiceTest extends AndroidTestCase {
     class MockSharedPreferences implements SharedPreferences {
 
         /* "always", "silent", depends on ringer mode */
-        private String mVibrateWhen = "always";
-        private String mRingtone = "/some/cool/ringtone";
-        private boolean mPopup = true;
+        private String mVibrateWhen;
+        private String mRingtone;
+        private Boolean mPopup;
+
+        // Strict mode will fail if a preference key is queried more than once.
+        private boolean mStrict = false;
+
+        MockSharedPreferences() {
+            this(false);
+        }
+
+        MockSharedPreferences(boolean strict) {
+            super();
+            init();
+            this.mStrict = strict;
+        }
+
+        void init() {
+            mVibrateWhen = "always";
+            mRingtone = "/some/cool/ringtone";
+            mPopup = true;
+        }
 
         @Override
         public boolean contains(String key) {
@@ -59,7 +80,14 @@ public class AlertServiceTest extends AndroidTestCase {
         @Override
         public boolean getBoolean(String key, boolean defValue) {
             if (GeneralPreferences.KEY_ALERTS_POPUP.equals(key)) {
-                return mPopup;
+                if (mPopup == null) {
+                    Assert.fail(GeneralPreferences.KEY_ALERTS_POPUP + " fetched more than once.");
+                }
+                boolean val = mPopup;
+                if (mStrict) {
+                    mPopup = null;
+                }
+                return val;
             }
             throw new IllegalArgumentException();
         }
@@ -67,10 +95,26 @@ public class AlertServiceTest extends AndroidTestCase {
         @Override
         public String getString(String key, String defValue) {
             if (GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN.equals(key)) {
-                return mVibrateWhen;
+                if (mVibrateWhen == null) {
+                    Assert.fail(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN
+                            + " fetched more than once.");
+                }
+                String val = mVibrateWhen;
+                if (mStrict) {
+                    mVibrateWhen = null;
+                }
+                return val;
             }
             if (GeneralPreferences.KEY_ALERTS_RINGTONE.equals(key)) {
-                return mRingtone;
+                if (mRingtone == null) {
+                    Assert.fail(GeneralPreferences.KEY_ALERTS_RINGTONE
+                            + " fetched more than once.");
+                }
+                String val = mRingtone;
+                if (mStrict) {
+                    mRingtone = null;
+                }
+                return val;
             }
             throw new IllegalArgumentException();
         }
@@ -510,6 +554,61 @@ public class AlertServiceTest extends AndroidTestCase {
         ntm.expectTestNotification(1, id7, PRIORITY_HIGH); // future
         ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID,
                 new int[] {id9, id8, id3, id2, id1}, PRIORITY_MIN);
+        AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
+                maxNotifications);
+        ntm.validateNotificationsAndReset();
+    }
+
+    /**
+     * Test that the SharedPreferences are only fetched once for each setting.
+     */
+    @SmallTest
+    public void testMultipleAlerts_sharedPreferences() {
+        int maxNotifications = 10;
+        MockSharedPreferences prefs = new MockSharedPreferences(true /* strict mode */);
+        AlertsTable at = new AlertsTable();
+        NotificationTestManager ntm = new NotificationTestManager(at.mAlerts, maxNotifications);
+
+        // Current time - 5:00
+        long currentTime = createTimeInMillis(5, 0);
+
+        // Set up future alerts.  The real query implementation sorts by descending start
+        // time so simulate that here with our order of adds to AlertsTable.
+        int id9 = at.addAlertRow(9, SCHEDULED, ACCEPTED, 0, createTimeInMillis(9, 0),
+                createTimeInMillis(10, 0), 0);
+        int id8 = at.addAlertRow(8, SCHEDULED, ACCEPTED, 0, createTimeInMillis(8, 0),
+                createTimeInMillis(9, 0), 0);
+        int id7 = at.addAlertRow(7, SCHEDULED, ACCEPTED, 0, createTimeInMillis(7, 0),
+                createTimeInMillis(8, 0), 0);
+
+        // Set up concurrent alerts (that started recently).
+        int id6 = at.addAlertRow(6, SCHEDULED, ACCEPTED, 0, createTimeInMillis(5, 0),
+                createTimeInMillis(5, 40), 0);
+        int id5 = at.addAlertRow(5, SCHEDULED, ACCEPTED, 0, createTimeInMillis(4, 55),
+                createTimeInMillis(7, 30), 0);
+        int id4 = at.addAlertRow(4, SCHEDULED, ACCEPTED, 0, createTimeInMillis(4, 50),
+                createTimeInMillis(4, 50), 0);
+
+        // Set up past alerts.
+        int id3 = at.addAlertRow(3, SCHEDULED, ACCEPTED, 0, createTimeInMillis(3, 0),
+                createTimeInMillis(4, 0), 0);
+        int id2 = at.addAlertRow(2, SCHEDULED, ACCEPTED, 0, createTimeInMillis(2, 0),
+                createTimeInMillis(3, 0), 0);
+        int id1 = at.addAlertRow(1, SCHEDULED, ACCEPTED, 0, createTimeInMillis(1, 0),
+                createTimeInMillis(2, 0), 0);
+
+        // Expected notifications.
+        ntm.expectTestNotification(6, id4, PRIORITY_HIGH); // concurrent
+        ntm.expectTestNotification(5, id5, PRIORITY_HIGH); // concurrent
+        ntm.expectTestNotification(4, id6, PRIORITY_HIGH); // concurrent
+        ntm.expectTestNotification(3, id7, PRIORITY_HIGH); // future
+        ntm.expectTestNotification(2, id8, PRIORITY_HIGH); // future
+        ntm.expectTestNotification(1, id9, PRIORITY_HIGH); // future
+        ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID,
+                new int[] {id3, id2, id1}, PRIORITY_MIN);
+
+        // If this does not result in a failure (MockSharedPreferences fails for duplicate
+        // queries), then test passes.
         AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
                 maxNotifications);
         ntm.validateNotificationsAndReset();
