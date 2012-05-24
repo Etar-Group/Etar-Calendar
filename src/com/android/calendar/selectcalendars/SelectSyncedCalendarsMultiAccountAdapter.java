@@ -334,7 +334,7 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         String account = groupCursor.getString(accountColumn);
         String accountType = groupCursor.getString(accountTypeColumn);
         //Get all the calendars for just this account.
-        Cursor childCursor = mChildrenCursors.get(account);
+        Cursor childCursor = mChildrenCursors.get(accountType + "#" + account);
         new RefreshCalendars(groupCursor.getPosition(), account, accountType).run();
         return childCursor;
     }
@@ -357,9 +357,9 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         String mAccount;
         String mAccountType;
 
-        public RefreshCalendars(int token, String cookie, String accountType) {
+        public RefreshCalendars(int token, String account, String accountType) {
             mToken = token;
-            mAccount = cookie;
+            mAccount = account;
             mAccountType = accountType;
         }
 
@@ -371,7 +371,7 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
                         REFRESH_DELAY);
             }
             mCalendarsUpdater.startQuery(mToken,
-                    mAccount,
+                    mAccountType + "#" + mAccount,
                     Calendars.CONTENT_URI, PROJECTION,
                     ACCOUNT_SELECTION,
                     new String[] { mAccount, mAccountType } /*selectionArgs*/,
