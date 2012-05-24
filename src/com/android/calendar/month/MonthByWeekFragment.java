@@ -233,7 +233,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         mIsDetached = true;
         super.onDetach();
         if (mShowCalendarControls) {
-            mListView.removeCallbacks(mLoadingRunnable);
+            if (mListView != null) {
+                mListView.removeCallbacks(mLoadingRunnable);
+            }
         }
     }
 
