@@ -105,8 +105,6 @@
     <string name="email_guests_label" msgid="8772030932155305903">"ゲストにメールを送信"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"メールに次を含める:"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"主催:"</string>
-    <string name="event_info_desc_more" msgid="2961880675118098743">"詳細"</string>
-    <string name="event_info_desc_less" msgid="8295683160345195225">"隠す"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"通知"</string>
     <string name="agenda_today" msgid="5965841338467422191">"今日: <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"昨日: <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -122,7 +120,8 @@
     <string name="discard_label" msgid="2394623883289782541">"キャンセル"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"すべてスヌーズ"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"通知を消去"</string>
-    <string name="snooze_5min_label" msgid="3846502651367125116">"スヌーズ（5分）"</string>
+    <!-- no translation found for snooze_label (1515893621063224666) -->
+    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"繰り返しなし"</string>
     <string name="daily" msgid="560350706808680448">"毎日"</string>
     <string name="every_weekday" msgid="5896574838353902978">"平日（月～金）"</string>
@@ -140,8 +139,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"新しい予定"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"新しい予定"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"この予定を削除しますか？"</string>
-    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
-    <skip />
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g>を削除しますか？"</string>
     <string name="change_response_title" msgid="7704714776070974984">"出欠状況を変更"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"全般設定"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"カレンダーについて"</string>
@@ -205,8 +203,10 @@
     <item quantity="one" msgid="5230907142214104485">"予定1件"</item>
     <item quantity="other" msgid="6093072093209431078">"予定<xliff:g id="COUNT">%d</xliff:g>件"</item>
   </plurals>
-    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
-    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"他1件の予定"</item>
+    <item quantity="other" msgid="3609243840882275136">"他<xliff:g id="COUNT">%d</xliff:g>件の予定"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"選択した予定"</string>
     <string name="do_not_check" msgid="7815441673853466129">"オンにしないでください -&gt;"</string>
 </resources>

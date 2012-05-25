@@ -105,8 +105,6 @@
     <string name="email_guests_label" msgid="8772030932155305903">"Enviar e-mail para os convidados"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Enviar e-mail para"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizador:"</string>
-    <string name="event_info_desc_more" msgid="2961880675118098743">"Mais"</string>
-    <string name="event_info_desc_less" msgid="8295683160345195225">"Menos"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Lembretes"</string>
     <string name="agenda_today" msgid="5965841338467422191">"HOJE, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"ONTEM, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -122,12 +120,13 @@
     <string name="discard_label" msgid="2394623883289782541">"Cancelar"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Lembrar em 5 min"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Encerrar tudo"</string>
-    <string name="snooze_5min_label" msgid="3846502651367125116">"Adiar por 5 minutos"</string>
+    <!-- no translation found for snooze_label (1515893621063224666) -->
+    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
     <string name="daily" msgid="560350706808680448">"Diariamente"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Todos os dias da semana (de segunda a sexta)"</string>
-    <string name="weekly" msgid="2006107373119027114">"Semanalmente (toda <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"Mensalmente (toda <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="weekly" msgid="2006107373119027114">"Semanalmente (todo(a) <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Mensalmente (todo(a) <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"Mensalmente"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Anualmente"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mensalmente (no dia <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
@@ -204,8 +203,10 @@
     <item quantity="one" msgid="5230907142214104485">"1 evento"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> eventos"</item>
   </plurals>
-    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
-    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+1 evento"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> eventos"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Eventos selecionados"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Não marcar -&gt;"</string>
 </resources>
