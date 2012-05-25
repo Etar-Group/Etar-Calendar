@@ -124,20 +124,6 @@ public class AlertActivity extends Activity implements OnClickListener {
         }
 
         @Override
-        protected void onInsertComplete(int token, Object cookie, Uri uri) {
-            if (uri != null) {
-                Long alarmTime = (Long) cookie;
-
-                if (alarmTime != 0) {
-                    // Set a new alarm to go off after the snooze delay.
-                    // TODO make provider schedule this automatically when
-                    // inserting an alarm
-                    AlertUtils.scheduleAlarm(AlertActivity.this, null, alarmTime);
-                }
-            }
-        }
-
-        @Override
         protected void onUpdateComplete(int token, Object cookie, int result) {
             // Ignore
         }
