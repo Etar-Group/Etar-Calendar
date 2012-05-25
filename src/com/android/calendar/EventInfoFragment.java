@@ -1125,6 +1125,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             return;
         }
 
+        Context context = view.getContext();
+        if (context == null) {
+            return;
+        }
+
         String eventName = mEventCursor.getString(EVENT_INDEX_TITLE);
         if (eventName == null || eventName.length() == 0) {
             eventName = getActivity().getString(R.string.no_title_label);
@@ -1147,7 +1152,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // When
         // Set the date and repeats (if any)
         String localTimezone = Utils.getTimeZone(mActivity, mTZUpdater);
-        Activity context = getActivity();
+
         Resources resources = context.getResources();
         String displayedDatetime = Utils.getDisplayedDatetime(mStartMillis, mEndMillis,
                 System.currentTimeMillis(), localTimezone, mAllDay, context);
