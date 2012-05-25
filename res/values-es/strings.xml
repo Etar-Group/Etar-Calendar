@@ -105,8 +105,6 @@
     <string name="email_guests_label" msgid="8772030932155305903">"Enviar correo electrónico a los invitados"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Correo electrónico con"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizador:"</string>
-    <string name="event_info_desc_more" msgid="2961880675118098743">"Más"</string>
-    <string name="event_info_desc_less" msgid="8295683160345195225">"Menos"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Recordatorios"</string>
     <string name="agenda_today" msgid="5965841338467422191">"HOY, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"AYER, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -122,7 +120,8 @@
     <string name="discard_label" msgid="2394623883289782541">"Cancelar"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Posponer recordatorios"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Descartar todo"</string>
-    <string name="snooze_5min_label" msgid="3846502651367125116">"Posponer 5 minutos"</string>
+    <!-- no translation found for snooze_label (1515893621063224666) -->
+    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
     <string name="daily" msgid="560350706808680448">"Cada día"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Cada día laborable (lunes-viernes)"</string>
@@ -161,7 +160,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Duración pred. del recordatorio"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usar hora local"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Al viajar, muestra calendarios y eventos en la hora local"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Mostrar calendarios y eventos en la hora local al viajar"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Zona horaria local"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número semana"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Acerca de"</string>
@@ -204,8 +203,10 @@
     <item quantity="one" msgid="5230907142214104485">"1 evento"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> eventos"</item>
   </plurals>
-    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
-    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+1 evento"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> eventos"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Evento seleccionado"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NO seleccionar -&gt;"</string>
 </resources>

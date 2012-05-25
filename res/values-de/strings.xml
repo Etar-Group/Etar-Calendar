@@ -72,7 +72,7 @@
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Zu synchronisierende Kalender"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Zu synchronisierende Kalender"</string>
     <string name="hint_what" msgid="709155115005044531">"Terminname"</string>
-    <string name="hint_where" msgid="4972598001033801974">"Standort"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Ort"</string>
     <string name="hint_description" msgid="1910143586169033232">"Beschreibung"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Gäste"</string>
     <string name="creating_event" msgid="7516249252554059980">"Termin erstellt"</string>
@@ -89,7 +89,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalender"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Alle anzeigen"</string>
     <string name="description_label" msgid="7193475046717505855">"Beschreibung"</string>
-    <string name="presence_label" msgid="6169724148441175862">"Mich anzeigen als"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Mein Status"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Datenschutz"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Erinnerung hinzufügen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Keine Kalender"</string>
@@ -105,15 +105,13 @@
     <string name="email_guests_label" msgid="8772030932155305903">"E-Mail an Gäste senden"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-Mail über"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
-    <string name="event_info_desc_more" msgid="2961880675118098743">"Mehr"</string>
-    <string name="event_info_desc_less" msgid="8295683160345195225">"Weniger"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Erinnerungen"</string>
     <string name="agenda_today" msgid="5965841338467422191">"Heute, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"Gestern, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"Morgen, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Wird geladen..."</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Antippen, um Termine vor dem <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> anzuzeigen"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Antippen, um Termine nach dem <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> anzuzeigen"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Antippen für Termine vor dem <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Antippen für Termine nach dem <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"In meinen Kalendern suchen"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Details"</string>
     <string name="edit_label" msgid="8934331258435656534">"Bearbeiten"</string>
@@ -122,7 +120,8 @@
     <string name="discard_label" msgid="2394623883289782541">"Abbrechen"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Später erinnern"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Alle schließen"</string>
-    <string name="snooze_5min_label" msgid="3846502651367125116">"In 5 Minuten erinnern"</string>
+    <!-- no translation found for snooze_label (1515893621063224666) -->
+    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"Einmaliger Termin"</string>
     <string name="daily" msgid="560350706808680448">"Täglich"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Jeden Werktag (Mo. - Fr.)"</string>
@@ -143,7 +142,7 @@
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"<xliff:g id="EVENTTITLE">%s</xliff:g> löschen?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Antwort ändern"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Allgemeine Einstellungen"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"Über Kalender"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Über Google Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Einstellungen"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Einstellungen für Kalenderansicht"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Erinnerungseinstellungen"</string>
@@ -164,7 +163,7 @@
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Zeigt unterwegs Kalender-/Terminzeiten in Heimatzeitzone"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Heimatzeitzone"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Wochennummer anzeigen"</string>
-    <string name="preferences_about_title" msgid="2810624892412097879">"Info"</string>
+    <string name="preferences_about_title" msgid="2810624892412097879">"Details"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Build-Version"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">
     <item msgid="2539376794936035639">"Immer"</item>
@@ -194,7 +193,7 @@
     <string name="accessibility_repeats" msgid="1629279916830919582">"Wiederholung"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Erinnerungszeit"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Art der Erinnerung"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Mich anzeigen als"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Mein Status"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Datenschutz"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Kalenderbenachrichtigung"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Snooze-Benachrichtigung"</string>
@@ -204,8 +203,10 @@
     <item quantity="one" msgid="5230907142214104485">"1 Ereignis"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> Ereignisse"</item>
   </plurals>
-    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
-    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+1 Termin"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> Termine"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Ausgewähltes Ereignis"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NICHT aktivieren -&gt;"</string>
 </resources>

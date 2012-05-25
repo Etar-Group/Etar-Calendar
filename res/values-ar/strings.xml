@@ -105,8 +105,6 @@
     <string name="email_guests_label" msgid="8772030932155305903">"إرسال بريد إلكتروني إلى المدعوين"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"إرسال رسالة إلكترونية إلى"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"المنظِّم:"</string>
-    <string name="event_info_desc_more" msgid="2961880675118098743">"المزيد"</string>
-    <string name="event_info_desc_less" msgid="8295683160345195225">"أقل"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"تذكيرات"</string>
     <string name="agenda_today" msgid="5965841338467422191">"اليوم، <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"أمس، <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -122,7 +120,8 @@
     <string name="discard_label" msgid="2394623883289782541">"إلغاء"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"غفوة مؤقتة للكل"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"استبعاد الكل"</string>
-    <string name="snooze_5min_label" msgid="3846502651367125116">"غفوة لمدة 5 دقائق"</string>
+    <!-- no translation found for snooze_label (1515893621063224666) -->
+    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"حدث لمرة واحدة"</string>
     <string name="daily" msgid="560350706808680448">"يوميًا"</string>
     <string name="every_weekday" msgid="5896574838353902978">"كل أيام الأسبوع (الاثنين-الجمعة)"</string>
@@ -140,8 +139,7 @@
     <string name="new_event_dialog_label" msgid="7553105224561147916">"حدث جديد"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"حدث جديد"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"هل تريد حذف هذا الحدث؟"</string>
-    <!-- no translation found for delete_recurring_event_title (5609046778422180206) -->
-    <skip />
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"هل تريد حذف <xliff:g id="EVENTTITLE">%s</xliff:g>؟"</string>
     <string name="change_response_title" msgid="7704714776070974984">"تغيير الرد"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"إعدادات عامة"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"حول التقويم"</string>
@@ -175,7 +173,7 @@
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"اهتزاز"</string>
     <string name="gadget_title" msgid="939918875331310945">"التقويم"</string>
   <plurals name="month_more_events">
-    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="one" msgid="8971334808414201327">"1+"</item>
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"لا توجد أحداث تقويم قادمة"</string>
@@ -205,8 +203,10 @@
     <item quantity="one" msgid="5230907142214104485">"حدث واحد"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> من الأحداث"</item>
   </plurals>
-    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
-    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+ حدث واحد"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> من الأحداث"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"حدث محدد"</string>
     <string name="do_not_check" msgid="7815441673853466129">"لا تحدد -&gt;"</string>
 </resources>
