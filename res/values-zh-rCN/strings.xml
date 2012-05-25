@@ -68,7 +68,7 @@
     <string name="synced" msgid="7913940305983383493">"已同步"</string>
     <string name="not_synced" msgid="4275114941801829419">"未同步"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"此帐户未同步，因此您的日历可能不是最新的。"</string>
-    <string name="accounts" msgid="849401841083180306">"帐户与同步"</string>
+    <string name="accounts" msgid="849401841083180306">"帐户和同步"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"要同步的日历"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"要同步的日历"</string>
     <string name="hint_what" msgid="709155115005044531">"活动名称"</string>
@@ -105,15 +105,13 @@
     <string name="email_guests_label" msgid="8772030932155305903">"向邀请对象发送电子邮件"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"发送邮件时使用"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"组织者："</string>
-    <string name="event_info_desc_more" msgid="2961880675118098743">"展开"</string>
-    <string name="event_info_desc_less" msgid="8295683160345195225">"收起"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"提醒"</string>
     <string name="agenda_today" msgid="5965841338467422191">"今天，<xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"昨天，<xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"明天，<xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"正在载入..."</string>
-    <string name="show_older_events" msgid="5140647493681439926">"触摸以查看<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>之前的活动"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"触摸以查看<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>之后的活动"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"触摸可查看<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>之前的活动"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"触摸可查看<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>之后的活动"</string>
     <string name="search_title" msgid="8898015280250716254">"搜索我的日历"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"详细信息"</string>
     <string name="edit_label" msgid="8934331258435656534">"编辑"</string>
@@ -122,7 +120,8 @@
     <string name="discard_label" msgid="2394623883289782541">"取消"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"全部延迟"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"全部关闭"</string>
-    <string name="snooze_5min_label" msgid="3846502651367125116">"暂停 5 分钟"</string>
+    <!-- no translation found for snooze_label (1515893621063224666) -->
+    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"一次性活动"</string>
     <string name="daily" msgid="560350706808680448">"每天"</string>
     <string name="every_weekday" msgid="5896574838353902978">"每个工作日（周一至周五）"</string>
@@ -169,7 +168,7 @@
   <string-array name="prefEntries_alerts_vibrateWhen">
     <item msgid="2539376794936035639">"始终"</item>
     <item msgid="8091719131860840185">"仅在静音时"</item>
-    <item msgid="4552962311897985633">"一律不"</item>
+    <item msgid="4552962311897985633">"永不"</item>
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"振动"</string>
     <string name="gadget_title" msgid="939918875331310945">"日历"</string>
@@ -204,8 +203,10 @@
     <item quantity="one" msgid="5230907142214104485">"1 项活动"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> 项活动"</item>
   </plurals>
-    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
-    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"还有 1 项活动"</item>
+    <item quantity="other" msgid="3609243840882275136">"还有 <xliff:g id="COUNT">%d</xliff:g> 项活动"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"所选活动"</string>
     <string name="do_not_check" msgid="7815441673853466129">"请勿选中 -&gt;"</string>
 </resources>

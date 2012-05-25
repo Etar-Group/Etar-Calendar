@@ -105,8 +105,6 @@
     <string name="email_guests_label" msgid="8772030932155305903">"अतिथियों को ईमेल करें"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"इन्हें ईमेल करें"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"आयोजक:"</string>
-    <string name="event_info_desc_more" msgid="2961880675118098743">"अधिक"</string>
-    <string name="event_info_desc_less" msgid="8295683160345195225">"कम"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"अनुस्मारक"</string>
     <string name="agenda_today" msgid="5965841338467422191">"आज, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"कल, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -122,7 +120,8 @@
     <string name="discard_label" msgid="2394623883289782541">"रद्द करें"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"सभी स्नूज़ करें"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"सभी खारिज करें"</string>
-    <string name="snooze_5min_label" msgid="3846502651367125116">"5 मिनट के लिए स्‍नूज़ करें"</string>
+    <!-- no translation found for snooze_label (1515893621063224666) -->
+    <skip />
     <string name="does_not_repeat" msgid="1877681921029738999">"एक-बार का ईवेंट"</string>
     <string name="daily" msgid="560350706808680448">"प्रतिदिन"</string>
     <string name="every_weekday" msgid="5896574838353902978">"प्रत्‍येक कार्य-दिवस (सोम–शुक्र)"</string>
@@ -204,8 +203,10 @@
     <item quantity="one" msgid="5230907142214104485">"1 ईवेंट"</item>
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> ईवेंट"</item>
   </plurals>
-    <!-- no translation found for N_remaining_events:one (431585781647034528) -->
-    <!-- no translation found for N_remaining_events:other (3609243840882275136) -->
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+1 ईवेंट"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> ईवेंट"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"चयनित ईवेंट"</string>
     <string name="do_not_check" msgid="7815441673853466129">"चेक न करें -&gt;"</string>
 </resources>
