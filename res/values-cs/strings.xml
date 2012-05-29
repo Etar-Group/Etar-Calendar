@@ -151,7 +151,7 @@
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Začátek týdne"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Vymazat historii vyhledávání"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Odstranit všechna provedená vyhledávání"</string>
-    <string name="search_history_cleared" msgid="1536707558435227567">"Historie vyhledávání vymazána."</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"Historie vyhledávání vymazána"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Oznámení"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrace"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Zvolit vyzvánění"</string>
@@ -194,7 +194,7 @@
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Čas připomenutí"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Typ připomenutí"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Zobrazit mě jako"</string>
-    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Ochrana osobních údajů"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Ochrana soukromí"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Upozornění kalendáře"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Odložit upozornění"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"Přidat novou událost"</string>
