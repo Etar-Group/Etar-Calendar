@@ -120,8 +120,7 @@
     <string name="discard_label" msgid="2394623883289782541">"Cancel·la"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Repeteix-les totes"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Omet-les totes"</string>
-    <!-- no translation found for snooze_label (1515893621063224666) -->
-    <skip />
+    <string name="snooze_label" msgid="1515893621063224666">"Posposa"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Esdeveniment únic"</string>
     <string name="daily" msgid="560350706808680448">"Diàriament"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Entre setmana (Dl.-Dv.)"</string>
@@ -204,7 +203,7 @@
     <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> esdeveniments"</item>
   </plurals>
   <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"Esdeveniment +1"</item>
+    <item quantity="one" msgid="431585781647034528">"+1 esdeveniment"</item>
     <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> esdeveniments"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Esdeveniment seleccionat"</string>
