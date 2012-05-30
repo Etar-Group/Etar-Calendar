@@ -120,8 +120,7 @@
     <string name="discard_label" msgid="2394623883289782541">"Cancelar"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Posponer todos"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Descartar todos"</string>
-    <!-- no translation found for snooze_label (1515893621063224666) -->
-    <skip />
+    <string name="snooze_label" msgid="1515893621063224666">"Posponer"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
     <string name="daily" msgid="560350706808680448">"Diariamente"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Semanalmente (lun. a vie.)"</string>
