@@ -74,7 +74,7 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Utils.returnToCalendarHome(this);
+                finish();
                 return true;
             case R.id.action_add_account:
                 Intent nextIntent = new Intent(Settings.ACTION_ADD_ACCOUNT);
