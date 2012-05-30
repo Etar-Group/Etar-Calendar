@@ -78,6 +78,7 @@
                         android:autoLink="all"
                         android:textStyle="bold"
                         android:textColor="@color/event_info_headline_color"
+                        android:textColorLink="@color/event_info_headline_color"
                         style="?android:attr/textAppearanceLarge"
                         android:textSize="24sp" />
                     <!-- BUTTONS -->
