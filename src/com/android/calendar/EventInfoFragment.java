@@ -1156,16 +1156,18 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Resources resources = context.getResources();
         String displayedDatetime = Utils.getDisplayedDatetime(mStartMillis, mEndMillis,
                 System.currentTimeMillis(), localTimezone, mAllDay, context);
-        String displayedTimezone = Utils.getDisplayedTimezone(mStartMillis, localTimezone,
-                eventTimezone);
-        int timezoneIndex = displayedDatetime.length();
-        if (displayedTimezone != null) {
-            displayedDatetime += "  " + displayedTimezone;
+
+        String displayedTimezone = null;
+        if (!mAllDay) {
+            displayedTimezone = Utils.getDisplayedTimezone(mStartMillis, localTimezone,
+                    eventTimezone);
         }
         // Display the datetime.  Make the timezone (if any) transparent.
         if (displayedTimezone == null) {
             setTextCommon(view, R.id.when_datetime, displayedDatetime);
         } else {
+            int timezoneIndex = displayedDatetime.length();
+            displayedDatetime += "  " + displayedTimezone;
             SpannableStringBuilder sb = new SpannableStringBuilder(displayedDatetime);
             ForegroundColorSpan transparentColorSpan = new ForegroundColorSpan(
                     resources.getColor(R.color.event_info_headline_transparent_color));
