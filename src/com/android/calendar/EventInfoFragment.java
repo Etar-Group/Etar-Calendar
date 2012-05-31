@@ -46,6 +46,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
@@ -163,8 +164,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Events.EVENT_TIMEZONE,       // 7  do not remove; used in DeleteEventHelper
         Events.DESCRIPTION,          // 8
         Events.EVENT_LOCATION,       // 9
-        Calendars.CALENDAR_ACCESS_LEVEL,      // 10
-        Events.DISPLAY_COLOR,                 // 11
+        Calendars.CALENDAR_ACCESS_LEVEL, // 10
+        Events.DISPLAY_COLOR,        // 11 If SDK < 16, set to Calendars.CALENDAR_COLOR.
         Events.HAS_ATTENDEE_DATA,    // 12
         Events.ORGANIZER,            // 13
         Events.HAS_ALARM,            // 14
@@ -193,7 +194,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int EVENT_INDEX_CUSTOM_APP_PACKAGE = 17;
     private static final int EVENT_INDEX_CUSTOM_APP_URI = 18;
 
-
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
         Attendees.ATTENDEE_NAME,            // 1
@@ -210,6 +210,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int ATTENDEES_INDEX_STATUS = 4;
     private static final int ATTENDEES_INDEX_IDENTITY = 5;
     private static final int ATTENDEES_INDEX_ID_NAMESPACE = 6;
+
+    static {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            EVENT_PROJECTION[EVENT_INDEX_COLOR] = Calendars.CALENDAR_COLOR;
+            EVENT_PROJECTION[EVENT_INDEX_CUSTOM_APP_PACKAGE] = Events._ID; // dummy value
+            EVENT_PROJECTION[EVENT_INDEX_CUSTOM_APP_URI] = Events._ID; // dummy value
+
+            ATTENDEES_PROJECTION[ATTENDEES_INDEX_IDENTITY] = Attendees._ID; // dummy value
+            ATTENDEES_PROJECTION[ATTENDEES_INDEX_ID_NAMESPACE] = Attendees._ID; // dummy value
+        }
+    }
 
     private static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=?";
 
@@ -850,9 +861,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         mCalendarOwnerAttendeeId = mAttendeesCursor.getInt(ATTENDEES_INDEX_ID);
                         mOriginalAttendeeResponse = mAttendeesCursor.getInt(ATTENDEES_INDEX_STATUS);
                     } else {
-                        String identity = mAttendeesCursor.getString(ATTENDEES_INDEX_IDENTITY);
-                        String idNamespace = mAttendeesCursor.getString(
-                                ATTENDEES_INDEX_ID_NAMESPACE);
+                        String identity = null;
+                        String idNamespace = null;
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            identity = mAttendeesCursor.getString(ATTENDEES_INDEX_IDENTITY);
+                            idNamespace = mAttendeesCursor.getString(ATTENDEES_INDEX_ID_NAMESPACE);
+                        }
 
                         // Don't show your own status in the list because:
                         //  1) it doesn't make sense for event without other guests.
@@ -1233,7 +1248,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         // Launch Custom App
-        updateCustomAppButton();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            updateCustomAppButton();
+        }
     }
 
     private void updateCustomAppButton() {
