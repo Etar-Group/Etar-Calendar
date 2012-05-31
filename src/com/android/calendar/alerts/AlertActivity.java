@@ -235,7 +235,7 @@ public class AlertActivity extends Activity implements OnClickListener {
         if (v == mDismissAllButton) {
             NotificationManager nm =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.cancel(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
+            nm.cancelAll();
 
             dismissFiredAlarms();
 
