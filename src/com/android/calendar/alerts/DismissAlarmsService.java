@@ -24,6 +24,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
 
@@ -86,8 +87,13 @@ public class DismissAlarmsService extends IntentService {
             // Show event on Calendar app by building an intent and task stack to start
             // EventInfoActivity with AllInOneActivity as the parent activity rooted to home.
             Intent i = AlertUtils.buildEventViewIntent(this, eventId, eventStart, eventEnd);
-            TaskStackBuilder.create(this)
-                    .addParentStack(EventInfoActivity.class).addNextIntent(i).startActivities();
+
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                startActivity(i);
+            } else {
+                TaskStackBuilder.create(this)
+                        .addParentStack(EventInfoActivity.class).addNextIntent(i).startActivities();
+            }
         }
 
         // Stop this service
