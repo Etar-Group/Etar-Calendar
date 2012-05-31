@@ -32,6 +32,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -117,6 +118,13 @@ public class Utils {
     private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
     private static boolean mAllowWeekForDetailView = false;
     private static long mTardis = 0;
+
+    /**
+     * Returns whether the SDK is the Jellybean release or later.
+     */
+    public static boolean isJellybeanOrLater() {
+      return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+    }
 
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
         Intent intent = activity.getIntent();

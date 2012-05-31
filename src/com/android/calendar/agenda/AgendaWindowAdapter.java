@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
@@ -123,7 +122,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     };
 
     static {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+        if (!Utils.isJellybeanOrLater()) {
             PROJECTION[INDEX_COLOR] = Instances.CALENDAR_COLOR;
         }
     }

@@ -758,13 +758,13 @@ public class AllInOneActivity extends Activity implements EventHandler,
         }
 
         MenuItem menuItem = menu.findItem(R.id.action_today);
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            menuItem.setIcon(R.drawable.ic_menu_today_no_date_holo_light);
-        } else {
+        if (Utils.isJellybeanOrLater()) {
             // replace the default top layer drawable of the today icon with a
             // custom drawable that shows the day of the month of today
             LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
             Utils.setTodayIcon(icon, this, mTimeZone);
+        } else {
+            menuItem.setIcon(R.drawable.ic_menu_today_no_date_holo_light);
         }
         return true;
     }

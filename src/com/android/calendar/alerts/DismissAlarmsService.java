@@ -24,11 +24,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
 
 import com.android.calendar.EventInfoActivity;
+import com.android.calendar.Utils;
 
 /**
  * Service for asynchronously marking fired alarms as dismissed.
@@ -88,11 +88,11 @@ public class DismissAlarmsService extends IntentService {
             // EventInfoActivity with AllInOneActivity as the parent activity rooted to home.
             Intent i = AlertUtils.buildEventViewIntent(this, eventId, eventStart, eventEnd);
 
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-                startActivity(i);
+            if (Utils.isJellybeanOrLater()) {
+                TaskStackBuilder.create(this).addParentStack(EventInfoActivity.class)
+                        .addNextIntent(i).startActivities();
             } else {
-                TaskStackBuilder.create(this)
-                        .addParentStack(EventInfoActivity.class).addNextIntent(i).startActivities();
+                startActivity(i);
             }
         }
 

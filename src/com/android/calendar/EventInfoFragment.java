@@ -46,7 +46,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
@@ -212,7 +211,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int ATTENDEES_INDEX_ID_NAMESPACE = 6;
 
     static {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+        if (!Utils.isJellybeanOrLater()) {
             EVENT_PROJECTION[EVENT_INDEX_COLOR] = Calendars.CALENDAR_COLOR;
             EVENT_PROJECTION[EVENT_INDEX_CUSTOM_APP_PACKAGE] = Events._ID; // dummy value
             EVENT_PROJECTION[EVENT_INDEX_CUSTOM_APP_URI] = Events._ID; // dummy value
@@ -864,7 +863,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         String identity = null;
                         String idNamespace = null;
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        if (Utils.isJellybeanOrLater()) {
                             identity = mAttendeesCursor.getString(ATTENDEES_INDEX_IDENTITY);
                             idNamespace = mAttendeesCursor.getString(ATTENDEES_INDEX_ID_NAMESPACE);
                         }
@@ -1248,7 +1247,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         // Launch Custom App
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (Utils.isJellybeanOrLater()) {
             updateCustomAppButton();
         }
     }

@@ -23,7 +23,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Debug;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
@@ -110,7 +109,7 @@ public class Event implements Cloneable {
     private static final int PROJECTION_DISPLAY_AS_ALLDAY = 19;
 
     static {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+        if (!Utils.isJellybeanOrLater()) {
             EVENT_PROJECTION[PROJECTION_COLOR_INDEX] = Instances.CALENDAR_COLOR;
         }
     }
