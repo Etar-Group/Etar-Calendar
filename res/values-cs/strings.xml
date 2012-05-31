@@ -69,7 +69,7 @@
     <string name="not_synced" msgid="4275114941801829419">"není synchronizován"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"Tento účet není synchronizován, proto kalendáře nemusí být aktuální."</string>
     <string name="accounts" msgid="849401841083180306">"Účty a synchronizace"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendáře, které se mají synchronizovat"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendáře k synchronizaci"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalendáře, které se mají synchronizovat"</string>
     <string name="hint_what" msgid="709155115005044531">"Název události"</string>
     <string name="hint_where" msgid="4972598001033801974">"Místo"</string>
@@ -160,8 +160,8 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Výchozí čas připomenutí"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Použít domácí čas"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Kalendáře a události se vždy zobrazí v domovském čas. pásmu"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Domovské č. pásmo"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Kalendáře a události se vždy zobrazí v domovském časovém pásmu"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Domovské časové pásmo"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Zobrazovat číslo týdne"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"O aplikaci"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Verze sestavení"</string>
