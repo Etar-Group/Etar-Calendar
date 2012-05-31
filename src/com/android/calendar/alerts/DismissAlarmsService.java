@@ -55,11 +55,7 @@ public class DismissAlarmsService extends IntentService {
         long eventEnd = intent.getLongExtra(AlertUtils.EVENT_END_KEY, -1);
         boolean showEvent = intent.getBooleanExtra(AlertUtils.SHOW_EVENT_KEY, false);
         long[] eventIds = intent.getLongArrayExtra(AlertUtils.EVENT_IDS_KEY);
-
-        // The ID reserved for the expired notification digest should never be passed in
-        // here, so use that as a default.
-        int notificationId = intent.getIntExtra(AlertUtils.NOTIFICATION_ID_KEY,
-                AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
+        int notificationId = intent.getIntExtra(AlertUtils.NOTIFICATION_ID_KEY, -1);
 
         Uri uri = CalendarAlerts.CONTENT_URI;
         String selection;
@@ -80,7 +76,11 @@ public class DismissAlarmsService extends IntentService {
         resolver.update(uri, values, selection, null);
 
         // Remove from notification bar.
-        AlertService.updateAlertNotification(this);
+        if (notificationId != -1) {
+            NotificationManager nm =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.cancel(notificationId);
+        }
 
         if (showEvent) {
             // Show event on Calendar app by building an intent and task stack to start
