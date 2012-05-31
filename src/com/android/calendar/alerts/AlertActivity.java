@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
@@ -165,12 +164,9 @@ public class AlertActivity extends Activity implements OnClickListener {
             Intent eventIntent = AlertUtils.buildEventViewIntent(AlertActivity.this, id,
                     startMillis, endMillis);
 
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-                alertActivity.startActivity(eventIntent);
-            } else {
-                TaskStackBuilder.create(AlertActivity.this).addParentStack(EventInfoActivity.class)
-                        .addNextIntent(eventIntent).startActivities();
-            }
+            TaskStackBuilder.create(AlertActivity.this)
+                    .addParentStack(EventInfoActivity.class).addNextIntent(eventIntent)
+                    .startActivities();
 
             alertActivity.finish();
         }

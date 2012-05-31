@@ -28,7 +28,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
@@ -76,7 +75,7 @@ public class CalendarAppWidgetService extends RemoteViewsService {
         Instances.EVENT_ID,
         Instances.START_DAY,
         Instances.END_DAY,
-        Instances.DISPLAY_COLOR, // If SDK < 16, set to Instances.CALENDAR_COLOR.
+        Instances.DISPLAY_COLOR,
         Instances.SELF_ATTENDEE_STATUS,
     };
 
@@ -91,11 +90,6 @@ public class CalendarAppWidgetService extends RemoteViewsService {
     static final int INDEX_COLOR = 8;
     static final int INDEX_SELF_ATTENDEE_STATUS = 9;
 
-    static {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            EVENT_PROJECTION[INDEX_COLOR] = Instances.CALENDAR_COLOR;
-        }
-    }
     static final int MAX_DAYS = 7;
 
     private static final long SEARCH_DURATION = MAX_DAYS * DateUtils.DAY_IN_MILLIS;

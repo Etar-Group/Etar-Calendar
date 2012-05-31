@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
@@ -108,7 +107,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.EVENT_LOCATION, // 2
             Instances.ALL_DAY, // 3
             Instances.HAS_ALARM, // 4
-            Instances.DISPLAY_COLOR, // 5 If SDK < 16, set to Instances.CALENDAR_COLOR.
+            Instances.DISPLAY_COLOR, // 5
             Instances.RRULE, // 6
             Instances.BEGIN, // 7
             Instances.END, // 8
@@ -121,12 +120,6 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.CAN_ORGANIZER_RESPOND, // 15
             Instances.EVENT_TIMEZONE, // 16
     };
-
-    static {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            PROJECTION[INDEX_COLOR] = Instances.CALENDAR_COLOR;
-        }
-    }
 
     // Listview may have a bug where the index/position is not consistent when there's a header.
     // position == positionInListView - OFF_BY_ONE_BUG

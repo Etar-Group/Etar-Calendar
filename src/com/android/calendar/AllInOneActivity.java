@@ -40,7 +40,9 @@ import android.content.AsyncQueryHandler;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
@@ -49,7 +51,6 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract;
@@ -757,15 +758,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mControlsMenu.setTitle(mHideControls ? mShowString : mHideString);
         }
 
-        MenuItem menuItem = menu.findItem(R.id.action_today);
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            menuItem.setIcon(R.drawable.ic_menu_today_no_date_holo_light);
-        } else {
-            // replace the default top layer drawable of the today icon with a
-            // custom drawable that shows the day of the month of today
-            LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
-            Utils.setTodayIcon(icon, this, mTimeZone);
-        }
+        // replace the default top layer drawable of the today icon with a custom drawable
+        // that shows the day of the month of today
+        LayerDrawable icon = (LayerDrawable)menu.findItem(R.id.action_today).getIcon();
+        Utils.setTodayIcon(icon, this, mTimeZone);
         return true;
     }
 

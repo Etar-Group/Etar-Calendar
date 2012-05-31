@@ -23,7 +23,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Debug;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
@@ -68,7 +67,7 @@ public class Event implements Cloneable {
             Instances.TITLE,                 // 0
             Instances.EVENT_LOCATION,        // 1
             Instances.ALL_DAY,               // 2
-            Instances.DISPLAY_COLOR,         // 3 If SDK < 16, set to Instances.CALENDAR_COLOR.
+            Instances.DISPLAY_COLOR,         // 3
             Instances.EVENT_TIMEZONE,        // 4
             Instances.EVENT_ID,              // 5
             Instances.BEGIN,                 // 6
@@ -108,12 +107,6 @@ public class Event implements Cloneable {
     private static final int PROJECTION_ORGANIZER_INDEX = 17;
     private static final int PROJECTION_GUESTS_CAN_INVITE_OTHERS_INDEX = 18;
     private static final int PROJECTION_DISPLAY_AS_ALLDAY = 19;
-
-    static {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            EVENT_PROJECTION[PROJECTION_COLOR_INDEX] = Instances.CALENDAR_COLOR;
-        }
-    }
 
     private static String mNoTitleString;
     private static int mNoColorColor;
