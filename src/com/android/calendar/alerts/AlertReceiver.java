@@ -215,6 +215,14 @@ public class AlertReceiver extends BroadcastReceiver {
         return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
+    private static PendingIntent createAlertActivityIntent(Context context) {
+        Intent clickIntent = new Intent();
+        clickIntent.setClass(context, AlertActivity.class);
+        clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return PendingIntent.getActivity(context, 0, clickIntent,
+                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
     public static NotificationWrapper makeBasicNotification(Context context, String title,
             String summaryText, long startMillis, long endMillis, long eventId,
             int notificationId, boolean doPopup) {
@@ -264,7 +272,7 @@ public class AlertReceiver extends BroadcastReceiver {
             }
         }
         if (doPopup) {
-            notificationBuilder.setFullScreenIntent(clickIntent, true);
+            notificationBuilder.setFullScreenIntent(createAlertActivityIntent(context), true);
         }
 
         // Turn off timestamp.
@@ -334,11 +342,7 @@ public class AlertReceiver extends BroadcastReceiver {
         }
 
         // Create an intent triggered by clicking on the status icon that shows the alerts list.
-        Intent clickIntent = new Intent();
-        clickIntent.setClass(context, AlertActivity.class);
-        clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingClickIntent = PendingIntent.getActivity(context, 0, clickIntent,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingClickIntent = createAlertActivityIntent(context);
 
         // Create an intent triggered by dismissing the digest notification that clears all
         // expired events.
