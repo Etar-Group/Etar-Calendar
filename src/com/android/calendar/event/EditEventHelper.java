@@ -198,9 +198,7 @@ public class EditEventHelper {
     static final int ATTENDEES_INDEX_EMAIL = 2;
     static final int ATTENDEES_INDEX_RELATIONSHIP = 3;
     static final int ATTENDEES_INDEX_STATUS = 4;
-    static final String ATTENDEES_WHERE_NOT_ORGANIZER = Attendees.EVENT_ID + "=? AND "
-            + Attendees.ATTENDEE_RELATIONSHIP + "<>" + Attendees.RELATIONSHIP_ORGANIZER;
-    static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=?";
+    static final String ATTENDEES_WHERE = Attendees.EVENT_ID + "=? AND attendeeEmail IS NOT NULL";
 
     public static class AttendeeItem {
         public boolean mRemoved;
