@@ -73,7 +73,7 @@
                     <TextView
                         android:id="@+id/title"
                         android:layout_weight=".8"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:autoLink="all"
                         android:textStyle="bold"
@@ -92,28 +92,30 @@
                         android:layout_marginLeft="16dip"
                         android:layout_marginRight="16dip"
                         android:layout_gravity="right">
-                        <Button
+                        <ImageButton
                             android:id="@+id/edit"
-                            android:layout_width="32dip"
-                            android:layout_height="32dip"
-                            android:layout_weight="1"
+                            android:contentDescription="@string/edit_label"
+                            android:layout_width="48dip"
+                            android:layout_height="48dip"
                             android:enabled="false"
                             android:visibility="gone"
-                            android:layout_marginTop="8dip"
-                            android:layout_marginRight="16dip"
+                            android:layout_marginRight="8dip"
+                            android:padding="8dip"
+                            android:scaleType="centerInside"
                             style="?android:attr/buttonBarButtonStyle"
-                            android:background="@drawable/event_info_compose_button" />
-                        <Button
+                            android:src="@drawable/ic_menu_compose_holo_dark" />
+                        <ImageButton
                             android:id="@+id/delete"
-                            android:layout_width="32dip"
-                            android:layout_height="32dip"
-                            android:layout_marginTop="8dip"
-                            android:layout_marginLeft="16dip"
-                            android:layout_weight="1"
+                            android:contentDescription="@string/delete_label"
+                            android:layout_width="48dip"
+                            android:layout_height="48dip"
+                            android:layout_marginLeft="8dip"
+                            android:padding="8dip"
+                            android:scaleType="centerInside"
                             android:enabled="false"
                             android:visibility="gone"
                             style="?android:attr/buttonBarButtonStyle"
-                            android:background="@drawable/event_info_delete_button" />
+                            android:src="@drawable/ic_menu_trash_holo_dark" />
                     </LinearLayout>
                 </LinearLayout>
 
