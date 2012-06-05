@@ -729,21 +729,21 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
                 null, null, null);
 
-        Button b = (Button) mView.findViewById(R.id.delete);
+        View b = mView.findViewById(R.id.delete);
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!mCanModifyCalendar) {
                     return;
                 }
-                mDeleteHelper = new DeleteEventHelper(
-                        mContext, mActivity,
-                        !mIsDialog && !mIsTabletConfig /* exitWhenDone */);
+                mDeleteHelper =
+                        new DeleteEventHelper(mContext, mActivity, !mIsDialog && !mIsTabletConfig /* exitWhenDone */);
                 mDeleteHelper.setDeleteNotificationListener(EventInfoFragment.this);
                 mDeleteHelper.setOnDismissListener(createDeleteOnDismissListener());
                 mDeleteDialogVisible = true;
                 mDeleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
-            }});
+            }
+        });
 
         // Hide Edit/Delete buttons if in full screen mode on a phone
         if (!mIsDialog && !mIsTabletConfig || mWindowStyle == EventInfoFragment.FULL_WINDOW_STYLE) {
@@ -1687,7 +1687,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     mEventCursor.getInt(EVENT_INDEX_ACCESS_LEVEL) == Calendars.CAL_ACCESS_FREEBUSY;
 
             if (!mIsBusyFreeCalendar) {
-                Button b = (Button) mView.findViewById(R.id.edit);
+
+                View b = mView.findViewById(R.id.edit);
                 b.setEnabled(true);
                 b.setOnClickListener(new OnClickListener() {
                     @Override
