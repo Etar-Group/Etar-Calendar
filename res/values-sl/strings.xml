@@ -74,7 +74,7 @@
     <string name="hint_what" msgid="709155115005044531">"Ime dogodka"</string>
     <string name="hint_where" msgid="4972598001033801974">"Lokacija"</string>
     <string name="hint_description" msgid="1910143586169033232">"Opis"</string>
-    <string name="hint_attendees" msgid="1650488163176888480">"Gosti"</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Gostje"</string>
     <string name="creating_event" msgid="7516249252554059980">"Dogodek je ustvarjen."</string>
     <string name="saving_event" msgid="7694181017411177226">"Dogodek je shranjen."</string>
     <string name="empty_event" msgid="9018699257414338634">"Prazen dogodek ni bil ustvarjen."</string>
