@@ -92,6 +92,8 @@ public class DismissAlarmsService extends IntentService {
                 TaskStackBuilder.create(this).addParentStack(EventInfoActivity.class)
                         .addNextIntent(i).startActivities();
             } else {
+                // This is a workaround until 6650578 is resolved
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
         }
