@@ -16,13 +16,6 @@
 
 package com.android.calendar.event;
 
-import com.android.calendar.AbstractCalendarActivity;
-import com.android.calendar.AsyncQueryService;
-import com.android.calendar.CalendarEventModel;
-import com.android.calendar.CalendarEventModel.ReminderEntry;
-import com.android.calendar.R;
-import com.android.common.Rfc822Validator;
-
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
@@ -42,6 +35,14 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.text.util.Rfc822Token;
+import android.util.Log;
+
+import com.android.calendar.AbstractCalendarActivity;
+import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarEventModel;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
+import com.android.calendar.R;
+import com.android.common.Rfc822Validator;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -86,7 +87,11 @@ public class EditEventHelperTest extends AndroidTestCase {
             "3", // 14 visibility
             "steve@gmail.com", // 15 owner account
             "1", // 16 has attendee data
-            null, //17 originalEvent
+            null, //17 originalSyncId
+            "organizer@gmail.com", // 18 organizer
+            "0", // 19 guest can modify
+            null, // 20 original id
+            "1" // event status
     }; // These should match up with EditEventHelper.EVENT_PROJECTION
 
     private static final String AUTHORITY_URI = "content://EditEventHelperAuthority/";
@@ -1487,6 +1492,9 @@ public class EditEventHelperTest extends AndroidTestCase {
         model.mOwnerAccount = "steve@gmail.com";
         model.mHasAttendeeData = true;
         model.mEventStatus = Events.STATUS_CONFIRMED;
+        model.mOrganizer = "organizer@gmail.com";
+        model.mGuestsCanModify = false;
+        model.mModelUpdatedWithEventCursor = true;
         return model;
     }
 
