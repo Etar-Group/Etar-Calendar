@@ -35,6 +35,7 @@ import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.View;
 
+import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
@@ -215,7 +216,7 @@ public class EditEventHelper {
     }
 
     public EditEventHelper(Context context, CalendarEventModel model) {
-        mService = new AsyncQueryService(context);
+        mService = ((AbstractCalendarActivity)context).getAsyncQueryService();
     }
 
     /**
