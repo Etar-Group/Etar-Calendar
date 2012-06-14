@@ -264,11 +264,11 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                     mController.setTime(firstVisibleTime);
                     outState.putLong(BUNDLE_KEY_RESTORE_TIME, firstVisibleTime);
                 }
+                // Tell AllInOne the event id of the first visible event in the list. The id will be
+                // used in the GOTO when AllInOne is restored so that Agenda Fragment can select a
+                // specific event and not just the time.
+                mLastShownEventId = e.id;
             }
-            // Tell AllInOne the event id of the first visible event in the list. The id will be
-            // used in the GOTO when AllInOne is restored so that Agenda Fragment can select a
-            // specific event and not just the time.
-            mLastShownEventId = e.id;
         }
         if (DEBUG) {
             Log.v(TAG, "onSaveInstanceState " + mTime.toString());
