@@ -21,6 +21,7 @@ LOCAL_SRC_FILES := $(call all-java-files-under,src)
 LOCAL_STATIC_JAVA_LIBRARIES := \
 		android-common \
 		android-common-chips \
+		android-support-v4 \
 		calendar-common
 LOCAL_SDK_VERSION := current
 
