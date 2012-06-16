@@ -103,18 +103,10 @@ public class AlertReceiver extends BroadcastReceiver {
             // Now start the email intent.
             final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
             if (eventId != -1) {
-                final PendingResult result = goAsync();
-                Runnable worker = new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent emailIntent = createEmailIntent(context, eventId);
-                        if (emailIntent != null) {
-                            context.startActivity(emailIntent);
-                        }
-                        result.finish();
-                    }
-                };
-                sAsyncHandler.post(worker);
+                Intent i = new Intent(context, QuickResponseActivity.class);
+                i.putExtra(QuickResponseActivity.EXTRA_EVENT_ID, eventId);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
             }
         } else {
             Intent i = new Intent();
@@ -517,7 +509,7 @@ public class AlertReceiver extends BroadcastReceiver {
      * Creates an Intent for emailing the attendees of the event.  Returns null if there
      * are no emailable attendees.
      */
-    private static Intent createEmailIntent(Context context, long eventId) {
+    static Intent createEmailIntent(Context context, long eventId, String body) {
         // TODO: Refactor to move query part into Utils.createEmailAttendeeIntent, to
         // be shared with EventInfoFragment.
 
@@ -567,7 +559,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
         Intent intent = null;
         if (ownerAccount != null && (toEmails.size() > 0 || ccEmails.size() > 0)) {
-            intent = Utils.createEmailAttendeesIntent(context.getResources(), eventTitle,
+            intent = Utils.createEmailAttendeesIntent(context.getResources(), eventTitle, body,
                     toEmails, ccEmails, ownerAccount);
         }
 

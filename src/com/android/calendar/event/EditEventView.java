@@ -1413,7 +1413,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         String defaultCalendar = Utils.getSharedPreference(
-                mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, null);
+                mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, (String) null);
 
         if (defaultCalendar == null) {
             return 0;

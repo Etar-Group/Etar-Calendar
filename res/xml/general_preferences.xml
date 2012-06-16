@@ -86,6 +86,12 @@
             android:entries="@array/preferences_default_reminder_labels"
             android:entryValues="@array/preferences_default_reminder_values"
             android:dialogTitle="@string/preferences_default_reminder_dialog" />
-    </PreferenceCategory>
+
+        <PreferenceScreen
+            android:key="preferences_quick_responses"
+            android:fragment="com.android.calendar.QuickResponseSettings"
+            android:title="@string/quick_response_settings"
+            android:summary="@string/quick_response_settings_summary" />
+     </PreferenceCategory>
 
 </PreferenceScreen>
