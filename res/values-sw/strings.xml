@@ -203,8 +203,8 @@
     <item quantity="other" msgid="6093072093209431078">"Matukio <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
   <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"Tukio +1"</item>
-    <item quantity="other" msgid="3609243840882275136">"Matukio +<xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="one" msgid="431585781647034528">"+ tukio 1"</item>
+    <item quantity="other" msgid="3609243840882275136">"+ matukio <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Tukio lililochaguliwa"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Usikague -&gt;"</string>
