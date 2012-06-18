@@ -29,7 +29,6 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.Settings;
 import android.text.format.DateUtils;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.util.List;
@@ -38,6 +37,7 @@ public class CalendarSettingsActivity extends PreferenceActivity {
     private static final int CHECK_ACCOUNTS_DELAY = 3000;
     private Account[] mAccounts;
     private Handler mHandler = new Handler();
+    private boolean mHideMenuButtons = false;
 
     @Override
     public void onBuildHeaders(List<Header> target) {
@@ -89,8 +89,9 @@ public class CalendarSettingsActivity extends PreferenceActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.settings_title_bar, menu);
+        if (!mHideMenuButtons) {
+            getMenuInflater().inflate(R.menu.settings_title_bar, menu);
+        }
         getActionBar()
                 .setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
         return true;
@@ -121,4 +122,8 @@ public class CalendarSettingsActivity extends PreferenceActivity {
             }
         }
     };
+
+    public void hideMenuButtons() {
+        mHideMenuButtons = true;
+    }
 }
