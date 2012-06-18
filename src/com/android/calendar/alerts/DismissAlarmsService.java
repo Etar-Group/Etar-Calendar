@@ -18,7 +18,6 @@ package com.android.calendar.alerts;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
-import android.app.TaskStackBuilder;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -26,9 +25,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
+import android.support.v4.app.TaskStackBuilder;
 
 import com.android.calendar.EventInfoActivity;
-import com.android.calendar.Utils;
 
 /**
  * Service for asynchronously marking fired alarms as dismissed.
@@ -88,14 +87,8 @@ public class DismissAlarmsService extends IntentService {
             // EventInfoActivity with AllInOneActivity as the parent activity rooted to home.
             Intent i = AlertUtils.buildEventViewIntent(this, eventId, eventStart, eventEnd);
 
-            if (Utils.isJellybeanOrLater()) {
-                TaskStackBuilder.create(this).addParentStack(EventInfoActivity.class)
-                        .addNextIntent(i).startActivities();
-            } else {
-                // This is a workaround until 6650578 is resolved
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
-            }
+            TaskStackBuilder.create(this)
+                    .addParentStack(EventInfoActivity.class).addNextIntent(i).startActivities();
         }
 
         // Stop this service
