@@ -160,6 +160,10 @@
         <activity android:name=".alerts.AlertActivity" android:launchMode="singleInstance"
              android:theme="@android:style/Theme.Holo.Dialog" android:excludeFromRecents="true" />
 
+        <activity android:name=".alerts.QuickResponseActivity" android:launchMode="singleInstance"
+             android:theme="@android:style/Theme.Holo.Dialog" android:excludeFromRecents="true"
+             android:label="@string/quick_response_dialog_title" />
+
         <receiver android:name=".alerts.AlertReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.EVENT_REMINDER" />

@@ -290,6 +290,29 @@
     <!-- The is shown in the email subject as the prefix appended to the event title -->
     <string translatable="false" name="email_subject_prefix">Re:\u0020</string>
 
+    <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
+    <string name="quick_response_settings">Quick responses</string>
+    <!-- Summary of the quick response item in Settings [CHAR LIMIT=18]-->
+    <string name="quick_response_settings_summary">Edit default responses when emailing guests</string>
+    <!-- Title of the quick response screen in Settings->Quick Response [CHAR LIMIT=18]-->
+    <string name="quick_response_settings_title">Edit quick responses</string>
+    <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
+    <string name="quick_response_settings_edit_title">Quick response</string>
+
+    <!-- Title of the dialog prompting the user choose a response when emailing guests  [CHAR LIMIT=none]-->
+    <string name="quick_response_dialog_title">Choose quick response</string>
+    <!-- Error to user when an email program can't be found[CHAR LIMIT=none]-->
+    <string name="quick_response_email_failed">Failed to find an email program</string>
+    <!-- The is shown in the email subject as the prefix appended to the event title [CHAR LIMIT=none]-->
+    <string-array name="quick_response_defaults">
+        <item>Running just a couple of minutes late.</item>
+        <item>Be there in about 10 minutes.</item>
+        <item>Go ahead and start without me.</item>
+        <item>Sorry, I can\'t make it. We\'ll have to reschedule.</item>
+        </string-array>
+    <!-- Option to create a custom response instead of using defaults [CHAR LIMIT=none] -->
+    <string name="quick_response_custom_msg">Custom message\u2026</string>
+
     <!-- Event Info strings-->
     <!-- Time Zone Label [CHAR LIMIT=12]-->
 
@@ -617,7 +640,7 @@
 
     <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->
     <string name="acessibility_selected_marker_description">Selected event</string>
-    
+
     <!-- Tell user not to check a checkbox [CHAR LIMIT=30] -->
     <string name="do_not_check">Do NOT check -></string>
 </resources>

@@ -51,10 +51,12 @@ import java.util.Calendar;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 public class Utils {
@@ -110,6 +112,8 @@ public class Utils {
     // reasons, as it's what PreferenceManager assigned the first time the file
     // was created.
     static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
+
+    public static final String KEY_QUICK_RESPONSES = "preferences_quick_responses";
 
     public static final String APPWIDGET_DATA_TYPE = "vnd.android.data/update";
 
@@ -218,6 +222,16 @@ public class Utils {
         return mTZUtils.formatDateRange(context, startMillis, endMillis, flags);
     }
 
+    public static String[] getSharedPreference(Context context, String key, String[] defaultValue) {
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        Set<String> ss = prefs.getStringSet(key, null);
+        if (ss != null) {
+            String strings[] = new String[ss.size()];
+            return ss.toArray(strings);
+        }
+        return defaultValue;
+    }
+
     public static String getSharedPreference(Context context, String key, String defaultValue) {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         return prefs.getString(key, defaultValue);
@@ -243,6 +257,15 @@ public class Utils {
     public static void setSharedPreference(Context context, String key, String value) {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         prefs.edit().putString(key, value).apply();
+    }
+
+    public static void setSharedPreference(Context context, String key, String[] values) {
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        LinkedHashSet<String> set = new LinkedHashSet<String>();
+        for (int i = 0; i < values.length; i++) {
+            set.add(values[i]);
+        }
+        prefs.edit().putStringSet(key, set).apply();
     }
 
     protected static void tardis() {
@@ -1297,19 +1320,20 @@ public class Utils {
      *
      * @param resources The resources for translating strings.
      * @param eventTitle The title of the event to use as the email subject.
+     * @param body The default text for the email body.
      * @param toEmails The list of emails for the 'to' line.
      * @param ccEmails The list of emails for the 'cc' line.
      * @param ownerAccount The owner account to use as the email sender.
      */
     public static Intent createEmailAttendeesIntent(Resources resources, String eventTitle,
-            List<String> toEmails, List<String> ccEmails, String ownerAccount) {
+            String body, List<String> toEmails, List<String> ccEmails, String ownerAccount) {
         List<String> toList = toEmails;
         List<String> ccList = ccEmails;
         if (toEmails.size() <= 0) {
             if (ccEmails.size() <= 0) {
                 // TODO: Return a SEND intent if no one to email to, to at least populate
                 // a draft email with the subject (and no recipients).
-                throw new IllegalArgumentException("Both toEmails and ccEmails are null.");
+                throw new IllegalArgumentException("Both toEmails and ccEmails are empty.");
             }
 
             // Email app does not work with no "to" recipient.  Move all 'cc' to 'to'
@@ -1346,6 +1370,11 @@ public class Utils {
         // Add the subject parameter.
         if (subject != null) {
             uriBuilder.appendQueryParameter("subject", subject);
+        }
+
+        // Add the subject parameter.
+        if (body != null) {
+            uriBuilder.appendQueryParameter("body", body);
         }
 
         // Add the cc parameters.
@@ -1447,5 +1476,23 @@ public class Utils {
 
     public static void clearTimeChangesReceiver(Context c, BroadcastReceiver r) {
         c.unregisterReceiver(r);
+    }
+
+    /**
+     * Get a list of quick responses used for emailing guests from the
+     * SharedPreferences. If not are found, get the hard coded ones that shipped
+     * with the app
+     *
+     * @param context
+     * @return a list of quick responses.
+     */
+    public static String[] getQuickResponses(Context context) {
+        String[] s = Utils.getSharedPreference(context, KEY_QUICK_RESPONSES, (String[]) null);
+
+        if (s == null) {
+            s = context.getResources().getStringArray(R.array.quick_response_defaults);
+        }
+
+        return s;
     }
 }

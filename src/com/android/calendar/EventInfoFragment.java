@@ -2129,7 +2129,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String eventTitle = (mTitle == null || mTitle.getText() == null) ? null :
                 mTitle.getText().toString();
         Intent emailIntent = Utils.createEmailAttendeesIntent(getActivity().getResources(),
-                eventTitle, mToEmails, mCcEmails, mCalendarOwnerAccount);
+                eventTitle, null /* body */, mToEmails, mCcEmails, mCalendarOwnerAccount);
         startActivity(emailIntent);
     }
 
