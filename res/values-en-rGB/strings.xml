@@ -104,6 +104,19 @@
     <string name="response_no" msgid="561911691884148136">"No"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Email guests"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Email with"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"Quick responses"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edit default responses when emailing guests"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"Edit quick responses"</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Quick response"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Choose quick response"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"Failed to find an email programme"</string>
+  <string-array name="quick_response_defaults">
+    <item msgid="1524421198348168403">"Running just a couple of minutes late."</item>
+    <item msgid="6215158751728689832">"Be there in about 10 minutes."</item>
+    <item msgid="4485794001743679338">"Go ahead and start without me."</item>
+    <item msgid="8036557974294987511">"Sorry, I can\'t make it. We\'ll have to reschedule."</item>
+  </string-array>
+    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Customised message..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organiser:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Reminders"</string>
     <string name="agenda_today" msgid="5965841338467422191">"TODAY, <xliff:g id="DATE">%1$s</xliff:g>"</string>

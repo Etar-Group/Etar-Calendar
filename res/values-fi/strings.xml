@@ -104,6 +104,19 @@
     <string name="response_no" msgid="561911691884148136">"Ei"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Lähetä sähköposti osallistujille"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Sähköposti ja"</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"Pikavastaukset"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Muokkaa pikavast."</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"Muokkaa pikavast."</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Pikavastaus"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Valitse pikavastaus"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"Sähköpostiohjelmia ei löytynyt"</string>
+  <string-array name="quick_response_defaults">
+    <item msgid="1524421198348168403">"Myöhästyn muutaman minuutin."</item>
+    <item msgid="6215158751728689832">"Olen paikalla noin 10 minuutin kuluttua."</item>
+    <item msgid="4485794001743679338">"Voitte aloittaa ilman minua."</item>
+    <item msgid="8036557974294987511">"En pääse paikalle. Sovitaanko uusi aika?"</item>
+  </string-array>
+    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Oma viesti..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Järjestäjä:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Muistutukset"</string>
     <string name="agenda_today" msgid="5965841338467422191">"TÄNÄÄN, <xliff:g id="DATE">%1$s</xliff:g>"</string>
