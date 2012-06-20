@@ -20,7 +20,6 @@ import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
-import static com.android.calendar.CalendarController.EVENT_ATTENDEE_RESPONSE;
 
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -1204,7 +1203,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                             Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.putExtra(EXTRA_EVENT_BEGIN_TIME, event.startTime.toMillis(false));
                     intent.putExtra(EXTRA_EVENT_END_TIME, event.endTime.toMillis(false));
-                    intent.putExtra(EVENT_ATTENDEE_RESPONSE, response);
+                    intent.putExtra(ATTENDEE_STATUS, response);
                     startActivity(intent);
                 } else {
                     // start event info as a dialog
