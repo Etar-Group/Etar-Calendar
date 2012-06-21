@@ -104,24 +104,19 @@
     <string name="response_no" msgid="561911691884148136">"Không"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Gửi email cho khách"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Gửi email với"</string>
-    <!-- no translation found for quick_response_settings (6776151690686068278) -->
-    <skip />
-    <!-- no translation found for quick_response_settings_summary (7878304729027355604) -->
-    <skip />
-    <!-- no translation found for quick_response_settings_title (8966517107774567031) -->
-    <skip />
-    <!-- no translation found for quick_response_settings_edit_title (6260055523174081930) -->
-    <skip />
-    <!-- no translation found for quick_response_dialog_title (2681309456412199207) -->
-    <skip />
-    <!-- no translation found for quick_response_email_failed (5544066405231853245) -->
-    <skip />
-    <!-- no translation found for quick_response_defaults:0 (1524421198348168403) -->
-    <!-- no translation found for quick_response_defaults:1 (6215158751728689832) -->
-    <!-- no translation found for quick_response_defaults:2 (4485794001743679338) -->
-    <!-- no translation found for quick_response_defaults:3 (8036557974294987511) -->
-    <!-- no translation found for quick_response_custom_msg (7265035125070482285) -->
-    <skip />
+    <string name="quick_response_settings" msgid="6776151690686068278">"Trả lời nhanh"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Sửa trả lời mặc định khi email cho khách"</string>
+    <string name="quick_response_settings_title" msgid="8966517107774567031">"Sửa trả lời nhanh"</string>
+    <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Trả lời nhanh"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Chọn trả lời nhanh"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"Không thể tìm được chương trình email"</string>
+  <string-array name="quick_response_defaults">
+    <item msgid="1524421198348168403">"Đang chạy chỉ muộn vài phút."</item>
+    <item msgid="6215158751728689832">"Sẽ ở đó sau khoảng 10 phút."</item>
+    <item msgid="4485794001743679338">"Hãy tiến hành và bắt đầu mà không có tôi."</item>
+    <item msgid="8036557974294987511">"Rất tiếc, tôi không thu xếp được. Chúng ta phải lên lịch lại."</item>
+  </string-array>
+    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Thông báo tùy chỉnh..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Người t.chức"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Lời nhắc"</string>
     <string name="agenda_today" msgid="5965841338467422191">"HÔM NAY, <xliff:g id="DATE">%1$s</xliff:g>"</string>
