@@ -109,7 +109,7 @@
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Gyors válaszok szerkesztése"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Gyors válasz"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Válassza ki a gyors választ"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">"Nem sikerült megtalálni az e-mail programot"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"Nem sikerült megtalálni a levelezőprogramot"</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Csak pár percet késik."</item>
     <item msgid="6215158751728689832">"Legyen ott körülbelül 10 perc alatt."</item>
