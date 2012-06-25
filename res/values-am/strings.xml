@@ -112,9 +112,9 @@
     <string name="quick_response_email_failed" msgid="5544066405231853245">"የኢሜይል ፕሮግራም ማግኘት አልተቻለም"</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"ደርሻለሁ አንድ ሁለት ደቂቃ ጠብቀኝ።"</item>
-    <item msgid="6215158751728689832">"በ10 ደቂቃ አካባቢ ጊዜ ውስጥ እደርሳለሁ።"</item>
+    <item msgid="6215158751728689832">"በ10 ደቂቃ ውስጥ እደርሳለሁ።"</item>
     <item msgid="4485794001743679338">"እኔን አትጠብቁኝ፣ ጀምሩ።"</item>
-    <item msgid="8036557974294987511">"ይቅርታ ግን አልደርስም። ለሌላ ጊዜ ቀጠሮ ማስያዝ ይኖርብናል።"</item>
+    <item msgid="8036557974294987511">"ይቅርታ ልደርስ አልችልም። ለሌላ ጊዜ ቀጠሮ ማስያዝ ይኖርብናል።"</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="7265035125070482285">"ብጁ መልዕክት…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"አዘጋጅ፡"</string>
