@@ -108,13 +108,13 @@
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edit jawapan lalai semasa menghantar e-mel kepada tetamu"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Edit respons pantas"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Respons pantas"</string>
-    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Pilih respons pantan"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Pilih respons pantas"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Gagal mencari program e-mel"</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Terlewat beberapa minit sahaja."</item>
     <item msgid="6215158751728689832">"Ada di sana dalam kira-kira 10 minit."</item>
     <item msgid="4485794001743679338">"Teruskan dan mulakan tanpa saya."</item>
-    <item msgid="8036557974294987511">"Maaf, saya tidak boleh datang. Kita perlu menjadualkannya semula."</item>
+    <item msgid="8036557974294987511">"Maaf, saya tidak dapat datang. Kita perlu menjadualkannya semula."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="7265035125070482285">"Mesej peribadi..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Penganjur:"</string>
