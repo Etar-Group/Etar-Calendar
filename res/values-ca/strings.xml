@@ -105,7 +105,7 @@
     <string name="email_guests_label" msgid="8772030932155305903">"Envia un correu electrònic als convidats"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Correu electrònic amb"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respostes ràpides"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edita respostes"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edita les respostes en escriure als convidats"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Edita resp. ràpid."</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Resposta ràpida"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Tria una resposta ràpida"</string>
