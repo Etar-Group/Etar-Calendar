@@ -109,14 +109,14 @@
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Изменить ответы"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Быстрый ответ"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Выбор быстрого ответа"</string>
-    <string name="quick_response_email_failed" msgid="5544066405231853245">"Не удалось найти почтовый клиент"</string>
+    <string name="quick_response_email_failed" msgid="5544066405231853245">"Не удалось найти почтовый клиент."</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Задерживаюсь на пару минут."</item>
     <item msgid="6215158751728689832">"Буду примерно через 10 минут."</item>
     <item msgid="4485794001743679338">"Начинайте без меня."</item>
     <item msgid="8036557974294987511">"К сожалению, я не успеваю. Придется перенести мероприятие."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Свое сообщение..."</string>
+    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Свое сообщение…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Организатор:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Напоминания"</string>
     <string name="agenda_today" msgid="5965841338467422191">"СЕГОДНЯ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
