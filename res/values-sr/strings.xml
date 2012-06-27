@@ -111,8 +111,8 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Избор брзог одговора"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Није пронађен програм за е-пошту"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Касним само неколико минута."</item>
-    <item msgid="6215158751728689832">"Стижем за отприлике 10 минута."</item>
+    <item msgid="1524421198348168403">"Касним пар минута."</item>
+    <item msgid="6215158751728689832">"Стижем за 10 минута."</item>
     <item msgid="4485794001743679338">"Почните без мене."</item>
     <item msgid="8036557974294987511">"Жао ми је, не могу да стигнем. Мораћемо да одложимо."</item>
   </string-array>

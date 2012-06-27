@@ -114,7 +114,7 @@
     <item msgid="1524421198348168403">"Birkaç dakika geç yayınlanıyor."</item>
     <item msgid="6215158751728689832">"Yaklaşık 10 dakika içinde orada olun."</item>
     <item msgid="4485794001743679338">"Bensiz başlayın."</item>
-    <item msgid="8036557974294987511">"Maalesef yapamam. Başka bir zaman ayarlamamız gerek."</item>
+    <item msgid="8036557974294987511">"Maalesef katılamıyorum. Başka bir zaman ayarlamamız gerek."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="7265035125070482285">"Özel mesaj"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Düzenleyici:"</string>
