@@ -113,7 +113,7 @@
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Con un par de minutos de retraso si corres"</item>
     <item msgid="6215158751728689832">"Llegaré en unos diez minutos"</item>
-    <item msgid="4485794001743679338">"Empezar sin mi"</item>
+    <item msgid="4485794001743679338">"Empezad sin mi"</item>
     <item msgid="8036557974294987511">"No puedo, mejor en otro momento"</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="7265035125070482285">"Mensaje personalizado…"</string>
