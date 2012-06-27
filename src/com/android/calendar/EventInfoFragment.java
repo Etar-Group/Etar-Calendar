@@ -103,7 +103,7 @@ import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventViewUtils;
-import com.android.calendarcommon.EventRecurrence;
+import com.android.calendarcommon2.EventRecurrence;
 
 import java.util.ArrayList;
 import java.util.Arrays;

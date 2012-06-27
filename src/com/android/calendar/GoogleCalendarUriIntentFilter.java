@@ -38,8 +38,8 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
-import com.android.calendarcommon.DateException;
-import com.android.calendarcommon.Duration;
+import com.android.calendarcommon2.DateException;
+import com.android.calendarcommon2.Duration;
 
 public class GoogleCalendarUriIntentFilter extends Activity {
     private static final String TAG = "GoogleCalendarUriIntentFilter";

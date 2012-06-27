@@ -16,7 +16,7 @@
 
 package com.android.calendar;
 
-import com.android.calendarcommon.EventRecurrence;
+import com.android.calendarcommon2.EventRecurrence;
 
 import android.content.res.Resources;
 import android.text.format.DateUtils;
