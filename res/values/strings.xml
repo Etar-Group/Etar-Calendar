@@ -289,6 +289,8 @@
     <string name="email_picker_label">Email with</string>
     <!-- The is shown in the email subject as the prefix appended to the event title -->
     <string translatable="false" name="email_subject_prefix">Re:\u0020</string>
+    <!-- Toast message displayed when the event id was not found LIMIT=30] -->
+    <string name="event_not_found">"Event not found."</string>
 
     <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
     <string name="quick_response_settings">Quick responses</string>

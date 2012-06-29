@@ -29,6 +29,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
 import android.util.Log;
+import android.widget.Toast;
+
+import java.util.List;
 
 public class EventInfoActivity extends Activity {
 //        implements CalendarController.EventHandler, SearchView.OnQueryTextListener,
@@ -46,7 +49,7 @@ public class EventInfoActivity extends Activity {
         // Get the info needed for the fragment
         Intent intent = getIntent();
         int attendeeResponse = 0;
-        mEventId = 0;
+        mEventId = -1;
         boolean isDialog = false;
 
         if (icicle != null) {
@@ -63,11 +66,36 @@ public class EventInfoActivity extends Activity {
             Uri data = intent.getData();
             if (data != null) {
                 try {
-                    mEventId = Long.parseLong(data.getLastPathSegment());
+                    List<String> pathSegments = data.getPathSegments();
+                    int size = pathSegments.size();
+                    if (size > 2 && "EventTime".equals(pathSegments.get(2))) {
+                        // Support non-standard VIEW intent format:
+                        //dat = content://com.android.calendar/events/[id]/EventTime/[start]/[end]
+                        mEventId = Long.parseLong(pathSegments.get(1));
+                        if (size > 4) {
+                            mStartMillis = Long.parseLong(pathSegments.get(3));
+                            mEndMillis = Long.parseLong(pathSegments.get(4));
+                        }
+                    } else {
+                        mEventId = Long.parseLong(data.getLastPathSegment());
+                    }
                 } catch (NumberFormatException e) {
-                    Log.wtf(TAG,"No event id");
+                    if (mEventId == -1) {
+                        // do nothing here , deal with it later
+                    } else if (mStartMillis == 0 || mEndMillis ==0) {
+                        // Parsing failed on the start or end time , make sure the times were not
+                        // pulled from the intent's extras and reset them.
+                        mStartMillis = 0;
+                        mEndMillis = 0;
+                    }
                 }
             }
+        }
+
+        if (mEventId == -1) {
+            Log.w(TAG, "No event id");
+            Toast.makeText(this, R.string.event_not_found, Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         // If we do not support showing full screen event info in this configuration,

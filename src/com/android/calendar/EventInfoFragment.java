@@ -398,7 +398,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             // if the activity is finishing, then close the cursor and return
             final Activity activity = getActivity();
             if (activity == null || activity.isFinishing()) {
-                cursor.close();
+                if (cursor != null) {
+                    cursor.close();
+                }
                 return;
             }
 
