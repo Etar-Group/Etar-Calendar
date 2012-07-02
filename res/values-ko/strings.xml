@@ -104,6 +104,8 @@
     <string name="response_no" msgid="561911691884148136">"아니요"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"참석자에게 이메일 보내기"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"이메일:"</string>
+    <!-- no translation found for event_not_found (8356864185947582727) -->
+    <skip />
     <string name="quick_response_settings" msgid="6776151690686068278">"빠른 응답"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"손님 메일 응답수정"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"빠른 응답 수정"</string>

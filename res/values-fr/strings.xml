@@ -104,6 +104,8 @@
     <string name="response_no" msgid="561911691884148136">"Non"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Envoyer un e-mail aux invités"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Envoyer un e-mail via"</string>
+    <!-- no translation found for event_not_found (8356864185947582727) -->
+    <skip />
     <string name="quick_response_settings" msgid="6776151690686068278">"Réponses rapides"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Modifier réponses par défaut lors d\'envoi d\'e-mails aux invités"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Modif. rép. rapides"</string>

@@ -104,6 +104,8 @@
     <string name="response_no" msgid="561911691884148136">"Hayır"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Davetlilere e-posta gönder"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-posta gönder"</string>
+    <!-- no translation found for event_not_found (8356864185947582727) -->
+    <skip />
     <string name="quick_response_settings" msgid="6776151690686068278">"Hızlı yanıtlar"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Konuklara gönderilecek e-posta varsayılan yanıtlarını düzenle"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Hızlı yanıtları düzenle"</string>

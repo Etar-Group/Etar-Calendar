@@ -104,6 +104,8 @@
     <string name="response_no" msgid="561911691884148136">"Όχι"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Αποστολή μηνύματος ηλεκτρονικού ταχυδρομείου σε προσκεκλημένους"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Αποστολή μηνύματος ηλεκτρονικού ταχυδρομείου με"</string>
+    <!-- no translation found for event_not_found (8356864185947582727) -->
+    <skip />
     <string name="quick_response_settings" msgid="6776151690686068278">"Γρήγορες απαντήσ."</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Επεξ.προεπ.απ.κατά την αποστ.μην.ηλ.ταχ.στους καλεσμ."</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Επεξ.γρήγ.απαντ,"</string>

@@ -104,6 +104,8 @@
     <string name="response_no" msgid="561911691884148136">"Hindi"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"I-email ang mga bisita"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Mag-email gamit ang"</string>
+    <!-- no translation found for event_not_found (8356864185947582727) -->
+    <skip />
     <string name="quick_response_settings" msgid="6776151690686068278">"Mabilisang tugon"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edit default tugon pag email sa mga bisita"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Edit mabilis tugon"</string>
