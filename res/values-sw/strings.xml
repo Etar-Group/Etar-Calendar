@@ -75,7 +75,7 @@
     <string name="hint_where" msgid="4972598001033801974">"Mahali"</string>
     <string name="hint_description" msgid="1910143586169033232">"Maelezo"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Wageni"</string>
-    <string name="creating_event" msgid="7516249252554059980">"Tukio limeundwa."</string>
+    <string name="creating_event" msgid="7516249252554059980">"Tukio limeandaliwa."</string>
     <string name="saving_event" msgid="7694181017411177226">"Tukio limehifadhiwa."</string>
     <string name="empty_event" msgid="9018699257414338634">"Tukio tupu halikuundwa."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Mialiko itatumwa."</string>
