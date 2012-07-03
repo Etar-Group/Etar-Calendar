@@ -104,8 +104,7 @@
     <string name="response_no" msgid="561911691884148136">"Ні"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Надіслати гостям електронною поштою"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Надіслати електронний лист"</string>
-    <!-- no translation found for event_not_found (8356864185947582727) -->
-    <skip />
+    <string name="event_not_found" msgid="8356864185947582727">"Подію не знайдено."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Швидкі відповіді"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Редагувати відповіді за умовчанням"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Редагувати швидкі відповіді"</string>
