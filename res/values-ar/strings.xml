@@ -111,9 +111,9 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"اختيار رد سريع"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"أخفق العثور على برنامج بريد إلكتروني"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"تتم إقامته بعد تأخير لمدة دقيقتين."</item>
-    <item msgid="6215158751728689832">"كن هناك خلال حوالي 10 دقائق."</item>
-    <item msgid="4485794001743679338">"انطلق وابدأ بدوني."</item>
+    <item msgid="1524421198348168403">"سأتأخر لمدة دقيقتين."</item>
+    <item msgid="6215158751728689832">"سأكون هناك خلال حوالي 10 دقائق."</item>
+    <item msgid="4485794001743679338">"ابدأوا بدوني."</item>
     <item msgid="8036557974294987511">"عذرًا، لا يمكنني الحضور. علينا إعادة الجدولة."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="7265035125070482285">"رسالة مخصصة…"</string>
