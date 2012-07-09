@@ -104,8 +104,7 @@
     <string name="response_no" msgid="561911691884148136">"Не"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Изпращане на имейл до гостите"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Изпращане на имейл посредством"</string>
-    <!-- no translation found for event_not_found (8356864185947582727) -->
-    <skip />
+    <string name="event_not_found" msgid="8356864185947582727">"Събитието не бе намерено."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Бързи отговори"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Редакт. на отговорите по подразб. при изпращ. на имейли до гостите"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Бързи отг.: Редакт."</string>

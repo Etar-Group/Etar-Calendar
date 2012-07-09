@@ -104,8 +104,7 @@
     <string name="response_no" msgid="561911691884148136">"No"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Enviar correo a los invitados"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Enviar correo a"</string>
-    <!-- no translation found for event_not_found (8356864185947582727) -->
-    <skip />
+    <string name="event_not_found" msgid="8356864185947582727">"No se encontró el evento."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respuestas rápidas"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edita res. predet."</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Editar res. rápida"</string>
