@@ -20,7 +20,7 @@
     <string name="what_label" msgid="1933578391985810049">"چه چیزی"</string>
     <string name="where_label" msgid="3472482206065595118">"کجا"</string>
     <string name="when_label" msgid="894636567327261599">"زمان"</string>
-    <string name="timezone_label" msgid="3988530993300431650">"منطقه زمانی"</string>
+    <string name="timezone_label" msgid="3988530993300431650">"منطقهٔ زمانی"</string>
     <string name="attendees_label" msgid="2971281641565729725">"مهمان ها"</string>
     <string name="today" msgid="8577375020252453006">"امروز"</string>
     <string name="tomorrow" msgid="614434811813859237">"فردا"</string>
@@ -30,19 +30,19 @@
     <string name="repeats_label" msgid="7414023871434593196">"تکرار"</string>
     <string name="no_title_label" msgid="302177118061368042">"(بدون عنوان)"</string>
   <plurals name="Nminutes">
-    <item quantity="one" msgid="4871052965772159239">"1 دقیقه"</item>
+    <item quantity="one" msgid="4871052965772159239">"۱ دقیقه"</item>
     <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> دقیقه"</item>
   </plurals>
   <plurals name="Nmins">
-    <item quantity="one" msgid="9191090668359663663">"1 دقیقه"</item>
+    <item quantity="one" msgid="9191090668359663663">"۱ دقیقه"</item>
     <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> دقیقه"</item>
   </plurals>
   <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"1 ساعت"</item>
+    <item quantity="one" msgid="4793697728599296830">"۱ ساعت"</item>
     <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> ساعت"</item>
   </plurals>
   <plurals name="Ndays">
-    <item quantity="one" msgid="5988137255732166573">"1 روز"</item>
+    <item quantity="one" msgid="5988137255732166573">"۱ روز"</item>
     <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> روز"</item>
   </plurals>
   <plurals name="weekN">
@@ -68,7 +68,7 @@
     <string name="synced" msgid="7913940305983383493">"همگام سازی شده"</string>
     <string name="not_synced" msgid="4275114941801829419">"همگام سازی نشده"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"این حساب همگام نمی‌شود، بنابراین تقویم‌های شما ممکن است به روز نباشند."</string>
-    <string name="accounts" msgid="849401841083180306">"حساب ها و همگام سازی"</string>
+    <string name="accounts" msgid="849401841083180306">"حساب‌ها و همگام سازی"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"تقویم‌های موردنظر برای همگام‌سازی"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"تقویم‌ها برای همگام‌سازی"</string>
     <string name="hint_what" msgid="709155115005044531">"نام رویداد"</string>
@@ -98,7 +98,7 @@
     <string name="add_account" msgid="1669072099756774952">"افزودن حساب"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"تقویم:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"سازمان دهنده:"</string>
-    <string name="view_event_response_label" msgid="8382281658458798329">"حاضر می شوید؟"</string>
+    <string name="view_event_response_label" msgid="8382281658458798329">"حاضر می‌شوید؟"</string>
     <string name="response_yes" msgid="2027484304899988350">"بله"</string>
     <string name="response_maybe" msgid="7791500973627841695">"شاید"</string>
     <string name="response_no" msgid="561911691884148136">"خیر"</string>
@@ -143,8 +143,8 @@
     <string name="yearly_plain" msgid="3652692085322162449">"سالانه"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"ماهانه (در روز <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"سالانه (در <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"سفارشی (سفارشی کردن در رایانه لوحی امکان پذیر نمی‌باشد)"</string>
-    <string name="custom" product="default" msgid="4137468716966004993">"سفارشی (سفارشی کردن در تلفن امکان‌پذیر نمی‌باشد)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"سفارشی (سفارشی کردن در رایانه لوحی امکان پذیر نیست)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"سفارشی (سفارشی کردن در تلفن امکان‌پذیر نیست)"</string>
     <string name="modify_event" msgid="5982876409997142690">"فقط این رویداد تغییر داده شود"</string>
     <string name="modify_all" msgid="4421657265864209041">"همه رویدادهای موجود در مجموعه‌ها تغییر داده شود"</string>
     <string name="modify_all_following" msgid="3017428541066390380">"این رویداد و همه رویدادهای آینده تغییر داده شود"</string>
@@ -164,16 +164,16 @@
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"پاک کردن سابقه جستجو"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"تمام جستجوهایی را که انجام داده‌اید، حذف کنید"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"سابقه جستجو پاک شد."</string>
-    <string name="preferences_alerts_title" msgid="6636088008103904020">"اعلان ها"</string>
+    <string name="preferences_alerts_title" msgid="6636088008103904020">"اعلان‌ها"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"لرزش"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"انتخاب آهنگ زنگ"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"اعلان بازشو"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"زمان یادآور پیش فرض"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"زمان یادآور پیش فرض"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"زمان یادآور پیش‌فرض"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"زمان یادآور پیش‌فرض"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"استفاده از منطقه زمانی مبدأ"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"تقویم ها و زمان رویداد را حتی هنگام مسافرت به منطقه زمانی مبدأ شما نمایش می دهد"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"منطقه زمانی مبدأ"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"استفاده از منطقهٔ زمانی مبدأ"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"تقویم ها و زمان رویداد را حتی هنگام مسافرت به منطقهٔ زمانی مبدأ شما نمایش می‌دهد"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"منطقهٔ زمانی مبدأ"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"شماره هفته نمایش"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"درباره"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"نسخه ساخت"</string>
@@ -196,7 +196,7 @@
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"زمان شروع"</string>
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"تاریخ پایان"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"ساعت پایان"</string>
-    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"منطقه زمانی"</string>
+    <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"منطقهٔ زمانی"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"افزودن یادآور"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"حذف یادآور"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"اضافه کردن شرکت کنندگان"</string>
