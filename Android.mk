@@ -4,12 +4,13 @@ include $(CLEAR_VARS)
 # Include res dir from chips
 chips_dir := ../../../frameworks/ex/chips/res
 res_dirs := $(chips_dir) res
+src_dirs := src extensions_src
 
 LOCAL_EMMA_COVERAGE_FILTER := +com.android.calendar.*
 
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_SRC_FILES := $(call all-java-files-under,src)
+LOCAL_SRC_FILES := $(call all-java-files-under,$(src_dirs))
 
 # bundled
 #LOCAL_STATIC_JAVA_LIBRARIES += \
