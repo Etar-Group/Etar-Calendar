@@ -80,7 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"رویداد خالی ایجاد نمی‌شود."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"دعوت نامه‎ها ارسال خواهند شد."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"به‌روزرسانی‎ها ارسال خواهند شد."</string>
-    <string name="alert_title" msgid="7869592820853066853">"اعلان های تقویم"</string>
+    <string name="alert_title" msgid="7869592820853066853">"اعلان‌های تقویم"</string>
     <string name="event_info_title" msgid="56024222340421620">"مشاهده رویداد"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"دعوت نامه جلسه"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"تا"</string>
@@ -125,7 +125,7 @@
     <string name="loading" msgid="3772533493214331230">"در حال بارگیری…"</string>
     <string name="show_older_events" msgid="5140647493681439926">"برای مشاهده رویدادهای قبل از <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> لمس کنید"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"جهت مشاهده رویدادهای پس از <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> لمس کنید"</string>
-    <string name="search_title" msgid="8898015280250716254">"جستجوی تقویم های من"</string>
+    <string name="search_title" msgid="8898015280250716254">"جستجوی تقویم‌های من"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"جزئیات"</string>
     <string name="edit_label" msgid="8934331258435656534">"ویرایش"</string>
     <string name="delete_label" msgid="874742811918030739">"حذف"</string>
@@ -172,7 +172,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"زمان یادآور پیش‌فرض"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"استفاده از منطقهٔ زمانی مبدأ"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"تقویم ها و زمان رویداد را حتی هنگام مسافرت به منطقهٔ زمانی مبدأ شما نمایش می‌دهد"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"تقویم‌ها و زمان رویداد را حتی هنگام مسافرت به منطقهٔ زمانی مبدأ شما نمایش می‌دهد"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"منطقهٔ زمانی مبدأ"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"شماره هفته نمایش"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"درباره"</string>
