@@ -123,8 +123,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">"HIER, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"DEMAIN, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Chargement…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Touchez l\'écran pour afficher les événements avant le <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Touchez l\'écran pour afficher les événements après le <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Appuyez sur l\'écran pour afficher les événements avant le <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Appuyez sur l\'écran pour afficher les événements après le <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Rechercher dans mes agendas"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Infos"</string>
     <string name="edit_label" msgid="8934331258435656534">"Modifier"</string>
