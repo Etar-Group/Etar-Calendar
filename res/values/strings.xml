@@ -294,7 +294,7 @@
     <string name="quick_response_settings">Quick responses</string>
     <!-- Summary of the quick response item in Settings [CHAR LIMIT=80]-->
     <string name="quick_response_settings_summary">Edit default responses when emailing guests</string>
-    <!-- Title of the quick response screen in Settings->Quick Response [CHAR LIMIT=19]-->
+    <!-- Title of the quick response screen in Settings->Quick Response [CHAR LIMIT=27]-->
     <string name="quick_response_settings_title">Edit quick responses</string>
     <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
     <string name="quick_response_settings_edit_title">Quick response</string>
