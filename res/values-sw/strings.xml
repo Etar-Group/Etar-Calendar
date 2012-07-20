@@ -39,7 +39,7 @@
   </plurals>
   <plurals name="Nhours">
     <item quantity="one" msgid="4793697728599296830">"Saa 1"</item>
-    <item quantity="other" msgid="4477841052001760620">"Masaa <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="4477841052001760620">"Saa <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
   <plurals name="Ndays">
     <item quantity="one" msgid="5988137255732166573">"siku 1"</item>
