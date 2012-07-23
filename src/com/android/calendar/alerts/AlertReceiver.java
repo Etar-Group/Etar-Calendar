@@ -37,6 +37,8 @@ import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
+import android.view.View;
+import android.widget.RemoteViews;
 
 import com.android.calendar.R;
 import com.android.calendar.Utils;
@@ -218,14 +220,16 @@ public class AlertReceiver extends BroadcastReceiver {
     public static NotificationWrapper makeBasicNotification(Context context, String title,
             String summaryText, long startMillis, long endMillis, long eventId,
             int notificationId, boolean doPopup) {
-        Notification n = makeBasicNotificationBuilder(context, title, summaryText, startMillis,
-                endMillis, eventId, notificationId, doPopup, false, false).getNotification();
+        Notification n = buildBasicNotification(new Notification.Builder(context),
+                context, title, summaryText, startMillis, endMillis, eventId, notificationId,
+                doPopup, false, false);
         return new NotificationWrapper(n, notificationId, eventId, startMillis, endMillis, doPopup);
     }
 
-    private static Notification.Builder makeBasicNotificationBuilder(Context context, String title,
-            String summaryText, long startMillis, long endMillis, long eventId,
-            int notificationId, boolean doPopup, boolean highPriority, boolean addActionButtons) {
+    private static Notification buildBasicNotification(Notification.Builder notificationBuilder,
+            Context context, String title, String summaryText, long startMillis, long endMillis,
+            long eventId, int notificationId, boolean doPopup, boolean highPriority,
+            boolean addActionButtons) {
         Resources resources = context.getResources();
         if (title == null || title.length() == 0) {
             title = resources.getString(R.string.no_title_label);
@@ -241,7 +245,6 @@ public class AlertReceiver extends BroadcastReceiver {
             endMillis, notificationId);
 
         // Create the base notification.
-        Notification.Builder notificationBuilder = new Notification.Builder(context);
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setContentText(summaryText);
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
@@ -253,23 +256,8 @@ public class AlertReceiver extends BroadcastReceiver {
 
         // Turn off timestamp.
         notificationBuilder.setWhen(0);
-
+        
         if (Utils.isJellybeanOrLater()) {
-            if (addActionButtons) {
-                // Create a snooze button.  TODO: change snooze to 10 minutes.
-                PendingIntent snoozeIntent = createSnoozeIntent(context, eventId, startMillis,
-                        endMillis, notificationId);
-                notificationBuilder.addAction(R.drawable.ic_alarm_holo_dark,
-                        resources.getString(R.string.snooze_label), snoozeIntent);
-
-                // Create an email button.
-                PendingIntent emailIntent = createBroadcastMailIntent(context, eventId, title);
-                if (emailIntent != null) {
-                    notificationBuilder.addAction(R.drawable.ic_menu_email_holo_dark,
-                            resources.getString(R.string.email_guests_label), emailIntent);
-                }
-            }
-
             // Setting to a higher priority will encourage notification manager to expand the
             // notification.
             if (highPriority) {
@@ -278,7 +266,45 @@ public class AlertReceiver extends BroadcastReceiver {
                 notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
             }
         }
-        return notificationBuilder;
+
+        if (addActionButtons) {
+            // Create snooze intent.  TODO: change snooze to 10 minutes.
+            PendingIntent snoozeIntent = createSnoozeIntent(context, eventId, startMillis,
+                    endMillis, notificationId);
+
+            // Create email intent for emailing attendees.
+            PendingIntent emailIntent = createBroadcastMailIntent(context, eventId, title);
+
+            if (Utils.isJellybeanOrLater()) {
+                notificationBuilder.addAction(R.drawable.ic_alarm_holo_dark,
+                        resources.getString(R.string.snooze_label), snoozeIntent);
+                if (emailIntent != null) {
+                    notificationBuilder.addAction(R.drawable.ic_menu_email_holo_dark,
+                            resources.getString(R.string.email_guests_label), emailIntent);
+                }
+            } else {
+                // Old-style notification (pre-JB).  Use custom view with buttons to provide
+                // JB-like functionality (snooze/email).
+                Notification n = notificationBuilder.getNotification();
+
+                // Use custom view with buttons to provide JB-like functionality (snooze/email).
+                RemoteViews contentView = new RemoteViews(context.getPackageName(),
+                        R.layout.notification);
+                contentView.setTextViewText(R.id.title,  title);
+                contentView.setTextViewText(R.id.text, summaryText);
+                contentView.setViewVisibility(R.id.snooze_button, View.VISIBLE);
+                contentView.setOnClickPendingIntent(R.id.snooze_button, snoozeIntent);
+                if (emailIntent == null) {
+                    contentView.setViewVisibility(R.id.email_button, View.GONE);
+                } else {
+                    contentView.setViewVisibility(R.id.email_button, View.VISIBLE);
+                    contentView.setOnClickPendingIntent(R.id.email_button, emailIntent);
+                }
+                n.contentView = contentView;
+                return n;
+            }
+        }
+        return notificationBuilder.getNotification();
     }
 
     /**
@@ -288,10 +314,10 @@ public class AlertReceiver extends BroadcastReceiver {
     public static NotificationWrapper makeExpandingNotification(Context context, String title,
             String summaryText, String description, long startMillis, long endMillis, long eventId,
             int notificationId, boolean doPopup, boolean highPriority) {
-        Notification.Builder basicBuilder = makeBasicNotificationBuilder(context, title,
-                summaryText, startMillis, endMillis, eventId, notificationId,
-                doPopup, highPriority, true);
-        Notification n;
+        Notification.Builder basicBuilder = new Notification.Builder(context);
+        Notification notification = buildBasicNotification(basicBuilder, context, title,
+                summaryText, startMillis, endMillis, eventId, notificationId, doPopup,
+                highPriority, true);
         if (Utils.isJellybeanOrLater()) {
             // Create a new-style expanded notification
             Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
@@ -313,14 +339,10 @@ public class AlertReceiver extends BroadcastReceiver {
                 text = stringBuilder;
             }
             expandedBuilder.bigText(text);
-            n = expandedBuilder.build();
-        } else {
-            // Old-style notification (pre-JB)
-            n = basicBuilder.getNotification();
+            notification = expandedBuilder.build();
         }
-
-        return new NotificationWrapper(n, notificationId, eventId, startMillis, endMillis,
-                doPopup);
+        return new NotificationWrapper(notification, notificationId, eventId, startMillis,
+                endMillis, doPopup);
     }
 
     /**
