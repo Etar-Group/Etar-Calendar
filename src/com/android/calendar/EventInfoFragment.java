@@ -1444,6 +1444,24 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         return -1;
     }
 
+    private static int indexFirstNonWhitespaceChar(CharSequence str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static int indexLastNonWhitespaceChar(CharSequence str) {
+        for (int i = str.length() - 1; i >= 0; i--) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /**
      * Replaces stretches of text that look like addresses and phone numbers with clickable
      * links.
@@ -1454,12 +1472,38 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         /*
          * If the text includes a street address like "1600 Amphitheater Parkway, 94043",
          * the current Linkify code will identify "94043" as a phone number and invite
-         * you to dial it (and not provide a map link for the address).  We want to
-         * have better recognition of phone numbers without losing any of the existing
-         * annotations.
-         *
-         * Ideally this would be addressed by improving Linkify.  For now we manage it as
-         * a second pass over the text.
+         * you to dial it (and not provide a map link for the address).  For outside US,
+         * use Linkify result iff it spans the entire text.  Otherwise send the user to maps.
+         */
+        String defaultPhoneRegion = System.getProperty("user.region", "US");
+        if (!defaultPhoneRegion.equals("US")) {
+            CharSequence origText = textView.getText();
+            Linkify.addLinks(textView, Linkify.ALL);
+
+            // If Linkify links the entire text, use that result.
+            if (textView.getText() instanceof Spannable) {
+                Spannable spanText = (Spannable) textView.getText();
+                URLSpan[] spans = spanText.getSpans(0, spanText.length(), URLSpan.class);
+                if (spans.length == 1) {
+                    int linkStart = spanText.getSpanStart(spans[0]);
+                    int linkEnd = spanText.getSpanEnd(spans[0]);
+                    if (linkStart <= indexFirstNonWhitespaceChar(origText) &&
+                            linkEnd >= indexLastNonWhitespaceChar(origText) + 1) {
+                        return;
+                    }
+                }
+            }
+
+            // Otherwise default to geo.
+            textView.setText(origText);
+            Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+            return;
+        }
+
+        /*
+         * For within US, we want to have better recognition of phone numbers without losing
+         * any of the existing annotations.  Ideally this would be addressed by improving Linkify.
+         * For now we manage it as a second pass over the text.
          *
          * URIs and e-mail addresses are pretty easy to pick out of text.  Phone numbers
          * are a bit tricky because they have radically different formats in different
@@ -1469,18 +1513,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
          * pretty narrowly defined, so it won't often match.
          *
          * The RFC 3966 specification defines the format of a "tel:" URI.
-         */
-
-        /*
-         * If we're in the US, handle this specially.  Otherwise, punt to Linkify.
-         */
-        String defaultPhoneRegion = System.getProperty("user.region", "US");
-        if (!defaultPhoneRegion.equals("US")) {
-            Linkify.addLinks(textView, Linkify.ALL);
-            return;
-        }
-
-        /*
+         *
          * Start by letting Linkify find anything that isn't a phone number.  We have to let it
          * run first because every invocation removes all previous URLSpan annotations.
          *
