@@ -99,6 +99,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
+import com.android.calendar.alerts.QuickResponseActivity;
 import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
@@ -1766,48 +1767,41 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mLongAttendees.setVisibility(View.GONE);
         }
 
-        updateEmailAttendees();
+        if (isEmailable()) {
+            setVisibilityCommon(mView, R.id.email_attendees_container, View.VISIBLE);
+        } else {
+            setVisibilityCommon(mView, R.id.email_attendees_container, View.GONE);
+        }
     }
 
     /**
-     * Initializes the list of 'to' and 'cc' emails from the attendee list.
+     * Returns true if there is at least 1 attendee that is not the viewer.
      */
-    private void updateEmailAttendees() {
-        // The declined attendees will go in the 'cc' line, all others will go in the 'to' line.
-        mToEmails = new ArrayList<String>();
+    private boolean isEmailable() {
         for (Attendee attendee : mAcceptedAttendees) {
-            addIfEmailable(mToEmails, attendee.mEmail);
+            if (Utils.isEmailableFrom(attendee.mEmail, mSyncAccountName)) {
+                return true;
+            }
         }
         for (Attendee attendee : mTentativeAttendees) {
-            addIfEmailable(mToEmails, attendee.mEmail);
+            if (Utils.isEmailableFrom(attendee.mEmail, mSyncAccountName)) {
+                return true;
+            }
         }
         for (Attendee attendee : mNoResponseAttendees) {
-            addIfEmailable(mToEmails, attendee.mEmail);
+            if (Utils.isEmailableFrom(attendee.mEmail, mSyncAccountName)) {
+                return true;
+            }
         }
-        mCcEmails = new ArrayList<String>();
-        for (Attendee attendee : this.mDeclinedAttendees) {
-            addIfEmailable(mCcEmails, attendee.mEmail);
+        for (Attendee attendee : mDeclinedAttendees) {
+            if (Utils.isEmailableFrom(attendee.mEmail, mSyncAccountName)) {
+                return true;
+            }
         }
-
         // The meeting organizer doesn't appear as an attendee sometimes (particularly
-        // when viewing someone else's calendar), so add the organizer now.
-        if (mEventOrganizerEmail != null && !mToEmails.contains(mEventOrganizerEmail) &&
-                !mCcEmails.contains(mEventOrganizerEmail)) {
-            addIfEmailable(mToEmails, mEventOrganizerEmail);
-        }
-
-        // The Email app behaves strangely when there is nothing in the 'mailto' part,
-        // so move all the 'cc' emails to the 'to' list.  Gmail works fine though.
-        if (mToEmails.size() <= 0 && mCcEmails.size() > 0) {
-            mToEmails.addAll(mCcEmails);
-            mCcEmails.clear();
-        }
-
-        if (mToEmails.size() <= 0) {
-            setVisibilityCommon(mView, R.id.email_attendees_container, View.GONE);
-        } else {
-            setVisibilityCommon(mView, R.id.email_attendees_container, View.VISIBLE);
-        }
+        // when viewing someone else's calendar), so handle that separately.
+        return mEventOrganizerEmail != null &&
+                Utils.isEmailableFrom(mEventOrganizerEmail, mSyncAccountName);
     }
 
     public void initReminders(View view, Cursor cursor) {
@@ -2112,27 +2106,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     /**
-     * Adds the attendee's email to the list if:
-     *   (1) the attendee is not a resource like a conference room or another calendar.
-     *       Catch most of these by filtering out suffix calendar.google.com.
-     *   (2) the attendee is not the viewer, to prevent mailing himself.
-     */
-    private void addIfEmailable(ArrayList<String> emailList, String email) {
-        if (Utils.isEmailableFrom(email, mSyncAccountName)) {
-            emailList.add(email);
-        }
-    }
-
-    /**
      * Email all the attendees of the event, except for the viewer (so as to not email
      * himself) and resources like conference rooms.
      */
     private void emailAttendees() {
-        String eventTitle = (mTitle == null || mTitle.getText() == null) ? null :
-                mTitle.getText().toString();
-        Intent emailIntent = Utils.createEmailAttendeesIntent(getActivity().getResources(),
-                eventTitle, null /* body */, mToEmails, mCcEmails, mCalendarOwnerAccount);
-        startActivity(emailIntent);
+        Intent i = new Intent(getActivity(), QuickResponseActivity.class);
+        i.putExtra(QuickResponseActivity.EXTRA_EVENT_ID, mEventId);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
     }
 
     /**
