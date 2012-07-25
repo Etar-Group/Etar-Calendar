@@ -210,8 +210,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Konfidencialitāte"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Kalendāra paziņojums"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Atlikt paziņojumu"</string>
-    <!-- no translation found for accessibility_email_notification (9124064701968129831) -->
-    <skip />
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"Sūtīt viesiem e-pasta ziņojumu"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Jauns notikums"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_INDEX">%1$s</xliff:g>. notikums no <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
   <plurals name="Nevents">
