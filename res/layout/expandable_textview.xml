@@ -30,6 +30,7 @@
         android:layout_marginRight="@dimen/event_info_desc_margin_right"
         android:autoLink="all"
         android:ellipsize="end"
+        android:textIsSelectable="true"
         android:textColor="@color/event_info_description_color"
         android:textSize="@dimen/event_info_text_size" />
 
