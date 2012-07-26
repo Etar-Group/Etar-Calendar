@@ -143,8 +143,6 @@ public class AlertActivity extends Activity implements OnClickListener {
         }
     }
 
-
-
     private final OnItemClickListener mViewListener = new OnItemClickListener() {
 
         @Override
@@ -212,6 +210,12 @@ public class AlertActivity extends Activity implements OnClickListener {
                 mCursor.close();
                 mCursor = null;
             }
+        }
+    }
+
+    void closeActivityIfEmpty() {
+        if (mCursor != null && mCursor.getCount() == 0) {
+            AlertActivity.this.finish();
         }
     }
 
