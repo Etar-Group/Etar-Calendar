@@ -214,7 +214,7 @@ public class AlertActivity extends Activity implements OnClickListener {
     }
 
     void closeActivityIfEmpty() {
-        if (mCursor != null && mCursor.getCount() == 0) {
+        if (mCursor != null && !mCursor.isClosed() && mCursor.getCount() == 0) {
             AlertActivity.this.finish();
         }
     }
