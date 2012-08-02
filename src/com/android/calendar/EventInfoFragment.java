@@ -148,9 +148,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int TOKEN_QUERY_ATTENDEES = 1 << 2;
     private static final int TOKEN_QUERY_DUPLICATE_CALENDARS = 1 << 3;
     private static final int TOKEN_QUERY_REMINDERS = 1 << 4;
+    private static final int TOKEN_QUERY_VISIBLE_CALENDARS = 1 << 5;
     private static final int TOKEN_QUERY_ALL = TOKEN_QUERY_DUPLICATE_CALENDARS
             | TOKEN_QUERY_ATTENDEES | TOKEN_QUERY_CALENDARS | TOKEN_QUERY_EVENT
-            | TOKEN_QUERY_REMINDERS;
+            | TOKEN_QUERY_REMINDERS | TOKEN_QUERY_VISIBLE_CALENDARS;
+
     private int mCurrentQuery = 0;
 
     private static final String[] EVENT_PROJECTION = new String[] {
@@ -252,6 +254,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
     static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.CALENDAR_DISPLAY_NAME + "=?";
+    static final String CALENDARS_VISIBLE_WHERE = Calendars.VISIBLE + "=?";
 
     private static final String NANP_ALLOWED_SYMBOLS = "()+-*#.";
     private static final int NANP_MIN_DIGITS = 7;
@@ -287,7 +290,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private boolean mCanModifyEvent;
     private boolean mIsBusyFreeCalendar;
     private int mNumOfAttendees;
-
     private EditResponseHelper mEditResponseHelper;
     private boolean mDeleteDialogVisible = false;
     private DeleteEventHelper mDeleteHelper;
@@ -460,15 +462,24 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 mRemindersCursor = Utils.matrixCursorFromCursor(cursor);
                 initReminders(mView, mRemindersCursor);
                 break;
+            case TOKEN_QUERY_VISIBLE_CALENDARS:
+                if (cursor.getCount() > 1) {
+                    // Start duplicate calendars query to detect whether to add the calendar
+                    // email to the calendar owner display.
+                    String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
+                    mHandler.startQuery(TOKEN_QUERY_DUPLICATE_CALENDARS, null,
+                            Calendars.CONTENT_URI, CALENDARS_PROJECTION,
+                            CALENDARS_DUPLICATE_NAME_WHERE, new String[] {displayName}, null);
+                } else {
+                    // Don't need to display the calendar owner when there is only a single
+                    // calendar.  Skip the duplicate calendars query.
+                    setVisibilityCommon(mView, R.id.calendar_container, View.GONE);
+                    mCurrentQuery |= TOKEN_QUERY_DUPLICATE_CALENDARS;
+                }
+                break;
             case TOKEN_QUERY_DUPLICATE_CALENDARS:
                 Resources res = activity.getResources();
                 SpannableStringBuilder sb = new SpannableStringBuilder();
-
-                // Label
-                String label = res.getString(R.string.view_event_calendar_label);
-                sb.append(label).append(" ");
-                sb.setSpan(new StyleSpan(Typeface.BOLD), 0, label.length(),
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 // Calendar display name
                 String calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
@@ -477,15 +488,19 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 // Show email account if display name is not unique and
                 // display name != email
                 String email = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
-                if (cursor.getCount() > 1 && !calendarName.equalsIgnoreCase(email)) {
+                if (cursor.getCount() > 1 && !calendarName.equalsIgnoreCase(email) &&
+                        Utils.isValidEmail(email)) {
                     sb.append(" (").append(email).append(")");
                 }
 
+                setVisibilityCommon(mView, R.id.calendar_container, View.VISIBLE);
+                setTextCommon(mView, R.id.calendar_name, sb);
                 break;
             }
             cursor.close();
             sendAccessibilityEventIfQueryDone(token);
-            // All queries are done, show the view
+
+            // All queries are done, show the view.
             if (mCurrentQuery == TOKEN_QUERY_ALL) {
                 if (mLoadingMsgView.getAlpha() == 1) {
                     // Loading message is showing, let it stay a bit more (to prevent
@@ -1695,10 +1710,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
             String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
 
-            // start duplicate calendars query
-            mHandler.startQuery(TOKEN_QUERY_DUPLICATE_CALENDARS, null, Calendars.CONTENT_URI,
-                    CALENDARS_PROJECTION, CALENDARS_DUPLICATE_NAME_WHERE,
-                    new String[] {displayName}, null);
+            // start visible calendars query
+            mHandler.startQuery(TOKEN_QUERY_VISIBLE_CALENDARS, null, Calendars.CONTENT_URI,
+                    CALENDARS_PROJECTION, CALENDARS_VISIBLE_WHERE, new String[] {"1"}, null);
 
             mEventOrganizerEmail = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
             mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(mEventOrganizerEmail);
