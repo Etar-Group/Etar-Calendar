@@ -636,7 +636,9 @@ public class Utils {
     }
 
     public static int getDisplayColorFromColor(int color) {
-        // STOPSHIP - Finalize color adjustment algorithm before shipping
+        if (!isJellybeanOrLater()) {
+            return color;
+        }
 
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
