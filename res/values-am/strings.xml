@@ -68,7 +68,7 @@
     <string name="synced" msgid="7913940305983383493">"አሳምሯል"</string>
     <string name="not_synced" msgid="4275114941801829419">"አላሳመረም"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"ይህ መለያ አልሰመረም እና የቀን መቁጠሪያህ የጊዜው ላይሆን ይችላል።"</string>
-    <string name="accounts" msgid="849401841083180306">"መለያዎች &amp; አሳምር"</string>
+    <string name="accounts" msgid="849401841083180306">"መለያዎች &amp; አስምር"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"የቀን መቁጠሪያ ለማመሳሰያ"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"የቀን መቁጠሪያ ለአስምር"</string>
     <string name="hint_what" msgid="709155115005044531">"የዝግጅት ስም"</string>
@@ -200,7 +200,7 @@
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"ማስታወሻ አክል"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"ማስታወሻ አስወግድ"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"ተሳታፊ አክል"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"የቀን አቆጣጠር አሳምር"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"የቀን አቆጣጠር አስምር"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"የሙሉ ቀን ክስተት"</string>
     <string name="accessibility_repeats" msgid="1629279916830919582">"ድግግሞሽ"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"የማስታወሻ አይነት"</string>
