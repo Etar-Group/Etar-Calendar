@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.android.calendar;
+package com.android.calendar.extensions;
 
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import com.android.calendar.R;
 
 public class AboutPreferences extends PreferenceFragment {
     private static final String BUILD_VERSION = "build_version";
