@@ -817,19 +817,19 @@ public class AlertService extends Service {
                     vibrateWhen = context.getString(R.string.prefDefault_alerts_vibrateWhen);
                 }
 
-                if (vibrateWhen.equals("always")) {
-                    defaultVibrate = 1;
-                } else if (!vibrateWhen.equals("silent")) {
-                    defaultVibrate = 0;
-                } else {
-                    // Settings are to vibrate when silent.  Return true if it is now silent.
-                    AudioManager audioManager =
+                AudioManager audioManager =
                         (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-                    if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE) {
-                        defaultVibrate = 1;
-                    } else {
-                        defaultVibrate = 0;
-                    }
+                boolean vibrateAlways = vibrateWhen.equals("always");
+                boolean vibrateSilent = vibrateWhen.equals("silent");
+                boolean nowSilent =
+                        audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE;
+                boolean shouldVibrate =
+                        audioManager.shouldVibrate(AudioManager.VIBRATE_TYPE_RINGER);
+
+                if ( (vibrateAlways && shouldVibrate) || (vibrateSilent && nowSilent) ) {
+                    defaultVibrate = 1;
+                } else {
+                    defaultVibrate = 0;
                 }
             }
             return defaultVibrate == 1;
