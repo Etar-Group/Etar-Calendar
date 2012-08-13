@@ -111,7 +111,7 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Seleccionar respuesta rápida"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Error al buscar un programa de correo electrónico"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Con un par de minutos de retraso si corres"</item>
+    <item msgid="1524421198348168403">"Llego un par de minutos tarde"</item>
     <item msgid="6215158751728689832">"Llegaré en unos diez minutos"</item>
     <item msgid="4485794001743679338">"Empezad sin mi"</item>
     <item msgid="8036557974294987511">"No puedo, mejor en otro momento"</item>
