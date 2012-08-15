@@ -99,11 +99,12 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
+import com.android.calendar.alerts.QuickResponseActivity;
 import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventViewUtils;
-import com.android.calendarcommon.EventRecurrence;
+import com.android.calendarcommon2.EventRecurrence;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -147,9 +148,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int TOKEN_QUERY_ATTENDEES = 1 << 2;
     private static final int TOKEN_QUERY_DUPLICATE_CALENDARS = 1 << 3;
     private static final int TOKEN_QUERY_REMINDERS = 1 << 4;
+    private static final int TOKEN_QUERY_VISIBLE_CALENDARS = 1 << 5;
     private static final int TOKEN_QUERY_ALL = TOKEN_QUERY_DUPLICATE_CALENDARS
             | TOKEN_QUERY_ATTENDEES | TOKEN_QUERY_CALENDARS | TOKEN_QUERY_EVENT
-            | TOKEN_QUERY_REMINDERS;
+            | TOKEN_QUERY_REMINDERS | TOKEN_QUERY_VISIBLE_CALENDARS;
+
     private int mCurrentQuery = 0;
 
     private static final String[] EVENT_PROJECTION = new String[] {
@@ -251,6 +254,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
     static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.CALENDAR_DISPLAY_NAME + "=?";
+    static final String CALENDARS_VISIBLE_WHERE = Calendars.VISIBLE + "=?";
 
     private static final String NANP_ALLOWED_SYMBOLS = "()+-*#.";
     private static final int NANP_MIN_DIGITS = 7;
@@ -286,7 +290,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private boolean mCanModifyEvent;
     private boolean mIsBusyFreeCalendar;
     private int mNumOfAttendees;
-
     private EditResponseHelper mEditResponseHelper;
     private boolean mDeleteDialogVisible = false;
     private DeleteEventHelper mDeleteHelper;
@@ -398,7 +401,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             // if the activity is finishing, then close the cursor and return
             final Activity activity = getActivity();
             if (activity == null || activity.isFinishing()) {
-                cursor.close();
+                if (cursor != null) {
+                    cursor.close();
+                }
                 return;
             }
 
@@ -457,15 +462,24 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 mRemindersCursor = Utils.matrixCursorFromCursor(cursor);
                 initReminders(mView, mRemindersCursor);
                 break;
+            case TOKEN_QUERY_VISIBLE_CALENDARS:
+                if (cursor.getCount() > 1) {
+                    // Start duplicate calendars query to detect whether to add the calendar
+                    // email to the calendar owner display.
+                    String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
+                    mHandler.startQuery(TOKEN_QUERY_DUPLICATE_CALENDARS, null,
+                            Calendars.CONTENT_URI, CALENDARS_PROJECTION,
+                            CALENDARS_DUPLICATE_NAME_WHERE, new String[] {displayName}, null);
+                } else {
+                    // Don't need to display the calendar owner when there is only a single
+                    // calendar.  Skip the duplicate calendars query.
+                    setVisibilityCommon(mView, R.id.calendar_container, View.GONE);
+                    mCurrentQuery |= TOKEN_QUERY_DUPLICATE_CALENDARS;
+                }
+                break;
             case TOKEN_QUERY_DUPLICATE_CALENDARS:
                 Resources res = activity.getResources();
                 SpannableStringBuilder sb = new SpannableStringBuilder();
-
-                // Label
-                String label = res.getString(R.string.view_event_calendar_label);
-                sb.append(label).append(" ");
-                sb.setSpan(new StyleSpan(Typeface.BOLD), 0, label.length(),
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 // Calendar display name
                 String calendarName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
@@ -474,15 +488,19 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 // Show email account if display name is not unique and
                 // display name != email
                 String email = mCalendarsCursor.getString(CALENDARS_INDEX_OWNER_ACCOUNT);
-                if (cursor.getCount() > 1 && !calendarName.equalsIgnoreCase(email)) {
+                if (cursor.getCount() > 1 && !calendarName.equalsIgnoreCase(email) &&
+                        Utils.isValidEmail(email)) {
                     sb.append(" (").append(email).append(")");
                 }
 
+                setVisibilityCommon(mView, R.id.calendar_container, View.VISIBLE);
+                setTextCommon(mView, R.id.calendar_name, sb);
                 break;
             }
             cursor.close();
             sendAccessibilityEventIfQueryDone(token);
-            // All queries are done, show the view
+
+            // All queries are done, show the view.
             if (mCurrentQuery == TOKEN_QUERY_ALL) {
                 if (mLoadingMsgView.getAlpha() == 1) {
                     // Loading message is showing, let it stay a bit more (to prevent
@@ -1441,6 +1459,24 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         return -1;
     }
 
+    private static int indexFirstNonWhitespaceChar(CharSequence str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static int indexLastNonWhitespaceChar(CharSequence str) {
+        for (int i = str.length() - 1; i >= 0; i--) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /**
      * Replaces stretches of text that look like addresses and phone numbers with clickable
      * links.
@@ -1451,12 +1487,38 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         /*
          * If the text includes a street address like "1600 Amphitheater Parkway, 94043",
          * the current Linkify code will identify "94043" as a phone number and invite
-         * you to dial it (and not provide a map link for the address).  We want to
-         * have better recognition of phone numbers without losing any of the existing
-         * annotations.
-         *
-         * Ideally this would be addressed by improving Linkify.  For now we manage it as
-         * a second pass over the text.
+         * you to dial it (and not provide a map link for the address).  For outside US,
+         * use Linkify result iff it spans the entire text.  Otherwise send the user to maps.
+         */
+        String defaultPhoneRegion = System.getProperty("user.region", "US");
+        if (!defaultPhoneRegion.equals("US")) {
+            CharSequence origText = textView.getText();
+            Linkify.addLinks(textView, Linkify.ALL);
+
+            // If Linkify links the entire text, use that result.
+            if (textView.getText() instanceof Spannable) {
+                Spannable spanText = (Spannable) textView.getText();
+                URLSpan[] spans = spanText.getSpans(0, spanText.length(), URLSpan.class);
+                if (spans.length == 1) {
+                    int linkStart = spanText.getSpanStart(spans[0]);
+                    int linkEnd = spanText.getSpanEnd(spans[0]);
+                    if (linkStart <= indexFirstNonWhitespaceChar(origText) &&
+                            linkEnd >= indexLastNonWhitespaceChar(origText) + 1) {
+                        return;
+                    }
+                }
+            }
+
+            // Otherwise default to geo.
+            textView.setText(origText);
+            Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+            return;
+        }
+
+        /*
+         * For within US, we want to have better recognition of phone numbers without losing
+         * any of the existing annotations.  Ideally this would be addressed by improving Linkify.
+         * For now we manage it as a second pass over the text.
          *
          * URIs and e-mail addresses are pretty easy to pick out of text.  Phone numbers
          * are a bit tricky because they have radically different formats in different
@@ -1466,18 +1528,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
          * pretty narrowly defined, so it won't often match.
          *
          * The RFC 3966 specification defines the format of a "tel:" URI.
-         */
-
-        /*
-         * If we're in the US, handle this specially.  Otherwise, punt to Linkify.
-         */
-        String defaultPhoneRegion = System.getProperty("user.region", "US");
-        if (!defaultPhoneRegion.equals("US")) {
-            Linkify.addLinks(textView, Linkify.ALL);
-            return;
-        }
-
-        /*
+         *
          * Start by letting Linkify find anything that isn't a phone number.  We have to let it
          * run first because every invocation removes all previous URLSpan annotations.
          *
@@ -1659,10 +1710,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
             String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
 
-            // start duplicate calendars query
-            mHandler.startQuery(TOKEN_QUERY_DUPLICATE_CALENDARS, null, Calendars.CONTENT_URI,
-                    CALENDARS_PROJECTION, CALENDARS_DUPLICATE_NAME_WHERE,
-                    new String[] {displayName}, null);
+            // start visible calendars query
+            mHandler.startQuery(TOKEN_QUERY_VISIBLE_CALENDARS, null, Calendars.CONTENT_URI,
+                    CALENDARS_PROJECTION, CALENDARS_VISIBLE_WHERE, new String[] {"1"}, null);
 
             mEventOrganizerEmail = mEventCursor.getString(EVENT_INDEX_ORGANIZER);
             mIsOrganizer = mCalendarOwnerAccount.equalsIgnoreCase(mEventOrganizerEmail);
@@ -1764,48 +1814,41 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mLongAttendees.setVisibility(View.GONE);
         }
 
-        updateEmailAttendees();
+        if (isEmailable()) {
+            setVisibilityCommon(mView, R.id.email_attendees_container, View.VISIBLE);
+        } else {
+            setVisibilityCommon(mView, R.id.email_attendees_container, View.GONE);
+        }
     }
 
     /**
-     * Initializes the list of 'to' and 'cc' emails from the attendee list.
+     * Returns true if there is at least 1 attendee that is not the viewer.
      */
-    private void updateEmailAttendees() {
-        // The declined attendees will go in the 'cc' line, all others will go in the 'to' line.
-        mToEmails = new ArrayList<String>();
+    private boolean isEmailable() {
         for (Attendee attendee : mAcceptedAttendees) {
-            addIfEmailable(mToEmails, attendee.mEmail);
+            if (Utils.isEmailableFrom(attendee.mEmail, mSyncAccountName)) {
+                return true;
+            }
         }
         for (Attendee attendee : mTentativeAttendees) {
-            addIfEmailable(mToEmails, attendee.mEmail);
+            if (Utils.isEmailableFrom(attendee.mEmail, mSyncAccountName)) {
+                return true;
+            }
         }
         for (Attendee attendee : mNoResponseAttendees) {
-            addIfEmailable(mToEmails, attendee.mEmail);
+            if (Utils.isEmailableFrom(attendee.mEmail, mSyncAccountName)) {
+                return true;
+            }
         }
-        mCcEmails = new ArrayList<String>();
-        for (Attendee attendee : this.mDeclinedAttendees) {
-            addIfEmailable(mCcEmails, attendee.mEmail);
+        for (Attendee attendee : mDeclinedAttendees) {
+            if (Utils.isEmailableFrom(attendee.mEmail, mSyncAccountName)) {
+                return true;
+            }
         }
-
         // The meeting organizer doesn't appear as an attendee sometimes (particularly
-        // when viewing someone else's calendar), so add the organizer now.
-        if (mEventOrganizerEmail != null && !mToEmails.contains(mEventOrganizerEmail) &&
-                !mCcEmails.contains(mEventOrganizerEmail)) {
-            addIfEmailable(mToEmails, mEventOrganizerEmail);
-        }
-
-        // The Email app behaves strangely when there is nothing in the 'mailto' part,
-        // so move all the 'cc' emails to the 'to' list.  Gmail works fine though.
-        if (mToEmails.size() <= 0 && mCcEmails.size() > 0) {
-            mToEmails.addAll(mCcEmails);
-            mCcEmails.clear();
-        }
-
-        if (mToEmails.size() <= 0) {
-            setVisibilityCommon(mView, R.id.email_attendees_container, View.GONE);
-        } else {
-            setVisibilityCommon(mView, R.id.email_attendees_container, View.VISIBLE);
-        }
+        // when viewing someone else's calendar), so handle that separately.
+        return mEventOrganizerEmail != null &&
+                Utils.isEmailableFrom(mEventOrganizerEmail, mSyncAccountName);
     }
 
     public void initReminders(View view, Cursor cursor) {
@@ -2110,27 +2153,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     /**
-     * Adds the attendee's email to the list if:
-     *   (1) the attendee is not a resource like a conference room or another calendar.
-     *       Catch most of these by filtering out suffix calendar.google.com.
-     *   (2) the attendee is not the viewer, to prevent mailing himself.
-     */
-    private void addIfEmailable(ArrayList<String> emailList, String email) {
-        if (Utils.isEmailableFrom(email, mSyncAccountName)) {
-            emailList.add(email);
-        }
-    }
-
-    /**
      * Email all the attendees of the event, except for the viewer (so as to not email
      * himself) and resources like conference rooms.
      */
     private void emailAttendees() {
-        String eventTitle = (mTitle == null || mTitle.getText() == null) ? null :
-                mTitle.getText().toString();
-        Intent emailIntent = Utils.createEmailAttendeesIntent(getActivity().getResources(),
-                eventTitle, null /* body */, mToEmails, mCcEmails, mCalendarOwnerAccount);
-        startActivity(emailIntent);
+        Intent i = new Intent(getActivity(), QuickResponseActivity.class);
+        i.putExtra(QuickResponseActivity.EXTRA_EVENT_ID, mEventId);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
     }
 
     /**

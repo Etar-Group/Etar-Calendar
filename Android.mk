@@ -4,12 +4,13 @@ include $(CLEAR_VARS)
 # Include res dir from chips
 chips_dir := ../../../frameworks/ex/chips/res
 res_dirs := $(chips_dir) res
+src_dirs := src extensions_src
 
 LOCAL_EMMA_COVERAGE_FILTER := +com.android.calendar.*
 
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_SRC_FILES := $(call all-java-files-under,src)
+LOCAL_SRC_FILES := $(call all-java-files-under,$(src_dirs))
 
 # bundled
 #LOCAL_STATIC_JAVA_LIBRARIES += \
@@ -23,7 +24,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 		android-common-chips \
 		android-support-v4 \
 		calendar-common
-LOCAL_SDK_VERSION := current
+LOCAL_SDK_VERSION := 16
 
 LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dirs))
 

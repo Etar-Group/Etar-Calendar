@@ -35,13 +35,15 @@ import java.util.TimeZone;
 
 public class AlertAdapter extends ResourceCursorAdapter {
 
+    private static AlertActivity alertActivity;
     private static boolean mFirstTime = true;
     private static int mTitleColor;
     private static int mOtherColor; // non-title fields
     private static int mPastEventColor;
 
-    public AlertAdapter(Context context, int resource) {
-        super(context, resource, null);
+    public AlertAdapter(AlertActivity activity, int resource) {
+        super(activity, resource, null);
+        this.alertActivity = activity;
     }
 
     @Override
@@ -142,5 +144,13 @@ public class AlertAdapter extends ResourceCursorAdapter {
             whereView.setText(location);
             whereView.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    protected void onContentChanged () {
+        super.onContentChanged();
+
+        // Prevent empty popup notification.
+        alertActivity.closeActivityIfEmpty();
     }
 }

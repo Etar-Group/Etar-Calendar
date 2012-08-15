@@ -76,6 +76,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
+import com.android.calendar.extensions.AllInOneMenuExtensions;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
@@ -166,6 +167,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     // Params for animating the controls on the right
     private LayoutParams mControlsParams;
     private LinearLayout.LayoutParams mVerticalControlsParams;
+
+    private AllInOneMenuExtensions mExtensions = new AllInOneMenuExtensions();
 
     private final AnimatorListener mSlideAnimationDoneListener = new AnimatorListener() {
 
@@ -730,6 +733,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mOptionsMenu = menu;
         getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
 
+        // Add additional options (if any).
+        Integer extensionMenuRes = mExtensions.getExtensionMenuResource(menu);
+        if (extensionMenuRes != null) {
+            getMenuInflater().inflate(extensionMenuRes, menu);
+        }
+
         mSearchMenu = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) mSearchMenu.getActionView();
         if (mSearchView != null) {
@@ -822,7 +831,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             case R.id.action_search:
                 return false;
             default:
-                return false;
+                return mExtensions.handleItemSelected(item, this);
         }
         mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
         return true;

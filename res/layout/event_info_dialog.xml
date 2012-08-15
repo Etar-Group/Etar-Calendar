@@ -76,6 +76,7 @@
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:autoLink="all"
+                        android:textIsSelectable="true"
                         android:textStyle="bold"
                         android:textColor="@color/event_info_headline_color"
                         android:textColorLink="@color/event_info_headline_color"
@@ -128,6 +129,7 @@
                     android:layout_marginTop="2dip"
                     android:paddingLeft="16dip"
                     android:paddingRight="16dip"
+                    android:textIsSelectable="true"
                     android:textColor="@color/event_info_headline_color"
                     style="?android:attr/textAppearanceLarge" />
 
@@ -152,41 +154,81 @@
                     android:textSize="18sp"
                     android:paddingLeft="16dip"
                     android:paddingRight="16dip"
+                    android:textIsSelectable="true"
                     android:textColor="@color/event_info_headline_color"
                     android:textColorLink="@color/event_info_headline_link_color"
                     style="?android:attr/textAppearanceLarge" />
             </LinearLayout>
 
-            <!-- Organizer -->
             <LinearLayout
-                android:id="@+id/organizer_container"
-                android:visibility="gone"
                 android:layout_marginTop="10dip"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/organizer_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="16dip"
-                    android:singleLine="true"
-                    android:text="@string/event_info_organizer"
-                    android:textColor="@color/event_info_organizer_color"
-                    style="?android:attr/textAppearanceSmall"
-                    android:textSize="18sp"/>
-                <TextView
-                    android:id="@+id/organizer"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:layout_marginLeft="4dip"
-                    android:layout_marginRight="8dip"
-                    android:textColor="@color/event_info_organizer_color"
-                    style="?android:attr/textAppearanceSmall"
-                    android:textSize="18sp"/>
+                android:layout_height="wrap_content" >
+
+                <!-- Calendar Owner -->
+                <LinearLayout
+                    android:id="@+id/calendar_container"
+                    android:visibility="gone"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/calendar_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dip"
+                        android:singleLine="true"
+                        android:text="@string/view_event_calendar_label"
+                        android:textColor="@color/event_info_organizer_color"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="18sp"/>
+                    <TextView
+                        android:id="@+id/calendar_name"
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:layout_marginLeft="4dip"
+                        android:layout_marginRight="8dip"
+                        android:textIsSelectable="true"
+                        android:textColor="@color/event_info_organizer_color"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+
+                <!-- Organizer -->
+                <LinearLayout
+                    android:id="@+id/organizer_container"
+                    android:visibility="gone"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/organizer_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dip"
+                        android:singleLine="true"
+                        android:text="@string/event_info_organizer"
+                        android:textColor="@color/event_info_organizer_color"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="18sp"/>
+                    <TextView
+                        android:id="@+id/organizer"
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:layout_marginLeft="4dip"
+                        android:layout_marginRight="8dip"
+                        android:textIsSelectable="true"
+                        android:textColor="@color/event_info_organizer_color"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="18sp"/>
+                </LinearLayout>
             </LinearLayout>
 
             <!-- DESCRIPTION -->
