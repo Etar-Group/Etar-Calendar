@@ -154,6 +154,7 @@
         </activity>
 
         <provider android:name=".CalendarRecentSuggestionsProvider"
+            android:exported="false"
             android:authorities="com.android.calendar.CalendarRecentSuggestionsProvider" />
 
         <!-- Declarations for alerts/reminders -->

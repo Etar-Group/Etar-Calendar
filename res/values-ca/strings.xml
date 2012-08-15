@@ -104,6 +104,7 @@
     <string name="response_no" msgid="561911691884148136">"No"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Envia un correu electrònic als convidats"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Correu electrònic amb"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"No s\'ha trobat l\'esdeveniment."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respostes ràpides"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edita les respostes en escriure als convidats"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Edita resp. ràpid."</string>
@@ -209,6 +210,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privadesa"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Notificacions de calendari"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Posposa la notificació"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"Envia un correu electrònic als convidats"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Esdeveniment nou"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Esdeveniment <xliff:g id="ITEM_INDEX">%1$s</xliff:g> de <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
   <plurals name="Nevents">

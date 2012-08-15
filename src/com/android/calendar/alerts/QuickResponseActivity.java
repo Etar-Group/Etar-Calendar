@@ -40,7 +40,7 @@ import java.util.Arrays;
  */
 public class QuickResponseActivity extends ListActivity implements OnItemClickListener {
     private static final String TAG = "QuickResponseActivity";
-    static final String EXTRA_EVENT_ID = "eventId";
+    public static final String EXTRA_EVENT_ID = "eventId";
 
     private String[] mResponses = null;
     static long mEventId;

@@ -78,7 +78,7 @@ import com.android.calendar.TimezoneAdapter;
 import com.android.calendar.TimezoneAdapter.TimezoneRow;
 import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
-import com.android.calendarcommon.EventRecurrence;
+import com.android.calendarcommon2.EventRecurrence;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
 import com.android.ex.chips.AccountSpecifier;
