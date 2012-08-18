@@ -510,33 +510,30 @@ public class EditEventFragment extends Fragment implements EventHandler {
      * @return whether the event was handled here
      */
     private boolean onActionBarItemSelected(int itemId) {
-        switch (itemId) {
-            case R.id.action_done:
-                if (EditEventHelper.canModifyEvent(mModel) || EditEventHelper.canRespond(mModel)) {
-                    if (mView != null && mView.prepareForSave()) {
-                        if (mModification == Utils.MODIFY_UNINITIALIZED) {
-                            mModification = Utils.MODIFY_ALL;
-                        }
-                        mOnDone.setDoneCode(Utils.DONE_SAVE | Utils.DONE_EXIT);
-                        mOnDone.run();
-                    } else {
-                        mOnDone.setDoneCode(Utils.DONE_REVERT);
-                        mOnDone.run();
+        if (itemId == R.id.action_done) {
+            if (EditEventHelper.canModifyEvent(mModel) || EditEventHelper.canRespond(mModel)) {
+                if (mView != null && mView.prepareForSave()) {
+                    if (mModification == Utils.MODIFY_UNINITIALIZED) {
+                        mModification = Utils.MODIFY_ALL;
                     }
-                } else if (EditEventHelper.canAddReminders(mModel) && mModel.mId != -1
-                        && mOriginalModel != null && mView.prepareForSave()) {
-                    saveReminders();
-                    mOnDone.setDoneCode(Utils.DONE_EXIT);
+                    mOnDone.setDoneCode(Utils.DONE_SAVE | Utils.DONE_EXIT);
                     mOnDone.run();
                 } else {
                     mOnDone.setDoneCode(Utils.DONE_REVERT);
                     mOnDone.run();
                 }
-                break;
-            case R.id.action_cancel:
+            } else if (EditEventHelper.canAddReminders(mModel) && mModel.mId != -1
+                    && mOriginalModel != null && mView.prepareForSave()) {
+                saveReminders();
+                mOnDone.setDoneCode(Utils.DONE_EXIT);
+                mOnDone.run();
+            } else {
                 mOnDone.setDoneCode(Utils.DONE_REVERT);
                 mOnDone.run();
-                break;
+            }
+        } else if (itemId == R.id.action_cancel) {
+            mOnDone.setDoneCode(Utils.DONE_REVERT);
+            mOnDone.run();
         }
         return true;
     }
