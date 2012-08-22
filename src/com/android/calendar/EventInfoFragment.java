@@ -43,7 +43,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -65,7 +64,6 @@ import android.text.format.Time;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.text.util.Rfc822Token;
@@ -958,32 +956,28 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // Delete button - start a delete query that calls a runnable that close
         // the info activity
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Utils.returnToCalendarHome(mContext);
-                mActivity.finish();
-                return true;
-            case R.id.info_action_edit:
-                Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
-                Intent intent = new Intent(Intent.ACTION_EDIT, uri);
-                intent.putExtra(EXTRA_EVENT_BEGIN_TIME, mStartMillis);
-                intent.putExtra(EXTRA_EVENT_END_TIME, mEndMillis);
-                intent.putExtra(EXTRA_EVENT_ALL_DAY, mAllDay);
-                intent.setClass(mActivity, EditEventActivity.class);
-                intent.putExtra(EVENT_EDIT_ON_LAUNCH, true);
-                startActivity(intent);
-                mActivity.finish();
-                break;
-            case R.id.info_action_delete:
-                mDeleteHelper =
-                        new DeleteEventHelper(mActivity, mActivity, true /* exitWhenDone */);
-                mDeleteHelper.setDeleteNotificationListener(EventInfoFragment.this);
-                mDeleteHelper.setOnDismissListener(createDeleteOnDismissListener());
-                mDeleteDialogVisible = true;
-                mDeleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
-                break;
-            default:
-                break;
+        final int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            Utils.returnToCalendarHome(mContext);
+            mActivity.finish();
+            return true;
+        } else if (itemId == R.id.info_action_edit) {
+            Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
+            Intent intent = new Intent(Intent.ACTION_EDIT, uri);
+            intent.putExtra(EXTRA_EVENT_BEGIN_TIME, mStartMillis);
+            intent.putExtra(EXTRA_EVENT_END_TIME, mEndMillis);
+            intent.putExtra(EXTRA_EVENT_ALL_DAY, mAllDay);
+            intent.setClass(mActivity, EditEventActivity.class);
+            intent.putExtra(EVENT_EDIT_ON_LAUNCH, true);
+            startActivity(intent);
+            mActivity.finish();
+        } else if (itemId == R.id.info_action_delete) {
+            mDeleteHelper =
+                    new DeleteEventHelper(mActivity, mActivity, true /* exitWhenDone */);
+            mDeleteHelper.setDeleteNotificationListener(EventInfoFragment.this);
+            mDeleteHelper.setOnDismissListener(createDeleteOnDismissListener());
+            mDeleteDialogVisible = true;
+            mDeleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -1107,18 +1101,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     public static int getResponseFromButtonId(int buttonId) {
         int response;
-        switch (buttonId) {
-            case R.id.response_yes:
-                response = Attendees.ATTENDEE_STATUS_ACCEPTED;
-                break;
-            case R.id.response_maybe:
-                response = Attendees.ATTENDEE_STATUS_TENTATIVE;
-                break;
-            case R.id.response_no:
-                response = Attendees.ATTENDEE_STATUS_DECLINED;
-                break;
-            default:
-                response = Attendees.ATTENDEE_STATUS_NONE;
+        if (buttonId == R.id.response_yes) {
+            response = Attendees.ATTENDEE_STATUS_ACCEPTED;
+        } else if (buttonId == R.id.response_maybe) {
+            response = Attendees.ATTENDEE_STATUS_TENTATIVE;
+        } else if (buttonId == R.id.response_no) {
+            response = Attendees.ATTENDEE_STATUS_DECLINED;
+        } else {
+            response = Attendees.ATTENDEE_STATUS_NONE;
         }
         return response;
     }

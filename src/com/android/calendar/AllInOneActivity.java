@@ -48,7 +48,6 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CalendarContract;
@@ -782,56 +781,55 @@ public class AllInOneActivity extends Activity implements EventHandler,
         Time t = null;
         int viewType = ViewType.CURRENT;
         long extras = CalendarController.EXTRA_GOTO_TIME;
-        switch (item.getItemId()) {
-            case R.id.action_refresh:
-                mController.refreshCalendars();
-                return true;
-            case R.id.action_today:
-                viewType = ViewType.CURRENT;
-                t = new Time(mTimeZone);
-                t.setToNow();
-                extras |= CalendarController.EXTRA_GOTO_TODAY;
-                break;
-            case R.id.action_create_event:
-                t = new Time();
-                t.set(mController.getTime());
-                if (t.minute > 30) {
-                    t.hour++;
-                    t.minute = 0;
-                } else if (t.minute > 0 && t.minute < 30) {
-                    t.minute = 30;
-                }
-                mController.sendEventRelatedEvent(
-                        this, EventType.CREATE_EVENT, -1, t.toMillis(true), 0, 0, 0, -1);
-                return true;
-            case R.id.action_select_visible_calendars:
-                mController.sendEvent(this, EventType.LAUNCH_SELECT_VISIBLE_CALENDARS, null, null,
-                        0, 0);
-                return true;
-            case R.id.action_settings:
-                mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
-                return true;
-            case R.id.action_hide_controls:
-                mHideControls = !mHideControls;
-                Utils.setSharedPreference(
-                        this, GeneralPreferences.KEY_SHOW_CONTROLS, !mHideControls);
-                item.setTitle(mHideControls ? mShowString : mHideString);
-                if (!mHideControls) {
-                    mMiniMonth.setVisibility(View.VISIBLE);
-                    mCalendarsList.setVisibility(View.VISIBLE);
-                    mMiniMonthContainer.setVisibility(View.VISIBLE);
-                }
-                final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this, "controlsOffset",
-                        mHideControls ? 0 : mControlsAnimateWidth,
-                        mHideControls ? mControlsAnimateWidth : 0);
-                slideAnimation.setDuration(mCalendarControlsAnimationTime);
-                ObjectAnimator.setFrameDelay(0);
-                slideAnimation.start();
-                return true;
-            case R.id.action_search:
-                return false;
-            default:
-                return mExtensions.handleItemSelected(item, this);
+        final int itemId = item.getItemId();
+        if (itemId == R.id.action_refresh) {
+            mController.refreshCalendars();
+            return true;
+        } else if (itemId == R.id.action_today) {
+            viewType = ViewType.CURRENT;
+            t = new Time(mTimeZone);
+            t.setToNow();
+            extras |= CalendarController.EXTRA_GOTO_TODAY;
+        } else if (itemId == R.id.action_create_event) {
+            t = new Time();
+            t.set(mController.getTime());
+            if (t.minute > 30) {
+                t.hour++;
+                t.minute = 0;
+            } else if (t.minute > 0 && t.minute < 30) {
+                t.minute = 30;
+            }
+            mController.sendEventRelatedEvent(
+                    this, EventType.CREATE_EVENT, -1, t.toMillis(true), 0, 0, 0, -1);
+            return true;
+        } else if (itemId == R.id.action_select_visible_calendars) {
+            mController.sendEvent(this, EventType.LAUNCH_SELECT_VISIBLE_CALENDARS, null, null,
+                    0, 0);
+            return true;
+        } else if (itemId == R.id.action_settings) {
+            mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
+            return true;
+        } else if (itemId == R.id.action_hide_controls) {
+            mHideControls = !mHideControls;
+            Utils.setSharedPreference(
+                    this, GeneralPreferences.KEY_SHOW_CONTROLS, !mHideControls);
+            item.setTitle(mHideControls ? mShowString : mHideString);
+            if (!mHideControls) {
+                mMiniMonth.setVisibility(View.VISIBLE);
+                mCalendarsList.setVisibility(View.VISIBLE);
+                mMiniMonthContainer.setVisibility(View.VISIBLE);
+            }
+            final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this, "controlsOffset",
+                    mHideControls ? 0 : mControlsAnimateWidth,
+                    mHideControls ? mControlsAnimateWidth : 0);
+            slideAnimation.setDuration(mCalendarControlsAnimationTime);
+            ObjectAnimator.setFrameDelay(0);
+            slideAnimation.start();
+            return true;
+        } else if (itemId == R.id.action_search) {
+            return false;
+        } else {
+            return mExtensions.handleItemSelected(item, this);
         }
         mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
         return true;
