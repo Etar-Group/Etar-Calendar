@@ -72,17 +72,16 @@ public class CalendarSettingsActivity extends PreferenceActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            case R.id.action_add_account:
-                Intent nextIntent = new Intent(Settings.ACTION_ADD_ACCOUNT);
-                final String[] array = { "com.android.calendar" };
-                nextIntent.putExtra(Settings.EXTRA_AUTHORITIES, array);
-                nextIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(nextIntent);
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else if (item.getItemId() == R.id.action_add_account) {
+            Intent nextIntent = new Intent(Settings.ACTION_ADD_ACCOUNT);
+            final String[] array = { "com.android.calendar" };
+            nextIntent.putExtra(Settings.EXTRA_AUTHORITIES, array);
+            nextIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(nextIntent);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
