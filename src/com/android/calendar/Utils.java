@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -122,6 +123,7 @@ public class Utils {
     private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
     private static boolean mAllowWeekForDetailView = false;
     private static long mTardis = 0;
+    private static String sVersion = null;
 
     /**
      * Returns whether the SDK is the Jellybean release or later.
@@ -1496,5 +1498,21 @@ public class Utils {
         }
 
         return s;
+    }
+
+    /**
+     * Return the app version code.
+     */
+    public static String getVersionCode(Context context) {
+        if (sVersion == null) {
+            try {
+                sVersion = context.getPackageManager().getPackageInfo(
+                        context.getPackageName(), 0).versionName;
+            } catch (PackageManager.NameNotFoundException e) {
+                // Can't find version; just leave it blank.
+                Log.e(TAG, "Error finding package " + context.getApplicationInfo().packageName);
+            }
+        }
+        return sVersion;
     }
 }
