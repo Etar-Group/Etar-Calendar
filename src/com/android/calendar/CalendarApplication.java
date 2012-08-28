@@ -28,5 +28,10 @@ public class CalendarApplication extends Application {
          * service, etc. of Calendar
          */
         GeneralPreferences.setDefaultValues(this);
+
+        // Save the version number, for upcoming 'What's new' screen.  This will be later be
+        // moved to that implementation.
+        Utils.setSharedPreference(this, GeneralPreferences.KEY_VERSION,
+                Utils.getVersionCode(this));
     }
 }
