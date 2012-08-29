@@ -219,16 +219,16 @@ public class AlertReceiver extends BroadcastReceiver {
 
     public static NotificationWrapper makeBasicNotification(Context context, String title,
             String summaryText, long startMillis, long endMillis, long eventId,
-            int notificationId, boolean doPopup) {
+            int notificationId, boolean doPopup, int priority) {
         Notification n = buildBasicNotification(new Notification.Builder(context),
                 context, title, summaryText, startMillis, endMillis, eventId, notificationId,
-                doPopup, false, false);
+                doPopup, priority, false);
         return new NotificationWrapper(n, notificationId, eventId, startMillis, endMillis, doPopup);
     }
 
     private static Notification buildBasicNotification(Notification.Builder notificationBuilder,
             Context context, String title, String summaryText, long startMillis, long endMillis,
-            long eventId, int notificationId, boolean doPopup, boolean highPriority,
+            long eventId, int notificationId, boolean doPopup, int priority,
             boolean addActionButtons) {
         Resources resources = context.getResources();
         if (title == null || title.length() == 0) {
@@ -256,15 +256,11 @@ public class AlertReceiver extends BroadcastReceiver {
 
         // Turn off timestamp.
         notificationBuilder.setWhen(0);
-        
+
         if (Utils.isJellybeanOrLater()) {
-            // Setting to a higher priority will encourage notification manager to expand the
-            // notification.
-            if (highPriority) {
-                notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
-            } else {
-                notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
-            }
+            // Should be one of the values in Notification (ie. Notification.PRIORITY_HIGH, etc).
+            // A higher priority will encourage notification manager to expand it.
+            notificationBuilder.setPriority(priority);
         }
 
         if (addActionButtons) {
@@ -313,11 +309,11 @@ public class AlertReceiver extends BroadcastReceiver {
      */
     public static NotificationWrapper makeExpandingNotification(Context context, String title,
             String summaryText, String description, long startMillis, long endMillis, long eventId,
-            int notificationId, boolean doPopup, boolean highPriority) {
+            int notificationId, boolean doPopup, int priority) {
         Notification.Builder basicBuilder = new Notification.Builder(context);
         Notification notification = buildBasicNotification(basicBuilder, context, title,
                 summaryText, startMillis, endMillis, eventId, notificationId, doPopup,
-                highPriority, true);
+                priority, true);
         if (Utils.isJellybeanOrLater()) {
             // Create a new-style expanded notification
             Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(

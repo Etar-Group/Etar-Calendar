@@ -53,6 +53,20 @@ public class AlertUtils {
     public static final String EVENT_IDS_KEY = "eventids";
 
     /**
+     * Creates an AlarmManagerInterface that wraps a real AlarmManager.  The alarm code
+     * was abstracted to an interface to make it testable.
+     */
+    public static AlarmManagerInterface createAlarmManager(Context context) {
+        final AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        return new AlarmManagerInterface() {
+            @Override
+            public void set(int type, long triggerAtMillis, PendingIntent operation) {
+                mgr.set(type, triggerAtMillis, operation);
+            }
+        };
+    }
+
+    /**
      * Schedules an alarm intent with the system AlarmManager that will notify
      * listeners when a reminder should be fired. The provider will keep
      * scheduled reminders up to date but apps may use this to implement snooze
@@ -63,7 +77,8 @@ public class AlertUtils {
      * @param manager The AlarmManager to use or null
      * @param alarmTime The time to fire the intent in UTC millis since epoch
      */
-    public static void scheduleAlarm(Context context, AlarmManager manager, long alarmTime) {
+    public static void scheduleAlarm(Context context, AlarmManagerInterface manager,
+            long alarmTime) {
         scheduleAlarmHelper(context, manager, alarmTime, false);
     }
 
@@ -71,17 +86,13 @@ public class AlertUtils {
      * Schedules the next alarm to silently refresh the notifications.  Note that if there
      * is a pending silent refresh alarm, it will be replaced with this one.
      */
-    static void scheduleNextNotificationRefresh(Context context, AlarmManager manager,
+    static void scheduleNextNotificationRefresh(Context context, AlarmManagerInterface manager,
             long alarmTime) {
         scheduleAlarmHelper(context, manager, alarmTime, true);
     }
 
-    private static void scheduleAlarmHelper(Context context, AlarmManager manager, long alarmTime,
-            boolean quietUpdate) {
-        if (manager == null) {
-            manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        }
-
+    private static void scheduleAlarmHelper(Context context, AlarmManagerInterface manager,
+            long alarmTime, boolean quietUpdate) {
         int alarmType = AlarmManager.RTC_WAKEUP;
         Intent intent = new Intent(CalendarContract.ACTION_EVENT_REMINDER);
         intent.setClass(context, AlertReceiver.class);
