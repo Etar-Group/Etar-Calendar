@@ -186,9 +186,9 @@ public class AgendaListView extends ListView implements OnItemClickListener {
                 // Holder in view holds the start of the specific part of a multi-day event ,
                 // use it for the goto
                 long holderStartTime;
-                AgendaAdapter.ViewHolder holder = ((AgendaAdapter.ViewHolder) v.getTag());
-                if (holder != null) {
-                    holderStartTime = holder.startTimeMilli;
+                Object holder = v.getTag();
+                if (holder instanceof AgendaAdapter.ViewHolder) {
+                    holderStartTime = ((AgendaAdapter.ViewHolder) holder).startTimeMilli;
                 } else {
                     holderStartTime = startTime;
                 }
