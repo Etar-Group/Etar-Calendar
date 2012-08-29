@@ -16,9 +16,6 @@
 
 package com.android.calendar.selectcalendars;
 
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
 import android.app.ActionBar;
 import android.app.ExpandableListActivity;
 import android.content.ContentResolver;
@@ -30,6 +27,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
+
+import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListActivity
     implements View.OnClickListener {
@@ -81,15 +81,11 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_done:
-                mAdapter.doSaveAction();
-                finish();
-                break;
-
-            case R.id.btn_discard:
-                finish();
-                break;
+        if (view.getId() == R.id.btn_done) {
+            mAdapter.doSaveAction();
+            finish();
+        } else if (view.getId() == R.id.btn_discard) {
+            finish();
         }
     }
 

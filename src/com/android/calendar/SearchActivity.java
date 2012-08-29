@@ -273,22 +273,22 @@ public class SearchActivity extends Activity implements CalendarController.Event
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Time t = null;
-        switch (item.getItemId()) {
-            case R.id.action_today:
-                t = new Time();
-                t.setToNow();
-                mController.sendEvent(this, EventType.GO_TO, t, null, -1, ViewType.CURRENT);
-                return true;
-            case R.id.action_search:
-                return false;
-            case R.id.action_settings:
-                mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
-                return true;
-            case android.R.id.home:
-                Utils.returnToCalendarHome(this);
-                return true;
-            default:
-                return false;
+        final int itemId = item.getItemId();
+        if (itemId == R.id.action_today) {
+            t = new Time();
+            t.setToNow();
+            mController.sendEvent(this, EventType.GO_TO, t, null, -1, ViewType.CURRENT);
+            return true;
+        } else if (itemId == R.id.action_search) {
+            return false;
+        } else if (itemId == R.id.action_settings) {
+            mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
+            return true;
+        } else if (itemId == android.R.id.home) {
+            Utils.returnToCalendarHome(this);
+            return true;
+        } else {
+            return false;
         }
     }
 
