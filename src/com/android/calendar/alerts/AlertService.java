@@ -16,7 +16,6 @@
 
 package com.android.calendar.alerts;
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -248,12 +247,13 @@ public class AlertService extends Service {
             return false;
         }
 
-        return generateAlerts(context, nm, prefs, alertCursor, currentTime, MAX_NOTIFICATIONS);
+        return generateAlerts(context, nm, AlertUtils.createAlarmManager(context), prefs,
+                alertCursor, currentTime, MAX_NOTIFICATIONS);
     }
 
     public static boolean generateAlerts(Context context, NotificationMgr nm,
-            SharedPreferences prefs, Cursor alertCursor, final long currentTime,
-            final int maxNotifications) {
+            AlarmManagerInterface alarmMgr, SharedPreferences prefs, Cursor alertCursor,
+            final long currentTime, final int maxNotifications) {
         if (DEBUG) {
             Log.d(TAG, "alertCursor count:" + alertCursor.getCount());
         }
@@ -326,7 +326,8 @@ public class AlertService extends Service {
                         info.allDay, info.location);
                 notification = AlertReceiver.makeBasicNotification(context, info.eventName,
                         summaryText, info.startMillis, info.endMillis, info.eventId,
-                        AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, false);
+                        AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, false,
+                        Notification.PRIORITY_MIN);
             } else {
                 // Multiple expired events are listed in a digest.
                 notification = AlertReceiver.makeDigestNotification(context,
@@ -366,7 +367,7 @@ public class AlertService extends Service {
         // Schedule the next silent refresh time so notifications will change
         // buckets (eg. drop into expired digest, etc).
         if (nextRefreshTime < Long.MAX_VALUE && nextRefreshTime > currentTime) {
-            AlertUtils.scheduleNextNotificationRefresh(context, null, nextRefreshTime);
+            AlertUtils.scheduleNextNotificationRefresh(context, alarmMgr, nextRefreshTime);
             if (DEBUG) {
                 long minutesBeforeRefresh = (nextRefreshTime - currentTime) / MINUTE_MS;
                 Time time = new Time();
@@ -455,18 +456,27 @@ public class AlertService extends Service {
     }
 
     private static long getNextRefreshTime(NotificationInfo info, long currentTime) {
-        // We change an event's priority bucket at 15 minutes into the event (so recently started
-        // concurrent events stay high priority)
+        long startAdjustedForAllDay = info.startMillis;
+        long endAdjustedForAllDay = info.endMillis;
+        if (info.allDay) {
+            Time t = new Time();
+            startAdjustedForAllDay = Utils.convertAlldayUtcToLocal(t, info.startMillis,
+                    Time.getCurrentTimezone());
+            endAdjustedForAllDay = Utils.convertAlldayUtcToLocal(t, info.startMillis,
+                    Time.getCurrentTimezone());
+        }
+
+        // We change an event's priority bucket at 15 minutes into the event or 1/4 event duration.
         long nextRefreshTime = Long.MAX_VALUE;
-        long gracePeriodCutoff = info.startMillis +
-                getGracePeriodMs(info.startMillis, info.endMillis);
+        long gracePeriodCutoff = startAdjustedForAllDay +
+                getGracePeriodMs(startAdjustedForAllDay, endAdjustedForAllDay, info.allDay);
         if (gracePeriodCutoff > currentTime) {
             nextRefreshTime = Math.min(nextRefreshTime, gracePeriodCutoff);
         }
 
         // ... and at the end (so expiring ones drop into a digest).
-        if (info.endMillis > currentTime && info.endMillis > gracePeriodCutoff) {
-            nextRefreshTime = Math.min(nextRefreshTime, info.endMillis);
+        if (endAdjustedForAllDay > currentTime && endAdjustedForAllDay > gracePeriodCutoff) {
+            nextRefreshTime = Math.min(nextRefreshTime, endAdjustedForAllDay);
         }
         return nextRefreshTime;
     }
@@ -578,16 +588,12 @@ public class AlertService extends Service {
 
                 // Adjust for all day events to ensure the right bucket.  Don't use the 1/4 event
                 // duration grace period for these.
-                long gracePeriodMs;
                 long beginTimeAdjustedForAllDay = beginTime;
                 String tz = null;
                 if (allDay) {
                     tz = TimeZone.getDefault().getID();
                     beginTimeAdjustedForAllDay = Utils.convertAlldayUtcToLocal(null, beginTime,
                             tz);
-                    gracePeriodMs = MIN_DEPRIORITIZE_GRACE_PERIOD_MS;
-                } else {
-                    gracePeriodMs = getGracePeriodMs(beginTime, endTime);
                 }
 
                 // Handle multiple alerts for the same event ID.
@@ -636,7 +642,8 @@ public class AlertService extends Service {
 
                 // TODO: Prioritize by "primary" calendar
                 eventIds.put(eventId, newInfo);
-                long highPriorityCutoff = currentTime - gracePeriodMs;
+                long highPriorityCutoff = currentTime -
+                        getGracePeriodMs(beginTime, endTime, allDay);
 
                 if (beginTimeAdjustedForAllDay > highPriorityCutoff) {
                     // High priority = future events or events that just started
@@ -659,8 +666,14 @@ public class AlertService extends Service {
     /**
      * High priority cutoff should be 1/4 event duration or 15 min, whichever is longer.
      */
-    private static long getGracePeriodMs(long beginTime, long endTime) {
-        return Math.max(MIN_DEPRIORITIZE_GRACE_PERIOD_MS, ((endTime - beginTime) / 4));
+    private static long getGracePeriodMs(long beginTime, long endTime, boolean allDay) {
+        if (allDay) {
+            // We don't want all day events to be high priority for hours, so automatically
+            // demote these after 15 min.
+            return MIN_DEPRIORITIZE_GRACE_PERIOD_MS;
+        } else {
+            return Math.max(MIN_DEPRIORITIZE_GRACE_PERIOD_MS, ((endTime - beginTime) / 4));
+        }
     }
 
     private static String getDigestTitle(ArrayList<NotificationInfo> events) {
@@ -679,11 +692,15 @@ public class AlertService extends Service {
     private static void postNotification(NotificationInfo info, String summaryText,
             Context context, boolean highPriority, NotificationPrefs prefs,
             NotificationMgr notificationMgr, int notificationId) {
+        int priorityVal = Notification.PRIORITY_DEFAULT;
+        if (highPriority) {
+            priorityVal = Notification.PRIORITY_HIGH;
+        }
+
         String tickerText = getTickerText(info.eventName, info.location);
         NotificationWrapper notification = AlertReceiver.makeExpandingNotification(context,
                 info.eventName, summaryText, info.description, info.startMillis,
-                info.endMillis, info.eventId, notificationId, prefs.getDoPopup(),
-                highPriority);
+                info.endMillis, info.eventId, notificationId, prefs.getDoPopup(), priorityVal);
 
         boolean quietUpdate = true;
         String ringtone = NotificationPrefs.EMPTY_RINGTONE;
@@ -851,10 +868,8 @@ public class AlertService extends Service {
 
     private void doTimeChanged() {
         ContentResolver cr = getContentResolver();
-        Object service = getSystemService(Context.ALARM_SERVICE);
-        AlarmManager manager = (AlarmManager) service;
         // TODO Move this into Provider
-        rescheduleMissedAlarms(cr, this, manager);
+        rescheduleMissedAlarms(cr, this, AlertUtils.createAlarmManager(this));
         updateAlertNotification(this);
     }
 
@@ -883,8 +898,8 @@ public class AlertService extends Service {
      * @param context the Context
      * @param manager the AlarmManager
      */
-    public static final void rescheduleMissedAlarms(ContentResolver cr, Context context,
-            AlarmManager manager) {
+    private static final void rescheduleMissedAlarms(ContentResolver cr, Context context,
+            AlarmManagerInterface manager) {
         // Get all the alerts that have been scheduled but have not fired
         // and should have fired by now and are not too old.
         long now = System.currentTimeMillis();
