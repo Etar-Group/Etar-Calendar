@@ -256,7 +256,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
         // Turn off timestamp.
         notificationBuilder.setWhen(0);
-        
+
         if (Utils.isJellybeanOrLater()) {
             // Setting to a higher priority will encourage notification manager to expand the
             // notification.
