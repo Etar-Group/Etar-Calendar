@@ -252,7 +252,7 @@ public class AlertServiceTest extends AndroidTestCase {
 
     }
 
-    class NotificationTestManager implements NotificationMgr {
+    class NotificationTestManager extends NotificationMgr {
         // Expected notifications
         NotificationInstance[] mNotifications;
 
@@ -325,27 +325,6 @@ public class AlertServiceTest extends AndroidTestCase {
         }
 
         @Override
-        public void cancel(String tag, int id) {
-            throw new IllegalArgumentException();
-        }
-
-        @Override
-        public void cancelAll() {
-            for (int i = 0; i < mNotifications.length; i++) {
-                assertNull("Expecting notification id " + i + ". Got cancelAll", mNotifications[i]);
-
-                if (mDone != null) {
-                    assertFalse("Notification id " + i + " is done but got cancelAll", mDone[i]);
-                }
-            }
-
-            assertNull(mDone); // this should have been null since nothing
-                               // should have been posted
-            mDone = new boolean[mNotifications.length];
-            Arrays.fill(mDone, true);
-        }
-
-        @Override
         public void notify(int id, NotificationWrapper nw) {
             if (mDone == null) {
                 mDone = new boolean[mNotifications.length];
@@ -358,11 +337,6 @@ public class AlertServiceTest extends AndroidTestCase {
             assertNotNull("Unexpected notify for id " + id, mNotifications[id]);
 
             verifyNotification(id, nw);
-        }
-
-        @Override
-        public void notify(String tag, int id, NotificationWrapper nw) {
-            throw new IllegalArgumentException();
         }
     }
 
