@@ -89,7 +89,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"تقویم"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"نمایش همه"</string>
     <string name="description_label" msgid="7193475046717505855">"توضیح"</string>
-    <string name="presence_label" msgid="6169724148441175862">"نمایش من به عنوان"</string>
+    <string name="presence_label" msgid="6169724148441175862">"نمایش من به‌عنوان"</string>
     <string name="privacy_label" msgid="9215031965259597335">"رازداری"</string>
     <string name="reminders_label" msgid="7292389181815525676">"افزودن یادآور"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"تقویمی موجود نیست"</string>
