@@ -143,7 +143,7 @@ public class AlertService extends Service {
     }
 
     // Added wrapper for testing
-    public static class NotificationMgrWrapper implements NotificationMgr {
+    public static class NotificationMgrWrapper extends NotificationMgr {
         NotificationManager mNm;
 
         public NotificationMgrWrapper(NotificationManager nm) {
@@ -156,23 +156,8 @@ public class AlertService extends Service {
         }
 
         @Override
-        public void cancel(String tag, int id) {
-            mNm.cancel(tag, id);
-        }
-
-        @Override
-        public void cancelAll() {
-            mNm.cancelAll();
-        }
-
-        @Override
         public void notify(int id, NotificationWrapper nw) {
             mNm.notify(id, nw.mNotification);
-        }
-
-        @Override
-        public void notify(String tag, int id, NotificationWrapper nw) {
-            mNm.notify(tag, id, nw.mNotification);
         }
     }
 
@@ -355,9 +340,7 @@ public class AlertService extends Service {
 
         // Remove the notifications that are hanging around from the previous refresh.
         if (currentNotificationId <= maxNotifications) {
-            for (int i = currentNotificationId; i <= maxNotifications; i++) {
-                nm.cancel(i);
-            }
+            nm.cancelAllBetween(currentNotificationId, maxNotifications);
             if (DEBUG) {
                 Log.d(TAG, "Canceling leftover notification IDs " + currentNotificationId + "-"
                         + maxNotifications);
