@@ -286,7 +286,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         day.minute = currTime.minute;
         day.allDay = false;
         day.normalize(true);
-         if (mShowAgendaWithMonth && !mIsMiniMonth) {
+         if (mShowAgendaWithMonth || mIsMiniMonth) {
             // If agenda view is visible with month view , refresh the views
             // with the selected day's info
             mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
@@ -294,12 +294,11 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         } else {
             // Else , switch to the detailed view
             mController.sendEvent(mContext, EventType.GO_TO, day, day, -1,
-                    mIsMiniMonth ? ViewType.CURRENT : ViewType.DETAIL,
-                    CalendarController.EXTRA_GOTO_DATE
+                    ViewType.DETAIL,
+                            CalendarController.EXTRA_GOTO_DATE
                             | CalendarController.EXTRA_GOTO_BACK_TO_PREVIOUS, null, null);
         }
     }
-
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
