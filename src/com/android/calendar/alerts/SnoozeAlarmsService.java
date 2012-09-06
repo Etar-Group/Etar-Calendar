@@ -80,7 +80,8 @@ public class SnoozeAlarmsService extends IntentService {
             ContentValues values = AlertUtils.makeContentValues(eventId, eventStart, eventEnd,
                     alarmTime, 0);
             resolver.insert(uri, values);
-            AlertUtils.scheduleAlarm(SnoozeAlarmsService.this, null, alarmTime);
+            AlertUtils.scheduleAlarm(SnoozeAlarmsService.this, AlertUtils.createAlarmManager(this),
+                    alarmTime);
         }
         AlertService.updateAlertNotification(this);
         stopSelf();
