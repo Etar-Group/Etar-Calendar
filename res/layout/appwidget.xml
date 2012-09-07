@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<!--
+     Copyright (C) 2009 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,37 +14,50 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:clickable="true"
     android:focusable="true"
-    android:clickable="true">
+    android:orientation="vertical" >
 
     <!-- Header -->
+
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="48dip"
+        android:background="@drawable/appwidget_header_selector"
         android:gravity="center_vertical|left"
-        android:paddingLeft="8dip"
-        android:paddingRight="2dip"
-        android:orientation="vertical"
-        android:background="@drawable/appwidget_header_selector">
-        <TextView
-            android:id="@+id/day_of_week"
-            android:layout_marginTop="4dip"
-            android:textColor="@color/appwidget_week"
-            android:shadowColor="#0dffffff"
-            android:shadowRadius="3"
-            style="@style/WidgetDayOfWeekStyle" />
-        <TextView
-            android:id="@+id/date"
-            android:textColor="@color/appwidget_month"
-            style="@style/WidgetDateStyle" />
+        android:minHeight="48dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="2dip" >
+
+        <ImageView
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_launcher_calendar" />
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:paddingLeft="8dip" >
+
+            <TextView
+                android:id="@+id/day_of_week"
+                style="@style/WidgetDayOfWeekStyle"
+                android:shadowColor="#0dffffff"
+                android:shadowRadius="3"
+                android:textColor="@color/appwidget_week" />
+
+            <TextView
+                android:id="@+id/date"
+                style="@style/WidgetDateStyle"
+                android:textColor="@color/appwidget_month" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Event list -->
@@ -51,12 +65,14 @@
         android:id="@+id/events_list"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1"
-        android:layout_marginRight="4dip"
         android:layout_marginLeft="4dip"
-        android:divider="@null"
-        android:listSelector="@android:color/transparent"
-        android:dividerHeight="3dip"
+        android:layout_marginRight="4dip"
+        android:layout_weight="1"
+        android:background="@drawable/cal_widget_bg"
         android:cacheColorHint="@null"
-        android:background="@drawable/cal_widget_bg"/>
+        android:divider="@null"
+        android:dividerHeight="3dip"
+        android:listSelector="@android:color/transparent" >
+    </ListView>
+
 </LinearLayout>
