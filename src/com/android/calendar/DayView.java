@@ -392,8 +392,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int NEW_EVENT_WIDTH = 2;
     private static int NEW_EVENT_MAX_LENGTH = 16;
 
-    private static int CURRENT_TIME_LINE_HEIGHT = 2;
-    private static int CURRENT_TIME_LINE_BORDER_WIDTH = 1;
     private static int CURRENT_TIME_LINE_SIDE_BUFFER = 4;
     private static int CURRENT_TIME_LINE_TOP_OFFSET = 2;
 
@@ -408,7 +406,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int DAY_HEADER_ONE_DAY_LEFT_MARGIN = 0;
     private static int DAY_HEADER_ONE_DAY_RIGHT_MARGIN = 5;
     private static int DAY_HEADER_ONE_DAY_BOTTOM_MARGIN = 6;
-    private static int DAY_HEADER_LEFT_MARGIN = 5;
     private static int DAY_HEADER_RIGHT_MARGIN = 4;
     private static int DAY_HEADER_BOTTOM_MARGIN = 3;
     private static float DAY_HEADER_FONT_SIZE = 14;
@@ -484,6 +481,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private int mCellHeightBeforeScaleGesture;
     /** The hour at the center two touch points */
     private float mGestureCenterHour = 0;
+
+    private boolean mRecalCenterHour = false;
+
     /**
      * Flag to decide whether to handle the up event. Cases where up events
      * should be ignored are 1) right after a scale gesture and 2) finger was
@@ -611,6 +611,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
     private boolean mScrolling = false;
 
+    // Pixels scrolled
     private float mInitialScrollX;
     private float mInitialScrollY;
 
@@ -705,8 +706,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 MAX_UNEXPANDED_ALLDAY_HEIGHT *= mScale;
                 mAnimateDayEventHeight = (int) MIN_UNEXPANDED_ALLDAY_EVENT_HEIGHT;
 
-                CURRENT_TIME_LINE_HEIGHT *= mScale;
-                CURRENT_TIME_LINE_BORDER_WIDTH *= mScale;
                 CURRENT_TIME_LINE_SIDE_BUFFER *= mScale;
                 CURRENT_TIME_LINE_TOP_OFFSET *= mScale;
 
@@ -714,7 +713,6 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
                 MAX_CELL_HEIGHT *= mScale;
                 DEFAULT_CELL_HEIGHT *= mScale;
                 DAY_HEADER_HEIGHT *= mScale;
-                DAY_HEADER_LEFT_MARGIN *= mScale;
                 DAY_HEADER_RIGHT_MARGIN *= mScale;
                 DAY_HEADER_ONE_DAY_LEFT_MARGIN *= mScale;
                 DAY_HEADER_ONE_DAY_RIGHT_MARGIN *= mScale;
@@ -1086,6 +1084,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         sendAccessibilityEventAsNeeded(false);
     }
 
+    // Called from animation framework via reflection. Do not remove
     public void setViewStartY(int viewStartY) {
         if (viewStartY > mMaxViewStartY) {
             viewStartY = mMaxViewStartY;
@@ -3974,6 +3973,14 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int distanceX = (int) mInitialScrollX;
         int distanceY = (int) mInitialScrollY;
 
+        final float focusY = getAverageY(e2);
+        if (mRecalCenterHour) {
+            // Calculate the hour that correspond to the average of the Y touch points
+            mGestureCenterHour = (mViewStartY + focusY - DAY_HEADER_HEIGHT - mAlldayHeight)
+                    / (mCellHeight + DAY_GAP);
+            mRecalCenterHour = false;
+        }
+
         // If we haven't figured out the predominant scroll direction yet,
         // then do it now.
         if (mTouchMode == TOUCH_MODE_DOWN) {
@@ -4006,7 +4013,10 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         }
 
         if ((mTouchMode & TOUCH_MODE_VSCROLL) != 0) {
-            mViewStartY = mScrollStartY + distanceY;
+            // Calculate the top of the visible region in the calendar grid.
+            // Increasing/decrease this will scroll the calendar grid up/down.
+            mViewStartY = (int) ((mGestureCenterHour * (mCellHeight + DAY_GAP))
+                    - focusY + DAY_HEADER_HEIGHT + mAlldayHeight);
 
             // If dragging while already at the end, do a glow
             final int pulledToY = (int) (mScrollStartY + deltaY);
@@ -4024,8 +4034,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
             if (mViewStartY < 0) {
                 mViewStartY = 0;
+                mRecalCenterHour = true;
             } else if (mViewStartY > mMaxViewStartY) {
                 mViewStartY = mMaxViewStartY;
+                mRecalCenterHour = true;
+            }
+            if (mRecalCenterHour) {
+                // Calculate the hour that correspond to the average of the Y touch points
+                mGestureCenterHour = (mViewStartY + focusY - DAY_HEADER_HEIGHT - mAlldayHeight)
+                        / (mCellHeight + DAY_GAP);
+                mRecalCenterHour = false;
             }
             computeFirstHour();
         }
@@ -4034,6 +4052,16 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
 
         mSelectionMode = SELECTION_HIDDEN;
         invalidate();
+    }
+
+    private float getAverageY(MotionEvent me) {
+        int count = me.getPointerCount();
+        float focusY = 0;
+        for (int i = 0; i < count; i++) {
+            focusY += me.getY(i);
+        }
+        focusY /= count;
+        return focusY;
     }
 
     private void cancelAnimation() {
@@ -4199,11 +4227,15 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         int action = ev.getAction();
         if (DEBUG) Log.e(TAG, "" + action + " ev.getPointerCount() = " + ev.getPointerCount());
 
+        if ((ev.getActionMasked() == MotionEvent.ACTION_DOWN) ||
+                (ev.getActionMasked() == MotionEvent.ACTION_UP) ||
+                (ev.getActionMasked() == MotionEvent.ACTION_POINTER_UP) ||
+                (ev.getActionMasked() == MotionEvent.ACTION_POINTER_DOWN)) {
+            mRecalCenterHour = true;
+        }
+
         if ((mTouchMode & TOUCH_MODE_HSCROLL) == 0) {
             mScaleGestureDetector.onTouchEvent(ev);
-            if (mScaleGestureDetector.isInProgress()) {
-                return true;
-            }
         }
 
         switch (action) {
