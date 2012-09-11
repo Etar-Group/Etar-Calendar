@@ -362,6 +362,9 @@ public class AlertService extends Service {
             Log.e(TAG, "Illegal state: next notification refresh time found to be in the past.");
         }
 
+        // Flushes old fired alerts from internal storage, if needed.
+        AlertUtils.flushOldAlertsFromInternalStorage(context);
+
         return true;
     }
 
@@ -490,11 +493,37 @@ public class AlertService extends Service {
                 int state = alertCursor.getInt(ALERT_INDEX_STATE);
                 final boolean allDay = alertCursor.getInt(ALERT_INDEX_ALL_DAY) != 0;
 
+                // Use app local storage to keep track of fired alerts to fix problem of multiple
+                // installed calendar apps potentially causing missed alarms.
+                boolean newAlertOverride = false;
+                String alertIdStr = Long.toString(alertId);
+                if (AlertUtils.BYPASS_DB && ((currentTime - alarmTime) / MINUTE_MS < 1)) {
+                    // To avoid re-firing alerts, only fire if alarmTime is very recent.  Otherwise
+                    // we can get refires for non-dismissed alerts after app installation, or if the
+                    // SharedPrefs was cleared too early.  This means alerts that were timed while
+                    // the phone was off may show up silently in the notification bar.
+                    boolean alreadyFired = AlertUtils.hasAlertFiredInSharedPrefs(context, eventId,
+                            beginTime, alarmTime);
+                    if (!alreadyFired) {
+                        newAlertOverride = true;
+                    }
+                }
+
                 if (DEBUG) {
-                    Log.d(TAG, "alertCursor result: alarmTime:" + alarmTime + " alertId:" + alertId
-                            + " eventId:" + eventId + " state: " + state + " minutes:" + minutes
-                            + " declined:" + declined + " beginTime:" + beginTime
-                            + " endTime:" + endTime + " allDay:" + allDay);
+                    StringBuilder msgBuilder = new StringBuilder();
+                    msgBuilder.append("alertCursor result: alarmTime:").append(alarmTime)
+                            .append(" alertId:").append(alertId)
+                            .append(" eventId:").append(eventId)
+                            .append(" state: ").append(state)
+                            .append(" minutes:").append(minutes)
+                            .append(" declined:").append(declined)
+                            .append(" beginTime:").append(beginTime)
+                            .append(" endTime:").append(endTime)
+                            .append(" allDay:").append(allDay);
+                    if (AlertUtils.BYPASS_DB) {
+                        msgBuilder.append(" newAlertOverride: " + newAlertOverride);
+                    }
+                    Log.d(TAG, msgBuilder.toString());
                 }
 
                 ContentValues values = new ContentValues();
@@ -510,7 +539,7 @@ public class AlertService extends Service {
 
                 // Remove declined events
                 if (!declined) {
-                    if (state == CalendarAlerts.STATE_SCHEDULED) {
+                    if (state == CalendarAlerts.STATE_SCHEDULED || newAlertOverride) {
                         newState = CalendarAlerts.STATE_FIRED;
                         numFired++;
                         newAlert = true;
@@ -528,6 +557,11 @@ public class AlertService extends Service {
                 if (newState != -1) {
                     values.put(CalendarAlerts.STATE, newState);
                     state = newState;
+
+                    if (AlertUtils.BYPASS_DB) {
+                        AlertUtils.setAlertFiredInSharedPrefs(context, eventId, beginTime,
+                                alarmTime);
+                    }
                 }
 
                 if (state == CalendarAlerts.STATE_FIRED) {
@@ -930,6 +964,9 @@ public class AlertService extends Service {
 
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper);
+
+        // Flushes old fired alerts from internal storage, if needed.
+        AlertUtils.flushOldAlertsFromInternalStorage(getApplication());
     }
 
     @Override
