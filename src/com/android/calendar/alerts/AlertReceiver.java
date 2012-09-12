@@ -471,10 +471,12 @@ public class AlertReceiver extends BroadcastReceiver {
         Calendars.OWNER_ACCOUNT, // 0
         Calendars.ACCOUNT_NAME,  // 1
         Events.TITLE,            // 2
+        Events.ORGANIZER,        // 3
     };
     private static final int EVENT_INDEX_OWNER_ACCOUNT = 0;
     private static final int EVENT_INDEX_ACCOUNT_NAME = 1;
     private static final int EVENT_INDEX_TITLE = 2;
+    private static final int EVENT_INDEX_ORGANIZER = 3;
 
     private static Cursor getEventCursor(Context context, long eventId) {
         return context.getContentResolver().query(
@@ -548,12 +550,14 @@ public class AlertReceiver extends BroadcastReceiver {
         String ownerAccount = null;
         String syncAccount = null;
         String eventTitle = null;
+        String eventOrganizer = null;
         Cursor eventCursor = getEventCursor(context, eventId);
         try {
             if (eventCursor != null && eventCursor.moveToFirst()) {
                 ownerAccount = eventCursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
                 syncAccount = eventCursor.getString(EVENT_INDEX_ACCOUNT_NAME);
                 eventTitle = eventCursor.getString(EVENT_INDEX_TITLE);
+                eventOrganizer = eventCursor.getString(EVENT_INDEX_ORGANIZER);
             }
         } finally {
             if (eventCursor != null) {
@@ -586,6 +590,12 @@ public class AlertReceiver extends BroadcastReceiver {
             if (attendeesCursor != null) {
                 attendeesCursor.close();
             }
+        }
+
+        // Add organizer only if no attendees to email (the case when too many attendees
+        // in the event to sync or show).
+        if (toEmails.size() == 0 && ccEmails.size() == 0 && eventOrganizer != null) {
+            addIfEmailable(toEmails, eventOrganizer, syncAccount);
         }
 
         Intent intent = null;
