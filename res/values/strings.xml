@@ -285,6 +285,8 @@
     <string name="response_no">No</string>
     <!-- Label for emailing attendees -->
     <string name="email_guests_label">Email guests</string>
+    <!-- Label for emailing the organizer (when there are no attendees) -->
+    <string name="email_organizer_label">Email organizer</string>
     <!-- This is shown in the popup picker when emailing attendees -->
     <string name="email_picker_label">Email with</string>
     <!-- The is shown in the email subject as the prefix appended to the event title -->
