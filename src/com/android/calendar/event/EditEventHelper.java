@@ -169,6 +169,7 @@ public class EditEventHelper {
             Calendars.ALLOWED_REMINDERS, // 8
             Calendars.ALLOWED_ATTENDEE_TYPES, // 9
             Calendars.ALLOWED_AVAILABILITY, // 10
+            Calendars.ACCOUNT_NAME, // 11
     };
     static final int CALENDARS_INDEX_ID = 0;
     static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
@@ -181,6 +182,7 @@ public class EditEventHelper {
     static final int CALENDARS_INDEX_ALLOWED_REMINDERS = 8;
     static final int CALENDARS_INDEX_ALLOWED_ATTENDEE_TYPES = 9;
     static final int CALENDARS_INDEX_ALLOWED_AVAILABILITY = 10;
+    static final int CALENDARS_INDEX_ACCOUNT_NAME = 11;
 
     static final String CALENDARS_WHERE_WRITEABLE_VISIBLE = Calendars.CALENDAR_ACCESS_LEVEL + ">="
             + Calendars.CAL_ACCESS_CONTRIBUTOR + " AND " + Calendars.VISIBLE + "=1";
