@@ -307,6 +307,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private TextView mWhere;
     private ExpandableTextView mDesc;
     private AttendeesView mLongAttendees;
+    private Button emailAttendeesButton;
     private Menu mMenu = null;
     private View mHeadlines;
     private ScrollView mScrollView;
@@ -767,7 +768,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         // Create a listener for the email guests button
-        View emailAttendeesButton = mView.findViewById(R.id.email_attendees_button);
+        emailAttendeesButton = (Button) mView.findViewById(R.id.email_attendees_button);
         if (emailAttendeesButton != null) {
             emailAttendeesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1804,8 +1805,16 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mLongAttendees.setVisibility(View.GONE);
         }
 
-        if (isEmailable()) {
+        if (hasEmailableAttendees()) {
             setVisibilityCommon(mView, R.id.email_attendees_container, View.VISIBLE);
+            if (emailAttendeesButton != null) {
+                emailAttendeesButton.setText(R.string.email_guests_label);
+            }
+        } else if (hasEmailableOrganizer()) {
+            setVisibilityCommon(mView, R.id.email_attendees_container, View.VISIBLE);
+            if (emailAttendeesButton != null) {
+                emailAttendeesButton.setText(R.string.email_organizer_label);
+            }
         } else {
             setVisibilityCommon(mView, R.id.email_attendees_container, View.GONE);
         }
@@ -1814,7 +1823,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     /**
      * Returns true if there is at least 1 attendee that is not the viewer.
      */
-    private boolean isEmailable() {
+    private boolean hasEmailableAttendees() {
         for (Attendee attendee : mAcceptedAttendees) {
             if (Utils.isEmailableFrom(attendee.mEmail, mSyncAccountName)) {
                 return true;
@@ -1835,8 +1844,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 return true;
             }
         }
-        // The meeting organizer doesn't appear as an attendee sometimes (particularly
-        // when viewing someone else's calendar), so handle that separately.
+        return false;
+    }
+
+    private boolean hasEmailableOrganizer() {
         return mEventOrganizerEmail != null &&
                 Utils.isEmailableFrom(mEventOrganizerEmail, mSyncAccountName);
     }
