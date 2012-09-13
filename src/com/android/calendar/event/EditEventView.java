@@ -1545,14 +1545,21 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         String defaultCalendar = Utils.getSharedPreference(
                 mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, (String) null);
 
-        if (defaultCalendar == null) {
-            return 0;
-        }
         int calendarsOwnerColumn = calendarsCursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
+        int accountNameIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
         int position = 0;
         calendarsCursor.moveToPosition(-1);
         while (calendarsCursor.moveToNext()) {
-            if (defaultCalendar.equals(calendarsCursor.getString(calendarsOwnerColumn))) {
+            String calendarOwner = calendarsCursor.getString(calendarsOwnerColumn);
+            if (defaultCalendar == null) {
+                // There is no stored default upon the first time running.  Use a primary
+                // calendar in this case.
+                if (calendarOwner != null &&
+                        calendarOwner.equals(calendarsCursor.getString(accountNameIndex))) {
+                    return position;
+                }
+            } else if (defaultCalendar.equals(calendarOwner)) {
+                // Found the default calendar.
                 return position;
             }
             position++;
