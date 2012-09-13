@@ -103,6 +103,8 @@
     <string name="response_maybe" msgid="7791500973627841695">"不確定"</string>
     <string name="response_no" msgid="561911691884148136">"否"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"傳送電子郵件給邀請對象"</string>
+    <!-- no translation found for email_organizer_label (7178059542798074813) -->
+    <skip />
     <string name="email_picker_label" msgid="4808253965057791781">"寄送電子郵件時使用"</string>
     <string name="event_not_found" msgid="8356864185947582727">"找不到活動。"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"快速回應"</string>

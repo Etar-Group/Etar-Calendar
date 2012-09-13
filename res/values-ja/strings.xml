@@ -103,10 +103,12 @@
     <string name="response_maybe" msgid="7791500973627841695">"未定"</string>
     <string name="response_no" msgid="561911691884148136">"いいえ"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"ゲストにメールを送信"</string>
+    <!-- no translation found for email_organizer_label (7178059542798074813) -->
+    <skip />
     <string name="email_picker_label" msgid="4808253965057791781">"メールに次を含める:"</string>
     <string name="event_not_found" msgid="8356864185947582727">"イベントが見つかりません。"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"クイック返信"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ゲストへのメールではデフォルトの返信を編集"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ゲストへメールを送るときのデフォルトの返事を編集"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"クイック返信の編集"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"クイック返信"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"クイック返信の選択"</string>
