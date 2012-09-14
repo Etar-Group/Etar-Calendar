@@ -103,8 +103,7 @@
     <string name="response_maybe" msgid="7791500973627841695">"Potser"</string>
     <string name="response_no" msgid="561911691884148136">"No"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Envia un correu electrònic als convidats"</string>
-    <!-- no translation found for email_organizer_label (7178059542798074813) -->
-    <skip />
+    <string name="email_organizer_label" msgid="7178059542798074813">"Envia un correu a l\'organitzador"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Correu electrònic amb"</string>
     <string name="event_not_found" msgid="8356864185947582727">"No s\'ha trobat l\'esdeveniment."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respostes ràpides"</string>
