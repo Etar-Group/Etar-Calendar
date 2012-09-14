@@ -22,5 +22,6 @@
     android:updatePeriodMillis="0"
     android:previewImage="@drawable/calendar_widget_preview"
     android:initialLayout="@layout/appwidget"
-    android:resizeMode="horizontal|vertical" >
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="keyguard|home_screen">
 </appwidget-provider>
