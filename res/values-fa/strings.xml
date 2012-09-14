@@ -65,10 +65,10 @@
     <string name="hide_controls" msgid="830320505938520882">"مخفی کردن کنترل ها"</string>
     <string name="show_controls" msgid="715520586028062621">"نمایش کنترل ها"</string>
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"تقویم‌های موردنظر برای نمایش"</string>
-    <string name="synced" msgid="7913940305983383493">"همگام سازی شده"</string>
-    <string name="not_synced" msgid="4275114941801829419">"همگام سازی نشده"</string>
+    <string name="synced" msgid="7913940305983383493">"همگام‌سازی شده"</string>
+    <string name="not_synced" msgid="4275114941801829419">"همگام‌سازی نشده"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"این حساب همگام نمی‌شود، بنابراین تقویم‌های شما ممکن است به روز نباشند."</string>
-    <string name="accounts" msgid="849401841083180306">"حساب‌ها و همگام سازی"</string>
+    <string name="accounts" msgid="849401841083180306">"حساب‌ها و همگام‌سازی"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"تقویم‌های موردنظر برای همگام‌سازی"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"تقویم‌ها برای همگام‌سازی"</string>
     <string name="hint_what" msgid="709155115005044531">"نام رویداد"</string>
@@ -89,7 +89,7 @@
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"تقویم"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"نمایش همه"</string>
     <string name="description_label" msgid="7193475046717505855">"توضیح"</string>
-    <string name="presence_label" msgid="6169724148441175862">"نمایش من به عنوان"</string>
+    <string name="presence_label" msgid="6169724148441175862">"نمایش من به‌عنوان"</string>
     <string name="privacy_label" msgid="9215031965259597335">"رازداری"</string>
     <string name="reminders_label" msgid="7292389181815525676">"افزودن یادآور"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"تقویمی موجود نیست"</string>
@@ -103,6 +103,8 @@
     <string name="response_maybe" msgid="7791500973627841695">"شاید"</string>
     <string name="response_no" msgid="561911691884148136">"خیر"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"ارسال ایمیل به مهمانان"</string>
+    <!-- no translation found for email_organizer_label (7178059542798074813) -->
+    <skip />
     <string name="email_picker_label" msgid="4808253965057791781">"ایمیل با"</string>
     <string name="event_not_found" msgid="8356864185947582727">"رویداد یافت نشد."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"پاسخ‌های سریع"</string>
@@ -201,7 +203,7 @@
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"افزودن یادآور"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"حذف یادآور"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"اضافه کردن شرکت کنندگان"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"همگام سازی تقویم"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"همگام‌سازی تقویم"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"رویداد کل روز"</string>
     <string name="accessibility_repeats" msgid="1629279916830919582">"تکرار"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"زمان یادآور"</string>
