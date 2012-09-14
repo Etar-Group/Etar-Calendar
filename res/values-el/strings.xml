@@ -103,6 +103,8 @@
     <string name="response_maybe" msgid="7791500973627841695">"Ίσως"</string>
     <string name="response_no" msgid="561911691884148136">"Όχι"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Αποστολή μηνύματος ηλεκτρονικού ταχυδρομείου σε προσκεκλημένους"</string>
+    <!-- no translation found for email_organizer_label (7178059542798074813) -->
+    <skip />
     <string name="email_picker_label" msgid="4808253965057791781">"Αποστολή μηνύματος ηλεκτρονικού ταχυδρομείου με"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Το συμβάν δεν βρέθηκε."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Γρήγορες απαντήσ."</string>
