@@ -103,6 +103,8 @@
     <string name="response_maybe" msgid="7791500973627841695">"Belki"</string>
     <string name="response_no" msgid="561911691884148136">"Hayır"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Davetlilere e-posta gönder"</string>
+    <!-- no translation found for email_organizer_label (7178059542798074813) -->
+    <skip />
     <string name="email_picker_label" msgid="4808253965057791781">"E-posta gönder"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Etkinlik bulunamadı."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Hızlı yanıtlar"</string>
