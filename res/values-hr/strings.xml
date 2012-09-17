@@ -103,8 +103,7 @@
     <string name="response_maybe" msgid="7791500973627841695">"Možda"</string>
     <string name="response_no" msgid="561911691884148136">"Ne"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Slanje e-poruke gostima"</string>
-    <!-- no translation found for email_organizer_label (7178059542798074813) -->
-    <skip />
+    <string name="email_organizer_label" msgid="7178059542798074813">"Organizator e-poruka"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Obavijesti e-poštom"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Događaj nije pronađen."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Brzi odgovori"</string>
