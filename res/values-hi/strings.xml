@@ -103,6 +103,7 @@
     <string name="response_maybe" msgid="7791500973627841695">" शायद"</string>
     <string name="response_no" msgid="561911691884148136">"नहीं"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"अतिथियों को ईमेल करें"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"ईमेल व्यवस्थापक"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"इन्हें ईमेल करें"</string>
     <string name="event_not_found" msgid="8356864185947582727">"इवेंट नहीं मिला."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"त्वरित प्रतिसाद"</string>
