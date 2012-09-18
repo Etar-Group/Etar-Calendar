@@ -35,6 +35,7 @@ import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
+import android.provider.CalendarContract;
 import android.provider.Settings;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -1417,6 +1418,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         int calendarsOwnerColumn = calendarsCursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
         int accountNameIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
+        int accountTypeIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.ACCOUNT_TYPE);
         int position = 0;
         calendarsCursor.moveToPosition(-1);
         while (calendarsCursor.moveToNext()) {
@@ -1425,7 +1427,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 // There is no stored default upon the first time running.  Use a primary
                 // calendar in this case.
                 if (calendarOwner != null &&
-                        calendarOwner.equals(calendarsCursor.getString(accountNameIndex))) {
+                        calendarOwner.equals(calendarsCursor.getString(accountNameIndex)) &&
+                        !CalendarContract.ACCOUNT_TYPE_LOCAL.equals(
+                                calendarsCursor.getString(accountTypeIndex))) {
                     return position;
                 }
             } else if (defaultCalendar.equals(calendarOwner)) {
