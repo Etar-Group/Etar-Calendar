@@ -1397,6 +1397,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
          *   94043                              # too short, ignore
          *   123456789012                       # too long, ignore
          *   +1 (650) 555-1212                  # 11 digits, spaces
+         *   (650) 555 5555                     # Second space, only when first is present.
          *   (650) 555-1212, (650) 555-1213     # two numbers, return first
          *   1-650-555-1212                     # 11 digits with leading '1'
          *   *#650.555.1212#*!                  # 10 digits, include #*, ignore trailing '!'
@@ -1406,10 +1407,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
          * between the initial '1' and/or after the area code.
          */
 
+        // Check for "tel:" URI prefix.
+        if (text.length() > startPos+4
+                && text.subSequence(startPos, startPos+4).toString().equalsIgnoreCase("tel:")) {
+            startPos += 4;
+        }
+
         int endPos = text.length();
         int curPos = startPos;
         int foundDigits = 0;
         char firstDigit = 'x';
+        boolean foundWhiteSpaceAfterAreaCode = false;
 
         while (curPos <= endPos) {
             char ch;
@@ -1429,8 +1437,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     return -1;
                 }
             } else if (Character.isWhitespace(ch)) {
-                if (!(  (firstDigit == '1' && (foundDigits == 1 || foundDigits == 4)) ||
-                        (foundDigits == 3)) ) {
+                if ( (firstDigit == '1' && foundDigits == 4) ||
+                        (foundDigits == 3)) {
+                    foundWhiteSpaceAfterAreaCode = true;
+                } else if (firstDigit == '1' && foundDigits == 1) {
+                } else if (foundWhiteSpaceAfterAreaCode 
+                        && ( (firstDigit == '1' && (foundDigits == 7)) || (foundDigits == 6))) {
+                } else {
                     break;
                 }
             } else if (NANP_ALLOWED_SYMBOLS.indexOf(ch) == -1) {
