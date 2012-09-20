@@ -254,57 +254,61 @@ public class AlertReceiver extends BroadcastReceiver {
             notificationBuilder.setFullScreenIntent(createAlertActivityIntent(context), true);
         }
 
-        // Turn off timestamp.
-        notificationBuilder.setWhen(0);
-
-        if (Utils.isJellybeanOrLater()) {
-            // Setting to a higher priority will encourage notification manager to expand the
-            // notification.
-            if (highPriority) {
-                notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
-            } else {
-                notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
-            }
-        }
-
+        PendingIntent snoozeIntent = null;
+        PendingIntent emailIntent = null;
         if (addActionButtons) {
             // Create snooze intent.  TODO: change snooze to 10 minutes.
-            PendingIntent snoozeIntent = createSnoozeIntent(context, eventId, startMillis,
-                    endMillis, notificationId);
+            snoozeIntent = createSnoozeIntent(context, eventId, startMillis, endMillis,
+                    notificationId);
 
             // Create email intent for emailing attendees.
-            PendingIntent emailIntent = createBroadcastMailIntent(context, eventId, title);
+            emailIntent = createBroadcastMailIntent(context, eventId, title);
+        }
 
-            if (Utils.isJellybeanOrLater()) {
+        if (Utils.isJellybeanOrLater()) {
+            // Turn off timestamp.
+            notificationBuilder.setWhen(0);
+
+            // Add action buttons.
+            if (snoozeIntent != null) {
                 notificationBuilder.addAction(R.drawable.ic_alarm_holo_dark,
                         resources.getString(R.string.snooze_label), snoozeIntent);
-                if (emailIntent != null) {
-                    notificationBuilder.addAction(R.drawable.ic_menu_email_holo_dark,
-                            resources.getString(R.string.email_guests_label), emailIntent);
-                }
-            } else {
-                // Old-style notification (pre-JB).  Use custom view with buttons to provide
-                // JB-like functionality (snooze/email).
-                Notification n = notificationBuilder.getNotification();
+            }
+            if (emailIntent != null) {
+                notificationBuilder.addAction(R.drawable.ic_menu_email_holo_dark,
+                        resources.getString(R.string.email_guests_label), emailIntent);
+            }
+            return notificationBuilder.getNotification();
 
-                // Use custom view with buttons to provide JB-like functionality (snooze/email).
-                RemoteViews contentView = new RemoteViews(context.getPackageName(),
-                        R.layout.notification);
-                contentView.setTextViewText(R.id.title,  title);
-                contentView.setTextViewText(R.id.text, summaryText);
+        } else {
+            // Old-style notification (pre-JB).  Use custom view with buttons to provide
+            // JB-like functionality (snooze/email).
+            Notification n = notificationBuilder.getNotification();
+
+            // Use custom view with buttons to provide JB-like functionality (snooze/email).
+            RemoteViews contentView = new RemoteViews(context.getPackageName(),
+                    R.layout.notification);
+            contentView.setImageViewResource(R.id.image, R.drawable.stat_notify_calendar);
+            contentView.setTextViewText(R.id.title,  title);
+            contentView.setTextViewText(R.id.text, summaryText);
+            if (snoozeIntent == null) {
+                contentView.setViewVisibility(R.id.email_button, View.GONE);
+            } else {
                 contentView.setViewVisibility(R.id.snooze_button, View.VISIBLE);
                 contentView.setOnClickPendingIntent(R.id.snooze_button, snoozeIntent);
-                if (emailIntent == null) {
-                    contentView.setViewVisibility(R.id.email_button, View.GONE);
-                } else {
-                    contentView.setViewVisibility(R.id.email_button, View.VISIBLE);
-                    contentView.setOnClickPendingIntent(R.id.email_button, emailIntent);
-                }
-                n.contentView = contentView;
-                return n;
+                contentView.setViewVisibility(R.id.end_padding, View.GONE);
             }
+            if (emailIntent == null) {
+                contentView.setViewVisibility(R.id.email_button, View.GONE);
+            } else {
+                contentView.setViewVisibility(R.id.email_button, View.VISIBLE);
+                contentView.setOnClickPendingIntent(R.id.email_button, emailIntent);
+                contentView.setViewVisibility(R.id.end_padding, View.GONE);
+            }
+            n.contentView = contentView;
+
+            return n;
         }
-        return notificationBuilder.getNotification();
     }
 
     /**
@@ -447,8 +451,25 @@ public class AlertReceiver extends BroadcastReceiver {
                 n = notificationBuilder.build();
             }
         } else {
-          // Old style notification (pre-JB)
-          n = notificationBuilder.getNotification();
+            // Old-style notification (pre-JB).  We only need a standard notification (no
+            // buttons) but use a custom view so it is consistent with the others.
+            n = notificationBuilder.getNotification();
+
+            // Use custom view with buttons to provide JB-like functionality (snooze/email).
+            RemoteViews contentView = new RemoteViews(context.getPackageName(),
+                    R.layout.notification);
+            contentView.setImageViewResource(R.id.image, R.drawable.stat_notify_calendar_multiple);
+            contentView.setTextViewText(R.id.title, nEventsStr);
+            contentView.setTextViewText(R.id.text, digestTitle);
+            contentView.setViewVisibility(R.id.time, View.VISIBLE);
+            contentView.setViewVisibility(R.id.email_button, View.GONE);
+            contentView.setViewVisibility(R.id.snooze_button, View.GONE);
+            contentView.setViewVisibility(R.id.end_padding, View.VISIBLE);
+            n.contentView = contentView;
+
+            // Use timestamp to force expired digest notification to the bottom (there is no
+            // priority setting before JB release).  This is hidden by the custom view.
+            n.when = 1;
         }
 
         NotificationWrapper nw = new NotificationWrapper(n);
