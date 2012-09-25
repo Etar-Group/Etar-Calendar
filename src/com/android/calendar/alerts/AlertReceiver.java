@@ -269,6 +269,14 @@ public class AlertReceiver extends BroadcastReceiver {
             // Turn off timestamp.
             notificationBuilder.setWhen(0);
 
+            // Setting to a higher priority will encourage notification manager to expand the
+            // notification.
+            if (highPriority) {
+                notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
+            } else {
+                notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
+            }
+
             // Add action buttons.
             if (snoozeIntent != null) {
                 notificationBuilder.addAction(R.drawable.ic_alarm_holo_dark,
