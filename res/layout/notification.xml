@@ -34,7 +34,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:paddingLeft="12dip"
+        android:paddingLeft="12dp"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content">
@@ -42,17 +42,17 @@
         <TextView
             android:id="@+id/title"
             android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent.Title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:ellipsize="marquee" />
+            android:ellipsize="end" />
         <TextView
             android:id="@+id/text"
             android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:ellipsize="marquee" />
+            android:ellipsize="end" />
     </LinearLayout>
 
     <ImageButton
@@ -73,4 +73,14 @@
         android:background="?android:attr/selectableItemBackground"
         android:padding="8dip"
         android:contentDescription="@string/acessibility_snooze_notification" />
+
+    <!-- Add right padding if no buttons so notification text does not run too
+         close to edge.
+    -->
+    <TextView
+        android:id="@+id/end_padding"
+        android:layout_width="12dp"
+        android:layout_height="match_parent"
+        android:paddingRight="12dp" />
+
 </LinearLayout>
