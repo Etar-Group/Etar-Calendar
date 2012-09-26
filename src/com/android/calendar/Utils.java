@@ -264,8 +264,8 @@ public class Utils {
     public static void setSharedPreference(Context context, String key, String[] values) {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         LinkedHashSet<String> set = new LinkedHashSet<String>();
-        for (int i = 0; i < values.length; i++) {
-            set.add(values[i]);
+        for (String value : values) {
+            set.add(value);
         }
         prefs.edit().putStringSet(key, set).apply();
     }
@@ -321,6 +321,10 @@ public class Utils {
     }
 
     public static MatrixCursor matrixCursorFromCursor(Cursor cursor) {
+        if (cursor == null) {
+            return null;
+        }
+
         String[] columnNames = cursor.getColumnNames();
         if (columnNames == null) {
             columnNames = new String[] {};
