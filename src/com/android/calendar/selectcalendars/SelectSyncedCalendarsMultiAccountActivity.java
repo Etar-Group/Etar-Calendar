@@ -60,7 +60,9 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
                 null /* selectionArgs */,
                 Calendars.ACCOUNT_NAME /*sort order*/);
         MatrixCursor accountsCursor = Utils.matrixCursorFromCursor(mCursor);
-        startManagingCursor(accountsCursor);
+        if (accountsCursor != null) {
+            startManagingCursor(accountsCursor);
+        }
 
         mAdapter = new SelectSyncedCalendarsMultiAccountAdapter(findViewById(R.id.calendars)
                 .getContext(), accountsCursor, this);
