@@ -88,7 +88,6 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
     // How long to keep refreshing for
     private static final int REFRESH_DURATION = 60000;
     private static boolean mRefresh = true;
-    private int mNumAccounts;
 
     private static String mSyncedText;
     private static String mNotSyncedText;
@@ -204,11 +203,8 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
             mCalendarsUpdater = new AsyncCalendarsUpdater(mResolver);
         }
 
-        mNumAccounts = acctsCursor.getCount();
-        if (mNumAccounts == 0) {
-            // Should never happen since Calendar requires an account exist to
-            // use it.
-            Log.e(TAG, "SelectCalendarsAdapter: No accounts were returned!");
+        if (acctsCursor == null || acctsCursor.getCount() == 0) {
+            Log.i(TAG, "SelectCalendarsAdapter: No accounts were returned!");
         }
         // Collect proper description for account types
         mAuthDescs = AccountManager.get(context).getAuthenticatorTypes();
