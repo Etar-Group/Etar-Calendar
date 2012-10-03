@@ -471,6 +471,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     private static int mMinCellHeight = 32;
     private int mScrollStartY;
     private int mPreviousDirection;
+    private static int mScaledPagingTouchSlop = 0;
 
     /**
      * Vertical distance or span between the two touch points at the start of a
@@ -768,6 +769,7 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mEdgeEffectTop = new EdgeEffect(context);
         mEdgeEffectBottom = new EdgeEffect(context);
         ViewConfiguration vc = ViewConfiguration.get(context);
+        mScaledPagingTouchSlop = vc.getScaledPagingTouchSlop();
         mOnDownDelay = ViewConfiguration.getTapTimeout();
         OVERFLING_DISTANCE = vc.getScaledOverflingDistance();
 
@@ -3990,9 +3992,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             mPreviousDirection = 0;
 
             if (absDistanceX > absDistanceY) {
-                mTouchMode = TOUCH_MODE_HSCROLL;
-                mViewStartX = distanceX;
-                initNextView(-mViewStartX);
+                int slopFactor = mScaleGestureDetector.isInProgress() ? 20 : 2;
+                if (absDistanceX > mScaledPagingTouchSlop * slopFactor) {
+                    mTouchMode = TOUCH_MODE_HSCROLL;
+                    mViewStartX = distanceX;
+                    initNextView(-mViewStartX);
+                }
             } else {
                 mTouchMode = TOUCH_MODE_VSCROLL;
             }
