@@ -1401,6 +1401,13 @@ public class Utils {
         // are multiple email accounts.
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SENDTO, Uri.parse(uri));
         emailIntent.putExtra("fromAccountString", ownerAccount);
+
+        // Workaround a Email bug that overwrites the body with this intent extra.  If not
+        // set, it clears the body.
+        if (body != null) {
+            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+        }
+
         return Intent.createChooser(emailIntent, resources.getString(R.string.email_picker_label));
     }
 
