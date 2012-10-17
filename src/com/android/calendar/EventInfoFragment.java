@@ -984,15 +984,15 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     @Override
-    public void onDestroyView() {
-
-        if (!mEventDeletionStarted) {
+    public void onStop() {
+        Activity act = getActivity();
+        if (!mEventDeletionStarted && act != null && !act.isChangingConfigurations()) {
             boolean responseSaved = saveResponse();
             if (saveReminders() || responseSaved) {
                 Toast.makeText(getActivity(), R.string.saving_event, Toast.LENGTH_SHORT).show();
             }
         }
-        super.onDestroyView();
+        super.onStop();
     }
 
     @Override
@@ -1039,6 +1039,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (!mIsRepeating) {
             // This is a non-repeating event
             updateResponse(mEventId, mCalendarOwnerAttendeeId, status);
+            mOriginalAttendeeResponse = status;
             return true;
         }
 
@@ -1049,9 +1050,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 return false;
             case UPDATE_SINGLE:
                 createExceptionResponse(mEventId, status);
+                mOriginalAttendeeResponse = status;
                 return true;
             case UPDATE_ALL:
                 updateResponse(mEventId, mCalendarOwnerAttendeeId, status);
+                mOriginalAttendeeResponse = status;
                 return true;
             default:
                 Log.e(TAG, "Unexpected choice for updating invitation response");
@@ -2154,6 +2157,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // save new reminders
         AsyncQueryService service = new AsyncQueryService(getActivity());
         service.startBatch(0, null, Calendars.CONTENT_URI.getAuthority(), ops, 0);
+        mOriginalReminders = mReminders;
         // Update the "hasAlarm" field for the event
         Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
         int len = mReminders.size();
