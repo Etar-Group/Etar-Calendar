@@ -56,9 +56,9 @@
     <color name="mini_month_bg_color">#FFFFFFFF</color>
     <color name="mini_month_today_outline_color">#FF000000</color>
 
-    <color name="month_day_number">#FF666666</color>
+    <color name="month_day_number">#FF333333</color>
     <color name="month_mini_day_number">#FF000000</color>
-    <color name="month_day_number_other">#FFCCCCCC</color>
+    <color name="month_day_number_other">#FF999999</color>
     <color name="month_week_num_color">#FF999999</color>
     <color name="month_day_names_color">#FF999999</color>
     <color name="month_today_number">#FF333333</color>
