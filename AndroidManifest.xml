@@ -36,6 +36,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH.mail" />
     <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="16"></uses-sdk>
 
@@ -168,9 +169,11 @@
         <receiver android:name=".alerts.AlertReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.EVENT_REMINDER" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <data android:scheme="content" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
@@ -187,6 +190,8 @@
         <service android:name=".alerts.DismissAlarmsService" />
 
         <service android:name=".alerts.SnoozeAlarmsService" />
+
+        <service android:name=".alerts.InitAlarmsService" />
 
         <!-- Declarations for the widget -->
         <receiver android:name=".widget.CalendarAppWidgetProvider" android:label="@string/gadget_title">
