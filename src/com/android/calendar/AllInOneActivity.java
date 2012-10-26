@@ -1263,7 +1263,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         } else {
             Log.w(TAG, "TabSelected event from unknown tab: "
                     + (tab == null ? "null" : tab.getText()));
-            Log.w(TAG, "CurrentView:" + mCurrentView + " Tab:" + tab.toString() + " Day:" + mDayTab
+            Log.w(TAG, "CurrentView:" + mCurrentView + " Tab:" + tab + " Day:" + mDayTab
                     + " Week:" + mWeekTab + " Month:" + mMonthTab + " Agenda:" + mAgendaTab);
         }
     }
