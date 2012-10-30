@@ -18,6 +18,7 @@ package com.android.calendar.selectcalendars;
 
 import android.app.ActionBar;
 import android.app.ExpandableListActivity;
+import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -37,7 +38,7 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
     private static final String TAG = "Calendar";
     private static final String EXPANDED_KEY = "is_expanded";
     private static final String ACCOUNT_UNIQUE_KEY = "ACCOUNT_KEY";
-    private Cursor mCursor = null;
+    private MatrixCursor mAccountsCursor = null;
     private ExpandableListView mList;
     private SelectSyncedCalendarsMultiAccountAdapter mAdapter;
     private static final String[] PROJECTION = new String[] {
@@ -53,27 +54,8 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
         super.onCreate(icicle);
         setContentView(R.layout.select_calendars_multi_accounts_fragment);
         mList = getExpandableListView();
-//TODO Move managedQuery into a background thread.
+        mList.setEmptyView(findViewById(R.id.loading));
 //TODO change to something that supports group by queries.
-        mCursor = managedQuery(Calendars.CONTENT_URI, PROJECTION,
-                "1) GROUP BY (" + ACCOUNT_UNIQUE_KEY, //Cheap hack to make WHERE a GROUP BY query
-                null /* selectionArgs */,
-                Calendars.ACCOUNT_NAME /*sort order*/);
-        MatrixCursor accountsCursor = Utils.matrixCursorFromCursor(mCursor);
-        if (accountsCursor != null) {
-            startManagingCursor(accountsCursor);
-        }
-
-        mAdapter = new SelectSyncedCalendarsMultiAccountAdapter(findViewById(R.id.calendars)
-                .getContext(), accountsCursor, this);
-        mList.setAdapter(mAdapter);
-
-        // TODO initialize from sharepref
-        int count = mList.getCount();
-        for(int i = 0; i < count; i++) {
-            mList.expandGroup(i);
-        }
-
         // Start a background sync to get the list of calendars from the server.
         startCalendarMetafeedSync();
 
@@ -97,12 +79,41 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
         if (mAdapter != null) {
             mAdapter.startRefreshStopDelay();
         }
+        new AsyncQueryHandler(getContentResolver()) {
+            @Override
+            protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+                mAccountsCursor = Utils.matrixCursorFromCursor(cursor);
+
+                mAdapter = new SelectSyncedCalendarsMultiAccountAdapter(
+                        findViewById(R.id.calendars).getContext(), mAccountsCursor,
+                        SelectSyncedCalendarsMultiAccountActivity.this);
+                mList.setAdapter(mAdapter);
+
+                // TODO initialize from sharepref
+                int count = mList.getCount();
+                for(int i = 0; i < count; i++) {
+                    mList.expandGroup(i);
+                }
+            }
+        }.startQuery(0, null, Calendars.CONTENT_URI, PROJECTION,
+                "1) GROUP BY (" + ACCOUNT_UNIQUE_KEY, //Cheap hack to make WHERE a GROUP BY query
+                null /* selectionArgs */,
+                Calendars.ACCOUNT_NAME /*sort order*/);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mAdapter.cancelRefreshStopDelay();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAdapter.closeChildrenCursors();
+        if (!mAccountsCursor.isClosed()) {
+            mAccountsCursor.close();
+        }
     }
 
     @Override
