@@ -346,7 +346,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             }
         }
 
-        if (viewType == -1) {
+        if (viewType == -1 || viewType > ViewType.MAX_VALUE) {
             viewType = Utils.getViewTypeFromIntentAndSharedPref(this);
         }
         mTimeZone = Utils.getTimeZone(this, mHomeTimeUpdater);
@@ -923,15 +923,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 }
                 frag = new DayFragment(timeMillis, 1);
                 break;
-            case ViewType.WEEK:
-                if (mActionBar != null && (mActionBar.getSelectedTab() != mWeekTab)) {
-                    mActionBar.selectTab(mWeekTab);
-                }
-                if (mActionBarMenuSpinnerAdapter != null) {
-                    mActionBar.setSelectedNavigationItem(CalendarViewAdapter.WEEK_BUTTON_INDEX);
-                }
-                frag = new DayFragment(timeMillis, 7);
-                break;
             case ViewType.MONTH:
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mMonthTab)) {
                     mActionBar.selectTab(mMonthTab);
@@ -944,9 +935,16 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     secFrag = new AgendaFragment(timeMillis, false);
                 }
                 break;
+            case ViewType.WEEK:
             default:
-                throw new IllegalArgumentException(
-                        "Must be Agenda, Day, Week, or Month ViewType, not " + viewType);
+                if (mActionBar != null && (mActionBar.getSelectedTab() != mWeekTab)) {
+                    mActionBar.selectTab(mWeekTab);
+                }
+                if (mActionBarMenuSpinnerAdapter != null) {
+                    mActionBar.setSelectedNavigationItem(CalendarViewAdapter.WEEK_BUTTON_INDEX);
+                }
+                frag = new DayFragment(timeMillis, 7);
+                break;
         }
 
         // Update the current view so that the menu can update its look according to the
