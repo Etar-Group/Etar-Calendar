@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,6 +32,7 @@
         android:visibility="gone" />
 
     <LinearLayout
+        android:layout_below="@id/home_time"
         android:orientation="horizontal"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
@@ -67,4 +68,4 @@
         android:layout_width="0dip"
         android:layout_height="0dip"
         android:visibility="gone"/>
-</LinearLayout>
+</RelativeLayout>

@@ -415,7 +415,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mHomeTime = (TextView) findViewById(R.id.home_time);
         mMiniMonth = findViewById(R.id.mini_month);
         if (mIsTabletConfig && mOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            mMiniMonth.setLayoutParams(new LinearLayout.LayoutParams(mControlsAnimateWidth,
+            mMiniMonth.setLayoutParams(new RelativeLayout.LayoutParams(mControlsAnimateWidth,
                     mControlsAnimateHeight));
         }
         mCalendarsList = findViewById(R.id.calendar_list);
@@ -448,7 +448,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                         mIntentEventStartMillis = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, 0);
                         mIntentEventEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
                         mIntentAttendeeResponse = intent.getIntExtra(
-                                ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
+                            ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
                         mIntentAllDay = intent.getBooleanExtra(EXTRA_EVENT_ALL_DAY, false);
                         timeMillis = mIntentEventStartMillis;
                     }
