@@ -222,7 +222,7 @@ public class GeneralPreferences extends PreferenceFragment implements
                 if (mAlert.isChecked()) {
                     intent.setAction(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS);
                 } else {
-                    intent.setAction(CalendarContract.ACTION_EVENT_REMINDER);
+                    intent.setAction(AlertReceiver.EVENT_REMINDER_APP_ACTION);
                 }
                 a.sendBroadcast(intent);
             }

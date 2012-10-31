@@ -50,6 +50,7 @@ import com.android.calendar.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.TimeZone;
 
 /**
@@ -110,6 +111,19 @@ public class AlertService extends Service {
 
     // Hard limit to the number of notifications displayed.
     public static final int MAX_NOTIFICATIONS = 20;
+
+    // Shared prefs key for storing whether the EVENT_REMINDER event from the provider
+    // was ever received.  Some OEMs modified this provider broadcast, so we had to
+    // do the alarm scheduling here in the app, for the unbundled app's reminders to work.
+    // If the EVENT_REMINDER event was ever received, we know we can skip our secondary
+    // alarm scheduling.
+    private static final String PROVIDER_REMINDER_PREF_KEY =
+            "preference_received_provider_reminder_broadcast";
+    private static Boolean sReceivedProviderReminderBroadcast = null;
+
+    // Temporary constants for the experiment to force some users to rely on AlarmScheduler
+    // in the app for reminders.
+    private static final String REMINDER_EXPERIMENT_PREF_KEY = "preference_reminder_exp";
 
     // Added wrapper for testing
     public static class NotificationWrapper {
@@ -172,8 +186,38 @@ public class AlertService extends Service {
                     + " Action = " + action);
         }
 
-        if (action.equals(Intent.ACTION_PROVIDER_CHANGED) ||
+        // In experiment, drop any action from EVENT_REMINDER broadcast, and rely only
+        // on EVENT_REMINDER_APP broadcast.
+        boolean inReminderExperiment = inReminderSchedulingExperiment();
+
+        // Some OEMs had changed the provider's EVENT_REMINDER broadcast to their own event,
+        // which broke our unbundled app's reminders.  So we added backup alarm scheduling to the
+        // app, but we know we can turn it off if we ever receive the EVENT_REMINDER broadcast.
+        boolean providerReminder = action.equals(
+                android.provider.CalendarContract.ACTION_EVENT_REMINDER);
+        if (providerReminder) {
+            if (sReceivedProviderReminderBroadcast == null) {
+                sReceivedProviderReminderBroadcast = Utils.getSharedPreference(this,
+                        PROVIDER_REMINDER_PREF_KEY, false);
+            }
+
+            if (!sReceivedProviderReminderBroadcast) {
+                sReceivedProviderReminderBroadcast = true;
+                Log.d(TAG, "Setting key " + PROVIDER_REMINDER_PREF_KEY + " to: true");
+                Utils.setSharedPreference(this, PROVIDER_REMINDER_PREF_KEY, true);
+            }
+
+            if (inReminderExperiment) {
+                Log.d(TAG, "In reminder scheduling experiment, dropping action from "
+                        + "provider's EVENT_REMINDER broadcast.");
+                return;
+            }
+        }
+
+        if (providerReminder ||
+                action.equals(Intent.ACTION_PROVIDER_CHANGED) ||
                 action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER) ||
+                action.equals(AlertReceiver.EVENT_REMINDER_APP_ACTION) ||
                 action.equals(Intent.ACTION_LOCALE_CHANGED)) {
             updateAlertNotification(this);
         } else if (action.equals(Intent.ACTION_BOOT_COMPLETED)
@@ -184,6 +228,30 @@ public class AlertService extends Service {
         } else {
             Log.w(TAG, "Invalid action: " + action);
         }
+
+        // Schedule the alarm for the next upcoming reminder, if not done by the provider.
+        if (sReceivedProviderReminderBroadcast == null || !sReceivedProviderReminderBroadcast
+                || inReminderExperiment) {
+            Log.d(TAG, "Scheduling next alarm with AlarmScheduler. "
+                   + "sEventReminderReceived: " + sReceivedProviderReminderBroadcast
+                   + ", inReminderExperiment: " + inReminderExperiment);
+            AlarmScheduler.scheduleNextAlarm(this);
+        }
+    }
+
+    /**
+     * Temporary way to force some users through the alarm scheduling done in the app.
+     */
+    private boolean inReminderSchedulingExperiment() {
+        SharedPreferences prefs = GeneralPreferences.getSharedPreferences(this);
+        if (!prefs.contains(REMINDER_EXPERIMENT_PREF_KEY)) {
+            boolean inExperiment = new Random().nextBoolean();
+            Utils.setSharedPreference(this, REMINDER_EXPERIMENT_PREF_KEY, inExperiment);
+            Log.d(TAG, "Setting key " + REMINDER_EXPERIMENT_PREF_KEY + " to: "
+                   + inExperiment);
+            return inExperiment;
+        }
+        return prefs.getBoolean(REMINDER_EXPERIMENT_PREF_KEY, true);
     }
 
     static void dismissOldAlerts(Context context) {

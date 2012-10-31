@@ -69,6 +69,11 @@ public class AlertReceiver extends BroadcastReceiver {
     private static final String MAIL_ACTION = "com.android.calendar.MAIL";
     private static final String EXTRA_EVENT_ID = "eventid";
 
+    // The broadcast for notification refreshes scheduled by the app. This is to
+    // distinguish the EVENT_REMINDER broadcast sent by the provider.
+    public static final String EVENT_REMINDER_APP_ACTION =
+            "com.android.calendar.EVENT_REMINDER_APP";
+
     static final Object mStartingServiceSync = new Object();
     static PowerManager.WakeLock mStartingService;
     private static final Pattern mBlankLinePattern = Pattern.compile("^\\s*$[\n\r]",

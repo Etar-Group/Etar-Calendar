@@ -98,7 +98,7 @@ public class AlertUtils {
      * listeners when a reminder should be fired. The provider will keep
      * scheduled reminders up to date but apps may use this to implement snooze
      * functionality without modifying the reminders table. Scheduled alarms
-     * will generate an intent using {@link #ACTION_EVENT_REMINDER}.
+     * will generate an intent using AlertReceiver.EVENT_REMINDER_APP_ACTION.
      *
      * @param context A context for referencing system resources
      * @param manager The AlarmManager to use or null
@@ -121,7 +121,7 @@ public class AlertUtils {
     private static void scheduleAlarmHelper(Context context, AlarmManagerInterface manager,
             long alarmTime, boolean quietUpdate) {
         int alarmType = AlarmManager.RTC_WAKEUP;
-        Intent intent = new Intent(CalendarContract.ACTION_EVENT_REMINDER);
+        Intent intent = new Intent(AlertReceiver.EVENT_REMINDER_APP_ACTION);
         intent.setClass(context, AlertReceiver.class);
         if (quietUpdate) {
             alarmType = AlarmManager.RTC;
