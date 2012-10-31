@@ -16,6 +16,7 @@
 
 package com.android.calendar.agenda;
 
+import android.app.Activity;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -936,6 +937,14 @@ public class AgendaWindowAdapter extends BaseAdapter
         @Override
         protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
             QuerySpec data = (QuerySpec)cookie;
+
+            if (cursor == null) {
+              if (mAgendaListView != null && mAgendaListView.getContext() instanceof Activity) {
+                ((Activity) mAgendaListView.getContext()).finish();
+              }
+              return;
+            }
+
             if (BASICLOG) {
                 long queryEndMillis = System.nanoTime();
                 Log.e(TAG, "Query time(ms): "
