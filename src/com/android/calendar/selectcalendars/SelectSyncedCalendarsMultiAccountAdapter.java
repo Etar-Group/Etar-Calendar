@@ -74,11 +74,14 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
     private Map<Long, Boolean> mCalendarInitialStates
         = new HashMap<Long, Boolean>();
 
+    // Flag for when the cursors have all been closed to ensure no race condition with queries.
+    private boolean mClosedCursorsFlag;
+
     // This is for keeping MatrixCursor copies so that we can requery in the background.
-    private static Map<String, Cursor> mChildrenCursors
+    private Map<String, Cursor> mChildrenCursors
         = new HashMap<String, Cursor>();
 
-    private static AsyncCalendarsUpdater mCalendarsUpdater;
+    private AsyncCalendarsUpdater mCalendarsUpdater;
     // This is to keep our update tokens separate from other tokens. Since we cancel old updates
     // when a new update comes in, we'd like to leave a token space that won't be canceled.
     private static final int MIN_UPDATE_TOKEN = 1000;
@@ -129,6 +132,12 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
             if(cursor == null) {
                 return;
             }
+            synchronized(mChildrenCursors) {
+                if (mClosedCursorsFlag || (mActivity != null && mActivity.isFinishing())) {
+                    cursor.close();
+                    return;
+                }
+            }
 
             Cursor currentCursor = mChildrenCursors.get(cookie);
             // Check if the new cursor has the same content as our old cursor
@@ -147,14 +156,12 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
             mChildrenCursors.put((String)cookie, newCursor);
             try {
                 setChildrenCursor(token, newCursor);
-                mActivity.startManagingCursor(newCursor);
             } catch (NullPointerException e) {
                 Log.w(TAG, "Adapter expired, try again on the next query: " + e);
             }
             // Clean up our old cursor if we had one. We have to do this after setting the new
             // cursor so that our view doesn't throw on an invalid cursor.
             if (currentCursor != null) {
-                mActivity.stopManagingCursor(currentCursor);
                 currentCursor.close();
             }
         }
@@ -213,6 +220,7 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         }
         mView = mActivity.getExpandableListView();
         mRefresh = true;
+        mClosedCursorsFlag = false;
     }
 
     public void startRefreshStopDelay() {
@@ -345,6 +353,19 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
     protected View newGroupView(Context context, Cursor cursor, boolean isExpanded,
             ViewGroup parent) {
         return mInflater.inflate(R.layout.account_item, parent, false);
+    }
+
+    public void closeChildrenCursors() {
+        synchronized (mChildrenCursors) {
+            for (String key : mChildrenCursors.keySet()) {
+                Cursor cursor = mChildrenCursors.get(key);
+                if (!cursor.isClosed()) {
+                    cursor.close();
+                }
+            }
+            mChildrenCursors.clear();
+            mClosedCursorsFlag = true;
+        }
     }
 
     private class RefreshCalendars implements Runnable {
