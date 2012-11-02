@@ -18,6 +18,7 @@ package com.android.calendar.selectcalendars;
 
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 import com.android.calendar.selectcalendars.SelectCalendarsSyncAdapter.CalendarRow;
 
 import android.accounts.Account;
@@ -31,9 +32,11 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
 import android.view.LayoutInflater;
@@ -69,6 +72,16 @@ public class SelectCalendarsSyncFragment extends ListFragment
     private Account mAccount;
     private final String[] mArgs = new String[2];
     private AsyncQueryService mService;
+    private Handler mHandler = new Handler();
+    private ContentObserver mCalendarsObserver = new ContentObserver(mHandler) {
+        @Override
+        public void onChange(boolean selfChange) {
+            // We don't need our own sync changes to trigger refreshes.
+            if (!selfChange) {
+                getLoaderManager().initLoader(0, null, SelectCalendarsSyncFragment.this);
+            }
+        }
+    };
 
     public SelectCalendarsSyncFragment() {
     }
@@ -116,7 +129,12 @@ public class SelectCalendarsSyncFragment extends ListFragment
         } else {
             mSyncStatus.setVisibility(View.GONE);
             mAccountsButton.setVisibility(View.GONE);
-        }
+
+            // Start a background sync to get the list of calendars from the server.
+            Utils.startCalendarMetafeedSync(mAccount);
+            getActivity().getContentResolver().registerContentObserver(
+                    Calendars.CONTENT_URI, true, mCalendarsObserver);
+       }
     }
 
     @Override
@@ -157,6 +175,7 @@ public class SelectCalendarsSyncFragment extends ListFragment
                 changes.clear();
             }
         }
+        getActivity().getContentResolver().unregisterContentObserver(mCalendarsObserver);
         super.onPause();
     }
 
