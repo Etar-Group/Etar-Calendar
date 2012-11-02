@@ -55,9 +55,8 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
         setContentView(R.layout.select_calendars_multi_accounts_fragment);
         mList = getExpandableListView();
         mList.setEmptyView(findViewById(R.id.loading));
-//TODO change to something that supports group by queries.
         // Start a background sync to get the list of calendars from the server.
-        startCalendarMetafeedSync();
+        Utils.startCalendarMetafeedSync(null);
 
         findViewById(R.id.btn_done).setOnClickListener(this);
         findViewById(R.id.btn_discard).setOnClickListener(this);
@@ -99,6 +98,7 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
                 "1) GROUP BY (" + ACCOUNT_UNIQUE_KEY, //Cheap hack to make WHERE a GROUP BY query
                 null /* selectionArgs */,
                 Calendars.ACCOUNT_NAME /*sort order*/);
+        //TODO change to something that supports group by queries.
     }
 
     @Override
@@ -165,24 +165,5 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    // startCalendarMetafeedSync() checks the server for an updated list of
-    // Calendars (in the background).
-    //
-    // If a Calendar is added on the web (and it is selected and not
-    // hidden) then it will be added to the list of calendars on the phone
-    // (when this finishes).  When a new calendar from the
-    // web is added to the phone, then the events for that calendar are also
-    // downloaded from the web.
-    //
-    // This sync is done automatically in the background when the
-    // SelectCalendars activity is started.
-    private void startCalendarMetafeedSync() {
-        Bundle extras = new Bundle();
-        extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        extras.putBoolean("metafeedonly", true);
-        ContentResolver.requestSync(null /* all accounts */,
-                Calendars.CONTENT_URI.getAuthority(), extras);
     }
 }
