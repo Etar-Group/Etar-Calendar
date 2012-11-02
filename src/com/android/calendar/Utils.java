@@ -18,9 +18,11 @@ package com.android.calendar;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -36,6 +38,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.CalendarContract.Calendars;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -1525,5 +1528,26 @@ public class Utils {
             }
         }
         return sVersion;
+    }
+
+    /**
+     * Checks the server for an updated list of Calendars (in the background).
+     *
+     * If a Calendar is added on the web (and it is selected and not
+     * hidden) then it will be added to the list of calendars on the phone
+     * (when this finishes).  When a new calendar from the
+     * web is added to the phone, then the events for that calendar are also
+     * downloaded from the web.
+     *
+     * This sync is done automatically in the background when the
+     * SelectCalendars activity and fragment are started.
+     *
+     * @param account - The account to sync. May be null to sync all accounts.
+     */
+    public static void startCalendarMetafeedSync(Account account) {
+        Bundle extras = new Bundle();
+        extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        extras.putBoolean("metafeedonly", true);
+        ContentResolver.requestSync(account, Calendars.CONTENT_URI.getAuthority(), extras);
     }
 }
