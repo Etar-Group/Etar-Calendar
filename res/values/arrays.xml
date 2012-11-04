@@ -365,7 +365,7 @@
 
     <!-- DO NOT TRANSLATE These values need to correspond to the indices
          defined in DeleteEventHelper.java-->
-    <integer-array name="delete_repeating_values">
+    <integer-array name="delete_repeating_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>

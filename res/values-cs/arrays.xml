@@ -41,7 +41,7 @@
     <item msgid="6135563708172153696">"1 týden"</item>
   </string-array>
   <string-array name="preferences_default_reminder_labels">
-    <item msgid="7495163916242649023">"Žádné"</item>
+    <item msgid="7495163916242649023">"Žádný"</item>
     <item msgid="5883344836499335043">"0 minut"</item>
     <item msgid="4354350447805231188">"1 minuta"</item>
     <item msgid="265674592625309858">"5 minut"</item>
@@ -185,7 +185,7 @@
   </string-array>
   <string-array name="change_response_labels">
     <item msgid="3466644709343519437">"Pouze tato událost"</item>
-    <item msgid="140670561403965380">"Všechny instance události"</item>
+    <item msgid="140670561403965380">"Všechny události série"</item>
   </string-array>
   <string-array name="buttons_list">
     <item msgid="5917946202321434335">"Den"</item>
