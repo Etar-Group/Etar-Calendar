@@ -787,6 +787,7 @@ public class AlertService extends Service {
     private static void addNotificationOptions(NotificationWrapper nw, boolean quietUpdate,
             String tickerText, boolean defaultVibrate, String reminderRingtone) {
         Notification notification = nw.mNotification;
+        notification.flags |= Notification.FLAG_SHOW_LIGHTS;
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
