@@ -300,6 +300,8 @@ public class CalendarEventModel implements Serializable {
             return;
         }
 
+        mCalendarId = intent.getLongExtra(Events.CALENDAR_ID, -1);
+
         String title = intent.getStringExtra(Events.TITLE);
         if (title != null) {
             mTitle = title;

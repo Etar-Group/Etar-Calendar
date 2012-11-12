@@ -16,15 +16,16 @@
 
 package com.android.calendar.event;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract.Events;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.MenuItem;
@@ -127,6 +128,8 @@ public class EditEventActivity extends AbstractCalendarActivity {
             info.startTime.set(begin);
         }
         info.id = eventId;
+        info.eventTitle = intent.getStringExtra(Events.TITLE);
+        info.calendarId = intent.getLongExtra(Events.CALENDAR_ID, -1);
 
         if (allDay) {
             info.extraLong = CalendarController.EXTRA_CREATE_ALL_DAY;

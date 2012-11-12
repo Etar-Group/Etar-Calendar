@@ -215,6 +215,11 @@
          a new event -->
 
 
+    <!-- Create event dialog -->
+    <skip/>
+    <!-- Create event dialog save button [CHAR LIMIT=10] -->
+    <string name="create_event_dialog_save">Save</string>
+
     <!-- The alert toast is not actually being displayed for some reason. -->
     <skip/>
     <!-- the title of the alert/notification activity -->
