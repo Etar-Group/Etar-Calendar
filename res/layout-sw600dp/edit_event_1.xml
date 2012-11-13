@@ -88,7 +88,7 @@
         <TextView
             android:text="@string/where_label"
             style="@style/TextAppearance.EditEvent_Label" />
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/location"
             android:singleLine="false"
             style="@style/TextAppearance.EditEvent_Value"

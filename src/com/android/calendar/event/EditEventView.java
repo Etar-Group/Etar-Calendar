@@ -140,7 +140,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Spinner mAccessLevelSpinner;
     RadioGroup mResponseRadioGroup;
     AutoCompleteTextView mTitleTextView;
-    TextView mLocationTextView;
+    AutoCompleteTextView mLocationTextView;
+    EventLocationAdapter mLocationAdapter;
     TextView mDescriptionTextView;
     TextView mWhenView;
     TextView mTimezoneTextView;
@@ -695,14 +696,16 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     Cursor c = uniqueTitlesCursor(tempCursor);
 
                     // Log the processing duration.
-                    long duration = System.currentTimeMillis() - startTime;
-                    StringBuilder msg = new StringBuilder();
-                    msg.append("Autocomplete of ");
-                    msg.append(constraint);
-                    msg.append(": title query match took ");
-                    msg.append(duration);
-                    msg.append("ms.");
-                    Log.d(TAG, msg.toString());
+                    if (Log.isLoggable(TAG, Log.DEBUG)) {
+                        long duration = System.currentTimeMillis() - startTime;
+                        StringBuilder msg = new StringBuilder();
+                        msg.append("Autocomplete of ");
+                        msg.append(constraint);
+                        msg.append(": title query match took ");
+                        msg.append(duration);
+                        msg.append("ms.");
+                        Log.d(TAG, msg.toString());
+                    }
                     return c;
                 } finally {
                     tempCursor.close();
@@ -948,7 +951,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // cache all the widgets
         mCalendarsSpinner = (Spinner) view.findViewById(R.id.calendars_spinner);
         mTitleTextView = (AutoCompleteTextView) view.findViewById(R.id.title);
-        mLocationTextView = (TextView) view.findViewById(R.id.location);
+        mLocationTextView = (AutoCompleteTextView) view.findViewById(R.id.location);
         mDescriptionTextView = (TextView) view.findViewById(R.id.description);
         mTimezoneLabel = (TextView) view.findViewById(R.id.timezone_label);
         mStartDateButton = (Button) view.findViewById(R.id.start_date);
@@ -995,6 +998,21 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         });
 
         mLocationTextView.setTag(mLocationTextView.getBackground());
+        mLocationAdapter = new EventLocationAdapter(activity);
+        mLocationTextView.setAdapter(mLocationAdapter);
+        mLocationTextView.setOnEditorActionListener(new OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // Dismiss the suggestions dropdown.  Return false so the other
+                    // side effects still occur (soft keyboard going away, etc.).
+                    mLocationTextView.dismissDropDown();
+                }
+                return false;
+            }
+        });
+
+
         mDescriptionTextView.setTag(mDescriptionTextView.getBackground());
         mRepeatsSpinner.setTag(mRepeatsSpinner.getBackground());
         mAttendeesList.setTag(mAttendeesList.getBackground());
