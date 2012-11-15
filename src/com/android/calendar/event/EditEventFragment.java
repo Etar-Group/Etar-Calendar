@@ -107,6 +107,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private Uri mUri;
     private long mBegin;
     private long mEnd;
+    private long mCalendarId = -1;
 
     private Activity mContext;
     private final Done mOnDone = new Done();
@@ -288,14 +289,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     break;
                 case TOKEN_CALENDARS:
                     try {
-                        if (mModel.mCalendarId == -1) {
-                            // Populate Calendar spinner only if no calendar is set e.g. new event
+                        if (mModel.mId == -1) {
+                            // Populate Calendar spinner only if no event id is set.
                             MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
                             if (DEBUG) {
                                 Log.d(TAG, "onQueryComplete: setting cursor with "
                                         + matrixCursor.getCount() + " calendars");
                             }
-                            mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed());
+                            mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed(),
+                                    mCalendarId);
                         } else {
                             // Populate model for an existing event
                             EditEventHelper.setModelFromCalendarCursor(mModel, cursor);
@@ -364,6 +366,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (mEvent.endTime != null) {
                 mEnd = mEvent.endTime.toMillis(true);
             }
+            if (mEvent.calendarId != -1) {
+                mCalendarId = mEvent.calendarId;
+            }
         } else if (mEventBundle != null) {
             if (mEventBundle.id != -1) {
                 mModel.mId = mEventBundle.id;
@@ -399,6 +404,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
             mModel.mStart = mBegin;
             mModel.mEnd = mEnd;
+            mModel.mCalendarId = mCalendarId;
             mModel.mSelfAttendeeStatus = Attendees.ATTENDEE_STATUS_ACCEPTED;
 
             // Start a query in the background to read the list of calendars
