@@ -613,9 +613,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
     }
 
-    static private class CalendarsAdapter extends ResourceCursorAdapter {
-        public CalendarsAdapter(Context context, Cursor c) {
-            super(context, R.layout.calendars_item, c);
+    public static class CalendarsAdapter extends ResourceCursorAdapter {
+        public CalendarsAdapter(Context context, int resourceId, Cursor c) {
+            super(context, resourceId, c);
             setDropDownViewResource(R.layout.calendars_dropdown_item);
         }
 
@@ -1401,7 +1401,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      * we can easily extract calendar-specific values when the value changes (the spinner's
      * onItemSelected callback is configured).
      */
-    public void setCalendarsCursor(Cursor cursor, boolean userVisible) {
+    public void setCalendarsCursor(Cursor cursor, boolean userVisible, long selectedCalendarId) {
         // If there are no syncable calendars, then we cannot allow
         // creating a new event.
         mCalendarsCursor = cursor;
@@ -1424,12 +1424,18 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return;
         }
 
-        int defaultCalendarPosition = findDefaultCalendarPosition(cursor);
+        int selection;
+        if (selectedCalendarId != -1) {
+            selection = findSelectedCalendarPosition(cursor, selectedCalendarId);
+        } else {
+            selection = findDefaultCalendarPosition(cursor);
+        }
 
         // populate the calendars spinner
-        CalendarsAdapter adapter = new CalendarsAdapter(mActivity, cursor);
+        CalendarsAdapter adapter = new CalendarsAdapter(mActivity,
+            R.layout.calendars_spinner_item, cursor);
         mCalendarsSpinner.setAdapter(adapter);
-        mCalendarsSpinner.setSelection(defaultCalendarPosition);
+        mCalendarsSpinner.setSelection(selection);
         mCalendarsSpinner.setOnItemSelectedListener(this);
 
         if (mSaveAfterQueryComplete) {
@@ -1536,6 +1542,22 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         updateHomeTime();
     }
 
+    private int findSelectedCalendarPosition(Cursor calendarsCursor, long calendarId) {
+        if (calendarsCursor.getCount() <= 0) {
+            return -1;
+        }
+        int calendarIdColumn = calendarsCursor.getColumnIndexOrThrow(Calendars._ID);
+        int position = 0;
+        calendarsCursor.moveToPosition(-1);
+        while (calendarsCursor.moveToNext()) {
+            if (calendarsCursor.getLong(calendarIdColumn) == calendarId) {
+                return position;
+            }
+            position++;
+        }
+        return 0;
+    }
+
     // Find the calendar position in the cursor that matches calendar in
     // preference
     private int findDefaultCalendarPosition(Cursor calendarsCursor) {
@@ -1546,13 +1568,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         String defaultCalendar = Utils.getSharedPreference(
                 mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, (String) null);
 
-        int calendarsOwnerColumn = calendarsCursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
+        int calendarsOwnerIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
         int accountNameIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
         int accountTypeIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.ACCOUNT_TYPE);
         int position = 0;
         calendarsCursor.moveToPosition(-1);
         while (calendarsCursor.moveToNext()) {
-            String calendarOwner = calendarsCursor.getString(calendarsOwnerColumn);
+            String calendarOwner = calendarsCursor.getString(calendarsOwnerIndex);
             if (defaultCalendar == null) {
                 // There is no stored default upon the first time running.  Use a primary
                 // calendar in this case.

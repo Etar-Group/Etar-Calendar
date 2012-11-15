@@ -219,8 +219,13 @@ public class EditEventHelper {
         }
     }
 
-    public EditEventHelper(Context context, CalendarEventModel model) {
+    public EditEventHelper(Context context) {
         mService = ((AbstractCalendarActivity)context).getAsyncQueryService();
+    }
+
+    public EditEventHelper(Context context, CalendarEventModel model) {
+        this(context);
+        // TODO: Remove unnecessary constructor.
     }
 
     /**

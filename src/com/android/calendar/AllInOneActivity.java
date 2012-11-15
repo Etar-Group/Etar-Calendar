@@ -84,7 +84,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class AllInOneActivity extends Activity implements EventHandler,
+public class AllInOneActivity extends AbstractCalendarActivity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener, ActionBar.TabListener,
         ActionBar.OnNavigationListener, OnSuggestionListener {
     private static final String TAG = "AllInOneActivity";

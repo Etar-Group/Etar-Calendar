@@ -168,6 +168,8 @@ public class CalendarController {
         public int y; // y coordinate in the activity space
         public String query; // query for a user search
         public ComponentName componentName;  // used in combination with query
+        public String eventTitle;
+        public long calendarId;
 
         /**
          * For EventType.VIEW_EVENT:
@@ -336,11 +338,35 @@ public class CalendarController {
      */
     public void sendEventRelatedEventWithExtra(Object sender, long eventType, long eventId,
             long startMillis, long endMillis, int x, int y, long extraLong, long selectedMillis) {
+        sendEventRelatedEventWithExtraWithTitleWithCalendarId(sender, eventType, eventId,
+            startMillis, endMillis, x, y, extraLong, selectedMillis, null, -1);
+    }
+
+    /**
+     * Helper for sending New/View/Edit/Delete events
+     *
+     * @param sender object of the caller
+     * @param eventType one of {@link EventType}
+     * @param eventId event id
+     * @param startMillis start time
+     * @param endMillis end time
+     * @param x x coordinate in the activity space
+     * @param y y coordinate in the activity space
+     * @param extraLong default response value for the "simple event view" and all day indication.
+     *        Use Attendees.ATTENDEE_STATUS_NONE for no response.
+     * @param selectedMillis The time to specify as selected
+     * @param title The title of the event
+     * @param calendarId The id of the calendar which the event belongs to
+     */
+    public void sendEventRelatedEventWithExtraWithTitleWithCalendarId(Object sender, long eventType,
+          long eventId, long startMillis, long endMillis, int x, int y, long extraLong,
+          long selectedMillis, String title, long calendarId) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         if (eventType == EventType.EDIT_EVENT || eventType == EventType.VIEW_EVENT_DETAILS) {
             info.viewType = ViewType.CURRENT;
         }
+
         info.id = eventId;
         info.startTime = new Time(Utils.getTimeZone(mContext, mUpdateTimezone));
         info.startTime.set(startMillis);
@@ -355,9 +381,10 @@ public class CalendarController {
         info.x = x;
         info.y = y;
         info.extraLong = extraLong;
+        info.eventTitle = title;
+        info.calendarId = calendarId;
         this.sendEvent(sender, info);
     }
-
     /**
      * Helper for sending non-calendar-event events
      *
@@ -567,7 +594,8 @@ public class CalendarController {
             long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
             if (event.eventType == EventType.CREATE_EVENT) {
                 launchCreateEvent(event.startTime.toMillis(false), endTime,
-                        event.extraLong == EXTRA_CREATE_ALL_DAY);
+                        event.extraLong == EXTRA_CREATE_ALL_DAY, event.eventTitle,
+                        event.calendarId);
                 return;
             } else if (event.eventType == EventType.VIEW_EVENT) {
                 launchViewEvent(event.id, event.startTime.toMillis(false), endTime,
@@ -701,14 +729,24 @@ public class CalendarController {
         mContext.startActivity(intent);
     }
 
-    private void launchCreateEvent(long startMillis, long endMillis, boolean allDayEvent) {
+    private void launchCreateEvent(long startMillis, long endMillis, boolean allDayEvent,
+            String title, long calendarId) {
+        Intent intent = generateCreateEventIntent(startMillis, endMillis, allDayEvent, title,
+            calendarId);
+        mEventId = -1;
+        mContext.startActivity(intent);
+    }
+
+    public Intent generateCreateEventIntent(long startMillis, long endMillis,
+        boolean allDayEvent, String title, long calendarId) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setClass(mContext, EditEventActivity.class);
         intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
         intent.putExtra(EXTRA_EVENT_ALL_DAY, allDayEvent);
-        mEventId = -1;
-        mContext.startActivity(intent);
+        intent.putExtra(Events.CALENDAR_ID, calendarId);
+        intent.putExtra(Events.TITLE, title);
+        return intent;
     }
 
     public void launchViewEvent(long eventId, long startMillis, long endMillis, int response) {
