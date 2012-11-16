@@ -154,7 +154,7 @@ public class AlertUtils {
         time.setToNow();
         int today = Time.getJulianDay(time.toMillis(false), time.gmtoff);
         time.set(startMillis);
-        int eventDay = Time.getJulianDay(time.toMillis(false), time.gmtoff);
+        int eventDay = Time.getJulianDay(time.toMillis(false), allDay ? 0 : time.gmtoff);
 
         int flags = DateUtils.FORMAT_ABBREV_ALL;
         if (!allDay) {
