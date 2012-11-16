@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dip"
         android:focusable="true">
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/location"
             android:singleLine="false"
             android:layout_height="wrap_content"
