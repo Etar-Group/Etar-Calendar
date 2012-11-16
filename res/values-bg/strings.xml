@@ -80,6 +80,8 @@
     <string name="empty_event" msgid="9018699257414338634">"Празно събитие: Не е създадено"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Ще бъдат изпратени покани."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Ще бъдат изпратени актуализации."</string>
+    <!-- no translation found for create_event_dialog_save (1080859798521717414) -->
+    <skip />
     <string name="alert_title" msgid="7869592820853066853">"Известия от Календар"</string>
     <string name="event_info_title" msgid="56024222340421620">"Преглед на събитие"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Покана за среща"</string>

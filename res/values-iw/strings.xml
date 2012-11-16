@@ -80,6 +80,8 @@
     <string name="empty_event" msgid="9018699257414338634">"האירוע הריק לא נוצר."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"הזמנות יישלחו."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"עדכונים יישלחו."</string>
+    <!-- no translation found for create_event_dialog_save (1080859798521717414) -->
+    <skip />
     <string name="alert_title" msgid="7869592820853066853">"התראות של יומן"</string>
     <string name="event_info_title" msgid="56024222340421620">"הצג אירוע"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"הזמנה לפגישה"</string>
