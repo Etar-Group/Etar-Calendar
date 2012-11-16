@@ -80,6 +80,8 @@
     <string name="empty_event" msgid="9018699257414338634">"لم يتم إنشاء الحدث لأنه فارغ."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"سيتم إرسال الدعوات."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"سيتم إرسال التحديثات."</string>
+    <!-- no translation found for create_event_dialog_save (1080859798521717414) -->
+    <skip />
     <string name="alert_title" msgid="7869592820853066853">"إعلامات التقاويم"</string>
     <string name="event_info_title" msgid="56024222340421620">"عرض الحدث"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"دعوة اجتماع"</string>

@@ -80,6 +80,8 @@
     <string name="empty_event" msgid="9018699257414338634">"Evento vazio não criado."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Serão enviados convites."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Serão enviadas atualizações."</string>
+    <!-- no translation found for create_event_dialog_save (1080859798521717414) -->
+    <skip />
     <string name="alert_title" msgid="7869592820853066853">"Notificações do calendário"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visualizar evento"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Convite para reunião"</string>

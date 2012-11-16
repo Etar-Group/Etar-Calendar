@@ -80,6 +80,8 @@
     <string name="empty_event" msgid="9018699257414338634">"Tukio tupu halikuundwa."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Mialiko itatumwa."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Visasisho vitatumwa."</string>
+    <!-- no translation found for create_event_dialog_save (1080859798521717414) -->
+    <skip />
     <string name="alert_title" msgid="7869592820853066853">"Arifa za kalenda"</string>
     <string name="event_info_title" msgid="56024222340421620">"Tazama tukio"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Mwaliko wa mktutano"</string>
@@ -145,8 +147,8 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Kila mwaka"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Kila mwezi (kwa siku ya <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Kila mwaka (mnamo <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Kaida (haiwezi kugeuzia kwa kompyuta ndogo)"</string>
-    <string name="custom" product="default" msgid="4137468716966004993">"Kaida (haiwezi kugeuzia kwa simu)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Maalum (haiwezi kugeuzia kukufaa kwenye kompyuta kibao)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Maalum (haiwezi kugeuzia kukufaa kwenye simu)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Badilisha tukio hili pekee"</string>
     <string name="modify_all" msgid="4421657265864209041">"Badilisha matukio yote katika mfululizo"</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Badilisha hili na matukio yote yajayo"</string>
