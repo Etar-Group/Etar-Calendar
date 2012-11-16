@@ -363,7 +363,7 @@ public class UtilsTests extends TestCase {
      * @param matches Pairs of start/end positions.
      */
     private static void findPhoneNumber(String text, String[] matches) {
-        int[] results = EventInfoFragment.findNanpPhoneNumbers(text);
+        int[] results = Utils.findNanpPhoneNumbers(text);
 
         assertEquals(results.length % 2, 0);
 
