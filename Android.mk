@@ -24,7 +24,8 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 		android-common-chips \
 		android-support-v4 \
 		calendar-common
-LOCAL_SDK_VERSION := current
+
+LOCAL_SDK_VERSION := 17
 
 LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dirs))
 
