@@ -299,6 +299,11 @@
     <!-- Toast message displayed when the event id was not found LIMIT=30] -->
     <string name="event_not_found">"Event not found."</string>
 
+    <!-- Notification label for getting a map of the location. -->
+    <string name="map_label">Map</string>
+    <!-- Notification label for calling a phone number in the location. -->
+    <string name="call_label">Call</string>
+
     <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
     <string name="quick_response_settings">Quick responses</string>
     <!-- Summary of the quick response item in Settings [CHAR LIMIT=80]-->
