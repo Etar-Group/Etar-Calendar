@@ -296,7 +296,7 @@ public class Utils {
         return mTardis;
     }
 
-    static void setSharedPreference(Context context, String key, boolean value) {
+    public static void setSharedPreference(Context context, String key, boolean value) {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(key, value);
