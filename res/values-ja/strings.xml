@@ -80,6 +80,8 @@
     <string name="empty_event" msgid="9018699257414338634">"予定は空のため保存できません。"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"招待を送信します。"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"アップデートを送信します。"</string>
+    <!-- no translation found for create_event_dialog_save (1080859798521717414) -->
+    <skip />
     <string name="alert_title" msgid="7869592820853066853">"カレンダーの通知"</string>
     <string name="event_info_title" msgid="56024222340421620">"予定を表示"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"会議への招待状"</string>
