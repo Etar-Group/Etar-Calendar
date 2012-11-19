@@ -1582,7 +1582,11 @@ public class Utils {
          */
         String defaultPhoneRegion = System.getProperty("user.region", "US");
         if (!defaultPhoneRegion.equals("US")) {
-            CharSequence origText = textView.getText();
+            // We make a copy of the spannable so that we can replace it back
+            // into the textview if the first linkify pass does not work.
+            // This will still maintain any spans already present in the textView argument.
+            CharSequence origText =
+                    Spannable.Factory.getInstance().newSpannable(textView.getText());
             Linkify.addLinks(textView, Linkify.ALL);
 
             // If Linkify links the entire text, use that result.
@@ -1601,7 +1605,9 @@ public class Utils {
 
             // Otherwise default to geo.
             textView.setText(origText);
-            Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+            if (lastDitchGeo) {
+                Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+            }
             return;
         }
 
