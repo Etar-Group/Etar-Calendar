@@ -36,6 +36,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarController;
@@ -63,6 +64,7 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
 
     private EditText mEventTitle;
     private View mColor;
+
     private TextView mCalendarName;
     private TextView mAccountName;
     private TextView mDate;
@@ -76,6 +78,7 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
 
     private CalendarEventModel mModel;
     private long mCalendarId = -1;
+    private String mCalendarOwner;
 
     private class CalendarQueryService extends AsyncQueryService {
 
@@ -203,7 +206,12 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
         mModel.mEnd = mDateInMillis + DateUtils.DAY_IN_MILLIS;
         mModel.mTitle = mEventTitle.getText().toString();
         mModel.mAllDay = true;
-        mEditEventHelper.saveEvent(mModel, null, 0);
+        mModel.mCalendarId = mCalendarId;
+        mModel.mOwnerAccount = mCalendarOwner;
+
+        if (mEditEventHelper.saveEvent(mModel, null, 0)) {
+            Toast.makeText(getActivity(), R.string.creating_event, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -253,14 +261,14 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
         String defaultCalendar = Utils.getSharedPreference(
                 getActivity(), GeneralPreferences.KEY_DEFAULT_CALENDAR, (String) null);
 
-        int calendarsOwnerColumn = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
+        int calendarOwnerIndex = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
         int accountNameIndex = cursor.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
         int accountTypeIndex = cursor.getColumnIndexOrThrow(Calendars.ACCOUNT_TYPE);
 
         int position = 0;
         cursor.moveToPosition(-1);
         while (cursor.moveToNext()) {
-            String calendarOwner = cursor.getString(calendarsOwnerColumn);
+            String calendarOwner = cursor.getString(calendarOwnerIndex);
             if (defaultCalendar == null) {
                 // There is no stored default upon the first time running.  Use a primary
                 // calendar in this case.
@@ -286,8 +294,10 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
         int colorIndex = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         int calendarNameIndex = cursor.getColumnIndexOrThrow(Calendars.CALENDAR_DISPLAY_NAME);
         int accountNameIndex = cursor.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
+        int calendarOwnerIndex = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
 
         mCalendarId = cursor.getLong(calendarIdIndex);
+        mCalendarOwner = cursor.getString(calendarOwnerIndex);
         mColor.setBackgroundColor(Utils.getDisplayColorFromColor(cursor
                 .getInt(colorIndex)));
         String accountName = cursor.getString(accountNameIndex);
