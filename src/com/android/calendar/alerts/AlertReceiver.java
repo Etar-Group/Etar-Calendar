@@ -771,19 +771,12 @@ public class AlertReceiver extends BroadcastReceiver {
                 return new URLSpan[0];
             }
 
-            TextView locationTV = new TextView(context);
-            locationTV.setText(location);
-            Utils.linkifyTextView(locationTV, false);
-            CharSequence text = locationTV.getText();
+            Spannable text = Utils.extendedLinkify(location, false);
 
             // The linkify method should have found at least one link, at the very least.
             // If no smart links were found, it should have set the whole string as a geo link.
-            if (text instanceof Spannable) {
-                Spannable spanText = (SpannableString) locationTV.getText();
-                URLSpan[] urlSpans =
-                        spanText.getSpans(0, spanText.length(), URLSpan.class);
-                return urlSpans;
-            }
+            URLSpan[] urlSpans = text.getSpans(0, text.length(), URLSpan.class);
+            return urlSpans;
         }
 
         // If no links were found or location was empty, return an empty list.

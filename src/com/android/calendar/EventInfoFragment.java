@@ -1227,7 +1227,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 textView.setAutoLinkMask(0);
                 textView.setText(location.trim());
                 try {
-                    Utils.linkifyTextView(textView, true);
+                    textView.setText(Utils.extendedLinkify(textView.getText().toString(), true));
+
+                    // Linkify.addLinks() sets the TextView movement method if it finds any links.
+                    // We must do the same here, in case linkify by itself did not find any. 
+                    // (This is cloned from Linkify.addLinkMovementMethod().)
+                    MovementMethod mm = textView.getMovementMethod();
+                    if ((mm == null) || !(mm instanceof LinkMovementMethod)) {
+                        if (textView.getLinksClickable()) {
+                            textView.setMovementMethod(LinkMovementMethod.getInstance());
+                        }
+                    }
                 } catch (Exception ex) {
                     // unexpected
                     Log.e(TAG, "Linkification failed", ex);
