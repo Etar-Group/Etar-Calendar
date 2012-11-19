@@ -39,9 +39,7 @@ import android.content.AsyncQueryHandler;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
@@ -77,6 +75,7 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
+import com.android.calendar.extensions.AllInOneMenuExtensions;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
@@ -167,6 +166,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     // Params for animating the controls on the right
     private LayoutParams mControlsParams;
     private LinearLayout.LayoutParams mVerticalControlsParams;
+
+    private AllInOneMenuExtensions mExtensions = new AllInOneMenuExtensions();
 
     private final AnimatorListener mSlideAnimationDoneListener = new AnimatorListener() {
 
@@ -615,11 +616,16 @@ public class AllInOneActivity extends Activity implements EventHandler,
     public void onSaveInstanceState(Bundle outState) {
         mOnSaveInstanceStateCalled = true;
         super.onSaveInstanceState(outState);
-
         outState.putLong(BUNDLE_KEY_RESTORE_TIME, mController.getTime());
         outState.putInt(BUNDLE_KEY_RESTORE_VIEW, mCurrentView);
         if (mCurrentView == ViewType.EDIT) {
             outState.putLong(BUNDLE_KEY_EVENT_ID, mController.getEventId());
+        } else if (mCurrentView == ViewType.AGENDA) {
+            FragmentManager fm = getFragmentManager();
+            Fragment f = fm.findFragmentById(R.id.main_pane);
+            if (f instanceof AgendaFragment) {
+                outState.putLong(BUNDLE_KEY_EVENT_ID, ((AgendaFragment)f).getLastShowEventId());
+            }
         }
         outState.putBoolean(BUNDLE_KEY_CHECK_ACCOUNTS, mCheckForAccounts);
     }
@@ -703,7 +709,10 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
         Time t = new Time(mTimeZone);
         t.set(timeMillis);
-        if (viewType != ViewType.EDIT) {
+        if (viewType == ViewType.AGENDA && icicle != null) {
+            mController.sendEvent(this, EventType.GO_TO, t, null,
+                    icicle.getLong(BUNDLE_KEY_EVENT_ID, -1), viewType);
+        } else if (viewType != ViewType.EDIT) {
             mController.sendEvent(this, EventType.GO_TO, t, null, -1, viewType);
         }
     }
@@ -722,6 +731,12 @@ public class AllInOneActivity extends Activity implements EventHandler,
         super.onCreateOptionsMenu(menu);
         mOptionsMenu = menu;
         getMenuInflater().inflate(R.menu.all_in_one_title_bar, menu);
+
+        // Add additional options (if any).
+        Integer extensionMenuRes = mExtensions.getExtensionMenuResource(menu);
+        if (extensionMenuRes != null) {
+            getMenuInflater().inflate(extensionMenuRes, menu);
+        }
 
         mSearchMenu = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) mSearchMenu.getActionView();
@@ -749,10 +764,15 @@ public class AllInOneActivity extends Activity implements EventHandler,
             mControlsMenu.setTitle(mHideControls ? mShowString : mHideString);
         }
 
-        // replace the default top layer drawable of the today icon with a custom drawable
-        // that shows the day of the month of today
-        LayerDrawable icon = (LayerDrawable)menu.findItem(R.id.action_today).getIcon();
-        Utils.setTodayIcon(icon, this, mTimeZone);
+        MenuItem menuItem = menu.findItem(R.id.action_today);
+        if (Utils.isJellybeanOrLater()) {
+            // replace the default top layer drawable of the today icon with a
+            // custom drawable that shows the day of the month of today
+            LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
+            Utils.setTodayIcon(icon, this, mTimeZone);
+        } else {
+            menuItem.setIcon(R.drawable.ic_menu_today_no_date_holo_light);
+        }
         return true;
     }
 
@@ -761,56 +781,55 @@ public class AllInOneActivity extends Activity implements EventHandler,
         Time t = null;
         int viewType = ViewType.CURRENT;
         long extras = CalendarController.EXTRA_GOTO_TIME;
-        switch (item.getItemId()) {
-            case R.id.action_refresh:
-                mController.refreshCalendars();
-                return true;
-            case R.id.action_today:
-                viewType = ViewType.CURRENT;
-                t = new Time(mTimeZone);
-                t.setToNow();
-                extras |= CalendarController.EXTRA_GOTO_TODAY;
-                break;
-            case R.id.action_create_event:
-                t = new Time();
-                t.set(mController.getTime());
-                if (t.minute > 30) {
-                    t.hour++;
-                    t.minute = 0;
-                } else if (t.minute > 0 && t.minute < 30) {
-                    t.minute = 30;
-                }
-                mController.sendEventRelatedEvent(
-                        this, EventType.CREATE_EVENT, -1, t.toMillis(true), 0, 0, 0, -1);
-                return true;
-            case R.id.action_select_visible_calendars:
-                mController.sendEvent(this, EventType.LAUNCH_SELECT_VISIBLE_CALENDARS, null, null,
-                        0, 0);
-                return true;
-            case R.id.action_settings:
-                mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
-                return true;
-            case R.id.action_hide_controls:
-                mHideControls = !mHideControls;
-                Utils.setSharedPreference(
-                        this, GeneralPreferences.KEY_SHOW_CONTROLS, !mHideControls);
-                item.setTitle(mHideControls ? mShowString : mHideString);
-                if (!mHideControls) {
-                    mMiniMonth.setVisibility(View.VISIBLE);
-                    mCalendarsList.setVisibility(View.VISIBLE);
-                    mMiniMonthContainer.setVisibility(View.VISIBLE);
-                }
-                final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this, "controlsOffset",
-                        mHideControls ? 0 : mControlsAnimateWidth,
-                        mHideControls ? mControlsAnimateWidth : 0);
-                slideAnimation.setDuration(mCalendarControlsAnimationTime);
-                ObjectAnimator.setFrameDelay(0);
-                slideAnimation.start();
-                return true;
-            case R.id.action_search:
-                return false;
-            default:
-                return false;
+        final int itemId = item.getItemId();
+        if (itemId == R.id.action_refresh) {
+            mController.refreshCalendars();
+            return true;
+        } else if (itemId == R.id.action_today) {
+            viewType = ViewType.CURRENT;
+            t = new Time(mTimeZone);
+            t.setToNow();
+            extras |= CalendarController.EXTRA_GOTO_TODAY;
+        } else if (itemId == R.id.action_create_event) {
+            t = new Time();
+            t.set(mController.getTime());
+            if (t.minute > 30) {
+                t.hour++;
+                t.minute = 0;
+            } else if (t.minute > 0 && t.minute < 30) {
+                t.minute = 30;
+            }
+            mController.sendEventRelatedEvent(
+                    this, EventType.CREATE_EVENT, -1, t.toMillis(true), 0, 0, 0, -1);
+            return true;
+        } else if (itemId == R.id.action_select_visible_calendars) {
+            mController.sendEvent(this, EventType.LAUNCH_SELECT_VISIBLE_CALENDARS, null, null,
+                    0, 0);
+            return true;
+        } else if (itemId == R.id.action_settings) {
+            mController.sendEvent(this, EventType.LAUNCH_SETTINGS, null, null, 0, 0);
+            return true;
+        } else if (itemId == R.id.action_hide_controls) {
+            mHideControls = !mHideControls;
+            Utils.setSharedPreference(
+                    this, GeneralPreferences.KEY_SHOW_CONTROLS, !mHideControls);
+            item.setTitle(mHideControls ? mShowString : mHideString);
+            if (!mHideControls) {
+                mMiniMonth.setVisibility(View.VISIBLE);
+                mCalendarsList.setVisibility(View.VISIBLE);
+                mMiniMonthContainer.setVisibility(View.VISIBLE);
+            }
+            final ObjectAnimator slideAnimation = ObjectAnimator.ofInt(this, "controlsOffset",
+                    mHideControls ? 0 : mControlsAnimateWidth,
+                    mHideControls ? mControlsAnimateWidth : 0);
+            slideAnimation.setDuration(mCalendarControlsAnimationTime);
+            ObjectAnimator.setFrameDelay(0);
+            slideAnimation.start();
+            return true;
+        } else if (itemId == R.id.action_search) {
+            return false;
+        } else {
+            return mExtensions.handleItemSelected(item, this);
         }
         mController.sendEvent(this, EventType.GO_TO, t, null, t, -1, viewType, extras, null, null);
         return true;
@@ -1165,7 +1184,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                                 event.endTime, event.endTime.toMillis(false), mTimeZone);
                     }
                     mController.sendEvent(this, EventType.GO_TO, event.startTime, event.endTime,
-                            event.id, ViewType.AGENDA);
+                            event.selectedTime, event.id, ViewType.AGENDA,
+                            CalendarController.EXTRA_GOTO_TIME, null, null);
                 } else if (event.selectedTime != null) {
                     mController.sendEvent(this, EventType.GO_TO, event.selectedTime,
                         event.selectedTime, event.id, ViewType.AGENDA);

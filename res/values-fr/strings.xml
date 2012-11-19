@@ -103,7 +103,9 @@
     <string name="response_maybe" msgid="7791500973627841695">"Peut-être"</string>
     <string name="response_no" msgid="561911691884148136">"Non"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Envoyer un e-mail aux invités"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"Envoyer un e-mail à l\'organisateur"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Envoyer un e-mail via"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"Événement introuvable."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Réponses rapides"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Modifier réponses par défaut lors d\'envoi d\'e-mails aux invités"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Modif. rép. rapides"</string>
@@ -123,8 +125,8 @@
     <string name="agenda_yesterday" msgid="4170964206728599693">"HIER, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"DEMAIN, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="loading" msgid="3772533493214331230">"Chargement…"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Touchez l\'écran pour afficher les événements avant le <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Touchez l\'écran pour afficher les événements après le <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Appuyez sur l\'écran pour afficher les événements avant le <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Appuyez sur l\'écran pour afficher les événements après le <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>"</string>
     <string name="search_title" msgid="8898015280250716254">"Rechercher dans mes agendas"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Infos"</string>
     <string name="edit_label" msgid="8934331258435656534">"Modifier"</string>
@@ -209,6 +211,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Confidentialité"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Notification de l\'agenda"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Notification de répétition d\'alarme"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"Envoyer un e-mail aux invités"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Nouvel événement"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Événement <xliff:g id="ITEM_INDEX">%1$s</xliff:g> sur <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
   <plurals name="Nevents">

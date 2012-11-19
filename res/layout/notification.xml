@@ -34,38 +34,53 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:paddingLeft="12dp"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content">
 
         <TextView
-                android:id="@+id/title"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textSize="18sp" />
+            android:id="@+id/title"
+            android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="end" />
         <TextView
             android:id="@+id/text"
-            android:textColor="?android:attr/textColorPrimary"
-            android:layout_width="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textSize="14sp" />
+            android:singleLine="true"
+            android:ellipsize="end" />
     </LinearLayout>
 
-    <Button
+    <ImageButton
+        android:id="@+id/email_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:src="@drawable/ic_menu_email_holo_dark"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="8dip"
+        android:contentDescription="@string/accessibility_email_notification" />
+    <ImageButton
         android:id="@+id/snooze_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_gravity="center_vertical|right"
-        android:paddingLeft="20dip"
-        android:paddingRight="20dip"
-        android:background="@drawable/snooze"
-        android:textSize="10sp"
+        android:src="@drawable/ic_alarm_holo_dark"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="8dip"
         android:contentDescription="@string/acessibility_snooze_notification" />
+
+    <!-- Add right padding if no buttons so notification text does not run too
+         close to edge.
+    -->
+    <TextView
+        android:id="@+id/end_padding"
+        android:layout_width="12dp"
+        android:layout_height="match_parent"
+        android:paddingRight="12dp" />
 
 </LinearLayout>

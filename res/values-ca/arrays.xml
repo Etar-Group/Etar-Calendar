@@ -159,8 +159,8 @@
   </string-array>
   <string-array name="visibility">
     <item msgid="3035788428581513163">"Predeterminada"</item>
-    <item msgid="5200216103966973369">"Privada"</item>
-    <item msgid="9182342638433672664">"Pública"</item>
+    <item msgid="5200216103966973369">"Privat"</item>
+    <item msgid="9182342638433672664">"Públic"</item>
   </string-array>
   <string-array name="ordinal_labels">
     <item msgid="2693927956303125332">"primer"</item>

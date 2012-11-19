@@ -103,9 +103,11 @@
     <string name="response_maybe" msgid="7791500973627841695">"未定"</string>
     <string name="response_no" msgid="561911691884148136">"いいえ"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"ゲストにメールを送信"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"主催者にメールを送信"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"メールに次を含める:"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"イベントが見つかりません。"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"クイック返信"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ゲストへのメールではデフォルトの返信を編集"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"ゲストへメールを送るときのデフォルトの返事を編集"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"クイック返信の編集"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"クイック返信"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"クイック返信の選択"</string>
@@ -114,7 +116,7 @@
     <item msgid="1524421198348168403">"数分遅れています。"</item>
     <item msgid="6215158751728689832">"10分ほどで着きます。"</item>
     <item msgid="4485794001743679338">"先に始めていてください。"</item>
-    <item msgid="8036557974294987511">"申し訳ありませんが、行かれません。日程を変更する必要があります。"</item>
+    <item msgid="8036557974294987511">"申し訳ありませんが、行けません。日程を変更する必要があります。"</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="7265035125070482285">"カスタムメッセージ…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"主催:"</string>
@@ -209,6 +211,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"公開設定"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"カレンダーの通知"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"通知をスヌーズ"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"ゲストにメールを送信"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"新しい予定を追加"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"<xliff:g id="ITEM_COUNT">%2$s</xliff:g>件中<xliff:g id="ITEM_INDEX">%1$s</xliff:g>件目の予定"</string>
   <plurals name="Nevents">

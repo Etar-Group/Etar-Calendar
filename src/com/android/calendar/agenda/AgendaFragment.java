@@ -68,6 +68,9 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     private boolean mOnAttachAllDay = false;
     private AgendaWindowAdapter mAdapter = null;
     private boolean mForceReplace = true;
+    private long mLastShownEventId = -1;
+
+
 
     // Tracks the time of the top visible view in order to send UPDATE_TITLE messages to the action
     // bar.
@@ -91,11 +94,14 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     public AgendaFragment(long timeMillis, boolean usedForSearch) {
         mInitialTimeMillis = timeMillis;
         mTime = new Time();
+        mLastHandledEventTime = new Time();
+
         if (mInitialTimeMillis == 0) {
             mTime.setToNow();
         } else {
             mTime.set(mInitialTimeMillis);
         }
+        mLastHandledEventTime.set(mTime);
         mUsedForSearch = usedForSearch;
     }
 
@@ -238,14 +244,34 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         if (mAgendaListView == null) {
             return;
         }
-        long firstVisibleTime = mAgendaListView.getFirstVisibleTime();
-        if (firstVisibleTime > 0) {
-            mTime.set(firstVisibleTime);
-            mController.setTime(firstVisibleTime);
-            outState.putLong(BUNDLE_KEY_RESTORE_TIME, firstVisibleTime);
-            if (DEBUG) {
-                Log.v(TAG, "onSaveInstanceState " + mTime.toString());
+        if (mShowEventDetailsWithAgenda) {
+            long timeToSave;
+            if (mLastHandledEventTime != null) {
+                timeToSave = mLastHandledEventTime.toMillis(true);
+                mTime.set(mLastHandledEventTime);
+            } else {
+                timeToSave =  System.currentTimeMillis();
+                mTime.set(timeToSave);
             }
+            outState.putLong(BUNDLE_KEY_RESTORE_TIME, timeToSave);
+            mController.setTime(timeToSave);
+        } else {
+            AgendaWindowAdapter.EventInfo e = mAgendaListView.getFirstVisibleEvent();
+            if (e != null) {
+                long firstVisibleTime = mAgendaListView.getFirstVisibleTime(e);
+                if (firstVisibleTime > 0) {
+                    mTime.set(firstVisibleTime);
+                    mController.setTime(firstVisibleTime);
+                    outState.putLong(BUNDLE_KEY_RESTORE_TIME, firstVisibleTime);
+                }
+                // Tell AllInOne the event id of the first visible event in the list. The id will be
+                // used in the GOTO when AllInOne is restored so that Agenda Fragment can select a
+                // specific event and not just the time.
+                mLastShownEventId = e.id;
+            }
+        }
+        if (DEBUG) {
+            Log.v(TAG, "onSaveInstanceState " + mTime.toString());
         }
 
         long selectedInstance = mAgendaListView.getSelectedInstanceId();
@@ -288,14 +314,15 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
     }
 
     private void goTo(EventInfo event, boolean animate) {
+        if (event.selectedTime != null) {
+            mTime.set(event.selectedTime);
+        } else if (event.startTime != null) {
+            mTime.set(event.startTime);
+        }
         if (mAgendaListView == null) {
             // The view hasn't been set yet. Just save the time and use it
             // later.
-            mTime.set(event.startTime);
             return;
-        }
-        if (event.startTime != null) {
-            mTime.set(event.startTime);
         }
         mAgendaListView.goTo(mTime, event.id, mQuery, false,
                 ((event.extraLong & CalendarController.EXTRA_GOTO_TODAY) != 0  &&
@@ -339,7 +366,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             // TODO support event_id
             // TODO figure out the animate bit
             mLastHandledEventId = event.id;
-            mLastHandledEventTime = event.startTime;
+            mLastHandledEventTime =
+                    (event.selectedTime != null) ? event.selectedTime : event.startTime;
             goTo(event, true);
         } else if (event.eventType == EventType.SEARCH) {
             search(event.query, event.startTime);
@@ -348,6 +376,9 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
         }
     }
 
+    public long getLastShowEventId() {
+        return mLastShownEventId;
+    }
 
     // Shows the selected event in the Agenda view
     private void showEventInfo(EventInfo event, boolean allDay, boolean replaceFragment) {
@@ -357,6 +388,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
             Log.e(TAG, "showEventInfo, event ID = " + event.id);
             return;
         }
+
+        mLastShownEventId = event.id;
 
         // Create a fragment to show the event to the side of the agenda list
         if (mShowEventDetailsWithAgenda) {
@@ -393,17 +426,6 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 fOld.reloadEvents();
             }
         }
-//        else {
-//            Intent intent = new Intent(Intent.ACTION_VIEW);
-//            Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
-//            intent.setData(eventUri);
-//            intent.setClass(getActivity(), AllInOneActivity.class);
-//            intent.putExtra(EVENT_BEGIN_TIME, event.startTime != null ? event.startTime
-//                    .toMillis(true) : -1);
-//            intent.putExtra(EVENT_END_TIME, event.endTime != null ? event.endTime.toMillis(true)
-//                    : -1);
-//            startActivity(intent);
-//        }
     }
 
     // OnScrollListener implementation to update the date on the pull-down menu of the app

@@ -102,8 +102,10 @@
     <string name="response_yes" msgid="2027484304899988350">"Sí"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Potser"</string>
     <string name="response_no" msgid="561911691884148136">"No"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"Envia un correu electrònic als convidats"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"Notifica per correu electrònic als convidats"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"Envia un correu a l\'organitzador"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Correu electrònic amb"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"No s\'ha trobat l\'esdeveniment."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respostes ràpides"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edita les respostes en escriure als convidats"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Edita resp. ràpid."</string>
@@ -162,7 +164,7 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"La setmana comença"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"La setmana comença"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Esborra l\'historial de cerca"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Elimina totes les cerques que hagis fet"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Elimina totes les cerques fetes"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"S\'ha buidat l\'historial de cerca."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificacions"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibra"</string>
@@ -209,6 +211,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privadesa"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Notificacions de calendari"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Posposa la notificació"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"Notifica per correu electrònic als convidats"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Esdeveniment nou"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Esdeveniment <xliff:g id="ITEM_INDEX">%1$s</xliff:g> de <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
   <plurals name="Nevents">

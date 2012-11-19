@@ -37,7 +37,7 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH.mail" />
-    <uses-sdk android:minSdkVersion="15"></uses-sdk>
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="16"></uses-sdk>
 
     <application android:name="CalendarApplication"
             android:label="@string/app_label" android:icon="@mipmap/ic_launcher_calendar"
@@ -86,6 +86,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/event" />
             </intent-filter>
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.calendar.AllInOneActivity" />
         </activity>
 
         <activity android:name=".event.EditEventActivity"
@@ -152,6 +154,7 @@
         </activity>
 
         <provider android:name=".CalendarRecentSuggestionsProvider"
+            android:exported="false"
             android:authorities="com.android.calendar.CalendarRecentSuggestionsProvider" />
 
         <!-- Declarations for alerts/reminders -->

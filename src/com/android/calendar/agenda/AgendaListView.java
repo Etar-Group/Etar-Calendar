@@ -177,13 +177,21 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             mWindowAdapter.setSelectedView(v);
 
             // If events are shown to the side of the agenda list , do nothing
-            // when the same
-            // event is selected , otherwise show the selected event.
+            // when the same event is selected , otherwise show the selected event.
 
             if (event != null && (oldInstanceId != mWindowAdapter.getSelectedInstanceId() ||
                     !mShowEventDetailsWithAgenda)) {
                 long startTime = event.begin;
                 long endTime = event.end;
+                // Holder in view holds the start of the specific part of a multi-day event ,
+                // use it for the goto
+                long holderStartTime;
+                Object holder = v.getTag();
+                if (holder instanceof AgendaAdapter.ViewHolder) {
+                    holderStartTime = ((AgendaAdapter.ViewHolder) holder).startTimeMilli;
+                } else {
+                    holderStartTime = startTime;
+                }
                 if (event.allDay) {
                     startTime = Utils.convertAlldayLocalToUTC(mTime, startTime, mTimeZone);
                     endTime = Utils.convertAlldayLocalToUTC(mTime, endTime, mTimeZone);
@@ -192,8 +200,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
                 CalendarController controller = CalendarController.getInstance(mContext);
                 controller.sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT, event.id,
                         startTime, endTime, 0, 0, CalendarController.EventInfo.buildViewExtraLong(
-                                Attendees.ATTENDEE_STATUS_NONE, event.allDay),
-                        controller.getTime());
+                                Attendees.ATTENDEE_STATUS_NONE, event.allDay), holderStartTime);
             }
         }
     }
@@ -202,7 +209,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             boolean refreshEventInfo) {
         if (time == null) {
             time = mTime;
-            long goToTime = getFirstVisibleTime();
+            long goToTime = getFirstVisibleTime(null);
             if (goToTime <= 0) {
                 goToTime = System.currentTimeMillis();
             }
@@ -250,14 +257,39 @@ public class AgendaListView extends ListView implements OnItemClickListener {
                 return event.begin;
             }
         }
-        return getFirstVisibleTime();
+        return getFirstVisibleTime(null);
     }
 
     public AgendaAdapter.ViewHolder getSelectedViewHolder() {
         return mWindowAdapter.getSelectedViewHolder();
     }
 
-    public long getFirstVisibleTime() {
+    public long getFirstVisibleTime(EventInfo e) {
+        EventInfo event = e;
+        if (e == null) {
+            event = getFirstVisibleEvent();
+        }
+        if (event != null) {
+            Time t = new Time(mTimeZone);
+            t.set(event.begin);
+            // Save and restore the time since setJulianDay sets the time to 00:00:00
+            int hour = t.hour;
+            int minute = t.minute;
+            int second = t.second;
+            t.setJulianDay(event.startDay);
+            t.hour = hour;
+            t.minute = minute;
+            t.second = second;
+            if (DEBUG) {
+                t.normalize(true);
+                Log.d(TAG, "first position had time " + t.toString());
+            }
+            return t.normalize(false);
+        }
+        return 0;
+    }
+
+    public EventInfo getFirstVisibleEvent() {
         int position = getFirstVisiblePosition();
         if (DEBUG) {
             Log.v(TAG, "getFirstVisiblePosition = " + position);
@@ -277,26 +309,9 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             }
         }
 
-        EventInfo event = mWindowAdapter.getEventByPosition(position,
+        return mWindowAdapter.getEventByPosition(position,
                 false /* startDay = date separator date instead of actual event startday */);
-        if (event != null) {
-            Time t = new Time(mTimeZone);
-            t.set(event.begin);
-            // Save and restore the time since setJulianDay sets the time to 00:00:00
-            int hour = t.hour;
-            int minute = t.minute;
-            int second = t.second;
-            t.setJulianDay(event.startDay);
-            t.hour = hour;
-            t.minute = minute;
-            t.second = second;
-            if (DEBUG) {
-                t.normalize(true);
-                Log.d(TAG, "position " + position + " had time " + t.toString());
-            }
-            return t.normalize(false);
-        }
-        return 0;
+
     }
 
     public int getJulianDayFromPosition(int position) {

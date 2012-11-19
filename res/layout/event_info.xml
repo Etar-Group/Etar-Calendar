@@ -76,6 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:autoLink="all"
+                        android:textIsSelectable="true"
                         android:textStyle="bold"
                         android:textColor="@color/event_info_headline_color"
                         android:textColorLink="@color/event_info_headline_color"
@@ -114,6 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dip"
+                    android:textIsSelectable="true"
                     android:textSize="14sp"
                     android:textColor="@color/event_info_headline_color"
                     style="?android:attr/textAppearanceLarge" />
@@ -135,6 +137,7 @@
                     android:ellipsize="end"
                     android:singleLine="false"
                     android:layout_marginTop="4dip"
+                    android:textIsSelectable="true"
                     android:textSize="14sp"
                     android:textColor="@color/event_info_headline_color"
                     android:textColorLink="@color/event_info_headline_link_color"
@@ -146,12 +149,43 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dip"
                 android:paddingRight="16dip"
+                android:layout_marginTop="8dip"
                 android:orientation="vertical">
+                <!-- Calendar Owner -->
+                <LinearLayout
+                    android:id="@+id/calendar_container"
+                    android:visibility="gone"
+                    android:paddingRight="16dip"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/calendar_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="@string/view_event_calendar_label"
+                        android:textColor="@color/event_info_organizer_color"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="14sp"/>
+                    <TextView
+                        android:id="@+id/calendar_name"
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:layout_marginLeft="2dip"
+                        android:textIsSelectable="true"
+                        android:textColor="@color/event_info_organizer_color"
+                        style="?android:attr/textAppearanceSmall"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
                 <!-- Organizer -->
                 <LinearLayout
                     android:id="@+id/organizer_container"
                     android:visibility="gone"
-                    android:layout_marginTop="8dip"
                     android:paddingRight="16dip"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -173,6 +207,7 @@
                         android:layout_weight="1"
                         android:singleLine="true"
                         android:layout_marginLeft="2dip"
+                        android:textIsSelectable="true"
                         android:textColor="@color/event_info_organizer_color"
                         style="?android:attr/textAppearanceSmall"
                         android:textSize="14sp"/>

@@ -103,7 +103,9 @@
     <string name="response_maybe" msgid="7791500973627841695">"ربما"</string>
     <string name="response_no" msgid="561911691884148136">"لا"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"إرسال بريد إلكتروني إلى المدعوين"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"منظم البريد الإلكتروني"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"إرسال رسالة إلكترونية إلى"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"لم يتم العثور على الحدث."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"الردود السريعة"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"تعديل الردود الافتراضية في المراسلة الإلكترونية للمدعوين"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"تعديل الردود السريعة"</string>
@@ -111,9 +113,9 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"اختيار رد سريع"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"أخفق العثور على برنامج بريد إلكتروني"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"تتم إقامته بعد تأخير لمدة دقيقتين."</item>
-    <item msgid="6215158751728689832">"كن هناك خلال حوالي 10 دقائق."</item>
-    <item msgid="4485794001743679338">"انطلق وابدأ بدوني."</item>
+    <item msgid="1524421198348168403">"سأتأخر لمدة دقيقتين."</item>
+    <item msgid="6215158751728689832">"سأكون هناك خلال حوالي 10 دقائق."</item>
+    <item msgid="4485794001743679338">"ابدأوا بدوني."</item>
     <item msgid="8036557974294987511">"عذرًا، لا يمكنني الحضور. علينا إعادة الجدولة."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="7265035125070482285">"رسالة مخصصة…"</string>
@@ -209,6 +211,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"الخصوصية"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"إشعار التقويم"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"إشعار الغفوة"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"إرسال بريد إلكتروني إلى المدعوين"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ حدث جديد"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"الحدث <xliff:g id="ITEM_INDEX">%1$s</xliff:g> من <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
   <plurals name="Nevents">

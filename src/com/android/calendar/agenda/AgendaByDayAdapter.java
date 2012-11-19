@@ -88,6 +88,14 @@ public class AgendaByDayAdapter extends BaseAdapter {
         return mRowInfo.get(position).mInstanceId;
     }
 
+    public long getStartTime(int position) {
+        if (mRowInfo == null || position >= mRowInfo.size()) {
+            return -1;
+        }
+        return mRowInfo.get(position).mEventStartTimeMilli;
+    }
+
+
     // Returns the position of a header of a specific item
     public int getHeaderPosition(int position) {
         if (mRowInfo == null || position >= mRowInfo.size()) {
@@ -362,10 +370,6 @@ public class AgendaByDayAdapter extends BaseAdapter {
                 prevStartDay = startDay;
             }
 
-            // Add in the event for this cursor position
-            rowInfo.add(new RowInfo(TYPE_MEETING, startDay, position, id, startTime, endTime,
-                    instanceId, allDay));
-
             // If this event spans multiple days, then add it to the multipleDay
             // list.
             int endDay = cursor.getInt(AgendaWindowAdapter.INDEX_END_DAY);
@@ -373,9 +377,17 @@ public class AgendaByDayAdapter extends BaseAdapter {
             // Skip over the days outside of the adapter's range
             endDay = Math.min(endDay, dayAdapterInfo.end);
             if (endDay > startDay) {
-                multipleDayList.add(new MultipleDayInfo(position, endDay, id,
-                        Utils.getNextMidnight(tempTime, startTime, mTimeZone),
+                long nextMidnight = Utils.getNextMidnight(tempTime, startTime, mTimeZone);
+                multipleDayList.add(new MultipleDayInfo(position, endDay, id, nextMidnight,
                         endTime, instanceId, allDay));
+                // Add in the event for this cursor position - since it is the start of a multi-day
+                // event, the end time is midnight
+                rowInfo.add(new RowInfo(TYPE_MEETING, startDay, position, id, startTime,
+                        nextMidnight, instanceId, allDay));
+            } else {
+                // Add in the event for this cursor position
+                rowInfo.add(new RowInfo(TYPE_MEETING, startDay, position, id, startTime, endTime,
+                        instanceId, allDay));
             }
         }
 
@@ -496,7 +508,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         }
         long millis = time.toMillis(false /* use isDst */);
         long minDistance =  Integer.MAX_VALUE;  // some big number
-        long IdFoundMinDistance =  Integer.MAX_VALUE;  // some big number
+        long idFoundMinDistance =  Integer.MAX_VALUE;  // some big number
         int minIndex = 0;
         int idFoundMinIndex = 0;
         int eventInTimeIndex = -1;
@@ -528,8 +540,8 @@ public class AgendaByDayAdapter extends BaseAdapter {
 
                 // Not an exact match, Save event index if it is the closest to time so far
                 long distance = Math.abs(millis - row.mEventStartTimeMilli);
-                if (distance < minDistance) {
-                    IdFoundMinDistance = distance;
+                if (distance < idFoundMinDistance) {
+                    idFoundMinDistance = distance;
                     idFoundMinIndex = index;
                 }
                 idFound = true;

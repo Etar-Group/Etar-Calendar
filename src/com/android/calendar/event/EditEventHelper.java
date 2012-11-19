@@ -35,15 +35,16 @@ import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.View;
 
+import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.Utils;
-import com.android.calendarcommon.DateException;
-import com.android.calendarcommon.EventRecurrence;
-import com.android.calendarcommon.RecurrenceProcessor;
-import com.android.calendarcommon.RecurrenceSet;
+import com.android.calendarcommon2.DateException;
+import com.android.calendarcommon2.EventRecurrence;
+import com.android.calendarcommon2.RecurrenceProcessor;
+import com.android.calendarcommon2.RecurrenceSet;
 import com.android.common.Rfc822Validator;
 
 import java.util.ArrayList;
@@ -168,6 +169,8 @@ public class EditEventHelper {
             Calendars.ALLOWED_REMINDERS, // 8
             Calendars.ALLOWED_ATTENDEE_TYPES, // 9
             Calendars.ALLOWED_AVAILABILITY, // 10
+            Calendars.ACCOUNT_NAME, // 11
+            Calendars.ACCOUNT_TYPE, //12
     };
     static final int CALENDARS_INDEX_ID = 0;
     static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
@@ -180,6 +183,8 @@ public class EditEventHelper {
     static final int CALENDARS_INDEX_ALLOWED_REMINDERS = 8;
     static final int CALENDARS_INDEX_ALLOWED_ATTENDEE_TYPES = 9;
     static final int CALENDARS_INDEX_ALLOWED_AVAILABILITY = 10;
+    static final int CALENDARS_INDEX_ACCOUNT_NAME = 11;
+    static final int CALENDARS_INDEX_ACCOUNT_TYPE = 12;
 
     static final String CALENDARS_WHERE_WRITEABLE_VISIBLE = Calendars.CALENDAR_ACCESS_LEVEL + ">="
             + Calendars.CAL_ACCESS_CONTRIBUTOR + " AND " + Calendars.VISIBLE + "=1";
@@ -215,7 +220,7 @@ public class EditEventHelper {
     }
 
     public EditEventHelper(Context context, CalendarEventModel model) {
-        mService = new AsyncQueryService(context);
+        mService = ((AbstractCalendarActivity)context).getAsyncQueryService();
     }
 
     /**

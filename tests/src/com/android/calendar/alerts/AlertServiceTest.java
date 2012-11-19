@@ -20,6 +20,8 @@ import static android.app.Notification.PRIORITY_DEFAULT;
 import static android.app.Notification.PRIORITY_HIGH;
 import static android.app.Notification.PRIORITY_MIN;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.SharedPreferences;
 import android.database.MatrixCursor;
 import android.provider.CalendarContract.Attendees;
@@ -252,12 +254,11 @@ public class AlertServiceTest extends AndroidTestCase {
 
     }
 
-    class NotificationTestManager implements NotificationMgr {
+    class NotificationTestManager extends NotificationMgr {
         // Expected notifications
-        NotificationInstance[] mNotifications;
-
-        // Flag to know which notification has been posted or canceled
-        boolean[] mDone;
+        NotificationInstance[] mExpectedNotifications;
+        NotificationWrapper[] mActualNotifications;
+        boolean[] mCancelled;
 
         // CalendarAlerts table
         private ArrayList<Alert> mAlerts;
@@ -265,117 +266,155 @@ public class AlertServiceTest extends AndroidTestCase {
         public NotificationTestManager(ArrayList<Alert> alerts, int maxNotifications) {
             assertEquals(0, AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID);
             mAlerts = alerts;
-            mNotifications = new NotificationInstance[maxNotifications + 1];
+            mExpectedNotifications = new NotificationInstance[maxNotifications + 1];
+            mActualNotifications = new NotificationWrapper[mExpectedNotifications.length];
+            mCancelled = new boolean[mExpectedNotifications.length];
         }
 
         public void expectTestNotification(int notificationId, int alertId, int highPriority) {
-            mNotifications[notificationId] = new NotificationInstance(alertId, highPriority);
+            mExpectedNotifications[notificationId] = new NotificationInstance(alertId,
+                    highPriority);
         }
 
         public void expectTestNotification(int notificationId, int[] alertIds, int priority) {
-            mNotifications[notificationId] = new NotificationInstance(alertIds, priority);
+            mExpectedNotifications[notificationId] = new NotificationInstance(alertIds, priority);
         }
 
-        private void verifyNotification(int id, NotificationWrapper nw) {
-                assertEquals(mNotifications[id].mPriority, nw.mNotification.priority);
-
-                NotificationInstance expected = mNotifications[id];
-                if (expected.mAlertIdsInDigest == null) {
-                    Alert a = mAlerts.get(expected.mAlertId);
-                    assertEquals("Event ID", a.mEventId, nw.mEventId);
-                    assertEquals("Begin time", a.mBegin, nw.mBegin);
-                    assertEquals("End time", a.mEnd, nw.mEnd);
-                } else {
-                    // Notification should be a digest.
-                    assertNotNull("Posted notification not a digest as expected.", nw.mNw);
-                    assertEquals("Number of notifications in digest not as expected.",
-                            expected.mAlertIdsInDigest.length, nw.mNw.size());
-                    for (int i = 0; i < nw.mNw.size(); i++) {
-                        Alert a = mAlerts.get(expected.mAlertIdsInDigest[i]);
-                        assertEquals("Digest item " + i + ": Event ID not as expected",
-                                a.mEventId, nw.mNw.get(i).mEventId);
-                        assertEquals("Digest item " + i + ": Begin time in digest",
-                                a.mBegin, nw.mNw.get(i).mBegin);
-                        assertEquals("Digest item " + i + ": End time in digest",
-                                a.mEnd, nw.mNw.get(i).mEnd);
-                    }
+        private <T> boolean nullContents(T[] array) {
+            for (T item : array) {
+                if (item != null) {
+                    return false;
                 }
+            }
+            return true;
         }
 
         public void validateNotificationsAndReset() {
-            for (int i = 0; i < mDone.length; i++) {
-                assertTrue("Notification id " + i + " has not been posted", mDone[i]);
+            if (nullContents(mExpectedNotifications)) {
+                return;
             }
-            Arrays.fill(mDone, false);
-            Arrays.fill(mNotifications, null);
+
+            String debugStr = printActualNotifications();
+            for (int id = 0; id < mActualNotifications.length; id++) {
+                NotificationInstance expected = mExpectedNotifications[id];
+                NotificationWrapper actual = mActualNotifications[id];
+                if (expected == null) {
+                    assertNull("Received unexpected notificationId " + id + debugStr, actual);
+                    assertTrue("NotificationId " + id + " should have been cancelled." + debugStr,
+                            mCancelled[id]);
+                } else {
+                    assertNotNull("Expected notificationId " + id + " but it was not posted."
+                            + debugStr, actual);
+                    assertFalse("NotificationId " + id + " should not have been cancelled."
+                            + debugStr, mCancelled[id]);
+                    assertEquals("Priority not as expected for notification " + id + debugStr,
+                            expected.mPriority, actual.mNotification.priority);
+                    if (expected.mAlertIdsInDigest == null) {
+                        Alert a = mAlerts.get(expected.mAlertId);
+                        assertEquals("Event ID not expected for notification " + id + debugStr,
+                                a.mEventId, actual.mEventId);
+                        assertEquals("Begin time not expected for notification " + id + debugStr,
+                                a.mBegin, actual.mBegin);
+                        assertEquals("End time not expected for notification " + id + debugStr,
+                                a.mEnd, actual.mEnd);
+                    } else {
+                        // Notification should be a digest.
+                        assertNotNull("Posted notification not a digest as expected." + debugStr,
+                                actual.mNw);
+                        assertEquals("Number of notifications in digest not as expected."
+                                + debugStr, expected.mAlertIdsInDigest.length, actual.mNw.size());
+                        for (int i = 0; i < actual.mNw.size(); i++) {
+                            Alert a = mAlerts.get(expected.mAlertIdsInDigest[i]);
+                            assertEquals("Digest item " + i + ": Event ID not as expected"
+                                    + debugStr, a.mEventId, actual.mNw.get(i).mEventId);
+                            assertEquals("Digest item " + i + ": Begin time in digest not expected"
+                                    + debugStr, a.mBegin, actual.mNw.get(i).mBegin);
+                            assertEquals("Digest item " + i + ": End time in digest not expected"
+                                    + debugStr, a.mEnd, actual.mNw.get(i).mEnd);
+                        }
+                    }
+                }
+            }
+
+            Arrays.fill(mCancelled, false);
+            Arrays.fill(mExpectedNotifications, null);
+            Arrays.fill(mActualNotifications, null);
+        }
+
+        private String printActualNotifications() {
+            StringBuilder s = new StringBuilder();
+            s.append("\n\nNotifications actually posted:\n");
+            for (int i = mActualNotifications.length - 1; i >= 0; i--) {
+                NotificationWrapper actual = mActualNotifications[i];
+                if (actual == null) {
+                    continue;
+                }
+                s.append("Notification " + i + " -- ");
+                s.append("priority:" + actual.mNotification.priority);
+                if (actual.mNw == null) {
+                    s.append(", eventId:" +  actual.mEventId);
+                } else {
+                    s.append(", eventIds:{");
+                    for (int digestIndex = 0; digestIndex < actual.mNw.size(); digestIndex++) {
+                        s.append(actual.mNw.get(digestIndex).mEventId + ",");
+                    }
+                    s.append("}");
+                }
+                s.append("\n");
+            }
+            return s.toString();
         }
 
         ///////////////////////////////
         // NotificationMgr methods
         @Override
         public void cancel(int id) {
-            if (mDone == null) {
-                mDone = new boolean[mNotifications.length];
-            }
             assertTrue("id out of bound: " + id, 0 <= id);
-            assertTrue("id out of bound: " + id, id < mDone.length);
-            assertFalse("id already used", mDone[id]);
-            mDone[id] = true;
-            assertNull("Unexpected cancel for id " + id, mNotifications[id]);
+            assertTrue("id out of bound: " + id, id < mCancelled.length);
+            assertNull("id already used", mActualNotifications[id]);
+            assertFalse("id already used", mCancelled[id]);
+            mCancelled[id] = true;
+            assertNull("Unexpected cancel for id " + id, mExpectedNotifications[id]);
         }
 
-        @Override
-        public void cancel(String tag, int id) {
-            throw new IllegalArgumentException();
-        }
-
-        @Override
-        public void cancelAll() {
-            for (int i = 0; i < mNotifications.length; i++) {
-                assertNull("Expecting notification id " + i + ". Got cancelAll", mNotifications[i]);
-
-                if (mDone != null) {
-                    assertFalse("Notification id " + i + " is done but got cancelAll", mDone[i]);
-                }
-            }
-
-            assertNull(mDone); // this should have been null since nothing
-                               // should have been posted
-            mDone = new boolean[mNotifications.length];
-            Arrays.fill(mDone, true);
-        }
-
-        @Override
         public void notify(int id, NotificationWrapper nw) {
-            if (mDone == null) {
-                mDone = new boolean[mNotifications.length];
-            }
             assertTrue("id out of bound: " + id, 0 <= id);
-            assertTrue("id out of bound: " + id, id < mDone.length);
-            assertFalse("id already used", mDone[id]);
-            mDone[id] = true;
+            assertTrue("id out of bound: " + id, id < mExpectedNotifications.length);
+            assertNull("id already used: " + id, mActualNotifications[id]);
+            mActualNotifications[id] = nw;
+        }
+    }
 
-            assertNotNull("Unexpected notify for id " + id, mNotifications[id]);
+    private class MockAlarmManager implements AlarmManagerInterface {
+        private int expectedAlarmType = -1;
+        private long expectedAlarmTime = -1;
 
-            verifyNotification(id, nw);
+        public void expectAlarmTime(int type, long millis) {
+            this.expectedAlarmType = type;
+            this.expectedAlarmTime = millis;
         }
 
         @Override
-        public void notify(String tag, int id, NotificationWrapper nw) {
-            throw new IllegalArgumentException();
+        public void set(int actualAlarmType, long actualAlarmTime, PendingIntent operation) {
+            assertNotNull(operation);
+            if (expectedAlarmType != -1) {
+                assertEquals("Alarm type not expected.", expectedAlarmType, actualAlarmType);
+                assertEquals("Alarm time not expected. Expected:" + DateUtils.formatDateTime(
+                        mContext, expectedAlarmTime, DateUtils.FORMAT_SHOW_TIME) + ", actual:"
+                        + DateUtils.formatDateTime(mContext, actualAlarmTime,
+                        DateUtils.FORMAT_SHOW_TIME), expectedAlarmTime, actualAlarmTime);
+            }
         }
     }
 
     // TODO
     // Catch updates of new state, notify time, and received time
     // Test ringer, vibrate,
-    // Test digest notifications
     // Test intents, action email
-    // Catch alarmmgr calls
 
     @Smoke
     @SmallTest
-    public void testNoAlerts() {
+    public void testGenerateAlerts_none() {
         MockSharedPreferences prefs = new MockSharedPreferences();
         AlertsTable at = new AlertsTable();
         NotificationTestManager ntm = new NotificationTestManager(at.mAlerts,
@@ -383,15 +422,16 @@ public class AlertServiceTest extends AndroidTestCase {
 
         // Test no alert
         long currentTime = 1000000;
-        AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
-                AlertService.MAX_NOTIFICATIONS);
+        AlertService.generateAlerts(mContext, ntm, new MockAlarmManager(), prefs,
+                at.getAlertCursor(), currentTime, AlertService.MAX_NOTIFICATIONS);
         ntm.validateNotificationsAndReset();
     }
 
     @Smoke
     @SmallTest
-    public void testSingleAlert() {
+    public void testGenerateAlerts_single() {
         MockSharedPreferences prefs = new MockSharedPreferences();
+        MockAlarmManager alarmMgr = new MockAlarmManager();
         AlertsTable at = new AlertsTable();
         NotificationTestManager ntm = new NotificationTestManager(at.mAlerts,
                 AlertService.MAX_NOTIFICATIONS);
@@ -402,16 +442,16 @@ public class AlertServiceTest extends AndroidTestCase {
         long currentTime = 1000000;
         ntm.expectTestNotification(1, id, PRIORITY_HIGH);
 
-        AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(), currentTime,
                 AlertService.MAX_NOTIFICATIONS);
         ntm.validateNotificationsAndReset(); // This wipes out notification
                                              // tests added so far
 
         // Test half way into an event
         currentTime = 2300000;
-        ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, id, PRIORITY_DEFAULT);
+        ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, id, PRIORITY_MIN);
 
-        AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(), currentTime,
                 AlertService.MAX_NOTIFICATIONS);
         ntm.validateNotificationsAndReset();
 
@@ -419,15 +459,16 @@ public class AlertServiceTest extends AndroidTestCase {
         currentTime = 4300000;
         ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, id, PRIORITY_MIN);
 
-        AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(), currentTime,
                 AlertService.MAX_NOTIFICATIONS);
         ntm.validateNotificationsAndReset();
     }
 
     @SmallTest
-    public void testMultipleAlerts() {
+    public void testGenerateAlerts_multiple() {
         int maxNotifications = 10;
         MockSharedPreferences prefs = new MockSharedPreferences();
+        MockAlarmManager alarmMgr = new MockAlarmManager();
         AlertsTable at = new AlertsTable();
         NotificationTestManager ntm = new NotificationTestManager(at.mAlerts, maxNotifications);
 
@@ -470,8 +511,8 @@ public class AlertServiceTest extends AndroidTestCase {
         ntm.expectTestNotification(1, id9, PRIORITY_HIGH); // future
         ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID,
                 new int[] {id3, id2, id1}, PRIORITY_MIN);
-        AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
-                maxNotifications);
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(),
+                currentTime, maxNotifications);
         ntm.validateNotificationsAndReset();
 
         // Increase time by 15 minutes to check that some concurrent events dropped
@@ -483,8 +524,8 @@ public class AlertServiceTest extends AndroidTestCase {
         ntm.expectTestNotification(1, id9, PRIORITY_HIGH); // future
         ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID,
                 new int[] {id6, id4, id3, id2, id1}, PRIORITY_MIN);
-        AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
-                maxNotifications);
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(),
+                currentTime, maxNotifications);
         ntm.validateNotificationsAndReset();
 
         // Increase time so some of the previously future ones change state.
@@ -492,14 +533,15 @@ public class AlertServiceTest extends AndroidTestCase {
         ntm.expectTestNotification(1, id9, PRIORITY_HIGH); // future
         ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID,
                 new int[] {id8, id7, id6, id5, id4, id3, id2, id1}, PRIORITY_MIN);
-        AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
-                maxNotifications);
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(),
+                currentTime, maxNotifications);
         ntm.validateNotificationsAndReset();
     }
 
     @SmallTest
-    public void testMultipleAlerts_max() {
+    public void testGenerateAlerts_maxAlerts() {
         MockSharedPreferences prefs = new MockSharedPreferences();
+        MockAlarmManager alarmMgr = new MockAlarmManager();
         AlertsTable at = new AlertsTable();
 
         // Current time - 5:00
@@ -541,8 +583,8 @@ public class AlertServiceTest extends AndroidTestCase {
         ntm.expectTestNotification(1, id9, PRIORITY_HIGH); // future
         ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID,
                 new int[] {id3, id2, id1}, PRIORITY_MIN);
-        AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
-                maxNotifications);
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(),
+                currentTime, maxNotifications);
         ntm.validateNotificationsAndReset();
 
         // Test when # alerts > max.
@@ -554,8 +596,8 @@ public class AlertServiceTest extends AndroidTestCase {
         ntm.expectTestNotification(1, id7, PRIORITY_HIGH); // future
         ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID,
                 new int[] {id9, id8, id3, id2, id1}, PRIORITY_MIN);
-        AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
-                maxNotifications);
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(),
+                currentTime, maxNotifications);
         ntm.validateNotificationsAndReset();
     }
 
@@ -563,54 +605,122 @@ public class AlertServiceTest extends AndroidTestCase {
      * Test that the SharedPreferences are only fetched once for each setting.
      */
     @SmallTest
-    public void testMultipleAlerts_sharedPreferences() {
-        int maxNotifications = 10;
+    public void testGenerateAlerts_sharedPreferences() {
         MockSharedPreferences prefs = new MockSharedPreferences(true /* strict mode */);
         AlertsTable at = new AlertsTable();
-        NotificationTestManager ntm = new NotificationTestManager(at.mAlerts, maxNotifications);
+        NotificationTestManager ntm = new NotificationTestManager(at.mAlerts,
+                AlertService.MAX_NOTIFICATIONS);
 
         // Current time - 5:00
         long currentTime = createTimeInMillis(5, 0);
 
         // Set up future alerts.  The real query implementation sorts by descending start
         // time so simulate that here with our order of adds to AlertsTable.
-        int id9 = at.addAlertRow(9, SCHEDULED, ACCEPTED, 0, createTimeInMillis(9, 0),
+        at.addAlertRow(3, SCHEDULED, ACCEPTED, 0, createTimeInMillis(9, 0),
                 createTimeInMillis(10, 0), 0);
-        int id8 = at.addAlertRow(8, SCHEDULED, ACCEPTED, 0, createTimeInMillis(8, 0),
+        at.addAlertRow(2, SCHEDULED, ACCEPTED, 0, createTimeInMillis(8, 0),
                 createTimeInMillis(9, 0), 0);
-        int id7 = at.addAlertRow(7, SCHEDULED, ACCEPTED, 0, createTimeInMillis(7, 0),
+        at.addAlertRow(1, SCHEDULED, ACCEPTED, 0, createTimeInMillis(7, 0),
                 createTimeInMillis(8, 0), 0);
-
-        // Set up concurrent alerts (that started recently).
-        int id6 = at.addAlertRow(6, SCHEDULED, ACCEPTED, 0, createTimeInMillis(5, 0),
-                createTimeInMillis(5, 40), 0);
-        int id5 = at.addAlertRow(5, SCHEDULED, ACCEPTED, 0, createTimeInMillis(4, 55),
-                createTimeInMillis(7, 30), 0);
-        int id4 = at.addAlertRow(4, SCHEDULED, ACCEPTED, 0, createTimeInMillis(4, 50),
-                createTimeInMillis(4, 50), 0);
-
-        // Set up past alerts.
-        int id3 = at.addAlertRow(3, SCHEDULED, ACCEPTED, 0, createTimeInMillis(3, 0),
-                createTimeInMillis(4, 0), 0);
-        int id2 = at.addAlertRow(2, SCHEDULED, ACCEPTED, 0, createTimeInMillis(2, 0),
-                createTimeInMillis(3, 0), 0);
-        int id1 = at.addAlertRow(1, SCHEDULED, ACCEPTED, 0, createTimeInMillis(1, 0),
-                createTimeInMillis(2, 0), 0);
-
-        // Expected notifications.
-        ntm.expectTestNotification(6, id4, PRIORITY_HIGH); // concurrent
-        ntm.expectTestNotification(5, id5, PRIORITY_HIGH); // concurrent
-        ntm.expectTestNotification(4, id6, PRIORITY_HIGH); // concurrent
-        ntm.expectTestNotification(3, id7, PRIORITY_HIGH); // future
-        ntm.expectTestNotification(2, id8, PRIORITY_HIGH); // future
-        ntm.expectTestNotification(1, id9, PRIORITY_HIGH); // future
-        ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID,
-                new int[] {id3, id2, id1}, PRIORITY_MIN);
 
         // If this does not result in a failure (MockSharedPreferences fails for duplicate
         // queries), then test passes.
-        AlertService.generateAlerts(mContext, ntm, prefs, at.getAlertCursor(), currentTime,
-                maxNotifications);
+        AlertService.generateAlerts(mContext, ntm, new MockAlarmManager(), prefs,
+                at.getAlertCursor(), currentTime, AlertService.MAX_NOTIFICATIONS);
+    }
+
+    public void testGenerateAlerts_refreshTime() {
+        AlertsTable at = new AlertsTable();
+        MockSharedPreferences prefs = new MockSharedPreferences();
+        MockAlarmManager alarmMgr = new MockAlarmManager();
+        NotificationTestManager ntm = new NotificationTestManager(at.mAlerts,
+                AlertService.MAX_NOTIFICATIONS);
+
+        // Since AlertService.processQuery uses DateUtils.isToday instead of checking against
+        // the passed in currentTime (not worth allocating the extra Time objects to do so), use
+        // today's date for this test.
+        Time now = new Time();
+        now.setToNow();
+        int day = now.monthDay;
+        int month = now.month;
+        int year = now.year;
+        Time yesterday = new Time();
+        yesterday.set(System.currentTimeMillis() - DateUtils.DAY_IN_MILLIS);
+        Time tomorrow = new Time();
+        tomorrow.set(System.currentTimeMillis() + DateUtils.DAY_IN_MILLIS);
+        long allDayStart = createTimeInMillis(0, 0, 0, day, month, year, Time.TIMEZONE_UTC);
+
+        /* today 10am - 10:30am */
+        int id4 = at.addAlertRow(4, SCHEDULED, ACCEPTED, 0,
+                createTimeInMillis(0, 0, 10, day, month, year, Time.getCurrentTimezone()),
+                createTimeInMillis(0, 30, 10, day, month, year, Time.getCurrentTimezone()), 0);
+        /* today 6am - 6am (0 duration event) */
+        int id3 = at.addAlertRow(3, SCHEDULED, ACCEPTED, 0,
+                createTimeInMillis(0, 0, 6, day, month, year, Time.getCurrentTimezone()),
+                createTimeInMillis(0, 0, 6, day, month, year, Time.getCurrentTimezone()), 0);
+        /* today allDay */
+        int id2 = at.addAlertRow(2, SCHEDULED, ACCEPTED, 1, allDayStart,
+                allDayStart + DateUtils.HOUR_IN_MILLIS * 24, 0);
+        /* yesterday 11pm - today 7am (multiday event) */
+        int id1 = at.addAlertRow(1, SCHEDULED, ACCEPTED, 0,
+                createTimeInMillis(0, 0, 23, yesterday.monthDay, yesterday.month, yesterday.year,
+                        Time.getCurrentTimezone()),
+                createTimeInMillis(0, 0, 7, day, month, year, Time.getCurrentTimezone()), 0);
+
+        // Test at midnight - next refresh should be 15 min later (15 min into the all
+        // day event).
+        long currentTime = createTimeInMillis(0, 0, 0, day, month, year, Time.getCurrentTimezone());
+        alarmMgr.expectAlarmTime(AlarmManager.RTC, currentTime + 15 * DateUtils.MINUTE_IN_MILLIS);
+        ntm.expectTestNotification(4, id1, PRIORITY_HIGH);
+        ntm.expectTestNotification(3, id2, PRIORITY_HIGH);
+        ntm.expectTestNotification(2, id3, PRIORITY_HIGH);
+        ntm.expectTestNotification(1, id4, PRIORITY_HIGH);
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(),
+                currentTime, AlertService.MAX_NOTIFICATIONS);
+        ntm.validateNotificationsAndReset();
+
+        // Test at 12:30am - next refresh should be 30 min later (1/4 into event 'id1').
+        currentTime = createTimeInMillis(0, 30, 0, day, month, year, Time.getCurrentTimezone());
+        alarmMgr.expectAlarmTime(AlarmManager.RTC, currentTime + 30 * DateUtils.MINUTE_IN_MILLIS);
+        ntm.expectTestNotification(3, id1, PRIORITY_HIGH);
+        ntm.expectTestNotification(2, id3, PRIORITY_HIGH);
+        ntm.expectTestNotification(1, id4, PRIORITY_HIGH);
+        ntm.expectTestNotification(4, id2, PRIORITY_DEFAULT);
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(),
+                currentTime, AlertService.MAX_NOTIFICATIONS);
+        ntm.validateNotificationsAndReset();
+
+        // Test at 5:55am - next refresh should be 20 min later (15 min after 'id3').
+        currentTime = createTimeInMillis(0, 55, 5, day, month, year, Time.getCurrentTimezone());
+        alarmMgr.expectAlarmTime(AlarmManager.RTC, currentTime + 20 * DateUtils.MINUTE_IN_MILLIS);
+        ntm.expectTestNotification(2, id3, PRIORITY_HIGH);
+        ntm.expectTestNotification(1, id4, PRIORITY_HIGH);
+        ntm.expectTestNotification(3, id2, PRIORITY_DEFAULT);
+        ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, id1, PRIORITY_MIN);
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(),
+                currentTime, AlertService.MAX_NOTIFICATIONS);
+        ntm.validateNotificationsAndReset();
+
+        // Test at 10:14am - next refresh should be 1 min later (15 min into event 'id4').
+        currentTime = createTimeInMillis(0, 14, 10, day, month, year, Time.getCurrentTimezone());
+        alarmMgr.expectAlarmTime(AlarmManager.RTC, currentTime + 1 * DateUtils.MINUTE_IN_MILLIS);
+        ntm.expectTestNotification(1, id4, PRIORITY_HIGH);
+        ntm.expectTestNotification(2, id2, PRIORITY_DEFAULT);
+        ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID, new int[] {id3, id1},
+                PRIORITY_MIN);
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(),
+                currentTime, AlertService.MAX_NOTIFICATIONS);
+        ntm.validateNotificationsAndReset();
+
+        // Test at 10:15am - next refresh should be tomorrow midnight (end of all day event 'id2').
+        currentTime = createTimeInMillis(0, 15, 10, day, month, year, Time.getCurrentTimezone());
+        alarmMgr.expectAlarmTime(AlarmManager.RTC, createTimeInMillis(0, 0, 23, tomorrow.monthDay,
+                tomorrow.month, tomorrow.year, Time.getCurrentTimezone()));
+        ntm.expectTestNotification(1, id2, PRIORITY_DEFAULT);
+        ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID,
+                new int[] {id4, id3, id1}, PRIORITY_MIN);
+        AlertService.generateAlerts(mContext, ntm, alarmMgr, prefs, at.getAlertCursor(),
+                currentTime, AlertService.MAX_NOTIFICATIONS);
         ntm.validateNotificationsAndReset();
     }
 

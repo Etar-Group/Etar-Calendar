@@ -107,7 +107,7 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.EVENT_LOCATION, // 2
             Instances.ALL_DAY, // 3
             Instances.HAS_ALARM, // 4
-            Instances.DISPLAY_COLOR, // 5
+            Instances.DISPLAY_COLOR, // 5 If SDK < 16, set to Instances.CALENDAR_COLOR.
             Instances.RRULE, // 6
             Instances.BEGIN, // 7
             Instances.END, // 8
@@ -120,6 +120,12 @@ public class AgendaWindowAdapter extends BaseAdapter
             Instances.CAN_ORGANIZER_RESPOND, // 15
             Instances.EVENT_TIMEZONE, // 16
     };
+
+    static {
+        if (!Utils.isJellybeanOrLater()) {
+            PROJECTION[INDEX_COLOR] = Instances.CALENDAR_COLOR;
+        }
+    }
 
     // Listview may have a bug where the index/position is not consistent when there's a header.
     // position == positionInListView - OFF_BY_ONE_BUG
@@ -193,6 +199,14 @@ public class AgendaWindowAdapter extends BaseAdapter
         @Override
         public void run() {
             mTimeZone = Utils.getTimeZone(mContext, this);
+            notifyDataSetChanged();
+        }
+    };
+
+    private final Handler mDataChangedHandler = new Handler();
+    private final Runnable mDataChangedRunnable = new Runnable() {
+        @Override
+        public void run() {
             notifyDataSetChanged();
         }
     };
@@ -667,12 +681,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                         long newInstanceId = findInstanceIdFromPosition(gotoPosition);
                         if (newInstanceId != getSelectedInstanceId()) {
                             setSelectedInstanceId(newInstanceId);
-                            new Handler().post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    notifyDataSetChanged();
-                                }
-                            });
+                            mDataChangedHandler.post(mDataChangedRunnable);
                             Cursor tempCursor = getCursorByPosition(gotoPosition);
                             if (tempCursor != null) {
                                 int tempCursorPosition = getCursorPositionByPosition(gotoPosition);
@@ -684,7 +693,7 @@ public class AgendaWindowAdapter extends BaseAdapter
                                                 event.id, event.begin, event.end, 0,
                                                 0, CalendarController.EventInfo.buildViewExtraLong(
                                                         Attendees.ATTENDEE_STATUS_NONE,
-                                                        event.allDay), -1);
+                                                        event.allDay), goToTime.toMillis(false));
                             }
                         }
                     }
@@ -1028,10 +1037,12 @@ public class AgendaWindowAdapter extends BaseAdapter
                     if (tempCursor != null) {
                         EventInfo event = buildEventInfoFromCursor(tempCursor, tempCursorPosition,
                                 false);
+                        long selectedTime = findStartTimeFromPosition(newPosition);
                         CalendarController.getInstance(mContext).sendEventRelatedEventWithExtra(
                                 this, EventType.VIEW_EVENT, event.id, event.begin,
                                 event.end, 0, 0, CalendarController.EventInfo.buildViewExtraLong(
-                                        Attendees.ATTENDEE_STATUS_NONE, event.allDay), -1);
+                                        Attendees.ATTENDEE_STATUS_NONE, event.allDay),
+                                        selectedTime);
                     }
                 }
             } else {
@@ -1287,6 +1298,15 @@ public class AgendaWindowAdapter extends BaseAdapter
         }
         return -1;
     }
+
+    private long findStartTimeFromPosition(int position) {
+        DayAdapterInfo info = getAdapterInfoByPosition(position);
+        if (info != null) {
+            return info.dayAdapter.getStartTime(position - info.offset);
+        }
+        return -1;
+    }
+
 
     private Cursor getCursorByPosition(int position) {
         DayAdapterInfo info = getAdapterInfoByPosition(position);

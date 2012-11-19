@@ -48,7 +48,7 @@
   <plurals name="weekN">
     <item quantity="other" msgid="8085184869561028365">"SEMANA <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">"Actualizar"</string>
+    <string name="calendar_refresh" msgid="6172731193680500025">"Atualizar"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Mostrar dia"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
     <string name="day_view" msgid="4467754504843584437">"Dia"</string>
@@ -94,7 +94,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Adicionar lembrete"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Sem calendários"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Antes de poder adicionar um evento, tem de adicionar pelo menos uma conta do Calendário para o seu aparelho e tornar um calendário visível. Toque em Adicionar Conta para adicionar uma conta (se acabou de adicionar uma conta, aguarde até que termine a sincronização e tente novamente). Em alternativa, toque em Cancelar e certifique-se de que pelo menos um calendário está visível."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"A aplicação Calendário funciona melhor com uma Conta Google."\n\n"• Aceda à Conta Google a partir de qualquer navegador de internet"\n"• Faça uma cópia de segurança dos seus eventos de forma segura"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"A aplicação Calendário funciona melhor com uma Conta Google."\n\n"• Aceda à Conta Google a partir de qualquer navegador de Internet"\n"• Faça uma cópia de segurança dos seus eventos de forma segura"</string>
     <string name="add_account" msgid="1669072099756774952">"Adicionar conta"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendário:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizador:"</string>
@@ -103,7 +103,9 @@
     <string name="response_maybe" msgid="7791500973627841695">"Talvez"</string>
     <string name="response_no" msgid="561911691884148136">"Não"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Enviar email para os convidados"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"Organizador de email"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Enviar email a"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"Evento não encontrado."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respostas rápidas"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Editar respostas predefinidas ao enviar email a convidados"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Editar respostas rápidas"</string>
@@ -209,6 +211,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privacidade"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Notificação do Calendário"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Suspender Notificação"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"Enviar email para os convidados"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Novo evento"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Evento <xliff:g id="ITEM_INDEX">%1$s</xliff:g> de <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
   <plurals name="Nevents">

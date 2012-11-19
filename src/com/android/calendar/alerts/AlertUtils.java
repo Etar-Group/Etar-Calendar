@@ -22,6 +22,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
@@ -29,15 +30,19 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.util.Log;
 
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 public class AlertUtils {
+    private static final String TAG = "AlertUtils";
+    static final boolean DEBUG = true;
 
     public static final long SNOOZE_DELAY = 5 * 60 * 1000L;
 
@@ -52,6 +57,42 @@ public class AlertUtils {
     public static final String NOTIFICATION_ID_KEY = "notificationid";
     public static final String EVENT_IDS_KEY = "eventids";
 
+    // A flag for using local storage to save alert state instead of the alerts DB table.
+    // This allows the unbundled app to run alongside other calendar apps without eating
+    // alerts from other apps.
+    static boolean BYPASS_DB = true;
+
+    // SharedPrefs table name for storing fired alerts.  This prevents other installed
+    // Calendar apps from eating the alerts.
+    private static final String ALERTS_SHARED_PREFS_NAME = "calendar_alerts";
+
+    // Keyname prefix for the alerts data in SharedPrefs.  The key will contain a combo
+    // of event ID, begin time, and alarm time.  The value will be the fired time.
+    private static final String KEY_FIRED_ALERT_PREFIX = "preference_alert_";
+
+    // The last time the SharedPrefs was scanned and flushed of old alerts data.
+    private static final String KEY_LAST_FLUSH_TIME_MS = "preference_flushTimeMs";
+
+    // The # of days to save alert states in the shared prefs table, before flushing.  This
+    // can be any value, since AlertService will also check for a recent alertTime before
+    // ringing the alert.
+    private static final int FLUSH_INTERVAL_DAYS = 1;
+    private static final int FLUSH_INTERVAL_MS = FLUSH_INTERVAL_DAYS * 24 * 60 * 60 * 1000;
+
+    /**
+     * Creates an AlarmManagerInterface that wraps a real AlarmManager.  The alarm code
+     * was abstracted to an interface to make it testable.
+     */
+    public static AlarmManagerInterface createAlarmManager(Context context) {
+        final AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        return new AlarmManagerInterface() {
+            @Override
+            public void set(int type, long triggerAtMillis, PendingIntent operation) {
+                mgr.set(type, triggerAtMillis, operation);
+            }
+        };
+    }
+
     /**
      * Schedules an alarm intent with the system AlarmManager that will notify
      * listeners when a reminder should be fired. The provider will keep
@@ -63,7 +104,8 @@ public class AlertUtils {
      * @param manager The AlarmManager to use or null
      * @param alarmTime The time to fire the intent in UTC millis since epoch
      */
-    public static void scheduleAlarm(Context context, AlarmManager manager, long alarmTime) {
+    public static void scheduleAlarm(Context context, AlarmManagerInterface manager,
+            long alarmTime) {
         scheduleAlarmHelper(context, manager, alarmTime, false);
     }
 
@@ -71,17 +113,13 @@ public class AlertUtils {
      * Schedules the next alarm to silently refresh the notifications.  Note that if there
      * is a pending silent refresh alarm, it will be replaced with this one.
      */
-    static void scheduleNextNotificationRefresh(Context context, AlarmManager manager,
+    static void scheduleNextNotificationRefresh(Context context, AlarmManagerInterface manager,
             long alarmTime) {
         scheduleAlarmHelper(context, manager, alarmTime, true);
     }
 
-    private static void scheduleAlarmHelper(Context context, AlarmManager manager, long alarmTime,
-            boolean quietUpdate) {
-        if (manager == null) {
-            manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        }
-
+    private static void scheduleAlarmHelper(Context context, AlarmManagerInterface manager,
+            long alarmTime, boolean quietUpdate) {
         int alarmType = AlarmManager.RTC_WAKEUP;
         Intent intent = new Intent(CalendarContract.ACTION_EVENT_REMINDER);
         intent.setClass(context, AlertReceiver.class);
@@ -184,4 +222,102 @@ public class AlertUtils {
         return i;
     }
 
+    public static SharedPreferences getFiredAlertsTable(Context context) {
+        return context.getSharedPreferences(ALERTS_SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+    }
+
+    private static String getFiredAlertsKey(long eventId, long beginTime,
+            long alarmTime) {
+        StringBuilder sb = new StringBuilder(KEY_FIRED_ALERT_PREFIX);
+        sb.append(eventId);
+        sb.append("_");
+        sb.append(beginTime);
+        sb.append("_");
+        sb.append(alarmTime);
+        return sb.toString();
+    }
+
+    /**
+     * Returns whether the SharedPrefs storage indicates we have fired the alert before.
+     */
+    static boolean hasAlertFiredInSharedPrefs(Context context, long eventId, long beginTime,
+            long alarmTime) {
+        SharedPreferences prefs = getFiredAlertsTable(context);
+        return prefs.contains(getFiredAlertsKey(eventId, beginTime, alarmTime));
+    }
+
+    /**
+     * Store fired alert info in the SharedPrefs.
+     */
+    static void setAlertFiredInSharedPrefs(Context context, long eventId, long beginTime,
+            long alarmTime) {
+        // Store alarm time as the value too so we don't have to parse all the keys to flush
+        // old alarms out of the table later.
+        SharedPreferences prefs = getFiredAlertsTable(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong(getFiredAlertsKey(eventId, beginTime, alarmTime), alarmTime);
+        editor.apply();
+    }
+
+    /**
+     * Scans and flushes the internal storage of old alerts.  Looks up the previous flush
+     * time in SharedPrefs, and performs the flush if overdue.  Otherwise, no-op.
+     */
+    static void flushOldAlertsFromInternalStorage(Context context) {
+        if (BYPASS_DB) {
+            SharedPreferences prefs = getFiredAlertsTable(context);
+
+            // Only flush if it hasn't been done in a while.
+            long nowTime = System.currentTimeMillis();
+            long lastFlushTimeMs = prefs.getLong(KEY_LAST_FLUSH_TIME_MS, 0);
+            if (nowTime - lastFlushTimeMs > FLUSH_INTERVAL_MS) {
+                if (DEBUG) {
+                    Log.d(TAG, "Flushing old alerts from shared prefs table");
+                }
+
+                // Scan through all fired alert entries, removing old ones.
+                SharedPreferences.Editor editor = prefs.edit();
+                Time timeObj = new Time();
+                for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+                    if (key.startsWith(KEY_FIRED_ALERT_PREFIX)) {
+                        long alertTime;
+                        if (value instanceof Long) {
+                            alertTime = (Long) value;
+                        } else {
+                            // Should never occur.
+                            Log.e(TAG,"SharedPrefs key " + key + " did not have Long value: " +
+                                    value);
+                            continue;
+                        }
+
+                        if (nowTime - alertTime >= FLUSH_INTERVAL_MS) {
+                            editor.remove(key);
+                            if (DEBUG) {
+                                int ageInDays = getIntervalInDays(alertTime, nowTime, timeObj);
+                                Log.d(TAG, "SharedPrefs key " + key + ": removed (" + ageInDays +
+                                        " days old)");
+                            }
+                        } else {
+                            if (DEBUG) {
+                                int ageInDays = getIntervalInDays(alertTime, nowTime, timeObj);
+                                Log.d(TAG, "SharedPrefs key " + key + ": keep (" + ageInDays +
+                                        " days old)");
+                            }
+                        }
+                    }
+                }
+                editor.putLong(KEY_LAST_FLUSH_TIME_MS, nowTime);
+                editor.apply();
+            }
+        }
+    }
+
+    private static int getIntervalInDays(long startMillis, long endMillis, Time timeObj) {
+        timeObj.set(startMillis);
+        int startDay = Time.getJulianDay(startMillis, timeObj.gmtoff);
+        timeObj.set(endMillis);
+        return Time.getJulianDay(endMillis, timeObj.gmtoff) - startDay;
+    }
 }

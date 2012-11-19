@@ -37,6 +37,8 @@ import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
+import android.view.View;
+import android.widget.RemoteViews;
 
 import com.android.calendar.R;
 import com.android.calendar.Utils;
@@ -217,17 +219,17 @@ public class AlertReceiver extends BroadcastReceiver {
 
     public static NotificationWrapper makeBasicNotification(Context context, String title,
             String summaryText, long startMillis, long endMillis, long eventId,
-            int notificationId, boolean doPopup) {
-
-        Notification n = makeBasicNotificationBuilder(context, title, summaryText, startMillis,
-                endMillis, eventId, notificationId, doPopup, false, false).build();
-
+            int notificationId, boolean doPopup, int priority) {
+        Notification n = buildBasicNotification(new Notification.Builder(context),
+                context, title, summaryText, startMillis, endMillis, eventId, notificationId,
+                doPopup, priority, false);
         return new NotificationWrapper(n, notificationId, eventId, startMillis, endMillis, doPopup);
     }
 
-    private static Notification.Builder makeBasicNotificationBuilder(Context context, String title,
-            String summaryText, long startMillis, long endMillis, long eventId,
-            int notificationId, boolean doPopup, boolean highPriority, boolean addActionButtons) {
+    private static Notification buildBasicNotification(Notification.Builder notificationBuilder,
+            Context context, String title, String summaryText, long startMillis, long endMillis,
+            long eventId, int notificationId, boolean doPopup, int priority,
+            boolean addActionButtons) {
         Resources resources = context.getResources();
         if (title == null || title.length() == 0) {
             title = resources.getString(R.string.no_title_label);
@@ -243,41 +245,74 @@ public class AlertReceiver extends BroadcastReceiver {
             endMillis, notificationId);
 
         // Create the base notification.
-        Notification.Builder notificationBuilder = new Notification.Builder(context);
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setContentText(summaryText);
         notificationBuilder.setSmallIcon(R.drawable.stat_notify_calendar);
         notificationBuilder.setContentIntent(clickIntent);
         notificationBuilder.setDeleteIntent(deleteIntent);
-        if (addActionButtons) {
-            // Create a snooze button.  TODO: change snooze to 10 minutes.
-            PendingIntent snoozeIntent = createSnoozeIntent(context, eventId, startMillis,
-                    endMillis, notificationId);
-            notificationBuilder.addAction(R.drawable.ic_alarm_holo_dark,
-                    resources.getString(R.string.snooze_label), snoozeIntent);
-
-            // Create an email button.
-            PendingIntent emailIntent = createBroadcastMailIntent(context, eventId, title);
-            if (emailIntent != null) {
-                notificationBuilder.addAction(R.drawable.ic_menu_email_holo_dark,
-                        resources.getString(R.string.email_guests_label), emailIntent);
-            }
-        }
         if (doPopup) {
             notificationBuilder.setFullScreenIntent(createAlertActivityIntent(context), true);
         }
 
-        // Turn off timestamp.
-        notificationBuilder.setWhen(0);
+        PendingIntent snoozeIntent = null;
+        PendingIntent emailIntent = null;
+        if (addActionButtons) {
+            // Create snooze intent.  TODO: change snooze to 10 minutes.
+            snoozeIntent = createSnoozeIntent(context, eventId, startMillis, endMillis,
+                    notificationId);
 
-        // Setting to a higher priority will encourage notification manager to expand the
-        // notification.
-        if (highPriority) {
-            notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
-        } else {
-            notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
+            // Create email intent for emailing attendees.
+            emailIntent = createBroadcastMailIntent(context, eventId, title);
         }
-        return notificationBuilder;
+
+        if (Utils.isJellybeanOrLater()) {
+            // Turn off timestamp.
+            notificationBuilder.setWhen(0);
+
+            // Should be one of the values in Notification (ie. Notification.PRIORITY_HIGH, etc).
+            // A higher priority will encourage notification manager to expand it.
+            notificationBuilder.setPriority(priority);
+
+            // Add action buttons.
+            if (snoozeIntent != null) {
+                notificationBuilder.addAction(R.drawable.ic_alarm_holo_dark,
+                        resources.getString(R.string.snooze_label), snoozeIntent);
+            }
+            if (emailIntent != null) {
+                notificationBuilder.addAction(R.drawable.ic_menu_email_holo_dark,
+                        resources.getString(R.string.email_guests_label), emailIntent);
+            }
+            return notificationBuilder.getNotification();
+
+        } else {
+            // Old-style notification (pre-JB).  Use custom view with buttons to provide
+            // JB-like functionality (snooze/email).
+            Notification n = notificationBuilder.getNotification();
+
+            // Use custom view with buttons to provide JB-like functionality (snooze/email).
+            RemoteViews contentView = new RemoteViews(context.getPackageName(),
+                    R.layout.notification);
+            contentView.setImageViewResource(R.id.image, R.drawable.stat_notify_calendar);
+            contentView.setTextViewText(R.id.title,  title);
+            contentView.setTextViewText(R.id.text, summaryText);
+            if (snoozeIntent == null) {
+                contentView.setViewVisibility(R.id.email_button, View.GONE);
+            } else {
+                contentView.setViewVisibility(R.id.snooze_button, View.VISIBLE);
+                contentView.setOnClickPendingIntent(R.id.snooze_button, snoozeIntent);
+                contentView.setViewVisibility(R.id.end_padding, View.GONE);
+            }
+            if (emailIntent == null) {
+                contentView.setViewVisibility(R.id.email_button, View.GONE);
+            } else {
+                contentView.setViewVisibility(R.id.email_button, View.VISIBLE);
+                contentView.setOnClickPendingIntent(R.id.email_button, emailIntent);
+                contentView.setViewVisibility(R.id.end_padding, View.GONE);
+            }
+            n.contentView = contentView;
+
+            return n;
+        }
     }
 
     /**
@@ -286,34 +321,36 @@ public class AlertReceiver extends BroadcastReceiver {
      */
     public static NotificationWrapper makeExpandingNotification(Context context, String title,
             String summaryText, String description, long startMillis, long endMillis, long eventId,
-            int notificationId, boolean doPopup, boolean highPriority) {
-        Notification.Builder basicBuilder = makeBasicNotificationBuilder(context, title,
-                summaryText, startMillis, endMillis, eventId, notificationId,
-                doPopup, highPriority, true);
-
-        // Create an expanded notification
-        Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
-                basicBuilder);
-        if (description != null) {
-            description = mBlankLinePattern.matcher(description).replaceAll("");
-            description = description.trim();
+            int notificationId, boolean doPopup, int priority) {
+        Notification.Builder basicBuilder = new Notification.Builder(context);
+        Notification notification = buildBasicNotification(basicBuilder, context, title,
+                summaryText, startMillis, endMillis, eventId, notificationId, doPopup,
+                priority, true);
+        if (Utils.isJellybeanOrLater()) {
+            // Create a new-style expanded notification
+            Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
+                    basicBuilder);
+            if (description != null) {
+                description = mBlankLinePattern.matcher(description).replaceAll("");
+                description = description.trim();
+            }
+            CharSequence text;
+            if (TextUtils.isEmpty(description)) {
+                text = summaryText;
+            } else {
+                SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+                stringBuilder.append(summaryText);
+                stringBuilder.append("\n\n");
+                stringBuilder.setSpan(new RelativeSizeSpan(0.5f), summaryText.length(),
+                        stringBuilder.length(), 0);
+                stringBuilder.append(description);
+                text = stringBuilder;
+            }
+            expandedBuilder.bigText(text);
+            notification = expandedBuilder.build();
         }
-        CharSequence text;
-        if (TextUtils.isEmpty(description)) {
-            text = summaryText;
-        } else {
-            SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
-            stringBuilder.append(summaryText);
-            stringBuilder.append("\n\n");
-            stringBuilder.setSpan(new RelativeSizeSpan(0.5f), summaryText.length(),
-                    stringBuilder.length(), 0);
-            stringBuilder.append(description);
-            text = stringBuilder;
-        }
-        expandedBuilder.bigText(text);
-
-        return new NotificationWrapper(expandedBuilder.build(), notificationId, eventId,
-                startMillis, endMillis, doPopup);
+        return new NotificationWrapper(notification, notificationId, eventId, startMillis,
+                endMillis, doPopup);
     }
 
     /**
@@ -357,63 +394,86 @@ public class AlertReceiver extends BroadcastReceiver {
         String nEventsStr = res.getQuantityString(R.plurals.Nevents, numEvents, numEvents);
         notificationBuilder.setContentTitle(nEventsStr);
 
-        // Set to min priority to encourage the notification manager to collapse it.
-        notificationBuilder.setPriority(Notification.PRIORITY_MIN);
-
         Notification n;
+        if (Utils.isJellybeanOrLater()) {
+            // New-style notification...
 
-        if (expandable) {
-            // Multiple reminders.  Combine into an expanded digest notification.
-            Notification.InboxStyle expandedBuilder = new Notification.InboxStyle(
-                    notificationBuilder);
-            int i = 0;
-            for (AlertService.NotificationInfo info : notificationInfos) {
-                if (i < NOTIFICATION_DIGEST_MAX_LENGTH) {
-                    String name = info.eventName;
-                    if (TextUtils.isEmpty(name)) {
-                        name = context.getResources().getString(R.string.no_title_label);
+            // Set to min priority to encourage the notification manager to collapse it.
+            notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+
+            if (expandable) {
+                // Multiple reminders.  Combine into an expanded digest notification.
+                Notification.InboxStyle expandedBuilder = new Notification.InboxStyle(
+                        notificationBuilder);
+                int i = 0;
+                for (AlertService.NotificationInfo info : notificationInfos) {
+                    if (i < NOTIFICATION_DIGEST_MAX_LENGTH) {
+                        String name = info.eventName;
+                        if (TextUtils.isEmpty(name)) {
+                            name = context.getResources().getString(R.string.no_title_label);
+                        }
+                        String timeLocation = AlertUtils.formatTimeLocation(context,
+                                info.startMillis, info.allDay, info.location);
+
+                        TextAppearanceSpan primaryTextSpan = new TextAppearanceSpan(context,
+                                R.style.NotificationPrimaryText);
+                        TextAppearanceSpan secondaryTextSpan = new TextAppearanceSpan(context,
+                                R.style.NotificationSecondaryText);
+
+                        // Event title in bold.
+                        SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+                        stringBuilder.append(name);
+                        stringBuilder.setSpan(primaryTextSpan, 0, stringBuilder.length(), 0);
+                        stringBuilder.append("  ");
+
+                        // Followed by time and location.
+                        int secondaryIndex = stringBuilder.length();
+                        stringBuilder.append(timeLocation);
+                        stringBuilder.setSpan(secondaryTextSpan, secondaryIndex,
+                                stringBuilder.length(), 0);
+                        expandedBuilder.addLine(stringBuilder);
+                        i++;
+                    } else {
+                        break;
                     }
-                    String timeLocation = AlertUtils.formatTimeLocation(context, info.startMillis,
-                            info.allDay, info.location);
-
-                    TextAppearanceSpan primaryTextSpan = new TextAppearanceSpan(context,
-                            R.style.NotificationPrimaryText);
-                    TextAppearanceSpan secondaryTextSpan = new TextAppearanceSpan(context,
-                            R.style.NotificationSecondaryText);
-
-                    // Event title in bold.
-                    SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
-                    stringBuilder.append(name);
-                    stringBuilder.setSpan(primaryTextSpan, 0, stringBuilder.length(), 0);
-                    stringBuilder.append("  ");
-
-                    // Followed by time and location.
-                    int secondaryIndex = stringBuilder.length();
-                    stringBuilder.append(timeLocation);
-                    stringBuilder.setSpan(secondaryTextSpan, secondaryIndex, stringBuilder.length(),
-                            0);
-                    expandedBuilder.addLine(stringBuilder);
-                    i++;
-                } else {
-                    break;
                 }
+
+                // If there are too many to display, add "+X missed events" for the last line.
+                int remaining = numEvents - i;
+                if (remaining > 0) {
+                    String nMoreEventsStr = res.getQuantityString(R.plurals.N_remaining_events,
+                            remaining, remaining);
+                    // TODO: Add highlighting and icon to this last entry once framework allows it.
+                    expandedBuilder.setSummaryText(nMoreEventsStr);
+                }
+
+                // Remove the title in the expanded form (redundant with the listed items).
+                expandedBuilder.setBigContentTitle("");
+
+                n = expandedBuilder.build();
+            } else {
+                n = notificationBuilder.build();
             }
-
-            // If there are too many to display, add "+X missed events" for the last line.
-            int remaining = numEvents - i;
-            if (remaining > 0) {
-                String nMoreEventsStr = res.getQuantityString(R.plurals.N_remaining_events,
-                        remaining, remaining);
-                // TODO: Add highlighting and icon to this last entry once framework allows it.
-                expandedBuilder.setSummaryText(nMoreEventsStr);
-            }
-
-            // Remove the title in the expanded form (redundant with the listed items).
-            expandedBuilder.setBigContentTitle("");
-
-            n = expandedBuilder.build();
         } else {
-            n = notificationBuilder.build();
+            // Old-style notification (pre-JB).  We only need a standard notification (no
+            // buttons) but use a custom view so it is consistent with the others.
+            n = notificationBuilder.getNotification();
+
+            // Use custom view with buttons to provide JB-like functionality (snooze/email).
+            RemoteViews contentView = new RemoteViews(context.getPackageName(),
+                    R.layout.notification);
+            contentView.setImageViewResource(R.id.image, R.drawable.stat_notify_calendar_multiple);
+            contentView.setTextViewText(R.id.title, nEventsStr);
+            contentView.setTextViewText(R.id.text, digestTitle);
+            contentView.setViewVisibility(R.id.time, View.VISIBLE);
+            contentView.setViewVisibility(R.id.email_button, View.GONE);
+            contentView.setViewVisibility(R.id.snooze_button, View.GONE);
+            contentView.setViewVisibility(R.id.end_padding, View.VISIBLE);
+            n.contentView = contentView;
+
+            // Use timestamp to force expired digest notification to the bottom (there is no
+            // priority setting before JB release).  This is hidden by the custom view.
+            n.when = 1;
         }
 
         NotificationWrapper nw = new NotificationWrapper(n);
@@ -440,10 +500,12 @@ public class AlertReceiver extends BroadcastReceiver {
         Calendars.OWNER_ACCOUNT, // 0
         Calendars.ACCOUNT_NAME,  // 1
         Events.TITLE,            // 2
+        Events.ORGANIZER,        // 3
     };
     private static final int EVENT_INDEX_OWNER_ACCOUNT = 0;
     private static final int EVENT_INDEX_ACCOUNT_NAME = 1;
     private static final int EVENT_INDEX_TITLE = 2;
+    private static final int EVENT_INDEX_ORGANIZER = 3;
 
     private static Cursor getEventCursor(Context context, long eventId) {
         return context.getContentResolver().query(
@@ -517,12 +579,14 @@ public class AlertReceiver extends BroadcastReceiver {
         String ownerAccount = null;
         String syncAccount = null;
         String eventTitle = null;
+        String eventOrganizer = null;
         Cursor eventCursor = getEventCursor(context, eventId);
         try {
             if (eventCursor != null && eventCursor.moveToFirst()) {
                 ownerAccount = eventCursor.getString(EVENT_INDEX_OWNER_ACCOUNT);
                 syncAccount = eventCursor.getString(EVENT_INDEX_ACCOUNT_NAME);
                 eventTitle = eventCursor.getString(EVENT_INDEX_TITLE);
+                eventOrganizer = eventCursor.getString(EVENT_INDEX_ORGANIZER);
             }
         } finally {
             if (eventCursor != null) {
@@ -555,6 +619,12 @@ public class AlertReceiver extends BroadcastReceiver {
             if (attendeesCursor != null) {
                 attendeesCursor.close();
             }
+        }
+
+        // Add organizer only if no attendees to email (the case when too many attendees
+        // in the event to sync or show).
+        if (toEmails.size() == 0 && ccEmails.size() == 0 && eventOrganizer != null) {
+            addIfEmailable(toEmails, eventOrganizer, syncAccount);
         }
 
         Intent intent = null;

@@ -103,7 +103,9 @@
     <string name="response_maybe" msgid="7791500973627841695">"미정"</string>
     <string name="response_no" msgid="561911691884148136">"아니요"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"참석자에게 이메일 보내기"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"이메일 관리도구"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"이메일:"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"일정을 찾을 수 없습니다."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"빠른 응답"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"손님 메일 응답수정"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"빠른 응답 수정"</string>
@@ -209,6 +211,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"개인정보 보호"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"캘린더 알림"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"알림 일시중지"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"참석자에게 이메일 보내기"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ 새 일정"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"일정 <xliff:g id="ITEM_INDEX">%1$s</xliff:g>/<xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
   <plurals name="Nevents">

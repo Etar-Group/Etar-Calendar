@@ -103,7 +103,9 @@
     <string name="response_maybe" msgid="7791500973627841695">"Mhlawumbe"</string>
     <string name="response_no" msgid="561911691884148136">"Cha"</string>
     <string name="email_guests_label" msgid="8772030932155305903">"Izivakashi ze-imeyili"</string>
+    <string name="email_organizer_label" msgid="7178059542798074813">"Isihleli se-imeyili"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"I-imeyili no"</string>
+    <string name="event_not_found" msgid="8356864185947582727">"Umcimbi awutholakalanga."</string>
     <!-- no translation found for quick_response_settings (6776151690686068278) -->
     <skip />
     <!-- no translation found for quick_response_settings_summary (7878304729027355604) -->
@@ -214,16 +216,17 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Ubumfihlo"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Izaziso zekhalenda"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Hlehlisa isaziso"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"Thumela izivakashi i-imeyili"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"Isenzakalo esisha"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Isenzakalo <xliff:g id="ITEM_INDEX">%1$s</xliff:g> se <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
   <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"Isehlakalo esi-1"</item>
+    <item quantity="one" msgid="5230907142214104485">"Umcimbi ongu-1"</item>
     <item quantity="other" msgid="6093072093209431078">"Izehlakalo ezingu-<xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
   <plurals name="N_remaining_events">
-    <item quantity="one" msgid="431585781647034528">"Isehlakalo esi-+1"</item>
+    <item quantity="one" msgid="431585781647034528">"+1 umcimbi"</item>
     <item quantity="other" msgid="3609243840882275136">"Izehlakalo ezingu-+<xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
-    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Isehlakalo esikhethiwe"</string>
+    <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Umcimbi okhethiwe"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Ungalokothi uhlole -&gt;"</string>
 </resources>

@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -32,6 +33,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -121,6 +123,14 @@ public class Utils {
     private static final TimeZoneUtils mTZUtils = new TimeZoneUtils(SHARED_PREFS_NAME);
     private static boolean mAllowWeekForDetailView = false;
     private static long mTardis = 0;
+    private static String sVersion = null;
+
+    /**
+     * Returns whether the SDK is the Jellybean release or later.
+     */
+    public static boolean isJellybeanOrLater() {
+      return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+    }
 
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
         Intent intent = activity.getIntent();
@@ -254,8 +264,8 @@ public class Utils {
     public static void setSharedPreference(Context context, String key, String[] values) {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         LinkedHashSet<String> set = new LinkedHashSet<String>();
-        for (int i = 0; i < values.length; i++) {
-            set.add(values[i]);
+        for (String value : values) {
+            set.add(value);
         }
         prefs.edit().putStringSet(key, set).apply();
     }
@@ -311,6 +321,10 @@ public class Utils {
     }
 
     public static MatrixCursor matrixCursorFromCursor(Cursor cursor) {
+        if (cursor == null) {
+            return null;
+        }
+
         String[] columnNames = cursor.getColumnNames();
         if (columnNames == null) {
             columnNames = new String[] {};
@@ -628,7 +642,9 @@ public class Utils {
     }
 
     public static int getDisplayColorFromColor(int color) {
-        // STOPSHIP - Finalize color adjustment algorithm before shipping
+        if (!isJellybeanOrLater()) {
+            return color;
+        }
 
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
@@ -1389,6 +1405,13 @@ public class Utils {
         // are multiple email accounts.
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SENDTO, Uri.parse(uri));
         emailIntent.putExtra("fromAccountString", ownerAccount);
+
+        // Workaround a Email bug that overwrites the body with this intent extra.  If not
+        // set, it clears the body.
+        if (body != null) {
+            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+        }
+
         return Intent.createChooser(emailIntent, resources.getString(R.string.email_picker_label));
     }
 
@@ -1486,5 +1509,21 @@ public class Utils {
         }
 
         return s;
+    }
+
+    /**
+     * Return the app version code.
+     */
+    public static String getVersionCode(Context context) {
+        if (sVersion == null) {
+            try {
+                sVersion = context.getPackageManager().getPackageInfo(
+                        context.getPackageName(), 0).versionName;
+            } catch (PackageManager.NameNotFoundException e) {
+                // Can't find version; just leave it blank.
+                Log.e(TAG, "Error finding package " + context.getApplicationInfo().packageName);
+            }
+        }
+        return sVersion;
     }
 }
