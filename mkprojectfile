@@ -5,7 +5,7 @@ pushd ../../.. > /dev/null
 sed -e "s,SRC_ROOT_DIR,$PWD," <<- EOF > packages/apps/Calendar/.project
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>B-CalendarAndroid</name>
+	<name>C-CalendarAndroid</name>
 	<comment></comment>
 	<projects>
 	</projects>
