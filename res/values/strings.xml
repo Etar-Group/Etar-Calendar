@@ -466,7 +466,7 @@
     <string name="preferences_general_title">Calendar view setting</string>
     <!-- This is the title of a section in the Settings screen for settings
          related to reminders for calendar events -->
-    <string name="preferences_reminder_title">Reminder settings</string>
+    <string name="preferences_reminder_title">Notifications \u0026 reminders</string>
     <!-- Settings check box label to hide events that the user has declined to attend -->
     <string name="preferences_hide_declined_title">Hide declined events</string>
     <!-- Settings week start label to start week on specific day-->
@@ -485,8 +485,10 @@
     <string name="preferences_alerts_title">Notifications</string>
     <!-- Settings dialog label that specifies when the phone should vibrate -->
     <string name="preferences_alerts_vibrateWhen_title">Vibrate</string>
+    <!-- The old value for enabling vibration. used only for migrating -->
+    <string translatable="false" name="prefDefault_alerts_vibrate_true">always</string>
     <!-- Title of ringtone selector dialog -->
-    <string name="preferences_alerts_ringtone_title">Choose ringtone</string>
+    <string name="preferences_alerts_ringtone_title">Sound</string>
     <!-- Title of check box label to enable or disable pop-up notifications -->
     <string name="preferences_alerts_popup_title">Pop-up notification</string>
     <!-- List item label for setting the default number of reminder minutes -->
@@ -512,33 +514,6 @@
     <string name="preferences_about_title">About</string>
     <!-- Build version of the application -->
     <string name="preferences_build_version">Build version</string>
-
-    <!-- The vibrate notification modes -->
-    <string-array name="prefEntries_alerts_vibrateWhen">
-        <!-- Always -->
-        <item>Always</item>
-        <!-- Only when the phone is in Silent mode -->
-        <item>Only when silent</item>
-        <!-- Never -->
-        <item>Never</item>
-    </string-array>
-
-    <!-- The default vibrateWhen value, when none is set -->
-    <string translatable="false" name="prefDefault_alerts_vibrateWhen">never</string>
-    <!-- The value to use then migrating from old versions for a true vibrate setting -->
-    <string translatable="false" name="prefDefault_alerts_vibrate_true">always</string>
-    <!-- The value to use then migrating from old versions for a false vibrate setting -->
-    <string translatable="false" name="prefDefault_alerts_vibrate_false">never</string>
-
-    <!-- The vibrateWhen values -->
-    <string-array translatable="false" name="prefValues_alerts_vibrateWhen">
-        <item>always</item>
-        <item>silent</item>
-        <item>never</item>
-    </string-array>
-
-    <!-- Dialog title for the Vibrate dialog -->
-    <string name="prefDialogTitle_vibrateWhen">Vibrate</string>
 
     <!-- Widget -->
     <skip/>
