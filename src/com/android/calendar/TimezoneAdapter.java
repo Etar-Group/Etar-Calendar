@@ -384,11 +384,11 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
      */
     public CharSequence[][] getAllTimezones() {
         CharSequence[][] timeZones = new CharSequence[2][sTimezones.size()];
-        List<String> ids = new ArrayList<String>(sTimezones.keySet());
         List<TimezoneRow> timezones = new ArrayList<TimezoneRow>(sTimezones.values());
+        Collections.sort(timezones);
         int i = 0;
         for (TimezoneRow row : timezones) {
-            timeZones[0][i] = ids.get(i);
+            timeZones[0][i] = row.mId;
             timeZones[1][i++] = row.toString();
         }
         return timeZones;
@@ -405,6 +405,9 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
             if (ids.length != labels.length) {
                 Log.wtf(TAG, "ids length (" + ids.length + ") and labels length(" + labels.length +
                         ") should be equal but aren't.");
+                if (ids.length > labels.length) {
+                    length = labels.length;
+                }
             }
             for (int i = 0; i < length; i++) {
                 sTimezones.put(ids[i], new TimezoneRow(ids[i], labels[i]));
