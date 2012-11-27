@@ -80,8 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"无法创建空白活动。"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"即将发送邀请。"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"即将发送更新。"</string>
-    <!-- no translation found for create_event_dialog_save (1080859798521717414) -->
-    <skip />
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"保存"</string>
     <string name="alert_title" msgid="7869592820853066853">"日历通知"</string>
     <string name="event_info_title" msgid="56024222340421620">"查看活动"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"会议邀请"</string>
@@ -108,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"给组织者发送电子邮件"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"发送邮件时使用"</string>
     <string name="event_not_found" msgid="8356864185947582727">"找不到活动。"</string>
+    <string name="map_label" msgid="8795383535586556038">"地图"</string>
+    <string name="call_label" msgid="2960328220008869083">"电话"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"快速回复"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"修改向参加者发邮件时所用的默认回复"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"修改快速回复"</string>
@@ -161,7 +162,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"关于日历"</string>
     <string name="preferences_title" msgid="8045855493262131773">"设置"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"日历视图设置"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"提醒设置"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"通知和提醒"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"隐藏已拒绝的活动"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"一周开始日"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"一周开始日"</string>
@@ -170,7 +171,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"搜索记录已清除。"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"通知"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"振动"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"选择铃声"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"提示音"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"弹出式通知"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"默认提醒时间"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"默认提醒时间"</string>
@@ -181,12 +182,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"显示周数"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"关于"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"版本号"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"始终"</item>
-    <item msgid="8091719131860840185">"仅在静音时"</item>
-    <item msgid="4552962311897985633">"永不"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"振动"</string>
     <string name="gadget_title" msgid="939918875331310945">"日历"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>

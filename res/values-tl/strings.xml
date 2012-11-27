@@ -80,8 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Hindi nalikha ang walang lamang kaganapan."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Magpapadala ng mga imbitasyon."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Magpapadala ng mga update."</string>
-    <!-- no translation found for create_event_dialog_save (1080859798521717414) -->
-    <skip />
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"I-save"</string>
     <string name="alert_title" msgid="7869592820853066853">"Mga notifcation sa kalendaryo"</string>
     <string name="event_info_title" msgid="56024222340421620">"Tingnan ang kaganapan"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Imbitasyon sa meeting"</string>
@@ -108,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Tagaayos ng email"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Mag-email gamit ang"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Hindi nahanap ang kaganapan."</string>
+    <string name="map_label" msgid="8795383535586556038">"Mapa"</string>
+    <string name="call_label" msgid="2960328220008869083">"Tumawag"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Mabilisang tugon"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edit default tugon pag email sa mga bisita"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Edit mabilis tugon"</string>
@@ -161,7 +162,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"Tungkol sa Calendar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Mga Setting"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Setting ng pagtingin sa kalendaryo"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"Mga setting ng paalala"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Mga notification at paalala"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Itago ang mga tinanggihang kaganapan"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Magsisimula ang linggo sa"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Magsisimula ang linggo sa"</string>
@@ -170,7 +171,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"Na-clear ang kasaysayan ng paghahanap."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Mga Notification"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"I-vibrate"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Pumili ng ringtone"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Tunog"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pop-up notification"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Default na oras ng paalala"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Default na oras ng paalala"</string>
@@ -181,12 +182,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Ipakita ang numero ng linggo"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Tungkol sa"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Bumuo ng bersyon"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"Palagi"</item>
-    <item msgid="8091719131860840185">"Kapag tahimik lang"</item>
-    <item msgid="4552962311897985633">"Hindi kailanman"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"I-vibrate"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalendaryo"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
