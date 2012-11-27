@@ -112,10 +112,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private static final String[] EVENT_PROJECTION = new String[] {
         Events._ID,
         Events.TITLE,
+        Events.VISIBLE,
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
-    private static final String TITLE_WHERE = Events.TITLE + " LIKE ?";
+    private static final int EVENT_INDEX_VISIBLE = 2;
+    private static final String TITLE_WHERE = Events.VISIBLE + "=? AND "
+            + Events.TITLE + " LIKE ?";
     private static final int MAX_TITLE_SUGGESTIONS = 4;
 
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
@@ -689,7 +692,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             // remove dupes.  We will order query results by descending event ID to show
             // results that were most recently inputted.
             Cursor tempCursor = mContentResolver.query(Events.CONTENT_URI, EVENT_PROJECTION,
-                    TITLE_WHERE, new String[] { filter }, Events._ID + " DESC");
+                    TITLE_WHERE, new String[] { "1", filter }, Events._ID + " DESC");
             if (tempCursor != null) {
                 try {
                     // Post process query results.
