@@ -80,8 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"빈 일정은 만들 수 없습니다."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"초대장이 전송됩니다."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"업데이트가 전송됩니다."</string>
-    <!-- no translation found for create_event_dialog_save (1080859798521717414) -->
-    <skip />
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"저장"</string>
     <string name="alert_title" msgid="7869592820853066853">"캘린더 알림"</string>
     <string name="event_info_title" msgid="56024222340421620">"일정 보기"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"회의 초대"</string>
@@ -108,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"이메일 관리도구"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"이메일:"</string>
     <string name="event_not_found" msgid="8356864185947582727">"일정을 찾을 수 없습니다."</string>
+    <string name="map_label" msgid="8795383535586556038">"지도"</string>
+    <string name="call_label" msgid="2960328220008869083">"통화"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"빠른 응답"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"손님 메일 응답수정"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"빠른 응답 수정"</string>
@@ -161,7 +162,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"캘린더 정보"</string>
     <string name="preferences_title" msgid="8045855493262131773">"설정"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"캘린더 보기 설정"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"알림 설정"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"알림"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"거부한 일정 숨기기"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"한 주의 시작"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"한 주의 시작"</string>
@@ -170,7 +171,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"검색기록이 삭제되었습니다."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"알림"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"진동"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"벨소리 선택"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"소리"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"팝업 알림"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"기본 알림 시간"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"기본 알림 시간"</string>
@@ -181,12 +182,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"몇째 주인지 표시"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"정보"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"빌드 버전"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"항상"</item>
-    <item msgid="8091719131860840185">"무음 시에만"</item>
-    <item msgid="4552962311897985633">"사용 안함"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"진동"</string>
     <string name="gadget_title" msgid="939918875331310945">"캘린더"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+ 1개"</item>
