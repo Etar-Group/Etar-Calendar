@@ -80,8 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Acara kosong tidak dibuat."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Undangan akan dikirim."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Pembaruan akan dikirim."</string>
-    <!-- no translation found for create_event_dialog_save (1080859798521717414) -->
-    <skip />
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Simpan"</string>
     <string name="alert_title" msgid="7869592820853066853">"Pemberitahuan kalender"</string>
     <string name="event_info_title" msgid="56024222340421620">"Lihat acara"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Undangan rapat"</string>
@@ -108,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Pengelola email"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Email dengan"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Acara tidak ditemukan."</string>
+    <string name="map_label" msgid="8795383535586556038">"Peta"</string>
+    <string name="call_label" msgid="2960328220008869083">"Panggil"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Tanggapan cepat"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edit tanggapan default saat meng-email tamu"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Edit tanggapan cpt"</string>
@@ -161,7 +162,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"Tentang Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Setelan"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Setelan tampilan kalender"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"Setelan pengingat"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Pemberitahuan &amp; pengingat"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Sembunyikan acara yang ditolak"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Minggu dimulai pada"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Minggu dimulai pada"</string>
@@ -170,7 +171,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"Riwayat penelusuran dihapus."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Pemberitahuan"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Getar"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Pilih nada dering"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Suara"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pemberitahuan munculan"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Waktu pengingat default"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Waktu pengingat default"</string>
@@ -181,12 +182,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Tampilkan angka minggu"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Tentang"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versi bentukan"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"Selalu"</item>
-    <item msgid="8091719131860840185">"Hanya saat senyap"</item>
-    <item msgid="4552962311897985633">"Tidak pernah"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Getar"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalender"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
