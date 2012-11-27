@@ -126,10 +126,13 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
     private static final String[] EVENT_PROJECTION = new String[] {
         Events._ID,
         Events.EVENT_LOCATION,
+        Events.VISIBLE,
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_LOCATION = 1;
-    private static final String LOCATION_WHERE = Events.EVENT_LOCATION + " LIKE ?";
+    private static final int EVENT_INDEX_VISIBLE = 2;
+    private static final String LOCATION_WHERE = Events.VISIBLE + "=? AND "
+            + Events.EVENT_LOCATION + " LIKE ?";
     private static final int MAX_LOCATION_SUGGESTIONS = 4;
 
     private final ContentResolver mResolver;
@@ -428,7 +431,7 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
         // remove dupes.  We will order query results by descending event ID to show
         // results that were most recently inputed.
         Cursor c = resolver.query(Events.CONTENT_URI, EVENT_PROJECTION, LOCATION_WHERE,
-                new String[] { filter }, Events._ID + " DESC");
+                new String[] { "1", filter }, Events._ID + " DESC");
         try {
             List<Result> recentLocations = null;
             if (c != null) {
