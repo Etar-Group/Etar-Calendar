@@ -70,6 +70,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
@@ -140,6 +141,59 @@ public class Utils {
     private static String sVersion = null;
 
     private static final Pattern mWildcardPattern = Pattern.compile("^.*$");
+
+    /**
+    * A coordinate must be of the following form for Google Maps to correctly use it:
+    * Latitude, Longitude
+    *
+    * This may be in decimal form:
+    * Latitude: {-90 to 90}
+    * Longitude: {-180 to 180}
+    *
+    * Or, in degrees, minutes, and seconds:
+    * Latitude: {-90 to 90}° {0 to 59}' {0 to 59}"
+    * Latitude: {-180 to 180}° {0 to 59}' {0 to 59}"
+    * + or - degrees may also be represented with N or n, S or s for latitude, and with
+    * E or e, W or w for longitude, where the direction may either precede or follow the value.
+    *
+    * Some examples of coordinates that will be accepted by the regex:
+    * 37.422081°, -122.084576°
+    * 37.422081,-122.084576
+    * +37°25'19.49", -122°5'4.47"
+    * 37°25'19.49"N, 122°5'4.47"W
+    * N 37° 25' 19.49",  W 122° 5' 4.47"
+    **/
+    private static final String COORD_DEGREES_LATITUDE =
+            "([-+NnSs]" + "(\\s)*)?"
+            + "[1-9]?[0-9](\u00B0)" + "(\\s)*"
+            + "([1-5]?[0-9]\')?" + "(\\s)*"
+            + "([1-5]?[0-9]" + "(\\.[0-9]+)?\")?"
+            + "((\\s)*" + "[NnSs])?";
+    private static final String COORD_DEGREES_LONGITUDE =
+            "([-+EeWw]" + "(\\s)*)?"
+            + "(1)?[0-9]?[0-9](\u00B0)" + "(\\s)*"
+            + "([1-5]?[0-9]\')?" + "(\\s)*"
+            + "([1-5]?[0-9]" + "(\\.[0-9]+)?\")?"
+            + "((\\s)*" + "[EeWw])?";
+    private static final String COORD_DEGREES_PATTERN =
+            COORD_DEGREES_LATITUDE
+            + "(\\s)*" + "," + "(\\s)*"
+            + COORD_DEGREES_LONGITUDE;
+    private static final String COORD_DECIMAL_LATITUDE =
+            "[+-]?"
+            + "[1-9]?[0-9]" + "(\\.[0-9]+)"
+            + "(\u00B0)?";
+    private static final String COORD_DECIMAL_LONGITUDE =
+            "[+-]?"
+            + "(1)?[0-9]?[0-9]" + "(\\.[0-9]+)"
+            + "(\u00B0)?";
+    private static final String COORD_DECIMAL_PATTERN =
+            COORD_DECIMAL_LATITUDE
+            + "(\\s)*" + "," + "(\\s)*"
+            + COORD_DECIMAL_LONGITUDE;
+    private static final Pattern COORD_PATTERN =
+            Pattern.compile(COORD_DEGREES_PATTERN + "|" + COORD_DECIMAL_PATTERN);
+
     private static final String NANP_ALLOWED_SYMBOLS = "()+-*#.";
     private static final int NANP_MIN_DIGITS = 7;
     private static final int NANP_MAX_DIGITS = 11;
@@ -1591,11 +1645,19 @@ public class Utils {
     /**
      * Replaces stretches of text that look like addresses and phone numbers with clickable
      * links. If lastDitchGeo is true, then if no links are found in the textview, the entire
-     * string will be converted to a single geo link.
+     * string will be converted to a single geo link. Any spans that may have previously been
+     * in the text will be cleared out.
      * <p>
      * This is really just an enhanced version of Linkify.addLinks().
+     *
+     * @param text - The string to search for links.
+     * @param lastDitchGeo - If no links are found, turn the entire string into one geo link.
+     * @return Spannable object containing the list of URL spans found.
      */
-    public static void linkifyTextView(TextView textView, boolean lastDitchGeo) {
+    public static Spannable extendedLinkify(String text, boolean lastDitchGeo) {
+        // We use a copy of the string argument so it's available for later if necessary.
+        Spannable spanText = SpannableString.valueOf(text);
+
         /*
          * If the text includes a street address like "1600 Amphitheater Parkway, 94043",
          * the current Linkify code will identify "94043" as a phone number and invite
@@ -1604,33 +1666,26 @@ public class Utils {
          */
         String defaultPhoneRegion = System.getProperty("user.region", "US");
         if (!defaultPhoneRegion.equals("US")) {
-            // We make a copy of the spannable so that we can replace it back
-            // into the textview if the first linkify pass does not work.
-            // This will still maintain any spans already present in the textView argument.
-            CharSequence origText =
-                    Spannable.Factory.getInstance().newSpannable(textView.getText());
-            Linkify.addLinks(textView, Linkify.ALL);
+            Linkify.addLinks(spanText, Linkify.ALL);
 
             // If Linkify links the entire text, use that result.
-            if (textView.getText() instanceof Spannable) {
-                Spannable spanText = (Spannable) textView.getText();
-                URLSpan[] spans = spanText.getSpans(0, spanText.length(), URLSpan.class);
-                if (spans.length == 1) {
-                    int linkStart = spanText.getSpanStart(spans[0]);
-                    int linkEnd = spanText.getSpanEnd(spans[0]);
-                    if (linkStart <= indexFirstNonWhitespaceChar(origText) &&
-                            linkEnd >= indexLastNonWhitespaceChar(origText) + 1) {
-                        return;
-                    }
+            URLSpan[] spans = spanText.getSpans(0, spanText.length(), URLSpan.class);
+            if (spans.length == 1) {
+                int linkStart = spanText.getSpanStart(spans[0]);
+                int linkEnd = spanText.getSpanEnd(spans[0]);
+                if (linkStart <= indexFirstNonWhitespaceChar(spanText) &&
+                        linkEnd >= indexLastNonWhitespaceChar(spanText) + 1) {
+                    return spanText;
                 }
             }
 
-            // Otherwise default to geo.
-            textView.setText(origText);
-            if (lastDitchGeo) {
-                Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+            // Otherwise, to be cautious and to try to prevent false positives, reset the spannable.
+            spanText = SpannableString.valueOf(text);
+            // If lastDitchGeo is true, default the entire string to geo.
+            if (lastDitchGeo && !text.isEmpty()) {
+                Linkify.addLinks(spanText, mWildcardPattern, "geo:0,0?q=");
             }
-            return;
+            return spanText;
         }
 
         /*
@@ -1653,8 +1708,36 @@ public class Utils {
          * Ideally we'd use the external/libphonenumber routines, but those aren't available
          * to unbundled applications.
          */
-        boolean linkifyFoundLinks = Linkify.addLinks(textView,
+        boolean linkifyFoundLinks = Linkify.addLinks(spanText,
                 Linkify.ALL & ~(Linkify.PHONE_NUMBERS));
+
+        /*
+         * Get a list of any spans created by Linkify, for the coordinate overlapping span check.
+         */
+        URLSpan[] existingSpans = spanText.getSpans(0, spanText.length(), URLSpan.class);
+
+        /*
+         * Check for coordinates.
+         * This must be done before phone numbers because longitude may look like a phone number.
+         */
+        Matcher coordMatcher = COORD_PATTERN.matcher(spanText);
+        int coordCount = 0;
+        while (coordMatcher.find()) {
+            int start = coordMatcher.start();
+            int end = coordMatcher.end();
+            if (spanWillOverlap(spanText, existingSpans, start, end)) {
+                continue;
+            }
+
+            URLSpan span = new URLSpan("geo:0,0?q=" + coordMatcher.group());
+            spanText.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            coordCount++;
+        }
+
+        /*
+         * Update the list of existing spans, for the phone number overlapping span check.
+         */
+        existingSpans = spanText.getSpans(0, spanText.length(), URLSpan.class);
 
         /*
          * Search for phone numbers.
@@ -1663,26 +1746,7 @@ public class Utils {
          * scanner and the phone number scanner find them, we want the URI link to win.  Since
          * the URI scanner runs first, we just need to avoid creating overlapping spans.
          */
-        CharSequence text = textView.getText();
         int[] phoneSequences = findNanpPhoneNumbers(text);
-
-        /*
-         * If the contents of the TextView are already Spannable (which will be the case if
-         * Linkify found stuff, but might not be otherwise), we can just add annotations
-         * to what's there.  If it's not, and we find phone numbers, we need to convert it to
-         * a Spannable form.  (This mimics the behavior of Linkable.addLinks().)
-         */
-        Spannable spanText;
-        if (text instanceof SpannableString) {
-            spanText = (SpannableString) text;
-        } else {
-            spanText = SpannableString.valueOf(text);
-        }
-
-        /*
-         * Get a list of any spans created by Linkify, for the overlapping span check.
-         */
-        URLSpan[] existingSpans = spanText.getSpans(0, spanText.length(), URLSpan.class);
 
         /*
          * Insert spans for the numbers we found.  We generate "tel:" URIs.
@@ -1693,10 +1757,6 @@ public class Utils {
             int end = phoneSequences[match*2 + 1];
 
             if (spanWillOverlap(spanText, existingSpans, start, end)) {
-                if (Log.isLoggable(TAG, Log.VERBOSE)) {
-                    CharSequence seq = text.subSequence(start, end);
-                    Log.v(TAG, "Not linkifying " + seq + " as phone number due to overlap");
-                }
                 continue;
             }
 
@@ -1722,29 +1782,18 @@ public class Utils {
             phoneCount++;
         }
 
-        if (phoneCount != 0) {
-            // If we had to "upgrade" to Spannable, store the object into the TextView.
-            if (spanText != text) {
-                textView.setText(spanText);
-            }
-
-            // Linkify.addLinks() sets the TextView movement method if it finds any links.  We
-            // want to do the same here.  (This is cloned from Linkify.addLinkMovementMethod().)
-            MovementMethod mm = textView.getMovementMethod();
-
-            if ((mm == null) || !(mm instanceof LinkMovementMethod)) {
-                if (textView.getLinksClickable()) {
-                    textView.setMovementMethod(LinkMovementMethod.getInstance());
-                }
-            }
-        }
-
-        if (lastDitchGeo && !linkifyFoundLinks && phoneCount == 0) {
+        /*
+         * If lastDitchGeo, and no other links have been found, set the entire string as a geo link.
+         */
+        if (lastDitchGeo && !text.isEmpty() &&
+                !linkifyFoundLinks && phoneCount == 0 && coordCount == 0) {
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
                 Log.v(TAG, "No linkification matches, using geo default");
             }
-            Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
+            Linkify.addLinks(spanText, mWildcardPattern, "geo:0,0?q=");
         }
+
+        return spanText;
     }
 
     private static int indexFirstNonWhitespaceChar(CharSequence str) {
@@ -1908,6 +1957,10 @@ public class Utils {
             int existingEnd = spanText.getSpanEnd(span);
             if ((start >= existingStart && start < existingEnd) ||
                     end > existingStart && end <= existingEnd) {
+                if (Log.isLoggable(TAG, Log.VERBOSE)) {
+                    CharSequence seq = spanText.subSequence(start, end);
+                    Log.v(TAG, "Not linkifying " + seq + " as phone number due to overlap");
+                }
                 return true;
             }
         }

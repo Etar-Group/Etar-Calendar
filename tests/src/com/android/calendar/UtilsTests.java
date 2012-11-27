@@ -16,18 +16,34 @@
 
 package com.android.calendar;
 
+import com.android.calendar.Utils;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
 
+import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.database.MatrixCursor;
 import android.provider.CalendarContract.CalendarCache;
 import android.test.mock.MockResources;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Smoke;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.format.Time;
+import android.text.style.URLSpan;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 
 import junit.framework.TestCase;
@@ -112,6 +128,13 @@ public class UtilsTests extends TestCase {
             config.locale = Locale.getDefault();
             return config;
         }
+
+        @Override
+        public DisplayMetrics getDisplayMetrics(){
+            DisplayMetrics metrics = new DisplayMetrics();
+            metrics.density = 2.0f;
+            return metrics;
+        }
     }
 
     private static long createTimeInMillis(int second, int minute, int hour, int monthDay,
@@ -152,6 +175,7 @@ public class UtilsTests extends TestCase {
         dbUtils.getContentResolver().addProvider("settings", dbUtils.getContentProvider());
         dbUtils.getContentResolver().addProvider(CalendarCache.URI.getAuthority(),
                 dbUtils.getContentProvider());
+
         setTimezone(DEFAULT_TIMEZONE);
     }
 
@@ -376,6 +400,105 @@ public class UtilsTests extends TestCase {
             CharSequence seq = text.subSequence(results[i*2], results[i*2 + 1]);
             assertEquals(matches[i], seq);
         }
+    }
+
+    /**
+     * Tests the linkify section of event locations.
+     */
+    @SmallTest
+    public void testExtendedLinkify() {
+        final URLSpan[] NO_LINKS = new URLSpan[] {};
+        URLSpan span_tel01 = new URLSpan("tel:6505551234");
+        URLSpan span_tel02 = new URLSpan("tel:5555678");
+        URLSpan span_tel03 = new URLSpan("tel:+16505551234");
+        URLSpan span_tel04 = new URLSpan("tel:16505551234");
+        URLSpan span_web = new URLSpan("http://www.google.com");
+        URLSpan span_geo01 =
+                new URLSpan("geo:0,0?q=1600+Amphitheatre+Parkway%2C+Mountain+View+CA+94043");
+        URLSpan span_geo02 =
+                new URLSpan("geo:0,0?q=37.422081°, -122.084576°");
+        URLSpan span_geo03 =
+                new URLSpan("geo:0,0?q=37.422081,-122.084576");
+        URLSpan span_geo04 =
+                new URLSpan("geo:0,0?q=+37°25'19.49\", -122°5'4.47\"");
+        URLSpan span_geo05 =
+                new URLSpan("geo:0,0?q=37°25'19.49\"N, 122°5'4.47\"W");
+        URLSpan span_geo06 =
+                new URLSpan("geo:0,0?q=N 37° 25' 19.49\",  W 122° 5' 4.47\"");
+        URLSpan span_geo07 = new URLSpan("geo:0,0?q=non-specified address");
+
+
+        // First test without the last-ditch geo attempt.
+        // Phone spans.
+        findLinks("", NO_LINKS, false);
+        findLinks("(650) 555-1234", new URLSpan[]{span_tel01}, false);
+        findLinks("94043", NO_LINKS, false);
+        findLinks("123456789012", NO_LINKS, false);
+        findLinks("+1 (650) 555-1234", new URLSpan[]{span_tel03}, false);
+        findLinks("(650) 555 1234", new URLSpan[]{span_tel01}, false);
+        findLinks("1-650-555-1234", new URLSpan[]{span_tel04}, false);
+        findLinks("*#650.555.1234#*!", new URLSpan[]{span_tel01}, false);
+        findLinks("555.5678", new URLSpan[]{span_tel02}, false);
+
+        // Web spans.
+        findLinks("http://www.google.com", new URLSpan[]{span_web}, false);
+
+        // Geo spans.
+        findLinks("1600 Amphitheatre Parkway, Mountain View CA 94043",
+                new URLSpan[]{span_geo01}, false);
+        findLinks("37.422081°, -122.084576°", new URLSpan[]{span_geo02}, false);
+        findLinks("37.422081,-122.084576", new URLSpan[]{span_geo03}, false);
+        findLinks("+37°25'19.49\", -122°5'4.47\"", new URLSpan[]{span_geo04}, false);
+        findLinks("37°25'19.49\"N, 122°5'4.47\"W", new URLSpan[]{span_geo05}, false);
+        findLinks("N 37° 25' 19.49\",  W 122° 5' 4.47\"", new URLSpan[]{span_geo06}, false);
+
+        // Multiple spans.
+        findLinks("(650) 555-1234 1600 Amphitheatre Parkway, Mountain View CA 94043",
+                new URLSpan[]{span_tel01, span_geo01}, false);
+        findLinks("(650) 555-1234, 555-5678", new URLSpan[]{span_tel01, span_tel02}, false);
+
+
+        // Now test using the last-ditch geo attempt.
+        findLinks("", NO_LINKS, true);
+        findLinks("(650) 555-1234", new URLSpan[]{span_tel01}, true);
+        findLinks("http://www.google.com", new URLSpan[]{span_web}, true);
+        findLinks("1600 Amphitheatre Parkway, Mountain View CA 94043",
+                new URLSpan[]{span_geo01}, true);
+        findLinks("37.422081°, -122.084576°", new URLSpan[]{span_geo02}, true);
+        findLinks("37.422081,-122.084576", new URLSpan[]{span_geo03}, true);
+        findLinks("+37°25'19.49\", -122°5'4.47\"", new URLSpan[]{span_geo04}, true);
+        findLinks("37°25'19.49\"N, 122°5'4.47\"W", new URLSpan[]{span_geo05}, true);
+        findLinks("N 37° 25' 19.49\",  W 122° 5' 4.47\"", new URLSpan[]{span_geo06}, true);
+        findLinks("non-specified address", new URLSpan[]{span_geo07}, true);
+    }
+
+    private static void findLinks(String text, URLSpan[] matches, boolean lastDitchGeo) {
+        Spannable spanText = Utils.extendedLinkify(text, lastDitchGeo);
+        URLSpan[] spansFound = spanText.getSpans(0, spanText.length(), URLSpan.class);
+        assertEquals(matches.length, spansFound.length);
+
+        // Make sure the expected matches list of URLs is the same as that returned by linkify.
+        ArrayList<URLSpan> matchesArrayList = new ArrayList<URLSpan>(Arrays.asList(matches));
+        for (URLSpan spanFound : spansFound) {
+            Iterator<URLSpan> matchesIt = matchesArrayList.iterator();
+            boolean removed = false;
+            while (matchesIt.hasNext()) {
+                URLSpan match = matchesIt.next();
+                if (match.getURL().equals(spanFound.getURL())) {
+                    matchesIt.remove();
+                    removed = true;
+                    break;
+                }
+            }
+            if (!removed) {
+                // If a match was not found for the current spanFound, the lists aren't equal.
+                fail("No match found for span: "+spanFound.getURL());
+            }
+        }
+
+        // As a sanity check, ensure the matches list is empty, as each item should have been
+        // removed by going through the spans returned by linkify.
+        assertTrue(matchesArrayList.isEmpty());
     }
 
     @SmallTest
