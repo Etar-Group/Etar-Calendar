@@ -569,6 +569,8 @@ public class AlertReceiver extends BroadcastReceiver {
             contentView.setTextViewText(R.id.title, nEventsStr);
             contentView.setTextViewText(R.id.text, digestTitle);
             contentView.setViewVisibility(R.id.time, View.VISIBLE);
+            contentView.setViewVisibility(R.id.map_button, View.GONE);
+            contentView.setViewVisibility(R.id.call_button, View.GONE);
             contentView.setViewVisibility(R.id.email_button, View.GONE);
             contentView.setViewVisibility(R.id.snooze_button, View.GONE);
             contentView.setViewVisibility(R.id.end_padding, View.VISIBLE);
