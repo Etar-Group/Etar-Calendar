@@ -400,15 +400,29 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
             String[] labels = resources.getStringArray(R.array.timezone_labels);
 
             int length = ids.length;
-            sTimezones = new LinkedHashMap<String, TimezoneRow>(length);
-
             if (ids.length != labels.length) {
-                Log.wtf(TAG, "ids length (" + ids.length + ") and labels length(" + labels.length +
+                Log.e(TAG, "ids length (" + ids.length + ") and labels length(" + labels.length +
                         ") should be equal but aren't.");
+                StringBuilder tzLog = new StringBuilder();
+                for (int id_i = 0; id_i < Math.max(ids.length, labels.length); id_i++) {
+                    String id, label;
+                    id = label = "{NONE FOUND}";
+                    if (id_i < ids.length) {
+                        id = ids[id_i];
+                    }
+                    if (id_i < labels.length) {
+                        label = labels[id_i];
+                    }
+                    tzLog.append(id_i).append(": ").append("id=").append(id).append("\t\t\t\t")
+                    .append("label=").append(label).append("\n");
+                }
+                Log.i(TAG, tzLog.toString());
                 if (ids.length > labels.length) {
                     length = labels.length;
                 }
             }
+
+            sTimezones = new LinkedHashMap<String, TimezoneRow>(length);
             for (int i = 0; i < length; i++) {
                 sTimezones.put(ids[i], new TimezoneRow(ids[i], labels[i]));
             }
