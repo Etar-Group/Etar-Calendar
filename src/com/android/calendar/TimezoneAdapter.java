@@ -403,7 +403,7 @@ public class TimezoneAdapter extends ArrayAdapter<TimezoneRow> {
             if (ids.length != labels.length) {
                 Log.e(TAG, "ids length (" + ids.length + ") and labels length(" + labels.length +
                         ") should be equal but aren't.");
-                if (Log.isLoggable(TAG, Log.DEBUG)) {
+                if (Log.isLoggable(TAG, Log.INFO)) {
                     StringBuilder tzLog = new StringBuilder();
                     for (int id_i = 0; id_i < Math.max(ids.length, labels.length); id_i++) {
                         String id, label;
