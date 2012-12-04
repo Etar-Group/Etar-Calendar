@@ -59,7 +59,7 @@
     <string name="event_edit" msgid="4006961928830064662">"Редаг. подію"</string>
     <string name="event_delete" msgid="2386667193277770442">"Видалити подію"</string>
     <string name="goto_today" msgid="9162136434410891230">"Сьогодні"</string>
-    <string name="menu_preferences" msgid="9120238479503233925">"Налаштув-ня"</string>
+    <string name="menu_preferences" msgid="9120238479503233925">"Налаштування"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"Календарі"</string>
     <string name="search" msgid="550656004486017426">"Пошук"</string>
     <string name="hide_controls" msgid="830320505938520882">"Сховати елем. керув."</string>
@@ -72,7 +72,7 @@
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Календарі для синхронізації"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Календарі для синхронізації"</string>
     <string name="hint_what" msgid="709155115005044531">"Назва події"</string>
-    <string name="hint_where" msgid="4972598001033801974">"Місцезнаходж-ня"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Місце проведення"</string>
     <string name="hint_description" msgid="1910143586169033232">"Опис"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Гості"</string>
     <string name="creating_event" msgid="7516249252554059980">"Подію створено."</string>
@@ -157,7 +157,7 @@
     <string name="change_response_title" msgid="7704714776070974984">"Змінити відповідь"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Загальні налаштування"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Про Календар"</string>
-    <string name="preferences_title" msgid="8045855493262131773">"Налаштув-ня"</string>
+    <string name="preferences_title" msgid="8045855493262131773">"Налаштування"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Налаш. перегляду календ."</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Налашт-ня нагадувань"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Сховати відхилені події"</string>
