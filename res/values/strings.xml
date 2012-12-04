@@ -325,7 +325,7 @@
         <item>Sorry, I can\'t make it. We\'ll have to reschedule.</item>
         </string-array>
     <!-- Option to create a custom response instead of using defaults [CHAR LIMIT=none] -->
-    <string name="quick_response_custom_msg">Custom message\u2026</string>
+    <string name="quick_response_custom_msg">Write your own\u2026</string>
 
     <!-- Event Info strings-->
     <!-- Time Zone Label [CHAR LIMIT=12]-->
