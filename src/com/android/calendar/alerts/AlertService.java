@@ -202,6 +202,18 @@ public class AlertService extends Service {
                 action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER) ||
                 action.equals(AlertReceiver.EVENT_REMINDER_APP_ACTION) ||
                 action.equals(Intent.ACTION_LOCALE_CHANGED)) {
+
+            // b/7652098: Add a delay after the provider-changed event before refreshing
+            // notifications to help issue with the unbundled app installed on HTC having
+            // stale notifications.
+            if (action.equals(Intent.ACTION_PROVIDER_CHANGED)) {
+                try {
+                    Thread.sleep(5000);
+                } catch (Exception e) {
+                    // Ignore.
+                }
+            }
+
             updateAlertNotification(this);
         } else if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
             // The provider usually initiates this setting up of alarms on startup,
