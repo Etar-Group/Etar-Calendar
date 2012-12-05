@@ -415,6 +415,11 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter implements View.OnLon
     public boolean onLongClick(View v) {
         MonthWeekEventsView weekView = (MonthWeekEventsView) v;
         Time day = weekView.getDayFromLocation(mClickedXLocation);
+        if (day == null) {
+            // The day that was clicked is malformed, so just die here.
+            // Return true so nothing else tries to use the malformed day.
+            return true;
+        }
         Message message = new Message();
         message.obj = day;
         mEventDialogHandler.sendMessage(message);
