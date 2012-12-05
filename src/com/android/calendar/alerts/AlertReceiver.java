@@ -773,7 +773,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 return new URLSpan[0];
             }
 
-            Spannable text = Utils.extendedLinkify(location, false);
+            Spannable text = Utils.extendedLinkify(location, true);
 
             // The linkify method should have found at least one link, at the very least.
             // If no smart links were found, it should have set the whole string as a geo link.
