@@ -64,14 +64,11 @@
             android:ringtoneType="notification"
             android:defaultValue="content://settings/system/notification_sound" />
 
-        <ListPreference
+        <CheckBoxPreference
             android:layout="?android:attr/preferenceLayoutChild"
-            android:key="preferences_alerts_vibrateWhen"
+            android:key="preferences_alerts_vibrate"
             android:title="@string/preferences_alerts_vibrateWhen_title"
-            android:entries="@array/prefEntries_alerts_vibrateWhen"
-            android:entryValues="@array/prefValues_alerts_vibrateWhen"
-            android:defaultValue="@string/prefDefault_alerts_vibrateWhen"
-            android:dialogTitle="@string/prefDialogTitle_vibrateWhen" />
+            android:defaultValue="false" />
 
         <CheckBoxPreference
             android:layout="?android:attr/preferenceLayoutChild"

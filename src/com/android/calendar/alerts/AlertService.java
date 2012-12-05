@@ -26,7 +26,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,7 +43,6 @@ import android.text.format.Time;
 import android.util.Log;
 
 import com.android.calendar.GeneralPreferences;
-import com.android.calendar.R;
 import com.android.calendar.Utils;
 
 import java.util.ArrayList;
@@ -506,7 +504,6 @@ public class AlertService extends Service {
                 // Use app local storage to keep track of fired alerts to fix problem of multiple
                 // installed calendar apps potentially causing missed alarms.
                 boolean newAlertOverride = false;
-                String alertIdStr = Long.toString(alertId);
                 if (AlertUtils.BYPASS_DB && ((currentTime - alarmTime) / MINUTE_MS < 1)) {
                     // To avoid re-firing alerts, only fire if alarmTime is very recent.  Otherwise
                     // we can get refires for non-dismissed alerts after app installation, or if the
@@ -588,18 +585,6 @@ public class AlertService extends Service {
                 }
 
                 // TODO: Prefer accepted events in case of ties.
-                int newStatus;
-                switch (status) {
-                    case Attendees.ATTENDEE_STATUS_ACCEPTED:
-                        newStatus = 2;
-                        break;
-                    case Attendees.ATTENDEE_STATUS_TENTATIVE:
-                        newStatus = 1;
-                        break;
-                    default:
-                        newStatus = 0;
-                }
-
                 NotificationInfo newInfo = new NotificationInfo(eventName, location,
                         description, beginTime, endTime, eventId, allDay, newAlert);
 
@@ -831,40 +816,7 @@ public class AlertService extends Service {
 
         private boolean getDefaultVibrate() {
             if (defaultVibrate < 0) {
-                // Find out the circumstances under which to vibrate.
-                // Migrate from pre-Froyo boolean setting if necessary.
-                String vibrateWhen; // "always" or "silent" or "never"
-                if(prefs.contains(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN))
-                {
-                    // Look up Froyo setting
-                    vibrateWhen =
-                        prefs.getString(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN, null);
-                } else if(prefs.contains(GeneralPreferences.KEY_ALERTS_VIBRATE)) {
-                    // No Froyo setting. Migrate pre-Froyo setting to new Froyo-defined value.
-                    boolean vibrate =
-                        prefs.getBoolean(GeneralPreferences.KEY_ALERTS_VIBRATE, false);
-                    vibrateWhen = vibrate ?
-                        context.getString(R.string.prefDefault_alerts_vibrate_true) :
-                        context.getString(R.string.prefDefault_alerts_vibrate_false);
-                } else {
-                    // No setting. Use Froyo-defined default.
-                    vibrateWhen = context.getString(R.string.prefDefault_alerts_vibrateWhen);
-                }
-
-                if (vibrateWhen.equals("always")) {
-                    defaultVibrate = 1;
-                } else if (!vibrateWhen.equals("silent")) {
-                    defaultVibrate = 0;
-                } else {
-                    // Settings are to vibrate when silent.  Return true if it is now silent.
-                    AudioManager audioManager =
-                        (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-                    if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE) {
-                        defaultVibrate = 1;
-                    } else {
-                        defaultVibrate = 0;
-                    }
-                }
+                defaultVibrate = Utils.getDefaultVibrate(context, prefs) ? 1 : 0;
             }
             return defaultVibrate == 1;
         }

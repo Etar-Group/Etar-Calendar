@@ -47,8 +47,7 @@ public class AlertServiceTest extends AndroidTestCase {
 
     class MockSharedPreferences implements SharedPreferences {
 
-        /* "always", "silent", depends on ringer mode */
-        private String mVibrateWhen;
+        private Boolean mVibrate;
         private String mRingtone;
         private Boolean mPopup;
 
@@ -66,14 +65,14 @@ public class AlertServiceTest extends AndroidTestCase {
         }
 
         void init() {
-            mVibrateWhen = "always";
+            mVibrate = true;
             mRingtone = "/some/cool/ringtone";
             mPopup = true;
         }
 
         @Override
         public boolean contains(String key) {
-            if (GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN.equals(key)) {
+            if (GeneralPreferences.KEY_ALERTS_VIBRATE.equals(key)) {
                 return true;
             }
             return false;
@@ -81,6 +80,17 @@ public class AlertServiceTest extends AndroidTestCase {
 
         @Override
         public boolean getBoolean(String key, boolean defValue) {
+            if (GeneralPreferences.KEY_ALERTS_VIBRATE.equals(key)) {
+                if (mVibrate == null) {
+                    Assert.fail(GeneralPreferences.KEY_ALERTS_VIBRATE
+                            + " fetched more than once.");
+                }
+                boolean val = mVibrate;
+                if (mStrict) {
+                    mVibrate = null;
+                }
+                return val;
+            }
             if (GeneralPreferences.KEY_ALERTS_POPUP.equals(key)) {
                 if (mPopup == null) {
                     Assert.fail(GeneralPreferences.KEY_ALERTS_POPUP + " fetched more than once.");
@@ -96,17 +106,6 @@ public class AlertServiceTest extends AndroidTestCase {
 
         @Override
         public String getString(String key, String defValue) {
-            if (GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN.equals(key)) {
-                if (mVibrateWhen == null) {
-                    Assert.fail(GeneralPreferences.KEY_ALERTS_VIBRATE_WHEN
-                            + " fetched more than once.");
-                }
-                String val = mVibrateWhen;
-                if (mStrict) {
-                    mVibrateWhen = null;
-                }
-                return val;
-            }
             if (GeneralPreferences.KEY_ALERTS_RINGTONE.equals(key)) {
                 if (mRingtone == null) {
                     Assert.fail(GeneralPreferences.KEY_ALERTS_RINGTONE
@@ -377,6 +376,7 @@ public class AlertServiceTest extends AndroidTestCase {
             assertNull("Unexpected cancel for id " + id, mExpectedNotifications[id]);
         }
 
+        @Override
         public void notify(int id, NotificationWrapper nw) {
             assertTrue("id out of bound: " + id, 0 <= id);
             assertTrue("id out of bound: " + id, id < mExpectedNotifications.length);
