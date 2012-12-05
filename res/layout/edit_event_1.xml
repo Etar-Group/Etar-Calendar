@@ -68,7 +68,7 @@
     </LinearLayout>
 
     <!-- WHAT -->
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/title"
         style="@style/TextAppearance.EditEvent_Value"
         android:singleLine="true"
@@ -78,7 +78,6 @@
         android:minHeight="48dip"
         android:hint="@string/hint_what"
         android:capitalize="sentences"
-        android:imeOptions="actionDone"
         android:inputType="textAutoCorrect|textCapSentences"
         android:focusable="true" />
 
