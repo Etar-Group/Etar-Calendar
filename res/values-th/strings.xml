@@ -121,7 +121,8 @@
     <item msgid="4485794001743679338">"เริ่มไปเลย ไม่ต้องรอ"</item>
     <item msgid="8036557974294987511">"ขอโทษ ฉันไปไม่ได้ เราต้องกำหนดเวลากันใหม่"</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"ข้อความที่กำหนดเอง…"</string>
+    <!-- no translation found for quick_response_custom_msg (8792374208224108798) -->
+    <skip />
     <string name="event_info_organizer" msgid="9138683335394832629">"ผู้จัด:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"การแจ้งเตือน"</string>
     <string name="agenda_today" msgid="5965841338467422191">"วันนี้ <xliff:g id="DATE">%1$s</xliff:g>"</string>

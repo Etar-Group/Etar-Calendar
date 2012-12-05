@@ -121,7 +121,7 @@
     <item msgid="4485794001743679338">"Continua e inizia senza di me."</item>
     <item msgid="8036557974294987511">"Spiacenti, impossibile portare a termine l\'operazione. È necessario stabilire una nuova pianificazione."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Personalizza messaggio…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Scrivi la tua risposta personale…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Agenda:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Promemoria"</string>
     <string name="agenda_today" msgid="5965841338467422191">"OGGI, <xliff:g id="DATE">%1$s</xliff:g>"</string>
