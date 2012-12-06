@@ -121,8 +121,7 @@
     <item msgid="4485794001743679338">"Sett i gang uten meg."</item>
     <item msgid="8036557974294987511">"Beklager, jeg rekker det ikke. Vi må avtale nytt tidspunkt."</item>
   </string-array>
-    <!-- no translation found for quick_response_custom_msg (8792374208224108798) -->
-    <skip />
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skriv ditt eget"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Arrangør:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Påminnelser"</string>
     <string name="agenda_today" msgid="5965841338467422191">"I DAG, <xliff:g id="DATE">%1$s</xliff:g>"</string>
