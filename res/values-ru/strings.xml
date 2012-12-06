@@ -159,7 +159,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"О календаре"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Настройки"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Мероприятия"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"Настройки напоминаний"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Уведомления и напоминания"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Скрыть отклоненные"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Начало недели:"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Начало недели:"</string>
@@ -168,7 +168,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"История поиска удалена."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Оповещения"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Вибросигнал"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Выбрать рингтон"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Рингтон"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Всплывающее уведомление"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Время напоминания"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Напомнить"</string>
@@ -179,12 +179,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Показать номер недели"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"О программе"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Версия сборки"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"Всегда"</item>
-    <item msgid="8091719131860840185">"Только в режиме без звука"</item>
-    <item msgid="4552962311897985633">"Никогда"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Вибросигнал"</string>
     <string name="gadget_title" msgid="939918875331310945">"Календарь"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">" и еще 1"</item>

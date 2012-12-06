@@ -159,7 +159,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"Acerca do Calendário"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Definições"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Configuração de visualização do calendário"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"Definições de lembrete"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Notificações e lembretes"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos recusados"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"A semana começa"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"A semana começa na"</string>
@@ -168,7 +168,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"Histórico de pesquisas limpo."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificações"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrar"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Escolher toque"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Som"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificação de pop-up"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Hora predefinida do lembrete"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Hora predefinida do lembrete"</string>
@@ -179,12 +179,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número da semana"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Acerca de"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versão da compilação"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"Sempre"</item>
-    <item msgid="8091719131860840185">"Apenas quando está em silêncio"</item>
-    <item msgid="4552962311897985633">"Nunca"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Vibrar"</string>
     <string name="gadget_title" msgid="939918875331310945">"Calendário"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
