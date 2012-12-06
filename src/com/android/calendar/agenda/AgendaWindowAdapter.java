@@ -624,32 +624,19 @@ public class AgendaWindowAdapter extends BaseAdapter
         event.begin = cursor.getLong(AgendaWindowAdapter.INDEX_BEGIN);
         event.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
         event.startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
-
         event.allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
-        if (event.allDay) { // UTC
-            Time time = new Time(mTimeZone);
-            time.setJulianDay(Time.getJulianDay(event.begin, 0));
-            event.begin = time.toMillis(false /* use isDst */);
-        } else if (isDayHeader) { // Trim to midnight.
+
+        if (isDayHeader) { // Trim to midnight.
             Time time = new Time(mTimeZone);
             time.set(event.begin);
             time.hour = 0;
             time.minute = 0;
             time.second = 0;
-            event.begin = time.toMillis(false /* use isDst */);
-        }
-
-        if (!isDayHeader) {
-            if (event.allDay) {
-                Time time = new Time(mTimeZone);
-                time.setJulianDay(Time.getJulianDay(event.end, 0));
-                event.end = time.toMillis(false /* use isDst */);
-            } else {
-                event.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
-            }
-
+            event.begin = time.toMillis(false);
+        } else {
             event.id = cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
         }
+
         return event;
     }
 
@@ -689,6 +676,8 @@ public class AgendaWindowAdapter extends BaseAdapter
                                 EventInfo event =
                                         buildEventInfoFromCursor(tempCursor, tempCursorPosition,
                                                 false);
+                                mSelectedVH = new AgendaAdapter.ViewHolder();
+                                mSelectedVH.allDay = event.allDay;
                                 CalendarController.getInstance(mContext)
                                         .sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT,
                                                 event.id, event.begin, event.end, 0,

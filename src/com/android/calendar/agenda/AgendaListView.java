@@ -192,10 +192,6 @@ public class AgendaListView extends ListView implements OnItemClickListener {
                 } else {
                     holderStartTime = startTime;
                 }
-                if (event.allDay) {
-                    startTime = Utils.convertAlldayLocalToUTC(mTime, startTime, mTimeZone);
-                    endTime = Utils.convertAlldayLocalToUTC(mTime, endTime, mTimeZone);
-                }
                 mTime.set(startTime);
                 CalendarController controller = CalendarController.getInstance(mContext);
                 controller.sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT, event.id,
@@ -334,11 +330,15 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         if (child == null) {
             return false;
         }
+
         int start = getPositionForView(child);
         long milliTime = startTime.toMillis(true);
         int childCount = getChildCount();
         int eventsInAdapter = mWindowAdapter.getCount();
 
+        if (DEBUG) {
+            Log.d(TAG,"id: " + id + ", milliTime (after): " + milliTime);
+        }
         for (int i = 0; i < childCount; i++) {
             if (i + start >= eventsInAdapter) {
                 break;
@@ -347,13 +347,29 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             if (event == null) {
                 continue;
             }
-            if (event.id == id && event.begin == milliTime) {
+
+            // If all-day event, it will be in UTC, so convert it to local time for comparison.
+            long begin = event.begin;
+            if (event.allDay) {
+                begin = Utils.convertAlldayUtcToLocal(null, begin, mTimeZone);
+            }
+
+            if (DEBUG) {
+                Log.d(TAG,"   id: " + event.id + ", startTime: " + event.begin);
+            }
+            if (event.id == id && begin == milliTime) {
                 View listItem = getChildAt(i);
                 if (listItem.getTop() <= getHeight() &&
                         listItem.getTop() >= mWindowAdapter.getStickyHeaderHeight()) {
+                    if (DEBUG) {
+                        Log.d(TAG, "MATCH");
+                    }
                     return true;
                 }
             }
+        }
+        if (DEBUG) {
+            Log.d(TAG, "NO MATCH");
         }
         return false;
     }

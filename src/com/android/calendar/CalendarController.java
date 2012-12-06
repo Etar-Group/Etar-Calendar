@@ -16,13 +16,10 @@
 
 package com.android.calendar;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
-
-import com.android.calendar.event.EditEventActivity;
-import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -34,18 +31,19 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
-import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.util.Pair;
 
+import com.android.calendar.event.EditEventActivity;
+import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
+
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -53,7 +51,7 @@ import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
 public class CalendarController {
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
     private static final String TAG = "CalendarController";
     private static final String REFRESH_SELECTION = Calendars.SYNC_EVENTS + "=?";
     private static final String[] REFRESH_ARGS = new String[] { "1" };
@@ -162,8 +160,8 @@ public class CalendarController {
         public int viewType; // one of the ViewType
         public long id; // event id
         public Time selectedTime; // the selected time in focus
-        public Time startTime; // start of a range of time.
-        public Time endTime; // end of a range of time.
+        public Time startTime; // start of a range of time (All day events should be in UTC).
+        public Time endTime; // end of a range of time (All day events should be in UTC).
         public int x; // x coordinate in the activity space
         public int y; // y coordinate in the activity space
         public String query; // query for a user search
@@ -342,6 +340,15 @@ public class CalendarController {
             startMillis, endMillis, x, y, extraLong, selectedMillis, null, -1);
     }
 
+    private static boolean isViewAllDayEvent(EventInfo event) {
+        return isViewAllDayEvent(event.eventType, event.extraLong);
+    }
+
+    private static boolean isViewAllDayEvent(long eventType, long extraLong) {
+        return (eventType & EventType.VIEW_EVENT) != 0
+                && (extraLong & EventInfo.ALL_DAY_MASK) != 0;
+    }
+
     /**
      * Helper for sending New/View/Edit/Delete events
      *
@@ -368,7 +375,13 @@ public class CalendarController {
         }
 
         info.id = eventId;
-        info.startTime = new Time(Utils.getTimeZone(mContext, mUpdateTimezone));
+
+        if (isViewAllDayEvent(eventType, extraLong)) {
+            info.startTime = new Time(Time.TIMEZONE_UTC);
+        } else {
+            info.startTime = new Time(Utils.getTimeZone(mContext, mUpdateTimezone));
+        }
+
         info.startTime.set(startMillis);
         if (selectedMillis != -1) {
             info.selectedTime = new Time(Utils.getTimeZone(mContext, mUpdateTimezone));
@@ -376,13 +389,19 @@ public class CalendarController {
         } else {
             info.selectedTime = info.startTime;
         }
-        info.endTime = new Time(Utils.getTimeZone(mContext, mUpdateTimezone));
+
+        if (isViewAllDayEvent(eventType, extraLong)) {
+            info.endTime = new Time(Time.TIMEZONE_UTC);
+        } else {
+            info.endTime = new Time(Utils.getTimeZone(mContext, mUpdateTimezone));
+        }
         info.endTime.set(endMillis);
         info.x = x;
         info.y = y;
         info.extraLong = extraLong;
         info.eventTitle = title;
         info.calendarId = calendarId;
+
         this.sendEvent(sender, info);
     }
     /**
@@ -425,11 +444,23 @@ public class CalendarController {
         this.sendEvent(sender, info);
     }
 
+    private static boolean atMidnightUTCTime(Time time) {
+        return (time.timezone == Time.TIMEZONE_UTC
+                && time.hour == 0 && time.minute == 0 && time.second == 0);
+    }
+
     public void sendEvent(Object sender, final EventInfo event) {
         // TODO Throw exception on invalid events
 
         if (DEBUG) {
-            Log.d(TAG, eventInfoToString(event));
+            Log.d(TAG, eventInfoToString(event, sender));
+        }
+
+        if ( (event.eventType & EventType.VIEW_EVENT) != 0
+                && (event.extraLong & EventInfo.ALL_DAY_MASK) != 0
+                && !atMidnightUTCTime(event.startTime)) {
+            Thread.dumpStack();
+            Log.wtf(TAG, "All day events must be set to midnight in UTC time");
         }
 
         Long filteredTypes = filters.get(sender);
@@ -527,6 +558,10 @@ public class CalendarController {
                 EventHandler handler = mFirstEventHandler.second;
                 if (handler != null && (handler.getSupportedEventTypes() & event.eventType) != 0
                         && !mToBeRemovedEventHandlers.contains(mFirstEventHandler.first)) {
+                    if (DEBUG) {
+                        Log.d(TAG, "   " + getReadableEventType(event)
+                                + " - " + handler.getClass().getSimpleName());
+                    }
                     handler.handleEvent(event);
                     handled = true;
                 }
@@ -544,6 +579,10 @@ public class CalendarController {
                         && (eventHandler.getSupportedEventTypes() & event.eventType) != 0) {
                     if (mToBeRemovedEventHandlers.contains(key)) {
                         continue;
+                    }
+                    if (DEBUG) {
+                        Log.d(TAG, "   " + getReadableEventType(event)
+                                + " - " + eventHandler.getClass().getSimpleName());
                     }
                     eventHandler.handleEvent(event);
                     handled = true;
@@ -829,10 +868,8 @@ public class CalendarController {
         mEventId = eventId;
     }
 
-    private String eventInfoToString(EventInfo eventInfo) {
+    private String getReadableEventType(EventInfo eventInfo) {
         String tmp = "Unknown";
-
-        StringBuilder builder = new StringBuilder();
         if ((eventInfo.eventType & EventType.GO_TO) != 0) {
             tmp = "Go to time/event";
         } else if ((eventInfo.eventType & EventType.CREATE_EVENT) != 0) {
@@ -858,7 +895,21 @@ public class CalendarController {
         } else if ((eventInfo.eventType & EventType.UPDATE_TITLE) != 0) {
             tmp = "Update title";
         }
-        builder.append(tmp);
+        return tmp;
+    }
+
+    private String eventInfoToString(EventInfo eventInfo, Object sender) {
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(getReadableEventType(eventInfo));
+
+        if ( (eventInfo.eventType & EventType.VIEW_EVENT) != 0) {
+            builder.append(" (")
+                .append(sender.getClass().getSimpleName())
+                .append("): all day=")
+                .append((eventInfo.extraLong & EventInfo.ALL_DAY_MASK) != 0);
+        }
+
         builder.append(": id=");
         builder.append(eventInfo.id);
         builder.append(", selected=");
