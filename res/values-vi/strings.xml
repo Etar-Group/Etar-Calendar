@@ -159,7 +159,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"Giới thiệu về lịch"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Cài đặt"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Cài đặt chế độ xem lịch"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"Cài đặt lời nhắc"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Thông báo và lời nhắc"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ẩn sự kiện bị từ chối"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Tuần bắt đầu vào"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Tuần bắt đầu vào"</string>
@@ -168,7 +168,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"Đã xóa lịch sử tìm kiếm."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Thông báo"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Rung"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Chọn nhạc chuông"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Âm thanh"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Thông báo bật lên"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Thời gian nhắc mặc định"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Thời gian nhắc mặc định"</string>
@@ -179,12 +179,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Hiển thị số tuần"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Giới thiệu về"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Phiên bản đóng gói"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"Luôn luôn"</item>
-    <item msgid="8091719131860840185">"Chỉ khi ở chế độ im lặng"</item>
-    <item msgid="4552962311897985633">"Chưa bao giờ"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Rung"</string>
     <string name="gadget_title" msgid="939918875331310945">"Lịch"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
