@@ -164,7 +164,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"Mayelana nekhalenda"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Izilungiselelo"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Ilungiselelo lokubuka ikhalenda"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"Izilungiselelo Zesikhumbuzi"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Izaziso nezikhumbuzo"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Fihla izenzakalo ezinqabelwe"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Iviki liqala ngezi"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Iviki liqala ngezi"</string>
@@ -173,7 +173,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"Umlando wokusesha ususiwe."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Izaziso"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Dlidliza"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Khetha ithoni yokukhala"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Umsindo"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Isaziso esiqhamukayo"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Isikhathi sesikhumbuzi esizenzakalelayo"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Isikhathi sesikhumbuzi esizenzakalelayo"</string>
@@ -184,12 +184,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Bonisa inombolo yeviki"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Mayelana"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Yakha inguqulo"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"Njalo"</item>
-    <item msgid="8091719131860840185">"Kuphela uma ithulile"</item>
-    <item msgid="4552962311897985633">"Akusoze"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Dlidliza"</string>
     <string name="gadget_title" msgid="939918875331310945">"Ikhalenda"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>

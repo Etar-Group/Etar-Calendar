@@ -159,7 +159,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"關於日曆"</string>
     <string name="preferences_title" msgid="8045855493262131773">"設定"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"日曆檢視設定"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"提醒設定"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"通知和提醒"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"隱藏已拒絕的活動"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"一週起始日"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"一週起始日"</string>
@@ -168,7 +168,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"已清除搜尋記錄。"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"通知"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"震動"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"選擇鈴聲"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"音效"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"彈出式通知"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"預設提醒時間"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"預設提醒時間"</string>
@@ -179,12 +179,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"顯示週數"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"相關資訊"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"版本"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"一律"</item>
-    <item msgid="8091719131860840185">"靜音時才啟用"</item>
-    <item msgid="4552962311897985633">"永遠不要"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"震動"</string>
     <string name="gadget_title" msgid="939918875331310945">"日曆"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
