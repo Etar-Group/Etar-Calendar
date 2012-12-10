@@ -23,7 +23,7 @@ import com.android.calendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.agenda.AgendaAdapter.ViewHolder;
 import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
-import com.android.calendar.agenda.AgendaWindowAdapter.EventInfo;
+import com.android.calendar.agenda.AgendaWindowAdapter.AgendaItem;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -172,17 +172,17 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     public void onItemClick(AdapterView<?> a, View v, int position, long id) {
         if (id != -1) {
             // Switch to the EventInfo view
-            EventInfo event = mWindowAdapter.getEventByPosition(position);
+            AgendaItem item = mWindowAdapter.getAgendaItemByPosition(position);
             long oldInstanceId = mWindowAdapter.getSelectedInstanceId();
             mWindowAdapter.setSelectedView(v);
 
             // If events are shown to the side of the agenda list , do nothing
             // when the same event is selected , otherwise show the selected event.
 
-            if (event != null && (oldInstanceId != mWindowAdapter.getSelectedInstanceId() ||
+            if (item != null && (oldInstanceId != mWindowAdapter.getSelectedInstanceId() ||
                     !mShowEventDetailsWithAgenda)) {
-                long startTime = event.begin;
-                long endTime = event.end;
+                long startTime = item.begin;
+                long endTime = item.end;
                 // Holder in view holds the start of the specific part of a multi-day event ,
                 // use it for the goto
                 long holderStartTime;
@@ -194,9 +194,9 @@ public class AgendaListView extends ListView implements OnItemClickListener {
                 }
                 mTime.set(startTime);
                 CalendarController controller = CalendarController.getInstance(mContext);
-                controller.sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT, event.id,
+                controller.sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT, item.id,
                         startTime, endTime, 0, 0, CalendarController.EventInfo.buildViewExtraLong(
-                                Attendees.ATTENDEE_STATUS_NONE, event.allDay), holderStartTime);
+                                Attendees.ATTENDEE_STATUS_NONE, item.allDay), holderStartTime);
             }
         }
     }
@@ -224,11 +224,11 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         mWindowAdapter.refresh(mTime, -1, null, forced, false);
     }
 
-    public void deleteSelectedEvent() {
+    public void deleteSelectedAgendaItem() {
         int position = getSelectedItemPosition();
-        EventInfo event = mWindowAdapter.getEventByPosition(position);
-        if (event != null) {
-            mDeleteEventHelper.delete(event.begin, event.end, event.id, -1);
+        AgendaItem agendaItem = mWindowAdapter.getAgendaItemByPosition(position);
+        if (agendaItem != null) {
+            mDeleteEventHelper.delete(agendaItem.begin, agendaItem.end, agendaItem.id, -1);
         }
     }
 
@@ -248,9 +248,9 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     public long getSelectedTime() {
         int position = getSelectedItemPosition();
         if (position >= 0) {
-            EventInfo event = mWindowAdapter.getEventByPosition(position);
-            if (event != null) {
-                return event.begin;
+            AgendaItem item = mWindowAdapter.getAgendaItemByPosition(position);
+            if (item != null) {
+                return item.begin;
             }
         }
         return getFirstVisibleTime(null);
@@ -260,19 +260,19 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         return mWindowAdapter.getSelectedViewHolder();
     }
 
-    public long getFirstVisibleTime(EventInfo e) {
-        EventInfo event = e;
-        if (e == null) {
-            event = getFirstVisibleEvent();
+    public long getFirstVisibleTime(AgendaItem item) {
+        AgendaItem agendaItem = item;
+        if (item == null) {
+            agendaItem = getFirstVisibleAgendaItem();
         }
-        if (event != null) {
+        if (agendaItem != null) {
             Time t = new Time(mTimeZone);
-            t.set(event.begin);
+            t.set(agendaItem.begin);
             // Save and restore the time since setJulianDay sets the time to 00:00:00
             int hour = t.hour;
             int minute = t.minute;
             int second = t.second;
-            t.setJulianDay(event.startDay);
+            t.setJulianDay(agendaItem.startDay);
             t.hour = hour;
             t.minute = minute;
             t.second = second;
@@ -285,7 +285,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
         return 0;
     }
 
-    public EventInfo getFirstVisibleEvent() {
+    public AgendaItem getFirstVisibleAgendaItem() {
         int position = getFirstVisiblePosition();
         if (DEBUG) {
             Log.v(TAG, "getFirstVisiblePosition = " + position);
@@ -305,7 +305,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             }
         }
 
-        return mWindowAdapter.getEventByPosition(position,
+        return mWindowAdapter.getAgendaItemByPosition(position,
                 false /* startDay = date separator date instead of actual event startday */);
 
     }
@@ -319,7 +319,7 @@ public class AgendaListView extends ListView implements OnItemClickListener {
     }
 
     // Finds is a specific event (defined by start time and id) is visible
-    public boolean isEventVisible(Time startTime, long id) {
+    public boolean isAgendaItemVisible(Time startTime, long id) {
 
         if (id == -1 || startTime == null) {
             return false;
@@ -343,21 +343,21 @@ public class AgendaListView extends ListView implements OnItemClickListener {
             if (i + start >= eventsInAdapter) {
                 break;
             }
-            EventInfo event = mWindowAdapter.getEventByPosition(i + start);
-            if (event == null) {
+            AgendaItem agendaItem = mWindowAdapter.getAgendaItemByPosition(i + start);
+            if (agendaItem == null) {
                 continue;
             }
 
             // If all-day event, it will be in UTC, so convert it to local time for comparison.
-            long begin = event.begin;
-            if (event.allDay) {
+            long begin = agendaItem.begin;
+            if (agendaItem.allDay) {
                 begin = Utils.convertAlldayUtcToLocal(null, begin, mTimeZone);
             }
 
             if (DEBUG) {
-                Log.d(TAG,"   id: " + event.id + ", startTime: " + event.begin);
+                Log.d(TAG,"   id: " + agendaItem.id + ", startTime: " + agendaItem.begin);
             }
-            if (event.id == id && begin == milliTime) {
+            if (agendaItem.id == id && begin == milliTime) {
                 View listItem = getChildAt(i);
                 if (listItem.getTop() <= getHeight() &&
                         listItem.getTop() >= mWindowAdapter.getStickyHeaderHeight()) {
