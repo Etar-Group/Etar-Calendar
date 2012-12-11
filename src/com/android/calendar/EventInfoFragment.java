@@ -102,6 +102,8 @@ import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventViewUtils;
+import com.android.calendarcommon2.DateException;
+import com.android.calendarcommon2.Duration;
 import com.android.calendarcommon2.EventRecurrence;
 
 import java.util.ArrayList;
@@ -174,12 +176,15 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Events.CUSTOM_APP_PACKAGE,   // 17
         Events.CUSTOM_APP_URI,       // 18
         Events.ORIGINAL_SYNC_ID,     // 19 do not remove; used in DeleteEventHelper
+        Events.DTEND,                // 20
+        Events.DURATION,             // 21
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
     private static final int EVENT_INDEX_RRULE = 2;
     private static final int EVENT_INDEX_ALL_DAY = 3;
     private static final int EVENT_INDEX_CALENDAR_ID = 4;
+    private static final int EVENT_INDEX_DTSTART = 5;
     private static final int EVENT_INDEX_SYNC_ID = 6;
     private static final int EVENT_INDEX_EVENT_TIMEZONE = 7;
     private static final int EVENT_INDEX_DESCRIPTION = 8;
@@ -193,6 +198,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int EVENT_INDEX_ALLOWED_REMINDERS = 16;
     private static final int EVENT_INDEX_CUSTOM_APP_PACKAGE = 17;
     private static final int EVENT_INDEX_CUSTOM_APP_URI = 18;
+    private static final int EVENT_INDEX_DTEND = 20;
+    private static final int EVENT_INDEX_DURATION = 21;
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
@@ -1155,6 +1162,33 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             eventName = getActivity().getString(R.string.no_title_label);
         }
 
+        // 3rd parties might not have specified the start/end time when firing the
+        // Events.CONTENT_URI intent.  Update these with values read from the db.
+        if (mStartMillis == 0 && mEndMillis == 0) {
+            mStartMillis = mEventCursor.getLong(EVENT_INDEX_DTSTART);
+            mEndMillis = mEventCursor.getLong(EVENT_INDEX_DTEND);
+            if (mEndMillis == 0) {
+                String duration = mEventCursor.getString(EVENT_INDEX_DURATION);
+                if (!TextUtils.isEmpty(duration)) {
+                    try {
+                        Duration d = new Duration();
+                        d.parse(duration);
+                        long endMillis = mStartMillis + d.getMillis();
+                        if (endMillis >= mStartMillis) {
+                            mEndMillis = endMillis;
+                        } else {
+                            Log.d(TAG, "Invalid duration string: " + duration);
+                        }
+                    } catch (DateException e) {
+                        Log.d(TAG, "Error parsing duration string " + duration, e);
+                    }
+                }
+                if (mEndMillis == 0) {
+                    mEndMillis = mStartMillis;
+                }
+            }
+        }
+
         mAllDay = mEventCursor.getInt(EVENT_INDEX_ALL_DAY) != 0;
         String location = mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION);
         String description = mEventCursor.getString(EVENT_INDEX_DESCRIPTION);
@@ -1230,7 +1264,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     textView.setText(Utils.extendedLinkify(textView.getText().toString(), true));
 
                     // Linkify.addLinks() sets the TextView movement method if it finds any links.
-                    // We must do the same here, in case linkify by itself did not find any. 
+                    // We must do the same here, in case linkify by itself did not find any.
                     // (This is cloned from Linkify.addLinkMovementMethod().)
                     MovementMethod mm = textView.getMovementMethod();
                     if ((mm == null) || !(mm instanceof LinkMovementMethod)) {
