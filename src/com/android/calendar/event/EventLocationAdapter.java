@@ -454,13 +454,11 @@ public class EventLocationAdapter extends ArrayAdapter<EventLocationAdapter.Resu
      */
     private static List<Result> processLocationsQueryResults(Cursor cursor) {
         TreeSet<String> locations = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-        int numColumns = cursor.getColumnCount();
         cursor.moveToPosition(-1);
 
         // Remove dupes.
         while ((locations.size() < MAX_LOCATION_SUGGESTIONS) && cursor.moveToNext()) {
             String location = cursor.getString(EVENT_INDEX_LOCATION).trim();
-            String data[] = new String[numColumns];
             locations.add(location);
         }
 

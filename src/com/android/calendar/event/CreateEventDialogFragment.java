@@ -265,7 +265,6 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
         int accountNameIndex = cursor.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
         int accountTypeIndex = cursor.getColumnIndexOrThrow(Calendars.ACCOUNT_TYPE);
 
-        int position = 0;
         cursor.moveToPosition(-1);
         while (cursor.moveToNext()) {
             String calendarOwner = cursor.getString(calendarOwnerIndex);

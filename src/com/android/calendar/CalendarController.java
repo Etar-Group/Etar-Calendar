@@ -43,7 +43,6 @@ import android.util.Pair;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -51,12 +50,8 @@ import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
 public class CalendarController {
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private static final String TAG = "CalendarController";
-    private static final String REFRESH_SELECTION = Calendars.SYNC_EVENTS + "=?";
-    private static final String[] REFRESH_ARGS = new String[] { "1" };
-    private static final String REFRESH_ORDER = Calendars.ACCOUNT_NAME + ","
-            + Calendars.ACCOUNT_TYPE;
 
     public static final String EVENT_EDIT_ON_LAUNCH = "editMode";
 
@@ -340,10 +335,6 @@ public class CalendarController {
             startMillis, endMillis, x, y, extraLong, selectedMillis, null, -1);
     }
 
-    private static boolean isViewAllDayEvent(EventInfo event) {
-        return isViewAllDayEvent(event.eventType, event.extraLong);
-    }
-
     private static boolean isViewAllDayEvent(long eventType, long extraLong) {
         return (eventType & EventType.VIEW_EVENT) != 0
                 && (extraLong & EventInfo.ALL_DAY_MASK) != 0;
@@ -459,7 +450,6 @@ public class CalendarController {
         if ( (event.eventType & EventType.VIEW_EVENT) != 0
                 && (event.extraLong & EventInfo.ALL_DAY_MASK) != 0
                 && !atMidnightUTCTime(event.startTime)) {
-            Thread.dumpStack();
             Log.wtf(TAG, "All day events must be set to midnight in UTC time");
         }
 
@@ -490,11 +480,11 @@ public class CalendarController {
         }
 
         if (DEBUG) {
-            Log.e(TAG, "vvvvvvvvvvvvvvv");
-            Log.e(TAG, "Start  " + (event.startTime == null ? "null" : event.startTime.toString()));
-            Log.e(TAG, "End    " + (event.endTime == null ? "null" : event.endTime.toString()));
-            Log.e(TAG, "Select " + (event.selectedTime == null ? "null" : event.selectedTime.toString()));
-            Log.e(TAG, "mTime  " + (mTime == null ? "null" : mTime.toString()));
+            Log.d(TAG, "vvvvvvvvvvvvvvv");
+            Log.d(TAG, "Start  " + (event.startTime == null ? "null" : event.startTime.toString()));
+            Log.d(TAG, "End    " + (event.endTime == null ? "null" : event.endTime.toString()));
+            Log.d(TAG, "Select " + (event.selectedTime == null ? "null" : event.selectedTime.toString()));
+            Log.d(TAG, "mTime  " + (mTime == null ? "null" : mTime.toString()));
         }
 
         long startMillis = 0;
@@ -527,11 +517,11 @@ public class CalendarController {
             event.startTime = mTime;
         }
         if (DEBUG) {
-            Log.e(TAG, "Start  " + (event.startTime == null ? "null" : event.startTime.toString()));
-            Log.e(TAG, "End    " + (event.endTime == null ? "null" : event.endTime.toString()));
-            Log.e(TAG, "Select " + (event.selectedTime == null ? "null" : event.selectedTime.toString()));
-            Log.e(TAG, "mTime  " + (mTime == null ? "null" : mTime.toString()));
-            Log.e(TAG, "^^^^^^^^^^^^^^^");
+            Log.d(TAG, "Start  " + (event.startTime == null ? "null" : event.startTime.toString()));
+            Log.d(TAG, "End    " + (event.endTime == null ? "null" : event.endTime.toString()));
+            Log.d(TAG, "Select " + (event.selectedTime == null ? "null" : event.selectedTime.toString()));
+            Log.d(TAG, "mTime  " + (mTime == null ? "null" : mTime.toString()));
+            Log.d(TAG, "^^^^^^^^^^^^^^^");
         }
 
         // Store the eventId if we're entering edit event

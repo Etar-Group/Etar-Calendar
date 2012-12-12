@@ -19,7 +19,6 @@ package com.android.calendar.selectcalendars;
 import android.app.ActionBar;
 import android.app.ExpandableListActivity;
 import android.content.AsyncQueryHandler;
-import android.content.ContentResolver;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;

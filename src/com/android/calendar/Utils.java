@@ -46,13 +46,10 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.text.method.LinkMovementMethod;
-import android.text.method.MovementMethod;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;

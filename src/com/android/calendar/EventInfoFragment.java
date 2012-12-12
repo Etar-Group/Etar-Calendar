@@ -56,16 +56,12 @@ import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.QuickContact;
 import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.URLSpan;
-import android.text.util.Linkify;
 import android.text.util.Rfc822Token;
 import android.util.Log;
 import android.view.Gravity;
@@ -110,7 +106,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
         CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener {
@@ -478,7 +473,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 }
                 break;
             case TOKEN_QUERY_DUPLICATE_CALENDARS:
-                Resources res = activity.getResources();
                 SpannableStringBuilder sb = new SpannableStringBuilder();
 
                 // Calendar display name
@@ -1433,8 +1427,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mOwnerCanRespond = mCalendarsCursor.getInt(CALENDARS_INDEX_OWNER_CAN_RESPOND) != 0;
             mSyncAccountName = mCalendarsCursor.getString(CALENDARS_INDEX_ACCOUNT_NAME);
 
-            String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
-
             // start visible calendars query
             mHandler.startQuery(TOKEN_QUERY_VISIBLE_CALENDARS, null, Calendars.CONTENT_URI,
                     CALENDARS_PROJECTION, CALENDARS_VISIBLE_WHERE, new String[] {"1"}, null);
@@ -1922,6 +1914,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         return list;
     }
 
+    @Override
     public void onDeleteStarted() {
         mEventDeletionStarted = true;
     }
