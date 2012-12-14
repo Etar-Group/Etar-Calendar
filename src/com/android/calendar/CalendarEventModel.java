@@ -170,6 +170,7 @@ public class CalendarEventModel implements Serializable {
          * Comparison function for a sort ordered primarily descending by minutes,
          * secondarily ascending by method type.
          */
+        @Override
         public int compareTo(ReminderEntry re) {
             if (re.mMinutes != mMinutes) {
                 return re.mMinutes - mMinutes;
@@ -359,16 +360,16 @@ public class CalendarEventModel implements Serializable {
         return true;
     }
 
-    private boolean isEmpty() {
-        if (mTitle != null && mTitle.length() > 0) {
+    public boolean isEmpty() {
+        if (mTitle != null && mTitle.trim().length() > 0) {
             return false;
         }
 
-        if (mLocation != null && mLocation.length() > 0) {
+        if (mLocation != null && mLocation.trim().length() > 0) {
             return false;
         }
 
-        if (mDescription != null && mDescription.length() > 0) {
+        if (mDescription != null && mDescription.trim().length() > 0) {
             return false;
         }
 

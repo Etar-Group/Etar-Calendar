@@ -402,6 +402,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (DEBUG) {
                 Log.d(TAG, "startQuery: Editing a new event.");
             }
+            mModel.mOriginalStart = mBegin;
+            mModel.mOriginalEnd = mEnd;
             mModel.mStart = mBegin;
             mModel.mEnd = mEnd;
             mModel.mCalendarId = mCalendarId;
@@ -607,6 +609,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
             mModifyDialog = new AlertDialog.Builder(mContext).setTitle(R.string.edit_event_label)
                     .setItems(items, new OnClickListener() {
+                        @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (which == 0) {
                                 // Update this if we start allowing exceptions
@@ -643,10 +646,12 @@ public class EditEventFragment extends Fragment implements EventHandler {
     class Done implements EditEventHelper.EditDoneRunnable {
         private int mCode = -1;
 
+        @Override
         public void setDoneCode(int code) {
             mCode = code;
         }
 
+        @Override
         public void run() {
             // We only want this to get called once, either because the user
             // pressed back/home or one of the buttons on screen
@@ -751,32 +756,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
             return false;
         }
 
-        return isEmpty();
-    }
-
-    private boolean isEmpty() {
-        if (mModel.mTitle != null) {
-            String title = mModel.mTitle.trim();
-            if (title.length() > 0) {
-                return false;
-            }
+        if (mModel.mOriginalStart != mModel.mStart || mModel.mOriginalEnd != mModel.mEnd) {
+            return false;
         }
 
-        if (mModel.mLocation != null) {
-            String location = mModel.mLocation.trim();
-            if (location.length() > 0) {
-                return false;
-            }
+        if (!mModel.mAttendeesList.isEmpty()) {
+            return false;
         }
 
-        if (mModel.mDescription != null) {
-            String description = mModel.mDescription.trim();
-            if (description.length() > 0) {
-                return false;
-            }
-        }
-
-        return true;
+        return mModel.isEmpty();
     }
 
     @Override
