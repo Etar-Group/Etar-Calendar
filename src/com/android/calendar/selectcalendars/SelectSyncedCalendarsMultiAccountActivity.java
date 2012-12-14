@@ -110,7 +110,7 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
     protected void onStop() {
         super.onStop();
         mAdapter.closeChildrenCursors();
-        if (!mAccountsCursor.isClosed()) {
+        if (mAccountsCursor != null && !mAccountsCursor.isClosed()) {
             mAccountsCursor.close();
         }
     }
