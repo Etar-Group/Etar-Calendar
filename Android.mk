@@ -4,7 +4,7 @@ include $(CLEAR_VARS)
 # Include res dir from chips
 chips_dir := ../../../frameworks/ex/chips/res
 res_dirs := $(chips_dir) res
-src_dirs := src extensions_src
+src_dirs := src
 
 LOCAL_EMMA_COVERAGE_FILTER := +com.android.calendar.*
 

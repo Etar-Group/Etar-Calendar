@@ -74,7 +74,6 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
-import com.android.calendar.extensions.AllInOneMenuExtensions;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
@@ -165,7 +164,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private LayoutParams mControlsParams;
     private LinearLayout.LayoutParams mVerticalControlsParams;
 
-    private AllInOneMenuExtensions mExtensions = new AllInOneMenuExtensions();
+    private AllInOneMenuExtensionsInterface mExtensions = ExtensionsFactory
+            .getAllInOneMenuExtensions();
 
     private final AnimatorListener mSlideAnimationDoneListener = new AnimatorListener() {
 

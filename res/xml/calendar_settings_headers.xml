@@ -19,6 +19,6 @@
     <header android:fragment="com.android.calendar.GeneralPreferences"
             android:title="@string/menu_general_preferences" />
 
-    <header android:fragment="com.android.calendar.extensions.AboutPreferences"
+    <header android:fragment="com.android.calendar.AboutPreferences"
             android:title="@string/menu_about_preferences" />
 </preference-headers>
