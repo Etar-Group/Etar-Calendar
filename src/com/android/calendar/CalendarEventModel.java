@@ -16,9 +16,6 @@
 
 package com.android.calendar;
 
-import com.android.calendar.event.EditEventHelper;
-import com.android.common.Rfc822Validator;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +25,10 @@ import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 import android.text.TextUtils;
 import android.text.util.Rfc822Token;
+
+import com.android.calendar.event.EditEventHelper;
+import com.android.calendar.event.EventColorCache;
+import com.android.common.Rfc822Validator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -201,6 +202,8 @@ public class CalendarEventModel implements Serializable {
     public long mCalendarId = -1;
     public String mCalendarDisplayName = ""; // Make sure this is in sync with the mCalendarId
     public int mCalendarColor = 0;
+    public String mCalendarAccountName;
+    public String mCalendarAccountType;
     public int mCalendarMaxReminders;
     public String mCalendarAllowedReminders;
     public String mCalendarAllowedAttendeeTypes;
@@ -209,6 +212,9 @@ public class CalendarEventModel implements Serializable {
     public String mSyncId = null;
     public String mSyncAccount = null;
     public String mSyncAccountType = null;
+
+    public EventColorCache mEventColorCache;
+    public int mEventColor = -1;
 
     // PROVIDER_NOTES owner account comes from the calendars table
     public String mOwnerAccount = null;
@@ -843,6 +849,11 @@ public class CalendarEventModel implements Serializable {
         if (mEventStatus != originalModel.mEventStatus) {
             return false;
         }
+
+        if (mEventColor != originalModel.mEventColor) {
+            return false;
+        }
+
         return true;
     }
 
@@ -872,4 +883,20 @@ public class CalendarEventModel implements Serializable {
 
         return true;
     }
+
+    public int[] getCalendarEventColors() {
+        if (mEventColorCache != null) {
+            return mEventColorCache.getColorArray(mCalendarAccountName, mCalendarAccountType);
+        }
+        return null;
+    }
+
+    public int getEventColorKey() {
+        if (mEventColorCache != null) {
+            return mEventColorCache.getColorKey(mCalendarAccountName, mCalendarAccountType,
+                    mEventColor);
+        }
+        return -1;
+    }
+
 }

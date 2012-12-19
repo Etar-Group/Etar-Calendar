@@ -191,7 +191,6 @@ public class SearchActivity extends Activity implements CalendarController.Event
                     event.getResponse(), false, EventInfoFragment.DIALOG_WINDOW_STYLE);
             ft.replace(R.id.agenda_event_info, mEventInfoFragment);
             ft.commit();
-            mController.registerEventHandler(R.id.agenda_event_info, mEventInfoFragment);
         } else {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
@@ -238,7 +237,6 @@ public class SearchActivity extends Activity implements CalendarController.Event
             ft.remove(mEventInfoFragment);
             ft.commit();
             mEventInfoFragment = null;
-            mController.deregisterEventHandler(R.id.agenda_event_info);
             mCurrentEventId = -1;
         }
     }

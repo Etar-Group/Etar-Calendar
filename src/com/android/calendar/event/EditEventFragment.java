@@ -35,6 +35,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Colors;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 import android.text.TextUtils;
@@ -61,6 +62,8 @@ import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DeleteEventHelper;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendar.color.ColorComparator;
+import com.android.calendar.color.ColorPickerSwatch.OnColorSelectedListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -81,8 +84,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private static final int TOKEN_ATTENDEES = 1 << 1;
     private static final int TOKEN_REMINDERS = 1 << 2;
     private static final int TOKEN_CALENDARS = 1 << 3;
+    private static final int TOKEN_COLORS = 1 << 4;
+
     private static final int TOKEN_ALL = TOKEN_EVENT | TOKEN_ATTENDEES | TOKEN_REMINDERS
-            | TOKEN_CALENDARS;
+            | TOKEN_CALENDARS | TOKEN_COLORS;
     private static final int TOKEN_UNITIALIZED = 1 << 31;
 
     /**
@@ -108,6 +113,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private long mBegin;
     private long mEnd;
     private long mCalendarId = -1;
+
+    private EventColorPickerDialog mDialog;
 
     private Activity mContext;
     private final Done mOnDone = new Done();
@@ -303,11 +310,40 @@ public class EditEventFragment extends Fragment implements EventHandler {
                             EditEventHelper.setModelFromCalendarCursor(mModel, cursor);
                             EditEventHelper.setModelFromCalendarCursor(mOriginalModel, cursor);
                         }
+                        startQuery(TOKEN_COLORS, null, Colors.CONTENT_URI,
+                                EditEventHelper.COLORS_PROJECTION,
+                                Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT, null, null);
                     } finally {
                         cursor.close();
                     }
-
                     setModelIfDone(TOKEN_CALENDARS);
+                    break;
+                case TOKEN_COLORS:
+                    if (cursor.moveToFirst()) {
+                        EventColorCache cache = new EventColorCache();
+                        do
+                        {
+                            int colorKey = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR_KEY);
+                            int rawColor = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR);
+                            int displayColor = Utils.getDisplayColorFromColor(rawColor);
+                            String accountName = cursor
+                                    .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_NAME);
+                            String accountType = cursor
+                                    .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_TYPE);
+                            cache.insertColor(accountName, accountType,
+                                    displayColor, colorKey);
+                        } while (cursor.moveToNext());
+                        cache.sortPalettes(new ColorComparator());
+
+                        mModel.mEventColorCache = cache;
+                        mView.mColorPickerNewEvent.setOnClickListener(mOnColorPickerClicked);
+                        mView.mColorPickerExistingEvent.setOnClickListener(mOnColorPickerClicked);
+                        mView.setColorPickerButtonStates(mModel.getCalendarEventColors());
+                    }
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+                    setModelIfDone(TOKEN_COLORS);
                     break;
                 default:
                     cursor.close();
@@ -315,6 +351,35 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
         }
     }
+
+    private View.OnClickListener mOnColorPickerClicked = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            int[] colors = mModel.getCalendarEventColors();
+            if (mDialog == null) {
+                mDialog = new EventColorPickerDialog(colors, mModel.mEventColor,
+                        mModel.mCalendarColor, mView.mIsMultipane);
+                mDialog.setOnColorSelectedListener(new OnColorSelectedListener() {
+
+                    @Override
+                    public void onColorSelected(int color) {
+                        // TODO(kingkung): Auto-generated method stub
+                        if (mModel.mEventColor != color) {
+                            mModel.mEventColor = color;
+                            mView.updateHeadlineColor(mModel, color);
+                        }
+                    }
+                });
+            } else {
+                mDialog.setCalendarColor(mModel.mCalendarColor);
+                mDialog.setColors(colors, mModel.mEventColor);
+            }
+            if (!mDialog.isAdded()) {
+                mDialog.show(getFragmentManager(), TAG);
+            }
+        }
+    };
 
     private void setModelIfDone(int queryType) {
         synchronized (this) {

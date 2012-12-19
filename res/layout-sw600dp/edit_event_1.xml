@@ -28,24 +28,28 @@
             android:text="@string/edit_event_calendar_label"
             style="@style/TextAppearance.EditEvent_Label"
             android:gravity="center_vertical" />
-        <FrameLayout
-            android:id="@+id/calendar_selector_wrapper"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginRight="12dip"
-            android:layout_marginLeft="12dip"
-            android:focusable="true" >
-            <Spinner
-                android:id="@+id/calendars_spinner"
-                android:prompt="@string/edit_event_calendar_label"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/calendar_selector_wrapper"
                 android:layout_width="match_parent"
-                android:layout_marginRight="0dip"
-                android:layout_marginLeft="0dip"
-                style="@style/TextAppearance.EditEvent_Spinner"/>
-        </FrameLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dip"
+                android:layout_marginRight="12dip"
+                android:focusable="true" >
+                <Spinner
+                    android:id="@+id/calendars_spinner"
+                    style="@style/TextAppearance.EditEvent_Spinner"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="0dip"
+                    android:layout_marginRight="0dip"
+                    android:gravity="center_vertical"
+                    android:prompt="@string/edit_event_calendar_label" />
+                <ImageButton
+                    android:id="@+id/change_color_new_event"
+                    style="@style/EditEventColorImageButton" />
+            </LinearLayout>
     </TableRow>
 
     <!-- CALENDAR DISPLAY for existing events -->
@@ -57,13 +61,28 @@
         <TextView
             android:text="@string/edit_event_calendar_label"
             style="@style/TextAppearance.EditEvent_Label" />
-        <TextView
-            android:id="@+id/calendar_textview"
-            android:textColor="#FFFFFFFF"
-            android:minHeight="48dip"
-            android:paddingLeft="12dip"
-            android:paddingRight="12dip"
-            style="@style/TextAppearance.EditEvent_Value" />
+        <LinearLayout 
+            android:id="@+id/calendar_textview_with_colorpicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginLeft="12dip"
+            android:layout_marginRight="12dip" >
+            <TextView
+                android:id="@+id/calendar_textview"
+                style="@style/TextAppearance.EditEvent_Value"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:paddingLeft="12dip"
+                android:paddingRight="12dip" 
+                android:layout_marginLeft="0dip"
+                android:layout_marginRight="0dip"
+                android:layout_height="wrap_content"
+                android:minHeight="48dip"
+                android:textColor="#FFFFFFFF" />
+            <ImageButton
+                android:id="@+id/change_color_existing_event"
+                style="@style/EditEventColorImageButton" />
+        </LinearLayout>
     </TableRow>
 
     <!-- WHAT -->

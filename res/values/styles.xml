@@ -17,7 +17,7 @@
 ** limitations under the License.
 */
 -->
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
 
 
@@ -223,6 +223,19 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">none</item>
         <item name="android:padding">4dp</item>
+    </style>
+    
+    <style name="EditEventColorImageButton" parent="android:attr/buttonBarButtonStyle">
+        <item name="android:enabled">false</item>
+        <item name="android:layout_width">48dip</item>
+        <item name="android:layout_height">48dip</item>
+        <item name="android:layout_marginRight">8dip</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:contentDescription">@string/choose_event_color_label</item>
+        <item name="android:padding">8dip</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:src">@drawable/ic_menu_colorpicker_holo_dark</item>
     </style>
 
     <style name="WidgetDayOfWeekStyle">

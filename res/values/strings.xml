@@ -278,6 +278,13 @@
     <string name="view_event_organizer_label">Organizer:</string>
     <!-- Label for the local timezone -->
 
+    <!-- Label for showing event color picker -->
+    <string name="choose_event_color_label">Choose event color</string>
+    <!-- Title for event color picker dialog -->
+    <string name="event_color_picker_dialog_title">Event Color</string>
+    <!-- Label for button which sets event color to default calendar color -->
+    <string name="event_color_set_to_default">Set to default calendar color</string>
+
     <!-- Label for whether the user is attending this event. This is shown when
          a user is invited to a meeting or event.  The possible answers are
          'yes', 'no', and 'maybe' (and, initially, 'no response'). -->

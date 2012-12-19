@@ -94,6 +94,10 @@
                         android:layout_marginRight="16dip"
                         android:layout_gravity="right">
                         <ImageButton
+                            android:id="@+id/change_color"
+                            style="@style/EditEventColorImageButton" 
+                            android:visibility="gone" />                            
+                        <ImageButton
                             android:id="@+id/edit"
                             android:contentDescription="@string/edit_label"
                             android:layout_width="48dip"
