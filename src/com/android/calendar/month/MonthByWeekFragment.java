@@ -17,6 +17,7 @@
 package com.android.calendar.month;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;
@@ -101,9 +102,12 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
 
         @Override
         public void handleMessage(Message msg) {
-            Time day = (Time) msg.obj;
-            mEventDialog = new CreateEventDialogFragment(day);
-            mEventDialog.show(getFragmentManager(), TAG_EVENT_DIALOG);
+            final FragmentManager manager = getFragmentManager();
+            if (manager != null) {
+                Time day = (Time) msg.obj;
+                mEventDialog = new CreateEventDialogFragment(day);
+                mEventDialog.show(manager, TAG_EVENT_DIALOG);
+            }
         }
     };
 

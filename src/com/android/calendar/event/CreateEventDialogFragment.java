@@ -245,12 +245,15 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            final Activity activity = getActivity();
+                            if (activity != null) {
                                 Intent nextIntent = new Intent(Settings.ACTION_ADD_ACCOUNT);
                                 final String[] array = {"com.android.calendar"};
                                 nextIntent.putExtra(Settings.EXTRA_AUTHORITIES, array);
                                 nextIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                                         Intent.FLAG_ACTIVITY_NEW_TASK);
-                                getActivity().startActivity(nextIntent);
+                                startActivity(nextIntent);
+                            }
                         }
                     })
                     .setNegativeButton(android.R.string.no, null);
