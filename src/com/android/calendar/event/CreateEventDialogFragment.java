@@ -252,7 +252,7 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
                                 nextIntent.putExtra(Settings.EXTRA_AUTHORITIES, array);
                                 nextIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                                         Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(nextIntent);
+                                activity.startActivity(nextIntent);
                             }
                         }
                     })
