@@ -379,7 +379,8 @@ public class AlertService extends Service {
             // Add options for a quiet update.
             addNotificationOptions(notification, true, expiredDigestTitle,
                     notificationPrefs.getDefaultVibrate(),
-                    notificationPrefs.getRingtoneAndSilence());
+                    notificationPrefs.getRingtoneAndSilence(),
+                    false); /* Do not show the LED for the expired events. */
 
             if (DEBUG) {
               Log.d(TAG, "Quietly posting digest alarm notification, numEvents:" + numLowPriority
@@ -773,7 +774,8 @@ public class AlertService extends Service {
             ringtone = prefs.getRingtoneAndSilence();
         }
         addNotificationOptions(notification, quietUpdate, tickerText,
-                prefs.getDefaultVibrate(), ringtone);
+                prefs.getDefaultVibrate(), ringtone,
+                true); /* Show the LED for these non-expired events */
 
         // Post the notification.
         notificationMgr.notify(notificationId, notification);
@@ -818,10 +820,13 @@ public class AlertService extends Service {
     }
 
     private static void addNotificationOptions(NotificationWrapper nw, boolean quietUpdate,
-            String tickerText, boolean defaultVibrate, String reminderRingtone) {
+            String tickerText, boolean defaultVibrate, String reminderRingtone,
+            boolean showLights) {
         Notification notification = nw.mNotification;
-        notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-        notification.defaults |= Notification.DEFAULT_LIGHTS;
+        if (showLights) {
+            notification.flags |= Notification.FLAG_SHOW_LIGHTS;
+            notification.defaults |= Notification.DEFAULT_LIGHTS;
+        }
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
         if (!quietUpdate) {
