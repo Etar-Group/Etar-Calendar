@@ -16,13 +16,10 @@
 
 package com.android.calendar;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
-
-import com.android.calendar.event.EditEventActivity;
-import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -34,17 +31,17 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
-import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.util.Pair;
+
+import com.android.calendar.event.EditEventActivity;
+import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -158,8 +155,13 @@ public class CalendarController {
         public int viewType; // one of the ViewType
         public long id; // event id
         public Time selectedTime; // the selected time in focus
-        public Time startTime; // start of a range of time.
-        public Time endTime; // end of a range of time.
+
+        // Event start and end times.  All-day events are represented in:
+        // - local time for GO_TO commands
+        // - UTC time for VIEW_EVENT and other event-related commands
+        public Time startTime;
+        public Time endTime;
+
         public int x; // x coordinate in the activity space
         public int y; // y coordinate in the activity space
         public String query; // query for a user search
