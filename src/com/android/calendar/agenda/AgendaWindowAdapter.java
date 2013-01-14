@@ -625,18 +625,30 @@ public class AgendaWindowAdapter extends BaseAdapter
         agendaItem.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
         agendaItem.startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
         agendaItem.allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
-
-        if (isDayHeader) { // Trim to midnight.
+        if (agendaItem.allDay) { // UTC
+            Time time = new Time(mTimeZone);
+            time.setJulianDay(Time.getJulianDay(agendaItem.begin, 0));
+            agendaItem.begin = time.toMillis(false /* use isDst */);
+        } else if (isDayHeader) { // Trim to midnight.
             Time time = new Time(mTimeZone);
             time.set(agendaItem.begin);
             time.hour = 0;
             time.minute = 0;
             time.second = 0;
-            agendaItem.begin = time.toMillis(false);
-        } else {
-            agendaItem.id = cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
+            agendaItem.begin = time.toMillis(false /* use isDst */);
         }
 
+        if (!isDayHeader) {
+            if (agendaItem.allDay) {
+                Time time = new Time(mTimeZone);
+                time.setJulianDay(Time.getJulianDay(agendaItem.end, 0));
+                agendaItem.end = time.toMillis(false /* use isDst */);
+            } else {
+                agendaItem.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
+            }
+
+            agendaItem.id = cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
+        }
         return agendaItem;
     }
 
@@ -676,8 +688,6 @@ public class AgendaWindowAdapter extends BaseAdapter
                                 AgendaItem item =
                                         buildAgendaItemFromCursor(tempCursor, tempCursorPosition,
                                                 false);
-                                mSelectedVH = new AgendaAdapter.ViewHolder();
-                                mSelectedVH.allDay = item.allDay;
                                 CalendarController.getInstance(mContext)
                                         .sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT,
                                                 item.id, item.begin, item.end, 0,
