@@ -48,6 +48,7 @@ import com.android.calendar.R;
 import com.android.calendar.StickyHeaderListView;
 import com.android.calendar.Utils;
 
+import java.util.Date;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -290,6 +291,13 @@ public class AgendaWindowAdapter extends BaseAdapter
         }
     }
 
+    /**
+     * Class representing a list item within the Agenda view.  Could be either an instance of an
+     * event, or a header marking the specific day.
+     *
+     * The begin and end times of an AgendaItem should always be in local time, even if the event
+     * is all day.  buildAgendaItemFromCursor() converts each event to local time.
+     */
     static class AgendaItem {
         long begin;
         long end;
@@ -625,7 +633,7 @@ public class AgendaWindowAdapter extends BaseAdapter
         agendaItem.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
         agendaItem.startDay = cursor.getInt(AgendaWindowAdapter.INDEX_START_DAY);
         agendaItem.allDay = cursor.getInt(AgendaWindowAdapter.INDEX_ALL_DAY) != 0;
-        if (agendaItem.allDay) { // UTC
+        if (agendaItem.allDay) { // UTC to Local time conversion
             Time time = new Time(mTimeZone);
             time.setJulianDay(Time.getJulianDay(agendaItem.begin, 0));
             agendaItem.begin = time.toMillis(false /* use isDst */);
@@ -638,18 +646,40 @@ public class AgendaWindowAdapter extends BaseAdapter
             agendaItem.begin = time.toMillis(false /* use isDst */);
         }
 
+        // If this is not a day header, then it's an event.
         if (!isDayHeader) {
+            agendaItem.id = cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
             if (agendaItem.allDay) {
                 Time time = new Time(mTimeZone);
                 time.setJulianDay(Time.getJulianDay(agendaItem.end, 0));
                 agendaItem.end = time.toMillis(false /* use isDst */);
-            } else {
-                agendaItem.end = cursor.getLong(AgendaWindowAdapter.INDEX_END);
             }
-
-            agendaItem.id = cursor.getLong(AgendaWindowAdapter.INDEX_EVENT_ID);
         }
         return agendaItem;
+    }
+
+    /**
+     * Ensures that any all day events are converted to UTC before a VIEW_EVENT command is sent.
+     */
+    private void sendViewEvent(AgendaItem item, long selectedTime) {
+        long startTime;
+        long endTime;
+        if (item.allDay) {
+            startTime = Utils.convertAlldayLocalToUTC(null, item.begin, mTimeZone);
+            endTime = Utils.convertAlldayLocalToUTC(null, item.end, mTimeZone);
+        } else {
+            startTime = item.begin;
+            endTime = item.end;
+        }
+        if (DEBUGLOG) {
+            Log.d(TAG, "Sent (AgendaWindowAdapter): VIEW EVENT: " + new Date(startTime));
+        }
+        CalendarController.getInstance(mContext)
+        .sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT,
+                item.id, startTime, endTime, 0,
+                0, CalendarController.EventInfo.buildViewExtraLong(
+                        Attendees.ATTENDEE_STATUS_NONE,
+                        item.allDay), selectedTime);
     }
 
     public void refresh(Time goToTime, long id, String searchQuery, boolean forced,
@@ -688,12 +718,9 @@ public class AgendaWindowAdapter extends BaseAdapter
                                 AgendaItem item =
                                         buildAgendaItemFromCursor(tempCursor, tempCursorPosition,
                                                 false);
-                                CalendarController.getInstance(mContext)
-                                        .sendEventRelatedEventWithExtra(this, EventType.VIEW_EVENT,
-                                                item.id, item.begin, item.end, 0,
-                                                0, CalendarController.EventInfo.buildViewExtraLong(
-                                                        Attendees.ATTENDEE_STATUS_NONE,
-                                                        item.allDay), goToTime.toMillis(false));
+                                mSelectedVH = new AgendaAdapter.ViewHolder();
+                                mSelectedVH.allDay = item.allDay;
+                                sendViewEvent(item, goToTime.toMillis(false));
                             }
                         }
                     }
@@ -830,7 +857,7 @@ public class AgendaWindowAdapter extends BaseAdapter
     private boolean queueQuery(int start, int end, Time goToTime,
             String searchQuery, int queryType, long id) {
         QuerySpec queryData = new QuerySpec(queryType);
-        queryData.goToTime = goToTime;
+        queryData.goToTime = new Time(goToTime);    // Creates a new time reference per QuerySpec.
         queryData.start = start;
         queryData.end = end;
         queryData.searchQuery = searchQuery;
@@ -935,6 +962,9 @@ public class AgendaWindowAdapter extends BaseAdapter
 
         @Override
         protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+            if (DEBUGLOG) {
+                Log.d(TAG, "(+)onQueryComplete");
+            }
             QuerySpec data = (QuerySpec)cookie;
 
             if (cursor == null) {
@@ -982,6 +1012,9 @@ public class AgendaWindowAdapter extends BaseAdapter
                                 mStickyHeaderSize);
                         Time actualTime = new Time(mTimeZone);
                         actualTime.set(goToTime);
+                        if (DEBUGLOG) {
+                            Log.d(TAG, "onQueryComplete: Updating title...");
+                        }
                         CalendarController.getInstance(mContext).sendEvent(this,
                                 EventType.UPDATE_TITLE, actualTime, actualTime, -1,
                                 ViewType.CURRENT);
@@ -1046,11 +1079,10 @@ public class AgendaWindowAdapter extends BaseAdapter
                         AgendaItem item = buildAgendaItemFromCursor(tempCursor, tempCursorPosition,
                                 false);
                         long selectedTime = findStartTimeFromPosition(newPosition);
-                        CalendarController.getInstance(mContext).sendEventRelatedEventWithExtra(
-                                this, EventType.VIEW_EVENT, item.id, item.begin,
-                                item.end, 0, 0, CalendarController.EventInfo.buildViewExtraLong(
-                                        Attendees.ATTENDEE_STATUS_NONE, item.allDay),
-                                        selectedTime);
+                        if (DEBUGLOG) {
+                            Log.d(TAG, "onQueryComplete: Sending View Event...");
+                        }
+                        sendViewEvent(item, selectedTime);
                     }
                 }
             } else {
