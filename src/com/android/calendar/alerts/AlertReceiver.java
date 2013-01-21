@@ -196,7 +196,6 @@ public class AlertReceiver extends BroadcastReceiver {
     private static PendingIntent createSnoozeIntent(Context context, long eventId,
             long startMillis, long endMillis, int notificationId) {
         Intent intent = new Intent();
-        intent.setClass(context, SnoozeAlarmsService.class);
         intent.putExtra(AlertUtils.EVENT_ID_KEY, eventId);
         intent.putExtra(AlertUtils.EVENT_START_KEY, startMillis);
         intent.putExtra(AlertUtils.EVENT_END_KEY, endMillis);
@@ -206,7 +205,14 @@ public class AlertReceiver extends BroadcastReceiver {
         ContentUris.appendId(builder, eventId);
         ContentUris.appendId(builder, startMillis);
         intent.setData(builder.build());
-        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (Utils.useCustomSnoozeDelay(context)) {
+            intent.setClass(context, SnoozeDelayActivity.class);
+            return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            intent.setClass(context, SnoozeAlarmsService.class);
+            return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
     }
 
     private static PendingIntent createAlertActivityIntent(Context context) {
@@ -257,7 +263,7 @@ public class AlertReceiver extends BroadcastReceiver {
         PendingIntent snoozeIntent = null;
         PendingIntent emailIntent = null;
         if (addActionButtons) {
-            // Create snooze intent.  TODO: change snooze to 10 minutes.
+            // Create snooze intent.
             snoozeIntent = createSnoozeIntent(context, eventId, startMillis, endMillis,
                     notificationId);
 

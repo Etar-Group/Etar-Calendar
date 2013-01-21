@@ -544,6 +544,21 @@ public class Utils {
         return prefs.getInt(GeneralPreferences.KEY_DAYS_PER_WEEK, 7);
     }
 
+    public static boolean useCustomSnoozeDelay(Context context) {
+        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        return prefs.getBoolean(GeneralPreferences.KEY_USE_CUSTOM_SNOOZE_DELAY, false);
+    }
+
+    public static long getDefaultSnoozeDelayMs(Context context) {
+        final SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
+        final String value = prefs.getString(GeneralPreferences.KEY_DEFAULT_SNOOZE_DELAY, null);
+        final long intValue = value != null
+                ? Long.valueOf(value)
+                : GeneralPreferences.SNOOZE_DELAY_DEFAULT_TIME;
+
+        return intValue * 60L * 1000L; // min -> ms
+    }
+
     /**
      * Determine whether the column position is Saturday or not.
      *

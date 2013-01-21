@@ -26,6 +26,8 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
 
+import com.android.calendar.Utils;
+
 /**
  * Service for asynchronously marking a fired alarm as dismissed and scheduling
  * a new alarm in the future.
@@ -51,6 +53,8 @@ public class SnoozeAlarmsService extends IntentService {
         long eventId = intent.getLongExtra(AlertUtils.EVENT_ID_KEY, -1);
         long eventStart = intent.getLongExtra(AlertUtils.EVENT_START_KEY, -1);
         long eventEnd = intent.getLongExtra(AlertUtils.EVENT_END_KEY, -1);
+        long snoozeDelay = intent.getLongExtra(AlertUtils.SNOOZE_DELAY_KEY,
+                Utils.getDefaultSnoozeDelayMs(this));
 
         // The ID reserved for the expired notification digest should never be passed in
         // here, so use that as a default.
@@ -76,7 +80,7 @@ public class SnoozeAlarmsService extends IntentService {
             resolver.update(uri, dismissValues, selection, null);
 
             // Add a new alarm
-            long alarmTime = System.currentTimeMillis() + AlertUtils.SNOOZE_DELAY;
+            long alarmTime = System.currentTimeMillis() + snoozeDelay;
             ContentValues values = AlertUtils.makeContentValues(eventId, eventStart, eventEnd,
                     alarmTime, 0);
             resolver.insert(uri, values);

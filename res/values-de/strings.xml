@@ -173,6 +173,12 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standard-Erinnerungszeit"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standard-Erinnerungszeit"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
+    <string name="preferences_alerts_custom_snooze_delay_title">Erinnerungs-Wiederholungszeit</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Jedesmal nach Verzögerung fragen, wenn später erinnert werden soll</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Immer nach Standardzeit erinnern</string>
+    <string name="snooze_delay_dialog_title">Erinnern in\u2026</string>
+    <string name="preferences_default_snooze_delay_title">Standard-Wiederholungszeit</string>
+    <string name="preferences_default_snooze_delay_dialog">Erinnerung wiederholen nach\u2026</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Heimatzeitzone beibehalten"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Zeigt unterwegs Kalender-/Terminzeiten in Heimatzeitzone"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Heimatzeitzone"</string>

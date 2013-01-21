@@ -497,6 +497,19 @@
     <string name="preferences_default_reminder_dialog">Default reminder time</string>
     <!-- Default value for the number of reminder minutes -->
     <string name="preferences_default_reminder_default">10</string>
+    <!-- Check box label for using custom snooze delays -->
+    <string name="preferences_alerts_custom_snooze_delay_title">Ask for reminder snooze delay</string>
+    <!-- Summaries for using custom snooze delays -->
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Ask for snooze delay whenever snoozing reminders</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Always use default snooze delay</string>
+    <!-- Title of custom snooze delay dialog -->
+    <string name="snooze_delay_dialog_title">Set snooze delay</string>
+    <!-- List item label for setting the default snooze delay -->
+    <string name="preferences_default_snooze_delay_title">Default snooze delay time</string>
+    <!-- Title of dialog for setting the default snooze delay -->
+    <string name="preferences_default_snooze_delay_dialog">Default snooze delay</string>
+    <!-- Default value for the default snooze delay (in minutes) -->
+    <string name="preferences_default_snooze_delay_default" translatable="false">5</string>
     <!-- Settings check box label to keep Calendar in a fixed 'home' time zone [CHAR LIMIT = 18] -->
     <string name="preferences_use_home_tz_title">Use home time zone</string>
     <!-- Settings description of what setting Calendar to use a fixed 'home' time

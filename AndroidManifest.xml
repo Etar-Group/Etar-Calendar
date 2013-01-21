@@ -165,6 +165,9 @@
              android:theme="@android:style/Theme.Holo.Dialog" android:excludeFromRecents="true"
              android:label="@string/quick_response_dialog_title" />
 
+        <activity android:name=".alerts.SnoozeDelayActivity" android:launchMode="singleInstance"
+             android:theme="@android:style/Theme.Holo.Dialog" android:excludeFromRecents="true" />
+
         <receiver android:name=".alerts.AlertReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.EVENT_REMINDER" />

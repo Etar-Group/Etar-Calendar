@@ -122,6 +122,20 @@
         <item>"10080"</item>
     </string-array>
 
+    <string-array name="preferences_default_snooze_delay_values" translatable="false">
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
+        <item>"20"</item>
+        <item>"25"</item>
+        <item>"30"</item>
+        <item>"45"</item>
+        <item>"60"</item>
+        <item>"120"</item>
+        <item>"180"</item>
+        <item>"720"</item>
+    </string-array>
+
     <string-array name="preferences_week_start_day_labels">
         <item>Locale default</item>
         <item>Saturday</item>

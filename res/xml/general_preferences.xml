@@ -76,6 +76,20 @@
             android:defaultValue="false"
             android:title="@string/preferences_alerts_popup_title" />
 
+        <CheckBoxPreference
+            android:key="preferences_custom_snooze_delay"
+            android:defaultValue="false"
+            android:title="@string/preferences_alerts_custom_snooze_delay_title"
+            android:summaryOn="@string/preferences_alerts_custom_snooze_delay_summary_on"
+            android:summaryOff="@string/preferences_alerts_custom_snooze_delay_summary_off" />
+
+        <ListPreference
+            android:key="preferences_default_snooze_delay"
+            android:defaultValue="@string/preferences_default_snooze_delay_default"
+            android:entryValues="@array/preferences_default_snooze_delay_values"
+            android:title="@string/preferences_default_snooze_delay_title"
+            android:dialogTitle="@string/preferences_default_snooze_delay_dialog" />
+
         <ListPreference
             android:key="preferences_default_reminder"
             android:defaultValue="@string/preferences_default_reminder_default"
