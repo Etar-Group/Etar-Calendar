@@ -104,13 +104,17 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
     @Override
     protected void onPause() {
         super.onPause();
-        mAdapter.cancelRefreshStopDelay();
+        if (mAdapter != null) {
+            mAdapter.cancelRefreshStopDelay();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mAdapter.closeChildrenCursors();
+        if (mAdapter != null) {
+            mAdapter.closeChildrenCursors();
+        }
         if (!mAccountsCursor.isClosed()) {
             mAccountsCursor.close();
         }
