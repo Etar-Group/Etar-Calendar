@@ -21,10 +21,13 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.FragmentManager;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.app.Service;
-import android.app.TimePickerDialog;
-import android.app.TimePickerDialog.OnTimeSetListener;
+import com.android.datetimepicker.TimePickerDialog;
+import com.android.datetimepicker.TimePickerDialog.OnTimeSetListener;
+import com.android.datetimepicker.TimePicker;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -72,7 +75,6 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.TimePicker;
 
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.Attendee;
@@ -111,6 +113,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final String PERIOD_SPACE = ". ";
     static final String FRAG_TAG_RECUR_PICKER = "recurrencePickerDialogFragment";
+    private static final String FRAG_TAG_TIME_PICKER = "timePickerDialogFragment";
 
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
@@ -171,6 +174,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private AccountSpecifier mAddressAdapter;
     private Rfc822Validator mEmailValidator;
     private TimezoneAdapter mTimezoneAdapter;
+
+    public boolean mTimeSelectedWasStartTime;
+
+    private ArrayList<Integer> mRecurrenceIndexes = new ArrayList<Integer>(0);
 
     /**
      * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
@@ -285,10 +292,18 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         @Override
         public void onClick(View v) {
-            TimePickerDialog tp = new TimePickerDialog(mActivity, new TimeListener(v), mTime.hour,
-                    mTime.minute, DateFormat.is24HourFormat(mActivity));
-            tp.setCanceledOnTouchOutside(true);
-            tp.show();
+            FragmentManager fm = mActivity.getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+
+            if (v == mStartTimeButton) {
+                mTimeSelectedWasStartTime = true;
+            } else {
+                mTimeSelectedWasStartTime = false;
+            }
+
+            TimePickerDialog tp = TimePickerDialog.newInstance(new TimeListener(v),
+                    mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
+            tp.show(ft, FRAG_TAG_TIME_PICKER);
         }
     }
 
@@ -743,7 +758,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         return true;
     }
 
-    public EditEventView(Activity activity, View view, EditDoneRunnable done) {
+    public EditEventView(Activity activity, View view, EditDoneRunnable done,
+            boolean timeSelectedWasStartTime) {
 
         mActivity = activity;
         mView = view;
@@ -879,6 +895,17 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 .findFragmentByTag(FRAG_TAG_RECUR_PICKER);
         if (rpd != null) {
             rpd.setOnRecurrenceSetListener(this);
+        }
+        TimePickerDialog tpd = (TimePickerDialog) fm.findFragmentByTag(FRAG_TAG_TIME_PICKER);
+        if (tpd != null) {
+            View v;
+            mTimeSelectedWasStartTime = timeSelectedWasStartTime;
+            if (timeSelectedWasStartTime) {
+                v = mStartTimeButton;
+            } else {
+                v = mEndTimeButton;
+            }
+            tpd.setOnTimeSetListener(new TimeListener(v));
         }
     }
 
