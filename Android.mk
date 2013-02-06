@@ -4,7 +4,7 @@ include $(CLEAR_VARS)
 # Include res dir from chips
 chips_dir := ../../../frameworks/ex/chips/res
 res_dirs := $(chips_dir) res
-src_dirs := src extensions_src
+src_dirs := src
 
 LOCAL_EMMA_COVERAGE_FILTER := +com.android.calendar.*
 
@@ -24,6 +24,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 		android-common-chips \
 		android-support-v4 \
 		calendar-common
+
 LOCAL_SDK_VERSION := current
 
 LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dirs))

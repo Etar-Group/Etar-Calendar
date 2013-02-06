@@ -10,6 +10,9 @@
 -keepclassmembers class com.android.calendar.AllInOneActivity {
   *** handleSelectSyncedCalendarsClicked(...);
 }
+-keepclassmembers class com.android.calendar.AsyncQueryService {
+  *** setTestHandler(...);
+}
 -keepclassmembers class com.android.calendar.DayView {
   *** setAnimateDayHeight(...);
   *** setAnimateDayEventHeight(...);
@@ -25,5 +28,6 @@
 }
 
 -keepclassmembers class * implements android.content.SharedPreferences$Editor {
-    public *** apply();
+  public *** apply();
 }
+

@@ -1,0 +1,53 @@
+#!/bin/bash
+# Creates eclipse .project file
+
+pushd ../../.. > /dev/null
+sed -e "s,SRC_ROOT_DIR,$PWD," <<- EOF > packages/apps/Calendar/.project
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>CalendarAndroid</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.android.ide.eclipse.adt.ResourceManagerBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.android.ide.eclipse.adt.PreCompilerBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.android.ide.eclipse.adt.ApkBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src_ex_common</name>
+			<type>2</type>
+			<location>SRC_ROOT_DIR/frameworks/ex/common/java</location>
+		</link>
+		<link>
+			<name>src_opt_calendar</name>
+			<type>2</type>
+			<location>SRC_ROOT_DIR/frameworks/opt/calendar/src</location>
+		</link>
+	</linkedResources>
+</projectDescription>
+EOF
+popd > /dev/null
+

@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Boş etkinlik oluşturulamadı."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Davetiyeler gönderilecek."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Güncellemeler gönderilecek."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Kaydet"</string>
     <string name="alert_title" msgid="7869592820853066853">"Takvim bildirimleri"</string>
     <string name="event_info_title" msgid="56024222340421620">"Etkinliği görüntüle"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Toplantı davetiyesi"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"E-posta düzenleyici"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-posta gönder"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Etkinlik bulunamadı."</string>
+    <string name="map_label" msgid="8795383535586556038">"Harita"</string>
+    <string name="call_label" msgid="2960328220008869083">"Çağrı"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Hızlı yanıtlar"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Konuklara gönderilecek e-posta varsayılan yanıtlarını düzenle"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Hızlı yanıtları düzenle"</string>
@@ -118,7 +121,7 @@
     <item msgid="4485794001743679338">"Bensiz başlayın."</item>
     <item msgid="8036557974294987511">"Maalesef katılamıyorum. Başka bir zaman ayarlamamız gerek."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Özel mesaj"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Kendi yanıtınızı oluşturun…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Düzenleyici:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Hatırlatıcılar"</string>
     <string name="agenda_today" msgid="5965841338467422191">"BUGÜN, <xliff:g id="DATE">%1$s</xliff:g>"</string>

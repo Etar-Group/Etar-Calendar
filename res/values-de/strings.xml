@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Leerer Termin nicht erstellt"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Einladungen werden gesendet."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Updates werden gesendet."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Speichern"</string>
     <string name="alert_title" msgid="7869592820853066853">"Benachrichtigungen"</string>
     <string name="event_info_title" msgid="56024222340421620">"Termin anzeigen"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Einladung zu einer Besprechung"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"E-Mail an Organisator senden"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-Mail über"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Ereignis nicht gefunden"</string>
+    <string name="map_label" msgid="8795383535586556038">"Karte"</string>
+    <string name="call_label" msgid="2960328220008869083">"Anrufen"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Kurzantworten"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Standardantworten beim Senden von E-Mails an Gäste bearbeiten"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Kurzantworten bearbeiten"</string>
@@ -115,10 +118,10 @@
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Bin einige Minuten verspätet"</item>
     <item msgid="6215158751728689832">"Bin in etwa 10 Minuten da"</item>
-    <item msgid="4485794001743679338">"Fangt ohne mich an"</item>
-    <item msgid="8036557974294987511">"Schaffe es leider nicht. Können wir neuen Termin ausmachen?"</item>
+    <item msgid="4485794001743679338">"Soll ohne mich anfangen"</item>
+    <item msgid="8036557974294987511">"Ich schaffe es leider nicht. Wir müssen einen neuen Termin ausmachen."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Benutzerdefinierte Nachricht..."</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Eigene Antwort schreiben…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Erinnerungen"</string>
     <string name="agenda_today" msgid="5965841338467422191">"Heute, <xliff:g id="DATE">%1$s</xliff:g>"</string>

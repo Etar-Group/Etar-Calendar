@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Chưa tạo sự kiện trống."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Thư mời sẽ được gửi."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Các cập nhật sẽ được gửi."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Lưu"</string>
     <string name="alert_title" msgid="7869592820853066853">"Thông báo lịch"</string>
     <string name="event_info_title" msgid="56024222340421620">"Xem sự kiện"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Thư mời họp"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Gửi email đến người tổ chức"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Gửi email với"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Không tìm thấy sự kiện."</string>
+    <string name="map_label" msgid="8795383535586556038">"Bản đồ"</string>
+    <string name="call_label" msgid="2960328220008869083">"Cuộc gọi"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Trả lời nhanh"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Sửa trả lời mặc định khi email cho khách"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Sửa trả lời nhanh"</string>
@@ -118,7 +121,7 @@
     <item msgid="4485794001743679338">"Hãy tiến hành và bắt đầu mà không có tôi."</item>
     <item msgid="8036557974294987511">"Rất tiếc, tôi không thu xếp được. Chúng ta phải lên lịch lại."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Thông báo tùy chỉnh..."</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Viết trả lời của riêng bạn…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Người t.chức"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Lời nhắc"</string>
     <string name="agenda_today" msgid="5965841338467422191">"HÔM NAY, <xliff:g id="DATE">%1$s</xliff:g>"</string>

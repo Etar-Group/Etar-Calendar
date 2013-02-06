@@ -18,6 +18,8 @@ package com.android.calendar.month;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.Handler;
+import android.os.Message;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -37,8 +39,8 @@ import com.android.calendar.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MonthByWeekAdapter extends SimpleWeeksAdapter {
-    private static final String TAG = "MonthByWeek";
+public class MonthByWeekAdapter extends SimpleWeeksAdapter implements View.OnLongClickListener {
+    private static final String TAG = "MonthByWeekAdapter";
 
     public static final String WEEK_PARAMS_IS_MINI = "mini_month";
     protected static int DEFAULT_QUERY_DAYS = 7 * 8; // 8 weeks
@@ -60,6 +62,8 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     private boolean mAnimateToday = false;
     private long mAnimateTime = 0;
 
+    private Handler mEventDialogHandler;
+
     MonthWeekEventsView mClickedView;
     MonthWeekEventsView mSingleTapUpView;
 
@@ -74,8 +78,9 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     // Minimal distance to move the finger in order to cancel the click animation
     private static float mMovedPixelToCancel;
 
-    public MonthByWeekAdapter(Context context, HashMap<String, Integer> params) {
+    public MonthByWeekAdapter(Context context, HashMap<String, Integer> params, Handler handler) {
         super(context, params);
+        mEventDialogHandler = handler;
         if (params.containsKey(WEEK_PARAMS_IS_MINI)) {
             mIsMiniMonth = params.get(WEEK_PARAMS_IS_MINI) != 0;
         }
@@ -84,7 +89,6 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
         mOnDownDelay = ViewConfiguration.getTapTimeout();
         mMovedPixelToCancel = vc.getScaledTouchSlop();
         mTotalClickDelay = mOnDownDelay + mOnTapDelay;
-
     }
 
     public void animateToday() {
@@ -210,6 +214,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             }
         } else {
             v = new MonthWeekEventsView(mContext);
+            v.setOnLongClickListener(this);
         }
         if (drawingParams == null) {
             drawingParams = new HashMap<String, Integer>();
@@ -279,13 +284,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
 
     @Override
     protected void onDayTapped(Time day) {
-        day.timezone = mHomeTimeZone;
-        Time currTime = new Time(mHomeTimeZone);
-        currTime.set(mController.getTime());
-        day.hour = currTime.hour;
-        day.minute = currTime.minute;
-        day.allDay = false;
-        day.normalize(true);
+        setDayParameters(day);
          if (mShowAgendaWithMonth || mIsMiniMonth) {
             // If agenda view is visible with month view , refresh the views
             // with the selected day's info
@@ -298,6 +297,16 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
                             CalendarController.EXTRA_GOTO_DATE
                             | CalendarController.EXTRA_GOTO_BACK_TO_PREVIOUS, null, null);
         }
+    }
+
+    private void setDayParameters(Time day) {
+        day.timezone = mHomeTimeZone;
+        Time currTime = new Time(mHomeTimeZone);
+        currTime.set(mController.getTime());
+        day.hour = currTime.hour;
+        day.minute = currTime.minute;
+        day.allDay = false;
+        day.normalize(true);
     }
 
     @Override
@@ -401,4 +410,19 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter {
             }
         }
     };
+
+    @Override
+    public boolean onLongClick(View v) {
+        MonthWeekEventsView weekView = (MonthWeekEventsView) v;
+        Time day = weekView.getDayFromLocation(mClickedXLocation);
+        if (day == null) {
+            // The day that was clicked is malformed, so just die here.
+            // Return true so nothing else tries to use the malformed day.
+            return true;
+        }
+        Message message = new Message();
+        message.obj = day;
+        mEventDialogHandler.sendMessage(message);
+        return true;
+    }
 }

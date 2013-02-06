@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Den tomma händelsen sparades inte."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Inbjudningar kommer att skickas."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Uppdateringar kommer att skickas."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Spara"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalenderaviseringar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visa händelse"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Inbjudan till möte"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Skicka e-post till arrangören"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Skicka e-post till"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Händelsen hittades inte."</string>
+    <string name="map_label" msgid="8795383535586556038">"Karta"</string>
+    <string name="call_label" msgid="2960328220008869083">"Ring"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Snabbsvar"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Redigera standardsvar när du skickar e-post till gäster"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Redigera snabbsvar"</string>
@@ -118,7 +121,7 @@
     <item msgid="4485794001743679338">"Börja gärna, vänta inte på mig."</item>
     <item msgid="8036557974294987511">"Jag kan tyvärr inte komma. Vi får välja en ny tid."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Anpassat meddelande ..."</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skriv eget svar ..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisatör:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Påminnelser"</string>
     <string name="agenda_today" msgid="5965841338467422191">"IDAG, DEN <xliff:g id="DATE">%1$s</xliff:g>"</string>

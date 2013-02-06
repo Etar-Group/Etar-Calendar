@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"無法建立空白活動。"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"即將傳送邀請。"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"即將傳送更新。"</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"儲存"</string>
     <string name="alert_title" msgid="7869592820853066853">"日曆通知"</string>
     <string name="event_info_title" msgid="56024222340421620">"檢視活動"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"會議邀請"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"傳送電子郵件給主辦者"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"寄送電子郵件時使用"</string>
     <string name="event_not_found" msgid="8356864185947582727">"找不到活動。"</string>
+    <string name="map_label" msgid="8795383535586556038">"地圖"</string>
+    <string name="call_label" msgid="2960328220008869083">"電洽"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"快速回應"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"編輯傳送給邀請對象的預設電子郵件回應"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"編輯快速回應"</string>
@@ -118,7 +121,7 @@
     <item msgid="4485794001743679338">"別等我，請直接開始。"</item>
     <item msgid="8036557974294987511">"抱歉不克前往。我們再約時間。"</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"自訂訊息…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"自行撰寫回應…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"主辦人："</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"提醒"</string>
     <string name="agenda_today" msgid="5965841338467422191">"今天，<xliff:g id="DATE">%1$s</xliff:g>"</string>

@@ -17,6 +17,7 @@
 package com.android.calendar.month;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;
@@ -25,6 +26,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Instances;
@@ -47,6 +50,7 @@ import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.Event;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendar.event.CreateEventDialogFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,6 +61,9 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
         CalendarController.EventHandler, LoaderManager.LoaderCallbacks<Cursor>, OnScrollListener,
         OnTouchListener {
     private static final String TAG = "MonthFragment";
+    private static final String TAG_EVENT_DIALOG = "event_dialog";
+
+    private CreateEventDialogFragment mEventDialog;
 
     // Selection and selection args for adding event queries
     private static final String WHERE_CALENDARS_VISIBLE = Calendars.VISIBLE + "=1";
@@ -90,6 +97,20 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
     private int mEventsLoadingDelay;
     private boolean mShowCalendarControls;
     private boolean mIsDetached;
+
+    private Handler mEventDialogHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            final FragmentManager manager = getFragmentManager();
+            if (manager != null) {
+                Time day = (Time) msg.obj;
+                mEventDialog = new CreateEventDialogFragment(day);
+                mEventDialog.show(manager, TAG_EVENT_DIALOG);
+            }
+        }
+    };
+
 
     private final Runnable mTZUpdater = new Runnable() {
         @Override
@@ -253,7 +274,7 @@ public class MonthByWeekFragment extends SimpleDayPickerFragment implements
                 Time.getJulianDay(mSelectedDay.toMillis(true), mSelectedDay.gmtoff));
         weekParams.put(SimpleWeeksAdapter.WEEK_PARAMS_DAYS_PER_WEEK, mDaysPerWeek);
         if (mAdapter == null) {
-            mAdapter = new MonthByWeekAdapter(getActivity(), weekParams);
+            mAdapter = new MonthByWeekAdapter(getActivity(), weekParams, mEventDialogHandler);
             mAdapter.registerDataSetObserver(mObserver);
         } else {
             mAdapter.updateParams(weekParams);

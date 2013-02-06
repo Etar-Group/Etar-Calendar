@@ -107,6 +107,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private Uri mUri;
     private long mBegin;
     private long mEnd;
+    private long mCalendarId = -1;
 
     private Activity mContext;
     private final Done mOnDone = new Done();
@@ -288,14 +289,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     break;
                 case TOKEN_CALENDARS:
                     try {
-                        if (mModel.mCalendarId == -1) {
-                            // Populate Calendar spinner only if no calendar is set e.g. new event
+                        if (mModel.mId == -1) {
+                            // Populate Calendar spinner only if no event id is set.
                             MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
                             if (DEBUG) {
                                 Log.d(TAG, "onQueryComplete: setting cursor with "
                                         + matrixCursor.getCount() + " calendars");
                             }
-                            mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed());
+                            mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed(),
+                                    mCalendarId);
                         } else {
                             // Populate model for an existing event
                             EditEventHelper.setModelFromCalendarCursor(mModel, cursor);
@@ -364,6 +366,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (mEvent.endTime != null) {
                 mEnd = mEvent.endTime.toMillis(true);
             }
+            if (mEvent.calendarId != -1) {
+                mCalendarId = mEvent.calendarId;
+            }
         } else if (mEventBundle != null) {
             if (mEventBundle.id != -1) {
                 mModel.mId = mEventBundle.id;
@@ -397,8 +402,11 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (DEBUG) {
                 Log.d(TAG, "startQuery: Editing a new event.");
             }
+            mModel.mOriginalStart = mBegin;
+            mModel.mOriginalEnd = mEnd;
             mModel.mStart = mBegin;
             mModel.mEnd = mEnd;
+            mModel.mCalendarId = mCalendarId;
             mModel.mSelfAttendeeStatus = Attendees.ATTENDEE_STATUS_ACCEPTED;
 
             // Start a query in the background to read the list of calendars
@@ -601,6 +609,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
             mModifyDialog = new AlertDialog.Builder(mContext).setTitle(R.string.edit_event_label)
                     .setItems(items, new OnClickListener() {
+                        @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (which == 0) {
                                 // Update this if we start allowing exceptions
@@ -637,10 +646,12 @@ public class EditEventFragment extends Fragment implements EventHandler {
     class Done implements EditEventHelper.EditDoneRunnable {
         private int mCode = -1;
 
+        @Override
         public void setDoneCode(int code) {
             mCode = code;
         }
 
+        @Override
         public void run() {
             // We only want this to get called once, either because the user
             // pressed back/home or one of the buttons on screen
@@ -745,32 +756,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
             return false;
         }
 
-        return isEmpty();
-    }
-
-    private boolean isEmpty() {
-        if (mModel.mTitle != null) {
-            String title = mModel.mTitle.trim();
-            if (title.length() > 0) {
-                return false;
-            }
+        if (mModel.mOriginalStart != mModel.mStart || mModel.mOriginalEnd != mModel.mEnd) {
+            return false;
         }
 
-        if (mModel.mLocation != null) {
-            String location = mModel.mLocation.trim();
-            if (location.length() > 0) {
-                return false;
-            }
+        if (!mModel.mAttendeesList.isEmpty()) {
+            return false;
         }
 
-        if (mModel.mDescription != null) {
-            String description = mModel.mDescription.trim();
-            if (description.length() > 0) {
-                return false;
-            }
-        }
-
-        return true;
+        return mModel.isEmpty();
     }
 
     @Override

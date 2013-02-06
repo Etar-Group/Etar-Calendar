@@ -24,14 +24,12 @@ import android.app.ProgressDialog;
 import android.app.Service;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.database.MatrixCursor;
 import android.graphics.drawable.Drawable;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
@@ -100,23 +98,12 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.TreeMap;
 
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
         DialogInterface.OnClickListener, OnItemSelectedListener {
     private static final String TAG = "EditEvent";
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final String PERIOD_SPACE = ". ";
-
-    // Constants used for title autocompletion.
-    private static final String[] EVENT_PROJECTION = new String[] {
-        Events._ID,
-        Events.TITLE,
-    };
-    private static final int EVENT_INDEX_ID = 0;
-    private static final int EVENT_INDEX_TITLE = 1;
-    private static final String TITLE_WHERE = Events.TITLE + " LIKE ?";
-    private static final int MAX_TITLE_SUGGESTIONS = 4;
 
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
@@ -139,8 +126,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Spinner mAvailabilitySpinner;
     Spinner mAccessLevelSpinner;
     RadioGroup mResponseRadioGroup;
-    AutoCompleteTextView mTitleTextView;
-    TextView mLocationTextView;
+    TextView mTitleTextView;
+    AutoCompleteTextView mLocationTextView;
+    EventLocationAdapter mLocationAdapter;
     TextView mDescriptionTextView;
     TextView mWhenView;
     TextView mTimezoneTextView;
@@ -613,9 +601,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
     }
 
-    static private class CalendarsAdapter extends ResourceCursorAdapter {
-        public CalendarsAdapter(Context context, Cursor c) {
-            super(context, R.layout.calendars_item, c);
+    public static class CalendarsAdapter extends ResourceCursorAdapter {
+        public CalendarsAdapter(Context context, int resourceId, Cursor c) {
+            super(context, resourceId, c);
             setDropDownViewResource(R.layout.calendars_dropdown_item);
         }
 
@@ -641,106 +629,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                     accountName.setVisibility(TextView.VISIBLE);
                 }
             }
-        }
-    }
-
-    /**
-     * Adapter for title auto completion.
-     */
-    private static class TitleAdapter extends ResourceCursorAdapter {
-        private final ContentResolver mContentResolver;
-
-        public TitleAdapter(Context context) {
-            super(context, android.R.layout.simple_dropdown_item_1line, null, 0);
-            mContentResolver = context.getContentResolver();
-        }
-
-        @Override
-        public int getCount() {
-            return Math.min(MAX_TITLE_SUGGESTIONS, super.getCount());
-        }
-
-        private static String getTitleAtCursor(Cursor cursor) {
-            return cursor.getString(EVENT_INDEX_TITLE);
-        }
-
-        @Override
-        public final String convertToString(Cursor cursor) {
-            return getTitleAtCursor(cursor);
-        }
-
-        @Override
-        public void bindView(View view, Context context, Cursor cursor) {
-            TextView textView = (TextView) view;
-            textView.setText(getTitleAtCursor(cursor));
-        }
-
-        @Override
-        public Cursor runQueryOnBackgroundThread(CharSequence constraint) {
-            String filter = constraint == null ? "" : constraint.toString() + "%";
-            if (filter.isEmpty()) {
-                return null;
-            }
-            long startTime = System.currentTimeMillis();
-
-            // Query all titles prefixed with the constraint.  There is no way to insert
-            // 'DISTINCT' or 'GROUP BY' to get rid of dupes, so use post-processing to
-            // remove dupes.  We will order query results by descending event ID to show
-            // results that were most recently inputted.
-            Cursor tempCursor = mContentResolver.query(Events.CONTENT_URI, EVENT_PROJECTION,
-                    TITLE_WHERE, new String[] { filter }, Events._ID + " DESC");
-            if (tempCursor != null) {
-                try {
-                    // Post process query results.
-                    Cursor c = uniqueTitlesCursor(tempCursor);
-
-                    // Log the processing duration.
-                    long duration = System.currentTimeMillis() - startTime;
-                    StringBuilder msg = new StringBuilder();
-                    msg.append("Autocomplete of ");
-                    msg.append(constraint);
-                    msg.append(": title query match took ");
-                    msg.append(duration);
-                    msg.append("ms.");
-                    Log.d(TAG, msg.toString());
-                    return c;
-                } finally {
-                    tempCursor.close();
-                }
-            } else {
-                return null;
-            }
-        }
-
-        /**
-         * Post-process the query results to return the first MAX_TITLE_SUGGESTIONS
-         * unique titles in alphabetical order.
-         */
-        private Cursor uniqueTitlesCursor(Cursor cursor) {
-            TreeMap<String, String[]> titleToQueryResults =
-                    new TreeMap<String, String[]>(String.CASE_INSENSITIVE_ORDER);
-            int numColumns = cursor.getColumnCount();
-            cursor.moveToPosition(-1);
-
-            // Remove dupes.
-            while ((titleToQueryResults.size() < MAX_TITLE_SUGGESTIONS) && cursor.moveToNext()) {
-                String title = getTitleAtCursor(cursor).trim();
-                String data[] = new String[numColumns];
-                if (!titleToQueryResults.containsKey(title)) {
-                    for (int i = 0; i < numColumns; i++) {
-                        data[i] = cursor.getString(i);
-                    }
-                    titleToQueryResults.put(title, data);
-                }
-            }
-
-            // Copy the sorted results to a new cursor.
-            MatrixCursor newCursor = new MatrixCursor(EVENT_PROJECTION);
-            for (String[] result : titleToQueryResults.values()) {
-                newCursor.addRow(result);
-            }
-            newCursor.moveToFirst();
-            return newCursor;
         }
     }
 
@@ -947,8 +835,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         // cache all the widgets
         mCalendarsSpinner = (Spinner) view.findViewById(R.id.calendars_spinner);
-        mTitleTextView = (AutoCompleteTextView) view.findViewById(R.id.title);
-        mLocationTextView = (TextView) view.findViewById(R.id.location);
+        mTitleTextView = (TextView) view.findViewById(R.id.title);
+        mLocationTextView = (AutoCompleteTextView) view.findViewById(R.id.location);
         mDescriptionTextView = (TextView) view.findViewById(R.id.description);
         mTimezoneLabel = (TextView) view.findViewById(R.id.timezone_label);
         mStartDateButton = (Button) view.findViewById(R.id.start_date);
@@ -981,20 +869,22 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mAttendeesList = (MultiAutoCompleteTextView) view.findViewById(R.id.attendees);
 
         mTitleTextView.setTag(mTitleTextView.getBackground());
-        mTitleTextView.setAdapter(new TitleAdapter(activity));
-        mTitleTextView.setOnEditorActionListener(new OnEditorActionListener() {
+        mLocationTextView.setTag(mLocationTextView.getBackground());
+        mLocationAdapter = new EventLocationAdapter(activity);
+        mLocationTextView.setAdapter(mLocationAdapter);
+        mLocationTextView.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     // Dismiss the suggestions dropdown.  Return false so the other
                     // side effects still occur (soft keyboard going away, etc.).
-                    mTitleTextView.dismissDropDown();
+                    mLocationTextView.dismissDropDown();
                 }
                 return false;
             }
         });
 
-        mLocationTextView.setTag(mLocationTextView.getBackground());
+
         mDescriptionTextView.setTag(mDescriptionTextView.getBackground());
         mRepeatsSpinner.setTag(mRepeatsSpinner.getBackground());
         mAttendeesList.setTag(mAttendeesList.getBackground());
@@ -1401,7 +1291,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      * we can easily extract calendar-specific values when the value changes (the spinner's
      * onItemSelected callback is configured).
      */
-    public void setCalendarsCursor(Cursor cursor, boolean userVisible) {
+    public void setCalendarsCursor(Cursor cursor, boolean userVisible, long selectedCalendarId) {
         // If there are no syncable calendars, then we cannot allow
         // creating a new event.
         mCalendarsCursor = cursor;
@@ -1424,12 +1314,18 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return;
         }
 
-        int defaultCalendarPosition = findDefaultCalendarPosition(cursor);
+        int selection;
+        if (selectedCalendarId != -1) {
+            selection = findSelectedCalendarPosition(cursor, selectedCalendarId);
+        } else {
+            selection = findDefaultCalendarPosition(cursor);
+        }
 
         // populate the calendars spinner
-        CalendarsAdapter adapter = new CalendarsAdapter(mActivity, cursor);
+        CalendarsAdapter adapter = new CalendarsAdapter(mActivity,
+            R.layout.calendars_spinner_item, cursor);
         mCalendarsSpinner.setAdapter(adapter);
-        mCalendarsSpinner.setSelection(defaultCalendarPosition);
+        mCalendarsSpinner.setSelection(selection);
         mCalendarsSpinner.setOnItemSelectedListener(this);
 
         if (mSaveAfterQueryComplete) {
@@ -1536,6 +1432,22 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         updateHomeTime();
     }
 
+    private int findSelectedCalendarPosition(Cursor calendarsCursor, long calendarId) {
+        if (calendarsCursor.getCount() <= 0) {
+            return -1;
+        }
+        int calendarIdColumn = calendarsCursor.getColumnIndexOrThrow(Calendars._ID);
+        int position = 0;
+        calendarsCursor.moveToPosition(-1);
+        while (calendarsCursor.moveToNext()) {
+            if (calendarsCursor.getLong(calendarIdColumn) == calendarId) {
+                return position;
+            }
+            position++;
+        }
+        return 0;
+    }
+
     // Find the calendar position in the cursor that matches calendar in
     // preference
     private int findDefaultCalendarPosition(Cursor calendarsCursor) {
@@ -1546,13 +1458,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         String defaultCalendar = Utils.getSharedPreference(
                 mActivity, GeneralPreferences.KEY_DEFAULT_CALENDAR, (String) null);
 
-        int calendarsOwnerColumn = calendarsCursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
+        int calendarsOwnerIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
         int accountNameIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
         int accountTypeIndex = calendarsCursor.getColumnIndexOrThrow(Calendars.ACCOUNT_TYPE);
         int position = 0;
         calendarsCursor.moveToPosition(-1);
         while (calendarsCursor.moveToNext()) {
-            String calendarOwner = calendarsCursor.getString(calendarsOwnerColumn);
+            String calendarOwner = calendarsCursor.getString(calendarsOwnerIndex);
             if (defaultCalendar == null) {
                 // There is no stored default upon the first time running.  Use a primary
                 // calendar in this case.

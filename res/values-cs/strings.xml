@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Prázdná událost se nevytvořila"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Pozvánky budou odeslány."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Aktualizace budou odeslány."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Uložit"</string>
     <string name="alert_title" msgid="7869592820853066853">"Upozornění kalendáře"</string>
     <string name="event_info_title" msgid="56024222340421620">"Zobrazit událost"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Pozvánka na schůzku"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Poslat e-mail organizátorovi"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Psát si s uživateli"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Událost nebyla nalezena."</string>
+    <string name="map_label" msgid="8795383535586556038">"Mapa"</string>
+    <string name="call_label" msgid="2960328220008869083">"Volat"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Rychlé odpovědi"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Výchozí odpovědi"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Rychlé odpovědi"</string>
@@ -118,7 +121,7 @@
     <item msgid="4485794001743679338">"Začněte beze mne."</item>
     <item msgid="8036557974294987511">"Lituji, nestíhám. Naplánujeme to na jindy."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Vlastní zpráva…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Napsat vlastní odpověď..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizátor:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Připomenutí"</string>
     <string name="agenda_today" msgid="5965841338467422191">"Dnes, <xliff:g id="DATE">%1$s</xliff:g>"</string>

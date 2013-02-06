@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Nije stvoren prazan događaj."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Pozivnice će biti poslane."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Ažuriranje će biti poslano."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Spremi"</string>
     <string name="alert_title" msgid="7869592820853066853">"Obavijesti kalendara"</string>
     <string name="event_info_title" msgid="56024222340421620">"Prikaži događaj"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Pozivnica za sastanak"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Organizator e-poruka"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Obavijesti e-poštom"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Događaj nije pronađen."</string>
+    <string name="map_label" msgid="8795383535586556038">"Karta"</string>
+    <string name="call_label" msgid="2960328220008869083">"Poziv"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Brzi odgovori"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Uređivanje zad. odgovora pri slanju gostima"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Uredi brze odgovore"</string>
@@ -118,7 +121,7 @@
     <item msgid="4485794001743679338">"Samo naprijed, počnite bez mene."</item>
     <item msgid="8036557974294987511">"Žao mi je, ne mogu stići. Moramo promijeniti dogovor."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Prilagođena poruka…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Napišite vlastiti…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Podsjetnici"</string>
     <string name="agenda_today" msgid="5965841338467422191">"DANAS, <xliff:g id="DATE">%1$s</xliff:g>"</string>

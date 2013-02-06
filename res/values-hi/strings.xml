@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"रिक्त ईवेंट नहीं बनाया गया."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"आमंत्रण भेज दिए जाएंगे."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"अपडेट भेज दिए जाएंगे."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"सहेजें"</string>
     <string name="alert_title" msgid="7869592820853066853">"कैलेंडर सूचनाएं"</string>
     <string name="event_info_title" msgid="56024222340421620">"ईवेंट देखें"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"मीटिंग आमंत्रण"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"ईमेल व्यवस्थापक"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"इन्हें ईमेल करें"</string>
     <string name="event_not_found" msgid="8356864185947582727">"इवेंट नहीं मिला."</string>
+    <string name="map_label" msgid="8795383535586556038">"नक्शा"</string>
+    <string name="call_label" msgid="2960328220008869083">"कॉल करें"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"त्वरित प्रतिसाद"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"जब अतिथि को ईमेल करें तो डिफ़ॉल्‍ट प्रतिसाद संपादित करें"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"त्वरित प्रतिसाद संपादित करें"</string>
@@ -118,7 +121,7 @@
     <item msgid="4485794001743679338">"आगे बढ़ें और मेरे बिना प्रारंभ करें."</item>
     <item msgid="8036557974294987511">"क्षमा करें, मुझसे यह कार्य नहीं हो पा रहा है. हमें पुन: शेड्यूल करना होगा."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"कस्टम संदेश…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"अपना स्वयं का लिखें…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"आयोजक:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"अनुस्मारक"</string>
     <string name="agenda_today" msgid="5965841338467422191">"आज, <xliff:g id="DATE">%1$s</xliff:g>"</string>

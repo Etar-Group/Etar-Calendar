@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Tyhjää tapahtumaa ei voi luoda"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Kutsut lähetetään."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Päivitykset lähetetään."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Tallenna"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalenteri-ilmoitukset"</string>
     <string name="event_info_title" msgid="56024222340421620">"Näytä tapahtuma"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Kokouskutsu"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Sähköposti järjestäjälle"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Sähköposti ja"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Tapahtumaa ei löydy."</string>
+    <string name="map_label" msgid="8795383535586556038">"Kartta"</string>
+    <string name="call_label" msgid="2960328220008869083">"Soita"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Pikavastaukset"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Muokkaa pikavast."</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Muokkaa pikavast."</string>
@@ -118,7 +121,7 @@
     <item msgid="4485794001743679338">"Voitte aloittaa ilman minua."</item>
     <item msgid="8036557974294987511">"En pääse paikalle. Sovitaanko uusi aika?"</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Oma viesti..."</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Kirjoita oma…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Järjestäjä:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Muistutukset"</string>
     <string name="agenda_today" msgid="5965841338467422191">"TÄNÄÄN, <xliff:g id="DATE">%1$s</xliff:g>"</string>

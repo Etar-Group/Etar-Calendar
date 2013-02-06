@@ -215,6 +215,11 @@
          a new event -->
 
 
+    <!-- Create event dialog -->
+    <skip/>
+    <!-- Create event dialog save button [CHAR LIMIT=10] -->
+    <string name="create_event_dialog_save">Save</string>
+
     <!-- The alert toast is not actually being displayed for some reason. -->
     <skip/>
     <!-- the title of the alert/notification activity -->
@@ -294,6 +299,11 @@
     <!-- Toast message displayed when the event id was not found LIMIT=30] -->
     <string name="event_not_found">"Event not found."</string>
 
+    <!-- Notification label for getting a map of the location. -->
+    <string name="map_label">Map</string>
+    <!-- Notification label for calling a phone number in the location. -->
+    <string name="call_label">Call</string>
+
     <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
     <string name="quick_response_settings">Quick responses</string>
     <!-- Summary of the quick response item in Settings [CHAR LIMIT=80]-->
@@ -315,7 +325,7 @@
         <item>Sorry, I can\'t make it. We\'ll have to reschedule.</item>
         </string-array>
     <!-- Option to create a custom response instead of using defaults [CHAR LIMIT=none] -->
-    <string name="quick_response_custom_msg">Custom message\u2026</string>
+    <string name="quick_response_custom_msg">Write your own\u2026</string>
 
     <!-- Event Info strings-->
     <!-- Time Zone Label [CHAR LIMIT=12]-->

@@ -109,6 +109,15 @@ public class AlertService extends Service {
     // Hard limit to the number of notifications displayed.
     public static final int MAX_NOTIFICATIONS = 20;
 
+    // Shared prefs key for storing whether the EVENT_REMINDER event from the provider
+    // was ever received.  Some OEMs modified this provider broadcast, so we had to
+    // do the alarm scheduling here in the app, for the unbundled app's reminders to work.
+    // If the EVENT_REMINDER event was ever received, we know we can skip our secondary
+    // alarm scheduling.
+    private static final String PROVIDER_REMINDER_PREF_KEY =
+            "preference_received_provider_reminder_broadcast";
+    private static Boolean sReceivedProviderReminderBroadcast = null;
+
     // Added wrapper for testing
     public static class NotificationWrapper {
         Notification mNotification;
@@ -170,9 +179,41 @@ public class AlertService extends Service {
                     + " Action = " + action);
         }
 
-        if (action.equals(Intent.ACTION_PROVIDER_CHANGED) ||
+        // Some OEMs had changed the provider's EVENT_REMINDER broadcast to their own event,
+        // which broke our unbundled app's reminders.  So we added backup alarm scheduling to the
+        // app, but we know we can turn it off if we ever receive the EVENT_REMINDER broadcast.
+        boolean providerReminder = action.equals(
+                android.provider.CalendarContract.ACTION_EVENT_REMINDER);
+        if (providerReminder) {
+            if (sReceivedProviderReminderBroadcast == null) {
+                sReceivedProviderReminderBroadcast = Utils.getSharedPreference(this,
+                        PROVIDER_REMINDER_PREF_KEY, false);
+            }
+
+            if (!sReceivedProviderReminderBroadcast) {
+                sReceivedProviderReminderBroadcast = true;
+                Log.d(TAG, "Setting key " + PROVIDER_REMINDER_PREF_KEY + " to: true");
+                Utils.setSharedPreference(this, PROVIDER_REMINDER_PREF_KEY, true);
+            }
+        }
+
+        if (providerReminder ||
+                action.equals(Intent.ACTION_PROVIDER_CHANGED) ||
                 action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER) ||
+                action.equals(AlertReceiver.EVENT_REMINDER_APP_ACTION) ||
                 action.equals(Intent.ACTION_LOCALE_CHANGED)) {
+
+            // b/7652098: Add a delay after the provider-changed event before refreshing
+            // notifications to help issue with the unbundled app installed on HTC having
+            // stale notifications.
+            if (action.equals(Intent.ACTION_PROVIDER_CHANGED)) {
+                try {
+                    Thread.sleep(5000);
+                } catch (Exception e) {
+                    // Ignore.
+                }
+            }
+
             updateAlertNotification(this);
         } else if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
             // The provider usually initiates this setting up of alarms on startup,
@@ -192,6 +233,13 @@ public class AlertService extends Service {
             dismissOldAlerts(this);
         } else {
             Log.w(TAG, "Invalid action: " + action);
+        }
+
+        // Schedule the alarm for the next upcoming reminder, if not done by the provider.
+        if (sReceivedProviderReminderBroadcast == null || !sReceivedProviderReminderBroadcast) {
+            Log.d(TAG, "Scheduling next alarm with AlarmScheduler. "
+                   + "sEventReminderReceived: " + sReceivedProviderReminderBroadcast);
+            AlarmScheduler.scheduleNextAlarm(this);
         }
     }
 
@@ -331,7 +379,8 @@ public class AlertService extends Service {
             // Add options for a quiet update.
             addNotificationOptions(notification, true, expiredDigestTitle,
                     notificationPrefs.getDefaultVibrate(),
-                    notificationPrefs.getRingtoneAndSilence());
+                    notificationPrefs.getRingtoneAndSilence(),
+                    false); /* Do not show the LED for the expired events. */
 
             if (DEBUG) {
               Log.d(TAG, "Quietly posting digest alarm notification, numEvents:" + numLowPriority
@@ -725,7 +774,8 @@ public class AlertService extends Service {
             ringtone = prefs.getRingtoneAndSilence();
         }
         addNotificationOptions(notification, quietUpdate, tickerText,
-                prefs.getDefaultVibrate(), ringtone);
+                prefs.getDefaultVibrate(), ringtone,
+                true); /* Show the LED for these non-expired events */
 
         // Post the notification.
         notificationMgr.notify(notificationId, notification);
@@ -770,10 +820,13 @@ public class AlertService extends Service {
     }
 
     private static void addNotificationOptions(NotificationWrapper nw, boolean quietUpdate,
-            String tickerText, boolean defaultVibrate, String reminderRingtone) {
+            String tickerText, boolean defaultVibrate, String reminderRingtone,
+            boolean showLights) {
         Notification notification = nw.mNotification;
-        notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-        notification.defaults |= Notification.DEFAULT_LIGHTS;
+        if (showLights) {
+            notification.flags |= Notification.FLAG_SHOW_LIGHTS;
+            notification.defaults |= Notification.DEFAULT_LIGHTS;
+        }
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
         if (!quietUpdate) {

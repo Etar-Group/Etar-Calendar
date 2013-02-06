@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"لم يتم إنشاء الحدث لأنه فارغ."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"سيتم إرسال الدعوات."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"سيتم إرسال التحديثات."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"حفظ"</string>
     <string name="alert_title" msgid="7869592820853066853">"إعلامات التقاويم"</string>
     <string name="event_info_title" msgid="56024222340421620">"عرض الحدث"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"دعوة اجتماع"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"منظم البريد الإلكتروني"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"إرسال رسالة إلكترونية إلى"</string>
     <string name="event_not_found" msgid="8356864185947582727">"لم يتم العثور على الحدث."</string>
+    <string name="map_label" msgid="8795383535586556038">"خريطة"</string>
+    <string name="call_label" msgid="2960328220008869083">"اتصال"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"الردود السريعة"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"تعديل الردود الافتراضية في المراسلة الإلكترونية للمدعوين"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"تعديل الردود السريعة"</string>
@@ -118,7 +121,7 @@
     <item msgid="4485794001743679338">"ابدأوا بدوني."</item>
     <item msgid="8036557974294987511">"عذرًا، لا يمكنني الحضور. علينا إعادة الجدولة."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"رسالة مخصصة…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"اكتب ردك…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"المنظِّم:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"تذكيرات"</string>
     <string name="agenda_today" msgid="5965841338467422191">"اليوم، <xliff:g id="DATE">%1$s</xliff:g>"</string>

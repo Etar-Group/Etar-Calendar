@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Пустое мерапрыемства не створана."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Запрашэнні будуць адпраўлены."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Абнаўленні будуць адпраўлены."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Захаваць"</string>
     <string name="alert_title" msgid="7869592820853066853">"Паведамленні календара"</string>
     <string name="event_info_title" msgid="56024222340421620">"Прагледзець падзею"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Запрашэнне на сустрэчу"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Напiсаць арганiзатару"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Электронная пошта з"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Мерапрыемства не знойдзена."</string>
+    <string name="map_label" msgid="8795383535586556038">"Карта"</string>
+    <string name="call_label" msgid="2960328220008869083">"Выклік"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Хуткія адказы"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Змяніць адказы па змаўчанні пры адпраўцы электронных лістоў гасцям"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Рэд. хутк. адказы"</string>
@@ -118,7 +121,7 @@
     <item msgid="4485794001743679338">"Працягваць і пачаць без мяне."</item>
     <item msgid="8036557974294987511">"На жаль, я не паспяваю. Нам прыйдзецца перанесці мерапрыемства."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Карыстальніцкае паведамленне..."</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Напiшыце вы"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Арганізатар:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Напаміны"</string>
     <string name="agenda_today" msgid="5965841338467422191">"СЁННЯ, <xliff:g id="DATE">%1$s</xliff:g>"</string>

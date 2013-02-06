@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Leë gebeurtenis nie geskep nie."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Uitnodigings sal gestuur word."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Opdaterings sal gestuur word."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Stoor"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalender-kennisgewings"</string>
     <string name="event_info_title" msgid="56024222340421620">"Bekyk gebeurtenis"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Uitnodiging"</string>
@@ -106,6 +107,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"E-posorganiseerder"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-pos met"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Gebeurtenis nie opgespoor nie."</string>
+    <string name="map_label" msgid="8795383535586556038">"Kaart"</string>
+    <string name="call_label" msgid="2960328220008869083">"Bel"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Kitsantwoorde"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Redigeer verstek antwoorde wanneer jy aan gaste e-pos stuur"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Redigeer kitsantwoorde"</string>
@@ -118,7 +121,7 @@
     <item msgid="4485794001743679338">"Begin solank sonder my."</item>
     <item msgid="8036557974294987511">"Jammer, ek kan nie meer kom nie. Ons sal moet herskeduleer."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Gepasmaakte boodskap..."</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skryf jou eie"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organiseerder:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Herinneringe"</string>
     <string name="agenda_today" msgid="5965841338467422191">"VANDAG, <xliff:g id="DATE">%1$s</xliff:g>"</string>

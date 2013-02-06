@@ -56,16 +56,12 @@ import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Intents;
 import android.provider.ContactsContract.QuickContact;
 import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.URLSpan;
-import android.text.util.Linkify;
 import android.text.util.Rfc822Token;
 import android.util.Log;
 import android.view.Gravity;
@@ -102,13 +98,14 @@ import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendar.event.EventViewUtils;
+import com.android.calendarcommon2.DateException;
+import com.android.calendarcommon2.Duration;
 import com.android.calendarcommon2.EventRecurrence;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
         CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener {
@@ -174,12 +171,15 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Events.CUSTOM_APP_PACKAGE,   // 17
         Events.CUSTOM_APP_URI,       // 18
         Events.ORIGINAL_SYNC_ID,     // 19 do not remove; used in DeleteEventHelper
+        Events.DTEND,                // 20
+        Events.DURATION,             // 21
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
     private static final int EVENT_INDEX_RRULE = 2;
     private static final int EVENT_INDEX_ALL_DAY = 3;
     private static final int EVENT_INDEX_CALENDAR_ID = 4;
+    private static final int EVENT_INDEX_DTSTART = 5;
     private static final int EVENT_INDEX_SYNC_ID = 6;
     private static final int EVENT_INDEX_EVENT_TIMEZONE = 7;
     private static final int EVENT_INDEX_DESCRIPTION = 8;
@@ -193,6 +193,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int EVENT_INDEX_ALLOWED_REMINDERS = 16;
     private static final int EVENT_INDEX_CUSTOM_APP_PACKAGE = 17;
     private static final int EVENT_INDEX_CUSTOM_APP_URI = 18;
+    private static final int EVENT_INDEX_DTEND = 20;
+    private static final int EVENT_INDEX_DURATION = 21;
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
         Attendees._ID,                      // 0
@@ -253,10 +255,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
     static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.CALENDAR_DISPLAY_NAME + "=?";
     static final String CALENDARS_VISIBLE_WHERE = Calendars.VISIBLE + "=?";
-
-    private static final String NANP_ALLOWED_SYMBOLS = "()+-*#.";
-    private static final int NANP_MIN_DIGITS = 7;
-    private static final int NANP_MAX_DIGITS = 11;
 
 
     private View mView;
@@ -319,8 +317,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int LOADING_MSG_MIN_DISPLAY_TIME = 600;
     private boolean mNoCrossFade = false;  // Used to prevent repeated cross-fade
 
-
-    private static final Pattern mWildcardPattern = Pattern.compile("^.*$");
 
     ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mDeclinedAttendees = new ArrayList<Attendee>();
@@ -477,7 +473,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 }
                 break;
             case TOKEN_QUERY_DUPLICATE_CALENDARS:
-                Resources res = activity.getResources();
                 SpannableStringBuilder sb = new SpannableStringBuilder();
 
                 // Calendar display name
@@ -1161,6 +1156,33 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             eventName = getActivity().getString(R.string.no_title_label);
         }
 
+        // 3rd parties might not have specified the start/end time when firing the
+        // Events.CONTENT_URI intent.  Update these with values read from the db.
+        if (mStartMillis == 0 && mEndMillis == 0) {
+            mStartMillis = mEventCursor.getLong(EVENT_INDEX_DTSTART);
+            mEndMillis = mEventCursor.getLong(EVENT_INDEX_DTEND);
+            if (mEndMillis == 0) {
+                String duration = mEventCursor.getString(EVENT_INDEX_DURATION);
+                if (!TextUtils.isEmpty(duration)) {
+                    try {
+                        Duration d = new Duration();
+                        d.parse(duration);
+                        long endMillis = mStartMillis + d.getMillis();
+                        if (endMillis >= mStartMillis) {
+                            mEndMillis = endMillis;
+                        } else {
+                            Log.d(TAG, "Invalid duration string: " + duration);
+                        }
+                    } catch (DateException e) {
+                        Log.d(TAG, "Error parsing duration string " + duration, e);
+                    }
+                }
+                if (mEndMillis == 0) {
+                    mEndMillis = mStartMillis;
+                }
+            }
+        }
+
         mAllDay = mEventCursor.getInt(EVENT_INDEX_ALL_DAY) != 0;
         String location = mEventCursor.getString(EVENT_INDEX_EVENT_LOCATION);
         String description = mEventCursor.getString(EVENT_INDEX_DESCRIPTION);
@@ -1233,7 +1255,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 textView.setAutoLinkMask(0);
                 textView.setText(location.trim());
                 try {
-                    linkifyTextView(textView);
+                    textView.setText(Utils.extendedLinkify(textView.getText().toString(), true));
+
+                    // Linkify.addLinks() sets the TextView movement method if it finds any links.
+                    // We must do the same here, in case linkify by itself did not find any.
+                    // (This is cloned from Linkify.addLinkMovementMethod().)
+                    MovementMethod mm = textView.getMovementMethod();
+                    if ((mm == null) || !(mm instanceof LinkMovementMethod)) {
+                        if (textView.getLinksClickable()) {
+                            textView.setMovementMethod(LinkMovementMethod.getInstance());
+                        }
+                    }
                 } catch (Exception ex) {
                     // unexpected
                     Log.e(TAG, "Linkification failed", ex);
@@ -1337,326 +1369,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         return;
     }
 
-    /**
-     * Finds North American Numbering Plan (NANP) phone numbers in the input text.
-     *
-     * @param text The text to scan.
-     * @return A list of [start, end) pairs indicating the positions of phone numbers in the input.
-     */
-    // @VisibleForTesting
-    static int[] findNanpPhoneNumbers(CharSequence text) {
-        ArrayList<Integer> list = new ArrayList<Integer>();
-
-        int startPos = 0;
-        int endPos = text.length() - NANP_MIN_DIGITS + 1;
-        if (endPos < 0) {
-            return new int[] {};
-        }
-
-        /*
-         * We can't just strip the whitespace out and crunch it down, because the whitespace
-         * is significant.  March through, trying to figure out where numbers start and end.
-         */
-        while (startPos < endPos) {
-            // skip whitespace
-            while (Character.isWhitespace(text.charAt(startPos)) && startPos < endPos) {
-                startPos++;
-            }
-            if (startPos == endPos) {
-                break;
-            }
-
-            // check for a match at this position
-            int matchEnd = findNanpMatchEnd(text, startPos);
-            if (matchEnd > startPos) {
-                list.add(startPos);
-                list.add(matchEnd);
-                startPos = matchEnd;    // skip past match
-            } else {
-                // skip to next whitespace char
-                while (!Character.isWhitespace(text.charAt(startPos)) && startPos < endPos) {
-                    startPos++;
-                }
-            }
-        }
-
-        int[] result = new int[list.size()];
-        for (int i = list.size() - 1; i >= 0; i--) {
-            result[i] = list.get(i);
-        }
-        return result;
-    }
-
-    /**
-     * Checks to see if there is a valid phone number in the input, starting at the specified
-     * offset.  If so, the index of the last character + 1 is returned.  The input is assumed
-     * to begin with a non-whitespace character.
-     *
-     * @return Exclusive end position, or -1 if not a match.
-     */
-    private static int findNanpMatchEnd(CharSequence text, int startPos) {
-        /*
-         * A few interesting cases:
-         *   94043                              # too short, ignore
-         *   123456789012                       # too long, ignore
-         *   +1 (650) 555-1212                  # 11 digits, spaces
-         *   (650) 555 5555                     # Second space, only when first is present.
-         *   (650) 555-1212, (650) 555-1213     # two numbers, return first
-         *   1-650-555-1212                     # 11 digits with leading '1'
-         *   *#650.555.1212#*!                  # 10 digits, include #*, ignore trailing '!'
-         *   555.1212                           # 7 digits
-         *
-         * For the most part we want to break on whitespace, but it's common to leave a space
-         * between the initial '1' and/or after the area code.
-         */
-
-        // Check for "tel:" URI prefix.
-        if (text.length() > startPos+4
-                && text.subSequence(startPos, startPos+4).toString().equalsIgnoreCase("tel:")) {
-            startPos += 4;
-        }
-
-        int endPos = text.length();
-        int curPos = startPos;
-        int foundDigits = 0;
-        char firstDigit = 'x';
-        boolean foundWhiteSpaceAfterAreaCode = false;
-
-        while (curPos <= endPos) {
-            char ch;
-            if (curPos < endPos) {
-                ch = text.charAt(curPos);
-            } else {
-                ch = 27;    // fake invalid symbol at end to trigger loop break
-            }
-
-            if (Character.isDigit(ch)) {
-                if (foundDigits == 0) {
-                    firstDigit = ch;
-                }
-                foundDigits++;
-                if (foundDigits > NANP_MAX_DIGITS) {
-                    // too many digits, stop early
-                    return -1;
-                }
-            } else if (Character.isWhitespace(ch)) {
-                if ( (firstDigit == '1' && foundDigits == 4) ||
-                        (foundDigits == 3)) {
-                    foundWhiteSpaceAfterAreaCode = true;
-                } else if (firstDigit == '1' && foundDigits == 1) {
-                } else if (foundWhiteSpaceAfterAreaCode 
-                        && ( (firstDigit == '1' && (foundDigits == 7)) || (foundDigits == 6))) {
-                } else {
-                    break;
-                }
-            } else if (NANP_ALLOWED_SYMBOLS.indexOf(ch) == -1) {
-                break;
-            }
-            // else it's an allowed symbol
-
-            curPos++;
-        }
-
-        if ((firstDigit != '1' && (foundDigits == 7 || foundDigits == 10)) ||
-                (firstDigit == '1' && foundDigits == 11)) {
-            // match
-            return curPos;
-        }
-
-        return -1;
-    }
-
-    private static int indexFirstNonWhitespaceChar(CharSequence str) {
-        for (int i = 0; i < str.length(); i++) {
-            if (!Character.isWhitespace(str.charAt(i))) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private static int indexLastNonWhitespaceChar(CharSequence str) {
-        for (int i = str.length() - 1; i >= 0; i--) {
-            if (!Character.isWhitespace(str.charAt(i))) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Replaces stretches of text that look like addresses and phone numbers with clickable
-     * links.
-     * <p>
-     * This is really just an enhanced version of Linkify.addLinks().
-     */
-    private static void linkifyTextView(TextView textView) {
-        /*
-         * If the text includes a street address like "1600 Amphitheater Parkway, 94043",
-         * the current Linkify code will identify "94043" as a phone number and invite
-         * you to dial it (and not provide a map link for the address).  For outside US,
-         * use Linkify result iff it spans the entire text.  Otherwise send the user to maps.
-         */
-        String defaultPhoneRegion = System.getProperty("user.region", "US");
-        if (!defaultPhoneRegion.equals("US")) {
-            CharSequence origText = textView.getText();
-            Linkify.addLinks(textView, Linkify.ALL);
-
-            // If Linkify links the entire text, use that result.
-            if (textView.getText() instanceof Spannable) {
-                Spannable spanText = (Spannable) textView.getText();
-                URLSpan[] spans = spanText.getSpans(0, spanText.length(), URLSpan.class);
-                if (spans.length == 1) {
-                    int linkStart = spanText.getSpanStart(spans[0]);
-                    int linkEnd = spanText.getSpanEnd(spans[0]);
-                    if (linkStart <= indexFirstNonWhitespaceChar(origText) &&
-                            linkEnd >= indexLastNonWhitespaceChar(origText) + 1) {
-                        return;
-                    }
-                }
-            }
-
-            // Otherwise default to geo.
-            textView.setText(origText);
-            Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
-            return;
-        }
-
-        /*
-         * For within US, we want to have better recognition of phone numbers without losing
-         * any of the existing annotations.  Ideally this would be addressed by improving Linkify.
-         * For now we manage it as a second pass over the text.
-         *
-         * URIs and e-mail addresses are pretty easy to pick out of text.  Phone numbers
-         * are a bit tricky because they have radically different formats in different
-         * countries, in terms of both the digits and the way in which they are commonly
-         * written or presented (e.g. the punctuation and spaces in "(650) 555-1212").
-         * The expected format of a street address is defined in WebView.findAddress().  It's
-         * pretty narrowly defined, so it won't often match.
-         *
-         * The RFC 3966 specification defines the format of a "tel:" URI.
-         *
-         * Start by letting Linkify find anything that isn't a phone number.  We have to let it
-         * run first because every invocation removes all previous URLSpan annotations.
-         *
-         * Ideally we'd use the external/libphonenumber routines, but those aren't available
-         * to unbundled applications.
-         */
-        boolean linkifyFoundLinks = Linkify.addLinks(textView,
-                Linkify.ALL & ~(Linkify.PHONE_NUMBERS));
-
-        /*
-         * Search for phone numbers.
-         *
-         * Some URIs contain strings of digits that look like phone numbers.  If both the URI
-         * scanner and the phone number scanner find them, we want the URI link to win.  Since
-         * the URI scanner runs first, we just need to avoid creating overlapping spans.
-         */
-        CharSequence text = textView.getText();
-        int[] phoneSequences = findNanpPhoneNumbers(text);
-
-        /*
-         * If the contents of the TextView are already Spannable (which will be the case if
-         * Linkify found stuff, but might not be otherwise), we can just add annotations
-         * to what's there.  If it's not, and we find phone numbers, we need to convert it to
-         * a Spannable form.  (This mimics the behavior of Linkable.addLinks().)
-         */
-        Spannable spanText;
-        if (text instanceof SpannableString) {
-            spanText = (SpannableString) text;
-        } else {
-            spanText = SpannableString.valueOf(text);
-        }
-
-        /*
-         * Get a list of any spans created by Linkify, for the overlapping span check.
-         */
-        URLSpan[] existingSpans = spanText.getSpans(0, spanText.length(), URLSpan.class);
-
-        /*
-         * Insert spans for the numbers we found.  We generate "tel:" URIs.
-         */
-        int phoneCount = 0;
-        for (int match = 0; match < phoneSequences.length / 2; match++) {
-            int start = phoneSequences[match*2];
-            int end = phoneSequences[match*2 + 1];
-
-            if (spanWillOverlap(spanText, existingSpans, start, end)) {
-                if (Log.isLoggable(TAG, Log.VERBOSE)) {
-                    CharSequence seq = text.subSequence(start, end);
-                    Log.v(TAG, "Not linkifying " + seq + " as phone number due to overlap");
-                }
-                continue;
-            }
-
-            /*
-             * The Linkify code takes the matching span and strips out everything that isn't a
-             * digit or '+' sign.  We do the same here.  Extension numbers will get appended
-             * without a separator, but the dialer wasn't doing anything useful with ";ext="
-             * anyway.
-             */
-
-            //String dialStr = phoneUtil.format(match.number(),
-            //        PhoneNumberUtil.PhoneNumberFormat.RFC3966);
-            StringBuilder dialBuilder = new StringBuilder();
-            for (int i = start; i < end; i++) {
-                char ch = spanText.charAt(i);
-                if (ch == '+' || Character.isDigit(ch)) {
-                    dialBuilder.append(ch);
-                }
-            }
-            URLSpan span = new URLSpan("tel:" + dialBuilder.toString());
-
-            spanText.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            phoneCount++;
-        }
-
-        if (phoneCount != 0) {
-            // If we had to "upgrade" to Spannable, store the object into the TextView.
-            if (spanText != text) {
-                textView.setText(spanText);
-            }
-
-            // Linkify.addLinks() sets the TextView movement method if it finds any links.  We
-            // want to do the same here.  (This is cloned from Linkify.addLinkMovementMethod().)
-            MovementMethod mm = textView.getMovementMethod();
-
-            if ((mm == null) || !(mm instanceof LinkMovementMethod)) {
-                if (textView.getLinksClickable()) {
-                    textView.setMovementMethod(LinkMovementMethod.getInstance());
-                }
-            }
-        }
-
-        if (!linkifyFoundLinks && phoneCount == 0) {
-            if (Log.isLoggable(TAG, Log.VERBOSE)) {
-                Log.v(TAG, "No linkification matches, using geo default");
-            }
-            Linkify.addLinks(textView, mWildcardPattern, "geo:0,0?q=");
-        }
-    }
-
-    /**
-     * Determines whether a new span at [start,end) will overlap with any existing span.
-     */
-    private static boolean spanWillOverlap(Spannable spanText, URLSpan[] spanList, int start,
-            int end) {
-        if (start == end) {
-            // empty span, ignore
-            return false;
-        }
-        for (URLSpan span : spanList) {
-            int existingStart = spanText.getSpanStart(span);
-            int existingEnd = spanText.getSpanEnd(span);
-            if ((start >= existingStart && start < existingEnd) ||
-                    end > existingStart && end <= existingEnd) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     private void sendAccessibilityEvent() {
         AccessibilityManager am =
             (AccessibilityManager) getActivity().getSystemService(Service.ACCESSIBILITY_SERVICE);
@@ -1714,8 +1426,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mCalendarOwnerAccount = (tempAccount == null) ? "" : tempAccount;
             mOwnerCanRespond = mCalendarsCursor.getInt(CALENDARS_INDEX_OWNER_CAN_RESPOND) != 0;
             mSyncAccountName = mCalendarsCursor.getString(CALENDARS_INDEX_ACCOUNT_NAME);
-
-            String displayName = mCalendarsCursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
 
             // start visible calendars query
             mHandler.startQuery(TOKEN_QUERY_VISIBLE_CALENDARS, null, Calendars.CONTENT_URI,
@@ -2204,6 +1914,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         return list;
     }
 
+    @Override
     public void onDeleteStarted() {
         mEventDeletionStarted = true;
     }
