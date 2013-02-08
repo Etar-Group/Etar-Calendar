@@ -16,11 +16,6 @@
 
 package com.android.calendar.selectcalendars;
 
-import com.android.calendar.AsyncQueryService;
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-import com.android.calendar.selectcalendars.SelectCalendarsSyncAdapter.CalendarRow;
-
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.ListFragment;
@@ -41,15 +36,23 @@ import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarColorPickerDialog;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+import com.android.calendar.selectcalendars.SelectCalendarsSyncAdapter.CalendarRow;
+
 import java.util.HashMap;
 
 public class SelectCalendarsSyncFragment extends ListFragment
         implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
+
     private static final String TAG = "SelectCalendarSync";
 
     private static final String COLLATE_NOCASE = " COLLATE NOCASE";
@@ -191,7 +194,7 @@ public class SelectCalendarsSyncFragment extends ListFragment
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         SelectCalendarsSyncAdapter adapter = (SelectCalendarsSyncAdapter) getListAdapter();
         if (adapter == null) {
-            adapter = new SelectCalendarsSyncAdapter(getActivity(), data);
+            adapter = new SelectCalendarsSyncAdapter(getActivity(), data, getFragmentManager());
             setListAdapter(adapter);
         } else {
             adapter.changeCursor(data);

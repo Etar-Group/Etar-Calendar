@@ -285,6 +285,9 @@
     <!-- Label for button which sets event color to default calendar color -->
     <string name="event_color_set_to_default">Set to default calendar color</string>
 
+    <!-- Title for calendar color picker dialog -->
+    <string name="calendar_color_picker_dialog_title">Calendar Color</string>
+
     <!-- Label for whether the user is attending this event. This is shown when
          a user is invited to a meeting or event.  The possible answers are
          'yes', 'no', and 'maybe' (and, initially, 'no response'). -->

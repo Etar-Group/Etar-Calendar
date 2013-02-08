@@ -57,4 +57,6 @@
     <dimen name="color_swatch_small">48dip</dimen>
     <dimen name="color_swatch_margins_large">8dip</dimen>
     <dimen name="color_swatch_margins_small">4dip</dimen>
+
+    <dimen name="color_view_touch_area_increase">16dp</dimen>
 </resources>

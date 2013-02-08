@@ -16,21 +16,28 @@
 
 package com.android.calendar.selectcalendars;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.provider.CalendarContract.Calendars;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.TouchDelegate;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.android.calendar.CalendarColorPickerDialog;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
@@ -41,6 +48,8 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
     private static final String TAG = "SelCalsAdapter";
     private static int COLOR_CHIP_SIZE = 30;
     private RectShape r = new RectShape();
+
+    private CalendarColorPickerDialog mDialog;
 
     private LayoutInflater mInflater;
     private static final int LAYOUT = R.layout.calendar_sync_item;
@@ -53,6 +62,11 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
     private int mColorColumn;
     private int mSyncedColumn;
 
+    private boolean mIsTablet;
+    private FragmentManager mFragmentManager;
+    private int mColorViewTouchAreaIncrease;
+
+
     private final String mSyncedString;
     private final String mNotSyncedString;
 
@@ -64,9 +78,13 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         boolean originalSynced;
     }
 
-    public SelectCalendarsSyncAdapter(Context context, Cursor c) {
+    public SelectCalendarsSyncAdapter(Context context, Cursor c, FragmentManager manager) {
         super();
         initData(c);
+        mFragmentManager = manager;
+        mColorViewTouchAreaIncrease = context.getResources()
+                .getDimensionPixelSize(R.dimen.color_view_touch_area_increase);
+        mIsTablet = Utils.getConfigBool(context, R.bool.tablet_config);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         COLOR_CHIP_SIZE *= context.getResources().getDisplayMetrics().density;
         r.resize(COLOR_CHIP_SIZE, COLOR_CHIP_SIZE);
@@ -113,7 +131,7 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (position >= mRowCount) {
             return null;
         }
@@ -123,6 +141,21 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         View view;
         if (convertView == null) {
             view = mInflater.inflate(LAYOUT, parent, false);
+            final View delegate = view.findViewById(R.id.color);
+            final View delegateParent = (View) delegate.getParent();
+            delegateParent.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    final Rect r = new Rect();
+                    delegate.getHitRect(r);
+                    r.top -= mColorViewTouchAreaIncrease;
+                    r.bottom += mColorViewTouchAreaIncrease;
+                    r.left -= mColorViewTouchAreaIncrease;
+                    r.right += mColorViewTouchAreaIncrease;
+                    delegateParent.setTouchDelegate(new TouchDelegate(r, delegate));
+                }
+            });
         } else {
             view = convertView;
         }
@@ -139,8 +172,21 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         }
 
         View colorView = view.findViewById(R.id.color);
-
         colorView.setBackgroundColor(color);
+        colorView.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mDialog == null) {
+                    mDialog = new CalendarColorPickerDialog(mData[position].id, mIsTablet);
+                } else {
+                    mDialog.setCalendarId(mData[position].id);
+                }
+                if (!mDialog.isAdded()) {
+                    mDialog.show(mFragmentManager, "Fragment");
+                }
+            }
+        });
 
         setText(view, R.id.calendar, name);
         return view;
