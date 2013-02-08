@@ -116,10 +116,10 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Tria una resposta ràpida"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"No s\'ha pogut trobar un programa de correu electrònic"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Arribaré uns minuts tard."</item>
+    <item msgid="1524421198348168403">"Arribaré uns quants minuts tard."</item>
     <item msgid="6215158751728689832">"Arribaré d\'aquí a 10 minuts."</item>
     <item msgid="4485794001743679338">"Comenceu sense mi."</item>
-    <item msgid="8036557974294987511">"Em sap greu, no hi puc assistir. Ho haurem de tornar a planificar."</item>
+    <item msgid="8036557974294987511">"Ho sent, però no hi puc assistir. Hem de tornar a planificar la reunió."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Escriu la teva…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organitz.:"</string>

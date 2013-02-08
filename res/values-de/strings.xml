@@ -118,8 +118,8 @@
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Bin einige Minuten verspätet"</item>
     <item msgid="6215158751728689832">"Bin in etwa 10 Minuten da"</item>
-    <item msgid="4485794001743679338">"Soll ohne mich anfangen"</item>
-    <item msgid="8036557974294987511">"Ich schaffe es leider nicht. Wir müssen einen neuen Termin ausmachen."</item>
+    <item msgid="4485794001743679338">"Fangt ohne mich an"</item>
+    <item msgid="8036557974294987511">"Schaffe es leider nicht. Neuen Termin ausmachen?"</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Eigene Antwort schreiben…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>

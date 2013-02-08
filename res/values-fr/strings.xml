@@ -116,8 +116,8 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Sélectionner une réponse rapide"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Impossible de trouver un programme de messagerie électronique."</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"J\'aurai juste quelques minutes de retard."</item>
-    <item msgid="6215158751728689832">"Rendez-vous dans 10 minutes environ."</item>
+    <item msgid="1524421198348168403">"Désolé, j\'aurai quelques minutes de retard."</item>
+    <item msgid="6215158751728689832">"Désolé, j\'arrive dans 10 minutes environ."</item>
     <item msgid="4485794001743679338">"Commencez sans moi."</item>
     <item msgid="8036557974294987511">"Désolé, je ne peux pas venir. Nous allons devoir reporter."</item>
   </string-array>
