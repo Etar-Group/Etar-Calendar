@@ -64,7 +64,9 @@ public class SelectSyncedCalendarsMultiAccountActivity extends ExpandableListAct
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_done) {
-            mAdapter.doSaveAction();
+            if (mAdapter != null) {
+                mAdapter.doSaveAction();
+            }
             finish();
         } else if (view.getId() == R.id.btn_discard) {
             finish();
