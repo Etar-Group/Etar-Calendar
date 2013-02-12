@@ -116,7 +116,7 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Wybierz szybką odpowiedź"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Nie można znaleźć programu pocztowego"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Spóźnię się tylko kilka minut."</item>
+    <item msgid="1524421198348168403">"Spóźnię się kilka minut."</item>
     <item msgid="6215158751728689832">"Będę za około 10 minut."</item>
     <item msgid="4485794001743679338">"Zacznijcie beze mnie."</item>
     <item msgid="8036557974294987511">"Niestety, nie dam rady. Musimy to przełożyć."</item>
