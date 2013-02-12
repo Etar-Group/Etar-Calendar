@@ -34,6 +34,9 @@ import android.provider.CalendarContract.Attendees;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.calendar.CalendarEventModel.ReminderEntry;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventInfoActivity extends Activity {
@@ -71,6 +74,7 @@ public class EventInfoActivity extends Activity {
         int attendeeResponse = 0;
         mEventId = -1;
         boolean isDialog = false;
+        ArrayList<ReminderEntry> reminders = null;
 
         if (icicle != null) {
             mEventId = icicle.getLong(EventInfoFragment.BUNDLE_KEY_EVENT_ID);
@@ -78,6 +82,8 @@ public class EventInfoActivity extends Activity {
             mEndMillis = icicle.getLong(EventInfoFragment.BUNDLE_KEY_END_MILLIS);
             attendeeResponse = icicle.getInt(EventInfoFragment.BUNDLE_KEY_ATTENDEE_RESPONSE);
             isDialog = icicle.getBoolean(EventInfoFragment.BUNDLE_KEY_IS_DIALOG);
+
+            reminders = Utils.readRemindersFromBundle(icicle);
         } else if (intent != null && Intent.ACTION_VIEW.equals(intent.getAction())) {
             mStartMillis = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, 0);
             mEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
@@ -147,9 +153,10 @@ public class EventInfoActivity extends Activity {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             mInfoFragment = new EventInfoFragment(this, mEventId, mStartMillis, mEndMillis,
-                    attendeeResponse, isDialog, isDialog ?
+                    attendeeResponse, isDialog, (isDialog ?
                             EventInfoFragment.DIALOG_WINDOW_STYLE :
-                                EventInfoFragment.FULL_WINDOW_STYLE);
+                                EventInfoFragment.FULL_WINDOW_STYLE),
+                    reminders);
             ft.replace(R.id.main_frame, mInfoFragment);
             ft.commit();
         }

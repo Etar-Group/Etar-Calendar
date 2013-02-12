@@ -1188,7 +1188,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     EventInfoFragment fragment = new EventInfoFragment(this,
                             event.id, event.startTime.toMillis(false),
                             event.endTime.toMillis(false), response, true,
-                            EventInfoFragment.DIALOG_WINDOW_STYLE);
+                            EventInfoFragment.DIALOG_WINDOW_STYLE,
+                            null /* No reminders to explicitly pass in. */);
                     fragment.setDialogParams(event.x, event.y, mActionBar.getHeight());
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
