@@ -145,8 +145,8 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Kila mwaka"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Kila mwezi (kwa siku ya <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Kila mwaka (mnamo <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Kaida (haiwezi kugeuzia kwa kompyuta ndogo)"</string>
-    <string name="custom" product="default" msgid="4137468716966004993">"Kaida (haiwezi kugeuzia kwa simu)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Maalum (haiwezi kugeuzia kukufaa kwenye kompyuta kibao)"</string>
+    <string name="custom" product="default" msgid="4137468716966004993">"Maalum (haiwezi kugeuzia kukufaa kwenye simu)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Badilisha tukio hili pekee"</string>
     <string name="modify_all" msgid="4421657265864209041">"Badilisha matukio yote katika mfululizo"</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Badilisha hili na matukio yote yajayo"</string>
@@ -159,7 +159,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"Kuhusu Kalenda"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Mipangilio"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Mipangilio ya mwonekano wa kalenda"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"Mipangilio ya kikumbusho"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Arifa na vikumbusho"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ficha matukio yaliyokataliwa"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Juma linaanza"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Juma linaanza"</string>
@@ -168,7 +168,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"Historia ya utafutaji imefutwa."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Taarifa"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Tikisika"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Chagua toni ya mlio"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Sauti"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Arifa ibukizi"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Muda chaguo-msingi wa ukumbusho"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Muda chaguo-msingi wa ukumbusho"</string>
@@ -179,12 +179,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Onyesha nambari ya wiki"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Kuhusu"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Toleo la muundo"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"Kila wakati"</item>
-    <item msgid="8091719131860840185">"Ikiwa kimya tu"</item>
-    <item msgid="4552962311897985633">"Katu"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Tikisika"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalenda"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>

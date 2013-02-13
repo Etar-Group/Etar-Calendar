@@ -159,7 +159,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"Takvim hakkında"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Ayarlar"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Takvim görünümü ayarı"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"Hatırlatıcı ayarları"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Bildirimler ve hatırlatıcılar"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Reddedilmiş etkin. gizle"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Haftanın ilk günü"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Haftanın ilk günü"</string>
@@ -168,7 +168,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"Arama geçmişi temizlendi."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Bildirimler"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Titreşim"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Zil sesi seçin"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Ses"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pop-up bildirim"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Varsayılan hatırlatıcı süresi"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Varsayılan hatırlatıcı süresi"</string>
@@ -179,12 +179,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Hafta sayısını göster"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Hakkında"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Derleme sürümü"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"Her zaman"</item>
-    <item msgid="8091719131860840185">"Yalnızca sessizken"</item>
-    <item msgid="4552962311897985633">"Hiçbir zaman"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Titreşim"</string>
     <string name="gadget_title" msgid="939918875331310945">"Takvim"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>

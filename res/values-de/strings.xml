@@ -113,10 +113,10 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Kurzantwort auswählen"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Das E-Mail-Programm konnte nicht gefunden werden."</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Hat einige Minuten Verspätung"</item>
-    <item msgid="6215158751728689832">"Startet in etwa 10 Minuten"</item>
-    <item msgid="4485794001743679338">"Soll ohne mich anfangen"</item>
-    <item msgid="8036557974294987511">"Ich schaffe es leider nicht. Wir müssen einen neuen Termin ausmachen."</item>
+    <item msgid="1524421198348168403">"Bin einige Minuten verspätet"</item>
+    <item msgid="6215158751728689832">"Bin in etwa 10 Minuten da"</item>
+    <item msgid="4485794001743679338">"Fangt ohne mich an"</item>
+    <item msgid="8036557974294987511">"Schaffe es leider nicht. Können wir neuen Termin ausmachen?"</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="7265035125070482285">"Benutzerdefinierte Nachricht..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
@@ -159,7 +159,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"Über Google Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Einstellungen"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Einstellungen für Kalenderansicht"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"Erinnerungseinstellungen"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Benachrichtigungen &amp; Erinnerungen"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgelehnte Termine ausbl."</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Woche beginnt am"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Woche beginnt am"</string>
@@ -168,7 +168,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"Suchverlauf gelöscht"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Benachrichtigungen"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibration"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Klingelton auswählen"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Töne"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pop-up-Benachrichtigung"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standard-Erinnerungszeit"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standard-Erinnerungszeit"</string>
@@ -179,12 +179,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Wochennummer anzeigen"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Details"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Build-Version"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"Immer"</item>
-    <item msgid="8091719131860840185">"Nur im Lautlos-Modus"</item>
-    <item msgid="4552962311897985633">"Nie"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Vibration"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalender"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>

@@ -145,7 +145,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Varje år"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Varje månad (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Varje år (den <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Anpassad (går ej att anpassa på pekdatorn)"</string>
+    <string name="custom" product="tablet" msgid="3806817351377723249">"Anpassad (går ej att anpassa på surfplattan)"</string>
     <string name="custom" product="default" msgid="4137468716966004993">"Anpassad (går ej att anpassa i mobilen)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Ändra bara den här händelsen"</string>
     <string name="modify_all" msgid="4421657265864209041">"Ändra alla händelser i serien"</string>
@@ -159,7 +159,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"Om Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Inställningar"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Inställning för kalendervy"</string>
-    <string name="preferences_reminder_title" msgid="6940022527071973010">"Inställningar för påminnelse"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"Meddelanden och påminnelser"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Dölj avböjda händelser"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Veckan börjar med"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Veckan börjar med"</string>
@@ -168,7 +168,7 @@
     <string name="search_history_cleared" msgid="1536707558435227567">"Sökhistoriken har rensats."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Aviseringar"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrera"</string>
-    <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Välj ringsignal"</string>
+    <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Ljud"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Popup-meddelande"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Standardtid för påminnelse"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Standardtid för påminnelse"</string>
@@ -179,12 +179,6 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Visa veckonummer"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Om"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Programversion"</string>
-  <string-array name="prefEntries_alerts_vibrateWhen">
-    <item msgid="2539376794936035639">"Alltid"</item>
-    <item msgid="8091719131860840185">"Bara vid tyst"</item>
-    <item msgid="4552962311897985633">"Aldrig"</item>
-  </string-array>
-    <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Vibrera"</string>
     <string name="gadget_title" msgid="939918875331310945">"Kalender"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+ 1"</item>
