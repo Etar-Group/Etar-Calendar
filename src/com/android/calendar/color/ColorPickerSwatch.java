@@ -17,14 +17,13 @@
 package com.android.calendar.color;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.android.calendar.R;
-
-import java.io.Serializable;
 
 /**
  * Creates a circular swatch of a specified color.  Adds a checkmark if marked as checked.
@@ -58,10 +57,9 @@ public class ColorPickerSwatch extends ImageView implements View.OnClickListener
             OnColorSelectedListener listener) {
         super(context);
         setScaleType(ScaleType.FIT_XY);
-        mColorDrawable = getContext().getResources()
-                .getDrawable(R.drawable.color_picker_swatch);
-        mCheckmark = getContext().getResources().getDrawable(
-                R.drawable.ic_colorpicker_swatch_selected);
+        Resources res = context.getResources();
+        mColorDrawable = res.getDrawable(R.drawable.color_picker_swatch);
+        mCheckmark = res.getDrawable(R.drawable.ic_colorpicker_swatch_selected);
         mOnColorSelectedListener = listener;
         setColor(color);
         setChecked(checked);

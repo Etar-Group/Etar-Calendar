@@ -95,8 +95,8 @@
                         android:layout_gravity="right">
                         <ImageButton
                             android:id="@+id/change_color"
-                            style="@style/EditEventColorImageButton" 
-                            android:visibility="gone" />                            
+                            style="@style/EditEventColorImageButton"
+                            android:visibility="gone" />
                         <ImageButton
                             android:id="@+id/edit"
                             android:contentDescription="@string/edit_label"

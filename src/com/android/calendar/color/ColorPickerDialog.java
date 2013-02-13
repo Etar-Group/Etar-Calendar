@@ -84,9 +84,6 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Activity activity = getActivity();
 
-        final LayoutInflater layoutInflater = (LayoutInflater) activity
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         if (savedInstanceState != null) {
             mColors = (int[]) savedInstanceState.getSerializable(KEY_COLORS);
             mSelectedColor = savedInstanceState.getInt(KEY_CURRENT_COLOR);
@@ -152,6 +149,14 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         if (mSelectedColor != color) {
             setColors(mColors, color);
         }
+    }
+
+    public int[] getColors() {
+        return mColors;
+    }
+
+    public int getSelectedColor() {
+        return mSelectedColor;
     }
 
     @Override

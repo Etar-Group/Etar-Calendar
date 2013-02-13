@@ -183,7 +183,7 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
                     mDialog.setCalendarId(mData[position].id);
                 }
                 if (!mDialog.isAdded()) {
-                    mDialog.show(mFragmentManager, "Fragment");
+                    mDialog.show(mFragmentManager, TAG);
                 }
             }
         });

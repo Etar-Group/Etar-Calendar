@@ -224,7 +224,7 @@
         <item name="android:ellipsize">none</item>
         <item name="android:padding">4dp</item>
     </style>
-    
+
     <style name="EditEventColorImageButton" parent="android:attr/buttonBarButtonStyle">
         <item name="android:enabled">false</item>
         <item name="android:layout_width">48dip</item>

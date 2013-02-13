@@ -16,6 +16,7 @@
 
 package com.android.calendar.event;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -25,7 +26,9 @@ import java.util.Map;
 /**
  * A cache for event colors and event color keys stored based upon calendar account name and type.
  */
-public class EventColorCache {
+public class EventColorCache implements Serializable {
+
+    private static final long serialVersionUID = 2L;
 
     private static final String SEPARATOR = "::";
 

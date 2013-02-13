@@ -97,7 +97,7 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.alerts.QuickResponseActivity;
-import com.android.calendar.color.ColorComparator;
+import com.android.calendar.color.HsvColorComparator;
 import com.android.calendar.color.ColorPickerSwatch.OnColorSelectedListener;
 import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventActivity;
@@ -116,7 +116,7 @@ import java.util.List;
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
         CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener {
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     public static final String TAG = "EventInfoFragment";
 
@@ -342,7 +342,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private long mLoadingMsgStartTime;
 
     private EventColorPickerDialog mDialog;
-    private SparseIntArray mColorKeyMap = new SparseIntArray();
+    private SparseIntArray mDisplayColorKeyMap = new SparseIntArray();
     private int[] mColors;
     private int mOriginalColor = -1;
     private int mCalendarColor = -1;
@@ -458,7 +458,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                                     mEventCursor.getInt(EVENT_INDEX_EVENT_COLOR));
                 }
 
-                Log.d(TAG, "Current event color: " + mCurrentColor);
                 if (mCurrentColor == -1) {
                     mCurrentColor = mOriginalColor;
                 }
@@ -514,20 +513,22 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         int colorKey = cursor.getInt(COLORS_INDEX_COLOR_KEY);
                         int rawColor = cursor.getInt(COLORS_INDEX_COLOR);
                         int displayColor = Utils.getDisplayColorFromColor(rawColor);
-                        mColorKeyMap.put(displayColor, colorKey);
+                        mDisplayColorKeyMap.put(displayColor, colorKey);
                         colors.add(displayColor);
                     } while (cursor.moveToNext());
                 }
                 cursor.close();
                 Integer[] sortedColors = new Integer[colors.size()];
-                Arrays.sort(colors.toArray(sortedColors), new ColorComparator());
+                Arrays.sort(colors.toArray(sortedColors), new HsvColorComparator());
                 mColors = new int[sortedColors.length];
                 for (int i = 0; i < sortedColors.length; i++) {
                     mColors[i] = sortedColors[i].intValue();
 
                     float[] hsv = new float[3];
                     Color.colorToHSV(mColors[i], hsv);
-                    Log.d("Color", "H:" + hsv[0] + ",S:" + hsv[1] + ",V:" + hsv[2]);
+                    if (DEBUG) {
+                        Log.d("Color", "H:" + hsv[0] + ",S:" + hsv[1] + ",V:" + hsv[2]);
+                    }
                 }
                 View button = mView.findViewById(R.id.change_color);
                 if (button != null && mColors.length > 0) {
@@ -535,7 +536,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     button.setVisibility(View.VISIBLE);
                 }
                 updateMenu();
-                cursor.close();
                 break;
             case TOKEN_QUERY_ATTENDEES:
                 mAttendeesCursor = Utils.matrixCursorFromCursor(cursor);
@@ -1117,7 +1117,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         ContentValues values = new ContentValues();
         if (mCurrentColor != mCalendarColor) {
-            values.put(Events.EVENT_COLOR_KEY, mColorKeyMap.get(mCurrentColor));
+            values.put(Events.EVENT_COLOR_KEY, mDisplayColorKeyMap.get(mCurrentColor));
         } else {
             values.put(Events.EVENT_COLOR_KEY, NO_EVENT_COLOR);
         }

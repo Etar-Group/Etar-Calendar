@@ -62,7 +62,7 @@ import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DeleteEventHelper;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
-import com.android.calendar.color.ColorComparator;
+import com.android.calendar.color.HsvColorComparator;
 import com.android.calendar.color.ColorPickerSwatch.OnColorSelectedListener;
 
 import java.io.Serializable;
@@ -333,7 +333,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                             cache.insertColor(accountName, accountType,
                                     displayColor, colorKey);
                         } while (cursor.moveToNext());
-                        cache.sortPalettes(new ColorComparator());
+                        cache.sortPalettes(new HsvColorComparator());
 
                         mModel.mEventColorCache = cache;
                         mView.mColorPickerNewEvent.setOnClickListener(mOnColorPickerClicked);
@@ -364,7 +364,6 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
                     @Override
                     public void onColorSelected(int color) {
-                        // TODO(kingkung): Auto-generated method stub
                         if (mModel.mEventColor != color) {
                             mModel.mEventColor = color;
                             mView.updateHeadlineColor(mModel, color);
