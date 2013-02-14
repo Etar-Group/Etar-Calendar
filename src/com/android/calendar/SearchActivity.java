@@ -156,6 +156,9 @@ public class SearchActivity extends Activity implements CalendarController.Event
             } else {
                 query = intent.getStringExtra(SearchManager.QUERY);
             }
+            if ("TARDIS".equalsIgnoreCase(query)) {
+                Utils.tardis();
+            }
             initFragments(millis, query);
         }
     }

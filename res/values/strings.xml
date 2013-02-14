@@ -562,6 +562,27 @@
     <!-- DO NOT TRANSLATE -->
     <string name="tardis">TARDIS</string>
 
+    <!-- Experimental settings [CHAR LIMIT = 30]-->
+    <string name="preferences_experimental_category">Experimental</string>
+
+    <!-- Reminders settings [CHAR LIMIT = 30]-->
+    <string name="preferences_reminders_category">Reminders</string>
+    <!-- Preference label for when to send reminders [CHAR LIMIT = 25] -->
+    <string name="preferences_reminders_responded_label">Limit reminders by attendance</string>
+    <!-- Preference description for when to send reminders [CHAR LIMIT = NONE]-->
+    <string name="preferences_reminders_responded_description">Don\'t post reminders unless you\'ve responded \"Yes\" or \"Maybe\"</string>
+    <!-- Preference label for quiet hours [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_label">Quiet hours</string>
+    <!-- Preference description for quiet hours [CHAR LIMIT = NONE]-->
+    <string name="preferences_reminders_quiet_hours_description">Silence event reminders during specified time.</string>
+    <!-- Preference label for quiet hours start time [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_start">Quiet hours start time</string>
+    <!-- Preference label for quiet hours end time [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_end">Quiet hours end time</string>
+
+    <!-- Preferences used for debugging purposes [CHAR LIMIT = 30]-->
+    <string name="preferences_debug_category">Debugging</string>
+
     <!-- Send a copy of the database to developers for debugging [CHAR LIMIT="NONE"] -->
     <string name="copy_db">Send database</string>
 
