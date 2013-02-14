@@ -97,8 +97,7 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.alerts.QuickResponseActivity;
-import com.android.calendar.color.ColorPickerSwatch.OnColorSelectedListener;
-import com.android.calendar.color.HsvColorComparator;
+
 import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
@@ -107,6 +106,8 @@ import com.android.calendar.event.EventViewUtils;
 import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.Duration;
 import com.android.calendarcommon2.EventRecurrence;
+import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.colorpicker.HsvColorComparator;
 
 import java.util.ArrayList;
 import java.util.Arrays;

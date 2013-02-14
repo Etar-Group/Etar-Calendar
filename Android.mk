@@ -3,7 +3,9 @@ include $(CLEAR_VARS)
 
 # Include res dir from chips
 chips_dir := ../../../frameworks/ex/chips/res
-res_dirs := $(chips_dir) res
+color_picker_dir := ../../../frameworks/opt/colorpicker/res
+
+res_dirs := $(chips_dir) $(color_picker_dir) res
 src_dirs := src
 
 LOCAL_EMMA_COVERAGE_FILTER := +com.android.calendar.*
@@ -22,6 +24,7 @@ LOCAL_SRC_FILES := $(call all-java-files-under,$(src_dirs))
 LOCAL_STATIC_JAVA_LIBRARIES := \
 		android-common \
 		android-common-chips \
+		colorpicker \
 		android-support-v4 \
 		calendar-common
 
@@ -35,6 +38,7 @@ LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
 LOCAL_AAPT_FLAGS := --auto-add-overlay
 LOCAL_AAPT_FLAGS += --extra-packages com.android.ex.chips
+LOCAL_AAPT_FLAGS += --extra-packages com.android.colorpicker
 
 include $(BUILD_PACKAGE)
 
