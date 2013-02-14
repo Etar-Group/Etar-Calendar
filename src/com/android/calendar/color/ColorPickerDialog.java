@@ -117,6 +117,13 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         if (mListener != null) {
             mListener.onColorSelected(color);
         }
+
+        if (getTargetFragment() instanceof OnColorSelectedListener) {
+            final OnColorSelectedListener listener =
+                    (OnColorSelectedListener) getTargetFragment();
+            listener.onColorSelected(color);
+        }
+
         mSelectedColor = color;
         dismiss();
     }

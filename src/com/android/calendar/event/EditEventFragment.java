@@ -62,15 +62,17 @@ import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DeleteEventHelper;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
-import com.android.calendar.color.HsvColorComparator;
 import com.android.calendar.color.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.calendar.color.HsvColorComparator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class EditEventFragment extends Fragment implements EventHandler {
+public class EditEventFragment extends Fragment implements EventHandler, OnColorSelectedListener {
     private static final String TAG = "EditEventActivity";
+
+    private static final int REQUEST_CODE_COLOR_PICKER = 0;
 
     private static final String BUNDLE_KEY_MODEL = "key_model";
     private static final String BUNDLE_KEY_EDIT_STATE = "key_edit_state";
@@ -338,11 +340,11 @@ public class EditEventFragment extends Fragment implements EventHandler {
                         mModel.mEventColorCache = cache;
                         mView.mColorPickerNewEvent.setOnClickListener(mOnColorPickerClicked);
                         mView.mColorPickerExistingEvent.setOnClickListener(mOnColorPickerClicked);
-                        mView.setColorPickerButtonStates(mModel.getCalendarEventColors());
                     }
                     if (cursor != null) {
                         cursor.close();
                     }
+                    mView.setColorPickerButtonStates(mModel.getCalendarEventColors());
                     setModelIfDone(TOKEN_COLORS);
                     break;
                 default:
@@ -360,16 +362,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (mDialog == null) {
                 mDialog = new EventColorPickerDialog(colors, mModel.mEventColor,
                         mModel.mCalendarColor, mView.mIsMultipane);
-                mDialog.setOnColorSelectedListener(new OnColorSelectedListener() {
-
-                    @Override
-                    public void onColorSelected(int color) {
-                        if (mModel.mEventColor != color) {
-                            mModel.mEventColor = color;
-                            mView.updateHeadlineColor(mModel, color);
-                        }
-                    }
-                });
+                mDialog.setTargetFragment(EditEventFragment.this, REQUEST_CODE_COLOR_PICKER);
             } else {
                 mDialog.setCalendarColor(mModel.mCalendarColor);
                 mDialog.setColors(colors, mModel.mEventColor);
@@ -903,5 +896,13 @@ public class EditEventFragment extends Fragment implements EventHandler {
         long id = -1;
         long start = -1;
         long end = -1;
+    }
+
+    @Override
+    public void onColorSelected(int color) {
+        if (mModel.mEventColor != color) {
+            mModel.mEventColor = color;
+            mView.updateHeadlineColor(mModel, color);
+        }
     }
 }

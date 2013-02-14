@@ -48,7 +48,8 @@
                     android:prompt="@string/edit_event_calendar_label" />
                 <ImageButton
                     android:id="@+id/change_color_new_event"
-                    style="@style/EditEventColorImageButton" />
+                    style="@style/EditEventColorImageButton"
+                    android:visibility="invisible" />
             </LinearLayout>
     </TableRow>
 
@@ -81,7 +82,8 @@
                 android:textColor="#FFFFFFFF" />
             <ImageButton
                 android:id="@+id/change_color_existing_event"
-                style="@style/EditEventColorImageButton" />
+                style="@style/EditEventColorImageButton" 
+                android:visibility="invisible" />
         </LinearLayout>
     </TableRow>
 

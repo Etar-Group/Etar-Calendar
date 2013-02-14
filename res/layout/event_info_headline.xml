@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:enabled="false"
+                android:visibility="invisible"
                 android:text="@string/choose_event_color_label"
                 android:textColor="@color/event_info_headline_color" />
 

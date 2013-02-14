@@ -96,6 +96,7 @@
                         <ImageButton
                             android:id="@+id/change_color"
                             style="@style/EditEventColorImageButton"
+                            android:enabled="false"
                             android:visibility="gone" />
                         <ImageButton
                             android:id="@+id/edit"

@@ -97,8 +97,8 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.alerts.QuickResponseActivity;
-import com.android.calendar.color.HsvColorComparator;
 import com.android.calendar.color.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.calendar.color.HsvColorComparator;
 import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
@@ -114,11 +114,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
-        CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener {
+        CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener,
+        OnColorSelectedListener {
 
     public static final boolean DEBUG = false;
 
     public static final String TAG = "EventInfoFragment";
+
+    private static final int REQUEST_CODE_COLOR_PICKER = 0;
 
     protected static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
     protected static final String BUNDLE_KEY_START_MILLIS = "key_start_millis";
@@ -863,7 +866,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 if (!mCanModifyCalendar) {
                     return;
                 }
-
                 showEventColorPickerDialog();
             }
         });
@@ -1097,13 +1099,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (mDialog == null) {
             mDialog = new EventColorPickerDialog(mColors, mCurrentColor, mCalendarColor,
                     mIsTabletConfig);
-            mDialog.setOnColorSelectedListener(new OnColorSelectedListener() {
-
-                @Override
-                public void onColorSelected(int color) {
-                    updateCurrentEventColor(color);
-                }
-            });
+            mDialog.setTargetFragment(this, REQUEST_CODE_COLOR_PICKER);
         }
         if (!mDialog.isAdded()) {
             mDialog.show(getFragmentManager(), TAG);
@@ -2103,5 +2099,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private void setDialogSize(Resources r) {
         mDialogWidth = (int)r.getDimension(R.dimen.event_info_dialog_width);
         mDialogHeight = (int)r.getDimension(R.dimen.event_info_dialog_height);
+    }
+
+    @Override
+    public void onColorSelected(int color) {
+        updateCurrentEventColor(color);
     }
 }

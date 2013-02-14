@@ -40,7 +40,8 @@
             android:gravity="center_vertical" />
         <ImageButton
             android:id="@+id/change_color_new_event"
-            style="@style/EditEventColorImageButton" />
+            style="@style/EditEventColorImageButton" 
+            android:visibility="invisible" />
     </LinearLayout>
 
     <!-- CALENDAR DISPLAY for existing events -->
@@ -77,7 +78,8 @@
         </LinearLayout>
         <ImageButton
             android:id="@+id/change_color_existing_event"
-            style="@style/EditEventColorImageButton" />
+            style="@style/EditEventColorImageButton" 
+            android:visibility="invisible" />
     </LinearLayout>
 
     <!-- WHAT -->
