@@ -99,6 +99,10 @@
     <string name="add_account" msgid="1669072099756774952">"Дадаць уліковы запіс"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Каляндар:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Арганізатар:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Выберыце колер мерапрыемства"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Колер мерапрыемства"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Усталяваць колер календара па змаўчаннi"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Колер календара"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Удзел?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Так"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Магчыма"</string>
