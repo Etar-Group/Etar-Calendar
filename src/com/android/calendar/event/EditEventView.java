@@ -1683,7 +1683,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     public void setColorPickerButtonStates(int[] eventColors) {
         if (eventColors == null || eventColors.length == 0) {
             mColorPickerNewEvent.setVisibility(View.INVISIBLE);
-            mColorPickerExistingEvent.setVisibility(View.INVISIBLE);
+            mColorPickerExistingEvent.setVisibility(View.GONE);
         } else {
             mColorPickerNewEvent.setVisibility(View.VISIBLE);
             mColorPickerExistingEvent.setVisibility(View.VISIBLE);

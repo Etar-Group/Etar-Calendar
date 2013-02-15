@@ -79,7 +79,7 @@
         <ImageButton
             android:id="@+id/change_color_existing_event"
             style="@style/EditEventColorImageButton" 
-            android:visibility="invisible" />
+            android:visibility="gone" />
     </LinearLayout>
 
     <!-- WHAT -->
