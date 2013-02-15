@@ -99,11 +99,15 @@
     <string name="add_account" msgid="1669072099756774952">"添加帐户"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"日历："</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"组织者："</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"选择活动颜色"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"活动颜色"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"设为默认日历颜色"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"日历颜色"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"参加吗？"</string>
     <string name="response_yes" msgid="2027484304899988350">"参加"</string>
     <string name="response_maybe" msgid="7791500973627841695">"待定"</string>
     <string name="response_no" msgid="561911691884148136">"不参加"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"向邀请对象发送电子邮件"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"向参加者发邮件"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"给组织者发送电子邮件"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"发送邮件时使用"</string>
     <string name="event_not_found" msgid="8356864185947582727">"找不到活动。"</string>
@@ -208,7 +212,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"隐私设置"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"日历通知"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"暂停通知"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"向邀请对象发送电子邮件"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"向参加者发邮件"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ 新建活动"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"第 <xliff:g id="ITEM_INDEX">%1$s</xliff:g> 个活动，共 <xliff:g id="ITEM_COUNT">%2$s</xliff:g> 个。"</string>
   <plurals name="Nevents">
