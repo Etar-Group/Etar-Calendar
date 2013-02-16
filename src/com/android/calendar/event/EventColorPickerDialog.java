@@ -21,7 +21,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.android.calendar.R;
-import com.android.calendar.color.ColorPickerDialog;
+import com.android.colorpicker.ColorPickerDialog;
 
 /**
  * A dialog which displays event colors, with an additional button for the calendar color.

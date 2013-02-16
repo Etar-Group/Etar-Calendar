@@ -82,8 +82,8 @@
                 android:textColor="#FFFFFFFF" />
             <ImageButton
                 android:id="@+id/change_color_existing_event"
-                style="@style/EditEventColorImageButton" 
-                android:visibility="gone" />
+                style="@style/EditEventColorImageButton"
+                android:visibility="gone"  />
         </LinearLayout>
     </TableRow>
 

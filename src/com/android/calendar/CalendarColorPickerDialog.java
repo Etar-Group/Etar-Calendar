@@ -27,15 +27,12 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Colors;
 import android.util.SparseIntArray;
 
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.CalendarController.ViewType;
-import com.android.calendar.color.HsvColorComparator;
-import com.android.calendar.color.ColorPickerDialog;
-import com.android.calendar.color.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.colorpicker.ColorPickerDialog;
+import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.colorpicker.HsvColorComparator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 
 public class CalendarColorPickerDialog extends ColorPickerDialog {
 
