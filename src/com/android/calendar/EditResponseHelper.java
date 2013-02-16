@@ -19,18 +19,16 @@ package com.android.calendar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.widget.Button;
 
 /**
  * A helper class for editing the response to an invitation when the invitation
  * is a repeating event.
  */
-public class EditResponseHelper implements DialogInterface.OnClickListener, OnDismissListener {
+public class EditResponseHelper implements DialogInterface.OnClickListener {
     private final Activity mParent;
     private int mWhichEvents = -1;
     private AlertDialog mAlertDialog;
-    private boolean mClickedOk = false;
 
     /**
      * This callback is passed in to this object when this object is created
@@ -54,32 +52,7 @@ public class EditResponseHelper implements DialogInterface.OnClickListener, OnDi
         mWhichEvents = which;
     }
 
-    @Override
     public void onClick(DialogInterface dialog, int which) {
-        setClickedOk(true);
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        // If the click was not "OK", clear out whichEvents to represent
-        // that the dialog was canceled.
-        if (!getClickedOk()) {
-            setWhichEvents(-1);
-        }
-
-        // Call the pre-set dismiss listener too.
-        if (mDismissListener != null) {
-            mDismissListener.onDismiss(dialog);
-        }
-
-    }
-
-    private boolean getClickedOk() {
-        return mClickedOk;
-    }
-
-    private void setClickedOk(boolean clickedOk) {
-        mClickedOk = clickedOk;
     }
 
     /**
@@ -97,18 +70,6 @@ public class EditResponseHelper implements DialogInterface.OnClickListener, OnDi
         }
     };
 
-    private DialogInterface.OnDismissListener mDismissListener;
-
-
-    /**
-     * Set the dismiss listener to be called when the dialog is ended. Use
-     * getClickedOk() to see how the dialog was dismissed.
-     * @param onDismissListener
-     */
-    public void setDismissListener(OnDismissListener onDismissListener) {
-        mDismissListener = onDismissListener;
-    }
-
     public void showDialog(int whichEvents) {
         // We need to have a non-null listener, otherwise we get null when
         // we try to fetch the "Ok" button.
@@ -120,9 +81,6 @@ public class EditResponseHelper implements DialogInterface.OnClickListener, OnDi
                 .setSingleChoiceItems(R.array.change_response_labels, whichEvents, mListListener)
                 .setPositiveButton(android.R.string.ok, mDialogListener)
                 .setNegativeButton(android.R.string.cancel, null).show();
-        // The caller may set a dismiss listener to hear back when the dialog
-        // is finished. Use getClickedOk() to see how the dialog was dismissed.
-        dialog.setOnDismissListener(this);
         mAlertDialog = dialog;
 
         if (whichEvents == -1) {
@@ -132,11 +90,4 @@ public class EditResponseHelper implements DialogInterface.OnClickListener, OnDi
             ok.setEnabled(false);
         }
     }
-
-    public void dismissAlertDialog() {
-        if (mAlertDialog != null) {
-            mAlertDialog.dismiss();
-        }
-    }
-
 }
