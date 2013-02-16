@@ -131,8 +131,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     protected static final String BUNDLE_KEY_DELETE_DIALOG_VISIBLE = "key_delete_dialog_visible";
     protected static final String BUNDLE_KEY_WINDOW_STYLE = "key_window_style";
     protected static final String BUNDLE_KEY_ATTENDEE_RESPONSE = "key_attendee_response";
-    protected static final String BUNDLE_KEY_TENTATIVE_USER_RESPONSE = "key_tentative_user_response";
-    protected static final String BUNDLE_KEY_RESPONSE_WHICH_EVENTS = "key_response_which_events";
 
     protected static final String BUNDLE_KEY_CALENDAR_COLOR = "key_calendar_color";
     protected static final String BUNDLE_KEY_CURRENT_COLOR = "key_current_color";
@@ -327,9 +325,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private int mOriginalAttendeeResponse;
     private int mAttendeeResponseFromIntent = Attendees.ATTENDEE_STATUS_NONE;
     private int mUserSetResponse = Attendees.ATTENDEE_STATUS_NONE;
-    // Used as the temporary response until the dialog is confirmed. It is also
-    // able to be used as a state marker for configuration changes.
-    private int mTentativeUserSetResponse = Attendees.ATTENDEE_STATUS_NONE;
     private boolean mIsRepeating;
     private boolean mHasAlarm;
     private int mMaxReminders;
@@ -361,7 +356,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int LOADING_MSG_DELAY = 600;   // in milliseconds
     private static final int LOADING_MSG_MIN_DISPLAY_TIME = 600;
     private boolean mNoCrossFade = false;  // Used to prevent repeated cross-fade
-    private RadioGroup mResponseRadioGroup;
 
     ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mDeclinedAttendees = new ArrayList<Attendee>();
@@ -728,30 +722,21 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     // Implements OnCheckedChangeListener
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        Log.v(TAG, "oncheckchanged: "+checkedId+". tentativeuserresponse: "+mTentativeUserSetResponse);
-        // If we haven't finished the return from the dialog yet, don't display.
-        if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
-            return;
-        }
-
         // If this is not a repeating event, then don't display the dialog
         // asking which events to change.
-        int response = getResponseFromButtonId(checkedId);
+        mUserSetResponse = getResponseFromButtonId(checkedId);
         if (!mIsRepeating) {
-            mUserSetResponse = response;
             return;
         }
 
         // If the selection is the same as the original, then don't display the
         // dialog asking which events to change.
         if (checkedId == findButtonIdForResponse(mOriginalAttendeeResponse)) {
-            mUserSetResponse = response;
             return;
         }
 
         // This is a repeating event. We need to ask the user if they mean to
         // change just this one instance or all instances.
-        mTentativeUserSetResponse = response;
         mEditResponseHelper.showDialog(mEditResponseHelper.getWhichEvents());
     }
 
@@ -771,44 +756,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mController = CalendarController.getInstance(mActivity);
         mController.registerEventHandler(R.layout.event_info, this);
         mEditResponseHelper = new EditResponseHelper(activity);
-        mEditResponseHelper.setDismissListener(
-                new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                // If the user dismisses the dialog (without hitting OK),
-                // then we want to revert the selection that opened the dialog.
-                if (mEditResponseHelper.getWhichEvents() != -1) {
-                    mUserSetResponse = mTentativeUserSetResponse;
-                } else {
-                    // Revert the attending response radio selection to whatever
-                    // was selected prior to this selection (possibly nothing).
-                    int oldResponse;
-                    if (mUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
-                        oldResponse = mUserSetResponse;
-                    } else {
-                        oldResponse = mOriginalAttendeeResponse;
-                    }
-                    int buttonToCheck = findButtonIdForResponse(oldResponse);
-
-                    if (mResponseRadioGroup != null) {
-                        mResponseRadioGroup.check(buttonToCheck);
-                    }
-
-                    // If the radio group is being cleared, also clear the
-                    // dialog's selection of which events should be included
-                    // in this response.
-                    if (buttonToCheck == -1) {
-                        mEditResponseHelper.setWhichEvents(-1);
-                    }
-                }
-
-                // Since OnPause will force the dialog to dismiss, do
-                // not change the dialog status
-                if (!mIsPaused) {
-                    mTentativeUserSetResponse = Attendees.ATTENDEE_STATUS_NONE;
-                }
-            }
-        });
 
         if (mAttendeeResponseFromIntent != Attendees.ATTENDEE_STATUS_NONE) {
             mEditResponseHelper.setWhichEvents(UPDATE_ALL);
@@ -829,19 +776,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     DIALOG_WINDOW_STYLE);
             mDeleteDialogVisible =
                 savedInstanceState.getBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE,false);
+
             mCalendarColor = savedInstanceState.getInt(BUNDLE_KEY_CALENDAR_COLOR);
             mOriginalColor = savedInstanceState.getInt(BUNDLE_KEY_ORIGINAL_COLOR);
             mCurrentColor = savedInstanceState.getInt(BUNDLE_KEY_CURRENT_COLOR);
-            mTentativeUserSetResponse = savedInstanceState.getInt(
-                            BUNDLE_KEY_TENTATIVE_USER_RESPONSE,
-                            Attendees.ATTENDEE_STATUS_NONE);
-            if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE &&
-                    mEditResponseHelper != null) {
-                // If the edit response helper dialog is open, we'll need to
-                // know if either of the choices were selected.
-                mEditResponseHelper.setWhichEvents(savedInstanceState.getInt(
-                        BUNDLE_KEY_RESPONSE_WHICH_EVENTS, -1));
-            }
         }
 
         if (mWindowStyle == DIALOG_WINDOW_STYLE) {
@@ -859,7 +797,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mLongAttendees = (AttendeesView) mView.findViewById(R.id.long_attendee_list);
 
         mIsTabletConfig = Utils.getConfigBool(mActivity, R.bool.tablet_config);
-        mResponseRadioGroup = (RadioGroup) mView.findViewById(R.id.response_value);
 
         if (mUri == null) {
             // restore event ID from bundle
@@ -1103,13 +1040,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         outState.putInt(BUNDLE_KEY_CALENDAR_COLOR, mCalendarColor);
         outState.putInt(BUNDLE_KEY_ORIGINAL_COLOR, mOriginalColor);
         outState.putInt(BUNDLE_KEY_CURRENT_COLOR, mCurrentColor);
-        // We'll need the temporary response for configuration changes.
-        outState.putInt(BUNDLE_KEY_TENTATIVE_USER_RESPONSE, mTentativeUserSetResponse);
-        if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE &&
-                mEditResponseHelper != null) {
-            outState.putInt(BUNDLE_KEY_RESPONSE_WHICH_EVENTS,
-                    mEditResponseHelper.getWhichEvents());
-        }
     }
 
     @Override
@@ -1232,8 +1162,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             return false;
         }
 
-        int status = getResponseFromButtonId(
-                mResponseRadioGroup.getCheckedRadioButtonId());
+        RadioGroup radioGroup = (RadioGroup) getView().findViewById(R.id.response_value);
+        int status = getResponseFromButtonId(radioGroup.getCheckedRadioButtonId());
         if (status == Attendees.ATTENDEE_STATUS_NONE) {
             return false;
         }
@@ -1607,11 +1537,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         addFieldToAccessibilityEvent(text, mWhere, null);
         addFieldToAccessibilityEvent(text, null, mDesc);
 
-        if (mResponseRadioGroup.getVisibility() == View.VISIBLE) {
-            int id = mResponseRadioGroup.getCheckedRadioButtonId();
+        RadioGroup response = (RadioGroup) getView().findViewById(R.id.response_value);
+        if (response.getVisibility() == View.VISIBLE) {
+            int id = response.getCheckedRadioButtonId();
             if (id != View.NO_ID) {
                 text.add(((TextView) getView().findViewById(R.id.response_label)).getText());
-                text.add((((RadioButton) (mResponseRadioGroup.findViewById(id))).getText() + PERIOD_SPACE));
+                text.add((((RadioButton) (response.findViewById(id))).getText() + PERIOD_SPACE));
             }
         }
 
@@ -1881,9 +1812,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
 
         int response;
-        if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
-            response = mTentativeUserSetResponse;
-        } else if (mUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
+        if (mUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
             response = mUserSetResponse;
         } else if (mAttendeeResponseFromIntent != Attendees.ATTENDEE_STATUS_NONE) {
             response = mAttendeeResponseFromIntent;
@@ -1892,8 +1821,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         int buttonToCheck = findButtonIdForResponse(response);
-        mResponseRadioGroup.check(buttonToCheck); // -1 clear all radio buttons
-        mResponseRadioGroup.setOnCheckedChangeListener(this);
+        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.response_value);
+        radioGroup.check(buttonToCheck); // -1 clear all radio buttons
+        radioGroup.setOnCheckedChangeListener(this);
     }
 
     private void setTextCommon(View view, int id, CharSequence text) {
@@ -1959,10 +1889,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mDeleteHelper.dismissAlertDialog();
             mDeleteHelper = null;
         }
-        if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE
-                && mEditResponseHelper != null) {
-            mEditResponseHelper.dismissAlertDialog();
-        }
     }
 
     @Override
@@ -1976,18 +1902,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (mDismissOnResume) {
             mHandler.post(onDeleteRunnable);
         }
-        // Display the "delete confirmation" or "edit response helper" dialog if needed
-        Log.v(TAG, "mtentativeuserresonse: "+mTentativeUserSetResponse);
+        // Display the "delete confirmation" dialog if needed
         if (mDeleteDialogVisible) {
             mDeleteHelper = new DeleteEventHelper(
                     mContext, mActivity,
                     !mIsDialog && !mIsTabletConfig /* exitWhenDone */);
             mDeleteHelper.setOnDismissListener(createDeleteOnDismissListener());
             mDeleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
-        } else if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
-            int buttonId = findButtonIdForResponse(mTentativeUserSetResponse);
-            mResponseRadioGroup.check(buttonId);
-            mEditResponseHelper.showDialog(mEditResponseHelper.getWhichEvents());
         }
     }
 
