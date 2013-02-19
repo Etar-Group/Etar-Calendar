@@ -57,9 +57,7 @@ public class EventColorPickerDialog extends ColorPickerDialog {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (mListener != null) {
-                            mListener.onColorSelected(mCalendarColor);
-                        }
+                        onColorSelected(mCalendarColor);
                     }
                 }
         );
