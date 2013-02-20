@@ -732,6 +732,13 @@ public class Utils {
         return c.getResources().getBoolean(key);
     }
 
+    /**
+     * For devices with Jellybean or later, darkens the given color to ensure that white text is
+     * clearly visible on top of it.  For devices prior to Jellybean, does nothing, as the
+     * sync adapter handles the color change.
+     *
+     * @param color
+     */
     public static int getDisplayColorFromColor(int color) {
         if (!isJellybeanOrLater()) {
             return color;
