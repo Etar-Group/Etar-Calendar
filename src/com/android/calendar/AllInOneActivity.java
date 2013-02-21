@@ -1231,9 +1231,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if ("TARDIS".equalsIgnoreCase(query)) {
-            Utils.tardis();
-        }
         mSearchMenu.collapseActionView();
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, 0, query,
                 getComponentName());
