@@ -48,7 +48,15 @@
                     android:prompt="@string/edit_event_calendar_label" />
                 <ImageButton
                     android:id="@+id/change_color_new_event"
-                    style="@style/EditEventColorImageButton"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:src="@drawable/ic_menu_colorpicker_holo_dark"
+                    android:contentDescription="@string/choose_event_color_label"
+                    android:layout_width="48dip"
+                    android:layout_height="48dip"
+                    android:enabled="false"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dip"
+                    android:scaleType="centerInside"
                     android:visibility="invisible" />
             </LinearLayout>
     </TableRow>
@@ -82,7 +90,15 @@
                 android:textColor="#FFFFFFFF" />
             <ImageButton
                 android:id="@+id/change_color_existing_event"
-                style="@style/EditEventColorImageButton"
+                style="?android:attr/buttonBarButtonStyle"
+                android:src="@drawable/ic_menu_colorpicker_holo_dark"
+                android:contentDescription="@string/choose_event_color_label"
+                android:layout_width="48dip"
+                android:layout_height="48dip"
+                android:enabled="false"
+                android:layout_gravity="center_vertical"
+                android:padding="8dip"
+                android:scaleType="centerInside"
                 android:visibility="gone"  />
         </LinearLayout>
     </TableRow>
