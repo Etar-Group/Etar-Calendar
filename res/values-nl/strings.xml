@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2006 The Android Open Source Project
-     Copyright (C) 2012 The CyanogenMod Project
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2006 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,6 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
  -->
+
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="5452708708398908131">"Agenda"</string>
@@ -29,13 +29,32 @@
     <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>, <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="repeats_label" msgid="7414023871434593196">"Herhaling"</string>
     <string name="no_title_label" msgid="302177118061368042">"(Geen titel)"</string>
+  <plurals name="Nminutes">
+    <item quantity="one" msgid="4871052965772159239">"1 minuut"</item>
+    <item quantity="other" msgid="5644461630927544936">"<xliff:g id="COUNT">%d</xliff:g> minuten"</item>
+  </plurals>
+  <plurals name="Nmins">
+    <item quantity="one" msgid="9191090668359663663">"1 min."</item>
+    <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> min."</item>
+  </plurals>
+  <plurals name="Nhours">
+    <item quantity="one" msgid="4793697728599296830">"1 uur"</item>
+    <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> uur"</item>
+  </plurals>
+  <plurals name="Ndays">
+    <item quantity="one" msgid="5988137255732166573">"1 dag"</item>
+    <item quantity="other" msgid="1709378992389618261">"<xliff:g id="COUNT">%d</xliff:g> dagen"</item>
+  </plurals>
+  <plurals name="weekN">
+    <item quantity="other" msgid="8085184869561028365">"WEEK <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
     <string name="calendar_refresh" msgid="6172731193680500025">"Vernieuwen"</string>
-    <string name="show_day_view" msgid="5782512782605466016">"Dag tonen"</string>
+    <string name="show_day_view" msgid="5782512782605466016">"Geef dag weer"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Agenda"</string>
     <string name="day_view" msgid="4467754504843584437">"Dag"</string>
     <string name="week_view" msgid="6775043022159508060">"Week"</string>
     <string name="month_view" msgid="7287101431749285412">"Maand"</string>
-    <string name="event_view" msgid="7621353079385122317">"Afspraak tonen"</string>
+    <string name="event_view" msgid="7621353079385122317">"Afspraak weergeven"</string>
     <string name="event_create" msgid="6941040556709110617">"Nieuwe afspraak"</string>
     <string name="event_edit" msgid="4006961928830064662">"Afspraak bewerken"</string>
     <string name="event_delete" msgid="2386667193277770442">"Afspraak verwijderen"</string>
@@ -44,12 +63,12 @@
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"Agenda\'s"</string>
     <string name="search" msgid="550656004486017426">"Zoeken"</string>
     <string name="hide_controls" msgid="830320505938520882">"Bediening verbergen"</string>
-    <string name="show_controls" msgid="715520586028062621">"Bediening tonen"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Agenda\'s om te tonen"</string>
+    <string name="show_controls" msgid="715520586028062621">"Bediening weergeven"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Agenda\'s om weer te geven"</string>
     <string name="synced" msgid="7913940305983383493">"gesynchroniseerd"</string>
     <string name="not_synced" msgid="4275114941801829419">"niet gesynchroniseerd"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"Dit account wordt niet gesynchroniseerd, dus uw agenda\'s zijn mogelijk niet bijgewerkt."</string>
-    <string name="accounts" msgid="849401841083180306">"Accounts &amp; synchronisatie"</string>
+    <string name="accounts" msgid="849401841083180306">"Accounts en synchronisatie"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Agenda\'s om te synchroniseren"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Agenda\'s om te synchroniseren"</string>
     <string name="hint_what" msgid="709155115005044531">"Afspraaknaam"</string>
@@ -62,15 +81,15 @@
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Uitnodigingen worden verzonden."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Updates worden verzonden."</string>
     <string name="alert_title" msgid="7869592820853066853">"Agenda-herinneringen"</string>
-    <string name="event_info_title" msgid="56024222340421620">"Afspraak tonen"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Afspraak weergeven"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Uitnodiging voor vergadering"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Tot"</string>
     <string name="edit_event_from_label" msgid="174999102612666115">"Van"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"De hele dag"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Agenda"</string>
-    <string name="edit_event_show_all" msgid="4558049350756058301">"Alles tonen"</string>
+    <string name="edit_event_show_all" msgid="4558049350756058301">"Alles weergeven"</string>
     <string name="description_label" msgid="7193475046717505855">"Beschrijving"</string>
-    <string name="presence_label" msgid="6169724148441175862">"Mij tonen als"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Mij weergeven als"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Privacy"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Herinnering toevoegen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Geen agenda\'s"</string>
@@ -93,15 +112,21 @@
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Snelle reactie"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Snelle reactie kiezen"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Het vinden van een e-mailprogramma is mislukt"</string>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Aangepast bericht\u2026"</string>
+  <string-array name="quick_response_defaults">
+    <item msgid="1524421198348168403">"Ik ben een paar minuten te laat."</item>
+    <item msgid="6215158751728689832">"Ik ben er over ongeveer 10 minuten."</item>
+    <item msgid="4485794001743679338">"Begin maar vast zonder mij."</item>
+    <item msgid="8036557974294987511">"Ik red het helaas niet. Laten we een nieuwe afspraak maken."</item>
+  </string-array>
+    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Aangepast bericht…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Herinneringen"</string>
     <string name="agenda_today" msgid="5965841338467422191">"VANDAAG, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"GISTEREN, <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"MORGEN, <xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="loading" msgid="3772533493214331230">"Laden\u2026"</string>
-    <string name="show_older_events" msgid="5140647493681439926">"Raak aan om gebeurtenissen vóór <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> te tonen"</string>
-    <string name="show_newer_events" msgid="2604638815440163080">"Raak aan om gebeurtenissen na <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> te tonen"</string>
+    <string name="loading" msgid="3772533493214331230">"Laden..."</string>
+    <string name="show_older_events" msgid="5140647493681439926">"Raak aan om gebeurtenissen vóór <xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g> weer te geven"</string>
+    <string name="show_newer_events" msgid="2604638815440163080">"Raak aan om gebeurtenissen na <xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g> weer te geven"</string>
     <string name="search_title" msgid="8898015280250716254">"Zoeken in mijn agenda\'s"</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Details"</string>
     <string name="edit_label" msgid="8934331258435656534">"Bewerken"</string>
@@ -147,16 +172,21 @@
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Pop-upmelding"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Herinneringstijd"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Herinneringstijd"</string>
+    <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Eigen tijdzone gebruiken"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Op reis agenda\'s en gebeurtenistijden tonen in eigen tijdzone"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Op reis agenda\'s en gebeurtenistijden weergeven in eigen tijdzone"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Eigen tijdzone"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Weeknummer tonen"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Weeknummer weergeven"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Over"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Build-versie"</string>
     <string name="gadget_title" msgid="939918875331310945">"Agenda"</string>
+  <plurals name="month_more_events">
+    <item quantity="one" msgid="8971334808414201327">"+1"</item>
+    <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Geen lopende agenda-afspraken"</string>
     <string name="copy_db" msgid="437691290566699292">"Database verzenden"</string>
-    <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> zoeken\u2026"</string>
+    <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> zoeken…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Deelnemer verwijderen"</string>
     <string name="accessibility_pick_start_date" msgid="3926641487042699037">"Startdatum"</string>
     <string name="accessibility_pick_start_time" msgid="4913428100936555149">"Starttijd"</string>
@@ -171,13 +201,21 @@
     <string name="accessibility_repeats" msgid="1629279916830919582">"Herhaling"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Herinneringstijd"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Type herinnering"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Mij tonen als"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Mij weergeven als"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Privacy"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Agenda-melding"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Snooze-melding"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Gasten e-mailen"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Nieuwe afspraak"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Afspraak <xliff:g id="ITEM_INDEX">%1$s</xliff:g> van <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+  <plurals name="Nevents">
+    <item quantity="one" msgid="5230907142214104485">"1 afspraak"</item>
+    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> afspraken"</item>
+  </plurals>
+  <plurals name="N_remaining_events">
+    <item quantity="one" msgid="431585781647034528">"+1 afspraak"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> afspraken"</item>
+  </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Geselecteerde afspraak"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NIET aanvinken -&gt;"</string>
 </resources>
