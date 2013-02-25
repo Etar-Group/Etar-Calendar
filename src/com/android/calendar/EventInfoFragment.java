@@ -97,7 +97,6 @@ import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.alerts.QuickResponseActivity;
-
 import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
@@ -130,13 +129,18 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     protected static final String BUNDLE_KEY_IS_DIALOG = "key_fragment_is_dialog";
     protected static final String BUNDLE_KEY_DELETE_DIALOG_VISIBLE = "key_delete_dialog_visible";
     protected static final String BUNDLE_KEY_WINDOW_STYLE = "key_window_style";
-    protected static final String BUNDLE_KEY_ATTENDEE_RESPONSE = "key_attendee_response";
-    protected static final String BUNDLE_KEY_TENTATIVE_USER_RESPONSE = "key_tentative_user_response";
-    protected static final String BUNDLE_KEY_RESPONSE_WHICH_EVENTS = "key_response_which_events";
-
     protected static final String BUNDLE_KEY_CALENDAR_COLOR = "key_calendar_color";
     protected static final String BUNDLE_KEY_CURRENT_COLOR = "key_current_color";
     protected static final String BUNDLE_KEY_ORIGINAL_COLOR = "key_original_color";
+    protected static final String BUNDLE_KEY_ATTENDEE_RESPONSE = "key_attendee_response";
+    protected static final String BUNDLE_KEY_USER_SET_ATTENDEE_RESPONSE =
+            "key_user_set_attendee_response";
+    protected static final String BUNDLE_KEY_TENTATIVE_USER_RESPONSE =
+            "key_tentative_user_response";
+    protected static final String BUNDLE_KEY_RESPONSE_WHICH_EVENTS = "key_response_which_events";
+    protected static final String BUNDLE_KEY_REMINDER_MINUTES = "key_reminder_minutes";
+    protected static final String BUNDLE_KEY_REMINDER_METHODS = "key_reminder_methods";
+
 
     private static final String PERIOD_SPACE = ". ";
 
@@ -623,7 +627,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
-            int attendeeResponse, boolean isDialog, int windowStyle) {
+            int attendeeResponse, boolean isDialog, int windowStyle,
+            ArrayList<ReminderEntry> reminders) {
 
         Resources r = context.getResources();
         if (mScale == 0) {
@@ -646,6 +651,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mEndMillis = endMillis;
         mAttendeeResponseFromIntent = attendeeResponse;
         mWindowStyle = windowStyle;
+
+        // Pass in null if no reminders are being specified.
+        // This may be used to explicitly show certain reminders already known
+        // about, such as during configuration changes.
+        mReminders = reminders;
     }
 
     // This is currently required by the fragment manager.
@@ -653,9 +663,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     public EventInfoFragment(Context context, long eventId, long startMillis, long endMillis,
-            int attendeeResponse, boolean isDialog, int windowStyle) {
+            int attendeeResponse, boolean isDialog, int windowStyle,
+            ArrayList<ReminderEntry> reminders) {
         this(context, ContentUris.withAppendedId(Events.CONTENT_URI, eventId), startMillis,
-                endMillis, attendeeResponse, isDialog, windowStyle);
+                endMillis, attendeeResponse, isDialog, windowStyle, reminders);
         mEventId = eventId;
     }
 
@@ -833,6 +844,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mCalendarColor = savedInstanceState.getInt(BUNDLE_KEY_CALENDAR_COLOR);
             mOriginalColor = savedInstanceState.getInt(BUNDLE_KEY_ORIGINAL_COLOR);
             mCurrentColor = savedInstanceState.getInt(BUNDLE_KEY_CURRENT_COLOR);
+
             mTentativeUserSetResponse = savedInstanceState.getInt(
                             BUNDLE_KEY_TENTATIVE_USER_RESPONSE,
                             Attendees.ATTENDEE_STATUS_NONE);
@@ -843,6 +855,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 mEditResponseHelper.setWhichEvents(savedInstanceState.getInt(
                         BUNDLE_KEY_RESPONSE_WHICH_EVENTS, -1));
             }
+            mUserSetResponse = savedInstanceState.getInt(
+                    BUNDLE_KEY_USER_SET_ATTENDEE_RESPONSE,
+                    Attendees.ATTENDEE_STATUS_NONE);
+            if (mUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
+                // If the response was set by the user before a configuration
+                // change, we'll need to know which choice was selected.
+                mWhichEvents = savedInstanceState.getInt(
+                        BUNDLE_KEY_RESPONSE_WHICH_EVENTS, -1);
+            }
+
+            mReminders = Utils.readRemindersFromBundle(savedInstanceState);
         }
 
         if (mWindowStyle == DIALOG_WINDOW_STYLE) {
@@ -1008,7 +1031,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mEventId = mEventCursor.getInt(EVENT_INDEX_ID);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
         mIsRepeating = !TextUtils.isEmpty(rRule);
-        mHasAlarm = (mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) == 1)?true:false;
+        // mHasAlarm will be true if it was saved in the event already, or if
+        // we've explicitly been provided reminders (e.g. during rotation).
+        mHasAlarm = (mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) == 1)? true :
+            (mReminders != null && mReminders.size() > 0);
         mMaxReminders = mEventCursor.getInt(EVENT_INDEX_MAX_REMINDERS);
         mCalendarAllowedReminders =  mEventCursor.getString(EVENT_INDEX_ALLOWED_REMINDERS);
         return false;
@@ -1100,7 +1126,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         outState.putBoolean(BUNDLE_KEY_IS_DIALOG, mIsDialog);
         outState.putInt(BUNDLE_KEY_WINDOW_STYLE, mWindowStyle);
         outState.putBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE, mDeleteDialogVisible);
-        outState.putInt(BUNDLE_KEY_ATTENDEE_RESPONSE, mAttendeeResponseFromIntent);
         outState.putInt(BUNDLE_KEY_CALENDAR_COLOR, mCalendarColor);
         outState.putInt(BUNDLE_KEY_ORIGINAL_COLOR, mOriginalColor);
         outState.putInt(BUNDLE_KEY_CURRENT_COLOR, mCurrentColor);
@@ -1111,6 +1136,37 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             outState.putInt(BUNDLE_KEY_RESPONSE_WHICH_EVENTS,
                     mEditResponseHelper.getWhichEvents());
         }
+
+        // Save the current response.
+        int response;
+        if (mAttendeeResponseFromIntent != Attendees.ATTENDEE_STATUS_NONE) {
+            response = mAttendeeResponseFromIntent;
+        } else {
+            response = mOriginalAttendeeResponse;
+        }
+        outState.putInt(BUNDLE_KEY_ATTENDEE_RESPONSE, response);
+        if (mUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
+            response = mUserSetResponse;
+            outState.putInt(BUNDLE_KEY_USER_SET_ATTENDEE_RESPONSE, response);
+            outState.putInt(BUNDLE_KEY_RESPONSE_WHICH_EVENTS, mWhichEvents);
+        }
+
+        // Save the reminders.
+        mReminders = EventViewUtils.reminderItemsToReminders(mReminderViews,
+                mReminderMinuteValues, mReminderMethodValues);
+        int numReminders = mReminders.size();
+        ArrayList<Integer> reminderMinutes =
+                new ArrayList<Integer>(numReminders);
+        ArrayList<Integer> reminderMethods =
+                new ArrayList<Integer>(numReminders);
+        for (ReminderEntry reminder : mReminders) {
+            reminderMinutes.add(reminder.getMinutes());
+            reminderMethods.add(reminder.getMethod());
+        }
+        outState.putIntegerArrayList(
+                BUNDLE_KEY_REMINDER_MINUTES, reminderMinutes);
+        outState.putIntegerArrayList(
+                BUNDLE_KEY_REMINDER_METHODS, reminderMethods);
     }
 
     @Override
@@ -1840,7 +1896,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         if (mHasAlarm) {
-            ArrayList<ReminderEntry> reminders = mOriginalReminders;
+            ArrayList<ReminderEntry> reminders;
+            // If applicable, use reminders saved in the bundle.
+            if (mReminders != null) {
+                reminders = mReminders;
+            } else {
+                reminders = mOriginalReminders;
+            }
             // Insert any minute values that aren't represented in the minutes list.
             for (ReminderEntry re : reminders) {
                 EventViewUtils.addMinutesToList(
