@@ -191,6 +191,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      */
     private ArrayList<Integer> mAvailabilityValues;
     private ArrayList<String> mAvailabilityLabels;
+    private ArrayList<String> mOriginalAvailabilityLabels;
+    private ArrayAdapter<String> mAvailabilityAdapter;
+    private boolean mAvailabilityExplicitlySet;
+    private boolean mAllDayChangingAvailability;
+    private int mAvailabilityCurrentlySelected;
 
     private int mDefaultReminderMinutes;
 
@@ -891,6 +896,36 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             }
         });
 
+        mAvailabilityExplicitlySet = false;
+        mAllDayChangingAvailability = false;
+        mAvailabilityCurrentlySelected = -1;
+        mAvailabilitySpinner.setOnItemSelectedListener(
+                new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent,
+                    View view, int position, long id) {
+                // The spinner's onItemSelected gets called while it is being
+                // initialized to the first item, and when we explicitly set it
+                // in the allDay checkbox toggling, so we need these checks to
+                // find out when the spinner is actually being clicked.
+
+                // Set the initial selection.
+                if (mAvailabilityCurrentlySelected == -1) {
+                    mAvailabilityCurrentlySelected = position;
+                }
+
+                if (mAvailabilityCurrentlySelected != position &&
+                        !mAllDayChangingAvailability) {
+                    mAvailabilityExplicitlySet = true;
+                } else {
+                    mAvailabilityCurrentlySelected = position;
+                    mAllDayChangingAvailability = false;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) { }
+        });
+
 
         mDescriptionTextView.setTag(mDescriptionTextView.getBackground());
         mRepeatsSpinner.setTag(mRepeatsSpinner.getBackground());
@@ -964,16 +999,19 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         mAvailabilityValues = loadIntegerArray(r, R.array.availability_values);
         mAvailabilityLabels = loadStringArray(r, R.array.availability);
+        // Copy the unadulterated availability labels for all-day toggling.
+        mOriginalAvailabilityLabels = new ArrayList<String>();
+        mOriginalAvailabilityLabels.addAll(mAvailabilityLabels);
 
         if (mModel.mCalendarAllowedAvailability != null) {
             EventViewUtils.reduceMethodList(mAvailabilityValues, mAvailabilityLabels,
                     mModel.mCalendarAllowedAvailability);
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity,
+        mAvailabilityAdapter = new ArrayAdapter<String>(mActivity,
                 android.R.layout.simple_spinner_item, mAvailabilityLabels);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mAvailabilitySpinner.setAdapter(adapter);
+        mAvailabilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mAvailabilitySpinner.setAdapter(mAvailabilityAdapter);
     }
 
     /**
@@ -1673,6 +1711,26 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mEndTimeButton.setVisibility(View.VISIBLE);
             mTimezoneRow.setVisibility(View.VISIBLE);
         }
+
+        // If this is a new event, and if availability has not yet been
+        // explicitly set, toggle busy/available as the inverse of all day.
+        if (mModel.mUri == null && !mAvailabilityExplicitlySet) {
+            // Values are from R.arrays.availability_values.
+            // 0 = busy
+            // 1 = available
+            int newAvailabilityValue = isChecked? 1 : 0;
+            if (mAvailabilityAdapter != null && mAvailabilityValues != null
+                    && mAvailabilityValues.contains(newAvailabilityValue)) {
+                // We'll need to let the spinner's listener know that we're
+                // explicitly toggling it.
+                mAllDayChangingAvailability = true;
+
+                String newAvailabilityLabel = mOriginalAvailabilityLabels.get(newAvailabilityValue);
+                int newAvailabilityPos = mAvailabilityAdapter.getPosition(newAvailabilityLabel);
+                mAvailabilitySpinner.setSelection(newAvailabilityPos);
+            }
+        }
+
         mAllDay = isChecked;
         updateHomeTime();
     }
