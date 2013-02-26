@@ -567,10 +567,10 @@
 
     <!-- Reminders settings [CHAR LIMIT = 30]-->
     <string name="preferences_reminders_category">Reminders</string>
-    <!-- Preference label for when to send reminders [CHAR LIMIT = 25] -->
-    <string name="preferences_reminders_responded_label">Limit reminders by attendance</string>
-    <!-- Preference description for when to send reminders [CHAR LIMIT = NONE]-->
-    <string name="preferences_reminders_responded_description">Don\'t post reminders unless you\'ve responded \"Yes\" or \"Maybe\"</string>
+    <!-- Preference label for when to skip reminders [CHAR LIMIT = 25] -->
+    <string name="preferences_reminders_responded_label">Skip Reminders</string>
+    <!-- Dialog title for when to skip reminders [CHAR LIMIT = 25] -->
+    <string name="preferences_reminders_responded_dialog">Skip Reminders</string>
     <!-- Preference label for quiet hours [CHAR LIMIT = 25]-->
     <string name="preferences_reminders_quiet_hours_label">Quiet hours</string>
     <!-- Preference description for quiet hours [CHAR LIMIT = NONE]-->

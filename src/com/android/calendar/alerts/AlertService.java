@@ -44,6 +44,7 @@ import android.util.Log;
 
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.OtherPreferences;
+import com.android.calendar.R;
 import com.android.calendar.Utils;
 
 import java.util.ArrayList;
@@ -543,8 +544,13 @@ public class AlertService extends Service {
             ArrayList<NotificationInfo> lowPriorityEvents) {
         // Experimental reminder setting to only remind for events that have
         // been responded to with "yes" or "maybe".
-        boolean remindRespondedOnly = Utils.getSharedPreference(context,
-                OtherPreferences.KEY_OTHER_REMINDERS_RESPONDED, false);
+        String skipRemindersPref = Utils.getSharedPreference(context,
+                OtherPreferences.KEY_OTHER_REMINDERS_RESPONDED, "");
+        // Skip no-response events if the "Skip Reminders" preference has the second option,
+        // "If declined or not responded", is selected.
+        // Note that by default, the first option will be selected, so this will be false.
+        boolean remindRespondedOnly = skipRemindersPref.equals(context.getResources().
+                getStringArray(R.array.preferences_skip_reminders_values)[1]);
         // Experimental reminder setting to silence reminders when they are
         // during the pre-defined quiet hours.
         boolean useQuietHours = Utils.getSharedPreference(context,
