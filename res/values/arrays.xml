@@ -404,4 +404,17 @@
         <item>Month</item>
         <item>Agenda</item>
     </string-array>
+
+    <!-- Experimental options for skipping reminders. [CHAR LIMIT = 35] -->
+    <string-array name="preferences_skip_reminders_labels">
+        <!-- Default choice -->
+        <item>Only if declined</item>
+        <!-- Second option, for skipping reminders to events not yet responded to. -->
+        <item>If declined or not responded</item>
+    </string-array>
+
+    <string-array name="preferences_skip_reminders_values" translatable="false">
+        <item>declined</item>
+        <item>not_responded</item>
+    </string-array>
 </resources>
