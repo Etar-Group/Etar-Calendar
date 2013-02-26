@@ -42,6 +42,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -49,6 +50,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Colors;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 import android.provider.ContactsContract;
@@ -64,6 +66,7 @@ import android.text.method.MovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.text.util.Rfc822Token;
 import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -97,10 +100,13 @@ import com.android.calendar.alerts.QuickResponseActivity;
 import com.android.calendar.event.AttendeesView;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.event.EditEventHelper;
+import com.android.calendar.event.EventColorPickerDialog;
 import com.android.calendar.event.EventViewUtils;
 import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.Duration;
 import com.android.calendarcommon2.EventRecurrence;
+import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.colorpicker.HsvColorComparator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -108,11 +114,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class EventInfoFragment extends DialogFragment implements OnCheckedChangeListener,
-        CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener {
+        CalendarController.EventHandler, OnClickListener, DeleteEventHelper.DeleteNotifyListener,
+        OnColorSelectedListener {
 
     public static final boolean DEBUG = false;
 
     public static final String TAG = "EventInfoFragment";
+
+    private static final int REQUEST_CODE_COLOR_PICKER = 0;
 
     protected static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
     protected static final String BUNDLE_KEY_START_MILLIS = "key_start_millis";
@@ -120,9 +129,22 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     protected static final String BUNDLE_KEY_IS_DIALOG = "key_fragment_is_dialog";
     protected static final String BUNDLE_KEY_DELETE_DIALOG_VISIBLE = "key_delete_dialog_visible";
     protected static final String BUNDLE_KEY_WINDOW_STYLE = "key_window_style";
+    protected static final String BUNDLE_KEY_CALENDAR_COLOR = "key_calendar_color";
+    protected static final String BUNDLE_KEY_CURRENT_COLOR = "key_current_color";
+    protected static final String BUNDLE_KEY_ORIGINAL_COLOR = "key_original_color";
     protected static final String BUNDLE_KEY_ATTENDEE_RESPONSE = "key_attendee_response";
+    protected static final String BUNDLE_KEY_USER_SET_ATTENDEE_RESPONSE =
+            "key_user_set_attendee_response";
+    protected static final String BUNDLE_KEY_TENTATIVE_USER_RESPONSE =
+            "key_tentative_user_response";
+    protected static final String BUNDLE_KEY_RESPONSE_WHICH_EVENTS = "key_response_which_events";
+    protected static final String BUNDLE_KEY_REMINDER_MINUTES = "key_reminder_minutes";
+    protected static final String BUNDLE_KEY_REMINDER_METHODS = "key_reminder_methods";
+
 
     private static final String PERIOD_SPACE = ". ";
+
+    private static final String NO_EVENT_COLOR = "";
 
     /**
      * These are the corresponding indices into the array of strings
@@ -144,9 +166,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int TOKEN_QUERY_DUPLICATE_CALENDARS = 1 << 3;
     private static final int TOKEN_QUERY_REMINDERS = 1 << 4;
     private static final int TOKEN_QUERY_VISIBLE_CALENDARS = 1 << 5;
+    private static final int TOKEN_QUERY_COLORS = 1 << 6;
+
     private static final int TOKEN_QUERY_ALL = TOKEN_QUERY_DUPLICATE_CALENDARS
             | TOKEN_QUERY_ATTENDEES | TOKEN_QUERY_CALENDARS | TOKEN_QUERY_EVENT
-            | TOKEN_QUERY_REMINDERS | TOKEN_QUERY_VISIBLE_CALENDARS;
+            | TOKEN_QUERY_REMINDERS | TOKEN_QUERY_VISIBLE_CALENDARS | TOKEN_QUERY_COLORS;
 
     private int mCurrentQuery = 0;
 
@@ -162,17 +186,18 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Events.DESCRIPTION,          // 8
         Events.EVENT_LOCATION,       // 9
         Calendars.CALENDAR_ACCESS_LEVEL, // 10
-        Events.DISPLAY_COLOR,        // 11 If SDK < 16, set to Calendars.CALENDAR_COLOR.
-        Events.HAS_ATTENDEE_DATA,    // 12
-        Events.ORGANIZER,            // 13
-        Events.HAS_ALARM,            // 14
-        Calendars.MAX_REMINDERS,     //15
-        Calendars.ALLOWED_REMINDERS, // 16
-        Events.CUSTOM_APP_PACKAGE,   // 17
-        Events.CUSTOM_APP_URI,       // 18
-        Events.ORIGINAL_SYNC_ID,     // 19 do not remove; used in DeleteEventHelper
+        Events.CALENDAR_COLOR,       // 11
+        Events.EVENT_COLOR,          // 12
+        Events.HAS_ATTENDEE_DATA,    // 13
+        Events.ORGANIZER,            // 14
+        Events.HAS_ALARM,            // 15
+        Calendars.MAX_REMINDERS,     // 16
+        Calendars.ALLOWED_REMINDERS, // 17
+        Events.CUSTOM_APP_PACKAGE,   // 18
+        Events.CUSTOM_APP_URI,       // 19
         Events.DTEND,                // 20
         Events.DURATION,             // 21
+        Events.ORIGINAL_SYNC_ID      // 22 do not remove; used in DeleteEventHelper
     };
     private static final int EVENT_INDEX_ID = 0;
     private static final int EVENT_INDEX_TITLE = 1;
@@ -185,14 +210,15 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private static final int EVENT_INDEX_DESCRIPTION = 8;
     private static final int EVENT_INDEX_EVENT_LOCATION = 9;
     private static final int EVENT_INDEX_ACCESS_LEVEL = 10;
-    private static final int EVENT_INDEX_COLOR = 11;
-    private static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 12;
-    private static final int EVENT_INDEX_ORGANIZER = 13;
-    private static final int EVENT_INDEX_HAS_ALARM = 14;
-    private static final int EVENT_INDEX_MAX_REMINDERS = 15;
-    private static final int EVENT_INDEX_ALLOWED_REMINDERS = 16;
-    private static final int EVENT_INDEX_CUSTOM_APP_PACKAGE = 17;
-    private static final int EVENT_INDEX_CUSTOM_APP_URI = 18;
+    private static final int EVENT_INDEX_CALENDAR_COLOR = 11;
+    private static final int EVENT_INDEX_EVENT_COLOR = 12;
+    private static final int EVENT_INDEX_HAS_ATTENDEE_DATA = 13;
+    private static final int EVENT_INDEX_ORGANIZER = 14;
+    private static final int EVENT_INDEX_HAS_ALARM = 15;
+    private static final int EVENT_INDEX_MAX_REMINDERS = 16;
+    private static final int EVENT_INDEX_ALLOWED_REMINDERS = 17;
+    private static final int EVENT_INDEX_CUSTOM_APP_PACKAGE = 18;
+    private static final int EVENT_INDEX_CUSTOM_APP_URI = 19;
     private static final int EVENT_INDEX_DTEND = 20;
     private static final int EVENT_INDEX_DURATION = 21;
 
@@ -215,7 +241,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     static {
         if (!Utils.isJellybeanOrLater()) {
-            EVENT_PROJECTION[EVENT_INDEX_COLOR] = Calendars.CALENDAR_COLOR;
             EVENT_PROJECTION[EVENT_INDEX_CUSTOM_APP_PACKAGE] = Events._ID; // dummy value
             EVENT_PROJECTION[EVENT_INDEX_CUSTOM_APP_URI] = Events._ID; // dummy value
 
@@ -245,17 +270,30 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Calendars.CALENDAR_DISPLAY_NAME,  // 1
         Calendars.OWNER_ACCOUNT, // 2
         Calendars.CAN_ORGANIZER_RESPOND, // 3
-        Calendars.ACCOUNT_NAME // 4
+        Calendars.ACCOUNT_NAME, // 4
+        Calendars.ACCOUNT_TYPE  // 5
     };
     static final int CALENDARS_INDEX_DISPLAY_NAME = 1;
     static final int CALENDARS_INDEX_OWNER_ACCOUNT = 2;
     static final int CALENDARS_INDEX_OWNER_CAN_RESPOND = 3;
     static final int CALENDARS_INDEX_ACCOUNT_NAME = 4;
+    static final int CALENDARS_INDEX_ACCOUNT_TYPE = 5;
 
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
     static final String CALENDARS_DUPLICATE_NAME_WHERE = Calendars.CALENDAR_DISPLAY_NAME + "=?";
     static final String CALENDARS_VISIBLE_WHERE = Calendars.VISIBLE + "=?";
 
+    static final String[] COLORS_PROJECTION = new String[] {
+        Colors._ID, // 0
+        Colors.COLOR, // 1
+        Colors.COLOR_KEY // 2
+    };
+
+    static final String COLORS_WHERE = Colors.ACCOUNT_NAME + "=? AND " + Colors.ACCOUNT_TYPE +
+        "=? AND " + Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT;
+
+    public static final int COLORS_INDEX_COLOR = 1;
+    public static final int COLORS_INDEX_COLOR_KEY = 2;
 
     private View mView;
 
@@ -293,6 +331,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private int mOriginalAttendeeResponse;
     private int mAttendeeResponseFromIntent = Attendees.ATTENDEE_STATUS_NONE;
     private int mUserSetResponse = Attendees.ATTENDEE_STATUS_NONE;
+    private int mWhichEvents = -1;
+    // Used as the temporary response until the dialog is confirmed. It is also
+    // able to be used as a state marker for configuration changes.
+    private int mTentativeUserSetResponse = Attendees.ATTENDEE_STATUS_NONE;
     private boolean mIsRepeating;
     private boolean mHasAlarm;
     private int mMaxReminders;
@@ -312,11 +354,19 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private View mLoadingMsgView;
     private ObjectAnimator mAnimateAlpha;
     private long mLoadingMsgStartTime;
+
+    private EventColorPickerDialog mDialog;
+    private SparseIntArray mDisplayColorKeyMap = new SparseIntArray();
+    private int[] mColors;
+    private int mOriginalColor = -1;
+    private int mCalendarColor = -1;
+    private int mCurrentColor = -1;
+
     private static final int FADE_IN_TIME = 300;   // in milliseconds
     private static final int LOADING_MSG_DELAY = 600;   // in milliseconds
     private static final int LOADING_MSG_MIN_DISPLAY_TIME = 600;
     private boolean mNoCrossFade = false;  // Used to prevent repeated cross-fade
-
+    private RadioGroup mResponseRadioGroup;
 
     ArrayList<Attendee> mAcceptedAttendees = new ArrayList<Attendee>();
     ArrayList<Attendee> mDeclinedAttendees = new ArrayList<Attendee>();
@@ -324,8 +374,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     ArrayList<Attendee> mNoResponseAttendees = new ArrayList<Attendee>();
     ArrayList<String> mToEmails = new ArrayList<String>();
     ArrayList<String> mCcEmails = new ArrayList<String>();
-    private int mColor;
-
 
     private int mDefaultReminderMinutes;
     private final ArrayList<LinearLayout> mReminderViews = new ArrayList<LinearLayout>(0);
@@ -386,6 +434,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private Activity mActivity;
     private Context mContext;
 
+    private CalendarController mController;
+
     private class QueryHandler extends AsyncQueryService {
         public QueryHandler(Context context) {
             super(context);
@@ -412,6 +462,21 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     activity.finish();
                     return;
                 }
+                if (mCalendarColor == -1) {
+                    mCalendarColor = Utils.getDisplayColorFromColor(
+                            mEventCursor.getInt(EVENT_INDEX_CALENDAR_COLOR));
+                }
+
+                if (mOriginalColor == -1) {
+                    mOriginalColor = mEventCursor.isNull(EVENT_INDEX_EVENT_COLOR)
+                            ? mCalendarColor : Utils.getDisplayColorFromColor(
+                                    mEventCursor.getInt(EVENT_INDEX_EVENT_COLOR));
+                }
+
+                if (mCurrentColor == -1) {
+                    mCurrentColor = mOriginalColor;
+                }
+
                 updateEvent(mView);
                 prepareReminders();
 
@@ -427,6 +492,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 updateCalendar(mView);
                 // FRAG_TODO fragments shouldn't set the title anymore
                 updateTitle();
+
+                args = new String[] {
+                        mCalendarsCursor.getString(CALENDARS_INDEX_ACCOUNT_NAME),
+                        mCalendarsCursor.getString(CALENDARS_INDEX_ACCOUNT_TYPE) };
+                uri = Colors.CONTENT_URI;
+                startQuery(TOKEN_QUERY_COLORS, null, uri, COLORS_PROJECTION, COLORS_WHERE, args,
+                        null);
 
                 if (!mIsBusyFreeCalendar) {
                     args = new String[] { Long.toString(mEventId) };
@@ -447,6 +519,38 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 } else {
                     sendAccessibilityEventIfQueryDone(TOKEN_QUERY_REMINDERS);
                 }
+                break;
+            case TOKEN_QUERY_COLORS:
+                ArrayList<Integer> colors = new ArrayList<Integer>();
+                if (cursor.moveToFirst()) {
+                    do
+                    {
+                        int colorKey = cursor.getInt(COLORS_INDEX_COLOR_KEY);
+                        int rawColor = cursor.getInt(COLORS_INDEX_COLOR);
+                        int displayColor = Utils.getDisplayColorFromColor(rawColor);
+                        mDisplayColorKeyMap.put(displayColor, colorKey);
+                        colors.add(displayColor);
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+                Integer[] sortedColors = new Integer[colors.size()];
+                Arrays.sort(colors.toArray(sortedColors), new HsvColorComparator());
+                mColors = new int[sortedColors.length];
+                for (int i = 0; i < sortedColors.length; i++) {
+                    mColors[i] = sortedColors[i].intValue();
+
+                    float[] hsv = new float[3];
+                    Color.colorToHSV(mColors[i], hsv);
+                    if (DEBUG) {
+                        Log.d("Color", "H:" + hsv[0] + ",S:" + hsv[1] + ",V:" + hsv[2]);
+                    }
+                }
+                View button = mView.findViewById(R.id.change_color);
+                if (button != null && mColors.length > 0) {
+                    button.setEnabled(true);
+                    button.setVisibility(View.VISIBLE);
+                }
+                updateMenu();
                 break;
             case TOKEN_QUERY_ATTENDEES:
                 mAttendeesCursor = Utils.matrixCursorFromCursor(cursor);
@@ -523,7 +627,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     public EventInfoFragment(Context context, Uri uri, long startMillis, long endMillis,
-            int attendeeResponse, boolean isDialog, int windowStyle) {
+            int attendeeResponse, boolean isDialog, int windowStyle,
+            ArrayList<ReminderEntry> reminders) {
 
         Resources r = context.getResources();
         if (mScale == 0) {
@@ -546,18 +651,22 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mEndMillis = endMillis;
         mAttendeeResponseFromIntent = attendeeResponse;
         mWindowStyle = windowStyle;
+
+        // Pass in null if no reminders are being specified.
+        // This may be used to explicitly show certain reminders already known
+        // about, such as during configuration changes.
+        mReminders = reminders;
     }
 
     // This is currently required by the fragment manager.
     public EventInfoFragment() {
     }
 
-
-
     public EventInfoFragment(Context context, long eventId, long startMillis, long endMillis,
-            int attendeeResponse, boolean isDialog, int windowStyle) {
+            int attendeeResponse, boolean isDialog, int windowStyle,
+            ArrayList<ReminderEntry> reminders) {
         this(context, ContentUris.withAppendedId(Events.CONTENT_URI, eventId), startMillis,
-                endMillis, attendeeResponse, isDialog, windowStyle);
+                endMillis, attendeeResponse, isDialog, windowStyle, reminders);
         mEventId = eventId;
     }
 
@@ -631,32 +740,87 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     // Implements OnCheckedChangeListener
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        // If we haven't finished the return from the dialog yet, don't display.
+        if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
+            return;
+        }
+
         // If this is not a repeating event, then don't display the dialog
         // asking which events to change.
-        mUserSetResponse = getResponseFromButtonId(checkedId);
+        int response = getResponseFromButtonId(checkedId);
         if (!mIsRepeating) {
+            mUserSetResponse = response;
             return;
         }
 
         // If the selection is the same as the original, then don't display the
         // dialog asking which events to change.
         if (checkedId == findButtonIdForResponse(mOriginalAttendeeResponse)) {
+            mUserSetResponse = response;
             return;
         }
 
         // This is a repeating event. We need to ask the user if they mean to
         // change just this one instance or all instances.
-        mEditResponseHelper.showDialog(mEditResponseHelper.getWhichEvents());
+        mTentativeUserSetResponse = response;
+        mEditResponseHelper.showDialog(mWhichEvents);
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mController.deregisterEventHandler(R.layout.event_info);
+    }
+
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mActivity = activity;
+        mController = CalendarController.getInstance(mActivity);
+        mController.registerEventHandler(R.layout.event_info, this);
         mEditResponseHelper = new EditResponseHelper(activity);
+        mEditResponseHelper.setDismissListener(
+                new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                // If the user dismisses the dialog (without hitting OK),
+                // then we want to revert the selection that opened the dialog.
+                if (mEditResponseHelper.getWhichEvents() != -1) {
+                    mUserSetResponse = mTentativeUserSetResponse;
+                    mWhichEvents = mEditResponseHelper.getWhichEvents();
+                } else {
+                    // Revert the attending response radio selection to whatever
+                    // was selected prior to this selection (possibly nothing).
+                    int oldResponse;
+                    if (mUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
+                        oldResponse = mUserSetResponse;
+                    } else {
+                        oldResponse = mOriginalAttendeeResponse;
+                    }
+                    int buttonToCheck = findButtonIdForResponse(oldResponse);
+
+                    if (mResponseRadioGroup != null) {
+                        mResponseRadioGroup.check(buttonToCheck);
+                    }
+
+                    // If the radio group is being cleared, also clear the
+                    // dialog's selection of which events should be included
+                    // in this response.
+                    if (buttonToCheck == -1) {
+                        mEditResponseHelper.setWhichEvents(-1);
+                    }
+                }
+
+                // Since OnPause will force the dialog to dismiss, do
+                // not change the dialog status
+                if (!mIsPaused) {
+                    mTentativeUserSetResponse = Attendees.ATTENDEE_STATUS_NONE;
+                }
+            }
+        });
 
         if (mAttendeeResponseFromIntent != Attendees.ATTENDEE_STATUS_NONE) {
             mEditResponseHelper.setWhichEvents(UPDATE_ALL);
@@ -677,7 +841,31 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     DIALOG_WINDOW_STYLE);
             mDeleteDialogVisible =
                 savedInstanceState.getBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE,false);
+            mCalendarColor = savedInstanceState.getInt(BUNDLE_KEY_CALENDAR_COLOR);
+            mOriginalColor = savedInstanceState.getInt(BUNDLE_KEY_ORIGINAL_COLOR);
+            mCurrentColor = savedInstanceState.getInt(BUNDLE_KEY_CURRENT_COLOR);
 
+            mTentativeUserSetResponse = savedInstanceState.getInt(
+                            BUNDLE_KEY_TENTATIVE_USER_RESPONSE,
+                            Attendees.ATTENDEE_STATUS_NONE);
+            if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE &&
+                    mEditResponseHelper != null) {
+                // If the edit response helper dialog is open, we'll need to
+                // know if either of the choices were selected.
+                mEditResponseHelper.setWhichEvents(savedInstanceState.getInt(
+                        BUNDLE_KEY_RESPONSE_WHICH_EVENTS, -1));
+            }
+            mUserSetResponse = savedInstanceState.getInt(
+                    BUNDLE_KEY_USER_SET_ATTENDEE_RESPONSE,
+                    Attendees.ATTENDEE_STATUS_NONE);
+            if (mUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
+                // If the response was set by the user before a configuration
+                // change, we'll need to know which choice was selected.
+                mWhichEvents = savedInstanceState.getInt(
+                        BUNDLE_KEY_RESPONSE_WHICH_EVENTS, -1);
+            }
+
+            mReminders = Utils.readRemindersFromBundle(savedInstanceState);
         }
 
         if (mWindowStyle == DIALOG_WINDOW_STYLE) {
@@ -692,8 +880,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mWhere = (TextView) mView.findViewById(R.id.where);
         mDesc = (ExpandableTextView) mView.findViewById(R.id.description);
         mHeadlines = mView.findViewById(R.id.event_info_headline);
-        mLongAttendees = (AttendeesView)mView.findViewById(R.id.long_attendee_list);
+        mLongAttendees = (AttendeesView) mView.findViewById(R.id.long_attendee_list);
+
         mIsTabletConfig = Utils.getConfigBool(mActivity, R.bool.tablet_config);
+        mResponseRadioGroup = (RadioGroup) mView.findViewById(R.id.response_value);
 
         if (mUri == null) {
             // restore event ID from bundle
@@ -754,6 +944,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 mDeleteHelper.setOnDismissListener(createDeleteOnDismissListener());
                 mDeleteDialogVisible = true;
                 mDeleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
+            }
+        });
+
+        b = mView.findViewById(R.id.change_color);
+        b.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mCanModifyCalendar) {
+                    return;
+                }
+                showEventColorPickerDialog();
             }
         });
 
@@ -830,7 +1031,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mEventId = mEventCursor.getInt(EVENT_INDEX_ID);
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
         mIsRepeating = !TextUtils.isEmpty(rRule);
-        mHasAlarm = (mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) == 1)?true:false;
+        // mHasAlarm will be true if it was saved in the event already, or if
+        // we've explicitly been provided reminders (e.g. during rotation).
+        mHasAlarm = (mEventCursor.getInt(EVENT_INDEX_HAS_ALARM) == 1)? true :
+            (mReminders != null && mReminders.size() > 0);
         mMaxReminders = mEventCursor.getInt(EVENT_INDEX_MAX_REMINDERS);
         mCalendarAllowedReminders =  mEventCursor.getString(EVENT_INDEX_ALLOWED_REMINDERS);
         return false;
@@ -922,9 +1126,48 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         outState.putBoolean(BUNDLE_KEY_IS_DIALOG, mIsDialog);
         outState.putInt(BUNDLE_KEY_WINDOW_STYLE, mWindowStyle);
         outState.putBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE, mDeleteDialogVisible);
-        outState.putInt(BUNDLE_KEY_ATTENDEE_RESPONSE, mAttendeeResponseFromIntent);
-    }
+        outState.putInt(BUNDLE_KEY_CALENDAR_COLOR, mCalendarColor);
+        outState.putInt(BUNDLE_KEY_ORIGINAL_COLOR, mOriginalColor);
+        outState.putInt(BUNDLE_KEY_CURRENT_COLOR, mCurrentColor);
+        // We'll need the temporary response for configuration changes.
+        outState.putInt(BUNDLE_KEY_TENTATIVE_USER_RESPONSE, mTentativeUserSetResponse);
+        if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE &&
+                mEditResponseHelper != null) {
+            outState.putInt(BUNDLE_KEY_RESPONSE_WHICH_EVENTS,
+                    mEditResponseHelper.getWhichEvents());
+        }
 
+        // Save the current response.
+        int response;
+        if (mAttendeeResponseFromIntent != Attendees.ATTENDEE_STATUS_NONE) {
+            response = mAttendeeResponseFromIntent;
+        } else {
+            response = mOriginalAttendeeResponse;
+        }
+        outState.putInt(BUNDLE_KEY_ATTENDEE_RESPONSE, response);
+        if (mUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
+            response = mUserSetResponse;
+            outState.putInt(BUNDLE_KEY_USER_SET_ATTENDEE_RESPONSE, response);
+            outState.putInt(BUNDLE_KEY_RESPONSE_WHICH_EVENTS, mWhichEvents);
+        }
+
+        // Save the reminders.
+        mReminders = EventViewUtils.reminderItemsToReminders(mReminderViews,
+                mReminderMinuteValues, mReminderMethodValues);
+        int numReminders = mReminders.size();
+        ArrayList<Integer> reminderMinutes =
+                new ArrayList<Integer>(numReminders);
+        ArrayList<Integer> reminderMethods =
+                new ArrayList<Integer>(numReminders);
+        for (ReminderEntry reminder : mReminders) {
+            reminderMinutes.add(reminder.getMinutes());
+            reminderMethods.add(reminder.getMethod());
+        }
+        outState.putIntegerArrayList(
+                BUNDLE_KEY_REMINDER_MINUTES, reminderMinutes);
+        outState.putIntegerArrayList(
+                BUNDLE_KEY_REMINDER_METHODS, reminderMethods);
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -974,8 +1217,38 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mDeleteHelper.setOnDismissListener(createDeleteOnDismissListener());
             mDeleteDialogVisible = true;
             mDeleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
+        } else if (itemId == R.id.info_action_change_color) {
+            showEventColorPickerDialog();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showEventColorPickerDialog() {
+        if (mDialog == null) {
+            mDialog = new EventColorPickerDialog(mColors, mCurrentColor, mCalendarColor,
+                    mIsTabletConfig);
+            mDialog.setTargetFragment(this, REQUEST_CODE_COLOR_PICKER);
+        }
+        if (!mDialog.isAdded()) {
+            mDialog.show(getFragmentManager(), TAG);
+        }
+    }
+
+    private boolean saveEventColor() {
+        if (mCurrentColor == mOriginalColor) {
+            return false;
+        }
+
+        ContentValues values = new ContentValues();
+        if (mCurrentColor != mCalendarColor) {
+            values.put(Events.EVENT_COLOR_KEY, mDisplayColorKeyMap.get(mCurrentColor));
+        } else {
+            values.put(Events.EVENT_COLOR_KEY, NO_EVENT_COLOR);
+        }
+        Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
+        mHandler.startUpdate(mHandler.getNextToken(), null, uri, values,
+                null, null, Utils.UNDO_DELAY);
+        return true;
     }
 
     @Override
@@ -983,7 +1256,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         Activity act = getActivity();
         if (!mEventDeletionStarted && act != null && !act.isChangingConfigurations()) {
             boolean responseSaved = saveResponse();
-            if (saveReminders() || responseSaved) {
+            boolean eventColorSaved = saveEventColor();
+            if (saveReminders() || responseSaved || eventColorSaved) {
                 Toast.makeText(getActivity(), R.string.saving_event, Toast.LENGTH_SHORT).show();
             }
         }
@@ -1015,8 +1289,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             return false;
         }
 
-        RadioGroup radioGroup = (RadioGroup) getView().findViewById(R.id.response_value);
-        int status = getResponseFromButtonId(radioGroup.getCheckedRadioButtonId());
+        int status = getResponseFromButtonId(
+                mResponseRadioGroup.getCheckedRadioButtonId());
         if (status == Attendees.ATTENDEE_STATUS_NONE) {
             return false;
         }
@@ -1039,8 +1313,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         // This is a repeating event
-        int whichEvents = mEditResponseHelper.getWhichEvents();
-        switch (whichEvents) {
+        switch (mWhichEvents) {
             case -1:
                 return false;
             case UPDATE_SINGLE:
@@ -1141,6 +1414,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     }
 
+    private void updateCurrentEventColor(int color) {
+        mCurrentColor = color;
+        mHeadlines.setBackgroundColor(color);
+    }
+
     private void updateEvent(View view) {
         if (mEventCursor == null || view == null) {
             return;
@@ -1189,8 +1467,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
         String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
 
-        mColor = Utils.getDisplayColorFromColor(mEventCursor.getInt(EVENT_INDEX_COLOR));
-        mHeadlines.setBackgroundColor(mColor);
+        updateCurrentEventColor(mCurrentColor);
 
         // What
         if (eventName != null) {
@@ -1386,12 +1663,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         addFieldToAccessibilityEvent(text, mWhere, null);
         addFieldToAccessibilityEvent(text, null, mDesc);
 
-        RadioGroup response = (RadioGroup) getView().findViewById(R.id.response_value);
-        if (response.getVisibility() == View.VISIBLE) {
-            int id = response.getCheckedRadioButtonId();
+        if (mResponseRadioGroup.getVisibility() == View.VISIBLE) {
+            int id = mResponseRadioGroup.getCheckedRadioButtonId();
             if (id != View.NO_ID) {
                 text.add(((TextView) getView().findViewById(R.id.response_label)).getText());
-                text.add((((RadioButton) (response.findViewById(id))).getText() + PERIOD_SPACE));
+                text.add((((RadioButton) (mResponseRadioGroup.findViewById(id)))
+                        .getText() + PERIOD_SPACE));
             }
         }
 
@@ -1419,6 +1696,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     private void updateCalendar(View view) {
+
         mCalendarOwnerAccount = "";
         if (mCalendarsCursor != null && mEventCursor != null) {
             mCalendarsCursor.moveToFirst();
@@ -1487,7 +1765,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     button.setVisibility(View.VISIBLE);
                 }
             }
-
             if ((!mIsDialog && !mIsTabletConfig ||
                     mWindowStyle == EventInfoFragment.FULL_WINDOW_STYLE) && mMenu != null) {
                 mActivity.invalidateOptionsMenu();
@@ -1507,6 +1784,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
         MenuItem delete = mMenu.findItem(R.id.info_action_delete);
         MenuItem edit = mMenu.findItem(R.id.info_action_edit);
+        MenuItem changeColor = mMenu.findItem(R.id.info_action_change_color);
         if (delete != null) {
             delete.setVisible(mCanModifyCalendar);
             delete.setEnabled(mCanModifyCalendar);
@@ -1514,6 +1792,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (edit != null) {
             edit.setVisible(mCanModifyEvent);
             edit.setEnabled(mCanModifyEvent);
+        }
+        if (changeColor != null && mColors != null && mColors.length > 0) {
+            changeColor.setVisible(mCanModifyCalendar);
+            changeColor.setEnabled(mCanModifyCalendar);
         }
     }
 
@@ -1614,7 +1896,13 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         if (mHasAlarm) {
-            ArrayList<ReminderEntry> reminders = mOriginalReminders;
+            ArrayList<ReminderEntry> reminders;
+            // If applicable, use reminders saved in the bundle.
+            if (mReminders != null) {
+                reminders = mReminders;
+            } else {
+                reminders = mOriginalReminders;
+            }
             // Insert any minute values that aren't represented in the minutes list.
             for (ReminderEntry re : reminders) {
                 EventViewUtils.addMinutesToList(
@@ -1656,7 +1944,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
 
         int response;
-        if (mUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
+        if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
+            response = mTentativeUserSetResponse;
+        } else if (mUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
             response = mUserSetResponse;
         } else if (mAttendeeResponseFromIntent != Attendees.ATTENDEE_STATUS_NONE) {
             response = mAttendeeResponseFromIntent;
@@ -1665,9 +1955,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         int buttonToCheck = findButtonIdForResponse(response);
-        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.response_value);
-        radioGroup.check(buttonToCheck); // -1 clear all radio buttons
-        radioGroup.setOnCheckedChangeListener(this);
+        mResponseRadioGroup.check(buttonToCheck); // -1 clear all radio buttons
+        mResponseRadioGroup.setOnCheckedChangeListener(this);
     }
 
     private void setTextCommon(View view, int id, CharSequence text) {
@@ -1733,6 +2022,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mDeleteHelper.dismissAlertDialog();
             mDeleteHelper = null;
         }
+        if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE
+                && mEditResponseHelper != null) {
+            mEditResponseHelper.dismissAlertDialog();
+        }
     }
 
     @Override
@@ -1746,13 +2039,17 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (mDismissOnResume) {
             mHandler.post(onDeleteRunnable);
         }
-        // Display the "delete confirmation" dialog if needed
+        // Display the "delete confirmation" or "edit response helper" dialog if needed
         if (mDeleteDialogVisible) {
             mDeleteHelper = new DeleteEventHelper(
                     mContext, mActivity,
                     !mIsDialog && !mIsTabletConfig /* exitWhenDone */);
             mDeleteHelper.setOnDismissListener(createDeleteOnDismissListener());
             mDeleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
+        } else if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE) {
+            int buttonId = findButtonIdForResponse(mTentativeUserSetResponse);
+            mResponseRadioGroup.check(buttonId);
+            mEditResponseHelper.showDialog(mEditResponseHelper.getWhichEvents());
         }
     }
 
@@ -1767,15 +2064,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     @Override
     public void handleEvent(EventInfo event) {
-        if (event.eventType == EventType.EVENTS_CHANGED && mHandler != null) {
-            // reload the data
-            reloadEvents();
-        }
+        reloadEvents();
     }
 
     public void reloadEvents() {
-        mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
-                null, null, null);
+        if (mHandler != null) {
+            mHandler.startQuery(TOKEN_QUERY_EVENT, null, mUri, EVENT_PROJECTION,
+                    null, null, null);
+        }
     }
 
     @Override
@@ -1947,5 +2243,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mDialogHeight = (int)r.getDimension(R.dimen.event_info_dialog_height);
     }
 
-
+    @Override
+    public void onColorSelected(int color) {
+        updateCurrentEventColor(color);
+    }
 }

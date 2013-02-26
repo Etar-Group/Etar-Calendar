@@ -290,7 +290,6 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
      * @param fragmentManager
      */
     public void removeFragments(FragmentManager fragmentManager) {
-        mController.deregisterEventHandler(R.id.agenda_event_info);
         if (getActivity().isFinishing()) {
             return;
         }
@@ -428,10 +427,8 @@ public class AgendaFragment extends Fragment implements CalendarController.Event
                 mEventFragment = new EventInfoFragment(mActivity, event.id,
                         startMillis, endMillis,
                         Attendees.ATTENDEE_STATUS_NONE, false,
-                        EventInfoFragment.DIALOG_WINDOW_STYLE);
+                        EventInfoFragment.DIALOG_WINDOW_STYLE, null);
                 ft.replace(R.id.agenda_event_info, mEventFragment);
-                mController.registerEventHandler(R.id.agenda_event_info,
-                        mEventFragment);
                 ft.commit();
             } else {
                 fOld.reloadEvents();

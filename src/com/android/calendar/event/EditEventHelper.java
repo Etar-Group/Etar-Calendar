@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Colors;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 import android.text.TextUtils;
@@ -59,6 +60,8 @@ public class EditEventHelper {
 
     private static final boolean DEBUG = false;
 
+    private static final String NO_EVENT_COLOR = "";
+
     public static final String[] EVENT_PROJECTION = new String[] {
             Events._ID, // 0
             Events.TITLE, // 1
@@ -82,6 +85,9 @@ public class EditEventHelper {
             Events.GUESTS_CAN_MODIFY, // 19
             Events.ORIGINAL_ID, // 20
             Events.STATUS, // 21
+            Events.CALENDAR_COLOR, // 22
+            Events.EVENT_COLOR, // 23
+            Events.EVENT_COLOR_KEY // 24
     };
     protected static final int EVENT_INDEX_ID = 0;
     protected static final int EVENT_INDEX_TITLE = 1;
@@ -105,6 +111,9 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_GUESTS_CAN_MODIFY = 19;
     protected static final int EVENT_INDEX_ORIGINAL_ID = 20;
     protected static final int EVENT_INDEX_EVENT_STATUS = 21;
+    protected static final int EVENT_INDEX_CALENDAR_COLOR = 22;
+    protected static final int EVENT_INDEX_EVENT_COLOR = 23;
+    protected static final int EVENT_INDEX_EVENT_COLOR_KEY = 24;
 
     public static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
@@ -190,6 +199,22 @@ public class EditEventHelper {
             + Calendars.CAL_ACCESS_CONTRIBUTOR + " AND " + Calendars.VISIBLE + "=1";
 
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
+
+    static final String[] COLORS_PROJECTION = new String[] {
+        Colors._ID, // 0
+        Colors.ACCOUNT_NAME,
+        Colors.ACCOUNT_TYPE,
+        Colors.COLOR, // 1
+        Colors.COLOR_KEY // 2
+    };
+
+    static final String COLORS_WHERE = Colors.ACCOUNT_NAME + "=? AND " + Colors.ACCOUNT_TYPE +
+        "=? AND " + Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT;
+
+    static final int COLORS_INDEX_ACCOUNT_NAME = 1;
+    static final int COLORS_INDEX_ACCOUNT_TYPE = 2;
+    static final int COLORS_INDEX_COLOR = 3;
+    static final int COLORS_INDEX_COLOR_KEY = 4;
 
     static final String[] ATTENDEES_PROJECTION = new String[] {
             Attendees._ID, // 0
@@ -1044,6 +1069,14 @@ public class EditEventHelper {
         model.mIsOrganizer = model.mOwnerAccount.equalsIgnoreCase(model.mOrganizer);
         model.mGuestsCanModify = cursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0;
 
+        int rawEventColor;
+        if (cursor.isNull(EVENT_INDEX_EVENT_COLOR)) {
+            rawEventColor = cursor.getInt(EVENT_INDEX_CALENDAR_COLOR);
+        } else {
+            rawEventColor = cursor.getInt(EVENT_INDEX_EVENT_COLOR);
+        }
+        model.mEventColor = Utils.getDisplayColorFromColor(rawEventColor);
+
         if (accessLevel > 0) {
             // For now the array contains the values 0, 2, and 3. We subtract
             // one to make it easier to handle in code as 0,1,2.
@@ -1100,7 +1133,11 @@ public class EditEventHelper {
 
             model.mCalendarAccessLevel = cursor.getInt(CALENDARS_INDEX_ACCESS_LEVEL);
             model.mCalendarDisplayName = cursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
-            model.mCalendarColor = cursor.getInt(CALENDARS_INDEX_COLOR);
+            model.mCalendarColor = Utils.getDisplayColorFromColor(
+                    cursor.getInt(CALENDARS_INDEX_COLOR));
+
+            model.mCalendarAccountName = cursor.getString(CALENDARS_INDEX_ACCOUNT_NAME);
+            model.mCalendarAccountType = cursor.getString(CALENDARS_INDEX_ACCOUNT_TYPE);
 
             model.mCalendarMaxReminders = cursor.getInt(CALENDARS_INDEX_MAX_REMINDERS);
             model.mCalendarAllowedReminders = cursor.getString(CALENDARS_INDEX_ALLOWED_REMINDERS);
@@ -1248,6 +1285,11 @@ public class EditEventHelper {
         }
         values.put(Events.ACCESS_LEVEL, accessLevel);
         values.put(Events.STATUS, model.mEventStatus);
+        if (model.mEventColor == -1 || model.mEventColor == model.mCalendarColor) {
+            values.put(Events.EVENT_COLOR_KEY, NO_EVENT_COLOR);
+        } else {
+            values.put(Events.EVENT_COLOR_KEY, model.getEventColorKey());
+        }
 
         return values;
     }

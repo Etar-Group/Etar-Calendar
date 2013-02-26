@@ -278,6 +278,16 @@
     <string name="view_event_organizer_label">Organizer:</string>
     <!-- Label for the local timezone -->
 
+    <!-- Label for showing event color picker -->
+    <string name="choose_event_color_label">Choose event color</string>
+    <!-- Title for event color picker dialog -->
+    <string name="event_color_picker_dialog_title">Event Color</string>
+    <!-- Label for button which sets event color to default calendar color -->
+    <string name="event_color_set_to_default">Set to default calendar color</string>
+
+    <!-- Title for calendar color picker dialog -->
+    <string name="calendar_color_picker_dialog_title">Calendar Color</string>
+
     <!-- Label for whether the user is attending this event. This is shown when
          a user is invited to a meeting or event.  The possible answers are
          'yes', 'no', and 'maybe' (and, initially, 'no response'). -->
@@ -551,6 +561,27 @@
 
     <!-- DO NOT TRANSLATE -->
     <string name="tardis">TARDIS</string>
+
+    <!-- Experimental settings [CHAR LIMIT = 30]-->
+    <string name="preferences_experimental_category">Experimental</string>
+
+    <!-- Reminders settings [CHAR LIMIT = 30]-->
+    <string name="preferences_reminders_category">Reminders</string>
+    <!-- Preference label for when to send reminders [CHAR LIMIT = 25] -->
+    <string name="preferences_reminders_responded_label">Limit reminders by attendance</string>
+    <!-- Preference description for when to send reminders [CHAR LIMIT = NONE]-->
+    <string name="preferences_reminders_responded_description">Don\'t post reminders unless you\'ve responded \"Yes\" or \"Maybe\"</string>
+    <!-- Preference label for quiet hours [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_label">Quiet hours</string>
+    <!-- Preference description for quiet hours [CHAR LIMIT = NONE]-->
+    <string name="preferences_reminders_quiet_hours_description">Silence event reminders during specified time.</string>
+    <!-- Preference label for quiet hours start time [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_start">Quiet hours start time</string>
+    <!-- Preference label for quiet hours end time [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_end">Quiet hours end time</string>
+
+    <!-- Preferences used for debugging purposes [CHAR LIMIT = 30]-->
+    <string name="preferences_debug_category">Debugging</string>
 
     <!-- Send a copy of the database to developers for debugging [CHAR LIMIT="NONE"] -->
     <string name="copy_db">Send database</string>

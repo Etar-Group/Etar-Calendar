@@ -61,6 +61,7 @@ public class SelectVisibleCalendarsFragment extends Fragment
     private static int mCalendarItemLayout = R.layout.mini_calendar_item;
 
     private View mView = null;
+    private CalendarController mController;
     private ListView mList;
     private SelectCalendarsSimpleAdapter mAdapter;
     private Activity mContext;
@@ -78,6 +79,8 @@ public class SelectVisibleCalendarsFragment extends Fragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mContext = activity;
+        mController = CalendarController.getInstance(activity);
+        mController.registerEventHandler(R.layout.select_calendars_fragment, this);
         mService = new AsyncQueryService(activity) {
             @Override
             protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
@@ -90,6 +93,7 @@ public class SelectVisibleCalendarsFragment extends Fragment
     @Override
     public void onDetach() {
         super.onDetach();
+        mController.deregisterEventHandler(R.layout.select_calendars_fragment);
         if (mCursor != null) {
             mAdapter.changeCursor(null);
             mCursor.close();
@@ -125,7 +129,8 @@ public class SelectVisibleCalendarsFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new SelectCalendarsSimpleAdapter(mContext, mCalendarItemLayout, null);
+        mAdapter = new SelectCalendarsSimpleAdapter(mContext, mCalendarItemLayout, null,
+                getFragmentManager());
         mList.setAdapter(mAdapter);
         mList.setOnItemClickListener(this);
     }
@@ -149,7 +154,6 @@ public class SelectVisibleCalendarsFragment extends Fragment
      * Write back the changes that have been made.
      */
     public void toggleVisibility(int position) {
-        Log.d(TAG, "Toggling calendar at " + position);
         mUpdateToken = mService.getNextToken();
         Uri uri = ContentUris.withAppendedId(Calendars.CONTENT_URI, mAdapter.getItemId(position));
         ContentValues values = new ContentValues();
@@ -177,8 +181,6 @@ public class SelectVisibleCalendarsFragment extends Fragment
 
     @Override
     public void handleEvent(EventInfo event) {
-        if (event.eventType == EventType.EVENTS_CHANGED) {
-            eventsChanged();
-        }
+        eventsChanged();
     }
 }

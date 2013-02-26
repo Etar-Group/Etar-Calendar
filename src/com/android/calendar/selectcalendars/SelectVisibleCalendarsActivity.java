@@ -19,17 +19,38 @@ package com.android.calendar.selectcalendars;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.CalendarContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.android.calendar.AbstractCalendarActivity;
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 
 public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
     private SelectVisibleCalendarsFragment mFragment;
+    private CalendarController mController;
+
+    // Create an observer so that we can update the views whenever a
+    // Calendar event changes.
+    private final ContentObserver mObserver = new ContentObserver(new Handler()) {
+        @Override
+        public boolean deliverSelfNotifications() {
+            return true;
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+          mController.sendEvent(this, EventType.EVENTS_CHANGED, null, null, -1, ViewType.CURRENT);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -37,6 +58,7 @@ public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
 
         setContentView(R.layout.simple_frame_layout);
 
+        mController = CalendarController.getInstance(this);
         mFragment = (SelectVisibleCalendarsFragment) getFragmentManager().findFragmentById(
                 R.id.main_frame);
 
@@ -48,6 +70,19 @@ public class SelectVisibleCalendarsActivity extends AbstractCalendarActivity {
             ft.show(mFragment);
             ft.commit();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getContentResolver().registerContentObserver(CalendarContract.Events.CONTENT_URI,
+                true, mObserver);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getContentResolver().unregisterContentObserver(mObserver);
     }
 
     // Needs to be in proguard whitelist

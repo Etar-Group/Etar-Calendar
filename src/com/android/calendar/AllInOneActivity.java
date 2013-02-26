@@ -1188,7 +1188,8 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     EventInfoFragment fragment = new EventInfoFragment(this,
                             event.id, event.startTime.toMillis(false),
                             event.endTime.toMillis(false), response, true,
-                            EventInfoFragment.DIALOG_WINDOW_STYLE);
+                            EventInfoFragment.DIALOG_WINDOW_STYLE,
+                            null /* No reminders to explicitly pass in. */);
                     fragment.setDialogParams(event.x, event.y, mActionBar.getHeight());
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
@@ -1231,9 +1232,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if ("TARDIS".equalsIgnoreCase(query)) {
-            Utils.tardis();
-        }
         mSearchMenu.collapseActionView();
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, 0, query,
                 getComponentName());

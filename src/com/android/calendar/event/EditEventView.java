@@ -31,11 +31,11 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
-import android.provider.CalendarContract;
 import android.provider.Settings;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -47,6 +47,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
@@ -115,6 +116,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     Button mStartTimeButton;
     Button mEndTimeButton;
     Button mTimezoneButton;
+    View mColorPickerNewEvent;
+    View mColorPickerExistingEvent;
+    OnClickListener mChangeColorOnClickListener;
     View mTimezoneRow;
     TextView mStartTimeHome;
     TextView mStartDateHome;
@@ -150,7 +154,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private int[] mOriginalPadding = new int[4];
     private int[] mOriginalSpinnerPadding = new int[4];
 
-    private boolean mIsMultipane;
+    public boolean mIsMultipane;
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
     private AlertDialog mTimezoneDialog;
@@ -187,6 +191,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
      */
     private ArrayList<Integer> mAvailabilityValues;
     private ArrayList<String> mAvailabilityLabels;
+    private ArrayList<String> mOriginalAvailabilityLabels;
+    private ArrayAdapter<String> mAvailabilityAdapter;
+    private boolean mAvailabilityExplicitlySet;
+    private boolean mAllDayChangingAvailability;
+    private int mAvailabilityCurrentlySelected;
 
     private int mDefaultReminderMinutes;
 
@@ -868,6 +877,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEndHomeGroup = view.findViewById(R.id.to_row_home_tz);
         mAttendeesList = (MultiAutoCompleteTextView) view.findViewById(R.id.attendees);
 
+        mColorPickerNewEvent = view.findViewById(R.id.change_color_new_event);
+        mColorPickerExistingEvent = view.findViewById(R.id.change_color_existing_event);
+
         mTitleTextView.setTag(mTitleTextView.getBackground());
         mLocationTextView.setTag(mLocationTextView.getBackground());
         mLocationAdapter = new EventLocationAdapter(activity);
@@ -882,6 +894,36 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 }
                 return false;
             }
+        });
+
+        mAvailabilityExplicitlySet = false;
+        mAllDayChangingAvailability = false;
+        mAvailabilityCurrentlySelected = -1;
+        mAvailabilitySpinner.setOnItemSelectedListener(
+                new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent,
+                    View view, int position, long id) {
+                // The spinner's onItemSelected gets called while it is being
+                // initialized to the first item, and when we explicitly set it
+                // in the allDay checkbox toggling, so we need these checks to
+                // find out when the spinner is actually being clicked.
+
+                // Set the initial selection.
+                if (mAvailabilityCurrentlySelected == -1) {
+                    mAvailabilityCurrentlySelected = position;
+                }
+
+                if (mAvailabilityCurrentlySelected != position &&
+                        !mAllDayChangingAvailability) {
+                    mAvailabilityExplicitlySet = true;
+                } else {
+                    mAvailabilityCurrentlySelected = position;
+                    mAllDayChangingAvailability = false;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) { }
         });
 
 
@@ -957,16 +999,19 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         mAvailabilityValues = loadIntegerArray(r, R.array.availability_values);
         mAvailabilityLabels = loadStringArray(r, R.array.availability);
+        // Copy the unadulterated availability labels for all-day toggling.
+        mOriginalAvailabilityLabels = new ArrayList<String>();
+        mOriginalAvailabilityLabels.addAll(mAvailabilityLabels);
 
         if (mModel.mCalendarAllowedAvailability != null) {
             EventViewUtils.reduceMethodList(mAvailabilityValues, mAvailabilityLabels,
                     mModel.mCalendarAllowedAvailability);
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity,
+        mAvailabilityAdapter = new ArrayAdapter<String>(mActivity,
                 android.R.layout.simple_spinner_item, mAvailabilityLabels);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mAvailabilitySpinner.setAdapter(adapter);
+        mAvailabilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mAvailabilitySpinner.setAdapter(mAvailabilityAdapter);
     }
 
     /**
@@ -1055,6 +1100,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         boolean canRespond = EditEventHelper.canRespond(model);
+
+        final long eventId = model.mId;
+        final long calendarId = model.mCalendarId;
 
         long begin = model.mStart;
         long end = model.mEnd;
@@ -1176,7 +1224,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mResponseGroup.setVisibility(View.GONE);
         }
 
-        int displayColor = Utils.getDisplayColorFromColor(model.mCalendarColor);
         if (model.mUri != null) {
             // This is an existing event so hide the calendar spinner
             // since we can't change the calendar.
@@ -1188,15 +1235,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             if (tv != null) {
                 tv.setText(model.mOwnerAccount);
             }
-            if (mIsMultipane) {
-                mView.findViewById(R.id.calendar_textview).setBackgroundColor(displayColor);
-            } else {
-                mView.findViewById(R.id.calendar_group).setBackgroundColor(displayColor);
-            }
         } else {
             View calendarGroup = mView.findViewById(R.id.calendar_group);
             calendarGroup.setVisibility(View.GONE);
         }
+        updateHeadlineColor(model, model.mEventColor);
 
         populateWhen();
         populateRepeats();
@@ -1206,6 +1249,23 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mScrollView.setVisibility(View.VISIBLE);
         mLoadingMessage.setVisibility(View.GONE);
         sendAccessibilityEvent();
+    }
+
+    public void updateHeadlineColor(CalendarEventModel model, int displayColor) {
+        if (model.mUri != null) {
+            if (mIsMultipane) {
+                mView.findViewById(R.id.calendar_textview_with_colorpicker)
+                    .setBackgroundColor(displayColor);
+            } else {
+                mView.findViewById(R.id.calendar_group).setBackgroundColor(displayColor);
+            }
+        } else {
+            if (mIsMultipane) {
+                mCalendarSelectorWrapper.setBackgroundColor(displayColor);
+            } else {
+                mCalendarSelectorGroup.setBackgroundColor(displayColor);
+            }
+        }
     }
 
     private void sendAccessibilityEvent() {
@@ -1651,8 +1711,38 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mEndTimeButton.setVisibility(View.VISIBLE);
             mTimezoneRow.setVisibility(View.VISIBLE);
         }
+
+        // If this is a new event, and if availability has not yet been
+        // explicitly set, toggle busy/available as the inverse of all day.
+        if (mModel.mUri == null && !mAvailabilityExplicitlySet) {
+            // Values are from R.arrays.availability_values.
+            // 0 = busy
+            // 1 = available
+            int newAvailabilityValue = isChecked? 1 : 0;
+            if (mAvailabilityAdapter != null && mAvailabilityValues != null
+                    && mAvailabilityValues.contains(newAvailabilityValue)) {
+                // We'll need to let the spinner's listener know that we're
+                // explicitly toggling it.
+                mAllDayChangingAvailability = true;
+
+                String newAvailabilityLabel = mOriginalAvailabilityLabels.get(newAvailabilityValue);
+                int newAvailabilityPos = mAvailabilityAdapter.getPosition(newAvailabilityLabel);
+                mAvailabilitySpinner.setSelection(newAvailabilityPos);
+            }
+        }
+
         mAllDay = isChecked;
         updateHomeTime();
+    }
+
+    public void setColorPickerButtonStates(int[] eventColors) {
+        if (eventColors == null || eventColors.length == 0) {
+            mColorPickerNewEvent.setVisibility(View.INVISIBLE);
+            mColorPickerExistingEvent.setVisibility(View.GONE);
+        } else {
+            mColorPickerNewEvent.setVisibility(View.VISIBLE);
+            mColorPickerExistingEvent.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -1666,6 +1756,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return;
         }
 
+        // Do nothing if the selection didn't change so that reminders will not get lost
+        int idColumn = c.getColumnIndexOrThrow(Calendars._ID);
+        long calendarId = c.getLong(idColumn);
+        if (calendarId == mModel.mCalendarId) {
+            return;
+        }
+
         int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         int color = c.getInt(colorColumn);
         int displayColor = Utils.getDisplayColorFromColor(color);
@@ -1676,14 +1773,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mCalendarSelectorGroup.setBackgroundColor(displayColor);
         }
 
-        // Do nothing if the selection didn't change so that reminders will not get lost
-        int idColumn = c.getColumnIndexOrThrow(Calendars._ID);
-        long calendarId = c.getLong(idColumn);
-        if (calendarId == mModel.mCalendarId) {
-            return;
-        }
         mModel.mCalendarId = calendarId;
-        mModel.mCalendarColor = color;
+        mModel.mCalendarColor = displayColor;
+        mModel.mCalendarAccountName = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_NAME);
+        mModel.mCalendarAccountType = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_TYPE);
+        mModel.mEventColor = mModel.mCalendarColor;
+
+        setColorPickerButtonStates(mModel.getCalendarEventColors());
+
         // Update the max/allowed reminders with the new calendar properties.
         int maxRemindersColumn = c.getColumnIndexOrThrow(Calendars.MAX_REMINDERS);
         mModel.mCalendarMaxReminders = c.getInt(maxRemindersColumn);

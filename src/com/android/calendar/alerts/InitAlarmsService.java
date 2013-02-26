@@ -48,7 +48,15 @@ public class InitAlarmsService extends IntentService {
         // Delay to avoid race condition of in-progress alarm scheduling in provider.
         SystemClock.sleep(DELAY_MS);
         Log.d(TAG, "Clearing and rescheduling alarms.");
-        getContentResolver().update(SCHEDULE_ALARM_REMOVE_URI, new ContentValues(), null,
-                null);
+        try {
+            getContentResolver().update(SCHEDULE_ALARM_REMOVE_URI, new ContentValues(), null,
+                    null);
+        } catch (java.lang.IllegalArgumentException e) {
+            // java.lang.IllegalArgumentException:
+            //     Unknown URI content://com.android.calendar/schedule_alarms_remove
+
+            // Until b/7742576 is resolved, just catch the exception so the app won't crash
+            Log.e(TAG, "update failed: " + e.toString());
+        }
     }
 }

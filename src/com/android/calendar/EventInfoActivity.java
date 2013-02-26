@@ -25,12 +25,18 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.calendar.CalendarEventModel.ReminderEntry;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventInfoActivity extends Activity {
@@ -42,6 +48,23 @@ public class EventInfoActivity extends Activity {
     private long mStartMillis, mEndMillis;
     private long mEventId;
 
+    // Create an observer so that we can update the views whenever a
+    // Calendar event changes.
+    private final ContentObserver mObserver = new ContentObserver(new Handler()) {
+        @Override
+        public boolean deliverSelfNotifications() {
+            return false;
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            if (selfChange) return;
+            if (mInfoFragment != null) {
+                mInfoFragment.reloadEvents();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -51,6 +74,7 @@ public class EventInfoActivity extends Activity {
         int attendeeResponse = 0;
         mEventId = -1;
         boolean isDialog = false;
+        ArrayList<ReminderEntry> reminders = null;
 
         if (icicle != null) {
             mEventId = icicle.getLong(EventInfoFragment.BUNDLE_KEY_EVENT_ID);
@@ -58,6 +82,8 @@ public class EventInfoActivity extends Activity {
             mEndMillis = icicle.getLong(EventInfoFragment.BUNDLE_KEY_END_MILLIS);
             attendeeResponse = icicle.getInt(EventInfoFragment.BUNDLE_KEY_ATTENDEE_RESPONSE);
             isDialog = icicle.getBoolean(EventInfoFragment.BUNDLE_KEY_IS_DIALOG);
+
+            reminders = Utils.readRemindersFromBundle(icicle);
         } else if (intent != null && Intent.ACTION_VIEW.equals(intent.getAction())) {
             mStartMillis = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, 0);
             mEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
@@ -127,60 +153,14 @@ public class EventInfoActivity extends Activity {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             mInfoFragment = new EventInfoFragment(this, mEventId, mStartMillis, mEndMillis,
-                    attendeeResponse, isDialog, isDialog ?
+                    attendeeResponse, isDialog, (isDialog ?
                             EventInfoFragment.DIALOG_WINDOW_STYLE :
-                                EventInfoFragment.FULL_WINDOW_STYLE);
+                                EventInfoFragment.FULL_WINDOW_STYLE),
+                    reminders);
             ft.replace(R.id.main_frame, mInfoFragment);
             ft.commit();
         }
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        // Handles option menu selections:
-//        // Home button - close event info activity and start the main calendar one
-//        // Edit button - start the event edit activity and close the info activity
-//        // Delete button - start a delete query that calls a runnable that close the info activity
-//
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                Intent launchIntent = new Intent();
-//                launchIntent.setAction(Intent.ACTION_VIEW);
-//                launchIntent.setData(Uri.parse(CalendarContract.CONTENT_URI + "/time"));
-//                launchIntent.setFlags(
-//                        Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(launchIntent);
-//                finish();
-//                return true;
-//            case R.id.info_action_edit:
-//                Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
-//                Intent intent = new Intent(Intent.ACTION_EDIT, uri);
-//                intent.putExtra(EXTRA_EVENT_BEGIN_TIME, mStartMillis);
-//                intent.putExtra(EXTRA_EVENT_END_TIME, mEndMillis);
-//                intent.setClass(this, EditEventActivity.class);
-//                intent.putExtra(EVENT_EDIT_ON_LAUNCH, true);
-//                startActivity(intent);
-//                finish ();
-//                break;
-//            case R.id.info_action_delete:
-//                DeleteEventHelper deleteHelper = new DeleteEventHelper(
-//                        this, this, true /* exitWhenDone */);
-//                deleteHelper.delete(mStartMillis, mEndMillis, mEventId, -1, onDeleteRunnable);
-//                break;
-//            default:
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    // runs at the end of a delete action and closes the activity
-//    private Runnable onDeleteRunnable = new Runnable() {
-//        @Override
-//        public void run() {
-//            finish ();
-//        }
-//    };
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -202,11 +182,14 @@ public class EventInfoActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        getContentResolver().registerContentObserver(CalendarContract.Events.CONTENT_URI,
+                true, mObserver);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        getContentResolver().unregisterContentObserver(mObserver);
     }
 
     @Override
