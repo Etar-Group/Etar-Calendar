@@ -24,7 +24,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
@@ -33,7 +35,7 @@ import android.text.format.Time;
 import android.util.Log;
 import android.widget.TimePicker;
 
-public class OtherPreferences extends PreferenceFragment {
+public class OtherPreferences extends PreferenceFragment  implements OnPreferenceChangeListener{
     private static final String TAG = "CalendarOtherPreferences";
 
     // The name of the shared preferences file. This name must be maintained for
@@ -43,8 +45,8 @@ public class OtherPreferences extends PreferenceFragment {
 
     // Must be the same keys that are used in the other_preferences.xml file.
     public static final String KEY_OTHER_COPY_DB = "preferences_copy_db";
-    public static final String KEY_OTHER_QUIET_HOURS =
-            "preferences_reminders_quiet_hours";
+    public static final String KEY_OTHER_QUIET_HOURS = "preferences_reminders_quiet_hours";
+    public static final String KEY_OTHER_REMINDERS_RESPONDED = "preferences_reminders_responded";
     public static final String KEY_OTHER_QUIET_HOURS_START =
             "preferences_reminders_quiet_hours_start";
     public static final String KEY_OTHER_QUIET_HOURS_START_HOUR =
@@ -58,8 +60,6 @@ public class OtherPreferences extends PreferenceFragment {
     public static final String KEY_OTHER_QUIET_HOURS_END_MINUTE =
             "preferences_reminders_quiet_hours_end_minute";
     public static final String KEY_OTHER_1 = "preferences_tardis_1";
-    public static final String KEY_OTHER_REMINDERS_RESPONDED =
-            "preferences_reminders_responded";
 
     public static final int QUIET_HOURS_DEFAULT_START_HOUR = 22;
     public static final int QUIET_HOURS_DEFAULT_START_MINUTE = 0;
@@ -72,6 +72,7 @@ public class OtherPreferences extends PreferenceFragment {
     private static final String format12Hour = "%I:%M%P";
 
     private Preference mCopyDb;
+    private ListPreference mSkipReminders;
     private CheckBoxPreference mQuietHours;
     private Preference mQuietHoursStart;
     private Preference mQuietHoursEnd;
@@ -95,6 +96,9 @@ public class OtherPreferences extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.other_preferences);
         mCopyDb = findPreference(KEY_OTHER_COPY_DB);
+        mSkipReminders = (ListPreference) findPreference(KEY_OTHER_REMINDERS_RESPONDED);
+        updateSkipRemindersSummary(null);
+        mSkipReminders.setOnPreferenceChangeListener(this);
 
         Activity activity = getActivity();
         if (activity == null) {
@@ -126,6 +130,18 @@ public class OtherPreferences extends PreferenceFragment {
                 activity, mQuietHoursEndListener,
                 endHour, endMinute, mIs24HourMode);
         mQuietHoursEnd.setSummary(formatTime(endHour, endMinute));
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object objValue) {
+        final String key = preference.getKey();
+
+        if (KEY_OTHER_REMINDERS_RESPONDED.equals(key)) {
+            String value = String.valueOf(objValue);
+            updateSkipRemindersSummary(value);
+        }
+
+        return true;
     }
 
     @Override
@@ -201,5 +217,31 @@ public class OtherPreferences extends PreferenceFragment {
 
         String format = mIs24HourMode? format24Hour : format12Hour;
         return time.format(format);
+    }
+
+    /**
+     * Update the summary for the SkipReminders preference.
+     * @param value The corresponding value of which summary to set. If null, the default summary
+     * will be set, and the value will be set accordingly too.
+     */
+    private void updateSkipRemindersSummary(String value) {
+        if (mSkipReminders != null) {
+            // Default to "declined". Must match with R.array.preferences_skip_reminders_values.
+            int index = 0;
+
+            CharSequence[] values = mSkipReminders.getEntryValues();
+            CharSequence[] entries = mSkipReminders.getEntries();
+            for(int value_i = 0; value_i < values.length; value_i++) {
+                if (values[value_i].equals(value)) {
+                    index = value_i;
+                    break;
+                }
+            }
+            mSkipReminders.setSummary(entries[index].toString());
+            if (value == null) {
+                // Value was not known ahead of time, so the default value will be set.
+                mSkipReminders.setValue(values[index].toString());
+            }
+        }
     }
 }
