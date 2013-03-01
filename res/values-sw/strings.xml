@@ -192,17 +192,17 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Hakuna matukio ya kalenda yatakayofanyika hivi karibuni"</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"Majaribio"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Ya majaribio"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Vikumbusho"</string>
     <!-- no translation found for preferences_reminders_responded_label (1196570678238475838) -->
     <skip />
     <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
     <skip />
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Masaa ya utulivu"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Vikumbusho vya matukio kimya wakati uliobainishwa."</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Wakati wa kuanza kwa masaa ya utulivu"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Masaa ya mwisho ya wakati wa utulivu"</string>
-    <string name="preferences_debug_category" msgid="6203278208385095018">"Inatatua"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Saa za utulivu"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Fanya kimya vikumbusho vya matukio katika wakati uliobainishwa."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Wakati wa kuanza kwa saa za utulivu"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Muda wa mwisho wa Saa tulivu"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"Utatuaji"</string>
     <string name="copy_db" msgid="437691290566699292">"Tuma hifadhidata"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Inatafuta <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Ondoa mhudhuriaji"</string>
