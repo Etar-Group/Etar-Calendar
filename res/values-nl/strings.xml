@@ -192,24 +192,17 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Geen lopende agenda-afspraken"</string>
-    <!-- no translation found for preferences_experimental_category (8111213192001230350) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_category (3179315692653755740) -->
-    <skip />
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimenteel"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"Herinneringen"</string>
     <!-- no translation found for preferences_reminders_responded_label (1196570678238475838) -->
     <skip />
     <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
     <skip />
-    <!-- no translation found for preferences_reminders_quiet_hours_label (8529712276644546893) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_quiet_hours_description (65969073433791290) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_quiet_hours_start (3433058529220285232) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_quiet_hours_end (7492883554865119346) -->
-    <skip />
-    <!-- no translation found for preferences_debug_category (6203278208385095018) -->
-    <skip />
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Stille uren"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Evenementherinneringen op stil zetten gedurende opgegeven tijd."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Starttijd stille uren"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Eindtijd stille uren"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"Foutopsporing"</string>
     <string name="copy_db" msgid="437691290566699292">"Database verzenden"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> zoeken…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Deelnemer verwijderen"</string>
