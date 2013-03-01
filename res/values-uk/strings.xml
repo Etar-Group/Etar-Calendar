@@ -198,10 +198,10 @@
     <skip />
     <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
     <skip />
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Затишшя"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Стишувати звук нагадувань про подію у вибраний час."</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Початок затишшя"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Кінець затишшя"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Тихий режим"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"У вибраний час зменшувати гучність нагадувань."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Увімкнути тихий режим"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Вимкнути тихий режим"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"Налагодження"</string>
     <string name="copy_db" msgid="437691290566699292">"Надіслати базу даних"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Пошук <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
