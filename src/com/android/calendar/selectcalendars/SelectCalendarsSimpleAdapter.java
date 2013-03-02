@@ -236,7 +236,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
             @Override
             public void onClick(View v) {
                 if (mDialog == null) {
-                    mDialog = new CalendarColorPickerDialog(mData[position].id, mIsTablet);
+                    mDialog = CalendarColorPickerDialog.newInstance(mData[position].id, mIsTablet);
                 } else {
                     mDialog.setCalendarId(mData[position].id);
                 }

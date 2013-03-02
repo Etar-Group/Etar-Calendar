@@ -330,7 +330,7 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
             @Override
             public void onClick(View v) {
                 if (mDialog == null) {
-                    mDialog = new CalendarColorPickerDialog(id, mIsTablet);
+                    mDialog = CalendarColorPickerDialog.newInstance(id, mIsTablet);
                 } else {
                     mDialog.setCalendarId(id);
                 }
