@@ -1225,7 +1225,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     private void showEventColorPickerDialog() {
         if (mDialog == null) {
-            mDialog = new EventColorPickerDialog(mColors, mCurrentColor, mCalendarColor,
+            mDialog = EventColorPickerDialog.newInstance(mColors, mCurrentColor, mCalendarColor,
                     mIsTabletConfig);
             mDialog.setTargetFragment(this, REQUEST_CODE_COLOR_PICKER);
         }
