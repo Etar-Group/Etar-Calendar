@@ -22,7 +22,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.provider.CalendarContract.Calendars;
 import android.text.TextUtils;
@@ -34,9 +33,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.calendar.CalendarColorPickerDialog;
@@ -45,11 +42,7 @@ import com.android.calendar.Utils;
 
 public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAdapter {
     private static final String TAG = "SelectCalendarsAdapter";
-    private static int SELECTED_COLOR_CHIP_SIZE = 16;
-    private static int UNSELECTED_COLOR_CHIP_SIZE = 10;
-    private static int COLOR_CHIP_LEFT_MARGIN = 20;
-    private static int COLOR_CHIP_RIGHT_MARGIN = 8;
-    private static int COLOR_CHIP_TOP_OFFSET = 5;
+
     private static int BOTTOM_ITEM_HEIGHT = 64;
     private static int NORMAL_ITEM_HEIGHT = 48;
 
@@ -105,11 +98,6 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
         if (mScale == 0) {
             mScale = mRes.getDisplayMetrics().density;
-            SELECTED_COLOR_CHIP_SIZE *= mScale;
-            UNSELECTED_COLOR_CHIP_SIZE *= mScale;
-            COLOR_CHIP_LEFT_MARGIN *= mScale;
-            COLOR_CHIP_RIGHT_MARGIN *= mScale;
-            COLOR_CHIP_TOP_OFFSET *= mScale;
             BOTTOM_ITEM_HEIGHT *= mScale;
             NORMAL_ITEM_HEIGHT *= mScale;
         }
@@ -208,6 +196,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         notifyDataSetChanged();
     }
 
+    @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (position >= mRowCount) {
             return null;
@@ -257,20 +246,20 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
             }
         });
 
+        int textColor;
+        if (selected) {
+            textColor = mColorCalendarVisible;
+        } else {
+            textColor = mColorCalendarHidden;
+        }
+        calendarName.setTextColor(textColor);
+
         CheckBox syncCheckBox = (CheckBox) view.findViewById(R.id.sync);
         if (syncCheckBox != null) {
             // Full screen layout
             syncCheckBox.setChecked(selected);
 
-            int textColor;
-            if (selected) {
-                textColor = mColorCalendarVisible;
-            } else {
-                textColor = mColorCalendarHidden;
-            }
-            calendarName.setTextColor(textColor);
             LayoutParams layoutParam = calendarName.getLayoutParams();
-
             TextView secondaryText = (TextView) view.findViewById(R.id.status);
             if (!TextUtils.isEmpty(mData[position].ownerAccount)
                     && !mData[position].ownerAccount.equals(name)
@@ -294,23 +283,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
         } else {
             // Tablet layout
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                    SELECTED_COLOR_CHIP_SIZE, SELECTED_COLOR_CHIP_SIZE);
-            params.leftMargin = COLOR_CHIP_LEFT_MARGIN;
-            params.rightMargin = COLOR_CHIP_RIGHT_MARGIN;
-            // This offset is needed because the assets include the bottom of the
-            // previous item
-            params.topMargin = COLOR_CHIP_TOP_OFFSET;
-            if (!selected) {
-                params.height = UNSELECTED_COLOR_CHIP_SIZE;
-                params.width = UNSELECTED_COLOR_CHIP_SIZE;
-                params.leftMargin += (SELECTED_COLOR_CHIP_SIZE - UNSELECTED_COLOR_CHIP_SIZE) / 2;
-                params.topMargin += (SELECTED_COLOR_CHIP_SIZE - UNSELECTED_COLOR_CHIP_SIZE) / 2;
-            }
-            colorView.setLayoutParams(params);
-
-            Drawable bg = getBackground(position, selected);
-            view.setBackgroundDrawable(bg);
+            view.findViewById(R.id.color).setEnabled(selected);
+            view.setBackgroundDrawable(getBackground(position, selected));
             ViewGroup.LayoutParams newParams = view.getLayoutParams();
             if (position == mData.length - 1) {
                 newParams.height = BOTTOM_ITEM_HEIGHT;
