@@ -17,6 +17,7 @@
 package com.android.calendar;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -37,6 +38,9 @@ import java.util.Arrays;
 public class CalendarColorPickerDialog extends ColorPickerDialog {
 
     private static final int NUM_COLUMNS = 4;
+
+    private static final String KEY_CALENDAR_ID = "calendar_id";
+    private static final String KEY_COLOR_KEYS = "color_keys";
 
     private static final int TOKEN_QUERY_CALENDARS = 1 << 1;
     private static final int TOKEN_QUERY_COLORS = 1 << 2;
@@ -64,9 +68,7 @@ public class CalendarColorPickerDialog extends ColorPickerDialog {
 
 
     private QueryService mService;
-    private Uri mUri;
     private SparseIntArray mColorKeyMap = new SparseIntArray();
-
     private long mCalendarId;
 
     private class QueryService extends AsyncQueryService {
@@ -113,6 +115,7 @@ public class CalendarColorPickerDialog extends ColorPickerDialog {
                         dismiss();
                         break;
                     }
+                    mColorKeyMap.clear();
                     ArrayList<Integer> colors = new ArrayList<Integer>();
                     do
                     {
@@ -128,7 +131,7 @@ public class CalendarColorPickerDialog extends ColorPickerDialog {
                     for (int i = 0; i < mColors.length; i++) {
                         mColors[i] = colorsToSort[i];
                     }
-                    showPalette();
+                    showPaletteView();
                     cursor.close();
                     break;
             }
@@ -139,14 +142,14 @@ public class CalendarColorPickerDialog extends ColorPickerDialog {
 
         @Override
         public void onColorSelected(int color) {
-            if (color == mSelectedColor) {
+            if (color == mSelectedColor || mService == null) {
                 return;
             }
 
             ContentValues values = new ContentValues();
             values.put(Calendars.CALENDAR_COLOR_KEY, mColorKeyMap.get(color));
-            mService.startUpdate(mService.getNextToken(), null, mUri, values,
-                    null, null, Utils.UNDO_DELAY);
+            mService.startUpdate(mService.getNextToken(), null, ContentUris.withAppendedId(
+                    Calendars.CONTENT_URI, mCalendarId), values, null, null, Utils.UNDO_DELAY);
         }
     }
 
@@ -154,29 +157,81 @@ public class CalendarColorPickerDialog extends ColorPickerDialog {
         // Empty constructor required for dialog fragments.
     }
 
-    public CalendarColorPickerDialog(long calendarId, boolean isTablet) {
-        super(R.string.calendar_color_picker_dialog_title, null, -1, NUM_COLUMNS,
+    public static CalendarColorPickerDialog newInstance(long calendarId, boolean isTablet) {
+        CalendarColorPickerDialog ret = new CalendarColorPickerDialog();
+        ret.setArguments(R.string.calendar_color_picker_dialog_title, NUM_COLUMNS,
                 isTablet ? SIZE_LARGE : SIZE_SMALL);
-        mListener = new OnCalendarColorSelectedListener();
-        mCalendarId = calendarId;
-        mUri = ContentUris.withAppendedId(Calendars.CONTENT_URI, mCalendarId);
+        ret.setCalendarId(calendarId);
+        return ret;
     }
 
-    public void setCalendarId(long calendarId) {
-        mCalendarId = calendarId;
-        mUri = ContentUris.withAppendedId(Calendars.CONTENT_URI, mCalendarId);
-        if (mService != null) {
-            mService.startQuery(TOKEN_QUERY_CALENDARS, null, mUri, CALENDARS_PROJECTION,
-                    null, null, null);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(KEY_CALENDAR_ID, mCalendarId);
+        saveColorKeys(outState);
+    }
+
+    private void saveColorKeys(Bundle outState) {
+        int[] colorKeys = new int[mColors.length];
+        for (int i = 0; i < mColors.length; i++) {
+            colorKeys[i] = mColorKeyMap.get(mColors[i]);
+        }
+        outState.putIntArray(KEY_COLOR_KEYS, colorKeys);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mCalendarId = savedInstanceState.getLong(KEY_CALENDAR_ID);
+            retrieveColorKeys(savedInstanceState);
+        }
+        setOnColorSelectedListener(new OnCalendarColorSelectedListener());
+    }
+
+    private void retrieveColorKeys(Bundle savedInstanceState) {
+        int[] colorKeys = savedInstanceState.getIntArray(KEY_COLOR_KEYS);
+        if (mColors != null && colorKeys != null) {
+            for (int i = 0; i < mColors.length; i++) {
+                mColorKeyMap.put(mColors[i], colorKeys[i]);
+            }
         }
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        final Activity activity = getActivity();
-        mService = new QueryService(activity);
-        mService.startQuery(TOKEN_QUERY_CALENDARS, null, mUri, CALENDARS_PROJECTION,
-                null, null, null);
+    public void setColors(int[] colors) {
+        throw new IllegalStateException("Must call setCalendarId() to update calendar colors");
+    }
+
+    @Override
+    public void setColors(int[] colors, int selectedColor) {
+        throw new IllegalStateException("Must call setCalendarId() to update calendar colors");
+    }
+
+    public void setCalendarId(long calendarId) {
+        if (calendarId != mCalendarId) {
+            mCalendarId = calendarId;
+            startQuery();
+        }
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        mService = new QueryService(getActivity());
+        if (mColors == null) {
+            startQuery();
+        }
+        return dialog;
+    }
+
+    private void startQuery() {
+        if (mService != null) {
+            showProgressBarView();
+            mService.startQuery(TOKEN_QUERY_CALENDARS, null,
+                    ContentUris.withAppendedId(Calendars.CONTENT_URI, mCalendarId),
+                    CALENDARS_PROJECTION, null, null, null);
+        }
     }
 }

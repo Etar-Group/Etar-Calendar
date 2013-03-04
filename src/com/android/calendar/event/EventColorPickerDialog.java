@@ -17,6 +17,7 @@
 package com.android.calendar.event;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -29,6 +30,7 @@ import com.android.colorpicker.ColorPickerDialog;
 public class EventColorPickerDialog extends ColorPickerDialog {
 
     private static final int NUM_COLUMNS = 4;
+    private static final String KEY_CALENDAR_COLOR = "calendar_color";
 
     private int mCalendarColor;
 
@@ -36,11 +38,27 @@ public class EventColorPickerDialog extends ColorPickerDialog {
         // Empty constructor required for dialog fragment.
     }
 
-    public EventColorPickerDialog(int[] colors, int selectedColor, int calendarColor,
-            boolean isTablet) {
-        super(R.string.event_color_picker_dialog_title, colors, selectedColor, NUM_COLUMNS,
+    public static EventColorPickerDialog newInstance(int[] colors, int selectedColor,
+            int calendarColor, boolean isTablet) {
+        EventColorPickerDialog ret = new EventColorPickerDialog();
+        ret.initialize(R.string.event_color_picker_dialog_title, colors, selectedColor, NUM_COLUMNS,
                 isTablet ? SIZE_LARGE : SIZE_SMALL);
-        mCalendarColor = calendarColor;
+        ret.setCalendarColor(calendarColor);
+        return ret;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mCalendarColor = savedInstanceState.getInt(KEY_CALENDAR_COLOR);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_CALENDAR_COLOR, mCalendarColor);
     }
 
     public void setCalendarColor(int color) {
@@ -48,11 +66,10 @@ public class EventColorPickerDialog extends ColorPickerDialog {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        final Activity activity = getActivity();
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
         mAlertDialog.setButton(DialogInterface.BUTTON_NEUTRAL,
-                activity.getString(R.string.event_color_set_to_default),
+                getActivity().getString(R.string.event_color_set_to_default),
                 new DialogInterface.OnClickListener() {
 
                     @Override
@@ -61,5 +78,6 @@ public class EventColorPickerDialog extends ColorPickerDialog {
                     }
                 }
         );
+        return dialog;
     }
 }
