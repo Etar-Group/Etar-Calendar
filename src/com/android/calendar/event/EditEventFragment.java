@@ -360,7 +360,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         public void onClick(View v) {
             int[] colors = mModel.getCalendarEventColors();
             if (mDialog == null) {
-                mDialog = new EventColorPickerDialog(colors, mModel.mEventColor,
+                mDialog = EventColorPickerDialog.newInstance(colors, mModel.mEventColor,
                         mModel.mCalendarColor, mView.mIsMultipane);
                 mDialog.setTargetFragment(EditEventFragment.this, REQUEST_CODE_COLOR_PICKER);
             } else {
