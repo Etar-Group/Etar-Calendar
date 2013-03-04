@@ -16,11 +16,9 @@
 
 package com.android.calendar.selectcalendars;
 
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorDescription;
+import android.app.FragmentManager;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -29,16 +27,23 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.CalendarContract.Calendars;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.TouchDelegate;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CursorTreeAdapter;
 import android.widget.TextView;
+
+import com.android.calendar.CalendarColorPickerDialog;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -58,6 +63,9 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
     private final LayoutInflater mInflater;
     private final ContentResolver mResolver;
     private final SelectSyncedCalendarsMultiAccountActivity mActivity;
+    private final FragmentManager mFragmentManager;
+    private final boolean mIsTablet;
+    private CalendarColorPickerDialog mDialog;
     private final View mView;
     private final static Runnable mStopRefreshing = new Runnable() {
         public void run() {
@@ -97,6 +105,8 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
 
     // This is to keep track of whether or not multiple calendars have the same display name
     private static HashMap<String, Boolean> mIsDuplicateName = new HashMap<String, Boolean>();
+
+    private int mColorViewTouchAreaIncrease;
 
     private static final String[] PROJECTION = new String[] {
       Calendars._ID,
@@ -206,6 +216,9 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mResolver = context.getContentResolver();
         mActivity = act;
+        mFragmentManager = act.getFragmentManager();
+        mIsTablet = Utils.getConfigBool(context, R.bool.tablet_config);
+
         if (mCalendarsUpdater == null) {
             mCalendarsUpdater = new AsyncCalendarsUpdater(mResolver);
         }
@@ -221,6 +234,9 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         mView = mActivity.getExpandableListView();
         mRefresh = true;
         mClosedCursorsFlag = false;
+
+        mColorViewTouchAreaIncrease = context.getResources()
+                .getDimensionPixelSize(R.dimen.color_view_touch_area_increase);
     }
 
     public void startRefreshStopDelay() {
@@ -288,9 +304,41 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
 
     @Override
     protected void bindChildView(View view, Context context, Cursor cursor, boolean isLastChild) {
-        view.findViewById(R.id.color).setBackgroundColor(cursor.getInt(COLOR_COLUMN));
+        final long id = cursor.getLong(ID_COLUMN);
         String name = cursor.getString(NAME_COLUMN);
         String owner = cursor.getString(OWNER_COLUMN);
+        int color = Utils.getDisplayColorFromColor(cursor.getInt(COLOR_COLUMN));
+
+        final View colorSquare = view.findViewById(R.id.color);
+        colorSquare.setBackgroundColor(color);
+        final View delegateParent = (View) colorSquare.getParent();
+        delegateParent.post(new Runnable() {
+
+            @Override
+            public void run() {
+                final Rect r = new Rect();
+                colorSquare.getHitRect(r);
+                r.top -= mColorViewTouchAreaIncrease;
+                r.bottom += mColorViewTouchAreaIncrease;
+                r.left -= mColorViewTouchAreaIncrease;
+                r.right += mColorViewTouchAreaIncrease;
+                delegateParent.setTouchDelegate(new TouchDelegate(r, colorSquare));
+            }
+        });
+        colorSquare.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mDialog == null) {
+                    mDialog = new CalendarColorPickerDialog(id, mIsTablet);
+                } else {
+                    mDialog.setCalendarId(id);
+                }
+                if (!mDialog.isAdded()) {
+                    mDialog.show(mFragmentManager, TAG);
+                }
+            }
+        });
         if (mIsDuplicateName.containsKey(name) && mIsDuplicateName.get(name) &&
                 !name.equalsIgnoreCase(owner)) {
             name = new StringBuilder(name)
@@ -302,7 +350,6 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         setText(view, R.id.calendar, name);
 
         // First see if the user has already changed the state of this calendar
-        long id = cursor.getLong(ID_COLUMN);
         Boolean sync = mCalendarChanges.get(id);
         if (sync == null) {
             sync = cursor.getInt(SYNCED_COLUMN) == 1;
