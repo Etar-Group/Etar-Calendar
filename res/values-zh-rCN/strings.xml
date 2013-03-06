@@ -194,10 +194,8 @@
     <string name="gadget_no_events" msgid="5209110911088302855">"最近没有任何日历活动"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"实验性"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"提醒"</string>
-    <!-- no translation found for preferences_reminders_responded_label (1196570678238475838) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
-    <skip />
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"跳过提醒"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"跳过提醒"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"勿扰时段"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"在指定的时段内不发出活动提醒。"</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"勿扰时段开始时间"</string>
