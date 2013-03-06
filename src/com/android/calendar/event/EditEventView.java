@@ -1258,11 +1258,15 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mView.findViewById(R.id.calendar_group).setBackgroundColor(displayColor);
             }
         } else {
-            if (mIsMultipane) {
-                mCalendarSelectorWrapper.setBackgroundColor(displayColor);
-            } else {
-                mCalendarSelectorGroup.setBackgroundColor(displayColor);
-            }
+            setSpinnerBackgroundColor(displayColor);
+        }
+    }
+
+    private void setSpinnerBackgroundColor(int displayColor) {
+        if (mIsMultipane) {
+            mCalendarSelectorWrapper.setBackgroundColor(displayColor);
+        } else {
+            mCalendarSelectorGroup.setBackgroundColor(displayColor);
         }
     }
 
@@ -1759,19 +1763,16 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         // Do nothing if the selection didn't change so that reminders will not get lost
         int idColumn = c.getColumnIndexOrThrow(Calendars._ID);
         long calendarId = c.getLong(idColumn);
-        if (calendarId == mModel.mCalendarId) {
-            return;
-        }
-
         int colorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         int color = c.getInt(colorColumn);
         int displayColor = Utils.getDisplayColorFromColor(color);
 
-        if (mIsMultipane) {
-            mCalendarSelectorWrapper.setBackgroundColor(displayColor);
-        } else {
-            mCalendarSelectorGroup.setBackgroundColor(displayColor);
+        // Prevents resetting of data (reminders, etc.) on orientation change.
+        if (calendarId == mModel.mCalendarId && displayColor == mModel.mCalendarColor) {
+            return;
         }
+
+        setSpinnerBackgroundColor(displayColor);
 
         mModel.mCalendarId = calendarId;
         mModel.mCalendarColor = displayColor;
