@@ -405,7 +405,7 @@
         <item>Agenda</item>
     </string-array>
 
-    <!-- Experimental options for skipping reminders. [CHAR LIMIT = 35] -->
+    <!-- Experimental options for skipping reminders. [CHAR LIMIT = 37] -->
     <string-array name="preferences_skip_reminders_labels">
         <!-- Default choice -->
         <item>Only if declined</item>
