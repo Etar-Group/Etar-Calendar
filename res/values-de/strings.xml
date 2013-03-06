@@ -194,10 +194,8 @@
     <string name="gadget_no_events" msgid="5209110911088302855">"Keine anstehenden Termine"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimentell"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Erinnerungen"</string>
-    <!-- no translation found for preferences_reminders_responded_label (1196570678238475838) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
-    <skip />
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Erinnerungen überspringen"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Erinnerungen überspringen"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Ruhezeit"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Terminerinnerung zu bestimmten Zeiten stummschalten"</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Start der Ruhezeit"</string>
