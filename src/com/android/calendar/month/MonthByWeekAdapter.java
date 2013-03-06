@@ -208,7 +208,8 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter implements View.OnLon
                     // There is a bug that causes invalidates to not work some
                     // of the time unless we recreate the view.
                     v = new MonthWeekEventsView(mContext);
-                }
+                    v.setOnLongClickListener(this);
+               }
             } else {
                 drawingParams = (HashMap<String, Integer>) v.getTag();
             }
