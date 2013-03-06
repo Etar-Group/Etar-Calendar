@@ -194,10 +194,8 @@
     <string name="gadget_no_events" msgid="5209110911088302855">"Няма падзей календара, якія павiнны адбыцца"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Эксперыментальнае"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Напаміны"</string>
-    <!-- no translation found for preferences_reminders_responded_label (1196570678238475838) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
-    <skip />
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Прапусціць нагадванні"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Прапусціць нагадванні"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Ціхія гадзіны"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Сцiшыць напамiны ў паказаны час."</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Час пачатку цiхiх гадзiн"</string>
