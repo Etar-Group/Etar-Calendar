@@ -590,7 +590,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTime = time;
         }
 
-        @Override
         public void onClick(View v) {
             DatePickerDialog dpd = new DatePickerDialog(
                     mActivity, new DateListener(v), mTime.year, mTime.month, mTime.monthDay);
@@ -1102,6 +1101,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         boolean canRespond = EditEventHelper.canRespond(model);
 
+        final long eventId = model.mId;
+        final long calendarId = model.mCalendarId;
+
         long begin = model.mStart;
         long end = model.mEnd;
         mTimezone = model.mTimezone; // this will be UTC for all day events
@@ -1550,10 +1552,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             return;
         }
         mAttendeesList.setText(null);
-
         for (Attendee attendee : attendeesList.values()) {
-            // Added ", " to workaround b/8272316
-            mAttendeesList.append(attendee.mEmail + ", ");
+            mAttendeesList.append(attendee.mEmail);
         }
     }
 
