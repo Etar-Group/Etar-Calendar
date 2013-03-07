@@ -111,6 +111,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
 
     private final EventInfo mEvent;
     private EventBundle mEventBundle;
+    private ArrayList<ReminderEntry> mReminders;
+    private int mEventColor;
     private Uri mUri;
     private long mBegin;
     private long mEnd;
@@ -184,7 +186,9 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                     mModel.mIsFirstEventInSeries = mBegin == mOriginalModel.mStart;
                     mModel.mStart = mBegin;
                     mModel.mEnd = mEnd;
-
+                    if (mEventColor != -1) {
+                        mModel.mEventColor = mEventColor;
+                    }
                     eventId = mModel.mId;
 
                     // TOKEN_ATTENDEES
@@ -202,7 +206,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                     }
 
                     // TOKEN_REMINDERS
-                    if (mModel.mHasAlarm) {
+                    if (mModel.mHasAlarm && mReminders == null) {
                         Uri rUri = Reminders.CONTENT_URI;
                         String[] remArgs = {
                                 Long.toString(eventId)
@@ -212,6 +216,10 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                                 EditEventHelper.REMINDERS_WHERE /* selection */,
                                 remArgs /* selection args */, null /* sort order */);
                     } else {
+                        Collections.sort(mReminders);
+                        mOriginalModel.mReminders = mReminders;
+                        mModel.mReminders =
+                                (ArrayList<ReminderEntry>) mReminders.clone();
                         setModelIfDone(TOKEN_REMINDERS);
                     }
 
@@ -395,13 +403,18 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     }
 
     public EditEventFragment() {
-        this(null, false, null);
+        this(null, null, -1, false, null);
     }
 
-    public EditEventFragment(EventInfo event, boolean readOnly, Intent intent) {
+    public EditEventFragment(EventInfo event, ArrayList<ReminderEntry> reminders, int eventColor,
+            boolean readOnly, Intent intent) {
         mEvent = event;
         mIsReadOnly = readOnly;
         mIntent = intent;
+
+        mReminders = reminders;
+        mEventColor = eventColor;
+
         setHasOptionsMenu(true);
     }
 
@@ -433,6 +446,14 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             }
             mBegin = mEventBundle.start;
             mEnd = mEventBundle.end;
+        }
+
+        if (mReminders != null) {
+            mModel.mReminders = mReminders;
+        }
+
+        if (mEventColor != -1) {
+            mModel.mEventColor = mEventColor;
         }
 
         if (mBegin <= 0) {
