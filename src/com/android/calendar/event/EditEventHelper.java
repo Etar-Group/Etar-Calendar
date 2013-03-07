@@ -1075,7 +1075,7 @@ public class EditEventHelper {
         } else {
             rawEventColor = cursor.getInt(EVENT_INDEX_EVENT_COLOR);
         }
-        model.mEventColor = Utils.getDisplayColorFromColor(rawEventColor);
+        model.setEventColor(Utils.getDisplayColorFromColor(rawEventColor));
 
         if (accessLevel > 0) {
             // For now the array contains the values 0, 2, and 3. We subtract
@@ -1133,8 +1133,8 @@ public class EditEventHelper {
 
             model.mCalendarAccessLevel = cursor.getInt(CALENDARS_INDEX_ACCESS_LEVEL);
             model.mCalendarDisplayName = cursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
-            model.mCalendarColor = Utils.getDisplayColorFromColor(
-                    cursor.getInt(CALENDARS_INDEX_COLOR));
+            model.setCalendarColor(Utils.getDisplayColorFromColor(
+                    cursor.getInt(CALENDARS_INDEX_COLOR)));
 
             model.mCalendarAccountName = cursor.getString(CALENDARS_INDEX_ACCOUNT_NAME);
             model.mCalendarAccountType = cursor.getString(CALENDARS_INDEX_ACCOUNT_TYPE);
@@ -1285,12 +1285,13 @@ public class EditEventHelper {
         }
         values.put(Events.ACCESS_LEVEL, accessLevel);
         values.put(Events.STATUS, model.mEventStatus);
-        if (model.mEventColor == -1 || model.mEventColor == model.mCalendarColor) {
-            values.put(Events.EVENT_COLOR_KEY, NO_EVENT_COLOR);
-        } else {
-            values.put(Events.EVENT_COLOR_KEY, model.getEventColorKey());
+        if (model.isEventColorInitialized()) {
+            if (model.getEventColor() == model.getCalendarColor()) {
+                values.put(Events.EVENT_COLOR_KEY, NO_EVENT_COLOR);
+            } else {
+                values.put(Events.EVENT_COLOR_KEY, model.getEventColorKey());
+            }
         }
-
         return values;
     }
 
