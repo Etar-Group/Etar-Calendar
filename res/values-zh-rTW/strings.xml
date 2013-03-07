@@ -194,10 +194,8 @@
     <string name="gadget_no_events" msgid="5209110911088302855">"沒有即將開始的日曆活動"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"實驗性"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"提醒"</string>
-    <!-- no translation found for preferences_reminders_responded_label (1196570678238475838) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
-    <skip />
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"略過提醒"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"略過提醒"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"限制時段"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"在特定時段內取消活動提醒。"</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"限制時段開始時間"</string>
