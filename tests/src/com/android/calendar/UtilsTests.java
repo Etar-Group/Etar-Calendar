@@ -192,7 +192,7 @@ public class UtilsTests extends TestCase {
     @SmallTest
     public void testCheckForDuplicateNames() {
         Utils.checkForDuplicateNames(mIsDuplicateName, mDuplicateNameCursor, NAME_COLUMN);
-        assertEquals(mIsDuplicateName, mIsDuplicateNameExpected);
+        assertEquals(mIsDuplicateNameExpected, mIsDuplicateName);
     }
 
     @Smoke
@@ -389,7 +389,7 @@ public class UtilsTests extends TestCase {
     private static void findPhoneNumber(String text, String[] matches) {
         int[] results = Utils.findNanpPhoneNumbers(text);
 
-        assertEquals(results.length % 2, 0);
+        assertEquals(0, results.length % 2);
 
         if (results.length / 2 != matches.length) {
             fail("Text '" + text + "': expected " + matches.length

@@ -757,7 +757,7 @@ public class AlertServiceTest extends AndroidTestCase {
         AlertsTable at = new AlertsTable();
         at.addAlertRow(scheduledAlertEventId, SCHEDULED, ACCEPTED, 0, createTimeInMillis(9, 0),
                 createTimeInMillis(10, 0), 0);
-        at.addAlertRow(firedAlertEventId, FIRED, ACCEPTED, 0, createTimeInMillis(10, 0),
+        at.addAlertRow(firedAlertEventId, FIRED, ACCEPTED, 0, createTimeInMillis(4, 0),
                 createTimeInMillis(10, 30), 0);
 
         ArrayList<NotificationInfo> highPriority = new ArrayList<NotificationInfo>();
