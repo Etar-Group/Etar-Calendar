@@ -419,7 +419,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, br_id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -465,7 +465,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         addOwnerAttendeeToOps(expectedOps);
         addAttendeeChangesOps(expectedOps);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -520,7 +520,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -601,7 +601,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         addOwnerAttendeeToOps(expectedOps);
         addAttendeeChangesOps(expectedOps);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -661,7 +661,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -717,7 +717,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -775,7 +775,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -830,7 +830,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         addOwnerAttendeeToOps(expectedOps);
         addAttendeeChangesOps(expectedOps);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -888,7 +888,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, br_id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -969,14 +969,14 @@ public class EditEventHelperTest extends AndroidTestCase {
         // if any time/recurrence vals are different but there's no new rrule it
         // shouldn't change
         mHelper.checkTimeDependentFields(mModel1, mModel2, mValues, EditEventHelper.MODIFY_ALL);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
 
         // also, if vals are different and it's not modifying all it shouldn't
         // change.
         mModel2.mRrule = "something else";
         mHelper.checkTimeDependentFields(mModel1, mModel2, mValues,
                 EditEventHelper.MODIFY_SELECTED);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
 
         // if vals changed and modify all is selected dtstart should be updated
         // by the difference
@@ -993,7 +993,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mHelper.checkTimeDependentFields(mModel1, mModel2, mValues,
                 EditEventHelper.MODIFY_SELECTED);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
     }
 
     @Smoke
@@ -1023,7 +1023,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mHelper.checkTimeDependentFields(mModel1, mModel2, mValues,
                 EditEventHelper.MODIFY_SELECTED);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
 
     }
 
@@ -1048,7 +1048,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         expectedOps.add(b.build());
 
         mHelper.updatePastEvents(ops, mModel1, initialBeginTime);
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
 
         mModel1.mAllDay = false;
 
@@ -1060,7 +1060,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         ops.clear();
         mHelper.updatePastEvents(ops, mModel1, initialBeginTime);
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
     }
 
     @Smoke
@@ -1069,16 +1069,16 @@ public class EditEventHelperTest extends AndroidTestCase {
         mActivity = buildTestContext();
 
         String label = EventViewUtils.constructReminderLabel(mActivity, 35, true);
-        assertEquals(label, "35 mins");
+        assertEquals("35 mins", label);
 
         label = EventViewUtils.constructReminderLabel(mActivity, 72, false);
-        assertEquals(label, "72 minutes");
+        assertEquals("72 minutes", label);
 
         label = EventViewUtils.constructReminderLabel(mActivity, 60, true);
-        assertEquals(label, "1 hours");
+        assertEquals("1 hours", label);
 
         label = EventViewUtils.constructReminderLabel(mActivity, 60 * 48, true);
-        assertEquals(label, "2 days");
+        assertEquals("2 days", label);
     }
 
     @Smoke
@@ -1145,7 +1145,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         // Should fail to create any ops since nothing changed
         result = mHelper.saveReminders(ops, eventId, reminders, originalReminders, forceSave);
         assertFalse(result);
-        assertEquals(ops.size(), 0);
+        assertEquals(0, ops.size());
 
         //Now test adding a single reminder
         originalReminders.remove(2);
@@ -1182,7 +1182,7 @@ public class EditEventHelperTest extends AndroidTestCase {
                 mHelper.saveRemindersWithBackRef(ops, TEST_EVENT_INDEX_ID, reminders,
                         originalReminders, forceSave);
         assertTrue(result);
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
 
         // Now test calling save with identical reminders and no forcing
         reminders.add(ReminderEntry.valueOf(5));
@@ -1200,7 +1200,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         result = mHelper.saveRemindersWithBackRef(ops, ops.size(), reminders, originalReminders,
                         forceSave);
         assertFalse(result);
-        assertEquals(ops.size(), 0);
+        assertEquals(0, ops.size());
 
         //Now test adding a single reminder
         originalReminders.remove(2);
@@ -1210,7 +1210,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         result = mHelper.saveRemindersWithBackRef(ops, ops.size(), reminders, originalReminders,
                         forceSave);
         assertTrue(result);
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
     }
 
     @Smoke
@@ -1251,7 +1251,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mAllDay = false;
 
         mHelper.addRecurrenceRule(mValues, mModel1);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
 
         mExpectedValues.put(Events.DURATION, "P1D");
 
@@ -1259,7 +1259,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mValues.clear();
 
         mHelper.addRecurrenceRule(mValues, mModel1);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
 
     }
 
@@ -1281,37 +1281,37 @@ public class EditEventHelperTest extends AndroidTestCase {
         selection = EditEventHelper.REPEATS_CUSTOM;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "This shouldn't change");
+        assertEquals("This shouldn't change", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_DAILY;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=DAILY;WKST=SU");
+        assertEquals("FREQ=DAILY;WKST=SU", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_EVERY_WEEKDAY;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=WEEKLY;WKST=SU;BYDAY=MO,TU,WE,TH,FR");
+        assertEquals("FREQ=WEEKLY;WKST=SU;BYDAY=MO,TU,WE,TH,FR", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_WEEKLY_ON_DAY;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=WEEKLY;WKST=SU;BYDAY=FR");
+        assertEquals("FREQ=WEEKLY;WKST=SU;BYDAY=FR", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_MONTHLY_ON_DAY;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=MONTHLY;WKST=SU;BYMONTHDAY=30");
+        assertEquals("FREQ=MONTHLY;WKST=SU;BYMONTHDAY=30", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_MONTHLY_ON_DAY_COUNT;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=MONTHLY;WKST=SU;BYDAY=-1FR");
+        assertEquals("FREQ=MONTHLY;WKST=SU;BYDAY=-1FR", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_YEARLY;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=YEARLY;WKST=SU");
+        assertEquals("FREQ=YEARLY;WKST=SU", mModel1.mRrule);
     }
 
     @Smoke
@@ -1373,7 +1373,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1 = buildTestModel();
 
         ContentValues values = mHelper.getContentValuesFromModel(mModel1);
-        assertEquals(values, mExpectedValues);
+        assertEquals(mExpectedValues, values);
 
         mModel1.mRrule = null;
         mModel1.mEnd = TEST_END;
@@ -1383,7 +1383,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mExpectedValues.put(Events.DTEND, TEST_END); // UTC time
 
         values = mHelper.getContentValuesFromModel(mModel1);
-        assertEquals(values, mExpectedValues);
+        assertEquals(mExpectedValues, values);
 
         mModel1.mAllDay = false;
 
@@ -1394,14 +1394,14 @@ public class EditEventHelperTest extends AndroidTestCase {
         mExpectedValues.put(Events.EVENT_TIMEZONE, "UTC");
 
         values = mHelper.getContentValuesFromModel(mModel1);
-        assertEquals(values, mExpectedValues);
+        assertEquals(mExpectedValues, values);
     }
 
     @Smoke
     @SmallTest
     public void testExtractDomain() {
         String domain = EditEventHelper.extractDomain("test.email@gmail.com");
-        assertEquals(domain, "gmail.com");
+        assertEquals("gmail.com", domain);
 
         domain = EditEventHelper.extractDomain("bademail.no#$%at symbol");
         assertNull(domain);

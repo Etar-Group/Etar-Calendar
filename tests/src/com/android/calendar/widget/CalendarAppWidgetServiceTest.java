@@ -19,6 +19,7 @@ package com.android.calendar.widget;
 
 import com.android.calendar.widget.CalendarAppWidgetModel.EventInfo;
 import com.android.calendar.widget.CalendarAppWidgetService.CalendarFactory;
+import com.android.calendar.Utils;
 
 import android.content.Context;
 import android.database.MatrixCursor;
@@ -109,7 +110,8 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
         eventInfo.visibWhen = View.VISIBLE;
         eventInfo.visibWhere = View.VISIBLE;
         eventInfo.visibTitle = View.VISIBLE;
-        eventInfo.when = "3am – 4am";
+        eventInfo.when = Utils.formatDateRange(getContext(), now + ONE_HOUR, now + TWO_HOURS,
+                DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL);
         eventInfo.where = location;
         eventInfo.title = title;
         expected.mEventInfos.add(eventInfo);
@@ -135,7 +137,8 @@ public class CalendarAppWidgetServiceTest extends AndroidTestCase {
         eventInfo.visibWhen = View.VISIBLE;
         eventInfo.visibWhere = View.VISIBLE;
         eventInfo.visibTitle = View.VISIBLE;
-        eventInfo.when = "3am – 4am";
+        eventInfo.when = Utils.formatDateRange(context, now + ONE_HOUR, now + TWO_HOURS,
+                DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_ABBREV_ALL);
         eventInfo.where = location + i;
         eventInfo.title = title + i;
         expected.mEventInfos.add(eventInfo);
