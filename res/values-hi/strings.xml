@@ -194,10 +194,8 @@
     <string name="gadget_no_events" msgid="5209110911088302855">"कोई आगामी कैलेंडर ईवेंट नहीं"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"प्रयोगात्मक"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"अनुस्मारक"</string>
-    <!-- no translation found for preferences_reminders_responded_label (1196570678238475838) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
-    <skip />
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"अनुस्मारक छोड़ें"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"अनुस्मारक छोड़ें"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"मौन घंटे"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"विशिष्ट समय में ईवेंट अनुस्मारकों को मौन करें."</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"मौन घंटों का प्रारंभ समय"</string>

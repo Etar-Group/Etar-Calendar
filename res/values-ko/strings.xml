@@ -194,10 +194,8 @@
     <string name="gadget_no_events" msgid="5209110911088302855">"예정된 캘린더 일정이 없습니다."</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"베타"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"알림"</string>
-    <!-- no translation found for preferences_reminders_responded_label (1196570678238475838) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
-    <skip />
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"알림 건너뛰기"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"알림 건너뛰기"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"무음 모드 시간"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"지정한 시간에는 이벤트 알림을 무음으로 설정합니다."</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"무음 모드 시작 시간"</string>

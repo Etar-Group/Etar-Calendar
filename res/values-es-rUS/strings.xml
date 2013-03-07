@@ -192,12 +192,10 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"No hay próximos eventos en el calendario"</string>
-    <string name="preferences_experimental_category" msgid="8111213192001230350">"Prueba"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimental"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Recordatorios"</string>
-    <!-- no translation found for preferences_reminders_responded_label (1196570678238475838) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
-    <skip />
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Omitir recordatorios"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Omitir recordatorios"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Horas de silencio"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Silenciar recordatorios de eventos durante un tiempo especificado"</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Inicio horas de silencio"</string>

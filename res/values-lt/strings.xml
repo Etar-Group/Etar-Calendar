@@ -194,10 +194,8 @@
     <string name="gadget_no_events" msgid="5209110911088302855">"Nėra būsimų kalendoriaus įvykių"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperimentinė versija"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"Priminimai"</string>
-    <!-- no translation found for preferences_reminders_responded_label (1196570678238475838) -->
-    <skip />
-    <!-- no translation found for preferences_reminders_responded_dialog (1873289128793828352) -->
-    <skip />
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Praleisti priminimus"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Praleisti priminimus"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Tylos valandos"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Nurodytą laiką nutildyti priminimus apie įvykį."</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Nutildymo laiko pradžia"</string>
