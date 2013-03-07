@@ -33,8 +33,11 @@ import android.view.MenuItem;
 import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+
+import java.util.ArrayList;
 
 public class EditEventActivity extends AbstractCalendarActivity {
     private static final String TAG = "EditEventActivity";
@@ -43,9 +46,17 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
 
+    public static final String EXTRA_EVENT_COLOR = "event_color";
+
+    public static final String EXTRA_EVENT_REMINDERS = "reminders";
+
     private static boolean mIsMultipane;
 
     private EditEventFragment mEditFragment;
+
+    private ArrayList<ReminderEntry> mReminders;
+
+    private int mEventColor;
 
     private EventInfo mEventInfo;
 
@@ -55,6 +66,8 @@ public class EditEventActivity extends AbstractCalendarActivity {
         setContentView(R.layout.simple_frame_layout);
 
         mEventInfo = getEventInfoFromIntent(icicle);
+        mReminders = getReminderEntriesFromIntent();
+        mEventColor = getIntent().getIntExtra(EXTRA_EVENT_COLOR, -1);
 
         mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.main_frame);
 
@@ -80,7 +93,8 @@ public class EditEventActivity extends AbstractCalendarActivity {
                 intent = getIntent();
             }
 
-            mEditFragment = new EditEventFragment(mEventInfo, false, intent);
+            mEditFragment = new EditEventFragment(mEventInfo, mReminders, mEventColor,
+                    false, intent);
 
             mEditFragment.mShowModifyDialogOnLaunch = getIntent().getBooleanExtra(
                     CalendarController.EVENT_EDIT_ON_LAUNCH, false);
@@ -90,6 +104,12 @@ public class EditEventActivity extends AbstractCalendarActivity {
             ft.show(mEditFragment);
             ft.commit();
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private ArrayList<ReminderEntry> getReminderEntriesFromIntent() {
+        Intent intent = getIntent();
+        return (ArrayList<ReminderEntry>) intent.getSerializableExtra(EXTRA_EVENT_REMINDERS);
     }
 
     private EventInfo getEventInfoFromIntent(Bundle icicle) {

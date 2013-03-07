@@ -1201,14 +1201,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mActivity.finish();
             return true;
         } else if (itemId == R.id.info_action_edit) {
-            Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
-            Intent intent = new Intent(Intent.ACTION_EDIT, uri);
-            intent.putExtra(EXTRA_EVENT_BEGIN_TIME, mStartMillis);
-            intent.putExtra(EXTRA_EVENT_END_TIME, mEndMillis);
-            intent.putExtra(EXTRA_EVENT_ALL_DAY, mAllDay);
-            intent.setClass(mActivity, EditEventActivity.class);
-            intent.putExtra(EVENT_EDIT_ON_LAUNCH, true);
-            startActivity(intent);
+            doEdit();
             mActivity.finish();
         } else if (itemId == R.id.info_action_delete) {
             mDeleteHelper =
@@ -1408,9 +1401,18 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         // This ensures that we aren't in the process of closing and have been
         // unattached already
         if (c != null) {
-            CalendarController.getInstance(c).sendEventRelatedEvent(
-                    this, EventType.EDIT_EVENT, mEventId, mStartMillis, mEndMillis, 0
-                    , 0, -1);
+            Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, mEventId);
+            Intent intent = new Intent(Intent.ACTION_EDIT, uri);
+            intent.setClass(mActivity, EditEventActivity.class);
+            intent.putExtra(EXTRA_EVENT_BEGIN_TIME, mStartMillis);
+            intent.putExtra(EXTRA_EVENT_END_TIME, mEndMillis);
+            intent.putExtra(EXTRA_EVENT_ALL_DAY, mAllDay);
+            intent.putExtra(EditEventActivity.EXTRA_EVENT_COLOR, mCurrentColor);
+            intent.putExtra(EditEventActivity.EXTRA_EVENT_REMINDERS, EventViewUtils
+                    .reminderItemsToReminders(mReminderViews, mReminderMinuteValues,
+                    mReminderMethodValues));
+            intent.putExtra(EVENT_EDIT_ON_LAUNCH, true);
+            startActivity(intent);
         }
     }
 
