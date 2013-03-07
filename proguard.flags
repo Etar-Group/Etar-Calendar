@@ -12,6 +12,10 @@
 }
 -keepclassmembers class com.android.calendar.AsyncQueryService {
   *** setTestHandler(...);
+  *** getLastCancelableOperation(...);
+}
+-keepclassmembers class com.android.calendar.AsyncQueryServiceHelper$OperationInfo {
+  *** equivalent(...);
 }
 -keepclassmembers class com.android.calendar.DayView {
   *** setAnimateDayHeight(...);
@@ -26,8 +30,10 @@
 -keepclassmembers class com.android.calendar.month.MonthWeekEventsView {
   *** setAnimateTodayAlpha(...);
 }
+-keepclassmembers class com.android.calendar.event.EditEventHelper {
+ *** extractDomain(...);
+}
 
 -keepclassmembers class * implements android.content.SharedPreferences$Editor {
   public *** apply();
 }
-
