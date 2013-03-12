@@ -195,7 +195,7 @@
     <item msgid="5033084974413793845">"日程"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
-    <item msgid="2285927842308686988">"仅在遭拒的情况下"</item>
-    <item msgid="6367412240524984286">"在遭拒或未响应的情况下"</item>
+    <item msgid="2285927842308686988">"仅在您不参加的情况下"</item>
+    <item msgid="6367412240524984286">"在您不参加或未回复的情况下"</item>
   </string-array>
 </resources>
