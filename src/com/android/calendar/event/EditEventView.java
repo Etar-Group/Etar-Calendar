@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.app.Service;
 import android.app.TimePickerDialog;
@@ -31,6 +32,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
@@ -77,6 +79,7 @@ import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.EmailAddressAdapter;
 import com.android.calendar.EventInfoFragment;
+import com.android.calendar.EventRecurrenceFormatter;
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
 import com.android.calendar.RecipientAdapter;
@@ -84,6 +87,7 @@ import com.android.calendar.TimezoneAdapter;
 import com.android.calendar.TimezoneAdapter.TimezoneRow;
 import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
+import com.android.calendar.recurrencepicker.RecurrencePickerDialog;
 import com.android.calendarcommon2.EventRecurrence;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
@@ -101,10 +105,12 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
-        DialogInterface.OnClickListener, OnItemSelectedListener {
+        DialogInterface.OnClickListener, OnItemSelectedListener,
+        RecurrencePickerDialog.OnRecurrenceSetListener {
     private static final String TAG = "EditEvent";
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final String PERIOD_SPACE = ". ";
+    static final String FRAG_TAG_RECUR_PICKER = "recurrencePickerDialogFragment";
 
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
@@ -126,7 +132,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     TextView mEndDateHome;
     CheckBox mAllDayCheckBox;
     Spinner mCalendarsSpinner;
-    Spinner mRepeatsSpinner;
+    Button mRruleButton;
     Spinner mAvailabilitySpinner;
     Spinner mAccessLevelSpinner;
     RadioGroup mResponseRadioGroup;
@@ -152,7 +158,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     View mEndHomeGroup;
 
     private int[] mOriginalPadding = new int[4];
-    private int[] mOriginalSpinnerPadding = new int[4];
 
     public boolean mIsMultipane;
     private ProgressDialog mLoadingCalendarsDialog;
@@ -166,8 +171,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private AccountSpecifier mAddressAdapter;
     private Rfc822Validator mEmailValidator;
     private TimezoneAdapter mTimezoneAdapter;
-
-    private ArrayList<Integer> mRecurrenceIndexes = new ArrayList<Integer>(0);
 
     /**
      * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
@@ -211,6 +214,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private ArrayList<LinearLayout> mReminderItems = new ArrayList<LinearLayout>(0);
     private ArrayList<ReminderEntry> mUnsupportedReminders = new ArrayList<ReminderEntry>();
+    private String mRrule;
 
     private static StringBuilder mSB = new StringBuilder(50);
     private static Formatter mF = new Formatter(mSB, Locale.getDefault());
@@ -428,159 +432,37 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     private void populateRepeats() {
-        Time time = mStartTime;
         Resources r = mActivity.getResources();
+        String repeatString;
+        boolean enabled;
+        if (!TextUtils.isEmpty(mRrule)) {
+            repeatString = EventRecurrenceFormatter.getRepeatString(mActivity, r,
+                    mEventRecurrence, true);
 
-        String[] days = new String[] {
-                DateUtils.getDayOfWeekString(Calendar.SUNDAY, DateUtils.LENGTH_MEDIUM),
-                DateUtils.getDayOfWeekString(Calendar.MONDAY, DateUtils.LENGTH_MEDIUM),
-                DateUtils.getDayOfWeekString(Calendar.TUESDAY, DateUtils.LENGTH_MEDIUM),
-                DateUtils.getDayOfWeekString(Calendar.WEDNESDAY, DateUtils.LENGTH_MEDIUM),
-                DateUtils.getDayOfWeekString(Calendar.THURSDAY, DateUtils.LENGTH_MEDIUM),
-                DateUtils.getDayOfWeekString(Calendar.FRIDAY, DateUtils.LENGTH_MEDIUM),
-                DateUtils.getDayOfWeekString(Calendar.SATURDAY, DateUtils.LENGTH_MEDIUM), };
-        String[] ordinals = r.getStringArray(R.array.ordinal_labels);
-
-        // Only display "Custom" in the spinner if the device does not support
-        // the recurrence functionality of the event. Only display every weekday
-        // if the event starts on a weekday.
-        boolean isCustomRecurrence = isCustomRecurrence();
-        boolean isWeekdayEvent = isWeekdayEvent();
-
-        ArrayList<String> repeatArray = new ArrayList<String>(0);
-        ArrayList<Integer> recurrenceIndexes = new ArrayList<Integer>(0);
-
-        repeatArray.add(r.getString(R.string.does_not_repeat));
-        recurrenceIndexes.add(EditEventHelper.DOES_NOT_REPEAT);
-
-        repeatArray.add(r.getString(R.string.daily));
-        recurrenceIndexes.add(EditEventHelper.REPEATS_DAILY);
-
-        if (isWeekdayEvent) {
-            repeatArray.add(r.getString(R.string.every_weekday));
-            recurrenceIndexes.add(EditEventHelper.REPEATS_EVERY_WEEKDAY);
-        }
-
-        String format = r.getString(R.string.weekly);
-        repeatArray.add(String.format(format, time.format("%A")));
-        recurrenceIndexes.add(EditEventHelper.REPEATS_WEEKLY_ON_DAY);
-
-        // Calculate whether this is the 1st, 2nd, 3rd, 4th, or last appearance
-        // of the given day.
-        int dayNumber = (time.monthDay - 1) / 7;
-        format = r.getString(R.string.monthly_on_day_count);
-        repeatArray.add(String.format(format, ordinals[dayNumber], days[time.weekDay]));
-        recurrenceIndexes.add(EditEventHelper.REPEATS_MONTHLY_ON_DAY_COUNT);
-
-        format = r.getString(R.string.monthly_on_day);
-        repeatArray.add(String.format(format, time.monthDay));
-        recurrenceIndexes.add(EditEventHelper.REPEATS_MONTHLY_ON_DAY);
-
-        long when = time.toMillis(false);
-        format = r.getString(R.string.yearly);
-        int flags = 0;
-        if (DateFormat.is24HourFormat(mActivity)) {
-            flags |= DateUtils.FORMAT_24HOUR;
-        }
-        repeatArray.add(String.format(format, DateUtils.formatDateTime(mActivity, when, flags)));
-        recurrenceIndexes.add(EditEventHelper.REPEATS_YEARLY);
-
-        if (isCustomRecurrence) {
-            repeatArray.add(r.getString(R.string.custom));
-            recurrenceIndexes.add(EditEventHelper.REPEATS_CUSTOM);
-        }
-        mRecurrenceIndexes = recurrenceIndexes;
-
-        int position = recurrenceIndexes.indexOf(EditEventHelper.DOES_NOT_REPEAT);
-        if (!TextUtils.isEmpty(mModel.mRrule)) {
-            if (isCustomRecurrence) {
-                position = recurrenceIndexes.indexOf(EditEventHelper.REPEATS_CUSTOM);
+            if (repeatString == null) {
+                repeatString = r.getString(R.string.custom);
+                Log.e(TAG, "Can't generate display string for " + mRrule);
+                enabled = false;
             } else {
-                switch (mEventRecurrence.freq) {
-                    case EventRecurrence.DAILY:
-                        position = recurrenceIndexes.indexOf(EditEventHelper.REPEATS_DAILY);
-                        break;
-                    case EventRecurrence.WEEKLY:
-                        if (mEventRecurrence.repeatsOnEveryWeekDay()) {
-                            position = recurrenceIndexes.indexOf(
-                                    EditEventHelper.REPEATS_EVERY_WEEKDAY);
-                        } else {
-                            position = recurrenceIndexes.indexOf(
-                                    EditEventHelper.REPEATS_WEEKLY_ON_DAY);
-                        }
-                        break;
-                    case EventRecurrence.MONTHLY:
-                        if (mEventRecurrence.repeatsMonthlyOnDayCount()) {
-                            position = recurrenceIndexes.indexOf(
-                                    EditEventHelper.REPEATS_MONTHLY_ON_DAY_COUNT);
-                        } else {
-                            position = recurrenceIndexes.indexOf(
-                                    EditEventHelper.REPEATS_MONTHLY_ON_DAY);
-                        }
-                        break;
-                    case EventRecurrence.YEARLY:
-                        position = recurrenceIndexes.indexOf(EditEventHelper.REPEATS_YEARLY);
-                        break;
+                // TODO Should give option to clear/reset rrule
+                enabled = RecurrencePickerDialog.canHandleRecurrenceRule(mEventRecurrence);
+                if (!enabled) {
+                    Log.e(TAG, "UI can't handle " + mRrule);
                 }
             }
+        } else {
+            repeatString = r.getString(R.string.does_not_repeat);
+            enabled = true;
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mActivity,
-                android.R.layout.simple_spinner_item, repeatArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mRepeatsSpinner.setAdapter(adapter);
-        mRepeatsSpinner.setSelection(position);
+
+        mRruleButton.setText(repeatString);
 
         // Don't allow the user to make exceptions recurring events.
         if (mModel.mOriginalSyncId != null) {
-            mRepeatsSpinner.setEnabled(false);
+            enabled = false;
         }
-    }
-
-    private boolean isCustomRecurrence() {
-
-        if (mEventRecurrence.until != null
-                || (mEventRecurrence.interval != 0 && mEventRecurrence.interval != 1)
-                || mEventRecurrence.count != 0) {
-            return true;
-        }
-
-        if (mEventRecurrence.freq == 0) {
-            return false;
-        }
-
-        switch (mEventRecurrence.freq) {
-            case EventRecurrence.DAILY:
-                return false;
-            case EventRecurrence.WEEKLY:
-                if (mEventRecurrence.repeatsOnEveryWeekDay() && isWeekdayEvent()) {
-                    return false;
-                } else if (mEventRecurrence.bydayCount == 1) {
-                    return false;
-                }
-                break;
-            case EventRecurrence.MONTHLY:
-                if (mEventRecurrence.repeatsMonthlyOnDayCount()) {
-                    /* this is a "3rd Tuesday of every month" sort of rule */
-                    return false;
-                } else if (mEventRecurrence.bydayCount == 0
-                        && mEventRecurrence.bymonthdayCount == 1
-                        && mEventRecurrence.bymonthday[0] > 0) {
-                    /* this is a "22nd day of every month" sort of rule */
-                    return false;
-                }
-                break;
-            case EventRecurrence.YEARLY:
-                return false;
-        }
-
-        return true;
-    }
-
-    private boolean isWeekdayEvent() {
-        if (mStartTime.weekDay != Time.SUNDAY && mStartTime.weekDay != Time.SATURDAY) {
-            return true;
-        }
-        return false;
+        mRruleButton.setOnClickListener(this);
+        mRruleButton.setEnabled(enabled);
     }
 
     private class DateClickListener implements View.OnClickListener {
@@ -590,6 +472,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTime = time;
         }
 
+        @Override
         public void onClick(View v) {
             DatePickerDialog dpd = new DatePickerDialog(
                     mActivity, new DateListener(v), mTime.year, mTime.month, mTime.monthDay);
@@ -680,6 +563,27 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     // on the "remove reminder" button.
     @Override
     public void onClick(View view) {
+        if (view == mRruleButton) {
+            Bundle b = new Bundle();
+            b.putLong(RecurrencePickerDialog.BUNDLE_START_TIME_MILLIS,
+                    mStartTime.toMillis(false));
+            b.putString(RecurrencePickerDialog.BUNDLE_TIME_ZONE, mStartTime.timezone);
+
+            // TODO may be more efficient to serialize and pass in EventRecurrence
+            b.putString(RecurrencePickerDialog.BUNDLE_RRULE, mRrule);
+
+            FragmentManager fm = mActivity.getFragmentManager();
+            RecurrencePickerDialog rpd = (RecurrencePickerDialog) fm
+                    .findFragmentByTag(FRAG_TAG_RECUR_PICKER);
+            if (rpd != null) {
+                rpd.dismiss();
+            }
+            rpd = new RecurrencePickerDialog();
+            rpd.setArguments(b);
+            rpd.setOnRecurrenceSetListener(EditEventView.this);
+            rpd.show(fm, FRAG_TAG_RECUR_PICKER);
+            return;
+        }
 
         // This must be a click on one of the "remove reminder" buttons
         LinearLayout reminderItem = (LinearLayout) view.getParent();
@@ -688,6 +592,17 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mReminderItems.remove(reminderItem);
         updateRemindersVisibility(mReminderItems.size());
         EventViewUtils.updateAddReminderButton(mView, mReminderItems, mModel.mCalendarMaxReminders);
+    }
+
+    @Override
+    public void onRecurrenceSet(String rrule) {
+        Log.d(TAG, "Old rrule:" + mRrule);
+        Log.d(TAG, "New rrule:" + rrule);
+        mRrule = rrule;
+        if (mRrule != null) {
+            mEventRecurrence.parse(mRrule);
+        }
+        populateRepeats();
     }
 
     // This is called if the user cancels the "No calendars" dialog.
@@ -812,18 +727,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mModel.mAvailability = mAvailabilityValues.get(mAvailabilitySpinner
                 .getSelectedItemPosition());
 
-        int selection;
+        // rrrule
         // If we're making an exception we don't want it to be a repeating
         // event.
         if (mModification == EditEventHelper.MODIFY_SELECTED) {
-            selection = EditEventHelper.DOES_NOT_REPEAT;
+            mModel.mRrule = null;
         } else {
-            int position = mRepeatsSpinner.getSelectedItemPosition();
-            selection = mRecurrenceIndexes.get(position);
+            mModel.mRrule = mRrule;
         }
-
-        EditEventHelper.updateRecurrenceRule(
-                selection, mModel, Utils.getFirstDayOfWeek(mActivity) + 1);
 
         // Save the timezone so we can display it as a standard option next time
         if (!mModel.mAllDay) {
@@ -861,7 +772,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEndTimeHome = (TextView) view.findViewById(R.id.end_time_home_tz);
         mEndDateHome = (TextView) view.findViewById(R.id.end_date_home_tz);
         mAllDayCheckBox = (CheckBox) view.findViewById(R.id.is_all_day);
-        mRepeatsSpinner = (Spinner) view.findViewById(R.id.repeats);
+        mRruleButton = (Button) view.findViewById(R.id.rrule);
         mAvailabilitySpinner = (Spinner) view.findViewById(R.id.availability);
         mAccessLevelSpinner = (Spinner) view.findViewById(R.id.visibility);
         mCalendarSelectorGroup = view.findViewById(R.id.calendar_selector_group);
@@ -928,16 +839,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
 
         mDescriptionTextView.setTag(mDescriptionTextView.getBackground());
-        mRepeatsSpinner.setTag(mRepeatsSpinner.getBackground());
         mAttendeesList.setTag(mAttendeesList.getBackground());
         mOriginalPadding[0] = mLocationTextView.getPaddingLeft();
         mOriginalPadding[1] = mLocationTextView.getPaddingTop();
         mOriginalPadding[2] = mLocationTextView.getPaddingRight();
         mOriginalPadding[3] = mLocationTextView.getPaddingBottom();
-        mOriginalSpinnerPadding[0] = mRepeatsSpinner.getPaddingLeft();
-        mOriginalSpinnerPadding[1] = mRepeatsSpinner.getPaddingTop();
-        mOriginalSpinnerPadding[2] = mRepeatsSpinner.getPaddingRight();
-        mOriginalSpinnerPadding[3] = mRepeatsSpinner.getPaddingBottom();
         mEditViewList.add(mTitleTextView);
         mEditViewList.add(mLocationTextView);
         mEditViewList.add(mDescriptionTextView);
@@ -967,6 +873,13 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         // Display loading screen
         setModel(null);
+
+        FragmentManager fm = activity.getFragmentManager();
+        RecurrencePickerDialog rpd = (RecurrencePickerDialog) fm
+                .findFragmentByTag(FRAG_TAG_RECUR_PICKER);
+        if (rpd != null) {
+            rpd.setOnRecurrenceSetListener(this);
+        }
     }
 
 
@@ -1101,9 +1014,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         boolean canRespond = EditEventHelper.canRespond(model);
 
-        final long eventId = model.mId;
-        final long calendarId = model.mCalendarId;
-
         long begin = model.mStart;
         long end = model.mEnd;
         mTimezone = model.mTimezone; // this will be UTC for all day events
@@ -1119,9 +1029,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mEndTime.set(end);
             mEndTime.normalize(true);
         }
-        String rrule = model.mRrule;
-        if (!TextUtils.isEmpty(rrule)) {
-            mEventRecurrence.parse(rrule);
+
+        mRrule = model.mRrule;
+        if (!TextUtils.isEmpty(mRrule)) {
+            mEventRecurrence.parse(mRrule);
+        }
+
+        if (mEventRecurrence.startDate == null) {
+            mEventRecurrence.startDate = mStartTime;
         }
 
         // If the user is allowed to change the attendees set up the view and
@@ -1439,8 +1354,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             }
             mCalendarSelectorGroup.setVisibility(View.GONE);
             mCalendarStaticGroup.setVisibility(View.VISIBLE);
-            mRepeatsSpinner.setEnabled(false);
-            mRepeatsSpinner.setBackgroundDrawable(null);
+            mRruleButton.setEnabled(false);
+            mRruleButton.setBackgroundDrawable(null);
             if (EditEventHelper.canAddReminders(mModel)) {
                 mRemindersGroup.setVisibility(View.VISIBLE);
             } else {
@@ -1474,13 +1389,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mCalendarSelectorGroup.setVisibility(View.GONE);
                 mCalendarStaticGroup.setVisibility(View.VISIBLE);
             }
-            mRepeatsSpinner.setBackgroundDrawable((Drawable) mRepeatsSpinner.getTag());
-            mRepeatsSpinner.setPadding(mOriginalSpinnerPadding[0], mOriginalSpinnerPadding[1],
-                    mOriginalSpinnerPadding[2], mOriginalSpinnerPadding[3]);
             if (mModel.mOriginalSyncId == null) {
-                mRepeatsSpinner.setEnabled(true);
+                mRruleButton.setEnabled(true);
             } else {
-                mRepeatsSpinner.setEnabled(false);
+                mRruleButton.setEnabled(false);
             }
             mRemindersGroup.setVisibility(View.VISIBLE);
 

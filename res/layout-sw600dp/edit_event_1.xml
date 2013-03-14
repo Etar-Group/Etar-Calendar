@@ -393,10 +393,22 @@
             android:id="@+id/repeats_label"
             android:text="@string/repeats_label"
             style="@style/TextAppearance.EditEvent_Label" />
-        <Spinner
-            android:id="@+id/repeats"
-            style="@style/TextAppearance.EditEvent_Spinner"
-            android:prompt="@string/repeats_label" />
+        <Button
+            android:id="@+id/rrule"
+            android:text="@string/does_not_repeat"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="top"
+            android:paddingBottom="4dp"
+            android:layout_marginTop="0dip"
+            android:layout_marginBottom="0dip"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textColor="#FF777777"
+            android:minHeight="20dip"
+            android:background="?android:attr/selectableItemBackground"
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
     </TableRow>
 
     <!-- REMINDERS -->

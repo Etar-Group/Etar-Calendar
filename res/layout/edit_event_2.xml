@@ -158,13 +158,21 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
-        <Spinner
-            android:id="@+id/repeats"
-            style="@style/TextAppearance.EditEvent_Spinner"
+        <Button
+            android:id="@+id/rrule"
+            android:text="@string/does_not_repeat"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:contentDescription="@string/accessibility_repeats"
-            android:prompt="@string/repeats_label" />
+            android:layout_gravity="center_vertical"
+            android:gravity="top"
+            android:layout_marginTop="12dip"
+            android:layout_marginBottom="0dip"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textColor="#FF777777"
+            android:minHeight="20dip"
+            android:background="?android:attr/selectableItemBackground"
+            style="@style/TextAppearance.EditEvent_LabelSmall" />
     </LinearLayout>
 
     <View
