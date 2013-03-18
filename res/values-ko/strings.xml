@@ -114,7 +114,7 @@
     <string name="map_label" msgid="8795383535586556038">"지도"</string>
     <string name="call_label" msgid="2960328220008869083">"통화"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"빠른 응답"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"손님 메일 응답수정"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"참석자에게 보내는 빠른 응답 메시지 수정"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"빠른 응답 수정"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"빠른 응답"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"빠른 응답 선택"</string>
