@@ -144,9 +144,15 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"सभी खारिज करें"</string>
     <string name="snooze_label" msgid="1515893621063224666">"स्‍नूज़ करें"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"एक-बार का ईवेंट"</string>
-    <string name="daily" msgid="560350706808680448">"प्रतिदिन"</string>
+    <!-- no translation found for endByDate (7654221304929538201) -->
+    <skip />
+    <!-- no translation found for endByCount:one (3727754565990691816) -->
+    <!-- no translation found for endByCount:other (4855496837834652446) -->
+    <!-- no translation found for daily:one (5169052946627480942) -->
+    <!-- no translation found for daily:other (5455230727715859264) -->
     <string name="every_weekday" msgid="5896574838353902978">"प्रत्‍येक कार्य-दिवस (सोम–शुक्र)"</string>
-    <string name="weekly" msgid="2006107373119027114">"साप्ताहिक (प्रत्येक <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <!-- no translation found for weekly:one (5463021019301453273) -->
+    <!-- no translation found for weekly:other (2857390143157377867) -->
     <string name="monthly_on_day_count" msgid="6847991854413461795">"मासिक (प्रत्येक <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"मासिक"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"वार्षिक"</string>
@@ -234,4 +240,24 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"चयनित ईवेंट"</string>
     <string name="do_not_check" msgid="7815441673853466129">"चेक न करें -&gt;"</string>
+    <!-- no translation found for recurrence_dialog_title (8093909645557717483) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_daily (4977986983228603244) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_weekly (7848383849108269893) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_monthly (3720666968565545709) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_yearly (8069673391679630408) -->
+    <skip />
+    <!-- no translation found for recurrence_month_pattern_by_day (4400107556121003459) -->
+    <skip />
+    <!-- no translation found for recurrence_month_pattern_by_day_of_week (6397271483826512155) -->
+    <skip />
+    <!-- no translation found for recurrence_end_continously (1210361105437324116) -->
+    <skip />
+    <!-- no translation found for recurrence_end_date_label (591172157554002600) -->
+    <skip />
+    <!-- no translation found for recurrence_end_count_label (6534979921514300584) -->
+    <skip />
 </resources>
