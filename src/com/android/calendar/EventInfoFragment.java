@@ -27,6 +27,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.app.Service;
 import android.content.ActivityNotFoundException;
 import android.content.ContentProviderOperation;
@@ -1222,8 +1223,10 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     mIsTabletConfig);
             mDialog.setTargetFragment(this, REQUEST_CODE_COLOR_PICKER);
         }
+        final FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.executePendingTransactions();
         if (!mDialog.isAdded()) {
-            mDialog.show(getFragmentManager(), TAG);
+            mDialog.show(fragmentManager, TAG);
         }
     }
 

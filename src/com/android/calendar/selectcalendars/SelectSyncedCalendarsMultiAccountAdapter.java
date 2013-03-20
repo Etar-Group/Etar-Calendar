@@ -334,6 +334,7 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
                 } else {
                     mDialog.setCalendarId(id);
                 }
+                mFragmentManager.executePendingTransactions();
                 if (!mDialog.isAdded()) {
                     mDialog.show(mFragmentManager, TAG);
                 }
