@@ -1514,7 +1514,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                 date.timezone = Time.TIMEZONE_UTC;
             }
             eventRecurrence.setStartDate(date);
-            repeatString = EventRecurrenceFormatter.getRepeatString(resources, eventRecurrence);
+            repeatString = EventRecurrenceFormatter.getRepeatString(mContext, resources,
+                    eventRecurrence, true);
         }
         if (repeatString == null) {
             view.findViewById(R.id.when_repeat).setVisibility(View.GONE);

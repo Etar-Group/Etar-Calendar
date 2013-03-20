@@ -417,4 +417,13 @@
         <item>declined</item>
         <item>not_responded</item>
     </string-array>
+
+    <!-- Recurrence picker: How events are to be repeated.  [CHAR LIMIT = 20] -->
+    <string-array name="recurrence_freq">
+        <item >One-time event</item>
+        <item >Daily</item>
+        <item >Weekly</item>
+        <item >Monthly</item>
+        <item >Yearly</item>
+    </string-array>
 </resources>
