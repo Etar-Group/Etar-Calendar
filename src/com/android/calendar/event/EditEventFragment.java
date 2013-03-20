@@ -127,6 +127,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private boolean mIsReadOnly = false;
     public boolean mShowModifyDialogOnLaunch = false;
 
+    private boolean mTimeSelectedWasStartTime;
+
     private InputMethodManager mInputMethodManager;
 
     private final Intent mIntent;
@@ -522,7 +524,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         } else {
             view = inflater.inflate(R.layout.edit_event, null);
         }
-        mView = new EditEventView(mContext, view, mOnDone);
+        mView = new EditEventView(mContext, view, mOnDone, mTimeSelectedWasStartTime);
         startQuery();
 
         if (mUseCustomActionBar) {
@@ -569,6 +571,11 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             if (savedInstanceState.containsKey(BUNDLE_KEY_READ_ONLY)) {
                 mIsReadOnly = savedInstanceState.getBoolean(BUNDLE_KEY_READ_ONLY);
             }
+            if (savedInstanceState.containsKey("EditEventView_timebuttonclicked")) {
+                mTimeSelectedWasStartTime = savedInstanceState.getBoolean(
+                        "EditEventView_timebuttonclicked");
+            }
+
         }
     }
 
@@ -891,6 +898,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         outState.putBoolean(BUNDLE_KEY_EDIT_ON_LAUNCH, mShowModifyDialogOnLaunch);
         outState.putSerializable(BUNDLE_KEY_EVENT, mEventBundle);
         outState.putBoolean(BUNDLE_KEY_READ_ONLY, mIsReadOnly);
+
+        outState.putBoolean("EditEventView_timebuttonclicked", mView.mTimeSelectedWasStartTime);
     }
 
     @Override
