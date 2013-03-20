@@ -16,57 +16,99 @@
 
 package com.android.calendar;
 
-import com.android.calendarcommon2.EventRecurrence;
-
+import android.content.Context;
 import android.content.res.Resources;
 import android.text.format.DateUtils;
+import android.text.format.Time;
+import android.util.TimeFormatException;
+
+import com.android.calendarcommon2.EventRecurrence;
 
 import java.util.Calendar;
 
 public class EventRecurrenceFormatter
 {
-    public static String getRepeatString(Resources r, EventRecurrence recurrence) {
+    public static String getRepeatString(Context context, Resources r, EventRecurrence recurrence,
+            boolean includeEndString) {
+        String endString = "";
+        if (includeEndString) {
+            StringBuilder sb = new StringBuilder();
+            if (recurrence.until != null) {
+                try {
+                    Time t = new Time();
+                    t.parse(recurrence.until);
+                    final String dateStr = DateUtils.formatDateTime(context,
+                            t.toMillis(false), DateUtils.FORMAT_NUMERIC_DATE);
+                    sb.append(r.getString(R.string.endByDate, dateStr));
+                } catch (TimeFormatException e) {
+                }
+            }
+
+            if (recurrence.count > 0) {
+                sb.append(r.getQuantityString(R.plurals.endByCount, recurrence.count,
+                        recurrence.count));
+            }
+            endString = sb.toString();
+        }
+
         // TODO Implement "Until" portion of string, as well as custom settings
+        int interval = recurrence.interval <= 1 ? 1 : recurrence.interval;
         switch (recurrence.freq) {
             case EventRecurrence.DAILY:
-                return r.getString(R.string.daily);
+                return r.getQuantityString(R.plurals.daily, interval, interval) + endString;
             case EventRecurrence.WEEKLY: {
                 if (recurrence.repeatsOnEveryWeekDay()) {
-                    return r.getString(R.string.every_weekday);
+                    return r.getString(R.string.every_weekday) + endString;
                 } else {
-                    String format = r.getString(R.string.weekly);
+                    String string;
+
+                    int dayOfWeekLength = DateUtils.LENGTH_MEDIUM;
+                    if (recurrence.bydayCount == 1) {
+                        dayOfWeekLength = DateUtils.LENGTH_LONG;
+                    }
+
                     StringBuilder days = new StringBuilder();
 
                     // Do one less iteration in the loop so the last element is added out of the
                     // loop. This is done so the comma is not placed after the last item.
-                    int count = recurrence.bydayCount - 1;
-                    if (count >= 0) {
+
+                    if (recurrence.bydayCount > 0) {
+                        int count = recurrence.bydayCount - 1;
                         for (int i = 0 ; i < count ; i++) {
-                            days.append(dayToString(recurrence.byday[i]));
-                            days.append(",");
+                            days.append(dayToString(recurrence.byday[i], dayOfWeekLength));
+                            days.append(", ");
                         }
-                        days.append(dayToString(recurrence.byday[count]));
+                        days.append(dayToString(recurrence.byday[count], dayOfWeekLength));
 
-                        return String.format(format, days.toString());
+                        string = days.toString();
+                    } else {
+                        // There is no "BYDAY" specifier, so use the day of the
+                        // first event.  For this to work, the setStartDate()
+                        // method must have been used by the caller to set the
+                        // date of the first event in the recurrence.
+                        if (recurrence.startDate == null) {
+                            return null;
+                        }
+
+                        int day = EventRecurrence.timeDay2Day(recurrence.startDate.weekDay);
+                        string = dayToString(day, DateUtils.LENGTH_LONG);
                     }
-
-                    // There is no "BYDAY" specifier, so use the day of the
-                    // first event.  For this to work, the setStartDate()
-                    // method must have been used by the caller to set the
-                    // date of the first event in the recurrence.
-                    if (recurrence.startDate == null) {
-                        return null;
-                    }
-
-                    int day = EventRecurrence.timeDay2Day(recurrence.startDate.weekDay);
-                    return String.format(format, dayToString(day));
+                    return r.getQuantityString(R.plurals.weekly, interval, interval, string)
+                            + endString;
                 }
             }
             case EventRecurrence.MONTHLY: {
-                return r.getString(R.string.monthly);
+                if (recurrence.bydayCount == 1) {
+                    String[] ordinals = r.getStringArray(R.array.ordinal_labels);
+                    int dayNumber = (recurrence.startDate.monthDay - 1) / 7;
+                    int day = EventRecurrence.timeDay2Day(recurrence.startDate.weekDay);
+                    return r.getString(R.string.monthly_on_day_count, ordinals[dayNumber],
+                            dayToString(day, DateUtils.LENGTH_LONG)) + endString;
+                }
+                return r.getString(R.string.monthly) + endString;
             }
             case EventRecurrence.YEARLY:
-                return r.getString(R.string.yearly_plain);
+                return r.getString(R.string.yearly_plain) + endString;
         }
 
         return null;
@@ -77,8 +119,8 @@ public class EventRecurrenceFormatter
      * @param day a EventRecurrence constant
      * @return day of week as a string
      */
-    private static String dayToString(int day) {
-        return DateUtils.getDayOfWeekString(dayToUtilDay(day), DateUtils.LENGTH_LONG);
+    private static String dayToString(int day, int dayOfWeekLength) {
+        return DateUtils.getDayOfWeekString(dayToUtilDay(day), dayOfWeekLength);
     }
 
     /**
