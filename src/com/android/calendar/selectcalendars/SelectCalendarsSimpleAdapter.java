@@ -240,6 +240,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
                 } else {
                     mDialog.setCalendarId(mData[position].id);
                 }
+                mFragmentManager.executePendingTransactions();
                 if (!mDialog.isAdded()) {
                     mDialog.show(mFragmentManager, "Fragment");
                 }
