@@ -19,6 +19,7 @@ package com.android.calendar.event;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.AsyncQueryHandler;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
@@ -377,8 +378,10 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                 mDialog.setCalendarColor(mModel.mCalendarColor);
                 mDialog.setColors(colors, mModel.mEventColor);
             }
+            final FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.executePendingTransactions();
             if (!mDialog.isAdded()) {
-                mDialog.show(getFragmentManager(), TAG);
+                mDialog.show(fragmentManager, TAG);
             }
         }
     };
