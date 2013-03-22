@@ -144,15 +144,20 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"모두 해제"</string>
     <string name="snooze_label" msgid="1515893621063224666">"알림 일시중지"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"한번만"</string>
-    <!-- no translation found for endByDate (7654221304929538201) -->
-    <skip />
-    <!-- no translation found for endByCount:one (3727754565990691816) -->
-    <!-- no translation found for endByCount:other (4855496837834652446) -->
-    <!-- no translation found for daily:one (5169052946627480942) -->
-    <!-- no translation found for daily:other (5455230727715859264) -->
+    <string name="endByDate" msgid="7654221304929538201">"; <xliff:g id="DATE">%s</xliff:g>까지"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; 일회성"</item>
+    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g>회"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"매일"</item>
+    <item quantity="other" msgid="5455230727715859264">"<xliff:g id="NUMBER">%d</xliff:g>일에 한 번"</item>
+  </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"주중 매일(월-금)"</string>
-    <!-- no translation found for weekly:one (5463021019301453273) -->
-    <!-- no translation found for weekly:other (2857390143157377867) -->
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"매주 <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"<xliff:g id="NUMBER">%1$d</xliff:g>주에 한 번 <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
     <string name="monthly_on_day_count" msgid="6847991854413461795">"매월(<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"매월"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"매년"</string>
@@ -240,24 +245,14 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"선택한 일정"</string>
     <string name="do_not_check" msgid="7815441673853466129">"선택안함 -&gt;"</string>
-    <!-- no translation found for recurrence_dialog_title (8093909645557717483) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_daily (4977986983228603244) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_weekly (7848383849108269893) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_monthly (3720666968565545709) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_yearly (8069673391679630408) -->
-    <skip />
-    <!-- no translation found for recurrence_month_pattern_by_day (4400107556121003459) -->
-    <skip />
-    <!-- no translation found for recurrence_month_pattern_by_day_of_week (6397271483826512155) -->
-    <skip />
-    <!-- no translation found for recurrence_end_continously (1210361105437324116) -->
-    <skip />
-    <!-- no translation found for recurrence_end_date_label (591172157554002600) -->
-    <skip />
-    <!-- no translation found for recurrence_end_count_label (6534979921514300584) -->
-    <skip />
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"반복"</string>
+    <string name="recurrence_interval_daily" msgid="4977986983228603244">"<xliff:g id="COUNT">%d</xliff:g>일에 한 번"</string>
+    <string name="recurrence_interval_weekly" msgid="7848383849108269893">"<xliff:g id="COUNT">%d</xliff:g>주에 한 번"</string>
+    <string name="recurrence_interval_monthly" msgid="3720666968565545709">"<xliff:g id="COUNT">%d</xliff:g>개월에 한 번"</string>
+    <string name="recurrence_interval_yearly" msgid="8069673391679630408">"<xliff:g id="COUNT">%d</xliff:g>년에 한 번"</string>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"매월 같은 날"</string>
+    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"매월 <xliff:g id="NTH">%1$s</xliff:g>번째 <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
+    <string name="recurrence_end_continously" msgid="1210361105437324116">"계속"</string>
+    <string name="recurrence_end_date_label" msgid="591172157554002600">"특정일까지"</string>
+    <string name="recurrence_end_count_label" msgid="6534979921514300584">"여러번"</string>
 </resources>
