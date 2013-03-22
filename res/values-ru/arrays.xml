@@ -198,9 +198,11 @@
     <item msgid="2285927842308686988">"Только если отклонено"</item>
     <item msgid="6367412240524984286">"Если отклонено или нет ответа"</item>
   </string-array>
-    <!-- no translation found for recurrence_freq:0 (5615646001970363101) -->
-    <!-- no translation found for recurrence_freq:1 (8180897052611600177) -->
-    <!-- no translation found for recurrence_freq:2 (6562715790445608347) -->
-    <!-- no translation found for recurrence_freq:3 (4553381288472120599) -->
-    <!-- no translation found for recurrence_freq:4 (3949550801992570628) -->
+  <string-array name="recurrence_freq">
+    <item msgid="5615646001970363101">"Однократное мероприятие"</item>
+    <item msgid="8180897052611600177">"Ежедневно"</item>
+    <item msgid="6562715790445608347">"Еженедельно"</item>
+    <item msgid="4553381288472120599">"Ежемесячно"</item>
+    <item msgid="3949550801992570628">"Ежегодно"</item>
+  </string-array>
 </resources>
