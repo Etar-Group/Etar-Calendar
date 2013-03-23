@@ -19,11 +19,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <!-- Grabbing focus to prevent interval from gaining focus at launch -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:descendantFocusability="beforeDescendants"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical" >
 
         <Spinner
@@ -57,6 +62,7 @@
                 android:gravity="center_horizontal"
                 android:inputType="number"
                 android:maxLength="2"
+                android:selectAllOnFocus="true"
                 android:singleLine="true" >
             </EditText>
 
@@ -147,6 +153,7 @@
                 android:gravity="center_horizontal"
                 android:inputType="number"
                 android:maxLength="3"
+                android:selectAllOnFocus="true"
                 android:singleLine="true"
                 android:visibility="gone" />
         </LinearLayout>
