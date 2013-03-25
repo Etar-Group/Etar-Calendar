@@ -250,7 +250,7 @@
     <string name="recurrence_interval_weekly" msgid="7848383849108269893">"<xliff:g id="COUNT">%d</xliff:g>週間ごと"</string>
     <string name="recurrence_interval_monthly" msgid="3720666968565545709">"<xliff:g id="COUNT">%d</xliff:g>か月ごと"</string>
     <string name="recurrence_interval_yearly" msgid="8069673391679630408">"<xliff:g id="COUNT">%d</xliff:g>年ごと"</string>
-    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"毎月同じ曜日"</string>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"毎月同じ日"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"<xliff:g id="NTH">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>ごと"</string>
     <string name="recurrence_end_continously" msgid="1210361105437324116">"無期限"</string>
     <string name="recurrence_end_date_label" msgid="591172157554002600">"特定の日付まで"</string>
