@@ -18,9 +18,9 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true" android:state_window_focused="true"
-          android:drawable="@drawable/toggle_underline_activated"/>
+          android:drawable="@drawable/ic_recurrence_bubble_fill"/>
     <item android:state_checked="true"
-          android:drawable="@drawable/toggle_underline_activated"/>
+          android:drawable="@drawable/ic_recurrence_bubble_fill"/>
     <item
-          android:drawable="@drawable/toggle_underline_normal"/>
+          android:drawable="@drawable/ic_recurrence_bubble_outline"/>
 </selector>
