@@ -699,9 +699,15 @@
     <string name="recurrence_month_pattern_by_day_of_week">on every <xliff:g id="nth">%1$s</xliff:g> <xliff:g id="day_of_week">%2$s</xliff:g></string>
 
     <!-- Specifies that a repeating event to repeat forever[CHAR LIMIT=25] -->
-    <string name="recurrence_end_continously">continuously</string>
+    <string name="recurrence_end_continously">Repeats forever</string>
     <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
-    <string name="recurrence_end_date_label">until a date</string>
+    <string name="recurrence_end_date_label">Until a date</string>
+    <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
+    <string name="recurrence_end_date">until <xliff:g id="date">%s</xliff:g></string>
     <!-- Specifies that a repeating event to repeat for a number of times[CHAR LIMIT=25] -->
-    <string name="recurrence_end_count_label">for a number of events</string>
+    <string name="recurrence_end_count_label">For a number of events</string>
+
+    <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->
+    <string name="acessibility_recurrence_choose_end_date_description">change end date</string>
+
 </resources>
