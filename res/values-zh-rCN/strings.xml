@@ -146,11 +146,11 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"一次性活动"</string>
     <string name="endByDate" msgid="7654221304929538201">"；直到<xliff:g id="DATE">%s</xliff:g>"</string>
   <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"；一次"</item>
-    <item quantity="other" msgid="4855496837834652446">"；<xliff:g id="NUMBER">%d</xliff:g>次"</item>
+    <item quantity="one" msgid="3727754565990691816">"1次"</item>
+    <item quantity="other" msgid="4855496837834652446">"<xliff:g id="NUMBER">%d</xliff:g>次"</item>
   </plurals>
   <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"每日"</item>
+    <item quantity="one" msgid="5169052946627480942">"每天"</item>
     <item quantity="other" msgid="5455230727715859264">"每<xliff:g id="NUMBER">%d</xliff:g>天"</item>
   </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"每个工作日（周一至周五）"</string>
@@ -254,5 +254,5 @@
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"在每个月的<xliff:g id="NTH">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="recurrence_end_continously" msgid="1210361105437324116">"不间断"</string>
     <string name="recurrence_end_date_label" msgid="591172157554002600">"直到某个日期"</string>
-    <string name="recurrence_end_count_label" msgid="6534979921514300584">"一定次数的活动"</string>
+    <string name="recurrence_end_count_label" msgid="6534979921514300584">"限定次数"</string>
 </resources>
