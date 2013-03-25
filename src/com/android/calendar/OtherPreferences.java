@@ -97,8 +97,12 @@ public class OtherPreferences extends PreferenceFragment  implements OnPreferenc
         addPreferencesFromResource(R.xml.other_preferences);
         mCopyDb = findPreference(KEY_OTHER_COPY_DB);
         mSkipReminders = (ListPreference) findPreference(KEY_OTHER_REMINDERS_RESPONDED);
-        updateSkipRemindersSummary(null);
-        mSkipReminders.setOnPreferenceChangeListener(this);
+        String skipPreferencesValue = null;
+        if (mSkipReminders != null) {
+            skipPreferencesValue = mSkipReminders.getValue();
+            mSkipReminders.setOnPreferenceChangeListener(this);
+        }
+        updateSkipRemindersSummary(skipPreferencesValue);
 
         Activity activity = getActivity();
         if (activity == null) {
