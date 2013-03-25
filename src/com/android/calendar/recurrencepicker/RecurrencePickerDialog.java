@@ -43,6 +43,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -66,12 +67,18 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
 
     private static final String TAG = "RecurrencePickerDialog";
 
+    // in dp's
+    private static final int MIN_SCREEN_WIDTH_FOR_SINGLE_ROW_WEEK = 450;
+
     // Update android:maxLength in EditText as needed
     private static final int INTERVAL_MAX = 99;
     private static final int INTERVAL_DEFAULT = 1;
     // Update android:maxLength in EditText as needed
     private static final int COUNT_MAX = 730;
     private static final int COUNT_DEFAULT = 5;
+
+    private static final int DAY_OF_WEEK_CHECKED_TEXT_COLOR = 0xFFFFFFFF;
+    private static final int DAY_OF_WEEK_UNCHECKED_TEXT_COLOR = 0xFF000000;
 
     private class Model implements Parcelable {
 
@@ -317,6 +324,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     private static final String BUNDLE_END_YEAR = "bundle_end_year";
     private static final String BUNDLE_END_MONTH = "bundle_end_month";
     private static final String BUNDLE_END_DAY = "bundle_end_day";
+    private static final String BUNDLE_END_COUNT_HAS_FOCUS = "bundle_end_count_has_focus";
 
     private static final String FRAG_TAG_DATE_PICKER = "tag_date_picker_frag";
 
@@ -327,15 +335,17 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
 
     private LinearLayout mEndGroup;
     private Spinner mEndSpinner;
-    private Button mEndDateTextView;
+    private ImageButton mEndDateTextView;
     private EditText mEndCount;
 
     private ArrayList<CharSequence> mEndSpinnerArray = new ArrayList<CharSequence>(3);
     private ArrayAdapter<CharSequence> mEndSpinnerAdapter;
     private String mEndNeverStr;
+    private String mEndDateLabel;
 
     /** Hold toggle buttons in the order per user's first day of week preference */
     private LinearLayout mWeekGroup;
+    private LinearLayout mWeekGroup2;
     // Sun = 0
     private ToggleButton[] mWeekByDayButtons = new ToggleButton[7];
     private String[] mDayOfWeekString;
@@ -410,46 +420,45 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     }
 
     // TODO compare
-//    private boolean isCustomRecurrence() {
-//
-//        if (mEventRecurrence.until != null
-//                || (mEventRecurrence.interval != 0 && mEventRecurrence.interval != 1)
-//                || mEventRecurrence.count != 0) {
-//            return true;
-//        }
-//
-//        if (mEventRecurrence.freq == 0) {
-//            return false;
-//        }
-//
-//        switch (mEventRecurrence.freq) {
-//            case EventRecurrence.DAILY:
-//                return false;
-//            case EventRecurrence.WEEKLY:
-//                if (mEventRecurrence.repeatsOnEveryWeekDay() && isWeekdayEvent()) {
-//                    return false;
-//                } else if (mEventRecurrence.bydayCount == 1) {
-//                    return false;
-//                }
-//                break;
-//            case EventRecurrence.MONTHLY:
-//                if (mEventRecurrence.repeatsMonthlyOnDayCount()) {
-//                    /* this is a "3rd Tuesday of every month" sort of rule */
-//                    return false;
-//                } else if (mEventRecurrence.bydayCount == 0
-//                        && mEventRecurrence.bymonthdayCount == 1
-//                        && mEventRecurrence.bymonthday[0] > 0) {
-//                    /* this is a "22nd day of every month" sort of rule */
-//                    return false;
-//                }
-//                break;
-//            case EventRecurrence.YEARLY:
-//                return false;
-//        }
-//
-//        return true;
-//    }
-
+    // private boolean isCustomRecurrence() {
+    //
+    // if (mEventRecurrence.until != null
+    // || (mEventRecurrence.interval != 0 && mEventRecurrence.interval != 1)
+    // || mEventRecurrence.count != 0) {
+    // return true;
+    // }
+    //
+    // if (mEventRecurrence.freq == 0) {
+    // return false;
+    // }
+    //
+    // switch (mEventRecurrence.freq) {
+    // case EventRecurrence.DAILY:
+    // return false;
+    // case EventRecurrence.WEEKLY:
+    // if (mEventRecurrence.repeatsOnEveryWeekDay() && isWeekdayEvent()) {
+    // return false;
+    // } else if (mEventRecurrence.bydayCount == 1) {
+    // return false;
+    // }
+    // break;
+    // case EventRecurrence.MONTHLY:
+    // if (mEventRecurrence.repeatsMonthlyOnDayCount()) {
+    // /* this is a "3rd Tuesday of every month" sort of rule */
+    // return false;
+    // } else if (mEventRecurrence.bydayCount == 0
+    // && mEventRecurrence.bymonthdayCount == 1
+    // && mEventRecurrence.bymonthday[0] > 0) {
+    // /* this is a "22nd day of every month" sort of rule */
+    // return false;
+    // }
+    // break;
+    // case EventRecurrence.YEARLY:
+    // return false;
+    // }
+    //
+    // return true;
+    // }
 
     // TODO don't lose data when getting data that our UI can't handle
     static private void copyEventRecurrenceToModel(final EventRecurrence er, Model model) {
@@ -654,11 +663,13 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
             Bundle savedInstanceState) {
         mRecurrence.wkst = EventRecurrence.timeDay2Day(Utils.getFirstDayOfWeek(getActivity()));
 
+        boolean endCountHasFocus = false;
         if (savedInstanceState != null) {
             Model m = (Model) savedInstanceState.get(BUNDLE_MODEL);
             if (m != null) {
                 mModel = m;
             }
+            endCountHasFocus = savedInstanceState.getBoolean(BUNDLE_END_COUNT_HAS_FOCUS);
         } else {
             Bundle b = getArguments();
             if (b != null) {
@@ -706,12 +717,13 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
 
         mEndGroup = (LinearLayout) mView.findViewById(R.id.endGroup);
         mEndNeverStr = mResources.getString(R.string.recurrence_end_continously);
+        mEndDateLabel = mResources.getString(R.string.recurrence_end_date_label);
         // mEndByDateFormatStr =
         // mResources.getString(R.string.recurrence_end_date);
         // mEndByCountFormatStr =
         // mResources.getString(R.string.recurrence_end_count);
         mEndSpinnerArray.add(mEndNeverStr);
-        mEndSpinnerArray.add(mResources.getString(R.string.recurrence_end_date_label));
+        mEndSpinnerArray.add(mEndDateLabel);
         mEndSpinnerArray.add(mResources.getString(R.string.recurrence_end_count_label));
         mEndSpinner = (Spinner) mView.findViewById(R.id.endSpinner);
         mEndSpinner.setOnItemSelectedListener(this);
@@ -727,7 +739,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                 mModel.endCount = v;
             }
         });
-        mEndDateTextView = (Button) mView.findViewById(R.id.endDate);
+        mEndDateTextView = (ImageButton) mView.findViewById(R.id.endDate);
         mEndDateTextView.setOnClickListener(this);
         if (mModel.endDate == null) {
             mModel.endDate = new Time(mTime);
@@ -748,6 +760,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
         }
 
         mWeekGroup = (LinearLayout) mView.findViewById(R.id.weekGroup);
+        mWeekGroup2 = (LinearLayout) mView.findViewById(R.id.weekGroup2);
 
         mOrdinalArray = mResources.getStringArray(R.array.ordinal_labels);
 
@@ -764,8 +777,48 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
         // In Calendar.java day of week order e.g Sun = 1 ... Sat = 7
         dayOfWeekString = new DateFormatSymbols().getShortWeekdays();
 
+        int numOfButtonsInRow1;
+        int numOfButtonsInRow2;
+
+        if (mResources.getConfiguration().screenWidthDp > MIN_SCREEN_WIDTH_FOR_SINGLE_ROW_WEEK) {
+            numOfButtonsInRow1 = 7;
+            numOfButtonsInRow2 = 0;
+            mWeekGroup2.setVisibility(View.GONE);
+            mWeekGroup2.getChildAt(3).setVisibility(View.GONE);
+        } else {
+            numOfButtonsInRow1 = 4;
+            numOfButtonsInRow2 = 3;
+
+            mWeekGroup2.setVisibility(View.VISIBLE);
+            // Set rightmost button on the second row invisible so it takes up
+            // space and everything centers properly
+            mWeekGroup2.getChildAt(3).setVisibility(View.INVISIBLE);
+        }
+
+        /* First row */
         for (int i = 0; i < 7; i++) {
+            if (i >= numOfButtonsInRow1) {
+                mWeekGroup.getChildAt(i).setVisibility(View.GONE);
+                continue;
+            }
+
             mWeekByDayButtons[idx] = (ToggleButton) mWeekGroup.getChildAt(i);
+            mWeekByDayButtons[idx].setTextOff(dayOfWeekString[TIME_DAY_TO_CALENDAR_DAY[idx]]);
+            mWeekByDayButtons[idx].setTextOn(dayOfWeekString[TIME_DAY_TO_CALENDAR_DAY[idx]]);
+            mWeekByDayButtons[idx].setOnCheckedChangeListener(this);
+
+            if (++idx >= 7) {
+                idx = 0;
+            }
+        }
+
+        /* 2nd Row */
+        for (int i = 0; i < 3; i++) {
+            if (i >= numOfButtonsInRow2) {
+                mWeekGroup2.getChildAt(i).setVisibility(View.GONE);
+                continue;
+            }
+            mWeekByDayButtons[idx] = (ToggleButton) mWeekGroup2.getChildAt(i);
             mWeekByDayButtons[idx].setTextOff(dayOfWeekString[TIME_DAY_TO_CALENDAR_DAY[idx]]);
             mWeekByDayButtons[idx].setTextOn(dayOfWeekString[TIME_DAY_TO_CALENDAR_DAY[idx]]);
             mWeekByDayButtons[idx].setOnCheckedChangeListener(this);
@@ -785,6 +838,9 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
         mDone.setOnClickListener(this);
 
         updateDialog();
+        if (endCountHasFocus) {
+            mEndCount.requestFocus();
+        }
         return mView;
     }
 
@@ -792,6 +848,9 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(BUNDLE_MODEL, mModel);
+        if (mEndCount.hasFocus()) {
+            outState.putBoolean(BUNDLE_END_COUNT_HAS_FOCUS, true);
+        }
     }
 
     public void updateDialog() {
@@ -805,6 +864,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
 
         mFreqSpinner.setSelection(mModel.freq + 1); // FREQ_* starts at -1
         mWeekGroup.setVisibility(mModel.freq == Model.FREQ_WEEKLY ? View.VISIBLE : View.GONE);
+        mWeekGroup2.setVisibility(mModel.freq == Model.FREQ_WEEKLY ? View.VISIBLE : View.GONE);
         mMonthGroup.setVisibility(mModel.freq == Model.FREQ_MONTHLY ? View.VISIBLE : View.GONE);
 
         if (mModel.freq == Model.FREQ_NONE) {
@@ -827,11 +887,16 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                         mWeekByDayButtons[i].setChecked(mModel.weeklyByDayOfWeek[i]);
                         if (mModel.weeklyByDayOfWeek[i]) {
                             count++;
+                            mWeekByDayButtons[i].setTextColor(DAY_OF_WEEK_CHECKED_TEXT_COLOR);
+                        } else {
+                            mWeekByDayButtons[i].setTextColor(DAY_OF_WEEK_UNCHECKED_TEXT_COLOR);
                         }
                     }
                     if (count == 0) {
                         mModel.weeklyByDayOfWeek[mTime.weekDay] = true;
                         mWeekByDayButtons[mTime.weekDay].setChecked(true);
+                        mWeekByDayButtons[mTime.weekDay]
+                                .setTextColor(DAY_OF_WEEK_CHECKED_TEXT_COLOR);
                     }
                     break;
 
@@ -867,14 +932,19 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
             if (mModel.end == Model.END_BY_DATE) {
                 final String dateStr = DateUtils.formatDateTime(getActivity(),
                         mModel.endDate.toMillis(false), DateUtils.FORMAT_NUMERIC_DATE);
-                mEndDateTextView.setText(dateStr);
-            } else if (mModel.end == Model.END_BY_COUNT) {
-                // Checking before setting because this causes infinite
-                // recursion
-                // in afterTextWatcher
-                final String countStr = Integer.toString(mModel.endCount);
-                if (!countStr.equals(mEndCount.getText().toString())) {
-                    mEndCount.setText(countStr);
+                final String endDateString = mResources.getString(R.string.recurrence_end_date,
+                        dateStr);
+                setEndSpinnerEndDateStr(endDateString);
+            } else {
+                setEndSpinnerEndDateStr(mEndDateLabel);
+                if (mModel.end == Model.END_BY_COUNT) {
+                    // Checking before setting because this causes infinite
+                    // recursion
+                    // in afterTextWatcher
+                    final String countStr = Integer.toString(mModel.endCount);
+                    if (!countStr.equals(mEndCount.getText().toString())) {
+                        mEndCount.setText(countStr);
+                    }
                 }
             }
         }
@@ -895,6 +965,14 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
             // }
         }
         // doToast();
+    }
+
+    /**
+     * @param endDateString
+     */
+    private void setEndSpinnerEndDateStr(final String endDateString) {
+        mEndSpinnerArray.set(1, endDateString);
+        mEndSpinnerAdapter.notifyDataSetChanged();
     }
 
     private void doToast() {
@@ -946,7 +1024,9 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent == mFreqSpinner) {
-            mModel.freq = position - 1; // FREQ_* starts at -1; Spinner starts at 0
+            // FREQ_* starts at -1.
+            // Spinner starts at 0.
+            mModel.freq = position - 1;
         } else if (parent == mEndSpinner) {
             switch (position) {
                 case Model.END_NEVER:
@@ -1069,6 +1149,9 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
             buttonView.setChecked(true);
             mModel.weeklyByDayOfWeek[itemIdx] = true;
         }
+
+        buttonView.setTextColor(isChecked ? DAY_OF_WEEK_CHECKED_TEXT_COLOR
+                : DAY_OF_WEEK_UNCHECKED_TEXT_COLOR);
 
         updateDialog();
     }
