@@ -200,7 +200,7 @@
   </string-array>
   <string-array name="recurrence_freq">
     <item msgid="5615646001970363101">"一次性活动"</item>
-    <item msgid="8180897052611600177">"每日"</item>
+    <item msgid="8180897052611600177">"每天"</item>
     <item msgid="6562715790445608347">"每周"</item>
     <item msgid="4553381288472120599">"每月"</item>
     <item msgid="3949550801992570628">"每年"</item>

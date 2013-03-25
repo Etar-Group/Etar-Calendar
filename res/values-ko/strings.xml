@@ -144,10 +144,10 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"모두 해제"</string>
     <string name="snooze_label" msgid="1515893621063224666">"알림 일시중지"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"한번만"</string>
-    <string name="endByDate" msgid="7654221304929538201">"; <xliff:g id="DATE">%s</xliff:g>까지"</string>
+    <string name="endByDate" msgid="7654221304929538201">", <xliff:g id="DATE">%s</xliff:g>까지"</string>
   <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"; 일회성"</item>
-    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g>회"</item>
+    <item quantity="one" msgid="3727754565990691816">", 일회성"</item>
+    <item quantity="other" msgid="4855496837834652446">", <xliff:g id="NUMBER">%d</xliff:g>회"</item>
   </plurals>
   <plurals name="daily">
     <item quantity="one" msgid="5169052946627480942">"매일"</item>
