@@ -251,7 +251,7 @@
     <string name="recurrence_interval_monthly" msgid="3720666968565545709">"на <xliff:g id="COUNT">%d</xliff:g> мес"</string>
     <string name="recurrence_interval_yearly" msgid="8069673391679630408">"на <xliff:g id="COUNT">%d</xliff:g> год"</string>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"истог дана сваког месеца"</string>
-    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"сваки <xliff:g id="NTH">%1$s</xliff:g>. <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
+    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"сваки(а) <xliff:g id="NTH">%1$s</xliff:g>. <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="recurrence_end_continously" msgid="1210361105437324116">"непрекидно"</string>
     <string name="recurrence_end_date_label" msgid="591172157554002600">"до датума"</string>
     <string name="recurrence_end_count_label" msgid="6534979921514300584">"за више догађаја"</string>
