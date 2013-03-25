@@ -17,19 +17,19 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:padding="0dp" >
 
     <!-- Grabbing focus to prevent interval from gaining focus at launch -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:descendantFocusability="beforeDescendants"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="0dp" >
 
         <Spinner
             android:id="@+id/freqSpinner"
@@ -37,8 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
             android:entries="@array/recurrence_freq"
             android:padding="0dp" />
 
@@ -46,7 +46,9 @@
             android:id="@+id/intervalGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal" >
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:gravity="start" >
 
             <TextView
                 android:id="@+id/intervalPreText"
@@ -58,7 +60,7 @@
                 android:id="@+id/interval"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="3"
+                android:ems="2"
                 android:gravity="center_horizontal"
                 android:inputType="number"
                 android:maxLength="2"
@@ -77,6 +79,9 @@
             android:id="@+id/weekGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal" >
 
@@ -95,10 +100,33 @@
             <com.android.calendar.recurrencepicker.WeekButton style="@style/RecurrenceDayOfWeekStyle" />
         </com.android.calendar.recurrencepicker.LinearLayoutWithMaxWidth>
 
+        <com.android.calendar.recurrencepicker.LinearLayoutWithMaxWidth
+            android:id="@+id/weekGroup2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <com.android.calendar.recurrencepicker.WeekButton style="@style/RecurrenceDayOfWeekStyle" />
+
+            <com.android.calendar.recurrencepicker.WeekButton style="@style/RecurrenceDayOfWeekStyle" />
+
+            <com.android.calendar.recurrencepicker.WeekButton style="@style/RecurrenceDayOfWeekStyle" />
+
+            <com.android.calendar.recurrencepicker.WeekButton
+                style="@style/RecurrenceDayOfWeekStyle"
+                android:visibility="invisible" />
+        </com.android.calendar.recurrencepicker.LinearLayoutWithMaxWidth>
+
         <RadioGroup
             android:id="@+id/monthGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:orientation="vertical" >
 
             <RadioButton
@@ -120,41 +148,44 @@
             android:id="@+id/endGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:paddingLeft="0dp" >
 
             <Spinner
                 android:id="@+id/endSpinner"
                 style="@style/TextAppearance.RecurrencePickerStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="-8dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="-12dp"
                 android:layout_weight="1"
                 android:entries="@array/recurrence_freq"
                 android:padding="0dp" />
-
-            <Button
-                android:id="@+id/endDate"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="18sp"
-                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/endCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:ems="4"
+                android:layout_gravity="center_vertical"
+                android:ems="3"
                 android:gravity="center_horizontal"
                 android:inputType="number"
                 android:maxLength="3"
                 android:selectAllOnFocus="true"
-                android:singleLine="true"
+                android:singleLine="true" />
+
+            <ImageButton
+                android:id="@+id/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/acessibility_recurrence_choose_end_date_description"
+                android:padding="4dp"
+                android:src="@drawable/mini_calendar"
                 android:visibility="gone" />
         </LinearLayout>
 
