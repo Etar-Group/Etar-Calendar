@@ -16,7 +16,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="5452708708398908131">"Calendar"</string>
+    <string name="app_label" msgid="5452708708398908131">"Calendario"</string>
     <string name="what_label" msgid="1933578391985810049">"Qué"</string>
     <string name="where_label" msgid="3472482206065595118">"Dónde"</string>
     <string name="when_label" msgid="894636567327261599">"Cuándo"</string>
@@ -146,11 +146,11 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"Evento único"</string>
     <string name="endByDate" msgid="7654221304929538201">"; hasta el <xliff:g id="DATE">%s</xliff:g>"</string>
   <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"; una sola vez"</item>
-    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> vez/veces"</item>
+    <item quantity="one" msgid="3727754565990691816">"; por una sola vez"</item>
+    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> por vez/veces"</item>
   </plurals>
   <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Diario"</item>
+    <item quantity="one" msgid="5169052946627480942">"Diariamente"</item>
     <item quantity="other" msgid="5455230727715859264">"Cada <xliff:g id="NUMBER">%d</xliff:g> día/s"</item>
   </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Semanalmente (lun. a vie.)"</string>
@@ -174,7 +174,7 @@
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"¿Deseas eliminar <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Cambiar respuesta"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Configuración general"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"Acerca de Calendar"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Acerca de Calendario"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Configuración"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Configuración de vista de calendario"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Notificaciones y recordatorios"</string>
@@ -197,7 +197,7 @@
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número de semana"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Acerca de"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versión de compilación"</string>
-    <string name="gadget_title" msgid="939918875331310945">"Calendar"</string>
+    <string name="gadget_title" msgid="939918875331310945">"Calendario"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
@@ -252,7 +252,14 @@
     <string name="recurrence_interval_yearly" msgid="8069673391679630408">"cada <xliff:g id="COUNT">%d</xliff:g> año/s"</string>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"el mismo día cada mes"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"cada <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <string name="recurrence_end_continously" msgid="1210361105437324116">"continuamente"</string>
-    <string name="recurrence_end_date_label" msgid="591172157554002600">"hasta una fecha"</string>
-    <string name="recurrence_end_count_label" msgid="6534979921514300584">"para una cantidad de eventos"</string>
+    <!-- no translation found for recurrence_end_continously (60156576800282872) -->
+    <skip />
+    <!-- no translation found for recurrence_end_date_label (4142791438636994952) -->
+    <skip />
+    <!-- no translation found for recurrence_end_date (5651583970522533336) -->
+    <skip />
+    <!-- no translation found for recurrence_end_count_label (1233883668293087977) -->
+    <skip />
+    <!-- no translation found for acessibility_recurrence_choose_end_date_description (5899029840837836711) -->
+    <skip />
 </resources>
