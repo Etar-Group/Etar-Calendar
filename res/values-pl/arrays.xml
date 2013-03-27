@@ -201,8 +201,8 @@
   <string-array name="recurrence_freq">
     <item msgid="5615646001970363101">"Wydarzenie jednorazowe"</item>
     <item msgid="8180897052611600177">"Codziennie"</item>
-    <item msgid="6562715790445608347">"Na tydzień"</item>
-    <item msgid="4553381288472120599">"Miesięcznie"</item>
+    <item msgid="6562715790445608347">"Co tydzień"</item>
+    <item msgid="4553381288472120599">"Co miesiąc"</item>
     <item msgid="3949550801992570628">"Co rok"</item>
   </string-array>
 </resources>
