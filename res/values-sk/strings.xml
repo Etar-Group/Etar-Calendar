@@ -151,7 +151,7 @@
   </plurals>
   <plurals name="daily">
     <item quantity="one" msgid="5169052946627480942">"Denne"</item>
-    <item quantity="other" msgid="5455230727715859264">"Každých <xliff:g id="NUMBER">%d</xliff:g> d"</item>
+    <item quantity="other" msgid="5455230727715859264">"Vždy po <xliff:g id="NUMBER">%d</xliff:g> dňoch"</item>
   </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Každý pracovný deň (Po. – Pi.)"</string>
   <plurals name="weekly">
@@ -250,9 +250,16 @@
     <string name="recurrence_interval_weekly" msgid="7848383849108269893">"raz za <xliff:g id="COUNT">%d</xliff:g> týžd."</string>
     <string name="recurrence_interval_monthly" msgid="3720666968565545709">"raz za <xliff:g id="COUNT">%d</xliff:g> mes."</string>
     <string name="recurrence_interval_yearly" msgid="8069673391679630408">"raz za <xliff:g id="COUNT">%d</xliff:g> r."</string>
-    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"mesačne ten istý deň"</string>
-    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"každý <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <string name="recurrence_end_continously" msgid="1210361105437324116">"nepretržite"</string>
-    <string name="recurrence_end_date_label" msgid="591172157554002600">"až do dátumu"</string>
-    <string name="recurrence_end_count_label" msgid="6534979921514300584">"pre viacero udalostí"</string>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"mesačne v ten istý deň"</string>
+    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"vždy v tento deň: <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
+    <!-- no translation found for recurrence_end_continously (60156576800282872) -->
+    <skip />
+    <!-- no translation found for recurrence_end_date_label (4142791438636994952) -->
+    <skip />
+    <!-- no translation found for recurrence_end_date (5651583970522533336) -->
+    <skip />
+    <!-- no translation found for recurrence_end_count_label (1233883668293087977) -->
+    <skip />
+    <!-- no translation found for acessibility_recurrence_choose_end_date_description (5899029840837836711) -->
+    <skip />
 </resources>
