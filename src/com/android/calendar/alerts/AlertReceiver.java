@@ -105,9 +105,7 @@ public class AlertReceiver extends BroadcastReceiver {
         }
         if (DELETE_ALL_ACTION.equals(intent.getAction())) {
 
-            /* The user has clicked the "Clear All Notifications"
-             * buttons so dismiss all Calendar alerts.
-             */
+            // The user has dismissed a digest notification.
             // TODO Grab a wake lock here?
             Intent serviceIntent = new Intent(context, DismissAlarmsService.class);
             context.startService(serviceIntent);

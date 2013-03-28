@@ -814,6 +814,8 @@ public class AlertService extends Service {
                     lowPriorityEvents.add(newInfo);
                 }
             }
+            // TODO(cwren) add beginTime/startTime
+            GlobalDismissManager.processEventIds(context, eventIds.keySet());
         } finally {
             if (alertCursor != null) {
                 alertCursor.close();
