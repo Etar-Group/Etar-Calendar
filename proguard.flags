@@ -31,6 +31,7 @@
   *** setAnimateTodayAlpha(...);
 }
 -keepclassmembers class com.android.calendar.event.EditEventHelper {
+ *** updateRecurrenceRule(...);
  *** extractDomain(...);
 }
 
