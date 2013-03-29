@@ -24,9 +24,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.app.Service;
-import com.android.datetimepicker.TimePickerDialog;
-import com.android.datetimepicker.TimePickerDialog.OnTimeSetListener;
-import com.android.datetimepicker.TimePicker;
+import com.android.datetimepicker.time.TimePickerDialog;
+import com.android.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
+import com.android.datetimepicker.time.RadialPickerLayout;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -234,7 +234,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
             // Cache the member variables locally to avoid inner class overhead.
             Time startTime = mStartTime;
             Time endTime = mEndTime;
