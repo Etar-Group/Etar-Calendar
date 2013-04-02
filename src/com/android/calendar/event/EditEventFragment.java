@@ -116,6 +116,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private EventBundle mEventBundle;
     private ArrayList<ReminderEntry> mReminders;
     private int mEventColor;
+    private boolean mEventColorInitialized = false;
     private Uri mUri;
     private long mBegin;
     private long mEnd;
@@ -192,8 +193,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                     mModel.mIsFirstEventInSeries = mBegin == mOriginalModel.mStart;
                     mModel.mStart = mBegin;
                     mModel.mEnd = mEnd;
-                    if (mEventColor != -1) {
-                        mModel.mEventColor = mEventColor;
+                    if (mEventColorInitialized) {
+                        mModel.setEventColor(mEventColor);
                     }
                     eventId = mModel.mId;
 
@@ -374,12 +375,12 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         public void onClick(View v) {
             int[] colors = mModel.getCalendarEventColors();
             if (mDialog == null) {
-                mDialog = EventColorPickerDialog.newInstance(colors, mModel.mEventColor,
-                        mModel.mCalendarColor, mView.mIsMultipane);
+                mDialog = EventColorPickerDialog.newInstance(colors, mModel.getEventColor(),
+                        mModel.getCalendarColor(), mView.mIsMultipane);
                 mDialog.setTargetFragment(EditEventFragment.this, REQUEST_CODE_COLOR_PICKER);
             } else {
-                mDialog.setCalendarColor(mModel.mCalendarColor);
-                mDialog.setColors(colors, mModel.mEventColor);
+                mDialog.setCalendarColor(mModel.getCalendarColor());
+                mDialog.setColors(colors, mModel.getEventColor());
             }
             final FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.executePendingTransactions();
@@ -411,18 +412,20 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     }
 
     public EditEventFragment() {
-        this(null, null, -1, false, null);
+        this(null, null, false, -1, false, null);
     }
 
-    public EditEventFragment(EventInfo event, ArrayList<ReminderEntry> reminders, int eventColor,
-            boolean readOnly, Intent intent) {
+    public EditEventFragment(EventInfo event, ArrayList<ReminderEntry> reminders,
+            boolean eventColorInitialized, int eventColor, boolean readOnly, Intent intent) {
         mEvent = event;
         mIsReadOnly = readOnly;
         mIntent = intent;
 
         mReminders = reminders;
-        mEventColor = eventColor;
-
+        mEventColorInitialized = eventColorInitialized;
+        if (eventColorInitialized) {
+            mEventColor = eventColor;
+        }
         setHasOptionsMenu(true);
     }
 
@@ -460,8 +463,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mModel.mReminders = mReminders;
         }
 
-        if (mEventColor != -1) {
-            mModel.mEventColor = mEventColor;
+        if (mEventColorInitialized) {
+            mModel.setEventColor(mEventColor);
         }
 
         if (mBegin <= 0) {
@@ -942,8 +945,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
 
     @Override
     public void onColorSelected(int color) {
-        if (mModel.mEventColor != color) {
-            mModel.mEventColor = color;
+        if (!mModel.isEventColorInitialized() || mModel.getEventColor() != color) {
+            mModel.setEventColor(color);
             mView.updateHeadlineColor(mModel, color);
         }
     }

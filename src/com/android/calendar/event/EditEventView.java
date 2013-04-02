@@ -1190,7 +1190,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             View calendarGroup = mView.findViewById(R.id.calendar_group);
             calendarGroup.setVisibility(View.GONE);
         }
-        updateHeadlineColor(model, model.mEventColor);
+        if (model.isEventColorInitialized()) {
+            updateHeadlineColor(model, model.getEventColor());
+        }
 
         populateWhen();
         populateRepeats();
@@ -1716,17 +1718,18 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         int displayColor = Utils.getDisplayColorFromColor(color);
 
         // Prevents resetting of data (reminders, etc.) on orientation change.
-        if (calendarId == mModel.mCalendarId && displayColor == mModel.mCalendarColor) {
+        if (calendarId == mModel.mCalendarId && mModel.isCalendarColorInitialized() &&
+                displayColor == mModel.getCalendarColor()) {
             return;
         }
 
         setSpinnerBackgroundColor(displayColor);
 
         mModel.mCalendarId = calendarId;
-        mModel.mCalendarColor = displayColor;
+        mModel.setCalendarColor(displayColor);
         mModel.mCalendarAccountName = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_NAME);
         mModel.mCalendarAccountType = c.getString(EditEventHelper.CALENDARS_INDEX_ACCOUNT_TYPE);
-        mModel.mEventColor = mModel.mCalendarColor;
+        mModel.setEventColor(mModel.getCalendarColor());
 
         setColorPickerButtonStates(mModel.getCalendarEventColors());
 
