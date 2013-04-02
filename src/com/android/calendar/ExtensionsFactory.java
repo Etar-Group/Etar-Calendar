@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -32,7 +33,8 @@ import java.util.Properties;
 public class ExtensionsFactory {
     private static String TAG = "ExtensionsFactory";
 
-    // Config filename for mappings of various class names to their custom implementations.
+    // Config filename for mappings of various class names to their custom
+    // implementations.
     private static String EXTENSIONS_PROPERTIES = "calendar_extensions.properties";
 
     private static String ALL_IN_ONE_MENU_KEY = "AllInOneMenuExtensions";
@@ -45,9 +47,11 @@ public class ExtensionsFactory {
             InputStream fileStream = assetManager.open(EXTENSIONS_PROPERTIES);
             sProperties.load(fileStream);
             fileStream.close();
+        } catch (FileNotFoundException e) {
+            // No custom extensions. Ignore.
+            Log.d(TAG, "No custom extensions.");
         } catch (IOException e) {
-            // No custom extensions.  Ignore.
-            Log.d(TAG, "No custom extensions.", e);
+            Log.d(TAG, e.toString());
         }
     }
 
