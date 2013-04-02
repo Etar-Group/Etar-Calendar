@@ -119,6 +119,9 @@ public class Utils {
     static int CONFLICT_COLOR = 0xFF000000;
     static boolean mMinutesLoaded = false;
 
+    public static final int YEAR_MIN = 1970;
+    public static final int YEAR_MAX = 2037;
+
     // The name of the shared preferences file. This name must be maintained for
     // historical
     // reasons, as it's what PreferenceManager assigned the first time the file
@@ -589,6 +592,40 @@ public class Utils {
             return Time.MONDAY;
         } else {
             return Time.SUNDAY;
+        }
+    }
+
+    /**
+     * Get first day of week as java.util.Calendar constant.
+     *
+     * @return the first day of week as a java.util.Calendar constant
+     */
+    public static int getFirstDayOfWeekAsCalendar(Context context) {
+        return convertDayOfWeekFromTimeToCalendar(getFirstDayOfWeek(context));
+    }
+
+    /**
+     * Converts the day of the week from android.text.format.Time to java.util.Calendar
+     */
+    public static int convertDayOfWeekFromTimeToCalendar(int timeDayOfWeek) {
+        switch (timeDayOfWeek) {
+            case Time.MONDAY:
+                return Calendar.MONDAY;
+            case Time.TUESDAY:
+                return Calendar.TUESDAY;
+            case Time.WEDNESDAY:
+                return Calendar.WEDNESDAY;
+            case Time.THURSDAY:
+                return Calendar.THURSDAY;
+            case Time.FRIDAY:
+                return Calendar.FRIDAY;
+            case Time.SATURDAY:
+                return Calendar.SATURDAY;
+            case Time.SUNDAY:
+                return Calendar.SUNDAY;
+            default:
+                throw new IllegalArgumentException("Argument must be between Time.SUNDAY and " +
+                        "Time.SATURDAY");
         }
     }
 
