@@ -42,6 +42,7 @@ import com.android.calendar.Utils;
 
 public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAdapter {
     private static final String TAG = "SelectCalendarsAdapter";
+    private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
 
     private static int BOTTOM_ITEM_HEIGHT = 64;
     private static int NORMAL_ITEM_HEIGHT = 48;
@@ -51,7 +52,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     private static final int IS_BOTTOM = 1 << 2;
     private static final int IS_BELOW_SELECTED = 1 << 3;
 
-    private CalendarColorPickerDialog mDialog;
+    private CalendarColorPickerDialog mColorPickerDialog;
 
     private LayoutInflater mInflater;
     Resources mRes;
@@ -103,6 +104,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         }
 
         mFragmentManager = fm;
+        mColorPickerDialog = (CalendarColorPickerDialog)
+                fm.findFragmentByTag(COLOR_PICKER_DIALOG_TAG);
         mIsTablet = Utils.getConfigBool(context, R.bool.tablet_config);
         mColorViewTouchAreaIncrease = context.getResources()
                 .getDimensionPixelSize(R.dimen.color_view_touch_area_increase);
@@ -235,14 +238,15 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         colorView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mDialog == null) {
-                    mDialog = CalendarColorPickerDialog.newInstance(mData[position].id, mIsTablet);
+                if (mColorPickerDialog == null) {
+                    mColorPickerDialog = CalendarColorPickerDialog.newInstance(mData[position].id,
+                            mIsTablet);
                 } else {
-                    mDialog.setCalendarId(mData[position].id);
+                    mColorPickerDialog.setCalendarId(mData[position].id);
                 }
                 mFragmentManager.executePendingTransactions();
-                if (!mDialog.isAdded()) {
-                    mDialog.show(mFragmentManager, "Fragment");
+                if (!mColorPickerDialog.isAdded()) {
+                    mColorPickerDialog.show(mFragmentManager, COLOR_PICKER_DIALOG_TAG);
                 }
             }
         });
@@ -316,10 +320,12 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         return mRes.getDrawable(TabletCalendarItemBackgrounds.getBackgrounds()[bg]);
     }
 
+    @Override
     public int getCount() {
         return mRowCount;
     }
 
+    @Override
     public Object getItem(int position) {
         if (position >= mRowCount) {
             return null;
@@ -328,6 +334,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         return item;
     }
 
+    @Override
     public long getItemId(int position) {
         if (position >= mRowCount) {
             return 0;

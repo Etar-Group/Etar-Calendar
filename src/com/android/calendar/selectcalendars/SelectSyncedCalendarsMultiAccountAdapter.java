@@ -53,6 +53,7 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         View.OnClickListener {
 
     private static final String TAG = "Calendar";
+    private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
 
     private static final String IS_PRIMARY = "\"primary\"";
     private static final String CALENDARS_ORDERBY = IS_PRIMARY + " DESC,"
@@ -65,9 +66,10 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
     private final SelectSyncedCalendarsMultiAccountActivity mActivity;
     private final FragmentManager mFragmentManager;
     private final boolean mIsTablet;
-    private CalendarColorPickerDialog mDialog;
+    private CalendarColorPickerDialog mColorPickerDialog;
     private final View mView;
     private final static Runnable mStopRefreshing = new Runnable() {
+        @Override
         public void run() {
             mRefresh = false;
         }
@@ -185,6 +187,7 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
      * a hashmap. It also compares against the original value and removes any
      * changes from the hashmap if this is back at its initial state.
      */
+    @Override
     public void onClick(View v) {
         long id = (Long) v.getTag(TAG_ID_CALENDAR_ID);
         boolean newState;
@@ -217,6 +220,8 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         mResolver = context.getContentResolver();
         mActivity = act;
         mFragmentManager = act.getFragmentManager();
+        mColorPickerDialog = (CalendarColorPickerDialog)
+                mFragmentManager.findFragmentByTag(COLOR_PICKER_DIALOG_TAG);
         mIsTablet = Utils.getConfigBool(context, R.bool.tablet_config);
 
         if (mCalendarsUpdater == null) {
@@ -329,14 +334,14 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
 
             @Override
             public void onClick(View v) {
-                if (mDialog == null) {
-                    mDialog = CalendarColorPickerDialog.newInstance(id, mIsTablet);
+                if (mColorPickerDialog == null) {
+                    mColorPickerDialog = CalendarColorPickerDialog.newInstance(id, mIsTablet);
                 } else {
-                    mDialog.setCalendarId(id);
+                    mColorPickerDialog.setCalendarId(id);
                 }
                 mFragmentManager.executePendingTransactions();
-                if (!mDialog.isAdded()) {
-                    mDialog.show(mFragmentManager, TAG);
+                if (!mColorPickerDialog.isAdded()) {
+                    mColorPickerDialog.show(mFragmentManager, COLOR_PICKER_DIALOG_TAG);
                 }
             }
         });
@@ -428,6 +433,7 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
             mAccountType = accountType;
         }
 
+        @Override
         public void run() {
             mCalendarsUpdater.cancelOperation(mToken);
             // Set up a refresh for some point in the future if we haven't stopped updates yet

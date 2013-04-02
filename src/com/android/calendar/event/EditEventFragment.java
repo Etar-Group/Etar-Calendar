@@ -72,6 +72,7 @@ import java.util.Collections;
 
 public class EditEventFragment extends Fragment implements EventHandler, OnColorSelectedListener {
     private static final String TAG = "EditEventActivity";
+    private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
 
     private static final int REQUEST_CODE_COLOR_PICKER = 0;
 
@@ -122,7 +123,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private long mEnd;
     private long mCalendarId = -1;
 
-    private EventColorPickerDialog mDialog;
+    private EventColorPickerDialog mColorPickerDialog;
 
     private Activity mContext;
     private final Done mOnDone = new Done();
@@ -374,18 +375,18 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         @Override
         public void onClick(View v) {
             int[] colors = mModel.getCalendarEventColors();
-            if (mDialog == null) {
-                mDialog = EventColorPickerDialog.newInstance(colors, mModel.getEventColor(),
-                        mModel.getCalendarColor(), mView.mIsMultipane);
-                mDialog.setTargetFragment(EditEventFragment.this, REQUEST_CODE_COLOR_PICKER);
+            if (mColorPickerDialog == null) {
+                mColorPickerDialog = EventColorPickerDialog.newInstance(colors,
+                        mModel.getEventColor(), mModel.getCalendarColor(), mView.mIsMultipane);
+                mColorPickerDialog.setOnColorSelectedListener(EditEventFragment.this);
             } else {
-                mDialog.setCalendarColor(mModel.getCalendarColor());
-                mDialog.setColors(colors, mModel.getEventColor());
+                mColorPickerDialog.setCalendarColor(mModel.getCalendarColor());
+                mColorPickerDialog.setColors(colors, mModel.getEventColor());
             }
             final FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.executePendingTransactions();
-            if (!mDialog.isAdded()) {
-                mDialog.show(fragmentManager, TAG);
+            if (!mColorPickerDialog.isAdded()) {
+                mColorPickerDialog.show(fragmentManager, COLOR_PICKER_DIALOG_TAG);
             }
         }
     };
@@ -427,6 +428,16 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mEventColor = eventColor;
         }
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mColorPickerDialog = (EventColorPickerDialog) getActivity().getFragmentManager()
+                .findFragmentByTag(COLOR_PICKER_DIALOG_TAG);
+        if (mColorPickerDialog != null) {
+            mColorPickerDialog.setOnColorSelectedListener(this);
+        }
     }
 
     private void startQuery() {
