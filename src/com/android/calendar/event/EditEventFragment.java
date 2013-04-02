@@ -81,6 +81,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private static final String BUNDLE_KEY_READ_ONLY = "key_read_only";
     private static final String BUNDLE_KEY_EDIT_ON_LAUNCH = "key_edit_on_launch";
 
+    private static final String BUNDLE_KEY_DATE_BUTTON_CLICKED = "date_button_clicked";
+
     private static final boolean DEBUG = false;
 
     private static final int TOKEN_EVENT = 1;
@@ -129,6 +131,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     public boolean mShowModifyDialogOnLaunch = false;
 
     private boolean mTimeSelectedWasStartTime;
+    private boolean mDateSelectedWasStartDate;
 
     private InputMethodManager mInputMethodManager;
 
@@ -527,7 +530,8 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         } else {
             view = inflater.inflate(R.layout.edit_event, null);
         }
-        mView = new EditEventView(mContext, view, mOnDone, mTimeSelectedWasStartTime);
+        mView = new EditEventView(mContext, view, mOnDone, mTimeSelectedWasStartTime,
+                mDateSelectedWasStartDate);
         startQuery();
 
         if (mUseCustomActionBar) {
@@ -577,6 +581,10 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             if (savedInstanceState.containsKey("EditEventView_timebuttonclicked")) {
                 mTimeSelectedWasStartTime = savedInstanceState.getBoolean(
                         "EditEventView_timebuttonclicked");
+            }
+            if (savedInstanceState.containsKey(BUNDLE_KEY_DATE_BUTTON_CLICKED)) {
+                mDateSelectedWasStartDate = savedInstanceState.getBoolean(
+                        BUNDLE_KEY_DATE_BUTTON_CLICKED);
             }
 
         }
@@ -903,6 +911,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         outState.putBoolean(BUNDLE_KEY_READ_ONLY, mIsReadOnly);
 
         outState.putBoolean("EditEventView_timebuttonclicked", mView.mTimeSelectedWasStartTime);
+        outState.putBoolean(BUNDLE_KEY_DATE_BUTTON_CLICKED, mView.mDateSelectedWasStartDate);
     }
 
     @Override
