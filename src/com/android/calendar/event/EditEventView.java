@@ -18,15 +18,10 @@ package com.android.calendar.event;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.app.Service;
-import com.android.datetimepicker.time.TimePickerDialog;
-import com.android.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
-import com.android.datetimepicker.time.RadialPickerLayout;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -61,10 +56,8 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
@@ -92,6 +85,11 @@ import com.android.calendar.recurrencepicker.RecurrencePickerDialog;
 import com.android.calendarcommon2.EventRecurrence;
 import com.android.common.Rfc822InputFilter;
 import com.android.common.Rfc822Validator;
+import com.android.datetimepicker.date.DatePickerDialog;
+import com.android.datetimepicker.date.DatePickerDialog.OnDateSetListener;
+import com.android.datetimepicker.time.RadialPickerLayout;
+import com.android.datetimepicker.time.TimePickerDialog;
+import com.android.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 import com.android.ex.chips.AccountSpecifier;
 import com.android.ex.chips.BaseRecipientAdapter;
 import com.android.ex.chips.ChipsUtil;
@@ -99,7 +97,6 @@ import com.android.ex.chips.RecipientEditTextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Locale;
@@ -112,6 +109,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final String PERIOD_SPACE = ". ";
     static final String FRAG_TAG_RECUR_PICKER = "recurrencePickerDialogFragment";
+    private static final String FRAG_TAG_DATE_PICKER = "datePickerDialogFragment";
     private static final String FRAG_TAG_TIME_PICKER = "timePickerDialogFragment";
 
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
@@ -175,8 +173,9 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private TimezoneAdapter mTimezoneAdapter;
 
     public boolean mTimeSelectedWasStartTime;
+    public boolean mDateSelectedWasStartDate;
 
-    private ArrayList<Integer> mRecurrenceIndexes = new ArrayList<Integer>(0);
+    private DatePickerDialog mDatePickerDialog;
 
     /**
      * Contents of the "minutes" spinner.  This has default values from the XML file, augmented
@@ -314,7 +313,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
 
         @Override
-        public void onDateSet(DatePicker view, int year, int month, int monthDay) {
+        public void onDateSet(DatePickerDialog view, int year, int month, int monthDay) {
             Log.d(TAG, "onDateSet: " + year +  " " + month +  " " + monthDay);
             // Cache the member variables locally to avoid inner class overhead.
             Time startTime = mStartTime;
@@ -488,22 +487,22 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         @Override
         public void onClick(View v) {
-            DatePickerDialog dpd = new DatePickerDialog(
-                    mActivity, new DateListener(v), mTime.year, mTime.month, mTime.monthDay);
-            CalendarView cv = dpd.getDatePicker().getCalendarView();
-            cv.setShowWeekNumber(Utils.getShowWeekNumber(mActivity));
-            int startOfWeek = Utils.getFirstDayOfWeek(mActivity);
-            // Utils returns Time days while CalendarView wants Calendar days
-            if (startOfWeek == Time.SATURDAY) {
-                startOfWeek = Calendar.SATURDAY;
-            } else if (startOfWeek == Time.SUNDAY) {
-                startOfWeek = Calendar.SUNDAY;
+
+            if (v == mStartDateButton) {
+                mDateSelectedWasStartDate = true;
             } else {
-                startOfWeek = Calendar.MONDAY;
+                mDateSelectedWasStartDate = false;
             }
-            cv.setFirstDayOfWeek(startOfWeek);
-            dpd.setCanceledOnTouchOutside(true);
-            dpd.show();
+
+            final DateListener listener = new DateListener(v);
+            if (mDatePickerDialog != null) {
+                mDatePickerDialog.dismiss();
+            }
+            mDatePickerDialog = DatePickerDialog.newInstance(listener,
+                    mTime.year, mTime.month, mTime.monthDay);
+            mDatePickerDialog.setFirstDayOfWeek(Utils.getFirstDayOfWeekAsCalendar(mActivity));
+            mDatePickerDialog.setYearRange(Utils.YEAR_MIN, Utils.YEAR_MAX);
+            mDatePickerDialog.show(mActivity.getFragmentManager(), FRAG_TAG_DATE_PICKER);
         }
     }
 
@@ -758,7 +757,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     public EditEventView(Activity activity, View view, EditDoneRunnable done,
-            boolean timeSelectedWasStartTime) {
+            boolean timeSelectedWasStartTime, boolean dateSelectedWasStartDate) {
 
         mActivity = activity;
         mView = view;
@@ -905,6 +904,17 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 v = mEndTimeButton;
             }
             tpd.setOnTimeSetListener(new TimeListener(v));
+        }
+        mDatePickerDialog = (DatePickerDialog) fm.findFragmentByTag(FRAG_TAG_DATE_PICKER);
+        if (mDatePickerDialog != null) {
+            View v;
+            mDateSelectedWasStartDate = dateSelectedWasStartDate;
+            if (dateSelectedWasStartDate) {
+                v = mStartDateButton;
+            } else {
+                v = mEndDateButton;
+            }
+            mDatePickerDialog.setOnDateSetListener(new DateListener(v));
         }
     }
 
