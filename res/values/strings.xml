@@ -703,7 +703,7 @@
     <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
     <string name="recurrence_end_date_label">Until a date</string>
     <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
-    <string name="recurrence_end_date">until <xliff:g id="date">%s</xliff:g></string>
+    <string name="recurrence_end_date">Until <xliff:g id="date">%s</xliff:g></string>
     <!-- Specifies that a repeating event to repeat for a number of times[CHAR LIMIT=25] -->
     <string name="recurrence_end_count_label">For a number of events</string>
 
