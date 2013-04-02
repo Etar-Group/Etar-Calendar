@@ -58,6 +58,8 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
     private int mEventColor;
 
+    private boolean mEventColorInitialized;
+
     private EventInfo mEventInfo;
 
     @Override
@@ -67,7 +69,9 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
         mEventInfo = getEventInfoFromIntent(icicle);
         mReminders = getReminderEntriesFromIntent();
+        mEventColorInitialized = getIntent().hasExtra(EXTRA_EVENT_COLOR);
         mEventColor = getIntent().getIntExtra(EXTRA_EVENT_COLOR, -1);
+
 
         mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.main_frame);
 
@@ -93,8 +97,8 @@ public class EditEventActivity extends AbstractCalendarActivity {
                 intent = getIntent();
             }
 
-            mEditFragment = new EditEventFragment(mEventInfo, mReminders, mEventColor,
-                    false, intent);
+            mEditFragment = new EditEventFragment(mEventInfo, mReminders, mEventColorInitialized,
+                    mEventColor, false, intent);
 
             mEditFragment.mShowModifyDialogOnLaunch = getIntent().getBooleanExtra(
                     CalendarController.EVENT_EDIT_ON_LAUNCH, false);

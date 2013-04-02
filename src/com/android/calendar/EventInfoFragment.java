@@ -131,8 +131,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     protected static final String BUNDLE_KEY_DELETE_DIALOG_VISIBLE = "key_delete_dialog_visible";
     protected static final String BUNDLE_KEY_WINDOW_STYLE = "key_window_style";
     protected static final String BUNDLE_KEY_CALENDAR_COLOR = "key_calendar_color";
+    protected static final String BUNDLE_KEY_CALENDAR_COLOR_INIT = "key_calendar_color_init";
     protected static final String BUNDLE_KEY_CURRENT_COLOR = "key_current_color";
+    protected static final String BUNDLE_KEY_CURRENT_COLOR_INIT = "key_current_color_init";
     protected static final String BUNDLE_KEY_ORIGINAL_COLOR = "key_original_color";
+    protected static final String BUNDLE_KEY_ORIGINAL_COLOR_INIT = "key_original_color_init";
     protected static final String BUNDLE_KEY_ATTENDEE_RESPONSE = "key_attendee_response";
     protected static final String BUNDLE_KEY_USER_SET_ATTENDEE_RESPONSE =
             "key_user_set_attendee_response";
@@ -360,8 +363,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private SparseIntArray mDisplayColorKeyMap = new SparseIntArray();
     private int[] mColors;
     private int mOriginalColor = -1;
+    private boolean mOriginalColorInitialized = false;
     private int mCalendarColor = -1;
+    private boolean mCalendarColorInitialized = false;
     private int mCurrentColor = -1;
+    private boolean mCurrentColorInitialized = false;
 
     private static final int FADE_IN_TIME = 300;   // in milliseconds
     private static final int LOADING_MSG_DELAY = 600;   // in milliseconds
@@ -463,19 +469,22 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                     activity.finish();
                     return;
                 }
-                if (mCalendarColor == -1) {
+                if (!mCalendarColorInitialized) {
                     mCalendarColor = Utils.getDisplayColorFromColor(
                             mEventCursor.getInt(EVENT_INDEX_CALENDAR_COLOR));
+                    mCalendarColorInitialized = true;
                 }
 
-                if (mOriginalColor == -1) {
+                if (!mOriginalColorInitialized) {
                     mOriginalColor = mEventCursor.isNull(EVENT_INDEX_EVENT_COLOR)
                             ? mCalendarColor : Utils.getDisplayColorFromColor(
                                     mEventCursor.getInt(EVENT_INDEX_EVENT_COLOR));
+                    mOriginalColorInitialized = true;
                 }
 
-                if (mCurrentColor == -1) {
+                if (!mCurrentColorInitialized) {
                     mCurrentColor = mOriginalColor;
+                    mCurrentColorInitialized = true;
                 }
 
                 updateEvent(mView);
@@ -843,8 +852,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mDeleteDialogVisible =
                 savedInstanceState.getBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE,false);
             mCalendarColor = savedInstanceState.getInt(BUNDLE_KEY_CALENDAR_COLOR);
+            mCalendarColorInitialized =
+                    savedInstanceState.getBoolean(BUNDLE_KEY_CALENDAR_COLOR_INIT);
             mOriginalColor = savedInstanceState.getInt(BUNDLE_KEY_ORIGINAL_COLOR);
+            mOriginalColorInitialized = savedInstanceState.getBoolean(
+                    BUNDLE_KEY_ORIGINAL_COLOR_INIT);
             mCurrentColor = savedInstanceState.getInt(BUNDLE_KEY_CURRENT_COLOR);
+            mCurrentColorInitialized = savedInstanceState.getBoolean(
+                    BUNDLE_KEY_CURRENT_COLOR_INIT);
 
             mTentativeUserSetResponse = savedInstanceState.getInt(
                             BUNDLE_KEY_TENTATIVE_USER_RESPONSE,
@@ -1128,8 +1143,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         outState.putInt(BUNDLE_KEY_WINDOW_STYLE, mWindowStyle);
         outState.putBoolean(BUNDLE_KEY_DELETE_DIALOG_VISIBLE, mDeleteDialogVisible);
         outState.putInt(BUNDLE_KEY_CALENDAR_COLOR, mCalendarColor);
+        outState.putBoolean(BUNDLE_KEY_CALENDAR_COLOR_INIT, mCalendarColorInitialized);
         outState.putInt(BUNDLE_KEY_ORIGINAL_COLOR, mOriginalColor);
+        outState.putBoolean(BUNDLE_KEY_ORIGINAL_COLOR_INIT, mOriginalColorInitialized);
         outState.putInt(BUNDLE_KEY_CURRENT_COLOR, mCurrentColor);
+        outState.putBoolean(BUNDLE_KEY_CURRENT_COLOR_INIT, mCurrentColorInitialized);
+
         // We'll need the temporary response for configuration changes.
         outState.putInt(BUNDLE_KEY_TENTATIVE_USER_RESPONSE, mTentativeUserSetResponse);
         if (mTentativeUserSetResponse != Attendees.ATTENDEE_STATUS_NONE &&
