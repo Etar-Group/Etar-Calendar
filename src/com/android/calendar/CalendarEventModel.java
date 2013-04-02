@@ -201,7 +201,8 @@ public class CalendarEventModel implements Serializable {
     public long mId = -1;
     public long mCalendarId = -1;
     public String mCalendarDisplayName = ""; // Make sure this is in sync with the mCalendarId
-    public int mCalendarColor = 0;
+    private int mCalendarColor = -1;
+    private boolean mCalendarColorInitialized = false;
     public String mCalendarAccountName;
     public String mCalendarAccountType;
     public int mCalendarMaxReminders;
@@ -214,7 +215,8 @@ public class CalendarEventModel implements Serializable {
     public String mSyncAccountType = null;
 
     public EventColorCache mEventColorCache;
-    public int mEventColor = -1;
+    private int mEventColor = -1;
+    private boolean mEventColorInitialized = false;
 
     // PROVIDER_NOTES owner account comes from the calendars table
     public String mOwnerAccount = null;
@@ -386,6 +388,12 @@ public class CalendarEventModel implements Serializable {
         mUri = null;
         mId = -1;
         mCalendarId = -1;
+        mCalendarColor = -1;
+        mCalendarColorInitialized = false;
+
+        mEventColorCache = null;
+        mEventColor = -1;
+        mEventColorInitialized = false;
 
         mSyncId = null;
         mSyncAccount = null;
@@ -712,7 +720,12 @@ public class CalendarEventModel implements Serializable {
         if (mCalendarId != originalModel.mCalendarId) {
             return false;
         }
-
+        if (mCalendarColor != originalModel.mCalendarColor) {
+            return false;
+        }
+        if (mCalendarColorInitialized != originalModel.mCalendarColorInitialized) {
+            return false;
+        }
         if (mGuestsCanInviteOthers != originalModel.mGuestsCanInviteOthers) {
             return false;
         }
@@ -854,6 +867,10 @@ public class CalendarEventModel implements Serializable {
             return false;
         }
 
+        if (mEventColorInitialized != originalModel.mEventColorInitialized) {
+            return false;
+        }
+
         return true;
     }
 
@@ -882,6 +899,32 @@ public class CalendarEventModel implements Serializable {
         }
 
         return true;
+    }
+
+    public boolean isCalendarColorInitialized() {
+        return mCalendarColorInitialized;
+    }
+
+    public boolean isEventColorInitialized() {
+        return mEventColorInitialized;
+    }
+
+    public int getCalendarColor() {
+        return mCalendarColor;
+    }
+
+    public int getEventColor() {
+        return mEventColor;
+    }
+
+    public void setCalendarColor(int color) {
+        mCalendarColor = color;
+        mCalendarColorInitialized = true;
+    }
+
+    public void setEventColor(int color) {
+        mEventColor = color;
+        mEventColorInitialized = true;
     }
 
     public int[] getCalendarEventColors() {
