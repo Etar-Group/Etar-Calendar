@@ -31,11 +31,9 @@ import android.test.AndroidTestCase;
 import android.test.mock.MockResources;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Smoke;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.text.util.Rfc822Token;
-import android.util.Log;
 
 import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.AsyncQueryService;
@@ -1558,7 +1556,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         model.mGuestsCanModify = false;
         model.mEventStatus = Events.STATUS_CONFIRMED;
         int displayColor = Utils.getDisplayColorFromColor(-2350809);
-        model.mEventColor = displayColor;
+        model.setEventColor(displayColor);
         model.mCalendarAccountName = "steve.owner@gmail.com";
         model.mCalendarAccountType = "gmail.com";
         EventColorCache cache = new EventColorCache();
