@@ -403,7 +403,7 @@
     <string name="does_not_repeat">One-time event</string>
     <!-- Part of a description of an repeating event. This part states the date when a repeating
          event ends. The part before the semi-colon describes how it repeats.
-         e.g. Every 2 weeks; until 1/1/2030 [CHAR LIMIT=15] -->
+         e.g. Every 2 weeks; until 1/1/2030 [CHAR LIMIT=21] -->
     <string name="endByDate">; until <xliff:g id="date">%s</xliff:g></string>
     <!-- Part of a description of an repeating event. This part how many times the event repeats.
          The part before the semi-colon describes how it repeats.
@@ -421,7 +421,7 @@
          repeats every weekday (Monday through Friday) -->
     <string name="every_weekday">"Every weekday (Mon\u2013Fri)"</string>
     <!-- A description for an event that repeats weekly on some day of the week. For example,
-         'Weekly on Tuesday' or Every 2 weeks on Monday, Tuesday.  [CHAR LIMIT=20]-->
+         'Weekly on Tuesday' or Every 2 weeks on Monday, Tuesday.  [CHAR LIMIT=25]-->
     <plurals name="weekly">
         <item quantity="one">Weekly on <xliff:g id="days_of_week">%2$s</xliff:g></item>
         <item quantity="other">Every <xliff:g id="number">%1$d</xliff:g> weeks on <xliff:g id="days_of_week">%2$s</xliff:g></item>
@@ -695,16 +695,16 @@
     <!-- Repeat an monthly event on the same day of every month [CHAR LIMIT=20] -->
     <string name="recurrence_month_pattern_by_day">on the same day each month</string>
     <!-- Repeat an monthly event on the same nth day of the week of every month.
-         For example, on every second Tuesday [CHAR LIMIT=20] -->
+         For example, on every second Tuesday [CHAR LIMIT=30] -->
     <string name="recurrence_month_pattern_by_day_of_week">on every <xliff:g id="nth">%1$s</xliff:g> <xliff:g id="day_of_week">%2$s</xliff:g></string>
 
-    <!-- Specifies that a repeating event to repeat forever[CHAR LIMIT=25] -->
+    <!-- Specifies that a repeating event to repeat forever (based on the defined frequency) instead of ending at a future date[CHAR LIMIT=25] -->
     <string name="recurrence_end_continously">Repeats forever</string>
     <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
     <string name="recurrence_end_date_label">Until a date</string>
     <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
     <string name="recurrence_end_date">Until <xliff:g id="date">%s</xliff:g></string>
-    <!-- Specifies that a repeating event to repeat for a number of times[CHAR LIMIT=25] -->
+    <!-- Specifies that a repeating event to repeat for a number of times. A repeating event can repeat forever, repeat in a certain frequency until a certain date, or repeat for a number of times. e.g. repeat 10 times and stop. This string is for the last case [CHAR LIMIT=25] -->
     <string name="recurrence_end_count_label">For a number of events</string>
 
     <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->
