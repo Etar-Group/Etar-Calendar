@@ -5,7 +5,8 @@ include $(CLEAR_VARS)
 chips_dir := ../../../frameworks/ex/chips/res
 color_picker_dir := ../../../frameworks/opt/colorpicker/res
 datetimepicker_dir := ../../../frameworks/opt/datetimepicker/res
-res_dirs := $(chips_dir) $(color_picker_dir) $(datetimepicker_dir) res
+timezonepicker_dir := ../../../frameworks/opt/timezonepicker/res
+res_dirs := $(chips_dir) $(color_picker_dir) $(datetimepicker_dir) $(timezonepicker_dir) res
 src_dirs := src
 
 LOCAL_EMMA_COVERAGE_FILTER := +com.android.calendar.*
@@ -26,6 +27,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
         android-common-chips \
         colorpicker \
         android-opt-datetimepicker \
+        android-opt-timezonepicker \
         android-support-v4 \
         calendar-common
 
@@ -42,6 +44,7 @@ LOCAL_AAPT_FLAGS := --auto-add-overlay
 LOCAL_AAPT_FLAGS += --extra-packages com.android.ex.chips
 LOCAL_AAPT_FLAGS += --extra-packages com.android.colorpicker
 LOCAL_AAPT_FLAGS += --extra-packages com.android.datetimepicker
+LOCAL_AAPT_FLAGS += --extra-packages com.android.timezonepicker
 
 include $(BUILD_PACKAGE)
 

@@ -18,6 +18,7 @@ package com.android.calendar.event;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -44,7 +45,6 @@ import android.text.format.Time;
 import android.text.util.Rfc822Tokenizer;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -77,8 +77,6 @@ import com.android.calendar.EventRecurrenceFormatter;
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.R;
 import com.android.calendar.RecipientAdapter;
-import com.android.calendar.TimezoneAdapter;
-import com.android.calendar.TimezoneAdapter.TimezoneRow;
 import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventHelper.EditDoneRunnable;
 import com.android.calendar.recurrencepicker.RecurrencePickerDialog;
@@ -94,6 +92,8 @@ import com.android.ex.chips.AccountSpecifier;
 import com.android.ex.chips.BaseRecipientAdapter;
 import com.android.ex.chips.ChipsUtil;
 import com.android.ex.chips.RecipientEditTextView;
+import com.android.timezonepicker.TimeZoneInfo;
+import com.android.timezonepicker.TimeZonePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,13 +104,16 @@ import java.util.TimeZone;
 
 public class EditEventView implements View.OnClickListener, DialogInterface.OnCancelListener,
         DialogInterface.OnClickListener, OnItemSelectedListener,
-        RecurrencePickerDialog.OnRecurrenceSetListener {
+        RecurrencePickerDialog.OnRecurrenceSetListener,
+        TimeZonePickerDialog.OnTimeZoneSetListener {
     private static final String TAG = "EditEvent";
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final String PERIOD_SPACE = ". ";
-    static final String FRAG_TAG_RECUR_PICKER = "recurrencePickerDialogFragment";
+
     private static final String FRAG_TAG_DATE_PICKER = "datePickerDialogFragment";
     private static final String FRAG_TAG_TIME_PICKER = "timePickerDialogFragment";
+    private static final String FRAG_TAG_TIME_ZONE_PICKER = "timeZonePickerDialogFragment";
+    private static final String FRAG_TAG_RECUR_PICKER = "recurrencePickerDialogFragment";
 
     ArrayList<View> mEditOnlyList = new ArrayList<View>();
     ArrayList<View> mEditViewList = new ArrayList<View>();
@@ -162,7 +165,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     public boolean mIsMultipane;
     private ProgressDialog mLoadingCalendarsDialog;
     private AlertDialog mNoCalendarsDialog;
-    private AlertDialog mTimezoneDialog;
+    private DialogFragment mTimezoneDialog;
     private Activity mActivity;
     private EditDoneRunnable mDone;
     private View mView;
@@ -170,7 +173,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     private Cursor mCalendarsCursor;
     private AccountSpecifier mAddressAdapter;
     private Rfc822Validator mEmailValidator;
-    private TimezoneAdapter mTimezoneAdapter;
 
     public boolean mTimeSelectedWasStartTime;
     public boolean mDateSelectedWasStartDate;
@@ -388,60 +390,81 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mEndTimeButton.setOnClickListener(new TimeClickListener(mEndTime));
     }
 
+    // Implements OnTimeZoneSetListener
+    @Override
+    public void onTimeZoneSet(TimeZoneInfo tzi) {
+        setTimezone(tzi.mTzId);
+        updateHomeTime();
+    }
+
+    private void setTimezone(String timeZone) {
+        mTimezone = timeZone;
+        mStartTime.timezone = mTimezone;
+        long timeMillis = mStartTime.normalize(true);
+        mEndTime.timezone = mTimezone;
+        mEndTime.normalize(true);
+
+        populateTimezone(timeMillis);
+    }
+
     private void populateTimezone(long eventStartTime) {
-        if (mTimezoneAdapter == null) {
-            mTimezoneAdapter = new TimezoneAdapter(mActivity, mTimezone, eventStartTime);
+        TimeZone tz = TimeZone.getTimeZone(mTimezone);
+        String displayName = buildGmtDisplayName(tz, eventStartTime);
+
+        mTimezoneTextView.setText(displayName);
+        mTimezoneButton.setText(displayName);
+    }
+
+    public String buildGmtDisplayName(TimeZone tz, long timeMillis) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("(GMT");
+
+        final int gmtOffset = tz.getOffset(timeMillis);
+        if (gmtOffset < 0) {
+            sb.append('-');
         } else {
-            mTimezoneAdapter.setTime(eventStartTime);
+            sb.append('+');
         }
 
-        if (mTimezoneDialog != null) {
-            mTimezoneDialog.getListView().setAdapter(mTimezoneAdapter);
-        }
+        final int p = Math.abs(gmtOffset);
+        sb.append(p / DateUtils.HOUR_IN_MILLIS); // Hour
 
-        mTimezoneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimezoneDialog();
+        final int min = (p / 60000) % 60;
+        if (min != 0) { // Show minutes if non-zero
+            sb.append(':');
+            if (min < 10) {
+                sb.append('0');
             }
-        });
-        setTimezone(mTimezoneAdapter.getRowById(mTimezone));
+            sb.append(min);
+        }
+        sb.append(") ");
+
+        // tz.inDaylightTime(new Date(timeMillis))
+        String displayName = tz.getDisplayName(mStartTime.isDst != 0, TimeZone.LONG,
+                Locale.getDefault());
+        sb.append(displayName);
+
+        if (tz.useDaylightTime()) {
+            sb.append(" \u2600"); // Sun symbol
+        }
+        return sb.toString();
     }
 
     private void showTimezoneDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-        final Context alertDialogContext = builder.getContext();
-        builder.setTitle(R.string.timezone_label);
-        builder.setSingleChoiceItems(
-                mTimezoneAdapter, mTimezoneAdapter.getRowById(mTimezone), this);
-        mTimezoneDialog = builder.create();
+        Bundle b = new Bundle();
+        b.putLong(TimeZonePickerDialog.BUNDLE_START_TIME_MILLIS, mStartTime.toMillis(false));
+        b.putString(TimeZonePickerDialog.BUNDLE_TIME_ZONE, mTimezone);
 
-        LayoutInflater layoutInflater = (LayoutInflater) alertDialogContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final TextView timezoneFooterView = (TextView) layoutInflater.inflate(
-                R.layout.timezone_footer, null);
-
-        timezoneFooterView.setText(mActivity.getString(R.string.edit_event_show_all) + " >");
-        timezoneFooterView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTimezoneDialog.getListView().removeFooterView(timezoneFooterView);
-                mTimezoneAdapter.showAllTimezones();
-                final int row = mTimezoneAdapter.getRowById(mTimezone);
-                // we need to post the selection changes to have them have
-                // any effect
-                mTimezoneDialog.getListView().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mTimezoneDialog.getListView().setItemChecked(row, true);
-                        mTimezoneDialog.getListView().setSelection(row);
-                    }
-                });
-            }
-        });
-        mTimezoneDialog.getListView().addFooterView(timezoneFooterView);
-        mTimezoneDialog.setCanceledOnTouchOutside(true);
-        mTimezoneDialog.show();
+        FragmentManager fm = mActivity.getFragmentManager();
+        TimeZonePickerDialog tzpd = (TimeZonePickerDialog) fm
+                .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER);
+        if (tzpd != null) {
+            tzpd.dismiss();
+        }
+        tzpd = new TimeZonePickerDialog();
+        tzpd.setArguments(b);
+        tzpd.setOnTimeZoneSetListener(EditEventView.this);
+        tzpd.show(fm, FRAG_TAG_TIME_ZONE_PICKER);
     }
 
     private void populateRepeats() {
@@ -645,12 +668,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 nextIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 mActivity.startActivity(nextIntent);
             }
-        } else if (dialog == mTimezoneDialog) {
-            if (which >= 0 && which < mTimezoneAdapter.getCount()) {
-                setTimezone(which);
-                updateHomeTime();
-                dialog.dismiss();
-            }
         }
     }
 
@@ -749,10 +766,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mModel.mRrule = mRrule;
         }
 
-        // Save the timezone so we can display it as a standard option next time
-        if (!mModel.mAllDay) {
-            mTimezoneAdapter.saveRecentTimezone(mTimezone);
-        }
         return true;
     }
 
@@ -780,6 +793,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         mStartTimeButton = (Button) view.findViewById(R.id.start_time);
         mEndTimeButton = (Button) view.findViewById(R.id.end_time);
         mTimezoneButton = (Button) view.findViewById(R.id.timezone_button);
+        mTimezoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimezoneDialog();
+            }
+        });
         mTimezoneRow = view.findViewById(R.id.timezone_button_row);
         mStartTimeHome = (TextView) view.findViewById(R.id.start_time_home_tz);
         mStartDateHome = (TextView) view.findViewById(R.id.start_date_home_tz);
@@ -893,6 +912,11 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 .findFragmentByTag(FRAG_TAG_RECUR_PICKER);
         if (rpd != null) {
             rpd.setOnRecurrenceSetListener(this);
+        }
+        TimeZonePickerDialog tzpd = (TimeZonePickerDialog) fm
+                .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER);
+        if (tzpd != null) {
+            tzpd.setOnTimeZoneSetListener(this);
         }
         TimePickerDialog tpd = (TimePickerDialog) fm.findFragmentByTag(FRAG_TAG_TIME_PICKER);
         if (tpd != null) {
@@ -1608,21 +1632,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             TimeZone.setDefault(null);
         }
         view.setText(timeString);
-    }
-
-    private void setTimezone(int i) {
-        if (i < 0 || i >= mTimezoneAdapter.getCount()) {
-            return; // do nothing
-        }
-        TimezoneRow timezone = mTimezoneAdapter.getItem(i);
-        mTimezoneTextView.setText(timezone.toString());
-        mTimezoneButton.setText(timezone.toString());
-        mTimezone = timezone.mId;
-        mStartTime.timezone = mTimezone;
-        mStartTime.normalize(true);
-        mEndTime.timezone = mTimezone;
-        mEndTime.normalize(true);
-        mTimezoneAdapter.setCurrentTimezone(mTimezone);
     }
 
     /**
