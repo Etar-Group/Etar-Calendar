@@ -223,7 +223,12 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                                 EditEventHelper.REMINDERS_WHERE /* selection */,
                                 remArgs /* selection args */, null /* sort order */);
                     } else {
-                        Collections.sort(mReminders);
+                        if (mReminders == null) {
+                            // mReminders should not be null.
+                            mReminders = new ArrayList<ReminderEntry>();
+                        } else {
+                            Collections.sort(mReminders);
+                        }
                         mOriginalModel.mReminders = mReminders;
                         mModel.mReminders =
                                 (ArrayList<ReminderEntry>) mReminders.clone();
