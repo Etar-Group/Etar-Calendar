@@ -1,6 +1,6 @@
 -keep class com.android.calendar.selectcalendars.SelectCalendarsSyncFragment
 -keep class com.android.calendar.OtherPreferences
--keep class com.android.calendar.extensions.AboutPreferences
+-keep class com.android.calendar.AboutPreferences
 -keepclassmembers class com.android.calendar.AllInOneActivity {
   *** setControlsOffset(...);
 }
