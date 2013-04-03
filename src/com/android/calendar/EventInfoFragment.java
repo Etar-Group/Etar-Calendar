@@ -121,6 +121,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public static final boolean DEBUG = false;
 
     public static final String TAG = "EventInfoFragment";
+    public static final String COLOR_PICKER_DIALOG_TAG = "EventColorPickerDialog";
 
     private static final int REQUEST_CODE_COLOR_PICKER = 0;
 
@@ -359,7 +360,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private ObjectAnimator mAnimateAlpha;
     private long mLoadingMsgStartTime;
 
-    private EventColorPickerDialog mDialog;
+    private EventColorPickerDialog mColorPickerDialog;
     private SparseIntArray mDisplayColorKeyMap = new SparseIntArray();
     private int[] mColors;
     private int mOriginalColor = -1;
@@ -710,7 +711,14 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         if (mIsDialog) {
             applyDialogParams();
         }
-        mContext = getActivity();
+
+        final Activity activity = getActivity();
+        mContext = activity;
+        mColorPickerDialog = (EventColorPickerDialog) activity.getFragmentManager()
+                .findFragmentByTag(COLOR_PICKER_DIALOG_TAG);
+        if (mColorPickerDialog != null) {
+            mColorPickerDialog.setOnColorSelectedListener(this);
+        }
     }
 
     private void applyDialogParams() {
@@ -1237,15 +1245,15 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     }
 
     private void showEventColorPickerDialog() {
-        if (mDialog == null) {
-            mDialog = EventColorPickerDialog.newInstance(mColors, mCurrentColor, mCalendarColor,
-                    mIsTabletConfig);
-            mDialog.setTargetFragment(this, REQUEST_CODE_COLOR_PICKER);
+        if (mColorPickerDialog == null) {
+            mColorPickerDialog = EventColorPickerDialog.newInstance(mColors, mCurrentColor,
+                    mCalendarColor, mIsTabletConfig);
+            mColorPickerDialog.setOnColorSelectedListener(this);
         }
         final FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.executePendingTransactions();
-        if (!mDialog.isAdded()) {
-            mDialog.show(fragmentManager, TAG);
+        if (!mColorPickerDialog.isAdded()) {
+            mColorPickerDialog.show(fragmentManager, COLOR_PICKER_DIALOG_TAG);
         }
     }
 

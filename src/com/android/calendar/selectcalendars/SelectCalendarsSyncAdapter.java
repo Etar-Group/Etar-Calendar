@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.provider.CalendarContract.Calendars;
 import android.text.TextUtils;
@@ -33,7 +32,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -46,10 +44,12 @@ import java.util.HashMap;
 public class SelectCalendarsSyncAdapter extends BaseAdapter
         implements ListAdapter, AdapterView.OnItemClickListener {
     private static final String TAG = "SelCalsAdapter";
+    private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
+
     private static int COLOR_CHIP_SIZE = 30;
     private RectShape r = new RectShape();
 
-    private CalendarColorPickerDialog mDialog;
+    private CalendarColorPickerDialog mColorPickerDialog;
 
     private LayoutInflater mInflater;
     private static final int LAYOUT = R.layout.calendar_sync_item;
@@ -82,6 +82,8 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
         super();
         initData(c);
         mFragmentManager = manager;
+        mColorPickerDialog = (CalendarColorPickerDialog)
+                manager.findFragmentByTag(COLOR_PICKER_DIALOG_TAG);
         mColorViewTouchAreaIncrease = context.getResources()
                 .getDimensionPixelSize(R.dimen.color_view_touch_area_increase);
         mIsTablet = Utils.getConfigBool(context, R.bool.tablet_config);
@@ -177,14 +179,15 @@ public class SelectCalendarsSyncAdapter extends BaseAdapter
 
             @Override
             public void onClick(View v) {
-                if (mDialog == null) {
-                    mDialog = CalendarColorPickerDialog.newInstance(mData[position].id, mIsTablet);
+                if (mColorPickerDialog == null) {
+                    mColorPickerDialog = CalendarColorPickerDialog.newInstance(mData[position].id,
+                            mIsTablet);
                 } else {
-                    mDialog.setCalendarId(mData[position].id);
+                    mColorPickerDialog.setCalendarId(mData[position].id);
                 }
                 mFragmentManager.executePendingTransactions();
-                if (!mDialog.isAdded()) {
-                    mDialog.show(mFragmentManager, TAG);
+                if (!mColorPickerDialog.isAdded()) {
+                    mColorPickerDialog.show(mFragmentManager, COLOR_PICKER_DIALOG_TAG);
                 }
             }
         });
