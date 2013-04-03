@@ -556,10 +556,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
                         Log.d("Color", "H:" + hsv[0] + ",S:" + hsv[1] + ",V:" + hsv[2]);
                     }
                 }
-                View button = mView.findViewById(R.id.change_color);
-                if (button != null && mColors.length > 0) {
-                    button.setEnabled(true);
-                    button.setVisibility(View.VISIBLE);
+                if (mCanModifyCalendar) {
+                    View button = mView.findViewById(R.id.change_color);
+                    if (button != null && mColors.length > 0) {
+                        button.setEnabled(true);
+                        button.setVisibility(View.VISIBLE);
+                    }
                 }
                 updateMenu();
                 break;

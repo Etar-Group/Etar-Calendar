@@ -16,7 +16,6 @@
 
 package com.android.calendar.event;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
