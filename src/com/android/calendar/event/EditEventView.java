@@ -94,6 +94,7 @@ import com.android.ex.chips.ChipsUtil;
 import com.android.ex.chips.RecipientEditTextView;
 import com.android.timezonepicker.TimeZoneInfo;
 import com.android.timezonepicker.TimeZonePickerDialog;
+import com.android.timezonepicker.TimeZonePickerUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -408,46 +409,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     private void populateTimezone(long eventStartTime) {
-        TimeZone tz = TimeZone.getTimeZone(mTimezone);
-        String displayName = buildGmtDisplayName(tz, eventStartTime);
+        String displayName = TimeZonePickerUtils.getGmtDisplayName(mTimezone, eventStartTime);
 
         mTimezoneTextView.setText(displayName);
         mTimezoneButton.setText(displayName);
-    }
-
-    public String buildGmtDisplayName(TimeZone tz, long timeMillis) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("(GMT");
-
-        final int gmtOffset = tz.getOffset(timeMillis);
-        if (gmtOffset < 0) {
-            sb.append('-');
-        } else {
-            sb.append('+');
-        }
-
-        final int p = Math.abs(gmtOffset);
-        sb.append(p / DateUtils.HOUR_IN_MILLIS); // Hour
-
-        final int min = (p / 60000) % 60;
-        if (min != 0) { // Show minutes if non-zero
-            sb.append(':');
-            if (min < 10) {
-                sb.append('0');
-            }
-            sb.append(min);
-        }
-        sb.append(") ");
-
-        // tz.inDaylightTime(new Date(timeMillis))
-        String displayName = tz.getDisplayName(mStartTime.isDst != 0, TimeZone.LONG,
-                Locale.getDefault());
-        sb.append(displayName);
-
-        if (tz.useDaylightTime()) {
-            sb.append(" \u2600"); // Sun symbol
-        }
-        return sb.toString();
     }
 
     private void showTimezoneDialog() {
