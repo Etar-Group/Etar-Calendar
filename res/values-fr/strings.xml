@@ -218,4 +218,13 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Événement sélectionné"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Ne PAS cocher -&gt;"</string>
+
+    <!-- CYANOGENMOD ADDITIONS -->
+
+    <string name="preferences_alerts_custom_snooze_delay_title">Demander un délai de répétition</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_on">Demander le délai de répétition à chaque rappel</string>
+    <string name="preferences_alerts_custom_snooze_delay_summary_off">Toujours utiliser le délai de répétition par défaut</string>
+    <string name="snooze_delay_dialog_title">Définir le délai de répétition</string>
+    <string name="preferences_default_snooze_delay_title">Délai de répétition par défaut</string>
+    <string name="preferences_default_snooze_delay_dialog">Délai par défaut</string>
 </resources>
