@@ -107,6 +107,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         DialogInterface.OnClickListener, OnItemSelectedListener,
         RecurrencePickerDialog.OnRecurrenceSetListener,
         TimeZonePickerDialog.OnTimeZoneSetListener {
+
     private static final String TAG = "EditEvent";
     private static final String GOOGLE_SECONDARY_CALENDAR = "calendar.google.com";
     private static final String PERIOD_SPACE = ". ";
@@ -1492,7 +1493,12 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         }
         mAttendeesList.setText(null);
         for (Attendee attendee : attendeesList.values()) {
-            mAttendeesList.append(attendee.mEmail);
+
+            // TODO: Please remove separator when Calendar uses the chips MR2 project
+
+            // Adding a comma separator between email addresses to prevent a chips MR1.1 bug
+            // in which email addresses are concatenated together with no separator.
+            mAttendeesList.append(attendee.mEmail + ", ");
         }
     }
 
