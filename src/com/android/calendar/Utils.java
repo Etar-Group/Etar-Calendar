@@ -120,7 +120,7 @@ public class Utils {
     static boolean mMinutesLoaded = false;
 
     public static final int YEAR_MIN = 1970;
-    public static final int YEAR_MAX = 2037;
+    public static final int YEAR_MAX = 2036;
 
     // The name of the shared preferences file. This name must be maintained for
     // historical
