@@ -178,7 +178,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     public boolean mTimeSelectedWasStartTime;
     public boolean mDateSelectedWasStartDate;
-
+    private TimePickerDialog mStartTimePickerDialog;
+    private TimePickerDialog mEndTimePickerDialog;
     private DatePickerDialog mDatePickerDialog;
 
     /**
@@ -294,18 +295,35 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         @Override
         public void onClick(View v) {
-            FragmentManager fm = mActivity.getFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
 
+            TimePickerDialog dialog;
             if (v == mStartTimeButton) {
                 mTimeSelectedWasStartTime = true;
+                if (mStartTimePickerDialog == null) {
+                    mStartTimePickerDialog = TimePickerDialog.newInstance(new TimeListener(v),
+                            mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
+                } else {
+                    mStartTimePickerDialog.setStartTime(mTime.hour, mTime.minute);
+                }
+                dialog = mStartTimePickerDialog;
             } else {
                 mTimeSelectedWasStartTime = false;
+                if (mEndTimePickerDialog == null) {
+                    mEndTimePickerDialog = TimePickerDialog.newInstance(new TimeListener(v),
+                            mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
+                } else {
+                    mEndTimePickerDialog.setStartTime(mTime.hour, mTime.minute);
+                }
+                dialog = mEndTimePickerDialog;
+
             }
 
-            TimePickerDialog tp = TimePickerDialog.newInstance(new TimeListener(v),
-                    mTime.hour, mTime.minute, DateFormat.is24HourFormat(mActivity));
-            tp.show(ft, FRAG_TAG_TIME_PICKER);
+            if (dialog != null && !dialog.isAdded()) {
+                final FragmentManager fm = mActivity.getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                fm.executePendingTransactions();
+                dialog.show(fm, FRAG_TAG_TIME_PICKER);
+            }
         }
     }
 
