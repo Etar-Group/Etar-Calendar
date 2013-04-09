@@ -65,7 +65,7 @@
     <string name="hide_controls" msgid="830320505938520882">"Ficha vidhibiti"</string>
     <string name="show_controls" msgid="715520586028062621">"Onyesha vidhibiti"</string>
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalenda za kuonyesha"</string>
-    <string name="synced" msgid="7913940305983383493">"imesawazishwa"</string>
+    <string name="synced" msgid="7913940305983383493">"Vilivyosawazishwa"</string>
     <string name="not_synced" msgid="4275114941801829419">"haijasawazishwa"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"Akaunti hii hailandanishwi na huenda kalenda zako zaweza kuwa hazijasasishwa."</string>
     <string name="accounts" msgid="849401841083180306">"Akaunti na usawazishaji"</string>
