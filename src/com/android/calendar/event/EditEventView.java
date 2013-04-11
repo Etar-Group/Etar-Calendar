@@ -214,6 +214,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private boolean mSaveAfterQueryComplete = false;
 
+    private TimeZonePickerUtils mTzPickerUtils;
     private Time mStartTime;
     private Time mEndTime;
     private String mTimezone;
@@ -428,7 +429,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
     }
 
     private void populateTimezone(long eventStartTime) {
-        String displayName = TimeZonePickerUtils.getGmtDisplayName(mTimezone, eventStartTime);
+        if (mTzPickerUtils == null) {
+            mTzPickerUtils = new TimeZonePickerUtils(mActivity);
+        }
+        String displayName = mTzPickerUtils.getGmtDisplayName(mActivity, mTimezone, eventStartTime);
 
         mTimezoneTextView.setText(displayName);
         mTimezoneButton.setText(displayName);
