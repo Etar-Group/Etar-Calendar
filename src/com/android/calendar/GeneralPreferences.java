@@ -118,6 +118,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     CheckBoxPreference mUseHomeTZ;
     CheckBoxPreference mHideDeclined;
     Preference mHomeTZ;
+    TimeZonePickerUtils mTzPickerUtils;
     ListPreference mWeekStart;
     ListPreference mDefaultReminder;
 
@@ -182,7 +183,10 @@ public class GeneralPreferences extends PreferenceFragment implements
             }
         });
 
-        String timezoneName = TimeZonePickerUtils.getGmtDisplayName(timezone,
+        if (mTzPickerUtils == null) {
+            mTzPickerUtils = new TimeZonePickerUtils(getActivity());
+        }
+        String timezoneName = mTzPickerUtils.getGmtDisplayName(getActivity(), timezone,
                 System.currentTimeMillis());
         mHomeTZ.setSummary(timezoneName != null ? timezoneName : timezone);
 
@@ -392,7 +396,11 @@ public class GeneralPreferences extends PreferenceFragment implements
 
     @Override
     public void onTimeZoneSet(TimeZoneInfo tzi) {
-        final String timezoneName = TimeZonePickerUtils.getGmtDisplayName(tzi.mTzId,
+        if (mTzPickerUtils == null) {
+            mTzPickerUtils = new TimeZonePickerUtils(getActivity());
+        }
+
+        final String timezoneName = mTzPickerUtils.getGmtDisplayName(getActivity(), tzi.mTzId,
                 System.currentTimeMillis());
         mHomeTZ.setSummary(timezoneName);
         Utils.setTimeZone(getActivity(), tzi.mTzId);
