@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
@@ -319,10 +318,10 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
             }
 
+            final FragmentManager fm = mActivity.getFragmentManager();
+            fm.executePendingTransactions();
+
             if (dialog != null && !dialog.isAdded()) {
-                final FragmentManager fm = mActivity.getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                fm.executePendingTransactions();
                 dialog.show(fm, FRAG_TAG_TIME_PICKER);
             }
         }
