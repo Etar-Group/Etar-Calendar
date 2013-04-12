@@ -799,6 +799,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mActivity = activity;
+        // Ensure that mIsTabletConfig is set before creating the menu.
+        mIsTabletConfig = Utils.getConfigBool(getActivity(), R.bool.tablet_config);
         mController = CalendarController.getInstance(mActivity);
         mController.registerEventHandler(R.layout.event_info, this);
         mEditResponseHelper = new EditResponseHelper(activity);
@@ -908,7 +910,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         mHeadlines = mView.findViewById(R.id.event_info_headline);
         mLongAttendees = (AttendeesView) mView.findViewById(R.id.long_attendee_list);
 
-        mIsTabletConfig = Utils.getConfigBool(mActivity, R.bool.tablet_config);
         mResponseRadioGroup = (RadioGroup) mView.findViewById(R.id.response_value);
 
         if (mUri == null) {
@@ -1202,7 +1203,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        // Show edit/delete buttons only in non-dialog configuration
+        // Show color/edit/delete buttons only in non-dialog configuration
         if (!mIsDialog && !mIsTabletConfig || mWindowStyle == EventInfoFragment.FULL_WINDOW_STYLE) {
             inflater.inflate(R.menu.event_info_title_bar, menu);
             mMenu = menu;
