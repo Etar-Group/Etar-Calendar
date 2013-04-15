@@ -101,7 +101,7 @@
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizador:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Escolher cor do evento"</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Cor do evento"</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">"Definir como cor de agenda padrão"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Definir como cor padrão de agenda"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Cor da agenda"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Você vai?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Sim"</string>
