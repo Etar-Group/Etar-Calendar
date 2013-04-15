@@ -23,6 +23,7 @@ import android.os.Message;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -39,7 +40,7 @@ import com.android.calendar.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MonthByWeekAdapter extends SimpleWeeksAdapter implements View.OnLongClickListener {
+public class MonthByWeekAdapter extends SimpleWeeksAdapter {
     private static final String TAG = "MonthByWeekAdapter";
 
     public static final String WEEK_PARAMS_IS_MINI = "mini_month";
@@ -66,6 +67,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter implements View.OnLon
 
     MonthWeekEventsView mClickedView;
     MonthWeekEventsView mSingleTapUpView;
+    MonthWeekEventsView mLongClickedView;
 
     float mClickedXLocation;                // Used to find which day was clicked
     long mClickTime;                        // Used to calculate minimum click animation time
@@ -99,6 +101,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter implements View.OnLon
     @Override
     protected void init() {
         super.init();
+        mGestureDetector = new GestureDetector(mContext, new CalendarGestureListener());
         mController = CalendarController.getInstance(mContext);
         mHomeTimeZone = Utils.getTimeZone(mContext, null);
         mSelectedDay.switchTimezone(mHomeTimeZone);
@@ -208,14 +211,12 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter implements View.OnLon
                     // There is a bug that causes invalidates to not work some
                     // of the time unless we recreate the view.
                     v = new MonthWeekEventsView(mContext);
-                    v.setOnLongClickListener(this);
                }
             } else {
                 drawingParams = (HashMap<String, Integer>) v.getTag();
             }
         } else {
             v = new MonthWeekEventsView(mContext);
-            v.setOnLongClickListener(this);
         }
         if (drawingParams == null) {
             drawingParams = new HashMap<String, Integer>();
@@ -365,6 +366,21 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter implements View.OnLon
         public boolean onSingleTapUp(MotionEvent e) {
             return true;
         }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            if (mLongClickedView != null) {
+                Time day = mLongClickedView.getDayFromLocation(mClickedXLocation);
+                if (day != null) {
+                    mLongClickedView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+                    Message message = new Message();
+                    message.obj = day;
+                    mEventDialogHandler.sendMessage(message);
+                }
+                mLongClickedView.clearClickedDay();
+                mLongClickedView = null;
+             }
+        }
     }
 
     // Clear the visual cues of the click animation and related running code.
@@ -385,6 +401,7 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter implements View.OnLon
                 synchronized(mClickedView) {
                     mClickedView.setClickedDay(mClickedXLocation);
                 }
+                mLongClickedView = mClickedView;
                 mClickedView = null;
                 // This is a workaround , sometimes the top item on the listview doesn't refresh on
                 // invalidate, so this forces a re-draw.
@@ -411,19 +428,4 @@ public class MonthByWeekAdapter extends SimpleWeeksAdapter implements View.OnLon
             }
         }
     };
-
-    @Override
-    public boolean onLongClick(View v) {
-        MonthWeekEventsView weekView = (MonthWeekEventsView) v;
-        Time day = weekView.getDayFromLocation(mClickedXLocation);
-        if (day == null) {
-            // The day that was clicked is malformed, so just die here.
-            // Return true so nothing else tries to use the malformed day.
-            return true;
-        }
-        Message message = new Message();
-        message.obj = day;
-        mEventDialogHandler.sendMessage(message);
-        return true;
-    }
 }

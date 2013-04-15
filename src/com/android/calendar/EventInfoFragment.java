@@ -800,7 +800,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         super.onAttach(activity);
         mActivity = activity;
         // Ensure that mIsTabletConfig is set before creating the menu.
-        mIsTabletConfig = Utils.getConfigBool(getActivity(), R.bool.tablet_config);
+        mIsTabletConfig = Utils.getConfigBool(mActivity, R.bool.tablet_config);
         mController = CalendarController.getInstance(mActivity);
         mController.registerEventHandler(R.layout.event_info, this);
         mEditResponseHelper = new EditResponseHelper(activity);
