@@ -15,4 +15,7 @@
 -->
 <resources>
     <dimen name="action_bar_date_text_size">18sp</dimen>
+
+    <dimen name="recurrence_picker_width">500dp</dimen>
+    <dimen name="recurrence_picker_height">270dp</dimen>
 </resources>

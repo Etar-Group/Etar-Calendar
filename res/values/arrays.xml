@@ -239,10 +239,10 @@
 
     <!-- Recurrence picker: How events are to be repeated.  [CHAR LIMIT = 20] -->
     <string-array name="recurrence_freq">
-        <item >One-time event</item>
-        <item >Daily</item>
-        <item >Weekly</item>
-        <item >Monthly</item>
-        <item >Yearly</item>
+        <item >ONE-TIME EVENT</item>
+        <item >DAILY</item>
+        <item >WEEKLY</item>
+        <item >MONTHLY</item>
+        <item >YEARLY</item>
     </string-array>
 </resources>
