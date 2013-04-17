@@ -623,6 +623,8 @@
     <string name="accessibility_pick_end_time">End time</string>
     <!-- Select a time zone for a new event [CHAR LIMIT = NONE]-->
     <string name="accessibility_pick_time_zone">Time zone</string>
+    <!-- Select a time zone for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_recurrence">Repeat event</string>
     <!-- Add a reminder to an event [CHAR LIMIT = NONE]-->
     <string name="accessibility_add_reminder">Add reminder</string>
     <!-- Remove a reminder from an event [CHAR LIMIT = NONE]-->

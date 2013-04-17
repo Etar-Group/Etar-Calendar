@@ -216,6 +216,7 @@
                             android:layout_marginBottom="-2dp"
                             android:layout_gravity="center_vertical"
                             android:ems="3"
+                            android:layout_marginLeft="8dp"
                             android:gravity="center_horizontal"
                             android:inputType="number"
                             android:maxLength="3"
@@ -232,7 +233,7 @@
                             android:contentDescription=
                                 "@string/acessibility_recurrence_choose_end_date_description"
                             android:padding="4dp"
-                            android:src="@drawable/mini_calendar"
+                            android:src="@drawable/ic_menu_today_no_date_holo_light"
                             android:visibility="gone" />
                     </LinearLayout>
                 </LinearLayout>
