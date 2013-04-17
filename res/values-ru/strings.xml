@@ -103,6 +103,8 @@
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Цвет мероприятия"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Сделать цветом календаря по умолчанию"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Цвет календаря"</string>
+    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
+    <skip />
     <string name="view_event_response_label" msgid="8382281658458798329">"Принять приглашение?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Да"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Может быть"</string>
@@ -146,8 +148,8 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"Однократное мероприятие"</string>
     <string name="endByDate" msgid="7654221304929538201">"до <xliff:g id="DATE">%s</xliff:g>"</string>
   <plurals name="endByCount">
-    <item quantity="one" msgid="3727754565990691816">"(всего повторов: 1)"</item>
-    <item quantity="other" msgid="4855496837834652446">"(всего повторов: <xliff:g id="NUMBER">%d</xliff:g>)"</item>
+    <item quantity="one" msgid="3727754565990691816">"; 1 раз"</item>
+    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> раз(-а)"</item>
   </plurals>
   <plurals name="daily">
     <item quantity="one" msgid="5169052946627480942">"Ежедневно"</item>
@@ -158,7 +160,7 @@
     <item quantity="one" msgid="5463021019301453273">"Еженедельно (<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>)"</item>
     <item quantity="other" msgid="2857390143157377867">"Кажд. <xliff:g id="NUMBER">%1$d</xliff:g> нед. (<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>)"</item>
   </plurals>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"Ежемесячно (кажд. <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Ежемесячно (<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"Ежемесячно"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Ежегодно"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Ежемесячно (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> числа)"</string>
@@ -246,13 +248,20 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Выбранное мероприятие"</string>
     <string name="do_not_check" msgid="7815441673853466129">"НЕ устанавливайте флажок &gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Повтор"</string>
-    <string name="recurrence_interval_daily" msgid="4977986983228603244">"раз в <xliff:g id="COUNT">%d</xliff:g> дн."</string>
-    <string name="recurrence_interval_weekly" msgid="7848383849108269893">"раз в <xliff:g id="COUNT">%d</xliff:g> нед."</string>
-    <string name="recurrence_interval_monthly" msgid="3720666968565545709">"раз в <xliff:g id="COUNT">%d</xliff:g> мес."</string>
-    <string name="recurrence_interval_yearly" msgid="8069673391679630408">"раз в <xliff:g id="COUNT">%d</xliff:g> гг."</string>
+    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
+    <skip />
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ежемесячно"</string>
-    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"кажд. <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <string name="recurrence_end_continously" msgid="60156576800282872">"всегда"</string>
+    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"<xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
+    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
+    <skip />
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"до определенной даты"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"До <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"несколько раз"</string>
