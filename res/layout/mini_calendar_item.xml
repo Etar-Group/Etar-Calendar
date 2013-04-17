@@ -31,6 +31,7 @@
         android:layout_width="20dip"
         android:layout_marginLeft="16dip"
         android:layout_gravity="center_vertical"
+        android:contentDescription="@string/calendar_square_color_picker_description"
         style="?android:attr/quickContactBadgeStyleWindowMedium"
         android:cropToPadding="true"
     />
