@@ -29,6 +29,7 @@
         android:layout_width="32dip"
         android:layout_marginLeft="13dip"
         android:layout_gravity="center_vertical"
+        android:contentDescription="@string/calendar_square_color_picker_description"
         style="?android:attr/quickContactBadgeStyleWindowMedium" />
 
     <LinearLayout
