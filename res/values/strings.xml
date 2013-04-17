@@ -287,6 +287,8 @@
 
     <!-- Title for calendar color picker dialog -->
     <string name="calendar_color_picker_dialog_title">Calendar Color</string>
+    <!-- Description for calendar color squares, which bring up the color picker. -->
+    <string name="calendar_square_color_picker_description">Color picker</string>
 
     <!-- Label for whether the user is attending this event. This is shown when
          a user is invited to a meeting or event.  The possible answers are
