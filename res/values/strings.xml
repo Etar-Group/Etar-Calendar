@@ -683,16 +683,18 @@
     <!-- Tell user not to check a checkbox [CHAR LIMIT=30] -->
     <string name="do_not_check">Do NOT check -></string>
 
-    <!-- Dialog title for configuring a repeating event[CHAR LIMIT=20] -->
+    <!-- Dialog title for recurrence picker for configuring a repeating event[CHAR LIMIT=20] -->
     <string name="recurrence_dialog_title">Repeat</string>
+    <!-- Dialog title for recurrence picker when one-time event is selected [CHAR LIMIT=20] -->
+    <string name="recurrence_dialog_title_never">Never repeats</string>
     <!-- String to describe how frequent to repeat an event e.g. every 5 days [CHAR LIMIT=20] -->
-    <string name="recurrence_interval_daily">every <xliff:g id="count">%d</xliff:g> day(s)</string>
+    <string name="recurrence_interval_daily">Every <xliff:g id="count">%d</xliff:g> day(s)</string>
     <!-- String to describe how frequent to repeat an event e.g. every 5 weeks [CHAR LIMIT=20] -->
-    <string name="recurrence_interval_weekly">every <xliff:g id="count">%d</xliff:g> week(s)</string>
+    <string name="recurrence_interval_weekly">Every <xliff:g id="count">%d</xliff:g> week(s)</string>
     <!-- String to describe how frequent to repeat an event e.g. every 5 months [CHAR LIMIT=20] -->
-    <string name="recurrence_interval_monthly">every <xliff:g id="count">%d</xliff:g> month(s)</string>
+    <string name="recurrence_interval_monthly">Every <xliff:g id="count">%d</xliff:g> month(s)</string>
     <!-- String to describe how frequent to repeat an event e.g. every 5 years [CHAR LIMIT=20] -->
-    <string name="recurrence_interval_yearly">every <xliff:g id="count">%d</xliff:g> year(s)</string>
+    <string name="recurrence_interval_yearly">Every <xliff:g id="count">%d</xliff:g> year(s)</string>
 
     <!-- Repeat an monthly event on the same day of every month [CHAR LIMIT=20] -->
     <string name="recurrence_month_pattern_by_day">on the same day each month</string>
@@ -701,7 +703,7 @@
     <string name="recurrence_month_pattern_by_day_of_week">on every <xliff:g id="nth">%1$s</xliff:g> <xliff:g id="day_of_week">%2$s</xliff:g></string>
 
     <!-- Specifies that a repeating event to repeat forever (based on the defined frequency) instead of ending at a future date[CHAR LIMIT=25] -->
-    <string name="recurrence_end_continously">Repeats forever</string>
+    <string name="recurrence_end_continously">Continuously</string>
     <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
     <string name="recurrence_end_date_label">Until a date</string>
     <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->

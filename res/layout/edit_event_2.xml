@@ -172,7 +172,7 @@
             android:paddingBottom="4dp"
             android:textAllCaps="false"
             android:textSize="18sp"
-            android:textColor="#FF777777"
+            android:textColor="#FF000000"
             android:minHeight="20dip"
             android:background="?android:attr/selectableItemBackground"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
