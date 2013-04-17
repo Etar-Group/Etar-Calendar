@@ -53,4 +53,7 @@
     <dimen name="agenda_item_right_margin">4dip</dimen>
     <dimen name="today_icon_text_size">14sp</dimen>
     <dimen name="color_view_touch_area_increase">16dp</dimen>
+
+    <dimen name="recurrence_picker_height">340dp</dimen>
+    <dimen name="recurrence_picker_width">300dp</dimen>
 </resources>
