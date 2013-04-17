@@ -16,7 +16,9 @@
 
 package com.android.calendar.recurrencepicker;
 
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -32,6 +34,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -307,6 +310,8 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
 
     private View mView;
 
+    private TextView mTitleView;
+    private View mOptionsFrame;
     private Spinner mFreqSpinner;
     private static final int[] mFreqModelToEventRecurrence = {
             EventRecurrence.DAILY,
@@ -662,6 +667,8 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
             Bundle savedInstanceState) {
         mRecurrence.wkst = EventRecurrence.timeDay2Day(Utils.getFirstDayOfWeek(getActivity()));
 
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
         boolean endCountHasFocus = false;
         if (savedInstanceState != null) {
             Model m = (Model) savedInstanceState.get(BUNDLE_MODEL);
@@ -694,7 +701,16 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
         }
 
         mResources = getResources();
-        mView = inflater.inflate(R.layout.recurrencepicker, container);
+        mView = inflater.inflate(R.layout.recurrencepicker, container, true);
+
+        mTitleView = (TextView) mView.findViewById(R.id.title);
+        final Activity activity = getActivity();
+        final Configuration config = activity.getResources().getConfiguration();
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE &&
+                !Utils.getConfigBool(activity, R.bool.tablet_config)) {
+            mTitleView.setVisibility(View.GONE);
+        }
+        mOptionsFrame = mView.findViewById(R.id.options);
 
         mFreqSpinner = (Spinner) mView.findViewById(R.id.freqSpinner);
         mFreqSpinner.setOnItemSelectedListener(this);
@@ -867,9 +883,13 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
         mMonthGroup.setVisibility(mModel.freq == Model.FREQ_MONTHLY ? View.VISIBLE : View.GONE);
 
         if (mModel.freq == Model.FREQ_NONE) {
+            mTitleView.setText(R.string.recurrence_dialog_title_never);
+            mOptionsFrame.setVisibility(View.INVISIBLE);
             mIntervalGroup.setVisibility(View.INVISIBLE);
             mEndGroup.setVisibility(View.INVISIBLE);
         } else {
+            mTitleView.setText(R.string.recurrence_dialog_title);
+            mOptionsFrame.setVisibility(View.VISIBLE);
             mIntervalGroup.setVisibility(View.VISIBLE);
             mEndGroup.setVisibility(View.VISIBLE);
 
@@ -946,11 +966,6 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                     }
                 }
             }
-        }
-
-        // TODO Update title with pretty rrule
-        if (getDialog() != null) {
-            getDialog().setTitle(R.string.recurrence_dialog_title);
         }
     }
 

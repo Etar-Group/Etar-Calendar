@@ -406,7 +406,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:background="?android:attr/selectableItemBackground"
-                style="@style/TextAppearance.EditEvent_Button"
+                style="@style/TextAppearance.Recurrence_Button"
                 android:layout_marginTop="0dip" />
         </LinearLayout>
     </TableRow>

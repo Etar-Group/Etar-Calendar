@@ -84,6 +84,10 @@
         <item name="android:textColor">#FF777777</item>
     </style>
 
+    <style name="TextAppearance.Recurrence_Button" parent="TextAppearance.EditEvent_Label">
+        <item name="android:textColor">#FF000000</item>
+    </style>
+
     <style name="TextAppearance.EditEvent_LabelSmall" parent="TextAppearance.EditEvent_Small">
         <item name="android:minHeight">24dip</item>
         <item name="android:layout_width">144dip</item>
@@ -251,7 +255,7 @@
     </style>
 
     <style name="TextAppearance.RecurrencePickerStyle">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="RecurrenceDayOfWeekStyle">
