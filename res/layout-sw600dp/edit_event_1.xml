@@ -394,21 +394,14 @@
             android:text="@string/repeats_label"
             android:layout_gravity="top|left"
             style="@style/TextAppearance.EditEvent_Label" />
-        <!-- LinearLayout is needed for the button to span full width. -->
-        <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center_vertical"
+        <Button
+            android:id="@+id/rrule"
+            android:text="@string/does_not_repeat"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/rrule"
-                android:text="@string/does_not_repeat"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:background="?android:attr/selectableItemBackground"
-                style="@style/TextAppearance.Recurrence_Button"
-                android:layout_marginTop="0dip" />
-        </LinearLayout>
+            android:gravity="left|center_vertical"
+            android:contentDescription="@string/accessibility_pick_recurrence"
+            style="@style/TextAppearance.EditEvent_SpinnerButton" />
     </TableRow>
 
     <!-- REMINDERS -->
