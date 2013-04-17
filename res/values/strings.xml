@@ -714,4 +714,6 @@
     <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->
     <string name="acessibility_recurrence_choose_end_date_description">change end date</string>
 
+    <!-- Do Not Translate.  Sender identity for global notification synchronization. -->
+    <string name="notification_sender_id"></string>
 </resources>
