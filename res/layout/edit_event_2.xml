@@ -164,18 +164,10 @@
             android:text="@string/does_not_repeat"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:gravity="top"
-            android:layout_marginTop="0dip"
-            android:layout_marginBottom="0dip"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:textColor="#FF000000"
-            android:minHeight="20dip"
-            android:background="?android:attr/selectableItemBackground"
-            style="@style/TextAppearance.EditEvent_LabelSmall" />
+            android:layout_marginTop="-12dip"
+            android:gravity="left|center_vertical"
+            android:contentDescription="@string/accessibility_pick_recurrence"
+            style="@style/TextAppearance.EditEvent_SpinnerButton" />
     </LinearLayout>
 
     <View
