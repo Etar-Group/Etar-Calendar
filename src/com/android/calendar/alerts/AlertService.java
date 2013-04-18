@@ -990,7 +990,8 @@ public class AlertService extends Service {
                 if (quietUpdate) {
                     ringtone = EMPTY_RINGTONE;
                 } else {
-                    ringtone = prefs.getString(GeneralPreferences.KEY_ALERTS_RINGTONE, null);
+                    ringtone = prefs.getString(GeneralPreferences.KEY_ALERTS_RINGTONE,
+                            GeneralPreferences.DEFAULT_RINGTONE);
                 }
             }
             String retVal = ringtone;
