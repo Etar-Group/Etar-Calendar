@@ -73,7 +73,7 @@
   <string-array name="visibility">
     <item msgid="3035788428581513163">"Varsayılan"</item>
     <item msgid="5200216103966973369">"Gizli"</item>
-    <item msgid="9182342638433672664">"Halka Açık"</item>
+    <item msgid="9182342638433672664">"Herkese Açık"</item>
   </string-array>
   <string-array name="ordinal_labels">
     <item msgid="2693927956303125332">"ilk"</item>
@@ -111,11 +111,9 @@
     <item msgid="2285927842308686988">"Yalnızca reddedildiyse"</item>
     <item msgid="6367412240524984286">"Reddedildiyse veya yanıt verilmediyse"</item>
   </string-array>
-  <string-array name="recurrence_freq">
-    <item msgid="5615646001970363101">"Bir kerelik etkinlik"</item>
-    <item msgid="8180897052611600177">"Günlük"</item>
-    <item msgid="6562715790445608347">"Haftalık"</item>
-    <item msgid="4553381288472120599">"Aylık"</item>
-    <item msgid="3949550801992570628">"Yıllık"</item>
-  </string-array>
+    <!-- no translation found for recurrence_freq:0 (5937533480933137696) -->
+    <!-- no translation found for recurrence_freq:1 (5093122819962980394) -->
+    <!-- no translation found for recurrence_freq:2 (3061751350069329559) -->
+    <!-- no translation found for recurrence_freq:3 (7221838315296593556) -->
+    <!-- no translation found for recurrence_freq:4 (8033241076508570830) -->
 </resources>
