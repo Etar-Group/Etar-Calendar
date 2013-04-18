@@ -16,6 +16,7 @@
 
 package com.android.calendar.alerts;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -384,5 +385,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
             Log.d(TAG, "updating alarm state");
             AlertService.updateAlertNotification(context);
         }
+
+        setResultCode(Activity.RESULT_OK);
     }
 }
