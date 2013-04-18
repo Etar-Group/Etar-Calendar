@@ -48,7 +48,7 @@
   <plurals name="weekN">
     <item quantity="other" msgid="8085184869561028365">"<xliff:g id="COUNT">%d</xliff:g>. NEDĒĻA"</item>
   </plurals>
-    <string name="calendar_refresh" msgid="6172731193680500025">"Atsvaidzin."</string>
+    <string name="calendar_refresh" msgid="6172731193680500025">"Atsvaidzināt"</string>
     <string name="show_day_view" msgid="5782512782605466016">"Rādīt dienu"</string>
     <string name="agenda_view" msgid="5566084759423843245">"Dienas kārtība"</string>
     <string name="day_view" msgid="4467754504843584437">"Diena"</string>
@@ -60,7 +60,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Dzēst pasākumu"</string>
     <string name="goto_today" msgid="9162136434410891230">"Šodien"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Iestatījumi"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Parād. kal."</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Parād. kalendāru"</string>
     <string name="search" msgid="550656004486017426">"Meklēt"</string>
     <string name="hide_controls" msgid="830320505938520882">"Slēpt vadīklas"</string>
     <string name="show_controls" msgid="715520586028062621">"Rādīt vadīklas"</string>
@@ -103,6 +103,8 @@
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Notikuma teksta krāsa"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Iestatīt kā kalendāra noklusējuma krāsu"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Kalendāra krāsa"</string>
+    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
+    <skip />
     <string name="view_event_response_label" msgid="8382281658458798329">"Vai apmeklēsiet?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Jā"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Varbūt"</string>
@@ -246,13 +248,20 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Atlasītais pasākums"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NEATZĪMĒJIET -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Atkārtošana"</string>
-    <string name="recurrence_interval_daily" msgid="4977986983228603244">"ik pēc <xliff:g id="COUNT">%d</xliff:g> dienas(-ām)"</string>
-    <string name="recurrence_interval_weekly" msgid="7848383849108269893">"ik pēc <xliff:g id="COUNT">%d</xliff:g> nedēļas(-ām)"</string>
-    <string name="recurrence_interval_monthly" msgid="3720666968565545709">"ik pēc <xliff:g id="COUNT">%d</xliff:g> mēneša(-iem)"</string>
-    <string name="recurrence_interval_yearly" msgid="8069673391679630408">"ik pēc <xliff:g id="COUNT">%d</xliff:g> gada(iem)"</string>
+    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
+    <skip />
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"katru mēn. vienā d."</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"katra mēneša <xliff:g id="NTH">%1$s</xliff:g>. <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <string name="recurrence_end_continously" msgid="60156576800282872">"Atkārtojas vienmēr"</string>
+    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
+    <skip />
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Līdz noteiktam datumam"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Līdz  šādam datumam: <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Noteiktu reižu skaitu"</string>
