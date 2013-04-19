@@ -69,10 +69,11 @@ public class GlobalDismissManager extends BroadcastReceiver {
             Calendars.ACCOUNT_TYPE
     };
 
-    public static final String SYNC_ID = "sync_id";
-    public static final String START_TIME = "start_time";
-    public static final String ACCOUNT_NAME = "account_name";  // redundant?
-    public static final String DISMISS_INTENT = "com.android.calendar.alerts.DISMISS";
+    public static final String KEY_PREFIX = "com.android.calendar.alerts.";
+    public static final String SYNC_ID = KEY_PREFIX + "sync_id";
+    public static final String START_TIME = KEY_PREFIX + "start_time";
+    public static final String ACCOUNT_NAME = KEY_PREFIX + "account_name";
+    public static final String DISMISS_INTENT = KEY_PREFIX + "DISMISS";
 
     public static class AlarmId {
         public long mEventId;
@@ -240,7 +241,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
                         String account = syncIdToAccount.get(syncId);
                         Bundle data = new Bundle();
                         data.putString(SYNC_ID, syncId);
-                        data.putLong(START_TIME, alarmId.mStart);
+                        data.putString(START_TIME, Long.toString(alarmId.mStart));
                         data.putString(ACCOUNT_NAME, account);
                         try {
                             cnb.send(account,
@@ -355,7 +356,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
         boolean updated = false;
         if (intent.hasExtra(SYNC_ID) && intent.hasExtra(ACCOUNT_NAME)) {
             String syncId = intent.getStringExtra(SYNC_ID);
-            long startTime = intent.getLongExtra(START_TIME, 0L);
+            long startTime = Long.parseLong(intent.getStringExtra(START_TIME));
             ContentResolver resolver = context.getContentResolver();
 
             Uri uri = asSync(Events.CONTENT_URI, GOOGLE_ACCOUNT_TYPE,
