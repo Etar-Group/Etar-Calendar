@@ -387,6 +387,47 @@ public class Utils {
         editor.apply();
     }
 
+    public static void removeSharedPreference(Context context, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(
+                GeneralPreferences.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        prefs.edit().remove(key).apply();
+    }
+
+    // The backed up ring tone preference should not used because it is a device
+    // specific Uri. The preference now lives in a separate non-backed-up
+    // shared_pref file (SHARED_PREFS_NAME_NO_BACKUP). The preference in the old
+    // backed-up shared_pref file (SHARED_PREFS_NAME) is used only to control the
+    // default value when the ringtone dialog opens up.
+    //
+    // At backup manager "restore" time (which should happen before launcher
+    // comes up for the first time), the value will be set/reset to default
+    // ringtone.
+    public static String getRingTonePreference(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(
+                GeneralPreferences.SHARED_PREFS_NAME_NO_BACKUP, Context.MODE_PRIVATE);
+        String ringtone = prefs.getString(GeneralPreferences.KEY_ALERTS_RINGTONE, null);
+
+        // If it hasn't been populated yet, that means new code is running for
+        // the first time and restore hasn't happened. Migrate value from
+        // backed-up shared_pref to non-shared_pref.
+        if (ringtone == null) {
+            // Read from the old place with a default of DEFAULT_RINGTONE
+            ringtone = getSharedPreference(context, GeneralPreferences.KEY_ALERTS_RINGTONE,
+                    GeneralPreferences.DEFAULT_RINGTONE);
+
+            // Write it to the new place
+            setRingTonePreference(context, ringtone);
+        }
+
+        return ringtone;
+    }
+
+    public static void setRingTonePreference(Context context, String value) {
+        SharedPreferences prefs = context.getSharedPreferences(
+                GeneralPreferences.SHARED_PREFS_NAME_NO_BACKUP, Context.MODE_PRIVATE);
+        prefs.edit().putString(GeneralPreferences.KEY_ALERTS_RINGTONE, value).apply();
+    }
+
     /**
      * Save default agenda/day/week/month view for next time
      *
