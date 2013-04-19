@@ -111,11 +111,9 @@
     <item msgid="2285927842308686988">"Endast vid minskade"</item>
     <item msgid="6367412240524984286">"Om minskat eller inte svarat"</item>
   </string-array>
-  <string-array name="recurrence_freq">
-    <item msgid="5615646001970363101">"Engångshändelse"</item>
-    <item msgid="8180897052611600177">"Varje dag"</item>
-    <item msgid="6562715790445608347">"Varje vecka"</item>
-    <item msgid="4553381288472120599">"Varje månad"</item>
-    <item msgid="3949550801992570628">"Varje år"</item>
-  </string-array>
+    <!-- no translation found for recurrence_freq:0 (5937533480933137696) -->
+    <!-- no translation found for recurrence_freq:1 (5093122819962980394) -->
+    <!-- no translation found for recurrence_freq:2 (3061751350069329559) -->
+    <!-- no translation found for recurrence_freq:3 (7221838315296593556) -->
+    <!-- no translation found for recurrence_freq:4 (8033241076508570830) -->
 </resources>

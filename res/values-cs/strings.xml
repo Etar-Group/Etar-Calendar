@@ -103,6 +103,8 @@
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Barva události"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Nastavit na výchozí barvu kalendáře"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Barva kalendáře"</string>
+    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
+    <skip />
     <string name="view_event_response_label" msgid="8382281658458798329">"Zúčastníte se?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Ano"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Možná"</string>
@@ -245,15 +247,22 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Vybraná událost"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Nezaškrtávejte –&gt;"</string>
-    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Opakovat"</string>
-    <string name="recurrence_interval_daily" msgid="4977986983228603244">"jednou za <xliff:g id="COUNT">%d</xliff:g> d"</string>
-    <string name="recurrence_interval_weekly" msgid="7848383849108269893">"jednou za <xliff:g id="COUNT">%d</xliff:g> týd."</string>
-    <string name="recurrence_interval_monthly" msgid="3720666968565545709">"jednou za <xliff:g id="COUNT">%d</xliff:g> měs."</string>
-    <string name="recurrence_interval_yearly" msgid="8069673391679630408">"jednou za <xliff:g id="COUNT">%d</xliff:g> r."</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Opakování"</string>
+    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
+    <skip />
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"měsíčně tentýž den"</string>
-    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"<xliff:g id="NTH">%1$s</xliff:g>. <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g> v měsíci"</string>
-    <string name="recurrence_end_continously" msgid="60156576800282872">"Opakuje se stále"</string>
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Do data"</string>
+    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"<xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g> v měsíci"</string>
+    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
+    <skip />
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Do určitého data"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Po určitý počet událostí"</string>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"změnit datum ukončení"</string>

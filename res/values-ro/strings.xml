@@ -103,6 +103,8 @@
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Culoare eveniment"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Setați culoarea prestabilită pentru calendar"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Culoare calendar"</string>
+    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
+    <skip />
     <string name="view_event_response_label" msgid="8382281658458798329">"Participaţi?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Da"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Posibil"</string>
@@ -246,13 +248,20 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Eveniment selectat"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NU bifaţi -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Repetare"</string>
-    <string name="recurrence_interval_daily" msgid="4977986983228603244">"o dată la <xliff:g id="COUNT">%d</xliff:g> zile"</string>
-    <string name="recurrence_interval_weekly" msgid="7848383849108269893">"o dată la <xliff:g id="COUNT">%d</xliff:g> săptămâni"</string>
-    <string name="recurrence_interval_monthly" msgid="3720666968565545709">"o dată la <xliff:g id="COUNT">%d</xliff:g> luni"</string>
-    <string name="recurrence_interval_yearly" msgid="8069673391679630408">"o dată la <xliff:g id="COUNT">%d</xliff:g> ani"</string>
+    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
+    <skip />
+    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
+    <skip />
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"în aceeași zi lunar"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"în fiecare <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <string name="recurrence_end_continously" msgid="60156576800282872">"Repetare continuă"</string>
+    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
+    <skip />
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Până la o anumită dată"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Până la <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"De mai multe ori"</string>
