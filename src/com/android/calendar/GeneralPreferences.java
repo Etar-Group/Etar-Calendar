@@ -22,6 +22,7 @@ import android.app.backup.BackupManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -56,6 +57,7 @@ public class GeneralPreferences extends PreferenceFragment implements
     // The name of the shared preferences file. This name must be maintained for historical
     // reasons, as it's what PreferenceManager assigned the first time the file was created.
     static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
+    static final String SHARED_PREFS_NAME_NO_BACKUP = "com.android.calendar_preferences_no_backup";
 
     private static final String FRAG_TAG_TIME_ZONE_PICKER = "TimeZonePicker";
 
@@ -164,11 +166,15 @@ public class GeneralPreferences extends PreferenceFragment implements
         }
 
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
-        String ringToneUri = Utils.getSharedPreference(activity, KEY_ALERTS_RINGTONE, "");
-        if (!TextUtils.isEmpty(ringToneUri)) {
-            String ringtone = getRingtoneTitleFromUri(activity, ringToneUri);
-            mRingtone.setSummary(ringtone == null ? "" : ringtone);
-        }
+        String ringToneUri = Utils.getRingTonePreference(activity);
+
+        // Set the ringToneUri to the backup-able shared pref only so that
+        // the Ringtone dialog will open up with the correct value.
+        final Editor editor = preferenceScreen.getEditor();
+        editor.putString(GeneralPreferences.KEY_ALERTS_RINGTONE, ringToneUri).apply();
+
+        String ringtoneDisplayString = getRingtoneTitleFromUri(activity, ringToneUri);
+        mRingtone.setSummary(ringtoneDisplayString == null ? "" : ringtoneDisplayString);
 
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
@@ -297,20 +303,20 @@ public class GeneralPreferences extends PreferenceFragment implements
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String tz;
+        final Activity activity = getActivity();
         if (preference == mUseHomeTZ) {
             if ((Boolean)newValue) {
                 tz = mTimeZoneId;
             } else {
                 tz = CalendarCache.TIMEZONE_TYPE_AUTO;
             }
-            Utils.setTimeZone(getActivity(), tz);
+            Utils.setTimeZone(activity, tz);
             return true;
         } else if (preference == mHideDeclined) {
             mHideDeclined.setChecked((Boolean) newValue);
-            Activity act = getActivity();
-            Intent intent = new Intent(Utils.getWidgetScheduledUpdateAction(act));
+            Intent intent = new Intent(Utils.getWidgetScheduledUpdateAction(activity));
             intent.setDataAndType(CalendarContract.CONTENT_URI, Utils.APPWIDGET_DATA_TYPE);
-            act.sendBroadcast(intent);
+            activity.sendBroadcast(intent);
             return true;
         } else if (preference == mWeekStart) {
             mWeekStart.setValue((String) newValue);
@@ -320,7 +326,8 @@ public class GeneralPreferences extends PreferenceFragment implements
             mDefaultReminder.setSummary(mDefaultReminder.getEntry());
         } else if (preference == mRingtone) {
             if (newValue instanceof String) {
-                String ringtone = getRingtoneTitleFromUri(getActivity(), (String) newValue);
+                Utils.setRingTonePreference(activity, (String) newValue);
+                String ringtone = getRingtoneTitleFromUri(activity, (String) newValue);
                 mRingtone.setSummary(ringtone == null ? "" : ringtone);
             }
             return true;
