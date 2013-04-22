@@ -60,7 +60,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Suprimeix l\'esdeveniment"</string>
     <string name="goto_today" msgid="9162136434410891230">"Avui"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Configuració"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calend. per visual."</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendaris visibles"</string>
     <string name="search" msgid="550656004486017426">"Cerca"</string>
     <string name="hide_controls" msgid="830320505938520882">"Amaga els controls"</string>
     <string name="show_controls" msgid="715520586028062621">"Mostra els controls"</string>
@@ -77,7 +77,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Convidats"</string>
     <string name="creating_event" msgid="7516249252554059980">"S\'ha creat un esdeveniment."</string>
     <string name="saving_event" msgid="7694181017411177226">"S\'ha desat l\'esdeveniment."</string>
-    <string name="empty_event" msgid="9018699257414338634">"Esdeven. buit, no s\'ha creat."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Esdeveniment buit no creat"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"S\'enviaran les invitacions."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"S\'enviaran les actualitzacions."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Desa"</string>
@@ -101,10 +101,9 @@
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organitzador:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Tria el color de l\'esdeveniment"</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Color de l\'esdeveniment"</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">"Defineix el color del calendari predeterminat"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Selecciona el color predeterminat del calendari"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Color del calendari"</string>
-    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
-    <skip />
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Selector de color"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Hi assistireu?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Sí"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Potser"</string>
@@ -116,7 +115,7 @@
     <string name="map_label" msgid="8795383535586556038">"Mapa"</string>
     <string name="call_label" msgid="2960328220008869083">"Truca"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respostes ràpides"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edita les respostes en escriure als convidats"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edita respostes predeterminades en enviar correus als convidats"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Edita resp. ràpid."</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Resposta ràpida"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Tria una resposta ràpida"</string>
@@ -125,7 +124,7 @@
     <item msgid="1524421198348168403">"Arribaré uns quants minuts tard."</item>
     <item msgid="6215158751728689832">"Arribaré d\'aquí a 10 minuts."</item>
     <item msgid="4485794001743679338">"Comenceu sense mi."</item>
-    <item msgid="8036557974294987511">"Ho sent, però no hi puc assistir. Hem de tornar a planificar la reunió."</item>
+    <item msgid="8036557974294987511">"No hi puc assistir, deixem-ho per a un altre moment."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Escriu la teva…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organitz.:"</string>
@@ -178,23 +177,23 @@
     <string name="menu_general_preferences" msgid="2812705323334260708">"Configuració general"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Quant a Calendar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Configuració"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Configuració de la visualització del calendari"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Configuració de la visualització"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Notificacions i recordatoris"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Amaga els esdeveniments rebutjats"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"La setmana comença"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"La setmana comença"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Amaga esdeveniments rebutjats"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"La setmana comença el"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"La setmana comença el"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Esborra l\'historial de cerca"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Elimina totes les cerques fetes"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"S\'ha buidat l\'historial de cerca."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificacions"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibra"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"So"</string>
-    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificació de finestra emergent"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificació emergent"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Temps de recordatori predeterminat"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Temps de recordatori predeterminat"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Ut. zona hor. or."</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"En viatjar, mostra calendaris i esdeveniments en hora local"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Utilitza hora local"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"En viatjar, mostra calendaris i esdeveniments en l\'hora local"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Zona horària local"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostra el número de setmana"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Quant a"</string>
@@ -222,6 +221,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Data de finalització"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Hora de finalització"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Zona horària"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Repeteix l\'esdeveniment"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Afegeix un recordatori"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Elimina el recordatori"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Afegeix un assistent"</string>
@@ -248,22 +248,16 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Esdeveniment seleccionat"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NO activis -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Repeteix"</string>
-    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
-    <skip />
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"No es repeteix mai"</string>
+    <string name="recurrence_interval_daily" msgid="391619830560250263">"Cada <xliff:g id="COUNT">%d</xliff:g> dies"</string>
+    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"Cada <xliff:g id="COUNT">%d</xliff:g> setmanes"</string>
+    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"Cada <xliff:g id="COUNT">%d</xliff:g> mesos"</string>
+    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"Cada <xliff:g id="COUNT">%d</xliff:g> anys"</string>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"el mateix dia de cada mes"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"cada <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
-    <skip />
+    <string name="recurrence_end_continously" msgid="4217711248559869840">"Contínuament"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Fins a una data"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Fins al dia <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Durant sèrie esdevenim."</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Per a alguns esdeveniments"</string>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"canvia la data de finalització"</string>
 </resources>

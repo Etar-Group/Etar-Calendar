@@ -72,8 +72,8 @@
   </string-array>
   <string-array name="visibility">
     <item msgid="3035788428581513163">"Domyślne"</item>
-    <item msgid="5200216103966973369">"Prywatny"</item>
-    <item msgid="9182342638433672664">"Publiczny"</item>
+    <item msgid="5200216103966973369">"Prywatne"</item>
+    <item msgid="9182342638433672664">"Publiczne"</item>
   </string-array>
   <string-array name="ordinal_labels">
     <item msgid="2693927956303125332">"1."</item>
@@ -111,9 +111,11 @@
     <item msgid="2285927842308686988">"Tylko po odrzuceniu"</item>
     <item msgid="6367412240524984286">"Po odrzuceniu lub gdy bez odpowiedzi"</item>
   </string-array>
-    <!-- no translation found for recurrence_freq:0 (5937533480933137696) -->
-    <!-- no translation found for recurrence_freq:1 (5093122819962980394) -->
-    <!-- no translation found for recurrence_freq:2 (3061751350069329559) -->
-    <!-- no translation found for recurrence_freq:3 (7221838315296593556) -->
-    <!-- no translation found for recurrence_freq:4 (8033241076508570830) -->
+  <string-array name="recurrence_freq">
+    <item msgid="5937533480933137696">"WYDARZENIE JEDNORAZOWE"</item>
+    <item msgid="5093122819962980394">"CODZIENNIE"</item>
+    <item msgid="3061751350069329559">"CO TYDZIEŃ"</item>
+    <item msgid="7221838315296593556">"CO MIESIĄC"</item>
+    <item msgid="8033241076508570830">"CO ROK"</item>
+  </string-array>
 </resources>
