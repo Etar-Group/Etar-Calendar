@@ -103,8 +103,7 @@
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Χρώμα συμβάντος"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Ορισμός ως προεπιλεγμένου χρώματος ημερολογίου"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Χρώμα ημερολογίου"</string>
-    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
-    <skip />
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Επιλογέας χρώματος"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Θα παραβρεθείτε;"</string>
     <string name="response_yes" msgid="2027484304899988350">"Ναι"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Ίσως"</string>
@@ -115,7 +114,7 @@
     <string name="event_not_found" msgid="8356864185947582727">"Το συμβάν δεν βρέθηκε."</string>
     <string name="map_label" msgid="8795383535586556038">"Χάρτης"</string>
     <string name="call_label" msgid="2960328220008869083">"Κλήση"</string>
-    <string name="quick_response_settings" msgid="6776151690686068278">"Γρήγορες απαντήσ."</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"Γρήγορες απαντήσεις"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Επεξ.προεπ.απ.κατά την αποστ.μην.ηλ.ταχ.στους καλεσμ."</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Επεξ.γρήγ.απαντ,"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Γρήγορη απάντηση"</string>
@@ -222,6 +221,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Ημερομηνία λήξης"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Ώρα λήξης"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Ζώνη ώρας"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Επαναλαμβανόμενο συμβάν"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Προσθήκη υπενθύμισης"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Κατάργηση υπενθύμισης"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Προσθήκη συμμετέχοντος"</string>
@@ -248,20 +248,14 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Επιλεγμένο συμβάν"</string>
     <string name="do_not_check" msgid="7815441673853466129">"ΜΗΝ επιλέξετε -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Επανάληψη"</string>
-    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
-    <skip />
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Δεν επαναλαμβάνεται"</string>
+    <string name="recurrence_interval_daily" msgid="391619830560250263">"Κάθε <xliff:g id="COUNT">%d</xliff:g> ημέρα (-ες)"</string>
+    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"Κάθε <xliff:g id="COUNT">%d</xliff:g> εβδομάδα (-ες)"</string>
+    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"Κάθε <xliff:g id="COUNT">%d</xliff:g> μήνα (-ες)"</string>
+    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"Κάθε <xliff:g id="COUNT">%d</xliff:g> έτος (-η)"</string>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ίδια ημέρα κάθε μήνα"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"κάθε <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
-    <skip />
+    <string name="recurrence_end_continously" msgid="4217711248559869840">"Συνεχώς"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Μέχρι μια ορισμένη ημ/νία"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Έως τις <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Για έναν αριθμό συμβάντων"</string>
