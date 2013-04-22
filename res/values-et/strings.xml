@@ -103,8 +103,7 @@
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Sündmuse värv"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Määra kalendrile vaikevärv"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Kalendri värv"</string>
-    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
-    <skip />
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Värvivalija"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Kas osalete?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Jah"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Võib-olla"</string>
@@ -222,6 +221,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Lõppkuupäev"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Lõppaeg"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Ajavöönd"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Korduv sündmus"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Lisa meeldetuletus"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Eemalda meeldetuletus"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Lisa osaleja"</string>
@@ -248,20 +248,14 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Valitud sündmus"</string>
     <string name="do_not_check" msgid="7815441673853466129">"ÄRGE märkige -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Kordamine"</string>
-    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
-    <skip />
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Ei kordu kunagi"</string>
+    <string name="recurrence_interval_daily" msgid="391619830560250263">"Iga <xliff:g id="COUNT">%d</xliff:g> päeva järel"</string>
+    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"Iga <xliff:g id="COUNT">%d</xliff:g> nädala järel"</string>
+    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"Iga <xliff:g id="COUNT">%d</xliff:g> kuu järel"</string>
+    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"Iga <xliff:g id="COUNT">%d</xliff:g> aasta järel"</string>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"iga kuu samal päeval"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"igas kuus: <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
-    <skip />
+    <string name="recurrence_end_continously" msgid="4217711248559869840">"Pidevalt"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Kuni kuupäevani"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Kuni <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Sündmust korratakse"</string>
