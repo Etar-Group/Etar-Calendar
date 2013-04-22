@@ -111,9 +111,11 @@
     <item msgid="2285927842308686988">"Solo se rifiutati"</item>
     <item msgid="6367412240524984286">"Se rifiutati o senza risposta"</item>
   </string-array>
-    <!-- no translation found for recurrence_freq:0 (5937533480933137696) -->
-    <!-- no translation found for recurrence_freq:1 (5093122819962980394) -->
-    <!-- no translation found for recurrence_freq:2 (3061751350069329559) -->
-    <!-- no translation found for recurrence_freq:3 (7221838315296593556) -->
-    <!-- no translation found for recurrence_freq:4 (8033241076508570830) -->
+  <string-array name="recurrence_freq">
+    <item msgid="5937533480933137696">"EVENTO OCCASIONALE"</item>
+    <item msgid="5093122819962980394">"GIORNALIERI"</item>
+    <item msgid="3061751350069329559">"SETTIMANALI"</item>
+    <item msgid="7221838315296593556">"MENSILI"</item>
+    <item msgid="8033241076508570830">"ANNUALI"</item>
+  </string-array>
 </resources>

@@ -102,8 +102,8 @@
     <item msgid="140670561403965380">"A sorozat összes eseményére"</item>
   </string-array>
   <string-array name="buttons_list">
-    <item msgid="5917946202321434335">"nap"</item>
-    <item msgid="6248480754959562740">"hét"</item>
+    <item msgid="5917946202321434335">"Nap"</item>
+    <item msgid="6248480754959562740">"Hét"</item>
     <item msgid="4298472806133153766">"Hónap"</item>
     <item msgid="5033084974413793845">"Napló"</item>
   </string-array>
@@ -111,9 +111,11 @@
     <item msgid="2285927842308686988">"Csak elutasítás esetén"</item>
     <item msgid="6367412240524984286">"Elutasítás/nem válaszolás esetén"</item>
   </string-array>
-    <!-- no translation found for recurrence_freq:0 (5937533480933137696) -->
-    <!-- no translation found for recurrence_freq:1 (5093122819962980394) -->
-    <!-- no translation found for recurrence_freq:2 (3061751350069329559) -->
-    <!-- no translation found for recurrence_freq:3 (7221838315296593556) -->
-    <!-- no translation found for recurrence_freq:4 (8033241076508570830) -->
+  <string-array name="recurrence_freq">
+    <item msgid="5937533480933137696">"EGYSZERI ESEMÉNY"</item>
+    <item msgid="5093122819962980394">"NAPONTA"</item>
+    <item msgid="3061751350069329559">"HETENTE"</item>
+    <item msgid="7221838315296593556">"HAVONTA"</item>
+    <item msgid="8033241076508570830">"ÉVENTE"</item>
+  </string-array>
 </resources>

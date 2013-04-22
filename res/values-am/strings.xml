@@ -77,7 +77,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"እንግዶች"</string>
     <string name="creating_event" msgid="7516249252554059980">"ክስተት ተፈጥሯል"</string>
     <string name="saving_event" msgid="7694181017411177226">"ክስተት ተቀምጧል"</string>
-    <string name="empty_event" msgid="9018699257414338634">"ባዶ ክስተት አልተፈጠረም::"</string>
+    <string name="empty_event" msgid="9018699257414338634">"ምንም ክስተት አልተፈጠረም።"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"ግብዣዎች ይላካሉ።"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"ዝማኔዎች ይላካሉ።"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"አስቀምጥ"</string>
@@ -91,7 +91,7 @@
     <string name="edit_event_show_all" msgid="4558049350756058301">"ሁሉንም አሳይ"</string>
     <string name="description_label" msgid="7193475046717505855">"መግለጫ"</string>
     <string name="presence_label" msgid="6169724148441175862">"እንደ አሳየኝ"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"ብሕትውነት"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"ግላዊነት"</string>
     <string name="reminders_label" msgid="7292389181815525676">"ማስታወሻ አክል"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"ምንም ቀንመቁጠሪያ ዎች የለዎትም"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"ክስተት ከማከልህ በፊት ቢያንስ አንድ የቀን መቁጠሪያ መለያ ወደ መሳሪያህ ማከል እና የቀን መቁጠሪያውን የሚታይ ማድረግ አለብህ:: መለያ ለማከል መለያ አክል የሚለውን ንካ (መለያ ያከልክ ከሆነ ማመሳስል እስኪጨርስ ድረስ ጠብቀውና እንደገና ሞክር):: ወይም ተወው የሚለውን ንካ እና ቢያንስ አንድ የቀን መቁጠሪያ የሚታይ መሆኑን አረጋግጥ::"</string>
@@ -103,8 +103,7 @@
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"የክስተት ቀለም"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"ወደ ነባሪ የቀን መቁጠሪያ ቀለም አዋቅር"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"የቀን መቁጠሪያ ቀለም"</string>
-    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
-    <skip />
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"ቀለም መምረጫ"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"ይካፈላሉ?"</string>
     <string name="response_yes" msgid="2027484304899988350">"አዎ"</string>
     <string name="response_maybe" msgid="7791500973627841695">"ምናልባት"</string>
@@ -222,6 +221,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"የመጨረሻ ቀን"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"መጨረሻ ሰዓት"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"የሰዓት ሰቅ"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"ክስተት ድገም"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"ማስታወሻ አክል"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"ማስታወሻ አስወግድ"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"ተሳታፊ አክል"</string>
@@ -248,20 +248,14 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"የተመረጠ ክስተት"</string>
     <string name="do_not_check" msgid="7815441673853466129">"ምልክት እንዳታደርግበት -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"ድገም"</string>
-    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
-    <skip />
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"በጭራሽ አይደገምም"</string>
+    <string name="recurrence_interval_daily" msgid="391619830560250263">"በየ<xliff:g id="COUNT">%d</xliff:g> ቀኑ"</string>
+    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"በየ<xliff:g id="COUNT">%d</xliff:g> ሳምንቱ"</string>
+    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"በየ<xliff:g id="COUNT">%d</xliff:g> ወሩ"</string>
+    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"በየ<xliff:g id="COUNT">%d</xliff:g> ዓመቱ"</string>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"በየወሩ በተመሳሳዩ ቀን ላይ"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"በየ<xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
-    <skip />
+    <string name="recurrence_end_continously" msgid="4217711248559869840">"ቀጣይነት ባለው መልኩ"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"እስከ አንድ ቀን ድረስ"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"እስከ <xliff:g id="DATE">%s</xliff:g> ድረስ"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"ለተወሰነ የክስተቶች ብዛት"</string>
