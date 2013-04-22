@@ -103,8 +103,7 @@
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Begivenhedsfarve"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Indstil som standardkalenderfarve"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Kalenderfarve"</string>
-    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
-    <skip />
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Farvevælger"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Deltager?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Ja"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Måske"</string>
@@ -222,6 +221,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Slutdato"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Sluttidspunkt"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Tidszone"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Gentag begivenhed"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Tilføj påmindelse"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Fjern påmindelse"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Tilføj deltager"</string>
@@ -248,20 +248,14 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Valgt begivenhed"</string>
     <string name="do_not_check" msgid="7815441673853466129">"UNDLAD at markere -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Gentag"</string>
-    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
-    <skip />
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Gentages aldrig"</string>
+    <string name="recurrence_interval_daily" msgid="391619830560250263">"hver <xliff:g id="COUNT">%d</xliff:g>. dag"</string>
+    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"hver <xliff:g id="COUNT">%d</xliff:g>. uge"</string>
+    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"hver <xliff:g id="COUNT">%d</xliff:g>. måned"</string>
+    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"hvert <xliff:g id="COUNT">%d</xliff:g>. år"</string>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"samme dag hver måned"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"hver <xliff:g id="NTH">%1$s</xliff:g>. <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
-    <skip />
+    <string name="recurrence_end_continously" msgid="4217711248559869840">"Kontinuerlig"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Frem til en bestemt dato"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Indtil <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Et antal gange"</string>
