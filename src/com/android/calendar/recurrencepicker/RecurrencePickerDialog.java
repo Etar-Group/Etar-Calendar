@@ -929,10 +929,8 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                     }
 
                     if (mMonthRepeatByDayOfWeekStr == null) {
-                        if (mModel.monthlyByNthDayOfWeek == 0) {
-                            mModel.monthlyByNthDayOfWeek = (mTime.monthDay + 6) / 7;
-                            mModel.monthlyByDayOfWeek = mTime.weekDay;
-                        }
+                        mModel.monthlyByNthDayOfWeek = (mTime.monthDay + 6) / 7;
+                        mModel.monthlyByDayOfWeek = mTime.weekDay;
 
                         mMonthRepeatByDayOfWeekStr = mResources.getString(
                                 R.string.recurrence_month_pattern_by_day_of_week,
