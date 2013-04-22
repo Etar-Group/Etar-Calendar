@@ -64,13 +64,13 @@
     <string name="search" msgid="550656004486017426">"Hledat"</string>
     <string name="hide_controls" msgid="830320505938520882">"Skrýt ovládací prvky"</string>
     <string name="show_controls" msgid="715520586028062621">"Zobrazit ovládací prvky"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalendáře, které se mají zobrazit"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalendáře k zobrazení"</string>
     <string name="synced" msgid="7913940305983383493">"synchronizován"</string>
     <string name="not_synced" msgid="4275114941801829419">"není synchronizován"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"Tento účet není synchronizován, proto kalendáře nemusí být aktuální."</string>
     <string name="accounts" msgid="849401841083180306">"Účty a synchronizace"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendáře k synchronizaci"</string>
-    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalendáře, které se mají synchronizovat"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalendáře k synchronizaci"</string>
     <string name="hint_what" msgid="709155115005044531">"Název události"</string>
     <string name="hint_where" msgid="4972598001033801974">"Místo"</string>
     <string name="hint_description" msgid="1910143586169033232">"Popis"</string>
@@ -103,8 +103,7 @@
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Barva události"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"Nastavit na výchozí barvu kalendáře"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Barva kalendáře"</string>
-    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
-    <skip />
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Výběr barev"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Zúčastníte se?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Ano"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Možná"</string>
@@ -153,7 +152,7 @@
   </plurals>
   <plurals name="daily">
     <item quantity="one" msgid="5169052946627480942">"Denně"</item>
-    <item quantity="other" msgid="5455230727715859264">"Každých <xliff:g id="NUMBER">%d</xliff:g> d"</item>
+    <item quantity="other" msgid="5455230727715859264">"Jednou za <xliff:g id="NUMBER">%d</xliff:g> d."</item>
   </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Každý pracovní den (po–pá)"</string>
   <plurals name="weekly">
@@ -222,6 +221,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Datum ukončení"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Čas ukončení"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Časové pásmo"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Opakovat událost"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Přidat připomenutí"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Odebrat připomenutí"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Přidat účastníka"</string>
@@ -248,20 +248,14 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Vybraná událost"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Nezaškrtávejte –&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Opakování"</string>
-    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
-    <skip />
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Neopakuje se"</string>
+    <string name="recurrence_interval_daily" msgid="391619830560250263">"Jednou za <xliff:g id="COUNT">%d</xliff:g> d."</string>
+    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"Jednou za <xliff:g id="COUNT">%d</xliff:g> týd."</string>
+    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"Jednou za <xliff:g id="COUNT">%d</xliff:g> měs."</string>
+    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"Jednou za <xliff:g id="COUNT">%d</xliff:g> r."</string>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"měsíčně tentýž den"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"<xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g> v měsíci"</string>
-    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
-    <skip />
+    <string name="recurrence_end_continously" msgid="4217711248559869840">"Neustále"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Do určitého data"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Po určitý počet událostí"</string>

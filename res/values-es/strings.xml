@@ -55,7 +55,7 @@
     <string name="week_view" msgid="6775043022159508060">"Semana"</string>
     <string name="month_view" msgid="7287101431749285412">"Mes"</string>
     <string name="event_view" msgid="7621353079385122317">"Ver evento"</string>
-    <string name="event_create" msgid="6941040556709110617">"Evento nuevo"</string>
+    <string name="event_create" msgid="6941040556709110617">"Nuevo evento"</string>
     <string name="event_edit" msgid="4006961928830064662">"Editar evento"</string>
     <string name="event_delete" msgid="2386667193277770442">"Suprimir evento"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hoy"</string>
@@ -101,10 +101,9 @@
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizador:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Seleccionar color del evento"</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Color del evento"</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">"Establecer en color predeterminado del calendario"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Cambiar a color predeterminado del calendario"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Color del calendario"</string>
-    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
-    <skip />
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Selector de color"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"¿Asistirás?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Sí"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Quizás"</string>
@@ -124,7 +123,7 @@
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Llego un par de minutos tarde"</item>
     <item msgid="6215158751728689832">"Llegaré en unos diez minutos"</item>
-    <item msgid="4485794001743679338">"Empezad sin mi"</item>
+    <item msgid="4485794001743679338">"Empezad sin mí"</item>
     <item msgid="8036557974294987511">"No puedo, mejor en otro momento"</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Escribe tu propia respuesta…"</string>
@@ -170,8 +169,8 @@
     <string name="modify_event" msgid="5982876409997142690">"Cambiar solo este evento"</string>
     <string name="modify_all" msgid="4421657265864209041">"Cambiar todos los eventos de la serie"</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Cambiar este y todos los eventos posteriores"</string>
-    <string name="new_event_dialog_label" msgid="7553105224561147916">"Evento nuevo"</string>
-    <string name="new_event_dialog_option" msgid="6154657379574669371">"Evento nuevo"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Nuevo evento"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Nuevo evento"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"¿Eliminar este evento?"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"¿Quieres eliminar <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Cambiar respuesta"</string>
@@ -180,7 +179,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Ajustes"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Configuración de la vista de calendario"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Notificaciones y recordatorios"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos rechaz."</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos rechazados"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"La semana empieza el"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"La semana empieza el"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Borrar historial de búsqueda"</string>
@@ -196,7 +195,7 @@
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usar hora local"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Mostrar calendarios y eventos en la hora local al viajar"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Zona horaria local"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número semana"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número de semana"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Acerca de"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versión de la compilación"</string>
     <string name="gadget_title" msgid="939918875331310945">"Calendario"</string>
@@ -222,6 +221,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Fecha de finalización"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Hora de finalización"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Zona horaria"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Repetir evento"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Añadir recordatorio"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Eliminar recordatorio"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Añadir asistente"</string>
@@ -248,21 +248,15 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Evento seleccionado"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NO seleccionar -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Repetir"</string>
-    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
-    <skip />
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"No se repite"</string>
+    <string name="recurrence_interval_daily" msgid="391619830560250263">"Cada <xliff:g id="COUNT">%d</xliff:g> días"</string>
+    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"Cada <xliff:g id="COUNT">%d</xliff:g> semanas"</string>
+    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"Cada <xliff:g id="COUNT">%d</xliff:g> meses"</string>
+    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"Cada <xliff:g id="COUNT">%d</xliff:g> años"</string>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"el mismo día cada mes"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"siempre el <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
-    <skip />
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">"hasta una fecha"</string>
+    <string name="recurrence_end_continously" msgid="4217711248559869840">"Siempre"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Hasta una fecha"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Hasta el <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Para un número de eventos"</string>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"cambiar fecha de finalización"</string>

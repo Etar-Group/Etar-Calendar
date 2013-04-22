@@ -60,17 +60,17 @@
     <string name="event_delete" msgid="2386667193277770442">"删除活动"</string>
     <string name="goto_today" msgid="9162136434410891230">"今天"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"设置"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"要显示的日历"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"显示的日历"</string>
     <string name="search" msgid="550656004486017426">"搜索"</string>
     <string name="hide_controls" msgid="830320505938520882">"隐藏控件"</string>
     <string name="show_controls" msgid="715520586028062621">"显示控件"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"要显示的日历"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"显示的日历"</string>
     <string name="synced" msgid="7913940305983383493">"已同步"</string>
     <string name="not_synced" msgid="4275114941801829419">"未同步"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"此帐户未同步，因此您的日历可能不是最新的。"</string>
     <string name="accounts" msgid="849401841083180306">"帐户和同步"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"要同步的日历"</string>
-    <string name="select_synced_calendars_button" msgid="8890542984949996251">"要同步的日历"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"同步的日历"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"同步的日历"</string>
     <string name="hint_what" msgid="709155115005044531">"活动名称"</string>
     <string name="hint_where" msgid="4972598001033801974">"地点"</string>
     <string name="hint_description" msgid="1910143586169033232">"说明"</string>
@@ -103,8 +103,7 @@
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"活动颜色"</string>
     <string name="event_color_set_to_default" msgid="3447218820785647967">"设为默认日历颜色"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"日历颜色"</string>
-    <!-- no translation found for calendar_square_color_picker_description (7430468363525563483) -->
-    <skip />
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"颜色选择器"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"参加吗？"</string>
     <string name="response_yes" msgid="2027484304899988350">"参加"</string>
     <string name="response_maybe" msgid="7791500973627841695">"待定"</string>
@@ -116,7 +115,7 @@
     <string name="map_label" msgid="8795383535586556038">"地图"</string>
     <string name="call_label" msgid="2960328220008869083">"电话"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"快速回复"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"修改向参加者发邮件时所用的默认回复"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"修改向活动参加者发邮件时所用的默认回复"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"修改快速回复"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"快速回复"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"选择快速回复"</string>
@@ -160,7 +159,7 @@
     <item quantity="one" msgid="5463021019301453273">"每周的<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
     <item quantity="other" msgid="2857390143157377867">"每<xliff:g id="NUMBER">%1$d</xliff:g>周的<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
   </plurals>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"每月（每月的<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>）"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"每个月的<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="monthly" msgid="4587116285383048586">"每月"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"每年"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"每月（<xliff:g id="DAY_OF_MONTH">%s</xliff:g> 日）"</string>
@@ -180,11 +179,11 @@
     <string name="preferences_title" msgid="8045855493262131773">"设置"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"日历视图设置"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"通知和提醒"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"隐藏已拒绝的活动"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"一周开始日"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"一周开始日"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"隐藏您不参加的活动"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"一周起始日"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"一周起始日"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"清除搜索记录"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"删除您已执行的所有搜索"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"删除您之前进行的所有搜索的记录"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"搜索记录已清除。"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"通知"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"振动"</string>
@@ -193,9 +192,9 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"默认提醒时间"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"默认提醒时间"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"使用家所在时区"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行时按家所在时区显示日历和活动时间"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"家所在时区"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"采用家里的时区"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行时按家里的时区显示日历和活动时间"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"家里时区"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"显示周数"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"关于"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"版本号"</string>
@@ -222,6 +221,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"结束日期"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"结束时间"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"时区"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"重复活动"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"添加提醒"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"删除提醒"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"添加参加者"</string>
@@ -248,21 +248,15 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"所选活动"</string>
     <string name="do_not_check" msgid="7815441673853466129">"请勿选中 -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"重复"</string>
-    <!-- no translation found for recurrence_dialog_title_never (2679396029776590130) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_daily (391619830560250263) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_weekly (1366209532076709835) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_monthly (3922196729821736444) -->
-    <skip />
-    <!-- no translation found for recurrence_interval_yearly (9040608354762002839) -->
-    <skip />
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"一律不重复"</string>
+    <string name="recurrence_interval_daily" msgid="391619830560250263">"每<xliff:g id="COUNT">%d</xliff:g>天"</string>
+    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"每<xliff:g id="COUNT">%d</xliff:g>周"</string>
+    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"每<xliff:g id="COUNT">%d</xliff:g>个月"</string>
+    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"每<xliff:g id="COUNT">%d</xliff:g>年"</string>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"在每个月的同一天"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"在每个月的<xliff:g id="NTH">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <!-- no translation found for recurrence_end_continously (4217711248559869840) -->
-    <skip />
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">"直到某个日期"</string>
+    <string name="recurrence_end_continously" msgid="4217711248559869840">"持续"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"截至某个日期"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"截至<xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"限定次数"</string>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"更改结束日期"</string>
