@@ -76,8 +76,8 @@
     <item msgid="9182342638433672664">"ሕዝብ"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"መጀመሪያ"</item>
-    <item msgid="5631923029483854900">"ሰከንድ"</item>
+    <item msgid="2693927956303125332">"አንደኛ"</item>
+    <item msgid="5631923029483854900">"ሁለተኛ"</item>
     <item msgid="148935502975250973">"ሦስተኛ"</item>
     <item msgid="5124200797326669172">"አራተኛ"</item>
     <item msgid="7564374178324652137">"መጨረሻ"</item>
@@ -111,9 +111,11 @@
     <item msgid="2285927842308686988">"ተቀባይነት ካላገኘ ብቻ"</item>
     <item msgid="6367412240524984286">"ተቀባይነት ካላገኘ ወይም ምላሽ ካልተሰጠበት"</item>
   </string-array>
-    <!-- no translation found for recurrence_freq:0 (5937533480933137696) -->
-    <!-- no translation found for recurrence_freq:1 (5093122819962980394) -->
-    <!-- no translation found for recurrence_freq:2 (3061751350069329559) -->
-    <!-- no translation found for recurrence_freq:3 (7221838315296593556) -->
-    <!-- no translation found for recurrence_freq:4 (8033241076508570830) -->
+  <string-array name="recurrence_freq">
+    <item msgid="5937533480933137696">"የአንድ ጊዜ ክስተት"</item>
+    <item msgid="5093122819962980394">"ዕለታዊ"</item>
+    <item msgid="3061751350069329559">"ሳምንታዊ"</item>
+    <item msgid="7221838315296593556">"ወርሃዊ"</item>
+    <item msgid="8033241076508570830">"ዓመታዊ"</item>
+  </string-array>
 </resources>
