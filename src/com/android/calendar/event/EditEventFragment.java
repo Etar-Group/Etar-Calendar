@@ -503,7 +503,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mHandler.startQuery(TOKEN_EVENT, null, mUri, EditEventHelper.EVENT_PROJECTION,
                     null /* selection */, null /* selection args */, null /* sort order */);
         } else {
-            mOutstandingQueries = TOKEN_CALENDARS;
+            mOutstandingQueries = TOKEN_CALENDARS | TOKEN_COLORS;
             if (DEBUG) {
                 Log.d(TAG, "startQuery: Editing a new event.");
             }
