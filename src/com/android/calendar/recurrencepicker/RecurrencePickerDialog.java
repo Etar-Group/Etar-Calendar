@@ -337,6 +337,8 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     private TextView mIntervalPreText;
     private TextView mIntervalPostText;
 
+    private int mIntervalResId = -1;
+
     private LinearLayout mEndGroup;
     private Spinner mEndSpinner;
     private ImageButton mEndDateTextView;
@@ -725,6 +727,10 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
             @Override
             void onChange(int v) {
                 mModel.interval = v;
+                if (mIntervalResId != -1 && mInterval.getText().toString().length() > 0) {
+                    updateIntervalText();
+                    mInterval.requestLayout();
+                }
             }
         });
         mIntervalPreText = (TextView) mView.findViewById(R.id.intervalPreText);
@@ -895,11 +901,11 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
 
             switch (mModel.freq) {
                 case Model.FREQ_DAILY:
-                    updateIntervalText(R.string.recurrence_interval_daily);
+                    mIntervalResId = R.plurals.recurrence_interval_daily;
                     break;
 
                 case Model.FREQ_WEEKLY:
-                    updateIntervalText(R.string.recurrence_interval_weekly);
+                    mIntervalResId = R.plurals.recurrence_interval_weekly;
 
                     int count = 0;
                     for (int i = 0; i < 7; i++) {
@@ -920,7 +926,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                     break;
 
                 case Model.FREQ_MONTHLY:
-                    updateIntervalText(R.string.recurrence_interval_monthly);
+                    mIntervalResId = R.plurals.recurrence_interval_monthly;
 
                     if (mModel.monthlyRepeat == Model.MONTHLY_BY_DATE) {
                         mMonthRepeatByRadioGroup.check(R.id.repeatMonthlyByNthDayOfMonth);
@@ -941,10 +947,10 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                     break;
 
                 case Model.FREQ_YEARLY:
-                    updateIntervalText(R.string.recurrence_interval_yearly);
+                    mIntervalResId = R.plurals.recurrence_interval_yearly;
                     break;
             }
-
+            updateIntervalText();
             mEndSpinner.setSelection(mModel.end);
             if (mModel.end == Model.END_BY_DATE) {
                 final String dateStr = DateUtils.formatDateTime(getActivity(),
@@ -994,9 +1000,13 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     }
 
     // TODO Test and update for Right-to-Left
-    private void updateIntervalText(int intervalStringId) {
+    private void updateIntervalText() {
+        if (mIntervalResId == -1) {
+            return;
+        }
+
         final String INTERVAL_COUNT_MARKER = "%d";
-        String intervalString = mResources.getString(intervalStringId);
+        String intervalString = mResources.getQuantityString(mIntervalResId, mModel.interval);
         int markerStart = intervalString.indexOf(INTERVAL_COUNT_MARKER);
 
         if (markerStart != -1) {
