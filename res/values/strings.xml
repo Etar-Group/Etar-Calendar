@@ -689,14 +689,35 @@
     <string name="recurrence_dialog_title">Repeat</string>
     <!-- Dialog title for recurrence picker when one-time event is selected [CHAR LIMIT=20] -->
     <string name="recurrence_dialog_title_never">Never repeats</string>
-    <!-- String to describe how frequent to repeat an event e.g. every 5 days [CHAR LIMIT=20] -->
-    <string name="recurrence_interval_daily">Every <xliff:g id="count">%d</xliff:g> day(s)</string>
-    <!-- String to describe how frequent to repeat an event e.g. every 5 weeks [CHAR LIMIT=20] -->
-    <string name="recurrence_interval_weekly">Every <xliff:g id="count">%d</xliff:g> week(s)</string>
-    <!-- String to describe how frequent to repeat an event e.g. every 5 months [CHAR LIMIT=20] -->
-    <string name="recurrence_interval_monthly">Every <xliff:g id="count">%d</xliff:g> month(s)</string>
-    <!-- String to describe how frequent to repeat an event e.g. every 5 years [CHAR LIMIT=20] -->
-    <string name="recurrence_interval_yearly">Every <xliff:g id="count">%d</xliff:g> year(s)</string>
+
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 days) -->
+    <plurals name="recurrence_interval_daily">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">Every <xliff:g id="count">%d</xliff:g> day</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">Every <xliff:g id="count">%d</xliff:g> days</item>
+    </plurals>
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 weeks) -->
+    <plurals name="recurrence_interval_weekly">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">Every <xliff:g id="count">%d</xliff:g> week</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">Every <xliff:g id="count">%d</xliff:g> weeks</item>
+    </plurals>
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 months) -->
+    <plurals name="recurrence_interval_monthly">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">Every <xliff:g id="count">%d</xliff:g> month</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">Every <xliff:g id="count">%d</xliff:g> months</item>
+    </plurals>
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 years) -->
+    <plurals name="recurrence_interval_yearly">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">Every <xliff:g id="count">%d</xliff:g> year</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">Every <xliff:g id="count">%d</xliff:g> years</item>
+    </plurals>
 
     <!-- Repeat an monthly event on the same day of every month [CHAR LIMIT=20] -->
     <string name="recurrence_month_pattern_by_day">on the same day each month</string>
