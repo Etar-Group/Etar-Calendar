@@ -166,4 +166,5 @@
     <color name="appwidget_no_events">#ffffffff</color>
 
     <color name="recurrence_picker_background">#fff2f2f2</color>
+    <color name="recurrence_bubble_text_normal">#ff737373</color>
 </resources>
