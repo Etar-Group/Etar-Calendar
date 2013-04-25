@@ -113,9 +113,9 @@
   </string-array>
   <string-array name="recurrence_freq">
     <item msgid="5937533480933137696">"EVENTO OCCASIONALE"</item>
-    <item msgid="5093122819962980394">"GIORNALIERI"</item>
-    <item msgid="3061751350069329559">"SETTIMANALI"</item>
-    <item msgid="7221838315296593556">"MENSILI"</item>
-    <item msgid="8033241076508570830">"ANNUALI"</item>
+    <item msgid="5093122819962980394">"OGNI GIORNO"</item>
+    <item msgid="3061751350069329559">"OGNI SETTIMANA"</item>
+    <item msgid="7221838315296593556">"OGNI MESE"</item>
+    <item msgid="8033241076508570830">"OGNI ANNO"</item>
   </string-array>
 </resources>
