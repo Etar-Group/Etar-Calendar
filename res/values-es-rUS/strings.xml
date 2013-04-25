@@ -16,7 +16,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="5452708708398908131">"Calendar"</string>
+    <string name="app_label" msgid="5452708708398908131">"Calendario"</string>
     <string name="what_label" msgid="1933578391985810049">"Qué"</string>
     <string name="where_label" msgid="3472482206065595118">"Dónde"</string>
     <string name="when_label" msgid="894636567327261599">"Cuándo"</string>
@@ -84,7 +84,7 @@
     <string name="event_info_title" msgid="56024222340421620">"Ver evento"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Invitación a la reunión"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Hasta"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"De"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Desde"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Todo el día"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Calendario"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Mostrar todos"</string>
@@ -107,16 +107,16 @@
     <string name="email_picker_label" msgid="4808253965057791781">"Enviar correo a"</string>
     <string name="event_not_found" msgid="8356864185947582727">"No se encontró el evento."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respuestas rápidas"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edita res. predet."</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Editar respuestas predeterminadas para enviar por correo"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Editar res. rápida"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Respuesta rápida"</string>
-    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Elije una respuesta rápida."</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Elige una respuesta rápida"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Error al buscar un programa de correo"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Con un par de minutos de retraso"</item>
+    <item msgid="1524421198348168403">"Con un par de minutos de retraso."</item>
     <item msgid="6215158751728689832">"Estaré allí en unos 10 minutos."</item>
     <item msgid="4485794001743679338">"Comienza sin mí."</item>
-    <item msgid="8036557974294987511">"No puedo hacerlo. Tendremos que volver a programarlo"</item>
+    <item msgid="8036557974294987511">"No podré reunirme. Tendremos que programar otra reunión."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="7265035125070482285">"Mensaje personalizado…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizador:"</string>
@@ -156,11 +156,11 @@
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"¿Deseas eliminar <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Cambiar respuesta"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Configuración general"</string>
-    <string name="menu_about_preferences" msgid="6124375438237674973">"Acerca de Calendar"</string>
+    <string name="menu_about_preferences" msgid="6124375438237674973">"Acerca de Calendario"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Configuración"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Configuración de vista de calendario"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Configuración de recordatorio"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos declinados"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos rechazados"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Primer día de la semana"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Primer día de la semana"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Eliminar historial de búsqueda"</string>
@@ -170,8 +170,8 @@
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrar"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Elegir un tono"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificación emergente"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Hora predet. de record."</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Hora predet. de record."</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Tiempo predeterm. de recordatorio"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Tiempo predeterm. de recordatorio"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usar zona horaria local"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Mostrar calendarios y horarios de eventos en tu zona horaria local al viajar"</string>
@@ -185,7 +185,7 @@
     <item msgid="4552962311897985633">"Nunca"</item>
   </string-array>
     <string name="prefDialogTitle_vibrateWhen" msgid="8995274609647451109">"Vibrar"</string>
-    <string name="gadget_title" msgid="939918875331310945">"Calendar"</string>
+    <string name="gadget_title" msgid="939918875331310945">"Calendario"</string>
   <plurals name="month_more_events">
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>

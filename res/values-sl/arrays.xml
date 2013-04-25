@@ -60,7 +60,7 @@
     <item msgid="8336577387266744930">"1 teden"</item>
   </string-array>
   <string-array name="preferences_week_start_day_labels">
-    <item msgid="986150274035512339">"Privzete obm. nast."</item>
+    <item msgid="986150274035512339">"Privzete območne nastavitve"</item>
     <item msgid="134027225275475280">"Sobota"</item>
     <item msgid="95029346069903091">"Nedelja"</item>
     <item msgid="5840983116375063739">"Ponedeljek"</item>

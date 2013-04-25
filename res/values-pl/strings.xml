@@ -113,12 +113,12 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Wybierz szybką odpowiedź"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Nie można znaleźć programu pocztowego"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Spóźnię się tylko kilka minut."</item>
+    <item msgid="1524421198348168403">"Spóźnię się kilka minut."</item>
     <item msgid="6215158751728689832">"Będę za około 10 minut."</item>
     <item msgid="4485794001743679338">"Zacznijcie beze mnie."</item>
     <item msgid="8036557974294987511">"Niestety, nie dam rady. Musimy to przełożyć."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Wiadomość niestandardowa…"</string>
+    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Własna wiadomość…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Przypomnienia"</string>
     <string name="agenda_today" msgid="5965841338467422191">"DZIŚ, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -161,10 +161,10 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Widok kalendarza"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Ustawienia przypomnień"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ukryj odrzucone"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Początek tygodnia to"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Początek tygodnia to"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Pierwszy dzień tygodnia"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Pierwszy dzień tygodnia"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Wyczyść historię wyszukiwania"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Usuń wszystkie poprzednie wyszukiwania."</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Usuń wszystkie poprzednie wyszukiwania"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Wyczyszczono historię wyszukiwania."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Powiadomienia"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Wibracje"</string>

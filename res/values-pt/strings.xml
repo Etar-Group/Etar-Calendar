@@ -107,16 +107,16 @@
     <string name="email_picker_label" msgid="4808253965057791781">"Enviar e-mail para"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Evento não encontrado."</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respostas rápidas"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Resp padrão p conv"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Editar resposta padrão em e-mail p/ convidados"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Editar resp. ráp."</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Resposta rápida"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Escolher resposta rápida"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Falha ao localar um programa de e-mail"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Com alguns minutos de atraso."</item>
-    <item msgid="6215158751728689832">"Compareça em cerca de 10 minutos."</item>
+    <item msgid="1524421198348168403">"Chegarei c/ alguns mins. de atraso."</item>
+    <item msgid="6215158751728689832">"Chegarei em cerca de 10 minutos."</item>
     <item msgid="4485794001743679338">"Vá em frente e comece sem mim."</item>
-    <item msgid="8036557974294987511">"Sinto muito, não posso comparecer. Precisaremos remarcar."</item>
+    <item msgid="8036557974294987511">"Desculpe, não chegarei. Precisaremos remarcar."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="7265035125070482285">"Mensagem personalizada..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizador:"</string>

@@ -33,10 +33,10 @@
     <item msgid="8754510169374808607">"Dakika 30"</item>
     <item msgid="3113380274218454394">"Dakika 45"</item>
     <item msgid="8546646645868526283">"Saa 1"</item>
-    <item msgid="6467845211024768872">"Masaa 2"</item>
-    <item msgid="8201677619511076575">"Masaa 3"</item>
-    <item msgid="7172504281650128893">"Masaa 12"</item>
-    <item msgid="9114286702181482496">"Masaa 24"</item>
+    <item msgid="6467845211024768872">"Saa 2"</item>
+    <item msgid="8201677619511076575">"Saa 3"</item>
+    <item msgid="7172504281650128893">"Saa 12"</item>
+    <item msgid="9114286702181482496">"Saa 24"</item>
     <item msgid="3107009344872997366">"Siku 2"</item>
     <item msgid="6135563708172153696">"Wiki 1"</item>
   </string-array>
@@ -52,10 +52,10 @@
     <item msgid="9191353668596201944">"Dakika 30"</item>
     <item msgid="1192985682962908244">"Dakika 45"</item>
     <item msgid="1694315499429259938">"Saa 1"</item>
-    <item msgid="8281019320591769635">"Masaa 2"</item>
-    <item msgid="2062931719019287773">"Masaa 3"</item>
-    <item msgid="4086495711621133006">"Masaa 12"</item>
-    <item msgid="3172669681920709561">"Masaa 24"</item>
+    <item msgid="8281019320591769635">"Saa 2"</item>
+    <item msgid="2062931719019287773">"Saa 3"</item>
+    <item msgid="4086495711621133006">"Saa 12"</item>
+    <item msgid="3172669681920709561">"Saa 24"</item>
     <item msgid="5557836606782821910">"Siku 2"</item>
     <item msgid="8336577387266744930">"Wiki 1"</item>
   </string-array>
@@ -152,8 +152,8 @@
     <item msgid="1926932394586102998">"Tonga"</item>
   </string-array>
   <string-array name="availability">
-    <item msgid="454869065893453189">"ana shughuli"</item>
-    <item msgid="6228387173725732140">"Inapatikana"</item>
+    <item msgid="454869065893453189">"nina shughuli"</item>
+    <item msgid="6228387173725732140">"Ninapatikana"</item>
     <item msgid="2064426942462573474">"Kujaribia"</item>
   </string-array>
   <string-array name="visibility">

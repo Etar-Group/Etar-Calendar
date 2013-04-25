@@ -60,7 +60,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Xóa sự kiện"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hôm nay"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Cài đặt"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Lịch h.thị"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Lịch để hiển thị"</string>
     <string name="search" msgid="550656004486017426">"Tìm kiếm"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ẩn các điều khiển"</string>
     <string name="show_controls" msgid="715520586028062621">"Hiển thị các điều khiển"</string>

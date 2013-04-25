@@ -55,7 +55,7 @@
     <string name="week_view" msgid="6775043022159508060">"Semana"</string>
     <string name="month_view" msgid="7287101431749285412">"Mes"</string>
     <string name="event_view" msgid="7621353079385122317">"Ver evento"</string>
-    <string name="event_create" msgid="6941040556709110617">"Evento nuevo"</string>
+    <string name="event_create" msgid="6941040556709110617">"Nuevo evento"</string>
     <string name="event_edit" msgid="4006961928830064662">"Editar evento"</string>
     <string name="event_delete" msgid="2386667193277770442">"Suprimir evento"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hoy"</string>
@@ -102,7 +102,7 @@
     <string name="response_yes" msgid="2027484304899988350">"Sí"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Quizás"</string>
     <string name="response_no" msgid="561911691884148136">"No"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"Correo a invitados"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"Escribir a invitados"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"Escribir al organizador"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Correo electrónico con"</string>
     <string name="event_not_found" msgid="8356864185947582727">"No se ha encontrado el evento."</string>
@@ -115,7 +115,7 @@
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Llego un par de minutos tarde"</item>
     <item msgid="6215158751728689832">"Llegaré en unos diez minutos"</item>
-    <item msgid="4485794001743679338">"Empezad sin mi"</item>
+    <item msgid="4485794001743679338">"Empezad sin mí"</item>
     <item msgid="8036557974294987511">"No puedo, mejor en otro momento"</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="7265035125070482285">"Mensaje personalizado…"</string>
@@ -150,8 +150,8 @@
     <string name="modify_event" msgid="5982876409997142690">"Cambiar solo este evento"</string>
     <string name="modify_all" msgid="4421657265864209041">"Cambiar todos los eventos de la serie"</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Cambiar este y todos los eventos posteriores"</string>
-    <string name="new_event_dialog_label" msgid="7553105224561147916">"Evento nuevo"</string>
-    <string name="new_event_dialog_option" msgid="6154657379574669371">"Evento nuevo"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Nuevo evento"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Nuevo evento"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"¿Eliminar este evento?"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"¿Quieres eliminar <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Cambiar respuesta"</string>
@@ -160,7 +160,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Ajustes"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Configuración de la vista de calendario"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"Configuración de los recordatorios"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos rechaz."</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ocultar eventos rechazados"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"La semana empieza el"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"La semana empieza el"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Borrar historial de búsqueda"</string>
@@ -170,13 +170,13 @@
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrar"</string>
     <string name="preferences_alerts_ringtone_title" msgid="7872809411438804447">"Seleccionar tono"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificación emergente"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Duración pred. del recordatorio"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Duración pred. del recordatorio"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Antelación del recordatorio"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Antelación del recordatorio"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usar hora local"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Mostrar calendarios y eventos en la hora local al viajar"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Zona horaria local"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número semana"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número de semana"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Acerca de"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versión de la compilación"</string>
   <string-array name="prefEntries_alerts_vibrateWhen">

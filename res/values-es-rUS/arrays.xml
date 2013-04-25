@@ -152,7 +152,7 @@
     <item msgid="1926932394586102998">"Tonga"</item>
   </string-array>
   <string-array name="availability">
-    <item msgid="454869065893453189">"Ocupado"</item>
+    <item msgid="454869065893453189">"No disponible"</item>
     <item msgid="6228387173725732140">"Disponible"</item>
     <item msgid="2064426942462573474">"Provisional"</item>
   </string-array>
@@ -162,9 +162,9 @@
     <item msgid="9182342638433672664">"Público"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"primero"</item>
+    <item msgid="2693927956303125332">"primer"</item>
     <item msgid="5631923029483854900">"segundo"</item>
-    <item msgid="148935502975250973">"tercero"</item>
+    <item msgid="148935502975250973">"tercer"</item>
     <item msgid="5124200797326669172">"cuarto"</item>
     <item msgid="7564374178324652137">"último"</item>
   </string-array>

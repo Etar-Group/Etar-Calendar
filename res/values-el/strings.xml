@@ -106,7 +106,7 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Αποστολή μηνύματος ηλεκτρονικού ταχυδρομείου στον οργανωτή"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Αποστολή μηνύματος ηλεκτρονικού ταχυδρομείου με"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Το συμβάν δεν βρέθηκε."</string>
-    <string name="quick_response_settings" msgid="6776151690686068278">"Γρήγορες απαντήσ."</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"Γρήγορες απαντήσεις"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Επεξ.προεπ.απ.κατά την αποστ.μην.ηλ.ταχ.στους καλεσμ."</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Επεξ.γρήγ.απαντ,"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Γρήγορη απάντηση"</string>

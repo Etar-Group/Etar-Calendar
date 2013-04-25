@@ -60,17 +60,17 @@
     <string name="event_delete" msgid="2386667193277770442">"删除活动"</string>
     <string name="goto_today" msgid="9162136434410891230">"今天"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"设置"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"要显示的日历"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"显示的日历"</string>
     <string name="search" msgid="550656004486017426">"搜索"</string>
     <string name="hide_controls" msgid="830320505938520882">"隐藏控件"</string>
     <string name="show_controls" msgid="715520586028062621">"显示控件"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"要显示的日历"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"显示的日历"</string>
     <string name="synced" msgid="7913940305983383493">"已同步"</string>
     <string name="not_synced" msgid="4275114941801829419">"未同步"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"此帐户未同步，因此您的日历可能不是最新的。"</string>
     <string name="accounts" msgid="849401841083180306">"帐户和同步"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"要同步的日历"</string>
-    <string name="select_synced_calendars_button" msgid="8890542984949996251">"要同步的日历"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"同步的日历"</string>
+    <string name="select_synced_calendars_button" msgid="8890542984949996251">"同步的日历"</string>
     <string name="hint_what" msgid="709155115005044531">"活动名称"</string>
     <string name="hint_where" msgid="4972598001033801974">"地点"</string>
     <string name="hint_description" msgid="1910143586169033232">"说明"</string>
@@ -102,12 +102,12 @@
     <string name="response_yes" msgid="2027484304899988350">"参加"</string>
     <string name="response_maybe" msgid="7791500973627841695">"待定"</string>
     <string name="response_no" msgid="561911691884148136">"不参加"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"向邀请对象发送电子邮件"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"向参加者发邮件"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"给组织者发送电子邮件"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"发送邮件时使用"</string>
     <string name="event_not_found" msgid="8356864185947582727">"找不到活动。"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"快速回复"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"修改向参加者发邮件时所用的默认回复"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"修改向活动参加者发邮件时所用的默认回复"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"修改快速回复"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"快速回复"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"选择快速回复"</string>
@@ -124,7 +124,7 @@
     <string name="agenda_today" msgid="5965841338467422191">"今天，<xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"昨天，<xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"明天，<xliff:g id="DATE">%1$s</xliff:g>"</string>
-    <string name="loading" msgid="3772533493214331230">"正在载入..."</string>
+    <string name="loading" msgid="3772533493214331230">"正在加载..."</string>
     <string name="show_older_events" msgid="5140647493681439926">"触摸可查看<xliff:g id="OLDEST_SEARCH_RANGE">%1$s</xliff:g>之前的活动"</string>
     <string name="show_newer_events" msgid="2604638815440163080">"触摸可查看<xliff:g id="NEWEST_SEARCH_RANGE">%1$s</xliff:g>之后的活动"</string>
     <string name="search_title" msgid="8898015280250716254">"搜索我的日历"</string>
@@ -139,8 +139,8 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"一次性活动"</string>
     <string name="daily" msgid="560350706808680448">"每天"</string>
     <string name="every_weekday" msgid="5896574838353902978">"每个工作日（周一至周五）"</string>
-    <string name="weekly" msgid="2006107373119027114">"每周（每周的<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>）"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"每月（每月的<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>）"</string>
+    <string name="weekly" msgid="2006107373119027114">"每周的<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"每个月的<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="monthly" msgid="4587116285383048586">"每月"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"每年"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"每月（<xliff:g id="DAY_OF_MONTH">%s</xliff:g> 日）"</string>
@@ -160,11 +160,11 @@
     <string name="preferences_title" msgid="8045855493262131773">"设置"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"日历视图设置"</string>
     <string name="preferences_reminder_title" msgid="6940022527071973010">"提醒设置"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"隐藏已拒绝的活动"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"一周开始日"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"一周开始日"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"隐藏您不参加的活动"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"一周起始日"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"一周起始日"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"清除搜索记录"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"删除您已执行的所有搜索"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"删除您之前进行的所有搜索的记录"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"搜索记录已清除。"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"通知"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"振动"</string>
@@ -173,9 +173,9 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"默认提醒时间"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"默认提醒时间"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"使用家所在时区"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行时按家所在时区显示日历和活动时间"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"家所在时区"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"采用家里的时区"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"旅行时按家里的时区显示日历和活动时间"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"家里时区"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"显示周数"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"关于"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"版本号"</string>
@@ -211,7 +211,7 @@
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"隐私设置"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"日历通知"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"暂停通知"</string>
-    <string name="accessibility_email_notification" msgid="9124064701968129831">"向邀请对象发送电子邮件"</string>
+    <string name="accessibility_email_notification" msgid="9124064701968129831">"向参加者发邮件"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ 新建活动"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"第 <xliff:g id="ITEM_INDEX">%1$s</xliff:g> 个活动，共 <xliff:g id="ITEM_COUNT">%2$s</xliff:g> 个。"</string>
   <plurals name="Nevents">

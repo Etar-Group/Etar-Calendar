@@ -113,12 +113,12 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Kurzantwort auswählen"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Das E-Mail-Programm konnte nicht gefunden werden."</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Hat einige Minuten Verspätung"</item>
-    <item msgid="6215158751728689832">"Startet in etwa 10 Minuten"</item>
-    <item msgid="4485794001743679338">"Soll ohne mich anfangen"</item>
-    <item msgid="8036557974294987511">"Ich schaffe es leider nicht. Wir müssen einen neuen Termin ausmachen."</item>
+    <item msgid="1524421198348168403">"Bin einige Minuten verspätet"</item>
+    <item msgid="6215158751728689832">"Bin in etwa 10 Minuten da"</item>
+    <item msgid="4485794001743679338">"Fangt ohne mich an"</item>
+    <item msgid="8036557974294987511">"Schaffe es leider nicht. Neuen Termin ausmachen?"</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Benutzerdefinierte Nachricht..."</string>
+    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Persönliche Nachricht..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Erinnerungen"</string>
     <string name="agenda_today" msgid="5965841338467422191">"Heute, <xliff:g id="DATE">%1$s</xliff:g>"</string>
