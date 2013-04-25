@@ -249,15 +249,30 @@
     <string name="do_not_check" msgid="7815441673853466129">"אל תסמן -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"חזרה"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ללא חזרה"</string>
-    <string name="recurrence_interval_daily" msgid="391619830560250263">"כל <xliff:g id="COUNT">%d</xliff:g> ימים"</string>
-    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"כל <xliff:g id="COUNT">%d</xliff:g> שבועות"</string>
-    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"כל <xliff:g id="COUNT">%d</xliff:g> חודשים"</string>
-    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"כל <xliff:g id="COUNT">%d</xliff:g> שנים"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"כל יום <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="707566499994398250">"כל <xliff:g id="COUNT">%d</xliff:g> ימים"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"כל שבוע <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="7094801039989237061">"כל <xliff:g id="COUNT">%d</xliff:g> שבועות"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"כל חודש <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="5419723710346646523">"כל <xliff:g id="COUNT">%d</xliff:g> חודשים"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"כל שנה <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="5678653649746562060">"כל <xliff:g id="COUNT">%d</xliff:g> שנים"</item>
+  </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"באותו יום בכל חודש"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"בכל יום <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g> ‏<xliff:g id="NTH">%1$s</xliff:g>"</string>
-    <string name="recurrence_end_continously" msgid="4217711248559869840">"ברציפות"</string>
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">"עד תאריך מסוים"</string>
+    <!-- no translation found for recurrence_end_continously (6898950241634912991) -->
+    <skip />
+    <!-- no translation found for recurrence_end_date_label (1692750407031674335) -->
+    <skip />
     <string name="recurrence_end_date" msgid="3693751578164711701">"עד <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1233883668293087977">"למספר אירועים"</string>
+    <!-- no translation found for recurrence_end_count_label (1820779096399658437) -->
+    <skip />
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"שינוי של תאריך הסיום"</string>
 </resources>

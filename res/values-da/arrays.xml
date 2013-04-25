@@ -113,9 +113,9 @@
   </string-array>
   <string-array name="recurrence_freq">
     <item msgid="5937533480933137696">"Engangsbegivenhed"</item>
-    <item msgid="5093122819962980394">"DAGLIG"</item>
-    <item msgid="3061751350069329559">"UGENTLIG"</item>
-    <item msgid="7221838315296593556">"MÅNEDLIG"</item>
-    <item msgid="8033241076508570830">"ÅRLIG"</item>
+    <item msgid="5093122819962980394">"DAGLIGT"</item>
+    <item msgid="3061751350069329559">"UGENTLIGT"</item>
+    <item msgid="7221838315296593556">"MÅNEDLIGT"</item>
+    <item msgid="8033241076508570830">"ÅRLIGT"</item>
   </string-array>
 </resources>

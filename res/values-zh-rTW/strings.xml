@@ -182,9 +182,9 @@
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"隱藏已拒絕的活動"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"一週起始日"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"一週起始日"</string>
-    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"清除搜尋記錄"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"移除您的所有搜尋記錄"</string>
-    <string name="search_history_cleared" msgid="1536707558435227567">"已清除搜尋記錄。"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"清除搜尋紀錄"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"移除您的所有搜尋紀錄"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"已清除搜尋紀錄。"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"通知"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"震動"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"音效"</string>
@@ -249,15 +249,22 @@
     <string name="do_not_check" msgid="7815441673853466129">"請勿勾選 -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"提醒方式"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"不重複進行"</string>
-    <string name="recurrence_interval_daily" msgid="391619830560250263">"每 <xliff:g id="COUNT">%d</xliff:g> 天"</string>
-    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"每 <xliff:g id="COUNT">%d</xliff:g> 週"</string>
-    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"每 <xliff:g id="COUNT">%d</xliff:g> 個月"</string>
-    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"每 <xliff:g id="COUNT">%d</xliff:g> 年"</string>
+    <!-- no translation found for recurrence_interval_daily:one (1205422710088692631) -->
+    <!-- no translation found for recurrence_interval_daily:other (707566499994398250) -->
+    <!-- no translation found for recurrence_interval_weekly:one (4948681635464488351) -->
+    <!-- no translation found for recurrence_interval_weekly:other (7094801039989237061) -->
+    <!-- no translation found for recurrence_interval_monthly:one (4768178401603139718) -->
+    <!-- no translation found for recurrence_interval_monthly:other (5419723710346646523) -->
+    <!-- no translation found for recurrence_interval_yearly:one (5819562634008179102) -->
+    <!-- no translation found for recurrence_interval_yearly:other (5678653649746562060) -->
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"每月的同一天"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"每月的<xliff:g id="NTH">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <string name="recurrence_end_continously" msgid="4217711248559869840">"持續進行"</string>
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">"直到指定日期為止"</string>
+    <!-- no translation found for recurrence_end_continously (6898950241634912991) -->
+    <skip />
+    <!-- no translation found for recurrence_end_date_label (1692750407031674335) -->
+    <skip />
     <string name="recurrence_end_date" msgid="3693751578164711701">"結束日期：<xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1233883668293087977">"固定次數重複"</string>
+    <!-- no translation found for recurrence_end_count_label (1820779096399658437) -->
+    <skip />
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"變更結束日期"</string>
 </resources>
