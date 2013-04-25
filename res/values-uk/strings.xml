@@ -249,15 +249,30 @@
     <string name="do_not_check" msgid="7815441673853466129">"НЕ ставте прапорець -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Повторити"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Не повторюється"</string>
-    <string name="recurrence_interval_daily" msgid="391619830560250263">"Кожні <xliff:g id="COUNT">%d</xliff:g> дн."</string>
-    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"Кожні <xliff:g id="COUNT">%d</xliff:g> тжн."</string>
-    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"Кожні <xliff:g id="COUNT">%d</xliff:g> міс."</string>
-    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"Кожні <xliff:g id="COUNT">%d</xliff:g> р."</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"Кожен <xliff:g id="COUNT">%d</xliff:g> день"</item>
+    <item quantity="other" msgid="707566499994398250">"Кожні <xliff:g id="COUNT">%d</xliff:g> дн."</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"Кожен <xliff:g id="COUNT">%d</xliff:g> тжн."</item>
+    <item quantity="other" msgid="7094801039989237061">"Кожні <xliff:g id="COUNT">%d</xliff:g> тжн."</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"Кожен <xliff:g id="COUNT">%d</xliff:g> міс."</item>
+    <item quantity="other" msgid="5419723710346646523">"Кожні <xliff:g id="COUNT">%d</xliff:g> міс."</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"Кожен <xliff:g id="COUNT">%d</xliff:g> рік"</item>
+    <item quantity="other" msgid="5678653649746562060">"Кожні <xliff:g id="COUNT">%d</xliff:g> р."</item>
+  </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"певного дня щомісяця"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"у такий день: <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <string name="recurrence_end_continously" msgid="4217711248559869840">"Постійно"</string>
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">"До певної дати"</string>
+    <!-- no translation found for recurrence_end_continously (6898950241634912991) -->
+    <skip />
+    <!-- no translation found for recurrence_end_date_label (1692750407031674335) -->
+    <skip />
     <string name="recurrence_end_date" msgid="3693751578164711701">"До <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Для ряду подій"</string>
+    <!-- no translation found for recurrence_end_count_label (1820779096399658437) -->
+    <skip />
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"змінити дату завершення"</string>
 </resources>
