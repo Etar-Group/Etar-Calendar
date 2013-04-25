@@ -249,15 +249,30 @@
     <string name="do_not_check" msgid="7815441673853466129">"JANGAN dicentang -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Ulangi"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Jangan diulang"</string>
-    <string name="recurrence_interval_daily" msgid="391619830560250263">"Setiap <xliff:g id="COUNT">%d</xliff:g> hari"</string>
-    <string name="recurrence_interval_weekly" msgid="1366209532076709835">"Setiap <xliff:g id="COUNT">%d</xliff:g> minggu"</string>
-    <string name="recurrence_interval_monthly" msgid="3922196729821736444">"Setiap <xliff:g id="COUNT">%d</xliff:g> bulan"</string>
-    <string name="recurrence_interval_yearly" msgid="9040608354762002839">"Setiap <xliff:g id="COUNT">%d</xliff:g> tahun"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g> hari sekali"</item>
+    <item quantity="other" msgid="707566499994398250">"<xliff:g id="COUNT">%d</xliff:g> hari sekali"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"<xliff:g id="COUNT">%d</xliff:g> minggu sekali"</item>
+    <item quantity="other" msgid="7094801039989237061">"<xliff:g id="COUNT">%d</xliff:g> minggu sekali"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"<xliff:g id="COUNT">%d</xliff:g> bulan sekali"</item>
+    <item quantity="other" msgid="5419723710346646523">"<xliff:g id="COUNT">%d</xliff:g> bulan sekali"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"<xliff:g id="COUNT">%d</xliff:g> tahun sekali"</item>
+    <item quantity="other" msgid="5678653649746562060">"<xliff:g id="COUNT">%d</xliff:g> tahun sekali"</item>
+  </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"bulanan-hari yg sama"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"setiap <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g> ke-<xliff:g id="NTH">%1$s</xliff:g>"</string>
-    <string name="recurrence_end_continously" msgid="4217711248559869840">"Berkelanjutan"</string>
-    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Sampai tanggal tertentu"</string>
+    <!-- no translation found for recurrence_end_continously (6898950241634912991) -->
+    <skip />
+    <!-- no translation found for recurrence_end_date_label (1692750407031674335) -->
+    <skip />
     <string name="recurrence_end_date" msgid="3693751578164711701">"Sampai <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Untuk sejumlah acara"</string>
+    <!-- no translation found for recurrence_end_count_label (1820779096399658437) -->
+    <skip />
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"ubah tanggal akhir"</string>
 </resources>
