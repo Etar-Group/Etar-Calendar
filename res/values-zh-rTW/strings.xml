@@ -27,7 +27,7 @@
     <string name="today_at_time_fmt" msgid="1981279213130049736">"今天，<xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="tomorrow_at_time_fmt" msgid="1330779112841767432">"明天，<xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
     <string name="date_time_fmt" msgid="1642972650061946484">"<xliff:g id="DATE">%s</xliff:g>，<xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
-    <string name="repeats_label" msgid="7414023871434593196">"重複頻率"</string>
+    <string name="repeats_label" msgid="7414023871434593196">"顯示頻率"</string>
     <string name="no_title_label" msgid="302177118061368042">"(無標題)"</string>
   <plurals name="Nminutes">
     <item quantity="one" msgid="4871052965772159239">"1 分鐘"</item>
@@ -166,9 +166,9 @@
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"隱藏已拒絕的活動"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"一週起始日"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"一週起始日"</string>
-    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"清除搜尋記錄"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"移除您的所有搜尋記錄"</string>
-    <string name="search_history_cleared" msgid="1536707558435227567">"已清除搜尋記錄。"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"清除搜尋紀錄"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"移除您的所有搜尋紀錄"</string>
+    <string name="search_history_cleared" msgid="1536707558435227567">"已清除搜尋紀錄。"</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"通知"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"震動"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"音效"</string>
@@ -201,7 +201,7 @@
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"新增參加者"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"同步處理日曆"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"全天活動"</string>
-    <string name="accessibility_repeats" msgid="1629279916830919582">"重複頻率"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"顯示頻率"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"提醒時間"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"提醒類型"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"將我的狀態顯示為"</string>

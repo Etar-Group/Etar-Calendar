@@ -142,8 +142,8 @@
     <string name="does_not_repeat" msgid="1877681921029738999">"Однократное мероприятие"</string>
     <string name="daily" msgid="560350706808680448">"Ежедневно"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Каждый будний день (пн–пт)"</string>
-    <string name="weekly" msgid="2006107373119027114">"Еженедельно (кажд. <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"Ежемесячно (кажд. <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+    <string name="weekly" msgid="2006107373119027114">"Еженедельно (<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Ежемесячно (<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"Ежемесячно"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Ежегодно"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Ежемесячно (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> числа)"</string>

@@ -77,7 +77,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"እንግዶች"</string>
     <string name="creating_event" msgid="7516249252554059980">"ክስተት ተፈጥሯል"</string>
     <string name="saving_event" msgid="7694181017411177226">"ክስተት ተቀምጧል"</string>
-    <string name="empty_event" msgid="9018699257414338634">"ባዶ ክስተት አልተፈጠረም::"</string>
+    <string name="empty_event" msgid="9018699257414338634">"ምንም ክስተት አልተፈጠረም።"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"ግብዣዎች ይላካሉ።"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"ዝማኔዎች ይላካሉ።"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"አስቀምጥ"</string>
@@ -91,7 +91,7 @@
     <string name="edit_event_show_all" msgid="4558049350756058301">"ሁሉንም አሳይ"</string>
     <string name="description_label" msgid="7193475046717505855">"መግለጫ"</string>
     <string name="presence_label" msgid="6169724148441175862">"እንደ አሳየኝ"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"ብሕትውነት"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"ግላዊነት"</string>
     <string name="reminders_label" msgid="7292389181815525676">"ማስታወሻ አክል"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"ምንም ቀንመቁጠሪያ ዎች የለዎትም"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"ክስተት ከማከልህ በፊት ቢያንስ አንድ የቀን መቁጠሪያ መለያ ወደ መሳሪያህ ማከል እና የቀን መቁጠሪያውን የሚታይ ማድረግ አለብህ:: መለያ ለማከል መለያ አክል የሚለውን ንካ (መለያ ያከልክ ከሆነ ማመሳስል እስኪጨርስ ድረስ ጠብቀውና እንደገና ሞክር):: ወይም ተወው የሚለውን ንካ እና ቢያንስ አንድ የቀን መቁጠሪያ የሚታይ መሆኑን አረጋግጥ::"</string>

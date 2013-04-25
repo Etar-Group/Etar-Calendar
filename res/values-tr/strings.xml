@@ -21,7 +21,7 @@
     <string name="where_label" msgid="3472482206065595118">"Yer"</string>
     <string name="when_label" msgid="894636567327261599">"Zaman:"</string>
     <string name="timezone_label" msgid="3988530993300431650">"Saat dilimi"</string>
-    <string name="attendees_label" msgid="2971281641565729725">"Misafirler"</string>
+    <string name="attendees_label" msgid="2971281641565729725">"Davetliler"</string>
     <string name="today" msgid="8577375020252453006">"Bugün"</string>
     <string name="tomorrow" msgid="614434811813859237">"Yarın"</string>
     <string name="today_at_time_fmt" msgid="1981279213130049736">"Bugün şu saatler arasında: <xliff:g id="TIME_INTERVAL">%s</xliff:g>"</string>
@@ -116,8 +116,8 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Hızlı yanıt seç"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Bir e-posta programı bulunamadı"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Birkaç dakika geç yayınlanıyor."</item>
-    <item msgid="6215158751728689832">"Yaklaşık 10 dakika içinde orada olun."</item>
+    <item msgid="1524421198348168403">"Birkaç dakika geç kalıyorum."</item>
+    <item msgid="6215158751728689832">"Yaklaşık 10 dakika içinde oradayım."</item>
     <item msgid="4485794001743679338">"Bensiz başlayın."</item>
     <item msgid="8036557974294987511">"Maalesef katılamıyorum. Başka bir zaman ayarlamamız gerek."</item>
   </string-array>
@@ -139,7 +139,7 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"Tümünü ertele"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Tümünü kapat"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Ertele"</string>
-    <string name="does_not_repeat" msgid="1877681921029738999">"Bir seferlik etkinlik"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Bir kerelik etkinlik"</string>
     <string name="daily" msgid="560350706808680448">"Günlük"</string>
     <string name="every_weekday" msgid="5896574838353902978">"Hafta içi her gün (Pzt-Cu)"</string>
     <string name="weekly" msgid="2006107373119027114">"Haftada bir (her <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>

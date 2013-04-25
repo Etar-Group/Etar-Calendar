@@ -60,7 +60,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Suprimeix l\'esdeveniment"</string>
     <string name="goto_today" msgid="9162136434410891230">"Avui"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Configuració"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calend. per visual."</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendaris visibles"</string>
     <string name="search" msgid="550656004486017426">"Cerca"</string>
     <string name="hide_controls" msgid="830320505938520882">"Amaga els controls"</string>
     <string name="show_controls" msgid="715520586028062621">"Mostra els controls"</string>
@@ -77,7 +77,7 @@
     <string name="hint_attendees" msgid="1650488163176888480">"Convidats"</string>
     <string name="creating_event" msgid="7516249252554059980">"S\'ha creat un esdeveniment."</string>
     <string name="saving_event" msgid="7694181017411177226">"S\'ha desat l\'esdeveniment."</string>
-    <string name="empty_event" msgid="9018699257414338634">"Esdeven. buit, no s\'ha creat."</string>
+    <string name="empty_event" msgid="9018699257414338634">"Esdeveniment buit no creat"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"S\'enviaran les invitacions."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"S\'enviaran les actualitzacions."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Desa"</string>
@@ -110,16 +110,16 @@
     <string name="map_label" msgid="8795383535586556038">"Mapa"</string>
     <string name="call_label" msgid="2960328220008869083">"Truca"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Respostes ràpides"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edita les respostes en escriure als convidats"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edita respostes predeterminades en enviar correus als convidats"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Edita resp. ràpid."</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Resposta ràpida"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Tria una resposta ràpida"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"No s\'ha pogut trobar un programa de correu electrònic"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Arribaré uns minuts tard."</item>
+    <item msgid="1524421198348168403">"Arribaré uns quants minuts tard."</item>
     <item msgid="6215158751728689832">"Arribaré d\'aquí a 10 minuts."</item>
     <item msgid="4485794001743679338">"Comenceu sense mi."</item>
-    <item msgid="8036557974294987511">"Em sap greu, no hi puc assistir. Ho haurem de tornar a planificar."</item>
+    <item msgid="8036557974294987511">"No hi puc assistir, deixem-ho per a un altre moment."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Escriu la teva…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organitz.:"</string>
@@ -161,23 +161,23 @@
     <string name="menu_general_preferences" msgid="2812705323334260708">"Configuració general"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Quant a Calendar"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Configuració"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Configuració de la visualització del calendari"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Configuració de la visualització"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Notificacions i recordatoris"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Amaga els esdeveniments rebutjats"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"La setmana comença"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"La setmana comença"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Amaga esdeveniments rebutjats"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"La setmana comença el"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"La setmana comença el"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Esborra l\'historial de cerca"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Elimina totes les cerques fetes"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"S\'ha buidat l\'historial de cerca."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificacions"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibra"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"So"</string>
-    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificació de finestra emergent"</string>
+    <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificació emergent"</string>
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Temps de recordatori predeterminat"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Temps de recordatori predeterminat"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Ut. zona hor. or."</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"En viatjar, mostra calendaris i esdeveniments en hora local"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Utilitza hora local"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"En viatjar, mostra calendaris i esdeveniments en l\'hora local"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Zona horària local"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostra el número de setmana"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Quant a"</string>

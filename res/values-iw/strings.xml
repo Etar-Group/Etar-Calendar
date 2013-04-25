@@ -136,7 +136,7 @@
     <string name="delete_label" msgid="874742811918030739">"מחק"</string>
     <string name="save_label" msgid="2133599104834432589">"סיום"</string>
     <string name="discard_label" msgid="2394623883289782541">"ביטול"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"העבר את כולם למצב נמנום"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"נדנד על הכל"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"דחה הכל"</string>
     <string name="snooze_label" msgid="1515893621063224666">"נודניק"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"אירוע חד-פעמי"</string>
@@ -207,7 +207,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"הצג אותי כ"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"פרטיות"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"התראת יומן"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"התראת מצב נמנום"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"התראת נודניק"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"שלח דוא\"ל לאורחים"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ אירוע חדש"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"אירוע <xliff:g id="ITEM_INDEX">%1$s</xliff:g> מתוך <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>

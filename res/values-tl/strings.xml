@@ -84,8 +84,8 @@
     <string name="alert_title" msgid="7869592820853066853">"Mga notifcation sa kalendaryo"</string>
     <string name="event_info_title" msgid="56024222340421620">"Tingnan ang kaganapan"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Imbitasyon sa meeting"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"Para kay"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"Mula kay"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Hanggang"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Mula"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Buong araw"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalendaryo"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Ipakita lahat"</string>

@@ -109,7 +109,7 @@
     <string name="event_not_found" msgid="8356864185947582727">"Το συμβάν δεν βρέθηκε."</string>
     <string name="map_label" msgid="8795383535586556038">"Χάρτης"</string>
     <string name="call_label" msgid="2960328220008869083">"Κλήση"</string>
-    <string name="quick_response_settings" msgid="6776151690686068278">"Γρήγορες απαντήσ."</string>
+    <string name="quick_response_settings" msgid="6776151690686068278">"Γρήγορες απαντήσεις"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Επεξ.προεπ.απ.κατά την αποστ.μην.ηλ.ταχ.στους καλεσμ."</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Επεξ.γρήγ.απαντ,"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Γρήγορη απάντηση"</string>

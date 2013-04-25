@@ -110,13 +110,13 @@
     <string name="map_label" msgid="8795383535586556038">"지도"</string>
     <string name="call_label" msgid="2960328220008869083">"통화"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"빠른 응답"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"손님 메일 응답수정"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"참석자에게 보내는 빠른 응답 메시지 수정"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"빠른 응답 수정"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"빠른 응답"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"빠른 응답 선택"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"이메일 프로그램 찾기 실패"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"조금 늦음."</item>
+    <item msgid="1524421198348168403">"조금 늦어요."</item>
     <item msgid="6215158751728689832">"약 10분 후에 도착"</item>
     <item msgid="4485794001743679338">"저 없이 시작하세요."</item>
     <item msgid="8036557974294987511">"죄송합니다. 일정을 변경해야 합니다."</item>
@@ -139,7 +139,7 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"모두 일시 중지"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"모두 해제"</string>
     <string name="snooze_label" msgid="1515893621063224666">"알림 일시중지"</string>
-    <string name="does_not_repeat" msgid="1877681921029738999">"한번만"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"없음"</string>
     <string name="daily" msgid="560350706808680448">"매일"</string>
     <string name="every_weekday" msgid="5896574838353902978">"주중 매일(월-금)"</string>
     <string name="weekly" msgid="2006107373119027114">"매주(<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>

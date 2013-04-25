@@ -189,8 +189,8 @@
     <item msgid="140670561403965380">"A sorozat összes eseményére"</item>
   </string-array>
   <string-array name="buttons_list">
-    <item msgid="5917946202321434335">"nap"</item>
-    <item msgid="6248480754959562740">"hét"</item>
+    <item msgid="5917946202321434335">"Nap"</item>
+    <item msgid="6248480754959562740">"Hét"</item>
     <item msgid="4298472806133153766">"Hónap"</item>
     <item msgid="5033084974413793845">"Napló"</item>
   </string-array>

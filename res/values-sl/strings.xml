@@ -60,7 +60,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Izbriši dogodek"</string>
     <string name="goto_today" msgid="9162136434410891230">"Danes"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Nastavitve"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kol. za pr."</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Koledarji za prikaz"</string>
     <string name="search" msgid="550656004486017426">"Išči"</string>
     <string name="hide_controls" msgid="830320505938520882">"Skrij kontrolnike"</string>
     <string name="show_controls" msgid="715520586028062621">"Pokaži kontrolnike"</string>
@@ -84,7 +84,7 @@
     <string name="alert_title" msgid="7869592820853066853">"Obvestila koledarja"</string>
     <string name="event_info_title" msgid="56024222340421620">"Ogled dogodka"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Povabilo na srečanje"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"Za"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Do"</string>
     <string name="edit_event_from_label" msgid="174999102612666115">"Od"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Ves dan"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Koledar"</string>
@@ -116,10 +116,10 @@
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Izberite jedrnat odgovor"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"E-poštnega programa ni mogoče najti"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"Zamujam za nekaj minut."</item>
-    <item msgid="6215158751728689832">"Se vidimo čez 10 minut."</item>
-    <item msgid="4485794001743679338">"Odpravite se in začnite brez mene."</item>
-    <item msgid="8036557974294987511">"Oprostite, ne utegnem. Dogovor velja za drugič."</item>
+    <item msgid="1524421198348168403">"Čisto malo zamujam."</item>
+    <item msgid="6215158751728689832">"Pridem čez 10 minut."</item>
+    <item msgid="4485794001743679338">"Kar brez mene začnite."</item>
+    <item msgid="8036557974294987511">"Ne bo mi uspelo, žal. Zmenimo se za drugič."</item>
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"Napišite lastno besedilo …"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizator:"</string>
@@ -164,8 +164,8 @@
     <string name="preferences_general_title" msgid="2069075513760573117">"Nastavitev pogleda koledarja"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Obvestila in opomniki"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skrij zavrnjene dogodke"</string>
-    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Teden se začne v"</string>
-    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Teden se začne v"</string>
+    <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Prvi dan v tednu je"</string>
+    <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Prvi dan v tednu je"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Počisti zgodovino iskanja"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Odstrani vsa iskanja, ki ste jih izvedli"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Zgodovina iskanja je izbrisana."</string>
@@ -177,7 +177,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Privzeti čas opomnika"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Uporabi domači časovni pas"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Prikaže koledarje in čas dog. v vašem čas. pasu, ko potujete"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Prikaže koledarje in čas dogodkov v vašem domačem časovnem pasu, ko potujete"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Domač časovni pas"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Pokaži številko tedna"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"O programu"</string>

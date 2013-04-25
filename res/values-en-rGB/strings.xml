@@ -121,8 +121,7 @@
     <item msgid="4485794001743679338">"Go ahead and start without me."</item>
     <item msgid="8036557974294987511">"Sorry, I can\'t make it. We\'ll have to reschedule."</item>
   </string-array>
-    <!-- no translation found for quick_response_custom_msg (8792374208224108798) -->
-    <skip />
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Write your own…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organiser:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Reminders"</string>
     <string name="agenda_today" msgid="5965841338467422191">"TODAY, <xliff:g id="DATE">%1$s</xliff:g>"</string>

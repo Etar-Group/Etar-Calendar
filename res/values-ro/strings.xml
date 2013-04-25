@@ -57,7 +57,7 @@
     <string name="event_view" msgid="7621353079385122317">"Vizualizaţi evenimentul"</string>
     <string name="event_create" msgid="6941040556709110617">"Eveniment nou"</string>
     <string name="event_edit" msgid="4006961928830064662">"Modificaţi evenimentul"</string>
-    <string name="event_delete" msgid="2386667193277770442">"Ştergeţi evenimentul"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Ștergeţi evenimentul"</string>
     <string name="goto_today" msgid="9162136434410891230">"Azi"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Setări"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"De afişat"</string>
@@ -133,7 +133,7 @@
     <string name="search_title" msgid="8898015280250716254">"Căutaţi în calendarele dvs."</string>
     <string name="edit_event_label" msgid="7413222956349977161">"Detalii"</string>
     <string name="edit_label" msgid="8934331258435656534">"Editaţi"</string>
-    <string name="delete_label" msgid="874742811918030739">"Ştergeţi"</string>
+    <string name="delete_label" msgid="874742811918030739">"Ștergeţi"</string>
     <string name="save_label" msgid="2133599104834432589">"Terminat"</string>
     <string name="discard_label" msgid="2394623883289782541">"Anulaţi"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Amânaţi-le pe toate"</string>
@@ -155,8 +155,8 @@
     <string name="modify_all_following" msgid="3017428541066390380">"Modificaţi acest eveniment şi pe toate cele viitoare."</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Eveniment nou"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Eveniment nou"</string>
-    <string name="delete_this_event_title" msgid="518402946676919384">"Ştergeţi acest eveniment?"</string>
-    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Ştergeţi <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Ștergeţi acest eveniment?"</string>
+    <string name="delete_recurring_event_title" msgid="5609046778422180206">"Ștergeţi <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Modificaţi răspunsul"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Setări generale"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Despre Calendar"</string>
@@ -166,7 +166,7 @@
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Ascundeţi evenimentele refuzate"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Săptămâna începe"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Săptămâna începe"</string>
-    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Ştergeţi istoricul căutărilor"</string>
+    <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Ștergeţi istoricul căutărilor"</string>
     <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Eliminaţi toate căutările efectuate"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Istoricul căutărilor a fost şters."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Notificări"</string>

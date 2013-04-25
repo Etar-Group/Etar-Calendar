@@ -60,7 +60,7 @@
     <string name="event_delete" msgid="2386667193277770442">"Ta bort händelse"</string>
     <string name="goto_today" msgid="9162136434410891230">"Idag"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Inställningar"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Visn.kal."</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalendrar att visa"</string>
     <string name="search" msgid="550656004486017426">"Sök"</string>
     <string name="hide_controls" msgid="830320505938520882">"Dölj kontroller"</string>
     <string name="show_controls" msgid="715520586028062621">"Visa kontroller"</string>
