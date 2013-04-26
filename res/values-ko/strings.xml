@@ -249,14 +249,22 @@
     <string name="do_not_check" msgid="7815441673853466129">"선택안함 -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"반복"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"없음"</string>
-    <!-- no translation found for recurrence_interval_daily:one (1205422710088692631) -->
-    <!-- no translation found for recurrence_interval_daily:other (707566499994398250) -->
-    <!-- no translation found for recurrence_interval_weekly:one (4948681635464488351) -->
-    <!-- no translation found for recurrence_interval_weekly:other (7094801039989237061) -->
-    <!-- no translation found for recurrence_interval_monthly:one (4768178401603139718) -->
-    <!-- no translation found for recurrence_interval_monthly:other (5419723710346646523) -->
-    <!-- no translation found for recurrence_interval_yearly:one (5819562634008179102) -->
-    <!-- no translation found for recurrence_interval_yearly:other (5678653649746562060) -->
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g>일에 한 번"</item>
+    <item quantity="other" msgid="707566499994398250">"<xliff:g id="COUNT">%d</xliff:g>일에 한 번"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"<xliff:g id="COUNT">%d</xliff:g>주에 한 번"</item>
+    <item quantity="other" msgid="7094801039989237061">"<xliff:g id="COUNT">%d</xliff:g>주에 한 번"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"<xliff:g id="COUNT">%d</xliff:g>개월에 한 번"</item>
+    <item quantity="other" msgid="5419723710346646523">"<xliff:g id="COUNT">%d</xliff:g>개월에 한 번"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"<xliff:g id="COUNT">%d</xliff:g>년에 한 번"</item>
+    <item quantity="other" msgid="5678653649746562060">"<xliff:g id="COUNT">%d</xliff:g>년에 한 번"</item>
+  </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"매월 같은 날"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"매월 <xliff:g id="NTH">%1$s</xliff:g>번째 <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <!-- no translation found for recurrence_end_continously (6898950241634912991) -->

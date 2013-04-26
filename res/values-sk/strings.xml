@@ -249,22 +249,27 @@
     <string name="do_not_check" msgid="7815441673853466129">"NEzačiarknite -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Opakovať"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Nikdy neopakovať"</string>
-    <!-- no translation found for recurrence_interval_daily:one (1205422710088692631) -->
-    <!-- no translation found for recurrence_interval_daily:other (707566499994398250) -->
-    <!-- no translation found for recurrence_interval_weekly:one (4948681635464488351) -->
-    <!-- no translation found for recurrence_interval_weekly:other (7094801039989237061) -->
-    <!-- no translation found for recurrence_interval_monthly:one (4768178401603139718) -->
-    <!-- no translation found for recurrence_interval_monthly:other (5419723710346646523) -->
-    <!-- no translation found for recurrence_interval_yearly:one (5819562634008179102) -->
-    <!-- no translation found for recurrence_interval_yearly:other (5678653649746562060) -->
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"Raz za <xliff:g id="COUNT">%d</xliff:g> d."</item>
+    <item quantity="other" msgid="707566499994398250">"Raz za <xliff:g id="COUNT">%d</xliff:g> d."</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"Raz za <xliff:g id="COUNT">%d</xliff:g> týžd."</item>
+    <item quantity="other" msgid="7094801039989237061">"Raz za <xliff:g id="COUNT">%d</xliff:g> týžd."</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"Raz za <xliff:g id="COUNT">%d</xliff:g> mes."</item>
+    <item quantity="other" msgid="5419723710346646523">"Raz za <xliff:g id="COUNT">%d</xliff:g> mes."</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"Raz za <xliff:g id="COUNT">%d</xliff:g> r."</item>
+    <item quantity="other" msgid="5678653649746562060">"Raz za <xliff:g id="COUNT">%d</xliff:g> r."</item>
+  </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"mesačne v ten istý deň"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"vždy v tento deň: <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
-    <!-- no translation found for recurrence_end_continously (6898950241634912991) -->
-    <skip />
-    <!-- no translation found for recurrence_end_date_label (1692750407031674335) -->
-    <skip />
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Navždy"</string>
+    <string name="recurrence_end_date_label" msgid="1692750407031674335">"Dátum ukončenia"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
-    <!-- no translation found for recurrence_end_count_label (1820779096399658437) -->
-    <skip />
+    <string name="recurrence_end_count_label" msgid="1820779096399658437">"Počet opakovaní"</string>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"zmeniť dátum ukončenia"</string>
 </resources>

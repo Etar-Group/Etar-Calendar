@@ -239,7 +239,7 @@
     <string name="template_announce_item_index" msgid="4067877800670753110">"Wydarzenie <xliff:g id="ITEM_INDEX">%1$s</xliff:g> z <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
   <plurals name="Nevents">
     <item quantity="one" msgid="5230907142214104485">"1 wydarzenie"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> wydarzeń(nia)"</item>
+    <item quantity="other" msgid="6093072093209431078">"Nowe wydarzenia (<xliff:g id="COUNT">%d</xliff:g>)"</item>
   </plurals>
   <plurals name="N_remaining_events">
     <item quantity="one" msgid="431585781647034528">"+1 wydarzenie"</item>
@@ -267,12 +267,9 @@
   </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"tego samego dnia miesiąca"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"<xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g> miesiąca"</string>
-    <!-- no translation found for recurrence_end_continously (6898950241634912991) -->
-    <skip />
-    <!-- no translation found for recurrence_end_date_label (1692750407031674335) -->
-    <skip />
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Bez końca"</string>
+    <string name="recurrence_end_date_label" msgid="1692750407031674335">"Data zakończenia"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
-    <!-- no translation found for recurrence_end_count_label (1820779096399658437) -->
-    <skip />
+    <string name="recurrence_end_count_label" msgid="1820779096399658437">"Liczba powtórzeń"</string>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"zmień datę zakończenia"</string>
 </resources>
