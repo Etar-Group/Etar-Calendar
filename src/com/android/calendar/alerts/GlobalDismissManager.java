@@ -244,9 +244,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
                         data.putString(START_TIME, Long.toString(alarmId.mStart));
                         data.putString(ACCOUNT_NAME, account);
                         try {
-                            cnb.send(account,
-                                    syncId + ":" + alarmId.mStart,
-                                    syncId, FOUR_WEEKS, data);
+                            cnb.send(account, syncId + ":" + alarmId.mStart, data);
                         } catch (IOException e) {
                             // TODO save a note to try again later
                         }
