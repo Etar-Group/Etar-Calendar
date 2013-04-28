@@ -173,12 +173,6 @@
     <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Promemoria predefinito"</string>
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Promemoria predefinito"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_alerts_custom_snooze_delay_title">Chiedi ritardo rinvio allarme</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_on">Chiedi il tempo per il ritardo del rinvio dell\'allarme ogni volta che si pospone</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_off">Usa sempre il tempo di ritardo predefinito per il rinvio dell\'allarme</string>
-    <string name="snooze_delay_dialog_title">Imposta tempo ritardo</string>
-    <string name="preferences_default_snooze_delay_title">Tempo ritardo rinvio</string>
-    <string name="preferences_default_snooze_delay_dialog">Tempo ritardo rinvio predefinito</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usa fuso orario di casa"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Mostra calendari e orari nel fuso orario di casa quando sono in viaggio"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Fuso orario di casa"</string>
