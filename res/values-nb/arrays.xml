@@ -112,7 +112,7 @@
     <item msgid="6367412240524984286">"Hvis avvist eller ikke svart på"</item>
   </string-array>
   <string-array name="recurrence_freq">
-    <item msgid="5937533480933137696">"ENGANGSAKTIVITET"</item>
+
     <item msgid="5093122819962980394">"DAGLIG"</item>
     <item msgid="3061751350069329559">"UKENTLIG"</item>
     <item msgid="7221838315296593556">"MÅNEDLIG"</item>

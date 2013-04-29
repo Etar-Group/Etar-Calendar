@@ -112,7 +112,7 @@
     <item msgid="6367412240524984286">"Se recusado ou sem resposta"</item>
   </string-array>
   <string-array name="recurrence_freq">
-    <item msgid="5937533480933137696">"EVENTO ÚNICO"</item>
+
     <item msgid="5093122819962980394">"DIARIAMENTE"</item>
     <item msgid="3061751350069329559">"SEMANALMENTE"</item>
     <item msgid="7221838315296593556">"MENSALMENTE"</item>
