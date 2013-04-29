@@ -1405,7 +1405,6 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mCalendarSelectorGroup.setVisibility(View.GONE);
             mCalendarStaticGroup.setVisibility(View.VISIBLE);
             mRruleButton.setEnabled(false);
-            mRruleButton.setBackgroundDrawable(null);
             if (EditEventHelper.canAddReminders(mModel)) {
                 mRemindersGroup.setVisibility(View.VISIBLE);
             } else {
@@ -1443,6 +1442,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
                 mRruleButton.setEnabled(true);
             } else {
                 mRruleButton.setEnabled(false);
+                mRruleButton.setBackgroundDrawable(null);
             }
             mRemindersGroup.setVisibility(View.VISIBLE);
 
