@@ -112,7 +112,6 @@
     <item msgid="6367412240524984286">"Hvis afvist eller der ikke reageres"</item>
   </string-array>
   <string-array name="recurrence_freq">
-    <item msgid="5937533480933137696">"Engangsbegivenhed"</item>
     <item msgid="5093122819962980394">"DAGLIGT"</item>
     <item msgid="3061751350069329559">"UGENTLIGT"</item>
     <item msgid="7221838315296593556">"MÅNEDLIGT"</item>
