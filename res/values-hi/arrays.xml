@@ -112,7 +112,7 @@
     <item msgid="6367412240524984286">"यदि अस्वीकार हुआ हो या जवाब न मिला हो"</item>
   </string-array>
   <string-array name="recurrence_freq">
-    <item msgid="5937533480933137696">"एक-बार का ईवेंट"</item>
+
     <item msgid="5093122819962980394">"प्रतिदिन"</item>
     <item msgid="3061751350069329559">"प्रति सप्ताह"</item>
     <item msgid="7221838315296593556">"प्रति माह"</item>
