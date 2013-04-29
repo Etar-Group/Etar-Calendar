@@ -218,12 +218,4 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Vybraná událost"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Nezaškrtávejte –&gt;"</string>
-
-    <!-- CYANOGENMOD ADDITIONS -->
-    <string name="preferences_alerts_custom_snooze_delay_title">Zeptat se na odložení upomínky</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_on">Ptát se na délku trvání při odložení upomínky</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_off">Vždy použít výchozí délku odložení</string>
-    <string name="snooze_delay_dialog_title">Nastavit délku odložení</string>
-    <string name="preferences_default_snooze_delay_title">Výchozí délka odložení</string>
-    <string name="preferences_default_snooze_delay_dialog">Výchozí délka odložení</string>
 </resources>
