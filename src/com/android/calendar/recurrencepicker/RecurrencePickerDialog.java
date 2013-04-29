@@ -1279,7 +1279,9 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                             mPostEndCount.setText(endString.subSequence(postTextStart,
                                     endString.length()));
                             // In case it's a recycled view that wasn't visible.
-                            mPostEndCount.setVisibility(View.VISIBLE);
+                            if (mModel.end == RecurrenceModel.END_BY_COUNT) {
+                                mPostEndCount.setVisibility(View.VISIBLE);
+                            }
                             if (endString.charAt(markerStart - 1) == ' ') {
                                 markerStart--;
                             }
