@@ -74,7 +74,7 @@ public class DismissAlarmsService extends IntentService {
         } else if (eventIds != null && eventIds.length > 0 &&
                 eventStarts != null && eventIds.length == eventStarts.length) {
             selection = buildMultipleEventsQuery(eventIds);
-            for (int i = 1; i < eventIds.length; i++) {
+            for (int i = 0; i < eventIds.length; i++) {
                 alarmIds.add(new AlarmId(eventIds[i], eventStarts[i]));
             }
         } else {
