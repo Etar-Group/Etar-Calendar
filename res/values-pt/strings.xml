@@ -218,10 +218,4 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Eventos selecionados"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Não marcar -&gt;"</string>
-    <string name="preferences_alerts_custom_snooze_delay_title">Perguntar p. lembrete p/ adiar soneca</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_on">Perguntar por adiar soneca quando apertar lembrar</string>
-    <string name="preferences_alerts_custom_snooze_delay_summary_off">Sempre usar padrão de adiar soneca</string>
-    <string name="snooze_delay_dialog_title">Definir atraso da soneca</string>
-    <string name="preferences_default_snooze_delay_title">Tempo padrão de atraso da soneca</string>
-    <string name="preferences_default_snooze_delay_dialog">Adiar soneca padrão</string>
 </resources>
