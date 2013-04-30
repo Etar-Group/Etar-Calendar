@@ -268,8 +268,10 @@
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"每月的同一天"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"每月的<xliff:g id="NTH">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"無限期"</string>
-    <string name="recurrence_end_date_label" msgid="1692750407031674335">"結束日期"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"直到指定日期為止"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"結束日期：<xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1820779096399658437">"重複次數"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"固定次數重複"</string>
+    <!-- no translation found for recurrence_end_count:one (1400782968090516215) -->
+    <!-- no translation found for recurrence_end_count:other (8779598489398048259) -->
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"變更結束日期"</string>
 </resources>
