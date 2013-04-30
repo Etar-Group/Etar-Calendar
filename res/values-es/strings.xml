@@ -268,8 +268,10 @@
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"el mismo día cada mes"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"siempre el <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Siempre"</string>
-    <string name="recurrence_end_date_label" msgid="1692750407031674335">"Fecha de finalización"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Hasta una fecha"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Hasta el <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1820779096399658437">"Número de repeticiones"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Para un número de eventos"</string>
+    <!-- no translation found for recurrence_end_count:one (1400782968090516215) -->
+    <!-- no translation found for recurrence_end_count:other (8779598489398048259) -->
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"cambiar fecha de finalización"</string>
 </resources>
