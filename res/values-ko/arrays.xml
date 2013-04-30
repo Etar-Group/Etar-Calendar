@@ -112,7 +112,6 @@
     <item msgid="6367412240524984286">"거부했거나 응답이 없는 경우만 해당"</item>
   </string-array>
   <string-array name="recurrence_freq">
-    <item msgid="5937533480933137696">"없음"</item>
     <item msgid="5093122819962980394">"매일"</item>
     <item msgid="3061751350069329559">"매주"</item>
     <item msgid="7221838315296593556">"매월"</item>

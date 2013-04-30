@@ -258,6 +258,9 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="TextAppearance.Recurrence_SpinnerButton"
+        parent="android:style/Widget.Holo.Light.Spinner" />
+
     <style name="RecurrenceDayOfWeekStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -266,6 +269,7 @@
         <item name="android:layout_marginLeft">8dip</item>
         <item name="android:layout_marginRight">8dip</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/recurrence_bubble_text_color</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
