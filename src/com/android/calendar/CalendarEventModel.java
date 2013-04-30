@@ -941,5 +941,4 @@ public class CalendarEventModel implements Serializable {
         }
         return -1;
     }
-
 }

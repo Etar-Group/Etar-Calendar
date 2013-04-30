@@ -1354,8 +1354,8 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         CalendarsAdapter adapter = new CalendarsAdapter(mActivity,
             R.layout.calendars_spinner_item, cursor);
         mCalendarsSpinner.setAdapter(adapter);
-        mCalendarsSpinner.setSelection(selection);
         mCalendarsSpinner.setOnItemSelectedListener(this);
+        mCalendarsSpinner.setSelection(selection);
 
         if (mSaveAfterQueryComplete) {
             mLoadingCalendarsDialog.cancel();
@@ -1691,14 +1691,23 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
         updateHomeTime();
     }
 
-    public void setColorPickerButtonStates(int[] eventColors) {
-        if (eventColors == null || eventColors.length == 0) {
-            mColorPickerNewEvent.setVisibility(View.INVISIBLE);
-            mColorPickerExistingEvent.setVisibility(View.GONE);
-        } else {
+    public void setColorPickerButtonStates(int[] colorArray) {
+        setColorPickerButtonStates(colorArray != null && colorArray.length > 0);
+    }
+
+    public void setColorPickerButtonStates(boolean showColorPalette) {
+        if (showColorPalette) {
             mColorPickerNewEvent.setVisibility(View.VISIBLE);
             mColorPickerExistingEvent.setVisibility(View.VISIBLE);
+        } else {
+            mColorPickerNewEvent.setVisibility(View.INVISIBLE);
+            mColorPickerExistingEvent.setVisibility(View.GONE);
         }
+    }
+
+    public boolean isColorPaletteVisible() {
+        return mColorPickerNewEvent.getVisibility() == View.VISIBLE ||
+                mColorPickerExistingEvent.getVisibility() == View.VISIBLE;
     }
 
     @Override
