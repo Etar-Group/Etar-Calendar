@@ -101,6 +101,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private static final int BUTTON_WEEK_INDEX = 1;
     private static final int BUTTON_MONTH_INDEX = 2;
     private static final int BUTTON_AGENDA_INDEX = 3;
+    private static final int BUTTON_TIMELY_INDEX = 4;
 
     private CalendarController mController;
     private static boolean mIsMultipane;
@@ -486,6 +487,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 break;
             case ViewType.MONTH:
                 mActionBar.setSelectedNavigationItem(BUTTON_MONTH_INDEX);
+                break;
+            case ViewType.TIMELY:
+                mActionBar.setSelectedNavigationItem(BUTTON_TIMELY_INDEX);
                 break;
             default:
                 mActionBar.setSelectedNavigationItem(BUTTON_DAY_INDEX);
@@ -896,6 +900,16 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 }
                 frag = new DayFragment(timeMillis, 1);
                 break;
+            case ViewType.TIMELY:
+              // TODO: support tabs for tablets
+//                if (mActionBar = null && (mActionBar.getSelectedTab() != mDayTab)) {
+//                    mActionBar.selectTab(mDayTab);
+  //              }
+                if (mActionBarMenuSpinnerAdapter != null) {
+                    mActionBar.setSelectedNavigationItem(CalendarViewAdapter.TIMELY_BUTTON_INDEX);
+                }
+                frag = new TimelyFragment();
+                break;
             case ViewType.MONTH:
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mMonthTab)) {
                     mActionBar.selectTab(mMonthTab);
@@ -1287,6 +1301,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             case CalendarViewAdapter.AGENDA_BUTTON_INDEX:
                 if (mCurrentView != ViewType.AGENDA) {
                     mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.AGENDA);
+                }
+                break;
+            case CalendarViewAdapter.TIMELY_BUTTON_INDEX:
+                if (mCurrentView != ViewType.TIMELY) {
+                    mController.sendEvent(this, EventType.GO_TO, null, null, -1, ViewType.TIMELY);
                 }
                 break;
             default:
