@@ -111,11 +111,8 @@
     <item msgid="2285927842308686988">"Nur bei Ablehnung"</item>
     <item msgid="6367412240524984286">"Bei Ablehnung oder keine Antwort"</item>
   </string-array>
-  <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"Täglich"</item>
-    <item msgid="3061751350069329559">"Wöchentlich"</item>
-    <item msgid="7221838315296593556">"Monatlich"</item>
-    <item msgid="8033241076508570830">"Jährlich"</item>
-  </string-array>
+    <!-- no translation found for recurrence_freq:0 (3388478383574917007) -->
+    <!-- no translation found for recurrence_freq:1 (6300824484048337842) -->
+    <!-- no translation found for recurrence_freq:2 (189361731610816256) -->
+    <!-- no translation found for recurrence_freq:3 (8714177874112569158) -->
 </resources>
