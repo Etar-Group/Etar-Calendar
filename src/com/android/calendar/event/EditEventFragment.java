@@ -81,6 +81,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private static final String BUNDLE_KEY_EVENT = "key_event";
     private static final String BUNDLE_KEY_READ_ONLY = "key_read_only";
     private static final String BUNDLE_KEY_EDIT_ON_LAUNCH = "key_edit_on_launch";
+    private static final String BUNDLE_KEY_SHOW_COLOR_PALETTE = "show_color_palette";
 
     private static final String BUNDLE_KEY_DATE_BUTTON_CLICKED = "date_button_clicked";
 
@@ -131,6 +132,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
     private boolean mSaveOnDetach = true;
     private boolean mIsReadOnly = false;
     public boolean mShowModifyDialogOnLaunch = false;
+    private boolean mShowColorPalette = false;
 
     private boolean mTimeSelectedWasStartTime;
     private boolean mDateSelectedWasStartDate;
@@ -365,7 +367,16 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                     if (cursor != null) {
                         cursor.close();
                     }
-                    mView.setColorPickerButtonStates(mModel.getCalendarEventColors());
+
+                    // If the account name/type is null, the calendar event colors cannot be
+                    // determined, so take the default/savedInstanceState value.
+                    if (mModel.mCalendarAccountName == null
+                           || mModel.mCalendarAccountType == null) {
+                        mView.setColorPickerButtonStates(mShowColorPalette);
+                    } else {
+                        mView.setColorPickerButtonStates(mModel.getCalendarEventColors());
+                    }
+
                     setModelIfDone(TOKEN_COLORS);
                     break;
                 default:
@@ -604,6 +615,9 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             if (savedInstanceState.containsKey(BUNDLE_KEY_DATE_BUTTON_CLICKED)) {
                 mDateSelectedWasStartDate = savedInstanceState.getBoolean(
                         BUNDLE_KEY_DATE_BUTTON_CLICKED);
+            }
+            if (savedInstanceState.containsKey(BUNDLE_KEY_SHOW_COLOR_PALETTE)) {
+                mShowColorPalette = savedInstanceState.getBoolean(BUNDLE_KEY_SHOW_COLOR_PALETTE);
             }
 
         }
@@ -928,6 +942,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
         outState.putBoolean(BUNDLE_KEY_EDIT_ON_LAUNCH, mShowModifyDialogOnLaunch);
         outState.putSerializable(BUNDLE_KEY_EVENT, mEventBundle);
         outState.putBoolean(BUNDLE_KEY_READ_ONLY, mIsReadOnly);
+        outState.putBoolean(BUNDLE_KEY_SHOW_COLOR_PALETTE, mView.isColorPaletteVisible());
 
         outState.putBoolean("EditEventView_timebuttonclicked", mView.mTimeSelectedWasStartTime);
         outState.putBoolean(BUNDLE_KEY_DATE_BUTTON_CLICKED, mView.mDateSelectedWasStartDate);
