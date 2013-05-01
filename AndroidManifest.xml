@@ -186,6 +186,9 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".alerts.GlobalDismissManager"
+                  android:exported="false" />
+
         <service android:name=".alerts.AlertService" />
 
         <service android:name=".alerts.DismissAlarmsService" />
