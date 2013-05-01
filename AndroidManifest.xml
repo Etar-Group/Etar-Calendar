@@ -38,13 +38,12 @@
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH.mail" />
-    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="18"></uses-sdk>
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="17"></uses-sdk>
 
     <application android:name="CalendarApplication"
             android:label="@string/app_label" android:icon="@mipmap/ic_launcher_calendar"
             android:taskAffinity="android.task.calendar"
             android:hardwareAccelerated="true"
-            android:requiredAccountType="*"
             android:backupAgent="com.android.calendar.CalendarBackupAgent" >
 
         <meta-data android:name="com.google.android.backup.api_key"
