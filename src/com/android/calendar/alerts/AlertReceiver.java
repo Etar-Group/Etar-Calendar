@@ -464,8 +464,10 @@ public class AlertReceiver extends BroadcastReceiver {
         Resources res = context.getResources();
         int numEvents = notificationInfos.size();
         long[] eventIds = new long[notificationInfos.size()];
+        long[] startMillis = new long[notificationInfos.size()];
         for (int i = 0; i < notificationInfos.size(); i++) {
             eventIds[i] = notificationInfos.get(i).eventId;
+            startMillis[i] = notificationInfos.get(i).startMillis;
         }
 
         // Create an intent triggered by clicking on the status icon that shows the alerts list.
@@ -477,6 +479,7 @@ public class AlertReceiver extends BroadcastReceiver {
         deleteIntent.setClass(context, DismissAlarmsService.class);
         deleteIntent.setAction(DELETE_ALL_ACTION);
         deleteIntent.putExtra(AlertUtils.EVENT_IDS_KEY, eventIds);
+        deleteIntent.putExtra(AlertUtils.EVENT_STARTS_KEY, startMillis);
         PendingIntent pendingDeleteIntent = PendingIntent.getService(context, 0, deleteIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
