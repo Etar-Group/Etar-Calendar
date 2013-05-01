@@ -846,6 +846,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         if (mAttendeeResponseFromIntent != Attendees.ATTENDEE_STATUS_NONE) {
             mEditResponseHelper.setWhichEvents(UPDATE_ALL);
+            mWhichEvents = mEditResponseHelper.getWhichEvents();
         }
         mHandler = new QueryHandler(activity);
         if (!mIsDialog) {
@@ -1338,6 +1339,9 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             return true;
         }
 
+        if (DEBUG) {
+            Log.d(TAG, "Repeating event: mWhichEvents=" + mWhichEvents);
+        }
         // This is a repeating event
         switch (mWhichEvents) {
             case -1:
