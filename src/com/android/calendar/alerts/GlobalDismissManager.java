@@ -145,15 +145,16 @@ public class GlobalDismissManager extends BroadcastReceiver {
                 if (cnb.open(context)) {
                     for (String account : accounts) {
                         try {
-                            cnb.subscribeToGroup(senderId, account, account);
-                            accounts.add(account);
+                            if (cnb.subscribeToGroup(senderId, account, account)) {
+                                existingAccounts.add(account);
+                            }
                         } catch (IOException e) {
                             // Try again, next time the account triggers and alert.
                         }
                     }
                     cnb.close();
                     prefs.edit()
-                    .putStringSet(ACCOUNT_KEY, accounts)
+                    .putStringSet(ACCOUNT_KEY, existingAccounts)
                     .commit();
                 }
                 return null;
