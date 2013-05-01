@@ -56,6 +56,7 @@ public class AlertUtils {
     public static final String EVENT_END_KEY = "eventend";
     public static final String NOTIFICATION_ID_KEY = "notificationid";
     public static final String EVENT_IDS_KEY = "eventids";
+    public static final String EVENT_STARTS_KEY = "starts";
 
     // A flag for using local storage to save alert state instead of the alerts DB table.
     // This allows the unbundled app to run alongside other calendar apps without eating
