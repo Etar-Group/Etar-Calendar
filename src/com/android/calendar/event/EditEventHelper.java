@@ -60,6 +60,9 @@ public class EditEventHelper {
 
     private static final boolean DEBUG = false;
 
+    // Used for parsing rrules for special cases.
+    private EventRecurrence mEventRecurrence = new EventRecurrence();
+
     private static final String NO_EVENT_COLOR = "";
 
     public static final String[] EVENT_PROJECTION = new String[] {
@@ -1221,6 +1224,7 @@ public class EditEventHelper {
 
         startTime.set(model.mStart);
         endTime.set(model.mEnd);
+        offsetStartTimeIfNecessary(startTime, endTime, rrule, model);
 
         ContentValues values = new ContentValues();
 
@@ -1293,6 +1297,79 @@ public class EditEventHelper {
             }
         }
         return values;
+    }
+
+    /**
+     * If the recurrence rule is such that the event start date doesn't actually fall in one of the
+     * recurrences, then push the start date up to the first actual instance of the event.
+     */
+    private void offsetStartTimeIfNecessary(Time startTime, Time endTime, String rrule,
+            CalendarEventModel model) {
+        if (rrule == null || rrule.isEmpty()) {
+            // No need to waste any time with the parsing if the rule is empty.
+            return;
+        }
+
+        mEventRecurrence.parse(rrule);
+        // Check if we meet the specific special case. It has to:
+        //  * be weekly
+        //  * not recur on the same day of the week that the startTime falls on
+        // In this case, we'll need to push the start time to fall on the first day of the week
+        // that is part of the recurrence.
+        if (mEventRecurrence.freq != EventRecurrence.WEEKLY) {
+            // Not weekly so nothing to worry about.
+            return;
+        }
+        if (mEventRecurrence.byday.length > mEventRecurrence.bydayCount) {
+            // This shouldn't happen, but just in case something is weird about the recurrence.
+            return;
+        }
+
+        // Start to figure out what the nearest weekday is.
+        int closestWeekday = Integer.MAX_VALUE;
+        int weekstart = EventRecurrence.day2TimeDay(mEventRecurrence.wkst);
+        int startDay = startTime.weekDay;
+        for (int i = 0; i < mEventRecurrence.bydayCount; i++) {
+            int day = EventRecurrence.day2TimeDay(mEventRecurrence.byday[i]);
+            if (day == startDay) {
+                // Our start day is one of the recurring days, so we're good.
+                return;
+            }
+
+            if (day < weekstart) {
+                // Let's not make any assumptions about what weekstart can be.
+                day += 7;
+            }
+            // We either want the earliest day that is later in the week than startDay ...
+            if (day > startDay && (day < closestWeekday || closestWeekday < startDay)) {
+                closestWeekday = day;
+            }
+            // ... or if there are no days later than startDay, we want the earliest day that is
+            // earlier in the week than startDay.
+            if (closestWeekday == Integer.MAX_VALUE || closestWeekday < startDay) {
+                // We haven't found a day that's later in the week than startDay yet.
+                if (day < closestWeekday) {
+                    closestWeekday = day;
+                }
+            }
+        }
+
+        // We're here, so unfortunately our event's start day is not included in the days of
+        // the week of the recurrence. To save this event correctly we'll need to push the start
+        // date to the closest weekday that *is* part of the recurrence.
+        if (closestWeekday < startDay) {
+            closestWeekday += 7;
+        }
+        int daysOffset = closestWeekday - startDay;
+        startTime.monthDay += daysOffset;
+        endTime.monthDay += daysOffset;
+        long newStartTime = startTime.normalize(true);
+        long newEndTime = endTime.normalize(true);
+
+        // Later we'll actually be using the values from the model rather than the startTime
+        // and endTime themselves, so we need to make these changes to the model as well.
+        model.mStart = newStartTime;
+        model.mEnd = newEndTime;
     }
 
     /**
