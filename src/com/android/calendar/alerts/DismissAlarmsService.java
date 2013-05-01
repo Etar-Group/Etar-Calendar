@@ -104,9 +104,6 @@ public class DismissAlarmsService extends IntentService {
             TaskStackBuilder.create(this)
                     .addParentStack(EventInfoActivity.class).addNextIntent(i).startActivities();
         }
-
-        // Stop this service
-        stopSelf();
     }
 
     private String buildMultipleEventsQuery(long[] eventIds) {
