@@ -111,8 +111,10 @@
     <item msgid="2285927842308686988">"في حالة الرفض فقط"</item>
     <item msgid="6367412240524984286">"في حالة الرفض أو عدم الرد"</item>
   </string-array>
-    <!-- no translation found for recurrence_freq:0 (3388478383574917007) -->
-    <!-- no translation found for recurrence_freq:1 (6300824484048337842) -->
-    <!-- no translation found for recurrence_freq:2 (189361731610816256) -->
-    <!-- no translation found for recurrence_freq:3 (8714177874112569158) -->
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"التكرار يوميًا"</item>
+    <item msgid="6300824484048337842">"التكرار أسبوعيًا"</item>
+    <item msgid="189361731610816256">"التكرار شهريًا"</item>
+    <item msgid="8714177874112569158">"التكرار سنويًا"</item>
+  </string-array>
 </resources>
