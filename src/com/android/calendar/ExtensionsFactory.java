@@ -123,8 +123,7 @@ public class ExtensionsFactory {
                     return true;}
 
                 @Override
-                public void send(String to, String msgId, String collapseKey,
-                        long timeToLive, Bundle data) {
+                public void send(String to, String msgId, Bundle data) {
                 }
 
                 @Override
