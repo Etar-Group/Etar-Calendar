@@ -244,4 +244,66 @@
         <item >REPEAT MONTHLY</item>
         <item >REPEAT YEARLY</item>
     </string-array>
+
+    <!-- The following sets of strings describe a monthly recurring event, which will repeat
+         on the Nth WEEKDAY of every month. For example, the 3rd Monday of every month, or
+         the last Sunday. These are set up like this to resolve any gender-matching issues
+         that were present in some languages.
+     -->
+    <!-- Repeat a monthly event on the same nth day of every Sunday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_sun">
+        <item >on every first Sunday</item>
+        <item >on every second Sunday</item>
+        <item >on every third Sunday</item>
+        <item >on every fourth Sunday</item>
+        <item >on every last Sunday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Monday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_mon">
+        <item >on every first Monday</item>
+        <item >on every second Monday</item>
+        <item >on every third Monday</item>
+        <item >on every fourth Monday</item>
+        <item >on every last Monday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Tuesday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_tues">
+        <item >on every first Tuesday</item>
+        <item >on every second Tuesday</item>
+        <item >on every third Tuesday</item>
+        <item >on every fourth Tuesday</item>
+        <item >on every last Tuesday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Wednesday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_wed">
+        <item >on every first Wednesday</item>
+        <item >on every second Wednesday</item>
+        <item >on every third Wednesday</item>
+        <item >on every fourth Wednesday</item>
+        <item >on every last Wednesday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Thursday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_thurs">
+        <item >on every first Thursday</item>
+        <item >on every second Thursday</item>
+        <item >on every third Thursday</item>
+        <item >on every fourth Thursday</item>
+        <item >on every last Thursday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Friday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_fri">
+        <item >on every first Friday</item>
+        <item >on every second Friday</item>
+        <item >on every third Friday</item>
+        <item >on every fourth Friday</item>
+        <item >on every last Friday</item>
+    </string-array>
+    <!-- Repeat a monthly event on the same nth day of every Saturday. [CHAR LIMIT=30] -->
+    <string-array name="repeat_by_nth_sat">
+        <item >on every first Saturday</item>
+        <item >on every second Saturday</item>
+        <item >on every third Saturday</item>
+        <item >on every fourth Saturday</item>
+        <item >on every last Saturday</item>
+    </string-array>
 </resources>

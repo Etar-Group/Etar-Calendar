@@ -28,6 +28,10 @@ import java.util.Calendar;
 
 public class EventRecurrenceFormatter
 {
+
+    private static int[] mMonthRepeatByDayOfWeekIds;
+    private static String[][] mMonthRepeatByDayOfWeekStrs;
+
     public static String getRepeatString(Context context, Resources r, EventRecurrence recurrence,
             boolean includeEndString) {
         String endString = "";
@@ -99,11 +103,17 @@ public class EventRecurrenceFormatter
             }
             case EventRecurrence.MONTHLY: {
                 if (recurrence.bydayCount == 1) {
-                    String[] ordinals = r.getStringArray(R.array.ordinal_labels);
+                    int weekday = recurrence.startDate.weekDay;
+                    // Cache this stuff so we won't have to redo work again later.
+                    cacheMonthRepeatStrings(r, weekday);
                     int dayNumber = (recurrence.startDate.monthDay - 1) / 7;
-                    int day = EventRecurrence.timeDay2Day(recurrence.startDate.weekDay);
-                    return r.getString(R.string.monthly_on_day_count, ordinals[dayNumber],
-                            dayToString(day, DateUtils.LENGTH_LONG)) + endString;
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(r.getString(R.string.monthly));
+                    sb.append(" (");
+                    sb.append(mMonthRepeatByDayOfWeekStrs[weekday][dayNumber]);
+                    sb.append(")");
+                    sb.append(endString);
+                    return sb.toString();
                 }
                 return r.getString(R.string.monthly) + endString;
             }
@@ -112,6 +122,26 @@ public class EventRecurrenceFormatter
         }
 
         return null;
+    }
+
+    private static void cacheMonthRepeatStrings(Resources r, int weekday) {
+        if (mMonthRepeatByDayOfWeekIds == null) {
+            mMonthRepeatByDayOfWeekIds = new int[7];
+            mMonthRepeatByDayOfWeekIds[0] = R.array.repeat_by_nth_sun;
+            mMonthRepeatByDayOfWeekIds[1] = R.array.repeat_by_nth_mon;
+            mMonthRepeatByDayOfWeekIds[2] = R.array.repeat_by_nth_tues;
+            mMonthRepeatByDayOfWeekIds[3] = R.array.repeat_by_nth_wed;
+            mMonthRepeatByDayOfWeekIds[4] = R.array.repeat_by_nth_thurs;
+            mMonthRepeatByDayOfWeekIds[5] = R.array.repeat_by_nth_fri;
+            mMonthRepeatByDayOfWeekIds[6] = R.array.repeat_by_nth_sat;
+        }
+        if (mMonthRepeatByDayOfWeekStrs == null) {
+            mMonthRepeatByDayOfWeekStrs = new String[7][];
+        }
+        if (mMonthRepeatByDayOfWeekStrs[weekday] == null) {
+            mMonthRepeatByDayOfWeekStrs[weekday] =
+                    r.getStringArray(mMonthRepeatByDayOfWeekIds[weekday]);
+        }
     }
 
     /**
