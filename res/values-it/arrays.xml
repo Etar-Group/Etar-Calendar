@@ -111,8 +111,10 @@
     <item msgid="2285927842308686988">"Solo se rifiutati"</item>
     <item msgid="6367412240524984286">"Se rifiutati o senza risposta"</item>
   </string-array>
-    <!-- no translation found for recurrence_freq:0 (3388478383574917007) -->
-    <!-- no translation found for recurrence_freq:1 (6300824484048337842) -->
-    <!-- no translation found for recurrence_freq:2 (189361731610816256) -->
-    <!-- no translation found for recurrence_freq:3 (8714177874112569158) -->
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"RIPETI OGNI GIORNO"</item>
+    <item msgid="6300824484048337842">"RIPETI OGNI SETT."</item>
+    <item msgid="189361731610816256">"RIPETI OGNI MESE"</item>
+    <item msgid="8714177874112569158">"RIPETI OGNI ANNO"</item>
+  </string-array>
 </resources>
