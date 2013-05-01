@@ -18,6 +18,7 @@ package com.android.calendar;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,10 +28,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+
 /*
  * Skeleton for additional options in the AllInOne menu.
  */
 public class ExtensionsFactory {
+
     private static String TAG = "ExtensionsFactory";
 
     // Config filename for mappings of various class names to their custom
@@ -38,6 +41,7 @@ public class ExtensionsFactory {
     private static String EXTENSIONS_PROPERTIES = "calendar_extensions.properties";
 
     private static String ALL_IN_ONE_MENU_KEY = "AllInOneMenuExtensions";
+    private static String CLOUD_NOTIFICATION_KEY = "CloudNotificationChannel";
 
     private static Properties sProperties = new Properties();
     private static AllInOneMenuExtensionsInterface sAllInOneMenuExtensions = null;
@@ -94,5 +98,41 @@ public class ExtensionsFactory {
         }
 
         return sAllInOneMenuExtensions;
+    }
+
+    public static CloudNotificationBackplane getCloudNotificationBackplane() {
+        CloudNotificationBackplane cnb = null;
+
+        String className = sProperties.getProperty(CLOUD_NOTIFICATION_KEY);
+        if (className != null) {
+            cnb = createInstance(className);
+        } else {
+            Log.d(TAG, CLOUD_NOTIFICATION_KEY + " not found in properties file.");
+        }
+
+        if (cnb == null) {
+            cnb = new CloudNotificationBackplane() {
+                @Override
+                public boolean open(Context context) {
+                    return true;
+                }
+
+                @Override
+                public boolean subscribeToGroup(String senderId, String account, String groupId)
+                        throws IOException {
+                    return true;}
+
+                @Override
+                public void send(String to, String msgId, String collapseKey,
+                        long timeToLive, Bundle data) {
+                }
+
+                @Override
+                public void close() {
+                }
+            };
+        }
+
+        return cnb;
     }
 }
