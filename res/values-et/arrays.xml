@@ -112,10 +112,9 @@
     <item msgid="6367412240524984286">"Keeldumisel või vastamata jätmisel"</item>
   </string-array>
   <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"IGA PÄEV"</item>
-    <item msgid="3061751350069329559">"IGA NÄDAL"</item>
-    <item msgid="7221838315296593556">"IGA KUU"</item>
-    <item msgid="8033241076508570830">"IGA AASTA"</item>
+    <item msgid="3388478383574917007">"KORDA IGA PÄEV"</item>
+    <item msgid="6300824484048337842">"KORDA IGAL NÄDALAL"</item>
+    <item msgid="189361731610816256">"KORDA IGAS KUUS"</item>
+    <item msgid="8714177874112569158">"KORDA IGAL AASTAL"</item>
   </string-array>
 </resources>

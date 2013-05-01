@@ -112,10 +112,9 @@
     <item msgid="6367412240524984286">"Om minskat eller inte svarat"</item>
   </string-array>
   <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"VARJE DAG"</item>
-    <item msgid="3061751350069329559">"VARJE VECKA"</item>
-    <item msgid="7221838315296593556">"VARJE MÅNAD"</item>
-    <item msgid="8033241076508570830">"VARJE ÅR"</item>
+    <item msgid="3388478383574917007">"UPPREPA VARJE DAG"</item>
+    <item msgid="6300824484048337842">"UPPREPA VARJE VECKA"</item>
+    <item msgid="189361731610816256">"UPPREPA VARJE MÅNAD"</item>
+    <item msgid="8714177874112569158">"UPPREPA VARJE ÅR"</item>
   </string-array>
 </resources>

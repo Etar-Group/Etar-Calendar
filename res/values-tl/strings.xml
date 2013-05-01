@@ -268,8 +268,12 @@
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"pareho araw buwanan"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"bawat <xliff:g id="NTH">%1$s</xliff:g> (na) <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Habambuhay"</string>
-    <string name="recurrence_end_date_label" msgid="1692750407031674335">"Petsa ng pagtatapos"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"hanggang tukoy na petsa"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Hanggang <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1820779096399658437">"Bilang ng mga pag-uulit"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"sa ilang kaganapan"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"Para sa <xliff:g id="EVENT_COUNT">%d</xliff:g> (na) kaganapan"</item>
+    <item quantity="other" msgid="8779598489398048259">"Para sa <xliff:g id="EVENT_COUNT">%d</xliff:g> (na) kaganapan"</item>
+  </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"baguhin ang petsa ng pagtatapos"</string>
 </resources>

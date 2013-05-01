@@ -112,10 +112,9 @@
     <item msgid="6367412240524984286">"Bei Ablehnung oder keine Antwort"</item>
   </string-array>
   <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"Täglich"</item>
-    <item msgid="3061751350069329559">"Wöchentlich"</item>
-    <item msgid="7221838315296593556">"Monatlich"</item>
-    <item msgid="8033241076508570830">"Jährlich"</item>
+    <item msgid="3388478383574917007">"Täglich"</item>
+    <item msgid="6300824484048337842">"Jede Woche"</item>
+    <item msgid="189361731610816256">"Jeden Monat"</item>
+    <item msgid="8714177874112569158">"Jedes Jahr"</item>
   </string-array>
 </resources>

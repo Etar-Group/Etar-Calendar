@@ -112,10 +112,9 @@
     <item msgid="6367412240524984286">"Ako je odbijeno ili nema odgovora"</item>
   </string-array>
   <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"JEDANPUT DNEVNO"</item>
-    <item msgid="3061751350069329559">"JEDANPUT TJEDNO"</item>
-    <item msgid="7221838315296593556">"JEDANPUT MJESEČNO"</item>
-    <item msgid="8033241076508570830">"JEDANPUT GODIŠNJE"</item>
+    <item msgid="3388478383574917007">"DNEVNO PONAVLJANJE"</item>
+    <item msgid="6300824484048337842">"PONAVLJAJ TJEDNO"</item>
+    <item msgid="189361731610816256">"PONAVLJAJ MJESEČNO"</item>
+    <item msgid="8714177874112569158">"PONAVLJAJ GODIŠNJE"</item>
   </string-array>
 </resources>

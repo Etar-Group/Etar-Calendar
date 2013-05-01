@@ -112,10 +112,9 @@
     <item msgid="6367412240524984286">"在您不参加或未回复的情况下"</item>
   </string-array>
   <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"每天"</item>
-    <item msgid="3061751350069329559">"每周"</item>
-    <item msgid="7221838315296593556">"每月"</item>
-    <item msgid="8033241076508570830">"每年"</item>
+    <item msgid="3388478383574917007">"每天重复"</item>
+    <item msgid="6300824484048337842">"每周重复"</item>
+    <item msgid="189361731610816256">"每月重复"</item>
+    <item msgid="8714177874112569158">"每年重复"</item>
   </string-array>
 </resources>
