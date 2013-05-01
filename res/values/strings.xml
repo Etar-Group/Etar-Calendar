@@ -429,10 +429,6 @@
         <item quantity="other">Every <xliff:g id="number">%1$d</xliff:g> weeks on <xliff:g id="days_of_week">%2$s</xliff:g></item>
     </plurals>
 
-    <!-- Example: 'Monthly (every first Sunday)' -->
-    <!--   1st parameter is an ordinal number, like 'first' -->
-    <!--   2nd parameter is a day of the week, like 'Sunday' -->
-    <string name="monthly_on_day_count">"Monthly (every <xliff:g id="ordinal_number">%1$s</xliff:g> <xliff:g id="day_of_week">%2$s</xliff:g>)"</string>
     <!-- The common portion of a string describing how often an event repeats,
          example: 'Monthly (on day 2)' -->
     <string name="monthly">Monthly</string>
@@ -721,9 +717,6 @@
 
     <!-- Repeat an monthly event on the same day of every month [CHAR LIMIT=20] -->
     <string name="recurrence_month_pattern_by_day">on the same day each month</string>
-    <!-- Repeat an monthly event on the same nth day of the week of every month.
-         For example, on every second Tuesday [CHAR LIMIT=30] -->
-    <string name="recurrence_month_pattern_by_day_of_week">on every <xliff:g id="nth">%1$s</xliff:g> <xliff:g id="day_of_week">%2$s</xliff:g></string>
 
     <!-- Specifies that a repeating event to repeat forever (based on the defined frequency) instead of ending at a future date[CHAR LIMIT=25] -->
     <string name="recurrence_end_continously">Forever</string>
