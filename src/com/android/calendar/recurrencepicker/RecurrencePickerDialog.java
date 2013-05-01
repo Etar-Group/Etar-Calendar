@@ -327,8 +327,10 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
     private LinearLayout mWeekGroup2;
     // Sun = 0
     private ToggleButton[] mWeekByDayButtons = new ToggleButton[7];
-    private String[] mDayOfWeekString;
-    private String[] mOrdinalArray;
+    /** A double array of Strings to hold the 7x5 list of possible strings of the form:
+     *  "on every [Nth] [DAY_OF_WEEK]", e.g. "on every second Monday",
+     *  where [Nth] can be [first, second, third, fourth, last] */
+    private String[][] mMonthRepeatByDayOfWeekStrs;
 
     private LinearLayout mMonthGroup;
     private RadioGroup mMonthRepeatByRadioGroup;
@@ -730,14 +732,18 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
         mWeekGroup = (LinearLayout) mView.findViewById(R.id.weekGroup);
         mWeekGroup2 = (LinearLayout) mView.findViewById(R.id.weekGroup2);
 
-        mOrdinalArray = mResources.getStringArray(R.array.ordinal_labels);
-
         // In Calendar.java day of week order e.g Sun = 1 ... Sat = 7
         String[] dayOfWeekString = new DateFormatSymbols().getWeekdays();
-        mDayOfWeekString = new String[7];
-        for (int i = 0; i < 7; i++) {
-            mDayOfWeekString[i] = dayOfWeekString[TIME_DAY_TO_CALENDAR_DAY[i]];
-        }
+
+        mMonthRepeatByDayOfWeekStrs = new String[7][];
+        // from Time.SUNDAY as 0 through Time.SATURDAY as 6
+        mMonthRepeatByDayOfWeekStrs[0] = mResources.getStringArray(R.array.repeat_by_nth_sun);
+        mMonthRepeatByDayOfWeekStrs[1] = mResources.getStringArray(R.array.repeat_by_nth_mon);
+        mMonthRepeatByDayOfWeekStrs[2] = mResources.getStringArray(R.array.repeat_by_nth_tues);
+        mMonthRepeatByDayOfWeekStrs[3] = mResources.getStringArray(R.array.repeat_by_nth_wed);
+        mMonthRepeatByDayOfWeekStrs[4] = mResources.getStringArray(R.array.repeat_by_nth_thurs);
+        mMonthRepeatByDayOfWeekStrs[5] = mResources.getStringArray(R.array.repeat_by_nth_fri);
+        mMonthRepeatByDayOfWeekStrs[6] = mResources.getStringArray(R.array.repeat_by_nth_sat);
 
         // In Time.java day of week order e.g. Sun = 0
         int idx = Utils.getFirstDayOfWeek(getActivity());
@@ -932,10 +938,10 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                         mModel.monthlyByDayOfWeek = mTime.weekDay;
                     }
 
-                    mMonthRepeatByDayOfWeekStr = mResources.getString(
-                            R.string.recurrence_month_pattern_by_day_of_week,
-                            mOrdinalArray[mModel.monthlyByNthDayOfWeek - 1],
-                            mDayOfWeekString[mModel.monthlyByDayOfWeek]);
+                    String[] monthlyByNthDayOfWeekStrs =
+                            mMonthRepeatByDayOfWeekStrs[mModel.monthlyByDayOfWeek];
+                    mMonthRepeatByDayOfWeekStr =
+                            monthlyByNthDayOfWeekStrs[mModel.monthlyByNthDayOfWeek - 1];
                     mRepeatMonthlyByNthDayOfWeek.setText(mMonthRepeatByDayOfWeekStr);
                 }
                 break;
