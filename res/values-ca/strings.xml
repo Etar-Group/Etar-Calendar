@@ -60,11 +60,11 @@
     <string name="event_delete" msgid="2386667193277770442">"Suprimeix l\'esdeveniment"</string>
     <string name="goto_today" msgid="9162136434410891230">"Avui"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Configuració"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendaris visibles"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendaris"</string>
     <string name="search" msgid="550656004486017426">"Cerca"</string>
     <string name="hide_controls" msgid="830320505938520882">"Amaga els controls"</string>
     <string name="show_controls" msgid="715520586028062621">"Mostra els controls"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Calendaris per mostrar"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Calendaris"</string>
     <string name="synced" msgid="7913940305983383493">"sincronitzat"</string>
     <string name="not_synced" msgid="4275114941801829419">"no sincronitzat"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"Aquest compte no s\'està sincronitzant, de manera que és possible que els calendaris no estiguin actualitzats."</string>
@@ -271,7 +271,9 @@
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Fins a una data"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Fins al dia <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Per a alguns esdeveniments"</string>
-    <!-- no translation found for recurrence_end_count:one (1400782968090516215) -->
-    <!-- no translation found for recurrence_end_count:other (8779598489398048259) -->
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"Per a <xliff:g id="EVENT_COUNT">%d</xliff:g> esdeveniment"</item>
+    <item quantity="other" msgid="8779598489398048259">"Per a <xliff:g id="EVENT_COUNT">%d</xliff:g> esdeveniments"</item>
+  </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"canvia la data de finalització"</string>
 </resources>
