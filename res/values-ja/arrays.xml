@@ -112,10 +112,9 @@
     <item msgid="6367412240524984286">"辞退したか応答がなかった場合"</item>
   </string-array>
   <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"毎日"</item>
-    <item msgid="3061751350069329559">"毎週"</item>
-    <item msgid="7221838315296593556">"毎月"</item>
-    <item msgid="8033241076508570830">"毎年"</item>
+    <item msgid="3388478383574917007">"毎日繰り返す"</item>
+    <item msgid="6300824484048337842">"毎週繰り返す"</item>
+    <item msgid="189361731610816256">"毎月繰り返す"</item>
+    <item msgid="8714177874112569158">"毎年繰り返す"</item>
   </string-array>
 </resources>

@@ -268,8 +268,12 @@
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"elke maand op dezelfde dag"</string>
     <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"op elke <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Voor altijd"</string>
-    <string name="recurrence_end_date_label" msgid="1692750407031674335">"Einddatum"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Tot een datum"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Tot <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1820779096399658437">"Aantal herhalingen"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Voor een aantal evenementen"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> evenement"</item>
+    <item quantity="other" msgid="8779598489398048259">"Voor <xliff:g id="EVENT_COUNT">%d</xliff:g> evenementen"</item>
+  </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"einddatum wijzigen"</string>
 </resources>

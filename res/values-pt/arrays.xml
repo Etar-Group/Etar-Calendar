@@ -112,10 +112,9 @@
     <item msgid="6367412240524984286">"Somente se recusou ou não respondeu"</item>
   </string-array>
   <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"DIÁRIO"</item>
-    <item msgid="3061751350069329559">"SEMANAL"</item>
-    <item msgid="7221838315296593556">"MENSAL"</item>
-    <item msgid="8033241076508570830">"ANUAL"</item>
+    <item msgid="3388478383574917007">"REPETIR DIARIAMENTE"</item>
+    <item msgid="6300824484048337842">"REPETIR SEMANALMENTE"</item>
+    <item msgid="189361731610816256">"REPETIR MENSALMENTE"</item>
+    <item msgid="8714177874112569158">"REPETIR ANUALMENTE"</item>
   </string-array>
 </resources>

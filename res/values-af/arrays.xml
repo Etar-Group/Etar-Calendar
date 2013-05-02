@@ -112,10 +112,9 @@
     <item msgid="6367412240524984286">"As afgewys of nie gereageer nie"</item>
   </string-array>
   <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"DAAGLIKS"</item>
-    <item msgid="3061751350069329559">"WEEKLIKS"</item>
-    <item msgid="7221838315296593556">"MAANDELIKS"</item>
-    <item msgid="8033241076508570830">"JAARLIKS"</item>
+    <item msgid="3388478383574917007">"HERHAAL DAAGLIKS"</item>
+    <item msgid="6300824484048337842">"HERHAAL WEEKLIKS"</item>
+    <item msgid="189361731610816256">"HERHAAL MAANDELIKS"</item>
+    <item msgid="8714177874112569158">"HERHAAL JAARLIKS"</item>
   </string-array>
 </resources>

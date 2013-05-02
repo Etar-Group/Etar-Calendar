@@ -112,10 +112,9 @@
     <item msgid="6367412240524984286">"Elutasítás/nem válaszolás esetén"</item>
   </string-array>
   <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"NAPONTA"</item>
-    <item msgid="3061751350069329559">"HETENTE"</item>
-    <item msgid="7221838315296593556">"HAVONTA"</item>
-    <item msgid="8033241076508570830">"ÉVENTE"</item>
+    <item msgid="3388478383574917007">"ISMÉTLÉS NAPONTA"</item>
+    <item msgid="6300824484048337842">"ISMÉTLÉS HETENTE"</item>
+    <item msgid="189361731610816256">"ISMÉTLÉS HAVONTA"</item>
+    <item msgid="8714177874112569158">"ISMÉTLÉS ÉVENTE"</item>
   </string-array>
 </resources>

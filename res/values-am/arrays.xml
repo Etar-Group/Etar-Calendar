@@ -112,10 +112,9 @@
     <item msgid="6367412240524984286">"ተቀባይነት ካላገኘ ወይም ምላሽ ካልተሰጠበት"</item>
   </string-array>
   <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"ዕለታዊ"</item>
-    <item msgid="3061751350069329559">"ሳምንታዊ"</item>
-    <item msgid="7221838315296593556">"ወርሃዊ"</item>
-    <item msgid="8033241076508570830">"ዓመታዊ"</item>
+    <item msgid="3388478383574917007">"በየቀኑ ድገም"</item>
+    <item msgid="6300824484048337842">"በየሳምንቱ ድገም"</item>
+    <item msgid="189361731610816256">"በየወሩ ድገም"</item>
+    <item msgid="8714177874112569158">"በየዓመቱ ድገም"</item>
   </string-array>
 </resources>

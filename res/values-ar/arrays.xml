@@ -112,10 +112,9 @@
     <item msgid="6367412240524984286">"في حالة الرفض أو عدم الرد"</item>
   </string-array>
   <string-array name="recurrence_freq">
-
-    <item msgid="5093122819962980394">"يوميًا"</item>
-    <item msgid="3061751350069329559">"أسبوعيًا"</item>
-    <item msgid="7221838315296593556">"شهريًا"</item>
-    <item msgid="8033241076508570830">"سنويًا"</item>
+    <item msgid="3388478383574917007">"التكرار يوميًا"</item>
+    <item msgid="6300824484048337842">"التكرار أسبوعيًا"</item>
+    <item msgid="189361731610816256">"التكرار شهريًا"</item>
+    <item msgid="8714177874112569158">"التكرار سنويًا"</item>
   </string-array>
 </resources>
