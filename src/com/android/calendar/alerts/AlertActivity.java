@@ -16,6 +16,7 @@
 
 package com.android.calendar.alerts;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.TaskStackBuilder;
@@ -39,6 +40,10 @@ import com.android.calendar.AsyncQueryService;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendar.alerts.GlobalDismissManager.AlarmId;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The alert panel that pops up when there is a calendar event alarm.
@@ -93,14 +98,43 @@ public class AlertActivity extends Activity implements OnClickListener {
         String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED;
         mQueryHandler.startUpdate(0, null, CalendarAlerts.CONTENT_URI, values,
                 selection, null /* selectionArgs */, Utils.UNDO_DELAY);
+
+        if (mCursor == null) {
+            Log.e(TAG, "Unable to globally dismiss all notifications because cursor was null.");
+            return;
+        }
+        if (mCursor.isClosed()) {
+            Log.e(TAG, "Unable to globally dismiss all notifications because cursor was closed.");
+            return;
+        }
+        if (!mCursor.moveToFirst()) {
+            Log.e(TAG, "Unable to globally dismiss all notifications because cursor was empty.");
+            return;
+        }
+
+        List<AlarmId> alarmIds = new LinkedList<AlarmId>();
+        do {
+            long eventId = mCursor.getLong(INDEX_EVENT_ID);
+            long eventStart = mCursor.getLong(INDEX_BEGIN);
+            alarmIds.add(new AlarmId(eventId, eventStart));
+        } while (mCursor.moveToNext());
+        initiateGlobalDismiss(alarmIds);
     }
 
-    private void dismissAlarm(long id) {
+    private void dismissAlarm(long id, long eventId, long startTime) {
         ContentValues values = new ContentValues(1 /* size */);
         values.put(PROJECTION[INDEX_STATE], CalendarAlerts.STATE_DISMISSED);
         String selection = CalendarAlerts._ID + "=" + id;
         mQueryHandler.startUpdate(0, null, CalendarAlerts.CONTENT_URI, values,
                 selection, null /* selectionArgs */, Utils.UNDO_DELAY);
+
+        List<AlarmId> alarmIds = new LinkedList<AlarmId>();
+        alarmIds.add(new AlarmId(eventId, startTime));
+        initiateGlobalDismiss(alarmIds);
+    }
+
+    private void initiateGlobalDismiss(List<AlarmId> alarmIds) {
+        GlobalDismissManager.dismissGlobally(getApplicationContext(), alarmIds);
     }
 
     private class QueryHandler extends AsyncQueryService {
@@ -131,21 +165,24 @@ public class AlertActivity extends Activity implements OnClickListener {
 
     private final OnItemClickListener mViewListener = new OnItemClickListener() {
 
+        @SuppressLint("NewApi")
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
                 long i) {
             AlertActivity alertActivity = AlertActivity.this;
             Cursor cursor = alertActivity.getItemForView(view);
 
+            long alarmId = cursor.getLong(INDEX_ROW_ID);
+            long eventId = cursor.getLong(AlertActivity.INDEX_EVENT_ID);
+            long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
+
             // Mark this alarm as DISMISSED
-            dismissAlarm(cursor.getLong(INDEX_ROW_ID));
+            dismissAlarm(alarmId, eventId, startMillis);
 
             // build an intent and task stack to start EventInfoActivity with AllInOneActivity
             // as the parent activity rooted to home.
-            long id = cursor.getInt(AlertActivity.INDEX_EVENT_ID);
-            long startMillis = cursor.getLong(AlertActivity.INDEX_BEGIN);
             long endMillis = cursor.getLong(AlertActivity.INDEX_END);
-            Intent eventIntent = AlertUtils.buildEventViewIntent(AlertActivity.this, id,
+            Intent eventIntent = AlertUtils.buildEventViewIntent(AlertActivity.this, eventId,
                     startMillis, endMillis);
 
             if (Utils.isJellybeanOrLater()) {
