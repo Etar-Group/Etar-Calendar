@@ -28,7 +28,7 @@
         android:alphabeticShortcut="n"
         android:title="@string/event_create"
         android:icon="@drawable/ic_menu_add_event_holo_light"
-        android:showAsAction="ifRoom"
+        android:showAsAction="never"
         android:orderInCategory="2" />
     <item
         android:id="@+id/action_refresh"
