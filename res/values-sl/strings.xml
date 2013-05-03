@@ -159,7 +159,6 @@
     <item quantity="one" msgid="5463021019301453273">"Tedensko: <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
     <item quantity="other" msgid="2857390143157377867">"<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> – na vsakih toliko tednov: <xliff:g id="NUMBER">%1$d</xliff:g>"</item>
   </plurals>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"Mesečno (vsak <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"Mesečno"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Letno"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mesečno (na dan <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
@@ -266,12 +265,13 @@
     <item quantity="other" msgid="5678653649746562060">"Vsakih toliko let: <xliff:g id="COUNT">%d</xliff:g>"</item>
   </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"istega dne vsak mesec"</string>
-    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"vsak(-o) <xliff:g id="NTH">%1$s</xliff:g>. <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Za vedno"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Do datuma"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Za določeno št. dogodkov"</string>
-    <!-- no translation found for recurrence_end_count:one (1400782968090516215) -->
-    <!-- no translation found for recurrence_end_count:other (8779598489398048259) -->
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"Za toliko dogodkov: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="8779598489398048259">"Za toliko dogodkov: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+  </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"sprememba končnega datuma"</string>
 </resources>
