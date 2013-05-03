@@ -113,7 +113,7 @@
   </string-array>
   <string-array name="recurrence_freq">
     <item msgid="3388478383574917007">"ΕΠΑΝΑΛΗΨΗ ΚΑΘΗΜΕΡΙΝΑ"</item>
-    <item msgid="6300824484048337842">"ΕΠΑΝΑΛΗΨΗ ΕΒΔΟΜΑΔΙΑΙΑ"</item>
+    <item msgid="6300824484048337842">"ΕΠΑΝΑΛΗΨΗ ΕΒΔΟΜΑΔ."</item>
     <item msgid="189361731610816256">"ΕΠΑΝΑΛΗΨΗ ΜΗΝΙΑΙΑ"</item>
     <item msgid="8714177874112569158">"ΕΠΑΝΑΛΗΨΗ ΕΤΗΣΙΩΣ"</item>
   </string-array>

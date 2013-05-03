@@ -113,7 +113,7 @@
   </string-array>
   <string-array name="recurrence_freq">
     <item msgid="3388478383574917007">"REPETEIX DIÀRIAMENT"</item>
-    <item msgid="6300824484048337842">"REPEAT SETMANALMENT"</item>
+    <item msgid="6300824484048337842">"REPETEIX SETMANALMENT"</item>
     <item msgid="189361731610816256">"REPETEIX MENSUALMENT"</item>
     <item msgid="8714177874112569158">"REPETEIX ANUALMENT"</item>
   </string-array>

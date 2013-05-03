@@ -111,8 +111,10 @@
     <item msgid="2285927842308686988">"Jen v případě odmítnutí"</item>
     <item msgid="6367412240524984286">"Při odmítnutí nebo bez odpovědi"</item>
   </string-array>
-    <!-- no translation found for recurrence_freq:0 (3388478383574917007) -->
-    <!-- no translation found for recurrence_freq:1 (6300824484048337842) -->
-    <!-- no translation found for recurrence_freq:2 (189361731610816256) -->
-    <!-- no translation found for recurrence_freq:3 (8714177874112569158) -->
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"OPAKOVAT DENNĚ"</item>
+    <item msgid="6300824484048337842">"OPAKOVAT TÝDNĚ"</item>
+    <item msgid="189361731610816256">"OPAKOVAT MĚSÍČNĚ"</item>
+    <item msgid="8714177874112569158">"OPAKOVAT ROČNĚ"</item>
+  </string-array>
 </resources>
