@@ -31,6 +31,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -51,6 +52,8 @@ import com.android.calendar.Utils;
  * Allows the user to quickly create a new all-day event from the calendar's month view.
  */
 public class CreateEventDialogFragment extends DialogFragment implements TextWatcher {
+
+    private static final String TAG = "CreateEventDialogFragment";
 
     private static final int TOKEN_CALENDARS = 1 << 3;
 
@@ -261,8 +264,15 @@ public class CreateEventDialogFragment extends DialogFragment implements TextWat
             return;
         }
 
-        String defaultCalendar = Utils.getSharedPreference(
-                getActivity(), GeneralPreferences.KEY_DEFAULT_CALENDAR, (String) null);
+
+        String defaultCalendar = null;
+        final Activity activity = getActivity();
+        if (activity != null) {
+            defaultCalendar = Utils.getSharedPreference(activity,
+                    GeneralPreferences.KEY_DEFAULT_CALENDAR, (String) null);
+        } else {
+            Log.e(TAG, "Activity is null, cannot load default calendar");
+        }
 
         int calendarOwnerIndex = cursor.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
         int accountNameIndex = cursor.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
