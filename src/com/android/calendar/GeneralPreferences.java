@@ -210,7 +210,7 @@ public class GeneralPreferences extends PreferenceFragment implements
             mTzPickerUtils = new TimeZonePickerUtils(getActivity());
         }
         CharSequence timezoneName = mTzPickerUtils.getGmtDisplayName(getActivity(), mTimeZoneId,
-                System.currentTimeMillis());
+                System.currentTimeMillis(), false);
         mHomeTZ.setSummary(timezoneName != null ? timezoneName : mTimeZoneId);
 
         TimeZonePickerDialog tzpd = (TimeZonePickerDialog) activity.getFragmentManager()
@@ -425,7 +425,7 @@ public class GeneralPreferences extends PreferenceFragment implements
         }
 
         final CharSequence timezoneName = mTzPickerUtils.getGmtDisplayName(
-                getActivity(), tzi.mTzId, System.currentTimeMillis());
+                getActivity(), tzi.mTzId, System.currentTimeMillis(), false);
         mHomeTZ.setSummary(timezoneName);
         Utils.setTimeZone(getActivity(), tzi.mTzId);
     }
