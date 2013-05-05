@@ -117,4 +117,53 @@
     <item msgid="189361731610816256">"매월 반복"</item>
     <item msgid="8714177874112569158">"매년 반복"</item>
   </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"매월 첫 번째 일요일"</item>
+    <item msgid="2557379346106451363">"매월 두 번째 일요일"</item>
+    <item msgid="7622144489915654132">"매월 세 번째 일요일"</item>
+    <item msgid="527152448137686021">"매월 네 번째 일요일"</item>
+    <item msgid="5057483608824759350">"매월 마지막 일요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"매월 첫 번째 월요일"</item>
+    <item msgid="4484275849072423978">"매월 두 번째 월요일"</item>
+    <item msgid="8956169860824371383">"매월 세 번째 월요일"</item>
+    <item msgid="6924403357659569326">"매월 네 번째 월요일"</item>
+    <item msgid="1379608815263472161">"매월 마지막 월요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"매월 첫 번째 화요일"</item>
+    <item msgid="9063613547307760928">"매월 두 번째 화요일"</item>
+    <item msgid="6688603328729208168">"매월 세 번째 화요일"</item>
+    <item msgid="6695206006961533357">"매월 네 번째 화요일"</item>
+    <item msgid="8619069174889809914">"매월 마지막 화요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"매월 첫 번째 수요일"</item>
+    <item msgid="5059722045367799217">"매월 두 번째 수요일"</item>
+    <item msgid="7986246648229272275">"매월 세 번째 수요일"</item>
+    <item msgid="9068566169348980801">"매월 네 번째 수요일"</item>
+    <item msgid="7976866743069062134">"매월 마지막 수요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"매월 첫 번째 목요일"</item>
+    <item msgid="4857419136007543270">"매월 두 번째 목요일"</item>
+    <item msgid="222044587450564839">"매월 세 번째 목요일"</item>
+    <item msgid="6197927556533030945">"매월 네 번째 목요일"</item>
+    <item msgid="1023326923033436905">"매월 마지막 목요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"매월 첫 번째 금요일"</item>
+    <item msgid="1935608297230506940">"매월 두 번째 금요일"</item>
+    <item msgid="4061877662049317599">"매월 세 번째 금요일"</item>
+    <item msgid="6856646749131820614">"매월 네 번째 금요일"</item>
+    <item msgid="6533513913914859794">"매월 마지막 금요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"매월 첫 번째 토요일"</item>
+    <item msgid="9130198690512925355">"매월 두 번째 토요일"</item>
+    <item msgid="4525736070844032405">"매월 세 번째 토요일"</item>
+    <item msgid="422053689531707709">"매월 네 번째 토요일"</item>
+    <item msgid="5499975799312474425">"매월 마지막 토요일"</item>
+  </string-array>
 </resources>
