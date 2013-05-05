@@ -106,6 +106,7 @@
     <item msgid="6248480754959562740">"Uke"</item>
     <item msgid="4298472806133153766">"Måned"</item>
     <item msgid="5033084974413793845">"Agenda"</item>
+    <item msgid="1475154959423158110">"Timely"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"Bare hvis avvist"</item>
@@ -116,5 +117,54 @@
     <item msgid="6300824484048337842">"GJENTA UKENTLIG"</item>
     <item msgid="189361731610816256">"GJENTA MÅNEDLIG"</item>
     <item msgid="8714177874112569158">"GJENTA ÅRLIG"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"hver første søndag i måneden"</item>
+    <item msgid="2557379346106451363">"hver andre søndag i måneden"</item>
+    <item msgid="7622144489915654132">"hver tredje søndag i måneden"</item>
+    <item msgid="527152448137686021">"hver fjerde søndag i måneden"</item>
+    <item msgid="5057483608824759350">"hver siste søndag i måneden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"hver første mandag i måneden"</item>
+    <item msgid="4484275849072423978">"hver andre mandag i måneden"</item>
+    <item msgid="8956169860824371383">"hver tredje mandag i måneden"</item>
+    <item msgid="6924403357659569326">"hver fjerde mandag i måneden"</item>
+    <item msgid="1379608815263472161">"hver siste mandag i måneden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"hver første tirsdag i måneden"</item>
+    <item msgid="9063613547307760928">"hver andre tirsdag i måneden"</item>
+    <item msgid="6688603328729208168">"hver tredje tirsdag i måneden"</item>
+    <item msgid="6695206006961533357">"hver fjerde tirsdag i måneden"</item>
+    <item msgid="8619069174889809914">"hver siste tirsdag i måneden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"hver første onsdag i måneden"</item>
+    <item msgid="5059722045367799217">"hver andre onsdag i måneden"</item>
+    <item msgid="7986246648229272275">"hver tredje onsdag i måneden"</item>
+    <item msgid="9068566169348980801">"hver fjerde onsdag i måneden"</item>
+    <item msgid="7976866743069062134">"hver siste onsdag i måneden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"hver første torsdag i måneden"</item>
+    <item msgid="4857419136007543270">"hver andre torsdag i måneden"</item>
+    <item msgid="222044587450564839">"hver tredje torsdag i måneden"</item>
+    <item msgid="6197927556533030945">"hver fjerde torsdag i måneden"</item>
+    <item msgid="1023326923033436905">"hver siste torsdag i måneden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"hver første fredag i måneden"</item>
+    <item msgid="1935608297230506940">"hver andre fredag i måneden"</item>
+    <item msgid="4061877662049317599">"hver tredje fredag i måneden"</item>
+    <item msgid="6856646749131820614">"hver fjerde fredag i måneden"</item>
+    <item msgid="6533513913914859794">"hver siste fredag i måneden"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"hver første lørdag i måneden"</item>
+    <item msgid="9130198690512925355">"hver andre lørdag i måneden"</item>
+    <item msgid="4525736070844032405">"hver tredje lørdag i måneden"</item>
+    <item msgid="422053689531707709">"hver fjerde lørdag i måneden"</item>
+    <item msgid="5499975799312474425">"hver siste lørdag i måneden"</item>
   </string-array>
 </resources>
