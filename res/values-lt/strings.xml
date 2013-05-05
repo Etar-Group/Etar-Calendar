@@ -159,6 +159,7 @@
     <item quantity="one" msgid="5463021019301453273">"Kas savaitę, <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
     <item quantity="other" msgid="2857390143157377867">"Kas <xliff:g id="NUMBER">%1$d</xliff:g> sav., <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
   </plurals>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Kas mėnesį (kas <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"Kas mėnesį"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Kasmet"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Kas mėnesį (<xliff:g id="DAY_OF_MONTH">%s</xliff:g> d.)"</string>
@@ -265,6 +266,7 @@
     <item quantity="other" msgid="5678653649746562060">"Kas <xliff:g id="COUNT">%d</xliff:g> m."</item>
   </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"kas mėn. tą pačią d."</string>
+    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"kiekvieną <xliff:g id="NTH">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Visada"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Iki nurodytos datos"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Iki <xliff:g id="DATE">%s</xliff:g>"</string>
