@@ -179,8 +179,7 @@
                             android:id="@+id/repeatMonthlyByNthDayOfTheWeek"
                             style="@style/TextAppearance.RecurrencePickerStyle"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/recurrence_month_pattern_by_day_of_week" />
+                            android:layout_height="wrap_content" />
                     </RadioGroup>
 
                     <LinearLayout
