@@ -106,7 +106,6 @@
     <item msgid="6248480754959562740">"Savaitė"</item>
     <item msgid="4298472806133153766">"Mėnuo"</item>
     <item msgid="5033084974413793845">"Darbotvarkė"</item>
-    <item msgid="1475154959423158110">"Laiku"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"Tik jei atmesta"</item>
@@ -117,54 +116,5 @@
     <item msgid="6300824484048337842">"KARTOTI KAS SAVAITĘ"</item>
     <item msgid="189361731610816256">"KARTOTI KAS MĖNESĮ"</item>
     <item msgid="8714177874112569158">"KARTOTI KASMET"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_sun">
-    <item msgid="143841313172233420">"kiekvieną pirmą sekmadienį"</item>
-    <item msgid="2557379346106451363">"kiekvieną antrą sekmadienį"</item>
-    <item msgid="7622144489915654132">"kiekvieną trečią sekmadienį"</item>
-    <item msgid="527152448137686021">"kiekvieną ketvirtą sekmadienį"</item>
-    <item msgid="5057483608824759350">"kiekvieną paskutinį sekmadienį"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_mon">
-    <item msgid="7539974918997689048">"kiekvieną pirmą pirmadienį"</item>
-    <item msgid="4484275849072423978">"kiekvieną antrą pirmadienį"</item>
-    <item msgid="8956169860824371383">"kiekvieną trečią pirmadienį"</item>
-    <item msgid="6924403357659569326">"kiekvieną ketvirtą pirmadienį"</item>
-    <item msgid="1379608815263472161">"kiekvieną paskutinį pirmadienį"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_tues">
-    <item msgid="8690802834039790777">"kiekvieną pirmą antradienį"</item>
-    <item msgid="9063613547307760928">"kiekvieną antrą antradienį"</item>
-    <item msgid="6688603328729208168">"kiekvieną trečią antradienį"</item>
-    <item msgid="6695206006961533357">"kiekvieną ketvirtą antradienį"</item>
-    <item msgid="8619069174889809914">"kiekvieną paskutinį antradienį"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_wed">
-    <item msgid="3233850232075584386">"kiekvieną pirmą trečiadienį"</item>
-    <item msgid="5059722045367799217">"kiekvieną antrą trečiadienį"</item>
-    <item msgid="7986246648229272275">"kiekvieną trečią trečiadienį"</item>
-    <item msgid="9068566169348980801">"kiekvieną ketvirtą trečiadienį"</item>
-    <item msgid="7976866743069062134">"kiekvieną paskut. trečiadienį"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_thurs">
-    <item msgid="920673677566009313">"kiekvieną pirmą ketvirtadienį"</item>
-    <item msgid="4857419136007543270">"kiekvieną antrą ketvirtadienį"</item>
-    <item msgid="222044587450564839">"kiekvieną trečią ketvirtadienį"</item>
-    <item msgid="6197927556533030945">"kiekvieną ketv. ketvirtadienį"</item>
-    <item msgid="1023326923033436905">"kiekvieną pask. ketvirtadienį"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_fri">
-    <item msgid="6534500380525126157">"kiekvieną pirmą penktadienį"</item>
-    <item msgid="1935608297230506940">"kiekvieną antrą penktadienį"</item>
-    <item msgid="4061877662049317599">"kiekvieną trečią penktadienį"</item>
-    <item msgid="6856646749131820614">"kiekvieną ketvirtą penktadienį"</item>
-    <item msgid="6533513913914859794">"kiekvieną paskut. penktadienį"</item>
-  </string-array>
-  <string-array name="repeat_by_nth_sat">
-    <item msgid="3556369572649948699">"kiekvieną pirmą šeštadienį"</item>
-    <item msgid="9130198690512925355">"kiekvieną antrą šeštadienį"</item>
-    <item msgid="4525736070844032405">"kiekvieną trečią šeštadienį"</item>
-    <item msgid="422053689531707709">"kiekvieną ketvirtą šeštadienį"</item>
-    <item msgid="5499975799312474425">"kiekvieną paskutinį šeštadienį"</item>
   </string-array>
 </resources>
