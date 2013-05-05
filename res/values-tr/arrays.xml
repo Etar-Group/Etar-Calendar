@@ -106,13 +106,65 @@
     <item msgid="6248480754959562740">"Hafta"</item>
     <item msgid="4298472806133153766">"Ay"</item>
     <item msgid="5033084974413793845">"Ajanda"</item>
+    <item msgid="1475154959423158110">"Zamanında"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"Yalnızca reddedildiyse"</item>
     <item msgid="6367412240524984286">"Reddedildiyse veya yanıt verilmediyse"</item>
   </string-array>
-    <!-- no translation found for recurrence_freq:0 (3388478383574917007) -->
-    <!-- no translation found for recurrence_freq:1 (6300824484048337842) -->
-    <!-- no translation found for recurrence_freq:2 (189361731610816256) -->
-    <!-- no translation found for recurrence_freq:3 (8714177874112569158) -->
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"HER GÜN YİNELE"</item>
+    <item msgid="6300824484048337842">"HER HAFTA YİNELE"</item>
+    <item msgid="189361731610816256">"HER AY YİNELE"</item>
+    <item msgid="8714177874112569158">"HER YIL YİNELE"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"her ayın ilk Pazar günü"</item>
+    <item msgid="2557379346106451363">"her ayın ikinci Pazar günü"</item>
+    <item msgid="7622144489915654132">"her ayın üçüncü Pazar günü"</item>
+    <item msgid="527152448137686021">"her ayın dördüncü Pazar günü"</item>
+    <item msgid="5057483608824759350">"her ayın son Pazar günü"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"her ayın ilk Pazartesi günü"</item>
+    <item msgid="4484275849072423978">"her ayın ikinci Pazartesi günü"</item>
+    <item msgid="8956169860824371383">"her ayın üçüncü Pazartesi günü"</item>
+    <item msgid="6924403357659569326">"her ayın dördüncü Pazartesi günü"</item>
+    <item msgid="1379608815263472161">"her ayın son Pazartesi günü"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"her ayın ilk Salı günü"</item>
+    <item msgid="9063613547307760928">"her ayın ikinci Salı günü"</item>
+    <item msgid="6688603328729208168">"her ayın üçüncü Salı günü"</item>
+    <item msgid="6695206006961533357">"her ayın dördüncü Salı günü"</item>
+    <item msgid="8619069174889809914">"her ayın son Salı günü"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"her ayın ilk Çarşamba günü"</item>
+    <item msgid="5059722045367799217">"her ayın ikinci Çarşamba günü"</item>
+    <item msgid="7986246648229272275">"her ayın üçüncü Çarşamba günü"</item>
+    <item msgid="9068566169348980801">"her ayın dördüncü Çarşamba günü"</item>
+    <item msgid="7976866743069062134">"her ayın son Çarşamba günü"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"her ayın ilk Perşembe günü"</item>
+    <item msgid="4857419136007543270">"her ayın ikinci Perşembe günü"</item>
+    <item msgid="222044587450564839">"her ayın üçüncü Perşembe günü"</item>
+    <item msgid="6197927556533030945">"her ayın dördüncü Perşembe günü"</item>
+    <item msgid="1023326923033436905">"her ayın son Perşembe günü"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"her ayın ilk Cuma günü"</item>
+    <item msgid="1935608297230506940">"her ayın ikinci Cuma günü"</item>
+    <item msgid="4061877662049317599">"her ayın üçüncü Cuma günü"</item>
+    <item msgid="6856646749131820614">"her ayın dördüncü Cuma günü"</item>
+    <item msgid="6533513913914859794">"her ayın son Cuma günü"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"her ayın ilk Cumartesi günü"</item>
+    <item msgid="9130198690512925355">"her ayın ikinci Cumartesi günü"</item>
+    <item msgid="4525736070844032405">"her ayın üçüncü Cumartesi günü"</item>
+    <item msgid="422053689531707709">"her ayın dördüncü Cumartesi günü"</item>
+    <item msgid="5499975799312474425">"her ayın son Cumartesi günü"</item>
+  </string-array>
 </resources>
