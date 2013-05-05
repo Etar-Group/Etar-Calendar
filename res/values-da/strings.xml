@@ -159,6 +159,7 @@
     <item quantity="one" msgid="5463021019301453273">"Ugentligt om <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
     <item quantity="other" msgid="2857390143157377867">"Hver <xliff:g id="NUMBER">%1$d</xliff:g>. uge om <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
   </plurals>
+    <string name="monthly_on_day_count" msgid="6847991854413461795">"Månedligt (hver <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"Månedligt"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Årligt"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Månedligt (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
@@ -265,6 +266,7 @@
     <item quantity="other" msgid="5678653649746562060">"Hvert <xliff:g id="COUNT">%d</xliff:g>. år"</item>
   </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"samme dag hver måned"</string>
+    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"hver <xliff:g id="NTH">%1$s</xliff:g>. <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"For altid"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Frem til en bestemt dato"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Indtil <xliff:g id="DATE">%s</xliff:g>"</string>
