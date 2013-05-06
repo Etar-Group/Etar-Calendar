@@ -85,7 +85,7 @@
   <string-array name="response_labels1">
     <item msgid="5605392595848194997">"Tidak ada tanggapan"</item>
     <item msgid="3724434080904437698">"Ya"</item>
-    <item msgid="8854145743148992583">" Mungkin hadir"</item>
+    <item msgid="8854145743148992583">"Mungkin"</item>
     <item msgid="6174292185978948873">"Tidak"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
