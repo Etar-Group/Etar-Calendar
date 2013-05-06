@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarAlerts;
@@ -133,8 +134,15 @@ public class AlertActivity extends Activity implements OnClickListener {
         initiateGlobalDismiss(alarmIds);
     }
 
+    @SuppressWarnings("unchecked")
     private void initiateGlobalDismiss(List<AlarmId> alarmIds) {
-        GlobalDismissManager.dismissGlobally(getApplicationContext(), alarmIds);
+        new AsyncTask<List<AlarmId>, Void, Void>() {
+            @Override
+            protected Void doInBackground(List<AlarmId>... params) {
+                GlobalDismissManager.dismissGlobally(getApplicationContext(), params[0]);
+                return null;
+            }
+        }.execute(alarmIds);
     }
 
     private class QueryHandler extends AsyncQueryService {
