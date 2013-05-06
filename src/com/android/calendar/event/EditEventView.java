@@ -432,7 +432,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
             mTzPickerUtils = new TimeZonePickerUtils(mActivity);
         }
         CharSequence displayName =
-                mTzPickerUtils.getGmtDisplayName(mActivity, mTimezone, eventStartTime);
+                mTzPickerUtils.getGmtDisplayName(mActivity, mTimezone, eventStartTime, true);
 
         mTimezoneTextView.setText(displayName);
         mTimezoneButton.setText(displayName);
