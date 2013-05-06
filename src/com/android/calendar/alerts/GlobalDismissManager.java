@@ -16,7 +16,6 @@
 
 package com.android.calendar.alerts;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -25,7 +24,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.provider.CalendarContract.Calendars;
@@ -98,68 +96,61 @@ public class GlobalDismissManager extends BroadcastReceiver {
             Log.i(TAG, "no sender configured");
             return;
         }
-        new AsyncTask<Void, Void, Void>() {
+        Map<Long, Long> eventsToCalendars = lookupEventToCalendarMap(context, eventIds);
+        Set<Long> calendars = new LinkedHashSet<Long>();
+        calendars.addAll(eventsToCalendars.values());
+        if (calendars.isEmpty()) {
+            Log.d(TAG, "found no calendars for events");
+            return;
+        }
 
-            @Override
-            protected Void doInBackground(Void... params) {
+        Map<Long, Pair<String, String>> calendarsToAccounts =
+                lookupCalendarToAccountMap(context, calendars);
 
-                Map<Long, Long> eventsToCalendars = lookupEventToCalendarMap(context, eventIds);
-                Set<Long> calendars = new LinkedHashSet<Long>();
-                calendars.addAll(eventsToCalendars.values());
-                if (calendars.isEmpty()) {
-                    Log.d(TAG, "foudn no calendars for events");
-                    return null;
-                }
+        if (calendarsToAccounts.isEmpty()) {
+            Log.d(TAG, "found no accounts for calendars");
+            return;
+        }
 
-                Map<Long, Pair<String, String>> calendarsToAccounts =
-                        lookupCalendarToAccountMap(context, calendars);
-
-                if (calendarsToAccounts.isEmpty()) {
-                    Log.d(TAG, "found no accounts for calendars");
-                    return null;
-                }
-
-                // filter out non-google accounts (necessary?)
-                Set<String> accounts = new LinkedHashSet<String>();
-                for (Pair<String, String> accountPair : calendarsToAccounts.values()) {
-                    if (GOOGLE_ACCOUNT_TYPE.equals(accountPair.first)) {
-                        accounts.add(accountPair.second);
-                    }
-                }
-
-                // filter out accounts we already know about
-                SharedPreferences prefs =
-                        context.getSharedPreferences(GLOBAL_DISMISS_MANAGER_PREFS,
-                                Context.MODE_PRIVATE);
-                Set<String> existingAccounts = prefs.getStringSet(ACCOUNT_KEY,
-                        new HashSet<String>());
-                accounts.removeAll(existingAccounts);
-
-                if (accounts.isEmpty()) {
-                    return null;
-                }
-
-                // subscribe to remaining accounts
-                CloudNotificationBackplane cnb =
-                        ExtensionsFactory.getCloudNotificationBackplane();
-                if (cnb.open(context)) {
-                    for (String account : accounts) {
-                        try {
-                            if (cnb.subscribeToGroup(senderId, account, account)) {
-                                existingAccounts.add(account);
-                            }
-                        } catch (IOException e) {
-                            // Try again, next time the account triggers and alert.
-                        }
-                    }
-                    cnb.close();
-                    prefs.edit()
-                    .putStringSet(ACCOUNT_KEY, existingAccounts)
-                    .commit();
-                }
-                return null;
+        // filter out non-google accounts (necessary?)
+        Set<String> accounts = new LinkedHashSet<String>();
+        for (Pair<String, String> accountPair : calendarsToAccounts.values()) {
+            if (GOOGLE_ACCOUNT_TYPE.equals(accountPair.first)) {
+                accounts.add(accountPair.second);
             }
-        }.execute();
+        }
+
+        // filter out accounts we already know about
+        SharedPreferences prefs =
+                context.getSharedPreferences(GLOBAL_DISMISS_MANAGER_PREFS,
+                        Context.MODE_PRIVATE);
+        Set<String> existingAccounts = prefs.getStringSet(ACCOUNT_KEY,
+                new HashSet<String>());
+        accounts.removeAll(existingAccounts);
+
+        if (accounts.isEmpty()) {
+            // nothing to do, we've already registered all the accounts.
+            return;
+        }
+
+        // subscribe to remaining accounts
+        CloudNotificationBackplane cnb =
+                ExtensionsFactory.getCloudNotificationBackplane();
+        if (cnb.open(context)) {
+            for (String account : accounts) {
+                try {
+                    if (cnb.subscribeToGroup(senderId, account, account)) {
+                        existingAccounts.add(account);
+                    }
+                } catch (IOException e) {
+                    // Try again, next time the account triggers and alert.
+                }
+            }
+            cnb.close();
+            prefs.edit()
+            .putStringSet(ACCOUNT_KEY, existingAccounts)
+            .commit();
+        }
     }
 
     /**
@@ -175,86 +166,80 @@ public class GlobalDismissManager extends BroadcastReceiver {
             Log.i(TAG, "no sender configured");
             return;
         }
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                Set<Long> eventIds = new HashSet<Long>(alarmIds.size());
-                for (AlarmId alarmId: alarmIds) {
-                    eventIds.add(alarmId.mEventId);
-                }
-                // find the mapping between calendars and events
-                Map<Long, Long> eventsToCalendars = lookupEventToCalendarMap(context, eventIds);
+        Set<Long> eventIds = new HashSet<Long>(alarmIds.size());
+        for (AlarmId alarmId: alarmIds) {
+            eventIds.add(alarmId.mEventId);
+        }
+        // find the mapping between calendars and events
+        Map<Long, Long> eventsToCalendars = lookupEventToCalendarMap(context, eventIds);
 
-                if (eventsToCalendars.isEmpty()) {
-                    Log.d(TAG, "found no calendars for events");
-                    return null;
-                }
+        if (eventsToCalendars.isEmpty()) {
+            Log.d(TAG, "found no calendars for events");
+            return;
+        }
 
-                Set<Long> calendars = new LinkedHashSet<Long>();
-                calendars.addAll(eventsToCalendars.values());
+        Set<Long> calendars = new LinkedHashSet<Long>();
+        calendars.addAll(eventsToCalendars.values());
 
-                // find the accounts associated with those calendars
-                Map<Long, Pair<String, String>> calendarsToAccounts =
-                        lookupCalendarToAccountMap(context, calendars);
+        // find the accounts associated with those calendars
+        Map<Long, Pair<String, String>> calendarsToAccounts =
+                lookupCalendarToAccountMap(context, calendars);
 
-                if (calendarsToAccounts.isEmpty()) {
-                    Log.d(TAG, "found no accounts for calendars");
-                    return null;
-                }
+        if (calendarsToAccounts.isEmpty()) {
+            Log.d(TAG, "found no accounts for calendars");
+            return;
+        }
 
-                // TODO group by account to reduce queries
-                Map<String, String> syncIdToAccount = new HashMap<String, String>();
-                Map<Long, String> eventIdToSyncId = new HashMap<Long, String>();
-                ContentResolver resolver = context.getContentResolver();
-                for (Long eventId : eventsToCalendars.keySet()) {
-                    Long calendar = eventsToCalendars.get(eventId);
-                    Pair<String, String> account = calendarsToAccounts.get(calendar);
-                    if (GOOGLE_ACCOUNT_TYPE.equals(account.first)) {
-                        Uri uri = asSync(Events.CONTENT_URI, account.first, account.second);
-                        Cursor cursor = resolver.query(uri, EVENT_SYNC_PROJECTION,
-                                Events._ID + " = " + eventId, null, null);
-                        try {
-                            cursor.moveToPosition(-1);
-                            int sync_id_idx = cursor.getColumnIndex(Events._SYNC_ID);
-                            if (sync_id_idx != -1) {
-                                while (cursor.moveToNext()) {
-                                    String syncId = cursor.getString(sync_id_idx);
-                                    syncIdToAccount.put(syncId, account.second);
-                                    eventIdToSyncId.put(eventId, syncId);
-                                }
-                            }
-                        } finally {
-                            cursor.close();
+        // TODO group by account to reduce queries
+        Map<String, String> syncIdToAccount = new HashMap<String, String>();
+        Map<Long, String> eventIdToSyncId = new HashMap<Long, String>();
+        ContentResolver resolver = context.getContentResolver();
+        for (Long eventId : eventsToCalendars.keySet()) {
+            Long calendar = eventsToCalendars.get(eventId);
+            Pair<String, String> account = calendarsToAccounts.get(calendar);
+            if (GOOGLE_ACCOUNT_TYPE.equals(account.first)) {
+                Uri uri = asSync(Events.CONTENT_URI, account.first, account.second);
+                Cursor cursor = resolver.query(uri, EVENT_SYNC_PROJECTION,
+                        Events._ID + " = " + eventId, null, null);
+                try {
+                    cursor.moveToPosition(-1);
+                    int sync_id_idx = cursor.getColumnIndex(Events._SYNC_ID);
+                    if (sync_id_idx != -1) {
+                        while (cursor.moveToNext()) {
+                            String syncId = cursor.getString(sync_id_idx);
+                            syncIdToAccount.put(syncId, account.second);
+                            eventIdToSyncId.put(eventId, syncId);
                         }
                     }
+                } finally {
+                    cursor.close();
                 }
-
-                if (syncIdToAccount.isEmpty()) {
-                    Log.d(TAG, "found no syncIds for events");
-                    return null;
-                }
-
-                // TODO group by account to reduce packets
-                CloudNotificationBackplane cnb = ExtensionsFactory.getCloudNotificationBackplane();
-                if (cnb.open(context)) {
-                    for (AlarmId alarmId: alarmIds) {
-                        String syncId = eventIdToSyncId.get(alarmId.mEventId);
-                        String account = syncIdToAccount.get(syncId);
-                        Bundle data = new Bundle();
-                        data.putString(SYNC_ID, syncId);
-                        data.putString(START_TIME, Long.toString(alarmId.mStart));
-                        data.putString(ACCOUNT_NAME, account);
-                        try {
-                            cnb.send(account, syncId + ":" + alarmId.mStart, data);
-                        } catch (IOException e) {
-                            // TODO save a note to try again later
-                        }
-                    }
-                    cnb.close();
-                }
-                return null;
             }
-        }.execute();
+        }
+
+        if (syncIdToAccount.isEmpty()) {
+            Log.d(TAG, "found no syncIds for events");
+            return;
+        }
+
+        // TODO group by account to reduce packets
+        CloudNotificationBackplane cnb = ExtensionsFactory.getCloudNotificationBackplane();
+        if (cnb.open(context)) {
+            for (AlarmId alarmId: alarmIds) {
+                String syncId = eventIdToSyncId.get(alarmId.mEventId);
+                String account = syncIdToAccount.get(syncId);
+                Bundle data = new Bundle();
+                data.putString(SYNC_ID, syncId);
+                data.putString(START_TIME, Long.toString(alarmId.mStart));
+                data.putString(ACCOUNT_NAME, account);
+                try {
+                    cnb.send(account, syncId + ":" + alarmId.mStart, data);
+                } catch (IOException e) {
+                    // TODO save a note to try again later
+                }
+            }
+            cnb.close();
+        }
     }
 
     private static Uri asSync(Uri uri, String accountType, String account) {
