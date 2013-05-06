@@ -159,7 +159,6 @@
     <item quantity="one" msgid="5463021019301453273">"שבועי ביום <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
     <item quantity="other" msgid="2857390143157377867">"כל <xliff:g id="NUMBER">%1$d</xliff:g> שבועות ביום <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
   </plurals>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"מדי חודש (כל <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
     <string name="monthly" msgid="4587116285383048586">"כל חודש"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"כל שנה"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"מדי חודש (ביום <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
@@ -266,7 +265,6 @@
     <item quantity="other" msgid="5678653649746562060">"כל <xliff:g id="COUNT">%d</xliff:g> שנים"</item>
   </plurals>
     <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"באותו יום בכל חודש"</string>
-    <string name="recurrence_month_pattern_by_day_of_week" msgid="6397271483826512155">"בכל יום <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g> ‏<xliff:g id="NTH">%1$s</xliff:g>"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"ללא תאריך סיום"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"עד תאריך מסוים"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"עד <xliff:g id="DATE">%s</xliff:g>"</string>
