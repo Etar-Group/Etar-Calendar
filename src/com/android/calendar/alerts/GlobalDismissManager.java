@@ -370,7 +370,5 @@ public class GlobalDismissManager extends BroadcastReceiver {
             Log.d(TAG, "updating alarm state");
             AlertService.updateAlertNotification(context);
         }
-
-        setResultCode(Activity.RESULT_OK);
     }
 }
