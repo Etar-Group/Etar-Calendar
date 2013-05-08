@@ -60,11 +60,11 @@
     <string name="event_delete" msgid="2386667193277770442">"Futa tukio"</string>
     <string name="goto_today" msgid="9162136434410891230">"Leo"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Mipangilio"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalenda za kuonyesha"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalenda za kuonyeshwa"</string>
     <string name="search" msgid="550656004486017426">"Tafuta"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ficha vidhibiti"</string>
     <string name="show_controls" msgid="715520586028062621">"Onyesha vidhibiti"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalenda za kuonyesha"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalenda za kuonyeshwa"</string>
     <string name="synced" msgid="7913940305983383493">"Vilivyosawazishwa"</string>
     <string name="not_synced" msgid="4275114941801829419">"haijasawazishwa"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"Akaunti hii hailandanishwi na huenda kalenda zako zaweza kuwa hazijasasishwa."</string>
@@ -101,7 +101,7 @@
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Mwandalizi:"</string>
     <string name="choose_event_color_label" msgid="2192923501857428854">"Chagua rangi ya tukio"</string>
     <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Rangi ya Tukio"</string>
-    <string name="event_color_set_to_default" msgid="3447218820785647967">"Weka katika rangi chaguo msingi ya kalenda"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Fanya iwe rangi ya kawaida ya kalenda"</string>
     <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Rangi ya Kalenda"</string>
     <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Kiteua rangi"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Unahudhuria?"</string>

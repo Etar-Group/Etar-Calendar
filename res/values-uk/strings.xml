@@ -254,7 +254,7 @@
   </plurals>
   <plurals name="recurrence_interval_weekly">
     <item quantity="one" msgid="4948681635464488351">"Кожен <xliff:g id="COUNT">%d</xliff:g> тжн."</item>
-    <item quantity="other" msgid="7094801039989237061">"Кожні <xliff:g id="COUNT">%d</xliff:g> тжн."</item>
+    <item quantity="other" msgid="7094801039989237061">"Інтервал: <xliff:g id="COUNT">%d</xliff:g> тжн."</item>
   </plurals>
   <plurals name="recurrence_interval_monthly">
     <item quantity="one" msgid="4768178401603139718">"Кожен <xliff:g id="COUNT">%d</xliff:g> міс."</item>
