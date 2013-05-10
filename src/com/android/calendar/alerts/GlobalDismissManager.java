@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.provider.CalendarContract.Calendars;
@@ -335,40 +336,50 @@ public class GlobalDismissManager extends BroadcastReceiver {
         return calendarsToAccounts;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onReceive(Context context, Intent intent) {
-        boolean updated = false;
-        if (intent.hasExtra(SYNC_ID) && intent.hasExtra(ACCOUNT_NAME)) {
-            String syncId = intent.getStringExtra(SYNC_ID);
-            long startTime = Long.parseLong(intent.getStringExtra(START_TIME));
-            ContentResolver resolver = context.getContentResolver();
+        new AsyncTask<Pair<Context, Intent>, Void, Void>() {
+            @Override
+            protected Void doInBackground(Pair<Context, Intent>... params) {
+                Context context = params[0].first;
+                Intent intent = params[0].second;
+                boolean updated = false;
+                if (intent.hasExtra(SYNC_ID) && intent.hasExtra(ACCOUNT_NAME)) {
+                    String syncId = intent.getStringExtra(SYNC_ID);
+                    long startTime = Long.parseLong(intent.getStringExtra(START_TIME));
+                    ContentResolver resolver = context.getContentResolver();
 
-            Uri uri = asSync(Events.CONTENT_URI, GOOGLE_ACCOUNT_TYPE,
-                    intent.getStringExtra(ACCOUNT_NAME));
-            Cursor cursor = resolver.query(uri, EVENT_SYNC_PROJECTION,
-                    Events._SYNC_ID + " = '" + syncId + "'", null, null);
-            try {
-                int event_id_idx = cursor.getColumnIndex(Events._ID);
-                cursor.moveToFirst();
-                if (event_id_idx != -1 && !cursor.isAfterLast()) {
-                    long eventId = cursor.getLong(event_id_idx);
-                    ContentValues values = new ContentValues();
-                    String selection = CalendarAlerts.STATE + "=" + CalendarAlerts.STATE_FIRED +
-                            " AND " + CalendarAlerts.EVENT_ID + "=" + eventId +
-                            " AND " + CalendarAlerts.BEGIN + "=" + startTime;
-                    values.put(CalendarAlerts.STATE, CalendarAlerts.STATE_DISMISSED);
-                    if (resolver.update(CalendarAlerts.CONTENT_URI, values, selection, null) > 0) {
-                        updated |= true;
+                    Uri uri = asSync(Events.CONTENT_URI, GOOGLE_ACCOUNT_TYPE,
+                            intent.getStringExtra(ACCOUNT_NAME));
+                    Cursor cursor = resolver.query(uri, EVENT_SYNC_PROJECTION,
+                            Events._SYNC_ID + " = '" + syncId + "'", null, null);
+                    try {
+                        int event_id_idx = cursor.getColumnIndex(Events._ID);
+                        cursor.moveToFirst();
+                        if (event_id_idx != -1 && !cursor.isAfterLast()) {
+                            long eventId = cursor.getLong(event_id_idx);
+                            ContentValues values = new ContentValues();
+                            String selection = CalendarAlerts.STATE + "=" +
+                                    CalendarAlerts.STATE_FIRED + " AND " +
+                                    CalendarAlerts.EVENT_ID + "=" + eventId + " AND " +
+                                    CalendarAlerts.BEGIN + "=" + startTime;
+                            values.put(CalendarAlerts.STATE, CalendarAlerts.STATE_DISMISSED);
+                            int rows = resolver.update(CalendarAlerts.CONTENT_URI, values,
+                                    selection, null);
+                            updated = rows > 0;
+                        }
+                    } finally {
+                        cursor.close();
                     }
                 }
-            } finally {
-                cursor.close();
-            }
-        }
 
-        if (updated) {
-            Log.d(TAG, "updating alarm state");
-            AlertService.updateAlertNotification(context);
-        }
+                if (updated) {
+                    Log.d(TAG, "updating alarm state");
+                    AlertService.updateAlertNotification(context);
+                }
+                return null;
+            }
+        }.execute(new Pair<Context, Intent>(context, intent));
     }
 }
