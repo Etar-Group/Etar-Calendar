@@ -34,8 +34,8 @@ import android.util.TimeFormatException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -56,7 +56,6 @@ import android.widget.ToggleButton;
 
 import com.android.calendar.R;
 import com.android.calendar.Utils;
-import com.android.calendar.CalendarController.ViewType;
 import com.android.calendarcommon2.EventRecurrence;
 import com.android.datetimepicker.date.DatePickerDialog;
 
@@ -1012,17 +1011,9 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                 mIntervalPreText.setText("");
             } else {
                 int postTextStart = markerStart + INTERVAL_COUNT_MARKER.length();
-                if (postTextStart < intervalString.length() &&
-                        intervalString.charAt(postTextStart) == ' ') {
-                    postTextStart++;
-                }
-                mIntervalPostText.setText(intervalString.subSequence(postTextStart,
-                        intervalString.length()));
-
-                if (intervalString.charAt(markerStart - 1) == ' ') {
-                    markerStart--;
-                }
-                mIntervalPreText.setText(intervalString.subSequence(0, markerStart));
+                mIntervalPostText.setText(intervalString.substring(postTextStart,
+                        intervalString.length()).trim());
+                mIntervalPreText.setText(intervalString.substring(0, markerStart).trim());
             }
         }
     }
@@ -1042,12 +1033,8 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                 Log.e(TAG, "No text to put in to recurrence's end spinner.");
             } else {
                 int postTextStart = markerStart + END_COUNT_MARKER.length();
-                if (postTextStart < endString.length() &&
-                        endString.charAt(postTextStart) == ' ') {
-                    postTextStart++;
-                }
-                mPostEndCount.setText(endString.subSequence(postTextStart,
-                        endString.length()));
+                mPostEndCount.setText(endString.substring(postTextStart,
+                        endString.length()).trim());
             }
         }
     }
@@ -1256,10 +1243,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                             // so we'll just set the whole "Until a date" string.
                             item.setText(mEndDateLabel);
                         } else {
-                            if (mEndDateString.charAt(markerStart - 1) == ' ') {
-                                markerStart--;
-                            }
-                            item.setText(mEndDateString.subSequence(0, markerStart));
+                            item.setText(mEndDateString.substring(0, markerStart).trim());
                         }
                     }
                     break;
@@ -1279,11 +1263,8 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                             mHidePostEndCount = true;
                         } else {
                             int postTextStart = markerStart + END_COUNT_MARKER.length();
-                            if (endString.charAt(postTextStart) == ' ') {
-                                postTextStart++;
-                            }
-                            mPostEndCount.setText(endString.subSequence(postTextStart,
-                                    endString.length()));
+                            mPostEndCount.setText(endString.substring(postTextStart,
+                                    endString.length()).trim());
                             // In case it's a recycled view that wasn't visible.
                             if (mModel.end == RecurrenceModel.END_BY_COUNT) {
                                 mPostEndCount.setVisibility(View.VISIBLE);
@@ -1291,7 +1272,7 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
                             if (endString.charAt(markerStart - 1) == ' ') {
                                 markerStart--;
                             }
-                            item.setText(endString.subSequence(0, markerStart));
+                            item.setText(endString.substring(0, markerStart).trim());
                         }
                     }
                     break;
