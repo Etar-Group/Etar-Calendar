@@ -112,10 +112,10 @@
     <item msgid="6367412240524984286">"Se rifiutati o senza risposta"</item>
   </string-array>
   <string-array name="recurrence_freq">
-    <item msgid="3388478383574917007">"RIPETI OGNI GIORNO"</item>
-    <item msgid="6300824484048337842">"RIPETI OGNI SETT."</item>
-    <item msgid="189361731610816256">"RIPETI OGNI MESE"</item>
-    <item msgid="8714177874112569158">"RIPETI OGNI ANNO"</item>
+    <item msgid="3388478383574917007">"GIORNALIERA"</item>
+    <item msgid="6300824484048337842">"SETTIMANALE"</item>
+    <item msgid="189361731610816256">"MENSILE"</item>
+    <item msgid="8714177874112569158">"ANNUALE"</item>
   </string-array>
   <string-array name="repeat_by_nth_sun">
     <item msgid="143841313172233420">"ogni prima domenica"</item>
