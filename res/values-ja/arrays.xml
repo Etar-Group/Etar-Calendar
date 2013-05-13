@@ -113,10 +113,10 @@
     <item msgid="6367412240524984286">"辞退したか応答がなかった場合"</item>
   </string-array>
   <string-array name="recurrence_freq">
-    <item msgid="3388478383574917007">"毎日繰り返す"</item>
-    <item msgid="6300824484048337842">"毎週繰り返す"</item>
-    <item msgid="189361731610816256">"毎月繰り返す"</item>
-    <item msgid="8714177874112569158">"毎年繰り返す"</item>
+    <item msgid="3388478383574917007">"繰り返し: 毎日"</item>
+    <item msgid="6300824484048337842">"繰り返し: 毎週"</item>
+    <item msgid="189361731610816256">"繰り返し: 毎月"</item>
+    <item msgid="8714177874112569158">"繰り返し: 毎年"</item>
   </string-array>
   <string-array name="repeat_by_nth_sun">
     <item msgid="143841313172233420">"毎月第1日曜日"</item>
