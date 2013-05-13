@@ -1007,14 +1007,10 @@ public class RecurrencePickerDialog extends DialogFragment implements OnItemSele
         int markerStart = intervalString.indexOf(INTERVAL_COUNT_MARKER);
 
         if (markerStart != -1) {
-            if (markerStart == 0) {
-                mIntervalPreText.setText("");
-            } else {
-                int postTextStart = markerStart + INTERVAL_COUNT_MARKER.length();
-                mIntervalPostText.setText(intervalString.substring(postTextStart,
-                        intervalString.length()).trim());
-                mIntervalPreText.setText(intervalString.substring(0, markerStart).trim());
-            }
+          int postTextStart = markerStart + INTERVAL_COUNT_MARKER.length();
+          mIntervalPostText.setText(intervalString.substring(postTextStart,
+                  intervalString.length()).trim());
+          mIntervalPreText.setText(intervalString.substring(0, markerStart).trim());
         }
     }
 
