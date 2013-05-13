@@ -718,16 +718,16 @@
     <!-- Repeat an monthly event on the same day of every month [CHAR LIMIT=20] -->
     <string name="recurrence_month_pattern_by_day">on the same day each month</string>
 
-    <!-- Specifies that a repeating event to repeat forever (based on the defined frequency) instead of ending at a future date[CHAR LIMIT=25] -->
+    <!-- Specifies that a repeating event to repeat forever (based on the defined frequency) instead of ending at a future date[CHAR LIMIT=20] -->
     <string name="recurrence_end_continously">Forever</string>
     <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
     <string name="recurrence_end_date_label">Until a date</string>
-    <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
+    <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=20] -->
     <string name="recurrence_end_date">Until <xliff:g id="date">%s</xliff:g></string>
     <!-- Specifies that a repeating event to repeat for a number of times. A repeating event can repeat forever, repeat in a certain frequency until a certain date, or repeat for a number of times. e.g. repeat 10 times and stop. This string is for the last case [CHAR LIMIT=25] -->
     <string name="recurrence_end_count_label">For a number of events</string>
 
-    <!-- Specifies that a repeating event should repeat for a certain number of iterations. -->
+    <!-- Specifies that a repeating event should repeat for a certain number of iterations. [CHAR LIMIT=20]-->
     <plurals name="recurrence_end_count">
         <item quantity="one">For <xliff:g id="event_count">%d</xliff:g> event</item>
         <item quantity="other">For <xliff:g id="event_count">%d</xliff:g> events</item>
