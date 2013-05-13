@@ -192,7 +192,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Timp predefinit pentru memento"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Fusul orar acasă"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Calend. şi orele even. în fusul orar de acasă când călăt."</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"În călătorii, calendarul se afișează în fusul orar de acasă."</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Fus orar de acasă"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Afişaţi numărul săptămânii"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Despre"</string>
