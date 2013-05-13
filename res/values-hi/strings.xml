@@ -65,10 +65,10 @@
     <string name="hide_controls" msgid="830320505938520882">"नियंत्रण छुपाएं"</string>
     <string name="show_controls" msgid="715520586028062621">"नियंत्रण दिखाएं"</string>
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"प्रदर्शित करने के लिए कैलेंडर"</string>
-    <string name="synced" msgid="7913940305983383493">"सिंक किया गया"</string>
-    <string name="not_synced" msgid="4275114941801829419">"सिंक नहीं किया गया"</string>
+    <string name="synced" msgid="7913940305983383493">"समन्वयन किया गया"</string>
+    <string name="not_synced" msgid="4275114941801829419">"समन्वयन नहीं किया गया"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"यह खाता समन्वयित नहीं किया जा रहा है, इसलिए हो सकता है आपके कैलेंडर अद्यतित न हों."</string>
-    <string name="accounts" msgid="849401841083180306">"खाते और सिंक"</string>
+    <string name="accounts" msgid="849401841083180306">"खाते और समन्वयन"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"समन्‍वयि‍त करने के लि‍ए कैलेंडर"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"समन्‍वयि‍त करने के लि‍ए कैलेंडर"</string>
     <string name="hint_what" msgid="709155115005044531">"ईवेंट का नाम"</string>
@@ -224,7 +224,7 @@
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"अनुस्मारक जोड़ें"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"अनुस्मारक निकालें"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"अतिथि जोड़ें"</string>
-    <string name="accessibility_sync_cal" msgid="6506181885764723383">"कैलेंडर सिंक करें"</string>
+    <string name="accessibility_sync_cal" msgid="6506181885764723383">"कैलेंडर समन्वयन करें"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"पूरे दिन का ईवेंट"</string>
     <string name="accessibility_repeats" msgid="1629279916830919582">"दोहराव"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"अनुस्मारक समय"</string>

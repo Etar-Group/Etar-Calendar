@@ -71,7 +71,7 @@
     <string name="accounts" msgid="849401841083180306">"Konton och synkronisering"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalendrar som ska synkroniseras"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalendrar som ska synkroniseras"</string>
-    <string name="hint_what" msgid="709155115005044531">"Händelsens namn"</string>
+    <string name="hint_what" msgid="709155115005044531">"Eventnamn"</string>
     <string name="hint_where" msgid="4972598001033801974">"Plats"</string>
     <string name="hint_description" msgid="1910143586169033232">"Beskrivning"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Gäster"</string>
