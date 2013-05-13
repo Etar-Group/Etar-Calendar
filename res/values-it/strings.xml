@@ -72,10 +72,10 @@
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Calendari da sincronizzare"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Calendari da sincronizzare"</string>
     <string name="hint_what" msgid="709155115005044531">"Nome evento"</string>
-    <string name="hint_where" msgid="4972598001033801974">"Posizione"</string>
+    <string name="hint_where" msgid="4972598001033801974">"Luogo"</string>
     <string name="hint_description" msgid="1910143586169033232">"Descrizione"</string>
-    <string name="hint_attendees" msgid="1650488163176888480">"Ospiti"</string>
-    <string name="creating_event" msgid="7516249252554059980">"Evento creato."</string>
+    <string name="hint_attendees" msgid="1650488163176888480">"Invitati"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Evento creato"</string>
     <string name="saving_event" msgid="7694181017411177226">"Evento salvato."</string>
     <string name="empty_event" msgid="9018699257414338634">"Evento vuoto non creato."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Gli inviti verranno inviati."</string>
@@ -151,7 +151,7 @@
     <item quantity="other" msgid="4855496837834652446">"; per <xliff:g id="NUMBER">%d</xliff:g> volte"</item>
   </plurals>
   <plurals name="daily">
-    <item quantity="one" msgid="5169052946627480942">"Giornaliero"</item>
+    <item quantity="one" msgid="5169052946627480942">"Ogni giorno"</item>
     <item quantity="other" msgid="5455230727715859264">"Ogni <xliff:g id="NUMBER">%d</xliff:g> giorni"</item>
   </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Ogni giorno della sett. (lun-ven)"</string>

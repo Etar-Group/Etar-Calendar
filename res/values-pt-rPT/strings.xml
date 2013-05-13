@@ -188,12 +188,12 @@
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Vibrar"</string>
     <string name="preferences_alerts_ringtone_title" msgid="1849706055052358346">"Som"</string>
     <string name="preferences_alerts_popup_title" msgid="6643468203670475296">"Notificação de pop-up"</string>
-    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Hora predefinida do lembrete"</string>
-    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Hora predefinida do lembrete"</string>
+    <string name="preferences_default_reminder_title" msgid="5188861433342733905">"Tempo predefinido do lembrete"</string>
+    <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Tempo predefinido do lembrete"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
-    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Util. fuso h. in."</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Mostra os calendários e horas dos eventos no fuso horário inicial quando viaja"</string>
-    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Fuso hor. inicial"</string>
+    <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usar hora de casa"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Mostra os calendários e horas dos eventos no fuso horário de casa quando viaja"</string>
+    <string name="preferences_home_tz_title" msgid="6680000444088818578">"Fuso hor. de casa"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar número da semana"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Acerca de"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versão da compilação"</string>
