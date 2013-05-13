@@ -122,11 +122,11 @@
     <string name="quick_response_email_failed" msgid="5544066405231853245">"이메일 프로그램 찾기 실패"</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"조금 늦어요."</item>
-    <item msgid="6215158751728689832">"약 10분 후에 도착"</item>
+    <item msgid="6215158751728689832">"약 10분 후에 도착합니다."</item>
     <item msgid="4485794001743679338">"저 없이 시작하세요."</item>
     <item msgid="8036557974294987511">"죄송합니다. 일정을 변경해야 합니다."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="8792374208224108798">"나만의 응답을 작성…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"직접 메시지 쓰기…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"주최자:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"알림"</string>
     <string name="agenda_today" msgid="5965841338467422191">"오늘, <xliff:g id="DATE">%1$s</xliff:g>"</string>
