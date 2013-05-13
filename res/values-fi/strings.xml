@@ -148,7 +148,7 @@
     <string name="endByDate" msgid="7654221304929538201">"<xliff:g id="DATE">%s</xliff:g> saakka"</string>
   <plurals name="endByCount">
     <item quantity="one" msgid="3727754565990691816">"yhden kerran"</item>
-    <item quantity="other" msgid="4855496837834652446">"<xliff:g id="NUMBER">%d</xliff:g> kertaa"</item>
+    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> kertaa"</item>
   </plurals>
   <plurals name="daily">
     <item quantity="one" msgid="5169052946627480942">"Päivittäin"</item>

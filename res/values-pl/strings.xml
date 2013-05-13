@@ -115,7 +115,7 @@
     <string name="map_label" msgid="8795383535586556038">"Mapa"</string>
     <string name="call_label" msgid="2960328220008869083">"Zadzwoń"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Szybkie odpowiedzi"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edytuj domyślne odpowiedzi e-mail do gości"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Edytuj domyślne odpowiedzi do uczestników"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Edytuj szybkie odpowiedzi"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Szybka odpowiedź"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Wybierz szybką odpowiedź"</string>
@@ -270,7 +270,7 @@
     <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
     <string name="recurrence_end_count_label" msgid="1233883668293087977">"Określona liczba powtórzeń"</string>
   <plurals name="recurrence_end_count">
-    <item quantity="one" msgid="1400782968090516215">"Dla <xliff:g id="EVENT_COUNT">%d</xliff:g> wydarzenia"</item>
+    <item quantity="one" msgid="1400782968090516215">"Do <xliff:g id="EVENT_COUNT">%d</xliff:g> wydarzenia"</item>
     <item quantity="other" msgid="8779598489398048259">"Dla <xliff:g id="EVENT_COUNT">%d</xliff:g> wydarzeń"</item>
   </plurals>
     <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"zmień datę zakończenia"</string>

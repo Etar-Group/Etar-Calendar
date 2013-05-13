@@ -113,10 +113,10 @@
     <item msgid="6367412240524984286">"Po odrzuceniu lub gdy bez odpowiedzi"</item>
   </string-array>
   <string-array name="recurrence_freq">
-    <item msgid="3388478383574917007">"POWTARZAJ CODZIENNIE"</item>
-    <item msgid="6300824484048337842">"POWTARZAJ CO TYDZIEŃ"</item>
-    <item msgid="189361731610816256">"POWTARZAJ CO MIESIĄC"</item>
-    <item msgid="8714177874112569158">"POWTARZAJ CO ROK"</item>
+    <item msgid="3388478383574917007">"CODZIENNIE"</item>
+    <item msgid="6300824484048337842">"CO TYDZIEŃ"</item>
+    <item msgid="189361731610816256">"CO MIESIĄC"</item>
+    <item msgid="8714177874112569158">"CO ROK"</item>
   </string-array>
   <string-array name="repeat_by_nth_sun">
     <item msgid="143841313172233420">"w każdą pierwszą niedzielę"</item>

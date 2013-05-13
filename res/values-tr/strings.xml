@@ -220,13 +220,13 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Bitiş tarihi"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Bitiş zamanı"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Saat dilimi"</string>
-    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Etkinliği yinele"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Etkinliği tekrarla"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Hatırlatıcı ekle"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Hatırlatıcıyı kaldır"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Katılımcı ekle"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"Takvimi senkronize et"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"Tüm gün etkinliği"</string>
-    <string name="accessibility_repeats" msgid="1629279916830919582">"Tekrarlanma"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Tekrar"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Hatırlatıcı süresi"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Hatırlatıcı türü"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Durumumu şu şekilde göster:"</string>
@@ -247,7 +247,7 @@
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Seçili etkinlik"</string>
     <string name="do_not_check" msgid="7815441673853466129">"İŞARETLEMEYİN -&gt;"</string>
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Tekrar"</string>
-    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Asla yineleme"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Tekrarlama yok"</string>
   <plurals name="recurrence_interval_daily">
     <item quantity="one" msgid="1205422710088692631">"Her <xliff:g id="COUNT">%d</xliff:g> günde bir"</item>
     <item quantity="other" msgid="707566499994398250">"Her <xliff:g id="COUNT">%d</xliff:g> günde bir"</item>

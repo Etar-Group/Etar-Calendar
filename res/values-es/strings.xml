@@ -139,7 +139,7 @@
     <string name="edit_event_label" msgid="7413222956349977161">"Detalles"</string>
     <string name="edit_label" msgid="8934331258435656534">"Editar"</string>
     <string name="delete_label" msgid="874742811918030739">"Eliminar"</string>
-    <string name="save_label" msgid="2133599104834432589">"OK"</string>
+    <string name="save_label" msgid="2133599104834432589">"Listo"</string>
     <string name="discard_label" msgid="2394623883289782541">"Cancelar"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Posponer recordatorios"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Descartar todo"</string>
@@ -264,7 +264,7 @@
     <item quantity="one" msgid="5819562634008179102">"Cada <xliff:g id="COUNT">%d</xliff:g> año"</item>
     <item quantity="other" msgid="5678653649746562060">"Cada <xliff:g id="COUNT">%d</xliff:g> años"</item>
   </plurals>
-    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"el mismo día cada mes"</string>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"el mismo día de cada mes"</string>
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Siempre"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Hasta una fecha"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Hasta el <xliff:g id="DATE">%s</xliff:g>"</string>
