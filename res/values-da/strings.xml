@@ -115,7 +115,7 @@
     <string name="map_label" msgid="8795383535586556038">"Kort"</string>
     <string name="call_label" msgid="2960328220008869083">"Ring op"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Hurtige svar"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Rediger standardsvar for, når der sendes e-mail til gæster"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"Rediger standardsvar, der kan sendes til gæster"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Ret hurtige svar"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Hurtigt svar"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"Vælg hurtigt svar"</string>
