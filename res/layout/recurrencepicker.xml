@@ -223,6 +223,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="bottom"
+                            android:singleLine="true"
                             android:layout_marginBottom="-3dp"
                             android:visibility="gone" />
 
@@ -234,6 +235,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:singleLine="true"
+                            android:minWidth="80dp"
                             android:contentDescription="@string/acessibility_recurrence_choose_end_date_description"
                             android:gravity="center_horizontal|bottom"
                             android:layout_marginTop="3dp"
