@@ -246,6 +246,11 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                             EditEventHelper.CALENDARS_PROJECTION, EditEventHelper.CALENDARS_WHERE,
                             selArgs /* selection args */, null /* sort order */);
 
+                    // TOKEN_COLORS
+                    mHandler.startQuery(TOKEN_COLORS, null, Colors.CONTENT_URI,
+                            EditEventHelper.COLORS_PROJECTION,
+                            Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT, null, null);
+
                     setModelIfDone(TOKEN_EVENT);
                     break;
                 case TOKEN_ATTENDEES:
@@ -335,9 +340,6 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
                             EditEventHelper.setModelFromCalendarCursor(mModel, cursor);
                             EditEventHelper.setModelFromCalendarCursor(mOriginalModel, cursor);
                         }
-                        startQuery(TOKEN_COLORS, null, Colors.CONTENT_URI,
-                                EditEventHelper.COLORS_PROJECTION,
-                                Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT, null, null);
                     } finally {
                         cursor.close();
                     }
@@ -525,11 +527,15 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             mModel.mCalendarId = mCalendarId;
             mModel.mSelfAttendeeStatus = Attendees.ATTENDEE_STATUS_ACCEPTED;
 
-            // Start a query in the background to read the list of calendars
+            // Start a query in the background to read the list of calendars and colors
             mHandler.startQuery(TOKEN_CALENDARS, null, Calendars.CONTENT_URI,
                     EditEventHelper.CALENDARS_PROJECTION,
                     EditEventHelper.CALENDARS_WHERE_WRITEABLE_VISIBLE, null /* selection args */,
                     null /* sort order */);
+
+            mHandler.startQuery(TOKEN_COLORS, null, Colors.CONTENT_URI,
+                    EditEventHelper.COLORS_PROJECTION,
+                    Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT, null, null);
 
             mModification = Utils.MODIFY_ALL;
             mView.setModification(mModification);
