@@ -178,7 +178,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Paramètres"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Paramètres d\'affichage de l\'agenda"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Notifications et rappels"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Masquer évén. refusés"</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Masquer événements refusés"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"1er jour de la semaine :"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"1er jour de la semaine :"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Effacer historique des recherches"</string>
@@ -268,7 +268,7 @@
     <string name="recurrence_end_continously" msgid="6898950241634912991">"Toujours"</string>
     <string name="recurrence_end_date_label" msgid="4142791438636994952">"Jusqu\'à une certaine date"</string>
     <string name="recurrence_end_date" msgid="3693751578164711701">"Jusqu\'au <xliff:g id="DATE">%s</xliff:g>"</string>
-    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Pour certains événements"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Pour une série d\'événements"</string>
   <plurals name="recurrence_end_count">
     <item quantity="one" msgid="1400782968090516215">"Pour <xliff:g id="EVENT_COUNT">%d</xliff:g> événement"</item>
     <item quantity="other" msgid="8779598489398048259">"Pour <xliff:g id="EVENT_COUNT">%d</xliff:g> événements"</item>
