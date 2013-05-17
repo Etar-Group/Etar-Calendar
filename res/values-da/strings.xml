@@ -178,7 +178,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Indstillinger"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Indstillinger for kalendervisning"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Underretninger og påmindelser"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skjul afviste begivenhed."</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Skjul afviste begivenheder"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Ugen starter"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Ugen starter"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Ryd søgehistorik"</string>
