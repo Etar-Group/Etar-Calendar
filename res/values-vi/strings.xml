@@ -192,7 +192,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Thời gian nhắc mặc định"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Dùng múi giờ chính"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Hiện lịch và t.gian sự kiện trong múi giờ chính khi du lịch"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Hiện lịch và thời gian sự kiện trong múi giờ chính khi đi du lịch"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Múi giờ chính"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Hiển thị số tuần"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Giới thiệu về"</string>
