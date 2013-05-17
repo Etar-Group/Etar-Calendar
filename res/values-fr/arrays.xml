@@ -113,10 +113,10 @@
     <item msgid="6367412240524984286">"Si refus ou pas de réponse"</item>
   </string-array>
   <string-array name="recurrence_freq">
-    <item msgid="3388478383574917007">"RÉPÉTER CHAQUE JOUR"</item>
-    <item msgid="6300824484048337842">"RÉPÉTER CHAQUE SEMAINE"</item>
-    <item msgid="189361731610816256">"RÉPÉTER CHAQUE MOIS"</item>
-    <item msgid="8714177874112569158">"RÉPÉTER CHAQUE ANNÉE"</item>
+    <item msgid="3388478383574917007">"TOUS LES JOURS"</item>
+    <item msgid="6300824484048337842">"TOUTES LES SEMAINES"</item>
+    <item msgid="189361731610816256">"TOUS LES MOIS"</item>
+    <item msgid="8714177874112569158">"TOUS LES ANS"</item>
   </string-array>
   <string-array name="repeat_by_nth_sun">
     <item msgid="143841313172233420">"tous les premiers dimanches"</item>
