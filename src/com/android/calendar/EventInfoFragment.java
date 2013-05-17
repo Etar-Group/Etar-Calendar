@@ -134,6 +134,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     protected static final String BUNDLE_KEY_CALENDAR_COLOR = "key_calendar_color";
     protected static final String BUNDLE_KEY_CALENDAR_COLOR_INIT = "key_calendar_color_init";
     protected static final String BUNDLE_KEY_CURRENT_COLOR = "key_current_color";
+    protected static final String BUNDLE_KEY_CURRENT_COLOR_KEY = "key_current_color_key";
     protected static final String BUNDLE_KEY_CURRENT_COLOR_INIT = "key_current_color_init";
     protected static final String BUNDLE_KEY_ORIGINAL_COLOR = "key_original_color";
     protected static final String BUNDLE_KEY_ORIGINAL_COLOR_INIT = "key_original_color_init";
@@ -369,6 +370,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private boolean mCalendarColorInitialized = false;
     private int mCurrentColor = -1;
     private boolean mCurrentColorInitialized = false;
+    private int mCurrentColorKey = -1;
 
     private static final int FADE_IN_TIME = 300;   // in milliseconds
     private static final int LOADING_MSG_DELAY = 600;   // in milliseconds
@@ -873,6 +875,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             mCurrentColor = savedInstanceState.getInt(BUNDLE_KEY_CURRENT_COLOR);
             mCurrentColorInitialized = savedInstanceState.getBoolean(
                     BUNDLE_KEY_CURRENT_COLOR_INIT);
+            mCurrentColorKey = savedInstanceState.getInt(BUNDLE_KEY_CURRENT_COLOR_KEY);
 
             mTentativeUserSetResponse = savedInstanceState.getInt(
                             BUNDLE_KEY_TENTATIVE_USER_RESPONSE,
@@ -1160,6 +1163,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         outState.putBoolean(BUNDLE_KEY_ORIGINAL_COLOR_INIT, mOriginalColorInitialized);
         outState.putInt(BUNDLE_KEY_CURRENT_COLOR, mCurrentColor);
         outState.putBoolean(BUNDLE_KEY_CURRENT_COLOR_INIT, mCurrentColorInitialized);
+        outState.putInt(BUNDLE_KEY_CURRENT_COLOR_KEY, mCurrentColorKey);
 
         // We'll need the temporary response for configuration changes.
         outState.putInt(BUNDLE_KEY_TENTATIVE_USER_RESPONSE, mTentativeUserSetResponse);
@@ -1268,7 +1272,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         ContentValues values = new ContentValues();
         if (mCurrentColor != mCalendarColor) {
-            values.put(Events.EVENT_COLOR_KEY, mDisplayColorKeyMap.get(mCurrentColor));
+            values.put(Events.EVENT_COLOR_KEY, mCurrentColorKey);
         } else {
             values.put(Events.EVENT_COLOR_KEY, NO_EVENT_COLOR);
         }
@@ -1282,6 +1286,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     public void onStop() {
         Activity act = getActivity();
         if (!mEventDeletionStarted && act != null && !act.isChangingConfigurations()) {
+
             boolean responseSaved = saveResponse();
             boolean eventColorSaved = saveEventColor();
             if (saveReminders() || responseSaved || eventColorSaved) {
@@ -1453,11 +1458,6 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     }
 
-    private void updateCurrentEventColor(int color) {
-        mCurrentColor = color;
-        mHeadlines.setBackgroundColor(color);
-    }
-
     private void updateEvent(View view) {
         if (mEventCursor == null || view == null) {
             return;
@@ -1506,7 +1506,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         String rRule = mEventCursor.getString(EVENT_INDEX_RRULE);
         String eventTimezone = mEventCursor.getString(EVENT_INDEX_EVENT_TIMEZONE);
 
-        updateCurrentEventColor(mCurrentColor);
+        mHeadlines.setBackgroundColor(mCurrentColor);
 
         // What
         if (eventName != null) {
@@ -2285,6 +2285,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
     @Override
     public void onColorSelected(int color) {
-        updateCurrentEventColor(color);
+        mCurrentColor = color;
+        mCurrentColorKey = mDisplayColorKeyMap.get(color);
+        mHeadlines.setBackgroundColor(color);
     }
 }
