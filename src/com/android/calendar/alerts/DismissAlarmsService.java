@@ -27,6 +27,7 @@ import android.os.IBinder;
 import android.provider.CalendarContract.CalendarAlerts;
 import android.support.v4.app.TaskStackBuilder;
 
+import android.util.Log;
 import com.android.calendar.EventInfoActivity;
 import com.android.calendar.alerts.GlobalDismissManager.AlarmId;
 
@@ -37,6 +38,9 @@ import java.util.List;
  * Service for asynchronously marking fired alarms as dismissed.
  */
 public class DismissAlarmsService extends IntentService {
+    public static final String DELETE_ALL_ACTION = "com.android.calendar.DELETEALL";
+    private static final String TAG = "DismissAlarmsService";
+
     private static final String[] PROJECTION = new String[] {
             CalendarAlerts.STATE,
     };
@@ -53,6 +57,10 @@ public class DismissAlarmsService extends IntentService {
 
     @Override
     public void onHandleIntent(Intent intent) {
+        if (!DELETE_ALL_ACTION.equals(intent.getAction())) {
+            Log.wtf(TAG, String.format("Unknown Action: %s", intent.getAction()));
+            return;
+        }
 
         long eventId = intent.getLongExtra(AlertUtils.EVENT_ID_KEY, -1);
         long eventStart = intent.getLongExtra(AlertUtils.EVENT_START_KEY, -1);
