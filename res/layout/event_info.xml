@@ -48,7 +48,12 @@
             <include layout="@layout/app_bar" />
 
         </com.google.android.material.appbar.AppBarLayout>
-
+        <TextView
+            android:id="@+id/event_info_error_msg"
+            android:text="@string/event_not_found"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
         <ScrollView
         android:id="@+id/event_info_scroll_view"
         android:orientation="vertical"

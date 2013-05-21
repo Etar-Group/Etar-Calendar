@@ -362,6 +362,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     private View mHeadlines;
     private ScrollView mScrollView;
     private View mLoadingMsgView;
+    private View mErrorMsgView;
     private ObjectAnimator mAnimateAlpha;
     private long mLoadingMsgStartTime;
     private final Runnable mLoadingMsgAlphaUpdater = new Runnable() {
@@ -774,6 +775,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         mScrollView = (ScrollView) mView.findViewById(R.id.event_info_scroll_view);
         mLoadingMsgView = mView.findViewById(R.id.event_info_loading_msg);
+        mErrorMsgView = mView.findViewById(R.id.event_info_error_msg);
         mTitle = (TextView) mView.findViewById(R.id.title);
         mWhenDateTime = (TextView) mView.findViewById(R.id.when_datetime);
         mWhere = (TextView) mView.findViewById(R.id.where);
@@ -822,6 +824,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
 
         mLoadingMsgView.setAlpha(0);
         mScrollView.setAlpha(0);
+        mErrorMsgView.setVisibility(View.INVISIBLE);
         mLoadingMsgView.postDelayed(mLoadingMsgAlphaUpdater, LOADING_MSG_DELAY);
 
         // start loading the data
@@ -906,11 +909,11 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
     /**
      * Initializes the event cursor, which is expected to point to the first
      * (and only) result from a query.
-     * @return true if the cursor is empty.
+     * @return false if the cursor is empty, true otherwise
      */
     private boolean initEventCursor() {
         if ((mEventCursor == null) || (mEventCursor.getCount() == 0)) {
-            return true;
+            return false;
         }
         mEventCursor.moveToFirst();
         mEventId = mEventCursor.getInt(EVENT_INDEX_ID);
@@ -922,7 +925,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             (mReminders != null && mReminders.size() > 0);
         mMaxReminders = mEventCursor.getInt(EVENT_INDEX_MAX_REMINDERS);
         mCalendarAllowedReminders =  mEventCursor.getString(EVENT_INDEX_ALLOWED_REMINDERS);
-        return false;
+        return true;
     }
 
     @SuppressWarnings("fallthrough")
@@ -1423,6 +1426,12 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
     }
 
+    private void displayEventNotFound() {
+        mErrorMsgView.setVisibility(View.VISIBLE);
+        mScrollView.setVisibility(View.GONE);
+        mLoadingMsgView.setVisibility(View.GONE);
+    }
+
     private void updateEvent(View view) {
         if (mEventCursor == null || view == null) {
             return;
@@ -1663,7 +1672,7 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
         }
 
         AccessibilityEvent event = AccessibilityEvent.obtain(AccessibilityEvent.TYPE_VIEW_FOCUSED);
-        event.setClassName(getClass().getName());
+        event.setClassName(EventInfoFragment.class.getName());
         event.setPackageName(getActivity().getPackageName());
         List<CharSequence> text = event.getText();
 
@@ -2255,11 +2264,8 @@ public class EventInfoFragment extends DialogFragment implements OnCheckedChange
             switch (token) {
                 case TOKEN_QUERY_EVENT:
                     mEventCursor = Utils.matrixCursorFromCursor(cursor);
-                    if (initEventCursor()) {
-                        // The cursor is empty. This can happen if the event was
-                        // deleted.
-                        // FRAG_TODO we should no longer rely on Activity.finish()
-                        activity.finish();
+                    if (!initEventCursor()) {
+                        displayEventNotFound();
                         return;
                     }
                     if (!mCalendarColorInitialized) {
