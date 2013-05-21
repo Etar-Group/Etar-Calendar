@@ -80,7 +80,6 @@ public class AlertReceiver extends BroadcastReceiver {
     public static final String ACTION_DISMISS_OLD_REMINDERS = "removeOldReminders";
     static final Object mStartingServiceSync = new Object();
     private static final String TAG = "AlertReceiver";
-    private static final String DELETE_ALL_ACTION = "com.android.calendar.DELETEALL";
     private static final String MAP_ACTION = "com.android.calendar.MAP";
     private static final String CALL_ACTION = "com.android.calendar.CALL";
     private static final String MAIL_ACTION = "com.android.calendar.MAIL";
@@ -173,6 +172,7 @@ public class AlertReceiver extends BroadcastReceiver {
             boolean showEvent) {
         Intent intent = new Intent();
         intent.setClass(context, DismissAlarmsService.class);
+        intent.setAction(DismissAlarmsService.DELETE_ALL_ACTION);
         intent.putExtra(AlertUtils.EVENT_ID_KEY, eventId);
         intent.putExtra(AlertUtils.EVENT_START_KEY, startMillis);
         intent.putExtra(AlertUtils.EVENT_END_KEY, endMillis);
@@ -397,7 +397,7 @@ public class AlertReceiver extends BroadcastReceiver {
         // expired events.
         Intent deleteIntent = new Intent();
         deleteIntent.setClass(context, DismissAlarmsService.class);
-        deleteIntent.setAction(DELETE_ALL_ACTION);
+        deleteIntent.setAction(DismissAlarmsService.DELETE_ALL_ACTION);
         deleteIntent.putExtra(AlertUtils.EVENT_IDS_KEY, eventIds);
         deleteIntent.putExtra(AlertUtils.EVENT_STARTS_KEY, startMillis);
         PendingIntent pendingDeleteIntent = PendingIntent.getService(context, 0, deleteIntent,
@@ -769,13 +769,7 @@ public class AlertReceiver extends BroadcastReceiver {
         if (AlertService.DEBUG) {
             Log.d(TAG, "onReceive: a=" + intent.getAction() + " " + intent.toString());
         }
-        if (DELETE_ALL_ACTION.equals(intent.getAction())) {
-
-            // The user has dismissed a digest notification.
-            // TODO Grab a wake lock here?
-            Intent serviceIntent = new Intent(context, DismissAlarmsService.class);
-            context.startService(serviceIntent);
-        } else if (MAP_ACTION.equals(intent.getAction())) {
+        if (MAP_ACTION.equals(intent.getAction())) {
             // Try starting the map action.
             // If no map location is found (something changed since the notification was originally
             // fired), update the notifications to express this change.
