@@ -36,7 +36,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
-
+    <TextView
+            android:layout_below="@+id/event_info_error_msg"
+            android:layout_centerHorizontal="true"
+            android:text="@string/event_not_found"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/event_info_scroll_view"
