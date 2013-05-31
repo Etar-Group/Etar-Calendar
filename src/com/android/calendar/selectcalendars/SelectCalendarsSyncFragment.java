@@ -36,14 +36,12 @@ import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.android.calendar.AsyncQueryService;
-import com.android.calendar.CalendarColorPickerDialog;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.selectcalendars.SelectCalendarsSyncAdapter.CalendarRow;
@@ -68,6 +66,8 @@ public class SelectCalendarsSyncFragment extends ListFragment
         Calendars.CALENDAR_DISPLAY_NAME,
         Calendars.CALENDAR_COLOR,
         Calendars.SYNC_EVENTS,
+        Calendars.ACCOUNT_NAME,
+        Calendars.ACCOUNT_TYPE,
         "(" + Calendars.ACCOUNT_NAME + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY, };
 
     private TextView mSyncStatus;

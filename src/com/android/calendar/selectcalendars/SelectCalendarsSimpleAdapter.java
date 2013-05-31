@@ -39,8 +39,10 @@ import android.widget.TextView;
 import com.android.calendar.CalendarColorPickerDialog;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendar.selectcalendars.CalendarColorCache.OnCalendarColorsLoadedListener;
 
-public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAdapter {
+public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAdapter,
+    OnCalendarColorsLoadedListener {
     private static final String TAG = "SelectCalendarsAdapter";
     private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
 
@@ -71,16 +73,22 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     private int mColorColumn;
     private int mVisibleColumn;
     private int mOwnerAccountColumn;
+    private int mAccountNameColumn;
+    private int mAccountTypeColumn;
     private static float mScale = 0;
     private int mColorCalendarVisible;
     private int mColorCalendarHidden;
     private int mColorCalendarSecondaryVisible;
     private int mColorCalendarSecondaryHidden;
 
+    private CalendarColorCache mCache;
+
     private class CalendarRow {
         long id;
         String displayName;
         String ownerAccount;
+        String accountName;
+        String accountType;
         int color;
         boolean selected;
     }
@@ -102,6 +110,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
             BOTTOM_ITEM_HEIGHT *= mScale;
             NORMAL_ITEM_HEIGHT *= mScale;
         }
+
+        mCache = new CalendarColorCache(context, this);
 
         mFragmentManager = fm;
         mColorPickerDialog = (CalendarColorPickerDialog)
@@ -178,6 +188,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         mColorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         mVisibleColumn = c.getColumnIndexOrThrow(Calendars.VISIBLE);
         mOwnerAccountColumn = c.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
+        mAccountNameColumn = c.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
+        mAccountTypeColumn = c.getColumnIndexOrThrow(Calendars.ACCOUNT_TYPE);
 
         mRowCount = c.getCount();
         mData = new CalendarRow[(c.getCount())];
@@ -190,6 +202,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
             mData[p].color = c.getInt(mColorColumn);
             mData[p].selected = c.getInt(mVisibleColumn) != 0;
             mData[p].ownerAccount = c.getString(mOwnerAccountColumn);
+            mData[p].accountName = c.getString(mAccountNameColumn);
+            mData[p].accountType = c.getString(mAccountTypeColumn);
             p++;
         }
     }
@@ -238,6 +252,11 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         colorView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Purely for sanity check--view should be disabled if account has no more colors
+                if (!hasMoreColors(position)) {
+                    return;
+                }
+
                 if (mColorPickerDialog == null) {
                     mColorPickerDialog = CalendarColorPickerDialog.newInstance(mData[position].id,
                             mIsTablet);
@@ -261,9 +280,11 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
         CheckBox syncCheckBox = (CheckBox) view.findViewById(R.id.sync);
         if (syncCheckBox != null) {
+
             // Full screen layout
             syncCheckBox.setChecked(selected);
 
+            colorView.setEnabled(hasMoreColors(position));
             LayoutParams layoutParam = calendarName.getLayoutParams();
             TextView secondaryText = (TextView) view.findViewById(R.id.status);
             if (!TextUtils.isEmpty(mData[position].ownerAccount)
@@ -288,7 +309,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
         } else {
             // Tablet layout
-            view.findViewById(R.id.color).setEnabled(selected);
+            view.findViewById(R.id.color).setEnabled(selected && hasMoreColors(position));
             view.setBackgroundDrawable(getBackground(position, selected));
             ViewGroup.LayoutParams newParams = view.getLayoutParams();
             if (position == mData.length - 1) {
@@ -304,6 +325,10 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         }
         view.invalidate();
         return view;
+    }
+
+    private boolean hasMoreColors(int position) {
+        return mCache.hasColors(mData[position].accountName, mData[position].accountType);
     }
 
     /**
@@ -354,5 +379,10 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     @Override
     public boolean hasStableIds() {
         return true;
+    }
+
+    @Override
+    public void onCalendarColorsLoaded() {
+        notifyDataSetChanged();
     }
 }
