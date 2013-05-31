@@ -16,13 +16,6 @@
 
 package com.android.calendar.selectcalendars;
 
-import com.android.calendar.AsyncQueryService;
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.R;
-import com.android.calendar.CalendarController;
-import com.android.calendar.Utils;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ContentUris;
@@ -31,15 +24,23 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Calendars;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+import com.android.calendar.selectcalendars.CalendarColorCache.OnCalendarColorsLoadedListener;
+
 public class SelectVisibleCalendarsFragment extends Fragment
-        implements AdapterView.OnItemClickListener, CalendarController.EventHandler {
+        implements AdapterView.OnItemClickListener, CalendarController.EventHandler,
+        OnCalendarColorsLoadedListener {
 
     private static final String TAG = "Calendar";
     private static final String IS_PRIMARY = "\"primary\"";
@@ -49,6 +50,7 @@ public class SelectVisibleCalendarsFragment extends Fragment
     private static final String[] PROJECTION = new String[] {
         Calendars._ID,
         Calendars.ACCOUNT_NAME,
+        Calendars.ACCOUNT_TYPE,
         Calendars.OWNER_ACCOUNT,
         Calendars.CALENDAR_DISPLAY_NAME,
         Calendars.CALENDAR_COLOR,
@@ -182,5 +184,12 @@ public class SelectVisibleCalendarsFragment extends Fragment
     @Override
     public void handleEvent(EventInfo event) {
         eventsChanged();
+    }
+
+    @Override
+    public void onCalendarColorsLoaded() {
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }
