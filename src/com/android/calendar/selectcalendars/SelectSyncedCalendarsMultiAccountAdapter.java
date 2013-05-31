@@ -44,13 +44,14 @@ import android.widget.TextView;
 import com.android.calendar.CalendarColorPickerDialog;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.calendar.selectcalendars.CalendarColorCache.OnCalendarColorsLoadedListener;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter implements
-        View.OnClickListener {
+        View.OnClickListener, OnCalendarColorsLoadedListener {
 
     private static final String TAG = "Calendar";
     private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
@@ -119,6 +120,7 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
       Calendars.VISIBLE,
       Calendars.SYNC_EVENTS,
       "(" + Calendars.ACCOUNT_NAME + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY,
+      Calendars.ACCOUNT_TYPE
     };
     //Keep these in sync with the projection
     private static final int ID_COLUMN = 0;
@@ -129,9 +131,12 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
     private static final int SELECTED_COLUMN = 5;
     private static final int SYNCED_COLUMN = 6;
     private static final int PRIMARY_COLUMN = 7;
+    private static final int ACCOUNT_TYPE_COLUMN = 8;
 
     private static final int TAG_ID_CALENDAR_ID = R.id.calendar;
     private static final int TAG_ID_SYNC_CHECKBOX = R.id.sync;
+
+    private CalendarColorCache mCache;
 
     private class AsyncCalendarsUpdater extends AsyncQueryHandler {
 
@@ -215,6 +220,8 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         super(acctsCursor, context);
         mSyncedText = context.getString(R.string.synced);
         mNotSyncedText = context.getString(R.string.not_synced);
+
+        mCache = new CalendarColorCache(context, this);
 
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mResolver = context.getContentResolver();
@@ -312,9 +319,12 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
         final long id = cursor.getLong(ID_COLUMN);
         String name = cursor.getString(NAME_COLUMN);
         String owner = cursor.getString(OWNER_COLUMN);
+        final String accountName = cursor.getString(ACCOUNT_COLUMN);
+        final String accountType = cursor.getString(ACCOUNT_TYPE_COLUMN);
         int color = Utils.getDisplayColorFromColor(cursor.getInt(COLOR_COLUMN));
 
         final View colorSquare = view.findViewById(R.id.color);
+        colorSquare.setEnabled(mCache.hasColors(accountName, accountType));
         colorSquare.setBackgroundColor(color);
         final View delegateParent = (View) colorSquare.getParent();
         delegateParent.post(new Runnable() {
@@ -334,6 +344,9 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
 
             @Override
             public void onClick(View v) {
+                if (!mCache.hasColors(accountName, accountType)) {
+                    return;
+                }
                 if (mColorPickerDialog == null) {
                     mColorPickerDialog = CalendarColorPickerDialog.newInstance(id, mIsTablet);
                 } else {
@@ -448,5 +461,10 @@ public class SelectSyncedCalendarsMultiAccountAdapter extends CursorTreeAdapter 
                     new String[] { mAccount, mAccountType } /*selectionArgs*/,
                     CALENDARS_ORDERBY);
         }
+    }
+
+    @Override
+    public void onCalendarColorsLoaded() {
+        notifyDataSetChanged();
     }
 }
