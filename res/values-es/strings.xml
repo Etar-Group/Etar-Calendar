@@ -57,7 +57,7 @@
     <string name="event_view" msgid="7621353079385122317">"Ver evento"</string>
     <string name="event_create" msgid="6941040556709110617">"Nuevo evento"</string>
     <string name="event_edit" msgid="4006961928830064662">"Editar evento"</string>
-    <string name="event_delete" msgid="2386667193277770442">"Suprimir evento"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Eliminar evento"</string>
     <string name="goto_today" msgid="9162136434410891230">"Hoy"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Ajustes"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"Calendarios visibles"</string>
