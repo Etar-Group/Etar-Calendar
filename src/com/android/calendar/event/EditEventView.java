@@ -1607,6 +1607,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private void setTime(TextView view, long millis) {
         int flags = DateUtils.FORMAT_SHOW_TIME;
+        flags |= DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
         if (DateFormat.is24HourFormat(mActivity)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
