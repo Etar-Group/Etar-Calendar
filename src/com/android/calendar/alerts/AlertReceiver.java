@@ -764,23 +764,21 @@ public class AlertReceiver extends BroadcastReceiver {
      */
     private static URLSpan[] getURLSpans(Context context, long eventId) {
         Cursor locationCursor = getLocationCursor(context, eventId);
+
+        // Default to empty list
+        URLSpan[] urlSpans = new URLSpan[0];
         if (locationCursor != null && locationCursor.moveToFirst()) {
             String location = locationCursor.getString(0); // Only one item in this cursor.
-            if (location == null || location.isEmpty()) {
-                // Return an empty list if we know there was nothing in the location field.
-                return new URLSpan[0];
+            if (location != null && !location.isEmpty()) {
+                Spannable text = Utils.extendedLinkify(location, true);
+                // The linkify method should have found at least one link, at the very least.
+                // If no smart links were found, it should have set the whole string as a geo link.
+                urlSpans = text.getSpans(0, text.length(), URLSpan.class);
             }
-
-            Spannable text = Utils.extendedLinkify(location, true);
-
-            // The linkify method should have found at least one link, at the very least.
-            // If no smart links were found, it should have set the whole string as a geo link.
-            URLSpan[] urlSpans = text.getSpans(0, text.length(), URLSpan.class);
-            return urlSpans;
+            locationCursor.close();
         }
 
-        // If no links were found or location was empty, return an empty list.
-        return new URLSpan[0];
+        return urlSpans;
     }
 
     /**
