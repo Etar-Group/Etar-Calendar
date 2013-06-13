@@ -201,25 +201,23 @@ public class AlertReceiver extends BroadcastReceiver {
     private static PendingIntent createClickEventIntent(Context context, long eventId,
             long startMillis, long endMillis, int notificationId) {
         return createDismissAlarmsIntent(context, eventId, startMillis, endMillis, notificationId,
-                "com.android.calendar.CLICK", true);
+                DismissAlarmsService.SHOW_ACTION);
     }
 
     private static PendingIntent createDeleteEventIntent(Context context, long eventId,
             long startMillis, long endMillis, int notificationId) {
         return createDismissAlarmsIntent(context, eventId, startMillis, endMillis, notificationId,
-                "com.android.calendar.DELETE", false);
+                DismissAlarmsService.DISMISS_ACTION);
     }
 
     private static PendingIntent createDismissAlarmsIntent(Context context, long eventId,
-            long startMillis, long endMillis, int notificationId, String action,
-            boolean showEvent) {
+            long startMillis, long endMillis, int notificationId, String action) {
         Intent intent = new Intent();
         intent.setClass(context, DismissAlarmsService.class);
-        intent.setAction(DismissAlarmsService.DELETE_ALL_ACTION);
+        intent.setAction(action);
         intent.putExtra(AlertUtils.EVENT_ID_KEY, eventId);
         intent.putExtra(AlertUtils.EVENT_START_KEY, startMillis);
         intent.putExtra(AlertUtils.EVENT_END_KEY, endMillis);
-        intent.putExtra(AlertUtils.SHOW_EVENT_KEY, showEvent);
         intent.putExtra(AlertUtils.NOTIFICATION_ID_KEY, notificationId);
 
         // Must set a field that affects Intent.filterEquals so that the resulting
@@ -231,7 +229,6 @@ public class AlertReceiver extends BroadcastReceiver {
         ContentUris.appendId(builder, eventId);
         ContentUris.appendId(builder, startMillis);
         intent.setData(builder.build());
-        intent.setAction(action);
         return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
@@ -471,7 +468,7 @@ public class AlertReceiver extends BroadcastReceiver {
         // expired events.
         Intent deleteIntent = new Intent();
         deleteIntent.setClass(context, DismissAlarmsService.class);
-        deleteIntent.setAction(DismissAlarmsService.DELETE_ALL_ACTION);
+        deleteIntent.setAction(DismissAlarmsService.DISMISS_ACTION);
         deleteIntent.putExtra(AlertUtils.EVENT_IDS_KEY, eventIds);
         deleteIntent.putExtra(AlertUtils.EVENT_STARTS_KEY, startMillis);
         PendingIntent pendingDeleteIntent = PendingIntent.getService(context, 0, deleteIntent,
