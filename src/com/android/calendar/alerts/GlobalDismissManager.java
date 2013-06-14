@@ -312,7 +312,6 @@ public class GlobalDismissManager extends BroadcastReceiver {
             Set<Long> calendars) {
         Map<Long, Pair<String, String>> calendarsToAccounts =
                 new HashMap<Long, Pair<String, String>>();
-        ;
         ContentResolver resolver = context.getContentResolver();
         String calendarSelection = buildMultipleIdQuery(calendars, Calendars._ID);
         Cursor calendarCursor = resolver.query(Calendars.CONTENT_URI, CALENDARS_PROJECTION,
