@@ -106,6 +106,7 @@
     <item msgid="6248480754959562740">"שבוע"</item>
     <item msgid="4298472806133153766">"חודש"</item>
     <item msgid="5033084974413793845">"סדר יום"</item>
+    <item msgid="1475154959423158110">"מתוזמן"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"רק לאחר הבעת סירוב"</item>

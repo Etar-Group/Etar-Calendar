@@ -106,6 +106,7 @@
     <item msgid="6248480754959562740">"周"</item>
     <item msgid="4298472806133153766">"月"</item>
     <item msgid="5033084974413793845">"日程"</item>
+    <item msgid="1475154959423158110">"Timely"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"仅在您不参加的情况下"</item>
