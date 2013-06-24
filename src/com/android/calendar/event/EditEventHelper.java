@@ -914,7 +914,7 @@ public class EditEventHelper {
         String duration = model.mDuration;
 
         boolean isAllDay = model.mAllDay;
-        if (end > start) {
+        if (end >= start) {
             if (isAllDay) {
                 // if it's all day compute the duration in days
                 long days = (end - start + DateUtils.DAY_IN_MILLIS - 1)
