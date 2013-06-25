@@ -139,8 +139,7 @@ public class CalendarController {
         final int WEEK = 3;
         final int MONTH = 4;
         final int EDIT = 5;
-        final int TIMELY = 6;
-        final int MAX_VALUE = 6;
+        final int MAX_VALUE = 5;
     }
 
     public static class EventInfo {
