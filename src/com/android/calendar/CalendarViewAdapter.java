@@ -50,7 +50,6 @@ public class CalendarViewAdapter extends BaseAdapter {
     // Week view: show the month + year
     // Month view: show the month + year
     // Agenda view: show day of the week + full date underneath
-    // Timely View: Temporary - show  the new timely view
     private int mCurrentMainView;
 
     private final LayoutInflater mInflater;
@@ -63,7 +62,6 @@ public class CalendarViewAdapter extends BaseAdapter {
     public static final int WEEK_BUTTON_INDEX = 1;
     public static final int MONTH_BUTTON_INDEX = 2;
     public static final int AGENDA_BUTTON_INDEX = 3;
-    public static final int TIMELY_BUTTON_INDEX = 4;
 
     // The current selected event's time, used to calculate the date and day of the week
     // for the buttons.
@@ -205,11 +203,6 @@ public class CalendarViewAdapter extends BaseAdapter {
                     weekDay.setText(buildDayOfWeek());
                     date.setText(buildFullDate());
                     break;
-                case ViewType.TIMELY:
-                    weekDay.setVisibility(View.VISIBLE);
-                    weekDay.setText(buildDayOfWeek());
-                    date.setText(buildFullDate());
-                    break;
                 default:
                     v = null;
                     break;
@@ -238,9 +231,6 @@ public class CalendarViewAdapter extends BaseAdapter {
                     break;
                 case ViewType.AGENDA:
                     title.setText(mButtonNames [AGENDA_BUTTON_INDEX]);
-                    break;
-                case ViewType.TIMELY:
-                    title.setText(mButtonNames [TIMELY_BUTTON_INDEX]);
                     break;
                 default:
                     v = null;
@@ -292,12 +282,6 @@ public class CalendarViewAdapter extends BaseAdapter {
                 break;
             case AGENDA_BUTTON_INDEX:
                 viewType.setText(mButtonNames [AGENDA_BUTTON_INDEX]);
-                if (mShowDate) {
-                    date.setText(buildMonthDayDate());
-                }
-                break;
-            case TIMELY_BUTTON_INDEX:
-                viewType.setText(mButtonNames [TIMELY_BUTTON_INDEX]);
                 if (mShowDate) {
                     date.setText(buildMonthDayDate());
                 }
