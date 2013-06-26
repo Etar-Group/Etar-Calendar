@@ -39,6 +39,7 @@ import com.android.calendar.R;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -48,11 +49,129 @@ import java.util.Set;
  * Utilities for managing notification dismissal across devices.
  */
 public class GlobalDismissManager extends BroadcastReceiver {
+    private static class GlobalDismissId {
+        public final String mAccountName;
+        public final String mSyncId;
+        public final long mStartTime;
+
+        private GlobalDismissId(String accountName, String syncId, long startTime) {
+            // TODO(psliwowski): Add guava library to use Preconditions class
+            if (accountName == null) {
+                throw new IllegalArgumentException("Account Name can not be set to null");
+            } else if (syncId == null) {
+                throw new IllegalArgumentException("SyncId can not be set to null");
+            }
+            mAccountName = accountName;
+            mSyncId = syncId;
+            mStartTime = startTime;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            GlobalDismissId that = (GlobalDismissId) o;
+
+            if (mStartTime != that.mStartTime) {
+                return false;
+            }
+            if (!mAccountName.equals(that.mAccountName)) {
+                return false;
+            }
+            if (!mSyncId.equals(that.mSyncId)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = mAccountName.hashCode();
+            result = 31 * result + mSyncId.hashCode();
+            result = 31 * result + (int) (mStartTime ^ (mStartTime >>> 32));
+            return result;
+        }
+    }
+
+    public static class LocalDismissId {
+        public final String mAccountType;
+        public final String mAccountName;
+        public final long mEventId;
+        public final long mStartTime;
+
+        public LocalDismissId(String accountType, String accountName, long eventId,
+                long startTime) {
+            if (accountType == null) {
+                throw new IllegalArgumentException("Account Type can not be null");
+            } else if (accountName == null) {
+                throw new IllegalArgumentException("Account Name can not be null");
+            }
+
+            mAccountType = accountType;
+            mAccountName = accountName;
+            mEventId = eventId;
+            mStartTime = startTime;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+
+            LocalDismissId that = (LocalDismissId) o;
+
+            if (mEventId != that.mEventId) {
+                return false;
+            }
+            if (mStartTime != that.mStartTime) {
+                return false;
+            }
+            if (!mAccountName.equals(that.mAccountName)) {
+                return false;
+            }
+            if (!mAccountType.equals(that.mAccountType)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = mAccountType.hashCode();
+            result = 31 * result + mAccountName.hashCode();
+            result = 31 * result + (int) (mEventId ^ (mEventId >>> 32));
+            result = 31 * result + (int) (mStartTime ^ (mStartTime >>> 32));
+            return result;
+        }
+    }
+
+    public static class AlarmId {
+        public long mEventId;
+        public long mStart;
+
+        public AlarmId(long id, long start) {
+            mEventId = id;
+            mStart = start;
+        }
+    }
+
+    private static final long TIME_TO_LIVE = 1 * 60 * 60 * 1000; // 1 hour
+
     private static final String TAG = "GlobalDismissManager";
     private static final String GOOGLE_ACCOUNT_TYPE = "com.google";
     private static final String GLOBAL_DISMISS_MANAGER_PREFS = "com.android.calendar.alerts.GDM";
     private static final String ACCOUNT_KEY = "known_accounts";
-    protected static final long FOUR_WEEKS = 60 * 60 * 24 * 7 * 4;
 
     static final String[] EVENT_PROJECTION = new String[] {
             Events._ID,
@@ -74,24 +193,21 @@ public class GlobalDismissManager extends BroadcastReceiver {
     public static final String ACCOUNT_NAME = KEY_PREFIX + "account_name";
     public static final String DISMISS_INTENT = KEY_PREFIX + "DISMISS";
 
-    public static class AlarmId {
-        public long mEventId;
-        public long mStart;
-         public AlarmId(long id, long start) {
-             mEventId = id;
-             mStart = start;
-         }
-    }
+    // TODO(psliwowski): Look into persisting these like AlertUtils.ALERTS_SHARED_PREFS_NAME
+    private static HashMap<GlobalDismissId, Long> sReceiverDismissCache =
+            new HashMap<GlobalDismissId, Long>();
+    private static HashMap<LocalDismissId, Long> sSenderDismissCache =
+            new HashMap<LocalDismissId, Long>();
 
     /**
      * Look for unknown accounts in a set of events and associate with them.
-     * Returns immediately, processing happens in the background.
+     * Must not be called on main thread.
      * 
      * @param context application context
      * @param eventIds IDs for events that have posted notifications that may be
      *            dismissed.
      */
-    public static void processEventIds(final Context context, final Set<Long> eventIds) {
+    public static void processEventIds(Context context, Set<Long> eventIds) {
         final String senderId = context.getResources().getString(R.string.notification_sender_id);
         if (senderId == null || senderId.isEmpty()) {
             Log.i(TAG, "no sender configured");
@@ -155,25 +271,84 @@ public class GlobalDismissManager extends BroadcastReceiver {
     }
 
     /**
+     * Some events don't have a global sync_id when they are dismissed. We need to wait
+     * until the data provider is updated before we can send the global dismiss message.
+     */
+    public static void syncSenderDismissCache(Context context) {
+        final String senderId = context.getResources().getString(R.string.notification_sender_id);
+        if ("".equals(senderId)) {
+            Log.i(TAG, "no sender configured");
+            return;
+        }
+        CloudNotificationBackplane cnb = ExtensionsFactory.getCloudNotificationBackplane();
+        if (!cnb.open(context)) {
+            Log.i(TAG, "Unable to open could notification backplane");
+
+        }
+
+        long currentTime = System.currentTimeMillis();
+        ContentResolver resolver = context.getContentResolver();
+        synchronized (sSenderDismissCache) {
+            Iterator<Map.Entry<LocalDismissId, Long>> it =
+                    sSenderDismissCache.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry<LocalDismissId, Long> entry = it.next();
+                LocalDismissId dismissId = entry.getKey();
+
+                Uri uri = asSync(Events.CONTENT_URI, dismissId.mAccountType,
+                        dismissId.mAccountName);
+                Cursor cursor = resolver.query(uri, EVENT_SYNC_PROJECTION,
+                        Events._ID + " = " + dismissId.mEventId, null, null);
+                try {
+                    cursor.moveToPosition(-1);
+                    int sync_id_idx = cursor.getColumnIndex(Events._SYNC_ID);
+                    if (sync_id_idx != -1) {
+                        while (cursor.moveToNext()) {
+                            String syncId = cursor.getString(sync_id_idx);
+                            if (syncId != null) {
+                                Bundle data = new Bundle();
+                                long startTime = dismissId.mStartTime;
+                                String accountName = dismissId.mAccountName;
+                                data.putString(SYNC_ID, syncId);
+                                data.putString(START_TIME, Long.toString(startTime));
+                                data.putString(ACCOUNT_NAME, accountName);
+                                try {
+                                    cnb.send(accountName, syncId + ":" + startTime, data);
+                                    it.remove();
+                                } catch (IOException e) {
+                                    // If we couldn't send, then leave dismissal in cache
+                                }
+                            }
+                        }
+                    }
+                } finally {
+                    cursor.close();
+                }
+
+                // Remove old dismissals from cache after a certain time period
+                if (currentTime - entry.getValue() > TIME_TO_LIVE) {
+                    it.remove();
+                }
+            }
+        }
+
+        cnb.close();
+    }
+
+    /**
      * Globally dismiss notifications that are backed by the same events.
      * 
      * @param context application context
      * @param alarmIds Unique identifiers for events that have been dismissed by the user.
      * @return true if notification_sender_id is available
      */
-    public static void dismissGlobally(final Context context, final List<AlarmId> alarmIds) {
-        final String senderId = context.getResources().getString(R.string.notification_sender_id);
-        if ("".equals(senderId)) {
-            Log.i(TAG, "no sender configured");
-            return;
-        }
+    public static void dismissGlobally(Context context, List<AlarmId> alarmIds) {
         Set<Long> eventIds = new HashSet<Long>(alarmIds.size());
         for (AlarmId alarmId: alarmIds) {
             eventIds.add(alarmId.mEventId);
         }
         // find the mapping between calendars and events
         Map<Long, Long> eventsToCalendars = lookupEventToCalendarMap(context, eventIds);
-
         if (eventsToCalendars.isEmpty()) {
             Log.d(TAG, "found no calendars for events");
             return;
@@ -185,62 +360,24 @@ public class GlobalDismissManager extends BroadcastReceiver {
         // find the accounts associated with those calendars
         Map<Long, Pair<String, String>> calendarsToAccounts =
                 lookupCalendarToAccountMap(context, calendars);
-
         if (calendarsToAccounts.isEmpty()) {
             Log.d(TAG, "found no accounts for calendars");
             return;
         }
 
-        // TODO group by account to reduce queries
-        Map<String, String> syncIdToAccount = new HashMap<String, String>();
-        Map<Long, String> eventIdToSyncId = new HashMap<Long, String>();
-        ContentResolver resolver = context.getContentResolver();
-        for (Long eventId : eventsToCalendars.keySet()) {
-            Long calendar = eventsToCalendars.get(eventId);
+        long currentTime = System.currentTimeMillis();
+        for (AlarmId alarmId : alarmIds) {
+            Long calendar = eventsToCalendars.get(alarmId.mEventId);
             Pair<String, String> account = calendarsToAccounts.get(calendar);
             if (GOOGLE_ACCOUNT_TYPE.equals(account.first)) {
-                Uri uri = asSync(Events.CONTENT_URI, account.first, account.second);
-                Cursor cursor = resolver.query(uri, EVENT_SYNC_PROJECTION,
-                        Events._ID + " = " + eventId, null, null);
-                try {
-                    cursor.moveToPosition(-1);
-                    int sync_id_idx = cursor.getColumnIndex(Events._SYNC_ID);
-                    if (sync_id_idx != -1) {
-                        while (cursor.moveToNext()) {
-                            String syncId = cursor.getString(sync_id_idx);
-                            syncIdToAccount.put(syncId, account.second);
-                            eventIdToSyncId.put(eventId, syncId);
-                        }
-                    }
-                } finally {
-                    cursor.close();
+                LocalDismissId dismissId = new LocalDismissId(account.first, account.second,
+                        alarmId.mEventId, alarmId.mStart);
+                synchronized (sSenderDismissCache) {
+                    sSenderDismissCache.put(dismissId, currentTime);
                 }
             }
         }
-
-        if (syncIdToAccount.isEmpty()) {
-            Log.d(TAG, "found no syncIds for events");
-            return;
-        }
-
-        // TODO group by account to reduce packets
-        CloudNotificationBackplane cnb = ExtensionsFactory.getCloudNotificationBackplane();
-        if (cnb.open(context)) {
-            for (AlarmId alarmId: alarmIds) {
-                String syncId = eventIdToSyncId.get(alarmId.mEventId);
-                String account = syncIdToAccount.get(syncId);
-                Bundle data = new Bundle();
-                data.putString(SYNC_ID, syncId);
-                data.putString(START_TIME, Long.toString(alarmId.mStart));
-                data.putString(ACCOUNT_NAME, account);
-                try {
-                    cnb.send(account, syncId + ":" + alarmId.mStart, data);
-                } catch (IOException e) {
-                    // TODO save a note to try again later
-                }
-            }
-            cnb.close();
-        }
+        syncSenderDismissCache(context);
     }
 
     private static Uri asSync(Uri uri, String accountType, String account) {
@@ -280,8 +417,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
      * @param eventIds Event row IDs to query.
      * @return a map from event to calendar
      */
-    private static Map<Long, Long> lookupEventToCalendarMap(final Context context,
-            final Set<Long> eventIds) {
+    private static Map<Long, Long> lookupEventToCalendarMap(Context context, Set<Long> eventIds) {
         Map<Long, Long> eventsToCalendars = new HashMap<Long, Long>();
         ContentResolver resolver = context.getContentResolver();
         String eventSelection = buildMultipleIdQuery(eventIds, Events._ID);
@@ -308,7 +444,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
      * @param calendars Calendar row IDs to query.
      * @return a map from Calendar to a pair (account type, account name)
      */
-    private static Map<Long, Pair<String, String>> lookupCalendarToAccountMap(final Context context,
+    private static Map<Long, Pair<String, String>> lookupCalendarToAccountMap(Context context,
             Set<Long> calendars) {
         Map<Long, Pair<String, String>> calendarsToAccounts =
                 new HashMap<Long, Pair<String, String>>();
@@ -326,7 +462,9 @@ public class GlobalDismissManager extends BroadcastReceiver {
                     Long id = calendarCursor.getLong(calendar_id_idx);
                     String name = calendarCursor.getString(account_name_idx);
                     String type = calendarCursor.getString(account_type_idx);
-                    calendarsToAccounts.put(id, new Pair<String, String>(type, name));
+                    if (name != null && type != null) {
+                        calendarsToAccounts.put(id, new Pair<String, String>(type, name));
+                    }
                 }
             }
         } finally {
@@ -335,46 +473,71 @@ public class GlobalDismissManager extends BroadcastReceiver {
         return calendarsToAccounts;
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * We can get global dismisses for events we don't know exists yet, so sync our cache
+     * with the data provider whenever it updates.
+     */
+    public static void syncReceiverDismissCache(Context context) {
+        ContentResolver resolver = context.getContentResolver();
+        long currentTime = System.currentTimeMillis();
+        synchronized (sReceiverDismissCache) {
+            Iterator<Map.Entry<GlobalDismissId, Long>> it =
+                    sReceiverDismissCache.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry<GlobalDismissId, Long> entry = it.next();
+                GlobalDismissId globalDismissId = entry.getKey();
+                Uri uri = GlobalDismissManager.asSync(Events.CONTENT_URI,
+                        GlobalDismissManager.GOOGLE_ACCOUNT_TYPE, globalDismissId.mAccountName);
+                Cursor cursor = resolver.query(uri, GlobalDismissManager.EVENT_SYNC_PROJECTION,
+                        Events._SYNC_ID + " = '" + globalDismissId.mSyncId + "'",
+                        null, null);
+                try {
+                    int event_id_idx = cursor.getColumnIndex(Events._ID);
+                    cursor.moveToFirst();
+                    if (event_id_idx != -1 && !cursor.isAfterLast()) {
+                        long eventId = cursor.getLong(event_id_idx);
+                        ContentValues values = new ContentValues();
+                        String selection = "(" + CalendarAlerts.STATE + "=" +
+                                CalendarAlerts.STATE_FIRED + " OR " +
+                                CalendarAlerts.STATE + "=" +
+                                CalendarAlerts.STATE_SCHEDULED + ") AND " +
+                                CalendarAlerts.EVENT_ID + "=" + eventId + " AND " +
+                                CalendarAlerts.BEGIN + "=" + globalDismissId.mStartTime;
+                        values.put(CalendarAlerts.STATE, CalendarAlerts.STATE_DISMISSED);
+                        int rows = resolver.update(CalendarAlerts.CONTENT_URI, values,
+                                selection, null);
+                        if (rows > 0) {
+                            it.remove();
+                        }
+                    }
+                } finally {
+                    cursor.close();
+                }
+
+                if (currentTime - entry.getValue() > TIME_TO_LIVE) {
+                    it.remove();
+                }
+            }
+        }
+    }
+
     @Override
+    @SuppressWarnings("unchecked")
     public void onReceive(Context context, Intent intent) {
         new AsyncTask<Pair<Context, Intent>, Void, Void>() {
             @Override
             protected Void doInBackground(Pair<Context, Intent>... params) {
                 Context context = params[0].first;
                 Intent intent = params[0].second;
-                boolean updated = false;
-                if (intent.hasExtra(SYNC_ID) && intent.hasExtra(ACCOUNT_NAME)) {
-                    String syncId = intent.getStringExtra(SYNC_ID);
-                    long startTime = Long.parseLong(intent.getStringExtra(START_TIME));
-                    ContentResolver resolver = context.getContentResolver();
-
-                    Uri uri = asSync(Events.CONTENT_URI, GOOGLE_ACCOUNT_TYPE,
-                            intent.getStringExtra(ACCOUNT_NAME));
-                    Cursor cursor = resolver.query(uri, EVENT_SYNC_PROJECTION,
-                            Events._SYNC_ID + " = '" + syncId + "'", null, null);
-                    try {
-                        int event_id_idx = cursor.getColumnIndex(Events._ID);
-                        cursor.moveToFirst();
-                        if (event_id_idx != -1 && !cursor.isAfterLast()) {
-                            long eventId = cursor.getLong(event_id_idx);
-                            ContentValues values = new ContentValues();
-                            String selection = CalendarAlerts.STATE + "=" +
-                                    CalendarAlerts.STATE_FIRED + " AND " +
-                                    CalendarAlerts.EVENT_ID + "=" + eventId + " AND " +
-                                    CalendarAlerts.BEGIN + "=" + startTime;
-                            values.put(CalendarAlerts.STATE, CalendarAlerts.STATE_DISMISSED);
-                            int rows = resolver.update(CalendarAlerts.CONTENT_URI, values,
-                                    selection, null);
-                            updated = rows > 0;
-                        }
-                    } finally {
-                        cursor.close();
+                if (intent.hasExtra(SYNC_ID) && intent.hasExtra(ACCOUNT_NAME)
+                        && intent.hasExtra(START_TIME)) {
+                    synchronized (sReceiverDismissCache) {
+                        sReceiverDismissCache.put(new GlobalDismissId(
+                                intent.getStringExtra(ACCOUNT_NAME),
+                                intent.getStringExtra(SYNC_ID),
+                                Long.parseLong(intent.getStringExtra(START_TIME))
+                        ), System.currentTimeMillis());
                     }
-                }
-
-                if (updated) {
-                    Log.d(TAG, "updating alarm state");
                     AlertService.updateAlertNotification(context);
                 }
                 return null;
