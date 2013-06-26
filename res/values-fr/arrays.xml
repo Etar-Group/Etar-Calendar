@@ -106,7 +106,6 @@
     <item msgid="6248480754959562740">"Semaine"</item>
     <item msgid="4298472806133153766">"Mois"</item>
     <item msgid="5033084974413793845">"Planning"</item>
-    <item msgid="1475154959423158110">"À intervalles réguliers"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"Seulement en cas de refus"</item>
