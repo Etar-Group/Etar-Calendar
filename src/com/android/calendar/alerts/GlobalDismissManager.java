@@ -286,7 +286,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
         }
         CloudNotificationBackplane cnb = ExtensionsFactory.getCloudNotificationBackplane();
         if (!cnb.open(context)) {
-            Log.i(TAG, "Unable to open could notification backplane");
+            Log.i(TAG, "Unable to open cloud notification backplane");
 
         }
 
@@ -341,7 +341,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
 
     /**
      * Globally dismiss notifications that are backed by the same events.
-     * 
+     *
      * @param context application context
      * @param alarmIds Unique identifiers for events that have been dismissed by the user.
      * @return true if notification_sender_id is available
@@ -394,7 +394,7 @@ public class GlobalDismissManager extends BroadcastReceiver {
     }
 
     /**
-     * build a selection over a set of row IDs
+     * Build a selection over a set of row IDs
      *
      * @param ids row IDs to select
      * @param key row name for the table
