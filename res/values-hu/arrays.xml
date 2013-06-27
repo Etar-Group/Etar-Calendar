@@ -106,7 +106,6 @@
     <item msgid="6248480754959562740">"Hét"</item>
     <item msgid="4298472806133153766">"Hónap"</item>
     <item msgid="5033084974413793845">"Napló"</item>
-    <item msgid="1475154959423158110">"Ismétlés"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"Csak elutasítás esetén"</item>

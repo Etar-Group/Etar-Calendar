@@ -106,7 +106,6 @@
     <item msgid="6248480754959562740">"Тыдзень"</item>
     <item msgid="4298472806133153766">"Месяц"</item>
     <item msgid="5033084974413793845">"Парадак дня"</item>
-    <item msgid="1475154959423158110">"Своечасова"</item>
   </string-array>
   <string-array name="preferences_skip_reminders_labels">
     <item msgid="2285927842308686988">"Толькі калі адмоўлена"</item>
