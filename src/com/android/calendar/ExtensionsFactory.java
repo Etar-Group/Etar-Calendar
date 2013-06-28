@@ -42,9 +42,11 @@ public class ExtensionsFactory {
 
     private static String ALL_IN_ONE_MENU_KEY = "AllInOneMenuExtensions";
     private static String CLOUD_NOTIFICATION_KEY = "CloudNotificationChannel";
+    private static String ANALYTICS_LOGGER_KEY = "AnalyticsLogger";
 
     private static Properties sProperties = new Properties();
     private static AllInOneMenuExtensionsInterface sAllInOneMenuExtensions = null;
+    private static AnalyticsLogger sAnalyticsLogger = null;
 
     public static void init(AssetManager assetManager) {
         try {
@@ -74,29 +76,30 @@ public class ExtensionsFactory {
     }
 
     public static AllInOneMenuExtensionsInterface getAllInOneMenuExtensions() {
-        if (sAllInOneMenuExtensions == null) {
-            String className = sProperties.getProperty(ALL_IN_ONE_MENU_KEY);
-            if (className != null) {
-                sAllInOneMenuExtensions = createInstance(className);
-            } else {
-                Log.d(TAG, ALL_IN_ONE_MENU_KEY + " not found in properties file.");
-            }
-
-            if (sAllInOneMenuExtensions == null) {
-                sAllInOneMenuExtensions = new AllInOneMenuExtensionsInterface() {
-                    @Override
-                    public Integer getExtensionMenuResource(Menu menu) {
-                        return null;
-                    }
-
-                    @Override
-                    public boolean handleItemSelected(MenuItem item, Context context) {
-                        return false;
-                    }
-                };
-            }
+        if ((sAllInOneMenuExtensions != null)) {
+            return sAllInOneMenuExtensions;
         }
 
+        String className = sProperties.getProperty(ALL_IN_ONE_MENU_KEY);
+        if (className != null) {
+            sAllInOneMenuExtensions = createInstance(className);
+        } else {
+            Log.d(TAG, ALL_IN_ONE_MENU_KEY + " not found in properties file.");
+        }
+
+        if (sAllInOneMenuExtensions == null) {
+            sAllInOneMenuExtensions = new AllInOneMenuExtensionsInterface() {
+                @Override
+                public Integer getExtensionMenuResource(Menu menu) {
+                    return null;
+                }
+
+                @Override
+                public boolean handleItemSelected(MenuItem item, Context context) {
+                    return false;
+                }
+            };
+        }
         return sAllInOneMenuExtensions;
     }
 
@@ -133,5 +136,34 @@ public class ExtensionsFactory {
         }
 
         return cnb;
+    }
+
+    public static AnalyticsLogger getAnalyticsLogger(Context context) {
+        if (sAnalyticsLogger != null) {
+            return sAnalyticsLogger;
+        }
+
+        String className = sProperties.getProperty(ANALYTICS_LOGGER_KEY);
+        if (className != null) {
+            sAnalyticsLogger = createInstance(className);
+        } else {
+            Log.d(TAG, ANALYTICS_LOGGER_KEY + " not found in properties file.");
+        }
+
+        if (sAnalyticsLogger == null) {
+            sAnalyticsLogger = new AnalyticsLogger() {
+                @Override
+                public boolean initialize(Context context) {
+                    return true;
+                }
+
+                @Override
+                public void trackView(String name) {
+                }
+            };
+        }
+
+        sAnalyticsLogger.initialize(context);
+        return sAnalyticsLogger;
     }
 }

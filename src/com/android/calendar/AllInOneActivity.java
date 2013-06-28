@@ -16,11 +16,6 @@
 
 package com.android.calendar;
 
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
-
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
@@ -81,6 +76,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
+import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
+import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 public class AllInOneActivity extends AbstractCalendarActivity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener, ActionBar.TabListener,
@@ -886,6 +886,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     mActionBar.setSelectedNavigationItem(CalendarViewAdapter.AGENDA_BUTTON_INDEX);
                 }
                 frag = new AgendaFragment(timeMillis, false);
+                ExtensionsFactory.getAnalyticsLogger(getBaseContext()).trackView("agenda");
                 break;
             case ViewType.DAY:
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mDayTab)) {
@@ -895,6 +896,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     mActionBar.setSelectedNavigationItem(CalendarViewAdapter.DAY_BUTTON_INDEX);
                 }
                 frag = new DayFragment(timeMillis, 1);
+                ExtensionsFactory.getAnalyticsLogger(getBaseContext()).trackView("day");
                 break;
             case ViewType.MONTH:
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mMonthTab)) {
@@ -907,6 +909,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                 if (mShowAgendaWithMonth) {
                     secFrag = new AgendaFragment(timeMillis, false);
                 }
+                ExtensionsFactory.getAnalyticsLogger(getBaseContext()).trackView("month");
                 break;
             case ViewType.WEEK:
             default:
@@ -917,6 +920,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
                     mActionBar.setSelectedNavigationItem(CalendarViewAdapter.WEEK_BUTTON_INDEX);
                 }
                 frag = new DayFragment(timeMillis, 7);
+                ExtensionsFactory.getAnalyticsLogger(getBaseContext()).trackView("week");
                 break;
         }
 
