@@ -38,6 +38,7 @@ import android.util.Pair;
 import com.android.calendar.event.EditEventActivity;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
 
+import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -92,6 +93,12 @@ public class CalendarController {
     private Pair<Integer, EventHandler> mFirstEventHandler;
     private Pair<Integer, EventHandler> mToBeAddedFirstEventHandler;
     private volatile int mDispatchInProgressCounter = 0;
+
+    private static WeakHashMap<Context, WeakReference<CalendarController>> instances =
+        new WeakHashMap<Context, WeakReference<CalendarController>>();
+
+    private final WeakHashMap<Object, Long> filters = new WeakHashMap<Object, Long>(1);
+
     private int mViewType = -1;
     private int mDetailViewType = -1;
     private int mPreviousViewType = -1;
@@ -115,10 +122,15 @@ public class CalendarController {
      */
     public static CalendarController getInstance(Context context) {
         synchronized (instances) {
-            CalendarController controller = instances.get(context);
+            CalendarController controller = null;
+            WeakReference<CalendarController> weakController = instances.get(context);
+            if (weakController != null) {
+                controller = weakController.get();
+            }
+
             if (controller == null) {
                 controller = new CalendarController(context);
-                instances.put(context, controller);
+                instances.put(context, new WeakReference(controller));
             }
             return controller;
         }
