@@ -3575,7 +3575,9 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             }
         }
 
-        if (totalLineHeight == 0 || rect.top > bottom || rect.top + totalLineHeight < top) {
+        // + 2 is small workaround when the font is slightly bigger then the rect. This will
+        // still allow the text to be shown without overflowing into the other all day rects.
+        if (totalLineHeight == 0 || rect.top > bottom || rect.top + totalLineHeight + 2 < top) {
             return;
         }
 
