@@ -1320,7 +1320,8 @@ public class EditEventHelper {
             // Not weekly so nothing to worry about.
             return;
         }
-        if (mEventRecurrence.byday.length > mEventRecurrence.bydayCount) {
+        if (mEventRecurrence.byday == null ||
+                mEventRecurrence.byday.length > mEventRecurrence.bydayCount) {
             // This shouldn't happen, but just in case something is weird about the recurrence.
             return;
         }
