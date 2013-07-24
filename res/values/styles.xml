@@ -17,9 +17,7 @@
 ** limitations under the License.
 */
 -->
-<resources>
-
-
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="MinusButton">
         <item name="android:background">?android:attr/selectableItemBackground</item>
@@ -84,6 +82,10 @@
 
     <style name="TextAppearance.EditEvent_Button" parent="TextAppearance.EditEvent_Label">
         <item name="android:textColor">#FF777777</item>
+    </style>
+
+    <style name="TextAppearance.Recurrence_Button" parent="TextAppearance.EditEvent_Label">
+        <item name="android:textColor">#FF000000</item>
     </style>
 
     <style name="TextAppearance.EditEvent_LabelSmall" parent="TextAppearance.EditEvent_Small">
@@ -251,4 +253,31 @@
     <style name="NotificationSecondaryText" parent="@android:style/TextAppearance.Holo">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
+
+    <style name="TextAppearance.RecurrencePickerStyle">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextAppearance.Recurrence_SpinnerButton"
+        parent="android:style/Widget.Holo.Light.Spinner" />
+
+    <style name="RecurrenceDayOfWeekStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dip</item>
+        <item name="android:layout_marginBottom">4dip</item>
+        <item name="android:layout_marginLeft">8dip</item>
+        <item name="android:layout_marginRight">8dip</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/recurrence_bubble_text_color</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@drawable/recurrence_bubble_fill</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        </style>
 </resources>

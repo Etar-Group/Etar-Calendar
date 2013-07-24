@@ -25,20 +25,22 @@
     android:layout_marginBottom="0dip"
     android:layout_weight="1">
 
-    <ImageView android:id="@+id/color"
-        android:layout_width="30dip"
-        android:layout_height="30dip"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="8dip"
-        android:gravity="center_vertical"
+    <com.android.calendar.selectcalendars.CalendarColorSquare
+        android:id="@+id/color"
+        android:layout_height="20dip"
+        android:layout_width="20dip"
+        android:layout_marginLeft="16dip"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/calendar_square_color_picker_description"
+        style="?android:attr/quickContactBadgeStyleWindowMedium"
         android:cropToPadding="true"
     />
 
     <TextView android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="44dip"
-        android:layout_marginTop="3dip"
+        android:layout_toRightOf="@id/color"
+        android:layout_marginLeft="8dip"
         android:singleLine="true"
         android:ellipsize="marquee"
         style="@style/TextAppearance.SelectCalendar_Name"

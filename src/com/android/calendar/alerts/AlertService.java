@@ -43,6 +43,8 @@ import android.text.format.Time;
 import android.util.Log;
 
 import com.android.calendar.GeneralPreferences;
+import com.android.calendar.OtherPreferences;
+import com.android.calendar.R;
 import com.android.calendar.Utils;
 
 import java.util.ArrayList;
@@ -109,6 +111,15 @@ public class AlertService extends Service {
     // Hard limit to the number of notifications displayed.
     public static final int MAX_NOTIFICATIONS = 20;
 
+    // Shared prefs key for storing whether the EVENT_REMINDER event from the provider
+    // was ever received.  Some OEMs modified this provider broadcast, so we had to
+    // do the alarm scheduling here in the app, for the unbundled app's reminders to work.
+    // If the EVENT_REMINDER event was ever received, we know we can skip our secondary
+    // alarm scheduling.
+    private static final String PROVIDER_REMINDER_PREF_KEY =
+            "preference_received_provider_reminder_broadcast";
+    private static Boolean sReceivedProviderReminderBroadcast = null;
+
     // Added wrapper for testing
     public static class NotificationWrapper {
         Notification mNotification;
@@ -170,17 +181,67 @@ public class AlertService extends Service {
                     + " Action = " + action);
         }
 
-        if (action.equals(Intent.ACTION_PROVIDER_CHANGED) ||
+        // Some OEMs had changed the provider's EVENT_REMINDER broadcast to their own event,
+        // which broke our unbundled app's reminders.  So we added backup alarm scheduling to the
+        // app, but we know we can turn it off if we ever receive the EVENT_REMINDER broadcast.
+        boolean providerReminder = action.equals(
+                android.provider.CalendarContract.ACTION_EVENT_REMINDER);
+        if (providerReminder) {
+            if (sReceivedProviderReminderBroadcast == null) {
+                sReceivedProviderReminderBroadcast = Utils.getSharedPreference(this,
+                        PROVIDER_REMINDER_PREF_KEY, false);
+            }
+
+            if (!sReceivedProviderReminderBroadcast) {
+                sReceivedProviderReminderBroadcast = true;
+                Log.d(TAG, "Setting key " + PROVIDER_REMINDER_PREF_KEY + " to: true");
+                Utils.setSharedPreference(this, PROVIDER_REMINDER_PREF_KEY, true);
+            }
+        }
+
+        if (providerReminder ||
+                action.equals(Intent.ACTION_PROVIDER_CHANGED) ||
                 action.equals(android.provider.CalendarContract.ACTION_EVENT_REMINDER) ||
+                action.equals(AlertReceiver.EVENT_REMINDER_APP_ACTION) ||
                 action.equals(Intent.ACTION_LOCALE_CHANGED)) {
+
+            // b/7652098: Add a delay after the provider-changed event before refreshing
+            // notifications to help issue with the unbundled app installed on HTC having
+            // stale notifications.
+            if (action.equals(Intent.ACTION_PROVIDER_CHANGED)) {
+                try {
+                    Thread.sleep(5000);
+                } catch (Exception e) {
+                    // Ignore.
+                }
+            }
+
             updateAlertNotification(this);
-        } else if (action.equals(Intent.ACTION_BOOT_COMPLETED)
-                || action.equals(Intent.ACTION_TIME_CHANGED)) {
+        } else if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
+            // The provider usually initiates this setting up of alarms on startup,
+            // but there was a bug (b/7221716) where a race condition caused this step to be
+            // skipped, resulting in missed alarms.  This is a stopgap to minimize this bug
+            // for devices that don't have the provider fix, by initiating this a 2nd time here.
+            // However, it would still theoretically be possible to hit the race condition
+            // the 2nd time and still miss alarms.
+            //
+            // TODO: Remove this when the provider fix is rolled out everywhere.
+            Intent intent = new Intent();
+            intent.setClass(this, InitAlarmsService.class);
+            startService(intent);
+        } else if (action.equals(Intent.ACTION_TIME_CHANGED)) {
             doTimeChanged();
         } else if (action.equals(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS)) {
             dismissOldAlerts(this);
         } else {
             Log.w(TAG, "Invalid action: " + action);
+        }
+
+        // Schedule the alarm for the next upcoming reminder, if not done by the provider.
+        if (sReceivedProviderReminderBroadcast == null || !sReceivedProviderReminderBroadcast) {
+            Log.d(TAG, "Scheduling next alarm with AlarmScheduler. "
+                   + "sEventReminderReceived: " + sReceivedProviderReminderBroadcast);
+            AlarmScheduler.scheduleNextAlarm(this);
         }
     }
 
@@ -320,7 +381,8 @@ public class AlertService extends Service {
             // Add options for a quiet update.
             addNotificationOptions(notification, true, expiredDigestTitle,
                     notificationPrefs.getDefaultVibrate(),
-                    notificationPrefs.getRingtoneAndSilence());
+                    notificationPrefs.getRingtoneAndSilence(),
+                    false); /* Do not show the LED for the expired events. */
 
             if (DEBUG) {
               Log.d(TAG, "Quietly posting digest alarm notification, numEvents:" + numLowPriority
@@ -480,6 +542,45 @@ public class AlertService extends Service {
             final long currentTime, ArrayList<NotificationInfo> highPriorityEvents,
             ArrayList<NotificationInfo> mediumPriorityEvents,
             ArrayList<NotificationInfo> lowPriorityEvents) {
+        // Experimental reminder setting to only remind for events that have
+        // been responded to with "yes" or "maybe".
+        String skipRemindersPref = Utils.getSharedPreference(context,
+                OtherPreferences.KEY_OTHER_REMINDERS_RESPONDED, "");
+        // Skip no-response events if the "Skip Reminders" preference has the second option,
+        // "If declined or not responded", is selected.
+        // Note that by default, the first option will be selected, so this will be false.
+        boolean remindRespondedOnly = skipRemindersPref.equals(context.getResources().
+                getStringArray(R.array.preferences_skip_reminders_values)[1]);
+        // Experimental reminder setting to silence reminders when they are
+        // during the pre-defined quiet hours.
+        boolean useQuietHours = Utils.getSharedPreference(context,
+                OtherPreferences.KEY_OTHER_QUIET_HOURS, false);
+        // Note that the start time may be either before or after the end time,
+        // depending on whether quiet hours cross through midnight.
+        int quietHoursStartHour =
+                OtherPreferences.QUIET_HOURS_DEFAULT_START_HOUR;
+        int quietHoursStartMinute =
+                OtherPreferences.QUIET_HOURS_DEFAULT_START_MINUTE;
+        int quietHoursEndHour =
+                OtherPreferences.QUIET_HOURS_DEFAULT_END_HOUR;
+        int quietHoursEndMinute =
+                OtherPreferences.QUIET_HOURS_DEFAULT_END_MINUTE;
+        if (useQuietHours) {
+            quietHoursStartHour = Utils.getSharedPreference(context,
+                    OtherPreferences.KEY_OTHER_QUIET_HOURS_START_HOUR,
+                    OtherPreferences.QUIET_HOURS_DEFAULT_START_HOUR);
+            quietHoursStartMinute = Utils.getSharedPreference(context,
+                    OtherPreferences.KEY_OTHER_QUIET_HOURS_START_MINUTE,
+                    OtherPreferences.QUIET_HOURS_DEFAULT_START_MINUTE);
+            quietHoursEndHour = Utils.getSharedPreference(context,
+                    OtherPreferences.KEY_OTHER_QUIET_HOURS_END_HOUR,
+                    OtherPreferences.QUIET_HOURS_DEFAULT_END_HOUR);
+            quietHoursEndMinute = Utils.getSharedPreference(context,
+                    OtherPreferences.KEY_OTHER_QUIET_HOURS_END_MINUTE,
+                    OtherPreferences.QUIET_HOURS_DEFAULT_END_MINUTE);
+        }
+        Time time = new Time();
+
         ContentResolver cr = context.getContentResolver();
         HashMap<Long, NotificationInfo> eventIds = new HashMap<Long, NotificationInfo>();
         int numFired = 0;
@@ -493,11 +594,53 @@ public class AlertService extends Service {
                 final String location = alertCursor.getString(ALERT_INDEX_EVENT_LOCATION);
                 final int status = alertCursor.getInt(ALERT_INDEX_SELF_ATTENDEE_STATUS);
                 final boolean declined = status == Attendees.ATTENDEE_STATUS_DECLINED;
+                final boolean responded = status != Attendees.ATTENDEE_STATUS_NONE
+                        && status != Attendees.ATTENDEE_STATUS_INVITED;
                 final long beginTime = alertCursor.getLong(ALERT_INDEX_BEGIN);
                 final long endTime = alertCursor.getLong(ALERT_INDEX_END);
                 final Uri alertUri = ContentUris
                         .withAppendedId(CalendarAlerts.CONTENT_URI, alertId);
                 final long alarmTime = alertCursor.getLong(ALERT_INDEX_ALARM_TIME);
+                boolean forceQuiet = false;
+                if (useQuietHours) {
+                    // Quiet hours have been set.
+                    time.set(alarmTime);
+                    // Check whether the alarm will fire after the quiet hours
+                    // start time and/or before the quiet hours end time.
+                    boolean alarmAfterQuietHoursStart =
+                            (time.hour > quietHoursStartHour ||
+                                    (time.hour == quietHoursStartHour
+                                    && time.minute >= quietHoursStartMinute));
+                    boolean alarmBeforeQuietHoursEnd =
+                            (time.hour < quietHoursEndHour ||
+                                    (time.hour == quietHoursEndHour
+                                    && time.minute <= quietHoursEndMinute));
+                    // Check if quiet hours crosses through midnight, iff:
+                    // start hour is after end hour, or
+                    // start hour is equal to end hour, and start minute is
+                    // after end minute.
+                    // i.e. 22:30 - 06:45; 12:45 - 12:00
+                    //      01:05 - 10:30; 05:00 - 05:30
+                    boolean quietHoursCrossesMidnight =
+                            quietHoursStartHour > quietHoursEndHour ||
+                            (quietHoursStartHour == quietHoursEndHour
+                            && quietHoursStartMinute > quietHoursEndMinute);
+                    if (quietHoursCrossesMidnight) {
+                        // Quiet hours crosses midnight. Alarm should be quiet
+                        // if it's after start time OR before end time.
+                        if (alarmAfterQuietHoursStart ||
+                                alarmBeforeQuietHoursEnd) {
+                            forceQuiet = true;
+                        }
+                    } else {
+                        // Quiet hours doesn't cross midnight. Alarm should be
+                        // quiet if it's after start time AND before end time.
+                        if (alarmAfterQuietHoursStart &&
+                                alarmBeforeQuietHoursEnd) {
+                            forceQuiet = true;
+                        }
+                    }
+                }
                 int state = alertCursor.getInt(ALERT_INDEX_STATE);
                 final boolean allDay = alertCursor.getInt(ALERT_INDEX_ALL_DAY) != 0;
 
@@ -524,9 +667,12 @@ public class AlertService extends Service {
                             .append(" state: ").append(state)
                             .append(" minutes:").append(minutes)
                             .append(" declined:").append(declined)
+                            .append(" responded:").append(responded)
                             .append(" beginTime:").append(beginTime)
                             .append(" endTime:").append(endTime)
-                            .append(" allDay:").append(allDay);
+                            .append(" allDay:").append(allDay)
+                            .append(" alarmTime:").append(alarmTime)
+                            .append(" forceQuiet:").append(forceQuiet);
                     if (AlertUtils.BYPASS_DB) {
                         msgBuilder.append(" newAlertOverride: " + newAlertOverride);
                     }
@@ -545,11 +691,22 @@ public class AlertService extends Service {
                 // } else
 
                 // Remove declined events
-                if (!declined) {
+                boolean sendAlert = !declined;
+                // Check for experimental reminder settings.
+                if (remindRespondedOnly) {
+                    // If the experimental setting is turned on, then only send
+                    // the alert if you've responded to the event.
+                    sendAlert = sendAlert && responded;
+                }
+                if (sendAlert) {
                     if (state == CalendarAlerts.STATE_SCHEDULED || newAlertOverride) {
                         newState = CalendarAlerts.STATE_FIRED;
                         numFired++;
-                        newAlert = true;
+                        // If quiet hours are forcing the alarm to be silent,
+                        // keep newAlert as false so it will not make noise.
+                        if (!forceQuiet) {
+                            newAlert = true;
+                        }
 
                         // Record the received time in the CalendarAlerts table.
                         // This is useful for finding bugs that cause alarms to be
@@ -657,6 +814,8 @@ public class AlertService extends Service {
                     lowPriorityEvents.add(newInfo);
                 }
             }
+            // TODO(cwren) add beginTime/startTime
+            GlobalDismissManager.processEventIds(context, eventIds.keySet());
         } finally {
             if (alertCursor != null) {
                 alertCursor.close();
@@ -714,7 +873,8 @@ public class AlertService extends Service {
             ringtone = prefs.getRingtoneAndSilence();
         }
         addNotificationOptions(notification, quietUpdate, tickerText,
-                prefs.getDefaultVibrate(), ringtone);
+                prefs.getDefaultVibrate(), ringtone,
+                true); /* Show the LED for these non-expired events */
 
         // Post the notification.
         notificationMgr.notify(notificationId, notification);
@@ -759,12 +919,14 @@ public class AlertService extends Service {
     }
 
     private static void addNotificationOptions(NotificationWrapper nw, boolean quietUpdate,
-            String tickerText, boolean defaultVibrate, String reminderRingtone) {
+            String tickerText, boolean defaultVibrate, String reminderRingtone,
+            boolean showLights) {
         Notification notification = nw.mNotification;
 
-        // Set the lights defaults
-        notification.defaults |= Notification.DEFAULT_LIGHTS;
-        notification.flags |= Notification.FLAG_SHOW_LIGHTS;
+        if (showLights) {
+            notification.flags |= Notification.FLAG_SHOW_LIGHTS;
+            notification.defaults |= Notification.DEFAULT_LIGHTS;
+        }
 
         // Quietly update notification bar. Nothing new. Maybe something just got deleted.
         if (!quietUpdate) {
@@ -829,7 +991,7 @@ public class AlertService extends Service {
                 if (quietUpdate) {
                     ringtone = EMPTY_RINGTONE;
                 } else {
-                    ringtone = prefs.getString(GeneralPreferences.KEY_ALERTS_RINGTONE, null);
+                    ringtone = Utils.getRingTonePreference(context);
                 }
             }
             String retVal = ringtone;

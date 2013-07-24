@@ -94,7 +94,21 @@
                         android:layout_marginRight="16dip"
                         android:layout_gravity="right">
                         <ImageButton
+                            android:id="@+id/change_color"
+                            style="?android:attr/buttonBarButtonStyle"
+                            android:src="@drawable/ic_menu_colorpicker_holo_dark"
+                            android:contentDescription="@string/choose_event_color_label"
+                            android:layout_width="48dip"
+                            android:layout_height="48dip"
+                            android:enabled="false"
+                            android:visibility="gone"
+                            android:layout_marginRight="8dip"
+                            android:padding="8dip"
+                            android:scaleType="centerInside" />
+                        <ImageButton
                             android:id="@+id/edit"
+                            style="?android:attr/buttonBarButtonStyle"
+                            android:src="@drawable/ic_menu_compose_holo_dark"
                             android:contentDescription="@string/edit_label"
                             android:layout_width="48dip"
                             android:layout_height="48dip"
@@ -102,21 +116,18 @@
                             android:visibility="gone"
                             android:layout_marginRight="8dip"
                             android:padding="8dip"
-                            android:scaleType="centerInside"
-                            style="?android:attr/buttonBarButtonStyle"
-                            android:src="@drawable/ic_menu_compose_holo_dark" />
+                            android:scaleType="centerInside" />
                         <ImageButton
                             android:id="@+id/delete"
+                            style="?android:attr/buttonBarButtonStyle"
+                            android:src="@drawable/ic_menu_trash_holo_dark"
                             android:contentDescription="@string/delete_label"
                             android:layout_width="48dip"
                             android:layout_height="48dip"
-                            android:layout_marginLeft="8dip"
-                            android:padding="8dip"
-                            android:scaleType="centerInside"
                             android:enabled="false"
                             android:visibility="gone"
-                            style="?android:attr/buttonBarButtonStyle"
-                            android:src="@drawable/ic_menu_trash_holo_dark" />
+                            android:padding="8dip"
+                            android:scaleType="centerInside" />
                     </LinearLayout>
                 </LinearLayout>
 

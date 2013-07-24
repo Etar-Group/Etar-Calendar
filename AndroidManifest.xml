@@ -36,14 +36,16 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH.mail" />
-    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="16"></uses-sdk>
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="18"></uses-sdk>
 
     <application android:name="CalendarApplication"
             android:label="@string/app_label" android:icon="@mipmap/ic_launcher_calendar"
             android:taskAffinity="android.task.calendar"
             android:hardwareAccelerated="true"
-            android:backupAgent="com.android.calendar.CalendarBackupAgent" >
+            android:backupAgent="com.android.calendar.CalendarBackupAgent"
+            android:requiredAccountType="*" >
 
         <meta-data android:name="com.google.android.backup.api_key"
                 android:value="AEdPqrEAAAAIM256oVOGnuSel5QKDpL8je_T65ZI8rFnDinssA" />
@@ -171,9 +173,11 @@
         <receiver android:name=".alerts.AlertReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.EVENT_REMINDER" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <data android:scheme="content" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
@@ -185,11 +189,16 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".alerts.GlobalDismissManager"
+                  android:exported="false" />
+
         <service android:name=".alerts.AlertService" />
 
         <service android:name=".alerts.DismissAlarmsService" />
 
         <service android:name=".alerts.SnoozeAlarmsService" />
+
+        <service android:name=".alerts.InitAlarmsService" />
 
         <!-- Declarations for the widget -->
         <receiver android:name=".widget.CalendarAppWidgetProvider" android:label="@string/gadget_title">

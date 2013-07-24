@@ -23,18 +23,20 @@
     android:layout_marginTop="6dip"
     android:layout_marginBottom="6dip">
 
-    <View
+    <com.android.calendar.selectcalendars.CalendarColorSquare
         android:id="@+id/color"
-        android:layout_width="16dip"
-        android:layout_height="16dip"
+        android:layout_height="32dip"
+        android:layout_width="32dip"
+        android:layout_marginLeft="13dip"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dip"
-        android:layout_marginRight="16dip" />
+        android:contentDescription="@string/calendar_square_color_picker_description"
+        style="?android:attr/quickContactBadgeStyleWindowMedium" />
 
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginLeft="8dip"
         android:orientation="vertical"
         android:layout_gravity="center_vertical">
 

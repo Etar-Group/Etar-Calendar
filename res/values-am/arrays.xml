@@ -65,92 +65,6 @@
     <item msgid="95029346069903091">"እሁድ"</item>
     <item msgid="5840983116375063739">"ሰኞ"</item>
   </string-array>
-  <string-array name="timezone_labels">
-    <item msgid="6833649526258274889">"የማርሻል ደሴቶች"</item>
-    <item msgid="7176569939440505575">"ሚድዌይ ደሴት"</item>
-    <item msgid="5000628410717488070">"ሀዋይ"</item>
-    <item msgid="3809977082338992040">"አላስካ"</item>
-    <item msgid="1206600898319778734">"የፓስፊክ ሰዓት አቆጣጠር"</item>
-    <item msgid="4251553449779733536">"ቲጁአና"</item>
-    <item msgid="4796372144693551811">"አሪዞና"</item>
-    <item msgid="4589419122570218444">"ቺሁዋውአ"</item>
-    <item msgid="1653398220457872326">"የተራራ የሰዓት አቆጣጠር"</item>
-    <item msgid="229005026661478023">"መካከለኛው አሜሪካ"</item>
-    <item msgid="1545268116831476742">"የመካከለኛ ሰዓት አቆጣጠር"</item>
-    <item msgid="9135129204936732090">"ሜክሲኮ ከተማ"</item>
-    <item msgid="3703110560723049255">"ሳስካታችዋን"</item>
-    <item msgid="5458958644945369505">"ቦጎታ"</item>
-    <item msgid="355450740949670294">"የምስራቅ ሰዓት አቆጣጠር"</item>
-    <item msgid="5786717434693228701">"ቬንዙዌላ"</item>
-    <item msgid="4977886006524392240">"የአትላንቲክ ሰዓት (ባርባዶስ)"</item>
-    <item msgid="10153187433760387">"የአትላንቲክ ሰዓት (ካናዳ)"</item>
-    <item msgid="6115801678953677414">"ማናኡስ"</item>
-    <item msgid="2593929186990540989">"ሳንቲያጎ"</item>
-    <item msgid="6585031589100947696">"ኒውፋውንድላንድ"</item>
-    <item msgid="5295092779694537214">"ብራሲሊያ"</item>
-    <item msgid="6402931335497071732">"ቦነስ አይረስ"</item>
-    <item msgid="4432313195052285856">"ግሪንላንድ"</item>
-    <item msgid="7938414883764011047">"ሞንተቪዴዮ"</item>
-    <item msgid="2737154427296635021">"ማዕከላዊ-አትላንቲክ"</item>
-    <item msgid="1379490252091746679">"አዞረስ"</item>
-    <item msgid="6212233464119368698">"ኬፕ ቨርዴ ደሴቶች"</item>
-    <item msgid="1810261367179140820">"ካዛብላንካ"</item>
-    <item msgid="1230179411620530148">"ለንደን፣ ደብሊን"</item>
-    <item msgid="372075306913304327">"አምስተርዳም፣ በርሊን"</item>
-    <item msgid="9046296030447565862">"ቤልግሬድ"</item>
-    <item msgid="4921622452710220193">"ብራስልስ"</item>
-    <item msgid="727296339287965963">"ሳራየቮ"</item>
-    <item msgid="5997630882187580225">"ዊንድሆክ"</item>
-    <item msgid="3828800493609994208">"የምዕራብ አፍሪካ ሰዓት"</item>
-    <item msgid="7527935722014187591">"አማን፣ ጆርዳን"</item>
-    <item msgid="672509109295227133">"አቴንስ፣ ኢስታንቡል"</item>
-    <item msgid="1835470340349221646">"ቤሩት፣ ሊባኖስ"</item>
-    <item msgid="9006223109403693650">"ካይሮ"</item>
-    <item msgid="2877875673636361825">"ሄልሲንኪ"</item>
-    <item msgid="4528124308590807049">"እየሩሳሌም"</item>
-    <item msgid="7823856457885290195">"ሚንስክ"</item>
-    <item msgid="8650995074282357197">"ሃራሬ"</item>
-    <item msgid="209523815326871285">"ባግዳድ"</item>
-    <item msgid="8077211460729251609">"ሞስኮ"</item>
-    <item msgid="6103383184232804522">"ኩዌት"</item>
-    <item msgid="8581935265080466099">"ናይሮቢ"</item>
-    <item msgid="1531618843539764728">"ቴህራን"</item>
-    <item msgid="141548505188106312">"ባኩ"</item>
-    <item msgid="5974315340250149692">"ትብሊሲ"</item>
-    <item msgid="3344801680659888795">"ይሬቫን"</item>
-    <item msgid="2537944335416132075">"ዱባይ"</item>
-    <item msgid="5630432498109110949">"ካቡል"</item>
-    <item msgid="2274762525650993846">"ኢስላማባድ፣ ካራቺ"</item>
-    <item msgid="272153171103339242">"ኡራልስክ"</item>
-    <item msgid="4757644551253886090">"የካተሪንበርግ"</item>
-    <item msgid="3036512479614493957">"ኮልካታ"</item>
-    <item msgid="4190271241277312277">"ስሪ ላንካ"</item>
-    <item msgid="4489139826358657866">"ካትማንዱ"</item>
-    <item msgid="1195461607876034232">"አስታና"</item>
-    <item msgid="8777509327730950228">"ያንጎን"</item>
-    <item msgid="3838899720161825998">"ክራስኖያርስክ"</item>
-    <item msgid="6495532062164690437">"ባንኮክ"</item>
-    <item msgid="4910549870048384487">"ቤጂንግ"</item>
-    <item msgid="7174954011332328153">"ሆንግ ኮንግ"</item>
-    <item msgid="415034182139280334">"ኢርኩትስክ"</item>
-    <item msgid="3407263784503834649">"ኩዋላ ላምፑር"</item>
-    <item msgid="6547945295249807755">"ፐርዝ"</item>
-    <item msgid="4571776847411430193">"ታይፓይ"</item>
-    <item msgid="3043691515163887690">"ሴኦል"</item>
-    <item msgid="6369124969606372122">"ቶኪዮ፣ ኦሳካ"</item>
-    <item msgid="8317842783685169193">"ያኩትስክ"</item>
-    <item msgid="6993206457323990990">"አዴላይድ"</item>
-    <item msgid="2431970257749452312">"ዳርዊን"</item>
-    <item msgid="2709489188606506801">"ብሪስቤን"</item>
-    <item msgid="6832511138206913044">"ሆባርት"</item>
-    <item msgid="6933429790996727761">"ሲድኒ ፣ ካንቤራ"</item>
-    <item msgid="4546625974877459074">"ቭላዲቮስቶክ"</item>
-    <item msgid="7421491250467489614">"ጉአም"</item>
-    <item msgid="3450367738093440984">"ማጋዳን"</item>
-    <item msgid="5046540868552082971">"ኦክላንድ"</item>
-    <item msgid="481903191189494072">"ፊጂ"</item>
-    <item msgid="1926932394586102998">"ቶንጋ"</item>
-  </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"ተይዟ ል"</item>
     <item msgid="6228387173725732140">"የሚገኝ"</item>
@@ -162,8 +76,8 @@
     <item msgid="9182342638433672664">"ሕዝብ"</item>
   </string-array>
   <string-array name="ordinal_labels">
-    <item msgid="2693927956303125332">"መጀመሪያ"</item>
-    <item msgid="5631923029483854900">"ሰከንድ"</item>
+    <item msgid="2693927956303125332">"አንደኛ"</item>
+    <item msgid="5631923029483854900">"ሁለተኛ"</item>
     <item msgid="148935502975250973">"ሦስተኛ"</item>
     <item msgid="5124200797326669172">"አራተኛ"</item>
     <item msgid="7564374178324652137">"መጨረሻ"</item>
@@ -192,5 +106,64 @@
     <item msgid="6248480754959562740">"ሳምንት"</item>
     <item msgid="4298472806133153766">"ወር"</item>
     <item msgid="5033084974413793845">"አጀንዳ"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"ተቀባይነት ካላገኘ ብቻ"</item>
+    <item msgid="6367412240524984286">"ተቀባይነት ካላገኘ ወይም ምላሽ ካልተሰጠበት"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"በየቀኑ ድገም"</item>
+    <item msgid="6300824484048337842">"በየሳምንቱ ድገም"</item>
+    <item msgid="189361731610816256">"በየወሩ ድገም"</item>
+    <item msgid="8714177874112569158">"በየዓመቱ ድገም"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"በሁሉም የመጀመሪያ እሁድ"</item>
+    <item msgid="2557379346106451363">"በሁሉም ሁለተኛ እሁድ"</item>
+    <item msgid="7622144489915654132">"በሁሉም ሶስተኛ እሁድ"</item>
+    <item msgid="527152448137686021">"በሁሉም አራተኛ እሁድ"</item>
+    <item msgid="5057483608824759350">"በሁሉም የመጨረሻ እሁድ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"በሁሉም የመጀመሪያ ሰኞ"</item>
+    <item msgid="4484275849072423978">"በሁሉም ሁለተኛ ሰኞ"</item>
+    <item msgid="8956169860824371383">"በሁሉም ሶስተኛ ሰኞ"</item>
+    <item msgid="6924403357659569326">"በሁሉም አራተኛ ሰኞ"</item>
+    <item msgid="1379608815263472161">"በሁሉም የመጨረሻ ሰኞ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"በሁሉም የመጀመሪያ ማክሰኞ"</item>
+    <item msgid="9063613547307760928">"በሁሉም ሁለተኛ ማክሰኞ"</item>
+    <item msgid="6688603328729208168">"በሁሉም ሶስተኛ ማክሰኞ"</item>
+    <item msgid="6695206006961533357">"በሁሉም አራተኛ ማክሰኞ"</item>
+    <item msgid="8619069174889809914">"በሁሉም የመጨረሻ ማክሰኞ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"በሁሉም የመጀመሪያ ረቡዕ"</item>
+    <item msgid="5059722045367799217">"በሁሉም ሁለተኛ ረቡዕ"</item>
+    <item msgid="7986246648229272275">"በሁሉም ሶስተኛ ረቡዕ"</item>
+    <item msgid="9068566169348980801">"በሁሉም አራተኛ ረቡዕ"</item>
+    <item msgid="7976866743069062134">"በሁሉም የመጨረሻ ረቡዕ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"በሁሉም የመጀመሪያ ሃሙስ"</item>
+    <item msgid="4857419136007543270">"በሁሉም ሁለተኛ ሃሙስ"</item>
+    <item msgid="222044587450564839">"በሁሉም ሶስተኛ ሃሙስ"</item>
+    <item msgid="6197927556533030945">"በሁሉም አራተኛ ሃሙስ"</item>
+    <item msgid="1023326923033436905">"በሁሉም የመጨረሻ ሃሙስ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"በሁሉም የመጀመሪያ አርብ"</item>
+    <item msgid="1935608297230506940">"በሁሉም ሁለተኛ አርብ"</item>
+    <item msgid="4061877662049317599">"በሁሉም ሶስተኛ አርብ"</item>
+    <item msgid="6856646749131820614">"በሁሉም አራተኛ አርብ"</item>
+    <item msgid="6533513913914859794">"በሁሉም የመጨረሻ አርብ"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"በሁሉም የመጀመሪያ ቅዳሜ"</item>
+    <item msgid="9130198690512925355">"በሁሉም ሁለተኛ ቅዳሜ"</item>
+    <item msgid="4525736070844032405">"በሁሉም ሶስተኛ ቅዳሜ"</item>
+    <item msgid="422053689531707709">"በሁሉም አራተኛ ቅዳሜ"</item>
+    <item msgid="5499975799312474425">"በሁሉም የመጨረሻ ቅዳሜ"</item>
   </string-array>
 </resources>

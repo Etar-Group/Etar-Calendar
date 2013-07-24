@@ -16,14 +16,41 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:key="preferences_tardis_category"
-        android:title="@string/tardis">
+        android:key="preferences_debug_category"
+        android:title="@string/preferences_debug_category">
         <Preference
             android:key="preferences_copy_db"
             android:title="@string/copy_db" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="preferences_reminders_category"
+        android:title="@string/preferences_reminders_category" >
+        <ListPreference
+            android:key="preferences_reminders_responded"
+            android:title="@string/preferences_reminders_responded_label"
+            android:entries="@array/preferences_skip_reminders_labels"
+            android:entryValues="@array/preferences_skip_reminders_values"
+            android:dialogTitle="@string/preferences_reminders_responded_dialog" />
+        <CheckBoxPreference
+            android:key="preferences_reminders_quiet_hours"
+            android:title="@string/preferences_reminders_quiet_hours_label"
+            android:summary="@string/preferences_reminders_quiet_hours_description"/>
+        <Preference
+            android:key="preferences_reminders_quiet_hours_start"
+            android:dependency="preferences_reminders_quiet_hours"
+            android:title="@string/preferences_reminders_quiet_hours_start"
+            android:summary="10:00pm" />
+        <Preference
+            android:key="preferences_reminders_quiet_hours_end"
+            android:dependency="preferences_reminders_quiet_hours"
+            android:title="@string/preferences_reminders_quiet_hours_end"
+            android:summary="08:00am" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="preferences_tardis_category"
+        android:title="@string/tardis">
         <CheckBoxPreference
             android:key="preferences_tardis_1"
             android:title="@string/do_not_check" />
-            android:defaultValue="false" />
     </PreferenceCategory>
 </PreferenceScreen>

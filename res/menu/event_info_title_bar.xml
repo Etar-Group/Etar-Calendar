@@ -16,18 +16,25 @@
 
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id='@+id/info_action_change_color'
+        android:alphabeticShortcut="c"
+        android:title="@string/choose_event_color_label"
+        android:icon="@drawable/ic_menu_colorpicker_holo_light"
+        android:showAsAction="always"
+        android:enabled="false"
+        android:visible="false" />
     <item android:id="@+id/info_action_edit"
         android:alphabeticShortcut="e"
         android:title="@string/edit_label"
         android:icon="@drawable/ic_menu_compose_holo_light"
-        android:showAsAction="withText|always"
+        android:showAsAction="always"
         android:enabled="false"
         android:visible="false" />
     <item android:id="@+id/info_action_delete"
         android:alphabeticShortcut="x"
         android:title="@string/delete_label"
         android:icon="@drawable/ic_menu_trash_holo_light"
-        android:showAsAction="withText|always"
+        android:showAsAction="always"
         android:enabled="false"
         android:visible="false" />
 </menu>

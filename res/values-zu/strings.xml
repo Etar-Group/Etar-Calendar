@@ -38,7 +38,7 @@
     <item quantity="other" msgid="9175648445939148974">"<xliff:g id="COUNT">%d</xliff:g> amaminithi"</item>
   </plurals>
   <plurals name="Nhours">
-    <item quantity="one" msgid="4793697728599296830">"Ihora elingu-1"</item>
+    <item quantity="one" msgid="4793697728599296830">"1 ihora"</item>
     <item quantity="other" msgid="4477841052001760620">"<xliff:g id="COUNT">%d</xliff:g> amahora"</item>
   </plurals>
   <plurals name="Ndays">
@@ -54,10 +54,10 @@
     <string name="day_view" msgid="4467754504843584437">"Usuku"</string>
     <string name="week_view" msgid="6775043022159508060">"Iviki"</string>
     <string name="month_view" msgid="7287101431749285412">"Inyanga"</string>
-    <string name="event_view" msgid="7621353079385122317">"Buka isenzakalo"</string>
-    <string name="event_create" msgid="6941040556709110617">"Isenzakalo esisha"</string>
-    <string name="event_edit" msgid="4006961928830064662">"Hlela isenzakalo"</string>
-    <string name="event_delete" msgid="2386667193277770442">"Susa isenzakalo"</string>
+    <string name="event_view" msgid="7621353079385122317">"Buka umcimbi"</string>
+    <string name="event_create" msgid="6941040556709110617">"Umcimbi omusha"</string>
+    <string name="event_edit" msgid="4006961928830064662">"Hlela umcimbi"</string>
+    <string name="event_delete" msgid="2386667193277770442">"Susa umcimbi"</string>
     <string name="goto_today" msgid="9162136434410891230">"Namhlanje"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Izilungiselelo"</string>
     <string name="menu_select_visible_calendars" msgid="735670432781741817">"Amakhalenda azoboniswa"</string>
@@ -71,20 +71,21 @@
     <string name="accounts" msgid="849401841083180306">"Ama-akhawunti; ukuvumelanisa"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Amakhalenda azovumelaniswa"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Amakhalenda azovumelaniswa"</string>
-    <string name="hint_what" msgid="709155115005044531">"Igama lesenzakalo"</string>
+    <string name="hint_what" msgid="709155115005044531">"Igama lomcimbi"</string>
     <string name="hint_where" msgid="4972598001033801974">"Indawo"</string>
     <string name="hint_description" msgid="1910143586169033232">"Incazelo"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Abavakashi"</string>
-    <string name="creating_event" msgid="7516249252554059980">"Isenzakalo senziwe"</string>
-    <string name="saving_event" msgid="7694181017411177226">"Isenzakalo sigciniwe"</string>
-    <string name="empty_event" msgid="9018699257414338634">"Isenzakalo esingenalutho asenziwanga"</string>
+    <string name="creating_event" msgid="7516249252554059980">"Umcimbi ulondoloziwe"</string>
+    <string name="saving_event" msgid="7694181017411177226">"Umcimbi ulondoloziwe"</string>
+    <string name="empty_event" msgid="9018699257414338634">"Umcimbi ongenalutho awudalekanga."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Izimemo zizothunyelwa."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Ukubuyekeza kuzothunyelwa."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Londoloza"</string>
     <string name="alert_title" msgid="7869592820853066853">"Izaziso zekhalenda"</string>
-    <string name="event_info_title" msgid="56024222340421620">"Buka isenzakalo"</string>
+    <string name="event_info_title" msgid="56024222340421620">"Buka umcimbi"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Isimemo somhlangano"</string>
     <string name="edit_event_to_label" msgid="795012981218062421">"Kuya ku"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"Ivela ku"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Ibuya"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Usuku Lonke"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Ikhalenda"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Bonisa konke"</string>
@@ -98,6 +99,11 @@
     <string name="add_account" msgid="1669072099756774952">"Faka i-akhawunti"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Ikhalenda:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Umdidiyeli:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Khetha umbala womcimbi"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Umbala womcimbi"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Misela kumbala wekhalenda ozenzakalelayo"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Umbala wekhalenda"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Isikhethi sombala"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Uyahlanganyela?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Yebo"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Mhlawumbe"</string>
@@ -106,6 +112,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Isihleli se-imeyili"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"I-imeyili no"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Umcimbi awutholakalanga."</string>
+    <string name="map_label" msgid="8795383535586556038">"Imephu"</string>
+    <string name="call_label" msgid="2960328220008869083">"Fonela"</string>
     <!-- no translation found for quick_response_settings (6776151690686068278) -->
     <skip />
     <!-- no translation found for quick_response_settings_summary (7878304729027355604) -->
@@ -122,8 +130,7 @@
     <!-- no translation found for quick_response_defaults:1 (6215158751728689832) -->
     <!-- no translation found for quick_response_defaults:2 (4485794001743679338) -->
     <!-- no translation found for quick_response_defaults:3 (8036557974294987511) -->
-    <!-- no translation found for quick_response_custom_msg (7265035125070482285) -->
-    <skip />
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Bhala okwakho…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Umhleli:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Izikhumbuzi"</string>
     <string name="agenda_today" msgid="5965841338467422191">"NAMHLANJE, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -141,11 +148,21 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"Snuza konke"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"Cashisa konke"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Ukusnuza"</string>
-    <string name="does_not_repeat" msgid="1877681921029738999">"Isenzakalo sesikhathi esisodwa"</string>
-    <string name="daily" msgid="560350706808680448">"Nsuku zonke"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"Umcimbi owenzeka kanye"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; kuze kube umhla ka-<xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; okwesikhathi esisodwa"</item>
+    <item quantity="other" msgid="4855496837834652446">"; okwezikhathi ezingu-<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"Nsuku zonke"</item>
+    <item quantity="other" msgid="5455230727715859264">"Njalo ngezinsuku ezingu-<xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Njalo phakathi nesonto (Msom-Lwes)"</string>
-    <string name="weekly" msgid="2006107373119027114">"Maviki wonke (njalo <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"Zinyanga zonke (njalo <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"Njalo ngeviki nge-<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"Njalo ngamaviki angu-<xliff:g id="NUMBER">%1$d</xliff:g> nge-<xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
     <string name="monthly" msgid="4587116285383048586">"Nyanga zonke"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Mnyaka yonke"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Zinyanga zonke (ngosuku <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
@@ -155,8 +172,8 @@
     <string name="modify_event" msgid="5982876409997142690">"Shintsha kuphela lesi senzakalo."</string>
     <string name="modify_all" msgid="4421657265864209041">"Shintsha zonke izenzakalo ochungechungeni."</string>
     <string name="modify_all_following" msgid="3017428541066390380">"Shintsha lokhu nazo zonke izenzakalo zesikhathi esizayo."</string>
-    <string name="new_event_dialog_label" msgid="7553105224561147916">"Isenzakalo esisha"</string>
-    <string name="new_event_dialog_option" msgid="6154657379574669371">"Isenzakalo esisha"</string>
+    <string name="new_event_dialog_label" msgid="7553105224561147916">"Umcimbi omusha"</string>
+    <string name="new_event_dialog_option" msgid="6154657379574669371">"Umcimbi omusha"</string>
     <string name="delete_this_event_title" msgid="518402946676919384">"Susa lomcimbi?"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"Susa i-<xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Shintsha impendulo"</string>
@@ -169,7 +186,7 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Iviki liqala ngezi"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Iviki liqala ngezi"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Sula umlando wokusesha"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Susa konke ukucinga okwenzile"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Susa konke ukusesha okwenzile"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Umlando wokusesha ususiwe."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Izaziso"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Dlidliza"</string>
@@ -190,6 +207,15 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Azikho izenzakalo zekhalenda ezizayo"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Okokulinga"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"Izikhumbuzo"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Yeqa izikhumbuzo"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Yeqa izikhumbuzo"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Amahora anokuthula"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Izikhumbuzo ezithulile zemicimbi ngesikhathi esithile."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Isikhathi sokuqala samahora anokuthula"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Isikhathi sokuphela samahora anokuthula"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"Kususwa iphutha"</string>
     <string name="copy_db" msgid="437691290566699292">"Thumela imininingo egciniwe"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Iyasesha...<xliff:g id="DOMAIN">%s</xliff:g>"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Susa abaphelekezeli"</string>
@@ -198,11 +224,12 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Idethi yokugcina"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Isikhathi Sokugcina"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Indawo yesikhathi"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Phinda umcimbi"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Faka isikhumbuzi"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Khipha isikhumbuzi"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Engeza umphelezeli"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"Vumelanisa ikhalenda"</string>
-    <string name="accessibility_all_day" msgid="4146955438811915282">"Isenzakalo sosuku lonke"</string>
+    <string name="accessibility_all_day" msgid="4146955438811915282">"Umcimbi wosuku lonke"</string>
     <string name="accessibility_repeats" msgid="1629279916830919582">"Impinda"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Isikhathi sesikhumbuzi"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Uhlobo lwesikhumbuzi"</string>
@@ -211,16 +238,44 @@
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Izaziso zekhalenda"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Hlehlisa isaziso"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"Thumela izivakashi i-imeyili"</string>
-    <string name="day_view_new_event_hint" msgid="2131483437911536229">"Isenzakalo esisha"</string>
-    <string name="template_announce_item_index" msgid="4067877800670753110">"Isenzakalo <xliff:g id="ITEM_INDEX">%1$s</xliff:g> se <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
+    <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ Umcimbi omusha"</string>
+    <string name="template_announce_item_index" msgid="4067877800670753110">"Umcimbi <xliff:g id="ITEM_INDEX">%1$s</xliff:g> kwengu-<xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
   <plurals name="Nevents">
     <item quantity="one" msgid="5230907142214104485">"Umcimbi ongu-1"</item>
-    <item quantity="other" msgid="6093072093209431078">"Izehlakalo ezingu-<xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> imicimbi"</item>
   </plurals>
   <plurals name="N_remaining_events">
     <item quantity="one" msgid="431585781647034528">"+1 umcimbi"</item>
-    <item quantity="other" msgid="3609243840882275136">"Izehlakalo ezingu-+<xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="3609243840882275136">"+<xliff:g id="COUNT">%d</xliff:g> imicimbi"</item>
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Umcimbi okhethiwe"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Ungalokothi uhlole -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Phindaphinda"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Awulokothi uphinde"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"Njalo ngosuku olungu-<xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="707566499994398250">"Njalo ngezinsuku ezingu-<xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"Njalo ngeviki elingu-<xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="7094801039989237061">"Njalo ngamaviki angu-<xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"Njalo ngenyanga engu-<xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="5419723710346646523">"Njalo ngezinyanga ezingu-<xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"Njalo ngonyaka ongu-<xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="5678653649746562060">"Njalo ngeminyaka engu-<xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ngosuku olufanayo njalo ngenyanga"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Phakade"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Kuze kube idethi ethile"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"kuze kube ngumhla ka-<xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Okwezinombolo zemicimbi"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"Okomcimbi ongu-<xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="8779598489398048259">"Okwemicimbi engu-<xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"shintsha idethi yokugcina"</string>
 </resources>

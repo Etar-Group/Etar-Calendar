@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"ไม่ได้สร้างกิจกรรมเปล่า"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"จะมีการส่งข้อความเชิญ"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"จะมีการส่งการอัปเดต"</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"บันทึก"</string>
     <string name="alert_title" msgid="7869592820853066853">"การแจ้งเตือนของปฏิทิน"</string>
     <string name="event_info_title" msgid="56024222340421620">"ดูกิจกรรม"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"คำเชิญเข้าประชุม"</string>
@@ -98,6 +99,11 @@
     <string name="add_account" msgid="1669072099756774952">"เพิ่มบัญชี"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"ปฏิทิน:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"ผู้จัด:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"เลือกสีของกิจกรรม"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"สีของกิจกรรม"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"ตั้งเป็นสีเริ่มต้นของปฏิทิน"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"สีปฏิทิน"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"ตัวเลือกสี"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"ต้องการเข้าร่วมหรือไม่"</string>
     <string name="response_yes" msgid="2027484304899988350">"ใช่"</string>
     <string name="response_maybe" msgid="7791500973627841695">"ไม่แน่นอน"</string>
@@ -106,6 +112,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"ส่งอีเมลถึงผู้จัด"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"ส่งอีเมลด้วย"</string>
     <string name="event_not_found" msgid="8356864185947582727">"ไม่พบกิจกรรม"</string>
+    <string name="map_label" msgid="8795383535586556038">"แผนที่"</string>
+    <string name="call_label" msgid="2960328220008869083">"โทร"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"คำตอบด่วน"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"แก้ไขคำตอบเริ่มต้น"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"แก้ไขคำตอบด่วน"</string>
@@ -118,7 +126,7 @@
     <item msgid="4485794001743679338">"เริ่มไปเลย ไม่ต้องรอ"</item>
     <item msgid="8036557974294987511">"ขอโทษ ฉันไปไม่ได้ เราต้องกำหนดเวลากันใหม่"</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"ข้อความที่กำหนดเอง…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"เขียนคำตอบของคุณเอง…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"ผู้จัด:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"การแจ้งเตือน"</string>
     <string name="agenda_today" msgid="5965841338467422191">"วันนี้ <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -137,10 +145,20 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"ปิดทั้งหมด"</string>
     <string name="snooze_label" msgid="1515893621063224666">"ปิดเสียงเตือนชั่วคราว"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"กิจกรรมที่เกิดขึ้นครั้งเดียว"</string>
-    <string name="daily" msgid="560350706808680448">"รายวัน"</string>
+    <string name="endByDate" msgid="7654221304929538201">"จนถึง <xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"รวมหนึ่งครั้ง"</item>
+    <item quantity="other" msgid="4855496837834652446">"รวม <xliff:g id="NUMBER">%d</xliff:g> ครั้ง"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"รายวัน"</item>
+    <item quantity="other" msgid="5455230727715859264">"ทุก <xliff:g id="NUMBER">%d</xliff:g> วัน"</item>
+  </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"ทุกวันทำการ (จันทร์-ศุกร์)"</string>
-    <string name="weekly" msgid="2006107373119027114">"รายสัปดาห์ (ทุก <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"รายเดือน (ทุก <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g><xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g>)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"ทุก <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> ของแต่ละสัปดาห์"</item>
+    <item quantity="other" msgid="2857390143157377867">"ทุก <xliff:g id="NUMBER">%1$d</xliff:g> สัปดาห์ใน <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
     <string name="monthly" msgid="4587116285383048586">"รายเดือน"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"รายปี"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"รายเดือน (ในวันที่ <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
@@ -185,6 +203,15 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"ไม่มีกิจกรรมในปฏิทินที่กำลังมาถึง"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"ทดลอง"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"การแจ้งเตือน"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"ข้ามการแจ้งเตือน"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"ข้ามการแจ้งเตือน"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"ชั่วโมงเงียบ"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"ปิดเสียงการแจ้งเตือนกิจกรรมระหว่างเวลาที่กำหนด"</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"เวลาเริ่มชั่วโมงเงียบ"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"เวลาสิ้นสุดชั่วโมงเงียบ"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"การแก้ไขข้อบกพร่อง"</string>
     <string name="copy_db" msgid="437691290566699292">"ส่งฐานข้อมูล"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"กำลังค้นหา <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"นำผู้เข้าร่วมออก"</string>
@@ -193,6 +220,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"วันที่สิ้นสุด"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"เวลาสิ้นสุด"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"โซนเวลา"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"กิจกรรมที่เกิดซ้ำ"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"เพิ่มการแจ้งเตือน"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"นำการแจ้งเตือนออก"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"เพิ่มผู้เข้าร่วม"</string>
@@ -218,4 +246,32 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"กิจกรรมที่เลือก"</string>
     <string name="do_not_check" msgid="7815441673853466129">"อย่าเลือก -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"ตั้งซ้ำ"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ไม่เกิดซ้ำ"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"ทุก <xliff:g id="COUNT">%d</xliff:g> วัน"</item>
+    <item quantity="other" msgid="707566499994398250">"ทุก <xliff:g id="COUNT">%d</xliff:g> วัน"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"ทุก <xliff:g id="COUNT">%d</xliff:g> สัปดาห์"</item>
+    <item quantity="other" msgid="7094801039989237061">"ทุก <xliff:g id="COUNT">%d</xliff:g> สัปดาห์"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"ทุก <xliff:g id="COUNT">%d</xliff:g> เดือน"</item>
+    <item quantity="other" msgid="5419723710346646523">"ทุก <xliff:g id="COUNT">%d</xliff:g> เดือน"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"ทุก <xliff:g id="COUNT">%d</xliff:g> ปี"</item>
+    <item quantity="other" msgid="5678653649746562060">"ทุก <xliff:g id="COUNT">%d</xliff:g> ปี"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"ในวันเดียวกันในแต่ละเดือน"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"ตลอดไป"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"จนถึงวันที่"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"จนถึงวันที่ <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"กำหนดจำนวนกิจกรรม"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"สำหรับกิจกรรม <xliff:g id="EVENT_COUNT">%d</xliff:g> รายการ"</item>
+    <item quantity="other" msgid="8779598489398048259">"สำหรับกิจกรรม <xliff:g id="EVENT_COUNT">%d</xliff:g> รายการ"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"เปลี่ยนวันที่สิ้นสุด"</string>
 </resources>

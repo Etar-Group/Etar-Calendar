@@ -27,11 +27,14 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.test.IsolatedContext;
+import android.test.RenamingDelegatingContext;
 import android.test.ServiceTestCase;
 import android.test.mock.MockContentResolver;
 import android.test.mock.MockContext;
@@ -41,6 +44,7 @@ import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Smoke;
 import android.util.Log;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.Semaphore;
@@ -79,6 +83,23 @@ public class AsyncQueryServiceTest extends ServiceTestCase<AsyncQueryServiceHelp
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+    }
+
+    private class MockContext2 extends MockContext {
+        @Override
+        public Resources getResources() {
+            return getContext().getResources();
+        }
+
+        @Override
+        public File getDir(String name, int mode) {
+            return getContext().getDir("mockcontext2_+" + name, mode);
+        }
+
+        @Override
+        public Context getApplicationContext() {
+            return this;
+        }
     }
 
     @Smoke
@@ -402,8 +423,17 @@ public class AsyncQueryServiceTest extends ServiceTestCase<AsyncQueryServiceHelp
             @Override
             public ContentResolver getContentResolver() {
                 if (mResolver == null) {
-                    ContentProvider provider = new TestProvider(work);
                     mResolver = new MockContentResolver();
+
+                    final String filenamePrefix = "test.";
+                    RenamingDelegatingContext targetContextWrapper = new RenamingDelegatingContext(
+                            new MockContext2(), getContext(), filenamePrefix);
+                    IsolatedContext providerContext =
+                            new IsolatedContext(mResolver, targetContextWrapper);
+
+                    ContentProvider provider = new TestProvider(work);
+                    provider.attachInfo(providerContext, null);
+
                     mResolver.addProvider(AUTHORITY, provider);
                 }
                 return mResolver;

@@ -16,10 +16,6 @@
 
 package com.android.calendar.selectcalendars;
 
-import com.android.calendar.AsyncQueryService;
-import com.android.calendar.R;
-import com.android.calendar.selectcalendars.SelectCalendarsSyncAdapter.CalendarRow;
-
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.ListFragment;
@@ -31,9 +27,11 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
 import android.view.LayoutInflater;
@@ -43,10 +41,16 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.android.calendar.AsyncQueryService;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+import com.android.calendar.selectcalendars.SelectCalendarsSyncAdapter.CalendarRow;
+
 import java.util.HashMap;
 
 public class SelectCalendarsSyncFragment extends ListFragment
         implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
+
     private static final String TAG = "SelectCalendarSync";
 
     private static final String COLLATE_NOCASE = " COLLATE NOCASE";
@@ -62,6 +66,8 @@ public class SelectCalendarsSyncFragment extends ListFragment
         Calendars.CALENDAR_DISPLAY_NAME,
         Calendars.CALENDAR_COLOR,
         Calendars.SYNC_EVENTS,
+        Calendars.ACCOUNT_NAME,
+        Calendars.ACCOUNT_TYPE,
         "(" + Calendars.ACCOUNT_NAME + "=" + Calendars.OWNER_ACCOUNT + ") AS " + IS_PRIMARY, };
 
     private TextView mSyncStatus;
@@ -69,6 +75,16 @@ public class SelectCalendarsSyncFragment extends ListFragment
     private Account mAccount;
     private final String[] mArgs = new String[2];
     private AsyncQueryService mService;
+    private Handler mHandler = new Handler();
+    private ContentObserver mCalendarsObserver = new ContentObserver(mHandler) {
+        @Override
+        public void onChange(boolean selfChange) {
+            // We don't need our own sync changes to trigger refreshes.
+            if (!selfChange) {
+                getLoaderManager().initLoader(0, null, SelectCalendarsSyncFragment.this);
+            }
+        }
+    };
 
     public SelectCalendarsSyncFragment() {
     }
@@ -116,7 +132,12 @@ public class SelectCalendarsSyncFragment extends ListFragment
         } else {
             mSyncStatus.setVisibility(View.GONE);
             mAccountsButton.setVisibility(View.GONE);
-        }
+
+            // Start a background sync to get the list of calendars from the server.
+            Utils.startCalendarMetafeedSync(mAccount);
+            getActivity().getContentResolver().registerContentObserver(
+                    Calendars.CONTENT_URI, true, mCalendarsObserver);
+       }
     }
 
     @Override
@@ -157,6 +178,7 @@ public class SelectCalendarsSyncFragment extends ListFragment
                 changes.clear();
             }
         }
+        getActivity().getContentResolver().unregisterContentObserver(mCalendarsObserver);
         super.onPause();
     }
 
@@ -172,7 +194,7 @@ public class SelectCalendarsSyncFragment extends ListFragment
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         SelectCalendarsSyncAdapter adapter = (SelectCalendarsSyncAdapter) getListAdapter();
         if (adapter == null) {
-            adapter = new SelectCalendarsSyncAdapter(getActivity(), data);
+            adapter = new SelectCalendarsSyncAdapter(getActivity(), data, getFragmentManager());
             setListAdapter(adapter);
         } else {
             adapter.changeCursor(data);

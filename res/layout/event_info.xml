@@ -54,95 +54,7 @@
             <!--  Container for the event's headline
                   Name, Date, Time & Location
             -->
-            <LinearLayout
-                android:id="@+id/event_info_headline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dip"
-                android:paddingRight="16dip"
-                android:paddingTop="8dip"
-                android:paddingBottom="16dip"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <!-- WHAT -->
-                    <TextView
-                        android:id="@+id/title"
-                        android:layout_weight=".8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:autoLink="all"
-                        android:textIsSelectable="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/event_info_headline_color"
-                        android:textColorLink="@color/event_info_headline_color"
-                        style="?android:attr/textAppearanceLarge"
-                        android:textSize="24sp" />
-                    <!-- BUTTONS -->
-                    <LinearLayout
-                        android:id="@+id/event_info_buttons_container"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right">
-                        <Button
-                            android:id="@+id/edit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:enabled="false"
-                            style="?android:attr/buttonBarButtonStyle"
-                            android:textColor="@color/event_info_headline_color"
-                            android:text="@string/edit_event_label" />
-                        <Button
-                            android:id="@+id/delete"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            style="?android:attr/buttonBarButtonStyle"
-                            android:textColor="@color/event_info_headline_color"
-                            android:text="@string/delete_label" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!-- WHEN -->
-                <TextView
-                    android:id="@+id/when_datetime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dip"
-                    android:textIsSelectable="true"
-                    android:textSize="14sp"
-                    android:textColor="@color/event_info_headline_color"
-                    style="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:id="@+id/when_repeat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dip"
-                    android:textSize="14sp"
-                    android:textColor="@color/event_info_headline_transparent_color"
-                    style="?android:attr/textAppearanceLarge" />
-
-                <!-- WHERE -->
-                <TextView
-                    android:id="@+id/where"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="false"
-                    android:layout_marginTop="4dip"
-                    android:textIsSelectable="true"
-                    android:textSize="14sp"
-                    android:textColor="@color/event_info_headline_color"
-                    android:textColorLink="@color/event_info_headline_link_color"
-                    style="?android:attr/textAppearanceLarge" />
-            </LinearLayout>
+            <include layout="@layout/event_info_headline" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -255,7 +167,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical"
-                        android:paddingLeft="29dip"
                         android:gravity="center_vertical"
                         style="?android:attr/textAppearanceMedium"
                         android:textColor="@color/event_info_body_color"
@@ -266,7 +177,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical"
-                        android:paddingLeft="29dip"
                         android:gravity="center_vertical"
                         style="?android:attr/textAppearanceMedium"
                         android:textColor="@color/event_info_body_color"
@@ -277,7 +187,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical"
-                        android:paddingLeft="29dip"
                         android:gravity="center_vertical"
                         style="?android:attr/textAppearanceMedium"
                         android:textColor="@color/event_info_body_color"

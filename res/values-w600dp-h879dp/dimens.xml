@@ -45,5 +45,4 @@
     <!-- Size of event info dialog box -->
     <dimen name="event_info_dialog_width">550dip</dimen>
     <dimen name="event_info_dialog_height">550dip</dimen>
-
 </resources>

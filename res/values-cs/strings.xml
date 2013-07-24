@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Prázdná událost se nevytvořila"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Pozvánky budou odeslány."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Změny budou odeslány."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Uložit"</string>
     <string name="alert_title" msgid="7869592820853066853">"Upozornění kalendáře"</string>
     <string name="event_info_title" msgid="56024222340421620">"Zobrazit událost"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Pozvánka na schůzku"</string>
@@ -98,14 +99,21 @@
     <string name="add_account" msgid="1669072099756774952">"Přidat účet"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendář:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizátor:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Vyberte barvu události."</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Barva události"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Nastavit na výchozí barvu kalendáře"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Barva kalendáře"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Výběr barev"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Zúčastníte se?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Ano"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Možná"</string>
     <string name="response_no" msgid="561911691884148136">"Ne"</string>
-    <string name="email_guests_label" msgid="8772030932155305903">"Poslat e-mail hostům"</string>
+    <string name="email_guests_label" msgid="8772030932155305903">"Poslat hostům e-mail"</string>
     <string name="email_organizer_label" msgid="7178059542798074813">"Poslat e-mail organizátorovi"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Psát si s uživateli"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Událost nebyla nalezena."</string>
+    <string name="map_label" msgid="8795383535586556038">"Mapa"</string>
+    <string name="call_label" msgid="2960328220008869083">"Volat"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Rychlé odpovědi"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Změňte Výchozí odpovědi pro zasílání emailů hostům"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Změnit rychlé odpovědi"</string>
@@ -137,10 +145,20 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Zavřít vše"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Odložit"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Jednorázová událost"</string>
-    <string name="daily" msgid="560350706808680448">"Denně"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; do <xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; jednorázově"</item>
+    <item quantity="other" msgid="4855496837834652446">", <xliff:g id="NUMBER">%d</xliff:g>krát"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"Denně"</item>
+    <item quantity="other" msgid="5455230727715859264">"Jednou za <xliff:g id="NUMBER">%d</xliff:g> d."</item>
+  </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Každý pracovní den (po–pá)"</string>
-    <string name="weekly" msgid="2006107373119027114">"Týdně (vždy <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"Měsíčně (vždy <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"Každý týden v <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"Jednou za <xliff:g id="NUMBER">%1$d</xliff:g> týd. v <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
     <string name="monthly" msgid="4587116285383048586">"Měsíčně"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Ročně"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Měsíčně (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>. den)"</string>
@@ -185,6 +203,15 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Žádné nadcházející události"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Experimentální"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"Připomenutí"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Přeskakování upomínek"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Přeskakování upomínek"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Ztišení"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Ztišit připomenutí událostí během zadaného času."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Začátek ztišení"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Konec ztišení"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"Ladění"</string>
     <string name="copy_db" msgid="437691290566699292">"Odeslat databázi"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Vyhledávání na webu <xliff:g id="DOMAIN">%s</xliff:g>\u2026"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Odebrat účastníka"</string>
@@ -193,6 +220,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Datum ukončení"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Čas ukončení"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Časové pásmo"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Opakovat událost"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Přidat připomenutí"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Odebrat připomenutí"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Přidat účastníka"</string>
@@ -218,4 +246,32 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Vybraná událost"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Nezaškrtávejte –&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Opakování"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Neopakuje se"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"Jednou za <xliff:g id="COUNT">%d</xliff:g> d."</item>
+    <item quantity="other" msgid="707566499994398250">"Jednou za <xliff:g id="COUNT">%d</xliff:g> d."</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"Jednou za <xliff:g id="COUNT">%d</xliff:g> týd."</item>
+    <item quantity="other" msgid="7094801039989237061">"Jednou za <xliff:g id="COUNT">%d</xliff:g> týd."</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"Jednou za <xliff:g id="COUNT">%d</xliff:g> měs."</item>
+    <item quantity="other" msgid="5419723710346646523">"Jedno za <xliff:g id="COUNT">%d</xliff:g> měs."</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"Jednou za <xliff:g id="COUNT">%d</xliff:g> r."</item>
+    <item quantity="other" msgid="5678653649746562060">"Jednou za <xliff:g id="COUNT">%d</xliff:g> r."</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"měsíčně tentýž den"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Navždy"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Do určitého data"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Po určitý počet událostí"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"Pro <xliff:g id="EVENT_COUNT">%d</xliff:g> událost"</item>
+    <item quantity="other" msgid="8779598489398048259">"Pro následující počet událostí: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"změnit datum ukončení"</string>
 </resources>

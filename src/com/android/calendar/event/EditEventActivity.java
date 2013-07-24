@@ -16,15 +16,16 @@
 
 package com.android.calendar.event;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract.Events;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.MenuItem;
@@ -32,8 +33,11 @@ import android.view.MenuItem;
 import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+
+import java.util.ArrayList;
 
 public class EditEventActivity extends AbstractCalendarActivity {
     private static final String TAG = "EditEventActivity";
@@ -42,9 +46,19 @@ public class EditEventActivity extends AbstractCalendarActivity {
 
     private static final String BUNDLE_KEY_EVENT_ID = "key_event_id";
 
+    public static final String EXTRA_EVENT_COLOR = "event_color";
+
+    public static final String EXTRA_EVENT_REMINDERS = "reminders";
+
     private static boolean mIsMultipane;
 
     private EditEventFragment mEditFragment;
+
+    private ArrayList<ReminderEntry> mReminders;
+
+    private int mEventColor;
+
+    private boolean mEventColorInitialized;
 
     private EventInfo mEventInfo;
 
@@ -54,6 +68,10 @@ public class EditEventActivity extends AbstractCalendarActivity {
         setContentView(R.layout.simple_frame_layout);
 
         mEventInfo = getEventInfoFromIntent(icicle);
+        mReminders = getReminderEntriesFromIntent();
+        mEventColorInitialized = getIntent().hasExtra(EXTRA_EVENT_COLOR);
+        mEventColor = getIntent().getIntExtra(EXTRA_EVENT_COLOR, -1);
+
 
         mEditFragment = (EditEventFragment) getFragmentManager().findFragmentById(R.id.main_frame);
 
@@ -79,7 +97,8 @@ public class EditEventActivity extends AbstractCalendarActivity {
                 intent = getIntent();
             }
 
-            mEditFragment = new EditEventFragment(mEventInfo, false, intent);
+            mEditFragment = new EditEventFragment(mEventInfo, mReminders, mEventColorInitialized,
+                    mEventColor, false, intent);
 
             mEditFragment.mShowModifyDialogOnLaunch = getIntent().getBooleanExtra(
                     CalendarController.EVENT_EDIT_ON_LAUNCH, false);
@@ -89,6 +108,12 @@ public class EditEventActivity extends AbstractCalendarActivity {
             ft.show(mEditFragment);
             ft.commit();
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private ArrayList<ReminderEntry> getReminderEntriesFromIntent() {
+        Intent intent = getIntent();
+        return (ArrayList<ReminderEntry>) intent.getSerializableExtra(EXTRA_EVENT_REMINDERS);
     }
 
     private EventInfo getEventInfoFromIntent(Bundle icicle) {
@@ -127,6 +152,8 @@ public class EditEventActivity extends AbstractCalendarActivity {
             info.startTime.set(begin);
         }
         info.id = eventId;
+        info.eventTitle = intent.getStringExtra(Events.TITLE);
+        info.calendarId = intent.getLongExtra(Events.CALENDAR_ID, -1);
 
         if (allDay) {
             info.extraLong = CalendarController.EXTRA_CREATE_ALL_DAY;

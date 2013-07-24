@@ -16,18 +16,34 @@
 
 package com.android.calendar;
 
+import com.android.calendar.Utils;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
 
+import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.database.MatrixCursor;
 import android.provider.CalendarContract.CalendarCache;
 import android.test.mock.MockResources;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Smoke;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.format.Time;
+import android.text.style.URLSpan;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 
 import junit.framework.TestCase;
@@ -112,6 +128,13 @@ public class UtilsTests extends TestCase {
             config.locale = Locale.getDefault();
             return config;
         }
+
+        @Override
+        public DisplayMetrics getDisplayMetrics(){
+            DisplayMetrics metrics = new DisplayMetrics();
+            metrics.density = 2.0f;
+            return metrics;
+        }
     }
 
     private static long createTimeInMillis(int second, int minute, int hour, int monthDay,
@@ -152,6 +175,7 @@ public class UtilsTests extends TestCase {
         dbUtils.getContentResolver().addProvider("settings", dbUtils.getContentProvider());
         dbUtils.getContentResolver().addProvider(CalendarCache.URI.getAuthority(),
                 dbUtils.getContentProvider());
+
         setTimezone(DEFAULT_TIMEZONE);
     }
 
@@ -168,7 +192,7 @@ public class UtilsTests extends TestCase {
     @SmallTest
     public void testCheckForDuplicateNames() {
         Utils.checkForDuplicateNames(mIsDuplicateName, mDuplicateNameCursor, NAME_COLUMN);
-        assertEquals(mIsDuplicateName, mIsDuplicateNameExpected);
+        assertEquals(mIsDuplicateNameExpected, mIsDuplicateName);
     }
 
     @Smoke
@@ -363,9 +387,9 @@ public class UtilsTests extends TestCase {
      * @param matches Pairs of start/end positions.
      */
     private static void findPhoneNumber(String text, String[] matches) {
-        int[] results = EventInfoFragment.findNanpPhoneNumbers(text);
+        int[] results = Utils.findNanpPhoneNumbers(text);
 
-        assertEquals(results.length % 2, 0);
+        assertEquals(0, results.length % 2);
 
         if (results.length / 2 != matches.length) {
             fail("Text '" + text + "': expected " + matches.length
@@ -378,6 +402,105 @@ public class UtilsTests extends TestCase {
         }
     }
 
+    /**
+     * Tests the linkify section of event locations.
+     */
+    @SmallTest
+    public void testExtendedLinkify() {
+        final URLSpan[] NO_LINKS = new URLSpan[] {};
+        URLSpan span_tel01 = new URLSpan("tel:6505551234");
+        URLSpan span_tel02 = new URLSpan("tel:5555678");
+        URLSpan span_tel03 = new URLSpan("tel:+16505551234");
+        URLSpan span_tel04 = new URLSpan("tel:16505551234");
+        URLSpan span_web = new URLSpan("http://www.google.com");
+        URLSpan span_geo01 =
+                new URLSpan("geo:0,0?q=1600+Amphitheatre+Parkway%2C+Mountain+View+CA+94043");
+        URLSpan span_geo02 =
+                new URLSpan("geo:0,0?q=37.422081°, -122.084576°");
+        URLSpan span_geo03 =
+                new URLSpan("geo:0,0?q=37.422081,-122.084576");
+        URLSpan span_geo04 =
+                new URLSpan("geo:0,0?q=+37°25'19.49\", -122°5'4.47\"");
+        URLSpan span_geo05 =
+                new URLSpan("geo:0,0?q=37°25'19.49\"N, 122°5'4.47\"W");
+        URLSpan span_geo06 =
+                new URLSpan("geo:0,0?q=N 37° 25' 19.49\",  W 122° 5' 4.47\"");
+        URLSpan span_geo07 = new URLSpan("geo:0,0?q=non-specified address");
+
+
+        // First test without the last-ditch geo attempt.
+        // Phone spans.
+        findLinks("", NO_LINKS, false);
+        findLinks("(650) 555-1234", new URLSpan[]{span_tel01}, false);
+        findLinks("94043", NO_LINKS, false);
+        findLinks("123456789012", NO_LINKS, false);
+        findLinks("+1 (650) 555-1234", new URLSpan[]{span_tel03}, false);
+        findLinks("(650) 555 1234", new URLSpan[]{span_tel01}, false);
+        findLinks("1-650-555-1234", new URLSpan[]{span_tel04}, false);
+        findLinks("*#650.555.1234#*!", new URLSpan[]{span_tel01}, false);
+        findLinks("555.5678", new URLSpan[]{span_tel02}, false);
+
+        // Web spans.
+        findLinks("http://www.google.com", new URLSpan[]{span_web}, false);
+
+        // Geo spans.
+        findLinks("1600 Amphitheatre Parkway, Mountain View CA 94043",
+                new URLSpan[]{span_geo01}, false);
+        findLinks("37.422081°, -122.084576°", new URLSpan[]{span_geo02}, false);
+        findLinks("37.422081,-122.084576", new URLSpan[]{span_geo03}, false);
+        findLinks("+37°25'19.49\", -122°5'4.47\"", new URLSpan[]{span_geo04}, false);
+        findLinks("37°25'19.49\"N, 122°5'4.47\"W", new URLSpan[]{span_geo05}, false);
+        findLinks("N 37° 25' 19.49\",  W 122° 5' 4.47\"", new URLSpan[]{span_geo06}, false);
+
+        // Multiple spans.
+        findLinks("(650) 555-1234 1600 Amphitheatre Parkway, Mountain View CA 94043",
+                new URLSpan[]{span_tel01, span_geo01}, false);
+        findLinks("(650) 555-1234, 555-5678", new URLSpan[]{span_tel01, span_tel02}, false);
+
+
+        // Now test using the last-ditch geo attempt.
+        findLinks("", NO_LINKS, true);
+        findLinks("(650) 555-1234", new URLSpan[]{span_tel01}, true);
+        findLinks("http://www.google.com", new URLSpan[]{span_web}, true);
+        findLinks("1600 Amphitheatre Parkway, Mountain View CA 94043",
+                new URLSpan[]{span_geo01}, true);
+        findLinks("37.422081°, -122.084576°", new URLSpan[]{span_geo02}, true);
+        findLinks("37.422081,-122.084576", new URLSpan[]{span_geo03}, true);
+        findLinks("+37°25'19.49\", -122°5'4.47\"", new URLSpan[]{span_geo04}, true);
+        findLinks("37°25'19.49\"N, 122°5'4.47\"W", new URLSpan[]{span_geo05}, true);
+        findLinks("N 37° 25' 19.49\",  W 122° 5' 4.47\"", new URLSpan[]{span_geo06}, true);
+        findLinks("non-specified address", new URLSpan[]{span_geo07}, true);
+    }
+
+    private static void findLinks(String text, URLSpan[] matches, boolean lastDitchGeo) {
+        Spannable spanText = Utils.extendedLinkify(text, lastDitchGeo);
+        URLSpan[] spansFound = spanText.getSpans(0, spanText.length(), URLSpan.class);
+        assertEquals(matches.length, spansFound.length);
+
+        // Make sure the expected matches list of URLs is the same as that returned by linkify.
+        ArrayList<URLSpan> matchesArrayList = new ArrayList<URLSpan>(Arrays.asList(matches));
+        for (URLSpan spanFound : spansFound) {
+            Iterator<URLSpan> matchesIt = matchesArrayList.iterator();
+            boolean removed = false;
+            while (matchesIt.hasNext()) {
+                URLSpan match = matchesIt.next();
+                if (match.getURL().equals(spanFound.getURL())) {
+                    matchesIt.remove();
+                    removed = true;
+                    break;
+                }
+            }
+            if (!removed) {
+                // If a match was not found for the current spanFound, the lists aren't equal.
+                fail("No match found for span: "+spanFound.getURL());
+            }
+        }
+
+        // As a sanity check, ensure the matches list is empty, as each item should have been
+        // removed by going through the spans returned by linkify.
+        assertTrue(matchesArrayList.isEmpty());
+    }
+
     @SmallTest
     public void testGetDisplayedDatetime_differentYear() {
         // 4/12/2000 5pm - 4/12/2000 6pm
@@ -385,14 +508,14 @@ public class UtilsTests extends TestCase {
         long end = createTimeInMillis(0, 0, 18, 12, 3, 2000);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 false, dbUtils.getContext());
-        assertEquals("Wednesday, April 12, 2000, 5:00pm \u2013 6:00pm", result);
+        assertEquals("Wednesday, April 12, 2000, 5:00PM \u2013 6:00PM", result);
 
         // 12/31/2012 5pm - 1/1/2013 6pm
         start = createTimeInMillis(0, 0, 17, 31, 11, 2012);
         end = createTimeInMillis(0, 0, 18, 1, 0, 2013);
         result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 false, dbUtils.getContext());
-        assertEquals("Mon, Dec 31, 2012, 5:00pm – Tue, Jan 1, 2013, 6:00pm", result);
+        assertEquals("Mon, Dec 31, 2012, 5:00PM – Tue, Jan 1, 2013, 6:00PM", result);
     }
 
     @SmallTest
@@ -402,7 +525,7 @@ public class UtilsTests extends TestCase {
         long end = createTimeInMillis(0, 0, 18, 12, 3, 2012);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 false, dbUtils.getContext());
-        assertEquals("Thursday, April 12, 5:00pm \u2013 6:00pm", result);
+        assertEquals("Thursday, April 12, 2012, 5:00PM \u2013 6:00PM", result);
     }
 
     @SmallTest
@@ -412,7 +535,7 @@ public class UtilsTests extends TestCase {
         long end = createTimeInMillis(0, 0, 18, NOW_DAY, NOW_MONTH, NOW_YEAR);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 false, dbUtils.getContext());
-        assertEquals("Today at 5:00pm \u2013 6:00pm", result);
+        assertEquals("Today at 5:00PM \u2013 6:00PM", result);
     }
 
     @SmallTest
@@ -422,17 +545,17 @@ public class UtilsTests extends TestCase {
         long end = createTimeInMillis(0, 0, 0, NOW_DAY + 1, NOW_MONTH, NOW_YEAR);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 false, dbUtils.getContext());
-        assertEquals("Today at 5:00pm \u2013 midnight", result);
+        assertEquals("Today at 5:00PM \u2013 midnight", result);
     }
 
     @SmallTest
     public void testGetDisplayedDatetime_tomorrow() {
-        // 4/11/2012 12:01am - 4/11/2012 11:59pm
+        // 4/11/2012 12:01AM - 4/11/2012 11:59pm
         long start = createTimeInMillis(0, 1, 0, NOW_DAY + 1, NOW_MONTH, NOW_YEAR);
         long end = createTimeInMillis(0, 59, 23, NOW_DAY + 1, NOW_MONTH, NOW_YEAR);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 false, dbUtils.getContext());
-        assertEquals("Tomorrow at 12:01am \u2013 11:59pm", result);
+        assertEquals("Tomorrow at 12:01AM \u2013 11:59PM", result);
     }
 
     @SmallTest
@@ -442,32 +565,32 @@ public class UtilsTests extends TestCase {
         long end = createTimeInMillis(0, 0, 18, 9, 3, 2012);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 false, dbUtils.getContext());
-        assertEquals("Monday, April 9, 5:00pm \u2013 6:00pm", result);
+        assertEquals("Monday, April 9, 2012, 5:00PM \u2013 6:00PM", result);
     }
 
     @SmallTest
     public void testGetDisplayedDatetime_multiDay() {
-        // 4/10/2012 12:01am - 4/11/2012 12:01am
+        // 4/10/2012 12:01AM - 4/11/2012 12:01AM
         long start = createTimeInMillis(0, 1, 0, NOW_DAY, NOW_MONTH, NOW_YEAR);
         long end = createTimeInMillis(0, 1, 0, NOW_DAY + 1, NOW_MONTH, NOW_YEAR);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 false, dbUtils.getContext());
-        assertEquals("Tue, Apr 10, 12:01am \u2013 Wed, Apr 11, 12:01am", result);
+        assertEquals("Tue, Apr 10, 2012, 12:01AM \u2013 Wed, Apr 11, 2012, 12:01AM", result);
     }
 
     @SmallTest
     public void testGetDisplayedDatetime_allDay() {
-        // 4/2/2012 12:00am - 4/3/2012 12:00am
+        // 4/2/2012 12:00AM - 4/3/2012 12:00AM
         long start = createTimeInMillis(0, 0, 0, 2, 3, NOW_YEAR, Time.TIMEZONE_UTC);
         long end = createTimeInMillis(0, 0, 0, 3, 3, NOW_YEAR, Time.TIMEZONE_UTC);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 true, dbUtils.getContext());
-        assertEquals("Monday, April 2", result);
+        assertEquals("Monday, April 2, 2012", result);
     }
 
     @SmallTest
     public void testGetDisplayedDatetime_allDayToday() {
-        // 4/10/2012 12:00am - 4/11/2012 12:00am
+        // 4/10/2012 12:00AM - 4/11/2012 12:00AM
         long start = createTimeInMillis(0, 0, 0, NOW_DAY, NOW_MONTH, NOW_YEAR, Time.TIMEZONE_UTC);
         long end = createTimeInMillis(0, 0, 0, NOW_DAY + 1, NOW_MONTH, NOW_YEAR, Time.TIMEZONE_UTC);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
@@ -477,12 +600,12 @@ public class UtilsTests extends TestCase {
 
     @SmallTest
     public void testGetDisplayedDatetime_allDayMultiday() {
-        // 4/10/2012 12:00am - 4/13/2012 12:00am
+        // 4/10/2012 12:00AM - 4/13/2012 12:00AM
         long start = createTimeInMillis(0, 0, 0, NOW_DAY, NOW_MONTH, NOW_YEAR, Time.TIMEZONE_UTC);
         long end = createTimeInMillis(0, 0, 0, NOW_DAY + 3, NOW_MONTH, NOW_YEAR, Time.TIMEZONE_UTC);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, DEFAULT_TIMEZONE,
                 true, dbUtils.getContext());
-        assertEquals("Tuesday, April 10 \u2013 Thursday, April 12", result);
+        assertEquals("Tuesday, April 10, 2012 \u2013 Thursday, April 12, 2012", result);
     }
 
     @SmallTest
@@ -496,7 +619,7 @@ public class UtilsTests extends TestCase {
         long end = createTimeInMillis(0, 0, 18, 12, 3, 2012, eventTz);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, localTz, false,
                 dbUtils.getContext());
-        assertEquals("Thursday, April 12, 8:00pm \u2013 9:00pm", result);
+        assertEquals("Thursday, April 12, 2012, 8:00PM \u2013 9:00PM", result);
     }
 
     @SmallTest
@@ -504,12 +627,12 @@ public class UtilsTests extends TestCase {
         String localTz = "America/New_York";
         setTimezone(localTz);
 
-        // 4/2/2012 12:00am - 4/3/2012 12:00am
+        // 4/2/2012 12:00AM - 4/3/2012 12:00AM
         long start = createTimeInMillis(0, 0, 0, 2, 3, NOW_YEAR, Time.TIMEZONE_UTC);
         long end = createTimeInMillis(0, 0, 0, 3, 3, NOW_YEAR, Time.TIMEZONE_UTC);
         String result = Utils.getDisplayedDatetime(start, end, NOW_TIME, localTz, true,
                 dbUtils.getContext());
-        assertEquals("Monday, April 2", result);
+        assertEquals("Monday, April 2, 2012", result);
     }
 
     @SmallTest
@@ -517,7 +640,7 @@ public class UtilsTests extends TestCase {
         String localTz = "America/New_York";
         setTimezone(localTz);
 
-        // 4/2/2012 12:00am - 4/3/2012 12:00am
+        // 4/2/2012 12:00AM - 4/3/2012 12:00AM
         long start = createTimeInMillis(0, 0, 0, NOW_DAY + 1, NOW_MONTH, NOW_YEAR,
                 Time.TIMEZONE_UTC);
         long end = createTimeInMillis(0, 0, 0, NOW_DAY + 2, NOW_MONTH, NOW_YEAR,

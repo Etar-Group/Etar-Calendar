@@ -65,92 +65,6 @@
     <item msgid="95029346069903091">"Minggu"</item>
     <item msgid="5840983116375063739">"Senin"</item>
   </string-array>
-  <string-array name="timezone_labels">
-    <item msgid="6833649526258274889">"Kepulauan Marshall"</item>
-    <item msgid="7176569939440505575">"Pulau Midway"</item>
-    <item msgid="5000628410717488070">"Hawaii"</item>
-    <item msgid="3809977082338992040">"Alaska"</item>
-    <item msgid="1206600898319778734">"Waktu Pasifik"</item>
-    <item msgid="4251553449779733536">"Tijuana"</item>
-    <item msgid="4796372144693551811">"Arizona"</item>
-    <item msgid="4589419122570218444">"Chihuahua"</item>
-    <item msgid="1653398220457872326">"Waktu Pegunungan"</item>
-    <item msgid="229005026661478023">"Amerika Tengah"</item>
-    <item msgid="1545268116831476742">"Waktu Tengah"</item>
-    <item msgid="9135129204936732090">"Mexico City"</item>
-    <item msgid="3703110560723049255">"Saskatchewan"</item>
-    <item msgid="5458958644945369505">"Bogota"</item>
-    <item msgid="355450740949670294">"Waktu Timur"</item>
-    <item msgid="5786717434693228701">"Venezuela"</item>
-    <item msgid="4977886006524392240">"Waktu Atlantik (Barbados)"</item>
-    <item msgid="10153187433760387">"Waktu Atlantik (Kanada)"</item>
-    <item msgid="6115801678953677414">"Manaus"</item>
-    <item msgid="2593929186990540989">"Santiago"</item>
-    <item msgid="6585031589100947696">"Newfoundland"</item>
-    <item msgid="5295092779694537214">"Brasilia"</item>
-    <item msgid="6402931335497071732">"Buenos Aires"</item>
-    <item msgid="4432313195052285856">"Greenland"</item>
-    <item msgid="7938414883764011047">"Montevideo"</item>
-    <item msgid="2737154427296635021">"Atlantik Tengah"</item>
-    <item msgid="1379490252091746679">"Azores"</item>
-    <item msgid="6212233464119368698">"Kep. Tanjung Verde"</item>
-    <item msgid="1810261367179140820">"Casablanca"</item>
-    <item msgid="1230179411620530148">"London, Dublin"</item>
-    <item msgid="372075306913304327">"Amsterdam, Berlin"</item>
-    <item msgid="9046296030447565862">"Belgrade"</item>
-    <item msgid="4921622452710220193">"Brussels"</item>
-    <item msgid="727296339287965963">"Sarajevo"</item>
-    <item msgid="5997630882187580225">"Windhoek"</item>
-    <item msgid="3828800493609994208">"Waktu Afrika Barat"</item>
-    <item msgid="7527935722014187591">"Amman, Jordan"</item>
-    <item msgid="672509109295227133">"Athena, Istanbul"</item>
-    <item msgid="1835470340349221646">"Beirut, Lebanon"</item>
-    <item msgid="9006223109403693650">"Kairo"</item>
-    <item msgid="2877875673636361825">"Helsinki"</item>
-    <item msgid="4528124308590807049">"Yerusalem"</item>
-    <item msgid="7823856457885290195">"Minsk"</item>
-    <item msgid="8650995074282357197">"Harare"</item>
-    <item msgid="209523815326871285">"Bagdad"</item>
-    <item msgid="8077211460729251609">"Moskwa"</item>
-    <item msgid="6103383184232804522">"Kuwait"</item>
-    <item msgid="8581935265080466099">"Nairobi"</item>
-    <item msgid="1531618843539764728">"Teheran"</item>
-    <item msgid="141548505188106312">"Baku"</item>
-    <item msgid="5974315340250149692">"Tbilisi"</item>
-    <item msgid="3344801680659888795">"Yerevan"</item>
-    <item msgid="2537944335416132075">"Dubai"</item>
-    <item msgid="5630432498109110949">"Kabul"</item>
-    <item msgid="2274762525650993846">"Islamabad, Karachi"</item>
-    <item msgid="272153171103339242">"Ural\'sk"</item>
-    <item msgid="4757644551253886090">"Yekaterinburg"</item>
-    <item msgid="3036512479614493957">"Kolkata"</item>
-    <item msgid="4190271241277312277">"Sri Lanka"</item>
-    <item msgid="4489139826358657866">"Kathmandu"</item>
-    <item msgid="1195461607876034232">"Astana"</item>
-    <item msgid="8777509327730950228">"Yangon"</item>
-    <item msgid="3838899720161825998">"Krasnoyarsk"</item>
-    <item msgid="6495532062164690437">"Bangkok"</item>
-    <item msgid="4910549870048384487">"Beijing"</item>
-    <item msgid="7174954011332328153">"Hong Kong"</item>
-    <item msgid="415034182139280334">"Irkutsk"</item>
-    <item msgid="3407263784503834649">"Kuala Lumpur"</item>
-    <item msgid="6547945295249807755">"Perth"</item>
-    <item msgid="4571776847411430193">"Taipei"</item>
-    <item msgid="3043691515163887690">"Seoul"</item>
-    <item msgid="6369124969606372122">"Tokyo, Osaka"</item>
-    <item msgid="8317842783685169193">"Yakutsk"</item>
-    <item msgid="6993206457323990990">"Adelaide"</item>
-    <item msgid="2431970257749452312">"Darwin"</item>
-    <item msgid="2709489188606506801">"Brisbane"</item>
-    <item msgid="6832511138206913044">"Hobart"</item>
-    <item msgid="6933429790996727761">"Sydney, Canberra"</item>
-    <item msgid="4546625974877459074">"Vladivostok"</item>
-    <item msgid="7421491250467489614">"Guam"</item>
-    <item msgid="3450367738093440984">"Magadan"</item>
-    <item msgid="5046540868552082971">"Auckland"</item>
-    <item msgid="481903191189494072">"Fiji"</item>
-    <item msgid="1926932394586102998">"Tonga"</item>
-  </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"Sibuk"</item>
     <item msgid="6228387173725732140">"Tersedia"</item>
@@ -171,7 +85,7 @@
   <string-array name="response_labels1">
     <item msgid="5605392595848194997">"Tidak ada tanggapan"</item>
     <item msgid="3724434080904437698">"Ya"</item>
-    <item msgid="8854145743148992583">" Mungkin hadir"</item>
+    <item msgid="8854145743148992583">"Mungkin"</item>
     <item msgid="6174292185978948873">"Tidak"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
@@ -192,5 +106,64 @@
     <item msgid="6248480754959562740">"Minggu"</item>
     <item msgid="4298472806133153766">"Bulan"</item>
     <item msgid="5033084974413793845">"Agenda"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"Hanya jika ditolak"</item>
+    <item msgid="6367412240524984286">"Jika ditolak atau tidak ditanggapi"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"PENGULANGAN HARIAN"</item>
+    <item msgid="6300824484048337842">"PENGULANGAN MINGGUAN"</item>
+    <item msgid="189361731610816256">"PENGULANGAN BULANAN"</item>
+    <item msgid="8714177874112569158">"PENGULANGAN TAHUNAN"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"setiap Minggu pertama"</item>
+    <item msgid="2557379346106451363">"setiap Minggu kedua"</item>
+    <item msgid="7622144489915654132">"setiap Minggu ketiga"</item>
+    <item msgid="527152448137686021">"setiap Minggu keempat"</item>
+    <item msgid="5057483608824759350">"setiap Minggu terakhir"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"setiap Senin pertama"</item>
+    <item msgid="4484275849072423978">"setiap Senin kedua"</item>
+    <item msgid="8956169860824371383">"setiap Senin ketiga"</item>
+    <item msgid="6924403357659569326">"setiap Senin keempat"</item>
+    <item msgid="1379608815263472161">"setiap Senin terakhir"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"setiap Selasa pertama"</item>
+    <item msgid="9063613547307760928">"setiap Selasa kedua"</item>
+    <item msgid="6688603328729208168">"setiap Selasa ketiga"</item>
+    <item msgid="6695206006961533357">"setiap Selasa keempat"</item>
+    <item msgid="8619069174889809914">"setiap Selasa terakhir"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"setiap Rabu pertama"</item>
+    <item msgid="5059722045367799217">"setiap Rabu kedua"</item>
+    <item msgid="7986246648229272275">"setiap Rabu ketiga"</item>
+    <item msgid="9068566169348980801">"setiap Rabu keempat"</item>
+    <item msgid="7976866743069062134">"setiap Rabu terakhir"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"setiap Kamis pertama"</item>
+    <item msgid="4857419136007543270">"setiap Kamis kedua"</item>
+    <item msgid="222044587450564839">"setiap Kamis ketiga"</item>
+    <item msgid="6197927556533030945">"setiap Kamis keempat"</item>
+    <item msgid="1023326923033436905">"setiap Kamis terakhir"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"setiap Jumat pertama"</item>
+    <item msgid="1935608297230506940">"setiap Jumat kedua"</item>
+    <item msgid="4061877662049317599">"setiap Jumat ketiga"</item>
+    <item msgid="6856646749131820614">"setiap Jumat keempat"</item>
+    <item msgid="6533513913914859794">"setiap Jumat terakhir"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"setiap Sabtu pertama"</item>
+    <item msgid="9130198690512925355">"setiap Sabtu kedua"</item>
+    <item msgid="4525736070844032405">"setiap Sabtu ketiga"</item>
+    <item msgid="422053689531707709">"setiap Sabtu keempat"</item>
+    <item msgid="5499975799312474425">"setiap Sabtu terakhir"</item>
   </string-array>
 </resources>

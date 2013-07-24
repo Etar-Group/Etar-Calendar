@@ -157,14 +157,17 @@
             android:text="@string/repeats_label"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_marginBottom="0dip"
             style="@style/TextAppearance.EditEvent_LabelSmall" />
-        <Spinner
-            android:id="@+id/repeats"
-            style="@style/TextAppearance.EditEvent_Spinner"
+        <Button
+            android:id="@+id/rrule"
+            android:text="@string/does_not_repeat"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:contentDescription="@string/accessibility_repeats"
-            android:prompt="@string/repeats_label" />
+            android:layout_marginTop="-12dip"
+            android:gravity="left|center_vertical"
+            android:contentDescription="@string/accessibility_pick_recurrence"
+            style="@style/TextAppearance.EditEvent_SpinnerButton" />
     </LinearLayout>
 
     <View
@@ -197,7 +200,7 @@
             android:id="@+id/reminder_add"
             android:text="@string/reminders_label"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="top"
             android:paddingBottom="12dp"

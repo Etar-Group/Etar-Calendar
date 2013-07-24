@@ -70,15 +70,10 @@
     <color name="month_sunday">#80333333</color>
     <color name="month_grid_lines">#ffCCCCCC</color>
     <color name="month_other_month_day_number">#ff939497</color>
-
-
-
     <color name="month_other_bgcolor">#FFEEEEEE</color>
     <color name="month_selected_week_bgcolor">#FFDDDDDD</color>
     <color name="month_today_bgcolor">#FFFFFFFF</color>
     <color name="month_bgcolor">#FFE5E5E5</color>
-
-
 
     <color name="month_dna_conflict_time_color">#FF333333</color>
 
@@ -141,6 +136,11 @@
     <color name="event_info_label_color">#FF999999</color>
     <color name="event_info_label_background_color">#FFDDDDDD</color>
 
+    <!-- Create event colors -->
+    <color name="create_event_date_color">#FF000000</color>
+    <color name="create_event_more_details_color">#FF888888</color>
+    <color name="create_event_divider_color">#FFDDDDDD</color>
+
     <color name="text_shadow_color">#4D000000</color>
 
     <color name="alert_event_title">#FFFFFFFF</color>
@@ -164,4 +164,7 @@
     <color name="appwidget_when">#ffffffff</color>
     <color name="appwidget_where">#ffffffff</color>
     <color name="appwidget_no_events">#ffffffff</color>
+
+    <color name="recurrence_picker_background">#fff2f2f2</color>
+    <color name="recurrence_bubble_text_normal">#ff737373</color>
 </resources>

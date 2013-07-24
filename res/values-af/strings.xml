@@ -71,7 +71,7 @@
     <string name="accounts" msgid="849401841083180306">"Rekeninge en sinkronisering"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalenders om te sinkroniseer"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalenders om te sinkroniseer"</string>
-    <string name="hint_what" msgid="709155115005044531">"Gebeurtenis-naam"</string>
+    <string name="hint_what" msgid="709155115005044531">"Geleentheidnaam"</string>
     <string name="hint_where" msgid="4972598001033801974">"Ligging"</string>
     <string name="hint_description" msgid="1910143586169033232">"Beskrywing"</string>
     <string name="hint_attendees" msgid="1650488163176888480">"Gaste"</string>
@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Leë gebeurtenis nie geskep nie."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Uitnodigings sal gestuur word."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Opdaterings sal gestuur word."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Stoor"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalender-kennisgewings"</string>
     <string name="event_info_title" msgid="56024222340421620">"Bekyk gebeurtenis"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Uitnodiging"</string>
@@ -98,6 +99,11 @@
     <string name="add_account" msgid="1669072099756774952">"Voeg rekening by"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organiseerder:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Kies geleentheidkleur"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Geleentheidkleur"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Stel na verstek kalenderkleur"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Kalenderkleur"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Kleurkieser"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Gaan jy bywoon?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Ja"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Miskien"</string>
@@ -106,6 +112,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"E-posorganiseerder"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-pos met"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Gebeurtenis nie opgespoor nie."</string>
+    <string name="map_label" msgid="8795383535586556038">"Kaart"</string>
+    <string name="call_label" msgid="2960328220008869083">"Bel"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Kitsantwoorde"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Redigeer verstek antwoorde wanneer jy aan gaste e-pos stuur"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Redigeer kitsantwoorde"</string>
@@ -118,7 +126,7 @@
     <item msgid="4485794001743679338">"Begin solank sonder my."</item>
     <item msgid="8036557974294987511">"Jammer, ek kan nie meer kom nie. Ons sal moet herskeduleer."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Gepasmaakte boodskap..."</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skryf jou eie"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organiseerder:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Herinneringe"</string>
     <string name="agenda_today" msgid="5965841338467422191">"VANDAG, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -137,10 +145,20 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Maak almal toe"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Sluimer"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Eenmalige gebeurtenis"</string>
-    <string name="daily" msgid="560350706808680448">"Daagliks"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; tot <xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; vir een keer"</item>
+    <item quantity="other" msgid="4855496837834652446">"; vir <xliff:g id="NUMBER">%d</xliff:g> kere"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"Daagliks"</item>
+    <item quantity="other" msgid="5455230727715859264">"Elke <xliff:g id="NUMBER">%d</xliff:g> dae"</item>
+  </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Elke weeksdag (Ma-Vr)"</string>
-    <string name="weekly" msgid="2006107373119027114">"Weekliks (elke <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"Maandeliks (elke <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"Weekliks op <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"Elke <xliff:g id="NUMBER">%1$d</xliff:g> weke op <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
     <string name="monthly" msgid="4587116285383048586">"Maandeliks"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Jaarliks"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Maandeliks (op dag <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
@@ -158,7 +176,7 @@
     <string name="menu_general_preferences" msgid="2812705323334260708">"Algemene instellings"</string>
     <string name="menu_about_preferences" msgid="6124375438237674973">"Meer oor Kalender"</string>
     <string name="preferences_title" msgid="8045855493262131773">"Instellings"</string>
-    <string name="preferences_general_title" msgid="2069075513760573117">"Kalender-instellings"</string>
+    <string name="preferences_general_title" msgid="2069075513760573117">"Instelling vir Kalender-aansig"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Kennisgewings en onthounotas"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Versteek afgewysde gebeurtenisse"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Week begin op"</string>
@@ -174,7 +192,7 @@
     <string name="preferences_default_reminder_dialog" msgid="2490348857239323412">"Verstek herinneringstyd"</string>
     <string name="preferences_default_reminder_default" msgid="2903884416749959435">"10"</string>
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Gebruik tuistydsone"</string>
-    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Wys kalenders en gebeurtenisse in jou tuistydsone wanneer reis"</string>
+    <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Wys kalenders en gebeurtenisse in jou tuistydsone wanneer jy reis"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Tuistydsone"</string>
     <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Wys weeknommer"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Meer oor"</string>
@@ -185,6 +203,15 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Geen komende kalendergebeurtenisse nie"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperimenteel"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"Onthounotas"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Slaan herinneringe oor"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Slaan onthounotas oor"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Stil ure"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Maak onthounotas vir geleenthede stil gedurende gespesifiseerde tyd."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Stil ure-begintyd"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Stil ure-eindtyd"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"Ontfouting"</string>
     <string name="copy_db" msgid="437691290566699292">"Stuur databasis"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Deursoek tans <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Verwyder deelnemer"</string>
@@ -193,6 +220,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Einddatum"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Eindigtyd"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Tydsone"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Herhaal geleentheid"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Voeg herinnering by"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Verwyder herinnering"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Voeg deelnemer by"</string>
@@ -218,4 +246,32 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Geselekteerde gebeurtenis"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Moet NIE merk NIE -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Herhaal"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Herhaal nooit nie"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"Elke <xliff:g id="COUNT">%d</xliff:g> dag"</item>
+    <item quantity="other" msgid="707566499994398250">"Elke <xliff:g id="COUNT">%d</xliff:g> dae"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"Elke <xliff:g id="COUNT">%d</xliff:g> week"</item>
+    <item quantity="other" msgid="7094801039989237061">"Elke <xliff:g id="COUNT">%d</xliff:g> weke"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"Elke <xliff:g id="COUNT">%d</xliff:g> maand"</item>
+    <item quantity="other" msgid="5419723710346646523">"Elke <xliff:g id="COUNT">%d</xliff:g> maande"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"Elke <xliff:g id="COUNT">%d</xliff:g> jaar"</item>
+    <item quantity="other" msgid="5678653649746562060">"Elke <xliff:g id="COUNT">%d</xliff:g> jaar"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"op dieselfde dag elke maand"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Vir altyd"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Tot \'n datum"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"Tot <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Vir \'n aantal geleenthede"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"Vir <xliff:g id="EVENT_COUNT">%d</xliff:g> geleentheid"</item>
+    <item quantity="other" msgid="8779598489398048259">"Vir <xliff:g id="EVENT_COUNT">%d</xliff:g> geleenthede"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"verander einddatum"</string>
 </resources>

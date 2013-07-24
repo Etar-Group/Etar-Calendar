@@ -16,13 +16,6 @@
 
 package com.android.calendar.selectcalendars;
 
-import com.android.calendar.AsyncQueryService;
-import com.android.calendar.CalendarController.EventInfo;
-import com.android.calendar.CalendarController.EventType;
-import com.android.calendar.R;
-import com.android.calendar.CalendarController;
-import com.android.calendar.Utils;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ContentUris;
@@ -31,15 +24,23 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Calendars;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.android.calendar.AsyncQueryService;
+import com.android.calendar.CalendarController;
+import com.android.calendar.CalendarController.EventInfo;
+import com.android.calendar.CalendarController.EventType;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+import com.android.calendar.selectcalendars.CalendarColorCache.OnCalendarColorsLoadedListener;
+
 public class SelectVisibleCalendarsFragment extends Fragment
-        implements AdapterView.OnItemClickListener, CalendarController.EventHandler {
+        implements AdapterView.OnItemClickListener, CalendarController.EventHandler,
+        OnCalendarColorsLoadedListener {
 
     private static final String TAG = "Calendar";
     private static final String IS_PRIMARY = "\"primary\"";
@@ -49,6 +50,7 @@ public class SelectVisibleCalendarsFragment extends Fragment
     private static final String[] PROJECTION = new String[] {
         Calendars._ID,
         Calendars.ACCOUNT_NAME,
+        Calendars.ACCOUNT_TYPE,
         Calendars.OWNER_ACCOUNT,
         Calendars.CALENDAR_DISPLAY_NAME,
         Calendars.CALENDAR_COLOR,
@@ -61,6 +63,7 @@ public class SelectVisibleCalendarsFragment extends Fragment
     private static int mCalendarItemLayout = R.layout.mini_calendar_item;
 
     private View mView = null;
+    private CalendarController mController;
     private ListView mList;
     private SelectCalendarsSimpleAdapter mAdapter;
     private Activity mContext;
@@ -78,6 +81,8 @@ public class SelectVisibleCalendarsFragment extends Fragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mContext = activity;
+        mController = CalendarController.getInstance(activity);
+        mController.registerEventHandler(R.layout.select_calendars_fragment, this);
         mService = new AsyncQueryService(activity) {
             @Override
             protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
@@ -90,6 +95,7 @@ public class SelectVisibleCalendarsFragment extends Fragment
     @Override
     public void onDetach() {
         super.onDetach();
+        mController.deregisterEventHandler(R.layout.select_calendars_fragment);
         if (mCursor != null) {
             mAdapter.changeCursor(null);
             mCursor.close();
@@ -125,7 +131,8 @@ public class SelectVisibleCalendarsFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new SelectCalendarsSimpleAdapter(mContext, mCalendarItemLayout, null);
+        mAdapter = new SelectCalendarsSimpleAdapter(mContext, mCalendarItemLayout, null,
+                getFragmentManager());
         mList.setAdapter(mAdapter);
         mList.setOnItemClickListener(this);
     }
@@ -149,7 +156,6 @@ public class SelectVisibleCalendarsFragment extends Fragment
      * Write back the changes that have been made.
      */
     public void toggleVisibility(int position) {
-        Log.d(TAG, "Toggling calendar at " + position);
         mUpdateToken = mService.getNextToken();
         Uri uri = ContentUris.withAppendedId(Calendars.CONTENT_URI, mAdapter.getItemId(position));
         ContentValues values = new ContentValues();
@@ -177,8 +183,13 @@ public class SelectVisibleCalendarsFragment extends Fragment
 
     @Override
     public void handleEvent(EventInfo event) {
-        if (event.eventType == EventType.EVENTS_CHANGED) {
-            eventsChanged();
+        eventsChanged();
+    }
+
+    @Override
+    public void onCalendarColorsLoaded() {
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

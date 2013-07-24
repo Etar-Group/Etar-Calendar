@@ -17,10 +17,12 @@
 package com.android.calendar;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.backup.BackupManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -31,6 +33,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -40,16 +43,25 @@ import android.provider.CalendarContract;
 import android.provider.CalendarContract.CalendarCache;
 import android.provider.SearchRecentSuggestions;
 import android.text.TextUtils;
+import android.text.format.Time;
 import android.widget.Toast;
 
 import com.android.calendar.alerts.AlertReceiver;
 import com.android.calendar.event.EventViewUtils;
 
+import com.android.timezonepicker.TimeZoneInfo;
+import com.android.timezonepicker.TimeZonePickerDialog;
+import com.android.timezonepicker.TimeZonePickerDialog.OnTimeZoneSetListener;
+import com.android.timezonepicker.TimeZonePickerUtils;
+
 public class GeneralPreferences extends PreferenceFragment implements
-        OnSharedPreferenceChangeListener, OnPreferenceChangeListener {
+        OnSharedPreferenceChangeListener, OnPreferenceChangeListener, OnTimeZoneSetListener {
     // The name of the shared preferences file. This name must be maintained for historical
     // reasons, as it's what PreferenceManager assigned the first time the file was created.
     static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
+    static final String SHARED_PREFS_NAME_NO_BACKUP = "com.android.calendar_preferences_no_backup";
+
+    private static final String FRAG_TAG_TIME_ZONE_PICKER = "TimeZonePicker";
 
     // Preference keys
     public static final String KEY_HIDE_DECLINED = "preferences_hide_declined";
@@ -107,6 +119,8 @@ public class GeneralPreferences extends PreferenceFragment implements
     public static final int DEFAULT_START_VIEW = CalendarController.ViewType.WEEK;
     public static final int DEFAULT_DETAILED_VIEW = CalendarController.ViewType.DAY;
     public static final boolean DEFAULT_SHOW_WEEK_NUM = false;
+    // This should match the XML file.
+    public static final String DEFAULT_RINGTONE = "content://settings/system/notification_sound";
 
     CheckBoxPreference mAlert;
     CheckBoxPreference mVibrate;
@@ -114,12 +128,13 @@ public class GeneralPreferences extends PreferenceFragment implements
     CheckBoxPreference mPopup;
     CheckBoxPreference mUseHomeTZ;
     CheckBoxPreference mHideDeclined;
-    ListPreference mHomeTZ;
+    Preference mHomeTZ;
+    TimeZonePickerUtils mTzPickerUtils;
     ListPreference mWeekStart;
     ListPreference mDefaultReminder;
     ListPreference mSnoozeDelay;
 
-    private static CharSequence[][] mTimezones;
+    private String mTimeZoneId;
 
     /** Return a properly configured SharedPreferences instance */
     public static SharedPreferences getSharedPreferences(Context context) {
@@ -158,19 +173,22 @@ public class GeneralPreferences extends PreferenceFragment implements
         }
 
         mRingtone = (RingtonePreference) preferenceScreen.findPreference(KEY_ALERTS_RINGTONE);
-        String ringToneUri = Utils.getSharedPreference(activity, KEY_ALERTS_RINGTONE, "");
-        if (!TextUtils.isEmpty(ringToneUri)) {
-            String ringtone = getRingtoneTitleFromUri(getActivity(), ringToneUri);
-            mRingtone.setSummary(ringtone == null ? "" : ringtone);
-        }
+        String ringToneUri = Utils.getRingTonePreference(activity);
+
+        // Set the ringToneUri to the backup-able shared pref only so that
+        // the Ringtone dialog will open up with the correct value.
+        final Editor editor = preferenceScreen.getEditor();
+        editor.putString(GeneralPreferences.KEY_ALERTS_RINGTONE, ringToneUri).apply();
+
+        String ringtoneDisplayString = getRingtoneTitleFromUri(activity, ringToneUri);
+        mRingtone.setSummary(ringtoneDisplayString == null ? "" : ringtoneDisplayString);
 
         mPopup = (CheckBoxPreference) preferenceScreen.findPreference(KEY_ALERTS_POPUP);
         mUseHomeTZ = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HOME_TZ_ENABLED);
         mHideDeclined = (CheckBoxPreference) preferenceScreen.findPreference(KEY_HIDE_DECLINED);
         mWeekStart = (ListPreference) preferenceScreen.findPreference(KEY_WEEK_START_DAY);
         mDefaultReminder = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_REMINDER);
-        mHomeTZ = (ListPreference) preferenceScreen.findPreference(KEY_HOME_TZ);
-        String tz = mHomeTZ.getValue();
+        mHomeTZ = preferenceScreen.findPreference(KEY_HOME_TZ);
 
         mSnoozeDelay = (ListPreference) preferenceScreen.findPreference(KEY_DEFAULT_SNOOZE_DELAY);
         buildSnoozeDelayEntries();
@@ -179,21 +197,65 @@ public class GeneralPreferences extends PreferenceFragment implements
         mDefaultReminder.setSummary(mDefaultReminder.getEntry());
         mSnoozeDelay.setSummary(mSnoozeDelay.getEntry());
 
-        if (mTimezones == null) {
-            mTimezones = (new TimezoneAdapter(activity, tz, System.currentTimeMillis()))
-                    .getAllTimezones();
+        // This triggers an asynchronous call to the provider to refresh the data in shared pref
+        mTimeZoneId = Utils.getTimeZone(activity, null);
+
+        SharedPreferences prefs = CalendarUtils.getSharedPreferences(activity,
+                Utils.SHARED_PREFS_NAME);
+
+        // Utils.getTimeZone will return the currentTimeZone instead of the one
+        // in the shared_pref if home time zone is disabled. So if home tz is
+        // off, we will explicitly read it.
+        if (!prefs.getBoolean(KEY_HOME_TZ_ENABLED, false)) {
+            mTimeZoneId = prefs.getString(KEY_HOME_TZ, Time.getCurrentTimezone());
         }
-        mHomeTZ.setEntryValues(mTimezones[0]);
-        mHomeTZ.setEntries(mTimezones[1]);
-        CharSequence tzName = mHomeTZ.getEntry();
-        if (TextUtils.isEmpty(tzName)) {
-            tzName = Utils.getTimeZone(activity, null);
+
+        mHomeTZ.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                showTimezoneDialog();
+                return true;
+            }
+        });
+
+        if (mTzPickerUtils == null) {
+            mTzPickerUtils = new TimeZonePickerUtils(getActivity());
         }
-        mHomeTZ.setSummary(tzName);
+        CharSequence timezoneName = mTzPickerUtils.getGmtDisplayName(getActivity(), mTimeZoneId,
+                System.currentTimeMillis(), false);
+        mHomeTZ.setSummary(timezoneName != null ? timezoneName : mTimeZoneId);
+
+        TimeZonePickerDialog tzpd = (TimeZonePickerDialog) activity.getFragmentManager()
+                .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER);
+        if (tzpd != null) {
+            tzpd.setOnTimeZoneSetListener(this);
+        }
 
         migrateOldPreferences(sharedPreferences);
 
         updateChildPreferences();
+    }
+
+    private void showTimezoneDialog() {
+        final Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+
+        Bundle b = new Bundle();
+        b.putLong(TimeZonePickerDialog.BUNDLE_START_TIME_MILLIS, System.currentTimeMillis());
+        b.putString(TimeZonePickerDialog.BUNDLE_TIME_ZONE, Utils.getTimeZone(activity, null));
+
+        FragmentManager fm = getActivity().getFragmentManager();
+        TimeZonePickerDialog tzpd = (TimeZonePickerDialog) fm
+                .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER);
+        if (tzpd != null) {
+            tzpd.dismiss();
+        }
+        tzpd = new TimeZonePickerDialog();
+        tzpd.setArguments(b);
+        tzpd.setOnTimeZoneSetListener(this);
+        tzpd.show(fm, FRAG_TAG_TIME_ZONE_PICKER);
     }
 
     @Override
@@ -238,7 +300,7 @@ public class GeneralPreferences extends PreferenceFragment implements
                 if (mAlert.isChecked()) {
                     intent.setAction(AlertReceiver.ACTION_DISMISS_OLD_REMINDERS);
                 } else {
-                    intent.setAction(CalendarContract.ACTION_EVENT_REMINDER);
+                    intent.setAction(AlertReceiver.EVENT_REMINDER_APP_ACTION);
                 }
                 a.sendBroadcast(intent);
             }
@@ -254,27 +316,21 @@ public class GeneralPreferences extends PreferenceFragment implements
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String tz;
+        final Activity activity = getActivity();
         if (preference == mUseHomeTZ) {
             if ((Boolean)newValue) {
-                tz = mHomeTZ.getValue();
+                tz = mTimeZoneId;
             } else {
                 tz = CalendarCache.TIMEZONE_TYPE_AUTO;
             }
-            Utils.setTimeZone(getActivity(), tz);
+            Utils.setTimeZone(activity, tz);
             return true;
         } else if (preference == mHideDeclined) {
             mHideDeclined.setChecked((Boolean) newValue);
-            Activity act = getActivity();
-            Intent intent = new Intent(Utils.getWidgetScheduledUpdateAction(act));
+            Intent intent = new Intent(Utils.getWidgetScheduledUpdateAction(activity));
             intent.setDataAndType(CalendarContract.CONTENT_URI, Utils.APPWIDGET_DATA_TYPE);
-            act.sendBroadcast(intent);
+            activity.sendBroadcast(intent);
             return true;
-        } else if (preference == mHomeTZ) {
-            tz = (String) newValue;
-            // We set the value here so we can read back the entry
-            mHomeTZ.setValue(tz);
-            mHomeTZ.setSummary(mHomeTZ.getEntry());
-            Utils.setTimeZone(getActivity(), tz);
         } else if (preference == mWeekStart) {
             mWeekStart.setValue((String) newValue);
             mWeekStart.setSummary(mWeekStart.getEntry());
@@ -286,7 +342,8 @@ public class GeneralPreferences extends PreferenceFragment implements
             mSnoozeDelay.setSummary(mSnoozeDelay.getEntry());
         } else if (preference == mRingtone) {
             if (newValue instanceof String) {
-                String ringtone = getRingtoneTitleFromUri(getActivity(), (String) newValue);
+                Utils.setRingTonePreference(activity, (String) newValue);
+                String ringtone = getRingtoneTitleFromUri(activity, (String) newValue);
                 mRingtone.setSummary(ringtone == null ? "" : ringtone);
             }
             return true;
@@ -389,4 +446,15 @@ public class GeneralPreferences extends PreferenceFragment implements
         }
     }
 
+    @Override
+    public void onTimeZoneSet(TimeZoneInfo tzi) {
+        if (mTzPickerUtils == null) {
+            mTzPickerUtils = new TimeZonePickerUtils(getActivity());
+        }
+
+        final CharSequence timezoneName = mTzPickerUtils.getGmtDisplayName(
+                getActivity(), tzi.mTzId, System.currentTimeMillis(), false);
+        mHomeTZ.setSummary(timezoneName);
+        Utils.setTimeZone(getActivity(), tzi.mTzId);
+    }
 }

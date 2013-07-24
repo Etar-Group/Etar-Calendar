@@ -65,92 +65,6 @@
     <item msgid="95029346069903091">"일요일"</item>
     <item msgid="5840983116375063739">"월요일"</item>
   </string-array>
-  <string-array name="timezone_labels">
-    <item msgid="6833649526258274889">"마셜 제도"</item>
-    <item msgid="7176569939440505575">"미드웨이 제도"</item>
-    <item msgid="5000628410717488070">"하와이"</item>
-    <item msgid="3809977082338992040">"알래스카"</item>
-    <item msgid="1206600898319778734">"태평양 표준시"</item>
-    <item msgid="4251553449779733536">"티후아나"</item>
-    <item msgid="4796372144693551811">"애리조나"</item>
-    <item msgid="4589419122570218444">"치와와"</item>
-    <item msgid="1653398220457872326">"산지 표준시"</item>
-    <item msgid="229005026661478023">"중앙 아메리카"</item>
-    <item msgid="1545268116831476742">"중부 표준시"</item>
-    <item msgid="9135129204936732090">"멕시코시티"</item>
-    <item msgid="3703110560723049255">"서스캐처원"</item>
-    <item msgid="5458958644945369505">"보고타"</item>
-    <item msgid="355450740949670294">"동부 표준시"</item>
-    <item msgid="5786717434693228701">"베네수엘라"</item>
-    <item msgid="4977886006524392240">"대서양(바베이도스)"</item>
-    <item msgid="10153187433760387">"대서양(캐나다)"</item>
-    <item msgid="6115801678953677414">"마나우스"</item>
-    <item msgid="2593929186990540989">"산티아고"</item>
-    <item msgid="6585031589100947696">"뉴펀들랜드"</item>
-    <item msgid="5295092779694537214">"브라질리아"</item>
-    <item msgid="6402931335497071732">"부에노스아이레스"</item>
-    <item msgid="4432313195052285856">"그린란드"</item>
-    <item msgid="7938414883764011047">"몬테비데오"</item>
-    <item msgid="2737154427296635021">"중부-대서양"</item>
-    <item msgid="1379490252091746679">"아조레스"</item>
-    <item msgid="6212233464119368698">"카보베르데 제도"</item>
-    <item msgid="1810261367179140820">"카사블랑카"</item>
-    <item msgid="1230179411620530148">"런던, 더블린"</item>
-    <item msgid="372075306913304327">"암스테르담, 베를린"</item>
-    <item msgid="9046296030447565862">"베오그라드"</item>
-    <item msgid="4921622452710220193">"브뤼셀"</item>
-    <item msgid="727296339287965963">"사라예보"</item>
-    <item msgid="5997630882187580225">"빈트후크"</item>
-    <item msgid="3828800493609994208">"서아프리카 시간대"</item>
-    <item msgid="7527935722014187591">"암만, 요르단"</item>
-    <item msgid="672509109295227133">"아테네, 이스탄불"</item>
-    <item msgid="1835470340349221646">"베이루트, 레바논"</item>
-    <item msgid="9006223109403693650">"카이로"</item>
-    <item msgid="2877875673636361825">"헬싱키"</item>
-    <item msgid="4528124308590807049">"예루살렘"</item>
-    <item msgid="7823856457885290195">"민스크"</item>
-    <item msgid="8650995074282357197">"하라레"</item>
-    <item msgid="209523815326871285">"바그다드"</item>
-    <item msgid="8077211460729251609">"모스크바"</item>
-    <item msgid="6103383184232804522">"쿠웨이트"</item>
-    <item msgid="8581935265080466099">"나이로비"</item>
-    <item msgid="1531618843539764728">"테헤란"</item>
-    <item msgid="141548505188106312">"바쿠"</item>
-    <item msgid="5974315340250149692">"트빌리시"</item>
-    <item msgid="3344801680659888795">"예레반"</item>
-    <item msgid="2537944335416132075">"두바이"</item>
-    <item msgid="5630432498109110949">"카불"</item>
-    <item msgid="2274762525650993846">"이슬라마바드, 카라치"</item>
-    <item msgid="272153171103339242">"우랄스크"</item>
-    <item msgid="4757644551253886090">"에카테린부르크"</item>
-    <item msgid="3036512479614493957">"콜카타"</item>
-    <item msgid="4190271241277312277">"스리랑카"</item>
-    <item msgid="4489139826358657866">"카트만두"</item>
-    <item msgid="1195461607876034232">"아스타나"</item>
-    <item msgid="8777509327730950228">"양곤"</item>
-    <item msgid="3838899720161825998">"크라스노야르스크"</item>
-    <item msgid="6495532062164690437">"방콕"</item>
-    <item msgid="4910549870048384487">"베이징"</item>
-    <item msgid="7174954011332328153">"홍콩"</item>
-    <item msgid="415034182139280334">"이르쿠츠크"</item>
-    <item msgid="3407263784503834649">"쿠알라룸푸르"</item>
-    <item msgid="6547945295249807755">"퍼스"</item>
-    <item msgid="4571776847411430193">"타이베이"</item>
-    <item msgid="3043691515163887690">"서울"</item>
-    <item msgid="6369124969606372122">"도쿄, 오사카"</item>
-    <item msgid="8317842783685169193">"야쿠츠크"</item>
-    <item msgid="6993206457323990990">"애들레이드"</item>
-    <item msgid="2431970257749452312">"다윈"</item>
-    <item msgid="2709489188606506801">"브리즈번"</item>
-    <item msgid="6832511138206913044">"호바트"</item>
-    <item msgid="6933429790996727761">"시드니, 캔버라"</item>
-    <item msgid="4546625974877459074">"블라디보스토크"</item>
-    <item msgid="7421491250467489614">"괌"</item>
-    <item msgid="3450367738093440984">"마가단"</item>
-    <item msgid="5046540868552082971">"오클랜드"</item>
-    <item msgid="481903191189494072">"피지"</item>
-    <item msgid="1926932394586102998">"통가"</item>
-  </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"바쁨"</item>
     <item msgid="6228387173725732140">"한가함"</item>
@@ -192,5 +106,64 @@
     <item msgid="6248480754959562740">"주"</item>
     <item msgid="4298472806133153766">"월"</item>
     <item msgid="5033084974413793845">"일정목록"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"거부한 경우에만 해당"</item>
+    <item msgid="6367412240524984286">"거부했거나 응답이 없는 경우만 해당"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"매일 반복"</item>
+    <item msgid="6300824484048337842">"매주 반복"</item>
+    <item msgid="189361731610816256">"매월 반복"</item>
+    <item msgid="8714177874112569158">"매년 반복"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"매월 첫 번째 일요일"</item>
+    <item msgid="2557379346106451363">"매월 두 번째 일요일"</item>
+    <item msgid="7622144489915654132">"매월 세 번째 일요일"</item>
+    <item msgid="527152448137686021">"매월 네 번째 일요일"</item>
+    <item msgid="5057483608824759350">"매월 마지막 일요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"매월 첫 번째 월요일"</item>
+    <item msgid="4484275849072423978">"매월 두 번째 월요일"</item>
+    <item msgid="8956169860824371383">"매월 세 번째 월요일"</item>
+    <item msgid="6924403357659569326">"매월 네 번째 월요일"</item>
+    <item msgid="1379608815263472161">"매월 마지막 월요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"매월 첫 번째 화요일"</item>
+    <item msgid="9063613547307760928">"매월 두 번째 화요일"</item>
+    <item msgid="6688603328729208168">"매월 세 번째 화요일"</item>
+    <item msgid="6695206006961533357">"매월 네 번째 화요일"</item>
+    <item msgid="8619069174889809914">"매월 마지막 화요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"매월 첫 번째 수요일"</item>
+    <item msgid="5059722045367799217">"매월 두 번째 수요일"</item>
+    <item msgid="7986246648229272275">"매월 세 번째 수요일"</item>
+    <item msgid="9068566169348980801">"매월 네 번째 수요일"</item>
+    <item msgid="7976866743069062134">"매월 마지막 수요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"매월 첫 번째 목요일"</item>
+    <item msgid="4857419136007543270">"매월 두 번째 목요일"</item>
+    <item msgid="222044587450564839">"매월 세 번째 목요일"</item>
+    <item msgid="6197927556533030945">"매월 네 번째 목요일"</item>
+    <item msgid="1023326923033436905">"매월 마지막 목요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"매월 첫 번째 금요일"</item>
+    <item msgid="1935608297230506940">"매월 두 번째 금요일"</item>
+    <item msgid="4061877662049317599">"매월 세 번째 금요일"</item>
+    <item msgid="6856646749131820614">"매월 네 번째 금요일"</item>
+    <item msgid="6533513913914859794">"매월 마지막 금요일"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"매월 첫 번째 토요일"</item>
+    <item msgid="9130198690512925355">"매월 두 번째 토요일"</item>
+    <item msgid="4525736070844032405">"매월 세 번째 토요일"</item>
+    <item msgid="422053689531707709">"매월 네 번째 토요일"</item>
+    <item msgid="5499975799312474425">"매월 마지막 토요일"</item>
   </string-array>
 </resources>

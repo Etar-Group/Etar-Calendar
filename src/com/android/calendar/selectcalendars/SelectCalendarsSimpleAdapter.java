@@ -16,33 +16,36 @@
 
 package com.android.calendar.selectcalendars;
 
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.provider.CalendarContract.Calendars;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.TouchDelegate;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAdapter {
+import com.android.calendar.CalendarColorPickerDialog;
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+import com.android.calendar.selectcalendars.CalendarColorCache.OnCalendarColorsLoadedListener;
+
+public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAdapter,
+    OnCalendarColorsLoadedListener {
     private static final String TAG = "SelectCalendarsAdapter";
-    private static int SELECTED_COLOR_CHIP_SIZE = 16;
-    private static int UNSELECTED_COLOR_CHIP_SIZE = 10;
-    private static int COLOR_CHIP_LEFT_MARGIN = 20;
-    private static int COLOR_CHIP_RIGHT_MARGIN = 8;
-    private static int COLOR_CHIP_TOP_OFFSET = 5;
+    private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
+
     private static int BOTTOM_ITEM_HEIGHT = 64;
     private static int NORMAL_ITEM_HEIGHT = 48;
 
@@ -51,6 +54,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     private static final int IS_BOTTOM = 1 << 2;
     private static final int IS_BELOW_SELECTED = 1 << 3;
 
+    private CalendarColorPickerDialog mColorPickerDialog;
 
     private LayoutInflater mInflater;
     Resources mRes;
@@ -60,26 +64,36 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     private Cursor mCursor;
     private int mRowCount = 0;
 
+    private FragmentManager mFragmentManager;
+    private boolean mIsTablet;
+    private int mColorViewTouchAreaIncrease;
+
     private int mIdColumn;
     private int mNameColumn;
     private int mColorColumn;
     private int mVisibleColumn;
     private int mOwnerAccountColumn;
+    private int mAccountNameColumn;
+    private int mAccountTypeColumn;
     private static float mScale = 0;
     private int mColorCalendarVisible;
     private int mColorCalendarHidden;
     private int mColorCalendarSecondaryVisible;
     private int mColorCalendarSecondaryHidden;
 
+    private CalendarColorCache mCache;
+
     private class CalendarRow {
         long id;
         String displayName;
         String ownerAccount;
+        String accountName;
+        String accountType;
         int color;
         boolean selected;
     }
 
-    public SelectCalendarsSimpleAdapter(Context context, int layout, Cursor c) {
+    public SelectCalendarsSimpleAdapter(Context context, int layout, Cursor c, FragmentManager fm) {
         super();
         mLayout = layout;
         mOrientation = context.getResources().getConfiguration().orientation;
@@ -93,14 +107,18 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
         if (mScale == 0) {
             mScale = mRes.getDisplayMetrics().density;
-            SELECTED_COLOR_CHIP_SIZE *= mScale;
-            UNSELECTED_COLOR_CHIP_SIZE *= mScale;
-            COLOR_CHIP_LEFT_MARGIN *= mScale;
-            COLOR_CHIP_RIGHT_MARGIN *= mScale;
-            COLOR_CHIP_TOP_OFFSET *= mScale;
             BOTTOM_ITEM_HEIGHT *= mScale;
             NORMAL_ITEM_HEIGHT *= mScale;
         }
+
+        mCache = new CalendarColorCache(context, this);
+
+        mFragmentManager = fm;
+        mColorPickerDialog = (CalendarColorPickerDialog)
+                fm.findFragmentByTag(COLOR_PICKER_DIALOG_TAG);
+        mIsTablet = Utils.getConfigBool(context, R.bool.tablet_config);
+        mColorViewTouchAreaIncrease = context.getResources()
+                .getDimensionPixelSize(R.dimen.color_view_touch_area_increase);
     }
 
     private static class TabletCalendarItemBackgrounds {
@@ -170,6 +188,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         mColorColumn = c.getColumnIndexOrThrow(Calendars.CALENDAR_COLOR);
         mVisibleColumn = c.getColumnIndexOrThrow(Calendars.VISIBLE);
         mOwnerAccountColumn = c.getColumnIndexOrThrow(Calendars.OWNER_ACCOUNT);
+        mAccountNameColumn = c.getColumnIndexOrThrow(Calendars.ACCOUNT_NAME);
+        mAccountTypeColumn = c.getColumnIndexOrThrow(Calendars.ACCOUNT_TYPE);
 
         mRowCount = c.getCount();
         mData = new CalendarRow[(c.getCount())];
@@ -182,6 +202,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
             mData[p].color = c.getInt(mColorColumn);
             mData[p].selected = c.getInt(mVisibleColumn) != 0;
             mData[p].ownerAccount = c.getString(mOwnerAccountColumn);
+            mData[p].accountName = c.getString(mAccountNameColumn);
+            mData[p].accountType = c.getString(mAccountTypeColumn);
             p++;
         }
     }
@@ -191,7 +213,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         notifyDataSetChanged();
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (position >= mRowCount) {
             return null;
         }
@@ -202,6 +225,21 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         View view;
         if (convertView == null) {
             view = mInflater.inflate(mLayout, parent, false);
+            final View delegate = view.findViewById(R.id.color);
+            final View delegateParent = (View) delegate.getParent();
+            delegateParent.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    final Rect r = new Rect();
+                    delegate.getHitRect(r);
+                    r.top -= mColorViewTouchAreaIncrease;
+                    r.bottom += mColorViewTouchAreaIncrease;
+                    r.left -= mColorViewTouchAreaIncrease;
+                    r.right += mColorViewTouchAreaIncrease;
+                    delegateParent.setTouchDelegate(new TouchDelegate(r, delegate));
+                }
+            });
         } else {
             view = convertView;
         }
@@ -211,21 +249,43 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
         View colorView = view.findViewById(R.id.color);
         colorView.setBackgroundColor(color);
+        colorView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Purely for sanity check--view should be disabled if account has no more colors
+                if (!hasMoreColors(position)) {
+                    return;
+                }
+
+                if (mColorPickerDialog == null) {
+                    mColorPickerDialog = CalendarColorPickerDialog.newInstance(mData[position].id,
+                            mIsTablet);
+                } else {
+                    mColorPickerDialog.setCalendarId(mData[position].id);
+                }
+                mFragmentManager.executePendingTransactions();
+                if (!mColorPickerDialog.isAdded()) {
+                    mColorPickerDialog.show(mFragmentManager, COLOR_PICKER_DIALOG_TAG);
+                }
+            }
+        });
+
+        int textColor;
+        if (selected) {
+            textColor = mColorCalendarVisible;
+        } else {
+            textColor = mColorCalendarHidden;
+        }
+        calendarName.setTextColor(textColor);
 
         CheckBox syncCheckBox = (CheckBox) view.findViewById(R.id.sync);
         if (syncCheckBox != null) {
+
             // Full screen layout
             syncCheckBox.setChecked(selected);
 
-            int textColor;
-            if (selected) {
-                textColor = mColorCalendarVisible;
-            } else {
-                textColor = mColorCalendarHidden;
-            }
-            calendarName.setTextColor(textColor);
+            colorView.setEnabled(hasMoreColors(position));
             LayoutParams layoutParam = calendarName.getLayoutParams();
-
             TextView secondaryText = (TextView) view.findViewById(R.id.status);
             if (!TextUtils.isEmpty(mData[position].ownerAccount)
                     && !mData[position].ownerAccount.equals(name)
@@ -249,23 +309,8 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
 
         } else {
             // Tablet layout
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                    SELECTED_COLOR_CHIP_SIZE, SELECTED_COLOR_CHIP_SIZE);
-            params.leftMargin = COLOR_CHIP_LEFT_MARGIN;
-            params.rightMargin = COLOR_CHIP_RIGHT_MARGIN;
-            // This offset is needed because the assets include the bottom of the
-            // previous item
-            params.topMargin = COLOR_CHIP_TOP_OFFSET;
-            if (!selected) {
-                params.height = UNSELECTED_COLOR_CHIP_SIZE;
-                params.width = UNSELECTED_COLOR_CHIP_SIZE;
-                params.leftMargin += (SELECTED_COLOR_CHIP_SIZE - UNSELECTED_COLOR_CHIP_SIZE) / 2;
-                params.topMargin += (SELECTED_COLOR_CHIP_SIZE - UNSELECTED_COLOR_CHIP_SIZE) / 2;
-            }
-            colorView.setLayoutParams(params);
-
-            Drawable bg = getBackground(position, selected);
-            view.setBackgroundDrawable(bg);
+            view.findViewById(R.id.color).setEnabled(selected && hasMoreColors(position));
+            view.setBackgroundDrawable(getBackground(position, selected));
             ViewGroup.LayoutParams newParams = view.getLayoutParams();
             if (position == mData.length - 1) {
                 newParams.height = BOTTOM_ITEM_HEIGHT;
@@ -282,6 +327,10 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         return view;
     }
 
+    private boolean hasMoreColors(int position) {
+        return mCache.hasColors(mData[position].accountName, mData[position].accountType);
+    }
+
     /**
      * @param position position of the calendar item
      * @param selected whether it is selected or not
@@ -296,10 +345,12 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         return mRes.getDrawable(TabletCalendarItemBackgrounds.getBackgrounds()[bg]);
     }
 
+    @Override
     public int getCount() {
         return mRowCount;
     }
 
+    @Override
     public Object getItem(int position) {
         if (position >= mRowCount) {
             return null;
@@ -308,6 +359,7 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
         return item;
     }
 
+    @Override
     public long getItemId(int position) {
         if (position >= mRowCount) {
             return 0;
@@ -327,5 +379,10 @@ public class SelectCalendarsSimpleAdapter extends BaseAdapter implements ListAda
     @Override
     public boolean hasStableIds() {
         return true;
+    }
+
+    @Override
+    public void onCalendarColorsLoaded() {
+        notifyDataSetChanged();
     }
 }

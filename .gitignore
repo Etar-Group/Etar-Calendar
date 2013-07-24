@@ -1,2 +1,5 @@
 bin/
 gen/
+.project
+res/.DS_Store
+res/drawable-hdpi/.DS_Store

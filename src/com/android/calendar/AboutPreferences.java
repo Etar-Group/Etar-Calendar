@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.calendar.extensions;
+package com.android.calendar;
 
 import android.app.Activity;
 import android.content.pm.PackageInfo;

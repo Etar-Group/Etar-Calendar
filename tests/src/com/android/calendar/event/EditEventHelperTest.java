@@ -31,20 +31,20 @@ import android.test.AndroidTestCase;
 import android.test.mock.MockResources;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.test.suitebuilder.annotation.Smoke;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.text.util.Rfc822Token;
-import android.util.Log;
 
 import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.CalendarEventModel;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.R;
+import com.android.calendar.Utils;
 import com.android.common.Rfc822Validator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.TimeZone;
@@ -69,11 +69,14 @@ public class EditEventHelperTest extends AndroidTestCase {
     private static final int SAVE_EVENT_FIRST_TO_RECUR = 9;
     private static final int SAVE_EVENT_ALLFOLLOW_TO_RECUR = 10;
 
+    /* These should match up with EditEventHelper.EVENT_PROJECTION.
+     * Note that spaces and commas have been removed to allow for easier sanitation.
+     */
     private static String[] TEST_CURSOR_DATA = new String[] {
             Integer.toString(TEST_EVENT_ID), // 0 _id
-            "The Question", // 1 title
-            "Evaluating Life, the Universe, and Everything",// 2 description
-            "Earth Mk2", // 3 location
+            "The_Question", // 1 title
+            "Evaluating_Life_the_Universe_and_Everything", // 2 description
+            "Earth_Mk2", // 3 location
             "1", // 4 All Day
             "0", // 5 Has alarm
             "2", // 6 Calendar id
@@ -82,17 +85,20 @@ public class EditEventHelperTest extends AndroidTestCase {
             "P3652421990D", // 9 duration, (10 million years)
             "UTC", // 10 event timezone
             "FREQ=DAILY;WKST=SU", // 11 rrule
-            "unique per calendar stuff", // 12 sync id
-            "0", // 13 transparency
-            "3", // 14 visibility
+            "unique_per_calendar_stuff", // 12 sync id
+            "0", // 13 transparency/availability
+            "3", // 14 visibility/access level
             "steve@gmail.com", // 15 owner account
             "1", // 16 has attendee data
             null, //17 originalSyncId
             "organizer@gmail.com", // 18 organizer
             "0", // 19 guest can modify
-            null, // 20 original id
-            "1" // event status
-    }; // These should match up with EditEventHelper.EVENT_PROJECTION
+            "-1", // 20 original id
+            "1", // 21 event status
+            "-339611", // 22 calendar color
+            "-2350809", // 23 event color
+            "11" // 24 event color key
+    };
 
     private static final String AUTHORITY_URI = "content://EditEventHelperAuthority/";
     private static final String AUTHORITY = "EditEventHelperAuthority";
@@ -103,10 +109,17 @@ public class EditEventHelperTest extends AndroidTestCase {
     private static final String TEST_ADDRESSES2 =
             "no good, ad1@email.com, \"First Last\" <first@email.com> (comment), " +
             "different@email.bit";
+    private static final String TEST_ADDRESSES3 =
+            "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
+            "different@email.bit";
+    private static final String TEST_ADDRESSES4 =
+            "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
+            "one.two.three@email.grue";
 
 
     private static final String TAG = "EEHTest";
 
+    private Rfc822Validator mEmailValidator;
     private CalendarEventModel mModel1;
     private CalendarEventModel mModel2;
 
@@ -128,6 +141,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         time.set(TEST_END);
         time.timezone = LOCAL_TZ;
         TEST_END2 = time.normalize(true);
+
+        mEmailValidator = new Rfc822Validator(null);
     }
 
     private class MockAbsCalendarActivity extends AbstractCalendarActivity {
@@ -230,6 +245,15 @@ public class EditEventHelperTest extends AndroidTestCase {
         expectedOps.add(b.build());
     }
 
+    private void addOwnerAttendeeToOps(ArrayList<ContentProviderOperation> expectedOps) {
+        addOwnerAttendee();
+        mExpectedValues.put(Attendees.EVENT_ID, TEST_EVENT_ID);
+        ContentProviderOperation.Builder b;
+        b = ContentProviderOperation.newInsert(Attendees.CONTENT_URI).withValues(mExpectedValues);
+        expectedOps.add(b.build());
+    }
+
+
     // Some tests set the time values to one day later, this does that move in the values
     private void moveExpectedTimeValuesForwardOneDay() {
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
@@ -246,10 +270,10 @@ public class EditEventHelperTest extends AndroidTestCase {
         expectedOps.add(b.build());
 
         mExpectedValues.clear();
-        mExpectedValues.put(Attendees.ATTENDEE_NAME, (String)null);
+        mExpectedValues.put(Attendees.ATTENDEE_NAME, "different@email.bit");
         mExpectedValues.put(Attendees.ATTENDEE_EMAIL, "different@email.bit");
         mExpectedValues.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ATTENDEE);
-        mExpectedValues.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+        mExpectedValues.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
         mExpectedValues.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
         mExpectedValues.put(Attendees.EVENT_ID, TEST_EVENT_ID);
         b = ContentProviderOperation
@@ -263,7 +287,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mExpectedValues.clear();
         mExpectedValues.put(Attendees.ATTENDEE_EMAIL, mModel1.mOwnerAccount);
         mExpectedValues.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ORGANIZER);
-        mExpectedValues.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+        mExpectedValues.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
         mExpectedValues.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_ACCEPTED);
     }
 
@@ -274,10 +298,10 @@ public class EditEventHelperTest extends AndroidTestCase {
             boolean newEvent, int id) {
         ContentProviderOperation.Builder b;
         mExpectedValues.clear();
-        mExpectedValues.put(Attendees.ATTENDEE_NAME, (String)null);
+        mExpectedValues.put(Attendees.ATTENDEE_NAME, "ad1@email.com");
         mExpectedValues.put(Attendees.ATTENDEE_EMAIL, "ad1@email.com");
         mExpectedValues.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ATTENDEE);
-        mExpectedValues.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+        mExpectedValues.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
         mExpectedValues.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
 
         if (newEvent) {
@@ -297,7 +321,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mExpectedValues.put(Attendees.ATTENDEE_NAME, "First Last");
         mExpectedValues.put(Attendees.ATTENDEE_EMAIL, "first@email.com");
         mExpectedValues.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ATTENDEE);
-        mExpectedValues.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+        mExpectedValues.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
         mExpectedValues.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
 
         if (newEvent) {
@@ -314,10 +338,10 @@ public class EditEventHelperTest extends AndroidTestCase {
         ops.add(b.build());
 
         mExpectedValues.clear();
-        mExpectedValues.put(Attendees.ATTENDEE_NAME, (String)null);
+        mExpectedValues.put(Attendees.ATTENDEE_NAME, "different@email.bit");
         mExpectedValues.put(Attendees.ATTENDEE_EMAIL, "different@email.bit");
         mExpectedValues.put(Attendees.ATTENDEE_RELATIONSHIP, Attendees.RELATIONSHIP_ATTENDEE);
-        mExpectedValues.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_NONE);
+        mExpectedValues.put(Attendees.ATTENDEE_TYPE, Attendees.TYPE_REQUIRED);
         mExpectedValues.put(Attendees.ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
 
         if (newEvent) {
@@ -368,7 +392,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mHelper = new EditEventHelper(mActivity, null);
 
         mModel1 = buildTestModel();
-//        mModel1.mAttendees = TEST_ADDRESSES2;
+        mModel1.addAttendees(TEST_ADDRESSES2, mEmailValidator);
         mCurrentSaveTest = SAVE_EVENT_NEW_EVENT;
 
         assertTrue(mHelper.saveEvent(mModel1, null, 0));
@@ -393,7 +417,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, br_id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -406,7 +430,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-//        mModel1.mAttendees = TEST_ADDRESSES2;
+        mModel1.addAttendees(TEST_ADDRESSES2, mEmailValidator);
 
         // Updating a recurring event with a new attendee list
         mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
@@ -414,8 +438,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-//            "one.two.three@email.grue";
+        mModel2.addAttendees(TEST_ADDRESSES4, null);
         mCurrentSaveTest = SAVE_EVENT_MOD_RECUR;
 
         assertTrue(mHelper.saveEvent(mModel1, mModel2, EditEventHelper.MODIFY_ALL));
@@ -437,9 +460,10 @@ public class EditEventHelperTest extends AndroidTestCase {
         mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminders,
                 mModel2.mReminders, false);
 
+        addOwnerAttendeeToOps(expectedOps);
         addAttendeeChangesOps(expectedOps);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -452,7 +476,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-//        mModel1.mAttendees = TEST_ADDRESSES2;
+        mModel1.addAttendees(TEST_ADDRESSES2, mEmailValidator);
 
         // Updating a recurring event with a new attendee list
         mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
@@ -460,8 +484,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-//            "one.two.three@email.grue";
+        mModel2.addAttendees(TEST_ADDRESSES4, null);
 
         // Replace an existing recurring event with a non-recurring event
         mModel1.mRrule = null;
@@ -495,7 +518,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -508,7 +531,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-//        mModel1.mAttendees = TEST_ADDRESSES2;
+        mModel1.addAttendees(TEST_ADDRESSES2, mEmailValidator);
 
         // Updating a recurring event with a new attendee list
         mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
@@ -516,8 +539,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-//            "one.two.three@email.grue";
+        mModel2.addAttendees(TEST_ADDRESSES4, null);
 
         mModel2.mRrule = null;
         mModel2.mEnd = TEST_END;
@@ -542,7 +564,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-//        mModel1.mAttendees = TEST_ADDRESSES2;
+        mModel1.addAttendees(TEST_ADDRESSES2, mEmailValidator);
 
         // Updating a recurring event with a new attendee list
         mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
@@ -550,8 +572,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-//            "one.two.three@email.grue";
+        mModel2.addAttendees(TEST_ADDRESSES4, null);
 
         mModel2.mRrule = null;
         mModel2.mEnd = TEST_END2;
@@ -575,9 +596,10 @@ public class EditEventHelperTest extends AndroidTestCase {
         // This call has a separate unit test so we'll use it to simplify making the expected vals
         mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminders,
                 mModel2.mReminders, false);
+        addOwnerAttendeeToOps(expectedOps);
         addAttendeeChangesOps(expectedOps);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -590,15 +612,14 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-//        mModel1.mAttendees = TEST_ADDRESSES2;
+        mModel1.addAttendees(TEST_ADDRESSES2, mEmailValidator);
 
         mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         // And a new start time to ensure the time fields aren't removed
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-//            "one.two.three@email.grue";
+        mModel2.addAttendees(TEST_ADDRESSES4, null);
 
         // Modify the second instance of the event
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
@@ -638,7 +659,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -652,14 +673,13 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-//        mModel1.mAttendees = TEST_ADDRESSES2;
+        mModel1.addAttendees(TEST_ADDRESSES2, mEmailValidator);
 
         mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
 
         // The original model is assumed correct so drop the no good bit
-//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-//            "one.two.three@email.grue";
+        mModel2.addAttendees(TEST_ADDRESSES4, null);
 
         // Modify the second instance of the event
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
@@ -695,7 +715,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -709,7 +729,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-//        mModel1.mAttendees = TEST_ADDRESSES2;
+        mModel1.addAttendees(TEST_ADDRESSES2, mEmailValidator);
 
         mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = mModel1.mUri;
@@ -717,8 +737,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-//            "one.two.three@email.grue";
+        mModel2.addAttendees(TEST_ADDRESSES3, null);
 
         // Move the event one day but keep original start set to the first instance
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
@@ -754,7 +773,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -768,7 +787,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-//        mModel1.mAttendees = TEST_ADDRESSES2;
+        mModel1.addAttendees(TEST_ADDRESSES2, mEmailValidator);
 
         mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = mModel1.mUri;
@@ -776,8 +795,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mOriginalStart = TEST_START;
 
         // The original model is assumed correct so drop the no good bit
-//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-//            "one.two.three@email.grue";
+        mModel2.addAttendees(TEST_ADDRESSES4, null);
 
         // Move the event one day but keep original start set to the first instance
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
@@ -807,9 +825,10 @@ public class EditEventHelperTest extends AndroidTestCase {
         mHelper.saveReminders(expectedOps, TEST_EVENT_ID, mModel1.mReminders,
                 mModel2.mReminders, true);
 
+        addOwnerAttendeeToOps(expectedOps);
         addAttendeeChangesOps(expectedOps);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -824,14 +843,13 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mModel1 = buildTestModel();
         mModel2 = buildTestModel();
-//        mModel1.mAttendees = TEST_ADDRESSES2;
+        mModel1.addAttendees(TEST_ADDRESSES2, mEmailValidator);
 
         mModel1.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
         mModel2.mUri = (AUTHORITY_URI + TEST_EVENT_ID);
 
         // The original model is assumed correct so drop the no good bit
-//        mModel2.mAttendees = "ad1@email.com, \"First Last\" <first@email.com> (comment), " +
-//            "one.two.three@email.grue";
+        mModel2.addAttendees(TEST_ADDRESSES4, null);
 
         // Move the event one day and the original start so it references the second instance
         long dayInMs = EditEventHelper.DAY_IN_SECONDS*1000;
@@ -868,7 +886,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         addTestAttendees(expectedOps, true, br_id);
 
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
         return true;
     }
 
@@ -949,14 +967,14 @@ public class EditEventHelperTest extends AndroidTestCase {
         // if any time/recurrence vals are different but there's no new rrule it
         // shouldn't change
         mHelper.checkTimeDependentFields(mModel1, mModel2, mValues, EditEventHelper.MODIFY_ALL);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
 
         // also, if vals are different and it's not modifying all it shouldn't
         // change.
         mModel2.mRrule = "something else";
         mHelper.checkTimeDependentFields(mModel1, mModel2, mValues,
                 EditEventHelper.MODIFY_SELECTED);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
 
         // if vals changed and modify all is selected dtstart should be updated
         // by the difference
@@ -973,7 +991,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mHelper.checkTimeDependentFields(mModel1, mModel2, mValues,
                 EditEventHelper.MODIFY_SELECTED);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
     }
 
     @Smoke
@@ -1003,7 +1021,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         mHelper.checkTimeDependentFields(mModel1, mModel2, mValues,
                 EditEventHelper.MODIFY_SELECTED);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
 
     }
 
@@ -1028,7 +1046,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         expectedOps.add(b.build());
 
         mHelper.updatePastEvents(ops, mModel1, initialBeginTime);
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
 
         mModel1.mAllDay = false;
 
@@ -1040,7 +1058,7 @@ public class EditEventHelperTest extends AndroidTestCase {
 
         ops.clear();
         mHelper.updatePastEvents(ops, mModel1, initialBeginTime);
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
     }
 
     @Smoke
@@ -1049,16 +1067,16 @@ public class EditEventHelperTest extends AndroidTestCase {
         mActivity = buildTestContext();
 
         String label = EventViewUtils.constructReminderLabel(mActivity, 35, true);
-        assertEquals(label, "35 mins");
+        assertEquals("35 mins", label);
 
         label = EventViewUtils.constructReminderLabel(mActivity, 72, false);
-        assertEquals(label, "72 minutes");
+        assertEquals("72 minutes", label);
 
         label = EventViewUtils.constructReminderLabel(mActivity, 60, true);
-        assertEquals(label, "1 hours");
+        assertEquals("1 hours", label);
 
         label = EventViewUtils.constructReminderLabel(mActivity, 60 * 48, true);
-        assertEquals(label, "2 days");
+        assertEquals("2 days", label);
     }
 
     @Smoke
@@ -1125,7 +1143,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         // Should fail to create any ops since nothing changed
         result = mHelper.saveReminders(ops, eventId, reminders, originalReminders, forceSave);
         assertFalse(result);
-        assertEquals(ops.size(), 0);
+        assertEquals(0, ops.size());
 
         //Now test adding a single reminder
         originalReminders.remove(2);
@@ -1162,7 +1180,7 @@ public class EditEventHelperTest extends AndroidTestCase {
                 mHelper.saveRemindersWithBackRef(ops, TEST_EVENT_INDEX_ID, reminders,
                         originalReminders, forceSave);
         assertTrue(result);
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
 
         // Now test calling save with identical reminders and no forcing
         reminders.add(ReminderEntry.valueOf(5));
@@ -1180,7 +1198,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         result = mHelper.saveRemindersWithBackRef(ops, ops.size(), reminders, originalReminders,
                         forceSave);
         assertFalse(result);
-        assertEquals(ops.size(), 0);
+        assertEquals(0, ops.size());
 
         //Now test adding a single reminder
         originalReminders.remove(2);
@@ -1190,7 +1208,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         result = mHelper.saveRemindersWithBackRef(ops, ops.size(), reminders, originalReminders,
                         forceSave);
         assertTrue(result);
-        assertEquals(ops, expectedOps);
+        assertEquals(expectedOps, ops);
     }
 
     @Smoke
@@ -1231,7 +1249,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1.mAllDay = false;
 
         mHelper.addRecurrenceRule(mValues, mModel1);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
 
         mExpectedValues.put(Events.DURATION, "P1D");
 
@@ -1239,7 +1257,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mValues.clear();
 
         mHelper.addRecurrenceRule(mValues, mModel1);
-        assertEquals(mValues, mExpectedValues);
+        assertEquals(mExpectedValues, mValues);
 
     }
 
@@ -1261,37 +1279,37 @@ public class EditEventHelperTest extends AndroidTestCase {
         selection = EditEventHelper.REPEATS_CUSTOM;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "This shouldn't change");
+        assertEquals("This shouldn't change", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_DAILY;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=DAILY;WKST=SU");
+        assertEquals("FREQ=DAILY;WKST=SU", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_EVERY_WEEKDAY;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=WEEKLY;WKST=SU;BYDAY=MO,TU,WE,TH,FR");
+        assertEquals("FREQ=WEEKLY;WKST=SU;BYDAY=MO,TU,WE,TH,FR", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_WEEKLY_ON_DAY;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=WEEKLY;WKST=SU;BYDAY=FR");
+        assertEquals("FREQ=WEEKLY;WKST=SU;BYDAY=FR", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_MONTHLY_ON_DAY;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=MONTHLY;WKST=SU;BYMONTHDAY=30");
+        assertEquals("FREQ=MONTHLY;WKST=SU;BYMONTHDAY=30", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_MONTHLY_ON_DAY_COUNT;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=MONTHLY;WKST=SU;BYDAY=-1FR");
+        assertEquals("FREQ=MONTHLY;WKST=SU;BYDAY=-1FR", mModel1.mRrule);
 
         selection = EditEventHelper.REPEATS_YEARLY;
 
         EditEventHelper.updateRecurrenceRule(selection, mModel1, weekStart);
-        assertEquals(mModel1.mRrule, "FREQ=YEARLY;WKST=SU");
+        assertEquals("FREQ=YEARLY;WKST=SU", mModel1.mRrule);
     }
 
     @Smoke
@@ -1353,7 +1371,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mModel1 = buildTestModel();
 
         ContentValues values = mHelper.getContentValuesFromModel(mModel1);
-        assertEquals(values, mExpectedValues);
+        assertEquals(mExpectedValues, values);
 
         mModel1.mRrule = null;
         mModel1.mEnd = TEST_END;
@@ -1363,7 +1381,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         mExpectedValues.put(Events.DTEND, TEST_END); // UTC time
 
         values = mHelper.getContentValuesFromModel(mModel1);
-        assertEquals(values, mExpectedValues);
+        assertEquals(mExpectedValues, values);
 
         mModel1.mAllDay = false;
 
@@ -1374,14 +1392,14 @@ public class EditEventHelperTest extends AndroidTestCase {
         mExpectedValues.put(Events.EVENT_TIMEZONE, "UTC");
 
         values = mHelper.getContentValuesFromModel(mModel1);
-        assertEquals(values, mExpectedValues);
+        assertEquals(mExpectedValues, values);
     }
 
     @Smoke
     @SmallTest
     public void testExtractDomain() {
         String domain = EditEventHelper.extractDomain("test.email@gmail.com");
-        assertEquals(domain, "gmail.com");
+        assertEquals("gmail.com", domain);
 
         domain = EditEventHelper.extractDomain("bademail.no#$%at symbol");
         assertNull(domain);
@@ -1449,8 +1467,8 @@ public class EditEventHelperTest extends AndroidTestCase {
         assertEquals(size, actual.size());
 
         for (int i = 0; i < size; i++) {
-            assertTrue("At index " + i + ", expected:\n" + String.valueOf(expected) +
-                    "\nActual:\n" + String.valueOf(actual),
+            assertTrue("At index " + i + ", expected:\n" + String.valueOf(expected.get(i)) +
+                    "\nActual:\n" + String.valueOf(actual.get(i)),
                     cpoEquals(expected.get(i), actual.get(i)));
         }
 
@@ -1467,7 +1485,49 @@ public class EditEventHelperTest extends AndroidTestCase {
             return false;
         }
 
-        return TextUtils.equals(cpo1.toString(), cpo2.toString());
+        // It turns out we can't trust the toString() of the ContentProviderOperations to be
+        // consistent, so we have to do the comparison manually.
+        //
+        // Start by splitting by commas, so that we can compare each key-value pair individually.
+        String[] operations1 = cpo1.toString().split(",");
+        String[] operations2 = cpo2.toString().split(",");
+        // The two numbers of operations must be equal.
+        if (operations1.length != operations2.length) {
+            return false;
+        }
+        // Iterate through the key-value pairs and separate out the key and value.
+        // The value may be either a single string, or a series of further key-value pairs
+        // that are separated by " ", with a "=" between the key and value.
+        for (int i = 0; i < operations1.length; i++) {
+            String operation1 = operations1[i];
+            String operation2 = operations2[i];
+            // Limit the array to length 2 in case a ":" appears in the value.
+            String[] keyValue1 = operation1.split(":", 2);
+            String[] keyValue2 = operation2.split(":", 2);
+            // If the key doesn't match, return false.
+            if (!keyValue1[0].equals(keyValue2[0])) {
+                return false;
+            }
+            // First just check if the value matches up. If so, we're good to go.
+            if (keyValue1[1].equals(keyValue2[1])) {
+                continue;
+            }
+            // If not, we need to try splitting the value by " " and sorting those keyvalue pairs.
+            // Note that these are trimmed first to ensure we're not thrown off by extra whitespace.
+            String[] valueKeyValuePairs1 = keyValue1[1].trim().split(" ");
+            String[] valueKeyValuePairs2 = keyValue2[1].trim().split(" ");
+            // Sort the value's keyvalue pairs alphabetically, and now compare them to each other.
+            Arrays.sort(valueKeyValuePairs1);
+            Arrays.sort(valueKeyValuePairs2);
+            for (int j = 0; j < valueKeyValuePairs1.length; j++) {
+                if (!valueKeyValuePairs1[j].equals(valueKeyValuePairs2[j])) {
+                    return false;
+                }
+            }
+        }
+
+        // If we make it all the way through without finding anything different, return true.
+        return true;
     }
 
     // Generates a default model for testing. Should match up with
@@ -1475,9 +1535,9 @@ public class EditEventHelperTest extends AndroidTestCase {
     private CalendarEventModel buildTestModel() {
         CalendarEventModel model = new CalendarEventModel();
         model.mId = TEST_EVENT_ID;
-        model.mTitle = "The Question";
-        model.mDescription = "Evaluating Life, the Universe, and Everything";
-        model.mLocation = "Earth Mk2";
+        model.mTitle = "The_Question";
+        model.mDescription = "Evaluating_Life_the_Universe_and_Everything";
+        model.mLocation = "Earth_Mk2";
         model.mAllDay = true;
         model.mHasAlarm = false;
         model.mCalendarId = 2;
@@ -1486,14 +1546,22 @@ public class EditEventHelperTest extends AndroidTestCase {
         // The model uses the local timezone for allday
         model.mTimezone = "UTC";
         model.mRrule = "FREQ=DAILY;WKST=SU";
-        model.mSyncId = "unique per calendar stuff";
+        model.mSyncId = "unique_per_calendar_stuff";
         model.mAvailability = 0;
         model.mAccessLevel = 2; // This is one less than the values written if >0
         model.mOwnerAccount = "steve@gmail.com";
         model.mHasAttendeeData = true;
-        model.mEventStatus = Events.STATUS_CONFIRMED;
         model.mOrganizer = "organizer@gmail.com";
+        model.mIsOrganizer = false;
         model.mGuestsCanModify = false;
+        model.mEventStatus = Events.STATUS_CONFIRMED;
+        int displayColor = Utils.getDisplayColorFromColor(-2350809);
+        model.setEventColor(displayColor);
+        model.mCalendarAccountName = "steve.owner@gmail.com";
+        model.mCalendarAccountType = "gmail.com";
+        EventColorCache cache = new EventColorCache();
+        cache.insertColor("steve.owner@gmail.com", "gmail.com", displayColor, 12);
+        model.mEventColorCache = cache;
         model.mModelUpdatedWithEventCursor = true;
         return model;
     }
@@ -1506,7 +1574,7 @@ public class EditEventHelperTest extends AndroidTestCase {
         values.put(Events.CALENDAR_ID, 2L);
         values.put(Events.EVENT_TIMEZONE, "UTC"); // Allday events are converted
                                                   // to UTC for the db
-        values.put(Events.TITLE, "The Question");
+        values.put(Events.TITLE, "The_Question");
         values.put(Events.ALL_DAY, 1);
         values.put(Events.DTSTART, TEST_START); // Monday, May 3rd, midnight UTC time
         values.put(Events.HAS_ATTENDEE_DATA, 1);
@@ -1514,12 +1582,13 @@ public class EditEventHelperTest extends AndroidTestCase {
         values.put(Events.RRULE, "FREQ=DAILY;WKST=SU");
         values.put(Events.DURATION, "P3652421990D");
         values.put(Events.DTEND, (Long) null);
-        values.put(Events.DESCRIPTION, "Evaluating Life, the Universe, and Everything");
-        values.put(Events.EVENT_LOCATION, "Earth Mk2");
+        values.put(Events.DESCRIPTION, "Evaluating_Life_the_Universe_and_Everything");
+        values.put(Events.EVENT_LOCATION, "Earth_Mk2");
         values.put(Events.AVAILABILITY, 0);
         values.put(Events.STATUS, Events.STATUS_CONFIRMED);
         values.put(Events.ACCESS_LEVEL, 3); // This is one more than the model if
                                           // >0
+        values.put(Events.EVENT_COLOR_KEY, 12);
 
         return values;
     }

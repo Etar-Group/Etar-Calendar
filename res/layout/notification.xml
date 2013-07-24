@@ -56,6 +56,24 @@
     </LinearLayout>
 
     <ImageButton
+        android:id="@+id/map_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:src="@drawable/ic_map"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="8dip"
+        android:contentDescription="@string/map_label" />
+    <ImageButton
+        android:id="@+id/call_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:src="@drawable/ic_call"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="8dip"
+        android:contentDescription="@string/call_label" />
+    <ImageButton
         android:id="@+id/email_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"

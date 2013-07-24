@@ -32,10 +32,13 @@ import android.os.PowerManager;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
+import android.telephony.TelephonyManager;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.TextAppearanceSpan;
+import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -66,8 +69,15 @@ public class AlertReceiver extends BroadcastReceiver {
     private static final String TAG = "AlertReceiver";
 
     private static final String DELETE_ALL_ACTION = "com.android.calendar.DELETEALL";
+    private static final String MAP_ACTION = "com.android.calendar.MAP";
+    private static final String CALL_ACTION = "com.android.calendar.CALL";
     private static final String MAIL_ACTION = "com.android.calendar.MAIL";
     private static final String EXTRA_EVENT_ID = "eventid";
+
+    // The broadcast for notification refreshes scheduled by the app. This is to
+    // distinguish the EVENT_REMINDER broadcast sent by the provider.
+    public static final String EVENT_REMINDER_APP_ACTION =
+            "com.android.calendar.EVENT_REMINDER_APP";
 
     static final Object mStartingServiceSync = new Object();
     static PowerManager.WakeLock mStartingService;
@@ -76,6 +86,10 @@ public class AlertReceiver extends BroadcastReceiver {
 
     public static final String ACTION_DISMISS_OLD_REMINDERS = "removeOldReminders";
     private static final int NOTIFICATION_DIGEST_MAX_LENGTH = 3;
+
+    private static final String GEO_PREFIX = "geo:";
+    private static final String TEL_PREFIX = "tel:";
+    private static final int MAX_NOTIF_ACTIONS = 3;
 
     private static Handler sAsyncHandler;
     static {
@@ -91,16 +105,50 @@ public class AlertReceiver extends BroadcastReceiver {
         }
         if (DELETE_ALL_ACTION.equals(intent.getAction())) {
 
-            /* The user has clicked the "Clear All Notifications"
-             * buttons so dismiss all Calendar alerts.
-             */
+            // The user has dismissed a digest notification.
             // TODO Grab a wake lock here?
             Intent serviceIntent = new Intent(context, DismissAlarmsService.class);
             context.startService(serviceIntent);
+        } else if (MAP_ACTION.equals(intent.getAction())) {
+            // Try starting the map action.
+            // If no map location is found (something changed since the notification was originally
+            // fired), update the notifications to express this change.
+            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
+            if (eventId != -1) {
+                URLSpan[] urlSpans = getURLSpans(context, eventId);
+                Intent geoIntent = createMapActivityIntent(context, urlSpans);
+                if (geoIntent != null) {
+                    // Location was successfully found, so dismiss the shade and start maps.
+                    context.startActivity(geoIntent);
+                    closeNotificationShade(context);
+                } else {
+                    // No location was found, so update all notifications.
+                    // Our alert service does not currently allow us to specify only one
+                    // specific notification to refresh.
+                    AlertService.updateAlertNotification(context);
+                }
+            }
+        } else if (CALL_ACTION.equals(intent.getAction())) {
+            // Try starting the call action.
+            // If no call location is found (something changed since the notification was originally
+            // fired), update the notifications to express this change.
+            final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
+            if (eventId != -1) {
+                URLSpan[] urlSpans = getURLSpans(context, eventId);
+                Intent callIntent = createCallActivityIntent(context, urlSpans);
+                if (callIntent != null) {
+                    // Call location was successfully found, so dismiss the shade and start dialer.
+                    context.startActivity(callIntent);
+                    closeNotificationShade(context);
+                } else {
+                    // No call location was found, so update all notifications.
+                    // Our alert service does not currently allow us to specify only one
+                    // specific notification to refresh.
+                    AlertService.updateAlertNotification(context);
+                }
+            }
         } else if (MAIL_ACTION.equals(intent.getAction())) {
-            // Close the notification shade.
-            Intent closeNotificationShadeIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-            context.sendBroadcast(closeNotificationShadeIntent);
+            closeNotificationShade(context);
 
             // Now start the email intent.
             final long eventId = intent.getLongExtra(EXTRA_EVENT_ID, -1);
@@ -260,15 +308,24 @@ public class AlertReceiver extends BroadcastReceiver {
             notificationBuilder.setFullScreenIntent(createAlertActivityIntent(context), true);
         }
 
-        PendingIntent snoozeIntent = null;
-        PendingIntent emailIntent = null;
+        PendingIntent mapIntent = null, callIntent = null, snoozeIntent = null, emailIntent = null;
         if (addActionButtons) {
-            // Create snooze intent.
-            snoozeIntent = createSnoozeIntent(context, eventId, startMillis, endMillis,
-                    notificationId);
+            // Send map, call, and email intent back to ourself first for a couple reasons:
+            // 1) Workaround issue where clicking action button in notification does
+            //    not automatically close the notification shade.
+            // 2) Event information will always be up to date.
+
+            // Create map and/or call intents.
+            URLSpan[] urlSpans = getURLSpans(context, eventId);
+            mapIntent = createMapBroadcastIntent(context, urlSpans, eventId);
+            callIntent = createCallBroadcastIntent(context, urlSpans, eventId);
 
             // Create email intent for emailing attendees.
             emailIntent = createBroadcastMailIntent(context, eventId, title);
+
+            // Create snooze intent.  TODO: change snooze to 10 minutes.
+            snoozeIntent = createSnoozeIntent(context, eventId, startMillis, endMillis,
+                    notificationId);
         }
 
         if (Utils.isJellybeanOrLater()) {
@@ -279,14 +336,34 @@ public class AlertReceiver extends BroadcastReceiver {
             // A higher priority will encourage notification manager to expand it.
             notificationBuilder.setPriority(priority);
 
-            // Add action buttons.
-            if (snoozeIntent != null) {
-                notificationBuilder.addAction(R.drawable.ic_alarm_holo_dark,
-                        resources.getString(R.string.snooze_label), snoozeIntent);
+            // Add action buttons. Show at most three, using the following priority ordering:
+            // 1. Map
+            // 2. Call
+            // 3. Email
+            // 4. Snooze
+            // Actions will only be shown if they are applicable; i.e. with no location, map will
+            // not be shown, and with no recipients, snooze will not be shown.
+            // TODO: Get icons, get strings. Maybe show preview of actual location/number?
+            int numActions = 0;
+            if (mapIntent != null && numActions < MAX_NOTIF_ACTIONS) {
+                notificationBuilder.addAction(R.drawable.ic_map,
+                        resources.getString(R.string.map_label), mapIntent);
+                numActions++;
             }
-            if (emailIntent != null) {
+            if (callIntent != null && numActions < MAX_NOTIF_ACTIONS) {
+                notificationBuilder.addAction(R.drawable.ic_call,
+                        resources.getString(R.string.call_label), callIntent);
+                numActions++;
+            }
+            if (emailIntent != null && numActions < MAX_NOTIF_ACTIONS) {
                 notificationBuilder.addAction(R.drawable.ic_menu_email_holo_dark,
                         resources.getString(R.string.email_guests_label), emailIntent);
+                numActions++;
+            }
+            if (snoozeIntent != null && numActions < MAX_NOTIF_ACTIONS) {
+                notificationBuilder.addAction(R.drawable.ic_alarm_holo_dark,
+                        resources.getString(R.string.snooze_label), snoozeIntent);
+                numActions++;
             }
             return notificationBuilder.getNotification();
 
@@ -301,20 +378,41 @@ public class AlertReceiver extends BroadcastReceiver {
             contentView.setImageViewResource(R.id.image, R.drawable.stat_notify_calendar);
             contentView.setTextViewText(R.id.title,  title);
             contentView.setTextViewText(R.id.text, summaryText);
-            if (snoozeIntent == null) {
-                contentView.setViewVisibility(R.id.email_button, View.GONE);
+
+            int numActions = 0;
+            if (mapIntent == null || numActions >= MAX_NOTIF_ACTIONS) {
+                contentView.setViewVisibility(R.id.map_button, View.GONE);
             } else {
-                contentView.setViewVisibility(R.id.snooze_button, View.VISIBLE);
-                contentView.setOnClickPendingIntent(R.id.snooze_button, snoozeIntent);
+                contentView.setViewVisibility(R.id.map_button, View.VISIBLE);
+                contentView.setOnClickPendingIntent(R.id.map_button, mapIntent);
                 contentView.setViewVisibility(R.id.end_padding, View.GONE);
+                numActions++;
             }
-            if (emailIntent == null) {
+            if (callIntent == null || numActions >= MAX_NOTIF_ACTIONS) {
+                contentView.setViewVisibility(R.id.call_button, View.GONE);
+            } else {
+                contentView.setViewVisibility(R.id.call_button, View.VISIBLE);
+                contentView.setOnClickPendingIntent(R.id.call_button, callIntent);
+                contentView.setViewVisibility(R.id.end_padding, View.GONE);
+                numActions++;
+            }
+            if (emailIntent == null || numActions >= MAX_NOTIF_ACTIONS) {
                 contentView.setViewVisibility(R.id.email_button, View.GONE);
             } else {
                 contentView.setViewVisibility(R.id.email_button, View.VISIBLE);
                 contentView.setOnClickPendingIntent(R.id.email_button, emailIntent);
                 contentView.setViewVisibility(R.id.end_padding, View.GONE);
+                numActions++;
             }
+            if (snoozeIntent == null || numActions >= MAX_NOTIF_ACTIONS) {
+                contentView.setViewVisibility(R.id.snooze_button, View.GONE);
+            } else {
+                contentView.setViewVisibility(R.id.snooze_button, View.VISIBLE);
+                contentView.setOnClickPendingIntent(R.id.snooze_button, snoozeIntent);
+                contentView.setViewVisibility(R.id.end_padding, View.GONE);
+                numActions++;
+            }
+
             n.contentView = contentView;
 
             return n;
@@ -372,8 +470,10 @@ public class AlertReceiver extends BroadcastReceiver {
         Resources res = context.getResources();
         int numEvents = notificationInfos.size();
         long[] eventIds = new long[notificationInfos.size()];
+        long[] startMillis = new long[notificationInfos.size()];
         for (int i = 0; i < notificationInfos.size(); i++) {
             eventIds[i] = notificationInfos.get(i).eventId;
+            startMillis[i] = notificationInfos.get(i).startMillis;
         }
 
         // Create an intent triggered by clicking on the status icon that shows the alerts list.
@@ -385,6 +485,7 @@ public class AlertReceiver extends BroadcastReceiver {
         deleteIntent.setClass(context, DismissAlarmsService.class);
         deleteIntent.setAction(DELETE_ALL_ACTION);
         deleteIntent.putExtra(AlertUtils.EVENT_IDS_KEY, eventIds);
+        deleteIntent.putExtra(AlertUtils.EVENT_STARTS_KEY, startMillis);
         PendingIntent pendingDeleteIntent = PendingIntent.getService(context, 0, deleteIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -472,6 +573,8 @@ public class AlertReceiver extends BroadcastReceiver {
             contentView.setTextViewText(R.id.title, nEventsStr);
             contentView.setTextViewText(R.id.text, digestTitle);
             contentView.setViewVisibility(R.id.time, View.VISIBLE);
+            contentView.setViewVisibility(R.id.map_button, View.GONE);
+            contentView.setViewVisibility(R.id.call_button, View.GONE);
             contentView.setViewVisibility(R.id.email_button, View.GONE);
             contentView.setViewVisibility(R.id.snooze_button, View.GONE);
             contentView.setViewVisibility(R.id.end_padding, View.VISIBLE);
@@ -490,6 +593,11 @@ public class AlertReceiver extends BroadcastReceiver {
             }
         }
         return nw;
+    }
+
+    private void closeNotificationShade(Context context) {
+        Intent closeNotificationShadeIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        context.sendBroadcast(closeNotificationShadeIntent);
     }
 
     private static final String[] ATTENDEES_PROJECTION = new String[] {
@@ -525,6 +633,12 @@ public class AlertReceiver extends BroadcastReceiver {
                 ATTENDEES_SORT_ORDER);
     }
 
+    private static Cursor getLocationCursor(Context context, long eventId) {
+        return context.getContentResolver().query(
+                ContentUris.withAppendedId(Events.CONTENT_URI, eventId),
+                new String[] { Events.EVENT_LOCATION }, null, null, null);
+    }
+
     /**
      * Creates a broadcast pending intent that fires to AlertReceiver when the email button
      * is clicked.
@@ -551,10 +665,6 @@ public class AlertReceiver extends BroadcastReceiver {
                 do {
                     String email = attendeesCursor.getString(ATTENDEES_INDEX_EMAIL);
                     if (Utils.isEmailableFrom(email, syncAccount)) {
-                        // Send intent back to ourself first for a couple reasons:
-                        // 1) Workaround issue where clicking action button in notification does
-                        //    not automatically close the notification shade.
-                        // 2) Attendees list in email will always be up to date.
                         Intent broadcastIntent = new Intent(MAIL_ACTION);
                         broadcastIntent.setClass(context, AlertReceiver.class);
                         broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
@@ -652,5 +762,131 @@ public class AlertReceiver extends BroadcastReceiver {
         if (Utils.isEmailableFrom(email, syncAccount)) {
             emailList.add(email);
         }
+    }
+
+    /**
+     * Using the linkify magic, get a list of URLs from the event's location. If no such links
+     * are found, we should end up with a single geo link of the entire string.
+     */
+    private static URLSpan[] getURLSpans(Context context, long eventId) {
+        Cursor locationCursor = getLocationCursor(context, eventId);
+        if (locationCursor != null && locationCursor.moveToFirst()) {
+            String location = locationCursor.getString(0); // Only one item in this cursor.
+            if (location == null || location.isEmpty()) {
+                // Return an empty list if we know there was nothing in the location field.
+                return new URLSpan[0];
+            }
+
+            Spannable text = Utils.extendedLinkify(location, true);
+
+            // The linkify method should have found at least one link, at the very least.
+            // If no smart links were found, it should have set the whole string as a geo link.
+            URLSpan[] urlSpans = text.getSpans(0, text.length(), URLSpan.class);
+            return urlSpans;
+        }
+
+        // If no links were found or location was empty, return an empty list.
+        return new URLSpan[0];
+    }
+
+    /**
+     * Create a pending intent to send ourself a broadcast to start maps, using the first map
+     * link available.
+     * If no links are found, return null.
+     */
+    private static PendingIntent createMapBroadcastIntent(Context context, URLSpan[] urlSpans,
+            long eventId) {
+        for (int span_i = 0; span_i < urlSpans.length; span_i++) {
+            URLSpan urlSpan = urlSpans[span_i];
+            String urlString = urlSpan.getURL();
+            if (urlString.startsWith(GEO_PREFIX)) {
+                Intent broadcastIntent = new Intent(MAP_ACTION);
+                broadcastIntent.setClass(context, AlertReceiver.class);
+                broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
+                return PendingIntent.getBroadcast(context,
+                        Long.valueOf(eventId).hashCode(), broadcastIntent,
+                        PendingIntent.FLAG_CANCEL_CURRENT);
+            }
+        }
+
+        // No geo link was found, so return null;
+        return null;
+    }
+
+    /**
+     * Create an intent to take the user to maps, using the first map link available.
+     * If no links are found, return null.
+     */
+    private static Intent createMapActivityIntent(Context context, URLSpan[] urlSpans) {
+        for (int span_i = 0; span_i < urlSpans.length; span_i++) {
+            URLSpan urlSpan = urlSpans[span_i];
+            String urlString = urlSpan.getURL();
+            if (urlString.startsWith(GEO_PREFIX)) {
+                Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+                geoIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                return geoIntent;
+            }
+        }
+
+        // No geo link was found, so return null;
+        return null;
+    }
+
+    /**
+     * Create a pending intent to send ourself a broadcast to take the user to dialer, or any other
+     * app capable of making phone calls. Use the first phone number available. If no phone number
+     * is found, or if the device is not capable of making phone calls (i.e. a tablet), return null.
+     */
+    private static PendingIntent createCallBroadcastIntent(Context context, URLSpan[] urlSpans,
+            long eventId) {
+        // Return null if the device is unable to make phone calls.
+        TelephonyManager tm =
+                (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (tm.getPhoneType() == TelephonyManager.PHONE_TYPE_NONE) {
+            return null;
+        }
+
+        for (int span_i = 0; span_i < urlSpans.length; span_i++) {
+            URLSpan urlSpan = urlSpans[span_i];
+            String urlString = urlSpan.getURL();
+            if (urlString.startsWith(TEL_PREFIX)) {
+                Intent broadcastIntent = new Intent(CALL_ACTION);
+                broadcastIntent.setClass(context, AlertReceiver.class);
+                broadcastIntent.putExtra(EXTRA_EVENT_ID, eventId);
+                return PendingIntent.getBroadcast(context,
+                        Long.valueOf(eventId).hashCode(), broadcastIntent,
+                        PendingIntent.FLAG_CANCEL_CURRENT);
+            }
+        }
+
+        // No tel link was found, so return null;
+        return null;
+    }
+
+    /**
+     * Create an intent to take the user to dialer, or any other app capable of making phone calls.
+     * Use the first phone number available. If no phone number is found, or if the device is
+     * not capable of making phone calls (i.e. a tablet), return null.
+     */
+    private static Intent createCallActivityIntent(Context context, URLSpan[] urlSpans) {
+        // Return null if the device is unable to make phone calls.
+        TelephonyManager tm =
+                (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (tm.getPhoneType() == TelephonyManager.PHONE_TYPE_NONE) {
+            return null;
+        }
+
+        for (int span_i = 0; span_i < urlSpans.length; span_i++) {
+            URLSpan urlSpan = urlSpans[span_i];
+            String urlString = urlSpan.getURL();
+            if (urlString.startsWith(TEL_PREFIX)) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse(urlString));
+                callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                return callIntent;
+            }
+        }
+
+        // No tel link was found, so return null;
+        return null;
     }
 }

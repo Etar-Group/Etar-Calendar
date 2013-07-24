@@ -19,6 +19,7 @@ package com.android.calendar.event;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.AsyncQueryHandler;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
@@ -35,6 +36,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Colors;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 import android.text.TextUtils;
@@ -61,19 +63,27 @@ import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.DeleteEventHelper;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.colorpicker.ColorPickerSwatch.OnColorSelectedListener;
+import com.android.colorpicker.HsvColorComparator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class EditEventFragment extends Fragment implements EventHandler {
+public class EditEventFragment extends Fragment implements EventHandler, OnColorSelectedListener {
     private static final String TAG = "EditEventActivity";
+    private static final String COLOR_PICKER_DIALOG_TAG = "ColorPickerDialog";
+
+    private static final int REQUEST_CODE_COLOR_PICKER = 0;
 
     private static final String BUNDLE_KEY_MODEL = "key_model";
     private static final String BUNDLE_KEY_EDIT_STATE = "key_edit_state";
     private static final String BUNDLE_KEY_EVENT = "key_event";
     private static final String BUNDLE_KEY_READ_ONLY = "key_read_only";
     private static final String BUNDLE_KEY_EDIT_ON_LAUNCH = "key_edit_on_launch";
+    private static final String BUNDLE_KEY_SHOW_COLOR_PALETTE = "show_color_palette";
+
+    private static final String BUNDLE_KEY_DATE_BUTTON_CLICKED = "date_button_clicked";
 
     private static final boolean DEBUG = false;
 
@@ -81,8 +91,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private static final int TOKEN_ATTENDEES = 1 << 1;
     private static final int TOKEN_REMINDERS = 1 << 2;
     private static final int TOKEN_CALENDARS = 1 << 3;
+    private static final int TOKEN_COLORS = 1 << 4;
+
     private static final int TOKEN_ALL = TOKEN_EVENT | TOKEN_ATTENDEES | TOKEN_REMINDERS
-            | TOKEN_CALENDARS;
+            | TOKEN_CALENDARS | TOKEN_COLORS;
     private static final int TOKEN_UNITIALIZED = 1 << 31;
 
     /**
@@ -104,9 +116,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
 
     private final EventInfo mEvent;
     private EventBundle mEventBundle;
+    private ArrayList<ReminderEntry> mReminders;
+    private int mEventColor;
+    private boolean mEventColorInitialized = false;
     private Uri mUri;
     private long mBegin;
     private long mEnd;
+    private long mCalendarId = -1;
+
+    private EventColorPickerDialog mColorPickerDialog;
 
     private Activity mContext;
     private final Done mOnDone = new Done();
@@ -114,6 +132,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
     private boolean mSaveOnDetach = true;
     private boolean mIsReadOnly = false;
     public boolean mShowModifyDialogOnLaunch = false;
+    private boolean mShowColorPalette = false;
+
+    private boolean mTimeSelectedWasStartTime;
+    private boolean mDateSelectedWasStartDate;
 
     private InputMethodManager mInputMethodManager;
 
@@ -174,7 +196,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     mModel.mIsFirstEventInSeries = mBegin == mOriginalModel.mStart;
                     mModel.mStart = mBegin;
                     mModel.mEnd = mEnd;
-
+                    if (mEventColorInitialized) {
+                        mModel.setEventColor(mEventColor);
+                    }
                     eventId = mModel.mId;
 
                     // TOKEN_ATTENDEES
@@ -192,7 +216,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     }
 
                     // TOKEN_REMINDERS
-                    if (mModel.mHasAlarm) {
+                    if (mModel.mHasAlarm && mReminders == null) {
                         Uri rUri = Reminders.CONTENT_URI;
                         String[] remArgs = {
                                 Long.toString(eventId)
@@ -202,6 +226,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
                                 EditEventHelper.REMINDERS_WHERE /* selection */,
                                 remArgs /* selection args */, null /* sort order */);
                     } else {
+                        if (mReminders == null) {
+                            // mReminders should not be null.
+                            mReminders = new ArrayList<ReminderEntry>();
+                        } else {
+                            Collections.sort(mReminders);
+                        }
+                        mOriginalModel.mReminders = mReminders;
+                        mModel.mReminders =
+                                (ArrayList<ReminderEntry>) mReminders.clone();
                         setModelIfDone(TOKEN_REMINDERS);
                     }
 
@@ -212,6 +245,11 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     mHandler.startQuery(TOKEN_CALENDARS, null, Calendars.CONTENT_URI,
                             EditEventHelper.CALENDARS_PROJECTION, EditEventHelper.CALENDARS_WHERE,
                             selArgs /* selection args */, null /* sort order */);
+
+                    // TOKEN_COLORS
+                    mHandler.startQuery(TOKEN_COLORS, null, Colors.CONTENT_URI,
+                            EditEventHelper.COLORS_PROJECTION,
+                            Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT, null, null);
 
                     setModelIfDone(TOKEN_EVENT);
                     break;
@@ -288,14 +326,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     break;
                 case TOKEN_CALENDARS:
                     try {
-                        if (mModel.mCalendarId == -1) {
-                            // Populate Calendar spinner only if no calendar is set e.g. new event
+                        if (mModel.mId == -1) {
+                            // Populate Calendar spinner only if no event id is set.
                             MatrixCursor matrixCursor = Utils.matrixCursorFromCursor(cursor);
                             if (DEBUG) {
                                 Log.d(TAG, "onQueryComplete: setting cursor with "
                                         + matrixCursor.getCount() + " calendars");
                             }
-                            mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed());
+                            mView.setCalendarsCursor(matrixCursor, isAdded() && isResumed(),
+                                    mCalendarId);
                         } else {
                             // Populate model for an existing event
                             EditEventHelper.setModelFromCalendarCursor(mModel, cursor);
@@ -304,8 +343,43 @@ public class EditEventFragment extends Fragment implements EventHandler {
                     } finally {
                         cursor.close();
                     }
-
                     setModelIfDone(TOKEN_CALENDARS);
+                    break;
+                case TOKEN_COLORS:
+                    if (cursor.moveToFirst()) {
+                        EventColorCache cache = new EventColorCache();
+                        do
+                        {
+                            int colorKey = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR_KEY);
+                            int rawColor = cursor.getInt(EditEventHelper.COLORS_INDEX_COLOR);
+                            int displayColor = Utils.getDisplayColorFromColor(rawColor);
+                            String accountName = cursor
+                                    .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_NAME);
+                            String accountType = cursor
+                                    .getString(EditEventHelper.COLORS_INDEX_ACCOUNT_TYPE);
+                            cache.insertColor(accountName, accountType,
+                                    displayColor, colorKey);
+                        } while (cursor.moveToNext());
+                        cache.sortPalettes(new HsvColorComparator());
+
+                        mModel.mEventColorCache = cache;
+                        mView.mColorPickerNewEvent.setOnClickListener(mOnColorPickerClicked);
+                        mView.mColorPickerExistingEvent.setOnClickListener(mOnColorPickerClicked);
+                    }
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+
+                    // If the account name/type is null, the calendar event colors cannot be
+                    // determined, so take the default/savedInstanceState value.
+                    if (mModel.mCalendarAccountName == null
+                           || mModel.mCalendarAccountType == null) {
+                        mView.setColorPickerButtonStates(mShowColorPalette);
+                    } else {
+                        mView.setColorPickerButtonStates(mModel.getCalendarEventColors());
+                    }
+
+                    setModelIfDone(TOKEN_COLORS);
                     break;
                 default:
                     cursor.close();
@@ -313,6 +387,27 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
         }
     }
+
+    private View.OnClickListener mOnColorPickerClicked = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            int[] colors = mModel.getCalendarEventColors();
+            if (mColorPickerDialog == null) {
+                mColorPickerDialog = EventColorPickerDialog.newInstance(colors,
+                        mModel.getEventColor(), mModel.getCalendarColor(), mView.mIsMultipane);
+                mColorPickerDialog.setOnColorSelectedListener(EditEventFragment.this);
+            } else {
+                mColorPickerDialog.setCalendarColor(mModel.getCalendarColor());
+                mColorPickerDialog.setColors(colors, mModel.getEventColor());
+            }
+            final FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.executePendingTransactions();
+            if (!mColorPickerDialog.isAdded()) {
+                mColorPickerDialog.show(fragmentManager, COLOR_PICKER_DIALOG_TAG);
+            }
+        }
+    };
 
     private void setModelIfDone(int queryType) {
         synchronized (this) {
@@ -336,14 +431,31 @@ public class EditEventFragment extends Fragment implements EventHandler {
     }
 
     public EditEventFragment() {
-        this(null, false, null);
+        this(null, null, false, -1, false, null);
     }
 
-    public EditEventFragment(EventInfo event, boolean readOnly, Intent intent) {
+    public EditEventFragment(EventInfo event, ArrayList<ReminderEntry> reminders,
+            boolean eventColorInitialized, int eventColor, boolean readOnly, Intent intent) {
         mEvent = event;
         mIsReadOnly = readOnly;
         mIntent = intent;
+
+        mReminders = reminders;
+        mEventColorInitialized = eventColorInitialized;
+        if (eventColorInitialized) {
+            mEventColor = eventColor;
+        }
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mColorPickerDialog = (EventColorPickerDialog) getActivity().getFragmentManager()
+                .findFragmentByTag(COLOR_PICKER_DIALOG_TAG);
+        if (mColorPickerDialog != null) {
+            mColorPickerDialog.setOnColorSelectedListener(this);
+        }
     }
 
     private void startQuery() {
@@ -364,6 +476,9 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (mEvent.endTime != null) {
                 mEnd = mEvent.endTime.toMillis(true);
             }
+            if (mEvent.calendarId != -1) {
+                mCalendarId = mEvent.calendarId;
+            }
         } else if (mEventBundle != null) {
             if (mEventBundle.id != -1) {
                 mModel.mId = mEventBundle.id;
@@ -371,6 +486,14 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
             mBegin = mEventBundle.start;
             mEnd = mEventBundle.end;
+        }
+
+        if (mReminders != null) {
+            mModel.mReminders = mReminders;
+        }
+
+        if (mEventColorInitialized) {
+            mModel.setEventColor(mEventColor);
         }
 
         if (mBegin <= 0) {
@@ -393,19 +516,26 @@ public class EditEventFragment extends Fragment implements EventHandler {
             mHandler.startQuery(TOKEN_EVENT, null, mUri, EditEventHelper.EVENT_PROJECTION,
                     null /* selection */, null /* selection args */, null /* sort order */);
         } else {
-            mOutstandingQueries = TOKEN_CALENDARS;
+            mOutstandingQueries = TOKEN_CALENDARS | TOKEN_COLORS;
             if (DEBUG) {
                 Log.d(TAG, "startQuery: Editing a new event.");
             }
+            mModel.mOriginalStart = mBegin;
+            mModel.mOriginalEnd = mEnd;
             mModel.mStart = mBegin;
             mModel.mEnd = mEnd;
+            mModel.mCalendarId = mCalendarId;
             mModel.mSelfAttendeeStatus = Attendees.ATTENDEE_STATUS_ACCEPTED;
 
-            // Start a query in the background to read the list of calendars
+            // Start a query in the background to read the list of calendars and colors
             mHandler.startQuery(TOKEN_CALENDARS, null, Calendars.CONTENT_URI,
                     EditEventHelper.CALENDARS_PROJECTION,
                     EditEventHelper.CALENDARS_WHERE_WRITEABLE_VISIBLE, null /* selection args */,
                     null /* sort order */);
+
+            mHandler.startQuery(TOKEN_COLORS, null, Colors.CONTENT_URI,
+                    EditEventHelper.COLORS_PROJECTION,
+                    Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT, null, null);
 
             mModification = Utils.MODIFY_ALL;
             mView.setModification(mModification);
@@ -436,7 +566,8 @@ public class EditEventFragment extends Fragment implements EventHandler {
         } else {
             view = inflater.inflate(R.layout.edit_event, null);
         }
-        mView = new EditEventView(mContext, view, mOnDone);
+        mView = new EditEventView(mContext, view, mOnDone, mTimeSelectedWasStartTime,
+                mDateSelectedWasStartDate);
         startQuery();
 
         if (mUseCustomActionBar) {
@@ -483,6 +614,18 @@ public class EditEventFragment extends Fragment implements EventHandler {
             if (savedInstanceState.containsKey(BUNDLE_KEY_READ_ONLY)) {
                 mIsReadOnly = savedInstanceState.getBoolean(BUNDLE_KEY_READ_ONLY);
             }
+            if (savedInstanceState.containsKey("EditEventView_timebuttonclicked")) {
+                mTimeSelectedWasStartTime = savedInstanceState.getBoolean(
+                        "EditEventView_timebuttonclicked");
+            }
+            if (savedInstanceState.containsKey(BUNDLE_KEY_DATE_BUTTON_CLICKED)) {
+                mDateSelectedWasStartDate = savedInstanceState.getBoolean(
+                        BUNDLE_KEY_DATE_BUTTON_CLICKED);
+            }
+            if (savedInstanceState.containsKey(BUNDLE_KEY_SHOW_COLOR_PALETTE)) {
+                mShowColorPalette = savedInstanceState.getBoolean(BUNDLE_KEY_SHOW_COLOR_PALETTE);
+            }
+
         }
     }
 
@@ -601,6 +744,7 @@ public class EditEventFragment extends Fragment implements EventHandler {
             }
             mModifyDialog = new AlertDialog.Builder(mContext).setTitle(R.string.edit_event_label)
                     .setItems(items, new OnClickListener() {
+                        @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (which == 0) {
                                 // Update this if we start allowing exceptions
@@ -637,10 +781,12 @@ public class EditEventFragment extends Fragment implements EventHandler {
     class Done implements EditEventHelper.EditDoneRunnable {
         private int mCode = -1;
 
+        @Override
         public void setDoneCode(int code) {
             mCode = code;
         }
 
+        @Override
         public void run() {
             // We only want this to get called once, either because the user
             // pressed back/home or one of the buttons on screen
@@ -745,32 +891,15 @@ public class EditEventFragment extends Fragment implements EventHandler {
             return false;
         }
 
-        return isEmpty();
-    }
-
-    private boolean isEmpty() {
-        if (mModel.mTitle != null) {
-            String title = mModel.mTitle.trim();
-            if (title.length() > 0) {
-                return false;
-            }
+        if (mModel.mOriginalStart != mModel.mStart || mModel.mOriginalEnd != mModel.mEnd) {
+            return false;
         }
 
-        if (mModel.mLocation != null) {
-            String location = mModel.mLocation.trim();
-            if (location.length() > 0) {
-                return false;
-            }
+        if (!mModel.mAttendeesList.isEmpty()) {
+            return false;
         }
 
-        if (mModel.mDescription != null) {
-            String description = mModel.mDescription.trim();
-            if (description.length() > 0) {
-                return false;
-            }
-        }
-
-        return true;
+        return mModel.isEmpty();
     }
 
     @Override
@@ -819,6 +948,10 @@ public class EditEventFragment extends Fragment implements EventHandler {
         outState.putBoolean(BUNDLE_KEY_EDIT_ON_LAUNCH, mShowModifyDialogOnLaunch);
         outState.putSerializable(BUNDLE_KEY_EVENT, mEventBundle);
         outState.putBoolean(BUNDLE_KEY_READ_ONLY, mIsReadOnly);
+        outState.putBoolean(BUNDLE_KEY_SHOW_COLOR_PALETTE, mView.isColorPaletteVisible());
+
+        outState.putBoolean("EditEventView_timebuttonclicked", mView.mTimeSelectedWasStartTime);
+        outState.putBoolean(BUNDLE_KEY_DATE_BUTTON_CLICKED, mView.mDateSelectedWasStartDate);
     }
 
     @Override
@@ -845,5 +978,13 @@ public class EditEventFragment extends Fragment implements EventHandler {
         long id = -1;
         long start = -1;
         long end = -1;
+    }
+
+    @Override
+    public void onColorSelected(int color) {
+        if (!mModel.isEventColorInitialized() || mModel.getEventColor() != color) {
+            mModel.setEventColor(color);
+            mView.updateHeadlineColor(mModel, color);
+        }
     }
 }

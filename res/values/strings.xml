@@ -215,6 +215,11 @@
          a new event -->
 
 
+    <!-- Create event dialog -->
+    <skip/>
+    <!-- Create event dialog save button [CHAR LIMIT=10] -->
+    <string name="create_event_dialog_save">Save</string>
+
     <!-- The alert toast is not actually being displayed for some reason. -->
     <skip/>
     <!-- the title of the alert/notification activity -->
@@ -273,6 +278,18 @@
     <string name="view_event_organizer_label">Organizer:</string>
     <!-- Label for the local timezone -->
 
+    <!-- Label for showing event color picker -->
+    <string name="choose_event_color_label">Choose event color</string>
+    <!-- Title for event color picker dialog -->
+    <string name="event_color_picker_dialog_title">Event Color</string>
+    <!-- Label for button which sets event color to default calendar color -->
+    <string name="event_color_set_to_default">Set to default calendar color</string>
+
+    <!-- Title for calendar color picker dialog -->
+    <string name="calendar_color_picker_dialog_title">Calendar Color</string>
+    <!-- Description for calendar color squares, which bring up the color picker. -->
+    <string name="calendar_square_color_picker_description">Color picker</string>
+
     <!-- Label for whether the user is attending this event. This is shown when
          a user is invited to a meeting or event.  The possible answers are
          'yes', 'no', and 'maybe' (and, initially, 'no response'). -->
@@ -293,6 +310,11 @@
     <string translatable="false" name="email_subject_prefix">Re:\u0020</string>
     <!-- Toast message displayed when the event id was not found LIMIT=30] -->
     <string name="event_not_found">"Event not found."</string>
+
+    <!-- Notification label for getting a map of the location. -->
+    <string name="map_label">Map</string>
+    <!-- Notification label for calling a phone number in the location. -->
+    <string name="call_label">Call</string>
 
     <!-- Title of the quick response item in Settings [CHAR LIMIT=18]-->
     <string name="quick_response_settings">Quick responses</string>
@@ -315,7 +337,7 @@
         <item>Sorry, I can\'t make it. We\'ll have to reschedule.</item>
         </string-array>
     <!-- Option to create a custom response instead of using defaults [CHAR LIMIT=none] -->
-    <string name="quick_response_custom_msg">Custom message\u2026</string>
+    <string name="quick_response_custom_msg">Write your own\u2026</string>
 
     <!-- Event Info strings-->
     <!-- Time Zone Label [CHAR LIMIT=12]-->
@@ -381,21 +403,32 @@
     <!-- A label in a multiple-choice list for the specifying that an event does
          not repeat -->
     <string name="does_not_repeat">One-time event</string>
-    <!-- A label in a multiple-choice list for the specifying that an event
-         repeats daily -->
-    <string name="daily">Daily</string>
+    <!-- Part of a description of an repeating event. This part states the date when a repeating
+         event ends. The part before the semi-colon describes how it repeats.
+         e.g. Every 2 weeks; until 1/1/2030 [CHAR LIMIT=21] -->
+    <string name="endByDate">; until <xliff:g id="date">%s</xliff:g></string>
+    <!-- Part of a description of an repeating event. This part how many times the event repeats.
+         The part before the semi-colon describes how it repeats.
+         e.g. Every 2 weeks; for 15 times [CHAR LIMIT=15] -->
+    <plurals name="endByCount">
+        <item quantity="one">; for one time</item>
+        <item quantity="other">; for <xliff:g id="number">%d</xliff:g> times</item>
+    </plurals>
+    <!-- A description for an event that repeats daily. For example, Every 2 days [CHAR LIMIT=15]-->
+    <plurals name="daily">
+        <item quantity="one">Daily</item>
+        <item quantity="other">Every <xliff:g id="number">%d</xliff:g> days</item>
+    </plurals>
     <!-- A label in a multiple-choice list for the specifying that an event
          repeats every weekday (Monday through Friday) -->
     <string name="every_weekday">"Every weekday (Mon\u2013Fri)"</string>
-    <!-- A label in a multiple-choice list for the specifying that an event
-         repeats weekly on some day of the week.  For example,
-         'Weekly (every Tuesday)'. -->
-    <string name="weekly">"Weekly (every <xliff:g id="days_of_week">%s</xliff:g>)"</string>
+    <!-- A description for an event that repeats weekly on some day of the week. For example,
+         'Weekly on Tuesday' or Every 2 weeks on Monday, Tuesday.  [CHAR LIMIT=25]-->
+    <plurals name="weekly">
+        <item quantity="one">Weekly on <xliff:g id="days_of_week">%2$s</xliff:g></item>
+        <item quantity="other">Every <xliff:g id="number">%1$d</xliff:g> weeks on <xliff:g id="days_of_week">%2$s</xliff:g></item>
+    </plurals>
 
-    <!-- Example: 'Monthly (every first Sunday)' -->
-    <!--   1st parameter is an ordinal number, like 'first' -->
-    <!--   2nd parameter is a day of the week, like 'Sunday' -->
-    <string name="monthly_on_day_count">"Monthly (every <xliff:g id="ordinal_number">%1$s</xliff:g> <xliff:g id="day_of_week">%2$s</xliff:g>)"</string>
     <!-- The common portion of a string describing how often an event repeats,
          example: 'Monthly (on day 2)' -->
     <string name="monthly">Monthly</string>
@@ -542,6 +575,27 @@
     <!-- DO NOT TRANSLATE -->
     <string name="tardis">TARDIS</string>
 
+    <!-- Experimental settings [CHAR LIMIT = 30]-->
+    <string name="preferences_experimental_category">Experimental</string>
+
+    <!-- Reminders settings [CHAR LIMIT = 30]-->
+    <string name="preferences_reminders_category">Reminders</string>
+    <!-- Preference label for when to skip reminders [CHAR LIMIT = 25] -->
+    <string name="preferences_reminders_responded_label">Skip Reminders</string>
+    <!-- Dialog title for when to skip reminders [CHAR LIMIT = 25] -->
+    <string name="preferences_reminders_responded_dialog">Skip Reminders</string>
+    <!-- Preference label for quiet hours [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_label">Quiet hours</string>
+    <!-- Preference description for quiet hours [CHAR LIMIT = NONE]-->
+    <string name="preferences_reminders_quiet_hours_description">Silence event reminders during specified time.</string>
+    <!-- Preference label for quiet hours start time [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_start">Quiet hours start time</string>
+    <!-- Preference label for quiet hours end time [CHAR LIMIT = 25]-->
+    <string name="preferences_reminders_quiet_hours_end">Quiet hours end time</string>
+
+    <!-- Preferences used for debugging purposes [CHAR LIMIT = 30]-->
+    <string name="preferences_debug_category">Debugging</string>
+
     <!-- Send a copy of the database to developers for debugging [CHAR LIMIT="NONE"] -->
     <string name="copy_db">Send database</string>
 
@@ -565,6 +619,8 @@
     <string name="accessibility_pick_end_time">End time</string>
     <!-- Select a time zone for a new event [CHAR LIMIT = NONE]-->
     <string name="accessibility_pick_time_zone">Time zone</string>
+    <!-- Select a time zone for a new event [CHAR LIMIT = NONE]-->
+    <string name="accessibility_pick_recurrence">Repeat event</string>
     <!-- Add a reminder to an event [CHAR LIMIT = NONE]-->
     <string name="accessibility_add_reminder">Add reminder</string>
     <!-- Remove a reminder from an event [CHAR LIMIT = NONE]-->
@@ -624,4 +680,62 @@
 
     <!-- Tell user not to check a checkbox [CHAR LIMIT=30] -->
     <string name="do_not_check">Do NOT check -></string>
+
+    <!-- Dialog title for recurrence picker for configuring a repeating event[CHAR LIMIT=20] -->
+    <string name="recurrence_dialog_title">Repeat</string>
+    <!-- Dialog title for recurrence picker when one-time event is selected [CHAR LIMIT=20] -->
+    <string name="recurrence_dialog_title_never">Never repeats</string>
+
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 days) -->
+    <plurals name="recurrence_interval_daily">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">Every <xliff:g id="count">%d</xliff:g> day</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">Every <xliff:g id="count">%d</xliff:g> days</item>
+    </plurals>
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 weeks) -->
+    <plurals name="recurrence_interval_weekly">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">Every <xliff:g id="count">%d</xliff:g> week</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">Every <xliff:g id="count">%d</xliff:g> weeks</item>
+    </plurals>
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 months) -->
+    <plurals name="recurrence_interval_monthly">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">Every <xliff:g id="count">%d</xliff:g> month</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">Every <xliff:g id="count">%d</xliff:g> months</item>
+    </plurals>
+    <!-- Strings to describe how frequently to repeat an event (e.g. every 5 years) -->
+    <plurals name="recurrence_interval_yearly">
+        <!-- Singular form [CHAR LIMIT=30] -->
+        <item quantity="one">Every <xliff:g id="count">%d</xliff:g> year</item>
+        <!-- Plural form [CHAR LIMIT=30] -->
+        <item quantity="other">Every <xliff:g id="count">%d</xliff:g> years</item>
+    </plurals>
+
+    <!-- Repeat an monthly event on the same day of every month [CHAR LIMIT=20] -->
+    <string name="recurrence_month_pattern_by_day">on the same day each month</string>
+
+    <!-- Specifies that a repeating event to repeat forever (based on the defined frequency) instead of ending at a future date[CHAR LIMIT=20] -->
+    <string name="recurrence_end_continously">Forever</string>
+    <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=25] -->
+    <string name="recurrence_end_date_label">Until a date</string>
+    <!-- Specifies that a repeating event to repeat until a certain date[CHAR LIMIT=20] -->
+    <string name="recurrence_end_date">Until <xliff:g id="date">%s</xliff:g></string>
+    <!-- Specifies that a repeating event to repeat for a number of times. A repeating event can repeat forever, repeat in a certain frequency until a certain date, or repeat for a number of times. e.g. repeat 10 times and stop. This string is for the last case [CHAR LIMIT=25] -->
+    <string name="recurrence_end_count_label">For a number of events</string>
+
+    <!-- Specifies that a repeating event should repeat for a certain number of iterations. [CHAR LIMIT=20]-->
+    <plurals name="recurrence_end_count">
+        <item quantity="one">For <xliff:g id="event_count">%d</xliff:g> event</item>
+        <item quantity="other">For <xliff:g id="event_count">%d</xliff:g> events</item>
+    </plurals>
+
+    <!-- Description of the selected marker for accessibility support [CHAR LIMIT = NONE]-->
+    <string name="acessibility_recurrence_choose_end_date_description">change end date</string>
+
+    <!-- Do Not Translate.  Sender identity for global notification synchronization. -->
+    <string name="notification_sender_id"></string>
 </resources>

@@ -26,6 +26,29 @@
         android:layout_height="0dip"
         android:clickable="true"
         android:layout_weight="1" />
+    <LinearLayout android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:indeterminate="true"
+            android:layout_width="32dp"
+            android:layout_height="32dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="1dip"
+            android:paddingLeft="5dip"
+            android:text="@string/loading"/>
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -18,9 +18,11 @@ package com.android.calendar;
 
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -36,14 +38,21 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.CalendarContract.Calendars;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.text.style.URLSpan;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.widget.SearchView;
 
 import com.android.calendar.CalendarController.ViewType;
+import com.android.calendar.CalendarEventModel.ReminderEntry;
 import com.android.calendar.CalendarUtils.TimeZoneUtils;
 
 import java.util.ArrayList;
@@ -59,6 +68,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils {
     private static final boolean DEBUG = false;
@@ -108,6 +119,9 @@ public class Utils {
     static int CONFLICT_COLOR = 0xFF000000;
     static boolean mMinutesLoaded = false;
 
+    public static final int YEAR_MIN = 1970;
+    public static final int YEAR_MAX = 2036;
+
     // The name of the shared preferences file. This name must be maintained for
     // historical
     // reasons, as it's what PreferenceManager assigned the first time the file
@@ -126,6 +140,65 @@ public class Utils {
     private static boolean mAllowWeekForDetailView = false;
     private static long mTardis = 0;
     private static String sVersion = null;
+
+    private static final Pattern mWildcardPattern = Pattern.compile("^.*$");
+
+    /**
+    * A coordinate must be of the following form for Google Maps to correctly use it:
+    * Latitude, Longitude
+    *
+    * This may be in decimal form:
+    * Latitude: {-90 to 90}
+    * Longitude: {-180 to 180}
+    *
+    * Or, in degrees, minutes, and seconds:
+    * Latitude: {-90 to 90}° {0 to 59}' {0 to 59}"
+    * Latitude: {-180 to 180}° {0 to 59}' {0 to 59}"
+    * + or - degrees may also be represented with N or n, S or s for latitude, and with
+    * E or e, W or w for longitude, where the direction may either precede or follow the value.
+    *
+    * Some examples of coordinates that will be accepted by the regex:
+    * 37.422081°, -122.084576°
+    * 37.422081,-122.084576
+    * +37°25'19.49", -122°5'4.47"
+    * 37°25'19.49"N, 122°5'4.47"W
+    * N 37° 25' 19.49",  W 122° 5' 4.47"
+    **/
+    private static final String COORD_DEGREES_LATITUDE =
+            "([-+NnSs]" + "(\\s)*)?"
+            + "[1-9]?[0-9](\u00B0)" + "(\\s)*"
+            + "([1-5]?[0-9]\')?" + "(\\s)*"
+            + "([1-5]?[0-9]" + "(\\.[0-9]+)?\")?"
+            + "((\\s)*" + "[NnSs])?";
+    private static final String COORD_DEGREES_LONGITUDE =
+            "([-+EeWw]" + "(\\s)*)?"
+            + "(1)?[0-9]?[0-9](\u00B0)" + "(\\s)*"
+            + "([1-5]?[0-9]\')?" + "(\\s)*"
+            + "([1-5]?[0-9]" + "(\\.[0-9]+)?\")?"
+            + "((\\s)*" + "[EeWw])?";
+    private static final String COORD_DEGREES_PATTERN =
+            COORD_DEGREES_LATITUDE
+            + "(\\s)*" + "," + "(\\s)*"
+            + COORD_DEGREES_LONGITUDE;
+    private static final String COORD_DECIMAL_LATITUDE =
+            "[+-]?"
+            + "[1-9]?[0-9]" + "(\\.[0-9]+)"
+            + "(\u00B0)?";
+    private static final String COORD_DECIMAL_LONGITUDE =
+            "[+-]?"
+            + "(1)?[0-9]?[0-9]" + "(\\.[0-9]+)"
+            + "(\u00B0)?";
+    private static final String COORD_DECIMAL_PATTERN =
+            COORD_DECIMAL_LATITUDE
+            + "(\\s)*" + "," + "(\\s)*"
+            + COORD_DECIMAL_LONGITUDE;
+    private static final Pattern COORD_PATTERN =
+            Pattern.compile(COORD_DEGREES_PATTERN + "|" + COORD_DECIMAL_PATTERN);
+
+    private static final String NANP_ALLOWED_SYMBOLS = "()+-*#.";
+    private static final int NANP_MIN_DIGITS = 7;
+    private static final int NANP_MAX_DIGITS = 11;
+
 
     /**
      * Returns whether the SDK is the Jellybean release or later.
@@ -300,7 +373,7 @@ public class Utils {
         return mTardis;
     }
 
-    static void setSharedPreference(Context context, String key, boolean value) {
+    public static void setSharedPreference(Context context, String key, boolean value) {
         SharedPreferences prefs = GeneralPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(key, value);
@@ -312,6 +385,47 @@ public class Utils {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(key, value);
         editor.apply();
+    }
+
+    public static void removeSharedPreference(Context context, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(
+                GeneralPreferences.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        prefs.edit().remove(key).apply();
+    }
+
+    // The backed up ring tone preference should not used because it is a device
+    // specific Uri. The preference now lives in a separate non-backed-up
+    // shared_pref file (SHARED_PREFS_NAME_NO_BACKUP). The preference in the old
+    // backed-up shared_pref file (SHARED_PREFS_NAME) is used only to control the
+    // default value when the ringtone dialog opens up.
+    //
+    // At backup manager "restore" time (which should happen before launcher
+    // comes up for the first time), the value will be set/reset to default
+    // ringtone.
+    public static String getRingTonePreference(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(
+                GeneralPreferences.SHARED_PREFS_NAME_NO_BACKUP, Context.MODE_PRIVATE);
+        String ringtone = prefs.getString(GeneralPreferences.KEY_ALERTS_RINGTONE, null);
+
+        // If it hasn't been populated yet, that means new code is running for
+        // the first time and restore hasn't happened. Migrate value from
+        // backed-up shared_pref to non-shared_pref.
+        if (ringtone == null) {
+            // Read from the old place with a default of DEFAULT_RINGTONE
+            ringtone = getSharedPreference(context, GeneralPreferences.KEY_ALERTS_RINGTONE,
+                    GeneralPreferences.DEFAULT_RINGTONE);
+
+            // Write it to the new place
+            setRingTonePreference(context, ringtone);
+        }
+
+        return ringtone;
+    }
+
+    public static void setRingTonePreference(Context context, String value) {
+        SharedPreferences prefs = context.getSharedPreferences(
+                GeneralPreferences.SHARED_PREFS_NAME_NO_BACKUP, Context.MODE_PRIVATE);
+        prefs.edit().putString(GeneralPreferences.KEY_ALERTS_RINGTONE, value).apply();
     }
 
     /**
@@ -523,6 +637,40 @@ public class Utils {
     }
 
     /**
+     * Get first day of week as java.util.Calendar constant.
+     *
+     * @return the first day of week as a java.util.Calendar constant
+     */
+    public static int getFirstDayOfWeekAsCalendar(Context context) {
+        return convertDayOfWeekFromTimeToCalendar(getFirstDayOfWeek(context));
+    }
+
+    /**
+     * Converts the day of the week from android.text.format.Time to java.util.Calendar
+     */
+    public static int convertDayOfWeekFromTimeToCalendar(int timeDayOfWeek) {
+        switch (timeDayOfWeek) {
+            case Time.MONDAY:
+                return Calendar.MONDAY;
+            case Time.TUESDAY:
+                return Calendar.TUESDAY;
+            case Time.WEDNESDAY:
+                return Calendar.WEDNESDAY;
+            case Time.THURSDAY:
+                return Calendar.THURSDAY;
+            case Time.FRIDAY:
+                return Calendar.FRIDAY;
+            case Time.SATURDAY:
+                return Calendar.SATURDAY;
+            case Time.SUNDAY:
+                return Calendar.SUNDAY;
+            default:
+                throw new IllegalArgumentException("Argument must be between Time.SUNDAY and " +
+                        "Time.SATURDAY");
+        }
+    }
+
+    /**
      * @return true when week number should be shown.
      */
     public static boolean getShowWeekNumber(Context context) {
@@ -678,6 +826,13 @@ public class Utils {
         return c.getResources().getBoolean(key);
     }
 
+    /**
+     * For devices with Jellybean or later, darkens the given color to ensure that white text is
+     * clearly visible on top of it.  For devices prior to Jellybean, does nothing, as the
+     * sync adapter handles the color change.
+     *
+     * @param color
+     */
     public static int getDisplayColorFromColor(int color) {
         if (!isJellybeanOrLater()) {
             return color;
@@ -1563,4 +1718,394 @@ public class Utils {
         }
         return sVersion;
     }
+
+    /**
+     * Checks the server for an updated list of Calendars (in the background).
+     *
+     * If a Calendar is added on the web (and it is selected and not
+     * hidden) then it will be added to the list of calendars on the phone
+     * (when this finishes).  When a new calendar from the
+     * web is added to the phone, then the events for that calendar are also
+     * downloaded from the web.
+     *
+     * This sync is done automatically in the background when the
+     * SelectCalendars activity and fragment are started.
+     *
+     * @param account - The account to sync. May be null to sync all accounts.
+     */
+    public static void startCalendarMetafeedSync(Account account) {
+        Bundle extras = new Bundle();
+        extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        extras.putBoolean("metafeedonly", true);
+        ContentResolver.requestSync(account, Calendars.CONTENT_URI.getAuthority(), extras);
+    }
+
+    /**
+     * Replaces stretches of text that look like addresses and phone numbers with clickable
+     * links. If lastDitchGeo is true, then if no links are found in the textview, the entire
+     * string will be converted to a single geo link. Any spans that may have previously been
+     * in the text will be cleared out.
+     * <p>
+     * This is really just an enhanced version of Linkify.addLinks().
+     *
+     * @param text - The string to search for links.
+     * @param lastDitchGeo - If no links are found, turn the entire string into one geo link.
+     * @return Spannable object containing the list of URL spans found.
+     */
+    public static Spannable extendedLinkify(String text, boolean lastDitchGeo) {
+        // We use a copy of the string argument so it's available for later if necessary.
+        Spannable spanText = SpannableString.valueOf(text);
+
+        /*
+         * If the text includes a street address like "1600 Amphitheater Parkway, 94043",
+         * the current Linkify code will identify "94043" as a phone number and invite
+         * you to dial it (and not provide a map link for the address).  For outside US,
+         * use Linkify result iff it spans the entire text.  Otherwise send the user to maps.
+         */
+        String defaultPhoneRegion = System.getProperty("user.region", "US");
+        if (!defaultPhoneRegion.equals("US")) {
+            Linkify.addLinks(spanText, Linkify.ALL);
+
+            // If Linkify links the entire text, use that result.
+            URLSpan[] spans = spanText.getSpans(0, spanText.length(), URLSpan.class);
+            if (spans.length == 1) {
+                int linkStart = spanText.getSpanStart(spans[0]);
+                int linkEnd = spanText.getSpanEnd(spans[0]);
+                if (linkStart <= indexFirstNonWhitespaceChar(spanText) &&
+                        linkEnd >= indexLastNonWhitespaceChar(spanText) + 1) {
+                    return spanText;
+                }
+            }
+
+            // Otherwise, to be cautious and to try to prevent false positives, reset the spannable.
+            spanText = SpannableString.valueOf(text);
+            // If lastDitchGeo is true, default the entire string to geo.
+            if (lastDitchGeo && !text.isEmpty()) {
+                Linkify.addLinks(spanText, mWildcardPattern, "geo:0,0?q=");
+            }
+            return spanText;
+        }
+
+        /*
+         * For within US, we want to have better recognition of phone numbers without losing
+         * any of the existing annotations.  Ideally this would be addressed by improving Linkify.
+         * For now we manage it as a second pass over the text.
+         *
+         * URIs and e-mail addresses are pretty easy to pick out of text.  Phone numbers
+         * are a bit tricky because they have radically different formats in different
+         * countries, in terms of both the digits and the way in which they are commonly
+         * written or presented (e.g. the punctuation and spaces in "(650) 555-1212").
+         * The expected format of a street address is defined in WebView.findAddress().  It's
+         * pretty narrowly defined, so it won't often match.
+         *
+         * The RFC 3966 specification defines the format of a "tel:" URI.
+         *
+         * Start by letting Linkify find anything that isn't a phone number.  We have to let it
+         * run first because every invocation removes all previous URLSpan annotations.
+         *
+         * Ideally we'd use the external/libphonenumber routines, but those aren't available
+         * to unbundled applications.
+         */
+        boolean linkifyFoundLinks = Linkify.addLinks(spanText,
+                Linkify.ALL & ~(Linkify.PHONE_NUMBERS));
+
+        /*
+         * Get a list of any spans created by Linkify, for the coordinate overlapping span check.
+         */
+        URLSpan[] existingSpans = spanText.getSpans(0, spanText.length(), URLSpan.class);
+
+        /*
+         * Check for coordinates.
+         * This must be done before phone numbers because longitude may look like a phone number.
+         */
+        Matcher coordMatcher = COORD_PATTERN.matcher(spanText);
+        int coordCount = 0;
+        while (coordMatcher.find()) {
+            int start = coordMatcher.start();
+            int end = coordMatcher.end();
+            if (spanWillOverlap(spanText, existingSpans, start, end)) {
+                continue;
+            }
+
+            URLSpan span = new URLSpan("geo:0,0?q=" + coordMatcher.group());
+            spanText.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            coordCount++;
+        }
+
+        /*
+         * Update the list of existing spans, for the phone number overlapping span check.
+         */
+        existingSpans = spanText.getSpans(0, spanText.length(), URLSpan.class);
+
+        /*
+         * Search for phone numbers.
+         *
+         * Some URIs contain strings of digits that look like phone numbers.  If both the URI
+         * scanner and the phone number scanner find them, we want the URI link to win.  Since
+         * the URI scanner runs first, we just need to avoid creating overlapping spans.
+         */
+        int[] phoneSequences = findNanpPhoneNumbers(text);
+
+        /*
+         * Insert spans for the numbers we found.  We generate "tel:" URIs.
+         */
+        int phoneCount = 0;
+        for (int match = 0; match < phoneSequences.length / 2; match++) {
+            int start = phoneSequences[match*2];
+            int end = phoneSequences[match*2 + 1];
+
+            if (spanWillOverlap(spanText, existingSpans, start, end)) {
+                continue;
+            }
+
+            /*
+             * The Linkify code takes the matching span and strips out everything that isn't a
+             * digit or '+' sign.  We do the same here.  Extension numbers will get appended
+             * without a separator, but the dialer wasn't doing anything useful with ";ext="
+             * anyway.
+             */
+
+            //String dialStr = phoneUtil.format(match.number(),
+            //        PhoneNumberUtil.PhoneNumberFormat.RFC3966);
+            StringBuilder dialBuilder = new StringBuilder();
+            for (int i = start; i < end; i++) {
+                char ch = spanText.charAt(i);
+                if (ch == '+' || Character.isDigit(ch)) {
+                    dialBuilder.append(ch);
+                }
+            }
+            URLSpan span = new URLSpan("tel:" + dialBuilder.toString());
+
+            spanText.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            phoneCount++;
+        }
+
+        /*
+         * If lastDitchGeo, and no other links have been found, set the entire string as a geo link.
+         */
+        if (lastDitchGeo && !text.isEmpty() &&
+                !linkifyFoundLinks && phoneCount == 0 && coordCount == 0) {
+            if (Log.isLoggable(TAG, Log.VERBOSE)) {
+                Log.v(TAG, "No linkification matches, using geo default");
+            }
+            Linkify.addLinks(spanText, mWildcardPattern, "geo:0,0?q=");
+        }
+
+        return spanText;
+    }
+
+    private static int indexFirstNonWhitespaceChar(CharSequence str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static int indexLastNonWhitespaceChar(CharSequence str) {
+        for (int i = str.length() - 1; i >= 0; i--) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Finds North American Numbering Plan (NANP) phone numbers in the input text.
+     *
+     * @param text The text to scan.
+     * @return A list of [start, end) pairs indicating the positions of phone numbers in the input.
+     */
+    // @VisibleForTesting
+    static int[] findNanpPhoneNumbers(CharSequence text) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+
+        int startPos = 0;
+        int endPos = text.length() - NANP_MIN_DIGITS + 1;
+        if (endPos < 0) {
+            return new int[] {};
+        }
+
+        /*
+         * We can't just strip the whitespace out and crunch it down, because the whitespace
+         * is significant.  March through, trying to figure out where numbers start and end.
+         */
+        while (startPos < endPos) {
+            // skip whitespace
+            while (Character.isWhitespace(text.charAt(startPos)) && startPos < endPos) {
+                startPos++;
+            }
+            if (startPos == endPos) {
+                break;
+            }
+
+            // check for a match at this position
+            int matchEnd = findNanpMatchEnd(text, startPos);
+            if (matchEnd > startPos) {
+                list.add(startPos);
+                list.add(matchEnd);
+                startPos = matchEnd;    // skip past match
+            } else {
+                // skip to next whitespace char
+                while (!Character.isWhitespace(text.charAt(startPos)) && startPos < endPos) {
+                    startPos++;
+                }
+            }
+        }
+
+        int[] result = new int[list.size()];
+        for (int i = list.size() - 1; i >= 0; i--) {
+            result[i] = list.get(i);
+        }
+        return result;
+    }
+
+    /**
+     * Checks to see if there is a valid phone number in the input, starting at the specified
+     * offset.  If so, the index of the last character + 1 is returned.  The input is assumed
+     * to begin with a non-whitespace character.
+     *
+     * @return Exclusive end position, or -1 if not a match.
+     */
+    private static int findNanpMatchEnd(CharSequence text, int startPos) {
+        /*
+         * A few interesting cases:
+         *   94043                              # too short, ignore
+         *   123456789012                       # too long, ignore
+         *   +1 (650) 555-1212                  # 11 digits, spaces
+         *   (650) 555 5555                     # Second space, only when first is present.
+         *   (650) 555-1212, (650) 555-1213     # two numbers, return first
+         *   1-650-555-1212                     # 11 digits with leading '1'
+         *   *#650.555.1212#*!                  # 10 digits, include #*, ignore trailing '!'
+         *   555.1212                           # 7 digits
+         *
+         * For the most part we want to break on whitespace, but it's common to leave a space
+         * between the initial '1' and/or after the area code.
+         */
+
+        // Check for "tel:" URI prefix.
+        if (text.length() > startPos+4
+                && text.subSequence(startPos, startPos+4).toString().equalsIgnoreCase("tel:")) {
+            startPos += 4;
+        }
+
+        int endPos = text.length();
+        int curPos = startPos;
+        int foundDigits = 0;
+        char firstDigit = 'x';
+        boolean foundWhiteSpaceAfterAreaCode = false;
+
+        while (curPos <= endPos) {
+            char ch;
+            if (curPos < endPos) {
+                ch = text.charAt(curPos);
+            } else {
+                ch = 27;    // fake invalid symbol at end to trigger loop break
+            }
+
+            if (Character.isDigit(ch)) {
+                if (foundDigits == 0) {
+                    firstDigit = ch;
+                }
+                foundDigits++;
+                if (foundDigits > NANP_MAX_DIGITS) {
+                    // too many digits, stop early
+                    return -1;
+                }
+            } else if (Character.isWhitespace(ch)) {
+                if ( (firstDigit == '1' && foundDigits == 4) ||
+                        (foundDigits == 3)) {
+                    foundWhiteSpaceAfterAreaCode = true;
+                } else if (firstDigit == '1' && foundDigits == 1) {
+                } else if (foundWhiteSpaceAfterAreaCode
+                        && ( (firstDigit == '1' && (foundDigits == 7)) || (foundDigits == 6))) {
+                } else {
+                    break;
+                }
+            } else if (NANP_ALLOWED_SYMBOLS.indexOf(ch) == -1) {
+                break;
+            }
+            // else it's an allowed symbol
+
+            curPos++;
+        }
+
+        if ((firstDigit != '1' && (foundDigits == 7 || foundDigits == 10)) ||
+                (firstDigit == '1' && foundDigits == 11)) {
+            // match
+            return curPos;
+        }
+
+        return -1;
+    }
+
+    /**
+     * Determines whether a new span at [start,end) will overlap with any existing span.
+     */
+    private static boolean spanWillOverlap(Spannable spanText, URLSpan[] spanList, int start,
+            int end) {
+        if (start == end) {
+            // empty span, ignore
+            return false;
+        }
+        for (URLSpan span : spanList) {
+            int existingStart = spanText.getSpanStart(span);
+            int existingEnd = spanText.getSpanEnd(span);
+            if ((start >= existingStart && start < existingEnd) ||
+                    end > existingStart && end <= existingEnd) {
+                if (Log.isLoggable(TAG, Log.VERBOSE)) {
+                    CharSequence seq = spanText.subSequence(start, end);
+                    Log.v(TAG, "Not linkifying " + seq + " as phone number due to overlap");
+                }
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param bundle The incoming bundle that contains the reminder info.
+     * @return ArrayList<ReminderEntry> of the reminder minutes and methods.
+     */
+    public static ArrayList<ReminderEntry> readRemindersFromBundle(Bundle bundle) {
+        ArrayList<ReminderEntry> reminders = null;
+
+        ArrayList<Integer> reminderMinutes = bundle.getIntegerArrayList(
+                        EventInfoFragment.BUNDLE_KEY_REMINDER_MINUTES);
+        ArrayList<Integer> reminderMethods = bundle.getIntegerArrayList(
+                EventInfoFragment.BUNDLE_KEY_REMINDER_METHODS);
+        if (reminderMinutes == null || reminderMethods == null) {
+            if (reminderMinutes != null || reminderMethods != null) {
+                String nullList = (reminderMinutes == null?
+                        "reminderMinutes" : "reminderMethods");
+                Log.d(TAG, String.format("Error resolving reminders: %s was null",
+                        nullList));
+            }
+            return null;
+        }
+
+        int numReminders = reminderMinutes.size();
+        if (numReminders == reminderMethods.size()) {
+            // Only if the size of the reminder minutes we've read in is
+            // the same as the size of the reminder methods. Otherwise,
+            // something went wrong with bundling them.
+            reminders = new ArrayList<ReminderEntry>(numReminders);
+            for (int reminder_i = 0; reminder_i < numReminders;
+                    reminder_i++) {
+                int minutes = reminderMinutes.get(reminder_i);
+                int method = reminderMethods.get(reminder_i);
+                reminders.add(ReminderEntry.valueOf(minutes, method));
+            }
+        } else {
+            Log.d(TAG, String.format("Error resolving reminders." +
+                        " Found %d reminderMinutes, but %d reminderMethods.",
+                    numReminders, reminderMethods.size()));
+        }
+
+        return reminders;
+    }
+
 }

@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Nije stvoren prazan događaj."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Pozivnice će biti poslane."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Ažuriranje će biti poslano."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Spremi"</string>
     <string name="alert_title" msgid="7869592820853066853">"Obavijesti kalendara"</string>
     <string name="event_info_title" msgid="56024222340421620">"Prikaži događaj"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Pozivnica za sastanak"</string>
@@ -98,6 +99,11 @@
     <string name="add_account" msgid="1669072099756774952">"Dodavanje računa"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendar:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizator:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Odabir boje za događaj"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Boja za događaj"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Postavi na zadanu boju kalendara"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Boja kalendara"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Odabir boje"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Sudionici?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Da"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Možda"</string>
@@ -106,6 +112,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Organizator e-poruka"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Obavijesti e-poštom"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Događaj nije pronađen."</string>
+    <string name="map_label" msgid="8795383535586556038">"Karta"</string>
+    <string name="call_label" msgid="2960328220008869083">"Poziv"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Brzi odgovori"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Uređivanje zad. odgovora pri slanju gostima"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Uredi brze odgovore"</string>
@@ -118,7 +126,7 @@
     <item msgid="4485794001743679338">"Samo naprijed, počnite bez mene."</item>
     <item msgid="8036557974294987511">"Žao mi je, ne mogu stići. Moramo promijeniti dogovor."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Prilagođena poruka…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Napišite vlastiti…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organizator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Podsjetnici"</string>
     <string name="agenda_today" msgid="5965841338467422191">"DANAS, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -137,10 +145,20 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Odbaci sve"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Odgodi alarm"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Jednokratni događaj"</string>
-    <string name="daily" msgid="560350706808680448">"Dnevno"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; do <xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; jedanput"</item>
+    <item quantity="other" msgid="4855496837834652446">"; toliko puta: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"Dnevno"</item>
+    <item quantity="other" msgid="5455230727715859264">"Svakih toliko dana: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Svaki dan u tjednu (pon–pet)"</string>
-    <string name="weekly" msgid="2006107373119027114">"Tjedno (svaki <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"Mjesečno (svakih <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"Svaki tjedan, <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"Svaki <xliff:g id="NUMBER">%1$d</xliff:g>. tjedan, <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
     <string name="monthly" msgid="4587116285383048586">"Mjesečno"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Godišnje"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mjesečno (na dan <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
@@ -185,6 +203,15 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Nema skorih događaja kalendara"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Eksperimentalno"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"Podsjetnici"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Preskakanje podsjetnika"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Preskakanje podsjetnika"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Tiho razdoblje"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Utišavanje podsjetnika za događaje tijekom navedenog vremena."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Početak tihog razdoblja"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Završetak tihog razdoblja"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"Uklanjanje pogrešaka"</string>
     <string name="copy_db" msgid="437691290566699292">"Pošaljite bazu podataka"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Pretraživanje <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Ukloni sudionika"</string>
@@ -193,6 +220,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Datum završetka"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Vrijeme završetka"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Vremenska zona"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Ponavljanje događaja"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Dodaj podsjetnik"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Ukloni podsjetnik"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Dodaj sudionika"</string>
@@ -218,4 +246,32 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Odabrani događaj"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NE provjeravaj -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Ponovi"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Ne ponavlja se nikad"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"Svakog <xliff:g id="COUNT">%d</xliff:g>. dana"</item>
+    <item quantity="other" msgid="707566499994398250">"Svakog <xliff:g id="COUNT">%d</xliff:g>. dana"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"Svakog <xliff:g id="COUNT">%d</xliff:g>. tjedna"</item>
+    <item quantity="other" msgid="7094801039989237061">"Svakog <xliff:g id="COUNT">%d</xliff:g>. tjedna"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"Svakog <xliff:g id="COUNT">%d</xliff:g>. mjeseca"</item>
+    <item quantity="other" msgid="5419723710346646523">"Svakog <xliff:g id="COUNT">%d</xliff:g>. mjeseca"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"Svake <xliff:g id="COUNT">%d</xliff:g>. godine"</item>
+    <item quantity="other" msgid="5678653649746562060">"Svake <xliff:g id="COUNT">%d</xliff:g>. godine"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"na isti dan svakog mjeseca"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Zauvijek"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Do datuma"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"Do <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Za ovoliko događaja"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"Za ovoliko događaja: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="8779598489398048259">"Za ovoliko događaja: <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"promjena datuma završetka"</string>
 </resources>

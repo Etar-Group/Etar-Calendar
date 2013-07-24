@@ -60,96 +60,10 @@
     <item msgid="8336577387266744930">"1 teden"</item>
   </string-array>
   <string-array name="preferences_week_start_day_labels">
-    <item msgid="986150274035512339">"Privzete obm. nast."</item>
+    <item msgid="986150274035512339">"Privzete območne nastavitve"</item>
     <item msgid="134027225275475280">"Sobota"</item>
     <item msgid="95029346069903091">"Nedelja"</item>
     <item msgid="5840983116375063739">"Ponedeljek"</item>
-  </string-array>
-  <string-array name="timezone_labels">
-    <item msgid="6833649526258274889">"Marshallovi otoki"</item>
-    <item msgid="7176569939440505575">"Otok Midway"</item>
-    <item msgid="5000628410717488070">"Havaji"</item>
-    <item msgid="3809977082338992040">"Aljaska"</item>
-    <item msgid="1206600898319778734">"Tihooceanski čas"</item>
-    <item msgid="4251553449779733536">"Tijuana"</item>
-    <item msgid="4796372144693551811">"Arizona"</item>
-    <item msgid="4589419122570218444">"Chihuahua"</item>
-    <item msgid="1653398220457872326">"Gorski čas"</item>
-    <item msgid="229005026661478023">"Srednja Amerika"</item>
-    <item msgid="1545268116831476742">"Osrednji čas"</item>
-    <item msgid="9135129204936732090">"Ciudad Mexico"</item>
-    <item msgid="3703110560723049255">"Saskatchewan"</item>
-    <item msgid="5458958644945369505">"Bogota"</item>
-    <item msgid="355450740949670294">"Vzhodni čas"</item>
-    <item msgid="5786717434693228701">"Venezuela"</item>
-    <item msgid="4977886006524392240">"Atlantski čas (Barbados)"</item>
-    <item msgid="10153187433760387">"Atlantski čas (Kanada)"</item>
-    <item msgid="6115801678953677414">"Manaus"</item>
-    <item msgid="2593929186990540989">"Santiago"</item>
-    <item msgid="6585031589100947696">"Nova Fundlandija"</item>
-    <item msgid="5295092779694537214">"Brasilia"</item>
-    <item msgid="6402931335497071732">"Buenos Aires"</item>
-    <item msgid="4432313195052285856">"Grenlandija"</item>
-    <item msgid="7938414883764011047">"Montevideo"</item>
-    <item msgid="2737154427296635021">"Srednjeatlantski"</item>
-    <item msgid="1379490252091746679">"Azori"</item>
-    <item msgid="6212233464119368698">"Zelenortski otoki"</item>
-    <item msgid="1810261367179140820">"Casablanca"</item>
-    <item msgid="1230179411620530148">"London, Dublin"</item>
-    <item msgid="372075306913304327">"Amsterdam, Berlin"</item>
-    <item msgid="9046296030447565862">"Beograd"</item>
-    <item msgid="4921622452710220193">"Bruselj"</item>
-    <item msgid="727296339287965963">"Sarajevo"</item>
-    <item msgid="5997630882187580225">"Windhoek"</item>
-    <item msgid="3828800493609994208">"Zahodnoafriški čas"</item>
-    <item msgid="7527935722014187591">"Aman, Jordanija"</item>
-    <item msgid="672509109295227133">"Atene, Istanbul"</item>
-    <item msgid="1835470340349221646">"Bejrut, Libanon"</item>
-    <item msgid="9006223109403693650">"Kairo"</item>
-    <item msgid="2877875673636361825">"Helsinki"</item>
-    <item msgid="4528124308590807049">"Jeruzalem"</item>
-    <item msgid="7823856457885290195">"Minsk"</item>
-    <item msgid="8650995074282357197">"Harare"</item>
-    <item msgid="209523815326871285">"Bagdad"</item>
-    <item msgid="8077211460729251609">"Moskva"</item>
-    <item msgid="6103383184232804522">"Kuvajt"</item>
-    <item msgid="8581935265080466099">"Nairobi"</item>
-    <item msgid="1531618843539764728">"Teheran"</item>
-    <item msgid="141548505188106312">"Baku"</item>
-    <item msgid="5974315340250149692">"Tbilisi"</item>
-    <item msgid="3344801680659888795">"Erevan"</item>
-    <item msgid="2537944335416132075">"Dubaj"</item>
-    <item msgid="5630432498109110949">"Kabul"</item>
-    <item msgid="2274762525650993846">"Islamabad, Karači"</item>
-    <item msgid="272153171103339242">"Uralsk"</item>
-    <item msgid="4757644551253886090">"Jekaterinburg"</item>
-    <item msgid="3036512479614493957">"Kolkata"</item>
-    <item msgid="4190271241277312277">"Šrilanka"</item>
-    <item msgid="4489139826358657866">"Katmandu"</item>
-    <item msgid="1195461607876034232">"Astana"</item>
-    <item msgid="8777509327730950228">"Jangon"</item>
-    <item msgid="3838899720161825998">"Krasnojarsk"</item>
-    <item msgid="6495532062164690437">"Bangkok"</item>
-    <item msgid="4910549870048384487">"Peking"</item>
-    <item msgid="7174954011332328153">"Hongkong"</item>
-    <item msgid="415034182139280334">"Irkutsk"</item>
-    <item msgid="3407263784503834649">"Kuala Lumpur"</item>
-    <item msgid="6547945295249807755">"Perth"</item>
-    <item msgid="4571776847411430193">"Tajpej"</item>
-    <item msgid="3043691515163887690">"Seul"</item>
-    <item msgid="6369124969606372122">"Tokio, Osaka"</item>
-    <item msgid="8317842783685169193">"Jakutsk"</item>
-    <item msgid="6993206457323990990">"Adelaide"</item>
-    <item msgid="2431970257749452312">"Darwin"</item>
-    <item msgid="2709489188606506801">"Brisbane"</item>
-    <item msgid="6832511138206913044">"Hobart"</item>
-    <item msgid="6933429790996727761">"Sydney, Canberra"</item>
-    <item msgid="4546625974877459074">"Vladivostok"</item>
-    <item msgid="7421491250467489614">"Guam"</item>
-    <item msgid="3450367738093440984">"Magadan"</item>
-    <item msgid="5046540868552082971">"Auckland"</item>
-    <item msgid="481903191189494072">"Fidži"</item>
-    <item msgid="1926932394586102998">"Tonga"</item>
   </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"Zasedeno"</item>
@@ -192,5 +106,64 @@
     <item msgid="6248480754959562740">"Teden"</item>
     <item msgid="4298472806133153766">"Mesec"</item>
     <item msgid="5033084974413793845">"Dnevni red"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"Samo ob zavrnitvi"</item>
+    <item msgid="6367412240524984286">"Ob zavrnitvi ali neodzivanju"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"PONAVLJAJ VSAK DAN"</item>
+    <item msgid="6300824484048337842">"PONAVLJAJ VSAK TEDEN"</item>
+    <item msgid="189361731610816256">"PONAVLJAJ VSAK MESEC"</item>
+    <item msgid="8714177874112569158">"PONAVLJAJ VSAKO LETO"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"vsako prvo nedeljo v mesecu"</item>
+    <item msgid="2557379346106451363">"vsako drugo nedeljo v mesecu"</item>
+    <item msgid="7622144489915654132">"vsako tretjo nedeljo v mesecu"</item>
+    <item msgid="527152448137686021">"vsako četrto nedeljo v mesecu"</item>
+    <item msgid="5057483608824759350">"vsako zadnjo nedeljo v mesecu"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"vsak prvi ponedeljek v mesecu"</item>
+    <item msgid="4484275849072423978">"vsak drugi ponedeljek v mesecu"</item>
+    <item msgid="8956169860824371383">"vsak tretji ponedeljek v mes."</item>
+    <item msgid="6924403357659569326">"vsak četrti ponedeljek v mes."</item>
+    <item msgid="1379608815263472161">"vsak zadnji ponedeljek v mes."</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"vsak prvi torek v mesecu"</item>
+    <item msgid="9063613547307760928">"vsak drugi torek v mesecu"</item>
+    <item msgid="6688603328729208168">"vsak tretji torek v mesecu"</item>
+    <item msgid="6695206006961533357">"vsak četrti torek v mesecu"</item>
+    <item msgid="8619069174889809914">"vsak zadnji torek v mesecu"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"vsako prvo sredo v mesecu"</item>
+    <item msgid="5059722045367799217">"vsako drugo sredo v mesecu"</item>
+    <item msgid="7986246648229272275">"vsako tretjo sredo v mesecu"</item>
+    <item msgid="9068566169348980801">"vsako četrto sredo v mesecu"</item>
+    <item msgid="7976866743069062134">"vsako zadnjo sredo v mesecu"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"vsak prvi četrtek v mesecu"</item>
+    <item msgid="4857419136007543270">"vsak drugi četrtek v mesecu"</item>
+    <item msgid="222044587450564839">"vsak tretji četrtek v mesecu"</item>
+    <item msgid="6197927556533030945">"vsak četrti četrtek v mesecu"</item>
+    <item msgid="1023326923033436905">"vsak zadnji četrtek v mesecu"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"vsak prvi petek v mesecu"</item>
+    <item msgid="1935608297230506940">"vsak drugi petek v mesecu"</item>
+    <item msgid="4061877662049317599">"vsak tretji petek v mesecu"</item>
+    <item msgid="6856646749131820614">"vsak četrti petek v mesecu"</item>
+    <item msgid="6533513913914859794">"vsak zadnji petek v mesecu"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"vsako prvo soboto v mesecu"</item>
+    <item msgid="9130198690512925355">"vsako drugo soboto v mesecu"</item>
+    <item msgid="4525736070844032405">"vsako tretjo soboto v mesecu"</item>
+    <item msgid="422053689531707709">"vsako četrto soboto v mesecu"</item>
+    <item msgid="5499975799312474425">"vsako zadnjo soboto v mesecu"</item>
   </string-array>
 </resources>

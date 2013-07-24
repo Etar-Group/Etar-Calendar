@@ -77,9 +77,10 @@
     <string name="hint_attendees" msgid="1650488163176888480">"እንግዶች"</string>
     <string name="creating_event" msgid="7516249252554059980">"ክስተት ተፈጥሯል"</string>
     <string name="saving_event" msgid="7694181017411177226">"ክስተት ተቀምጧል"</string>
-    <string name="empty_event" msgid="9018699257414338634">"ባዶ ክስተት አልተፈጠረም::"</string>
+    <string name="empty_event" msgid="9018699257414338634">"ምንም ክስተት አልተፈጠረም።"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"ግብዣዎች ይላካሉ።"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"ዝማኔዎች ይላካሉ።"</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"አስቀምጥ"</string>
     <string name="alert_title" msgid="7869592820853066853">"የቀን መቁጠሪያማሳወቂያዎች"</string>
     <string name="event_info_title" msgid="56024222340421620">"ዝግጅቶች አሳይ"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"የስብሰባ ግብዣ"</string>
@@ -90,7 +91,7 @@
     <string name="edit_event_show_all" msgid="4558049350756058301">"ሁሉንም አሳይ"</string>
     <string name="description_label" msgid="7193475046717505855">"መግለጫ"</string>
     <string name="presence_label" msgid="6169724148441175862">"እንደ አሳየኝ"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"ብሕትውነት"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"ግላዊነት"</string>
     <string name="reminders_label" msgid="7292389181815525676">"ማስታወሻ አክል"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"ምንም ቀንመቁጠሪያ ዎች የለዎትም"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"ክስተት ከማከልህ በፊት ቢያንስ አንድ የቀን መቁጠሪያ መለያ ወደ መሳሪያህ ማከል እና የቀን መቁጠሪያውን የሚታይ ማድረግ አለብህ:: መለያ ለማከል መለያ አክል የሚለውን ንካ (መለያ ያከልክ ከሆነ ማመሳስል እስኪጨርስ ድረስ ጠብቀውና እንደገና ሞክር):: ወይም ተወው የሚለውን ንካ እና ቢያንስ አንድ የቀን መቁጠሪያ የሚታይ መሆኑን አረጋግጥ::"</string>
@@ -98,6 +99,11 @@
     <string name="add_account" msgid="1669072099756774952">"መለያ አክል"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"የቀን አቆጣጠር:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"አዘጋጅ፡"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"የክስተት ቀለም ምረጥ"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"የክስተት ቀለም"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"ወደ ነባሪ የቀን መቁጠሪያ ቀለም አዋቅር"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"የቀን መቁጠሪያ ቀለም"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"ቀለም መምረጫ"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"ይካፈላሉ?"</string>
     <string name="response_yes" msgid="2027484304899988350">"አዎ"</string>
     <string name="response_maybe" msgid="7791500973627841695">"ምናልባት"</string>
@@ -106,6 +112,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"የኢሜይል አደራጅ"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"በነዚህ ኢሜይል ላክ"</string>
     <string name="event_not_found" msgid="8356864185947582727">"ክስተት አልተገኘም።"</string>
+    <string name="map_label" msgid="8795383535586556038">"ካርታ"</string>
+    <string name="call_label" msgid="2960328220008869083">"ደውል"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"ፈጣን ምላሾች"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"ለእንግዶች ኢሜይል ሲላክ ነባሪ ምላሾችን አርትዕ"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"ፈጣን ምላሾችን አርትዕ"</string>
@@ -118,7 +126,7 @@
     <item msgid="4485794001743679338">"እኔን አትጠብቁኝ፣ ጀምሩ።"</item>
     <item msgid="8036557974294987511">"ይቅርታ ልደርስ አልችልም። ለሌላ ጊዜ ቀጠሮ ማስያዝ ይኖርብናል።"</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"ብጁ መልዕክት…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"የእራስዎን ይጻፉ…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"አዘጋጅ፡"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"ማስታወሻዎች"</string>
     <string name="agenda_today" msgid="5965841338467422191">"ዛሬ፣  <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -137,10 +145,20 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"እንቢበል"</string>
     <string name="snooze_label" msgid="1515893621063224666">"ማሸለብ"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"የአንድ ጊዜ ክስተት"</string>
-    <string name="daily" msgid="560350706808680448">"ዕለት በዕለት"</string>
+    <string name="endByDate" msgid="7654221304929538201">"፤ እስከ <xliff:g id="DATE">%s</xliff:g> ድረስ"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"፤ ለአንድ ጊዜ"</item>
+    <item quantity="other" msgid="4855496837834652446">"፤ ለ<xliff:g id="NUMBER">%d</xliff:g> ጊዜያት"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"ዕለታዊ"</item>
+    <item quantity="other" msgid="5455230727715859264">"በየ<xliff:g id="NUMBER">%d</xliff:g> ቀናት"</item>
+  </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"በአዘቦት ቀን(ሰኞ-አርብ)"</string>
-    <string name="weekly" msgid="2006107373119027114">"በየሳምንቱ(<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"በየወሩ(በእያንዳንዱ<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g><xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"በየሳምንቱ <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> ላይ"</item>
+    <item quantity="other" msgid="2857390143157377867">"በየ<xliff:g id="NUMBER">%1$d</xliff:g> ሳምንቱ <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g> ላይ"</item>
+  </plurals>
     <string name="monthly" msgid="4587116285383048586">"ወርሃዊ"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"በየአመቱ"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"በየወሩ(በ<xliff:g id="DAY_OF_MONTH">%s</xliff:g>ቀን)"</string>
@@ -185,6 +203,15 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"በቅርቡ ምንም ክስተቶች የሉም"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"የሙከራ"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"ማስታወሻዎች"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"ማስታወሻዎችን ዝለል"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"ማስታወሻዎችን ዝለል"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"የጸጥታ ሰዓታት"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"የጸጥታ ክስተት ማስታወሻዎች በተገለጸው ጊዜ ላይ።"</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"የጸጥታ ሰዓታት መጀመሪያ ጊዜ"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"የጸጥታ ሰዓታት ማብቂያ ጊዜ"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"ስህተት በማስወገድ ላይ"</string>
     <string name="copy_db" msgid="437691290566699292">"የውሂብ ጎታ ላክ"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"በመፈለግ ላይ<xliff:g id="DOMAIN">%s</xliff:g>..."</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"ተካፋይ አስወግድ"</string>
@@ -193,6 +220,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"የመጨረሻ ቀን"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"መጨረሻ ሰዓት"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"የሰዓት ሰቅ"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"ክስተት ድገም"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"ማስታወሻ አክል"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"ማስታወሻ አስወግድ"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"ተሳታፊ አክል"</string>
@@ -218,4 +246,32 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"የተመረጠ ክስተት"</string>
     <string name="do_not_check" msgid="7815441673853466129">"ምልክት እንዳታደርግበት -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"ድገም"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"በጭራሽ አይደገምም"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"በየ<xliff:g id="COUNT">%d</xliff:g> ቀን"</item>
+    <item quantity="other" msgid="707566499994398250">"በየ<xliff:g id="COUNT">%d</xliff:g> ቀን"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"በየ<xliff:g id="COUNT">%d</xliff:g> ሳምንት"</item>
+    <item quantity="other" msgid="7094801039989237061">"በየ<xliff:g id="COUNT">%d</xliff:g> ሳምንት"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"በየ<xliff:g id="COUNT">%d</xliff:g> ወር"</item>
+    <item quantity="other" msgid="5419723710346646523">"በየ<xliff:g id="COUNT">%d</xliff:g> ወር"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"በየ<xliff:g id="COUNT">%d</xliff:g> ዓመት"</item>
+    <item quantity="other" msgid="5678653649746562060">"በየ<xliff:g id="COUNT">%d</xliff:g> ዓመት"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"በየወሩ በተመሳሳዩ ቀን ላይ"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"ለዘለዓለም"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"እስከ አንድ ቀን ድረስ"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"እስከ <xliff:g id="DATE">%s</xliff:g> ድረስ"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"ለተወሰነ የክስተቶች ብዛት"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"ለ<xliff:g id="EVENT_COUNT">%d</xliff:g> ክስተት"</item>
+    <item quantity="other" msgid="8779598489398048259">"ለ<xliff:g id="EVENT_COUNT">%d</xliff:g> ክስተቶች"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"የመጨረሻውን ቀን ቀይር"</string>
 </resources>

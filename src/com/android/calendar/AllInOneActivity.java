@@ -31,7 +31,6 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -75,7 +74,6 @@ import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
 import com.android.calendar.agenda.AgendaFragment;
-import com.android.calendar.extensions.AllInOneMenuExtensions;
 import com.android.calendar.month.MonthByWeekFragment;
 import com.android.calendar.selectcalendars.SelectVisibleCalendarsFragment;
 
@@ -84,7 +82,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class AllInOneActivity extends Activity implements EventHandler,
+public class AllInOneActivity extends AbstractCalendarActivity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener, ActionBar.TabListener,
         ActionBar.OnNavigationListener, OnSuggestionListener {
     private static final String TAG = "AllInOneActivity";
@@ -95,7 +93,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private static final String BUNDLE_KEY_RESTORE_VIEW = "key_restore_view";
     private static final String BUNDLE_KEY_CHECK_ACCOUNTS = "key_check_for_accounts";
     private static final int HANDLER_KEY = 0;
-    private static float mScale = 0;
 
     // Indices of buttons for the drop down menu (tabs replacement)
     // Must match the strings in the array buttons_list in arrays.xml and the
@@ -167,7 +164,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
     private LayoutParams mControlsParams;
     private LinearLayout.LayoutParams mVerticalControlsParams;
 
-    private AllInOneMenuExtensions mExtensions = new AllInOneMenuExtensions();
+    private AllInOneMenuExtensionsInterface mExtensions = ExtensionsFactory
+            .getAllInOneMenuExtensions();
 
     private final AnimatorListener mSlideAnimationDoneListener = new AnimatorListener() {
 
@@ -346,7 +344,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
             }
         }
 
-        if (viewType == -1) {
+        if (viewType == -1 || viewType > ViewType.MAX_VALUE) {
             viewType = Utils.getViewTypeFromIntentAndSharedPref(this);
         }
         mTimeZone = Utils.getTimeZone(this, mHomeTimeUpdater);
@@ -415,7 +413,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
         mHomeTime = (TextView) findViewById(R.id.home_time);
         mMiniMonth = findViewById(R.id.mini_month);
         if (mIsTabletConfig && mOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            mMiniMonth.setLayoutParams(new LinearLayout.LayoutParams(mControlsAnimateWidth,
+            mMiniMonth.setLayoutParams(new RelativeLayout.LayoutParams(mControlsAnimateWidth,
                     mControlsAnimateHeight));
         }
         mCalendarsList = findViewById(R.id.calendar_list);
@@ -448,7 +446,7 @@ public class AllInOneActivity extends Activity implements EventHandler,
                         mIntentEventStartMillis = intent.getLongExtra(EXTRA_EVENT_BEGIN_TIME, 0);
                         mIntentEventEndMillis = intent.getLongExtra(EXTRA_EVENT_END_TIME, 0);
                         mIntentAttendeeResponse = intent.getIntExtra(
-                                ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
+                            ATTENDEE_STATUS, Attendees.ATTENDEE_STATUS_NONE);
                         mIntentAllDay = intent.getBooleanExtra(EXTRA_EVENT_ALL_DAY, false);
                         timeMillis = mIntentEventStartMillis;
                     }
@@ -467,31 +465,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
         } else {
             mActionBar.setDisplayOptions(0);
-        }
-    }
-
-    private void createTabs() {
-        mActionBar = getActionBar();
-        if (mActionBar == null) {
-            Log.w(TAG, "ActionBar is null.");
-        } else {
-            mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-            mDayTab = mActionBar.newTab();
-            mDayTab.setText(getString(R.string.day_view));
-            mDayTab.setTabListener(this);
-            mActionBar.addTab(mDayTab);
-            mWeekTab = mActionBar.newTab();
-            mWeekTab.setText(getString(R.string.week_view));
-            mWeekTab.setTabListener(this);
-            mActionBar.addTab(mWeekTab);
-            mMonthTab = mActionBar.newTab();
-            mMonthTab.setText(getString(R.string.month_view));
-            mMonthTab.setTabListener(this);
-            mActionBar.addTab(mMonthTab);
-            mAgendaTab = mActionBar.newTab();
-            mAgendaTab.setText(getString(R.string.agenda_view));
-            mAgendaTab.setTabListener(this);
-            mActionBar.addTab(mAgendaTab);
         }
     }
 
@@ -923,15 +896,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
                 }
                 frag = new DayFragment(timeMillis, 1);
                 break;
-            case ViewType.WEEK:
-                if (mActionBar != null && (mActionBar.getSelectedTab() != mWeekTab)) {
-                    mActionBar.selectTab(mWeekTab);
-                }
-                if (mActionBarMenuSpinnerAdapter != null) {
-                    mActionBar.setSelectedNavigationItem(CalendarViewAdapter.WEEK_BUTTON_INDEX);
-                }
-                frag = new DayFragment(timeMillis, 7);
-                break;
             case ViewType.MONTH:
                 if (mActionBar != null && (mActionBar.getSelectedTab() != mMonthTab)) {
                     mActionBar.selectTab(mMonthTab);
@@ -944,9 +908,16 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     secFrag = new AgendaFragment(timeMillis, false);
                 }
                 break;
+            case ViewType.WEEK:
             default:
-                throw new IllegalArgumentException(
-                        "Must be Agenda, Day, Week, or Month ViewType, not " + viewType);
+                if (mActionBar != null && (mActionBar.getSelectedTab() != mWeekTab)) {
+                    mActionBar.selectTab(mWeekTab);
+                }
+                if (mActionBarMenuSpinnerAdapter != null) {
+                    mActionBar.setSelectedNavigationItem(CalendarViewAdapter.WEEK_BUTTON_INDEX);
+                }
+                frag = new DayFragment(timeMillis, 7);
+                break;
         }
 
         // Update the current view so that the menu can update its look according to the
@@ -1217,7 +1188,8 @@ public class AllInOneActivity extends Activity implements EventHandler,
                     EventInfoFragment fragment = new EventInfoFragment(this,
                             event.id, event.startTime.toMillis(false),
                             event.endTime.toMillis(false), response, true,
-                            EventInfoFragment.DIALOG_WINDOW_STYLE);
+                            EventInfoFragment.DIALOG_WINDOW_STYLE,
+                            null /* No reminders to explicitly pass in. */);
                     fragment.setDialogParams(event.x, event.y, mActionBar.getHeight());
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
@@ -1260,9 +1232,6 @@ public class AllInOneActivity extends Activity implements EventHandler,
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if ("TARDIS".equalsIgnoreCase(query)) {
-            Utils.tardis();
-        }
         mSearchMenu.collapseActionView();
         mController.sendEvent(this, EventType.SEARCH, null, null, -1, ViewType.CURRENT, 0, query,
                 getComponentName());

@@ -65,92 +65,6 @@
     <item msgid="95029346069903091">"日曜日"</item>
     <item msgid="5840983116375063739">"月曜日"</item>
   </string-array>
-  <string-array name="timezone_labels">
-    <item msgid="6833649526258274889">"マーシャル諸島"</item>
-    <item msgid="7176569939440505575">"ミッドウェー諸島"</item>
-    <item msgid="5000628410717488070">"ハワイ"</item>
-    <item msgid="3809977082338992040">"アラスカ"</item>
-    <item msgid="1206600898319778734">"太平洋標準時"</item>
-    <item msgid="4251553449779733536">"ティフアナ"</item>
-    <item msgid="4796372144693551811">"アリゾナ"</item>
-    <item msgid="4589419122570218444">"チワワ"</item>
-    <item msgid="1653398220457872326">"山地標準時"</item>
-    <item msgid="229005026661478023">"中央アメリカ"</item>
-    <item msgid="1545268116831476742">"中部標準時"</item>
-    <item msgid="9135129204936732090">"メキシコシティ"</item>
-    <item msgid="3703110560723049255">"サスカチュワン"</item>
-    <item msgid="5458958644945369505">"ボゴタ"</item>
-    <item msgid="355450740949670294">"東部標準時"</item>
-    <item msgid="5786717434693228701">"ベネズエラ"</item>
-    <item msgid="4977886006524392240">"大西洋時間（バルバドス）"</item>
-    <item msgid="10153187433760387">"大西洋時間（カナダ）"</item>
-    <item msgid="6115801678953677414">"マナウス"</item>
-    <item msgid="2593929186990540989">"サンティアゴ"</item>
-    <item msgid="6585031589100947696">"ニューファンドランド"</item>
-    <item msgid="5295092779694537214">"ブラジリア"</item>
-    <item msgid="6402931335497071732">"ブエノスアイレス"</item>
-    <item msgid="4432313195052285856">"グリーンランド"</item>
-    <item msgid="7938414883764011047">"モンテビデオ"</item>
-    <item msgid="2737154427296635021">"中部大西洋"</item>
-    <item msgid="1379490252091746679">"アゾレス"</item>
-    <item msgid="6212233464119368698">"カボベルデ諸島"</item>
-    <item msgid="1810261367179140820">"カサブランカ"</item>
-    <item msgid="1230179411620530148">"ロンドン、ダブリン"</item>
-    <item msgid="372075306913304327">"アムステルダム、ベルリン"</item>
-    <item msgid="9046296030447565862">"ベオグラード"</item>
-    <item msgid="4921622452710220193">"ブリュッセル"</item>
-    <item msgid="727296339287965963">"サラエボ"</item>
-    <item msgid="5997630882187580225">"ウィントフック"</item>
-    <item msgid="3828800493609994208">"西アフリカ標準時"</item>
-    <item msgid="7527935722014187591">"アンマン、ヨルダン"</item>
-    <item msgid="672509109295227133">"アテネ、イスタンブール"</item>
-    <item msgid="1835470340349221646">"ベイルート、レバノン"</item>
-    <item msgid="9006223109403693650">"カイロ"</item>
-    <item msgid="2877875673636361825">"ヘルシンキ"</item>
-    <item msgid="4528124308590807049">"エルサレム"</item>
-    <item msgid="7823856457885290195">"ミンスク"</item>
-    <item msgid="8650995074282357197">"ハラーレ"</item>
-    <item msgid="209523815326871285">"バグダッド"</item>
-    <item msgid="8077211460729251609">"モスクワ"</item>
-    <item msgid="6103383184232804522">"クウェート"</item>
-    <item msgid="8581935265080466099">"ナイロビ"</item>
-    <item msgid="1531618843539764728">"テヘラン"</item>
-    <item msgid="141548505188106312">"バクー"</item>
-    <item msgid="5974315340250149692">"トビリシ"</item>
-    <item msgid="3344801680659888795">"エレバン"</item>
-    <item msgid="2537944335416132075">"ドバイ"</item>
-    <item msgid="5630432498109110949">"カブール"</item>
-    <item msgid="2274762525650993846">"イスラマーバード、カラチ"</item>
-    <item msgid="272153171103339242">"ウラリスク"</item>
-    <item msgid="4757644551253886090">"エカテリンブルグ"</item>
-    <item msgid="3036512479614493957">"コルカタ"</item>
-    <item msgid="4190271241277312277">"スリランカ"</item>
-    <item msgid="4489139826358657866">"カトマンズ"</item>
-    <item msgid="1195461607876034232">"アスタナ"</item>
-    <item msgid="8777509327730950228">"ヤンゴン"</item>
-    <item msgid="3838899720161825998">"クラスノヤルスク"</item>
-    <item msgid="6495532062164690437">"バンコク"</item>
-    <item msgid="4910549870048384487">"北京"</item>
-    <item msgid="7174954011332328153">"香港"</item>
-    <item msgid="415034182139280334">"イルクーツク"</item>
-    <item msgid="3407263784503834649">"クアラルンプール"</item>
-    <item msgid="6547945295249807755">"パース"</item>
-    <item msgid="4571776847411430193">"台北"</item>
-    <item msgid="3043691515163887690">"ソウル"</item>
-    <item msgid="6369124969606372122">"東京、大阪"</item>
-    <item msgid="8317842783685169193">"ヤクーツク"</item>
-    <item msgid="6993206457323990990">"アデレード"</item>
-    <item msgid="2431970257749452312">"ダーウィン"</item>
-    <item msgid="2709489188606506801">"ブリスベン"</item>
-    <item msgid="6832511138206913044">"ホバート"</item>
-    <item msgid="6933429790996727761">"シドニー、キャンベラ"</item>
-    <item msgid="4546625974877459074">"ウラジオストク"</item>
-    <item msgid="7421491250467489614">"グアム"</item>
-    <item msgid="3450367738093440984">"マガダン"</item>
-    <item msgid="5046540868552082971">"オークランド"</item>
-    <item msgid="481903191189494072">"フィジー"</item>
-    <item msgid="1926932394586102998">"トンガ"</item>
-  </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"予定あり"</item>
     <item msgid="6228387173725732140">"予定なし"</item>
@@ -192,5 +106,64 @@
     <item msgid="6248480754959562740">"週"</item>
     <item msgid="4298472806133153766">"月"</item>
     <item msgid="5033084974413793845">"予定リスト"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"辞退した場合のみ"</item>
+    <item msgid="6367412240524984286">"辞退したか応答がなかった場合"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"繰り返し: 毎日"</item>
+    <item msgid="6300824484048337842">"繰り返し: 毎週"</item>
+    <item msgid="189361731610816256">"繰り返し: 毎月"</item>
+    <item msgid="8714177874112569158">"繰り返し: 毎年"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"毎月第1日曜日"</item>
+    <item msgid="2557379346106451363">"毎月第2日曜日"</item>
+    <item msgid="7622144489915654132">"毎月第3日曜日"</item>
+    <item msgid="527152448137686021">"毎月第4日曜日"</item>
+    <item msgid="5057483608824759350">"毎月最終日曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"毎月第1月曜日"</item>
+    <item msgid="4484275849072423978">"毎月第2月曜日"</item>
+    <item msgid="8956169860824371383">"毎月第3月曜日"</item>
+    <item msgid="6924403357659569326">"毎月第4月曜日"</item>
+    <item msgid="1379608815263472161">"毎月最終月曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"毎月第1火曜日"</item>
+    <item msgid="9063613547307760928">"毎月第2火曜日"</item>
+    <item msgid="6688603328729208168">"毎月第3火曜日"</item>
+    <item msgid="6695206006961533357">"毎月第4火曜日"</item>
+    <item msgid="8619069174889809914">"毎月最終火曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"毎月第1水曜日"</item>
+    <item msgid="5059722045367799217">"毎月第2水曜日"</item>
+    <item msgid="7986246648229272275">"毎月第3水曜日"</item>
+    <item msgid="9068566169348980801">"毎月第4水曜日"</item>
+    <item msgid="7976866743069062134">"毎月最終水曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"毎月第1木曜日"</item>
+    <item msgid="4857419136007543270">"毎月第2木曜日"</item>
+    <item msgid="222044587450564839">"毎月第3木曜日"</item>
+    <item msgid="6197927556533030945">"毎月第4木曜日"</item>
+    <item msgid="1023326923033436905">"毎月最終木曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"毎月第1金曜日"</item>
+    <item msgid="1935608297230506940">"毎月第2金曜日"</item>
+    <item msgid="4061877662049317599">"毎月第3金曜日"</item>
+    <item msgid="6856646749131820614">"毎月第4金曜日"</item>
+    <item msgid="6533513913914859794">"毎月最終金曜日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"毎月第1土曜日"</item>
+    <item msgid="9130198690512925355">"毎月第2土曜日"</item>
+    <item msgid="4525736070844032405">"毎月第3土曜日"</item>
+    <item msgid="422053689531707709">"毎月第4土曜日"</item>
+    <item msgid="5499975799312474425">"毎月最終土曜日"</item>
   </string-array>
 </resources>

@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"빈 일정은 만들 수 없습니다."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"초대장이 전송됩니다."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"업데이트가 전송됩니다."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"저장"</string>
     <string name="alert_title" msgid="7869592820853066853">"캘린더 알림"</string>
     <string name="event_info_title" msgid="56024222340421620">"일정 보기"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"회의 초대"</string>
@@ -98,6 +99,11 @@
     <string name="add_account" msgid="1669072099756774952">"계정 추가"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"캘린더:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"주최자:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"일정 색상 선택"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"일정 색상"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"기본 캘린더 색상으로 설정"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"캘린더 색상"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"색상 선택기"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"참석하시겠습니까?"</string>
     <string name="response_yes" msgid="2027484304899988350">"예"</string>
     <string name="response_maybe" msgid="7791500973627841695">"미정"</string>
@@ -106,19 +112,21 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"이메일 관리도구"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"이메일:"</string>
     <string name="event_not_found" msgid="8356864185947582727">"일정을 찾을 수 없습니다."</string>
+    <string name="map_label" msgid="8795383535586556038">"지도"</string>
+    <string name="call_label" msgid="2960328220008869083">"통화"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"빠른 응답"</string>
-    <string name="quick_response_settings_summary" msgid="7878304729027355604">"손님 메일 응답수정"</string>
+    <string name="quick_response_settings_summary" msgid="7878304729027355604">"참석자에게 보내는 빠른 응답 메시지 수정"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"빠른 응답 수정"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"빠른 응답"</string>
     <string name="quick_response_dialog_title" msgid="2681309456412199207">"빠른 응답 선택"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"이메일 프로그램 찾기 실패"</string>
   <string-array name="quick_response_defaults">
-    <item msgid="1524421198348168403">"조금 늦음."</item>
-    <item msgid="6215158751728689832">"약 10분 후에 도착"</item>
+    <item msgid="1524421198348168403">"조금 늦어요."</item>
+    <item msgid="6215158751728689832">"약 10분 후에 도착합니다."</item>
     <item msgid="4485794001743679338">"저 없이 시작하세요."</item>
     <item msgid="8036557974294987511">"죄송합니다. 일정을 변경해야 합니다."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"맞춤 메시지..."</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"직접 메시지 쓰기…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"주최자:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"알림"</string>
     <string name="agenda_today" msgid="5965841338467422191">"오늘, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -136,11 +144,21 @@
     <string name="snooze_all_label" msgid="4994488813124409077">"모두 일시 중지"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"모두 해제"</string>
     <string name="snooze_label" msgid="1515893621063224666">"알림 일시중지"</string>
-    <string name="does_not_repeat" msgid="1877681921029738999">"한번만"</string>
-    <string name="daily" msgid="560350706808680448">"매일"</string>
+    <string name="does_not_repeat" msgid="1877681921029738999">"없음"</string>
+    <string name="endByDate" msgid="7654221304929538201">", <xliff:g id="DATE">%s</xliff:g>까지"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">", 일회성"</item>
+    <item quantity="other" msgid="4855496837834652446">", <xliff:g id="NUMBER">%d</xliff:g>회"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"매일"</item>
+    <item quantity="other" msgid="5455230727715859264">"<xliff:g id="NUMBER">%d</xliff:g>일에 한 번"</item>
+  </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"주중 매일(월-금)"</string>
-    <string name="weekly" msgid="2006107373119027114">"매주(<xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"매월(<xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"매주 <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"<xliff:g id="NUMBER">%1$d</xliff:g>주에 한 번 <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
     <string name="monthly" msgid="4587116285383048586">"매월"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"매년"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"매월(<xliff:g id="DAY_OF_MONTH">%s</xliff:g>일)"</string>
@@ -185,6 +203,15 @@
     <item quantity="other" msgid="1997405398178470838">"+ <xliff:g id="NUMBER">%d</xliff:g>개"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"예정된 캘린더 일정이 없습니다."</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"베타"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"알림"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"알림 건너뛰기"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"알림 건너뛰기"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"무음 모드 시간"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"지정한 시간에는 이벤트 알림을 무음으로 설정합니다."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"무음 모드 시작 시간"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"무음 모드 종료 시간"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"디버깅"</string>
     <string name="copy_db" msgid="437691290566699292">"데이터베이스 보내기"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"<xliff:g id="DOMAIN">%s</xliff:g> 검색 중..."</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"참석자 삭제"</string>
@@ -193,6 +220,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"종료일"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"종료 시간"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"표준시간대"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"일정 반복"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"알림 추가"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"알림 삭제"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"참석자 추가"</string>
@@ -218,4 +246,32 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"선택한 일정"</string>
     <string name="do_not_check" msgid="7815441673853466129">"선택안함 -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"반복"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"없음"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g>일에 한 번"</item>
+    <item quantity="other" msgid="707566499994398250">"<xliff:g id="COUNT">%d</xliff:g>일에 한 번"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"<xliff:g id="COUNT">%d</xliff:g>주에 한 번"</item>
+    <item quantity="other" msgid="7094801039989237061">"<xliff:g id="COUNT">%d</xliff:g>주에 한 번"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"<xliff:g id="COUNT">%d</xliff:g>개월에 한 번"</item>
+    <item quantity="other" msgid="5419723710346646523">"<xliff:g id="COUNT">%d</xliff:g>개월에 한 번"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"<xliff:g id="COUNT">%d</xliff:g>년에 한 번"</item>
+    <item quantity="other" msgid="5678653649746562060">"<xliff:g id="COUNT">%d</xliff:g>년에 한 번"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"매월 같은 날"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"계속"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"특정일까지"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"종료일: <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"여러 번"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g>개의 이벤트"</item>
+    <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g>개의 이벤트"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"종료일 변경"</string>
 </resources>

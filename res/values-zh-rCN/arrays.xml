@@ -65,92 +65,6 @@
     <item msgid="95029346069903091">"星期日"</item>
     <item msgid="5840983116375063739">"星期一"</item>
   </string-array>
-  <string-array name="timezone_labels">
-    <item msgid="6833649526258274889">"马绍尔群岛"</item>
-    <item msgid="7176569939440505575">"中途岛"</item>
-    <item msgid="5000628410717488070">"夏威夷"</item>
-    <item msgid="3809977082338992040">"阿拉斯加州"</item>
-    <item msgid="1206600898319778734">"太平洋时间"</item>
-    <item msgid="4251553449779733536">"蒂华纳"</item>
-    <item msgid="4796372144693551811">"亚利桑那州"</item>
-    <item msgid="4589419122570218444">"奇瓦瓦州"</item>
-    <item msgid="1653398220457872326">"山区时间"</item>
-    <item msgid="229005026661478023">"中美洲"</item>
-    <item msgid="1545268116831476742">"中部标准时间"</item>
-    <item msgid="9135129204936732090">"墨西哥城"</item>
-    <item msgid="3703110560723049255">"萨斯喀彻温省"</item>
-    <item msgid="5458958644945369505">"波哥大"</item>
-    <item msgid="355450740949670294">"东部时间"</item>
-    <item msgid="5786717434693228701">"委内瑞拉"</item>
-    <item msgid="4977886006524392240">"大西洋时间（巴巴多斯）"</item>
-    <item msgid="10153187433760387">"大西洋时间（加拿大）"</item>
-    <item msgid="6115801678953677414">"马瑙斯"</item>
-    <item msgid="2593929186990540989">"圣地亚哥"</item>
-    <item msgid="6585031589100947696">"纽芬兰"</item>
-    <item msgid="5295092779694537214">"巴西利亚"</item>
-    <item msgid="6402931335497071732">"布宜诺斯艾利斯"</item>
-    <item msgid="4432313195052285856">"格陵兰"</item>
-    <item msgid="7938414883764011047">"蒙得维的亚"</item>
-    <item msgid="2737154427296635021">"中大西洋"</item>
-    <item msgid="1379490252091746679">"亚述尔群岛"</item>
-    <item msgid="6212233464119368698">"佛得角群岛"</item>
-    <item msgid="1810261367179140820">"卡萨布兰卡"</item>
-    <item msgid="1230179411620530148">"伦敦，都柏林"</item>
-    <item msgid="372075306913304327">"阿姆斯特丹，柏林"</item>
-    <item msgid="9046296030447565862">"贝尔格莱德"</item>
-    <item msgid="4921622452710220193">"布鲁塞尔"</item>
-    <item msgid="727296339287965963">"萨拉热窝"</item>
-    <item msgid="5997630882187580225">"温得和克"</item>
-    <item msgid="3828800493609994208">"西非时间"</item>
-    <item msgid="7527935722014187591">"安曼，约旦"</item>
-    <item msgid="672509109295227133">"雅典，伊斯坦布尔"</item>
-    <item msgid="1835470340349221646">"贝鲁特，黎巴嫩"</item>
-    <item msgid="9006223109403693650">"开罗"</item>
-    <item msgid="2877875673636361825">"赫尔辛基"</item>
-    <item msgid="4528124308590807049">"耶路撒冷"</item>
-    <item msgid="7823856457885290195">"明斯克"</item>
-    <item msgid="8650995074282357197">"哈拉雷"</item>
-    <item msgid="209523815326871285">"巴格达"</item>
-    <item msgid="8077211460729251609">"莫斯科"</item>
-    <item msgid="6103383184232804522">"科威特"</item>
-    <item msgid="8581935265080466099">"内罗毕"</item>
-    <item msgid="1531618843539764728">"德黑兰"</item>
-    <item msgid="141548505188106312">"巴库"</item>
-    <item msgid="5974315340250149692">"第比利斯"</item>
-    <item msgid="3344801680659888795">"埃里温"</item>
-    <item msgid="2537944335416132075">"迪拜"</item>
-    <item msgid="5630432498109110949">"喀布尔"</item>
-    <item msgid="2274762525650993846">"伊斯兰堡，卡拉奇"</item>
-    <item msgid="272153171103339242">"乌拉尔斯克"</item>
-    <item msgid="4757644551253886090">"叶卡捷琳堡"</item>
-    <item msgid="3036512479614493957">"加尔各答"</item>
-    <item msgid="4190271241277312277">"斯里兰卡"</item>
-    <item msgid="4489139826358657866">"加德满都"</item>
-    <item msgid="1195461607876034232">"阿斯塔纳"</item>
-    <item msgid="8777509327730950228">"仰光"</item>
-    <item msgid="3838899720161825998">"克拉斯诺亚尔斯克"</item>
-    <item msgid="6495532062164690437">"曼谷"</item>
-    <item msgid="4910549870048384487">"北京"</item>
-    <item msgid="7174954011332328153">"香港"</item>
-    <item msgid="415034182139280334">"伊尔库茨克"</item>
-    <item msgid="3407263784503834649">"吉隆坡"</item>
-    <item msgid="6547945295249807755">"珀斯"</item>
-    <item msgid="4571776847411430193">"台北"</item>
-    <item msgid="3043691515163887690">"首尔"</item>
-    <item msgid="6369124969606372122">"东京，大阪府"</item>
-    <item msgid="8317842783685169193">"雅库茨克"</item>
-    <item msgid="6993206457323990990">"阿德莱德"</item>
-    <item msgid="2431970257749452312">"达尔文"</item>
-    <item msgid="2709489188606506801">"布里斯班"</item>
-    <item msgid="6832511138206913044">"霍巴特"</item>
-    <item msgid="6933429790996727761">"悉尼，堪培拉"</item>
-    <item msgid="4546625974877459074">"海参崴"</item>
-    <item msgid="7421491250467489614">"关岛"</item>
-    <item msgid="3450367738093440984">"马加丹"</item>
-    <item msgid="5046540868552082971">"奥克兰"</item>
-    <item msgid="481903191189494072">"斐济"</item>
-    <item msgid="1926932394586102998">"汤加"</item>
-  </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"忙碌"</item>
     <item msgid="6228387173725732140">"有空"</item>
@@ -192,5 +106,64 @@
     <item msgid="6248480754959562740">"周"</item>
     <item msgid="4298472806133153766">"月"</item>
     <item msgid="5033084974413793845">"日程"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"仅在您不参加的情况下"</item>
+    <item msgid="6367412240524984286">"在您不参加或未回复的情况下"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"每天重复"</item>
+    <item msgid="6300824484048337842">"每周重复"</item>
+    <item msgid="189361731610816256">"每月重复"</item>
+    <item msgid="8714177874112569158">"每年重复"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"第一个星期日"</item>
+    <item msgid="2557379346106451363">"第二个星期日"</item>
+    <item msgid="7622144489915654132">"第三个星期日"</item>
+    <item msgid="527152448137686021">"第四个星期日"</item>
+    <item msgid="5057483608824759350">"最后一个星期日"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"第一个星期一"</item>
+    <item msgid="4484275849072423978">"第二个星期一"</item>
+    <item msgid="8956169860824371383">"第三个星期一"</item>
+    <item msgid="6924403357659569326">"第四个星期一"</item>
+    <item msgid="1379608815263472161">"最后一个星期一"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"第一个星期二"</item>
+    <item msgid="9063613547307760928">"第二个星期二"</item>
+    <item msgid="6688603328729208168">"第三个星期二"</item>
+    <item msgid="6695206006961533357">"第四个星期二"</item>
+    <item msgid="8619069174889809914">"最后一个星期二"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"第一个星期三"</item>
+    <item msgid="5059722045367799217">"第二个星期三"</item>
+    <item msgid="7986246648229272275">"第三个星期三"</item>
+    <item msgid="9068566169348980801">"第四个星期三"</item>
+    <item msgid="7976866743069062134">"最后一个星期三"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"第一个星期四"</item>
+    <item msgid="4857419136007543270">"第二个星期四"</item>
+    <item msgid="222044587450564839">"第三个星期四"</item>
+    <item msgid="6197927556533030945">"第四个星期四"</item>
+    <item msgid="1023326923033436905">"最后一个星期四"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"第一个星期五"</item>
+    <item msgid="1935608297230506940">"第二个星期五"</item>
+    <item msgid="4061877662049317599">"第三个星期五"</item>
+    <item msgid="6856646749131820614">"第四个星期五"</item>
+    <item msgid="6533513913914859794">"最后一个星期五"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"第一个星期六"</item>
+    <item msgid="9130198690512925355">"第二个星期六"</item>
+    <item msgid="4525736070844032405">"第三个星期六"</item>
+    <item msgid="422053689531707709">"第四个星期六"</item>
+    <item msgid="5499975799312474425">"最后一个星期六"</item>
   </string-array>
 </resources>

@@ -55,6 +55,7 @@ public class AlertUtils {
     public static final String NOTIFICATION_ID_KEY = "notificationid";
     public static final String EVENT_IDS_KEY = "eventids";
     public static final String SNOOZE_DELAY_KEY = "snoozedelay";
+    public static final String EVENT_STARTS_KEY = "starts";
 
     // A flag for using local storage to save alert state instead of the alerts DB table.
     // This allows the unbundled app to run alongside other calendar apps without eating
@@ -97,7 +98,7 @@ public class AlertUtils {
      * listeners when a reminder should be fired. The provider will keep
      * scheduled reminders up to date but apps may use this to implement snooze
      * functionality without modifying the reminders table. Scheduled alarms
-     * will generate an intent using {@link #ACTION_EVENT_REMINDER}.
+     * will generate an intent using AlertReceiver.EVENT_REMINDER_APP_ACTION.
      *
      * @param context A context for referencing system resources
      * @param manager The AlarmManager to use or null
@@ -120,7 +121,7 @@ public class AlertUtils {
     private static void scheduleAlarmHelper(Context context, AlarmManagerInterface manager,
             long alarmTime, boolean quietUpdate) {
         int alarmType = AlarmManager.RTC_WAKEUP;
-        Intent intent = new Intent(CalendarContract.ACTION_EVENT_REMINDER);
+        Intent intent = new Intent(AlertReceiver.EVENT_REMINDER_APP_ACTION);
         intent.setClass(context, AlertReceiver.class);
         if (quietUpdate) {
             alarmType = AlarmManager.RTC;
@@ -153,7 +154,7 @@ public class AlertUtils {
         time.setToNow();
         int today = Time.getJulianDay(time.toMillis(false), time.gmtoff);
         time.set(startMillis);
-        int eventDay = Time.getJulianDay(time.toMillis(false), time.gmtoff);
+        int eventDay = Time.getJulianDay(time.toMillis(false), allDay ? 0 : time.gmtoff);
 
         int flags = DateUtils.FORMAT_ABBREV_ALL;
         if (!allDay) {

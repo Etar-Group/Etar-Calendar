@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"Üres esemény nem hozható létre"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"A rendszer meghívókat küld."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"A rendszer frissítéseket küld."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Mentés"</string>
     <string name="alert_title" msgid="7869592820853066853">"Naptár értesítései"</string>
     <string name="event_info_title" msgid="56024222340421620">"Esemény megtekintése"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Meghívás találkozóra"</string>
@@ -98,6 +99,11 @@
     <string name="add_account" msgid="1669072099756774952">"Fiók hozzáadása"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Naptár:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Szervező:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Válasszon egy eseményszínt"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Esemény színe"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Beállítva alapértelmezett naptárszínre"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"A naptár színe"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Színválasztó"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Részt vesz?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Igen"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Lehet"</string>
@@ -106,6 +112,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"E-mail a szervezőnek"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"E-mail a következővel:"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Az esemény nem található."</string>
+    <string name="map_label" msgid="8795383535586556038">"Térkép"</string>
+    <string name="call_label" msgid="2960328220008869083">"Hívás"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Gyors válaszok"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Válaszok szerkesztése vendég e-mailek küldésekor"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Gyors válaszok szerkesztése"</string>
@@ -118,7 +126,7 @@
     <item msgid="4485794001743679338">"Kezdjék el nélkülem."</item>
     <item msgid="8036557974294987511">"Sajnálom, nem érek oda. Kénytelenek leszünk átütemezni."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Egyéni üzenet..."</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Saját válasz írása..."</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Szervező:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Emlékeztetők"</string>
     <string name="agenda_today" msgid="5965841338467422191">"MA, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -137,10 +145,20 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Az összes törlése"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Szundi"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Egyszeri esemény"</string>
-    <string name="daily" msgid="560350706808680448">"Naponta"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; eddig – <xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; egyszer"</item>
+    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> alkalommal"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"Naponta"</item>
+    <item quantity="other" msgid="5455230727715859264">"<xliff:g id="NUMBER">%d</xliff:g> naponta"</item>
+  </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Minden hétköznap (hétfő–péntek)"</string>
-    <string name="weekly" msgid="2006107373119027114">"Hetente (minden <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"Havonta (minden <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"Hetente – <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>i napon"</item>
+    <item quantity="other" msgid="2857390143157377867">"<xliff:g id="NUMBER">%1$d</xliff:g> hetente – <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>i napon"</item>
+  </plurals>
     <string name="monthly" msgid="4587116285383048586">"Havi"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Évente"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Havonta (a(z) <xliff:g id="DAY_OF_MONTH">%s</xliff:g>. napon)"</string>
@@ -185,6 +203,15 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Nincsenek közelgő események a naptárban"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Kísérleti"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"Emlékeztetők"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Emlékeztetők kihagyása"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Emlékeztetők kihagyása"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Néma időtartam"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Eseményemlékeztető némítása egy adott időszakban."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Néma időtartam eleje"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Néma időtartam vége"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"Hibakeresés"</string>
     <string name="copy_db" msgid="437691290566699292">"Adatbázis küldése"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Keresés <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Résztvevő eltávolítása"</string>
@@ -193,6 +220,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Befejezés dátuma"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Befejezés ideje"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Időzóna"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Esemény ismétlése"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Emlékeztető hozzáadása"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Emlékeztető törlése"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Résztvevő hozzáadása"</string>
@@ -218,4 +246,32 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Kiválasztott esemény"</string>
     <string name="do_not_check" msgid="7815441673853466129">"NE jelölje be -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Ismétlődés"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Soha nem ismétli"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g> naponta"</item>
+    <item quantity="other" msgid="707566499994398250">"<xliff:g id="COUNT">%d</xliff:g> naponta"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"<xliff:g id="COUNT">%d</xliff:g> hetente"</item>
+    <item quantity="other" msgid="7094801039989237061">"<xliff:g id="COUNT">%d</xliff:g> hetente"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"<xliff:g id="COUNT">%d</xliff:g> havonta"</item>
+    <item quantity="other" msgid="5419723710346646523">"<xliff:g id="COUNT">%d</xliff:g> havonta"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"<xliff:g id="COUNT">%d</xliff:g> évente"</item>
+    <item quantity="other" msgid="5678653649746562060">"<xliff:g id="COUNT">%d</xliff:g> évente"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"havonta ugyanakkor"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Végtelenszer"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Meghatározott dátumig"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"Záró dátum: <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Adott számú alkalommal"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"<xliff:g id="EVENT_COUNT">%d</xliff:g> eseményhez"</item>
+    <item quantity="other" msgid="8779598489398048259">"<xliff:g id="EVENT_COUNT">%d</xliff:g> eseményhez"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"befejezés dátumának módosítása"</string>
 </resources>

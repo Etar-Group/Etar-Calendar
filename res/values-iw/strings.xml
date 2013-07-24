@@ -80,6 +80,7 @@
     <string name="empty_event" msgid="9018699257414338634">"האירוע הריק לא נוצר."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"הזמנות יישלחו."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"עדכונים יישלחו."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"שמור"</string>
     <string name="alert_title" msgid="7869592820853066853">"התראות של יומן"</string>
     <string name="event_info_title" msgid="56024222340421620">"הצג אירוע"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"הזמנה לפגישה"</string>
@@ -98,6 +99,11 @@
     <string name="add_account" msgid="1669072099756774952">"הוסף חשבון"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"יומן:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"מארגן:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"בחר צבע אירוע"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"צבע אירוע"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"הגדר כצבע ברירת המחדל של לוח השנה"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"צבע לוח שנה"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"בוחר צבעים"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"משתתף?"</string>
     <string name="response_yes" msgid="2027484304899988350">"כן"</string>
     <string name="response_maybe" msgid="7791500973627841695">"אולי"</string>
@@ -106,6 +112,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"שלח דוא\"ל למארגן"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"שלח הודעת דוא\"ל באמצעות"</string>
     <string name="event_not_found" msgid="8356864185947582727">"האירוע לא נמצא."</string>
+    <string name="map_label" msgid="8795383535586556038">"מפה"</string>
+    <string name="call_label" msgid="2960328220008869083">"שיחה"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"תגובות מהירות"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"ערוך תגובות ברירת מחדל בעת שליחת דוא\"ל לאורחים"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"ערוך תגובות מהירות"</string>
@@ -118,7 +126,7 @@
     <item msgid="4485794001743679338">"תתחילו בלעדי."</item>
     <item msgid="8036557974294987511">"סליחה, לא אצליח להגיע. נצטרך לקבוע מועד חדש."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"הודעה מותאמת אישית..."</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"כתוב אחת משלך…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"מארגן:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"תזכורות"</string>
     <string name="agenda_today" msgid="5965841338467422191">"היום, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -133,14 +141,24 @@
     <string name="delete_label" msgid="874742811918030739">"מחק"</string>
     <string name="save_label" msgid="2133599104834432589">"סיום"</string>
     <string name="discard_label" msgid="2394623883289782541">"ביטול"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"העבר את כולם למצב נמנום"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"נדנד על הכל"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"דחה הכל"</string>
     <string name="snooze_label" msgid="1515893621063224666">"נודניק"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"אירוע חד-פעמי"</string>
-    <string name="daily" msgid="560350706808680448">"מדי יום"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; עד <xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; פעם אחת"</item>
+    <item quantity="other" msgid="4855496837834652446">"; <xliff:g id="NUMBER">%d</xliff:g> פעמים"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"יומי"</item>
+    <item quantity="other" msgid="5455230727715859264">"כל <xliff:g id="NUMBER">%d</xliff:g> ימים"</item>
+  </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"כל יום חול (ראשון-חמישי)"</string>
-    <string name="weekly" msgid="2006107373119027114">"מדי שבוע (כל <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"מדי חודש (כל <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"שבועי ביום <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"כל <xliff:g id="NUMBER">%1$d</xliff:g> שבועות ביום <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
     <string name="monthly" msgid="4587116285383048586">"כל חודש"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"כל שנה"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"מדי חודש (ביום <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
@@ -185,6 +203,15 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"אין אירועים צפויים בלוח השנה"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"ניסיוני"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"תזכורות"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"דלג על תזכורות"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"דלג על תזכורות"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"שעות שקטות"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"השתק תזכורות לאירועים למשך פרק זמן שצוין."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"זמן התחלה של שעות שקטות"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"זמן הסיום של שעות שקטות"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"ניקוי באגים"</string>
     <string name="copy_db" msgid="437691290566699292">"שלח מסד נתונים"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"מחפש את <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"הסר משתתף"</string>
@@ -193,6 +220,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"תאריך סיום"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"שעת סיום"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"אזור זמן"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"חזור על האירוע"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"הוסף תזכורת"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"הסר תזכורת"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"הוסף משתתף"</string>
@@ -204,7 +232,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"הצג אותי כ"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"פרטיות"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"התראת יומן"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"התראת מצב נמנום"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"התראת נודניק"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"שלח דוא\"ל לאורחים"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ אירוע חדש"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"אירוע <xliff:g id="ITEM_INDEX">%1$s</xliff:g> מתוך <xliff:g id="ITEM_COUNT">%2$s</xliff:g>."</string>
@@ -218,4 +246,32 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"אירוע נבחר"</string>
     <string name="do_not_check" msgid="7815441673853466129">"אל תסמן -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"חזרה"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"ללא חזרה"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"כל יום <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="707566499994398250">"כל <xliff:g id="COUNT">%d</xliff:g> ימים"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"כל שבוע <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="7094801039989237061">"כל <xliff:g id="COUNT">%d</xliff:g> שבועות"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"כל חודש <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="5419723710346646523">"כל <xliff:g id="COUNT">%d</xliff:g> חודשים"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"כל שנה <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="5678653649746562060">"כל <xliff:g id="COUNT">%d</xliff:g> שנים"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"באותו יום בכל חודש"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"ללא תאריך סיום"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"עד תאריך מסוים"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"עד <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"למספר אירועים"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"עבור אירוע <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="8779598489398048259">"עבור <xliff:g id="EVENT_COUNT">%d</xliff:g> אירועים"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"שינוי של תאריך הסיום"</string>
 </resources>

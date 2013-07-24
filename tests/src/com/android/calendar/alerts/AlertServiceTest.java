@@ -21,7 +21,6 @@ import static android.app.Notification.PRIORITY_HIGH;
 import static android.app.Notification.PRIORITY_MIN;
 
 import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.SharedPreferences;
 import android.database.MatrixCursor;
 import android.provider.CalendarContract.Attendees;
@@ -385,28 +384,6 @@ public class AlertServiceTest extends AndroidTestCase {
         }
     }
 
-    private class MockAlarmManager implements AlarmManagerInterface {
-        private int expectedAlarmType = -1;
-        private long expectedAlarmTime = -1;
-
-        public void expectAlarmTime(int type, long millis) {
-            this.expectedAlarmType = type;
-            this.expectedAlarmTime = millis;
-        }
-
-        @Override
-        public void set(int actualAlarmType, long actualAlarmTime, PendingIntent operation) {
-            assertNotNull(operation);
-            if (expectedAlarmType != -1) {
-                assertEquals("Alarm type not expected.", expectedAlarmType, actualAlarmType);
-                assertEquals("Alarm time not expected. Expected:" + DateUtils.formatDateTime(
-                        mContext, expectedAlarmTime, DateUtils.FORMAT_SHOW_TIME) + ", actual:"
-                        + DateUtils.formatDateTime(mContext, actualAlarmTime,
-                        DateUtils.FORMAT_SHOW_TIME), expectedAlarmTime, actualAlarmTime);
-            }
-        }
-    }
-
     // TODO
     // Catch updates of new state, notify time, and received time
     // Test ringer, vibrate,
@@ -422,7 +399,7 @@ public class AlertServiceTest extends AndroidTestCase {
 
         // Test no alert
         long currentTime = 1000000;
-        AlertService.generateAlerts(mContext, ntm, new MockAlarmManager(), prefs,
+        AlertService.generateAlerts(mContext, ntm, new MockAlarmManager(mContext), prefs,
                 at.getAlertCursor(), currentTime, AlertService.MAX_NOTIFICATIONS);
         ntm.validateNotificationsAndReset();
     }
@@ -431,7 +408,7 @@ public class AlertServiceTest extends AndroidTestCase {
     @SmallTest
     public void testGenerateAlerts_single() {
         MockSharedPreferences prefs = new MockSharedPreferences();
-        MockAlarmManager alarmMgr = new MockAlarmManager();
+        MockAlarmManager alarmMgr = new MockAlarmManager(mContext);
         AlertsTable at = new AlertsTable();
         NotificationTestManager ntm = new NotificationTestManager(at.mAlerts,
                 AlertService.MAX_NOTIFICATIONS);
@@ -468,7 +445,7 @@ public class AlertServiceTest extends AndroidTestCase {
     public void testGenerateAlerts_multiple() {
         int maxNotifications = 10;
         MockSharedPreferences prefs = new MockSharedPreferences();
-        MockAlarmManager alarmMgr = new MockAlarmManager();
+        MockAlarmManager alarmMgr = new MockAlarmManager(mContext);
         AlertsTable at = new AlertsTable();
         NotificationTestManager ntm = new NotificationTestManager(at.mAlerts, maxNotifications);
 
@@ -541,7 +518,7 @@ public class AlertServiceTest extends AndroidTestCase {
     @SmallTest
     public void testGenerateAlerts_maxAlerts() {
         MockSharedPreferences prefs = new MockSharedPreferences();
-        MockAlarmManager alarmMgr = new MockAlarmManager();
+        MockAlarmManager alarmMgr = new MockAlarmManager(mContext);
         AlertsTable at = new AlertsTable();
 
         // Current time - 5:00
@@ -625,14 +602,14 @@ public class AlertServiceTest extends AndroidTestCase {
 
         // If this does not result in a failure (MockSharedPreferences fails for duplicate
         // queries), then test passes.
-        AlertService.generateAlerts(mContext, ntm, new MockAlarmManager(), prefs,
+        AlertService.generateAlerts(mContext, ntm, new MockAlarmManager(mContext), prefs,
                 at.getAlertCursor(), currentTime, AlertService.MAX_NOTIFICATIONS);
     }
 
     public void testGenerateAlerts_refreshTime() {
         AlertsTable at = new AlertsTable();
         MockSharedPreferences prefs = new MockSharedPreferences();
-        MockAlarmManager alarmMgr = new MockAlarmManager();
+        MockAlarmManager alarmMgr = new MockAlarmManager(mContext);
         NotificationTestManager ntm = new NotificationTestManager(at.mAlerts,
                 AlertService.MAX_NOTIFICATIONS);
 
@@ -648,28 +625,30 @@ public class AlertServiceTest extends AndroidTestCase {
         yesterday.set(System.currentTimeMillis() - DateUtils.DAY_IN_MILLIS);
         Time tomorrow = new Time();
         tomorrow.set(System.currentTimeMillis() + DateUtils.DAY_IN_MILLIS);
-        long allDayStart = createTimeInMillis(0, 0, 0, day, month, year, Time.TIMEZONE_UTC);
+        long allDayStart = Utils.createTimeInMillis(0, 0, 0, day, month, year, Time.TIMEZONE_UTC);
 
         /* today 10am - 10:30am */
         int id4 = at.addAlertRow(4, SCHEDULED, ACCEPTED, 0,
-                createTimeInMillis(0, 0, 10, day, month, year, Time.getCurrentTimezone()),
-                createTimeInMillis(0, 30, 10, day, month, year, Time.getCurrentTimezone()), 0);
+                Utils.createTimeInMillis(0, 0, 10, day, month, year, Time.getCurrentTimezone()),
+                Utils.createTimeInMillis(0, 30, 10, day, month, year, Time.getCurrentTimezone()),
+                        0);
         /* today 6am - 6am (0 duration event) */
         int id3 = at.addAlertRow(3, SCHEDULED, ACCEPTED, 0,
-                createTimeInMillis(0, 0, 6, day, month, year, Time.getCurrentTimezone()),
-                createTimeInMillis(0, 0, 6, day, month, year, Time.getCurrentTimezone()), 0);
+                Utils.createTimeInMillis(0, 0, 6, day, month, year, Time.getCurrentTimezone()),
+                Utils.createTimeInMillis(0, 0, 6, day, month, year, Time.getCurrentTimezone()), 0);
         /* today allDay */
         int id2 = at.addAlertRow(2, SCHEDULED, ACCEPTED, 1, allDayStart,
                 allDayStart + DateUtils.HOUR_IN_MILLIS * 24, 0);
         /* yesterday 11pm - today 7am (multiday event) */
         int id1 = at.addAlertRow(1, SCHEDULED, ACCEPTED, 0,
-                createTimeInMillis(0, 0, 23, yesterday.monthDay, yesterday.month, yesterday.year,
-                        Time.getCurrentTimezone()),
-                createTimeInMillis(0, 0, 7, day, month, year, Time.getCurrentTimezone()), 0);
+                Utils.createTimeInMillis(0, 0, 23, yesterday.monthDay, yesterday.month,
+                        yesterday.year, Time.getCurrentTimezone()),
+                Utils.createTimeInMillis(0, 0, 7, day, month, year, Time.getCurrentTimezone()), 0);
 
         // Test at midnight - next refresh should be 15 min later (15 min into the all
         // day event).
-        long currentTime = createTimeInMillis(0, 0, 0, day, month, year, Time.getCurrentTimezone());
+        long currentTime = Utils.createTimeInMillis(0, 0, 0, day, month, year,
+                Time.getCurrentTimezone());
         alarmMgr.expectAlarmTime(AlarmManager.RTC, currentTime + 15 * DateUtils.MINUTE_IN_MILLIS);
         ntm.expectTestNotification(4, id1, PRIORITY_HIGH);
         ntm.expectTestNotification(3, id2, PRIORITY_HIGH);
@@ -680,7 +659,8 @@ public class AlertServiceTest extends AndroidTestCase {
         ntm.validateNotificationsAndReset();
 
         // Test at 12:30am - next refresh should be 30 min later (1/4 into event 'id1').
-        currentTime = createTimeInMillis(0, 30, 0, day, month, year, Time.getCurrentTimezone());
+        currentTime = Utils.createTimeInMillis(0, 30, 0, day, month, year,
+                Time.getCurrentTimezone());
         alarmMgr.expectAlarmTime(AlarmManager.RTC, currentTime + 30 * DateUtils.MINUTE_IN_MILLIS);
         ntm.expectTestNotification(3, id1, PRIORITY_HIGH);
         ntm.expectTestNotification(2, id3, PRIORITY_HIGH);
@@ -691,7 +671,8 @@ public class AlertServiceTest extends AndroidTestCase {
         ntm.validateNotificationsAndReset();
 
         // Test at 5:55am - next refresh should be 20 min later (15 min after 'id3').
-        currentTime = createTimeInMillis(0, 55, 5, day, month, year, Time.getCurrentTimezone());
+        currentTime = Utils.createTimeInMillis(0, 55, 5, day, month, year,
+                Time.getCurrentTimezone());
         alarmMgr.expectAlarmTime(AlarmManager.RTC, currentTime + 20 * DateUtils.MINUTE_IN_MILLIS);
         ntm.expectTestNotification(2, id3, PRIORITY_HIGH);
         ntm.expectTestNotification(1, id4, PRIORITY_HIGH);
@@ -702,7 +683,8 @@ public class AlertServiceTest extends AndroidTestCase {
         ntm.validateNotificationsAndReset();
 
         // Test at 10:14am - next refresh should be 1 min later (15 min into event 'id4').
-        currentTime = createTimeInMillis(0, 14, 10, day, month, year, Time.getCurrentTimezone());
+        currentTime = Utils.createTimeInMillis(0, 14, 10, day, month, year,
+                Time.getCurrentTimezone());
         alarmMgr.expectAlarmTime(AlarmManager.RTC, currentTime + 1 * DateUtils.MINUTE_IN_MILLIS);
         ntm.expectTestNotification(1, id4, PRIORITY_HIGH);
         ntm.expectTestNotification(2, id2, PRIORITY_DEFAULT);
@@ -713,9 +695,10 @@ public class AlertServiceTest extends AndroidTestCase {
         ntm.validateNotificationsAndReset();
 
         // Test at 10:15am - next refresh should be tomorrow midnight (end of all day event 'id2').
-        currentTime = createTimeInMillis(0, 15, 10, day, month, year, Time.getCurrentTimezone());
-        alarmMgr.expectAlarmTime(AlarmManager.RTC, createTimeInMillis(0, 0, 23, tomorrow.monthDay,
-                tomorrow.month, tomorrow.year, Time.getCurrentTimezone()));
+        currentTime = Utils.createTimeInMillis(0, 15, 10, day, month, year,
+                Time.getCurrentTimezone());
+        alarmMgr.expectAlarmTime(AlarmManager.RTC, Utils.createTimeInMillis(0, 0, 23,
+                tomorrow.monthDay, tomorrow.month, tomorrow.year, Time.getCurrentTimezone()));
         ntm.expectTestNotification(1, id2, PRIORITY_DEFAULT);
         ntm.expectTestNotification(AlertUtils.EXPIRED_GROUP_NOTIFICATION_ID,
                 new int[] {id4, id3, id1}, PRIORITY_MIN);
@@ -730,16 +713,8 @@ public class AlertServiceTest extends AndroidTestCase {
     }
 
     private static long createTimeInMillis(int hour, int minute) {
-        return createTimeInMillis(0 /* second */, minute, hour, 1 /* day */, 1 /* month */,
+        return Utils.createTimeInMillis(0 /* second */, minute, hour, 1 /* day */, 1 /* month */,
                 2012 /* year */, Time.getCurrentTimezone());
-    }
-
-    private static long createTimeInMillis(int second, int minute, int hour, int monthDay,
-            int month, int year, String timezone) {
-        Time t = new Time(timezone);
-        t.set(second, minute, hour, monthDay, month, year);
-        t.normalize(false);
-        return t.toMillis(false);
     }
 
     @SmallTest
@@ -782,7 +757,7 @@ public class AlertServiceTest extends AndroidTestCase {
         AlertsTable at = new AlertsTable();
         at.addAlertRow(scheduledAlertEventId, SCHEDULED, ACCEPTED, 0, createTimeInMillis(9, 0),
                 createTimeInMillis(10, 0), 0);
-        at.addAlertRow(firedAlertEventId, FIRED, ACCEPTED, 0, createTimeInMillis(10, 0),
+        at.addAlertRow(firedAlertEventId, FIRED, ACCEPTED, 0, createTimeInMillis(4, 0),
                 createTimeInMillis(10, 30), 0);
 
         ArrayList<NotificationInfo> highPriority = new ArrayList<NotificationInfo>();
@@ -864,8 +839,8 @@ public class AlertServiceTest extends AndroidTestCase {
     @SmallTest
     public void testProcessQuery_recurringAllDayEvent() {
         int eventId = 1;
-        long day1 = createTimeInMillis(0, 0, 0, 1, 5, 2012, Time.TIMEZONE_UTC);
-        long day2 = createTimeInMillis(0, 0, 0, 2, 5, 2012, Time.TIMEZONE_UTC);
+        long day1 = Utils.createTimeInMillis(0, 0, 0, 1, 5, 2012, Time.TIMEZONE_UTC);
+        long day2 = Utils.createTimeInMillis(0, 0, 0, 2, 5, 2012, Time.TIMEZONE_UTC);
 
         ArrayList<NotificationInfo> highPriority = new ArrayList<NotificationInfo>();
         ArrayList<NotificationInfo> mediumPriority = new ArrayList<NotificationInfo>();
@@ -890,7 +865,7 @@ public class AlertServiceTest extends AndroidTestCase {
         // Increment time just past the earlier event (to 12:10am).  The earlier one should
         // be chosen.
         highPriority.clear();
-        currentTime = createTimeInMillis(0, 10, 0, 1, 5, 2012, Time.getCurrentTimezone());
+        currentTime = Utils.createTimeInMillis(0, 10, 0, 1, 5, 2012, Time.getCurrentTimezone());
         AlertService.processQuery(at.getAlertCursor(), mContext, currentTime, highPriority,
                 mediumPriority, lowPriority);
         assertEquals(0, lowPriority.size());
@@ -901,7 +876,7 @@ public class AlertServiceTest extends AndroidTestCase {
 
         // Increment time to 15 min past the earlier event: the later one should be chosen.
         highPriority.clear();
-        currentTime = createTimeInMillis(0, 15, 0, 1, 5, 2012, Time.getCurrentTimezone());
+        currentTime = Utils.createTimeInMillis(0, 15, 0, 1, 5, 2012, Time.getCurrentTimezone());
         AlertService.processQuery(at.getAlertCursor(), mContext, currentTime, highPriority,
                 mediumPriority, lowPriority);
         assertEquals(0, lowPriority.size());

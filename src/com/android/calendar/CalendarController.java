@@ -16,13 +16,10 @@
 
 package com.android.calendar;
 
+import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_ALL_DAY;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
-
-import com.android.calendar.event.EditEventActivity;
-import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -34,17 +31,17 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
-import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.util.Pair;
+
+import com.android.calendar.event.EditEventActivity;
+import com.android.calendar.selectcalendars.SelectVisibleCalendarsActivity;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -55,10 +52,6 @@ import java.util.WeakHashMap;
 public class CalendarController {
     private static final boolean DEBUG = false;
     private static final String TAG = "CalendarController";
-    private static final String REFRESH_SELECTION = Calendars.SYNC_EVENTS + "=?";
-    private static final String[] REFRESH_ARGS = new String[] { "1" };
-    private static final String REFRESH_ORDER = Calendars.ACCOUNT_NAME + ","
-            + Calendars.ACCOUNT_TYPE;
 
     public static final String EVENT_EDIT_ON_LAUNCH = "editMode";
 
@@ -146,6 +139,7 @@ public class CalendarController {
         final int WEEK = 3;
         final int MONTH = 4;
         final int EDIT = 5;
+        final int MAX_VALUE = 5;
     }
 
     public static class EventInfo {
@@ -161,12 +155,19 @@ public class CalendarController {
         public int viewType; // one of the ViewType
         public long id; // event id
         public Time selectedTime; // the selected time in focus
-        public Time startTime; // start of a range of time.
-        public Time endTime; // end of a range of time.
+
+        // Event start and end times.  All-day events are represented in:
+        // - local time for GO_TO commands
+        // - UTC time for VIEW_EVENT and other event-related commands
+        public Time startTime;
+        public Time endTime;
+
         public int x; // x coordinate in the activity space
         public int y; // y coordinate in the activity space
         public String query; // query for a user search
         public ComponentName componentName;  // used in combination with query
+        public String eventTitle;
+        public long calendarId;
 
         /**
          * For EventType.VIEW_EVENT:
@@ -335,11 +336,35 @@ public class CalendarController {
      */
     public void sendEventRelatedEventWithExtra(Object sender, long eventType, long eventId,
             long startMillis, long endMillis, int x, int y, long extraLong, long selectedMillis) {
+        sendEventRelatedEventWithExtraWithTitleWithCalendarId(sender, eventType, eventId,
+            startMillis, endMillis, x, y, extraLong, selectedMillis, null, -1);
+    }
+
+    /**
+     * Helper for sending New/View/Edit/Delete events
+     *
+     * @param sender object of the caller
+     * @param eventType one of {@link EventType}
+     * @param eventId event id
+     * @param startMillis start time
+     * @param endMillis end time
+     * @param x x coordinate in the activity space
+     * @param y y coordinate in the activity space
+     * @param extraLong default response value for the "simple event view" and all day indication.
+     *        Use Attendees.ATTENDEE_STATUS_NONE for no response.
+     * @param selectedMillis The time to specify as selected
+     * @param title The title of the event
+     * @param calendarId The id of the calendar which the event belongs to
+     */
+    public void sendEventRelatedEventWithExtraWithTitleWithCalendarId(Object sender, long eventType,
+          long eventId, long startMillis, long endMillis, int x, int y, long extraLong,
+          long selectedMillis, String title, long calendarId) {
         EventInfo info = new EventInfo();
         info.eventType = eventType;
         if (eventType == EventType.EDIT_EVENT || eventType == EventType.VIEW_EVENT_DETAILS) {
             info.viewType = ViewType.CURRENT;
         }
+
         info.id = eventId;
         info.startTime = new Time(Utils.getTimeZone(mContext, mUpdateTimezone));
         info.startTime.set(startMillis);
@@ -354,9 +379,10 @@ public class CalendarController {
         info.x = x;
         info.y = y;
         info.extraLong = extraLong;
+        info.eventTitle = title;
+        info.calendarId = calendarId;
         this.sendEvent(sender, info);
     }
-
     /**
      * Helper for sending non-calendar-event events
      *
@@ -431,11 +457,11 @@ public class CalendarController {
         }
 
         if (DEBUG) {
-            Log.e(TAG, "vvvvvvvvvvvvvvv");
-            Log.e(TAG, "Start  " + (event.startTime == null ? "null" : event.startTime.toString()));
-            Log.e(TAG, "End    " + (event.endTime == null ? "null" : event.endTime.toString()));
-            Log.e(TAG, "Select " + (event.selectedTime == null ? "null" : event.selectedTime.toString()));
-            Log.e(TAG, "mTime  " + (mTime == null ? "null" : mTime.toString()));
+            Log.d(TAG, "vvvvvvvvvvvvvvv");
+            Log.d(TAG, "Start  " + (event.startTime == null ? "null" : event.startTime.toString()));
+            Log.d(TAG, "End    " + (event.endTime == null ? "null" : event.endTime.toString()));
+            Log.d(TAG, "Select " + (event.selectedTime == null ? "null" : event.selectedTime.toString()));
+            Log.d(TAG, "mTime  " + (mTime == null ? "null" : mTime.toString()));
         }
 
         long startMillis = 0;
@@ -468,11 +494,11 @@ public class CalendarController {
             event.startTime = mTime;
         }
         if (DEBUG) {
-            Log.e(TAG, "Start  " + (event.startTime == null ? "null" : event.startTime.toString()));
-            Log.e(TAG, "End    " + (event.endTime == null ? "null" : event.endTime.toString()));
-            Log.e(TAG, "Select " + (event.selectedTime == null ? "null" : event.selectedTime.toString()));
-            Log.e(TAG, "mTime  " + (mTime == null ? "null" : mTime.toString()));
-            Log.e(TAG, "^^^^^^^^^^^^^^^");
+            Log.d(TAG, "Start  " + (event.startTime == null ? "null" : event.startTime.toString()));
+            Log.d(TAG, "End    " + (event.endTime == null ? "null" : event.endTime.toString()));
+            Log.d(TAG, "Select " + (event.selectedTime == null ? "null" : event.selectedTime.toString()));
+            Log.d(TAG, "mTime  " + (mTime == null ? "null" : mTime.toString()));
+            Log.d(TAG, "^^^^^^^^^^^^^^^");
         }
 
         // Store the eventId if we're entering edit event
@@ -566,7 +592,8 @@ public class CalendarController {
             long endTime = (event.endTime == null) ? -1 : event.endTime.toMillis(false);
             if (event.eventType == EventType.CREATE_EVENT) {
                 launchCreateEvent(event.startTime.toMillis(false), endTime,
-                        event.extraLong == EXTRA_CREATE_ALL_DAY);
+                        event.extraLong == EXTRA_CREATE_ALL_DAY, event.eventTitle,
+                        event.calendarId);
                 return;
             } else if (event.eventType == EventType.VIEW_EVENT) {
                 launchViewEvent(event.id, event.startTime.toMillis(false), endTime,
@@ -700,14 +727,24 @@ public class CalendarController {
         mContext.startActivity(intent);
     }
 
-    private void launchCreateEvent(long startMillis, long endMillis, boolean allDayEvent) {
+    private void launchCreateEvent(long startMillis, long endMillis, boolean allDayEvent,
+            String title, long calendarId) {
+        Intent intent = generateCreateEventIntent(startMillis, endMillis, allDayEvent, title,
+            calendarId);
+        mEventId = -1;
+        mContext.startActivity(intent);
+    }
+
+    public Intent generateCreateEventIntent(long startMillis, long endMillis,
+        boolean allDayEvent, String title, long calendarId) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setClass(mContext, EditEventActivity.class);
         intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
         intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
         intent.putExtra(EXTRA_EVENT_ALL_DAY, allDayEvent);
-        mEventId = -1;
-        mContext.startActivity(intent);
+        intent.putExtra(Events.CALENDAR_ID, calendarId);
+        intent.putExtra(Events.TITLE, title);
+        return intent;
     }
 
     public void launchViewEvent(long eventId, long startMillis, long endMillis, int response) {

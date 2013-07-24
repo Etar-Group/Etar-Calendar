@@ -156,6 +156,9 @@ public class SearchActivity extends Activity implements CalendarController.Event
             } else {
                 query = intent.getStringExtra(SearchManager.QUERY);
             }
+            if ("TARDIS".equalsIgnoreCase(query)) {
+                Utils.tardis();
+            }
             initFragments(millis, query);
         }
     }
@@ -188,10 +191,10 @@ public class SearchActivity extends Activity implements CalendarController.Event
 
             mEventInfoFragment = new EventInfoFragment(this, event.id,
                     event.startTime.toMillis(false), event.endTime.toMillis(false),
-                    event.getResponse(), false, EventInfoFragment.DIALOG_WINDOW_STYLE);
+                    event.getResponse(), false, EventInfoFragment.DIALOG_WINDOW_STYLE,
+                    null /* No reminders to explicitly pass in. */);
             ft.replace(R.id.agenda_event_info, mEventInfoFragment);
             ft.commit();
-            mController.registerEventHandler(R.id.agenda_event_info, mEventInfoFragment);
         } else {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event.id);
@@ -238,7 +241,6 @@ public class SearchActivity extends Activity implements CalendarController.Event
             ft.remove(mEventInfoFragment);
             ft.commit();
             mEventInfoFragment = null;
-            mController.deregisterEventHandler(R.id.agenda_event_info);
             mCurrentEventId = -1;
         }
     }

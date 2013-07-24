@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Colors;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Reminders;
 import android.text.TextUtils;
@@ -59,6 +60,11 @@ public class EditEventHelper {
 
     private static final boolean DEBUG = false;
 
+    // Used for parsing rrules for special cases.
+    private EventRecurrence mEventRecurrence = new EventRecurrence();
+
+    private static final String NO_EVENT_COLOR = "";
+
     public static final String[] EVENT_PROJECTION = new String[] {
             Events._ID, // 0
             Events.TITLE, // 1
@@ -82,6 +88,9 @@ public class EditEventHelper {
             Events.GUESTS_CAN_MODIFY, // 19
             Events.ORIGINAL_ID, // 20
             Events.STATUS, // 21
+            Events.CALENDAR_COLOR, // 22
+            Events.EVENT_COLOR, // 23
+            Events.EVENT_COLOR_KEY // 24
     };
     protected static final int EVENT_INDEX_ID = 0;
     protected static final int EVENT_INDEX_TITLE = 1;
@@ -105,6 +114,9 @@ public class EditEventHelper {
     protected static final int EVENT_INDEX_GUESTS_CAN_MODIFY = 19;
     protected static final int EVENT_INDEX_ORIGINAL_ID = 20;
     protected static final int EVENT_INDEX_EVENT_STATUS = 21;
+    protected static final int EVENT_INDEX_CALENDAR_COLOR = 22;
+    protected static final int EVENT_INDEX_EVENT_COLOR = 23;
+    protected static final int EVENT_INDEX_EVENT_COLOR_KEY = 24;
 
     public static final String[] REMINDERS_PROJECTION = new String[] {
             Reminders._ID, // 0
@@ -191,6 +203,22 @@ public class EditEventHelper {
 
     static final String CALENDARS_WHERE = Calendars._ID + "=?";
 
+    static final String[] COLORS_PROJECTION = new String[] {
+        Colors._ID, // 0
+        Colors.ACCOUNT_NAME,
+        Colors.ACCOUNT_TYPE,
+        Colors.COLOR, // 1
+        Colors.COLOR_KEY // 2
+    };
+
+    static final String COLORS_WHERE = Colors.ACCOUNT_NAME + "=? AND " + Colors.ACCOUNT_TYPE +
+        "=? AND " + Colors.COLOR_TYPE + "=" + Colors.TYPE_EVENT;
+
+    static final int COLORS_INDEX_ACCOUNT_NAME = 1;
+    static final int COLORS_INDEX_ACCOUNT_TYPE = 2;
+    static final int COLORS_INDEX_COLOR = 3;
+    static final int COLORS_INDEX_COLOR_KEY = 4;
+
     static final String[] ATTENDEES_PROJECTION = new String[] {
             Attendees._ID, // 0
             Attendees.ATTENDEE_NAME, // 1
@@ -219,8 +247,13 @@ public class EditEventHelper {
         }
     }
 
-    public EditEventHelper(Context context, CalendarEventModel model) {
+    public EditEventHelper(Context context) {
         mService = ((AbstractCalendarActivity)context).getAsyncQueryService();
+    }
+
+    public EditEventHelper(Context context, CalendarEventModel model) {
+        this(context);
+        // TODO: Remove unnecessary constructor.
     }
 
     /**
@@ -1039,6 +1072,14 @@ public class EditEventHelper {
         model.mIsOrganizer = model.mOwnerAccount.equalsIgnoreCase(model.mOrganizer);
         model.mGuestsCanModify = cursor.getInt(EVENT_INDEX_GUESTS_CAN_MODIFY) != 0;
 
+        int rawEventColor;
+        if (cursor.isNull(EVENT_INDEX_EVENT_COLOR)) {
+            rawEventColor = cursor.getInt(EVENT_INDEX_CALENDAR_COLOR);
+        } else {
+            rawEventColor = cursor.getInt(EVENT_INDEX_EVENT_COLOR);
+        }
+        model.setEventColor(Utils.getDisplayColorFromColor(rawEventColor));
+
         if (accessLevel > 0) {
             // For now the array contains the values 0, 2, and 3. We subtract
             // one to make it easier to handle in code as 0,1,2.
@@ -1095,7 +1136,11 @@ public class EditEventHelper {
 
             model.mCalendarAccessLevel = cursor.getInt(CALENDARS_INDEX_ACCESS_LEVEL);
             model.mCalendarDisplayName = cursor.getString(CALENDARS_INDEX_DISPLAY_NAME);
-            model.mCalendarColor = cursor.getInt(CALENDARS_INDEX_COLOR);
+            model.setCalendarColor(Utils.getDisplayColorFromColor(
+                    cursor.getInt(CALENDARS_INDEX_COLOR)));
+
+            model.mCalendarAccountName = cursor.getString(CALENDARS_INDEX_ACCOUNT_NAME);
+            model.mCalendarAccountType = cursor.getString(CALENDARS_INDEX_ACCOUNT_TYPE);
 
             model.mCalendarMaxReminders = cursor.getInt(CALENDARS_INDEX_MAX_REMINDERS);
             model.mCalendarAllowedReminders = cursor.getString(CALENDARS_INDEX_ALLOWED_REMINDERS);
@@ -1179,6 +1224,7 @@ public class EditEventHelper {
 
         startTime.set(model.mStart);
         endTime.set(model.mEnd);
+        offsetStartTimeIfNecessary(startTime, endTime, rrule, model);
 
         ContentValues values = new ContentValues();
 
@@ -1243,8 +1289,87 @@ public class EditEventHelper {
         }
         values.put(Events.ACCESS_LEVEL, accessLevel);
         values.put(Events.STATUS, model.mEventStatus);
-
+        if (model.isEventColorInitialized()) {
+            if (model.getEventColor() == model.getCalendarColor()) {
+                values.put(Events.EVENT_COLOR_KEY, NO_EVENT_COLOR);
+            } else {
+                values.put(Events.EVENT_COLOR_KEY, model.getEventColorKey());
+            }
+        }
         return values;
+    }
+
+    /**
+     * If the recurrence rule is such that the event start date doesn't actually fall in one of the
+     * recurrences, then push the start date up to the first actual instance of the event.
+     */
+    private void offsetStartTimeIfNecessary(Time startTime, Time endTime, String rrule,
+            CalendarEventModel model) {
+        if (rrule == null || rrule.isEmpty()) {
+            // No need to waste any time with the parsing if the rule is empty.
+            return;
+        }
+
+        mEventRecurrence.parse(rrule);
+        // Check if we meet the specific special case. It has to:
+        //  * be weekly
+        //  * not recur on the same day of the week that the startTime falls on
+        // In this case, we'll need to push the start time to fall on the first day of the week
+        // that is part of the recurrence.
+        if (mEventRecurrence.freq != EventRecurrence.WEEKLY) {
+            // Not weekly so nothing to worry about.
+            return;
+        }
+        if (mEventRecurrence.byday.length > mEventRecurrence.bydayCount) {
+            // This shouldn't happen, but just in case something is weird about the recurrence.
+            return;
+        }
+
+        // Start to figure out what the nearest weekday is.
+        int closestWeekday = Integer.MAX_VALUE;
+        int weekstart = EventRecurrence.day2TimeDay(mEventRecurrence.wkst);
+        int startDay = startTime.weekDay;
+        for (int i = 0; i < mEventRecurrence.bydayCount; i++) {
+            int day = EventRecurrence.day2TimeDay(mEventRecurrence.byday[i]);
+            if (day == startDay) {
+                // Our start day is one of the recurring days, so we're good.
+                return;
+            }
+
+            if (day < weekstart) {
+                // Let's not make any assumptions about what weekstart can be.
+                day += 7;
+            }
+            // We either want the earliest day that is later in the week than startDay ...
+            if (day > startDay && (day < closestWeekday || closestWeekday < startDay)) {
+                closestWeekday = day;
+            }
+            // ... or if there are no days later than startDay, we want the earliest day that is
+            // earlier in the week than startDay.
+            if (closestWeekday == Integer.MAX_VALUE || closestWeekday < startDay) {
+                // We haven't found a day that's later in the week than startDay yet.
+                if (day < closestWeekday) {
+                    closestWeekday = day;
+                }
+            }
+        }
+
+        // We're here, so unfortunately our event's start day is not included in the days of
+        // the week of the recurrence. To save this event correctly we'll need to push the start
+        // date to the closest weekday that *is* part of the recurrence.
+        if (closestWeekday < startDay) {
+            closestWeekday += 7;
+        }
+        int daysOffset = closestWeekday - startDay;
+        startTime.monthDay += daysOffset;
+        endTime.monthDay += daysOffset;
+        long newStartTime = startTime.normalize(true);
+        long newEndTime = endTime.normalize(true);
+
+        // Later we'll actually be using the values from the model rather than the startTime
+        // and endTime themselves, so we need to make these changes to the model as well.
+        model.mStart = newStartTime;
+        model.mEnd = newEndTime;
     }
 
     /**

@@ -60,16 +60,16 @@
     <string name="event_delete" msgid="2386667193277770442">"Futa tukio"</string>
     <string name="goto_today" msgid="9162136434410891230">"Leo"</string>
     <string name="menu_preferences" msgid="9120238479503233925">"Mipangilio"</string>
-    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalenda za kuonyesha"</string>
+    <string name="menu_select_visible_calendars" msgid="735670432781741817">"Kalenda za kuonyeshwa"</string>
     <string name="search" msgid="550656004486017426">"Tafuta"</string>
     <string name="hide_controls" msgid="830320505938520882">"Ficha vidhibiti"</string>
     <string name="show_controls" msgid="715520586028062621">"Onyesha vidhibiti"</string>
-    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalenda za kuonyesha"</string>
-    <string name="synced" msgid="7913940305983383493">"imesawazishwa"</string>
+    <string name="select_visible_calendars_title" msgid="7944393060991949882">"Kalenda za kuonyeshwa"</string>
+    <string name="synced" msgid="7913940305983383493">"Vilivyosawazishwa"</string>
     <string name="not_synced" msgid="4275114941801829419">"haijasawazishwa"</string>
     <string name="acct_not_synced" msgid="6126800985681230627">"Akaunti hii hailandanishwi na huenda kalenda zako zaweza kuwa hazijasasishwa."</string>
     <string name="accounts" msgid="849401841083180306">"Akaunti na usawazishaji"</string>
-    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalenda za kulandanisha"</string>
+    <string name="select_synced_calendars_title" msgid="7916084873075901448">"Kalenda za kusawazisha"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Kalenda za kusawazisha"</string>
     <string name="hint_what" msgid="709155115005044531">"Jina la tukio"</string>
     <string name="hint_where" msgid="4972598001033801974">"Mahali"</string>
@@ -80,24 +80,30 @@
     <string name="empty_event" msgid="9018699257414338634">"Tukio tupu halikuundwa."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Mialiko itatumwa."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Visasisho vitatumwa."</string>
+    <string name="create_event_dialog_save" msgid="1080859798521717414">"Hifadhi"</string>
     <string name="alert_title" msgid="7869592820853066853">"Arifa za kalenda"</string>
     <string name="event_info_title" msgid="56024222340421620">"Tazama tukio"</string>
     <string name="event_info_title_invite" msgid="9160326363769403865">"Mwaliko wa mktutano"</string>
-    <string name="edit_event_to_label" msgid="795012981218062421">"Kwa"</string>
-    <string name="edit_event_from_label" msgid="174999102612666115">"Kutoka"</string>
+    <string name="edit_event_to_label" msgid="795012981218062421">"Hadi"</string>
+    <string name="edit_event_from_label" msgid="174999102612666115">"Kuanzia"</string>
     <string name="edit_event_all_day_label" msgid="6200181113992136073">"Siku nzima"</string>
     <string name="edit_event_calendar_label" msgid="4556498359505856900">"Kalenda"</string>
     <string name="edit_event_show_all" msgid="4558049350756058301">"Onyesha zote"</string>
     <string name="description_label" msgid="7193475046717505855">"Maelezo"</string>
-    <string name="presence_label" msgid="6169724148441175862">"Nionyeshe kama"</string>
+    <string name="presence_label" msgid="6169724148441175862">"Onyesha kuwa"</string>
     <string name="privacy_label" msgid="9215031965259597335">"Faragha"</string>
-    <string name="reminders_label" msgid="7292389181815525676">"Ongeza kumbosho"</string>
+    <string name="reminders_label" msgid="7292389181815525676">"Ongeza kumbusho"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Hakuna kalenda"</string>
-    <string name="no_calendars_found" msgid="8968682716053492187">"Kabla ya kuongeza tukio, unapaswa kuongeza angalau akaunti moja ya Kalenda kwa kifaa chako na kufanya kalenda ionekane. Gusa Ongeza Akaunti ili kuongeza akaunti (kama umeongeza akaunti, subiri imalize kulandanisha na ujaribu tena). Au gusa Ghairi na uhakikishe kuwa angalau kalenda moja inaonekana."</string>
+    <string name="no_calendars_found" msgid="8968682716053492187">"Kabla ya kuongeza tukio, sharti uongeze angalau akaunti moja ya Kalenda kwenye kifaa chako na ufanye kalenda ionekane. Gusa Ongeza Akaunti ili uongeze akaunti (kama umeongeza akaunti sasa hivi, subiri imalize kusawazishwa na ujaribu tena). Au gusa Ghairi na uhakikishe kuwa angalau kalenda moja inaonekana."</string>
     <string name="create_an_account_desc" msgid="7249605109240576895">"Kalenda inafanya kazi vizuri ukiwa na Akaunti ya Google. "\n" "\n" • Iangalie kwa kutumia kivinjari chochote "\n" • Tunza matukio yako kwa usalama."</string>
     <string name="add_account" msgid="1669072099756774952">"Ongeza akaunti"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalenda:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Mwandalizi:"</string>
+    <string name="choose_event_color_label" msgid="2192923501857428854">"Chagua rangi ya tukio"</string>
+    <string name="event_color_picker_dialog_title" msgid="4631938661655159511">"Rangi ya Tukio"</string>
+    <string name="event_color_set_to_default" msgid="3447218820785647967">"Fanya iwe rangi ya kawaida ya kalenda"</string>
+    <string name="calendar_color_picker_dialog_title" msgid="3595509200561433667">"Rangi ya Kalenda"</string>
+    <string name="calendar_square_color_picker_description" msgid="7430468363525563483">"Kiteua rangi"</string>
     <string name="view_event_response_label" msgid="8382281658458798329">"Unahudhuria?"</string>
     <string name="response_yes" msgid="2027484304899988350">"Ndio"</string>
     <string name="response_maybe" msgid="7791500973627841695">"Labda"</string>
@@ -106,6 +112,8 @@
     <string name="email_organizer_label" msgid="7178059542798074813">"Mratibishaji barua pepe"</string>
     <string name="email_picker_label" msgid="4808253965057791781">"Tuma barua pepe na"</string>
     <string name="event_not_found" msgid="8356864185947582727">"Tukio halikupatikana."</string>
+    <string name="map_label" msgid="8795383535586556038">"Ramani"</string>
+    <string name="call_label" msgid="2960328220008869083">"Piga simu"</string>
     <string name="quick_response_settings" msgid="6776151690686068278">"Majibu ya haraka"</string>
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Hariri majibu ya chaguo-msingi wakati wa kutumia wateja barua pepe"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Hariri majibu ya haraka"</string>
@@ -118,7 +126,7 @@
     <item msgid="4485794001743679338">"Endelea na uanze bila mimi."</item>
     <item msgid="8036557974294987511">"Samahani, Siwezi. Itabidi tupange upya."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="7265035125070482285">"Ujumbe maalum…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Andika yako binafsi…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Mwandalizi:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Makumbusho"</string>
     <string name="agenda_today" msgid="5965841338467422191">"LEO, <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -137,10 +145,20 @@
     <string name="dismiss_all_label" msgid="1834400025868091301">"Kataa zote"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Pumzisha"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Tukio la wakati mmoja"</string>
-    <string name="daily" msgid="560350706808680448">"Kila siku"</string>
+    <string name="endByDate" msgid="7654221304929538201">"; hadi <xliff:g id="DATE">%s</xliff:g>"</string>
+  <plurals name="endByCount">
+    <item quantity="one" msgid="3727754565990691816">"; kwa wakati mmoja"</item>
+    <item quantity="other" msgid="4855496837834652446">"; kwa mara <xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+  <plurals name="daily">
+    <item quantity="one" msgid="5169052946627480942">"Kila siku"</item>
+    <item quantity="other" msgid="5455230727715859264">"Kila baada ya siku <xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
     <string name="every_weekday" msgid="5896574838353902978">"Kila siku ya kazi (Jumatatu-Ijumaa)"</string>
-    <string name="weekly" msgid="2006107373119027114">"Kila wiki (kila <xliff:g id="DAYS_OF_WEEK">%s</xliff:g>)"</string>
-    <string name="monthly_on_day_count" msgid="6847991854413461795">"Kila mwezi (kila <xliff:g id="ORDINAL_NUMBER">%1$s</xliff:g> <xliff:g id="DAY_OF_WEEK">%2$s</xliff:g>)"</string>
+  <plurals name="weekly">
+    <item quantity="one" msgid="5463021019301453273">"Kila wiki siku ya <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"Kila wiki  <xliff:g id="NUMBER">%1$d</xliff:g> siku ya <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+  </plurals>
     <string name="monthly" msgid="4587116285383048586">"Kila mwezi"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Kila mwaka"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Kila mwezi (kwa siku ya <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
@@ -152,7 +170,7 @@
     <string name="modify_all_following" msgid="3017428541066390380">"Badilisha hili na matukio yote yajayo"</string>
     <string name="new_event_dialog_label" msgid="7553105224561147916">"Tukio jipya"</string>
     <string name="new_event_dialog_option" msgid="6154657379574669371">"Tukio jipya"</string>
-    <string name="delete_this_event_title" msgid="518402946676919384">"Futa tukio hili?"</string>
+    <string name="delete_this_event_title" msgid="518402946676919384">"Ungependa kufuta tukio hili?"</string>
     <string name="delete_recurring_event_title" msgid="5609046778422180206">"Unataka kufuta <xliff:g id="EVENTTITLE">%s</xliff:g>?"</string>
     <string name="change_response_title" msgid="7704714776070974984">"Badilisha jibu"</string>
     <string name="menu_general_preferences" msgid="2812705323334260708">"Mipangilio ya kawaida"</string>
@@ -185,6 +203,15 @@
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Hakuna matukio ya kalenda yatakayofanyika hivi karibuni"</string>
+    <string name="preferences_experimental_category" msgid="8111213192001230350">"Ya majaribio"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"Vikumbusho"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Ruka Vikumbusho"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Ruka Vikumbusho"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Saa za utulivu"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"Fanya kimya vikumbusho vya matukio katika wakati uliobainishwa."</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"Wakati wa kuanza kwa saa za utulivu"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"Muda wa mwisho wa Saa tulivu"</string>
+    <string name="preferences_debug_category" msgid="6203278208385095018">"Utatuaji"</string>
     <string name="copy_db" msgid="437691290566699292">"Tuma hifadhidata"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"Inatafuta <xliff:g id="DOMAIN">%s</xliff:g>…"</string>
     <string name="accessibility_remove_attendee" msgid="7082751172654698863">"Ondoa mhudhuriaji"</string>
@@ -193,6 +220,7 @@
     <string name="accessibility_pick_end_date" msgid="5624250196618643922">"Tarehe ya mwisho"</string>
     <string name="accessibility_pick_end_time" msgid="7120310166355224941">"Wakati wa kuisha"</string>
     <string name="accessibility_pick_time_zone" msgid="7155465783500323811">"Ukanda wa saa"</string>
+    <string name="accessibility_pick_recurrence" msgid="1834311617874828931">"Rudia tukio"</string>
     <string name="accessibility_add_reminder" msgid="2267950744060950152">"Ongesha kumbusho"</string>
     <string name="accessibility_remove_reminder" msgid="5261609343259665139">"Ondoa kumbusho"</string>
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Ongeza mhudhuriaji"</string>
@@ -201,7 +229,7 @@
     <string name="accessibility_repeats" msgid="1629279916830919582">"Kurudia"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Saa ya kumbusho"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Aina ya kumbusho"</string>
-    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Nionyeshe kama"</string>
+    <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Onyesha kuwa"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Faragha"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Arifa ya Kalenda"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Arifa ya Pumzisha"</string>
@@ -218,4 +246,32 @@
   </plurals>
     <string name="acessibility_selected_marker_description" msgid="3010149843148810768">"Tukio lililochaguliwa"</string>
     <string name="do_not_check" msgid="7815441673853466129">"Usikague -&gt;"</string>
+    <string name="recurrence_dialog_title" msgid="8093909645557717483">"Rudia"</string>
+    <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Usirudie kamwe"</string>
+  <plurals name="recurrence_interval_daily">
+    <item quantity="one" msgid="1205422710088692631">"Kila baada ya siku <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="707566499994398250">"Kila baada ya siku <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+  <plurals name="recurrence_interval_weekly">
+    <item quantity="one" msgid="4948681635464488351">"Kila baada ya wiki <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="7094801039989237061">"Kila baada ya wiki <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+  <plurals name="recurrence_interval_monthly">
+    <item quantity="one" msgid="4768178401603139718">"Kila baada ya mwezi <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="5419723710346646523">"Kila baada ya miezi <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+  <plurals name="recurrence_interval_yearly">
+    <item quantity="one" msgid="5819562634008179102">"Kila baada ya mwaka <xliff:g id="COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="5678653649746562060">"Kila baada ya miaka <xliff:g id="COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="recurrence_month_pattern_by_day" msgid="4400107556121003459">"katika siku sawa ya kila mwezi"</string>
+    <string name="recurrence_end_continously" msgid="6898950241634912991">"Milele"</string>
+    <string name="recurrence_end_date_label" msgid="4142791438636994952">"Hadi tarehe"</string>
+    <string name="recurrence_end_date" msgid="3693751578164711701">"Hadi <xliff:g id="DATE">%s</xliff:g>"</string>
+    <string name="recurrence_end_count_label" msgid="1233883668293087977">"Kwa matukio kadhaa"</string>
+  <plurals name="recurrence_end_count">
+    <item quantity="one" msgid="1400782968090516215">"Kwa tukio <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+    <item quantity="other" msgid="8779598489398048259">"Kwa matukio <xliff:g id="EVENT_COUNT">%d</xliff:g>"</item>
+  </plurals>
+    <string name="acessibility_recurrence_choose_end_date_description" msgid="5899029840837836711">"badilisha tarehe ya mwisho"</string>
 </resources>

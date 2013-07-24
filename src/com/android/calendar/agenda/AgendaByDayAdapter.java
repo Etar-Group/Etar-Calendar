@@ -16,22 +16,21 @@
 
 package com.android.calendar.agenda;
 
-import com.android.calendar.R;
-import com.android.calendar.Utils;
-import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.android.calendar.R;
+import com.android.calendar.Utils;
+import com.android.calendar.agenda.AgendaWindowAdapter.DayAdapterInfo;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -125,6 +124,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         return count;
     }
 
+    @Override
     public int getCount() {
         if (mRowInfo != null) {
             return mRowInfo.size();
@@ -132,6 +132,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         return mAgendaAdapter.getCount();
     }
 
+    @Override
     public Object getItem(int position) {
         if (mRowInfo != null) {
             RowInfo row = mRowInfo.get(position);
@@ -144,6 +145,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         return mAgendaAdapter.getItem(position);
     }
 
+    @Override
     public long getItemId(int position) {
         if (mRowInfo != null) {
             RowInfo row = mRowInfo.get(position);
@@ -171,6 +173,7 @@ public class AgendaByDayAdapter extends BaseAdapter {
         return (getItemViewType(position) == TYPE_DAY);
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if ((mRowInfo == null) || (position > mRowInfo.size())) {
             // If we have no row info, mAgendaAdapter returns the view.

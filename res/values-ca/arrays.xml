@@ -60,96 +60,10 @@
     <item msgid="8336577387266744930">"1 setmana"</item>
   </string-array>
   <string-array name="preferences_week_start_day_labels">
-    <item msgid="986150274035512339">"Config. reg. predet."</item>
+    <item msgid="986150274035512339">"Regió predeterminada"</item>
     <item msgid="134027225275475280">"Dissabte"</item>
     <item msgid="95029346069903091">"Diumenge"</item>
     <item msgid="5840983116375063739">"Dilluns"</item>
-  </string-array>
-  <string-array name="timezone_labels">
-    <item msgid="6833649526258274889">"Illes Marshall"</item>
-    <item msgid="7176569939440505575">"Illa de Midway"</item>
-    <item msgid="5000628410717488070">"Hawaii"</item>
-    <item msgid="3809977082338992040">"Alaska"</item>
-    <item msgid="1206600898319778734">"Hora del Pacífic"</item>
-    <item msgid="4251553449779733536">"Tijuana"</item>
-    <item msgid="4796372144693551811">"Arizona"</item>
-    <item msgid="4589419122570218444">"Chihuahua"</item>
-    <item msgid="1653398220457872326">"Hora muntanyes"</item>
-    <item msgid="229005026661478023">"Amèrica Central"</item>
-    <item msgid="1545268116831476742">"Hora central"</item>
-    <item msgid="9135129204936732090">"Ciutat de Mèxic"</item>
-    <item msgid="3703110560723049255">"Saskatchewan"</item>
-    <item msgid="5458958644945369505">"Bogotà"</item>
-    <item msgid="355450740949670294">"Hora oriental"</item>
-    <item msgid="5786717434693228701">"Veneçuela"</item>
-    <item msgid="4977886006524392240">"Hora Atl. (Barbados)"</item>
-    <item msgid="10153187433760387">"Hora Atlàn. (Canadà)"</item>
-    <item msgid="6115801678953677414">"Manaus"</item>
-    <item msgid="2593929186990540989">"Santiago"</item>
-    <item msgid="6585031589100947696">"Terranova"</item>
-    <item msgid="5295092779694537214">"Brasília"</item>
-    <item msgid="6402931335497071732">"Buenos Aires"</item>
-    <item msgid="4432313195052285856">"Grenlàndia"</item>
-    <item msgid="7938414883764011047">"Montevideo"</item>
-    <item msgid="2737154427296635021">"Mig-Atlàntic"</item>
-    <item msgid="1379490252091746679">"Açores"</item>
-    <item msgid="6212233464119368698">"Illes de Cap Verd"</item>
-    <item msgid="1810261367179140820">"Casablanca"</item>
-    <item msgid="1230179411620530148">"Londres, Dublín"</item>
-    <item msgid="372075306913304327">"Amsterdam, Berlín"</item>
-    <item msgid="9046296030447565862">"Belgrad"</item>
-    <item msgid="4921622452710220193">"Brussel·les"</item>
-    <item msgid="727296339287965963">"Sarajevo"</item>
-    <item msgid="5997630882187580225">"Windhoek"</item>
-    <item msgid="3828800493609994208">"Hora d\'Àfrica Occid."</item>
-    <item msgid="7527935722014187591">"Ammān, Jordània"</item>
-    <item msgid="672509109295227133">"Atenes, Istanbul"</item>
-    <item msgid="1835470340349221646">"Beirut, Líban"</item>
-    <item msgid="9006223109403693650">"El Caire"</item>
-    <item msgid="2877875673636361825">"Hèlsinki"</item>
-    <item msgid="4528124308590807049">"Jerusalem"</item>
-    <item msgid="7823856457885290195">"Minsk"</item>
-    <item msgid="8650995074282357197">"Harare"</item>
-    <item msgid="209523815326871285">"Bagdad"</item>
-    <item msgid="8077211460729251609">"Moscou"</item>
-    <item msgid="6103383184232804522">"Kuwait"</item>
-    <item msgid="8581935265080466099">"Nairobi"</item>
-    <item msgid="1531618843539764728">"Teheran"</item>
-    <item msgid="141548505188106312">"Bakú"</item>
-    <item msgid="5974315340250149692">"Tbilisi"</item>
-    <item msgid="3344801680659888795">"Erevan"</item>
-    <item msgid="2537944335416132075">"Dubai"</item>
-    <item msgid="5630432498109110949">"Kabul"</item>
-    <item msgid="2274762525650993846">"Islāmābād, Karachi"</item>
-    <item msgid="272153171103339242">"Ural\'sk"</item>
-    <item msgid="4757644551253886090">"Ekaterinburg"</item>
-    <item msgid="3036512479614493957">"Calcuta"</item>
-    <item msgid="4190271241277312277">"Sri Lanka"</item>
-    <item msgid="4489139826358657866">"Kàtmandu"</item>
-    <item msgid="1195461607876034232">"Astana"</item>
-    <item msgid="8777509327730950228">"Yangôn"</item>
-    <item msgid="3838899720161825998">"Krasnoiarsk"</item>
-    <item msgid="6495532062164690437">"Bangkok"</item>
-    <item msgid="4910549870048384487">"Pequín"</item>
-    <item msgid="7174954011332328153">"Hong Kong"</item>
-    <item msgid="415034182139280334">"Irkutsk"</item>
-    <item msgid="3407263784503834649">"Kuala Lumpur"</item>
-    <item msgid="6547945295249807755">"Perth"</item>
-    <item msgid="4571776847411430193">"Taipei"</item>
-    <item msgid="3043691515163887690">"Seül"</item>
-    <item msgid="6369124969606372122">"Tòquio, Osaka"</item>
-    <item msgid="8317842783685169193">"Jakutsk"</item>
-    <item msgid="6993206457323990990">"Adelaide"</item>
-    <item msgid="2431970257749452312">"Darwin"</item>
-    <item msgid="2709489188606506801">"Brisbane"</item>
-    <item msgid="6832511138206913044">"Hobart"</item>
-    <item msgid="6933429790996727761">"Sydney, Canberra"</item>
-    <item msgid="4546625974877459074">"Vladivostok"</item>
-    <item msgid="7421491250467489614">"Guam"</item>
-    <item msgid="3450367738093440984">"Magadan"</item>
-    <item msgid="5046540868552082971">"Auckland"</item>
-    <item msgid="481903191189494072">"Fiji"</item>
-    <item msgid="1926932394586102998">"Tonga"</item>
   </string-array>
   <string-array name="availability">
     <item msgid="454869065893453189">"Ocupat"</item>
@@ -192,5 +106,64 @@
     <item msgid="6248480754959562740">"Setmana"</item>
     <item msgid="4298472806133153766">"Mes"</item>
     <item msgid="5033084974413793845">"Agenda"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"Només si es rebutja"</item>
+    <item msgid="6367412240524984286">"Si es rebutja o no es contesta"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"REPETEIX DIÀRIAMENT"</item>
+    <item msgid="6300824484048337842">"REPETEIX SETMANALMENT"</item>
+    <item msgid="189361731610816256">"REPETEIX MENSUALMENT"</item>
+    <item msgid="8714177874112569158">"REPETEIX ANUALMENT"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"primer diumenge de cada mes"</item>
+    <item msgid="2557379346106451363">"segon diumenge de cada mes"</item>
+    <item msgid="7622144489915654132">"tercer diumenge de cada mes"</item>
+    <item msgid="527152448137686021">"quart diumenge de cada mes"</item>
+    <item msgid="5057483608824759350">"últim diumenge de cada mes"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"primer dilluns de cada mes"</item>
+    <item msgid="4484275849072423978">"segon dilluns de cada mes"</item>
+    <item msgid="8956169860824371383">"tercer dilluns de cada mes"</item>
+    <item msgid="6924403357659569326">"quart dilluns de cada mes"</item>
+    <item msgid="1379608815263472161">"últim dilluns de cada mes"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"primer dimarts de cada mes"</item>
+    <item msgid="9063613547307760928">"segon dimarts de cada mes"</item>
+    <item msgid="6688603328729208168">"tercer dimarts de cada mes"</item>
+    <item msgid="6695206006961533357">"quart dimarts de cada mes"</item>
+    <item msgid="8619069174889809914">"últim dimarts de cada mes"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"primer dimecres de cada mes"</item>
+    <item msgid="5059722045367799217">"segon dimecres de cada mes"</item>
+    <item msgid="7986246648229272275">"tercer dimecres de cada mes"</item>
+    <item msgid="9068566169348980801">"quart dimecres de cada mes"</item>
+    <item msgid="7976866743069062134">"últim dimecres de cada mes"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"primer dijous de cada mes"</item>
+    <item msgid="4857419136007543270">"segon dijous de cada mes"</item>
+    <item msgid="222044587450564839">"tercer dijous de cada mes"</item>
+    <item msgid="6197927556533030945">"quart dijous de cada mes"</item>
+    <item msgid="1023326923033436905">"últim dijous de cada mes"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"primer divendres de cada mes"</item>
+    <item msgid="1935608297230506940">"segon divendres de cada mes"</item>
+    <item msgid="4061877662049317599">"tercer divendres de cada mes"</item>
+    <item msgid="6856646749131820614">"quart divendres de cada mes"</item>
+    <item msgid="6533513913914859794">"últim divendres de cada mes"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"primer dissabte de cada mes"</item>
+    <item msgid="9130198690512925355">"segon dissabte de cada mes"</item>
+    <item msgid="4525736070844032405">"tercer dissabte de cada mes"</item>
+    <item msgid="422053689531707709">"quart dissabte de cada mes"</item>
+    <item msgid="5499975799312474425">"últim dissabte de cada mes"</item>
   </string-array>
 </resources>
