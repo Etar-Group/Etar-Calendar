@@ -67,7 +67,7 @@
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Anzuzeigende Kalender"</string>
     <string name="synced" msgid="7913940305983383493">"Synchronisiert"</string>
     <string name="not_synced" msgid="4275114941801829419">"Nicht synchronisiert"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Dieses Konto wird nicht synchronisiert. Ihre Kalender sind möglicherweise nicht aktuell."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Dieses Konto wird nicht synchronisiert. Ihre Kalender sind eventuell nicht aktuell."</string>
     <string name="accounts" msgid="849401841083180306">"Konten &amp; Synchronisierung"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Zu synchronisierende Kalender"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Zu synchronisierende Kalender"</string>
@@ -178,7 +178,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Einstellungen"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Einstellungen für Kalenderansicht"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Benachrichtigungen &amp; Erinnerungen"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgelehnte Termine ausbl."</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgelehnte Termine ausblenden"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Woche beginnt am"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Woche beginnt am"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Suchverlauf löschen"</string>
