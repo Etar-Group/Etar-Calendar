@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2010 The Android Open Source Project
+     Copyright (c) 2013, The Linux Foundation. All Rights Reserved.
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -139,6 +140,7 @@
             android:hint="@string/hint_description"
             android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
             style="@style/TextAppearance.EditEvent_Value"
+            android:imeOptions="actionDone"
             android:capitalize="sentences" />
     </LinearLayout>
 
