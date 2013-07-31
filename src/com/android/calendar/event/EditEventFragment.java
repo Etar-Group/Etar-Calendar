@@ -879,8 +879,7 @@ public class EditEventFragment extends Fragment implements EventHandler, OnColor
             // disappearing.
             final View focusedView = mActivity.getCurrentFocus();
             if (focusedView != null) {
-                mInputMethodManager.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
-                focusedView.clearFocus();
+                mInputMethodManager.hideSoftInputFromWindow(focusedView.getWindowToken(),0);
             }
         }
     }
