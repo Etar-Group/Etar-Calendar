@@ -463,4 +463,8 @@ public class DeleteEventHelper {
             mAlertDialog.dismiss();
         }
     }
+
+    public int getWhichDelete() {
+        return mWhichDelete;
+    }
 }
