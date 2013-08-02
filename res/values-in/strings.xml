@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Tambahkan pengingat"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Tak ada kalender"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Sebelum Anda dapat menambahkan suatu acara, Anda harus menambahkan setidaknya satu akun Kalender ke perangkat dan membuat kalender terlihat. Sentuh Tambahkan Akun untuk menambah akun (jika Anda baru saja menambahkan akun, tunggu sampai akun ini selesai disinkronkan dan coba lagi). Atau sentuh Batalkan dan pastikan setidaknya satu kalender terlihat."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalender bekerja lebih baik dengan Akun Google."\n\n"• Akses dari browser web mana pun"\n"• Cadangkan acara Anda dengan aman"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalender bekerja lebih baik dengan Akun Google.\n\n• Akses dari browser web mana pun\n• Cadangkan acara Anda dengan aman"</string>
     <string name="add_account" msgid="1669072099756774952">"Tambahkan akun"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Penyelenggara:"</string>

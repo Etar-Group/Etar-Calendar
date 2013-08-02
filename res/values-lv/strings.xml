@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Pievienot atgādin."</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nav kalendāru"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Lai pievienotu kādu pasākumu, vispirms savā ierīcē pievienojiet vismaz vienu kontu pakalpojumā Kalendārs un padariet redzamu konkrētu kalendāru. Lai pievienotu kontu, pieskarieties vienumam Pievienot kontu (ja tikko jau pievienojāt kontu, gaidiet, kamēr tas tiek sinhronizēts, un mēģiniet vēlreiz). Varat arī pieskarties vienumam Atcelt un padarīt redzamu vismaz vienu kalendāru."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalendārs darbojas labāk ar Google kontu."\n\n"• Piekļuve no jebkuras tīmekļa pārlūkprogrammas"\n"• Droša pasākumu dublēšana"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalendārs darbojas labāk ar Google kontu.\n\n• Piekļuve no jebkuras tīmekļa pārlūkprogrammas\n• Droša pasākumu dublēšana"</string>
     <string name="add_account" msgid="1669072099756774952">"Pievienot kontu"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalendārs:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Rīkotājs:"</string>

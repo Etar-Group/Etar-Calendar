@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Thêm lời nhắc"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Không có lịch"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Trước khi có thể thêm sự kiện, bạn phải thêm ít nhất một tài khoản Lịch vào thiết bị của bạn và đặt lịch ở chế độ hiển thị. Chạm Thêm tài khoản để thêm tài khoản (nếu bạn vừa mới thêm tài khoản, hãy đợi tài khoản đó kết thúc đồng bộ hóa và thử lại). Hoặc chạm vào Hủy và đảm bảo ít nhất một lịch được hiển thị."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Lịch hoạt động tốt hơn với Tài khoản Google."\n\n"• Truy cập Lịch từ bất kỳ trình duyệt web nào"\n"• Sao lưu các sự kiện của bạn một cách an toàn"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Lịch hoạt động tốt hơn với Tài khoản Google.\n\n• Truy cập Lịch từ bất kỳ trình duyệt web nào\n• Sao lưu các sự kiện của bạn một cách an toàn"</string>
     <string name="add_account" msgid="1669072099756774952">"Thêm tài khoản"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Lịch:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Người tổ chức:"</string>

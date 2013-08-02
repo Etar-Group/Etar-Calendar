@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"알림 추가"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"캘린더 없음"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"일정을 추가하기 전에 기기에 하나 이상의 캘린더 계정을 추가하고 캘린더를 표시해야 합니다. 계정 추가를 터치하여 계정을 추가합니다(계정을 추가한 다음 동기화가 완료될 때까지 기다렸다가 다시 시도합니다). 또는 취소를 터치하고 적어도 하나의 캘린더가 표시되도록 합니다."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"캘린더는 Google 계정에서 사용할 때 더 효과적입니다."\n\n"• 어떤 웹 브라우저에서든 액세스하세요."\n"• 일정을 안전하게 백업하세요."</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"캘린더는 Google 계정에서 사용할 때 더 효과적입니다.\n\n• 어떤 웹 브라우저에서든 액세스하세요.\n• 일정을 안전하게 백업하세요."</string>
     <string name="add_account" msgid="1669072099756774952">"계정 추가"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"캘린더:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"주최자:"</string>
