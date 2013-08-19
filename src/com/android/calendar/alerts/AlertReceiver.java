@@ -343,8 +343,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 priority, true);
 
         // Create a new-style expanded notification
-        Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle(
-                basicBuilder);
+        Notification.BigTextStyle expandedBuilder = new Notification.BigTextStyle();
         if (description != null) {
             description = mBlankLinePattern.matcher(description).replaceAll("");
             description = description.trim();
@@ -362,7 +361,8 @@ public class AlertReceiver extends BroadcastReceiver {
             text = stringBuilder;
         }
         expandedBuilder.bigText(text);
-        notification = expandedBuilder.build();
+        basicBuilder.setStyle(expandedBuilder);
+        notification = basicBuilder.build();
 
         return new NotificationWrapper(notification, notificationId, eventId, startMillis,
                 endMillis, doPopup);
@@ -420,8 +420,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
         if (expandable) {
             // Multiple reminders.  Combine into an expanded digest notification.
-            Notification.InboxStyle expandedBuilder = new Notification.InboxStyle(
-                    notificationBuilder);
+            Notification.InboxStyle expandedBuilder = new Notification.InboxStyle();
             int i = 0;
             for (AlertService.NotificationInfo info : notificationInfos) {
                 if (i < NOTIFICATION_DIGEST_MAX_LENGTH) {
@@ -467,10 +466,10 @@ public class AlertReceiver extends BroadcastReceiver {
             // Remove the title in the expanded form (redundant with the listed items).
             expandedBuilder.setBigContentTitle("");
 
-            n = expandedBuilder.build();
-        } else {
-            n = notificationBuilder.build();
+            notificationBuilder.setStyle(expandedBuilder);
         }
+
+        n = notificationBuilder.build();
 
         NotificationWrapper nw = new NotificationWrapper(n);
         if (AlertService.DEBUG) {
