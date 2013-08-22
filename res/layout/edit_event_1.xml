@@ -309,7 +309,6 @@
             android:layout_height="wrap_content"
             android:layout_width="0dip"
             android:layout_weight="1"
-            android:layout_marginLeft="-8dip"
             android:layout_gravity="center_vertical|left"
             android:gravity="center_vertical|left"
             style="@style/TextAppearance.EditEvent_Small" />
