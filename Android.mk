@@ -31,8 +31,6 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
         android-support-v4 \
         calendar-common
 
-LOCAL_SDK_VERSION := current
-
 LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dirs))
 
 LOCAL_PACKAGE_NAME := Calendar
