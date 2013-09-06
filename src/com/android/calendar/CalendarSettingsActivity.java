@@ -112,6 +112,12 @@ public class CalendarSettingsActivity extends PreferenceActivity {
         super.onPause();
     }
 
+    @Override
+    protected boolean isValidFragment(String fragmentName) {
+        // This activity is not exported so we can just approve everything
+        return true;
+    }
+
     Runnable mCheckAccounts = new Runnable() {
         @Override
         public void run() {
