@@ -17,26 +17,24 @@
 
 package com.android.calendar;
 
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_NONE;
-import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_TENTATIVE;
-import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
-import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.AsyncQueryHandler;
+import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.calendarcommon2.DateException;
 import com.android.calendarcommon2.Duration;
@@ -144,11 +142,14 @@ public class GoogleCalendarUriIntentFilter extends Activity {
             Uri uri = intent.getData();
             if (uri != null) {
                 String[] eidParts = extractEidAndEmail(uri);
-                if (debug) Log.d(TAG, "eidParts=" + eidParts );
-
-                if (eidParts != null) {
-                    final String selection = Events._SYNC_ID + " LIKE \"%" + eidParts[0]
-                            + "\" AND " + Calendars.OWNER_ACCOUNT + " LIKE \"" + eidParts[1] + "\"";
+                if (eidParts == null) {
+                    Log.i(TAG, "Could not find event for uri: " +uri);
+                } else {
+                    final String syncId = eidParts[0];
+                    final String ownerAccount = eidParts[1];
+                    if (debug) Log.d(TAG, "eidParts=" + syncId + "/" + ownerAccount);
+                    final String selection = Events._SYNC_ID + " LIKE \"%" + syncId + "\" AND "
+                            + Calendars.OWNER_ACCOUNT + " LIKE \"" + ownerAccount + "\"";
 
                     if (debug) Log.d(TAG, "selection: " + selection);
                     Cursor eventCursor = getContentResolver().query(Events.CONTENT_URI,
@@ -156,13 +157,15 @@ public class GoogleCalendarUriIntentFilter extends Activity {
                             Calendars.CALENDAR_ACCESS_LEVEL + " desc");
                     if (debug) Log.d(TAG, "Found: " + eventCursor.getCount());
 
-                    if (eventCursor != null && eventCursor.getCount() > 0) {
-                        if (eventCursor.getCount() > 1) {
-                            Log.i(TAG, "NOTE: found " + eventCursor.getCount()
-                                    + " matches on event with id='" + eidParts[0] + "'");
-                            // Don't print eidPart[1] as it contains the user's PII
-                        }
+                    if (eventCursor == null || eventCursor.getCount() == 0) {
+                        Log.i(TAG, "NOTE: found no matches on event with id='" + syncId + "'");
+                        return;
+                    }
+                    Log.i(TAG, "NOTE: found " + eventCursor.getCount()
+                            + " matches on event with id='" + syncId + "'");
+                    // Don't print eidPart[1] as it contains the user's PII
 
+                    try {
                         // Get info from Cursor
                         while (eventCursor.moveToNext()) {
                             int eventId = eventCursor.getInt(EVENT_INDEX_ID);
@@ -194,22 +197,19 @@ public class GoogleCalendarUriIntentFilter extends Activity {
                                 }
                             }
 
-                            eventCursor.close();
-                            eventCursor = null;
-
                             // Pick up attendee status action from uri clicked
-                            int attendeeStatus = ATTENDEE_STATUS_NONE;
+                            int attendeeStatus = Attendees.ATTENDEE_STATUS_NONE;
                             if ("RESPOND".equals(uri.getQueryParameter("action"))) {
                                 try {
                                     switch (Integer.parseInt(uri.getQueryParameter("rst"))) {
                                     case 1: // Yes
-                                        attendeeStatus = ATTENDEE_STATUS_ACCEPTED;
+                                        attendeeStatus = Attendees.ATTENDEE_STATUS_ACCEPTED;
                                         break;
                                     case 2: // No
-                                        attendeeStatus = ATTENDEE_STATUS_DECLINED;
+                                        attendeeStatus = Attendees.ATTENDEE_STATUS_DECLINED;
                                         break;
                                     case 3: // Maybe
-                                        attendeeStatus = ATTENDEE_STATUS_TENTATIVE;
+                                        attendeeStatus = Attendees.ATTENDEE_STATUS_TENTATIVE;
                                         break;
                                     }
                                 } catch (NumberFormatException e) {
@@ -218,22 +218,24 @@ public class GoogleCalendarUriIntentFilter extends Activity {
                                 }
                             }
 
-                            // Send intent to calendar app
-                            Uri calendarUri = ContentUris.withAppendedId(Events.CONTENT_URI,
-                                    eventId);
+                            final Uri calendarUri = ContentUris.withAppendedId(
+                                    Events.CONTENT_URI, eventId);
                             intent = new Intent(Intent.ACTION_VIEW, calendarUri);
                             intent.setClass(this, EventInfoActivity.class);
-                            intent.putExtra(EXTRA_EVENT_BEGIN_TIME, startMillis);
-                            intent.putExtra(EXTRA_EVENT_END_TIME, endMillis);
-                            if (attendeeStatus != ATTENDEE_STATUS_NONE) {
-                                intent.putExtra(ATTENDEE_STATUS, attendeeStatus);
+                            intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startMillis);
+                            intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endMillis);
+                            if (attendeeStatus == Attendees.ATTENDEE_STATUS_NONE) {
+                                startActivity(intent);
+                            } else {
+                                updateSelfAttendeeStatus(
+                                        eventId, ownerAccount, attendeeStatus, intent);
                             }
-                            startActivity(intent);
                             finish();
                             return;
                         }
+                    } finally {
+                        eventCursor.close();
                     }
-                    if (eventCursor != null) eventCursor.close();
                 }
             }
 
@@ -245,5 +247,45 @@ public class GoogleCalendarUriIntentFilter extends Activity {
             }
         }
         finish();
+    }
+
+    private void updateSelfAttendeeStatus(
+            int eventId, String ownerAccount, final int status, final Intent intent) {
+        final ContentResolver cr = getContentResolver();
+        final AsyncQueryHandler queryHandler =
+                new AsyncQueryHandler(cr) {
+                    @Override
+                    protected void onUpdateComplete(int token, Object cookie, int result) {
+                        if (result == 0) {
+                            Log.w(TAG, "No rows updated - starting event viewer");
+                            intent.putExtra(Attendees.ATTENDEE_STATUS, status);
+                            startActivity(intent);
+                            return;
+                        }
+                        final int toastId;
+                        switch (status) {
+                            case Attendees.ATTENDEE_STATUS_ACCEPTED:
+                                toastId = R.string.rsvp_accepted;
+                                break;
+                            case Attendees.ATTENDEE_STATUS_DECLINED:
+                                toastId = R.string.rsvp_declined;
+                                break;
+                            case Attendees.ATTENDEE_STATUS_TENTATIVE:
+                                toastId = R.string.rsvp_tentative;
+                                break;
+                            default:
+                                return;
+                        }
+                        Toast.makeText(GoogleCalendarUriIntentFilter.this,
+                                toastId, Toast.LENGTH_LONG).show();
+                    }
+                };
+        final ContentValues values = new ContentValues();
+        values.put(Attendees.ATTENDEE_STATUS, status);
+        queryHandler.startUpdate(0, null,
+                Attendees.CONTENT_URI,
+                values,
+                Attendees.ATTENDEE_EMAIL + "=? AND " + Attendees.EVENT_ID + "=?",
+                new String[]{ ownerAccount, String.valueOf(eventId) });
     }
 }
