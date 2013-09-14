@@ -80,6 +80,12 @@
     <string name="empty_event" msgid="9018699257414338634">"Den tomma händelsen sparades inte."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Inbjudningar kommer att skickas."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Uppdateringar kommer att skickas."</string>
+    <!-- no translation found for rsvp_accepted (8146618862268962727) -->
+    <skip />
+    <!-- no translation found for rsvp_tentative (6545510359501328718) -->
+    <skip />
+    <!-- no translation found for rsvp_declined (8686330037802222895) -->
+    <skip />
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Spara"</string>
     <string name="alert_title" msgid="7869592820853066853">"Kalenderaviseringar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visa händelse"</string>
