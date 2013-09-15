@@ -194,7 +194,7 @@
     <string name="preferences_use_home_tz_title" msgid="5597546849968598210">"Usar hora local"</string>
     <string name="preferences_use_home_tz_descrip" msgid="4835375381297413746">"Exibe agendas e eventos no seu fuso horário local quando você viajar"</string>
     <string name="preferences_home_tz_title" msgid="6680000444088818578">"Fuso horário local"</string>
-    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar núm. da semana"</string>
+    <string name="preferences_show_week_num_title" msgid="5280734329664503461">"Mostrar Nº da semana"</string>
     <string name="preferences_about_title" msgid="2810624892412097879">"Sobre"</string>
     <string name="preferences_build_version" msgid="8242471883413502068">"Versão da compilação"</string>
     <string name="gadget_title" msgid="939918875331310945">"Agenda"</string>

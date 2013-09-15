@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="reminder_methods_labels">
+    <item msgid="5172236776878811487">"შეტყობინება"</item>
+    <item msgid="1751151680520784746">"ელფოსტა"</item>
+    <item msgid="2658001219380695677">"SMS"</item>
+    <item msgid="7926918288165444873">"მაღვიძარა"</item>
+  </string-array>
+  <string-array name="reminder_minutes_labels">
+    <item msgid="2416970002377237011">"0 წუთი"</item>
+    <item msgid="6681865010714743948">"1 წუთი"</item>
+    <item msgid="2327505114623595779">"5 წუთი"</item>
+    <item msgid="1657410063332547113">"10 წუთი"</item>
+    <item msgid="366087535181197780">"15 წუთი"</item>
+    <item msgid="6252612791145061929">"20 წუთი"</item>
+    <item msgid="7896694531989090700">"25 წუთი"</item>
+    <item msgid="8754510169374808607">"30 წუთი"</item>
+    <item msgid="3113380274218454394">"45 წუთი"</item>
+    <item msgid="8546646645868526283">"1 საათი"</item>
+    <item msgid="6467845211024768872">"2 საათი"</item>
+    <item msgid="8201677619511076575">"3 საათი"</item>
+    <item msgid="7172504281650128893">"12 საათი"</item>
+    <item msgid="9114286702181482496">"24 საათი"</item>
+    <item msgid="3107009344872997366">"2 დღე"</item>
+    <item msgid="6135563708172153696">"1 კვირა"</item>
+  </string-array>
+  <string-array name="preferences_default_reminder_labels">
+    <item msgid="7495163916242649023">"არცერთი"</item>
+    <item msgid="5883344836499335043">"0 წუთი"</item>
+    <item msgid="4354350447805231188">"1 წუთი"</item>
+    <item msgid="265674592625309858">"5 წუთი"</item>
+    <item msgid="8011089417728419666">"10 წუთი"</item>
+    <item msgid="6177098581805412986">"15 წუთი"</item>
+    <item msgid="356346660503078923">"20 წუთი"</item>
+    <item msgid="992592434377054063">"25 წუთი"</item>
+    <item msgid="9191353668596201944">"30 წუთი"</item>
+    <item msgid="1192985682962908244">"45 წუთი"</item>
+    <item msgid="1694315499429259938">"1 საათი"</item>
+    <item msgid="8281019320591769635">"2 საათი"</item>
+    <item msgid="2062931719019287773">"3 საათი"</item>
+    <item msgid="4086495711621133006">"12 საათი"</item>
+    <item msgid="3172669681920709561">"24 საათი"</item>
+    <item msgid="5557836606782821910">"2 დღე"</item>
+    <item msgid="8336577387266744930">"1 კვირა"</item>
+  </string-array>
+  <string-array name="preferences_week_start_day_labels">
+    <item msgid="986150274035512339">"ნაგულისხმევი რეგიონული პარამეტრები"</item>
+    <item msgid="134027225275475280">"შაბათი"</item>
+    <item msgid="95029346069903091">"კვირა"</item>
+    <item msgid="5840983116375063739">"ორშაბათი"</item>
+  </string-array>
+  <string-array name="availability">
+    <item msgid="454869065893453189">"დაკავებული"</item>
+    <item msgid="6228387173725732140">"ხელმისაწვდომი"</item>
+    <item msgid="2064426942462573474">"სავარაუდოდ"</item>
+  </string-array>
+  <string-array name="visibility">
+    <item msgid="3035788428581513163">"ნაგულისხმევი"</item>
+    <item msgid="5200216103966973369">"პირადი"</item>
+    <item msgid="9182342638433672664">"საჯარო"</item>
+  </string-array>
+  <string-array name="ordinal_labels">
+    <item msgid="2693927956303125332">"პირველი"</item>
+    <item msgid="5631923029483854900">"მეორე"</item>
+    <item msgid="148935502975250973">"მესამე"</item>
+    <item msgid="5124200797326669172">"მეოთხე"</item>
+    <item msgid="7564374178324652137">"ბოლო"</item>
+  </string-array>
+  <string-array name="response_labels1">
+    <item msgid="5605392595848194997">"პასუხები არ არის"</item>
+    <item msgid="3724434080904437698">"დიახ"</item>
+    <item msgid="8854145743148992583">"ალბათ"</item>
+    <item msgid="6174292185978948873">"არა"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels">
+    <item msgid="4208432367651646938">"მხოლოდ ეს ღონისძიება"</item>
+    <item msgid="1536401639805370405">"ეს და მომავალი ღონისძიებები"</item>
+    <item msgid="7833229563617435430">"ყველა ღონისძიება"</item>
+  </string-array>
+  <string-array name="delete_repeating_labels_no_selected">
+    <item msgid="1341910309321756150">"ეს და მომავალი ღონისძიებები"</item>
+    <item msgid="6315440193748139854">"ყველა ღონისძიება"</item>
+  </string-array>
+  <string-array name="change_response_labels">
+    <item msgid="3466644709343519437">"მხოლოდ ეს ღონისძიება"</item>
+    <item msgid="140670561403965380">"ყველა ღონისძიება ამ სერიებში"</item>
+  </string-array>
+  <string-array name="buttons_list">
+    <item msgid="5917946202321434335">"დღე"</item>
+    <item msgid="6248480754959562740">"კვირა"</item>
+    <item msgid="4298472806133153766">"თვე"</item>
+    <item msgid="5033084974413793845">"დღის განრიგი"</item>
+  </string-array>
+  <string-array name="preferences_skip_reminders_labels">
+    <item msgid="2285927842308686988">"მხოლოდ მაშინ, თუ უარყოფილია"</item>
+    <item msgid="6367412240524984286">"მხოლოდ მაშინ, თუ უარყოფილია ან პასუხგაუცემელი"</item>
+  </string-array>
+  <string-array name="recurrence_freq">
+    <item msgid="3388478383574917007">"ყოველდღიურად გამეორება"</item>
+    <item msgid="6300824484048337842">"ყოველკვირეულად გამეორება"</item>
+    <item msgid="189361731610816256">"ყოველთვიურად გამეორება"</item>
+    <item msgid="8714177874112569158">"ყოველწლიურად გამეორება"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sun">
+    <item msgid="143841313172233420">"ყოველ პირველ კვირას"</item>
+    <item msgid="2557379346106451363">"ყოველ მეორე კვირას"</item>
+    <item msgid="7622144489915654132">"ყოველ მესამე კვირას"</item>
+    <item msgid="527152448137686021">"ყოველ მეოთხე კვირას"</item>
+    <item msgid="5057483608824759350">"ყოველ მეხუთე კვირას"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_mon">
+    <item msgid="7539974918997689048">"ყოველ პირველ ორშაბათს"</item>
+    <item msgid="4484275849072423978">"ყოველ მეორე ორშაბათს"</item>
+    <item msgid="8956169860824371383">"ყოველ მესამე ორშაბათს"</item>
+    <item msgid="6924403357659569326">"ყოველ მეოთხე ორშაბათს"</item>
+    <item msgid="1379608815263472161">"ყოველ ბოლო ორშაბათს"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_tues">
+    <item msgid="8690802834039790777">"ყოველ პირველ სამშაბათს"</item>
+    <item msgid="9063613547307760928">"ყოველ მეორე სამშაბათს"</item>
+    <item msgid="6688603328729208168">"ყოველ მესამე სამშაბათს"</item>
+    <item msgid="6695206006961533357">"ყოველ მეოთხე სამშაბათს"</item>
+    <item msgid="8619069174889809914">"ყოველ ბოლო სამშაბათს"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_wed">
+    <item msgid="3233850232075584386">"ყოველ პირველ ოთხშაბათს"</item>
+    <item msgid="5059722045367799217">"ყოველ მეორე ოთხშაბათს"</item>
+    <item msgid="7986246648229272275">"ყოველ მესამე ოთხშაბათს"</item>
+    <item msgid="9068566169348980801">"ყოველ მეოთხე ოთხშაბათს"</item>
+    <item msgid="7976866743069062134">"ყოველ ბოლო ოთხშაბათს"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_thurs">
+    <item msgid="920673677566009313">"ყოველ პირველ ხუთშაბათს"</item>
+    <item msgid="4857419136007543270">"ყოველ მეორე ხუთშაბათს"</item>
+    <item msgid="222044587450564839">"ყოველ მესამე ხუთშაბათს"</item>
+    <item msgid="6197927556533030945">"ყოველ მეოთხე ხუთშაბათს"</item>
+    <item msgid="1023326923033436905">"ყოველ ბოლო ხუთშაბათს"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_fri">
+    <item msgid="6534500380525126157">"ყოველ პირველ პარასკევს"</item>
+    <item msgid="1935608297230506940">"ყოველ მეორე პარასკევს"</item>
+    <item msgid="4061877662049317599">"ყოველ მესამე პარასკევს"</item>
+    <item msgid="6856646749131820614">"ყოველ მეოთხე პარასკევს"</item>
+    <item msgid="6533513913914859794">"ყოველ ბოლო პარასკევს"</item>
+  </string-array>
+  <string-array name="repeat_by_nth_sat">
+    <item msgid="3556369572649948699">"ყოველ პირველ შაბათს"</item>
+    <item msgid="9130198690512925355">"ყოველ მეორე შაბათს"</item>
+    <item msgid="4525736070844032405">"ყოველ მესამე შაბათს"</item>
+    <item msgid="422053689531707709">"ყოველ მეოთხე შაბათს"</item>
+    <item msgid="5499975799312474425">"ყოველ ბოლო შაბათს"</item>
+  </string-array>
+</resources>

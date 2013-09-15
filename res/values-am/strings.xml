@@ -207,10 +207,10 @@
     <string name="preferences_reminders_category" msgid="3179315692653755740">"ማስታወሻዎች"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"ማስታወሻዎችን ዝለል"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"ማስታወሻዎችን ዝለል"</string>
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"የጸጥታ ሰዓታት"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"የጸጥታ ሰዓቶች"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"የጸጥታ ክስተት ማስታወሻዎች በተገለጸው ጊዜ ላይ።"</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"የጸጥታ ሰዓታት መጀመሪያ ጊዜ"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"የጸጥታ ሰዓታት ማብቂያ ጊዜ"</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"የጸጥታ ሰዓቶች መጀመሪያ ጊዜ"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"የጸጥታ ሰዓቶች ማብቂያ ጊዜ"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"ስህተት በማስወገድ ላይ"</string>
     <string name="copy_db" msgid="437691290566699292">"የውሂብ ጎታ ላክ"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"በመፈለግ ላይ<xliff:g id="DOMAIN">%s</xliff:g>..."</string>
