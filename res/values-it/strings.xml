@@ -80,12 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Evento vuoto non creato."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Gli inviti verranno inviati."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Gli aggiornamenti verranno inviati."</string>
-    <!-- no translation found for rsvp_accepted (8146618862268962727) -->
-    <skip />
-    <!-- no translation found for rsvp_tentative (6545510359501328718) -->
-    <skip />
-    <!-- no translation found for rsvp_declined (8686330037802222895) -->
-    <skip />
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Ha risposto \"Sì\"."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Ha risposto \"Forse\"."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Ha risposto \"No\"."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Salva"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notifiche di Google Calendar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Visualizza evento"</string>
