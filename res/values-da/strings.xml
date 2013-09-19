@@ -252,7 +252,7 @@
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Gentag"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Gentages aldrig"</string>
   <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g> gang om dagen"</item>
+    <item quantity="one" msgid="1205422710088692631">"Hver <xliff:g id="COUNT">%d</xliff:g> dag"</item>
     <item quantity="other" msgid="707566499994398250">"Hver <xliff:g id="COUNT">%d</xliff:g>. dag"</item>
   </plurals>
   <plurals name="recurrence_interval_weekly">

@@ -80,12 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"빈 일정은 만들 수 없습니다."</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"초대장이 전송됩니다."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"업데이트가 전송됩니다."</string>
-    <!-- no translation found for rsvp_accepted (8146618862268962727) -->
-    <skip />
-    <!-- no translation found for rsvp_tentative (6545510359501328718) -->
-    <skip />
-    <!-- no translation found for rsvp_declined (8686330037802222895) -->
-    <skip />
+    <string name="rsvp_accepted" msgid="8146618862268962727">"참석으로 응답함"</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"미정으로 응답함"</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"참석 안함으로 응답함"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"저장"</string>
     <string name="alert_title" msgid="7869592820853066853">"캘린더 알림"</string>
     <string name="event_info_title" msgid="56024222340421620">"일정 보기"</string>
