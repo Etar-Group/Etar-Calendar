@@ -249,7 +249,7 @@
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Ripeti"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Nessuna ripetizione"</string>
   <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Ogni <xliff:g id="COUNT">%d</xliff:g> giorni"</item>
+    <item quantity="one" msgid="1205422710088692631">"Ogni <xliff:g id="COUNT">%d</xliff:g> giorno"</item>
     <item quantity="other" msgid="707566499994398250">"Ogni <xliff:g id="COUNT">%d</xliff:g> giorni"</item>
   </plurals>
   <plurals name="recurrence_interval_weekly">
