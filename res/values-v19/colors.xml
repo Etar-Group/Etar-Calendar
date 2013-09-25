@@ -18,7 +18,7 @@
 */
 -->
 <resources>
-    <color name="pressed">#3fcccccc</color>
-    <color name="day_event_clicked_background_color">#3fcccccc</color>
-    <color name="day_clicked_background_color">#3fcccccc</color>
+    <color name="pressed">#33999999</color>
+    <color name="day_event_clicked_background_color">#33999999</color>
+    <color name="day_clicked_background_color">#33999999</color>
 </resources>
