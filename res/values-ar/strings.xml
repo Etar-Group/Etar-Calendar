@@ -142,7 +142,7 @@
     <string name="save_label" msgid="2133599104834432589">"تم"</string>
     <string name="discard_label" msgid="2394623883289782541">"إلغاء"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"غفوة مؤقتة للكل"</string>
-    <string name="dismiss_all_label" msgid="1834400025868091301">"استبعاد الكل"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"تجاهل الكل"</string>
     <string name="snooze_label" msgid="1515893621063224666">"غفوة"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"حدث لمرة واحدة"</string>
     <string name="endByDate" msgid="7654221304929538201">"؛ حتى <xliff:g id="DATE">%s</xliff:g>"</string>
