@@ -1,0 +1,15 @@
+[submodule "external/colorpicker"]
+	path = external/colorpicker
+	url = https://github.com/CyanogenMod/android_frameworks_opt_colorpicker.git
+[submodule "external/datetimepicker"]
+	path = external/datetimepicker
+	url = https://github.com/CyanogenMod/android_frameworks_opt_datetimepicker.git
+[submodule "external/timezonepicker"]
+	path = external/timezonepicker
+	url = https://github.com/CyanogenMod/android_frameworks_opt_timezonepicker.git
+[submodule "external/calendar"]
+	path = external/calendar
+	url = https://github.com/CyanogenMod/android_frameworks_opt_calendar.git
+[submodule "external/ex"]
+	path = external/ex
+	url = https://github.com/dschuermann/standalone-calendar-frameworks-ex.git
