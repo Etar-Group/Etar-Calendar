@@ -1,0 +1,169 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.6.+'
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.8'
+}
+
+project(':external:calendar') {
+    apply plugin: 'android-library'
+
+    android {
+        compileSdkVersion 18
+        buildToolsVersion '18.1.1'
+
+        sourceSets {
+                main {
+                    manifest.srcFile 'AndroidManifest.xml'
+                    java.srcDirs = ['src']
+                    res.srcDirs = ['res']
+            }
+        }
+    }
+}
+
+project(':external:colorpicker') {
+    apply plugin: 'android-library'
+
+    android {
+        compileSdkVersion 18
+        buildToolsVersion '18.1.1'
+
+        sourceSets {
+                main {
+                    manifest.srcFile 'AndroidManifest.xml'
+                    java.srcDirs = ['src']
+                    res.srcDirs = ['res']
+            }
+        }
+    }
+}
+
+project(':external:datetimepicker') {
+    apply plugin: 'android-library'
+
+    dependencies {
+        compile 'com.android.support:support-v4:18.0.+'
+    }
+
+    android {
+        compileSdkVersion 18
+        buildToolsVersion '18.1.1'
+
+        sourceSets {
+                main {
+                    manifest.srcFile 'AndroidManifest.xml'
+                    java.srcDirs = ['src']
+                    res.srcDirs = ['res']
+            }
+        }
+    }
+}
+
+project(':external:timezonepicker') {
+    apply plugin: 'android-library'
+
+    dependencies {
+        compile 'com.android.support:support-v4:18.0.+'
+    }
+
+    android {
+        compileSdkVersion 18
+        buildToolsVersion '18.1.1'
+
+        sourceSets {
+                main {
+                    manifest.srcFile 'AndroidManifest.xml'
+                    java.srcDirs = ['src']
+                    res.srcDirs = ['res']
+            }
+        }
+    }
+}
+
+project(':external:ex:chips') {
+    apply plugin: 'android-library'
+
+    android {
+        compileSdkVersion 18
+        buildToolsVersion '18.1.1'
+
+        sourceSets {
+                main {
+                    manifest.srcFile 'AndroidManifest.xml'
+                    java.srcDirs = ['src']
+                    res.srcDirs = ['res']
+            }
+        }
+    }
+}
+
+apply plugin: 'android'
+
+dependencies {
+    compile 'com.android.support:support-v4:18.0.+'
+    compile project(':external:calendar')
+    compile project(':external:colorpicker')
+    compile project(':external:datetimepicker')
+    compile project(':external:timezonepicker')
+    compile project(':external:ex:chips')
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.1.1"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 18
+    }
+
+    sourceSets {
+            main {
+                manifest.srcFile 'AndroidManifest.xml'
+                java.srcDirs = ['src', 'external/ex/common/java'] // NOTE: this includes external/ex/common/java!
+                res.srcDirs = ['res']
+        }
+    }
+
+    /*
+     * To sign release build, create file gradle.properties in ~/.gradle/ with this content:
+     *
+     * signingStoreLocation=/home/key.store
+     * signingStorePassword=xxx
+     * signingKeyAlias=alias
+     * signingKeyPassword=xxx
+     */
+    if (project.hasProperty('signingStoreLocation') &&
+            project.hasProperty('signingStorePassword') &&
+            project.hasProperty('signingKeyAlias') &&
+            project.hasProperty('signingKeyPassword')) {
+        println "Found sign properties in gradle.properties! Signing build…"
+        
+        signingConfigs {
+            release {
+                storeFile file(signingStoreLocation)
+                storePassword signingStorePassword
+                keyAlias signingKeyAlias
+                keyPassword signingKeyPassword
+            }
+        }
+
+        buildTypes.release.signingConfig = signingConfigs.release
+    } else {
+        buildTypes.release.signingConfig = null
+    }
+}
