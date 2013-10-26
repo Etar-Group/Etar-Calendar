@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Штогод"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Штомесяц (у дзень <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Штогод (па <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Карыстальніцкія (не атрымліваецца наладзіць на планшэце)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Карыстальніцкія (не атрымліваецца наладзіць на тэлефоне)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Змяніць толькі гэта мерапрыемства"</string>
     <string name="modify_all" msgid="4421657265864209041">"Паслядоўная змена ўсіх мерапрыемстваў."</string>

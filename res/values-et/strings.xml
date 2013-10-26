@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Iga aasta"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Igakuine (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>. kuupäeval)"</string>
     <string name="yearly" msgid="8576208380302949002">"Iga-aastane (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Kohandatud (ei saa kohandada tahvelarvutile)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Kohandatud (ei saa kohandada telefonis)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Muutke ainult seda sündmust"</string>
     <string name="modify_all" msgid="4421657265864209041">"Muutke kõiki seeria sündmusi"</string>

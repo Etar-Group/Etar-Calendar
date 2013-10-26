@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Yılda bir"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Ayda bir (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>. günde)"</string>
     <string name="yearly" msgid="8576208380302949002">"Yılda bir (<xliff:g id="DATES">%s</xliff:g> tarihinde)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Özel (tablette özelleştirilemez)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Özel (telefonda özelleştirilemez)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Yalnızca bu etkinliği değiştir"</string>
     <string name="modify_all" msgid="4421657265864209041">"Serideki tüm etkinlikleri değiştir"</string>

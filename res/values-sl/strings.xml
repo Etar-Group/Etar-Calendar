@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Letno"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Mesečno (na dan <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Letno (na <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Po meri (prilagajanje ni mogoče v tabličnem računalniku)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Po meri (prilagajanje ni mogoče v telefonu)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Spremeni samo ta dogodek"</string>
     <string name="modify_all" msgid="4421657265864209041">"Spremeni vse dogodke v nizu"</string>

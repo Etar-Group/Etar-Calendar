@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"매년"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"매월(<xliff:g id="DAY_OF_MONTH">%s</xliff:g>일)"</string>
     <string name="yearly" msgid="8576208380302949002">"매년(<xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"사용자 설정(태블릿에서는 할 수 없음)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"사용자 설정(휴대전화에서는 할 수 없음)"</string>
     <string name="modify_event" msgid="5982876409997142690">"이번 일정만 변경합니다."</string>
     <string name="modify_all" msgid="4421657265864209041">"모든 반복일정을 변경합니다."</string>

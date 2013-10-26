@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"כל שנה"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"מדי חודש (ביום <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"מדי שנה (בתאריכים <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"מותאם אישית (לא ניתן לבצע התאמה אישית בטבלט)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"מותאם אישית (לא ניתן לבצע התאמה אישית בטלפון)"</string>
     <string name="modify_event" msgid="5982876409997142690">"שנה אירוע זה בלבד"</string>
     <string name="modify_all" msgid="4421657265864209041">"שנה את כל האירועים בסדרה"</string>

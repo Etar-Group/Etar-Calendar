@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Évente"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Havonta (a(z) <xliff:g id="DAY_OF_MONTH">%s</xliff:g>. napon)"</string>
     <string name="yearly" msgid="8576208380302949002">"Évente (nap: <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Egyéni... (táblagépen nem állítható be)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Egyéni... (telefonon nem állítható be)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Csak a jelen esemény módosítása"</string>
     <string name="modify_all" msgid="4421657265864209041">"A sorozat összes eseményének módosítása"</string>

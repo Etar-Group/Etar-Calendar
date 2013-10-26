@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Årligt"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Månedligt (den <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Årligt (den <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Tilpasset (kan ikke tilpasses på tablet)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Tilpasset (kan ikke tilpasses på telefon)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Rediger kun denne begivenhed"</string>
     <string name="modify_all" msgid="4421657265864209041">"Rediger alle begivenheder i rækken"</string>

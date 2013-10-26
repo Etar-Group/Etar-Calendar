@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Yearly"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Monthly (on day <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Yearly (on <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Customise (can\'t customise on tablet)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Customise (can\'t customise on phone)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Change only this event"</string>
     <string name="modify_all" msgid="4421657265864209041">"Change all events in the series."</string>

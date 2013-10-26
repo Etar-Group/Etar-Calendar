@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Vuosittain"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Kuukausittain (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>. päivänä)"</string>
     <string name="yearly" msgid="8576208380302949002">"Vuosittain (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Muokattu (ei voi muokata tablet-laitteella)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Muokattu (ei voi muokata puhelimessa)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Muuta vain tämä tapahtuma"</string>
     <string name="modify_all" msgid="4421657265864209041">"Muuta tapahtuman kaikki toistokerrat"</string>

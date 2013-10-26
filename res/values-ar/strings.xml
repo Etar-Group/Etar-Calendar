@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"سنويًا"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"شهريًا ( يوم <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"سنويًا (بتاريخ <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"مخصص (يتعذر التخصيص على الجهاز اللوحي)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"مخصص (يتعذر التخصيص على الهاتف)"</string>
     <string name="modify_event" msgid="5982876409997142690">"تغيير هذا الحدث فقط"</string>
     <string name="modify_all" msgid="4421657265864209041">"تغيير جميع الأحداث في سلسلة الأحداث"</string>

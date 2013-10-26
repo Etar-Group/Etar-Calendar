@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Co rok"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Co miesiąc (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>. każdego miesiąca)"</string>
     <string name="yearly" msgid="8576208380302949002">"Co rok (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Niestandardowo (nie można dostosować na tablecie)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Niestandardowo (nie można dostosować na telefonie)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Zmień tylko to wydarzenie"</string>
     <string name="modify_all" msgid="4421657265864209041">"Zmień wszystkie wydarzenia w serii"</string>

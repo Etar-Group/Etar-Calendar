@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Всяка година"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Всеки месец (на <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Всяка година (на <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Персонализирано (не може да се извърши от таблет)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Персонализирано (не може да се извърши от телефон)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Промяна само на това събитие"</string>
     <string name="modify_all" msgid="4421657265864209041">"Промяна на всички събития в поредицата"</string>

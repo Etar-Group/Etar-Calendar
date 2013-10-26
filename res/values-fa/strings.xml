@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"سالانه"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"ماهانه (در روز <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"سالانه (در <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"سفارشی (سفارشی کردن در رایانهٔ لوحی امکان‌پذیر نیست)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"سفارشی (سفارشی کردن در تلفن امکان‌پذیر نیست)"</string>
     <string name="modify_event" msgid="5982876409997142690">"فقط این رویداد تغییر داده شود"</string>
     <string name="modify_all" msgid="4421657265864209041">"همه رویدادهای موجود در مجموعه‌ها تغییر داده شود"</string>

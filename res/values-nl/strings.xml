@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Jaarlijks"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Maandelijks (op dag <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Jaarlijks (op <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Aangepast (kan niet op de tablet worden aangepast)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Aangepast (kan niet op de telefoon worden aangepast)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Alleen deze afspraak wijzigen"</string>
     <string name="modify_all" msgid="4421657265864209041">"Alle afspraken in de reeks wijzigen"</string>

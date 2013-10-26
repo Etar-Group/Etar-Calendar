@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Щороку"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Щомісяця (у день: <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Щороку (дата: <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Спеціальне (неможливо налаштувати в планшетному ПК)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Спеціальне (неможливо налаштувати в телефоні)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Змінити лише цю подію"</string>
     <string name="modify_all" msgid="4421657265864209041">"Змінити всі події в серіях"</string>

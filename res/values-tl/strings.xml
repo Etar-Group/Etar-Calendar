@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Taun-taon"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Buwan-buwan (sa araw na <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Taun-taon (sa <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Custom (hindi mako-customize sa tablet)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Custom (hindi mako-customize sa telepono)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Baguhin ang kaganapang ito lamang"</string>
     <string name="modify_all" msgid="4421657265864209041">"Palitan ang lahat ng kaganapan sa serye"</string>

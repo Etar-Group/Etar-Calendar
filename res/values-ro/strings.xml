@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Anual"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Lunar (în zile de <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Anual (pe <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Personalizat (nu se poate personaliza pe tabletă)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Personalizat (nu se poate personaliza pe telefon)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Modificaţi doar acest eveniment"</string>
     <string name="modify_all" msgid="4421657265864209041">"Modificaţi toate evenimentele din serie"</string>

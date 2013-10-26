@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Ετήσια"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Κάθε μήνα (<xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Κάθε χρόνο (<xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Προσαρμοσμένο (δεν είναι δυνατή η προσαρμογή στο tablet)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Προσαρμοσμένο (δεν είναι δυνατή η προσαρμογή στο τηλέφωνο)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Αλλαγή μόνο αυτού του συμβάντος"</string>
     <string name="modify_all" msgid="4421657265864209041">"Αλλαγή όλων των συμβάντων στη σειρά."</string>

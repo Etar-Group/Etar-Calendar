@@ -163,7 +163,7 @@
     <string name="yearly_plain" msgid="3652692085322162449">"Hàng năm"</string>
     <string name="monthly_on_day" msgid="5370155265278821156">"Hàng tháng (vào ngày <xliff:g id="DAY_OF_MONTH">%s</xliff:g>)"</string>
     <string name="yearly" msgid="8576208380302949002">"Hàng năm (vào <xliff:g id="DATES">%s</xliff:g>)"</string>
-    <string name="custom" product="tablet" msgid="3806817351377723249">"Tùy chỉnh (không thể tùy chỉnh trên máy tính bảng)"</string>
+    
     <string name="custom" product="default" msgid="4137468716966004993">"Tùy chỉnh (không thể tùy chỉnh trên điện thoại)"</string>
     <string name="modify_event" msgid="5982876409997142690">"Chỉ thay đổi sự kiện này"</string>
     <string name="modify_all" msgid="4421657265864209041">"Thay đổi tất cả các sự kiện trong loạt sự kiện"</string>

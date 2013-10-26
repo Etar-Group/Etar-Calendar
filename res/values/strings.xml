@@ -442,7 +442,7 @@
          custom (non-standard) way from the usual repeat rates (such as daily,
          weekly, etc.) and that the user cannot change this on the phone
          (but only on the web). -->
-    <string name="custom" product="tablet">"Custom (can\'t customize on tablet)"</string>
+    
     <!-- This is a label for telling the user that this event repeats in
          custom (non-standard) way from the usual repeat rates (such as daily,
          weekly, etc.) and that the user cannot change this on the phone
