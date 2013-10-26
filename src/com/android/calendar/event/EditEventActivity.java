@@ -34,7 +34,7 @@ import com.android.calendar.AbstractCalendarActivity;
 import com.android.calendar.CalendarController;
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarEventModel.ReminderEntry;
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 
 import java.util.ArrayList;

@@ -18,7 +18,7 @@ package com.android.calendar.event;
 
 import com.android.calendar.CalendarEventModel.Attendee;
 import com.android.calendar.ContactsAsyncHelper;
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.event.EditEventHelper.AttendeeItem;
 import com.android.common.Rfc822Validator;

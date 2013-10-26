@@ -39,7 +39,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 
 import java.io.InputStream;
 import java.util.ArrayList;

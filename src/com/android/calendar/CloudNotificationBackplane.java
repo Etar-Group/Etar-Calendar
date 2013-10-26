@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import java.io.IOException;
 
 import android.content.Context;

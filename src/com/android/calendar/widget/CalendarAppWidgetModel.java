@@ -16,7 +16,7 @@
 
 package com.android.calendar.widget;
 
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 
 import android.content.Context;

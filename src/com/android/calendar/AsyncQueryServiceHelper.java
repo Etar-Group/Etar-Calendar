@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import com.android.calendar.AsyncQueryService.Operation;
 
 import android.app.IntentService;

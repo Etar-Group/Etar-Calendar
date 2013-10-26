@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import com.android.calendar.CalendarController.EventInfo;
 import com.android.calendar.CalendarController.EventType;
 

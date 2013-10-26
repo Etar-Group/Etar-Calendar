@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;

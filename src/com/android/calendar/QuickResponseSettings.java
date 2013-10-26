@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.EditTextPreference;

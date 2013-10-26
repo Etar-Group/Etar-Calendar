@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.ActionBar;

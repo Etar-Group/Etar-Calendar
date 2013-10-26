@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.backup.BackupManager;

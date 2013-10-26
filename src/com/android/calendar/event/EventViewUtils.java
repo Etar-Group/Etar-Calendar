@@ -16,7 +16,7 @@
 package com.android.calendar.event;
 
 import com.android.calendar.CalendarEventModel.ReminderEntry;
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 
 import android.app.Activity;
 import android.content.Context;

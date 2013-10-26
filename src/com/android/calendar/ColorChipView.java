@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;

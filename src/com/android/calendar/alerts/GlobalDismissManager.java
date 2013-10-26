@@ -34,7 +34,7 @@ import android.util.Pair;
 
 import com.android.calendar.CloudNotificationBackplane;
 import com.android.calendar.ExtensionsFactory;
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 
 import java.io.IOException;
 import java.util.HashMap;

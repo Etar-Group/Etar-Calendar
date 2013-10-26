@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import com.android.calendar.event.EditEventHelper;
 import com.android.calendarcommon2.EventRecurrence;
 

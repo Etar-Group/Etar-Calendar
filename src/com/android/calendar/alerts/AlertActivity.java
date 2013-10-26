@@ -39,7 +39,7 @@ import android.widget.ListView;
 
 import com.android.calendar.AsyncQueryService;
 import com.android.calendar.EventInfoActivity;
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 import com.android.calendar.alerts.GlobalDismissManager.AlarmId;
 

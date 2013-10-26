@@ -15,6 +15,8 @@
  */
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import static android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME;
 import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;

@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import com.android.common.contacts.BaseEmailAddressAdapter;
 import com.android.ex.chips.AccountSpecifier;
 

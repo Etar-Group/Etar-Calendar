@@ -17,6 +17,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_ACCEPTED;
 import static android.provider.CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED;

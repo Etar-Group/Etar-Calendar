@@ -16,13 +16,15 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 
 public class AboutPreferences extends PreferenceFragment {
     private static final String BUILD_VERSION = "build_version";

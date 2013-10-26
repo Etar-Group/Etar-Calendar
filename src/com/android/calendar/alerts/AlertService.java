@@ -44,7 +44,7 @@ import android.util.Log;
 
 import com.android.calendar.GeneralPreferences;
 import com.android.calendar.OtherPreferences;
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 
 import java.util.ArrayList;

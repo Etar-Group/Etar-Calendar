@@ -33,7 +33,7 @@ import android.text.format.Time;
 import android.util.Log;
 
 import com.android.calendar.EventInfoActivity;
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 
 import java.util.Locale;

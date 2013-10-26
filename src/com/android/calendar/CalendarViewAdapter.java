@@ -16,6 +16,8 @@
 
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import com.android.calendar.CalendarController.ViewType;
 
 import android.content.Context;

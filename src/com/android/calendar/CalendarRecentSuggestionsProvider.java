@@ -15,6 +15,8 @@
  */
 package com.android.calendar;
 
+import org.sufficientlysecure.standalonecalendar.R;
+
 import android.content.SearchRecentSuggestionsProvider;
 
 public class CalendarRecentSuggestionsProvider extends SearchRecentSuggestionsProvider {

@@ -36,7 +36,7 @@ import android.widget.RemoteViews;
 
 import com.android.calendar.AllInOneActivity;
 import com.android.calendar.EventInfoActivity;
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 
 /**

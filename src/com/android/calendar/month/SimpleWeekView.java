@@ -16,7 +16,7 @@
 
 package com.android.calendar.month;
 
-import com.android.calendar.R;
+import org.sufficientlysecure.standalonecalendar.R;
 import com.android.calendar.Utils;
 
 import android.app.Service;
