@@ -29,7 +29,11 @@ project(':external:calendar') {
                 main {
                     manifest.srcFile 'AndroidManifest.xml'
                     java.srcDirs = ['src']
+                    resources.srcDirs = ['src']
+                    aidl.srcDirs = ['src']
+                    renderscript.srcDirs = ['src']
                     res.srcDirs = ['res']
+                    assets.srcDirs = ['assets']
             }
         }
     }
@@ -46,7 +50,11 @@ project(':external:colorpicker') {
                 main {
                     manifest.srcFile 'AndroidManifest.xml'
                     java.srcDirs = ['src']
+                    resources.srcDirs = ['src']
+                    aidl.srcDirs = ['src']
+                    renderscript.srcDirs = ['src']
                     res.srcDirs = ['res']
+                    assets.srcDirs = ['assets']
             }
         }
     }
@@ -67,7 +75,11 @@ project(':external:datetimepicker') {
                 main {
                     manifest.srcFile 'AndroidManifest.xml'
                     java.srcDirs = ['src']
+                    resources.srcDirs = ['src']
+                    aidl.srcDirs = ['src']
+                    renderscript.srcDirs = ['src']
                     res.srcDirs = ['res']
+                    assets.srcDirs = ['assets']
             }
         }
     }
@@ -88,7 +100,11 @@ project(':external:timezonepicker') {
                 main {
                     manifest.srcFile 'AndroidManifest.xml'
                     java.srcDirs = ['src']
+                    resources.srcDirs = ['src']
+                    aidl.srcDirs = ['src']
+                    renderscript.srcDirs = ['src']
                     res.srcDirs = ['res']
+                    assets.srcDirs = ['assets']
             }
         }
     }
@@ -105,7 +121,11 @@ project(':external:ex:chips') {
                 main {
                     manifest.srcFile 'AndroidManifest.xml'
                     java.srcDirs = ['src']
+                    resources.srcDirs = ['src']
+                    aidl.srcDirs = ['src']
+                    renderscript.srcDirs = ['src']
                     res.srcDirs = ['res']
+                    assets.srcDirs = ['assets']
             }
         }
     }
@@ -135,7 +155,11 @@ android {
             main {
                 manifest.srcFile 'AndroidManifest.xml'
                 java.srcDirs = ['src', 'external/ex/common/java'] // NOTE: this includes external/ex/common/java!
+                resources.srcDirs = ['src']
+                aidl.srcDirs = ['src']
+                renderscript.srcDirs = ['src']
                 res.srcDirs = ['res']
+                assets.srcDirs = ['assets']
         }
     }
 
