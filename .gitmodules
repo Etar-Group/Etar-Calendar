@@ -6,7 +6,7 @@
 	url = https://github.com/CyanogenMod/android_frameworks_opt_datetimepicker.git
 [submodule "external/timezonepicker"]
 	path = external/timezonepicker
-	url = https://github.com/CyanogenMod/android_frameworks_opt_timezonepicker.git
+	url = https://github.com/dschuermann/standalone-calendar-timezonepicker.git
 [submodule "external/calendar"]
 	path = external/calendar
 	url = https://github.com/CyanogenMod/android_frameworks_opt_calendar.git
