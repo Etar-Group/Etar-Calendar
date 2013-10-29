@@ -91,7 +91,7 @@
     <string name="edit_event_show_all" msgid="4558049350756058301">"Alle anzeigen"</string>
     <string name="description_label" msgid="7193475046717505855">"Beschreibung"</string>
     <string name="presence_label" msgid="6169724148441175862">"Mein Status"</string>
-    <string name="privacy_label" msgid="9215031965259597335">"Datenschutz"</string>
+    <string name="privacy_label" msgid="9215031965259597335">"Vertraulichkeit"</string>
     <string name="reminders_label" msgid="7292389181815525676">"Erinnerung hinzufügen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Keine Kalender"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Damit Sie einen Termin hinzufügen können, müssen Sie mindestens ein Google Kalender-Konto zu Ihrem Gerät hinzufügen und einen Kalender sichtbar machen. Tippen Sie zum Hinzufügen eines Kontos auf \"Konto hinzufügen\". Falls Sie gerade ein Konto hinzugefügt haben, warten Sie, bis die Synchronisierung abgeschlossen ist, und versuchen Sie es dann erneut. Sie können auch auf \"Abbrechen\" tippen und sich vergewissern, dass mindestens ein Kalender sichtbar ist."</string>
@@ -230,7 +230,7 @@
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Erinnerungszeit"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Art der Erinnerung"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Mein Status"</string>
-    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Datenschutz"</string>
+    <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"Vertraulichkeit"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"Kalenderbenachrichtigung"</string>
     <string name="acessibility_snooze_notification" msgid="5007852779125102681">"Später erinnern"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"E-Mail an Gäste senden"</string>
