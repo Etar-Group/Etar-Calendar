@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"添加提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"无日历"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"您必须向设备中至少添加一个日历帐户并显示一个日历，然后才能添加活动。您可以触摸“添加帐户”以添加帐户（如果您​​刚刚添加过帐户，请等待该帐户完成同步，然后重试）。您也可以触摸“取消”，并确保至少显示了一个日历。"</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"拥有 Google 帐户可增强“日历”的功能。"\n\n"• 通过任意网络浏览器访问“日历”"\n"• 安全地备份您的活动"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"拥有 Google 帐户可增强“日历”的功能。\n\n• 通过任意网络浏览器访问“日历”\n• 安全地备份您的活动"</string>
     <string name="add_account" msgid="1669072099756774952">"添加帐户"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"日历："</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"组织者："</string>

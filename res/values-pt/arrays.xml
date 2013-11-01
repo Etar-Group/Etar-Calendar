@@ -60,7 +60,7 @@
     <item msgid="8336577387266744930">"Uma semana"</item>
   </string-array>
   <string-array name="preferences_week_start_day_labels">
-    <item msgid="986150274035512339">"Localidade padrão"</item>
+    <item msgid="986150274035512339">"Padrão local"</item>
     <item msgid="134027225275475280">"Sábado"</item>
     <item msgid="95029346069903091">"Domingo"</item>
     <item msgid="5840983116375063739">"Segunda-feira"</item>

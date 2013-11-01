@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"ማስታወሻ አክል"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"ምንም ቀንመቁጠሪያ ዎች የለዎትም"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"ክስተት ከማከልህ በፊት ቢያንስ አንድ የቀን መቁጠሪያ መለያ ወደ መሳሪያህ ማከል እና የቀን መቁጠሪያውን የሚታይ ማድረግ አለብህ:: መለያ ለማከል መለያ አክል የሚለውን ንካ (መለያ ያከልክ ከሆነ ማመሳስል እስኪጨርስ ድረስ ጠብቀውና እንደገና ሞክር):: ወይም ተወው የሚለውን ንካ እና ቢያንስ አንድ የቀን መቁጠሪያ የሚታይ መሆኑን አረጋግጥ::"</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"የቀን መቁጠሪያዎች በGoogle መለያ የተሻለ ይሰራሉ።"\n\n"• ከማንኛውም የድረ ማሰሻ ላይ ይድረሱበት።"\n"• ዝግጅቶችዎን በደንብ ያስጠብቁ"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"የቀን መቁጠሪያዎች በGoogle መለያ የተሻለ ይሰራሉ።\n\n• ከማንኛውም የድረ ማሰሻ ላይ ይድረሱበት።\n• ዝግጅቶችዎን በደንብ ያስጠብቁ"</string>
     <string name="add_account" msgid="1669072099756774952">"መለያ አክል"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"የቀን አቆጣጠር:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"አዘጋጅ፡"</string>
@@ -140,7 +140,7 @@
     <string name="edit_label" msgid="8934331258435656534">"አርትዕ"</string>
     <string name="delete_label" msgid="874742811918030739">"ሰርዝ"</string>
     <string name="save_label" msgid="2133599104834432589">"ተከናውኗል"</string>
-    <string name="discard_label" msgid="2394623883289782541">"ይቅር"</string>
+    <string name="discard_label" msgid="2394623883289782541">"ሰርዝ"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"ሁሉንም አቆይ"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"እንቢበል"</string>
     <string name="snooze_label" msgid="1515893621063224666">"ማሸለብ"</string>
@@ -207,10 +207,10 @@
     <string name="preferences_reminders_category" msgid="3179315692653755740">"ማስታወሻዎች"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"ማስታወሻዎችን ዝለል"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"ማስታወሻዎችን ዝለል"</string>
-    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"የጸጥታ ሰዓታት"</string>
+    <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"የጸጥታ ሰዓቶች"</string>
     <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"የጸጥታ ክስተት ማስታወሻዎች በተገለጸው ጊዜ ላይ።"</string>
-    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"የጸጥታ ሰዓታት መጀመሪያ ጊዜ"</string>
-    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"የጸጥታ ሰዓታት ማብቂያ ጊዜ"</string>
+    <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"የጸጥታ ሰዓቶች መጀመሪያ ጊዜ"</string>
+    <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"የጸጥታ ሰዓቶች ማብቂያ ጊዜ"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"ስህተት በማስወገድ ላይ"</string>
     <string name="copy_db" msgid="437691290566699292">"የውሂብ ጎታ ላክ"</string>
     <string name="directory_searching_fmt" msgid="1232037509095606687">"በመፈለግ ላይ<xliff:g id="DOMAIN">%s</xliff:g>..."</string>

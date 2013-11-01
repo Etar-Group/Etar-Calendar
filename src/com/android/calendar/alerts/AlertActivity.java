@@ -253,7 +253,15 @@ public class AlertActivity extends Activity implements OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
-        AlertService.updateAlertNotification(this);
+        // Can't run updateAlertNotification in main thread
+        AsyncTask task = new AsyncTask<Context, Void, Void>() {
+            @Override
+            protected Void doInBackground(Context ... params) {
+                AlertService.updateAlertNotification(params[0]);
+                return null;
+            }
+        }.execute(this);
+
 
         if (mCursor != null) {
             mCursor.deactivate();

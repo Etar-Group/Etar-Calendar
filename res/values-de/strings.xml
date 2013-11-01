@@ -67,7 +67,7 @@
     <string name="select_visible_calendars_title" msgid="7944393060991949882">"Anzuzeigende Kalender"</string>
     <string name="synced" msgid="7913940305983383493">"Synchronisiert"</string>
     <string name="not_synced" msgid="4275114941801829419">"Nicht synchronisiert"</string>
-    <string name="acct_not_synced" msgid="6126800985681230627">"Dieses Konto wird nicht synchronisiert. Ihre Kalender sind möglicherweise nicht aktuell."</string>
+    <string name="acct_not_synced" msgid="6126800985681230627">"Dieses Konto wird nicht synchronisiert. Ihre Kalender sind eventuell nicht aktuell."</string>
     <string name="accounts" msgid="849401841083180306">"Konten &amp; Synchronisierung"</string>
     <string name="select_synced_calendars_title" msgid="7916084873075901448">"Zu synchronisierende Kalender"</string>
     <string name="select_synced_calendars_button" msgid="8890542984949996251">"Zu synchronisierende Kalender"</string>
@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Erinnerung hinzufügen"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Keine Kalender"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Damit Sie einen Termin hinzufügen können, müssen Sie mindestens ein Google Kalender-Konto zu Ihrem Gerät hinzufügen und einen Kalender sichtbar machen. Tippen Sie zum Hinzufügen eines Kontos auf \"Konto hinzufügen\". Falls Sie gerade ein Konto hinzugefügt haben, warten Sie, bis die Synchronisierung abgeschlossen ist, und versuchen Sie es dann erneut. Sie können auch auf \"Abbrechen\" tippen und sich vergewissern, dass mindestens ein Kalender sichtbar ist."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Google Kalender funktioniert besser mit einem Google-Konto."\n\n"• Zugriff über jeden beliebigen Browser"\n"• Sichern von Terminen mit Schutzfunktion"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Google Kalender funktioniert besser mit einem Google-Konto.\n\n• Zugriff über jeden beliebigen Browser\n• Sichern von Terminen mit Schutzfunktion"</string>
     <string name="add_account" msgid="1669072099756774952">"Konto hinzufügen"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organizer:"</string>
@@ -178,7 +178,7 @@
     <string name="preferences_title" msgid="8045855493262131773">"Einstellungen"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"Einstellungen für Kalenderansicht"</string>
     <string name="preferences_reminder_title" msgid="5199606534191180129">"Benachrichtigungen &amp; Erinnerungen"</string>
-    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgelehnte Termine ausbl."</string>
+    <string name="preferences_hide_declined_title" msgid="1849295943669890034">"Abgelehnte Termine ausblenden"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Woche beginnt am"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Woche beginnt am"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Suchverlauf löschen"</string>
@@ -237,8 +237,8 @@
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ neuer Termin"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"Termin <xliff:g id="ITEM_INDEX">%1$s</xliff:g> von <xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
   <plurals name="Nevents">
-    <item quantity="one" msgid="5230907142214104485">"1 Ereignis"</item>
-    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> Ereignisse"</item>
+    <item quantity="one" msgid="5230907142214104485">"1 Termin"</item>
+    <item quantity="other" msgid="6093072093209431078">"<xliff:g id="COUNT">%d</xliff:g> Termine"</item>
   </plurals>
   <plurals name="N_remaining_events">
     <item quantity="one" msgid="431585781647034528">"+1 Termin"</item>

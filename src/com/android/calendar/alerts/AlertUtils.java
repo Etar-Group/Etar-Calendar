@@ -49,7 +49,6 @@ public class AlertUtils {
     public static final int EXPIRED_GROUP_NOTIFICATION_ID = 0;
 
     public static final String EVENT_ID_KEY = "eventid";
-    public static final String SHOW_EVENT_KEY = "showevent";
     public static final String EVENT_START_KEY = "eventstart";
     public static final String EVENT_END_KEY = "eventend";
     public static final String NOTIFICATION_ID_KEY = "notificationid";
@@ -88,7 +87,11 @@ public class AlertUtils {
         return new AlarmManagerInterface() {
             @Override
             public void set(int type, long triggerAtMillis, PendingIntent operation) {
-                mgr.set(type, triggerAtMillis, operation);
+                if (Utils.isKeyLimePieOrLater()) {
+                    mgr.setExact(type, triggerAtMillis, operation);
+                } else {
+                    mgr.set(type, triggerAtMillis, operation);
+                }
             }
         };
     }

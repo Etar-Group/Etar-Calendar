@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Aggiungi promemoria"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Nessun calendario"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Prima di poter aggiungere un evento, devi aggiungere almeno un account Calendar al dispositivo e impostare un calendario come visibile. Tocca Aggiungi account per aggiungere un account (se hai appena aggiunto un account, attendi che venga completata la sincronizzazione e riprova). In alternativa, tocca Annulla e assicurati che sia visibile almeno un calendario."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"L\'applicazione Calendario funziona meglio con un account Google."\n\n"• Puoi accedervi da qualsiasi browser web"\n"• Effettua il backup dei tuoi eventi in modo sicuro"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"L\'applicazione Calendario funziona meglio con un account Google.\n\n• Puoi accedervi da qualsiasi browser web\n• Effettua il backup dei tuoi eventi in modo sicuro"</string>
     <string name="add_account" msgid="1669072099756774952">"Aggiungi account"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Calendario:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Agenda:"</string>
@@ -249,7 +249,7 @@
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Ripeti"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Nessuna ripetizione"</string>
   <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"Ogni <xliff:g id="COUNT">%d</xliff:g> giorni"</item>
+    <item quantity="one" msgid="1205422710088692631">"Ogni <xliff:g id="COUNT">%d</xliff:g> giorno"</item>
     <item quantity="other" msgid="707566499994398250">"Ogni <xliff:g id="COUNT">%d</xliff:g> giorni"</item>
   </plurals>
   <plurals name="recurrence_interval_weekly">

@@ -207,6 +207,13 @@ public class Utils {
       return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     }
 
+    /**
+     * Returns whether the SDK is the KeyLimePie release or later.
+     */
+    public static boolean isKeyLimePieOrLater() {
+      return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+    }
+
     public static int getViewTypeFromIntentAndSharedPref(Activity activity) {
         Intent intent = activity.getIntent();
         Bundle extras = intent.getExtras();

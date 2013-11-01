@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"Tilføj påmindelse"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"Der er ingen kalendere"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"Før du kan tilføje en begivenhed, skal du tilføje mindst én Kalender-konto til din enhed og gøre en kalender synlig. Tryk på Tilføj konto for at tilføje en konto (hvis du lige har tilføjet en konto, så vent til den er færdig med at synkronisere, og prøv så igen). Eller tryk på Annuller, og sørg for, at mindst én kalender er synlig."</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalender fungerer bedre med en Google-konto."\n\n"• Få adgang til den fra enhver webbrowser"\n"• Sikkerhedskopier dine begivenheder på sikker vis"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"Kalender fungerer bedre med en Google-konto.\n\n• Få adgang til den fra enhver webbrowser\n• Sikkerhedskopier dine begivenheder på sikker vis"</string>
     <string name="add_account" msgid="1669072099756774952">"Tilføj konto"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"Kalender:"</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"Organisator:"</string>
@@ -249,7 +249,7 @@
     <string name="recurrence_dialog_title" msgid="8093909645557717483">"Gentag"</string>
     <string name="recurrence_dialog_title_never" msgid="2679396029776590130">"Gentages aldrig"</string>
   <plurals name="recurrence_interval_daily">
-    <item quantity="one" msgid="1205422710088692631">"<xliff:g id="COUNT">%d</xliff:g> gang om dagen"</item>
+    <item quantity="one" msgid="1205422710088692631">"Hver <xliff:g id="COUNT">%d</xliff:g> dag"</item>
     <item quantity="other" msgid="707566499994398250">"Hver <xliff:g id="COUNT">%d</xliff:g>. dag"</item>
   </plurals>
   <plurals name="recurrence_interval_weekly">

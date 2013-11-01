@@ -95,7 +95,7 @@
     <string name="reminders_label" msgid="7292389181815525676">"新增提醒"</string>
     <string name="no_syncable_calendars" msgid="7019488867045436129">"無日曆"</string>
     <string name="no_calendars_found" msgid="8968682716053492187">"您必須在裝置上至少新增一個「日曆」帳戶，並將一個日曆設為顯示，才能新增活動。輕觸 [新增帳戶] 即可新增帳戶 (如果您剛剛新增帳戶，請稍候片刻，待帳戶同步處理完成後再試一次)；或是輕觸 [取消]，並確認至少將一個日曆設為顯示。"</string>
-    <string name="create_an_account_desc" msgid="7249605109240576895">"透過「Google 帳戶」使用「Google 日曆」可獲得更佳的效益。"\n\n"• 透過任何瀏覽器都可存取「Google 日曆」"\n"• 安全備份您的活動"</string>
+    <string name="create_an_account_desc" msgid="7249605109240576895">"透過「Google 帳戶」使用「Google 日曆」可獲得更佳的效益。\n\n• 透過任何瀏覽器都可存取「Google 日曆」\n• 安全備份您的活動"</string>
     <string name="add_account" msgid="1669072099756774952">"新增帳戶"</string>
     <string name="view_event_calendar_label" msgid="6126231656338241140">"日曆："</string>
     <string name="view_event_organizer_label" msgid="2753151795647402277">"主辦人："</string>

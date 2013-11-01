@@ -914,7 +914,7 @@ public class EditEventHelper {
         String duration = model.mDuration;
 
         boolean isAllDay = model.mAllDay;
-        if (end > start) {
+        if (end >= start) {
             if (isAllDay) {
                 // if it's all day compute the duration in days
                 long days = (end - start + DateUtils.DAY_IN_MILLIS - 1)
@@ -1320,7 +1320,8 @@ public class EditEventHelper {
             // Not weekly so nothing to worry about.
             return;
         }
-        if (mEventRecurrence.byday.length > mEventRecurrence.bydayCount) {
+        if (mEventRecurrence.byday == null ||
+                mEventRecurrence.byday.length > mEventRecurrence.bydayCount) {
             // This shouldn't happen, but just in case something is weird about the recurrence.
             return;
         }

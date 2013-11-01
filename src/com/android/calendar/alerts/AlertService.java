@@ -216,6 +216,13 @@ public class AlertService extends Service {
                 }
             }
 
+            // If we dismissed a notification for a new event, then we need to sync the cache when
+            // an ACTION_PROVIDER_CHANGED event has been sent. Unfortunately, the data provider
+            // has a delay of CalendarProvider2.SYNC_UPDATE_BROADCAST_TIMEOUT_MILLIS (ie. 30 sec.)
+            // until it notifies us that the sync adapter has finished.
+            // TODO(psliwowski): Find a quicker way to be notified when the data provider has the
+            // syncId for event.
+            GlobalDismissManager.syncSenderDismissCache(this);
             updateAlertNotification(this);
         } else if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
             // The provider usually initiates this setting up of alarms on startup,
@@ -277,6 +284,8 @@ public class AlertService extends Service {
             return true;
         }
 
+        // Sync CalendarAlerts with global dismiss cache before query it
+        GlobalDismissManager.syncReceiverDismissCache(context);
         Cursor alertCursor = cr.query(CalendarAlerts.CONTENT_URI, ALERT_PROJECTION,
                 (ACTIVE_ALERTS_SELECTION + currentTime), ACTIVE_ALERTS_SELECTION_ARGS,
                 ACTIVE_ALERTS_SORT);
@@ -814,7 +823,7 @@ public class AlertService extends Service {
                     lowPriorityEvents.add(newInfo);
                 }
             }
-            // TODO(cwren) add beginTime/startTime
+            // TODO(psliwowski): move this to account synchronization
             GlobalDismissManager.processEventIds(context, eventIds.keySet());
         } finally {
             if (alertCursor != null) {

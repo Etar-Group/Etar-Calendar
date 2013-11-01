@@ -498,7 +498,14 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
         @Override
         public void onClick(View v) {
-
+            if (!mView.hasWindowFocus()) {
+                // Don't do anything if the activity if paused. Since Activity doesn't
+                // have a built in way to do this, we would have to implement one ourselves and
+                // either cast our Activity to a specialized activity base class or implement some
+                // generic interface that tells us if an activity is paused. hasWindowFocus() is
+                // close enough if not quite perfect.
+                return;
+            }
             if (v == mStartDateButton) {
                 mDateSelectedWasStartDate = true;
             } else {
@@ -1607,6 +1614,7 @@ public class EditEventView implements View.OnClickListener, DialogInterface.OnCa
 
     private void setTime(TextView view, long millis) {
         int flags = DateUtils.FORMAT_SHOW_TIME;
+        flags |= DateUtils.FORMAT_CAP_NOON_MIDNIGHT;
         if (DateFormat.is24HourFormat(mActivity)) {
             flags |= DateUtils.FORMAT_24HOUR;
         }
