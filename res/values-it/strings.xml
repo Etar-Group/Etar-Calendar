@@ -257,7 +257,7 @@
     <item quantity="other" msgid="7094801039989237061">"Ogni <xliff:g id="COUNT">%d</xliff:g> settimane"</item>
   </plurals>
   <plurals name="recurrence_interval_monthly">
-    <item quantity="one" msgid="4768178401603139718">"Ogni <xliff:g id="COUNT">%d</xliff:g> mesi"</item>
+    <item quantity="one" msgid="4768178401603139718">"Ogni <xliff:g id="COUNT">%d</xliff:g> mese"</item>
     <item quantity="other" msgid="5419723710346646523">"Ogni <xliff:g id="COUNT">%d</xliff:g> mesi"</item>
   </plurals>
   <plurals name="recurrence_interval_yearly">

@@ -182,7 +182,7 @@
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"Juma linaanza"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"Juma linaanza"</string>
     <string name="preferences_clear_search_history_title" msgid="6619916370215282982">"Futa historia ya utafutaji"</string>
-    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Ondoa utafutaji wote uliotekeleza"</string>
+    <string name="preferences_clear_search_history_summary" msgid="7864674093455778158">"Ondoa utafutaji wote uliofanywa"</string>
     <string name="search_history_cleared" msgid="1536707558435227567">"Historia ya utafutaji imefutwa."</string>
     <string name="preferences_alerts_title" msgid="6636088008103904020">"Taarifa"</string>
     <string name="preferences_alerts_vibrateWhen_title" msgid="8731372580674292759">"Tikisika"</string>
