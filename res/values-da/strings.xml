@@ -129,7 +129,7 @@
     <item msgid="4485794001743679338">"Gå bare i gang uden mig."</item>
     <item msgid="8036557974294987511">"Jeg kan desværre ikke nå det. Vi bliver nødt til at lave en ny aftale."</item>
   </string-array>
-    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skriv dit eget…"</string>
+    <string name="quick_response_custom_msg" msgid="8792374208224108798">"Skriv dit eget svar…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"Organisator:"</string>
     <string name="event_info_reminders_label" msgid="8913097552956388972">"Påmindelser"</string>
     <string name="agenda_today" msgid="5965841338467422191">"I DAG, <xliff:g id="DATE">%1$s</xliff:g>"</string>
