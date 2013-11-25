@@ -121,7 +121,7 @@
     <string name="quick_response_settings_summary" msgid="7878304729027355604">"Modifier réponses par défaut lors d\'envoi d\'e-mails aux invités"</string>
     <string name="quick_response_settings_title" msgid="8966517107774567031">"Modif. rép. rapides"</string>
     <string name="quick_response_settings_edit_title" msgid="6260055523174081930">"Réponse rapide"</string>
-    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Sélectionner une réponse rapide"</string>
+    <string name="quick_response_dialog_title" msgid="2681309456412199207">"Sélectionner"</string>
     <string name="quick_response_email_failed" msgid="5544066405231853245">"Impossible de trouver un programme de messagerie électronique."</string>
   <string-array name="quick_response_defaults">
     <item msgid="1524421198348168403">"Désolé, j\'aurai quelques minutes de retard."</item>
