@@ -207,7 +207,7 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"Hakuna matukio ya kalenda yatakayofanyika hivi karibuni"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"Ya majaribio"</string>
-    <string name="preferences_reminders_category" msgid="3179315692653755740">"Vikumbusho"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"Makumbusho"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"Ruka Vikumbusho"</string>
     <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"Ruka Vikumbusho"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"Saa za utulivu"</string>
