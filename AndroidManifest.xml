@@ -238,7 +238,6 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-                <data android:scheme="package"/>
             </intent-filter>
         </receiver>
 
