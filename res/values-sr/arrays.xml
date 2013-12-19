@@ -66,7 +66,7 @@
     <item msgid="5840983116375063739">"понедељак"</item>
   </string-array>
   <string-array name="availability">
-    <item msgid="454869065893453189">"Заузет/а"</item>
+    <item msgid="454869065893453189">"Заузето"</item>
     <item msgid="6228387173725732140">"Доступан/а"</item>
     <item msgid="2064426942462573474">"Проба"</item>
   </string-array>

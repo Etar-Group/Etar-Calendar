@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"Evento vacío no creado"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"Se enviarán las invitaciones."</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"Se enviarán las actualizaciones."</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"Ha respondido que irá."</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"Ha respondido que tal vez vaya."</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"Ha respondido que no irá."</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"Guardar"</string>
     <string name="alert_title" msgid="7869592820853066853">"Notificaciones de Calendar"</string>
     <string name="event_info_title" msgid="56024222340421620">"Ver evento"</string>

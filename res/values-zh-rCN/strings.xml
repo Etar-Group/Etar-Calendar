@@ -80,6 +80,9 @@
     <string name="empty_event" msgid="9018699257414338634">"无法创建空白活动。"</string>
     <string name="creating_event_with_guest" msgid="5758688413124191931">"即将发送邀请。"</string>
     <string name="saving_event_with_guest" msgid="9184584438475689577">"即将发送更新。"</string>
+    <string name="rsvp_accepted" msgid="8146618862268962727">"已回复“会参加”。"</string>
+    <string name="rsvp_tentative" msgid="6545510359501328718">"已回复“不确定”。"</string>
+    <string name="rsvp_declined" msgid="8686330037802222895">"已回复“不参加”。"</string>
     <string name="create_event_dialog_save" msgid="1080859798521717414">"保存"</string>
     <string name="alert_title" msgid="7869592820853066853">"日历通知"</string>
     <string name="event_info_title" msgid="56024222340421620">"查看活动"</string>
