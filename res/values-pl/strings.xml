@@ -160,7 +160,7 @@
     <string name="every_weekday" msgid="5896574838353902978">"Codziennie (pn-pt)"</string>
   <plurals name="weekly">
     <item quantity="one" msgid="5463021019301453273">"Co tydzień w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
-    <item quantity="other" msgid="2857390143157377867">"Co <xliff:g id="NUMBER">%1$d</xliff:g> tygodni(e) w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
+    <item quantity="other" msgid="2857390143157377867">"Co <xliff:g id="NUMBER">%1$d</xliff:g> tyg. w <xliff:g id="DAYS_OF_WEEK">%2$s</xliff:g>"</item>
   </plurals>
     <string name="monthly" msgid="4587116285383048586">"Co miesiąc"</string>
     <string name="yearly_plain" msgid="3652692085322162449">"Co rok"</string>

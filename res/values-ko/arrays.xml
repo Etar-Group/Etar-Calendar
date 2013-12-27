@@ -89,7 +89,7 @@
     <item msgid="6174292185978948873">"아니요"</item>
   </string-array>
   <string-array name="delete_repeating_labels">
-    <item msgid="4208432367651646938">"이 일정만"</item>
+    <item msgid="4208432367651646938">"이번 일정만"</item>
     <item msgid="1536401639805370405">"이번 및 향후 일정"</item>
     <item msgid="7833229563617435430">"모든 일정"</item>
   </string-array>
