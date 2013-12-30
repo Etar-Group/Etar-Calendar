@@ -38,6 +38,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.RemoteException;
 import android.provider.CalendarContract.Attendees;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
@@ -79,6 +80,9 @@ import android.widget.ViewSwitcher;
 
 import com.android.calendar.CalendarController.EventType;
 import com.android.calendar.CalendarController.ViewType;
+import com.android.lunar.ILunarService;
+import com.android.lunar.LunarUtils;
+import com.android.lunar.LunarUtils.LunarServiceConnListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -195,6 +199,24 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
     protected static StringBuilder mStringBuilder = new StringBuilder(50);
     // TODO recreate formatter when locale changes
     protected static Formatter mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
+
+    private LunarServiceConnListener mLunarServiceConnListener = new LunarServiceConnListener() {
+
+        @Override
+        public void onLunarServiceDisconnected() {
+            DAY_HEADER_HEIGHT = mNumDays == 1 ? ONE_DAY_HEADER_HEIGHT : MULTI_DAY_HEADER_HEIGHT;
+        }
+
+        @Override
+        public void onLunarServiceConnected(ILunarService service) {
+            if (service != null) {
+                DAY_HEADER_HEIGHT = mNumDays == 1 ? ONE_DAY_HEADER_HEIGHT : MULTI_DAY_HEADER_HEIGHT;
+                if (LunarUtils.showLunar() && mNumDays != 1) {
+                    DAY_HEADER_HEIGHT = (int) (DAY_HEADER_HEIGHT + DAY_HEADER_FONT_SIZE + 2);
+                }
+            }
+        }
+    };
 
     private final Runnable mTZUpdater = new Runnable() {
         @Override
@@ -772,6 +794,8 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         mScaledPagingTouchSlop = vc.getScaledPagingTouchSlop();
         mOnDownDelay = ViewConfiguration.getTapTimeout();
         OVERFLING_DISTANCE = vc.getScaledOverflingDistance();
+
+        LunarUtils.setListener(mLunarServiceConnListener);
 
         init(context);
     }
@@ -2560,8 +2584,12 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
         // Draw day of the month
         String dateNumStr = String.valueOf(dateNum);
         if (mNumDays > 1) {
-            float y = DAY_HEADER_HEIGHT - DAY_HEADER_BOTTOM_MARGIN;
-
+            float y = -1;
+            if (LunarUtils.showLunar() && LunarUtils.getService() != null) {
+                y = DAY_HEADER_HEIGHT - DAY_HEADER_BOTTOM_MARGIN - DATE_HEADER_FONT_SIZE - 2;
+            } else {
+                y = DAY_HEADER_HEIGHT - DAY_HEADER_BOTTOM_MARGIN;
+            }
             // Draw day of the month
             x = computeDayLeftPosition(day + 1) - DAY_HEADER_RIGHT_MARGIN;
             p.setTextAlign(Align.RIGHT);
@@ -2571,10 +2599,35 @@ public class DayView extends View implements View.OnCreateContextMenuListener,
             canvas.drawText(dateNumStr, x, y, p);
 
             // Draw day of the week
-            x -= p.measureText(" " + dateNumStr);
+            int dateX = (int) (x - p.measureText(" " + dateNumStr));
             p.setTextSize(DAY_HEADER_FONT_SIZE);
             p.setTypeface(Typeface.DEFAULT);
-            canvas.drawText(dayStr, x, y, p);
+            canvas.drawText(dayStr, dateX, y, p);
+
+            // To show the lunar info.
+            ILunarService service = LunarUtils.getService();
+            if (LunarUtils.showLunar() && service != null) {
+                // adjust the year and month
+                int month = mBaseDate.month;
+                int year = mBaseDate.year;
+                if (dateNum > mMonthLength || dateNum < mFirstVisibleDate) {
+                    month = month + 1;
+                    if (month > 11) {
+                        month = 0;
+                        year = year + 1;
+                    }
+                }
+
+                try {
+                    String display = service.getLunarDay(year, month, dateNum);
+                    if (!TextUtils.isEmpty(display)) {
+                        canvas.drawText(display, x, y + DAY_HEADER_FONT_SIZE + 2, p);
+                    }
+                } catch (RemoteException e) {
+                    Log.e(TAG, "RemoteException e:" + e.toString());
+                    e.printStackTrace();
+                }
+            }
         } else {
             float y = ONE_DAY_HEADER_HEIGHT - DAY_HEADER_ONE_DAY_BOTTOM_MARGIN;
             p.setTextAlign(Align.LEFT);

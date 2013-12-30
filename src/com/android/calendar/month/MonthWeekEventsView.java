@@ -19,6 +19,8 @@ package com.android.calendar.month;
 import com.android.calendar.Event;
 import com.android.calendar.R;
 import com.android.calendar.Utils;
+import com.android.lunar.ILunarService;
+import com.android.lunar.LunarUtils;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -34,6 +36,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.RemoteException;
 import android.provider.CalendarContract.Attendees;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -64,6 +67,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     /* NOTE: these are not constants, and may be multiplied by a scale factor */
     private static int TEXT_SIZE_MONTH_NUMBER = 32;
+    private static int TEXT_SIZE_LUNAR = 18;
     private static int TEXT_SIZE_EVENT = 12;
     private static int TEXT_SIZE_EVENT_TITLE = 14;
     private static int TEXT_SIZE_MORE_EVENTS = 12;
@@ -696,6 +700,12 @@ public class MonthWeekEventsView extends SimpleWeekView {
         boolean isFocusMonth = mFocusDay[i];
         boolean isBold = false;
         mMonthNumPaint.setColor(isFocusMonth ? mMonthNumColor : mMonthNumOtherColor);
+
+        // Get the julian monday used to show the lunar info.
+        int julianMonday = Utils.getJulianMondayFromWeeksSinceEpoch(mWeek);
+        Time time = new Time(mTimeZone);
+        time.setJulianDay(julianMonday);
+
         for (; i < numCount; i++) {
             if (mHasToday && todayIndex == i) {
                 mMonthNumPaint.setColor(mMonthNumTodayColor);
@@ -713,6 +723,53 @@ public class MonthWeekEventsView extends SimpleWeekView {
             canvas.drawText(mDayNumbers[i], x, y, mMonthNumPaint);
             if (isBold) {
                 mMonthNumPaint.setFakeBoldText(isBold = false);
+            }
+
+            ILunarService service = LunarUtils.getService();
+            if (LunarUtils.showLunar() && service != null) {
+                // adjust the year and month
+                int year = time.year;
+                int month = time.month;
+                int julianMondayDay = time.monthDay;
+                int monthDay = Integer.parseInt(mDayNumbers[i]);
+                if (monthDay != julianMondayDay) {
+                    int offsetDay = monthDay - julianMondayDay;
+                    if (offsetDay > 0 && offsetDay > 6) {
+                        month = month - 1;
+                        if (month < 0) {
+                            month = 11;
+                            year = year - 1;
+                        }
+                    } else if (offsetDay < 0 && offsetDay < -6) {
+                        month = month + 1;
+                        if (month > 11) {
+                            month = 0;
+                            year = year + 1;
+                        }
+                    }
+                }
+
+                try {
+                    String display = service.getLunarDay(year, month, monthDay);
+                    if (!TextUtils.isEmpty(display)) {
+                        float originalTextSize = mMonthNumPaint.getTextSize();
+                        mMonthNumPaint.setTextSize(TEXT_SIZE_LUNAR);
+                        Resources res = getResources();
+                        int mOrientation = res.getConfiguration().orientation;
+                        if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                            canvas.drawText(display, x - mMonthNumHeight - TOP_PADDING_MONTH_NUMBER,
+                                    y , mMonthNumPaint);
+                        } else {
+                            canvas.drawText(display, x, y + mMonthNumHeight
+                                    + TOP_PADDING_MONTH_NUMBER, mMonthNumPaint);
+                        }
+                        // restore the text size.
+                        mMonthNumPaint.setTextSize(originalTextSize);
+                    }
+                } catch (RemoteException e) {
+                    Log.e(TAG, "RemoteException e:" + e.toString());
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -14,8 +14,7 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="48dip"
     android:gravity="center_vertical"
@@ -29,15 +28,30 @@
         android:textSize="12sp"
         android:layout_marginTop="-2dip"
         android:layout_marginBottom="-8dip"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/calendar_view_switch_menu_text_color"
+        android:gravity="left" />
+
+    <TextView android:id="@+id/top_button_lunar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dip"
+        android:layout_marginBottom="-8dip"
+        android:layout_marginLeft="8dip"
+        android:layout_toRightOf="@id/top_button_weekday"
+        android:singleLine="true"
+        android:textSize="12sp"
         android:textColor="@color/calendar_view_switch_menu_text_color"
         android:gravity="left" />
 
     <TextView android:id="@+id/top_button_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/top_button_weekday"
         android:singleLine="true"
         android:textSize="@dimen/action_bar_date_text_size"
         android:textColor="@color/calendar_view_switch_menu_text_color"
         android:gravity="left" />
-</LinearLayout>
-
+</RelativeLayout>
