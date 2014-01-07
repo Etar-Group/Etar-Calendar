@@ -229,7 +229,7 @@
     <string name="accessibility_add_attendee" msgid="5654014177472600916">"Ajouter un participant"</string>
     <string name="accessibility_sync_cal" msgid="6506181885764723383">"Synchroniser l\'agenda"</string>
     <string name="accessibility_all_day" msgid="4146955438811915282">"Toute la journée"</string>
-    <string name="accessibility_repeats" msgid="1629279916830919582">"Récurrence"</string>
+    <string name="accessibility_repeats" msgid="1629279916830919582">"Répétition"</string>
     <string name="accessibility_reminder_time" msgid="3594100545814579575">"Heure de rappel"</string>
     <string name="accessibility_reminder_type" msgid="5339120699701437227">"Type de rappel"</string>
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"Ma disponibilité"</string>
