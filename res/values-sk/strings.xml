@@ -145,7 +145,7 @@
     <string name="save_label" msgid="2133599104834432589">"Hotovo"</string>
     <string name="discard_label" msgid="2394623883289782541">"Zrušiť"</string>
     <string name="snooze_all_label" msgid="4994488813124409077">"Odložiť všetky"</string>
-    <string name="dismiss_all_label" msgid="1834400025868091301">"Zrušiť všetko"</string>
+    <string name="dismiss_all_label" msgid="1834400025868091301">"Ignorovať všetko"</string>
     <string name="snooze_label" msgid="1515893621063224666">"Odložiť"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"Jednorazová udalosť"</string>
     <string name="endByDate" msgid="7654221304929538201">", do <xliff:g id="DATE">%s</xliff:g>"</string>
