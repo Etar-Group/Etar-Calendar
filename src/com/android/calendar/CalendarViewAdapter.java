@@ -456,7 +456,7 @@ public class CalendarViewAdapter extends BaseAdapter {
 
         // If week start and end is in 2 different months, use short months names
         Time t1 = new Time(mTimeZone);
-        t.set(weekEndTime);
+        t1.set(weekEndTime);
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_YEAR;
         if (t.month != t1.month) {
             flags |= DateUtils.FORMAT_ABBREV_MONTH;
