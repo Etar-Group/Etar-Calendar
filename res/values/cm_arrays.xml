@@ -30,7 +30,7 @@
     </string-array>
 
     <!-- Labels for the default startup page preference. -->
-    <string-array name="default_start_entries">
+    <string-array name="default_start_entries" translatable="false">
         <item>@string/default_start_last</item>
         <item>@string/day_view</item>
         <item>@string/week_view</item>
