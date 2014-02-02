@@ -20,4 +20,6 @@
     <string name="snooze_delay_dialog_title">Sæt udsættelse</string>
     <string name="preferences_default_snooze_delay_title">Tid for standard-udsættelse</string>
     <string name="preferences_default_snooze_delay_dialog">Standard-udsættelse</string>
+    <string name="default_start_title">Standardvisning</string>
+    <string name="default_start_last">Tidl. anvendt visning</string>
 </resources>
