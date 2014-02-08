@@ -20,4 +20,6 @@
     <string name="snooze_delay_dialog_title">Отложить на\u2026</string>
     <string name="preferences_default_snooze_delay_title">Повтор по умолчанию</string>
     <string name="preferences_default_snooze_delay_dialog">Повтор по умолчанию</string>
+    <string name="default_start_title">Вид по умолчанию</string>
+    <string name="default_start_last">Последний использовавшийся</string>
 </resources>
