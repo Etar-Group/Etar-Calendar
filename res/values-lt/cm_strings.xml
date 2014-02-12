@@ -21,4 +21,6 @@
     <string name="snooze_delay_dialog_title">Nustatyti snaudimo atidėjimo trukmę</string>
     <string name="preferences_default_snooze_delay_title">Numatytoji atidėjimo trukmė</string>
     <string name="preferences_default_snooze_delay_dialog">Numatytoji atidėjimo trukmė</string>
+    <string name="default_start_title">Numatytasis vaizdas</string>
+    <string name="default_start_last">Ankščiau naudotas vaizdas</string>
 </resources>
