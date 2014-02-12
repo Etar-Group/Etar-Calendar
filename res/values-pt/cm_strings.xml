@@ -20,4 +20,6 @@
     <string name="snooze_delay_dialog_title">Definir atraso da soneca</string>
     <string name="preferences_default_snooze_delay_title">Tempo padrão de atraso da soneca</string>
     <string name="preferences_default_snooze_delay_dialog">Adiar soneca padrão</string>
+    <string name="default_start_title">Tela padrão</string>
+    <string name="default_start_last">Última tela usada</string>
 </resources>
