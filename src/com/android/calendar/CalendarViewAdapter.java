@@ -485,8 +485,8 @@ public class CalendarViewAdapter extends BaseAdapter {
                 String date = Utils.formatDateRange(mContext, mMilliTime, mMilliTime,
                         DateUtils.FORMAT_SHOW_DATE);
                 if (!mLunarInfoMap.containsKey(date)) {
-                    String lunarInfo = service.getLunarStringForDayView(
-                            time.year, time.month, time.monthDay);
+                    String lunarInfo = service.getComplexLunarInfo(
+                            time.year, time.month, time.monthDay, true, false);
                     mLunarInfoMap.put(date, lunarInfo);
                 }
 
@@ -496,8 +496,8 @@ public class CalendarViewAdapter extends BaseAdapter {
                 date = Utils.formatDateRange(mContext, preMilliTime, preMilliTime,
                         DateUtils.FORMAT_SHOW_DATE);
                 if (!mLunarInfoMap.containsKey(date)) {
-                    String lunarInfo = service.getLunarStringForDayView(
-                            time.year, time.month, time.monthDay);
+                    String lunarInfo = service.getComplexLunarInfo(
+                            time.year, time.month, time.monthDay, true, false);
                     mLunarInfoMap.put(date, lunarInfo);
                 }
 
@@ -507,8 +507,8 @@ public class CalendarViewAdapter extends BaseAdapter {
                 date = Utils.formatDateRange(mContext, nextMilliTime, nextMilliTime,
                         DateUtils.FORMAT_SHOW_DATE);
                 if (!mLunarInfoMap.containsKey(date)) {
-                    String lunarInfo = service.getLunarStringForDayView(
-                            time.year, time.month, time.monthDay);
+                    String lunarInfo = service.getComplexLunarInfo(
+                            time.year, time.month, time.monthDay, true, false);
                     mLunarInfoMap.put(date, lunarInfo);
                 }
             }

@@ -67,7 +67,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
 
     /* NOTE: these are not constants, and may be multiplied by a scale factor */
     private static int TEXT_SIZE_MONTH_NUMBER = 32;
-    private static int TEXT_SIZE_LUNAR = 18;
+    private static int TEXT_SIZE_LUNAR = 20;
     private static int TEXT_SIZE_EVENT = 12;
     private static int TEXT_SIZE_EVENT_TITLE = 14;
     private static int TEXT_SIZE_MORE_EVENTS = 12;
@@ -93,6 +93,7 @@ public class MonthWeekEventsView extends SimpleWeekView {
     private static int DAY_SEPARATOR_VERTICAL_LENGTH = 53;
     private static int DAY_SEPARATOR_VERTICAL_LENGHT_PORTRAIT = 64;
     private static int MIN_WEEK_WIDTH = 50;
+    private static int LUNAR_PADDING_LUNAR = 2;
 
     private static int EVENT_X_OFFSET_LANDSCAPE = 38;
     private static int EVENT_Y_OFFSET_LANDSCAPE = 8;
@@ -750,22 +751,34 @@ public class MonthWeekEventsView extends SimpleWeekView {
                 }
 
                 try {
-                    String display = service.getLunarDay(year, month, monthDay);
-                    if (!TextUtils.isEmpty(display)) {
-                        float originalTextSize = mMonthNumPaint.getTextSize();
-                        mMonthNumPaint.setTextSize(TEXT_SIZE_LUNAR);
-                        Resources res = getResources();
-                        int mOrientation = res.getConfiguration().orientation;
+                    String[] lunarInfo = service.getLunarInfo(year, month, monthDay, true, false)
+                            .split(service.getSeparationForMultiInfo());
+
+                    float originalTextSize = mMonthNumPaint.getTextSize();
+                    mMonthNumPaint.setTextSize(TEXT_SIZE_LUNAR);
+                    Resources res = getResources();
+                    int mOrientation = res.getConfiguration().orientation;
+
+                    int num = 0;
+                    for (int index = 0; index < lunarInfo.length; index++) {
+                        String info = lunarInfo[index];
+                        if (TextUtils.isEmpty(info)) continue;
+
+                        int infoX = 0;
+                        int infoY = 0;
                         if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-                            canvas.drawText(display, x - mMonthNumHeight - TOP_PADDING_MONTH_NUMBER,
-                                    y , mMonthNumPaint);
+                            infoX = x - mMonthNumHeight - TOP_PADDING_MONTH_NUMBER;
+                            infoY = y + (mMonthNumHeight + LUNAR_PADDING_LUNAR) * num;
                         } else {
-                            canvas.drawText(display, x, y + mMonthNumHeight
-                                    + TOP_PADDING_MONTH_NUMBER, mMonthNumPaint);
+                            infoX = x;
+                            infoY = y + (mMonthNumHeight + LUNAR_PADDING_LUNAR) * (num + 1);
                         }
-                        // restore the text size.
-                        mMonthNumPaint.setTextSize(originalTextSize);
+                        canvas.drawText(info, infoX, infoY, mMonthNumPaint);
+                        num = num + 1;
                     }
+
+                    // restore the text size.
+                    mMonthNumPaint.setTextSize(originalTextSize);
                 } catch (RemoteException e) {
                     Log.e(TAG, "RemoteException e:" + e.toString());
                     e.printStackTrace();

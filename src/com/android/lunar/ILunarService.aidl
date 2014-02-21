@@ -30,21 +30,13 @@
 package com.android.lunar;
 
 interface ILunarService {
-    String getTraditionalFestivalSimple();
-    String getTraditionalFestival(int lunarYear, int lunarMonth, int lunarDay);
-    String getFestivalSimple();
-    String getFestival(int year, int month, int day);
-    String getLunarSolarTerms(int year);
-    String getAnimalsYearSimple();
-    String getAnimalsYear(int lunarYear);
-    String getChinaMonthStringSimple();
-    String getChinaMonthString(int lunarMonth, boolean isLeapMonth);
-    String getChinaDayStringSimple(boolean isDisplayLunarMonthForFirstDay);
-    String getChinaDayString(int lunarMonth, int lunarDay, boolean isLeapMonth,
-            boolean isDisplayLunarMonthForFirstDay);
-    String getChinaYearStringSimple();
-    String getChinaYearString(int lunarYear);
-    String getLunarCalendarInfo();
-    String getLunarStringForDayView(int year, int month, int monthDay);
-    String getLunarDay(int year, int month, int monthDay);
+    String getLunarInfo(int year, int month, int monthDay, boolean multipleInfo,
+            boolean appendType);
+    String getComplexLunarInfo(int year, int month, int monthDay, boolean multipleInfo,
+            boolean appendType);
+    String[] getLunarInfoForMonth(int year, int month, boolean multipleInfo, boolean appendType);
+    String getSeparationForMultiInfo();
+    String getSeparationForType();
+    String getSpecialFlag();
+    String getCommonFlag();
 }
