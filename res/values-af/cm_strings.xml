@@ -20,4 +20,6 @@
     <string name="snooze_delay_dialog_title">Stel sluimer vertraging</string>
     <string name="preferences_default_snooze_delay_title">Standaard sluimer vertragings tyd</string>
     <string name="preferences_default_snooze_delay_dialog">Standaard sluimer vertraging</string>
+    <string name="default_start_title">Standaard uitleg</string>
+    <string name="default_start_last">Voorheen gebruikte uitleg</string>
 </resources>
