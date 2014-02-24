@@ -131,7 +131,7 @@
   </string-array>
     <string name="quick_response_custom_msg" msgid="8792374208224108798">"የእራስዎን ይጻፉ…"</string>
     <string name="event_info_organizer" msgid="9138683335394832629">"አዘጋጅ፡"</string>
-    <string name="event_info_reminders_label" msgid="8913097552956388972">"ማስታወሻዎች"</string>
+    <string name="event_info_reminders_label" msgid="8913097552956388972">"አስታዋሾች"</string>
     <string name="agenda_today" msgid="5965841338467422191">"ዛሬ፣  <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_yesterday" msgid="4170964206728599693">"ትላንትና፣ <xliff:g id="DATE">%1$s</xliff:g>"</string>
     <string name="agenda_tomorrow" msgid="3893625470780723605">"ነገ፣ <xliff:g id="DATE">%1$s</xliff:g>"</string>
@@ -180,7 +180,7 @@
     <string name="menu_about_preferences" msgid="6124375438237674973">"ስለ ቀን መቁጠሪያ"</string>
     <string name="preferences_title" msgid="8045855493262131773">"ቅንብሮች"</string>
     <string name="preferences_general_title" msgid="2069075513760573117">"የቀን መቁጠሪያ ማያ ቅንብር"</string>
-    <string name="preferences_reminder_title" msgid="5199606534191180129">"ማሳወቂያዎች እና ማስታወሻዎች"</string>
+    <string name="preferences_reminder_title" msgid="5199606534191180129">"ማሳወቂያዎች እና አስታዋሾች"</string>
     <string name="preferences_hide_declined_title" msgid="1849295943669890034">"ውድቅ ክስተቶችን ደብቅ"</string>
     <string name="preferences_week_start_day_title" msgid="4619489296444901622">"ሣምንት በ ይጀምራል"</string>
     <string name="preferences_week_start_day_dialog" msgid="5181634128884089113">"ሣምንት በ ይጀምራል"</string>
@@ -207,11 +207,11 @@
   </plurals>
     <string name="gadget_no_events" msgid="5209110911088302855">"በቅርቡ ምንም ክስተቶች የሉም"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"የሙከራ"</string>
-    <string name="preferences_reminders_category" msgid="3179315692653755740">"ማስታወሻዎች"</string>
-    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"ማስታወሻዎችን ዝለል"</string>
-    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"ማስታወሻዎችን ዝለል"</string>
+    <string name="preferences_reminders_category" msgid="3179315692653755740">"አስታዋሾች"</string>
+    <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"አስታዋሾችን ዝለል"</string>
+    <string name="preferences_reminders_responded_dialog" msgid="1873289128793828352">"አስታዋሾችን ዝለል"</string>
     <string name="preferences_reminders_quiet_hours_label" msgid="8529712276644546893">"የጸጥታ ሰዓቶች"</string>
-    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"የጸጥታ ክስተት ማስታወሻዎች በተገለጸው ጊዜ ላይ።"</string>
+    <string name="preferences_reminders_quiet_hours_description" msgid="65969073433791290">"የጸጥታ ክስተት አስታዋሾች በተገለጸው ጊዜ ላይ።"</string>
     <string name="preferences_reminders_quiet_hours_start" msgid="3433058529220285232">"የጸጥታ ሰዓቶች መጀመሪያ ጊዜ"</string>
     <string name="preferences_reminders_quiet_hours_end" msgid="7492883554865119346">"የጸጥታ ሰዓቶች ማብቂያ ጊዜ"</string>
     <string name="preferences_debug_category" msgid="6203278208385095018">"ስህተት በማስወገድ ላይ"</string>
