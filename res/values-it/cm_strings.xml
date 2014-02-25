@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<!--
+     Copyright (C) 2012-2014 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -20,4 +21,6 @@
     <string name="snooze_delay_dialog_title">Imposta tempo ritardo</string>
     <string name="preferences_default_snooze_delay_title">Tempo ritardo rinvio</string>
     <string name="preferences_default_snooze_delay_dialog">Tempo ritardo rinvio predefinito</string>
+    <string name="default_start_title">Vista predefinita</string>
+    <string name="default_start_last">Vista utilizzata precedentemente</string>
 </resources>
