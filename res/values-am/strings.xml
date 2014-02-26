@@ -144,9 +144,9 @@
     <string name="delete_label" msgid="874742811918030739">"ሰርዝ"</string>
     <string name="save_label" msgid="2133599104834432589">"ተከናውኗል"</string>
     <string name="discard_label" msgid="2394623883289782541">"ሰርዝ"</string>
-    <string name="snooze_all_label" msgid="4994488813124409077">"ሁሉንም አቆይ"</string>
+    <string name="snooze_all_label" msgid="4994488813124409077">"ሁሉንም አሸልብ"</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">"እንቢበል"</string>
-    <string name="snooze_label" msgid="1515893621063224666">"ማሸለብ"</string>
+    <string name="snooze_label" msgid="1515893621063224666">"አሸልብ"</string>
     <string name="does_not_repeat" msgid="1877681921029738999">"የአንድ ጊዜ ክስተት"</string>
     <string name="endByDate" msgid="7654221304929538201">"፤ እስከ <xliff:g id="DATE">%s</xliff:g> ድረስ"</string>
   <plurals name="endByCount">
@@ -205,7 +205,7 @@
     <item quantity="one" msgid="8971334808414201327">"+1"</item>
     <item quantity="other" msgid="1997405398178470838">"+<xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
-    <string name="gadget_no_events" msgid="5209110911088302855">"በቅርቡ ምንም ክስተቶች የሉም"</string>
+    <string name="gadget_no_events" msgid="5209110911088302855">"በቅርብ ጊዜ የሚሆኑ ምንም ክስተቶች የሉም"</string>
     <string name="preferences_experimental_category" msgid="8111213192001230350">"የሙከራ"</string>
     <string name="preferences_reminders_category" msgid="3179315692653755740">"አስታዋሾች"</string>
     <string name="preferences_reminders_responded_label" msgid="1196570678238475838">"አስታዋሾችን ዝለል"</string>
@@ -235,7 +235,7 @@
     <string name="accessibility_reminder_showmeas" msgid="6669129015980006570">"አሳየኝ እንደ"</string>
     <string name="accessibility_reminder_privacy" msgid="8669288484484022771">"ግላዊነት"</string>
     <string name="acessibility_cal_notification" msgid="7267601064994839394">"የቀን መቁጠሪያ ማሳወቂያዎች"</string>
-    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"የማሳወቂያ ድምፅ"</string>
+    <string name="acessibility_snooze_notification" msgid="5007852779125102681">"ማሳወቂያ አሸልብ"</string>
     <string name="accessibility_email_notification" msgid="9124064701968129831">"ለእንግዶች ኢሜይል ላክ"</string>
     <string name="day_view_new_event_hint" msgid="2131483437911536229">"+ አዲስ ክስተት"</string>
     <string name="template_announce_item_index" msgid="4067877800670753110">"ክስተት <xliff:g id="ITEM_INDEX">%1$s</xliff:g>ከ<xliff:g id="ITEM_COUNT">%2$s</xliff:g>"</string>
