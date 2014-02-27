@@ -47,16 +47,22 @@
         android:imeOptions="actionSearch"
         android:orderInCategory="4" />
     <item
+        android:id="@+id/action_delete_events"
+        android:alphabeticShortcut="d"
+        android:title="@string/events_delete"
+        android:showAsAction="never"
+        android:orderInCategory="5" />
+    <item
         android:id="@+id/action_select_visible_calendars"
         android:title="@string/menu_select_visible_calendars"
         android:icon="@drawable/ic_menu_select_visible_calendars_holo_light"
         android:showAsAction="never"
-        android:orderInCategory="5" />
+        android:orderInCategory="6" />
     <item
         android:id="@+id/action_settings"
         android:alphabeticShortcut="s"
         android:title="@string/menu_preferences"
         android:icon="@drawable/ic_menu_settings_holo_light"
         android:showAsAction="never"
-        android:orderInCategory="10" />
+        android:orderInCategory="7" />
 </menu>

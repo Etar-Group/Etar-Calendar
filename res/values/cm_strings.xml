@@ -32,4 +32,16 @@
     <!-- Label values for the default start page preference. -->
     <string name="default_start_title">Default view</string>
     <string name="default_start_last">Previously used view</string>
+
+    <!-- Delete Events related -->
+    <string name="events_delete">Delete events</string>
+    <string name="action_select_all">Select all</string>
+    <string name="action_delete">Delete</string>
+    <string name="all_events">All events</string>
+    <string name="no_events">No events available</string>
+    <string name="selected">selected</string>
+    <string name="evt_del_dlg_title">Delete Events?</string>
+    <string name="evt_del_dlg_msg_selected">Selected events will be deleted</string>
+    <string name="evt_del_dlg_msg_all">All events will be deleted</string>
+    <string name="no_events_selected">No events selected</string>
 </resources>

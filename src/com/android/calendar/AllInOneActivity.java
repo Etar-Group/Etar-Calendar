@@ -838,6 +838,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             return true;
         } else if (itemId == R.id.action_search) {
             return false;
+        } else if (itemId == R.id.action_delete_events) {
+            startActivity(new Intent(this, DeleteEventsActivity.class));
+            return true;
         } else {
             return mExtensions.handleItemSelected(item, this);
         }
