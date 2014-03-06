@@ -29,11 +29,6 @@
 
 package com.android.calendar;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -58,14 +53,25 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.calendarcommon2.DateException;
+import com.android.calendarcommon2.Duration;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class DeleteEventsActivity extends ListActivity
-    implements LoaderManager.LoaderCallbacks<Cursor> {
+    implements LoaderManager.LoaderCallbacks<Cursor>, OnMenuItemClickListener {
 
     private static final String TAG = "DeleteEvents";
     private static final boolean DEBUG = false;
@@ -97,6 +103,7 @@ public class DeleteEventsActivity extends ListActivity
     private EventListAdapter mAdapter;
     private AsyncQueryService mService;
     private TextView mHeaderTextView;
+    private Button mSelectionButton;
 
     private Map<Long, Long> mSelectedMap = new HashMap<Long, Long>();
     private Map<Long, String> mCalendarsMap = new HashMap<Long, String>();
@@ -119,10 +126,14 @@ public class DeleteEventsActivity extends ListActivity
         super.onCreate(savedInstanceState);
 
         // actionbar setup
-        ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setCustomView(R.layout.action_mode);
+        actionBar.setDisplayShowCustomEnabled(true);
+        View view = actionBar.getCustomView();
+        mSelectionButton = (Button) view.findViewById(R.id.selection_menu);
         updateTitle();
 
         mListView = getListView();
@@ -171,6 +182,17 @@ public class DeleteEventsActivity extends ListActivity
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (mSelectedMap.isEmpty() && mListView.getCheckedItemCount() > 0) {
+            long[] checkedItem = mListView.getCheckedItemIds();
+            for (int i = 0; i < checkedItem.length; i++) {
+                if (DEBUG) Log.v(TAG, "onResume: " + checkedItem[i]);
+                mSelectedMap.put(checkedItem[i], checkedItem[i]);
+            }
+            mAdapter.notifyDataSetChanged();
+            updateTitle();
+        }
+
         getContentResolver().registerContentObserver(CalendarContract.Calendars.CONTENT_URI,
                 true, mObserver);
     }
@@ -209,13 +231,7 @@ public class DeleteEventsActivity extends ListActivity
             return true;
         case R.id.action_select_all:
             if (DEBUG) Log.d(TAG, "Action: Select All");
-
-            mSelectedMap.clear();
-            for (Long event : mEventList){
-                mSelectedMap.put(event, event);
-            }
-            mAdapter.notifyDataSetChanged();
-            updateTitle();
+            selectAll();
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -263,6 +279,8 @@ public class DeleteEventsActivity extends ListActivity
                     ", RRULE: " + cursor.getString(cursor.getColumnIndex(Events.RRULE)) +
                     ", RDATE: " + cursor.getString(cursor.getColumnIndex(Events.RDATE)) +
                     ", DURATION: " + cursor.getString(cursor.getColumnIndex(Events.DURATION)) +
+                    ", DTSTART: " + cursor.getString(cursor.getColumnIndex(Events.DTSTART)) +
+                    ", DTEND: " + cursor.getString(cursor.getColumnIndex(Events.DTEND)) +
                     ", LAST_DATE: " + cursor.getString(cursor.getColumnIndex(Events.LAST_DATE)));
         }
         if (DEBUG) Log.d(TAG, "mEventList: " + mEventList);
@@ -293,6 +311,21 @@ public class DeleteEventsActivity extends ListActivity
             final TextView eventTime = (TextView) view.findViewById(R.id.event_time);
             long start = cursor.getLong(cursor.getColumnIndex(Events.DTSTART));
             long end = cursor.getLong(cursor.getColumnIndex(Events.DTEND));
+
+            // if DTEND invalid, check for duration
+            if (end == 0) {
+                String durationStr = cursor.getString(cursor.getColumnIndex(Events.DURATION));
+                Duration duration = new Duration();
+                try {
+                    duration.parse(durationStr);
+                    end = start + duration.getMillis();
+                } catch (DateException e) {
+                    Log.w(TAG, e.getLocalizedMessage());
+                }
+            }
+            if (DEBUG) Log.v(TAG,
+                    "title: " + cursor.getString(cursor.getColumnIndex(Events.TITLE)) +
+                    ", start: " + start + ", end: " + end);
             boolean allDay = cursor.getInt(cursor.getColumnIndex(Events.ALL_DAY)) != 0;
             eventTime.setText(getEventTimeString(start, end, allDay));
 
@@ -319,7 +352,7 @@ public class DeleteEventsActivity extends ListActivity
     }
 
     private void updateTitle() {
-        getActionBar().setTitle(" " + mSelectedMap.size() + " " +
+        mSelectionButton.setText(" " + mSelectedMap.size() + " " +
                 getResources().getText(R.string.selected));
     }
 
@@ -388,5 +421,69 @@ public class DeleteEventsActivity extends ListActivity
 
             return builder.create();
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.action_select_all:
+            if (DEBUG) Log.d(TAG, "Select All");
+            selectAll();
+            return true;
+        case R.id.action_select_none:
+            if (DEBUG) Log.d(TAG, "Deselect all");
+            selectNone();
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    public void onSelectionButtonClicked(View v) {
+        if (DEBUG) Log.v(TAG, "onSelectionButtonClicked");
+        PopupMenu popup = new PopupMenu(this, v);
+        MenuInflater inflater = popup.getMenuInflater();
+        Menu menu = popup.getMenu();
+        inflater.inflate(R.menu.selection_popup, menu);
+        MenuItem selectAll = menu.findItem(R.id.action_select_all);
+        MenuItem selectNone = menu.findItem(R.id.action_select_none);
+
+        if (mEventList.size() == 0) {
+            selectAll.setVisible(true);
+            selectAll.setEnabled(false);
+        }
+        else if (mSelectedMap.size() == mEventList.size()) {
+            selectNone.setVisible(true);
+        } else {
+            selectAll.setVisible(true);
+        }
+
+        popup.setOnMenuItemClickListener(this);
+        popup.show();
+    }
+
+    private void selectAll() {
+        mSelectedMap.clear();
+        for (Long event : mEventList){
+            mSelectedMap.put(event, event);
+
+        }
+
+        for (int i = 0; i < mListView.getCount(); i++) {
+            if (mSelectedMap.containsKey(mListView.getItemIdAtPosition(i))) {
+                mListView.setItemChecked(i, true);
+            }
+        }
+        mAdapter.notifyDataSetChanged();
+        updateTitle();
+    }
+
+    private void selectNone() {
+        mSelectedMap.clear();
+        for (int i = 0; i < mListView.getCount(); i++) {
+            mListView.setItemChecked(i, false);
+        }
+        mAdapter.notifyDataSetChanged();
+        updateTitle();
     }
 }

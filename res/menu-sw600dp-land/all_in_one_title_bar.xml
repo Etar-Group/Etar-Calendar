@@ -42,6 +42,11 @@
         android:actionViewClass="android.widget.SearchView"
         android:imeOptions="actionSearch" />
     <item
+        android:id="@+id/action_delete_events"
+        android:alphabeticShortcut="d"
+        android:title="@string/events_delete"
+        android:showAsAction="never" />
+    <item
         android:id="@+id/action_goto"
         android:title="@string/go_to"
         android:showAsAction="never"/>

@@ -26,7 +26,8 @@
   <string name="default_start_last">以前使用的视图</string>
   <string name="events_delete">删除活动</string>
   <string name="action_select_all">全选</string>
-  <string name="action_delete">删除</string>
+  <string name="action_select_none">取消全选</string>
+  <string name="action_delete">完成</string>
   <string name="all_events">所有活动</string>
   <string name="no_events">无活动</string>
   <string name="selected">选择</string>

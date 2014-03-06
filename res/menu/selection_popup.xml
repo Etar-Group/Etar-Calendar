@@ -28,48 +28,17 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?android:attr/activatedBackgroundIndicator">
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <CheckBox
-        android:id="@+id/checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:clickable="false"
-        android:focusable="false" >
-    </CheckBox>
+    <item
+        android:id="@+id/action_select_all"
+        android:title="@string/action_select_all"
+        android:visible="false">
+    </item>
+    <item
+        android:id="@+id/action_select_none"
+        android:title="@string/action_select_none"
+        android:visible="false">
+    </item>
 
-    <TextView
-        android:id="@+id/event_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/checkbox"
-        android:focusable="false"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" >
-    </TextView>
-
-    <TextView
-        android:id="@+id/event_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/event_title"
-        android:layout_toRightOf="@id/checkbox"
-        android:focusable="false" >
-    </TextView>
-
-    <TextView
-        android:id="@+id/calendar_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/event_time"
-        android:layout_toRightOf="@id/checkbox"
-        android:focusable="false" >
-    </TextView>
-
-</RelativeLayout>
+</menu>

@@ -36,7 +36,8 @@
     <!-- Delete Events related -->
     <string name="events_delete">Delete events</string>
     <string name="action_select_all">Select all</string>
-    <string name="action_delete">Delete</string>
+    <string name="action_select_none">Deselect all</string>
+    <string name="action_delete">Done</string>
     <string name="all_events">All events</string>
     <string name="no_events">No events available</string>
     <string name="selected">selected</string>

@@ -36,4 +36,6 @@
     <bool name="multiple_pane_config">false</bool>
     <!--  A golbal var used to show goto menu -->
     <bool name="show_goto_menu">false</bool>
+    <!--  A golbal var used to show delete events menu -->
+    <bool name="show_delete_events_menu">false</bool>
 </resources>

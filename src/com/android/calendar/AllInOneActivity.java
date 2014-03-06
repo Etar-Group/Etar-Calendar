@@ -32,13 +32,16 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.LoaderManager;
 import android.content.AsyncQueryHandler;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
+import android.content.Loader;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -96,6 +99,7 @@ import static android.provider.CalendarContract.EXTRA_EVENT_END_TIME;
 
 public class AllInOneActivity extends AbstractCalendarActivity implements EventHandler,
         OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener, ActionBar.TabListener,
+        LoaderManager.LoaderCallbacks<Cursor>,
         ActionBar.OnNavigationListener, OnSuggestionListener {
     private static final String TAG = "AllInOneActivity";
     private static final boolean DEBUG = false;
@@ -160,7 +164,6 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private SearchView mSearchView;
     private MenuItem mSearchMenu;
     private MenuItem mControlsMenu;
-    private MenuItem mGoToMenu;
     private Menu mOptionsMenu;
     private CalendarViewAdapter mActionBarMenuSpinnerAdapter;
     private QueryHandler mHandler;
@@ -781,9 +784,16 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             mControlsMenu.setTitle(mHideControls ? mShowString : mHideString);
         }
 
-        mGoToMenu = menu.findItem(R.id.action_goto);
+        MenuItem deleteEventsMenu = menu.findItem(R.id.action_delete_events);
+        if (!getResources().getBoolean(R.bool.show_delete_events_menu)) {
+            deleteEventsMenu.setVisible(false);
+        } else {
+            getLoaderManager().initLoader(0, null, this);
+        }
+
+        MenuItem goToMenu = menu.findItem(R.id.action_goto);
         if (!getResources().getBoolean(R.bool.show_goto_menu)) {
-            mGoToMenu.setVisible(false);
+            goToMenu.setVisible(false);
         }
 
         MenuItem menuItem = menu.findItem(R.id.action_today);
@@ -795,6 +805,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
         } else {
             menuItem.setIcon(R.drawable.ic_menu_today_no_date_holo_light);
         }
+
         return true;
     }
 
@@ -1378,6 +1389,42 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             mSearchMenu.expandActionView();
         }
         return false;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        final String[] PROJECTION = new String[] {
+                CalendarContract.Events._ID,
+                CalendarContract.Events.TITLE,
+                CalendarContract.EventsEntity.DELETED
+        };
+        final String where = CalendarContract.EventsEntity.DELETED + "=0 AND "
+                + Calendars.CALENDAR_ACCESS_LEVEL + ">=" + Calendars.CAL_ACCESS_CONTRIBUTOR;
+        return new CursorLoader(this, CalendarContract.EventsEntity.CONTENT_URI,
+                PROJECTION, where, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
+        if (mOptionsMenu == null) {
+            Log.w(TAG, "mOptionsMenu is null");
+            return;
+        }
+
+        MenuItem delEventsMenu = mOptionsMenu.findItem(R.id.action_delete_events);
+        if (delEventsMenu != null) {
+            if (cursor.getCount() == 0) {
+                delEventsMenu.setEnabled(false);
+            } else {
+                delEventsMenu.setEnabled(true);
+            }
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> arg0) {
+        // Do nothing.
+        return;
     }
 
     public static class GoToDialogFragment extends DialogFragment {
