@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 The Android Open Source Project
+<!-- Copyright (c) 2014, The Linux Foundation. All rights reserved.
+     Not a Contribution.
+
+     Copyright (C) 2010 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,35 +17,41 @@
      limitations under the License.
 -->
 
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/navigation_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation_bar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        <ImageView android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/dropdown_ic_arrow_normal_holo_dark" />
-        <Button android:id="@+id/selection_menu"
-                style="?android:attr/actionButtonStyle"
-                android:divider="?android:attr/listDividerAlertDialog"
-                android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
-                android:textColor="?android:attr/actionMenuTextColor"
-                android:singleLine="true"
-                android:gravity="left|center_vertical"
-                android:paddingRight="25dip"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-    </FrameLayout>
-    <ImageView android:layout_marginLeft="16dip"
-            android:layout_marginRight="8dip"
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true" >
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:src="@drawable/cab_divider_vertical_dark" />
-</LinearLayout>
+            android:layout_gravity="right" />
+
+        <Button
+            android:id="@+id/selection_menu"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:divider="?android:attr/listDividerAlertDialog"
+            android:gravity="left|center_vertical"
+            android:onClick="onSelectionButtonClicked"
+            android:paddingRight="25dip"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
+            android:textColor="?android:attr/actionMenuTextColor" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="9dp"
+        android:background="#F0B0B0B0" />
+
+</RelativeLayout>
