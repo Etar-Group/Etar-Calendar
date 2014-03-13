@@ -24,4 +24,14 @@
   <string name="preferences_default_snooze_delay_dialog">默认延迟提醒时长</string>
   <string name="default_start_title">默认视图</string>
   <string name="default_start_last">以前使用的视图</string>
+  <string name="events_delete">删除活动</string>
+  <string name="action_select_all">全选</string>
+  <string name="action_delete">删除</string>
+  <string name="all_events">所有活动</string>
+  <string name="no_events">无活动</string>
+  <string name="selected">选择</string>
+  <string name="evt_del_dlg_title">删除活动？</string>
+  <string name="evt_del_dlg_msg_selected">删除选择的活动</string>
+  <string name="evt_del_dlg_msg_all">删除所有活动</string>
+  <string name="no_events_selected">没有选择活动</string>
 </resources>
