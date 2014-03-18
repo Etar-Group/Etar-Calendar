@@ -26,6 +26,9 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -35,6 +38,7 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -61,6 +65,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -79,6 +84,7 @@ import com.android.lunar.ILunarService;
 import com.android.lunar.LunarUtils;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -154,6 +160,7 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     private SearchView mSearchView;
     private MenuItem mSearchMenu;
     private MenuItem mControlsMenu;
+    private MenuItem mGoToMenu;
     private Menu mOptionsMenu;
     private CalendarViewAdapter mActionBarMenuSpinnerAdapter;
     private QueryHandler mHandler;
@@ -774,6 +781,11 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             mControlsMenu.setTitle(mHideControls ? mShowString : mHideString);
         }
 
+        mGoToMenu = menu.findItem(R.id.action_goto);
+        if (!getResources().getBoolean(R.bool.show_goto_menu)) {
+            mGoToMenu.setVisible(false);
+        }
+
         MenuItem menuItem = menu.findItem(R.id.action_today);
         if (Utils.isJellybeanOrLater()) {
             // replace the default top layer drawable of the today icon with a
@@ -840,6 +852,12 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             return false;
         } else if (itemId == R.id.action_delete_events) {
             startActivity(new Intent(this, DeleteEventsActivity.class));
+            return true;
+        } else if (itemId == R.id.action_goto) {
+            // Get the current time to display in Dialog.
+            String timeZone = mTimeZone;
+            GoToDialogFragment goToFrg = GoToDialogFragment.newInstance(timeZone);
+            goToFrg.show(getFragmentManager(), "goto");
             return true;
         } else {
             return mExtensions.handleItemSelected(item, this);
@@ -1360,5 +1378,51 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
             mSearchMenu.expandActionView();
         }
         return false;
+    }
+
+    public static class GoToDialogFragment extends DialogFragment {
+        private static final String KEY_TIMEZONE = "timezone";
+
+        public static GoToDialogFragment newInstance(String timeZone) {
+            GoToDialogFragment goToFrg = new GoToDialogFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(KEY_TIMEZONE, timeZone);
+            goToFrg.setArguments(bundle);
+            return goToFrg;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final String timeZone = getArguments().getString(KEY_TIMEZONE);
+            final CalendarController controller = CalendarController.getInstance(getActivity());
+            Time t = null;
+            t = new Time(timeZone);
+            Calendar calendar = Calendar.getInstance();
+            t.year = calendar.get(Calendar.YEAR);
+            t.month = calendar.get(Calendar.MONTH);
+            t.monthDay = calendar.get(Calendar.DATE);
+            DatePickerDialog dialog = new DatePickerDialog(getActivity(), null,
+                    t.year, t.month, t.monthDay) {
+            };
+            final DatePicker datePicker = dialog.getDatePicker();
+            dialog.setButton(DialogInterface.BUTTON_POSITIVE,
+                    getResources().getString(R.string.save_label),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Time t = null;
+                            t = new Time(timeZone);
+                            int year = datePicker.getYear();
+                            int monthOfYear = datePicker.getMonth();
+                            int dayOfMonth = datePicker.getDayOfMonth();
+                            t.set(dayOfMonth, monthOfYear, year);
+                            t.set(t.toMillis(false));
+                            controller.sendEvent(this, EventType.GO_TO, null, null, t, -1,
+                                    ViewType.CURRENT, CalendarController.EXTRA_GOTO_TIME,
+                                    null, null);
+                        }
+                    });
+            return dialog;
+        }
     }
 }

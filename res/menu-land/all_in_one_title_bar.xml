@@ -48,6 +48,10 @@
         android:title="@string/events_delete"
         android:showAsAction="never" />
     <item
+        android:id="@+id/action_goto"
+        android:title="@string/go_to"
+        android:showAsAction="never"/>
+    <item
         android:id="@+id/action_select_visible_calendars"
         android:title="@string/menu_select_visible_calendars"
         android:icon="@drawable/ic_menu_select_visible_calendars_holo_light"

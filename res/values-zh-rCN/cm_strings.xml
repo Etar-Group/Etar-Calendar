@@ -34,4 +34,5 @@
   <string name="evt_del_dlg_msg_selected">删除选择的活动</string>
   <string name="evt_del_dlg_msg_all">删除所有活动</string>
   <string name="no_events_selected">没有选择活动</string>
+  <string name="go_to">"转到"</string>
 </resources>

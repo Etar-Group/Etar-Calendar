@@ -34,4 +34,6 @@
     <bool name="tablet_config">false</bool>
     <!--  A global var used to set the main layout theme (one pane vs multiple panes) -->
     <bool name="multiple_pane_config">false</bool>
+    <!--  A golbal var used to show goto menu -->
+    <bool name="show_goto_menu">false</bool>
 </resources>

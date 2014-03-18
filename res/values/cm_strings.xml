@@ -44,4 +44,8 @@
     <string name="evt_del_dlg_msg_selected">Selected events will be deleted</string>
     <string name="evt_del_dlg_msg_all">All events will be deleted</string>
     <string name="no_events_selected">No events selected</string>
+
+    <!-- This is a label on a menu item. Pressing this menu item allows the
+         user to go to the calendars to display [CHAR LIMIT=20] -->
+    <string name="go_to">"Go to"</string>
 </resources>

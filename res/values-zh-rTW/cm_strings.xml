@@ -20,4 +20,5 @@
   <string name="preferences_alerts_custom_snooze_delay_summary_on">每當重響提醒時要求重響延遲</string>
   <string name="preferences_alerts_custom_snooze_delay_summary_off">總是使用預設重響延遲</string>
   <string name="snooze_delay_dialog_title">設定重響延遲</string>
+  <string name="go_to">"轉到"</string>
 </resources>

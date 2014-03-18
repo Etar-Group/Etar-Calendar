@@ -53,16 +53,21 @@
         android:showAsAction="never"
         android:orderInCategory="5" />
     <item
+        android:id="@+id/action_goto"
+        android:title="@string/go_to"
+        android:showAsAction="never"
+        android:orderInCategory="6" />
+    <item
         android:id="@+id/action_select_visible_calendars"
         android:title="@string/menu_select_visible_calendars"
         android:icon="@drawable/ic_menu_select_visible_calendars_holo_light"
         android:showAsAction="never"
-        android:orderInCategory="6" />
+        android:orderInCategory="7" />
     <item
         android:id="@+id/action_settings"
         android:alphabeticShortcut="s"
         android:title="@string/menu_preferences"
         android:icon="@drawable/ic_menu_settings_holo_light"
         android:showAsAction="never"
-        android:orderInCategory="7" />
+        android:orderInCategory="8" />
 </menu>

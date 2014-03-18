@@ -42,6 +42,10 @@
         android:actionViewClass="android.widget.SearchView"
         android:imeOptions="actionSearch" />
     <item
+        android:id="@+id/action_goto"
+        android:title="@string/go_to"
+        android:showAsAction="never"/>
+    <item
         android:id="@+id/action_hide_controls"
         android:alphabeticShortcut="h"
         android:title="@string/hide_controls" />
