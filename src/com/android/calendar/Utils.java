@@ -22,6 +22,7 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -869,6 +870,28 @@ public class Utils {
         int g = (((color & 0x0000ff00) * a) + ((bg & 0x0000ff00) * (0xff - a))) & 0x00ff0000;
         int b = (((color & 0x000000ff) * a) + ((bg & 0x000000ff) * (0xff - a))) & 0x0000ff00;
         return (0xff000000) | ((r | g | b) >> 8);
+    }
+
+    public static void trySyncAndDisableUpgradeReceiver(Context context) {
+        final PackageManager pm = context.getPackageManager();
+        ComponentName upgradeComponent = new ComponentName(context, UpgradeReceiver.class);
+        if (pm.getComponentEnabledSetting(upgradeComponent) ==
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {
+            // The upgrade receiver has been disabled, which means this code has been run before,
+            // so no need to sync.
+            return;
+        }
+
+        Bundle extras = new Bundle();
+        extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        ContentResolver.requestSync(
+                null /* no account */,
+                Calendars.CONTENT_URI.getAuthority(),
+                extras);
+
+        // Now unregister the receiver so that we won't continue to sync every time.
+        pm.setComponentEnabledSetting(upgradeComponent,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
     }
 
     // A single strand represents one color of events. Events are divided up by

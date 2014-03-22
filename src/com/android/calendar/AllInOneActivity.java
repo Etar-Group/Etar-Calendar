@@ -507,6 +507,9 @@ public class AllInOneActivity extends AbstractCalendarActivity implements EventH
     protected void onResume() {
         super.onResume();
 
+        // Check if the upgrade code has ever been run. If not, force a sync just this one time.
+        Utils.trySyncAndDisableUpgradeReceiver(this);
+
         // Must register as the first activity because this activity can modify
         // the list of event handlers in it's handle method. This affects who
         // the rest of the handlers the controller dispatches to are.

@@ -208,6 +208,18 @@
     <string name="creating_event_with_guest">"Invitations will be sent."</string>
     <!-- Toast message displayed when an existing event with guests is saved after being modified -->
     <string name="saving_event_with_guest">"Updates will be sent."</string>
+
+    <!-- Toast message displayed responding to an event from an email as accepted
+     [CHAR LIMIT=50] -->
+    <string name="rsvp_accepted">"Responded yes."</string>
+    <!-- Toast message displayed responding to an event from an email as tentative
+     [CHAR LIMIT=50] -->
+    <string name="rsvp_tentative">"Responded maybe."</string>
+    <!-- Toast message displayed responding to an event from an email as declined
+     [CHAR LIMIT=50] -->
+    <string name="rsvp_declined">"Responded no."</string>
+
+
     <!-- Title of message displayed to indicate available calendars are being loaded when creating
          a new event -->
 

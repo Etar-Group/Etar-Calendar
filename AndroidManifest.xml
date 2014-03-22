@@ -192,6 +192,16 @@
         <receiver android:name=".alerts.GlobalDismissManager"
                   android:exported="false" />
 
+        <receiver android:name=".UpgradeReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
         <service android:name=".alerts.AlertService" />
 
         <service android:name=".alerts.DismissAlarmsService" />
