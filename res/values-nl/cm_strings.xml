@@ -22,4 +22,9 @@
     <string name="preferences_default_snooze_delay_dialog">Standaardsnoozeduur</string>
     <string name="default_start_title">Standaardweergave</string>
     <string name="default_start_last">Laatst gebruikte weergave</string>
+
+    <!-- AOSP strings from android-4.4.2_r2-->
+    <string name="rsvp_accepted">Antwoordde ja.</string>
+    <string name="rsvp_tentative">Antwoordde misschien.</string>
+    <string name="rsvp_declined">Antwoordde nee.</string>
 </resources>
