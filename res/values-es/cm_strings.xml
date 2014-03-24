@@ -23,4 +23,9 @@
     <string name="preferences_default_snooze_delay_dialog">Intervalo entre recordatorios por defecto</string>
     <string name="default_start_title">Vista por defecto</string>
     <string name="default_start_last">Vista usada previamente</string>
+
+    <!-- AOSP/CAF -->
+    <string name="rsvp_accepted">Respondido sí.</string>
+    <string name="rsvp_tentative">Respondido quizás.</string>
+    <string name="rsvp_declined">Respondido no.</string>
 </resources>
