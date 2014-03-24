@@ -138,7 +138,7 @@
     <string name="edit_event_label" msgid="7413222956349977161">Detalles</string>
     <string name="edit_label" msgid="8934331258435656534">Editar</string>
     <string name="delete_label" msgid="874742811918030739">Desaniciar</string>
-    <string name="save_label" msgid="2133599104834432589">Llisto</string>
+    <string name="save_label" msgid="2133599104834432589">Fecho</string>
     <string name="discard_label" msgid="2394623883289782541">Encaboxar</string>
     <string name="snooze_all_label" msgid="4994488813124409077">Posponer recordatorios</string>
     <string name="dismiss_all_label" msgid="1834400025868091301">Descartar too</string>
