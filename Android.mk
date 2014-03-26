@@ -2,7 +2,7 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
 # Include res dir from chips
-chips_dir := ../../../frameworks/ex/chips/res
+chips_dir := ../../../frameworks/opt/chips/res
 color_picker_dir := ../../../frameworks/opt/colorpicker/res
 datetimepicker_dir := ../../../frameworks/opt/datetimepicker/res
 timezonepicker_dir := ../../../frameworks/opt/timezonepicker/res
@@ -18,13 +18,13 @@ LOCAL_SRC_FILES := $(call all-java-files-under,$(src_dirs))
 # bundled
 #LOCAL_STATIC_JAVA_LIBRARIES += \
 #        android-common \
-#        android-common-chips \
+#        libchips \
 #        calendar-common
 
 # unbundled
 LOCAL_STATIC_JAVA_LIBRARIES := \
         android-common \
-        android-common-chips \
+        libchips \
         colorpicker \
         android-opt-datetimepicker \
         android-opt-timezonepicker \
