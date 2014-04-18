@@ -315,12 +315,15 @@ public class DeleteEventsActivity extends ListActivity
             // if DTEND invalid, check for duration
             if (end == 0) {
                 String durationStr = cursor.getString(cursor.getColumnIndex(Events.DURATION));
-                Duration duration = new Duration();
-                try {
-                    duration.parse(durationStr);
-                    end = start + duration.getMillis();
-                } catch (DateException e) {
-                    Log.w(TAG, e.getLocalizedMessage());
+                if (durationStr != null) {
+                    Duration duration = new Duration();
+
+                    try {
+                        duration.parse(durationStr);
+                        end = start + duration.getMillis();
+                    } catch (DateException e) {
+                        Log.w(TAG, e.getLocalizedMessage());
+                    }
                 }
             }
             if (DEBUG) Log.v(TAG,
